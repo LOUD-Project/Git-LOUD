@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+# _LOUD_
+## The Super-Hyper-Effecient-AI, for Supreme Commander Forged Alliance.
 
-You can use the [editor on GitHub](https://github.com/Tanksy/Git-LOUD/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This is a set of mods and a reworked AI code that has been years in the making, specifically designed to kick ass.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Feature List:
 
-### Markdown
+- Cleaner and more efficient code.
+A lot of the base code has been altered, adjusted or plain removed. These changes are made to vastly improve the performance of the game, whether you choose to play against the AI, or against other players. The game is garunteed to run with a much smaller memory footprint and a much faster sim speed.
+- Balanced and more efficient units.
+All the units from the base game and from the various mods incorporated into LOUD have been rebalanced and tweaked. Playing LOUD is quite different to the regular SupCom experience.
+- Scary and more efficient AI.
+The main feature of LOUD is the fucking OP AI that will really make you boil your piss in rage at how much better than you the AI is, and how much he will lay the smack down on your pretty little base (Which is nothing compared to his.). The AI of LOUD is far more effecient and a much larger challenge than any other AI modification has presented. Along with the complete rebalance of the game, SupCom now is much more challenging and feels like a completely different, more punishing game.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Tanksy/Git-LOUD/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+LOUD is a labour of love, created over many years by a crazy canadian, with the assistance of various people he's hypnotized into liking this sort of torture. This GitHub page will serve as a shared repository of the latest updates and changes, as well as an up-to-date documentation and discussion on the mod and its changes.
