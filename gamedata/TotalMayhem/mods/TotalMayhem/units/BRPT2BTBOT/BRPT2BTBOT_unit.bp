@@ -1,0 +1,371 @@
+UnitBlueprint {
+    Audio = {
+        AmbientMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0202_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Med',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0202_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0202_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = { 
+		Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+	},
+	
+    BuildIconSortPriority = 80,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOIUS',
+		'SUBMERSIBLE',
+        'TECH2',
+        'DIRECTFIRE',
+		'BOT',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'OVERLAYRADAR',
+    },
+	
+    CollisionOffsetZ = 0,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 2100,
+        MaxHealth = 2100,
+        RegenRate = 3,
+
+        SurfaceThreatLevel = 12,
+    },
+	
+    Description = 'Amphibious Assault Bot',
+	
+    Display = {
+		Abilities = {
+			'Amphibious',
+			'Radar',
+			'Sonar Stealth',
+		},
+        AnimationDeath = {
+            {
+                Animation = '/units/XSL0202/XSL0202_ADeath.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/XSL0202/XSL0202_ADeath02.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/XSL0202/XSL0202_ADeath03.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/units/xsl0202/xsl0202_Awalk.sca',
+        AnimationWalkRate = 1.5,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+					AlbedoName = '/Units/xsl0202/xsl0202_Albedo.dds',
+					NormalsName = '/Units/xsl0202/xsl0202_NormalsTS.DDS',
+                    LODCutoff = 320,
+					LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+					Scrolling = true,
+                    ShaderName = 'Seraphim',
+					SpecularName = '/Units/xsl0202/xsl0202_SpecTeam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Exhaust',
+                            'Right_Exhaust',
+                        },
+                        Scale = 0.5,
+                        Type = 'GroundKickup01',
+                    },
+                },
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'Left_Exhaust',
+                            HipBone = 'Left_Leg_B01',
+                            KneeBone = 'Left_Leg_B03',
+                            Type = 'FootFall02',
+                        },
+                        {
+                            FootBone = 'Right_Exhaust',
+                            HipBone = 'Right_Leg_B01',
+                            KneeBone = 'Right_Leg_B03',
+                            Type = 'FootFall02',
+                        },
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = true,
+        TransportAnimation = {
+            {
+                Animation = '/units/XSL0202/XSL0202_afold.sca',
+                Weight = 100,
+            },
+        },
+        TransportDropAnimation = {
+            {
+                Animation = '/units/XSL0202/XSL0202_aunfold.sca',
+                Weight = 100,
+            },
+        },
+        UniformScale = 0.05,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 3200,
+        BuildCostMass = 750,
+        BuildTime = 535,
+    },
+	
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Iltha',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		RadarRadius = 50,
+		SonarStealth = true,
+        VisionRadius = 27,
+		WaterVisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'Amphibious Assault Bot',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.2,
+    LifeBarSize = 0.95,
+	
+    Physics = {
+		BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.0,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 3,
+        MeshExtentsX = 1,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        RotateOnSpot = false,
+        TurnRadius = 3,
+        TurnRate = 40,
+    },
+	
+    SelectionSizeX = 0.55,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 0.7,
+	
+    SizeX = 1,
+    SizeY = 1.1,
+    SizeZ = 0.9,
+	
+    StrategicIconName = 'icon_bot2_directfire',
+    StrategicIconSortPriority = 125,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Veteran = {
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0202_AireAuBolter',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 30,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Aire-au Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 0.5,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 30,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 30,
+			
+            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
+			ProjectileLifetime = 1.2,			
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_Muzzle',
+                        'Right_Muzzle01',
+                    },
+                    RackBone = 'Right_Arm',
+                },
+                {
+                    MuzzleBones = {
+                        'Left_Muzzle',
+                        'Left_Muzzle01',
+                    },
+                    RackBone = 'Left_Arm',
+                },
+
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 120 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'MOBILE SHIELD',
+                'MOBILE,-AIR',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.3,
+			
+            TurretBoneDualMuzzle = 'Left_Muzzle',
+            TurretBoneDualPitch = 'Left_Arm',
+            TurretBoneMuzzle = 'Right_Muzzle',
+            TurretBonePitch = 'Right_Arm',
+            TurretBoneYaw = 'Torso',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 36,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

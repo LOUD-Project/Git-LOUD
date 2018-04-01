@@ -1,0 +1,387 @@
+UnitBlueprint {
+    AI = { 
+        GuardScanRadius = 65, 
+    }, 
+    Audio = {
+        Killed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TMBIGROBOTDEATHFX',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+		Destroyed = Sound {
+			Bank = 'Explosions',
+			Cue = 'UEF_Nuke_Impact',
+			LodCutoff = 'UnitMove_LodCutoff',
+		},
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    BuildIconSortPriority = 29,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'DIRECTFIRE',
+        'TECH2',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+		'OVERLAYINDIRECTFIRE',
+        'OVERLAYRADAR',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 2000,
+        MaxHealth = 2000,
+        RegenRate = 1,
+        SurfaceThreatLevel = 9,
+    },
+    Description = 'Amphibious Gatling Mech',
+    Display = {
+        Abilities = {
+            'Radar',
+            'Amphibious',
+            'Dual Role Anti Air',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Death.sca',
+                Weight = 100,
+            },
+        },
+        AnimationWalk = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Walk.sca',
+        AnimationWalkRate = 3.2,
+        Mesh = {
+            IconFadeInZoom = 170,
+            LODs = {
+                {
+                    LODCutoff = 400,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.03,
+    },
+    Economy = {
+        BuildCostEnergy = 3500,
+        BuildCostMass = 785,
+        BuildTime = 3200,
+    },
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Banshee',
+        UnitWeight = 1,
+    },
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 50,
+        VisionRadius = 26,
+		WaterVisionRadius = 20,
+    },
+    Interface = {
+        HelpText = 'Amphibious Gat Mech',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1,
+    LifeBarSize = 1.2,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2.5,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.5,
+        MaxSpeedReverse = 2.5,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 2.2,
+        SkirtSizeZ = 2.2,
+        TurnRadius = 5,
+        TurnRate = 50,
+		WaterSpeedMultiplier = 1.20,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0.0,
+    SelectionSizeX = 1.0,
+    SelectionSizeZ = 0.9,
+    SelectionThickness = 0.5,
+    SizeX = 0.8,
+    SizeY = 1.3,
+    SizeZ = 0.8,
+    StrategicIconName = 'icon_bot2_directfire',
+    StrategicIconSortPriority = 115,
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+	},
+    Transport = {
+        TransportClass = 2,
+    },
+    Weapon = {
+		{
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'TM_UEFWEAPONS',
+                    Cue = 'BRNMISSILELAUNCHFX2',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 50,
+			DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 1,
+			
+			FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.5,
+			
+            Label = 'rocket1',
+			
+            MaxRadius = 34,
+			MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 16,
+
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 4.85,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'rl01',
+                        'rl02',
+                    },
+                    RackBone = 'rocketlauncher',
+                },
+                {
+                    MuzzleBones = {
+                        'rl03',
+                        'rl04',
+                    },
+                    RackBone = 'rocketlauncher01',
+                },
+            },
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.08,	# 16dps
+			RenderFireClock = true,
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.05,
+            TurretBoneDualMuzzle = 'rl01',
+            TurretBoneDualPitch = 'rocketlauncher',
+            TurretBoneMuzzle = 'rl03',
+            TurretBonePitch = 'rocketlauncher01',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+        },
+		{
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEL_Weapons',
+                    Cue = 'XEB2306_Gatling_Gun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 20,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed|Air',
+                Water = 'Land|Water|Seabed|Air',
+            },
+			
+            FiringTolerance = 1,
+            Label = 'gatling1',
+			
+            MaxRadius = 36,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 48,
+			
+			NoPause = true,
+
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', #'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'minigunmuzzle',
+                    },
+                    RackBone = 'minigun',
+                },
+                {
+                    MuzzleBones = {
+                        'minigunmuzzle01',
+                    },
+                    RackBone = 'minigun01',
+                },
+                {
+                    MuzzleBones = {
+                        'minigunmuzzle02',
+                    },
+                    RackBone = 'minigun02',
+                },
+                {
+                    MuzzleBones = {
+                        'minigunmuzzle03',
+                    },
+                    RackBone = 'minigun03',
+                },
+            },
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,	# we get 80dps
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.10,
+            TurretBoneDualMuzzle = 'minigunmuzzle',
+            TurretBoneDualPitch = 'minigun',
+            TurretBoneMuzzle = 'minigunmuzzle',
+            TurretBonePitch = 'minigun',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

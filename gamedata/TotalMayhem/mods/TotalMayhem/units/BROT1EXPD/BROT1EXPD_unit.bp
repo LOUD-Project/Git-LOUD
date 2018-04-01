@@ -1,0 +1,281 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Med_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UEB',
+            Cue = 'UEB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 7,
+            Level5 = 8,
+        },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 7,
+            Level5 = 8,
+		},
+    },
+    BuildIconSortPriority = 121,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1ENGINEER',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYCOMMANDER',
+        'AEON',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH1',
+        'DIRECTFIRE',
+		'ANTIAIR',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+        'OVERLAYANTIAIR',
+        'SORTDEFENSE',
+    },
+    CollisionOffsetY = -0.5,
+    Defense = {
+        AirThreatLevel = 14,
+        ArmorType = 'Structure',
+        Health = 1650,
+        MaxHealth = 1650,
+        RegenRate = 2,
+        SurfaceThreatLevel = 14,
+    },
+    Description = 'Multirole Point Defense',
+    Display = {
+        Abilities = {
+            'Anti-Air',
+			'Aquatic',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 210,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0003',
+        SpawnRandomRotation = true,
+        UniformScale = 0.26,
+    },
+    Economy = {
+        BuildCostEnergy = 6350,
+        BuildCostMass = 570,
+        BuildTime = 600,
+        RebuildBonusIds = {
+            'BROT1EXPD',
+        },
+    },
+    General = {
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Mizura',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 26,
+    },
+    Interface = {
+        HelpText = 'Multirole Point Defense',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 1.0,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 1.15,
+        MeshExtentsZ = 1.1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0,
+        SkirtOffsetZ = -0,
+        SkirtSizeX = 1,
+        SkirtSizeZ = 1,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 1,
+    SizeX = 0.75,
+    SizeY = 1.2,
+    SizeZ = 0.75,
+    StrategicIconName = 'icon_structure1_directfire',
+    StrategicIconSortPriority = 200,
+    Veteran = {
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONNOVACATBLUELASERFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.2,	-- hits 2x per fire
+			
+            CollideFriendly = false,
+			
+            ContinuousBeam = false,
+			
+            Damage = 37,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Blue Laser',
+			
+            EnergyDrainPerSecond = 40,	-- this is tied to ROF
+			EnergyRequired = 10,		-- along with this
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Air',
+                Water = 'Land|Water|Air',
+            },
+			
+            FiringTolerance = 0.5,
+			
+            Label = 'laserblue',
+			
+            MaxRadius = 34,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 148 dps
+			
+            ReTargetOnMiss = true,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
+            TrackingRadius = 1.2,
+			
+            TurretBoneDualMuzzle = 'Turret_Muzzle',
+            TurretBoneDualPitch = 'Turret_Barrel',
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+			
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 45,
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 35,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+	        },
+        },
+}

@@ -1,0 +1,336 @@
+UnitBlueprint {
+    AI = { 
+        GuardScanRadius = 30, 
+    }, 
+    Audio = {
+        AmbientMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0104_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Sml',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0104_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0104_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 50,
+	
+    Categories = {
+
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'INDIRECTFIRE',
+        'ARTILLERY',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYINDIRECTFIRE',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 1500,
+        MaxHealth = 1500,
+        RegenRate = 1,
+        SurfaceThreatLevel = 11,
+    },
+	
+    Description = 'Thau Battery',
+	
+    Display = {
+		Abilities = {
+			'Volley Fires 4 shells',
+			'Inaccurate, Low Damage but large AOE',
+			'Damages Friendly units',
+		},
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/TotalMayhem/units/BRPT3ML/BRPT3ML_death.sca',
+                AnimationRateMax = 1.97,
+                AnimationRateMin = 1.97,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/TotalMayhem/units/BRPT3ML/BRPT3ML_walk.sca',
+        AnimationWalkRate = 4,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+					AlbedoName = '/Units/xsl0401/xsl0401_Albedo.dds',
+					NormalsName = '/Units/xsl0401/xsl0401_NormalsTS.DDS',
+                    LODCutoff = 300,
+					LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+					Scrolling = true,
+                    ShaderName = 'Seraphim',
+					SpecularName = '/Units/xsl0401/xsl0401_SpecTeam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Ankle01',
+                            'Right_Ankle01',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            0,
+                        },
+                        Type = 'GroundKickup01',
+                    },
+                },
+            },
+       },
+        PlaceholderMeshName = 'UXL0004',
+        SpawnRandomRotation = true,
+        UniformScale = 0.015,
+    },
+    Economy = {
+        BuildCostEnergy = 9900,
+        BuildCostMass = 700,
+        BuildTime = 250,
+    },
+    General = {
+		CapCost = 2,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Heth-Zthuha',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 28,
+    },
+    Interface = {
+        HelpText = 'Thau Battery',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.96,
+    LifeBarSize = 1.45,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.3,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 2,
+        MaxSteerForce = 10,
+        MeshExtentsX = 1.75,
+        MeshExtentsY = 0.55,
+        MeshExtentsZ = 2.75,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 0.1,
+        TurnRadius = 5,
+        TurnRate = 35,
+    },
+	
+    SelectionCenterOffsetX = 0.05,
+    SelectionCenterOffsetZ = -0.00,
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.96,
+    SelectionThickness = 0.35,
+    SizeX = 0.6,
+    SizeY = 1.35,
+    SizeZ = 0.9,
+    StrategicIconName = 'icon_land3_artillery',
+    StrategicIconSortPriority = 125,
+    Veteran = {
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 30,
+        Level5 = 36,
+    },
+    Transport = {
+        TransportClass = 3,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'UAS',
+                    Cue = 'UAS_Turret_Lrg_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'UAS',
+                    Cue = 'UAS_Turret_Lrg_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'XSS_Weapon',
+                    Cue = 'XSS0302_Quarnon_Cannon',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 2.8,
+            DamageType = 'Normal',
+            DamageFriendly = true,
+			
+            DisplayName = 'Light Quarnon Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+			FiringRandomnessWhileMoving = 3,
+            FiringRandomness = 2.2,
+            FiringTolerance = 1,
+			
+            Label = 'FrontTurret',
+			
+            MaxRadius = 95,
+            MinRadius = 28,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 23,
+			MuzzleVelocityReduceDistance = 90,
+
+            ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
+			
+            ProjectileLifetimeUsesMultiplier = 5,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'muzzle01',
+                        'muzzle02',
+                        'muzzle03',
+                        'muzzle04',
+                    },
+                    RackBone = 'Left_Arm_B01',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackRecoilReturnSpeed = 2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RenderFireClock = true,
+
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.25,
+			
+            TargetCheckInterval = 2,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+                'MOBILE',
+                'ALLUNITS,-WALL',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'muzzle01',
+            TurretBonePitch = 'Left_Arm_B01',
+            TurretBoneYaw = 'Left_Arm_B01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 65,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 0,
+            TurretYawRange = 150,
+            TurretYawSpeed = 28,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

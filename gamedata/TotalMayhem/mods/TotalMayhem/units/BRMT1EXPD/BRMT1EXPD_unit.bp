@@ -1,0 +1,279 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Med_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UEB',
+            Cue = 'UEB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},
+    },
+    BuildIconSortPriority = 112,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1ENGINEER',
+        'BUILTBYCOMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH1',
+        'DIRECTFIRE',
+		'ANTIAIR',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+		'OVERLAYANTIAIR',
+        'SORTDEFENSE',
+    },
+    CollisionOffsetY = -0.5,
+    Defense = {
+        AirThreatLevel = 15,
+        ArmorType = 'Structure',
+        Health = 1600,
+        MaxHealth = 1600,
+        RegenRate = 2,
+        SurfaceThreatLevel = 15,
+    },
+    Description = 'Microwave PD/AA Defense',
+    Display = {
+        Abilities = {
+            'Dual Role PD/Anti-Air',
+			'Aquatic',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 140,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0003',
+        SpawnRandomRotation = true,
+        UniformScale = 0.04,
+    },
+    Economy = {
+        BuildCostEnergy = 6600,
+        BuildCostMass = 600,
+        BuildTime = 600,
+        RebuildBonusIds = {
+            'BRMT1EXPD',
+        },
+    },
+    General = {
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Pen',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 26,
+    },
+    Interface = {
+        HelpText = 'Microwave PD/AA Defense',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.25,
+    LifeBarSize = 0.75,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 1.15,
+        MeshExtentsZ = 1.1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 1,
+        SkirtSizeZ = 1,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 1,
+    SizeX = 0.65,
+    SizeY = 1.2,
+    SizeZ = 0.65,
+    StrategicIconName = 'icon_structure1_directfire',
+    StrategicIconSortPriority = 207,
+    Veteran = {
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.2,	-- will impact twice before turning off	
+			
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 75,
+			
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Microwave Laser',
+			
+			EnergyDrainPerSecond = 100,
+			EnergyRequired = 100,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed|Air',
+                Water = 'Land|Water|Seabed|Air',
+            },
+			
+            FiringRandomness = 0,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 32,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle01',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,
+			
+            ReTargetOnMiss = true,
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			TrackingRadius = 1.20,
+            TurretBoneMuzzle = 'Turret_Muzzle01',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 50,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 48,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.8,
+        MassMult = 0.8,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

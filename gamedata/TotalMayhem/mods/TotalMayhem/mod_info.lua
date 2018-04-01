@@ -1,0 +1,12 @@
+name = "Total Mayhem v1.13"
+uid = "62e2j64a-53a2-y6sg-32h5-146as555a18u3"
+version = 1.14
+description = "This mod adds alot more units with full Sorian AI support. Prepare for mayhem!"
+author = "Burnie"
+icon = "/mods/TotalMayhem/icons/modicon.dds"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+before = { }
+after = { }

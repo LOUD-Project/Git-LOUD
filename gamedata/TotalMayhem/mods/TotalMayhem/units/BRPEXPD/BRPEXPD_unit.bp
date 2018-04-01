@@ -1,0 +1,321 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB2204_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TMBIGROBOTDEATHFX',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+	
+    BuildIconSortPriority = 71,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+        'STRUCTURE',
+        'DEFENSE',
+        'EXPERIMENTAL',
+        'DIRECTFIRE',
+        'SIZE8',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+		AirThreatLevel = 85,
+        ArmorType = 'Structure',
+        Health = 14000,
+        MaxHealth = 14000,
+        RegenRate = 12,
+        SurfaceThreatLevel = 85,
+    },
+	
+    Description = 'Experimental Multirole Point Defense',
+	
+    Display = {
+        Abilities = {
+            'Ground Defense & Anti-Air',
+			'Slow Rate of Fire',
+			'Can target Satellites',
+			'Volatile',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+					AlbedoName = '/Units/xsb2204/xsb2204_Albedo.dds',
+					NormalsName = '/Units/xsb2204/xsb2204_NormalsTS.DDS',
+                    LODCutoff = 380,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,					
+                    ShaderName = 'Seraphim',
+					SpecularName = '/Units/xsb2204/xsb2204_SpecTeam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0003',
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
+                DeathLifetime = 200,
+                FadeOut = 150,
+                Length = 9.8,
+                Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 9.8,
+            },
+        },
+        UniformScale = 0.1,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 105000,
+        BuildCostMass = 8500,
+        BuildTime = 8500,
+        RebuildBonusIds = {
+            'BRPT2EXPD',
+        },
+    },
+
+    General = {
+		CapCost = 6,
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Heth-Athala',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 42,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Multirole Point Defense',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 3,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        TurnRate = 0,
+    },
+	
+    SelectionCenterOffsetX = -0.1,
+    SelectionCenterOffsetZ = -0.5,
+	
+    SelectionSizeX = 3,
+    SelectionSizeZ = 3,
+    SelectionThickness = 0.35,
+	
+    SizeX = 3,
+    SizeY = 4,
+    SizeZ = 3,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 240,
+	
+    Veteran = {
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'XSS_Weapon',
+                    Cue = 'XSS0201_Ultrachromatic_Beam',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 1,
+			
+            CollideFriendly = false,
+			
+            Damage = 340,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ultrachromatic Beam Generator',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed|Air',
+                Land = 'Land|Water|Seabed|Air',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'MainWeapon',
+			
+            MaxRadius = 72,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                    },
+                    RackBone = 'Barrel_Right',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.25,
+
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'TECH2 MOBILE',
+                'TECH1 MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.5,
+			
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Object07',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 40,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 33,
+			
+            Turreted = true,
+        },
+        {
+    		Damage = 2750,
+    		DamageFriendly = true,
+    		DamageRadius = 6,
+    		DamageType = 'Normal',
+    		DummyWeapon = true,
+    		Label = 'DeathWeapon',
+    	}, 
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+	        },
+        },
+}

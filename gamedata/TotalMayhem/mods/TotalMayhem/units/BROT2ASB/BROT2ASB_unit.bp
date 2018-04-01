@@ -1,0 +1,325 @@
+UnitBlueprint {
+    AI = { 
+        GuardScanRadius = 50, 
+    }, 
+    Audio = {
+        Killed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TMBIGROBOTDEATHFX',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    BuildIconSortPriority = 23,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH2',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+        'OVERLAYRADAR',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 1850,
+        MaxHealth = 1850,
+        RegenRate = 1,
+        SurfaceThreatLevel = 12,
+    },
+    Description = 'Amphib Assault Bot',
+    Display = {
+        Abilities = {
+            'Amphibious',
+            'Radar',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Death.sca',
+                Weight = 100,
+            },
+        },
+        AnimationWalk = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Walk.sca',
+        AnimationWalkRate = 3.75,
+        Mesh = {
+            IconFadeInZoom = 170,
+            LODs = {
+                {
+                    LODCutoff = 400,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'Exhaust_Right',
+                            HipBone = 'Exhaust_Right',
+                            KneeBone = 'Exhaust_Right',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'Exhaust_Left',
+                            HipBone = 'Exhaust_Left',
+                            KneeBone = 'Exhaust_Left',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                    },
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.1,
+    },
+    Economy = {
+        BuildCostEnergy = 4000,
+        BuildCostMass = 720,
+        BuildTime = 515,
+    },
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Amphorak',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 50,
+        VisionRadius = 24,
+		WaterVisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'Amphib Assault Bot',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1,
+    LifeBarSize = 1,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 2,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        TurnRadius = 5,
+        TurnRate = 45,
+		WaterSpeedMultiplier = 1.2,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.0,
+    SelectionSizeX = 1.0,
+    SelectionSizeZ = 0.65,
+    SelectionThickness = 0.5,
+    SizeX = 0.8,
+    SizeY = 1.4,
+    SizeZ = 0.9,
+    StrategicIconName = 'icon_bot2_directfire',
+    StrategicIconSortPriority = 115,
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+   },
+    Transport = {
+        TransportClass = 2,
+    },
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONTERMINATORLASERFIRE',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONTERMINATORLASERSTOPFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONTERMINATORLASERCHARGEFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+			BeamCollisionDelay = 0.3,
+            BeamLifetime = 0.6,
+			
+            CollideFriendly = false,
+            ContinuousBeam = false,
+			
+            Damage = 60,
+            DamageRadius = 0,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Microwave Laser',
+			
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 50,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+
+            FiringTolerance = 2,
+            Label = 'laser',
+			
+            MaxRadius = 32,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,			-- 120 dps RoF controlled by energydrain above
+            ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.05,
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 35,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 30,
+            Turreted = true,
+			
+            WeaponRepackTimeout = 0,
+            WeaponUnpackAnimation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Deploy.sca',
+            WeaponUnpackAnimationRate = 2,
+            WeaponUnpackLocksMotion = false,
+            WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}
