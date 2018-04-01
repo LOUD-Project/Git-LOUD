@@ -1,0 +1,1 @@
+Texture { Albedo = 'black.dds', Normal = 'black_n.dds', Size = 4 }

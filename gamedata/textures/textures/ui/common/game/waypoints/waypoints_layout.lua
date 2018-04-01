@@ -1,0 +1,17 @@
+layout = {
+	['sacrifice_btn_up'] = {left = 2, top = 3, width = 126, height = 123, },
+	['ferry_btn_up'] = {left = 7, top = 5, width = 120, height = 120, },
+	['unload_btn_up'] = {left = 7, top = 9, width = 116, height = 104, },
+	['load_btn_up'] = {left = 6, top = 10, width = 116, height = 100, },
+	['teleport_btn_up'] = {left = 2, top = 2, width = 124, height = 121, },
+	['stop_btn_up'] = {left = 4, top = 1, width = 122, height = 124, },
+	['repair_btn_up'] = {left = 1, top = 0, width = 127, height = 128, },
+	['reclaim_btn_up'] = {left = 7, top = 5, width = 115, height = 112, },
+	['patrol_btn_up'] = {left = 2, top = 0, width = 126, height = 128, },
+	['nuke_btn_up'] = {left = 8, top = 7, width = 117, height = 117, },
+	['move_btn_up'] = {left = 0, top = 0, width = 128, height = 128, },
+	['guard_btn_up'] = {left = 2, top = 2, width = 125, height = 125, },
+	['convert_btn_up'] = {left = 0, top = 1, width = 127, height = 123, },
+	['attack_move_btn_up'] = {left = 0, top = 0, width = 128, height = 128, },
+	['attack_btn_up'] = {left = 0, top = 0, width = 128, height = 128, },
+}

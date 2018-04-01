@@ -1,0 +1,15 @@
+layout = {
+	['l_btn_01'] = {left = 22, top = 7, width = 47, height = 48, },
+	['l_btn_02'] = {left = 72, top = 7, width = 47, height = 48, },
+	['l_btn_03'] = {left = 122, top = 7, width = 47, height = 48, },
+	['l_btn_04'] = {left = 172, top = 7, width = 47, height = 48, },
+	['l_btn_05'] = {left = 22, top = 58, width = 47, height = 48, },
+	['l_tn_06'] = {left = 72, top = 58, width = 47, height = 48, },
+	['l_btn_07'] = {left = 122, top = 59, width = 49, height = 46, },
+	['l_btn_08'] = {left = 173, top = 58, width = 49, height = 46, },
+	['l_btn_09'] = {left = 22, top = 110, width = 49, height = 47, },
+	['l_btn_10'] = {left = 72, top = 110, width = 49, height = 47, },
+	['l_btn_11'] = {left = 124, top = 109, width = 47, height = 48, },
+	['l_btn_12'] = {left = 173, top = 110, width = 49, height = 47, },
+	['orders-vertical_bmp'] = {left = 0, top = 0, width = 244, height = 168, },
+}

@@ -1,0 +1,18 @@
+layout = {
+	['glow_bmp'] = {left = 4, top = 4, width = 48, height = 42, },
+	['diplomacy_btn_selected'] = {left = 6, top = 6, width = 44, height = 38, },
+	['diplomacy_btn_down'] = {left = 6, top = 6, width = 44, height = 38, },
+	['diplomacy_btn_over'] = {left = 6, top = 6, width = 44, height = 38, },
+	['diplomacy_btn_up'] = {left = 6, top = 6, width = 44, height = 38, },
+	['diplomacy_btn_dis'] = {left = 6, top = 6, width = 44, height = 38, },
+	['objectives_btn_selected'] = {left = 6, top = 6, width = 44, height = 42, },
+	['objectives_btn_down'] = {left = 6, top = 6, width = 44, height = 42, },
+	['objectives_btn_over'] = {left = 6, top = 6, width = 44, height = 42, },
+	['objectives_btn_up'] = {left = 6, top = 6, width = 44, height = 42, },
+	['objectives_btn_dis'] = {left = 6, top = 6, width = 44, height = 39, },
+	['menu_btn_selected'] = {left = 6, top = 6, width = 44, height = 38, },
+	['menu_btn_down'] = {left = 6, top = 6, width = 44, height = 38, },
+	['menu_btn_over'] = {left = 6, top = 6, width = 44, height = 38, },
+	['menu_btn_up'] = {left = 6, top = 6, width = 44, height = 38, },
+	['menu_btn_dis'] = {left = 6, top = 6, width = 44, height = 38, },
+}

@@ -1,0 +1,17 @@
+layout = {
+	['logo-aeon_btn_over_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-aeon_btn_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-aeon_btn_over'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-aeon_btn_up'] = {left = 7, top = 6, width = 65, height = 68, },
+	['logo-aeon_btn_dis'] = {left = 7, top = 6, width = 65, height = 68, },
+	['logo-cybran_btn_over_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-cybran_btn_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-cybran_btn_over'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-cybran_btn_up'] = {left = 8, top = 6, width = 64, height = 68, },
+	['logo-cybran_btn_dis'] = {left = 8, top = 6, width = 64, height = 68, },
+	['logo-uef_btn_over_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-uef_btn_sel'] = {left = 0, top = 0, width = 80, height = 80, },
+	['logo-uef_btn_over'] = {left = 4, top = 5, width = 71, height = 72, },
+	['logo-uef_btn_up'] = {left = 5, top = 2, width = 67, height = 76, },
+	['logo-uef_btn_dis'] = {left = 7, top = 6, width = 65, height = 68, },
+}

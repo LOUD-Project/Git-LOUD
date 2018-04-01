@@ -1,0 +1,16 @@
+layout = {
+	['l_text'] = {left = 29, top = 51, width = 106, height = 107, leftOffset = 0, topOffset = 0, },
+	['energy-bar_bmp'] = {left = 1, top = 26, width = 28, height = 16, leftOffset = 1, topOffset = 1, },
+	['panel_brd_lr'] = {left = 124, top = 187, width = 24, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel_brd_lm'] = {left = 41, top = 187, width = 8, height = 20, leftOffset = 0, topOffset = 0, },
+	['panel_brd_ll'] = {left = 20, top = 187, width = 24, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel_brd_vert_r'] = {left = 124, top = 35, width = 24, height = 8, leftOffset = 1, topOffset = 0, },
+	['panel_brd_m'] = {left = 41, top = 35, width = 8, height = 8, leftOffset = 0, topOffset = 0, },
+	['panel_brd_vert_l'] = {left = 20, top = 35, width = 24, height = 8, leftOffset = 1, topOffset = 0, },
+	['panel_brd_ur'] = {left = 124, top = 14, width = 24, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel_brd_horz_um'] = {left = 41, top = 16, width = 8, height = 20, leftOffset = 0, topOffset = 0, },
+	['panel_brd_ul'] = {left = 20, top = 14, width = 24, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel_bmp_b'] = {left = 20, top = 187, width = 128, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel_bmp_m'] = {left = 20, top = 35, width = 128, height = 8, leftOffset = 1, topOffset = 0, },
+	['panel_bmp_t'] = {left = 20, top = 14, width = 128, height = 24, leftOffset = 1, topOffset = 1, },
+}

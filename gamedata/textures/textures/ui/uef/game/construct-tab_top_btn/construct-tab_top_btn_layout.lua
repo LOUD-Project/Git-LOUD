@@ -1,0 +1,17 @@
+layout = {
+	['top_tab_btn_sel_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['top_tab_btn_down_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['top_tab_btn_over_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['top_tab_btn_up_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['top_tab_btn_dis_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['mid_tab_btn_sel_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['mid_tab_btn_down_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['mid_tab_btn_over_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['mid_tab_btn_up_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['mid_tab_btn_dis_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['bot_tab_btn_sel_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['bot_tab_btn_down_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['bot_tab_btn_over_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['bot_tab_btn_up_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+	['bot_tab_btn_dis_bmp'] = {left = 0, top = 0, width = 60, height = 32, },
+}
