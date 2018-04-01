@@ -1,0 +1,49 @@
+ProjectileBlueprint {
+     Audio = {
+		 Impact = Sound {
+			Bank = 'SC2Units',
+			Cue = 'snd_Cybran_AntiAir_Impact',
+			LodCutoff = 'Weapon_LodCutoff',
+		},
+		ImpactTerrain = Sound {
+			Bank = 'SC2Units',
+			Cue = 'snd_Cybran_AntiAir_Impact_Land',
+			LodCutoff = 'Weapon_LodCutoff',
+		},
+		ImpactWater = Sound {
+			Bank = 'SC2Units',
+			Cue = 'snd_Cybran_AntiAir_Impact_Water',
+			LodCutoff = 'Weapon_LodCutoff',
+		},
+     },
+    Categories = {
+        'CYBRAN',
+        'PROJECTILE',
+        'ANTIAIR',
+    },
+    Display = {
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = 'Anti Air',
+        EntityCategory = {
+            'CYBRAN',
+            'PROJECTILE',
+            'ANTIAIR',
+        },
+        Faction = 'Cybran',
+        TechLevel = 1,
+        Weapon = 'Electron Autocannon',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        InitialSpeed = 35,
+        Lifetime = 1.5,
+        TrackTarget = true,
+        TurnRate = 60,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

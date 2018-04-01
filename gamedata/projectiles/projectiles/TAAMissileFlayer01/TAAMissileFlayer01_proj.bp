@@ -1,0 +1,48 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'UEF_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'UEF',
+        'PROJECTILE',
+        'ANTIAIR',
+        'MISSILE',
+    },
+    Display = {
+        Mesh = {
+            LODs = {
+                {
+                    ShaderName = 'NormalMappedAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 2,
+        UniformScale = 0.03,
+    },
+    General = {
+        Category = 'Anti Air',
+        Faction = 'UEF',
+        TechLevel = 3,
+        Weapon = 'Flayer SAM Launcher',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 15,
+        DestroyOnWater = true,
+        InitialSpeed = 30,
+        LeadTarget = false,
+        Lifetime = 3,
+        MaxSpeed = 60,
+        OnLostTargetLifetime = 1.5,
+        TrackTarget = true,
+        TurnRate = 180,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

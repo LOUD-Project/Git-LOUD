@@ -1,0 +1,36 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'CYBRAN',
+        'PROJECTILE',
+    },
+    Display = {
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = 'Anti Air',
+        EntityCategory = {
+            'CYBRAN',
+            'PROJECTILE',
+        },
+        Faction = 'Cybran',
+        TechLevel = 1,
+        Weapon = 'Electron Autocannon',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        InitialSpeed = 35,
+        Lifetime = 1.5,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}
