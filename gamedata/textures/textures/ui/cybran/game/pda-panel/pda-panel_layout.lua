@@ -1,0 +1,18 @@
+layout = {
+	['title-bar_bmp'] = {left = 28, top = 137, width = 136, height = 20, leftOffset = 1, topOffset = 1, },
+	['video-panel_bmp'] = {left = 15, top = 15, width = 168, height = 148, leftOffset = 0, topOffset = 0, },
+	['l_video'] = {left = 25, top = 18, width = 140, height = 140, leftOffset = 0, topOffset = 0, },
+	['l_icons-text'] = {left = 187, top = 42, width = 220, height = 120, leftOffset = 0, topOffset = 0, },
+	['l_units-text copy 2'] = {left = 311, top = 21, width = 93, height = 15, leftOffset = 0, topOffset = 0, },
+	['l_text copy 2'] = {left = 192, top = 21, width = 55, height = 13, leftOffset = 0, topOffset = 0, },
+	['bracket-right_bmp'] = {left = 403, top = 9, width = 32, height = 164, leftOffset = 1, topOffset = 1, },
+	['panel-ping_bmp_r'] = {left = 394, top = 109, width = 24, height = 56, leftOffset = 1, topOffset = 1, },
+	['panel-ping_bmp_m'] = {left = 241, top = 109, width = 4, height = 56, leftOffset = 0, topOffset = 1, },
+	['panel-ping_bmp_l'] = {left = 174, top = 108, width = 20, height = 56, leftOffset = 0, topOffset = 0, },
+	['panel-objectives_bmp_r'] = {left = 394, top = 38, width = 24, height = 72, leftOffset = 1, topOffset = 1, },
+	['panel-objectives_bmp_m'] = {left = 241, top = 38, width = 4, height = 72, leftOffset = 0, topOffset = 1, },
+	['panel-objectives_bmp_l'] = {left = 174, top = 37, width = 20, height = 72, leftOffset = 0, topOffset = 0, },
+	['panel-time-units_bmp_r'] = {left = 394, top = 16, width = 24, height = 24, leftOffset = 1, topOffset = 1, },
+	['panel-time-units_bmp_m'] = {left = 241, top = 16, width = 4, height = 24, leftOffset = 0, topOffset = 1, },
+	['panel-time-units_bmp_l'] = {left = 174, top = 15, width = 20, height = 24, leftOffset = 0, topOffset = 0, },
+}

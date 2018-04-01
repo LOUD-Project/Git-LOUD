@@ -1,0 +1,12 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = 'Box01_lod0.scm',
+            ShaderName = 'ShieldFill',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 999,
+    StraddleWater = true,
+}

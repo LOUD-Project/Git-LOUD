@@ -1,0 +1,15 @@
+layout = {
+	['l_continue-btn_up'] = {left = 717, top = 714, width = 185, height = 49, leftOffset = 0, topOffset = 0, },
+	['l_back-btn_up'] = {left = 123, top = 714, width = 185, height = 49, leftOffset = 0, topOffset = 0, },
+	['l_continue-new'] = {left = 728, top = 702, width = 257, height = 56, leftOffset = 0, topOffset = 0, },
+	['l_title'] = {left = 410, top = 12, width = 208, height = 23, leftOffset = 0, topOffset = 0, },
+	['l_difficulty-text'] = {left = 405, top = 724, width = 60, height = 14, leftOffset = 0, topOffset = 0, },
+	['small-emitter_left_bmp'] = {left = 236, top = 707, width = 28, height = 56, leftOffset = 1, topOffset = 1, },
+	['small-emitter_bmp'] = {left = 202, top = 707, width = 28, height = 56, leftOffset = 1, topOffset = 1, },
+	['l_back-btn_up copy'] = {left = 249, top = 714, width = 185, height = 49, leftOffset = 0, topOffset = 0, },
+	['l_back-btn_up'] = {left = 34, top = 714, width = 179, height = 49, leftOffset = 0, topOffset = 0, },
+	['large-emitter_bmp'] = {left = 718, top = 685, width = 36, height = 68, leftOffset = 1, topOffset = 0, },
+	['panel_bmp'] = {left = 105, top = 199, width = 428, height = 332, leftOffset = 0, topOffset = 1, },
+	['border-console-top_bmp'] = {left = 214, top = 0, width = 596, height = 72, leftOffset = 0, topOffset = 1, },
+	['border-console-bot_bmp'] = {left = 2, top = 673, width = 1020, height = 96, leftOffset = 0, topOffset = 0, },
+}

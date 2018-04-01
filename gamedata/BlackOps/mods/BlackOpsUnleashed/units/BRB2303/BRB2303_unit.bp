@@ -1,0 +1,282 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    BuildIconSortPriority = 140,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER3COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH2',
+        'INDIRECTFIRE',
+        'ARTILLERY',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'SHOWATTACKRETICLE',
+        'RECLAIMABLE',
+        'OVERLAYINDIRECTFIRE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.3,
+
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 2150,
+        MaxHealth = 2150,
+        RegenRate = 3,
+        SurfaceThreatLevel = 17,
+    },
+    Description = 'Light Rocket Artillery',
+    Display = {
+		Abilities = {
+			'Rapid Fire Rocket Barrage',
+			'Low Yield Rockets stun enemies',
+            'High Energy Consumption',
+			'Aquatic',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0004',
+        SpawnRandomRotation = true,
+        UniformScale = 0.048,
+    },
+    Economy = {
+        BuildCostEnergy = 20000,
+        BuildCostMass = 2200,
+        BuildTime = 2200,
+        RebuildBonusIds = {
+            'brb2303',
+        },
+    },
+
+    General = {
+        Category = 'Strategic',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Squall',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 30,
+    },
+	
+    Interface = {
+        HelpText = 'Light Rocket Artillery',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -.5,
+        SkirtOffsetZ = -.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1,
+    SelectionThickness = 0.45,
+    SizeX = 1,
+    SizeY = 1.2,
+    SizeZ = 1,
+    StrategicIconName = 'icon_structure2_artillery',
+    StrategicIconSortPriority = 180,
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+			AimsStraightOnDisable = true,
+            ArtilleryShieldBlocks = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Nano_Dart',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
+                    TargetDisallow = 'COMMAND,SUBCOMMANDER,WALL',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            CollideFriendly = false,
+			
+            Damage = 70,
+            DamageFriendly = false,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+			EnergyDrainPerSecond = 400,
+            EnergyRequired = 200,
+			
+            DisplayName = 'Rocket Pack',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 1.2,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+			LeadTarget = true,
+			
+            MaxRadius = 70,
+            MinRadius = 12,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 24,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire04/CybranHailfire04_proj.bp',
+			ProjectileLifetimeUsesMultiplier = 3,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Fake_Muzzle',
+                    },
+                    RackBone = 'Fake_Muzzle',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -3,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = true,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 1.5,			#-- 105 DPS
+            RenderFireClock = true,
+			
+            TargetCheckInterval = .4,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Fake_Muzzle',
+            TurretBonePitch = 'Pitch',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 30,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 10,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 24,
+			
+            Turreted = true,
+			
+            WeaponUnpackTimeout = 3,
+            WeaponRepackTimeout = 3,
+            WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

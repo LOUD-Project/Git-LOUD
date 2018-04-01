@@ -1,0 +1,19 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsb1106",
+	
+    Categories = {
+        'SELECTABLE',
+        'SERAPHIM',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH1',
+        'MASSSTORAGE',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SHOWQUEUE',
+        'SORTECONOMY',
+    },
+
+}

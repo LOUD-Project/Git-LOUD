@@ -1,0 +1,475 @@
+UnitBlueprint {
+    AI = {
+        GuardScanRadius = 45,
+    },
+    Audio = {
+        Killed = Sound {
+            Bank = 'TM_CYBRANWEAPONS',
+            Cue = 'CYBRANT3ADVBOTDEATHFX',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0001_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0001_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Commander',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 7,
+            Level2 = 14,
+            Level3 = 21,
+            Level4 = 28,
+            Level5 = 35,
+        },
+    },
+	
+	BuildIconSortPriority = 21,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'NEEDMOBILEBUILD',
+        'DRAGBUILD',
+        'SERAPHIM',
+        'MOBILE',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'LAND',
+        'EXPERIMENTAL',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'OVERLAYINDIRECTFIRE',
+        'OVERLAYDIRECTFIRE',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 55000,
+        MaxHealth = 55000,
+        RegenRate = 15,
+        SurfaceThreatLevel = 240,
+    },
+    Description = 'Medium Experimental Assault Bot',
+	
+    Display = {
+        Abilities = {
+            'Massive',
+            '<LOC ability_amphibious>Amphibious',
+			'Radar & Sonar Stealth',
+            'Radar',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/TotalMayhem/units/BRPEXBOT/BRPEXBOT_Death1.sca',
+                AnimationRateMax = 1.97,
+                AnimationRateMin = 1.97,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/TotalMayhem/units/BRPEXBOT/BRPEXBOT_Walk.sca',
+        AnimationWalkRate = 2.4,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+				{
+                    LODCutoff = 500,
+					LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+					Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'Right_Exhaust',
+                            HipBone = 'Right_Exhaust',
+                            KneeBone = 'Right_Exhaust',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 1,
+                                TreadMarks = 'collosus_tread_02',
+                                TreadMarksSizeX = 0.0,
+                                TreadMarksSizeZ = 0.0,
+                                TreadOffset = {
+                                    -0.95,
+                                    0,
+                                    0.85,
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'Left_Exhaust',
+                            HipBone = 'Left_Exhaust',
+                            KneeBone = 'Left_Exhaust',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 1,
+                                TreadMarks = 'collosus_tread_02',
+                                TreadMarksSizeX = 0.0,
+                                TreadMarksSizeZ = 0.0,
+                                TreadOffset = {
+                                    -0.95,
+                                    0,
+                                    0.85,
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },
+                    },
+                    Damage = {
+                        Amount = 850,
+                        DamageFriendly = false,
+                        Radius = 1,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.2,
+    },
+    Economy = {
+        BuildCostEnergy = 320000,
+        BuildCostMass = 18600,
+        BuildTime = 3875,
+    },
+    
+    General = {
+		CapCost = 5,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        UnitName = 'Yenah-lao',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		RadarStealth = true,
+		SonarStealth = true,
+        VisionRadius = 37,
+		WaterVisionRadius = 18,
+    },
+	
+    Interface = {
+        HelpText = 'Medium Experimental Assault Bot',
+    },
+	
+    LifeBarHeight = 0.15,
+    LifeBarOffset = 1.15,
+    LifeBarSize = 3.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+		
+        MaxAcceleration = 1.2,
+        MaxBrake = 2.4,
+        MaxSpeed = 3.0,
+        MaxSpeedReverse = 3,
+		
+        MaxSteerForce = 10,
+		
+        MeshExtentsX = 2.5,
+        MeshExtentsY = 2.3,
+        MeshExtentsZ = 2.3,
+		
+        MinSpeedPercent = 0,
+		
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -1,
+		
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+		
+        MotionType = 'RULEUMT_Amphibious',
+		
+        TurnRadius = 3,
+        TurnRate = 35,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.5,
+	
+    SelectionSizeX = 1.5,
+    SelectionSizeZ = 1.5,
+    SelectionThickness = 0.37,
+	
+    SizeX = 2,
+    SizeY = 4,
+    SizeZ = 2.5,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+	
+    Veteran = {
+        Level1 = 25,
+        Level2 = 50,
+        Level3 = 75,
+        Level4 = 100,
+        Level5 = 125,
+    },
+	
+    Transport = {
+        TransportClass = 5,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0304_Suthanus_Artillery',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 750,
+            DamageFriendly = false,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Suthanus Heavy Artillery Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            FiringRandomness = 0.35,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 48,
+            MinRadius = 6,
+			
+            MuzzleChargeDelay = 0.3,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'RightCannonBarrel01_Muzzle',
+                    },
+                    RackBone = 'RightCannonBarrel_01',
+                },
+                {
+                    MuzzleBones = {
+                        'RightCannonBarrel02_Muzzle',
+                    },
+                    RackBone = 'RightCannonBarrel_02',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -1.4,
+            RackRecoilReturnSpeed = 4,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 1,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 2,		-- 1500 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+                'MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneDualMuzzle = 'RightCannonBarrel02_Muzzle',
+            TurretBoneDualPitch = 'RightCannon',
+            TurretBoneMuzzle = 'RightCannonBarrel02_Muzzle',
+            TurretBonePitch = 'RightCannon',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 40,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 40,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2101_Spectra_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 150,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Twin Barreled Oh Spectra Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 1.5,
+			
+            FiringRandomness = 0.4,
+			FiringRandomnessWhileMoving = 0.8,
+			
+            Label = 'SecondaryGun',
+			
+            MaxRadius = 39,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 40,
+			
+            ProjectileId = '/projectiles/SDFOhCannon03/SDFOhCannon03_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.5,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Barrel_Muzzle',
+                    },
+                    RackBone = 'Left_Barrel',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 4,		-- 600 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+                'MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS,-WALL',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.2,
+			
+            TurretBoneDualMuzzle = 'Left_Barrel_Muzzle',
+            TurretBoneDualPitch = 'Left_Barrel',
+            TurretBoneMuzzle = 'Left_Barrel_Muzzle',
+            TurretBonePitch = 'Left_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 40,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 40,
+			
+            Turreted = true,
+        },
+        {
+            Damage = 3500,
+            DamageFriendly = true,
+            DamageRadius = 6,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

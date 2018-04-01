@@ -1,0 +1,17 @@
+layout = {
+	['l_text'] = {left = 156, top = 142, width = 109, height = 174, },
+	['l_btns'] = {left = 287, top = 141, width = 53, height = 15, },
+	['l_scroll-description'] = {left = 354, top = 162, width = 27, height = 196, },
+	['line-long_bmp'] = {left = 152, top = 266, width = 200, height = 4, },
+	['line-short_bmp'] = {left = 153, top = 176, width = 228, height = 4, },
+	['l_radio-s_btn_up'] = {left = 152, top = 179, width = 28, height = 68, },
+	['options_brd_lr'] = {left = 351, top = 326, width = 44, height = 44, },
+	['options_brd_lm'] = {left = 260, top = 326, width = 12, height = 44, },
+	['options_brd_ll'] = {left = 141, top = 326, width = 44, height = 44, },
+	['options_brd_vert_r'] = {left = 351, top = 173, width = 44, height = 12, },
+	['options_brd_m'] = {left = 260, top = 173, width = 12, height = 12, },
+	['options_brd_vert_l'] = {left = 141, top = 173, width = 44, height = 12, },
+	['options_brd_ur'] = {left = 351, top = 130, width = 44, height = 44, },
+	['options_brd_horz_um'] = {left = 260, top = 130, width = 12, height = 44, },
+	['options_brd_ul'] = {left = 141, top = 130, width = 44, height = 44, },
+}

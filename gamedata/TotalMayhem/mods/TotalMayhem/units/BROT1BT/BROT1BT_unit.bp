@@ -1,0 +1,264 @@
+UnitBlueprint {
+    AI = { 
+        GuardScanRadius = 30, 
+    }, 
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0201_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Tank',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 42,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH1',
+        'DIRECTFIRE',
+        'HOVER',
+		'AMPHIBIOUS',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 220,
+        MaxHealth = 220,
+        RegenRate = 0.5,
+        SurfaceThreatLevel = 4.2,
+    },
+	
+    Description = 'Assault Gun',
+    Display = {
+        Abilities = {
+            'Hover',
+			'No Turret',
+        },
+        Mesh = {
+            IconFadeInZoom = 160,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.14,
+    },
+    Economy = {
+        BuildCostEnergy = 550,
+        BuildCostMass = 65,
+        BuildTime = 260,
+    },
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Hervour',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 20,
+    },
+    Interface = {
+        HelpText = 'Assault Hovercraft',
+    },
+	
+    LifeBarHeight = 0.07,
+    LifeBarOffset = 0.6,
+    LifeBarSize = 0.6,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        Elevation = 0.2,
+        MaxAcceleration = 1.7,
+        MaxBrake = 1.7,
+        MaxSpeed = 3.4,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 1000,
+        MeshExtentsX = 0.75,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 0.9,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,
+        RotateOnSpot = false,
+        TurnFacingRate = 90,
+        TurnRadius = 0,
+        TurnRate = 60,
+        WobbleFactor = 0.01,
+        WobbleSpeed = 0.01,
+    },
+    SelectionSizeX = 0.55,
+    SelectionSizeZ = 0.75,
+    SelectionThickness = 0.38,
+    SizeX = 0.7,
+    SizeY = 0.4,
+    SizeZ = 0.9,
+    StrategicIconName = 'icon_land1_directfire',
+    StrategicIconSortPriority = 135,
+    Veteran = {
+        Level1 = 3,
+        Level2 = 6,
+        Level3 = 9,
+        Level4 = 12,
+        Level5 = 15,
+    },
+    Transport = {
+        TransportClass = 1,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONGUN9',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 42,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Disruptor Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomnessWhileMoving = 2,
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 23,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/BROT1BTproj/BROT1BTproj_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle01',
+                    },
+                    RackBone = 'Turret_Barrel01',
+                },
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle02',
+                    },
+                    RackBone = 'Turret_Barrel02',
+                },
+            },
+			
+            RackFireTogether = false,
+            RackRecoilDistance = -0.3,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.0,	-- 30 DPS
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'aim',
+            TurretBonePitch = 'Turret_Barrel01',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 35,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 10,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

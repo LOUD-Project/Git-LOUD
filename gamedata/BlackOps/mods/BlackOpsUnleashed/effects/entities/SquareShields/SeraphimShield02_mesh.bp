@@ -1,0 +1,16 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = 'Box01_lod0.scm',
+            AlbedoName = 'SeraphimShield02_Albedo.dds',
+            NormalsName = 'SeraphimShield02_Normals3.dds',
+            SpecularName = 'SeraphimShield02_Specular2.dds',
+            LookupName = 'ramp_yellow_to_purple_01.dds',
+            ShaderName = 'ShieldSeraphim',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 1000,
+    StraddleWater = true,
+}

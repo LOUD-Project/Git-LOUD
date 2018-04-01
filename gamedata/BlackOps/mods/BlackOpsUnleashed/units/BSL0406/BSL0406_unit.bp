@@ -1,0 +1,323 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Sml',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0104_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
+        },
+    },
+	
+	BuffFields = {
+		RegenField1 = 'SeraphimRegenBuffField',
+	},
+	
+    BuildIconSortPriority = 29,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'MOBILE',
+        'LAND',
+        'MASSIVE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'SPECIALHIGHPRI',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'OVERLAYRADAR',
+		'OVERLAYCOUNTERINTEL',
+		'DRAGBUILD',
+    },
+	
+    Defense = {
+        ArmorType = 'Experimental',
+        Health = 35500,
+        MaxHealth = 35500,
+        RegenRate = 27,
+        SurfaceThreatLevel = 90,
+    },
+	
+    Description = 'Experimental Protector bot',
+	
+    Display = {
+        Abilities = {
+			'Amphibious',
+			'Radar',
+			'Tough Combat unit with modest firepower',
+            'Designed to attract enemy fire',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSL0406/BSL0406_ADeath01.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSL0406/BSL0406_ADeath02.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/BlackOpsUnleashed/units/BSL0406/BSL0406_AWalk01.sca',
+        AnimationWalkRate = 1,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0004',
+        SpawnRandomRotation = true,
+        UniformScale = 0.22,
+    },
+    Economy = {
+        BuildCostEnergy = 115000,
+        BuildCostMass = 12000,
+        BuildTime = 6500,
+    },
+    General = {
+		CapCost = 2,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+		
+		OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'Toggle Restoration Field',
+            },
+        },
+		
+        TechLevel = 'RULEUTL_Secret',
+		
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+		
+        UnitName = 'Seth Ilhaas',
+        UnitWeight = 4,
+    },
+	
+    Intel = {
+		CloakFieldRadius = 25,
+		FreeIntel = true,
+		RadarRadius = 65,
+        VisionRadius = 35,
+		WaterVisionRadius = 12,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Protector bot',
+    },
+	
+    LifeBarHeight = 0.1,
+    LifeBarOffset = 0.3,
+    LifeBarSize = 0.7,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.3,
+        MaxBrake = 3.5,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+		
+        MeshExtentsX = 1.45,
+        MeshExtentsY = 1.3,
+        MeshExtentsZ = 1.45,
+		
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 0,
+        TurnRadius = 5,
+        TurnRate = 45,
+    },
+    SelectionSizeX = 2.4,
+    SelectionSizeZ = 3.5,
+    SelectionThickness = 0.3,
+	
+    SizeX = 1.45,
+    SizeY = 1.3,
+    SizeZ = 1.45,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 114,
+	
+    Transport = {
+		TransportClass = 4,
+    },
+    Veteran = {
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
+    },
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0101_PhasicAutogun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Phasic Autogun',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomnessWhileMoving = 0.6,
+			
+            FiringTolerance = 2,
+			
+            Label = 'LaserTurret',
+			
+            MaxRadius = 42,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 42,
+			
+            ProjectileId = '/projectiles/SDFHeavyPhasicAutogun01/SDFHeavyPhasicAutogun01_proj.bp',
+			ProjectileLifetime = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Muzzle',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 300 DPS x 3 = 900 DPS
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Muzzle',
+            TurretBoneYaw = 'Turret_Barrel',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 180,
+            TurretPitchSpeed = 85,
+            TurretYaw = 0,
+            TurretYawRange = 210,
+            TurretYawSpeed = 75,
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 3000,
+            DamageFriendly = true,
+            DamageRadius = 7,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+            WeaponCategory = 'Death',
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

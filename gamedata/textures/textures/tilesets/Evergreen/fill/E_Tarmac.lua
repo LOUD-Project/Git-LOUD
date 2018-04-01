@@ -1,0 +1,14 @@
+Texture { Albedo = 'E_TM001.dds', Size = 16 }
+Texture { Albedo = 'E_Tarmac04.dds', Size = 8 }
+Texture { Albedo = 'E_TR001.dds', Size = 16 }
+Texture { Albedo = 'E_TS001.dds', Size = 4 }
+Texture { Albedo = 'E_TS002.dds', Size = 4 }
+Texture { Albedo = 'E_TL001.dds', Size = 32 }
+Texture { Albedo = 'E_TRW001.dds', Size = 16 }
+Texture { Albedo = 'E_TDR001.dds', Size = 16 }
+Texture { Albedo = 'Evergreen_Tarmac_ThreeSquares.dds', Size = 16 }
+Texture { Albedo = 'Evergreen_Tarmac.dds', Size = 32 }
+Texture { Albedo = 'Evergreen_Tarmac02.dds', Size = 32 }
+Texture { Albedo = 'Evergreen_Runway01.dds', Size = 32 }
+Texture { Albedo = 'Evergreen_Tarmac_Round01.dds', Size = 32 }
+Texture { Albedo = 'E_Tarmac_Road.dds', Size = 4 }

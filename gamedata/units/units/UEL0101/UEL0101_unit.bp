@@ -1,0 +1,239 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Sml_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0101_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 20,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'TECH1',
+        'SCOUT',
+        'INTELLIGENCE',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYRADAR',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 35,
+        MaxHealth = 35,
+        RegenRate = 0,
+        SurfaceThreatLevel = 0.2,
+    },
+    Description = 'Land Scout',
+    Display = {
+        Abilities = {
+            'Radar',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'uel0101_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'uel0101_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0011',
+        SpawnRandomRotation = true,
+        UniformScale = 0.08,
+    },
+    Economy = {
+        BuildCostEnergy = 40,
+        BuildCostMass = 8,
+        BuildTime = 80,
+    },
+    General = {
+		CapCost = 0.5,
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Snoop',
+        UnitWeight = 1,
+    },
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 50,
+        VisionRadius = 28,
+    },
+    Interface = {
+        HelpText = 'Land Scout',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.25,
+    LifeBarSize = 0.5,
+    Physics = {
+        BackUpDistance = 2,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 4.5,
+        MaxBrake = 4.5,
+        MaxSpeed = 4.5,
+        MaxSpeedReverse = 4.5,
+        MaxSteerForce = 1000,
+        MeshExtentsX = 0.4,
+        MeshExtentsY = 0.3,
+        MeshExtentsZ = 0.8,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        TurnRadius = 5,
+        TurnRate = 90,
+    },
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 0.75,
+    SizeX = 0.35,
+    SizeY = 0.4,
+    SizeZ = 0.65,
+    StrategicIconName = 'icon_land1_intel',
+    StrategicIconSortPriority = 135,
+    Transport = {
+        TransportClass = 1,
+    },		
+    Veteran = {
+        Level1 = 1,
+        Level2 = 2,
+        Level3 = 3,
+        Level4 = 4,
+        Level5 = 5,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            AimControlPrecedence = 10,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0101_MachineGun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 6,
+            DamageType = 'Normal',
+			
+            DisplayName = 'MG',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 18,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 25,
+			
+            ProjectileId = '/projectiles/TDFMachineGun01/TDFMachineGun01_proj.bp',
+			ProjectileLifetime = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'STRUCTURE -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 20,
+            TurretPitchSpeed = 85,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+        },
+    },
+}

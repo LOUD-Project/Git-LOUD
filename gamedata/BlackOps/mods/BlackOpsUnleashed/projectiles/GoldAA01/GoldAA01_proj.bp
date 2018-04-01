@@ -1,0 +1,37 @@
+ProjectileBlueprint {
+    Categories = {
+        'AEON',
+        'PROJECTILE',
+        'MISSILE',
+    },
+    Display = {
+        StrategicIconSize = 2,
+        UniformScale = 0.09,
+    },
+    General = {
+        Category = 'Anti Air',
+        EntityCategory = {
+            'AEON',
+            'PROJECTILE',
+            'MISSILE',
+        },
+        Faction = 'Aeon',
+        TechLevel = 3,
+        Weapon = 'Guided Missile',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 8,
+        DestroyOnWater = true,
+        InitialSpeed = 24,
+        LeadTarget = false,
+        Lifetime = 8,
+        MaxSpeed = 45,
+        TrackTarget = true,
+        TurnRate = 150,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

@@ -1,0 +1,809 @@
+UnitBlueprint {
+    AI = {
+        BeaconName = 'UEB5102',
+        TargetBones = {'FrontRight_Engine','FrontLeft_Engine','BackRight_Engine','BackLeft_Engine','XEA0306'},
+    },
+	
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 0.2,
+        BankForward = false,
+        CanFly = true,
+		
+        CirclingDirChange = false,
+        CirclingElevationChangeRatio = 0.4,
+        CirclingFlightChangeFrequency = 15,
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingTurnMult = 1,
+		
+        KLift = 1.5,
+        KLiftDamping = 1.5,
+		
+        KMove = 0.76,
+        KMoveDamping = 0.9,
+		
+        KRoll = 0.5,
+        KRollDamping = 0.93,
+		
+        KTurn = 0.35,
+        KTurnDamping = 0.95,
+		
+        LiftFactor = 7.5,
+		
+        MaxAirspeed = 13.5,
+		
+        StartTurnDistance = 14,
+		
+        TransportHoverHeight = 4.5,
+    },
+	
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA0306_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    AverageDensity = 1,
+	
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'TRANSPORTBUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'AIR',
+        'TECH3',
+        'TRANSPORTATION',
+        'TRANSPORTFOCUS',
+        'CANTRANSPORTCOMMANDER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'CANNOTUSEAIRSTAGING',
+    },
+	
+    CollisionOffsetY = -1,
+	
+    Defense = {
+        AirThreatLevel = 30,
+        ArmorType = 'Light',
+        Health = 4650,
+        MaxHealth = 4650,
+        RegenRate = 15,
+		
+        Shield = {
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 4400,
+            ShieldRechargeTime = 15,
+            ShieldRegenRate = 110,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 9,
+            ShieldVerticalOffset = -1,
+        },
+		
+        SurfaceThreatLevel = 7,
+    },
+	
+    Description = 'Heavy Air Transport',
+	
+    Display = {
+        Abilities = {
+            '2 Ground Attack Cannons',
+			'4 SAM Launchers',
+            'Shielded',
+            'Transport upto 10 T3 units',
+        },
+		
+        AnimationLand = '/units/UEA0104/UEA0104_atakeoff01.sca',
+        ForcedBuildSpin = 90,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'xea0306_lod1_albedo.dds',
+                    LODCutoff = 300,
+                    ShaderName = 'Unit',
+                    SpecularName = 'xea0306_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = false,
+        UniformScale = 0.05,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 34500,
+        BuildCostMass = 1475,
+        BuildTime = 735,
+        MaintenanceConsumptionPerSecondEnergy = 75,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 6,
+    },
+	
+    General = {
+        Category = 'Transport',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Ferry = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = true,
+        },
+        FactionName = 'UEF',
+        Icon = 'air',
+		
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+		
+        SelectionPriority = 2,
+		
+        TechLevel = 'RULEUTL_Advanced',
+		
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+		
+        UnitName = 'Continental',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 40,
+    },
+	
+    Interface = {
+        HelpText = 'Heavy Air Transport',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3.6,
+    LifeBarSize = 2,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 14,
+        FuelRechargeRate = 70,
+        FuelUseTime = 950,
+        MaxSpeed = 0.5,
+        MeshExtentsX = 2,
+        MeshExtentsY = 1,
+        MeshExtentsZ = 8.5,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 2.7,
+    SelectionSizeZ = 4.8,
+    SelectionThickness = 0.2,
+	
+    SizeX = 3.1,
+    SizeY = 2,
+    SizeZ = 6.8,
+	
+    StrategicIconName = 'icon_gunship3_transport',
+    StrategicIconSortPriority = 65,
+	
+    Transport = {
+        AirClass = true,
+        Class2AttachSize = 1,
+        Class3AttachSize = 2,
+        TransportClass = 10,
+    },
+	
+    UseOOBTestZoom = 200,
+	
+    Veteran = {
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
+    },
+	
+    Weapon = {
+		-- 2 x ground attack cannons -- 
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 35,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Plasma Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water',
+            },
+			
+			FiringRandomness = 0.35,
+            FiringTolerance = 0,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 120,
+			
+            Label = 'PlasmaGun',
+			
+            MaxRadius = 33,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+			
+            ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
+			ProjectileLifetime = 1.4,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'PlasmaGun01_Muzzle',
+                    },
+                    RackBone = 'PlasmaGun01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.0,		#-- 35 DPS Ground
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'PlasmaGun01_Muzzle',
+            TurretBonePitch = 'PlasmaGun01',
+            TurretBoneYaw = 'PlasmaGun01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -45,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 120,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 35,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Plasma Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomness = 0.35,
+            FiringTolerance = 0.1,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 120,
+			
+            Label = 'PlasmaGun',
+			
+            MaxRadius = 33,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+
+            ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'PlasmaGun02_Muzzle',
+                    },
+                    RackBone = 'PlasmaGun02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.0,		#-- 35 DPS Ground
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'PlasmaGun02_Muzzle',
+            TurretBonePitch = 'PlasmaGun02',
+            TurretBoneYaw = 'PlasmaGun02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -45,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+        },
+		
+		-- 4 x AA SAM launchers --
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Flayer_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 100,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flayer',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+            },
+			
+            FiringTolerance = 10,
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 120,
+			
+            Label = 'AAMissle',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 1.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AA_Turret01_Muzzle01',
+                        'AA_Turret01_Muzzle02',
+                        'AA_Turret01_Muzzle03',
+                        'AA_Turret01_Muzzle04',
+                    },
+                    RackBone = 'AA_Turret01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.25,		#-- 300 Damage every 4 is 75 DPS Air
+			
+            TargetCheckInterval = 2.5,
+			
+            TargetPriorities = {
+                'MOBILE,HIGHPRIAIR',
+                'MOBILE,ANTIAIR',
+				'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'AA_Turret01_Barrel01',
+            TurretBonePitch = 'AA_Turret01',
+            TurretBoneYaw = 'AA_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 120,
+            TurretPitchSpeed = 100,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Flayer_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 100,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flayer',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+            },
+            FiringTolerance = 10,
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 120,
+			
+            Label = 'AAMissle',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
+
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 1.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AA_Turret02_Muzzle01',
+                        'AA_Turret02_Muzzle02',
+                        'AA_Turret02_Muzzle03',
+                        'AA_Turret02_Muzzle04',
+                    },
+                    RackBone = 'AA_Turret02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.25,	-- 75 DPS
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'MOBILE,ANTIAIR',
+				'MOBILE',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+			
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'AA_Turret02_Barrel02',
+            TurretBonePitch = 'AA_Turret02',
+            TurretBoneYaw = 'AA_Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 120,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 180,
+			
+            Turreted = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Flayer_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 100,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flayer',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+            },
+			
+            FiringTolerance = 10,
+			
+            HeadingArcCenter = 270,
+            HeadingArcRange = 120,
+			
+            Label = 'AAMissle',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 1.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AA_Turret03_Muzzle01',
+                        'AA_Turret03_Muzzle02',
+                        'AA_Turret03_Muzzle03',
+                        'AA_Turret03_Muzzle04',
+                    },
+                    RackBone = 'AA_Turret03',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.25,		-- 75 DPS
+			
+            TargetCheckInterval = 2.5,
+			
+            TargetPriorities = {
+                'MOBILE,ANTIAIR',
+				'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'AA_Turret03_Barrel03',
+            TurretBonePitch = 'AA_Turret03',
+            TurretBoneYaw = 'AA_Turret03',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 120,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEA_Weapon',
+                    Cue = 'XEA0306_Flayer_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 100,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flayer',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+            },
+            FiringTolerance = 10,
+			
+            HeadingArcCenter = 270,
+            HeadingArcRange = 120,
+			
+            Label = 'AAMissle',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
+
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 1.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AA_Turret04_Muzzle01',
+                        'AA_Turret04_Muzzle02',
+                        'AA_Turret04_Muzzle03',
+                        'AA_Turret04_Muzzle04',
+                    },
+                    RackBone = 'AA_Turret04',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.25,		#-- 75 DPS Air
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'MOBILE,ANTIAIR',
+				'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+			
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'AA_Turret04_Barrel04',
+            TurretBonePitch = 'AA_Turret04',
+            TurretBoneYaw = 'AA_Turret04',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 120,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 825,
+            DamageFriendly = true,
+            DamageRadius = 4,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.8,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

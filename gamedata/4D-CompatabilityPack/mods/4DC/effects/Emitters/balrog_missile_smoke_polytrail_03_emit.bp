@@ -1,0 +1,22 @@
+-----------------------------------------------------------------------------  
+--  File     : /4DC/effects/Emitters/balrog_missile_smoke_polytrail_03_emit.bp 
+-- 
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
+-- 
+--  Summary  : Special Effects for use with the UEF Balrog
+-- 
+--  Copyright © 2010 4DC  All rights reserved.
+----------------------------------------------------------------------------- 
+
+TrailEmitterBlueprint {
+	BlueprintId = 'balrog_missile_smoke_polytrail_03_emit',
+	Lifetime = -9.00, 
+    TrailLength = 6,
+    Size = 0.24, 
+    SortOrder = 0.0,
+    BlendMode = 0, 
+    TextureRepeatRate = 0.15, 
+    LODCutoff = 150, 
+	RepeatTexture = [[/mods/4DC/textures/particles/trail_redorangeblack_03.dds]],
+	RampTexture = [[/mods/4DC/textures/particles/ramp_test_01.dds]],
+}

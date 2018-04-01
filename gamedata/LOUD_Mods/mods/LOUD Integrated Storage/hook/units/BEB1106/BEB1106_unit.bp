@@ -1,0 +1,8 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "beb1106",
+	
+    Adjacency = false,
+	
+
+}

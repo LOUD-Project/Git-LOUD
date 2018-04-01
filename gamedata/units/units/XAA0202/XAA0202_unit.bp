@@ -1,0 +1,319 @@
+UnitBlueprint {
+    AI = {
+		GuardRadius = 175,
+        GuardReturnRadius = 200,
+        GuardScanRadius = 175,
+    },
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 2,
+        BankForward = false,
+        BreakOffDistance = 10,
+        BreakOffTrigger = 15,
+        CanFly = true,
+		
+        CombatTurnSpeed = 1.5,
+		
+        EngageDistance = 50,
+		
+        KLift = 4.5,
+        KLiftDamping = 2.5,
+		
+        KMove = 1.1,
+        KMoveDamping = 1.1,
+		
+        KRoll = 2,
+        KRollDamping = 1,
+		
+        KTurn = 1.5,
+        KTurnDamping = 2,
+		
+        LiftFactor = 7,
+		
+        MaxAirspeed = 20,
+        MinAirspeed = 8,
+		
+        StartTurnDistance = 5,
+        TightTurnMultiplier = 1.03,
+        TurnSpeed = 1.5,
+        Winged = true,
+    },
+	
+    Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UAADestroy',
+            Cue = 'UAA_Destroy_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'UAADestroy',
+            Cue = 'UAA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XAA',
+            Cue = 'XAA0202_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 15,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH2',
+        'ANTIAIR',
+        'VISIBLETORECON',
+		'OVERLAYRADAR',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetY = 0,
+    CollisionOffsetZ = -0.2,
+	
+    Defense = {
+        AirThreatLevel = 18,
+        ArmorType = 'Light',
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 4,
+    },
+	
+    Description = 'Improved Fighter',
+	
+    Display = {
+        Abilities = {
+            'True Fighter',
+            'Radar',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 120,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                },
+                {
+                    AlbedoName = 'xaa0202_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Aeon',
+                    SpecularName = 'xaa0202_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXA0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.058,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 14000,
+        BuildCostMass = 250,
+        BuildTime = 1200,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+    General = {
+        Category = 'Fighter',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Swift Wind',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		RadarRadius = 50,
+        VisionRadius = 32,
+    },
+	
+    Interface = {
+        HelpText = 'Improved Fighter',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.55,
+    LifeBarSize = 1.1,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+        },
+        Elevation = 20,
+		
+        FuelRechargeRate = 12,
+        FuelUseTime = 270,
+		
+        GroundCollisionOffset = 1.6,
+        MaxSpeed = 0.5,
+        MeshExtentsX = 2,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 2,
+        MotionType = 'RULEUMT_Air',
+    },
+    SelectionSizeX = 0.75,
+    SelectionSizeZ = 1,
+    SelectionThickness = 0.37,
+	
+    SizeSphere = 1.3,
+	
+    SizeX = 1,
+    SizeY = 0.4,
+    SizeZ = 1,
+	
+    StrategicIconName = 'icon_fighter2_antiair',
+    StrategicIconSortPriority = 65,
+    Transport = {
+        AirClass = true,
+        TransportClass = 2,
+    },
+    Veteran = {
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
+    },
+    Weapon = {
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XAA_Weapon',
+                    Cue = 'XAA0202_Light_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 90,
+            DamageFriendly = false,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'AutoCannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land',
+                Land = 'Air|Land',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'AutoCannon1',
+			
+            MaxRadius = 35,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 65,
+			
+            ProjectileId = '/projectiles/AAALightDisplacementAutoCannonMissile01/AAALightDisplacementAutoCannonMissile01_proj.bp',
+            ProjectileLifetime = 0.6,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Muzzle',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		#-- 180 DPS Air
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 45,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Muzzle',
+            TurretBoneYaw = 'Muzzle',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 80,
+			
+            TurretYaw = 0,
+            TurretYawRange = 60,
+            TurretYawSpeed = 80,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 150,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+}

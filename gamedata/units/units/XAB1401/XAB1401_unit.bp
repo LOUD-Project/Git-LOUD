@@ -1,0 +1,334 @@
+UnitBlueprint {
+    Audio = {
+        Killed = Sound {
+            Bank = 'Explosions',
+            Cue = 'Aeon_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Resource',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 140,
+	
+    Categories = {
+        'SELECTABLE',
+		'BUILTBYTIER4COMMANDER',
+        'AEON',
+		'UEF',
+		'CYBRAN',
+		'SERAPHIM',
+        'STRUCTURE',
+        'ECONOMIC',
+        'EXPERIMENTAL',
+        'ENERGYPRODUCTION',
+        'MASSPRODUCTION',
+        'MASSFABRICATION',
+        'SIZE20',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SORTECONOMY',
+    },
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 3725,		# 10% Energy + 1000% Mass + 5% Health
+        Health = 14550,
+        MaxHealth = 14550,
+        RegenRate = 15,
+    },
+	
+    Description = 'Experimental Resource Generator',
+	
+    Display = {
+        Abilities = {
+            'Outrageously Volatile',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/units/xab1401/xab1401_ADeath.sca',
+                AnimationRateMax = 1,
+                AnimationRateMin = 1,
+                Weight = 1,
+            },
+        },
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.55,
+                OffsetY = 1.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.55,
+                OffsetY = 1.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0,
+                OffsetY = 1.75,
+                OffsetZ = 0.55,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0,
+                OffsetY = 1.75,
+                OffsetZ = -0.55,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.7,
+                OffsetY = 0.5,
+                OffsetZ = 0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.7,
+                OffsetY = 0.5,
+                OffsetZ = 0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.7,
+                OffsetY = 0.5,
+                OffsetZ = -0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.7,
+                OffsetY = 0.5,
+                OffsetZ = -0.5,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 160,
+                    ShaderName = 'Aeon',
+                },
+                {
+                    AlbedoName = 'xab1401_lod1_albedo.dds',
+                    LODCutoff = 370,
+                    ShaderName = 'Aeon',
+                    SpecularName = 'xab1401_lod1_specteam.dds',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
+                DeathLifetime = 10,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar12x_aeon_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = true,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 0.07,
+    },
+    Economy = {
+        BuildCostEnergy = 1828125,	#--4400000, #--7625000,
+        BuildCostMass = 145938,	#--110000, #--76250,
+        BuildTime = 150000,	#--109500, #--120000,
+#        MaxEnergy = 50000,
+#        MaxMass = 410,
+        NaturalProducer = true,
+        ProductionPerSecondEnergy = 15000,
+        ProductionPerSecondMass = 150,
+		StorageEnergy = 15000,	#--10000,
+		StorageMass = 1500,	#--2000,
+    },
+    Footprint = {
+        SizeX = 7,
+        SizeZ = 7,
+    },
+    General = {
+		CapCost = 50,
+        Category = 'Economy',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = false,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ProductionToggle = false,
+        },
+        UnitName = 'Paragon',
+        UnitWeight = 1,
+    },
+    Interface = {
+        HelpText = 'Experimental Resource Generator',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3.1,
+    LifeBarSize = 5.5,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+		MaxGroundVariation = 10,	-- allows it to be built on fairly uneven ground (ie. - Seabed)
+        MaxSteerForce = 0,
+        MeshExtentsX = 3,
+        MeshExtentsY = 3,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 10,
+        SkirtSizeZ = 10,
+        TurnRate = 0,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.09,
+    SelectionSizeX = 3.4,
+    SelectionSizeZ = 3.4,
+    SelectionThickness = 0.3,
+    SizeX = 4,
+    SizeY = 4,
+    SizeZ = 4,
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 240,
+    Weapon = {
+		{	#-- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
+            CollideFriendly = false,
+			
+            Damage = 0,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'DummyWeapon',
+			
+            MaxRadius = 100,
+			
+            RateOfFire = 0.1,
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            TargetCheckInterval = 6,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            WeaponCategory = 'Direct Fire',
+		},
+		
+		{	#-- this dummy weapon will give a range ring so players can determine proximity for their own paragons
+            CollideFriendly = false,
+			
+            Damage = 0,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'DummyWeapon',
+			
+            MaxRadius = 164,
+			
+            RateOfFire = 0.1,
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            TargetCheckInterval = 6,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            WeaponCategory = 'Direct Fire',
+		},
+        {
+            AboveWaterTargetsOnly = false,
+            CollideFriendly = false,
+			
+            Damage = 0,
+            DamageFriendly = true,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Death Weapon',
+			
+            FireOnDeath = true,
+			
+            FiringTolerance = 2,
+			
+            Label = 'DeathWeapon',
+			
+            MaxRadius = 1,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 0,
+			
+            NukeInnerRingDamage = 22500,	#--15000
+            NukeInnerRingRadius = 20,		#--20
+            NukeInnerRingTotalTime = 2,
+            NukeOuterRingDamage = 11250,	#-- 7500
+            NukeOuterRingRadius = 48,
+            NukeOuterRingTotalTime = 6,
+			
+            ProjectileId = '/projectiles/AIFQuantumWarhead02/AIFQuantumWarhead02_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        0,
+                    },
+                    RackBone = 0,
+                },
+            },
+            
+            RateOfFire = 1,
+            TargetCheckInterval = 9999999,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            Turreted = false,
+			
+            WeaponCategory = 'Death',
+        },
+    },
+}

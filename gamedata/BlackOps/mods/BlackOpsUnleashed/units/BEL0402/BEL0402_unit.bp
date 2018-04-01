@@ -1,0 +1,958 @@
+UnitBlueprint {
+	AI = {
+        TargetBones = { 'Torso' },
+        AssistHeartbeatInterval = 0.5, # def. 1, time in seconds between drone and carrier management heartbeats
+        DroneControlRange = 60, # def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
+        DroneReturnRange = 30, # def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
+        AirMonitorRange = 35, # def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed2 = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL0401_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0301_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0301_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Commander',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+		NukeExplosion = Sound {
+            Bank = 'Explosions',
+            Cue = 'UEF_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+		MissileFire = Sound {
+            Bank = 'UELWeapon',
+            Cue = 'UEL0111_Missile_Cruise',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+	
+	Buffs = {
+        Regen = {
+            Level1 = 75,
+            Level2 = 100,
+            Level3 = 125,
+            Level4 = 150,
+            Level5 = 200,
+        },
+    },
+	
+    BuildIconSortPriority = 130,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'UEF',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+        'MASSIVE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'DIRECTFIRE',
+        'PODSTAGINGPLATFORM',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+		'OVERLAYRADAR',
+    },
+	
+    CollisionOffsetZ = -0.25,
+	
+    Defense = {
+    	AirThreatLevel = 30,	-- due to drones --
+        ArmorType = 'Experimental',
+        Health = 100000,
+        MaxHealth = 100000,
+        RegenRate = 30,
+        SurfaceThreatLevel = 560,
+    },
+	
+    Description = 'Goliath II Assault Bot',
+	
+    Display = {
+	
+   		 Abilities = {
+            'Amphibious',
+			'Beam Weapon, Dual Flamers, Tactical Missiles',
+            'Radar, AA Drones, Tactical Missile Defense',
+            'Very Volatile',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_ADeath01.sca',
+                AnimationRateMax = 0.35,
+                AnimationRateMin = 0.35,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_AWalk.sca',
+        AnimationActivate = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_AActivate.sca',
+        AnimationWalkRate = 0.9,
+		
+        IdleEffects = {
+            Seabed = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Right_Arm_Yaw',
+                            'Left_Arm_Yaw',
+                        },
+                        Type = 'UnderWater01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 300,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'L_FootFall',
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 2.1,
+                                TreadMarksSizeZ = 2.1,
+                                TreadOffset = {
+                                    -0.8,
+                                    0,
+                                    -1,
+                                },
+                            },
+                        },
+                        {
+                            FootBone = 'R_FootFall',
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 2.1,
+                                TreadMarksSizeZ = 2.1,
+                                TreadOffset = {
+                                    0.8,
+                                    0,
+                                    -1,
+                                },
+                            },
+                        },
+                    },
+                    Damage = {
+                        Amount = 2500,
+                        DamageFriendly = false,
+                        Radius = 3,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.18,
+    },
+	
+    DroneData = {
+        Drone1 = {
+            Attachpoint = 'AttachSpecial01',
+            UnitID = 'BEA0006',
+        },
+		Drone2 = {
+            Attachpoint = 'AttachSpecial02',
+            UnitID = 'BEA0006',
+        },
+		Drone3 = {
+            Attachpoint = 'AttachSpecial03',
+            UnitID = 'BEA0006',
+        },
+    }, 
+	
+	Economy = {
+        BuildCostEnergy = 1200000,
+        BuildCostMass = 41500,
+        BuildTime = 20000,
+		
+		BuildRate = 15, -- for replacing drones
+    },
+	
+    General = {
+		CapCost = 6,
+        Category = 'Exerimental',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Secret',
+		UnitName = 'Goliath MK.2',
+        UnitWeight = 4,
+		
+        ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+            RULEUTC_WeaponToggle = true,
+        },
+		
+        OrderOverrides = {
+		
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'dock',
+                helpText = 'drone_recal',
+            },
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'area-assist',
+                helpText = 'drone_assist',
+            },
+        }, 
+    },
+	
+    Intel = {
+        RadarRadius = 110,
+        VisionRadius = 42,
+		WaterVisionRadius = 22,
+    },
+	
+    Interface = {
+        HelpText = 'Goliath II Assault Bot',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.5,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        LayerChangeOffsetHeight = -0.85,
+		
+        MaxAcceleration = 2.4,
+        MaxBrake = 2.4,
+        MaxSpeed = 2.4,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 12,
+        MeshExtentsX = 4.7,
+        MeshExtentsY = 4,
+        MeshExtentsZ = 5.2,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        StandUpright = true,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -2,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+        TurnRadius = 5,
+        TurnRate = 26,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.1,
+    SelectionSizeX = 3,
+    SelectionSizeZ = 3,
+    SelectionThickness = 0.3,
+    SelectionYOffset = 0,
+	
+    SizeX = 2.5,
+    SizeY = 5.5,
+    SizeZ = 2.4    ,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+	
+    Transport = {
+        CanFireFromTransport = false,
+        ClassSAttachSize = 0,
+        TransportClass = 4,
+    },
+	
+    Veteran = {
+        Level1 = 75,
+        Level2 = 150,
+        Level3 = 225,
+        Level4 = 300,
+        Level5 = 375,
+    },
+	
+    Weapon = {
+		
+		#	Tactical Missiles
+		
+        {
+			AboveWaterFireOnly = false,
+            AboveWaterTargetsOnly = true,
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 1200,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Goliath Missiles',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomness = 5,
+            FiringTolerance = 180,
+			
+            Label = 'MissileWeapon',
+			
+            MaxRadius = 128,
+	        MinRadius = 12,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 1,
+            MuzzleSalvoSize = 8,
+            MuzzleVelocity = 3,
+			
+			NotExclusive = true,
+			
+			ProjectileId = '/projectiles/TIFMissileCruise05/TIFMissileCruise05_proj.bp',
+            ProjectileLifetime = 20,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Missile_Muzzle_1',
+						'Missile_Muzzle_2',
+						'Missile_Muzzle_3',
+						'Missile_Muzzle_4',
+						'Missile_Muzzle_5',
+						'Missile_Muzzle_6',
+						'Missile_Muzzle_7',
+						'Missile_Muzzle_8',
+                    },
+                    RackBone = 'Torso',
+               },
+            },
+			RackFireTogether = true,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.1,	#-- 8 times 1000 = 8000 Damage every 10 seconds = 800 DPS
+            RenderFireClock = true,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'DEFENSE',
+                'MOBILE',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            Turreted = false,
+			
+			WeaponRepackTimeout = 2,
+            WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_Missile_Unpack.sca',
+            WeaponUnpackAnimationRate = 1,
+            WeaponUnpacks = true,
+        },
+
+		#-- Shoulder Beam Cannon
+		
+		{
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+			AimsStraightOnDisable = true,
+			
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                MuzzleChargeStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0,
+			ContinuousBeam = true,
+			
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Plasma Cannon',
+			
+            DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',	
+            },
+			
+            FireTargetLayerCapsTable = { 
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'Laser',
+			
+            MaxRadius = 56,
+			MinRadius = 12,
+			
+            MuzzleChargeDelay = 1.6,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NeedPrep = true,
+			NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Beam_Muzzle',
+                    },
+                    RackBone = 'Beam_Muzzle',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			ReTargetOnMiss = true,
+			
+            --SlavedToBody = false,
+			--SlavedToBodyArcRange = 35,
+			
+            RateOfFire = 1,	#-- 300 every tick = 3000 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            }, 
+			TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE', 
+            TrackingRadius = 1.2,
+			
+            TurretBoneDualMuzzle = 'Beam_Muzzle',
+            TurretBoneDualPitch = 'Beam_Pitch',
+			
+            TurretBoneMuzzle = 'Beam_Muzzle',
+            TurretBonePitch = 'Beam_Pitch',
+	
+            TurretBoneYaw = 'Beam_Turret',
+			
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = -60,
+            TurretYawRange = 120,
+            TurretYawSpeed = 20,
+			
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,
+
+            WeaponRepackTimeout = 1,
+            WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_Beam_Unpack.sca',
+            WeaponUnpackAnimationRate = 1,
+            WeaponUnpacks = true,
+        },
+
+		-- left arm flamers --
+		
+        {
+			AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UESWeapon',
+                    Cue = 'UES0201_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 60,
+            DamageRadius = 2.5,
+            DoTPulses = 5,	-- 300 Damage per shell ( 5 * 60 )
+            DoTTime = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flamers',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            FiringRandomness = 1.5,
+			
+            Label = 'Flamer',
+			
+            MaxRadius = 36,
+			MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 20,
+			
+            NoPause = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NapalmProjectile01/Napalm01_proj.bp',
+            ProjectileLifetime = 2,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Arm_Muzzle',
+                    },
+                    RackBone = 'Left_Arm_Pitch',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 3,		#-- 900 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Left_Arm_Muzzle',
+            TurretBonePitch = 'Left_Arm_Pitch',
+			
+            TurretBoneYaw = 'Left_Arm_Yaw',
+			
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 45,
+            TurretYawRange = 70,
+            TurretYawSpeed = 35,
+			
+            Turreted = true,
+        },
+		
+		-- right arm flamer --
+		
+        {
+			AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UESWeapon',
+                    Cue = 'UES0201_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 60,
+            DamageRadius = 2.5,
+            DoTPulses = 5,	-- 300 Damage per shell ( 5 * 60 )
+            DoTTime = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flamers',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            FiringRandomness = 1.5,
+			
+            Label = 'Flamer',
+			
+            MaxRadius = 36,
+			MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 20,
+			
+            NoPause = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NapalmProjectile01/Napalm01_proj.bp',
+            ProjectileLifetime = 2,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_Arm_Muzzle',
+                    },
+                    RackBone = 'Right_Arm_Pitch',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 3,		#-- 900 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Right_Arm_Muzzle',
+            TurretBonePitch = 'Right_Arm_Pitch',
+			
+            TurretBoneYaw = 'Right_Arm_Yaw',
+			
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = -45,
+            TurretYawRange = 70,
+            TurretYawSpeed = 35,
+			
+            Turreted = true,
+        },
+		
+		-- TMD --
+		
+		{
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB4201_Phalanx_01',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Phalanx Anti Missile',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+				Seabed = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'TMDTurret',
+			
+            MaxRadius = 40,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 5,
+            MuzzleVelocity = 75,
+			
+			ProjectileId = '/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 0.6,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'TMD_Muzzle_Recoil',
+                    },
+                    RackBone = 'TMD_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 1.1,
+            TargetCheckInterval = 0.5,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.5,
+			
+            TurretBoneMuzzle = 'TMD_Muzzle_Recoil',
+            TurretBonePitch = 'TMD_Barrel',
+            TurretBoneYaw = 'TMD_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 120,
+			
+            Turreted = true,
+        },
+		
+		-- Goliath Audio Effect --
+
+		{
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 0.01,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Head weapon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomness = 0.4,
+            FiringTolerance = 0.1,
+			
+            Label = 'HeadWeapon',
+			
+            MaxRadius = 35,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+			
+            NoPause = true,
+			NotExclusive = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MGHeadshot01/MGHeadshot01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Head',
+                    },
+                    RackBone = 'Head',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
+            RackSalvoReloadTime = 1,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.08,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Head',
+            TurretBonePitch = 'Head',
+            TurretBoneYaw = 'Head',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 70,
+			
+            TurretYaw = 0,
+            TurretYawRange = 40,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+		
+		-- Death Explosion --
+		
+        {
+            AboveWaterTargetsOnly = true,
+            CollideFriendly = false,
+            Damage = 16500,
+            DamageFriendly = true,
+            DamageRadius = 18,
+            DamageType = 'Normal',
+            DisplayName = 'Death Nuke',
+            FireOnDeath = false,
+            FiringTolerance = 2,
+			
+            Label = 'GoliathDeathNuck',
+			
+            MaxRadius = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 0,
+			
+            NukeInnerRingDamage = 15000,
+            NukeInnerRingRadius = 15,
+            NukeInnerRingTicks = 3,
+            NukeInnerRingTotalTime = 0,
+			
+            NukeOuterRingDamage = 650,
+            NukeOuterRingRadius = 28,
+            NukeOuterRingTicks = 3,
+            NukeOuterRingTotalTime = 1,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasiliskNuke01/BasiliskNuke01_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        0,
+                    },
+                    RackBone = 0,
+                },
+            },
+            
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 9999999,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            Turreted = false,
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.2,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

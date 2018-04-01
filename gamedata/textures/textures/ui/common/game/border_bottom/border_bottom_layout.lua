@@ -1,0 +1,15 @@
+layout = {
+	['back_brd_br'] = {left = 972, top = 506, width = 48, height = 48, },
+	['back_brd_b-os'] = {left = 502, top = 544, width = 4, height = 12, },
+	['back_brd_bl02'] = {left = 4, top = 458, width = 492, height = 96, },
+	['back_brd_bl'] = {left = 4, top = 506, width = 48, height = 48, },
+	['back_brd_r-os'] = {left = 1012, top = 289, width = 8, height = 4, },
+	['back_brd_l-os'] = {left = 4, top = 289, width = 8, height = 4, },
+	['back_brd_tr'] = {left = 972, top = 44, width = 48, height = 48, },
+	['back_brd_t-os'] = {left = 502, top = 44, width = 4, height = 8, },
+	['back_brd_tl'] = {left = 4, top = 44, width = 48, height = 48, },
+	['back_brd_b'] = {left = 502, top = 553, width = 4, height = 216, },
+	['back_brd_r'] = {left = 1020, top = 289, width = 4, height = 4, },
+	['back_brd_l'] = {left = 0, top = 289, width = 4, height = 4, },
+	['back_brd_t'] = {left = 502, top = 0, width = 4, height = 44, },
+}

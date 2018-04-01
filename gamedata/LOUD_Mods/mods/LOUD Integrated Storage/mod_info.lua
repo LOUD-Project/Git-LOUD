@@ -1,0 +1,17 @@
+name = "LOUD Integrated Storage"
+uid = "ffffffff-6e98-4864-9599-4133236eea7a"
+version = 1.1
+copyright = "None"
+description = "Integrates storage & adjacency upgrades into resource units as upgrades.  Eliminates standard storage buildings (mass & energy), reducing unit count & increasing game performance."
+author = "H Katzmarek -- Sprouto"
+url = ""
+icon = "/mods/LOUD.bmp"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+requires = { }
+requiresNames = { }
+conflicts = { }
+before = { }
+after = { }

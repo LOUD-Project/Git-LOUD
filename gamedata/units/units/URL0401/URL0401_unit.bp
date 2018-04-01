@@ -1,0 +1,343 @@
+UnitBlueprint {
+    AI = {
+        GuardScanRadius = 30,
+		GuardReturnRadius = 35,
+#        NeedUnpack = true,
+        TargetBones = {
+            'URL0401',
+            'Turret_Aim',
+        },
+    },
+	
+    Audio = {
+        Activate = Sound {
+            Bank = 'URL',
+            Cue = 'URL0401_Close',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Close = Sound {
+            Bank = 'URL',
+            Cue = 'URL0401_Close',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+		EnemyUnitDetectedAeon = Sound {
+			Bank = 'XGG',
+			Cue = 'XGG_HQ_GD1_04184',
+		},
+		EnemyUnitDetectedUEF = Sound {
+			Bank = 'XGG',
+			Cue = 'XGG_HQ_GD1_04184',
+		},
+		EnemyUnitDetectedCybran = Sound {
+			Bank = 'XGG',
+			Cue = 'XGG_HQ_GD1_04184',
+		},
+        Open = Sound {
+            Bank = 'URL',
+            Cue = 'URL0401_Open_Center',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0401_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+	
+    BuildIconSortPriority = 195,
+	
+    Categories = {
+        'SELECTABLE',
+		'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'EXPERIMENTAL',
+        'ARTILLERY',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+        'DRAGBUILD',
+    },
+	
+    Defense = {
+        ArmorType = 'Experimental',
+        EconomyThreatLevel = 250,
+        Health = 17500,
+        MaxHealth = 17500,
+        RegenRate = 10,
+        SurfaceThreatLevel = 390,
+    },
+	
+    Description = 'Experimental Mobile Rapid-Fire Artillery',
+	
+    Display = {
+        Abilities = {
+            'Must Deploy to fire',
+        },
+        AnimationOpen = '/units/URL0401/URL0401_aopen.sca',
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 175,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'url0401_lod1_albedo.dds',
+                    LODCutoff = 550,
+                    ShaderName = 'Insect',
+                    SpecularName = 'url0401_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0003',
+        SpawnRandomRotation = true,
+        UniformScale = 0.1,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 5994000,
+        BuildCostMass = 299700,
+        BuildTime = 99900,
+    },
+	
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+	
+    General = {
+		CapCost = 8,
+        Category = 'Indirect Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Scathis',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 26,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Mobile Rapid-Fire Artillery',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3.7,
+    LifeBarSize = 6,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        LayerChangeOffsetHeight = -1,
+        MaxAcceleration = 2,
+        MaxBrake = 2,
+        MaxSpeed = 2.5,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = true,
+        RotateOnSpotThreshold = 0.5,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRadius = 2,
+        TurnRate = 40,
+    },
+	
+    SelectionSizeX = 4,
+    SelectionSizeZ = 5,
+    SelectionThickness = 0.36,
+	
+    SizeX = 6,
+    SizeY = 2,
+    SizeZ = 7,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+	
+    Transport = {
+        TransportClass = 10,
+    },
+	
+    Veteran = {
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0401_Artillery_Proton',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
+            CollideFriendly = false,
+			
+            Damage = 2600,
+            DamageFriendly = true,
+            DamageRadius = 6,
+			
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Artillery',
+			
+            EnergyDrainPerSecond = 2000,
+            EnergyRequired = 2000,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+
+            FiringRandomness = 0.3,
+            FiringTolerance = 0,
+			
+            Label = 'Gun01',
+			
+            LeadTarget = true,
+			
+            MaxRadius = 3200,
+            MinRadius = 150,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 160,
+            MuzzleVelocityReduceDistance = 3000,
+			
+            ProjectileId = '/projectiles/CIFArtilleryProton01/CIFArtilleryProton01_proj.bp',
+            ProjectileLifetime = 100,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Aim_Barrel_Muzzle',
+                    },
+                    RackBone = 'Turret_Aim_Barrel',
+                },
+            },
+			
+            RackFireTogether = false,
+            RackRecoilDistance = -20,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.5,		#-- 1300 DPS
+			
+			RenderFireClock = true,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI -AIR',
+                'EXPERIMENTAL ECONOMIC',
+                'EXPERIMENTAL SHIELD STRUCTURE',
+                'EXPERIMENTAL ARTILLERY',
+				'TECH3 STRUCTURE ANTIMISSILE SILO',
+                'TECH3 ARTILLERY',
+                'TECH3 STRUCTURE ECONOMIC',
+                'SPECIALHIGHPRI',
+                'STRUCTURE -WALL',
+                'ALLUNITS -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Turret_Aim_Barrel_Muzzle',
+            TurretBonePitch = 'Turret_Aim_Barrel',
+            TurretBoneYaw = 'Turret_Aim',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,
+
+            WeaponRepackTimeout = 3,
+            WeaponUnpackAnimation = '/units/URL0401/URL0401_aopen.sca',
+            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackAnimatorPrecedence = 0,
+            WeaponUnpackLocksMotion = true,
+            WeaponUnpackTimeout = 15,
+            WeaponUnpacks = true,
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.8,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

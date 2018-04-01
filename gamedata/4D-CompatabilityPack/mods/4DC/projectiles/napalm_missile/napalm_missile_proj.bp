@@ -1,0 +1,85 @@
+-----------------------------------------------------------------------------
+--  File     : /mods/4DC/projectiles/napalm_missile/napalm_missile_proj.bp
+--
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
+--
+--  Special Thanks to : Exavier_Macbeth
+--
+--  Summary  : Terran Napalm Missile
+--
+--  Copyright © 2010 4DC  All rights reserved.
+-----------------------------------------------------------------------------
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Explosion_Bomb',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Explosions',
+            Cue = 'Explosion_Bomb',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'INDIRECTFIRE',
+        'MISSILE',
+        'PROJECTILE',           
+        'TACTICAL', 
+        'UEF', 
+    },
+    Defense = {
+        Health = 0.5,
+        MaxHealth = 0.5,
+    },    
+    DesiredShooterCap = 1,   
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium02',
+        },
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/mods/4DC/projectiles/napalm_missile/napalm_missile_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/mods/4DC/projectiles/napalm_missile/napalm_missile_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 1,
+        UniformScale = 0.15,
+    },
+    General = {
+        Category = 'Missile',
+        Faction = 'UEF',
+        Weapon = 'Napalm Missile',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 2.5,
+        AccelerationRange = 0,
+        DestroyOnWater = true,
+        InitialSpeed = 5,
+        InitialSpeedRange = 0,
+        LeadTarget = true,
+        Lifetime = 10,
+        MaxSpeed = 10,
+        ProjectileLifetime = 10,
+        RotationalVelocity = 500,
+        RotationalVelocityRange = 0,
+        TrackTarget = true,
+        TrackTargetGround = false,        
+        TurnRate = 0,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

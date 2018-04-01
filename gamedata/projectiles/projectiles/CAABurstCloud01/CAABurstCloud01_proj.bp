@@ -1,0 +1,39 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'CYBRAN',
+        'PROJECTILE',
+        'ANTIAIR',
+    },
+    Display = {
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = 'Anti Air',
+        EntityCategory = {
+            'CYBRAN',
+            'PROJECTILE',
+            'ANTIAIR',
+        },
+        Faction = 'Cybran',
+        TechLevel = 2,
+        Weapon = 'Electron Flak',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        DetonateAboveHeight = 10,
+        InitialSpeed = 20,
+        Lifetime = 5,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

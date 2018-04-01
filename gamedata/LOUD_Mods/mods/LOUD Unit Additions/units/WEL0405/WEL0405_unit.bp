@@ -1,0 +1,943 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'UUX0111_RightHip',
+            'UUX0111_LeftHip',
+            'UUX0111_Head',
+        },
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGeneric = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Footfall',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGenericSeabed = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_UW_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 30,
+            Level2 = 60,
+            Level3 = 90,
+            Level4 = 120,
+            Level5 = 150,
+        },
+    },
+	
+	BuffFields = {
+		RegenField = 'AeonMaelstromBuffField2',
+	},
+
+    BuildIconSortPriority = 190,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'AEON',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+        'DIRECTFIRE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+		'OVERLAYRADAR',
+        'OVERLAYOMNI',
+    },
+	
+    Defense = {
+		AirThreatLevel = 80,
+        ArmorType = 'Experimental',
+        Health = 142000,
+        MaxHealth = 142000,
+        RegenRate = 38,
+        SurfaceThreatLevel = 650,
+    },
+	
+    Description = 'Experimental Assault Bot',
+	
+    Display = {
+        Abilities = {
+            'Wave Cannons',
+			'Missile Barrage',
+			'Anti Air',
+			'Emits Miasma field (50 DPS - Range 36)',
+			'Omni Radar',
+		},	
+        AnimationDeath = {
+            {
+                Animation = '/units/WEL0405/WEL0405_Adeath01.sca',
+                AnimationRateMax = 0.5,
+                AnimationRateMin = 0.25,
+                Weight = 100,
+            },
+        },
+		
+        AnimationIdle = '/units/WEL0405/WEL0405_AIdle01.sca',
+        AnimationWalk = '/units/WEL0405/WEL0405_AWalk01.sca',
+		
+		AnimationWalkRate = 0.88,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'WEL0405_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'WEL0405_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'UUX0111_RightToe',
+                            HipBone = 'UUX0111_RightHip',
+                            KneeBone = 'UUX0111_RightKnee',
+                            Type = 'FootFall01',
+							StraightLegs = false,
+                        },
+                        {
+                            FootBone = 'UUX0111_LeftToe',
+                            HipBone = 'UUX0111_LeftHip',
+                            KneeBone = 'UUX0111_LeftKnee',
+                            Type = 'FootFall01',
+							StraightLegs = false,
+                        },
+                    },
+                    CameraShake = {
+                        Interval = 1,
+                        MaxShakeEpicenter = 0.125,
+                        MinShakeAtRadius = 0,
+                        Radius = 10,
+                    },
+                    Damage = {
+                        Amount = 3000,
+                        DamageFriendly = false,
+                        Radius = 2,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+            Seabed = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'UUX0111_RightToe',
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UUX0111_LeftToe',
+                            Type = 'FootFall01',
+                        },
+                    },
+                    Damage = {
+                        Amount = 3000,
+                        DamageFriendly = false,
+                        Radius = 2,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        UniformScale = 0.042,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1200000,
+        BuildCostMass = 62000,
+        BuildTime = 20500,
+    },
+	
+    General = {
+		CapCost = 7,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'amph',
+		
+		OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'Toggle Maelstrom Field',
+            },
+        },
+		
+        TechLevel = 'RULEUTL_Secret',
+		
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+
+        UnitName = 'King Kriptor',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		CloakFieldRadius = 40,	-- this is for the Maelstrom field - not cloaking
+		OmniRadius = 44,
+		RadarRadius = 110,
+        VisionRadius = 44,
+        WaterVisionRadius = 35,
+    },
+	
+    LifeBarHeight = 0.32,
+    LifeBarOffset = 2.55,
+    LifeBarSize = 6,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+        },
+        LayerChangeOffsetHeight = -3.25,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2.3,
+        MaxSpeed = 2.3,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+        MeshExtentsX = 2.5,
+        MeshExtentsY = 6.25,
+        MeshExtentsZ = 2.6,
+        MotionType = 'RULEUMT_Amphibious',
+        RotateOnSpot = false,
+        StandUpright = true,
+        TurnRate = 40,
+		WaterSpeedMultiplier = 1.1,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.3,
+    SelectionSizeX = 3.5,
+    SelectionSizeZ = 3,
+    SelectionThickness = 0.5,
+	
+    SizeX = 4.5,
+    SizeY = 6.75,
+    SizeZ = 3.6,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+	
+    Veteran = {
+        Level1 = 60,
+        Level2 = 120,
+        Level3 = 180,
+        Level4 = 240,
+        Level5 = 300,
+    },
+	
+    Weapon = {
+	
+		-- RIGHT ARM GUN --
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = false,
+			Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2302_Artillery_Sonance',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },			
+                MuzzleChargeStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2302_Artillery_Son_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 3000,
+            DamageFriendly = true,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Wave Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 5,
+		
+            Label = 'RightMainWeapon',
+			
+            MaxRadius = 85,
+			
+            MuzzleChargeDelay = 2,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
+            ProjectileLifetime = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_T01_B01_Muzzle01',
+                    },
+                    RackBone = 'UUX0111_T01_Barrel01',
+                    TelescopeBone = 'UUX0111_T01_B01_Recoil01',
+                    TelescopeRecoilDistance = -7,
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		-- 1500 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'LAND MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'UUX0111_T01_Barrel01',
+            TurretBonePitch = 'UUX0111_T01_Barrel01',
+            TurretBoneYaw = 'UUX0111_T01_Barrel01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 15,
+			
+            TurretYaw = -55,
+            TurretYawRange = 76,
+            TurretYawSpeed = 18,
+			
+            Turreted = true,
+        },
+		
+		-- LEFT ARM GUN --
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = false,
+			Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2302_Artillery_Sonance',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },			
+                MuzzleChargeStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2302_Artillery_Son_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 3000,
+            DamageFriendly = true,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Wave Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 5,
+			
+            Label = 'LeftMainWeapon',
+			
+            MaxRadius = 85,
+			
+            MuzzleChargeDelay = 2,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
+            ProjectileLifetime = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_T01_B02_Muzzle01',
+                    },
+                    RackBone = 'UUX0111_T01_Barrel02',
+                    TelescopeBone = 'UUX0111_T01_B02_Recoil01',
+                    TelescopeRecoilDistance = -7,
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+
+            RateOfFire = 0.5,	-- 1500 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'UUX0111_T01_Barrel02',
+            TurretBonePitch = 'UUX0111_T01_Barrel02',
+            TurretBoneYaw = 'UUX0111_T01_Barrel02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 55,
+            TurretYawRange = 76,
+            TurretYawSpeed = 18,
+			
+            Turreted = true,
+        },
+		
+		-- TURRETS -- 1 of 3 turrets
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0401_Cannon_Exp_Lrg',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+			AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 1.5,
+			
+            FiringTolerance = 1,
+			
+            Label = 'Turret',
+			
+            MaxRadius = 55,
+			MinRadius = 10,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/UHeavyGauss04/UHeavyGauss04_proj.bp',
+            ProjectileLifetime = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_T02_B01_Muzzle02',
+                        'UUX0111_T02_B01_Muzzle01',
+                        'UUX0111_T02_B01_Muzzle03',
+                    },
+                    RackBone = 'UUX0111_T02_Barrel01',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.3,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 900 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'LAND MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'UUX0111_T02_B01_Muzzle01',
+            TurretBonePitch = 'UUX0111_T02_Barrel01',
+            TurretBoneYaw = 'UUX0111_Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 0,
+            TurretYawRange = 60,
+            TurretYawSpeed = 22,
+			
+            Turreted = true,
+        },
+		
+		-- RIGHT SHOULDER TURRET --
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0401_Cannon_Exp_Lrg',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Gauss Cannon',
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 1.5,
+			
+            FiringTolerance = 1,
+			
+            Label = 'Turret',
+			
+            MaxRadius = 55,
+			MinRadius = 10,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/UHeavyGauss04/UHeavyGauss04_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_T03_B01_Muzzle02',
+                        'UUX0111_T03_B01_Muzzle01',
+                        'UUX0111_T03_B01_Muzzle03',
+                    },
+                    RackBone = 'UUX0111_T03_Barrel01',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.3,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 900 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'LAND MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'UUX0111_T03_B01_Muzzle01',
+            TurretBonePitch = 'UUX0111_T03_Barrel01',
+            TurretBoneYaw = 'UUX0111_Turret03',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = -70,
+            TurretYawRange = 110,
+            TurretYawSpeed = 25,
+			
+            Turreted = true,
+        },
+		
+		-- LEFT SHOULDER TURRET
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0401_Cannon_Exp_Lrg',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 1.5,
+			
+            FiringTolerance = 1,
+			
+            Label = 'Turret',
+			
+            MaxRadius = 55,
+			MinRadius = 10,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/UHeavyGauss04/UHeavyGauss04_proj.bp',
+            ProjectileLifetime = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_T04_B01_Muzzle02',
+                        'UUX0111_T04_B01_Muzzle01',
+                        'UUX0111_T04_B01_Muzzle03',
+                    },
+                    RackBone = 'UUX0111_T04_Barrel01',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.3,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 900 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+            TurretBoneMuzzle = 'UUX0111_T04_B01_Muzzle01',
+            TurretBonePitch = 'UUX0111_T04_Barrel01',
+            TurretBoneYaw = 'UUX0111_Turret04',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 70,
+            TurretYawRange = 110,
+            TurretYawSpeed = 25,
+			
+            Turreted = true,
+        },
+		
+		-- Tactical Missile Barrage --
+		
+		{
+            AboveWaterFireOnly = true,		
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0111_Missile_Serpent',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 1000,
+			DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Serpentine Missiles',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 60,
+			
+            Label = 'TacticalMissile',
+			
+            MaxRadius = 128,
+            MinRadius = 18,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 16,
+            MuzzleVelocity = 4,
+			
+			NeedPrep = true,
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AIFMissileSerpentine01/AIFMissileSerpentine01_proj.bp',
+            ProjectileLifetime = 25,
+			
+            RackBones = {
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {
+                        'UUX0111_RightMissile_Muzzle01',
+                        'UUX0111_LeftMissile_Muzzle01',						
+                        'UUX0111_RightMissile_Muzzle02',
+                        'UUX0111_LeftMissile_Muzzle02',
+                        'UUX0111_RightMissile_Muzzle03',
+                        'UUX0111_LeftMissile_Muzzle03',						
+                        'UUX0111_RightMissile_Muzzle04',
+                        'UUX0111_LeftMissile_Muzzle04',
+                        'UUX0111_RightMissile_Muzzle05',
+                        'UUX0111_LeftMissile_Muzzle05',
+                        'UUX0111_RightMissile_Muzzle06',
+                        'UUX0111_LeftMissile_Muzzle06',
+                        'UUX0111_RightMissile_Muzzle07',
+                        'UUX0111_LeftMissile_Muzzle07',
+                        'UUX0111_RightMissile_Muzzle08',
+                        'UUX0111_LeftMissile_Muzzle08',
+                    },
+                    RackBone = 'UUX0111_RightMissileTop',
+                },
+            },
+			
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.05,	-- 16 missiles * 1000 = 16000 every 20 seconds = 800 DPS
+			RenderFireClock = true,
+			
+            SlavedToBody = false,
+			
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE DEFENSE',
+				'EXPERIMENTAL',
+                'MOBILE',
+                'ALLUNITS -WALL',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.1,
+			
+            Turreted = false,
+        },
+		
+		-- Short range AA missiles -- 
+		
+        {
+            AboveWaterFireOnly = true,		
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2304_SAM',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 200,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'AA Missiles',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 10,
+			
+            Label = 'AntiAirMissiles',
+			
+            MaxRadius = 50,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 8,
+            MuzzleVelocity = 20,
+			
+            ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+            ProjectileLifetime = 4.0,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UUX0111_Crown_Muzzle01',
+                        'UUX0111_Crown_Muzzle02',
+                        'UUX0111_Crown_Muzzle03',
+                        'UUX0111_Crown_Muzzle04',					
+                        'UUX0111_Crown_Muzzle05',
+                        'UUX0111_Crown_Muzzle06',
+                        'UUX0111_Crown_Muzzle07',
+                        'UUX0111_Crown_Muzzle08',						
+                    },
+                    RackBone = 'UUX0111_Crown',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.5,		-- 800 DPS Air
+			
+            TargetCheckInterval = 1.0,
+			
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+
+            Turreted = false,
+        },
+		
+        {
+            Damage = 6500,
+            DamageFriendly = true,
+            DamageRadius = 8,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+        },
+		
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Seabed = true,
+        },
+    },
+}

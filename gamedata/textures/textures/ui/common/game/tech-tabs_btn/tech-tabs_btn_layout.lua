@@ -1,0 +1,17 @@
+layout = {
+	['upgrade-icon_bmp'] = {left = 5, top = 0, width = 64, height = 44, },
+	['experimental_icon_bmp'] = {left = 13, top = 3, width = 55, height = 38, },
+	['tech-level-3_icon_bmp'] = {left = 13, top = 9, width = 58, height = 32, },
+	['tech-level-2_icon_bmp'] = {left = 25, top = 9, width = 47, height = 32, },
+	['tech-level-1_icon_bmp'] = {left = 13, top = 9, width = 58, height = 32, },
+	['tech-tab02_btn_selected'] = {left = 2, top = 2, width = 69, height = 41, },
+	['tech-tab02_btn_down'] = {left = 8, top = 6, width = 51, height = 32, },
+	['tech-tab02_btn_over'] = {left = 9, top = 7, width = 49, height = 30, },
+	['tech-tab02_btn_up'] = {left = 2, top = 2, width = 68, height = 37, },
+	['tech-tab02_btn_dis'] = {left = 9, top = 7, width = 49, height = 30, },
+	['tech-tab_btn_selected'] = {left = 0, top = 2, width = 71, height = 41, },
+	['tech-tab_btn_down'] = {left = 0, top = 3, width = 70, height = 35, },
+	['tech-tab_btn_over'] = {left = 0, top = 4, width = 69, height = 33, },
+	['tech-tab_btn_up'] = {left = 0, top = 2, width = 70, height = 37, },
+	['tech-tab_btn_dis'] = {left = 0, top = 4, width = 69, height = 33, },
+}

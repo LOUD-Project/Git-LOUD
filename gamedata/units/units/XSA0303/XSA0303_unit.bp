@@ -1,0 +1,282 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 150,
+        GuardScanRadius = 125,
+		GuardRadius = 125,
+    },
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 5,
+        BankForward = false,
+        BreakOffDistance = 15,
+        BreakOffTrigger = 20,
+        CanFly = true,
+        CombatTurnSpeed = 1.9,
+        EngageDistance = 50,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
+        KRoll = 1.5,
+        KRollDamping = 1,
+		
+        KTurn = 1.5,
+        KTurnDamping = 2.3,
+		
+        LiftFactor = 9,
+		
+        MaxAirspeed = 24,
+        MinAirspeed = 8,
+		
+        StartTurnDistance = 5,
+        TightTurnMultiplier = 1.03,
+        TurnSpeed = 1.9,
+        Winged = true,
+    },
+    Audio = {
+        Killed = Sound {
+            Bank = 'XSA_Destroy',
+            Cue = 'XSA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 30,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH3',
+        'ANTIAIR',
+        'VISIBLETORECON',
+		'OVERLAYRADAR',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetZ = 0.4,
+	
+    Defense = {
+        AirThreatLevel = 40,
+        ArmorType = 'Light',
+        Health = 2100,
+        MaxHealth = 2100,
+        RegenRate = 8,
+    },
+	
+    Description = 'Air-Superiority Fighter',
+    Display = {
+        Abilities = {
+            'Anti-Air',
+			'Radar',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 160,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'xsa0303_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'xsa0303_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXA0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.17,
+    },
+    Economy = {
+        BuildCostEnergy = 48000,
+        BuildCostMass = 660,
+        BuildTime = 5325,
+    },
+
+    General = {
+        Category = 'Fighter',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Iazyne',
+        UnitWeight = 1,
+    },
+    Intel = {
+		FreeIntel = true,
+		RadarRadius = 50,
+        VisionRadius = 32,
+    },
+    Interface = {
+        HelpText = 'Air-Superiority Fighter',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.95,
+    LifeBarSize = 1.1,
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+        },
+        Elevation = 20,
+		
+        FuelRechargeRate = 12,
+        FuelUseTime = 600,
+		
+        GroundCollisionOffset = 2,
+        MaxSpeed = 0.5,
+        MeshExtentsX = 1.6,
+        MeshExtentsY = 0.4,
+        MeshExtentsZ = 1.6,
+        MotionType = 'RULEUMT_Air',
+    },
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1.1,
+    SelectionThickness = 0.36,
+	
+    SizeSphere = 1.5,
+	
+    SizeX = 1.5,
+    SizeY = 0.3,
+    SizeZ = 1.5,
+	
+    StrategicIconName = 'icon_fighter3_antiair',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+    Veteran = {
+        Level1 = 11,
+        Level2 = 22,
+        Level3 = 33,
+        Level4 = 44,
+        Level5 = 55,
+    },
+    Weapon = {
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSA_Weapon',
+                    Cue = 'XSA0303_AA_AutoCanLosaare',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			AlwaysRecheckTarget = true,
+            AutoInitiateAttackCommand = false,
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            Damage = 205,
+			DamageRadius = 0,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+            DisplayName = 'Losaare AA Autocannon',
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land',
+                Land = 'Air|Land',
+            },
+            FiringTolerance = 0,
+            Label = 'AutoCannon1',
+            MaxRadius = 40,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 100,
+			
+            ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
+			ProjectileLifetime = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Muzzle',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_AntiAir',
+            RateOfFire = 1,
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 50,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+				'EXPERIMENTAL',
+				'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Muzzle',
+            TurretBoneYaw = 'Muzzle',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 60,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+			AboveWaterTargetsOnly = true,
+            Damage = 250,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+}

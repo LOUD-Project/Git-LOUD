@@ -1,0 +1,1 @@
+Texture { Albedo = 'grass001.dds', Normal = 'grass001_n.dds', Size = 8 }

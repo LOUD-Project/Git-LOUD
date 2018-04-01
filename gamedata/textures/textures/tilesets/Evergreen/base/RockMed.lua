@@ -1,0 +1,1 @@
+Texture { Albedo = 'RockMed.dds', Normal = 'RockMed_n.dds', Size = 8 }

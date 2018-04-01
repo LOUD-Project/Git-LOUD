@@ -1,0 +1,37 @@
+--[[
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            MeshName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_lod0.scm',
+            AlbedoName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_albedo.dds',
+            NormalsName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_normalsTS.dds',
+            SpecularName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_specteam.dds',
+            LookupName = '/effects/entities/PhaseShield/PhaseShieldLookup.dds',
+            
+            
+            Scrolling = true,
+            ShaderName = 'PhaseShield',
+            LODCutoff = 195,
+        },
+    },
+}
+]]--
+
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            MeshName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_lod0.scm',
+            AlbedoName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_albedo.dds',
+            NormalsName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_normalsTS.dds',
+            SpecularName = '/mods/BlackOpsUnleashed/units/XEL0307/XEL0307_specteam.dds',
+            LookupName = '/mods/BlackOpsUnleashed/effects/entities/ClearShield/ClearShieldLookup.dds',
+            
+            
+            ShaderName = 'PhaseShield',
+            Scrolling = true,
+            LODCutoff = 195,
+        },
+    },
+}

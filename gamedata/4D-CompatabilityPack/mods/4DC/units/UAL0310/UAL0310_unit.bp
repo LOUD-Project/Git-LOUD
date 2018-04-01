@@ -1,0 +1,643 @@
+
+UnitBlueprint {
+    AI = { 
+        TargetBones = {
+            'Center_hatch_01',
+        },
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 7,
+            Level5 = 8,
+        },
+    },
+	
+    BuildIconSortPriority = 20,
+	
+    Categories = {
+        'AEON',
+        'ANTIAIR',
+        'BUILTBYTIER3FACTORY',
+        'LAND',
+        'MOBILE',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'OVERLAYDEFENSE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TECH3',
+        'VISIBLETORECON',
+    },
+	
+    Defense = {
+        AirThreatLevel = 30,
+        ArmorType = 'Normal',
+        Health = 2500,
+        MaxHealth = 2500,
+        RegenRate = 2,
+    },
+	
+    Description = 'Mobile Defense Unit',   
+	
+    Display = {
+	
+        Abilities = {
+            'Amphibious Anti-Air',  
+			'Tactical Missile Defense',			
+            'Upgradeable with T2 Mobile Shield', 
+        },
+		
+        AnimationDeath = {
+            {
+                -- Knocked back and falls forward...one leg lingers then falls
+                Animation = '/mods/4DC/units/ual0310/ual0310_Adeath01.sca',
+                AnimationRateMax = 1.75,
+                AnimationRateMin = 1.15,
+                Weight = 25,
+            },
+            {
+                -- Knocked on back with legs sticking up.
+                Animation = '/mods/4DC/units/ual0310/ual0310_Adeath02.sca',
+                AnimationRateMax = 1.25,
+                AnimationRateMin = 0.75,
+                Weight = 25,
+            },
+            {
+                -- Falls forward, face plants.
+                Animation = '/mods/4DC/units/ual0310/ual0310_Adeath03.sca',
+                AnimationRateMax = 1.15,
+                AnimationRateMin = 0.75,
+                Weight = 25,
+            },
+            {
+                -- Falls to the side
+                Animation = '/mods/4DC/units/ual0310/ual0310_Adeath04.sca',
+                AnimationRateMax = 1.45,
+                AnimationRateMin = 1.35,
+                Weight = 25,
+            },
+        },
+		
+        AnimationWalk = '/mods/4DC/units/ual0310/ual0310_walk.sca',
+        AnimationWalkRate = 2.4,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {                            
+                    AlbedoName = 'UAL0310_Albedo.dds',              
+                    MeshName = 'UAL0310_lod0.scm',                
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                    SpecularName = 'UAL0310_SpecTeam.dds',                     
+                },            
+                {
+                    AlbedoName = 'UAL0310_Albedo.dds',              
+                    MeshName = 'UAL0310_lod0.scm',                   
+                    LODCutoff = 215,                 
+                    ShaderName = 'Aeon',
+                    SpecularName = 'UAL0310_SpecTeam.dds',                     
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.022,
+    },
+	
+    Economy = {
+	
+        BuildCostEnergy = 13500,
+        BuildCostMass = 900,
+        BuildRate = 15, -- T3 engineer BuildRate  
+        BuildTime = 3600,
+		
+    },
+	
+	#-- This unit has the unique ability to upgrade with the T2 Aeon Mobile Shield
+	
+    Enhancements = {
+	
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = -2,
+                y = -5,
+            },
+			LCH = {
+			},
+			RCH = {
+			},
+			Command = {
+			},
+        },    
+		
+        ShieldDomeAdd = {
+            BuildCostEnergy = 2160,
+            BuildCostMass = 288,
+            BuildTime = 1200,
+            Icon = 'ptsg',
+            ImpactEffects = 'AeonShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            MaintenanceConsumptionPerSecondEnergy = 125,
+            Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            Name = 'Shield Dome',
+            RegenAssistMult = 60,            
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 5000,
+            ShieldRechargeTime = 20,
+            ShieldRegenRate = 65,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 16,
+            ShieldVerticalOffset = -3,
+            Slot = 'Back',
+            UpgradeEffectBones = {
+                'TarantulaBody',
+            },
+            UpgradeUnitAmbientBones = {
+                'TarantulaBody',
+            },
+        },
+		
+        ShieldDomeRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            Icon = 'ptsg',
+            Name = 'Remove Shield Dome',
+            Prerequisite = 'ShieldDomeAdd',
+            RemoveEnhancements = {
+                'ShieldDome',
+                'ShieldDomeRemove',
+            },
+            Slot = 'Back',
+        },
+    },
+	
+    General = {
+		CapCost = 1,
+        Category = 'Defense',
+        Classification = 'RULEUC_CounterMeasure',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Vindicator',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 32,
+        WaterVisionRadius = 24,
+    },
+	
+    Interface = {
+        HelpText = 'Vindicator Mobile Defense Unit',
+    },
+	
+	LifeBarHeight = 0.1,
+	LifeBarOffset = 1.2,
+	LifeBarSize = 1,
+	
+	Physics = {
+		BankingSlope = 0,
+		BuildOnLayerCaps = {
+			LAYER_Air = false,
+			LAYER_Land = true,
+			LAYER_Orbit = false,
+			LAYER_Seabed = false,
+			LAYER_Sub = false,
+			LAYER_Water = true,
+		},
+		DragCoefficient = 0.2,
+		LayerChangeOffsetHeight = -0.9,
+		MaxAcceleration = 2.6,
+		MaxBrake = 2.6,
+		MaxSpeed = 2.6,
+		MaxSpeedReverse = 2.0,
+		MaxSteerForce = 12,
+		MinSpeedPercent = 0,
+		MotionType = 'RULEUMT_Amphibious',
+		RotateBodyWhileMoving = true,
+		RotateOnSpot = false, 
+		StandUpright = false,
+		TurnFacingRate = 180,
+		TurnRadius = 2,
+		TurnRate = 45,
+		WaterSpeedMultiplier = 1.2,
+	},
+	
+	SelectionCenterOffsetX = 0,
+	SelectionCenterOffsetZ = 0.1,
+	SelectionSizeX = 1.1,
+	SelectionSizeZ = 1.1,
+	SelectionThickness = 0.4,
+	
+	SizeX = 0.95,
+	SizeY = 0.65,
+	SizeZ = 0.95,
+	
+	StrategicIconName = 'icon_land3_antiair',
+	StrategicIconSortPriority = 136,
+	
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 3,
+    },
+	
+	Veteran = {
+		Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+	},
+   
+	#-- OK - so we have 4 weapons - 2 Serpentine Missiles @ 75 DPS - 1 Arrow Missile @ 750 / 5 = 150 DPS - 1 Anti-Tac Laser 2 DPS - Total 300 DPS Air
+   
+	Weapon = {
+			{
+			Audio = {
+				Fire = Sound {
+					Bank = 'UALWeapon',
+					Cue = 'UAB2304_SAM',
+					LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+			AboveWaterFireOnly = true,
+			AboveWaterTargetsOnly = true,
+			BallisticArc = 'RULEUBA_None',
+			CollideFriendly = false,
+
+			Damage = 75,
+			DamageRadius = 0,
+			DamageType = 'Normal',
+			
+			DisplayName = 'Serpentine Missile',
+			
+			FireTargetLayerCapsTable = {
+				Land = 'Air',
+			},
+			FiringTolerance = 4,
+			
+			Label = 'MissileSideLeft',
+			
+			MaxRadius = 55,
+			
+			MuzzleChargeDelay = 0,
+			MuzzleSalvoDelay = 0,
+			MuzzleSalvoSize = 1,
+			MuzzleVelocity = 10,
+			
+			ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+			ProjectileLifetime = 4.5,
+
+			RackBones = {
+				{
+					MuzzleBones = {
+						'SAM_sideLeft_Muzzle',
+					},
+				},
+			},
+			RangeCategory = 'UWRC_AntiAir',           
+			
+			RackReloadTimeout = 10,
+			RackSalvoChargeTime = 0,
+			RackSalvoReloadTime = 0,
+			RackSalvoSize = 1,
+			RackSlavedToTurret = false,
+			RateOfFire = 1.0,
+			TargetCheckInterval = 0.5,
+			TargetPriorities = {
+				'MOBILE HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'MOBILE',
+			},
+			TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',           
+			TrackingRadius = 1.1,
+			
+			Turreted = false,
+		},        
+		{
+			Audio = {
+				Fire = Sound {
+                   Bank = 'UALWeapon',
+                   Cue = 'UAB2304_SAM',
+                   LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+			AboveWaterFireOnly = true,
+			AboveWaterTargetsOnly = true,
+			BallisticArc = 'RULEUBA_None',
+			CollideFriendly = false,
+
+			Damage = 75,
+			DamageRadius = 0,
+			DamageType = 'Normal',
+			
+			DisplayName = 'Serpentine Missile',
+			
+			FireTargetLayerCapsTable = {
+                Land = 'Air',
+			},
+			FiringTolerance = 4,
+			
+			Label = 'MissileSideRight',
+			
+			MaxRadius = 55,
+			
+			MuzzleChargeDelay = 0,
+			MuzzleSalvoDelay = 0,
+			MuzzleSalvoSize = 1,
+			MuzzleVelocity = 10,
+			
+			ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+			ProjectileLifetime = 4.5,
+
+			RackBones = {
+				{
+					MuzzleBones = {
+						'SAM_sideRight_Muzzle',
+					},
+				},
+			},
+			RangeCategory = 'UWRC_AntiAir',
+			
+			RackReloadTimeout = 10,
+			RackSalvoChargeTime = 0,
+			RackSalvoReloadTime = 0,
+			RackSalvoSize = 1,
+			RackSlavedToTurret = false,
+			
+			RateOfFire = 1.0,
+			
+			TargetCheckInterval = 0.5,
+			TargetPriorities = {
+				'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'MOBILE',
+			},
+			TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',           
+			TrackingRadius = 1.1,
+			TurretDualManipulators = false,
+			
+			TurretPitch = 0,
+			TurretPitchRange = 0,
+			TurretPitchSpeed = 0,
+			
+			TurretYaw = 0,
+			TurretYawRange = 0,
+			TurretYawSpeed = 0,
+		},
+		
+		{
+			Audio = {
+				AboveWaterTargetsOnly = true,
+				Fire = Sound {
+					Bank = 'UALWeapon',
+					Cue = 'UAL0111_Missile_Serpent',
+					LodCutoff = 'Weapon_LodCutoff',
+				},
+				Open = Sound {
+					Bank = 'UAB',
+					Cue = 'UAB4302_Doors',
+					LodCutoff = 'UnitMove_LodCutoff',
+				},
+			},
+			BallisticArc = 'RULEUBA_None',
+			CollideFriendly = false,
+
+			Damage = 750,
+			DamageType = 'Normal',
+			
+			DisplayName = 'Arrow Missile',
+			
+			FireTargetLayerCapsTable = {
+				Land = 'Air',
+				Seabed = 'Air',
+				Water = 'Air',
+			},
+			
+			FiringTolerance = 5,
+			
+			Label = 'HatchMissile',
+			
+			MaxRadius = 48,
+			
+			MuzzleChargeDelay = 0,
+			MuzzleSalvoDelay = 0,
+			MuzzleSalvoSize = 1,
+			MuzzleVelocity = 12,
+			
+			ProjectileId = '/mods/4DC/projectiles/ArrowMissile/ArrowMissile_proj.bp',
+			ProjectileLifetime = 8,
+
+			RackBones = {
+				{
+					HideMuzzle = false,
+					MuzzleBones = {
+						'LargeSAM',
+					},
+					RackBone = 'LargeSAM',
+				},
+			},
+			
+			RangeCategory = 'UWRC_AntiAir',           
+			
+			RackRecoilDistance = -10,
+			RackReloadTimeout = 10,
+			RackSalvoChargeTime = 0,
+			RackSalvoReloadTime = 0,
+			RackSalvoSize = 1,
+			RackSlavedToTurret = false,
+			
+			RateOfFire = 0.2,
+			
+			TargetCheckInterval = 3,
+			TargetPriorities = {
+                'EXPERIMENTAL',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'MOBILE',
+			},
+			
+			TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
+			TrackingRadius = 1.1,
+			TurretDualManipulators = false,
+			
+			TurretPitch = 0,
+			TurretPitchRange = 0,
+			TurretPitchSpeed = 0,
+			
+			TurretYaw = 0,
+			TurretYawRange = 0,
+			TurretYawSpeed = 0,
+			
+			WeaponRepackTimeout = 3,
+			WeaponUnpackAnimation = '/mods/4DC/units/ual0310/UAL0310_rearHatchOpen.sca',
+			WeaponUnpackAnimationRate = 0.5,
+			WeaponUnpackAnimatorPrecedence = 0,
+			WeaponUnpackLocksMotion = false,
+			WeaponUnpackTimeout = 0.5,
+			WeaponUnpacks = true,
+		},
+		
+		{
+           AimsStraightOnDisable = true,
+           Audio = {
+				Fire = Sound {
+					Bank = 'UAAWeapon',
+					Cue = 'UAA0203_Laser_Lgt',
+					LodCutoff = 'Weapon_LodCutoff',
+				},
+				Open = Sound {
+					Bank = 'UAB',
+					Cue = 'UAB2304_Activate',
+					LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+			BallisticArc = 'RULEUBA_None',
+			CollideFriendly = false,
+			
+			Damage = 1,      
+			DamageType = 'Normal',
+			
+			DisplayName = 'Phalanx Cannon',
+			
+			EffectiveRadius = 25,
+			
+			FireTargetLayerCapsTable = {
+				Land = 'Air',
+			},
+			
+			FiringRandomness = 0.1,
+			FiringRandomnessWhileMoving = 0.6, 
+			FiringTolerance = 0,
+			
+			Label = 'LaserPhalanx',
+			LeadTarget = true,
+			
+			MaxRadius = 25,
+			
+			MuzzleSalvoDelay = 0,
+			MuzzleSalvoSize = 1,
+			MuzzleVelocity = 75,
+			
+			ProjectileId = '/mods/4DC/projectiles/LaserPhalanx/LaserPhalanx_proj.bp',
+			ProjectileLifetime = 1,
+
+			RackBones = {
+				{
+				MuzzleBones = {
+                       'topCannonMuzzle',                                                                                                                                   
+					},
+					RackBone = 'topCannonPitch',
+				},   
+			},
+			RackFireTogether = false,
+			
+			RackReloadTimeout = 0,
+			RackSalvoChargeTime = 0,
+			RackSalvoReloadTime = 0,
+			RackSalvoSize = 1,
+			
+			RangeCategory = 'UWRC_Countermeasure',
+			
+			RackSlavedToTurret = false,
+			
+			RateOfFire = 2.0,
+			
+			TargetCheckInterval = 0.4,
+			TargetRestrictDisallow = 'UNTARGETABLE',
+			TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
+			TargetType = 'RULEWTT_Projectile',
+			
+			TrackingRadius = 1.15,
+			
+			TurretBoneMuzzle = 'topCannonMuzzle',
+			TurretBonePitch = 'topCannonPitch',
+			TurretBoneYaw = 'topCannonYaw',
+			TurretDualManipulators = false,
+			
+			TurretPitch = 0,
+			TurretPitchRange = 90,
+			TurretPitchSpeed = 180,
+			
+			TurretYaw = 0,
+			TurretYawRange = 180,
+			TurretYawSpeed = 60,
+			
+			Turreted = true,
+			
+			WeaponRepackTimeout = 1,
+			WeaponUnpackAnimation = '/mods/4DC/units/ual0310/ual0310_topGunOpen.sca',
+			WeaponUnpackAnimationRate = 3,
+			WeaponUnpackAnimatorPrecedence = 0,
+			WeaponUnpackLocksMotion = false,
+			WeaponUnpackTimeout = 0.1,
+			WeaponUnpacks = true,
+		},  
+		{
+    	Damage = 250,
+    	DamageFriendly = true,
+    	DamageRadius = 2,
+    	DamageType = 'Normal',
+    	DummyWeapon = true,
+    	Label = 'DeathWeapon',
+		},          
+	},
+	Wreckage = {
+		Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+		EnergyMult = 0.2,
+		HealthMult = 0.9,
+		MassMult = 0.9,
+		ReclaimTimeMultiplier = 1,
+		WreckageLayers = {
+           Air = false,
+           Land = true,
+           Seabed = true,
+           Sub = false,
+           Water = false,
+		},
+	},
+}

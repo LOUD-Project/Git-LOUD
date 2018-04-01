@@ -1,0 +1,458 @@
+UnitBlueprint {
+    AI = {
+        GuardScanRadius = 45,
+        InitialAutoMode = true,
+    },
+	
+    Air = {
+        AutoLandTime = 1,
+        BankFactor = 0.1,
+        BankForward = false,
+        CanFly = true,
+        CirclingDirChangeFrequencySec = 1.5,
+        CirclingElevationChangeRatio = 0.9,
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingTurnMult = 3,
+        KLift = 3,
+        KLiftDamping = 2.5,
+        KMove = 2,
+        KMoveDamping = 2,
+        KTurn = 2,
+        KTurnDamping = 1.5,
+        LiftFactor = 7,
+        MaxAirspeed = 10,
+        MinAirspeed = 2,
+        StartTurnDistance = 5,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {}, 
+	
+    Categories = {
+        'SELECTABLE',
+        'AEON',
+        'MOBILE',
+        'AIR',
+		'DRONE',
+        'POD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetZ = -0.07,
+	
+    Defense = {
+        ArmorType = 'Light',
+        EconomyThreatLevel = 1,
+        Health = 1500,
+        MaxHealth = 1500,
+        RegenRate = 1,
+    },
+	
+    Description = 'Tempest Defense Drone',
+	
+    Display = {
+		AnimationLand = '/mods/BlackOpsUnleashed/units/BAA0001/BAA0001_AClose01.sca',
+		AnimationTakeOff = '/mods/BlackOpsUnleashed/units/BAA0001/BAA0001_AOpen.sca',
+        Mesh = {
+            IconFadeInZoom = 175,
+            LODs = {
+                {
+                    LODCutoff = 600,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXA0010',
+        SpawnRandomRotation = false,
+        UniformScale = 0.06,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1800,
+        BuildCostMass = 180,
+        BuildTime = 1440,
+    },
+
+    General = {
+        CapCost = 0,
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'air',
+        SelectionPriority = 6,
+        TechLevel = 'RULEUTL_Basic',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 21,
+    },
+	
+    Interface = {
+        HelpText = 'Tempest Defense Drone',
+    },
+	
+    LifeBarRender = false,
+	
+    Physics = {
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = true,
+            LAYER_Water = true,
+        },
+        Elevation = 5,
+        AttackElevation = 5,
+        GroundCollisionOffset = 0.2,
+        MaxAcceleration = 3.5,
+        MaxSpeed = 9,
+        MaxSteerForce = 100,
+        MinSpeedPercent = 0.85,
+        MotionType = 'RULEUMT_Air',
+        TurnRadius = 40,
+        TurnRate = 100,
+    },
+	
+    SelectionSizeX = 0.3,
+    SelectionSizeZ = 0.3,
+    SelectionThickness = 1.0,
+    SizeSphere = 0.6,
+    SizeX = 0.4,
+    SizeY = 0.16,
+    SizeZ = 0.4,
+    StrategicIconName = 'icon_gunship1_directfire',
+    StrategicIconSize = 1,
+    StrategicIconSortPriority = 105,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 5,
+    },
+	
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 1,
+			
+            CollideFriendly = false,
+			
+            Damage = 40,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Oblivion Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Water = 'Land|Water',
+            }, 
+			
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 20,
+			
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
+			ProjectileLifetime = 0.6,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Oblivion_Muzzle',
+                    },
+                    RackBone = 'Oblivion_Recoil',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -1.5,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 15,
+			
+            RateOfFire = 0.25,		-- 100 DPS Surface
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+
+			TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE', 
+            TrackingRadius = 1.25,
+			
+            TurretBoneMuzzle = 'Oblivion_Muzzle',
+            TurretBonePitch = 'Oblivion_Muzzle',
+            TurretBoneYaw = 'Oblivion_Muzzle',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -45,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 50,
+            TurretYawSpeed = 180,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+         },
+         {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XAL_Weapon',
+                    Cue = 'XAL0203_QuantumAutogun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 1,
+			
+            CollideFriendly = false,
+			
+            Damage = 20,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Blaze Cannon',
+			
+            FireTargetLayerCapsTable = { # can now hit gunships and transports
+                Air = 'Air',
+                Water = 'Air',
+            }, 
+			
+            FiringTolerance = 2,
+			
+            Label = 'BlazeGun',
+			
+            MaxRadius = 30,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 0,
+            MuzzleVelocity = 30,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/ADFQuatumAutoGun01/ADFQuatumAutoGun01_proj.bp',
+			ProjectileLifetime = 1.2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Rapid_Muzzle01',
+                    },
+                    RackBone = 'Rapid_Muzzle01',
+                },
+                {
+                    MuzzleBones = {
+                        'Rapid_Muzzle02',
+                    },
+                    RackBone = 'Rapid_Muzzle02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 50,
+			
+            RateOfFire = 2,		-- 60 DPS Air
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ANTIAIR', # new
+                'TECH3 MOBILE',
+                'TECH2 MOBILE',
+                'TECH1 MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            }, 
+			
+			TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE', 
+            TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'Rapid_Muzzle01',
+            TurretBonePitch = 'Rapid_Cannons',
+            TurretBoneYaw = 'Rapid_Cannons',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 50,
+            TurretYawSpeed = 180,
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+         },
+         {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UASWeapon',
+                    Cue = 'UAS0201_Depth_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 1,
+			
+            FiringTolerance = 2,
+			
+            Label = 'Depthcharge',
+			
+            MaxRadius = 30,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 3,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Depthcharge',
+                    },
+                    RackBone = 'Depthcharge',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.5,
+			
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            Turreted = false,
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

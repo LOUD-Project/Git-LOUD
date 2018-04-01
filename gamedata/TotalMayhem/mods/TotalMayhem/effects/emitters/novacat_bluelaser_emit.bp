@@ -1,0 +1,13 @@
+BeamBlueprint {
+    Lifetime = 10,
+    TextureName = '/mods/TotalMayhem/textures/particles/novacat_laser_blue.dds',
+    Thickness = 0.2,
+    StartColor = {x=1,y=1,z=1,w=0.2}, # R,G,B,A
+    EndColor = {x=1,y=1,z=1,w=0.2}, # R,G,B,A
+    Blendmode = 3.0,
+    RepeatRate = 0.1,
+    Length = 2000,
+    UShift = 0.0,
+    VShift = -0.25,
+    LODCutoff = 400,
+}

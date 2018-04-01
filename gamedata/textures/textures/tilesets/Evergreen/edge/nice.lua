@@ -1,0 +1,1 @@
+Texture { Albedo = 'nice000.dds' }

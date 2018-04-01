@@ -1,0 +1,92 @@
+EmitterBlueprint {
+	BlueprintId = 'w_u_hcn01_l_19_preglow',
+	Lifetime = 13.00,
+	Repeattime = 13.00,
+	Blendmode = 3.00,
+	LocalVelocity = true,
+	LODCutoff = 400.00,
+	SortOrder = 1.00,
+	Texture = [[/textures/particles/flare_lens_add_02.dds]],
+	RampTexture = [[/textures/particles/ramp/ra_0039_blue.dds]],
+	EmitRateCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=6.6820,y=2.0000,z=0.0000 },
+		},
+	},
+	LifetimeCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=3.3280,y=2.0000,z=0.0000 },
+		},
+	},
+	XPosCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=6.6300,y=0.0000,z=0.0000 },
+		},
+	},
+	YPosCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=6.3457,y=-0.7750,z=0.0000 },
+		},
+	},
+	ZPosCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=0.0000,y=0.2000,z=0.0000 },
+			{ x=13.0000,y=1.0000,z=0.5000 },
+		},
+	},
+	VelocityCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=3.1898,y=0.0000,z=0.0000 },
+		},
+	},
+	ZDirectionCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=7.1500,y=0.0000,z=0.0000 },
+		},
+	},
+	YAccelCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=2.4583,y=0.0000,z=0.0000 },
+		},
+	},
+	StartSizeCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=0.0000,y=0.5000,z=0.0000 },
+			{ x=13.0000,y=3.0000,z=0.0000 },
+		},
+	},
+	EndSizeCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=0.0000,y=0.5000,z=0.0000 },
+			{ x=13.0000,y=1.0000,z=0.0000 },
+		},
+	},
+	InitialRotationCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=6.8900,y=180.0000,z=360.0000 },
+		},
+	},
+	TextureSelectionCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=6.3700,y=0.0000,z=0.0000 },
+		},
+	},
+	RampSelectionCurve = {
+		XRange = 13.0000,
+		Keys = {
+			{ x=2.2464,y=0.0000,z=0.0000 },
+		},
+	},
+}

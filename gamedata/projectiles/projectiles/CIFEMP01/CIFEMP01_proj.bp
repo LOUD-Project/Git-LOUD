@@ -1,0 +1,28 @@
+ProjectileBlueprint {
+    Categories = {
+        'CYBRAN',
+        'PROJECTILE',
+    },
+    Display = {
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = '?',
+        EntityCategory = {
+            'CYBRAN',
+            'PROJECTILE',
+        },
+        Faction = 'Cybran',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 500,
+        DestroyOnWater = true,
+        MaxSpeed = 500,
+        TrackTarget = true,
+        TurnRate = 720,
+        VelocityAlign = true,
+    },
+}

@@ -1,0 +1,20 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "ueb1106",
+
+	-- removed the BUILDABLE BY categories to suppress from game
+    Categories = {
+        'SELECTABLE',
+        'UEF',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH1',
+        'MASSSTORAGE',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SHOWQUEUE',
+        'SORTECONOMY',
+    },
+
+}

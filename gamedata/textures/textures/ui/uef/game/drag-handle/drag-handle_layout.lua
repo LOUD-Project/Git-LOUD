@@ -1,0 +1,18 @@
+layout = {
+	['drag-handle-ur_btn_down'] = {left = 1, top = 1, width = 67, height = 95, },
+	['drag-handle-ur_btn_over'] = {left = 5, top = 5, width = 59, height = 91, },
+	['drag-handle-ur_btn_up'] = {left = 5, top = 5, width = 59, height = 91, },
+	['drag-handle-ur_btn_dis'] = {left = 5, top = 5, width = 59, height = 91, },
+	['drag-handle-ul_btn_down'] = {left = 14, top = 1, width = 66, height = 95, },
+	['drag-handle-ul_btn_over'] = {left = 18, top = 5, width = 59, height = 91, },
+	['drag-handle-ul_btn_up'] = {left = 18, top = 5, width = 59, height = 91, },
+	['drag-handle-ul_btn_dis'] = {left = 18, top = 5, width = 59, height = 91, },
+	['drag-handle-ll_btn_down'] = {left = 14, top = 0, width = 66, height = 95, },
+	['drag-handle-ll_btn_over'] = {left = 18, top = 0, width = 59, height = 91, },
+	['drag-handle-ll_btn_up'] = {left = 18, top = 0, width = 59, height = 91, },
+	['drag-handle-ll_btn_dis'] = {left = 18, top = 0, width = 59, height = 91, },
+	['drag-handle-lr_btn_down'] = {left = 1, top = 0, width = 67, height = 96, },
+	['drag-handle-lr_btn_over'] = {left = 5, top = 0, width = 63, height = 96, },
+	['drag-handle-lr_btn_up'] = {left = 5, top = 0, width = 63, height = 96, },
+	['drag-handle-lr_btn_dis'] = {left = 5, top = 0, width = 59, height = 94, },
+}

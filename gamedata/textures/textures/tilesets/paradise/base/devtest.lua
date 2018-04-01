@@ -1,0 +1,1 @@
+Texture { Albedo = 'devtest.dds', Normal = 'devtest_n.dds', Size = 2 }

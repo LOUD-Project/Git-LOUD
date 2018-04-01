@@ -1,0 +1,420 @@
+UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Front_Turret',
+            'Back_Turret',
+        },
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'UESDestroy',
+            Cue = 'UES0103_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UES',
+            Cue = 'UES0103_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 30,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'NAVAL',
+        'TECH1',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'FRIGATE',
+    },
+	
+    CollisionOffsetY = -0.3,
+	
+    Defense = {
+        AirThreatLevel = 7.2,
+        ArmorType = 'Normal',
+        Health = 2100,
+        MaxHealth = 2100,
+        RegenRate = 3,
+        SurfaceThreatLevel = 6.5,
+    },
+	
+    Description = 'Frigate',
+	
+    Display = {
+	
+        Abilities = {
+            'Anti-Air',
+            'Radar Spoofing - creates false blips',
+            'Radar & Sonar',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/units/ues0103/ues0103_ADeath01.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/units/ues0103/ues0103_A001.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/units/ues0103/ues0103_ADeath02.sca',
+                Weight = 100,
+            },
+        },
+
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 140,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'ues0103_lod1_albedo.dds',
+                    LODCutoff = 250,
+                    ShaderName = 'Unit',
+                    SpecularName = 'ues0103_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Back_Wake',
+                        },
+                        Scale = 0.3,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXS0003',
+        SpawnRandomRotation = false,
+        UniformScale = 0.05,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 3500,
+        BuildCostMass = 400,
+        BuildTime = 545,
+		
+        MaintenanceConsumptionPerSecondEnergy = 5,
+		
+    },
+	
+    General = {
+        Category = 'Ship',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'sea',
+        TechLevel = 'RULEUTL_Basic',
+        ToggleCaps = {
+            RULEUTC_JammingToggle = true,
+        },
+        UnitName = 'Thunderhead Class',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        JamRadius = {
+            Max = 60,
+            Min = 40,
+        },
+        JammerBlips = 4,
+        RadarRadius = 60,
+        SonarRadius = 45,
+        VisionRadius = 32,
+        WaterVisionRadius = 18,
+    },
+	
+    Interface = {
+        HelpText = 'Frigate',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.7,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BackUpDistance = 2,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 8,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 4,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MeshExtentsX = 0.45,
+        MeshExtentsY = 0.78,
+        MeshExtentsZ = 2.7,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 15,
+        TurnRate = 50,
+    },
+	
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 2.2,
+    SelectionThickness = 0.25,
+	
+    SizeX = 0.36,
+    SizeY = 0.63,
+    SizeZ = 2.35,
+	
+    StrategicIconName = 'icon_ship1_intel',
+    StrategicIconSortPriority = 165,
+	
+    Veteran = {
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 32,
+        Level5 = 40,
+    },
+	
+    Weapon = {
+	
+		-- Single Deck Gun --
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'UESWeapon',
+                    Cue = 'UES0103_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 130,
+            DamageRadius = 0.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 36,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+            ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Turret_Muzzle',
+                    },
+                    RackBone = 'Front_Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.75,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		-- 65 DPS Surface
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 155,
+			
+            TargetCheckInterval = 1,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.25,
+			
+            TurretBoneMuzzle = 'Front_Turret_Muzzle',
+            TurretBonePitch = 'Front_Turret_Barrel',
+            TurretBoneYaw = 'Front_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 40,
+			
+            TurretYaw = 0,
+            TurretYawRange = 160,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+        },
+		
+		-- T1 level UEF AA Railgun --
+        {
+            AlwaysRecheckTarget = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB2104_Railgun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 18,
+			DamageFriendly = false,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Linked Railgun',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0,
+            FiringTolerance = 0,
+			
+            Label = 'AAGun',
+			
+			LeadTarget = true,
+			
+            MaxRadius = 44,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 66,
+			
+            ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 0.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Turret_Muzzle01',
+                    },
+                    RackBone = 'Back_Turret_Barrel01',
+                },
+                {
+                    MuzzleBones = {
+                        'Back_Turret_Muzzle02',
+                    },
+                    RackBone = 'Back_Turret_Barrel02',
+                },
+            },
+            RackFireTogether = true,
+			
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		-- 72 DPS Air
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE -SCOUT',
+				'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Back_Turret_Muzzle01',
+            TurretBonePitch = 'Back_Turret_Barrel01',
+            TurretBoneYaw = 'Back_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 45,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+            
+			Turreted = true,
+			
+        },
+    },
+}

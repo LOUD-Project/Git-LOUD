@@ -1,0 +1,357 @@
+UnitBlueprint {
+
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0104_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 50,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'TECH1',
+        'ANTIAIR',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    Defense = {
+        AirThreatLevel = 2.4,
+        ArmorType = 'Normal',
+        Health = 200,
+        MaxHealth = 200,
+        RegenRate = 1,
+		SurfaceThreatLevel = 1,
+    },
+	
+    Description = 'AA Vehicle',
+	
+    Display = {
+        Abilities = {
+            'Toggles between AA and Ground',
+			'Inaccurate against Ground',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0004',
+        SpawnRandomRotation = true,
+        UniformScale = 0.125,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 180,
+        BuildCostMass = 36,
+        BuildTime = 140,
+    },
+	
+    General = {
+        Category = 'Anti Air',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'toggle-weapon-air',
+            },
+        },
+        TechLevel = 'RULEUTL_Basic',
+        ToggleCaps = {
+            RULEUTC_WeaponToggle = true,
+        },
+        UnitName = 'Sky Slammer',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'AA Missile Vehicle',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.3,
+    LifeBarSize = 0.5,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 3,
+        MaxBrake = 3,
+        MaxSpeed = 3,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = true,
+        RotateOnSpotThreshold = 0.5,
+        TurnRadius = 5,
+        TurnRate = 90,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.025,
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.45,
+    SelectionThickness = 0.83,
+	
+    SizeX = 0.55,
+    SizeY = 0.3,
+    SizeZ = 0.65,
+	
+    StrategicIconName = 'icon_land1_antiair',
+    StrategicIconSortPriority = 135,
+	
+    Transport = {
+        TransportClass = 1,
+    },
+	
+    Veteran = {
+        Level1 = 2,
+        Level2 = 4,
+        Level3 = 6,
+        Level4 = 8,
+        Level5 = 10,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0104_Nano_Dart',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 24,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanodart Launcher',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+            },
+			
+            FiringTolerance = 0.6,
+			
+            Label = 'AAGun',
+			
+            MaxRadius = 38,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 18,
+			
+            ProjectileId = '/projectiles/CAANanoDart01/CAANanoDart01_proj.bp',
+            ProjectileLifetime = 3.2,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            ToggleWeapon = 'GroundGun',
+			
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 40,
+            TurretPitchRange = 65,
+            TurretPitchSpeed = 100,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 75,
+			
+            Turreted = true,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0104_Nano_Dart',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = false,
+            CollideFriendly = false,
+			
+            Damage = 10,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanodart Launcher',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringRandomness = 1.05,
+            FiringTolerance = 0.6,
+			
+            Label = 'GroundGun',
+			
+            MaxRadius = 18,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 18,
+			
+            ProjectileId = '/projectiles/CAANanoDart05/CAANanoDart05_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH1 MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            ToggleWeapon = 'AAGun',
+			
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 40,
+            TurretPitchRange = 65,
+            TurretPitchSpeed = 100,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 75,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

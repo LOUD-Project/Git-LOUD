@@ -1,0 +1,296 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UEB',
+            Cue = 'UEB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,
+        },
+    },
+    BuildIconSortPriority = 110,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER3COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH2',
+        'DIRECTFIRE',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 3500,
+        MaxHealth = 3500,
+        RegenRate = 3,
+        SurfaceThreatLevel = 18,
+    },
+	
+    Description = 'Heavy Point Defense',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 180,
+            LODs = {
+                {
+                    LODCutoff = 220,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0003',
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 6.4,
+                Normal = 'Tarmacs/Tar6x_cybran_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 6.4,
+            },
+        },
+        UniformScale = 0.032,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 9000,
+        BuildCostMass = 1000,
+        BuildTime = 1000,
+    },
+
+    General = {
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'SlingShot',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 30,
+    },
+	
+    Interface = {
+        HelpText = 'Heavy Point Defense',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.5,
+        MeshExtentsY = 1.15,
+        MeshExtentsZ = 1.5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 0.7,
+    SelectionSizeZ = 0.7,
+    SelectionThickness = 0.55,
+    SizeX = 0.65,
+    SizeY = 1.0,
+    SizeZ = 0.65,
+    StrategicIconName = 'icon_structure2_directfire',
+    StrategicIconSortPriority = 200,
+	
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStop = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Stop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'TM_CYBRANWEAPONS',
+                    Cue = 'CYBRANMEDIUMCANNONFX',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 180,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Shock Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 48,
+            MinRadius = 3,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 48,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Turret_Recoil',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                    },
+                    RackBone = 'Turret_Recoil01',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -3,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'aim',
+            TurretBonePitch = 'Turret_Recoil',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 40,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 30,
+			
+            Turreted = true,
+ 	   },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

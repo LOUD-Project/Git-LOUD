@@ -1,0 +1,577 @@
+UnitBlueprint {
+    AI = {
+        InitialAutoMode = false,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'URSDestroy',
+            Cue = 'URS0304_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        NuclearLaunchDetected = Sound {
+            Bank = 'XGG',
+            Cue = 'Computer_Computer_MissileLaunch_01351',
+        },
+        StartMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMoveSub = Sound {
+            Bank = 'URS',
+            Cue = 'URS0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        SubmergeStart = Sound {
+            Bank = 'URS',
+            Cue = 'URS_Sub_Submerge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        SurfaceStart = Sound {
+            Bank = 'URS',
+            Cue = 'URS_Sub_Surface',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Sub',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 20,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'NAVAL',
+        'INDIRECTFIRE',
+        'NUKE',
+        'SILO',
+        'SUBMERSIBLE',
+        'TECH3',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+--        'NUKESUB',
+    },
+	
+    CollisionOffsetY = -0.25,
+    CollisionOffsetZ = 0.25,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 3750,
+        MaxHealth = 3750,
+        RegenRate = 10,
+		SubThreatLevel = 12,
+        SurfaceThreatLevel = 30,
+		
+    },
+	
+    Description = 'Strategic Missile Submarine',
+	
+    Display = {
+	
+        Abilities = {
+            'EMP Weapon',
+            'Manual Launch',
+            'Sonar',
+            'Torpedoes',
+        },
+		
+        IdleEffects = {
+            Sub = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Projectile_Front_Right',
+                            'Projectile_Front_Left',
+                            'URS0304',
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                        },
+                        Type = 'UnderWater01',
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                            'Projectile_Front_Left',
+                            'Projectile_Front_Right',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            -0.8,
+                        },
+                        Scale = 0.5,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'urs0304_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = 'urs0304_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        MotionChangeEffects = {
+            SubBottomUp = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Projectile_Front_Right',
+                            'Projectile_Front_Left',
+                            'URS0304',
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                        },
+                        Type = 'Surface01',
+                    },
+                },
+            },
+            WaterTopDown = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Projectile_Front_Right',
+                            'Projectile_Front_Left',
+                            'URS0304',
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                        },
+                        Type = 'Submerge01',
+                    },
+                },
+            },
+        },
+        MovementEffects = {
+            Sub = {
+                Effects = {
+                    {
+                        Bones = {
+                            'URS0304',
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                        },
+                        Scale = 2.5,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Projectile_Front_Right',
+                            'Projectile_Front_Left',
+                        },
+                        Scale = 0.6,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Projectile_Front_Right',
+                            'Projectile_Front_Left',
+                        },
+                        Scale = 0.6,
+                        Type = 'RightFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Exhaust_Right',
+                            'Exhaust_Left',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            -0.8,
+                        },
+                        Scale = 0.4,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UES0304',
+        SpawnRandomRotation = true,
+        UniformScale = 0.036,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 400000,
+        BuildCostMass = 10000,
+        BuildRate = 600,	# was 1000
+        BuildTime = 12000,
+    },
+
+    General = {
+		CapCost = 3,
+        Category = 'Submarine',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Dive = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = true,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_SiloBuildNuke = true,
+            RULEUCC_SiloBuildTactical = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Tactical = false,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'sea',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Plan B',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		RadarStealth = true,
+		SonarStealth = true,
+        SonarRadius = 75,
+        VisionRadius = 36,
+        WaterVisionRadius = 36,
+    },
+	
+    Interface = {
+        HelpText = 'Strategic Missile Submarine',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 2,
+    LifeBarSize = 2,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = true,
+            LAYER_Water = false,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        Elevation = -2.5,
+        MaxAcceleration = 2.1,
+        MaxBrake = 2.1,
+        MaxSpeed = 4.2,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_SurfacingSub',
+        TurnRadius = 12,
+        TurnRate = 50,
+    },
+	
+    SelectionSizeX = 0.95,
+    SelectionSizeZ = 2.6,
+    SelectionThickness = 0.28,
+	
+    SizeX = 1.1,
+    SizeY = 0.55,
+    SizeZ = 2.7,
+	
+	-- the LOA missile, when hit by TMD, splits into 3 children
+	-- this controls the damage and radius of the child missiles
+    SplitDamage = {
+        DamageAmount = 165,
+        DamageRadius = 1.0,
+    },
+	
+    StrategicIconName = 'icon_sub3_missile',
+    StrategicIconSortPriority = 145,
+	
+    Veteran = {
+        Level1 = 12,
+        Level2 = 24,
+        Level3 = 36,
+        Level4 = 48,
+        Level5 = 60,
+    },
+
+    Weapon = {
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0304_Missile_Cruise',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            CountedProjectile = false,
+			
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Loa Tactical Missile',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 30,
+			
+            Label = 'CruiseMissile',
+			
+            MaxRadius = 200,
+            MinRadius = 28,
+			
+            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 3,
+			
+            ProjectileId = '/projectiles/CIFMissileTactical02/CIFMissileTactical02_proj.bp',
+            ProjectileLifetime = 50,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Projectile_Left',
+                    },
+                    RackBone = 'Projectile_Left',
+                },
+                {
+                    MuzzleBones = {
+                        'Projectile_Right',
+                    },
+                    RackBone = 'Projectile_Right',
+                },
+                {
+                    MuzzleBones = {
+                        'Projectile_Center',
+                    },
+                    RackBone = 'Projectile_Center',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.2,		-- 3 missiles * 500 = 1500 dmg / 5 = 300 DPS Surface
+            TargetCheckInterval = 2,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'STRUCTURE ECONOMIC',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+        },
+		
+        {
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 30,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanite Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'Torpedo',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 3,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileLifetime = 8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Projectile_Front_Left',
+                        'Projectile_Front_Right',
+                    },
+                    RackBone = 'Projectile_Front_Left',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 1.0,		-- 4 *  30 = 120 DPS Sub
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 45,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.15,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0304_Missile_Emp',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 5,
+                    Radius = 40,
+                    TargetAllow = 'MOBILE',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
+                },
+            },
+			
+            CollideFriendly = false,
+            CountedProjectile = true,
+			
+            Damage = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'EMP Flux Warhead',
+
+            FireTargetLayerCapsTable = {
+                Sub = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            InitialProjectileStorage = 0,
+			
+            Label = 'NukeMissile',
+			
+            ManualFire = 1,
+			
+            MaxProjectileStorage = 3,
+			
+            MaxRadius = 1536,
+            MinRadius = 128,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 0,
+			
+            NukeInnerRingDamage = 60000,
+            NukeInnerRingRadius = 30,
+            NukeInnerRingTicks = 24,
+            NukeInnerRingTotalTime = 0,
+            NukeOuterRingDamage = 500,
+            NukeOuterRingRadius = 40,
+            NukeOuterRingTicks = 20,
+            NukeOuterRingTotalTime = 0,
+			
+            NukeWeapon = true,
+			
+            ProjectileId = '/projectiles/CIFEMPFluxWarhead04/CIFEMPFluxWarhead04_proj.bp',
+			ProjectileLifetime = 45,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Projectile_Center',
+                    },
+                    RackBone = 'Projectile_Center',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 1,
+            TargetCheckInterval = 0.5,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+        },
+		
+    },
+
+}

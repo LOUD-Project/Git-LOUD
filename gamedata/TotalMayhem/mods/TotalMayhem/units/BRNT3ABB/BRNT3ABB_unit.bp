@@ -1,0 +1,417 @@
+UnitBlueprint {
+    AI = { 
+        GuardScanRadius = 60,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+		DeathExplosion = Sound {
+			Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+			LodCutoff = 'UnitMove_LodCutoff',
+		},
+		Destroyed = Sound {
+            Bank = 'TM_EXPLOSIONS',
+            Cue = 'TANKDEATH',
+			LodCutoff = 'UnitMove_LodCutoff',
+		},
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 31,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'BOT',
+		'OVERLAYRADAR',
+        'OVERLAYDIRECTFIRE',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 9050,
+        MaxHealth = 9050,
+        RegenRate = 3,
+        SurfaceThreatLevel = 57,
+    },
+	
+    Description = 'Armored Battle Bot',
+	
+    Display = {
+		Abilities = {
+            'Amphibious',
+            'Radar',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/TotalMayhem/units/BRNT3ABB/BRNT3ABB_Death.sca',
+                AnimationRateMax = 1.37,
+                AnimationRateMin = 1.37,
+                Weight = 200,
+            },
+            {
+                Animation = '/mods/TotalMayhem/units/BRNT3ABB/BRNT3ABB_Death2.sca',
+                AnimationRateMax = 1.37,
+                AnimationRateMin = 1.37,
+                Weight = 150,
+            },
+        },
+        AnimationWalk = '/mods/TotalMayhem/units/BRNT3ABB/BRNT3ABB_Walk.sca',
+        AnimationWalkRate = 3.5,
+        Mesh = {
+            IconFadeInZoom = 170,
+            LODs = {
+                {
+                    LODCutoff = 350,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust_Left',
+                            'Exhaust_Right',
+                        },
+                        Type = 'GroundKickup01',
+                    },
+                },
+            },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.047,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 38000,
+        BuildCostMass = 3100,
+        BuildTime = 12400,
+    },
+	
+    General = {
+		CapCost = 2,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'IronFist',
+        UnitWeight = 2,
+    },
+    Intel = {
+		FreeIntel = true,
+		RadarRadius = 75,
+		VisionRadius = 34,
+		WaterVisionRadius = 24,
+    },
+    Interface = {
+        HelpText = 'Armored Battle Bot',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 1.0,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 0.5,
+        MaxBrake = 1.0,
+        MaxSpeed = 2.0,
+        MaxSpeedReverse = 2.0,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+		RotateOnSpot = false,
+		StandUpright = true,
+        TurnRadius = 3,
+        TurnRate = 12,
+		WaterSpeedMultiplier = 1.2,
+    },
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 0.5,
+    SizeX = 0.8,
+    SizeY = 1.6,
+    SizeZ = 0.8,
+    StrategicIconName = 'icon_bot3_directfire',
+    StrategicIconSortPriority = 115,
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 3,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+			AutoInitiateAttackCommand = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStop = Sound {
+                    Bank = 'UES',
+                    Cue = 'UES0302_Cannon_Stop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'TM_UEFWEAPONS',
+                    Cue = 'BRNT1BTFIRE',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 80,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomness = 0.2,
+			FiringRandomnessWhileMoving = 0.8,
+			
+            FiringTolerance = 1,
+			
+            Label = 'topguns',
+			
+            MaxRadius = 38,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 40,
+			
+			ProjectileId = '/mods/TotalMayhem/projectiles/BRNT1MTproj/BRNT1MTproj_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'topgun01muzzle',
+                    },
+                    RackBone = 'shouldergun01',
+                },
+                {
+                    MuzzleBones = {
+                        'topgun02muzzle',
+                    },
+                    RackBone = 'shouldergun02',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.5,	# 120 dps
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.05,
+			
+            TurretBoneDualMuzzle = 'topgun01muzzle',
+            TurretBoneDualPitch = 'shouldergun01',
+            TurretBoneMuzzle = 'topgun02muzzle',
+			
+            TurretBonePitch = 'shouldergun02',
+            TurretBoneYaw = 'Turret',
+			
+            TurretDualManipulators = true,
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 16,
+            Turreted = true,
+		},
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'TM_UEFWEAPONS',
+                    Cue = 'UEFARMOREDBOTFIREFX',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 900,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+
+			FiringRandomness = 0.1,
+			FiringRandomnessWhileMoving = 0.5,			
+            FiringTolerance = 1,
+			
+            Label = 'guns',
+			
+            MaxRadius = 36,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3ABBproj/BRNT3ABBproj_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'gunmuzzle02',
+                    },
+                    RackBone = 'gunbarrel01',
+                },
+                {
+                    MuzzleBones = {
+                        'gunmuzzle01',
+                    },
+                    RackBone = 'gunbarrel02',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -3,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,	# 450dps
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'DEFENSE',
+                'MOBILE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.05,
+			
+            TurretBoneDualMuzzle = 'gunmuzzle02',
+            TurretBoneDualPitch = 'gunbarrel01',
+            TurretBoneMuzzle = 'gunmuzzle01',
+			
+            TurretBonePitch = 'gunbarrel02',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 16,
+            Turreted = true,
+		},
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

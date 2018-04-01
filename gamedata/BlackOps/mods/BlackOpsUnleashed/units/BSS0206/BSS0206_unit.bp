@@ -1,0 +1,447 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 60,
+    },
+    Audio = {
+        Killed = Sound {
+            Bank = 'XSS_Destroy',
+            Cue = 'XSS0202_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSS',
+            Cue = 'XSS0202_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    BuildIconSortPriority = 30,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'BUILTBYEXPERIMENTALSUB',
+        'SERAPHIM',
+        'MOBILE',
+        'NAVAL',
+        'TECH2',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'CRUISER',
+        'SHOWATTACKRETICLE',
+		'BOMBARDMENT',
+    },
+    CollisionOffsetY = -0.4,
+    Defense = {
+        AirThreatLevel = 7,
+        ArmorType = 'Normal',
+        Health = 3500,
+        MaxHealth = 3500,
+        RegenRate = 5,
+        SurfaceThreatLevel = 65,
+    },
+    Description = 'Bombardment Ship',
+    Display = {
+        Abilities = {
+            'Anti-Air',
+            'Radar',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSS0206/BSS0206_adeath01.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.2,
+                Weight = 100,
+            },
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSS0206/BSS0206_adeath02.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.2,
+                Weight = 100,
+            },
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSS0206/BSS0206_adeath03.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.2,
+                Weight = 100,
+            },
+        },
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSS0206',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            -0.25,
+                        },
+                        Scale = 1.35,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 300,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.03,
+    },
+    Economy = {
+        BuildCostEnergy = 14500,
+        BuildCostMass = 1250,
+        BuildTime = 5000,
+    },
+    General = {
+        Category = 'Ship',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'sea',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Zthuzene',
+        UnitWeight = 1,
+    },
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 90,
+        VisionRadius = 32,
+        WaterVisionRadius = 16,
+    },
+    Interface = {
+        HelpText = 'Bombardment Ship',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.9,
+    LifeBarSize = 1.75,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MeshExtentsX = 1.3,
+        MeshExtentsY = 1.3,
+        MeshExtentsZ = 3.2,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 20,
+        TurnRate = 40,
+    },
+	
+    SelectionSizeX = 0.8,
+    SelectionSizeZ = 3.0,
+    SelectionThickness = 0.2,
+	
+    SizeX = 1.0,
+    SizeY = 1.0,
+    SizeZ = 3.2,
+    StrategicIconName = 'icon_ship2_directfire',
+    StrategicIconSortPriority = 155,
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0304_Suthanus_Artillery',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
+            CollideFriendly = false,
+			
+            Damage = 550,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Suthanus Artillery',
+			
+            FireTargetLayerCapsTable = {
+                Water= 'Land|Water',
+            },
+			
+            FiringRandomness = 1.5,
+            FiringTolerance = 2,
+			
+            Label = 'DeckGun',
+			
+            MaxRadius = 120,
+            MinRadius = 30,
+			
+            MuzzleChargeDelay = 0.25,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 25,
+            MuzzleVelocityReduceDistance = 85,
+			
+            ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
+			ProjectileLifetime = 15,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Turret01_Muzzle',
+                    },
+                    RackBone = 'Front_Turret01_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.4,		-- 220 DPS
+            RenderFireClock = false,
+			
+            TargetCheckInterval = 4.0,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Front_Turret01_Muzzle',
+            TurretBonePitch = 'Front_Turret01_Barrel',
+            TurretBoneYaw = 'Front_Turret01',
+            TurretDualManipulators = false,
+            TurretPitch = 30,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 15,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 30,
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0304_Suthanus_Artillery',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
+            CollideFriendly = false,
+			
+            Damage = 550,
+            DamageFriendly = true,
+            DamageRadius = 3,
+			
+            DamageType = 'Normal',
+			
+            DisplayName = 'Suthanus Artillery',
+			
+            FireTargetLayerCapsTable = {
+                Water= 'Land|Water',
+            },
+			
+            FiringRandomness = 1.5,
+            FiringTolerance = 2,
+			
+            Label = 'DeckGun',
+			
+            MaxRadius = 120,
+            MinRadius = 30,
+			
+            MuzzleChargeDelay = 0.25,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 25,
+            MuzzleVelocityReduceDistance = 85,
+			
+            ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
+			ProjectileLifetime = 15,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Turret02_Muzzle',
+                    },
+                    RackBone = 'Front_Turret02_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.4,		-- 220 DPS
+            RenderFireClock = false,
+			
+            TargetCheckInterval = 4.0,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Front_Turret02_Muzzle',
+            TurretBonePitch = 'Front_Turret02_Barrel',
+            TurretBoneYaw = 'Front_Turret02',
+            TurretDualManipulators = false,
+            TurretPitch = 30,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 15,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 30,
+            Turreted = true,
+        },
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSS_Weapon',
+                    Cue = 'XSS0103_Shleo_AA',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 20,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Shleo AA Autogun',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 0.1,
+			
+            Label = 'AAGun',
+			LeadTarget = true,
+			
+            MaxRadius = 48,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 75,
+			
+            ProjectileId = '/projectiles/SAAShleoAAGatlingGun05/SAAShleoAAGatlingGun05_proj.bp',
+			ProjectileLifetime = 0.8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Turret01_Muzzle01',
+                        'Back_Turret01_Muzzle02',
+                    },
+                    RackBone = 'Back_Turret01_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 3,		-- 120 DPS Air
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
+            TurretBonePitch = 'Back_Turret01_Barrel',
+            TurretBoneYaw = 'Back_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 180,
+            TurretPitchSpeed = 80,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 80,
+			
+            Turreted = true,
+        },
+    },
+}

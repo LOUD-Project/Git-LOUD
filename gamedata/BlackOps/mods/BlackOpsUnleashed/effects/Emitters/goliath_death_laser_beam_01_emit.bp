@@ -1,0 +1,12 @@
+BeamBlueprint {
+    Lifetime = 10,
+    TextureName = '/mods/BlackOpsUnleashed/textures/particles/beam_uef_orbital_GREEN.dds',
+    Thickness = 0.6,
+    StartColor = {x=1,y=1,z=1,w=0}, # R,G,B,A
+    EndColor = {x=1,y=1,z=1,w=0}, # R,G,B,A
+    Length = 2000,
+    UShift = 0.0,
+    VShift = -0.35,
+    Blendmode = 3.0,
+    RepeatRate = 0.03,
+}

@@ -1,0 +1,21 @@
+-----------------------------------------------------------------------------  
+--  File     : /4DC/effects/Emitters/green_laser_beam_02_emit.bp 
+-- 
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
+-- 
+--  Summary  : Special Effects for use with the Cybran Vampire
+-- 
+--  Copyright © 2010 4DC  All rights reserved.
+-----------------------------------------------------------------------------
+
+BeamBlueprint {   
+    Lifetime = 0.1,
+    TextureName = '/mods/4DC/textures/particles/beam_green_01.dds',
+    Thickness = 0.05,
+    StartColor = {x=0.1,y=0.5,z=0.35,w=0.25}, # R,G,B,Glow
+    EndColor = {x=0.1,y=0.5,z=035,w=0.25}, # R,G,B,Glow
+    Length = 1000,
+    UShift = 0.0,
+    VShift = 0.0, 
+    LODCutoff = 400,       
+}

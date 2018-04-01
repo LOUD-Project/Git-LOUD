@@ -1,0 +1,522 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret',
+            'Target02',
+            'Target03',
+        },
+        NeedUnpack = false,
+    },
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UAB',
+            Cue = 'UAB2302_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
+        },
+    },
+	
+    BuildIconSortPriority = 140,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'AEON',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+        'DIRECTFIRE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Experimental',
+		EconomyThreatLevel = 90,
+        Health = 47500,
+        MaxHealth = 47500,
+        RegenRate = 12,
+        SurfaceThreatLevel = 90,
+    },
+	
+    Description = 'Experimental Sniper',
+	
+    Display = {
+	
+        Abilities = {
+            'Amphibious',
+            'Volatile',
+			'Radar',
+			'Radar and Sonar Stealth',
+        },
+		
+        AnimationActivate = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AActivate01.sca',
+        AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_ADeploy01.sca',
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0403_ADeath01.sca',
+                Weight = 100,
+            },
+        },
+        AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AWalk01.sca',
+        AnimationWalkRate = 2.5,
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'L_FootFall01',
+                            HipBone = 'F_L_Leg_B01',
+                            KneeBone = 'F_L_Leg_B02',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'L_FootFall02',
+                            HipBone = 'B_L_Leg_B01',
+                            KneeBone = 'B_L_Leg_B02',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'R_FootFall01',
+                            HipBone = 'F_R_Leg_B01',
+                            KneeBone = 'F_R_Leg_B02',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'R_FootFall02',
+                            HipBone = 'B_R_Leg_B01',
+                            KneeBone = 'B_R_Leg_B02',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = -1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                    },
+                    Damage = {
+                        Amount = 700,
+                        DamageFriendly = false,
+                        Radius = 1,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.225,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 300000,
+        BuildCostMass = 21000,
+        BuildTime = 15600,
+    },
+	
+    Footprint = {
+        SizeX = 4,
+        SizeZ = 4,
+    },
+	
+    General = {
+		CapCost = 8,
+        Category = 'Strategic',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Interrogater',
+        UnitWeight = 2,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		RadarRadius = 100,
+        VisionRadius = 40,
+		WaterVisionRadius = 21,
+		RadarStealth = true,
+		SonarStealth = true,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Sniper',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 2.35,
+    LifeBarSize = 4,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        LayerChangeOffsetHeight = -3,
+        MaxAcceleration = 0.85,
+        MaxSpeed = 2.3,
+        MaxSpeedReverse = 2.3,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        SinkLower = true,
+		
+        SkirtOffsetX = -1.0,
+        SkirtOffsetZ = -1.0,
+		
+        SkirtSizeX = 5,
+        SkirtSizeZ = 5,
+		
+        TurnRadius = 5,
+        TurnRate = 16,
+		
+		WaterSpeedMultiplier = 1.25,
+    },
+	
+    SelectionCenterOffsetZ = -1.25,
+    SelectionSizeX = 3.1,
+    SelectionSizeZ = 3.1,
+    SelectionThickness = 0.3,
+	
+    SizeX = 2.8,
+    SizeY = 3.15,
+    SizeZ = 2.8,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 175,
+	
+    Veteran = {
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                RackSalvoCharge  = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 3,
+			ContinuousBeam = true,
+			
+            CollideFriendly = false,
+
+            Damage = 35,	-- so each muzzle causes about 1050 damage over the 3 second firing cycle
+			
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+			DoNotCollideList = {
+                'MISSILE',
+            },
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'MainGun',
+            LeadTarget = false,
+			
+            MaxRadius = 115,
+            MinRadius = 35,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                        'Muzzle02',
+                        'Muzzle03',
+                        'Muzzle04',
+                        'Muzzle05',
+                        'Muzzle06',
+                        'Muzzle07',
+                        'Muzzle08',
+                        'Muzzle09',
+                        'Muzzle10',
+                    },
+                    RackBone = 'Barrel01',
+                },
+            },
+			
+            RackFireTogether = true, 
+             
+			
+            RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (2 seconds), fire (3 seconds), reload (8 seconds) 
+            RackSalvoFiresAfterCharge = false,
+			
+            RackSalvoReloadTime = 10,
+            RackSalvoSize = 1,
+			
+            RackSlavedToTurret = false,
+			
+			RenderFireClock = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 40,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.07,		# - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'EXPERIMENTAL',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Turret01',
+            TurretBoneYaw = 'Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 40,
+            TurretYawSpeed = 12,
+			
+            Turreted = true,
+			
+            WeaponRepackTimeout = 2,
+        },
+		
+		-- This is the implosion effect that occurs at the end of the firing cycle
+		-- It also causes about 3000 dmg over an area
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 0,
+			DamageFriendly = true,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Head weapon',
+			
+			DoNotCollideList = {
+                'MISSILE',
+            },
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomness = 0,
+            FiringTolerance = 0,
+			
+            Label = 'BoomWeapon',
+			
+            LeadTarget = false,
+			
+            MaxRadius = 115,
+            MinRadius = 35,
+			
+            MuzzleChargeDelay = 2.3,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 150,
+			
+            NotExclusive = true,
+			
+            PrefersPrimaryWeaponTarget = true,
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/GLaserShot01/GLaserShot01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                    },
+                    RackBone = 'Muzzle01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.1,
+
+            TargetCheckInterval = 2.5,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE -WALL',
+                'ALLUNITS -WALL',
+            },
+			
+            TrackingRadius = 1,
+			
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Muzzle01',
+            TurretBoneYaw = 'Muzzle01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 40,
+            TurretYawSpeed = 12,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 4500,
+            DamageFriendly = true,
+            DamageRadius = 12,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

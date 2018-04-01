@@ -1,0 +1,57 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'AEON_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+		CommanderArrival = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0001_Gate_In',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Categories = {
+        'AEON',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+    },
+    Display = {
+        CameraFollowTimeout = 5,
+        #CameraFollowsProjectile = true,
+        StrategicIconSize = 3,
+    },
+    General = {
+        Category = 'Artillery',
+        Faction = 'Aeon',
+        TechLevel = 3,
+        Weapon = 'Sonance Artillery',
+    },
+	Economy = {
+        BuildCostEnergy = 9600,
+        BuildCostMass = 840,
+        BuildTime = 32400,
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        InitialSpeed = 100,
+		CollideEntity = false,
+		UseGravity = true,
+        LeadTarget = false,
+        TurnRate = 360,
+        VelocityAlign = true,
+    },
+}

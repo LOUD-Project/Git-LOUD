@@ -1,0 +1,123 @@
+EmitterBlueprint {
+	BlueprintId = 'w_u_hcn01_l_25_presmoke',
+	Lifetime = 20.00,
+	Repeattime = 20.00,
+	Blendmode = 3.00,
+	LocalVelocity = true,
+	LODCutoff = 400.00,
+	SortOrder = 1.00,
+	Texture = [[/textures/particles/smoke/sm_0010_44.dds]],
+	RampTexture = [[/textures/particles/ramp_white_12.dds]],
+	DistortionMapTexture = [[/textures/particles/displacement/di_0005_55.dds]],
+	EmitRateCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.2800,y=2.0000,z=0.0000 },
+		},
+	},
+	LifetimeCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=5.1200,y=4.0000,z=0.0000 },
+		},
+	},
+	SizeCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.0000,y=0.3500,z=0.0000 },
+		},
+	},
+	XPosCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.2000,y=0.0000,z=0.3000 },
+		},
+	},
+	YPosCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=9.7626,y=0.0000,z=0.3000 },
+		},
+	},
+	ZPosCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=0.0000,y=0.5000,z=0.2000 },
+			{ x=20.0000,y=1.0000,z=0.2000 },
+		},
+	},
+	VelocityCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=4.9074,y=0.1000,z=0.0000 },
+		},
+	},
+	XDirectionCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.0000,y=0.0000,z=0.1000 },
+		},
+	},
+	YDirectionCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.0000,y=0.0000,z=0.1000 },
+		},
+	},
+	ZDirectionCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=11.0000,y=0.0500,z=0.0700 },
+		},
+	},
+	YAccelCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=3.7820,y=0.0000,z=0.0000 },
+		},
+	},
+	StartSizeCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=0.0000,y=3.0000,z=0.5000 },
+			{ x=20.0000,y=6.5000,z=1.0000 },
+		},
+	},
+	EndSizeCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=0.0000,y=1.0000,z=0.2500 },
+			{ x=20.0000,y=2.5000,z=0.5000 },
+		},
+	},
+	InitialRotationCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=10.6000,y=180.0000,z=360.0000 },
+		},
+	},
+	TextureSelectionCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=9.8000,y=0.0000,z=0.0000 },
+		},
+	},
+	RampSelectionCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=6.5171,y=0.7000,z=0.3000 },
+		},
+	},
+	DistMapScaleCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=9.2612,y=0.0000,z=0.0000 },
+		},
+	},
+	DistMapVShiftRateCurve = {
+		XRange = 20.0000,
+		Keys = {
+			{ x=8.2322,y=0.0000,z=0.0000 },
+		},
+	},
+}

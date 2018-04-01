@@ -1,0 +1,23 @@
+UnitBlueprint {
+    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    BlueprintId="uas0304",
+
+    Weapon = {
+        {
+
+        },
+        {
+
+            NukeInnerRingDamage = 75000,
+            NukeInnerRingRadius = 25,
+            NukeInnerRingTicks = 20,
+            NukeInnerRingTotalTime = 0,
+			
+            NukeOuterRingDamage = 3750,
+            NukeOuterRingRadius = 40,
+            NukeOuterRingTicks = 20,
+            NukeOuterRingTotalTime = 20,
+
+        },
+    },
+}

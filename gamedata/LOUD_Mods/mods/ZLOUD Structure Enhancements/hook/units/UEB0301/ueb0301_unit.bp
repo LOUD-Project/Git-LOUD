@@ -1,0 +1,260 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ueb0301",
+
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+		'BUILTBYTIER4COMMANDER',
+        'UEF',
+        'STRUCTURE',
+        'LAND',
+        'TECH3',
+        'CONSTRUCTION',
+        'FACTORY',
+        'RALLYPOINT',
+        'CONSTRUCTIONSORTDOWN',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWQUEUE',
+        'SORTCONSTRUCTION',
+		'OVERLAYRADAR',
+		'OVERLAYOMNI',
+    },
+	
+	Enhancements = {
+	
+		Sequence = {'ImprovedMateriels','AdvancedMateriels','InstallFactoryShield','ImprovedProduction','AdvancedProduction',},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+		--	+30% over original done with buff 
+        ImprovedProduction = {    
+            BuildCostEnergy = 42000,
+            BuildCostMass = 2500,
+            BuildTime = 18000,
+
+            Icon = 'Prod_Imp',
+            Name = 'Improved Production',
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB0301',},
+            UpgradeUnitAmbientBones = {'UEB0301','Control_Tower',},
+			
+			NewRegenRate = 10,
+        },
+		
+        ImprovedProductionRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Prod_Imp',
+            Name = 'Remove Improved Production',
+            Prerequisite = 'ImprovedProduction',
+            RemoveEnhancements = {
+                'ImprovedProduction',
+                'ImprovedProductionRemove',
+            },
+            Slot = 'LCH',
+        },
+		
+		--	+60% over original done with buff over original
+        AdvancedProduction = {
+            BuildCostEnergy = 85000,
+            BuildCostMass = 5000,
+            BuildTime = 36000,
+
+            Icon = 'Prod_Adv',
+            Name = 'Advanced Production',
+            Prerequisite = 'ImprovedProduction',
+
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB0301',},
+            UpgradeUnitAmbientBones = {'UEB0301','Control_Tower','Tower_Right','Tower_Left',},
+			
+			NewRegenRate = 20,
+        },
+		
+        AdvancedProductionRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Prod_Adv',
+            Name = 'Remove Advanced Production',
+            Prerequisite = 'AdvancedProduction',
+            RemoveEnhancements = {
+                'ImprovedProduction',
+                'AdvancedProduction',
+                'AdvancedProductionRemove',
+            },
+            Slot = 'LCH',
+        },
+		
+		-- 10% Materiels efficiency
+        ImprovedMateriels = {    
+            BuildCostEnergy = 42000,
+            BuildCostMass = 2500,
+            BuildTime = 18000,
+
+            Icon = 'Materiel_Imp',
+            Name = 'Improved Materiels',
+            Slot = 'RCH',
+
+            UpgradeEffectBones = {'UEB0301',},
+            UpgradeUnitAmbientBones = {'UEB0301','Control_Tower',},			
+        },
+		
+        ImprovedMaterielsRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Materiel_Imp',
+            Name = 'Remove Improved Materiels',
+            Prerequisite = 'ImprovedMateriels',
+            RemoveEnhancements = {
+                'ImprovedMateriels',
+                'ImprovedMaterielsRemove',
+            },
+            Slot = 'RCH',
+        },
+		
+		--	+20% materiels efficiency
+        AdvancedMateriels = {
+            BuildCostEnergy = 85000,
+            BuildCostMass = 5000,
+            BuildTime = 36000,
+
+            Icon = 'Materiel_Adv',
+            Name = 'Advanced Materiels',
+            Prerequisite = 'ImprovedMateriels',
+
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'UEB0301',},
+            UpgradeUnitAmbientBones = {'UEB0301','Control_Tower','Tower_Right','Tower_Left',},            
+        },
+		
+        AdvancedMaterielsRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Materiel_Adv',
+            Name = 'Remove Advanced Materiels',
+            Prerequisite = 'AdvancedMateriels',
+            RemoveEnhancements = {
+                'ImprovedMateriels',
+                'AdvancedMateriels',
+                'AdvancedMaterielsRemove',
+            },
+            Slot = 'RCH',
+        },
+		
+		InstallT3Radar = {
+			BuildCostEnergy = 30000,
+			BuildCostMass = 2000,
+			BuildTime = 10000,
+			
+			MaintenanceConsumptionPerSecondEnergy = 2000,
+			
+			Icon = 'Radar_T3',
+			Name = 'Install Radar Upgrade',
+			
+			Slot = 'Back',
+            UpgradeEffectBones = {'UEB0301',},
+            UpgradeUnitAmbientBones = {'UEB0301','Control_Tower',},
+		},
+		
+		InstallT3RadarRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Radar_T3',
+            Name = 'Remove T3 Radar',
+            Prerequisite = 'InstallT3Radar',
+            RemoveEnhancements = {
+                'InstallT3Radar',
+                'InstallT3RadarRemove',
+            },
+            Slot = 'Back',
+        },			
+
+		InstallFactoryShield = {
+            BuildCostEnergy = 7500,
+            BuildCostMass = 500,
+            BuildTime = 2500,
+			
+            Icon = 'Shield',
+			
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+			
+            MaintenanceConsumptionPerSecondEnergy = 200,
+			
+            Name = 'Shield Dome',
+			
+            RegenAssistMult = 60,            
+			
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 7000,
+            ShieldRechargeTime = 14,
+            ShieldRegenRate = 98,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 10,
+            ShieldVerticalOffset = 0,
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {'UEB0301',},
+			UpgradeUnitAmbientBones = {'UEB0301','Control_Tower',},
+
+        },
+		
+		InstallFactoryShieldRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Shield',
+            Name = 'Remove Factory Shield',
+            Prerequisite = 'InstallFactoryShield',
+			
+            RegenAssistMult = nil,            
+			
+            ShieldEnergyDrainRechargeTime = nil,
+            ShieldMaxHealth = nil,
+            ShieldRechargeTime = nil,
+            ShieldRegenRate = nil,
+            ShieldRegenStartTime = nil,
+            ShieldSize = nil,
+            ShieldVerticalOffset = nil,
+			
+            RemoveEnhancements = {
+                'InstallFactoryShield',
+                'InstallFactoryShieldRemove',
+            },
+			
+            Slot = 'Back',
+        },	
+
+    },
+	
+	Intel = {
+        OmniRadius = 0,
+        RadarRadius = 0,
+        ReactivateTime = 5,
+	},
+}

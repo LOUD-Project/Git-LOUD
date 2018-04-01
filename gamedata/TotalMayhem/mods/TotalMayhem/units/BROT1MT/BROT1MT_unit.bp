@@ -1,0 +1,246 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Med_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0201_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Tank',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 41,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH1',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'TANK',
+        'OVERLAYDIRECTFIRE',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 215,
+        MaxHealth = 215,
+        RegenRate = 0,
+        SurfaceThreatLevel = 3,
+    },
+    Description = 'Light Tank',
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = false,
+        UniformScale = 0.042,
+    },
+    Economy = {
+        BuildCostEnergy = 450,
+        BuildCostMass = 60,
+        BuildTime = 300,
+    },
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Bonfire',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 18,
+    },
+    Interface = {
+        HelpText = 'Medium Tank',
+    },
+    LifeBarHeight = 0.07,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 0.6,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.3,
+        MaxBrake = 2.9,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 1,
+        MaxSteerForce = 10,
+        MeshExtentsX = 0.6,
+        MeshExtentsY = 0.32,
+        MeshExtentsZ = 0.85,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = true,
+        RotateOnSpotThreshold = 0.1,
+        TurnRadius = 0,
+        TurnRate = 75,
+    },
+    SelectionSizeX = 0.45,
+    SelectionSizeZ = 0.6,
+    SelectionThickness = 0.7,
+    SizeX = 0.7,
+    SizeY = 0.3,
+    SizeZ = 0.9,
+    StrategicIconName = 'icon_land1_directfire',
+    StrategicIconSortPriority = 135,
+    Veteran = {
+        Level1 = 3,
+        Level2 = 6,
+        Level3 = 9,
+        Level4 = 12,
+        Level5 = 15,
+    },
+    Transport = {
+        TransportClass = 1,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONINTERCEPTORFIRE',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 12,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 20,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 28,
+			
+            ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle2',
+                    },
+                    RackBone = 'Turret_Barrel2',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2.5,	-- 30 DPS
+			
+            TargetCheckInterval = 0.4,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH1 MOBILE',
+                'TECH2 MOBILE',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.3,
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 75,
+			
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.6,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

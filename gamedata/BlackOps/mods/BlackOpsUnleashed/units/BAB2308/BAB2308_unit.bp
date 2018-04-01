@@ -1,0 +1,298 @@
+UnitBlueprint {
+    AI = {
+        InitialAutoMode = true,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Open = Sound {
+            Bank = 'UAB',
+            Cue = 'UAB2108_Doors',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    BuildIconSortPriority = 150,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'AEON',
+        'STRUCTURE',
+		'DEFENSE',
+        'TECH3',
+        'INDIRECTFIRE',
+        'TACTICALMISSILEPLATFORM',
+        'DRAGBUILD',
+        'SILO',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTSTRATEGIC',
+    },
+
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 4500,
+        MaxHealth = 4500,
+        SurfaceThreatLevel = 95,
+    },
+	
+    Description = 'Advanced Tactical Missile Launcher',
+	
+    Display = {
+	
+        Abilities = {
+            'Requires Manual Launch',
+			'Can be built underwater',
+			'Fires a missile that splits into 6 missiles',
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXB0026',
+        SpawnRandomRotation = true,
+        UniformScale = 0.1,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 125500,
+        BuildCostMass = 7400,
+        BuildTime = 4500,
+		
+        BuildRate = 200,	-- for missiles
+		
+        RebuildBonusIds = {
+            'bab2308',
+        },
+    },
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
+    General = {
+		CapCost = 4,
+        Category = 'Strategic',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_SiloBuildTactical = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Tactical = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Purifier',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 24,
+    },
+	
+    Interface = {
+        HelpText = 'Advanced Tactical Missile Launcher',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 1,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 2,
+        MeshExtentsY = 1,
+        MeshExtentsZ = 2,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 1.65,
+    SelectionSizeZ = 1.65,
+    SelectionThickness = 0.5,
+    SizeX = 3,
+    SizeY = 1,
+    SizeZ = 3,
+    SplitDamage = {
+        DamageAmount = 2000,
+        DamageRadius = 4,
+    },
+    StrategicIconName = 'icon_structure2_missile',
+    StrategicIconSortPriority = 180,
+    Veteran = {
+        Level1 = 18,
+        Level2 = 32,
+        Level3 = 54,
+        Level4 = 72,
+        Level5 = 90,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2108_Missile_Serpent2',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+            CountedProjectile = true,
+			
+            Damage = 12000,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Serpentine Missile',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Sub = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 5,
+            ForceSingleFire = false,
+			
+            InitialProjectileStorage = 0,
+			
+            Label = 'CruiseMissile',
+			
+            ManualFire = true,
+            MaxProjectileStorage = 8,
+			
+            MaxRadius = 256,
+            MinRadius = 70,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 0,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MirvSerpentine01/MirvSerpentine01_proj.bp',
+            ProjectileLifetime = 999,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Attachpoint01',
+                    },
+                    RackBone = 'Turret01',
+                },
+                {
+                    MuzzleBones = {
+                        'Attachpoint02',
+                    },
+                    RackBone = 'Turret02',
+                },
+                {
+                    MuzzleBones = {
+                        'Attachpoint03',
+                    },
+                    RackBone = 'Turret03',
+                },
+                {
+                    MuzzleBones = {
+                        'Attachpoint04',
+                    },
+                    RackBone = 'Turret04',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 20,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 20,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.667,
+			
+            TargetCheckInterval = 1.0,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'EXPERIMENTAL',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            Turreted = false,
+
+            WeaponRepackTimeout = 3,
+            WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAB2308/BAB2308_Aopen.sca',
+            WeaponUnpackAnimationRate = 3,
+            WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

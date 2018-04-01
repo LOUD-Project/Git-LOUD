@@ -1,0 +1,297 @@
+UnitBlueprint {
+
+    Audio = {
+	
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+		
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 120,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'SERAPHIM',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH3',
+        'ANTIAIR',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        AirThreatLevel = 44,
+        ArmorType = 'Structure',
+        Health = 3850,
+        MaxHealth = 3850,
+        RegenRate = 1,
+    },
+	
+    Description = 'AutoCannon AA Defense',
+	
+    Display = {
+	
+        Abilities = {
+			'Hi-V Autocannon',
+            'Aquatic',
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'xsb2304_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'xsb2304_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXB0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.044,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 10500,
+        BuildCostMass = 950,
+        BuildTime = 950,
+        RebuildBonusIds = {
+            'xsb2304',
+        },
+    },
+	
+    Footprint = {
+        MinWaterDepth = 2,
+    },
+	
+    General = {
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Iathu-ioz',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 36,
+    },
+	
+    Interface = {
+        HelpText = 'Anti-Air Defense',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.6,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.15,
+        MeshExtentsY = 0.65,
+        MeshExtentsZ = 1.15,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 0.55,
+    SelectionSizeZ = 0.55,
+    SelectionThickness = 0.71,
+	
+    SizeX = 0.8,
+    SizeY = 0.9,
+    SizeZ = 1,
+	
+    StrategicIconName = 'icon_structure3_antiair',
+    StrategicIconSortPriority = 200,
+	
+    Veteran = {
+        Level1 = 15,
+        Level2 = 30,
+        Level3 = 45,
+        Level4 = 60,
+        Level5 = 75,
+    },
+	
+    Weapon = {
+        {
+			
+            AlwaysRecheckTarget = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2304_Losaare_Autocannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 55,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'AA Autocannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0.1,
+			
+            Label = 'AutoCannon',
+			LeadTarget = true,
+			
+            MaxRadius = 64,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 4,
+			
+            MuzzleVelocity = 98,
+			
+            ProjectileId = '/projectiles/SAALosaareAutoCannon04/SAALosaareAutoCannon04_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 0.7,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                        'Muzzle02',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		-- 440 DPS Air
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TrackingRadius = 1.5,
+			
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 25,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 80,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 88,
+			
+            Turreted = true,
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

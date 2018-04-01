@@ -1,0 +1,76 @@
+
+Hi, 
+
+Ok in this help file ill describe how to add your own enhancement slot for unit enhancements.
+currently the only available slots are RCH, LCH and BACK.. i now give you the ability to add
+any number of your own personal slots.. 
+
+as always i will use the UEF COMMANDER in the example.. 
+
+
+STEP 1
+
+create a file structure exactly like this in your mods folder
+
+yourmodname/customize/enhancement_slots
+
+now create a new lua file called enhancement_slots.lua and open this file.
+
+
+Step 2
+
+Add the following table to the enhancement_slots.lua file
+
+Enhancement_Slots = {
+
+	--Command Systems
+	Command = {
+		Icon = "/game/construct-tech_btn/m_upgrade_btn_",
+		Tooltip = "Customize [Command Systems]",
+	},
+}
+
+
+what were doing here is defining the icon for the slot and the help text 
+that is displayed when we hover our mouse over the new slot.
+The name of the slot is defined from the table key.. in this case command.
+
+the path to the icon is
+
+/yourmodname/textures/ui/faction-name/game/construct-tech_btn/m_upgrade_btn_
+
+we DO NOT ADD THE END PART OF THE ICON NAME WHICH WILL BE UP/DOWN/SELECT/OVER.DDS
+
+you can either make your own icon or use one of the 3 existing ones.
+
+if you use one of your own icons, the path where the icon resides in your mods folder
+has to be in "/yourmodname/textures/ui/FACTIONNAME/" and then the path you specified in the icon param above.
+
+i have provided a set of blank enhancement slot icons for you edit, rename and place in the correct forder.
+when renaming the icon be sure to keep the last part of the filename exactly like blank ones.. (after _btn_)
+
+
+Step 3
+
+Now were going to add the new enhancement slot to our unit.. we add it to the units enhancements table in the units blueprint.
+
+so lets define the new slot.. we add the slot to the slots table.
+
+
+Slots = {
+	Command = {
+			name = '<LOC _Command>',
+			x = 5,
+			y = 10,
+		},
+	},
+
+
+
+we can now use this new enhancement slot as defined in the enhancements Slot param.
+
+NOTE... when defining the enhancement slot "name" you HAVE TO USE THE SAME NAME YOU DEFINED IN STEP 2
+YOU ALSO HAVE TO HAVE THE LEADING _ INFRONT OF ANY NAME PARAM. 
+
+THATS IT!! your custom enhancement slot is ready for use.. although you wont see it on the enhancement ui until 
+a unit that has an enhancement on that slot is selected.. :)

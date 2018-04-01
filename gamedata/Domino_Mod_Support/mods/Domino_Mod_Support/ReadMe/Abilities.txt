@@ -1,0 +1,135 @@
+
+abilities are buttons on the orders panel that when clicked allow you to click on the map which makes your unit do something
+at the position of the map you clicked. ill now describe how to add such a button. Ill describe how to replicate the MOVE button
+but from this you will learn how to make the unit do a large number of things.
+
+ok im going to use the UEF COMMANDER in this example.
+
+STEP 1
+
+MERGE these settings into the UEF COMMANDER blueprint in the abilities and categories sections.
+
+Abilities = {
+        Move2Position = {
+            bitmapId = 'empty',
+            helpText = 'Move To Position',
+        },
+},
+
+AND
+
+Categories = {
+        'ABILITYBUTTON',
+},
+
+
+in the abilties table we are just defining the bitmapid (the icon for the button) and the help text that is displayed when you hover your mouse over the button.
+we need to add the abilitybutton (in caps) to the categories so the button/s is/are shown on the ui orders panel.
+
+
+STEP 2
+
+
+in your mods folder create a folder named customize and in this folder create another folder called abilities now create a new lua file called abilities.lua in the abilities folder
+so you have "yourmodname/customize/abilities/abilities.lua" open the abilities.lua file and add this table
+
+Abilities = { 
+	
+	['Move2Position'] = {
+        			preferredSlot = 13,
+        			script = 'Move2Position',
+    	},
+
+}
+
+what we are doing here is giving the ability button a name (the same name defined in the blueprint), the preferred slot you want the button to go into on the orders panel, if the slot is taken by another button
+the next available slot is used, if no slot is defined slot 13 is used as default, next is the the script name you want it to use when activated.
+
+
+
+
+
+STEP 3
+
+
+ok this next step were going to create the script that is called when we click on the map for our new ability toggle as defined in the abilities table above.
+
+first create this folder structure in your mods folder
+
+lua/sim/tasks
+
+so you have yourmodname/lua/sim/tasks
+
+in the created tasks folder create a new lua file called move2position.lua
+
+now in the move2position.lua file add this bit of code
+
+local ScriptTask = import('/lua/sim/ScriptTask.lua').ScriptTask
+local TASKSTATUS = import('/lua/sim/ScriptTask.lua').TASKSTATUS
+local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
+
+
+Move2Position = Class(ScriptTask) {
+    
+    OnCreate = function(self,commandData)
+        ScriptTask.OnCreate(self,commandData)
+		
+		local BpAbilities = self:GetUnit():GetBlueprint().Abilities or false
+		local SyncAbilities = UnitData[self:GetUnit():GetEntityId()].Data.Abilities
+		local Ability = commandData.TaskName
+				
+		if SyncAbilities[commandData.TaskName] then 
+			IssueMove( { self:GetUnit() }, commandData.Location )
+		end
+    end,
+	  
+    TaskTick = function(self)
+        self:SetAIResult(AIRESULT.Success)
+        return TASKSTATUS.Done
+    end,
+
+    IsInRange = function(self)
+        return true
+    end,
+
+}
+
+save and close the move2position.lua file
+
+CONGRATULATIONS.. YOU JUST CREATED YOUR FIRST CUSTOM ABILITIES BUTTON.. 
+start supreme commander - forged alliance choose a skirmish game be the UEF and start the game.. 
+look on the orders panel you should have a blank button on there.. click it and click any where on the map.
+your commander should move to that position. well done!
+
+
+a few things to note in the ability script.. 
+
+commandData.Location = the position you clicked on the map
+self:GetUnit() = the unit/s you currently have selected
+
+ok now lets say you didnt want the unit to move to a position but rather
+you wanted it to do something else.
+
+inplace of
+
+IssueMove( { self:GetUnit() }, commandData.Location )
+
+you can make the unit call a function in its own script by using 
+
+local unit = self:GetUnit():your-function-name(commandData.Location)
+
+this would call the function name you specify in the units script.
+from there you can make the unit do whatever you want at that location.
+
+i have provided a set of EMPTY buttons for you to modify in step one i defined the bitmap as empty
+this set of template icons is for you to copy from 
+
+mod_support/textures/ui/common/game/orders
+
+to your own mods folder
+
+yourmodname/textures/ui/common/game/orders
+
+you will have to rename the textures once modified and also change the bitmap name in step 1 to reflect the new bitmap name.
+
+if you have any comments or issues please post in the mod_support thread on the GPG Forum in moho mod talk.

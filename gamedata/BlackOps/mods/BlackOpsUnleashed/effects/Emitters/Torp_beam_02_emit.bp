@@ -1,0 +1,11 @@
+BeamBlueprint {
+    Lifetime = 10,
+    TextureName = '/textures/particles/glow_streak.dds',
+    Thickness = 0.04,
+    StartColor = {x=0,y=5,z=0,w=0}, # R,G,B,A
+    EndColor = {x=0,y=5,z=0,w=0}, # R,G,B,A
+    Length = 2000,
+    RepeatRate = 0.024,
+    UShift = 0.0,
+    VShift = -0.950,
+}

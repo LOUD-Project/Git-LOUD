@@ -1,0 +1,19 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uab1105",
+	
+	-- removing the BUILDABLE BY categories removes the unit from the game
+    Categories = {
+        'SELECTABLE',
+        'AEON',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH1',
+        'ENERGYSTORAGE',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SHOWQUEUE',
+        'SORTECONOMY',
+    },
+}
