@@ -1,0 +1,19 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1106",
+
+    Categories = {
+        'SELECTABLE',
+        'CYBRAN',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH1',
+        'MASSSTORAGE',
+        'DRAGBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SHOWQUEUE',
+        'SORTECONOMY',
+    },
+
+}

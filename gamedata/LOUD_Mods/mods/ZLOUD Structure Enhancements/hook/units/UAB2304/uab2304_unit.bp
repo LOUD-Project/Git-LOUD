@@ -1,0 +1,59 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uab2304",
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'AEON',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH3',
+        'ANTIAIR',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+		'OVERLAYOMNI',
+		'OVERLAYRADAR',
+    },
+	
+	Economy = {
+		BuildRate = 15,
+	},
+
+	Enhancements = {
+	
+		Sequence = {},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+		InstallT2Radar = {
+			BuildCostEnergy = 3600,
+			BuildCostMass = 180,
+			BuildTime = 600,
+			
+			MaintenanceConsumptionPerSecondEnergy = 250,
+			
+			Icon = 'Radar_T2',
+			Name = 'Install T2 Radar',
+			
+			Slot = 'LCH',
+            UpgradeEffectBones = {'UAB2304'},
+            UpgradeUnitAmbientBones = {'UAB2304'},
+		},
+    },
+	
+	Intel = {
+        OmniRadius = 0,
+        RadarRadius = 0,
+        ReactivateTime = 5,
+	},
+}

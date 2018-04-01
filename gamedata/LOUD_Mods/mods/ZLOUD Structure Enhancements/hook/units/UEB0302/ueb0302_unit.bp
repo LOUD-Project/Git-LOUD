@@ -1,0 +1,245 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ueb0302",
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+		'BUILTBYTIER4COMMANDER',
+        'UEF',
+        'STRUCTURE',
+        'AIR',
+        'TECH3',
+        'CONSTRUCTION',
+        'FACTORY',
+        'RALLYPOINT',
+        'CONSTRUCTIONSORTDOWN',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWQUEUE',
+        'SORTCONSTRUCTION',
+		'OVERLAYRADAR',
+		'OVERLAYOMNI',
+    },
+
+	Enhancements = {
+	
+		Sequence = {'ImprovedMateriels','AdvancedMateriels','InstallFactoryShield','ImprovedProduction','AdvancedProduction',},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+        ImprovedProduction = {    
+            BuildCostEnergy = 42000,
+            BuildCostMass = 2500,
+            BuildTime = 18000,
+
+            Icon = 'Prod_Imp',
+            Name = 'Improved Production',
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB0302',},
+            UpgradeUnitAmbientBones = {'UEB0302','Muzzle02',},
+			
+			NewRegenRate = 10,
+        },
+		
+        ImprovedProductionRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Prod_Imp',
+            Name = 'Remove Improved Production',
+            Prerequisite = 'ImprovedProduction',
+            RemoveEnhancements = {
+                'ImprovedProduction',
+                'ImprovedProductionRemove',
+            },
+            Slot = 'LCH',
+        },
+		
+        AdvancedProduction = {
+            BuildCostEnergy = 85000,
+            BuildCostMass = 5000,
+            BuildTime = 36000,
+
+            Icon = 'Prod_Adv',
+            Name = 'Advanced Production',
+            Prerequisite = 'ImprovedProduction',
+
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB0302',},
+            UpgradeUnitAmbientBones = {'UEB0302','Muzzle01','Muzzle03',},
+			
+			NewRegenRate = 20,
+        },
+		
+        AdvancedProductionRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Prod_Adv',
+            Name = 'Remove Advanced Production',
+            Prerequisite = 'AdvancedProduction',
+            RemoveEnhancements = {
+                'ImprovedProduction',
+                'AdvancedProduction',
+                'AdvancedProductionRemove',
+            },
+            Slot = 'LCH',
+        },
+
+        ImprovedMateriels = {    
+            BuildCostEnergy = 42000,
+            BuildCostMass = 2500,
+            BuildTime = 18000,
+
+            Icon = 'Materiel_Imp',
+            Name = 'Improved Materiels',
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'UEB0302',},
+            UpgradeUnitAmbientBones = {'UEB0302','Muzzle02',},
+        },
+		
+        ImprovedMaterielsRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Materiel_Imp',
+            Name = 'Remove Improved Materiels',
+            Prerequisite = 'ImprovedMateriels',
+            RemoveEnhancements = {
+                'ImprovedMateriels',
+                'ImprovedMaterielsRemove',
+            },
+            Slot = 'RCH',
+        },
+		
+        AdvancedMateriels = {
+            BuildCostEnergy = 85000,
+            BuildCostMass = 5000,
+            BuildTime = 36000,
+
+            Icon = 'Materiel_Adv',
+            Name = 'Advanced Materiels',
+            Prerequisite = 'ImprovedMateriels',
+
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'UEB0302',},
+            UpgradeUnitAmbientBones = {'UEB0302','Muzzle01','Muzzle03',},
+        },
+		
+        AdvancedMaterielsRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Materiel_Adv',
+            Name = 'Remove Advanced Materiels',
+            Prerequisite = 'AdvancedMateriels',
+            RemoveEnhancements = {
+                'ImprovedMateriels',
+                'AdvancedMateriels',
+                'AdvancedMaterielsRemove',
+            },
+            Slot = 'RCH',
+        },
+		
+		InstallT3Radar = {
+			BuildCostEnergy = 30000,
+			BuildCostMass = 2000,
+			BuildTime = 10000,
+			
+			MaintenanceConsumptionPerSecondEnergy = 2000,
+			
+			Icon = 'Radar_T3',
+			Name = 'Install Radar Upgrade',
+			
+			Slot = 'Back',
+            UpgradeEffectBones = {'UEB0302',},
+            UpgradeUnitAmbientBones = {'UEB0302','Muzzle02',},
+		},
+		
+		InstallT3RadarRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Radar_T3',
+            Name = 'Remove T3 Radar',
+            Prerequisite = 'InstallT3Radar',
+            RemoveEnhancements = {
+                'InstallT3Radar',
+                'InstallT3RadarRemove',
+            },
+            Slot = 'Back',
+        },			
+
+		InstallFactoryShield = {
+            BuildCostEnergy = 7500,
+            BuildCostMass = 500,
+            BuildTime = 2500,
+			
+            Icon = 'Shield',
+			
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+			
+            MaintenanceConsumptionPerSecondEnergy = 200,
+			
+            Name = 'Shield Dome',
+			
+            RegenAssistMult = 60,            
+			
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 7000,
+            ShieldRechargeTime = 14,
+            ShieldRegenRate = 98,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 10,
+            ShieldVerticalOffset = 0,
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {'UEB0302',},
+			UpgradeUnitAmbientBones = {'UEB0302','Muzzle02',},
+
+        },
+		
+		InstallFactoryShieldRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Shield',
+            Name = 'Remove Factory Shield',
+            Prerequisite = 'InstallFactoryShield',
+            RemoveEnhancements = {
+                'InstallFactoryShield',
+                'InstallFactoryShieldRemove',
+            },
+            Slot = 'Back',
+        },	
+
+    },
+	
+	Intel = {
+        OmniRadius = 0,
+        RadarRadius = 0,
+        ReactivateTime = 5,
+	},	
+	
+}

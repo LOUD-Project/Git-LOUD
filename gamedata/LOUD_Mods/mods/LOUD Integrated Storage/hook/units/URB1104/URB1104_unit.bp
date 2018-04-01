@@ -1,0 +1,41 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1104", #Cybran T2 Mass Fabricator
+    Defense = {
+        RegenRate = 3,
+    },
+    Economy = {
+        BuildCostEnergy = 7500,
+        BuildCostMass = 500,
+        BuildTime = 700,
+        MaintenanceConsumptionPerSecondEnergy = 300,
+        ProductionPerSecondMass = 1,
+        BuildRate = 10,
+        BuildableCategory = {
+            'urb1107',
+        },
+        RebuildBonusIds = {
+            'urb1104',
+            'urb1107',
+        },
+    },
+    General = {
+	CapCost = 2,
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        UpgradesTo = 'urb1107',
+    },
+}

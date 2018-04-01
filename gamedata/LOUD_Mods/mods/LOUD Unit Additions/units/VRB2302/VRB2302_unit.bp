@@ -1,0 +1,294 @@
+UnitBlueprint {
+
+    Audio = {
+	
+        DeathExplosion = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'URB',
+            Cue = 'URB2302_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
+        },
+    },
+	
+    BuildIconSortPriority = 190,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'EXPERIMENTAL',
+        'DEFENSE',
+        'STRUCTURE',
+        'ANTIAIR',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYANTIAIR',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        AirThreatLevel = 400,
+        ArmorType = 'Structure',
+        Health = 8800,
+        MaxHealth = 8800,
+        RegenRate = 6,
+    },
+	
+    Description = 'T4 AA Gun',
+	
+    Display = {
+        Abilities = {
+            'Anti-Air',
+			'Low Rate of Fire',
+			'Engages only T3 and Experimentals',
+		},
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+				{
+                    LODCutoff = 500,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0004',
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 5,
+                Normal = 'Tarmacs/Tar12x_cybran_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 5,
+            },
+        },
+        UniformScale = 0.045,
+    },
+    Economy = {
+        BuildCostEnergy = 145000,
+        BuildCostMass = 13000,
+        BuildTime = 13000,
+		
+        RebuildBonusIds = {'vrb2302'},
+		
+    },
+	
+    General = {
+		CapCost = 4,
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Sky Bloom',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 40,
+    },
+	
+    Interface = {
+        HelpText = 'T4 SAM Launcher',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1,
+    LifeBarSize = 2,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 2.25,
+    SelectionSizeZ = 2.25,
+    SelectionThickness = 0.3,
+	
+    SizeX = 2,
+    SizeY = 2,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_experimental_generic',
+	
+    StrategicIconSortPriority = 115,
+	
+    Veteran = {
+        Level1 = 40,
+        Level2 = 80,
+        Level3 = 120,
+        Level4 = 160,
+        Level5 = 200,
+    },
+	
+    Weapon = {
+        {
+            AlwaysRecheckTarget = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2304_Missile_Nanite',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+			
+            CollideFriendly = false,
+			
+            Damage = 8000,
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanite Missile',
+			
+            EnergyDrainPerSecond = 1000,
+            EnergyRequired = 2000,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+            },
+			
+            FiringTolerance = 5,
+			
+            Label = 'Missile01',
+			
+            MaxRadius = 92,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 65,
+			
+            ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
+            ProjectileLifetime = 5,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Barrel_B01',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -7,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 0.5,
+			
+            TargetCheckInterval = 1,
+			
+            TargetPriorities = {
+				'AIR MOBILE EXPERIMENTAL',
+                'SPECIALHIGHPRI',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, TECH2, SATELLITE',
+            TrackingRadius = 1.25,
+			
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 45,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 68,
+			
+            Turreted = true,
+        },
+		
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}
