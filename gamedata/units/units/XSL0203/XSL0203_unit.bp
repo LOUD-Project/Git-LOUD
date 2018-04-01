@@ -1,0 +1,281 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 35,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Med',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        HoverKilledOnWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0203_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Tank',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 30,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'TECH2',
+        'DIRECTFIRE',
+        'HOVER',
+		'AMPHIBIOUS',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 1.5,
+        SurfaceThreatLevel = 7.5,
+    },
+	
+    Description = 'Hover Tank',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'xsl0203_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'xsl0203_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0006',
+        SpawnRandomRotation = false,
+        UniformScale = 0.05,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 2000,
+        BuildCostMass = 400,
+        BuildTime = 1600,
+    },
+	
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Yenzyne',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 24,
+    },
+    Interface = {
+        HelpText = 'Hover Tank',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.4,
+    LifeBarSize = 0.75,
+    Physics = {
+        BackUpDistance = 3,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+		
+        Elevation = 0.125,
+		
+        MaxAcceleration = 2,
+        MaxBrake = 2,
+		
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3.5,
+		
+        MaxSteerForce = 10,
+        MeshExtentsX = 1.3,
+        MeshExtentsY = 0.65,
+        MeshExtentsZ = 1.5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+		
+        RotateBodyWhileMoving = true,
+		
+        TurnFacingRate = 45,
+        TurnRadius = 0,
+        TurnRate = 55,
+    },
+	
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.8,
+    SelectionThickness = 0.5,
+	
+    SizeX = 0.9,
+    SizeY = 0.5,
+    SizeZ = 1.2,
+	
+    StrategicIconName = 'icon_land2_directfire',
+    StrategicIconSortPriority = 125,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Veteran = {
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0203_Cannon_Tau',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 150,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Tau Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomnessWhileMoving = 0.4,
+            FiringTolerance = 1.5,
+			
+            Label = 'TauCannon01',
+			
+            MaxRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.1,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		#-- 75 DPS
+			
+            SlavedToBody = false,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 20,
+            TurretPitchSpeed = 60,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 42,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

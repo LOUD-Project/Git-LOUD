@@ -1,0 +1,268 @@
+UnitBlueprint {
+    Audio = {
+        Construct = Sound {
+            Bank = 'XEL',
+            Cue = 'XEL0209_Construct_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Sml_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XEL',
+            Cue = 'XEL0209_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 15,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYLANDTIER2FACTORY',
+        'BUILTBYLANDTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'TECH2',
+        'CONSTRUCTION',
+        'ENGINEER',
+		'FIELDENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
+    },
+	
+    CollisionOffsetY = -0.25,
+    CollisionOffsetZ = -0.05,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 106,	# BuildRate * 2 + 3% of health (shield included)
+        Health = 630,
+        MaxHealth = 630,
+        RegenRate = 2,
+		Shield = {
+            ImpactEffects = 'UEFShieldHit01',
+			ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 2000,
+            ShieldRechargeTime = 7,
+            ShieldRegenRate = 42.5,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 8,
+            ShieldVerticalOffset = 0,
+            StartsOff = false,
+        },
+    },
+	
+    Description = 'Field Engineer',
+	
+    Display = {
+        Abilities = {
+            'Field Engineering Suite - Defenses Only',
+			'Shield Bubble',
+            'Radar & Sonar',
+        },
+		
+        AnimationWater = '/units/XEL0209/xel0209_afold.sca',
+		
+		MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Dust01',
+                        },
+                        Scale = 0.6,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Dust02',
+                        },
+                        Scale = 0.6,
+                        Type = 'RightFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'XEL0209',
+                        },
+                        Scale = 0.4,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 300,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = false,
+        UniformScale = 0.04,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1900,
+        BuildCostMass = 300,
+        BuildRate = 14,
+        BuildTime = 1650,
+		
+        BuildableCategory = {
+            'BUILTBYTIER2ENGINEER DIRECTFIRE UEF',
+            'BUILTBYTIER2ENGINEER INDIRECTFIRE UEF',
+			'BUILTBYTIER2ENGINEER ANTIAIR UEF',
+			'BUILTBYTIER2ENGINEER ANTIMISSILE UEF',
+			'BUILTBYTIER2ENGINEER INTELLIGENCE UEF',
+			'BUILTBYTIER2ENGINEER WALL UEF',
+        },
+		
+        MaintenanceConsumptionPerSecondEnergy = 50,
+		MaxBuildDistance = 3.6,
+		
+		StorageEnergy = 200,
+		StorageMass = 20,
+    },
+	
+    General = {
+	
+        BuildBones = {
+            AimBone = 0,
+            BuildEffectBones = {'Arm_Muzzle',},
+            PitchBone = 'Arm02',
+            YawBone = 'XEL0209',
+        },
+		
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+		
+        ConstructionBar = true,
+        FactionName = 'UEF',
+        Icon = 'amph',
+		OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+		},
+        SelectionPriority = 3,
+        TechLevel = 'RULEUTL_Advanced',
+		ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = 'Sparky',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        OmniRadius = 10,
+		RadarRadius = 60,
+		SonarRadius = 33,
+        VisionRadius = 20,
+		WaterVisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'Field Engineer',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 0.6,
+	
+    Physics = {
+        BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3.2,
+        MaxSteerForce = 30,
+        MeshExtentsX = 0.75,
+        MeshExtentsY = 1.2,
+        MeshExtentsZ = 0.75,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_AmphibiousFloating',
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0,
+    SelectionSizeX = 0.45,
+    SelectionSizeZ = 0.6,
+    SelectionThickness = 0.7,
+	
+    SizeX = 0.7,
+    SizeY = 1,
+    SizeZ = 0.7,
+	
+    StrategicIconName = 'icon_land2_engineer',
+    StrategicIconSortPriority = 95,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

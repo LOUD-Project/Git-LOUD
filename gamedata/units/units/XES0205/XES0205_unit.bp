@@ -1,0 +1,235 @@
+UnitBlueprint {
+
+    Audio = {
+        Killed = Sound {
+            Bank = 'XES_Destroy',
+            Cue = 'XES0205_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XES',
+            Cue = 'XES0205_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'NAVAL',
+        'TECH2',
+        'SHIELD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DEFENSIVEBOAT',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 900,
+        MaxHealth = 900,
+        RegenRate = 4,
+        Shield = {
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+            ShieldEnergyDrainRechargeTime = 6,
+            ShieldMaxHealth = 7800,
+            ShieldRechargeTime = 39,
+            ShieldRegenRate = 100,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 72,
+            ShieldVerticalOffset = -24,
+        },
+        SubThreatLevel = 1,
+    },
+	
+    Description = 'Shield Boat',
+	
+    Display = {
+        Abilities = {
+            'Shield Dome',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/units/xes0205/xes0205_ADeath01.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/xes0205/xes0205_ADeath02.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/xes0205/xes0205_ADeath03.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+        },
+		
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XES0205',
+                        },
+                        Scale = 0.35,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'xes0205_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'xes0205_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust01',
+                            'Exhaust02',
+                        },
+                        Scale = 0.5,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0009',
+        SpawnRandomRotation = false,
+        UniformScale = 0.09,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 13000,
+        BuildCostMass = 1300,
+        BuildTime = 5400,
+        MaintenanceConsumptionPerSecondEnergy = 400,
+    },
+
+    General = {
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'sea',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = 'Bulwark',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 25,
+    },
+	
+    Interface = {
+        HelpText = 'Shield Boat',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.1,
+    LifeBarSize = 0.7,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 8,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2.25,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MeshExtentsX = 2.25,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 12,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 10,
+        TurnRate = 60,
+    },
+	
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 1.8,
+    SelectionThickness = 0.37,
+	
+    SizeX = 0.85,
+    SizeY = 1,
+    SizeZ = 2.75,
+	
+    StrategicIconName = 'icon_ship2_shield',
+    StrategicIconSortPriority = 125,
+--[[
+    Weapon = {
+        {               # Adds a dummy weapon that does nothing except adds another range circle to show 
+            Damage = 0, # where the shield ends  on the water's surface. Purely visual fix by themak [160]
+            MaxRadius = 35.9;
+            RangeCategory = 'UWRC_DirectFire',
+        },
+    },
+--]]
+}

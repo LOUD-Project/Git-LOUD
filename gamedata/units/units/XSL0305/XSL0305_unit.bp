@@ -1,0 +1,404 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Lrg',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0305_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 20,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+		'SNIPER',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'OVERLAYINDIRECTFIRE',
+        'BOT',
+    },
+	
+    CollisionOffsetY = 0,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 590,
+        MaxHealth = 590,
+        RegenRate = 1,
+        SurfaceThreatLevel = 14,
+    },
+	
+    Description = 'Sniper Bot',
+	
+    Display = {
+        Abilities = {
+			'Sniper role',
+			'Personal Stealth',
+            'Deploys for long range',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/units/xsl0305/xsl0305_ADeath.sca',
+                AnimationRateMax = 1,
+                AnimationRateMin = 1,
+                Weight = 1,
+            },
+        },
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSL0305',
+                        },
+                        Scale = 1,
+                        Type = 'SeraphimGroundFX02',
+                    },
+                    {
+                        Bones = {
+                            'XSL0305',
+                        },
+                        Scale = 1,
+                        Type = 'SeaIdle02',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'xsl0305_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'xsl0305_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.068,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 15000,
+        BuildCostMass = 800,
+        BuildTime = 3200,
+    },
+	
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'toggle-weapon',
+                helpText = 'toggle_sniper',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_WeaponToggle = true,
+        },
+        UnitName = 'Usha-Ah',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        VisionRadius = 32,
+		RadarStealth = true,
+    },
+	
+    Interface = {
+        HelpText = 'Sniper Bot',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 0.5,
+	
+    Physics = {
+		BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 3.5,
+        MaxBrake = 3.5,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3.5,
+        MaxSteerForce = 10,
+        MeshExtentsX = 1,
+        MeshExtentsY = 1.25,
+        MeshExtentsZ = 1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        StandUpright = true,
+        TurnRadius = 5,
+        TurnRate = 90,
+    },
+	
+    SelectionSizeX = 0.45,
+    SelectionSizeZ = 0.9,
+    SelectionThickness = 0.47,
+	
+    SizeX = 0.35,
+    SizeY = 1.2,
+    SizeZ = 0.7,
+	
+    StrategicIconName = 'icon_bot3_directfire',
+    StrategicIconSortPriority = 115,
+	
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 3,
+    },
+	
+    Veteran = {
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 32,
+        Level5 = 40,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0305_SihEnergyRifle',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 700,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Sih Energy Rifle',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 0.1,
+			
+            IgnoreIfDisabled = true,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 30,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 100,
+			
+            ProjectileId = '/projectiles/SDFSniperShot01/SDFSniperShot01_proj.bp',
+			ProjectileLifetime = 0.5,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.2,		-- 140 DPS
+            RenderFireClock = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+            TargetCheckInterval = 3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Barrel',
+            TurretBoneYaw = 'Barrel',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 40,
+            TurretYawSpeed = 45,
+            Turreted = true,
+        },
+		
+		-- SNIPER WEAPON when deployed --
+        {
+            AboveWaterTargetsOnly = true,
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 2800,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Sih Energy Rifle',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 0,
+			
+            IgnoreIfDisabled = true,
+			
+            Label = 'SniperGun',
+			
+            MaxRadius = 70,
+			
+            MuzzleChargeDelay = 0.5,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 100,
+			
+            ProjectileId = '/projectiles/SDFSniperShot02/SDFSniperShot02_proj.bp',
+			ProjectileLifetime = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.05,		#-- 140 Dps
+            RenderFireClock = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+			
+            TargetCheckInterval = 3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Barrel',
+            TurretBoneYaw = 'Barrel',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 10,
+            TurretYawSpeed = 90,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

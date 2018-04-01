@@ -1,0 +1,221 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+    Audio = {
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0309_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 10,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+    },
+    CollisionOffsetY = -0.25,
+    CollisionOffsetZ = -0.1,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 90,		# BuildRate * 3 + 3% of health
+        Health = 1500,
+        MaxHealth = 1500,
+        RegenRate = 1,
+    },
+	
+    Description = 'T3 Engineer',
+	
+    Display = {
+        AnimationBuild = '/units/UEL0309/uel0309_aopen.sca',
+        AnimationBuildRate = 5,
+        AnimationWater = '/units/UEL0309/uel0309_awheels.sca',
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 120,
+                    Scrolling = true,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'uel0309_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'uel0309_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Front_Right_Wake',
+                        },
+                        Scale = 0.6,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Front_Left_Wake',
+                        },
+                        Scale = 0.6,
+                        Type = 'RightFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'UEL0309',
+                        },
+                        Scale = 0.3,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = false,
+        UniformScale = 0.1,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 4400,
+        BuildCostMass = 625,
+        BuildRate = 15,
+        BuildTime = 3300,
+		
+        BuildableCategory = {'BUILTBYTIER3ENGINEER UEF',},
+		
+        StorageEnergy = 200,
+        StorageMass = 20,
+    },
+	
+    General = {
+        BuildBones = {
+            AimBone = 0,
+            BuildEffectBones = {
+                'Turret_Muzzle01',
+                'Turret_Muzzle02',
+                'Turret_Muzzle03',
+            },
+            PitchBone = 'Turret_Barrel',
+            YawBone = 'Turret',
+        },
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'UEF',
+        Icon = 'amph',
+        SelectionPriority = 3,
+        TechLevel = 'RULEUTL_Secret',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        VisionRadius = 28,
+		OmniRadius = 12,
+    },
+	
+    Interface = {
+        HelpText = 'T3 Engineer',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 1,
+	
+    Physics = {
+        BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 1.9,
+        MaxSteerForce = 15,
+        MeshExtentsX = 1,
+        MeshExtentsY = 2.6,
+        MeshExtentsZ = 1.15,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_AmphibiousFloating',
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.1,
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.7,
+    SelectionThickness = 0.64,
+	
+    SizeX = 0.85,
+    SizeY = 0.9,
+    SizeZ = 0.9,
+	
+    StrategicIconName = 'icon_land3_engineer',
+    StrategicIconSortPriority = 85,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

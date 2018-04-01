@@ -1,0 +1,424 @@
+UnitBlueprint {
+    AI = {
+		GuardRadius = 100,
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+	
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 0.3,
+        BankForward = false,
+		
+        CanFly = true,
+		
+        CirclingElevationChangeRatio = 0.75,
+		
+		CirclingFlightChangeFrequency = 6.5,
+		
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.4,
+		
+        CirclingTurnMult = 3,
+		
+        KLift = 0.5,
+        KLiftDamping = 0.65,
+		
+        KMove = 0.5,
+        KMoveDamping = 1,
+		
+		KRoll = 1.5,
+		KRollDamping = 2.5,
+		
+        KTurn = 0.5,
+        KTurnDamping = 0.75,
+		
+        LiftFactor = 2,
+		
+        MaxAirspeed = 9.5,
+        MinAirspeed = 3,
+        StartTurnDistance = 5,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0305_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    AverageDensity = 1,
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 50,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'AIR',
+        'TECH3',
+        'GROUNDATTACK',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetZ = 0,
+	
+    Defense = {
+        AirThreatLevel = 5,
+        ArmorType = 'Light',
+        Health = 5000,
+        MaxHealth = 5000,
+        RegenRate = 6,
+        SurfaceThreatLevel = 26,
+    },
+	
+    Description = 'Heavy Gunship',
+	
+    Display = {
+        Abilities = {
+			'Ground Attack',
+            'Light AA Cannon',
+        },
+		
+        ForcedBuildSpin = 0,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 140,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'uea0305_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'uea0305_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXA0009',
+        SpawnRandomRotation = false,
+        UniformScale = 0.1,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 85000,
+        BuildCostMass = 2500,
+        BuildTime = 5300,
+    },
+
+    General = {
+        Category = 'Gunship',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Broadsword',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 32,
+    },
+	
+    Interface = {
+        HelpText = 'Heavy Gunship',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.8,
+    LifeBarSize = 1.5,
+	
+    Physics = {
+	
+        BankingSlope = 0.5,
+		
+        BuildOnLayerCaps = { LAYER_Air = true },
+		
+        Elevation = 14,
+		
+        FuelRechargeRate = 12,
+        FuelUseTime = 420,
+		
+        GroundCollisionOffset = 1.6,
+
+        MaxSpeed = 1,	-- removing this will cause the unit to misbehave
+		
+        MeshExtentsX = 1.75,
+        MeshExtentsY = 0.8,
+        MeshExtentsZ = 1.75,
+		
+        MotionType = 'RULEUMT_Air',
+		
+    },
+	
+    SelectionSizeX = 1.0,
+    SelectionSizeZ = 1.2,
+    SelectionThickness = 0.4,
+	
+    SizeSphere = 1.7,
+	
+    SizeX = 1.7,
+    SizeY = 0.6,
+    SizeZ = 1.7,
+	
+    StrategicIconName = 'icon_gunship3_directfire',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+	
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UEAWeapon',
+                    Cue = 'UEA0305_Hvy_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 65,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Plasma Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water|Seabed',
+                Land = 'Air|Land|Water',
+            },
+			
+            FiringRandomness = 0.4,
+            FiringTolerance = 2,
+			
+            Label = 'Plasma',
+			
+            MaxRadius = 34,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 44,
+			
+            ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Down_Muzzle_01',
+                    },
+                    RackBone = 'Turret_Down_Barrel_01',
+                },
+                {
+                    MuzzleBones = {
+                        'Turret_Down_Muzzle_02',
+                    },
+                    RackBone = 'Turret_Down_Barrel_02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		#-- about 260DPS
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE',
+			
+            TurretBoneDualMuzzle = 'Turret_Down_Muzzle_02',
+            TurretBoneDualPitch = 'Turret_Down_Barrel_02',
+			
+            TurretBoneMuzzle = 'Turret_Down_Muzzle_01',
+            TurretBonePitch = 'Turret_Down_01',
+			
+            TurretBoneYaw = 'Turret_Down_01',
+			
+            TurretDualManipulators = true,
+			
+            TurretPitch = -45,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+			TurretYawRange = 90,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UEAWeapon',
+                    Cue = 'UEA0104_Railgun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 24,
+			DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Linked Railgun',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+            },
+			
+			FiringRandomness = 0.4,
+            FiringTolerance = 0.3,
+			
+            Label = 'AAGun',
+			LeadTarget = true,
+			
+            MaxRadius = 32,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            MuzzleVelocity = 60,
+			
+            ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
+			ProjectileLifetime = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Up_Muzzle_01',
+                    },
+                    RackBone = 'Turret_Up_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		-- 48 DPS Air
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Turret_Up_Barrel',
+            TurretBonePitch = 'Turret_Up_Barrel',
+            TurretBoneYaw = 'Turret_Up',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 70,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 70,
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 300,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.6,
+        MassMult = 0.6,
+		LifeTime = 600,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Water = true,
+        },
+    },
+}

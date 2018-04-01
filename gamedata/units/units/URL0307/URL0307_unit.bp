@@ -1,0 +1,201 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0306_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuffFields = {
+        OpticalInterferenceField = 'CybranOpticalDisruptionBuffField',
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'COUNTERINTELLIGENCE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYCOUNTERINTEL',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 695,
+        MaxHealth = 695,
+        RegenRate = 3,
+        SurfaceThreatLevel = .1,
+    },
+	
+    Description = 'Adv Mobile Stealth Field System',
+	
+    Display = {
+        Abilities = {
+            'Stealth Field',
+			'Sensor Disruption Array'
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'url0307_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = 'url0307_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0008',
+        SpawnRandomRotation = true,
+        UniformScale = 0.13,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1600,
+        BuildCostMass = 160,
+        BuildTime = 600,
+		
+        TeleportEnergyMod = 0.15,
+        TeleportMassMod = 1,
+        TeleportTimeMod = 0.01,
+    },
+	
+    General = {
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+		
+        FactionName = 'Cybran',
+		
+        Icon = 'land',
+		
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-field',
+                helpText = 'toggle_stealth_field',
+            },
+        },
+		
+        TechLevel = 'RULEUTL_Advanced',
+		
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+		
+        UnitName = 'Deviator',
+		
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 28,
+        VisionRadius = 28,
+    },
+	
+    Interface = {
+        HelpText = 'Adv Mobile Intel Disruptor',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.25,
+    LifeBarSize = 0.75,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.7,
+        MaxBrake = 3.4,
+        MaxSpeed = 3.4,
+        MaxSpeedReverse = 3.4,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 0.1,
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0,
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.45,
+    SelectionThickness = 0.83,
+	
+    SizeX = 0.6,
+    SizeY = 0.2,
+    SizeZ = 0.7,
+	
+    StrategicIconName = 'icon_land3_counterintel',
+    StrategicIconSortPriority = 60,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

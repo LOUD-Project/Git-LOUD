@@ -1,0 +1,199 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Spinner_01',
+            'Spinner_02',
+            'Spinner_03',
+        },
+    },
+	
+    Audio = {
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0309_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 10,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'CAPTURE',
+        'HOVER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 86,		# BuildRate * 3 + 3% of health		
+        Health = 1380,
+        MaxHealth = 1380,
+        RegenRate = 1,
+    },
+	
+    Description = 'T3 Engineer',
+	
+    Display = {
+        Abilities = {
+            'Sacrifice',
+        },
+        AnimationBuild = '/units/ual0309/ual0309_aopen.sca',
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    ShaderName = 'Aeon',
+                },
+                {
+                    AlbedoName = 'ual0309_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Aeon',
+                    SpecularName = 'ual0309_lod1_specteam.dds',
+                },
+            },
+        },
+        SpawnRandomRotation = false,
+        UniformScale = 0.07,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 4400,
+        BuildCostMass = 625,
+        BuildRate = 15,
+        BuildTime = 3300,
+		
+        BuildableCategory = {'BUILTBYTIER3ENGINEER AEON',},
+		
+		MaxBuildDistance = 5,
+		
+        SacrificeEnergyMult = 0.85,
+        SacrificeMassMult = 0.85,
+		
+        StorageEnergy = 200,
+        StorageMass = 20,
+    },
+	
+    General = {
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Sacrifice = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        SelectionPriority = 3,
+        TechLevel = 'RULEUTL_Secret',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        VisionRadius = 28,
+		OmniRadius = 12,
+    },
+	
+    Interface = {
+        HelpText = 'T3 Engineer',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 1.1,
+	
+    Physics = {
+        BackUpDistance = 4,
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        Elevation = 0.5,
+        MaxAcceleration = 2,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 1000,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 0.65,
+        MeshExtentsZ = 1.1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,
+        RotateOnSpot = true,
+        RotateOnSpotThreshold = 0.1,
+        TurnFacingRate = 120,
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+	
+    SelectionCenterOffsetY = -0.5,
+    SelectionSizeX = 0.7,
+    SelectionSizeZ = 0.7,
+    SelectionThickness = 0.55,
+	
+    SizeX = 0.9,
+    SizeY = 0.7,
+    SizeZ = 0.9,
+	
+    StrategicIconName = 'icon_land3_engineer',
+    StrategicIconSortPriority = 85,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

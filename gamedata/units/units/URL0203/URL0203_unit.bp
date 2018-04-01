@@ -1,0 +1,432 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0203_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Tank',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 25,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'TECH2',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
+		'OVERLAYINDIRECTFIRE',
+		'OVERLAYANTINAVY',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 1250,
+        MaxHealth = 1250,
+        RegenRate = 2,
+        SubThreatLevel = 1,
+        SurfaceThreatLevel = 9,
+    },
+	
+    Description = 'Amphibious Tank',
+	
+    Display = {
+        Abilities = {
+            'Torpedoes',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0006',
+        SpawnRandomRotation = true,
+        UniformScale = 0.125,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 2850,
+        BuildCostMass = 475,
+        BuildTime = 360,
+    },
+	
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Wagner',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 21,
+        WaterVisionRadius = 21,
+    },
+	
+    Interface = {
+        HelpText = 'Amphibious Tank',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.3,
+    LifeBarSize = 1,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        LayerChangeOffsetHeight = -0.2,
+		
+        MaxAcceleration = 2.5,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 2.5,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 0.1,
+        TurnRadius = 0,
+        TurnRate = 60,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0,
+    SelectionSizeX = 0.55,
+    SelectionSizeZ = 0.6,
+    SelectionThickness = 0.7,
+	
+    SizeX = 0.8,
+    SizeY = 0.35,
+    SizeZ = 1.0,
+	
+    StrategicIconName = 'icon_land2_directfire',
+    StrategicIconSortPriority = 125,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL_Meson_Rocket',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 200,
+            DamageRadius = 0.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Meson Rocket',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+			FiringRandomness = 0.7,
+            FiringTolerance = 1.5,
+			
+            Label = 'Rocket',
+            LeadTarget = true,
+			
+            MaxRadius = 32,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 16,
+            MuzzleVelocityReduceDistance = 2,
+			
+            ProjectileId = '/projectiles/CDFRocketMeson01/CDFRocketMeson01_proj.bp',
+			ProjectileLifetime = 4,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret03_Muzzle',
+                    },
+                    RackBone = 'Turret02',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.4,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.2,	#-- 40 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+                'MOBILE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Turret02_Muzzle',
+            TurretBonePitch = 'Turret02',
+            TurretBoneYaw = 'Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 35,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 37,
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0203_Bolter',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 25,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Electron Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+			
+            Label = 'Bolter',
+            LeadTarget = true,
+			
+            MaxRadius = 22,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 38,
+			
+            ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+			ProjectileLifetime = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret01_Muzzle',
+                        'Turret02_Muzzle',
+                    },
+                    RackBone = 'Turret01_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		#-- another 50 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Turret01_Muzzle',
+            TurretBonePitch = 'Turret01_Barrel',
+            TurretBoneYaw = 'Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 5,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 37,
+			
+            Turreted = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0203_Torpedo_Rocket',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Meson Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Seabed = 'Seabed|Sub|Water',
+            },
+            FiringTolerance = 2,
+            Label = 'Torpedo',
+			
+            MaxRadius = 38,
+			
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 5,
+			
+            ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
+            ProjectileLifetime = 8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret03_Muzzle',
+                    },
+                    RackBone = 'Turret02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.25,	-- 10 DPS sub
+			
+            TargetCheckInterval = 3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Turret02_Muzzle',
+            TurretBonePitch = 'Turret02',
+            TurretBoneYaw = 'Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 20,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 70,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 40,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

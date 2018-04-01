@@ -1,0 +1,14 @@
+local SSeaUnit = import('/lua/seraphimunits.lua').SSeaUnit
+local SWeapon = import('/lua/seraphimweapons.lua')
+
+XSS0103 = Class(SSeaUnit) {
+
+    Weapons = {
+	
+        MainGun = Class(SWeapon.SDFShriekerCannon){},
+        AntiAir = Class(SWeapon.SAAShleoCannonWeapon){},
+		
+    },
+}
+
+TypeClass = XSS0103

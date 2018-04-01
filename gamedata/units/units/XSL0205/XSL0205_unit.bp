@@ -1,0 +1,264 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Med',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        HoverKilledOnWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0205_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 35,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'TECH2',
+        'ANTIAIR',
+        'HOVER',
+		'AMPHIBIOUS',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+    CollisionOffsetZ = 0,
+    Defense = {
+        AirThreatLevel = 14,
+        ArmorType = 'Normal',
+        Health = 1000,
+        MaxHealth = 1000,
+        RegenRate = 0,
+    },
+    Description = 'AA Hovertank',
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'xsl0205_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'xsl0205_lod1_specteam.dds',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.038,
+    },
+    Economy = {
+        BuildCostEnergy = 800,
+        BuildCostMass = 160,
+        BuildTime = 800,
+    },
+    General = {
+        Category = 'Anti Air',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'Iashavoh',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 24,
+    },
+    Interface = {
+        HelpText = 'AA Hovertank',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.58,
+    LifeBarSize = 0.8,
+    Physics = {
+		BackUpDistance = 4,
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        Elevation = 0.25,
+        MaxAcceleration = 3.6,
+        MaxBrake = 3.6,
+        MaxSpeed = 3.6,
+        MaxSpeedReverse = 3,
+        MaxSteerForce = 1000,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 1.25,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,
+        RotateOnSpot = false,
+        TurnFacingRate = 180,
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+	
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.8,
+    SelectionThickness = 0.5,
+    SizeX = 0.9,
+    SizeY = 0.7,
+    SizeZ = 0.9,
+    StrategicIconName = 'icon_land2_antiair',
+    StrategicIconSortPriority = 125,
+    Transport = {
+        TransportClass = 2,
+    },
+    Veteran = {
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
+    },
+    Weapon = {
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0205_Olaris_AA_Artillery',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 36,
+            DamageFriendly = false,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Olaris AA Artillery Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.2,
+			FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 2,
+			
+            Label = 'AAGun',
+			LeadTarget = true,
+			
+            MaxRadius = 40,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 40,
+			
+            ProjectileId = '/projectiles/SAAOlarisAAArtillery02/SAAOlarisAAArtillery02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0.1,
+            RackSalvoFiresAfterCharge = true,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		#-- 144 Dps
+			
+            SlavedToBody = false,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+            TurretPitch = 35,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 120,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.9,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

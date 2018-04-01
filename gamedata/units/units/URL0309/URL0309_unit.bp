@@ -1,0 +1,172 @@
+UnitBlueprint {
+    Audio = {
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0309_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 10,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+    },
+    CollisionOffsetY = -0.25,
+    Defense = {
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 87,		# BuildRate * 3 + 3% of health
+        Health = 1425,
+        MaxHealth = 1425,
+        RegenRate = 2,
+    },
+    Description = 'T3 Engineer',
+    Display = {
+        AnimationWater = '/units/URL0309/url0309_Awheels.sca',
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.12,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 4400,
+        BuildCostMass = 625,
+        BuildRate = 15,
+        BuildTime = 3300,
+		
+        BuildableCategory = {'BUILTBYTIER3ENGINEER CYBRAN',},
+		
+        StorageEnergy = 200,
+        StorageMass = 20,
+    },
+	
+    General = {
+        BuildBones = {
+            BuildEffectBones = {
+                'Buildpoint_Left',
+                'Buildpoint_Center',
+                'Buildpoint_Right',
+            },
+            PitchBone = 'Buildpoint_Center',
+            YawBone = 'Buildpoint_Center',
+        },
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Cybran',
+        Icon = 'amph',
+        SelectionPriority = 3,
+        TechLevel = 'RULEUTL_Secret',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        VisionRadius = 28,
+		OmniRadius = 12,
+    },
+	
+    Interface = {
+        HelpText = 'T3 Engineer',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 2,
+        MaxSteerForce = 15,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_AmphibiousFloating',
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0.025,
+    SelectionSizeX = 0.65,
+    SelectionSizeZ = 0.65,
+    SelectionThickness = 0.6,
+	
+    SizeX = 0.85,
+    SizeY = 0.9,
+    SizeZ = 0.9,
+	
+    StrategicIconName = 'icon_land3_engineer',
+    StrategicIconSortPriority = 85,
+	
+    Transport = {
+        TransportClass = 2,
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

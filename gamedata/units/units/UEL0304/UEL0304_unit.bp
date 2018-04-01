@@ -1,0 +1,286 @@
+UnitBlueprint {
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 30,
+    },
+    Audio = {
+        Activate = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0304_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 30,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'INDIRECTFIRE',
+        'ARTILLERY',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 950,
+        MaxHealth = 950,
+        RegenRate = 1,
+        SurfaceThreatLevel = 10,
+    },
+	
+    Description = 'Mobile Heavy Artillery',
+	
+    Display = {
+        Abilities = {
+            'Deploys',
+			'Large Area Effect',
+        },
+		
+        AnimationOpen = '/units/UEL0304/uel0304_aactivate.sca',
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'uel0304_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                    SpecularName = 'uel0304_lod1_specteam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0003',
+        SpawnRandomRotation = false,
+        UniformScale = 0.036,
+    },
+    Economy = {
+        BuildCostEnergy = 8900,
+        BuildCostMass = 500,
+        BuildTime = 2000,
+    },
+	
+    General = {
+        Category = 'Indirect Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Demolisher',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 28,
+    },
+	
+    Interface = {
+        HelpText = 'Mobile Heavy Artillery',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.7,
+    LifeBarSize = 1.25,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 2.5,
+        MaxSteerForce = 10,
+        MeshExtentsX = 0.9,
+        MeshExtentsY = 0.7,
+        MeshExtentsZ = 1.6,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 0.1,
+        TurnRadius = 0,
+        TurnRate = 75,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.05,
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.95,
+    SelectionThickness = 0.45,
+    SizeX = 0.7,
+    SizeY = 0.5,
+    SizeZ = 1.1,
+    StrategicIconName = 'icon_land3_artillery',
+    StrategicIconSortPriority = 115,
+    Transport = {
+        TransportClass = 3,
+    },
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            ArtilleryShieldBlocks = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0304_Artillery_AM',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_HighArc',
+			
+            CameraLifetime = 4,
+            CameraVisionRadius = 5,
+			
+            CollideFriendly = false,
+			
+            Damage = 700,
+            DamageFriendly = true,
+            DamageRadius = 4,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Anti Matter Artillery',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringRandomness = 1.25,
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 92,
+            MinRadius = 5,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 21,
+            MuzzleVelocityReduceDistance = 85,
+			
+            ProjectileId = '/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp',
+            ProjectileLifetime = 18,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -10,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.15, -- 100 DPS
+            RenderFireClock = true,
+			
+            TargetCheckInterval = 1,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+				'STRUCTURE,-WALL',
+                'MOBILE',
+
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 30,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 30,
+			
+            Turreted = true,
+			
+            WeaponUnpackAnimation = '/units/UEL0304/uel0304_aactivate.sca',
+            WeaponUnpackAnimationRate = 2,
+            WeaponUnpackLocksMotion = true,
+            WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}
