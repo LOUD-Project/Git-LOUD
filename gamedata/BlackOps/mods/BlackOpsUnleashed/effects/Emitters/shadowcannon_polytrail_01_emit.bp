@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'hvyproton_cannon_polytrail_01',
+	Lifetime = -1.00,
+    TrailLength = 1.0,
+    Size = 0.6,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 10,
+    LODCutoff = 160,
+	RepeatTexture = [[/textures/particles/trail_white_02.dds]],
+	RampTexture = [[/textures/particles/ramp_trail_12.dds]],
+}
+

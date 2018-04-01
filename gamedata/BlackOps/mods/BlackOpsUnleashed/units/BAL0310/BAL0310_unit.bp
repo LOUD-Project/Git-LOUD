@@ -1,0 +1,373 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 20,
+	
+	CollisionOffsetZ = 0.1,
+	CollisionOffsetY = - 0.15,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'HOVER',
+		'AMPHIBIOUS',
+        'DIRECTFIRE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 5000,
+        MaxHealth = 5000,
+        RegenRate = 2,
+        SurfaceThreatLevel = 48,
+    },
+	
+    Description = 'Heavy Hover Tank',
+	
+    Display = {
+	
+        Abilities = {
+            'Hovercraft',
+			'Powerful but slow firing main gun',
+			'Two secondary weapons',
+        },
+		
+        AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
+		
+        Mesh = {
+            IconFadeInZoom = 140,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0003',
+        SpawnRandomRotation = true,
+        UniformScale = 0.10,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 15000,
+        BuildCostMass = 1375,
+        BuildTime = 5500,
+    },
+	
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Wraith',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 30,
+    },
+    Interface = {
+        HelpText = 'Heavy Hover Tank',
+    },
+    LifeBarHeight = 0.08,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 1,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        Elevation = 0.3,
+        MaxAcceleration = 1.5,
+        MaxBrake = 1.5,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 2.9,
+        MaxSteerForce = 100,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 0.7,
+        MeshExtentsZ = 2.0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,
+        RotateOnSpot = false,
+        TurnFacingRate = 28,
+        TurnRadius = 0,
+        TurnRate = 22,
+    },
+	
+    SelectionSizeX = 1.0,
+    SelectionSizeZ = 1.4,
+    SelectionThickness = 0.3,
+    SizeX = 1.0,
+    SizeY = 0.7,
+    SizeZ = 1.9,
+    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconSortPriority = 115,
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 3,
+    },
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0304_Artillery_Sonance',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 800,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Sonance Artillery',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 48,
+            LeadTarget = true,
+			
+            MuzzleChargeDelay = 0.25,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 22,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/WraithShell01/WraithShell01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Main_Turret_Muzzle',
+                    },
+                    RackBone = 'Main_Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -1,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 20,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.3,	# 240dps
+			RenderFireClock = true,
+			
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'DEFENSE',
+                'MOBILE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Main_Turret_Muzzle',
+            TurretBonePitch = 'Main_Turret_Barrel',
+            TurretBoneYaw = 'Main_Turret_Barrel',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 25,
+            TurretYawSpeed = 20,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                MuzzleChargeStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0202_Cannon_Quantum',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 160,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Quantum Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.1,
+            FiringTolerance = 1,
+			
+            Label = 'SideGuns',
+			
+            MaxRadius = 37,
+			
+            MuzzleChargeDelay = 0.4,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+
+            ProjectileId = '/projectiles/ADFQuantumCannon02/ADFQuantumCannon02_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'L_Turret_Muzzle',
+                    },
+                    RackBone = 'Left_Gun_Barrel',
+                },
+                {
+                    MuzzleBones = {
+                        'R_Turret_Muzzle',
+                    },
+                    RackBone = 'Right_Gun_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.5, # 240 dps
+			
+            TargetCheckInterval = 0.6,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.2,
+			
+            TurretBoneDualMuzzle = 'L_Turret_Muzzle',
+            TurretBoneDualPitch = 'Left_Gun_Pivot',
+            TurretBoneMuzzle = 'R_Turret_Muzzle',
+            TurretBonePitch = 'Right_Gun_Pivot',
+            TurretBoneYaw = 'BAL0310',
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 25,
+			
+            TurretYaw = 0,
+            TurretYawRange = 30,
+            TurretYawSpeed = 15,
+			
+            Turreted = true,
+
+            WeaponRepackTimeout = 1,
+            WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
+            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackLocksMotion = false,
+            WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

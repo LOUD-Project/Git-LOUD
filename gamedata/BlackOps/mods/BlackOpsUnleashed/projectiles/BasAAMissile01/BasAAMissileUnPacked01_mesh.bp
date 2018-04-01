@@ -1,0 +1,10 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = '/mods/BlackOpsUnleashed/projectiles/BasAAMissile01/BasAAMissileUnPacked01_lod0.scm',
+            AlbedoName = '/mods/BlackOpsUnleashed/projectiles/BasAAMissile01/BasAAMissileUnPacked01_albedo.dds',
+            ShaderName = 'TMeshAlpha',
+            LODCutoff = 150,
+        },
+    },
+}

@@ -1,0 +1,648 @@
+UnitBlueprint {
+    AI = {
+		AttackAngle = 42,
+        GuardReturnRadius = 60,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'URSDestroy',
+            Cue = 'URS0203_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0203_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMoveSub = Sound {
+            Bank = 'URS',
+            Cue = 'URS0203_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0203_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMoveSub = Sound {
+            Bank = 'URS',
+            Cue = 'URS0203_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        SubmergeStart = Sound {
+            Bank = 'URS',
+            Cue = 'URS_Sub_Submerge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        SurfaceStart = Sound {
+            Bank = 'URS',
+            Cue = 'URS_Sub_Surface',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Sub',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 5,
+            Level3 = 7,
+            Level4 = 9,
+            Level5 = 11,
+        },
+    },
+	
+    BuildIconSortPriority = 25,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'NAVAL',
+		'SUBMARINE',
+        'TECH3',
+        'DIRECTFIRE',
+        'SUBMERSIBLE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Normal',
+        Health = 4500,
+        MaxHealth = 4500,
+        RegenRate = 10,
+        SubThreatLevel = 42,
+        SurfaceThreatLevel = 7,
+		
+        TorpRedirectField01 = {
+            AttachBone = 'XRS0305',
+            Radius = 7,
+            RedirectRateOfFire = 5,	#-- this is not rate of fire but ticks between firing
+        },
+    },
+	
+    Description = 'Assault Submarine',
+	
+    Display = {
+	
+        Abilities = {
+            'Sonar',
+            'Torpedoes',
+            'Torpedo Redirection System',
+        },
+		
+        CannonOpenAnimation = '/mods/BlackOpsUnleashed/units/BRS0305/BRS0305_AOpen.sca',
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BRS0305/BRS0305_ADeath01.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.9,
+                Weight = 100,
+            },
+        },
+		
+        IdleEffects = {
+            Sub = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Right_Projectile',
+                            'Turret01',
+                            'XRS0305',
+                        },
+                        Type = 'UnderWater01',
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XRS0305',
+                        },
+                        Scale = 0.7,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Sub = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust01',
+                            'Exhaust02',
+                            'Exhaust03',
+                        },
+                        Scale = 6,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+			
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Projectile',
+                        },
+                        Scale = 0.7,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Right_Projectile',
+                        },
+                        Scale = 0.7,
+                        Type = 'RightFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Exhaust01',
+                            'Exhaust02',
+                            'Exhaust03',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            -0.3,
+                        },
+                        Scale = 0.5,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXS0001',
+        SpawnRandomRotation = true,
+        UniformScale = 0.08,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 40000,
+        BuildCostMass = 4875,
+        BuildTime = 9750,
+    },
+	
+    Footprint = {
+        SizeX = 2.0,
+        SizeY = 0.6,
+        SizeZ = 4.0,
+    },
+	
+    General = {
+		CapCost = 2,
+        Category = 'Submarine',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Dive = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'sea',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Leviathan',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        SonarRadius = 75,
+		SonarStealth = true,
+        VisionRadius = 36,
+        WaterVisionRadius = 36,
+    },
+	
+    Interface = {
+        HelpText = 'Assault Submarine',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.8,
+    LifeBarSize = 1.5,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = true,
+            LAYER_Water = false,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        Elevation = -2.8,
+        MaxAcceleration = 2.1,
+        MaxBrake = 2.1,
+        MaxSpeed = 4.2,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_SurfacingSub',
+        TurnRadius = 12,
+        TurnRate = 36,
+    },
+	
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 2.0,
+    SelectionThickness = 0.3,
+	
+    SizeX = 1.2,
+    SizeY = 0.6,
+    SizeZ = 3.6,
+	
+    StrategicIconName = 'icon_sub3_antinavy',
+    StrategicIconSortPriority = 165,
+	
+    Veteran = {
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
+    },
+	
+    Weapon = {
+
+		-- So we have 2 Torpedo launchers
+		-- the first fires four standard (but long range) torps every second - very typical torpedo system
+		-- The second fires a salvo of 6 Kril heavy torps but only every 10 seconds
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0203_Torpedo_Nanite',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 60,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanite Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'Torpedo01',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 3,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileLifetime = 10,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Projectile',
+                    },
+                    RackBone = 'Left_Projectile',
+                },
+                {
+                    MuzzleBones = {
+                        'Right_Projectile',
+                    },
+                    RackBone = 'Right_Projectile',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.5,		-- 120 DPS Sub
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 30,
+			
+            TargetCheckInterval = 1.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE SUBMARINE',
+				'MOBILE NAVAL',
+				'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.1,
+            Turreted = false,
+        },
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XRL_Weapon',
+                    Cue = 'XRB2308_Kril_Torpedo',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 75,
+			DamageType = 'Normal',
+			
+            DisplayName = 'Kril Torpedo',
+			
+            DoTPulses = 5,		-- so 75 DPS - 5 times = 350 damage
+            DoTTime = 3,
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+			FiringRandomness = 42,
+            FiringTolerance = 15,
+			
+            Label = 'Torpedo02',
+			
+            MaxRadius = 70,
+			
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 12,
+            MuzzleVelocity = 5,
+			MuzzleVelocityRandom = 2,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/CANKrilTorpedo01/CANKrilTorpedo01_proj.bp',
+            ProjectileLifetime = 11,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Torpedo01',
+                        'Torpedo02',
+                        'Torpedo03',
+                        'Torpedo04',
+                        'Torpedo05',
+                        'Torpedo06',
+                    },
+                    RackBone = 'Torpedo01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.1,		-- 12 torps * 350 = 4200 every 10 seconds = 420 DPS SUB
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE SUBMARINE',
+				'MOBILE NAVAL',
+				'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.3,
+            Turreted = false,
+        },
+		
+		-- 2 Deck Guns --
+		
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = false,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Bolter',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            CollideFriendly = false,
+			
+            Damage = 35,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Light Pulse Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'DeckGun',
+			
+            MaxRadius = 35,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+			
+            ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+            ProjectileLifetime = 1.1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret01_Muzzle01',
+                        'Turret01_Muzzle02',
+                    },
+                    RackBone = 'Turret01_Barrel01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		#-- 35 DPS 
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 135,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Turret01_Muzzle01',
+            TurretBonePitch = 'Turret01_Barrel01',
+            TurretBoneYaw = 'Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 120,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = false,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Bolter',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            CollideFriendly = false,
+			
+            Damage = 35,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Light Pulse Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'DeckGun',
+			
+            MaxRadius = 35,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+			
+            ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+            ProjectileLifetime = 1.6,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret02_Muzzle01',
+                        'Turret02_Muzzle02',
+                    },
+                    RackBone = 'Turret02_Barrel01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,	#-- 35 DPS 
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 135,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Turret02_Muzzle01',
+            TurretBonePitch = 'Turret02_Barrel01',
+            TurretBoneYaw = 'Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 120,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 140,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+		
+    },
+}

@@ -1,0 +1,14 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = 'BoxSection01_lod0.scm',
+            AlbedoName = 'BoxShieldSection01_Albedo.dds',
+            SpecularName = 'BoxShieldSection01_Normals.dds',
+            ShaderName = 'ShieldImpact',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 500,
+    StraddleWater = true,
+}

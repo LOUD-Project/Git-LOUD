@@ -1,0 +1,47 @@
+
+Hi, 
+
+Ok in this help file ill be descibing how to add your own custom tooltips, 
+
+tooltip referancies can be found through the games lua, 
+
+when we referance a tooltip we can either use the loc table or just plain text it.
+
+
+STEP 1
+
+create this file structure within your mods folder
+
+/customize/tooltips/
+
+so you hsould now have 
+
+yourmodname/customize/tooltips/
+
+StEP 2
+
+in the tooltips folder create a new lua file and call it tooltips.lua
+
+so now you should have 
+
+yourmodname/customize/tooltips/tooltips.lua
+
+open the tooltips.lua file.
+
+STEP 3
+
+add this table to the tooltips.lua file.
+
+Tooltips = { 
+	Hunker = {
+		title = "<LOC Hunker>", 
+		description = "Make Your Commander Hunker.", 
+	},
+}
+
+the tooltip key is Hunker.
+The title uses the loc table to return the loc entry for Hunker ( please read the LOC help file on how to add custom loc info)
+the description is what is show along with the tooltip title.
+
+as an example.
+this is used by enhancments in the enhancement name param

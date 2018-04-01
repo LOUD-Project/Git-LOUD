@@ -1,0 +1,369 @@
+UnitBlueprint {
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Radar',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+    BuildIconSortPriority = 110,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'DEFENSE',
+        'DIRECTFIRE',
+        'TECH3',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+    },
+    CollisionOffsetY = -0.25,
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 6350,
+        MaxHealth = 6350,
+        RegenRate = 2,
+        SurfaceThreatLevel = 30,
+    },
+	
+    Description = 'Heavy Point Defense',
+	
+    Display = {
+        Abilities = {
+			'Aquatic',
+            'Stuns enemy units',
+			'Requires Energy',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0015',
+        SpawnRandomRotation = true,
+        UniformScale = 0.15,
+    },
+    Economy = {
+        BuildCostEnergy = 16500,
+        BuildCostMass = 1650,
+        BuildTime = 1900,
+        RebuildBonusIds = {
+            'xrb2306',
+        },
+    },
+	
+    General = {
+		CapCost = 2,
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = 'Manticore',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 36,
+    },
+    Interface = {
+        HelpText = 'Heavy Point Defense',
+    },
+    LifeBarHeight = 0.09,
+    LifeBarOffset = 0.55,
+    LifeBarSize = 1.25,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1.1,
+    SelectionThickness = 0.6,
+    SizeX = 0.5,
+    SizeY = 2.7,
+    SizeZ = 0.5,
+    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconSortPriority = 230,
+    Veteran = {
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
+    },   
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                RackSalvoCharge = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 2.5,
+            CollideFriendly = false,
+            ContinuousBeam = false,
+			
+            Damage = 75,
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+            DisplayName = 'Microwave Beam',
+			
+            EnergyChargeForFirstShot = false,
+			
+			EnergyDrainPerSecond = 200,
+			EnergyRequired = 1200,	#-- takes 6 seconds to charge
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+				Water = 'Land|Water',
+            },
+			
+            FiringTolerance = 1.5,
+			
+            Label = 'Turret01',
+			
+            LeadTarget = false,
+			
+            MaxRadius = 60,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            ReTargetOnMiss = true,
+            NotExclusive = true,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                    },
+                    RackBone = 'Muzzle01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,	#-- 1 second to charge as per script
+            RackSalvoFiresAfterCharge = false, 
+            RackSalvoReloadTime = 0, 	#-- 2.5 seconds after firing
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 10,		#-- Weapon Fires every 6 seconds causing 2000 damage (75 * 25) + 2 from stun weapon = 314 dps + stun effects
+			
+            TargetCheckInterval = 3,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'STRUCTURE -WALL',
+            },
+            DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',
+            },
+            TrackingRadius = 1.1,
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 180,
+            TurretPitchSpeed = 120,
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 45,
+            Turreted = true,
+            WeaponRepackTimeout = 0,
+            WeaponUnpacks = false,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            AutoInitialAttackCommand = false,
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.5,
+                    Radius = 4,
+                    TargetAllow = 'ALLUNITS',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,SUBCOMMANDER,AIR,WALL,MISSILE',
+                },
+            },
+			
+            Damage = 2,
+            DamageRadius = 4,
+			
+			CollideFriendly = false,
+			
+			DamageFriendly = false,
+            DamageType = 'Normal',
+
+            DisplayName = 'Stun effect',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+			DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',
+            },
+            FiringRandomness = 0,
+            FiringTolerance = 0,
+			
+            Label = 'StunWeapon',
+			
+            LeadTarget = false,
+			
+            MaxRadius = 60,
+			
+            MuzzleChargeDelay = 1.5,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 180,
+			
+            NotExclusive = true,
+            PrefersPrimaryWeaponTarget = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NovaStunner01/NovaStunner01_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle02',
+                    },
+                    RackBone = 'Muzzle02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		#-- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
+			
+            TargetCheckInterval = 0.25,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TrackingRadius = 1.1,
+            TurretBoneMuzzle = 'Muzzle02',
+            TurretBonePitch = 'Muzzle02',
+            TurretBoneYaw = 'Muzzle02',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 50,
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

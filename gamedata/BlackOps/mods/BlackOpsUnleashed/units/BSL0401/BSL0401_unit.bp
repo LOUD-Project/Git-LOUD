@@ -1,0 +1,773 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+			'BSL0401',
+        },
+		AssistHeartbeatInterval = 0.5, # def. 1, time in seconds between drone and carrier management heartbeats
+        DroneControlRange = 50, # def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
+        DroneReturnRange = 25, # def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
+        AirMonitorRange = 30, # def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
+    },
+    Audio = {
+        Killed = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Death',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
+        },
+    },
+    BuildIconSortPriority = 30,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+		'AMPHIBIOUS',
+		'HOVER',
+        'MOBILE',
+        'LAND',
+        'MASSIVE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'DIRECTFIRE',
+        'PODSTAGINGPLATFORM',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+    },
+	
+    CollisionOffsetY = -0.4,
+	
+    Defense = {
+        AirThreatLevel = 40,
+        ArmorType = 'Experimental',
+        Health = 52000,
+        MaxHealth = 52000,
+        RegenRate = 20,
+        SurfaceThreatLevel = 278,
+    },
+	
+    Description = 'Experimental Hover Tank',
+	
+    Display = {
+        Abilities = {
+            'Hover',
+			'Multi-stage Phason Cascade Beam',
+            '2 x AA Flak',
+            'Volatile',
+        },
+		AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BSL0401/BSL0401_aDeath01.sca',
+				AnimationRateMax = 4.0,
+                AnimationRateMin = 4.0,
+                Weight = 100,
+            },
+			{
+                Animation = '/mods/BlackOpsUnleashed/units/BSL0401/BSL0401_aDeath02.sca',
+				AnimationRateMax = 4.0,
+                AnimationRateMin = 4.0,
+                Weight = 100,
+            },
+			{
+                Animation = '/mods/BlackOpsUnleashed/units/BSL0401/BSL0401_aDeath03.sca',
+				AnimationRateMax = 4.0,
+                AnimationRateMin = 4.0,
+                Weight = 100,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 500,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.5,
+    },
+	DroneData = {
+        Drone1 = {
+            Attachpoint = 'AttachSpecial01',
+            UnitID = 'BSA0004',
+        },
+		Drone2 = {
+            Attachpoint = 'AttachSpecial02',
+            UnitID = 'BSA0004',
+        },
+		Drone3 = {
+            Attachpoint = 'AttachSpecial03',
+            UnitID = 'BSA0004',
+        },
+		Drone4 = {
+            Attachpoint = 'AttachSpecial04',
+            UnitID = 'BSA0004',
+        },
+		Drone5 = {
+            Attachpoint = 'AttachSpecial05',
+            UnitID = 'BSA0004',
+        },
+		Drone6 = {
+            Attachpoint = 'AttachSpecial06',
+            UnitID = 'BSA0004',
+        },
+		Drone7 = {
+            Attachpoint = 'AttachSpecial07',
+            UnitID = 'BSA0004',
+        },
+    }, 
+    Economy = {
+        BuildCostEnergy = 385000,
+        BuildCostMass = 18000,
+        BuildTime = 12000,
+		BuildRate = 25, 
+    },
+    General = {
+		CapCost = 5,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Yenzotha',
+        UnitWeight = 4,
+		ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+            RULEUTC_WeaponToggle = true,
+        },
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'dock',
+                helpText = 'drone_recal',
+            },
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'area-assist',
+                helpText = 'drone_assist',
+            },
+        }, 
+    },
+    Intel = {
+        VisionRadius = 37,
+    },
+    Interface = {
+        HelpText = 'Experimental Hover Tank',
+    },
+    LifeBarHeight = 0.08,
+    LifeBarOffset = 2.3,
+    LifeBarSize = 3.0,
+    Physics = {
+        BankingSlope = 0,
+		BackUpDistance = 2,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+		Elevation = 1,
+        MaxAcceleration = 1.1,
+        MaxBrake = 3.1,
+        MaxSpeed = 3.1,
+        MaxSpeedReverse = 2.8,
+        MaxSteerForce = 10,
+        MeshExtentsX = 2.75,
+        MeshExtentsY = 6.75,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 8,
+        RotateBodyWhileMoving = true,
+		TurnFacingRate = 40,
+        TurnRadius = 0,
+        TurnRate = 36,
+		WobbleFactor = 0.03,
+        WobbleSpeed = 0.001,
+    },
+    SelectionSizeX = 2.2,
+    SelectionSizeZ = 4.6,
+    SelectionThickness = 0.32,
+    SizeX = 4.0,
+    SizeY = 1.9,
+    SizeZ = 8.0,
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+    Transport = {
+        TransportClass = 4,
+    },
+    Veteran = {
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
+    },
+    Weapon = {
+        {   
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamStart = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack  = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamLoop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamStop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 50,
+            DamageRadius = 3.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Experimental Phason Beam Generator',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+            Label = 'EyeWeapon01',
+			
+			LeadTarget = false,
+			
+            MaxRadius = 50,
+            MinRadius = 3,
+			
+			MuzzleChargeDelay = 3.0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',	
+            },
+            NotExclusive = true,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Beam_Muzzle01',
+                    },
+                    RackBone = 'Beam_Muzzle01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 3,	# 500dps  + 7 drones * 40dps = 780dps
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'Beam_Muzzle01',
+            TurretBonePitch = 'Beam_Muzzle01',
+            TurretBoneYaw = 'Beam_Muzzle01',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 30,
+            TurretYaw = 0,
+            TurretYawRange = 30,
+            TurretYawSpeed = 15,
+            Turreted = true,
+			WeaponRepackTimeout = 0,
+            WeaponUnpacks = true,
+            WeaponCategory = 'Direct Fire Experimental',
+        },
+		{   
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamStart = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack  = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamLoop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamStop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 75,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Experimental Phason Beam Generator',
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+            Label = 'EyeWeapon02',
+			LeadTarget = false,
+            MaxRadius = 50,
+            MinRadius = 4,
+			MuzzleChargeDelay = 6.0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			PrefersPrimaryWeaponTarget = true,
+            NotExclusive = true,
+			DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',	
+            },
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Beam_Muzzle02',
+                    },
+                    RackBone = 'Beam_Muzzle02',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 3,			# 750dps
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'Beam_Muzzle02',
+            TurretBonePitch = 'Beam_Muzzle02',
+            TurretBoneYaw = 'Beam_Muzzle02',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 30,
+            TurretYawSpeed = 180,
+            Turreted = true,
+			WeaponRepackTimeout = 0,
+            WeaponUnpacks = true,
+            WeaponCategory = 'Direct Fire Experimental',
+        },
+		{   
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamStart = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack  = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamLoop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+				BeamStop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 125,
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Experimental Phason Beam Generator',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+            Label = 'EyeWeapon03',
+			LeadTarget = false,
+            MaxRadius = 50,
+            MinRadius = 4,
+			MuzzleChargeDelay = 9.0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			PrefersPrimaryWeaponTarget = true,
+            NotExclusive = true,
+			DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',	
+            },
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Beam_Muzzle03',
+                    },
+                    RackBone = 'Beam_Muzzle03',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 3,			# 1250dps
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			TrackingRadius = 1.2,
+            TurretBoneMuzzle = 'Beam_Muzzle03',
+            TurretBonePitch = 'Beam_Muzzle03',
+            TurretBoneYaw = 'Beam_Muzzle03',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 30,
+            TurretYawSpeed = 180,
+            Turreted = true,
+			WeaponRepackTimeout = 0,
+            WeaponUnpacks = true,
+            WeaponCategory = 'Direct Fire Experimental',
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Aire_Autocannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageFriendly = false,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Olaris AA Artillery Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 1.5,
+            FiringTolerance = 1.5,
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 160,
+			
+            Label = 'LeftAA',
+			LeadTarget = true,
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 66,
+			
+            ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_AA_Muzzle',
+                    },
+                    RackBone = 'Left_AA_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,			#-- 200 DPS Air
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Left_AA_Muzzle',
+            TurretBonePitch = 'Left_AA_Turret',
+            TurretBoneYaw = 'Left_AA_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 85,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 90,
+            TurretYawSpeed = 80,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Aire_Autocannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageFriendly = false,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Olaris AA Artillery Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 1.5,			
+
+            FiringTolerance = 1.5,
+			
+            HeadingArcCenter = -90,
+            HeadingArcRange = 120,
+			
+            Label = 'RightAA',
+			LeadTarget = true,
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 66,
+			
+            ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_AA_Muzzle',
+                    },
+                    RackBone = 'Right_AA_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		#-- 200 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Right_AA_Muzzle',
+            TurretBonePitch = 'Right_AA_Turret',
+            TurretBoneYaw = 'Right_AA_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 85,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 90,
+            TurretYawSpeed = 80,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 6500,
+            DamageFriendly = true,
+            DamageRadius = 10,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

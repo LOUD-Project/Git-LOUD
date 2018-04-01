@@ -1,0 +1,85 @@
+ProjectileBlueprint {
+    Audio = {
+        ExistLoop = Sound {
+            Bank = 'UELWeapon',
+            Cue = 'UEF_Nuke_Flight',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Explosions',
+            Cue = 'Aeon_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'Aeon_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        NukeExplosion = Sound {
+            Bank = 'Explosions',
+            Cue = 'Aeon_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'AEON',
+        'PROJECTILE',
+        'DIRECTFIRE',
+        'STRATEGIC',
+        #'MISSILE',
+		'ANTINAVY',
+        'NOSPLASHDAMAGE',
+    },
+    Defense = {
+        Health = 25,
+        ArmorType = 'ArtemisCannon',
+        MaxHealth = 25,
+    },
+    Economy = {
+        BuildCostEnergy = 518400,
+        BuildCostMass = 7290,
+        BuildTime = 324000,
+    },
+    Display = {
+    	CameraFollowTimeout = 5,
+        CameraFollowsProjectile = true,
+        ImpactEffects = {
+            Type = 'Medium02',
+        },
+        StrategicIconSize = 2,
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'AEON',
+            'PROJECTILE',
+            'DIRECTFIRE',
+            'STRATEGIC',
+			'ANTINAVY',
+            #'MISSILE',
+            'NOSPLASHDAMAGE',
+        },
+        Faction = 'Aeon',
+    },
+    DesiredShooterCap = 1,
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 30,
+        CollideEntity = true,
+        CollideSurface = true,
+        DestroyOnWater = true,
+        InitialSpeed = 30,
+        Lifetime = 600,
+        MaxSpeed = 40,
+        RotationalVelocity = 500,
+        RotationalVelocityRange = 0,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        TurnRate = 0,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+#    StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
+}

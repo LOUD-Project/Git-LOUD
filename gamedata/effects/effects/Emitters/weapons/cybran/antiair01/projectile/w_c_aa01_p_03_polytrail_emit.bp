@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_c_aa01_p_03_polytrail',
+	Lifetime = -1.00,
+    TrailLength = 0.35,
+    Size = 0.27,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 0.5,
+    LODCutoff = 300,
+	RepeatTexture = [[/textures/particles/ribbon/rb_0031_12.dds]],
+	RampTexture = [[/textures/particles/ramp/ra_0120_trail.dds]],
+}
+

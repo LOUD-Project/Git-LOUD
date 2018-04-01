@@ -1,0 +1,296 @@
+UnitBlueprint {
+    AI = {
+        GuardScanRadius = 45,
+        InitialAutoMode = true,
+    },
+	
+    Air = {
+        AutoLandTime = 1,
+        BankFactor = 0.1,
+        BankForward = false,
+        CanFly = true,
+        CirclingDirChangeFrequencySec = 1,
+        CirclingElevationChangeRatio = 0.25,
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingTurnMult = 3,
+        KLift = 3,
+        KLiftDamping = 2.5,
+        KMove = 1,
+        KMoveDamping = 2,
+        KTurn = 1,
+        KTurnDamping = 1.5,
+        LiftFactor = 7,
+        MaxAirspeed = 6,
+        MinAirspeed = 3,
+        StartTurnDistance = 5,
+    },
+
+    Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Landing = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        TakeOff = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Thruster = Sound {
+            Bank = 'XEA',
+            Cue = 'XEA3204_Move_Thruster',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Categories = {
+        'UNTARGETABLE',
+        'UEF',
+        'MOBILE',
+        'AIR',
+        'TECH3',
+        'POD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+    },
+	
+    CollisionOffsetZ = -0.07,
+	
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Light',
+        EconomyThreatLevel = 1,
+        Health = 60,
+        MaxHealth = 60,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 12,
+    },
+	
+    Description = 'Defense Drone',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 175,
+            LODs = {
+                {
+                    LODCutoff = 150,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXA0010',
+        SpawnRandomRotation = false,
+        UniformScale = 0.2,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 500,
+        BuildCostMass = 50,
+        BuildTime = 150,
+    },
+	
+    General = {
+        CapCost = 0,
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'air',
+        SelectionPriority = 6,
+        TechLevel = 'RULEUTL_Basic',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 19,
+    },
+	
+    Interface = {
+        HelpText = 'Defense Drone',
+    },
+	
+    LifeBarRender = false,
+	
+    Physics = {
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 5,
+        GroundCollisionOffset = 0.2,
+        MaxAcceleration = 3,
+        MaxSpeed = 10,
+        MaxSteerForce = 100,
+        MinSpeedPercent = 0.85,
+        MotionType = 'RULEUMT_Air',
+        TurnRadius = 100,
+        TurnRate = 100,
+    },
+	
+    SelectionSizeX = 0.3,
+    SelectionSizeZ = 0.3,
+    SelectionThickness = 1.2,
+	
+    SizeSphere = 1,
+	
+    SizeX = 0.5,
+    SizeY = 0.2,
+    SizeZ = 0.5,
+	
+    StrategicIconName = 'icon_land1_engineer',
+    StrategicIconSize = 1,
+    StrategicIconSortPriority = 105,
+    
+    Transport = {
+        AirClass = true,
+        TransportClass = 5,
+    },
+    
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XES_Weapons',
+                    Cue = 'XES0307_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.6,
+            
+            CollideFriendly = false,
+            
+            Damage = 30,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+            
+            DisplayName = 'Plasma Cannon',
+            
+            DoNotCollideList = {
+                'TORPEDO',
+                'MISSILE',	
+            },
+            
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water',
+            },
+            
+            FiringTolerance = 2,
+            
+            Label = 'Laser',
+            
+            MaxRadius = 26,
+            
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            
+            NeedPrep = true,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle01',
+                    },
+                    RackBone = 'Muzzle01',
+                },
+            },
+            
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+            
+            RangeCategory = 'UWRC_DirectFire',
+            
+            SlavedToBody = false,
+			
+            RateOfFire = 0.5,	-- 90 DPS Surface/Gunships
+			
+            TargetCheckInterval = 1,
+            
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS,-WALL',
+            },
+            
+            TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Muzzle01',
+            TurretBoneYaw = 'Muzzle01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -45,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 100,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+    },
+}

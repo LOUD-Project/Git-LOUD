@@ -1,0 +1,2041 @@
+UnitBlueprint {
+    AI = {
+        AttackAngle = 33,
+        GuardReturnRadius = 60,
+        RefuelingMultiplier = 50,
+        RefuelingRepairAmount = 500,
+        RepairConsumeEnergy = 5,
+        RepairConsumeMass = 0.5,
+		StagingPlatformScanRadius = 400,
+        TargetBones = {
+            'BRS0401',
+            'Sea_Idle_L',
+            'Sea_Idle_R',
+            'Front_Right_WakeR',
+            'Back_Left_Barrel',
+            'Right_Railgun_Turret',
+        },
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'URSDestroy',
+            Cue = 'URS0302_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0302_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0302_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 25,
+            Level2 = 35,
+            Level3 = 45,
+            Level4 = 55,
+            Level5 = 65,
+        },
+    },
+	
+    BuildIconSortPriority = 325,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'MOBILE',
+        'NAVAL',
+        'EXPERIMENTAL',
+        'DIRECTFIRE',
+        'DRAGBUILD',
+        'NEEDMOBILEBUILD',
+        'AIRSTAGINGPLATFORM',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'BATTLESHIP',
+		'BOMBARDMENT',
+    },
+	
+    CollisionOffsetY = -0.8,
+	
+    Defense = {
+        AirThreatLevel = 120,
+        ArmorType = 'Normal',
+        Health = 72500,
+        MaxHealth = 72500,
+        RegenRate = 26,
+        SubThreatLevel = 18,
+        SurfaceThreatLevel = 287,
+    },
+	
+    Description = 'Experimental Dreadnaught',
+	
+    Display = {
+        Abilities = {
+            'Anti-Air',
+            'Radar & Sonar',
+            'Air Staging',
+            'Tactical Missile Defense',
+            'Torpedoes',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BRS0402/BRS0402_ASink01.sca',
+                AnimationRateMax = 0.5,
+                AnimationRateMin = 0.5,
+                Weight = 40,
+            },
+            {
+                Animation = '/mods/BlackOpsUnleashed/units/BRS0402/BRS0402_ASink02.sca',
+                AnimationRateMax = 0.5,
+                AnimationRateMin = 0.5,
+                Weight = 60,
+            },
+        },
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'BRS0401',
+                        },
+                        Scale = 2,
+                        Type = 'SeaIdle01',
+                    },
+                    {
+                        Bones = {
+                            'Sea_Idle_L',
+                            'Sea_Idle_R',
+                        },
+                        Scale = 3,
+                        Type = 'SeaIdle01',
+                    },
+                    
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 600,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Front_Left_WakeL',
+                            'Front_Right_WakeL',
+                        },
+                        Scale = 1.5,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Front_Left_WakeR',
+                            'Front_Right_WakeR',
+                        },
+                        Scale = 1.5,
+                        Type = 'RightFrontWake',
+                    },
+                    
+                    {
+                        Bones = {
+                            'Back_Left_Wake',
+                            'Back_Right_Wake',
+                        },
+                        Scale = 1.5,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXS0005',
+        SpawnRandomRotation = true,
+        UniformScale = 0.09,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 650000,
+        BuildCostMass = 39500,
+        BuildTime = 31600,
+    },
+	
+    Footprint = {
+        MinWaterDepth = 3,
+    },	
+	
+    General = {
+		CapCost = 6,
+        Category = 'Ship',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = true,
+        },
+        FactionName = 'Cybran',
+        Icon = 'sea',
+        OrderOverrides = {
+            RULEUCC_Transport = {
+                bitmapId = 'deploy',
+                helpText = 'deploy',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'SeaDragon MKII',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        RadarRadius = 165,
+        SonarRadius = 75,
+        VisionRadius = 40,
+        WaterVisionRadius = 32,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Dreadnaught',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 5.75,
+    LifeBarSize = 6,
+	
+    Physics = {
+        BackUpDistance = 15,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 7,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.25,
+        MaxBrake = 2.5,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        SkirtOffsetZ = -2.0,
+        SkirtSizeX = 6.0,
+        SkirtSizeZ = 12.0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 30,
+        TurnRate = 40,
+    },
+	
+    SelectionSizeX = 3,
+    SelectionSizeZ = 8,
+    SelectionThickness = 0.15,
+	
+    SizeX = 5.3,
+    SizeY = 1.8,
+    SizeZ = 10.6,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 145,
+	
+	-- the LOA missile, when hit by TMD, splits into 3 children
+	-- this controls the damage and radius of the child missiles
+    SplitDamage = {
+        DamageAmount = 165,
+        DamageRadius = 1.0,
+    },	
+--[[
+    SplitDamage = {
+        DamageAmount = 16,
+        DamageRadius = 8,
+    },
+--]]	
+    Transport = {
+        Class1AttachSize = 1,
+        Class2AttachSize = 1,
+        Class3AttachSize = 1,
+        DockingSlots = 2,
+        TransportClass = 10,
+    },
+	
+    Veteran = {
+        Level1 = 32,
+        Level2 = 64,
+        Level3 = 96,
+        Level4 = 128,
+        Level5 = 160,
+    },
+	
+    Weapon = {
+		
+		-- exchanged the BO Hailfire launcher for the LOA Tac missile system
+		-- from the Cybran T3 Nuke Sub 
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0304_Missile_Cruise',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            CollideFriendly = false,
+			
+            CountedProjectile = false,
+			
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Loa Tactical Missile',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 90,
+			
+            Label = 'CruiseMissile',
+			
+            MaxRadius = 200,
+            MinRadius = 48,
+			
+            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoSize = 9,
+            MuzzleVelocity = 3,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/projectiles/CIFMissileTactical02/CIFMissileTactical02_proj.bp',
+            ProjectileLifetime = 30,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Hailfire_Muzzle01',
+                        'Hailfire_Muzzle04',
+                        'Hailfire_Muzzle07',
+                        'Hailfire_Muzzle06',
+                        'Hailfire_Muzzle03',
+                        'Hailfire_Muzzle09',
+                        'Hailfire_Muzzle08',
+                        'Hailfire_Muzzle02',
+                        'Hailfire_Muzzle05',
+                    },
+                    RackBone = 'Hailfire_Barrels',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface
+            TargetCheckInterval = 2,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'STRUCTURE ECONOMIC',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Hailfire_Muzzle01',
+            TurretBonePitch = 'Hailfire_Barrels',
+            TurretBoneYaw = 'Hailfire_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 75,
+            TurretPitchRange = 15,
+            TurretPitchSpeed = 15,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 25,
+			
+            Turreted = true,			
+        },
+		
+		-- 2 Primary Batteries for Direct fire
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                RackSalvoCharge = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0302_Cannon',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 2000,
+            DamageRadius = 3,
+			DamageFriendly = true,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 140,
+
+            Label = 'MainCannon01',
+			
+            LeadTarget = true,
+			
+            MaxRadius = 150,
+			
+            MuzzleChargeDelay = 1.5,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 60,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp',
+			ProjectileLifetime = 3.0,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Railgun_Muzzle',
+                    },
+                    RackBone = 'Left_Railgun',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		-- 1000 DPS Surface
+			
+            TargetCheckInterval = 1.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'TECH3 MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'Left_Railgun_Muzzle',
+            TurretBonePitch = 'Left_Railgun',
+            TurretBoneYaw = 'Left_Railgun_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 12,
+			
+            TurretYaw = 0,
+            TurretYawRange = 190,
+            TurretYawSpeed = 36,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                RackSalvoCharge = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0302_Cannon',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 2000,
+            DamageRadius = 3,
+			DamageFriendly = true,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 140,
+
+            Label = 'MainCannon02',
+			
+            LeadTarget = true,
+			
+            MaxRadius = 150,
+			
+            MuzzleChargeDelay = 1.5,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 60,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp',
+			ProjectileLifetime = 3.0,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_Railgun_Muzzle',
+                    },
+                    RackBone = 'Right_Railgun',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.5,		-- 1000 DPS Surface
+			
+            TargetCheckInterval = 1.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'Right_Railgun_Muzzle',
+            TurretBonePitch = 'Right_Railgun',
+            TurretBoneYaw = 'Right_Railgun_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 12,
+			
+            TurretYaw = 0,
+            TurretYawRange = 190,
+            TurretYawSpeed = 36,
+			
+            Turreted = true,
+        },
+		
+-- SECONDARY GUNS * 6 --
+
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'SecondaryCannon',
+			
+            MaxRadius = 100,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 145,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Right_Muzzle01',
+						'Front_Right_Muzzle02',
+                    },
+                    RackBone = 'Front_Right_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Front_Right_Muzzle01',
+            TurretBonePitch = 'Front_Right_Barrel',
+            TurretBoneYaw = 'Front_Right_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 145,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 145,
+			
+            Label = 'SecondaryCannon',			
+			
+            MaxRadius = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Left_Muzzle01',
+						'Front_Left_Muzzle02',
+                    },
+                    RackBone = 'Front_Left_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Front_Left_Muzzle01',
+            TurretBonePitch = 'Front_Left_Barrel',
+            TurretBoneYaw = 'Front_Left_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 145,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'SecondaryCannon',
+			
+            HeadingArcCenter = 100,
+            HeadingArcRange = 140,
+			
+            MaxRadius = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Middle_Left_Muzzle01',
+						'Middle_Left_Muzzle02',
+                    },
+                    RackBone = 'Middle_Left_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Middle_Left_Muzzle01',
+            TurretBonePitch = 'Middle_Left_Barrel',
+            TurretBoneYaw = 'Middle_Left_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 30,
+            TurretYawRange = 150,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'SecondaryCannon',
+			
+            HeadingArcCenter = -100,
+            HeadingArcRange = 140,
+			
+            MaxRadius = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Middle_Right_Muzzle01',
+						'Middle_Right_Muzzle02',
+                    },
+                    RackBone = 'Middle_Right_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Middle_Right_Muzzle01',
+            TurretBonePitch = 'Middle_Right_Barrel',
+            TurretBoneYaw = 'Middle_Right_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = -30,
+            TurretYawRange = 150,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 180,
+            HeadingArcRange = 160,
+			
+            Label = 'SecondaryCannon',
+			
+            MaxRadius = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Left_Muzzle01',
+						'Back_Left_Muzzle02',
+                    },
+                    RackBone = 'Back_Left_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Back_Left_Muzzle01',
+            TurretBonePitch = 'Back_Left_Barrel',
+            TurretBoneYaw = 'Back_Left_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 170,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Sml_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 1,
+			
+            Label = 'SecondaryCannon',
+			
+            MaxRadius = 100,
+			
+            HeadingArcCenter = 180,
+            HeadingArcRange = 160,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 75,
+
+            ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
+			ProjectileLifetime = 1.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Right_Muzzle01',
+						'Back_Right_Muzzle02',
+                    },
+                    RackBone = 'Back_Right_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,		-- 200 DPS Surface
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Back_Right_Muzzle01',
+            TurretBonePitch = 'Back_Right_Barrel',
+            TurretBoneYaw = 'Back_Right_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 70,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 170,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+		
+		-- TORPEDO --
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0203_Torpedo_Nanite',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 60,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanite Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'Torpedo',
+			
+            MaxRadius = 45,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 12,
+            MuzzleVelocity = 3,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileLifetime = 8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Torp01',
+                        'Right_Torp01',
+                        'Left_Torp02',
+                        'Right_Torp02',
+                        'Left_Torp03',
+                        'Right_Torp03',
+                        'Left_Torp04',
+                        'Right_Torp04',
+                        'Left_Torp05',
+                        'Right_Torp05',
+                        'Left_Torp06',
+                        'Right_Torp06',
+                    },
+                    RackBone = 'Left_Torp01',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.25,		-- 180 DPS Sub/Surface
+			
+            TargetCheckInterval = 3.0,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.15,
+
+            Turreted = false,
+        },
+		
+		-- TMD --
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB4201_Anti_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.1,
+			
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Zapper Anti Missile',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0.5,
+			
+            Label = 'AntiMissile',
+			
+            MaxRadius = 30,
+
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NeedPrep = true,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Zapper_Muzzle',
+                    },
+                    RackBone = 'Zapper_Muzzle',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 1.0,
+            TargetCheckInterval = 1.0,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'Zapper_Muzzle',
+            TurretBonePitch = 'Zapper_Muzzle',
+            TurretBoneYaw = 'Zapper_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 720,
+			
+            Turreted = true,
+        },
+		
+		-- AA LASERS --
+		
+        {
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+
+            HeadingArcCenter = 0,
+            HeadingArcRange = 160,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_AALaser',
+                    },
+                    RackBone = 'Front_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,		-- 200 DPS Air
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'Front_AALaser',
+            TurretBonePitch = 'Front_AALaser',
+            TurretBoneYaw = 'Front_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+			
+            HeadingArcCenter = 180,
+            HeadingArcRange = 160,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Center_AALaser',
+                    },
+                    RackBone = 'Back_Center_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,		-- 200 DPS Air
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'Back_Center_AALaser',
+            TurretBonePitch = 'Back_Center_AALaser',
+            TurretBoneYaw = 'Back_Center_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Left_AALaser',
+                    },
+                    RackBone = 'Back_Left_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Back_Left_AALaser',
+            TurretBonePitch = 'Back_Left_AALaser',
+            TurretBoneYaw = 'Back_Left_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Right_AALaser',
+                    },
+                    RackBone = 'Back_Right_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+			RateOfFire = 1,		-- 200 DPS Air
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Back_Right_AALaser',
+            TurretBonePitch = 'Back_Right_AALaser',
+            TurretBoneYaw = 'Back_Right_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+			
+            HeadingArcCenter = -90,
+            HeadingArcRange = 150,
+			
+            Damage = 40,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Middle_Right_AALaser',
+                    },
+                    RackBone = 'Middle_Right_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,		-- 300 DPS Air
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE TECH3 BOMBER',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'Middle_Right_AALaser',
+            TurretBonePitch = 'Middle_Right_AALaser',
+            TurretBoneYaw = 'Middle_Right_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 130,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2301_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 150,
+			
+            Damage = 40,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 0,
+			
+            Label = 'AALaser',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            NotExclusive = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Middle_Left_AALaser',
+                    },
+                    RackBone = 'Middle_Left_AALaser',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,		-- 200 DPS Air
+			ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'Middle_Left_AALaser',
+            TurretBonePitch = 'Middle_Left_AALaser',
+            TurretBoneYaw = 'Middle_Left_AALaser',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 360,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
+			UseFiringSolutionInsteadOfAimBone = true,
+        },
+
+		
+--[[		
+		-- HAILFIRE --
+		
+        {
+            AboveWaterTargetsOnly = true,
+			AimsStraightOnDisable = true,
+			AutoInitiateAttackCommand = false,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0202_Nano_Dart',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 100,
+			DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanodart Launcher',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.4,
+            FiringTolerance = 2,
+			
+            Label = 'HailfireRocket',
+            LeadTarget = true,
+			
+            MaxRadius = 140,
+            MinRadius = 30,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 18,
+            MuzzleVelocity = 30,
+			
+			NotExclusive = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire01/CybranHailfire01_proj.bp',
+            ProjectileLifetime = 8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Hailfire_Muzzle01',
+                        'Hailfire_Muzzle04',
+                        'Hailfire_Muzzle07',
+                        'Hailfire_Muzzle06',
+                        'Hailfire_Muzzle03',
+                        'Hailfire_Muzzle09',
+                        'Hailfire_Muzzle08',
+                        'Hailfire_Muzzle02',
+                        'Hailfire_Muzzle05',
+                    },
+                    RackBone = 'Hailfire_Barrels',
+                },
+            },
+			
+            RackFireTogether = true,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RenderFireClock = true,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.1,	-- 18 Missiles * 100 = 1800 Dmg every 10 seconds = 180 DPS Surface
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL EXPERIMENTAL',
+                'NAVAL MOBILE',
+                'MOBILE',
+                'ARTILLERY',
+                'SHIELD',
+                'FACTORY',
+                'ECONOMIC',
+                'ALLUNITS -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Hailfire_Muzzle01',
+            TurretBonePitch = 'Hailfire_Barrels',
+            TurretBoneYaw = 'Hailfire_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 65,
+			
+            Turreted = true,
+        },
+--]]
+    },
+}

@@ -1,0 +1,147 @@
+UnitBlueprint {
+    Audio = {
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 130,
+    CollisionOffsetY = -1,
+    Categories = {
+		'UNTARGETABLE',
+        'DRONE',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'DEFENSE',
+        'INSIGNIFICANTUNIT',
+        'TECH3',
+        'VISIBLETORECON',
+    },
+    Defense = {
+        AirThreatLevel = 0,
+		
+        SeraLambdaFieldRedirector01 = {
+            AttachBone = 'XSB0001',
+            Radius = 25,
+            RedirectRateOfFire = 1,
+        },
+		
+        SeraLambdaFieldRedirector02 = {
+            AttachBone = 'XSB0001',
+            Radius = 18,
+            RedirectRateOfFire = 1.4,
+        },
+		
+        SeraLambdaFieldRedirector03 = {
+            AttachBone = 'XSB0001',
+            Radius = 14,
+            RedirectRateOfFire = 1.6,
+        },
+		
+        SeraLambdaFieldDestroyer01 = {
+            AttachBone = 'XSB0001',
+            Radius = 12,
+            RedirectRateOfFire = 1,
+        },
+		
+        SeraLambdaFieldDestroyer02 = {
+            AttachBone = 'XSB0001',
+            Radius = 10,
+            RedirectRateOfFire = 1.8,
+        },
+		
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 0,
+        Health = 1,
+        MaxHealth = 1,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+        ThreatLevel = 0,
+    },
+	
+    Description = 'Lambda Emitter',
+	
+    Display = {
+        AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BSB0001/BSB0001_Activate.sca',
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Unit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = true,
+        UniformScale = 0.01,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1000,
+        BuildCostMass = 175,
+        BuildTime = 60,
+    },
+	
+    General = {
+    	CapCost = 0,
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = false,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Basic',
+        UnitWeight = 1,
+    },
+	
+    Interface = {
+        HelpText = 'Lamdba Emitter',
+    },
+	
+    LifeBarRender = false,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = true,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 1.15,
+        MeshExtentsZ = 1.1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 0.1,
+    SelectionSizeZ = 0.1,
+    SelectionThickness = 0.1,
+    SizeX = 0.1,
+    SizeY = 0.1,
+    SizeZ = 0.1,
+    StrategicIconSortPriority = 210,
+}

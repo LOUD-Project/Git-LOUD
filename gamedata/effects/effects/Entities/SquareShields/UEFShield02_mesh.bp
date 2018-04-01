@@ -1,0 +1,15 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = 'Box01_lod0.scm',
+            AlbedoName = 'UEFShield02_Albedo.dds',
+            SpecularName = 'UEFShield02_Specular.dds',
+            SecondaryName = 'UEFShield02_Secondary.dds',
+            ShaderName = 'ShieldUEF',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 1000,
+    StraddleWater = true,
+}

@@ -1,0 +1,15 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = 'Box01_lod0.scm',
+            AlbedoName = 'AeonShield02_Albedo.dds',
+            NormalsName = 'AeonShield02_Normals.dds',
+            SpecularName = 'AeonShield02_Specular.dds',
+            ShaderName = 'ShieldAeon',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 1000,
+    StraddleWater = true,
+}

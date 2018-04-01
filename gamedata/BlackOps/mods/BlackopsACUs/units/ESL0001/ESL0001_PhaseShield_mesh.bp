@@ -1,0 +1,14 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            MeshName = '/mods/BlackOpsACUs/units/ESL0001/esl0001_lod0.scm',
+            AlbedoName = '/mods/BlackOpsACUs/units/ESL0001/esl0001_albedo.dds',
+            NormalsName = '/mods/BlackOpsACUs/units/ESL0001/esl0001_normals.dds',
+            SpecularName = '/mods/BlackOpsACUs/units/ESL0001/esl0001_specteam.dds',
+            LookupName = '/effects/entities/PhaseShield/PhaseShieldLookup.dds',
+            ShaderName = 'PhaseShield',
+            LODCutoff = 195,
+        },
+    },
+}

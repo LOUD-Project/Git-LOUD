@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'disintegrator_polytrail_04',
+	Lifetime = -1.00,
+    TrailLength = 0.4,
+    Size = 0.3,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 1000,
+    LODCutoff = 260,
+	RepeatTexture = [[/textures/particles/ramp_phalanx_munition_01.dds]],
+	RampTexture = [[/mods/BlackOpsUnleashed/textures/particles/TurboRED.dds]],
+}
+

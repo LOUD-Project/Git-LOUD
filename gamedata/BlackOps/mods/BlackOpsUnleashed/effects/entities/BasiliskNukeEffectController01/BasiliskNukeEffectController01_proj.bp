@@ -1,0 +1,30 @@
+ProjectileBlueprint {
+	Audio = {
+        NukeExplosion = Sound {
+            Bank = 'Explosions',
+            Cue = 'Aeon_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    General = {
+        Category = 'Bomb',
+        Faction = 'Aeon',
+        TechLevel = 1,
+        Weapon = 'New Aeon Nuke',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        TrackTarget = false,
+        TurnRate = 360,
+        VelocityAlign = true,
+        StayUpright = false,
+        Lifetime = 5,
+        UseGravity = false,
+        RotationalVelocity= 0,
+        RotationalAcceleration = 0,
+        Acceleration = 0,
+    },
+}
