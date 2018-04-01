@@ -1,0 +1,1102 @@
+-----------------------------------------------------------------------------
+--  File     : /units/UEL0402/UEL0402_unit.bp
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
+--  Special Thanks to : Exavier_Macbeth
+--  Summary  : UEF Rampage Assault Bot Script
+--  Copyright © 2010 4DC  All rights reserved.
+-----------------------------------------------------------------------------
+UnitBlueprint {
+    AI = {
+        GuardRadius = 50,
+        GuardReturnRadius = 25,
+        GuardScanRadius = 45,  
+        TargetBones = {
+            'body',
+            'torso',
+            'leg_right',
+            'leg_left',
+        },
+    },
+	
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Sml_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UAB',
+            Cue = 'UAB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGeneric = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Footfall',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Nuke = Sound {
+            Bank = 'Explosions',
+            Cue = 'UEF_Nuke_Impact',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Roar = Sound {
+            Bank = 'UALWeapon',
+            Cue = 'UAL0401_Tractor_Beam',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0001_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0001_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Commander',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+	
+    BuildIconSortPriority = 90,
+	
+    Categories = {
+        'BUILTBYTIER4COMMANDER',
+        'DIRECTFIRE',
+        'DRAGBUILD',
+        'EXPERIMENTAL',
+        'LAND',
+        'MOBILE',
+        'OVERLAYDIRECTFIRE',
+        'OVERLAYINDIRECTFIRE',        
+        'NEEDMOBILEBUILD',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'UEF',
+        'VISIBLETORECON',
+    },
+	
+    Defense = {
+        ArmorType = 'Experimental',
+        Health = 36500,
+        MaxHealth = 36500,
+        RegenRate = 17,
+        SubThreatLevel = 30,
+        SurfaceThreatLevel = 161,
+    },
+	
+    Description = 'Experimental Assault Mech',
+	
+    Display = {
+	
+        Abilities = {
+            'Amphibious',
+			'Ravager AutoCannons',
+			'Mortar Barrage',
+            'Volatile',
+            'Torpedoes',
+			'Sonar',
+        },
+		
+        AnimationWalk = '/mods/4DC/units/uel0402/uel0402_Awalk.sca',
+        AnimationWalkRate = 1.52,
+        AnimationPermOpen = '/mods/4DC/units/uel0402/uel0402_Astartup.sca',
+		
+        Mesh = {
+            IconFadeInZoom = 140, 
+            LODs = {
+                {
+                    MeshName = 'UEL0402_lod0.scm',                
+                    LODCutoff = 160,
+                    ShaderName = 'Unit',
+                },
+                {
+                    MeshName = 'UEL0402_lod1.scm',
+                    LODCutoff = 300,
+                    ShaderName = 'Unit',
+                },                
+            },
+        },
+		
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'foot_right',
+                            'foot_left',
+                        },
+                        Type = 'GroundKickup01',
+                    },
+                },
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'foot_fall_right',                                
+                            HipBone = 'leg_right',
+                            KneeBone = 'toe_right',
+                            MaxFootFall = 0,
+                            Offset = {
+                                z = 0,
+                            },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 30,
+                                TreadMarks = '/mods/4DC/env/common/splats/rampage_leftfoot_albedo.dds',
+                                TreadMarksSizeX = 1.24, 
+                                TreadMarksSizeZ = 1.24, 
+                                TreadOffset = {
+                                    -0.6, 
+                                    0,
+                                    0.88, 
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'foot_fall_left',
+                            HipBone = 'leg_left',
+                            KneeBone = 'toe_left',
+                            MaxFootFall = 0,
+                            Offset = {
+                                z = 0,
+                            },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 30,
+                                TreadMarks = '/mods/4DC/env/common/splats/rampage_leftfoot_albedo.dds',
+                                TreadMarksSizeX = 1.24, 
+                                TreadMarksSizeZ = 1.24, 
+                                TreadOffset = {
+                                    0.6, 
+                                    0,
+                                    0.88,
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },
+                    },
+                    Damage = {
+                        Amount = 2500,
+                        DamageFriendly = false,
+                        Radius = 1.5,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+		
+        PlaceholderMeshName = 'UXL0001',
+        SpawnRandomRotation = false,
+        UniformScale = 0.017,
+		
+    },
+	
+    Economy = {
+        BuildCostEnergy = 350000,
+        BuildCostMass = 14000,
+        BuildTime = 5850,
+    },
+	
+    General = {
+		CapCost = 3,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'amph',
+		
+        ToggleCaps = {},
+        OrderOverrides = {},
+		
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Rampage',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		SonarRadius = 45,
+        VisionRadius = 34,
+        WaterVisionRadius = 26,
+    },
+	
+    Interface = {
+        HelpText = 'Rampage',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.75,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+		
+        MaxAcceleration = 3.4,
+        MaxSpeed = 3.4,
+        MaxSpeedReverse = 3.4,
+		
+        MaxSteerForce = 10,
+		
+        MeshExtentsX = 1.5,
+        MeshExtentsY = 2.4,
+        MeshExtentsZ = 1.3,
+		
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        RotateOnSpot = false,
+        SinkLower = true,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
+        StandUpright = true,
+        TurnRadius = 4,
+        TurnRate = 64,
+    },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetY = 0,
+    SelectionCenterOffsetZ = 0,
+	
+    SelectionSizeX = 1.5, 
+    SelectionSizeZ = 1.5, 
+	
+    SelectionThickness = 0.3,
+	
+    SizeX = 2, 
+    SizeY = 3, 
+    SizeZ = 2, 
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 5,
+	
+    Veteran = {
+        Level1 = 25,
+        Level2 = 50,
+        Level3 = 75,
+        Level4 = 100,
+        Level5 = 125,
+    },
+	
+    Weapon = {
+	
+		-- Rampage has many weapons --
+
+		-- Medium range rocket barrage -- 
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = false,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB2304_Missile_Flayer',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 65,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Fragmentation Grenade Launcher',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringRandomness = 0.5,
+            FiringTolerance = 5,
+			
+            Label = 'Grenade',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0.3,	#-- every .4 seconds
+            MuzzleSalvoSize = 30,	#-- 30 grenades = 9 seconds
+			
+            MuzzleVelocity = 17,
+            MuzzleVelocityRandom = 3,
+			MuzzleVelocityReduceDistance = 55,
+			
+            ProjectileId = '/projectiles/TDFFragmentationGrenade01/TDFFragmentationGrenade01_proj.bp',
+            ProjectileLifetime = 5,
+
+            RackBones = {
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {
+                        'missile_R1',
+                        'missile_R2',
+                        'missile_R3',
+                        'missile_R4',
+                        'missile_R5',
+                        'missile_R6',
+                        'missile_R7',
+                        'missile_R8',
+                        'missile_R9',
+                        'missile_R10',
+                        'missile_R11',
+                        'missile_R12',
+                        'missile_R13',
+                        'missile_R14',
+                        'missile_R15',
+                        'missile_L1',
+                        'missile_L2',
+                        'missile_L3',
+                        'missile_L4',
+                        'missile_L5',
+                        'missile_L6',
+                        'missile_L7',
+                        'missile_L8',
+                        'missile_L9',
+                        'missile_L10',
+                        'missile_L11',
+                        'missile_L12',
+                        'missile_L13',
+                        'missile_L14',
+                        'missile_L15',
+                    },
+                    RackBone = 'missile_left',
+                },               
+                
+            },			
+			
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.1,		#-- 650 DPS every 10 seconds = 65 DPS
+			
+            TargetCheckInterval = 4,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'STRUCTURE DEFENSE',
+				'STRUCTURE -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'missile_L8',
+            TurretBonePitch = 'missile_pod_left',
+			
+			TurretBoneDualMuzzle = 'missile_R8',
+			TurretBoneDualPitch = 'missile_pod_right',
+			
+            TurretBoneYaw = 'body',
+			
+            TurretDualManipulators = true,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 20,
+			
+            TurretYaw = 0,
+            TurretYawRange = 125,
+            TurretYawSpeed = 25,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+
+		-- Two autocannon arms with Ravager level weapons --
+		
+        {
+            AboveWaterTargetsOnly = true,		
+            AlwaysRecheckTarget = 'true',
+			AnimationReload = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEL_Weapons',
+                    Cue = 'XEB2306_Gatling_Gun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ravager Cannon',		#-- this is the right large arm weapons
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Seabed|Water',
+            },
+			
+            FiringTolerance = 0.5,
+            FiringRandomness = 0.4,
+            FiringRandomnessWhileMoving = 1.6,
+			
+            --HeadingArcCenter = -42,
+            --HeadingArcRange = 58,
+			
+            Label = 'auto_cannon_right',
+
+            MaxRadius = 42,
+            MinRadius = 8, 
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 30,
+			
+            MuzzleVelocity = 40,
+			
+            NotExclusive = true,             
+			
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
+            ProjectileLifetime = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'auto_cannon_muzzle_right',
+                    },
+                    RackBone = 'auto_cannon_barrels_right',
+                },
+            },
+            RackFireTogether = false,
+			
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 2,
+            RackSalvoReloadTime = 2,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 3000 Damage every 7 seconds = 428 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE DIRECTFIRE',
+                'TECH2 MOBILE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'auto_cannon_muzzle_right',
+            TurretBonePitch = 'wrist_right',
+            TurretBoneYaw = 'fore_arm_right',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = -42,
+            TurretYawRange = 58,
+            TurretYawSpeed = 40,
+			
+            Turreted = true,
+			
+            WeaponRepackTimeout = 2,
+            WeaponUnpacks = true,
+        },
+
+        {
+            AboveWaterTargetsOnly = true,		
+            AlwaysRecheckTarget = 'true',
+			AnimationReload = true,			
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEL_Weapons',
+                    Cue = 'XEB2306_Gatling_Gun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 100,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ravager Cannon',		#-- this is the left large arm weapon		
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Seabed|Water',              
+            },
+			
+            FiringTolerance = 0.5,
+			
+            FiringRandomness = 0.4,
+            FiringRandomnessWhileMoving = 1.6,
+			
+            --HeadingArcCenter = 42,
+            --HeadingArcRange = 58,
+			
+            Label = 'auto_cannon_left',
+
+            MaxRadius = 42,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 30,
+			
+            MuzzleVelocity = 40,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
+            ProjectileLifetime = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'auto_cannon_muzzle_left',
+                    },
+                    RackBone = 'auto_cannon_barrels_left',
+                },
+            },
+			RackFireTogether = false,
+			
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 2,
+            RackSalvoReloadTime = 2,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,						#-- 428 DPS
+
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE DIRECTFIRE',
+                'TECH2 MOBILE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'auto_cannon_muzzle_left',
+            TurretBonePitch = 'wrist_left',
+            TurretBoneYaw = 'fore_arm_left',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 42,
+            TurretYawRange = 58,
+            TurretYawSpeed = 40,
+			
+            Turreted = true,
+
+            WeaponRepackTimeout = 2,
+            WeaponUnpacks = true,
+        },
+		
+		-- each arm also has an underslung cannon --
+		
+        {
+			AboveWaterFireOnly = true,
+			AboveWaterTargetsOnly = true,
+			AlwaysRecheckTarget = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0303_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.5,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,WALL',
+                },
+            },
+			
+            CollideFriendly = false,
+			
+            Damage = 500,
+			
+            DamageToShields = 2000,
+			
+            DamageFriendly = false,
+            DamageRadius = 1.0,
+			
+            DamageType = 'Force',
+			
+            DisplayName = 'Over Charge Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            FiringRandomness = 0.25,
+            FiringRandomnessWhileMoving = 0.6,
+			
+            --HeadingArcCenter = -42,
+            --HeadingArcRange = 58,
+			
+            Label = 'emp_right',			#-- this is the right arm underslung weapon
+			
+            MaxRadius = 42,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 40, 
+			
+            NotExclusive = true,                    
+			
+            ProjectileId = '/mods/4DC/projectiles/Over_Charge/Over_Charge_proj.bp',
+            ProjectileLifetime = 3,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'emp_muzzle_right',
+                    },
+                    RackBone = 'emp_slider_right',
+                },
+            },
+
+            RackFireTogether = false,
+            RackRecoilDistance = -12,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.6,			#-- 500 every 1.65 seconds is 300 DPS
+
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE DIRECTFIRE',
+                'TECH2 MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1',
+			
+            TurretBoneMuzzle = 'emp_muzzle_right',
+            TurretBonePitch = 'wrist_right',
+            TurretBoneYaw = 'fore_arm_right',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 0,
+			
+            TurretYaw = -42,
+            TurretYawRange = 58,
+            TurretYawSpeed = 0,
+			
+            Turreted = true,
+        },
+        {
+			AboveWaterFireOnly = true,
+			AboveWaterTargetsOnly = true,
+			AlwaysRecheckTarget = true,
+
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0303_Plasma_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.5,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,WALL',
+                },
+            },
+			
+            CollideFriendly = false,
+			
+            Damage = 500,
+            DamageFriendly = false,
+            DamageToShields = 2000,
+            DamageRadius = 1.0,
+            DamageType = 'Force',
+			
+            DisplayName = 'Over Charge Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },           
+			
+            FiringTolerance = 2,
+			
+            FiringRandomness = 0.25,
+            FiringRandomnessWhileMoving = 0.6,
+			
+            --HeadingArcCenter = 42,
+            --HeadingArcRange = 58,
+			
+            Label = 'emp_left',		#-- this is the left arm underslung weapon
+			
+            MaxRadius = 42,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 40,
+			
+            NotExclusive = true,           
+			
+            ProjectileId = '/mods/4DC/projectiles/Over_Charge/Over_Charge_proj.bp',  
+            ProjectileLifetime = 3,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'emp_muzzle_left',
+                    },
+                    RackBone = 'emp_slider_left',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -12,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+
+            RateOfFire = 0.6,			#--- another 300 DPS
+
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE DIRECTFIRE',
+                'TECH2 MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1',
+			
+            TurretBoneMuzzle = 'emp_muzzle_left',
+            TurretBonePitch = 'wrist_left',
+            TurretBoneYaw = 'fore_arm_left',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 0,
+			
+            TurretYaw = 42,
+            TurretYawRange = 58,
+            TurretYawSpeed = 0,
+			
+            Turreted = true,
+        },
+		
+		-- a close combat riot gun --
+		-- with low level AA ability --
+		
+        {
+			AboveWaterFireOnly = true,
+			AboveWaterTargetsOnly = true,
+			AlwaysRecheckTarget = true,
+		
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            AimsStraightOnDisable = 'true',
+			
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nose Turret',		#-- this is the dual nose gun
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air|Land|Water',
+            },
+			
+            FiringTolerance = 0.2,
+			
+            FiringRandomness = 0.1,
+            FiringRandomnessWhileMoving = 0.6,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 90,
+			
+            Label = 'plasma_repeater',
+			
+            MaxRadius = 34,
+			MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 50,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
+            ProjectileLifetime = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'plasma_repeater_muzzle_right',
+                    },
+                    RackBone = 'plasma_repeater_slider_right',
+                },
+                {
+                    MuzzleBones = {
+                        'plasma_repeater_muzzle_left',
+                    },
+                    RackBone = 'plasma_repeater_slider_left',
+                },
+            },
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RackFireTogether = false,
+			
+            RackRecoilDistance = -4,
+			
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 3.0,		#--   100 DPS
+			
+            --SlavedToBody = true,
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'STRUCTURE DEFENSE DIRECTFIRE',
+                'TECH1 MOBILE',
+                'TECH2 MOBILE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
+			
+            TurretBoneMuzzle = 'plasma_repeater_muzzle_right',
+            TurretBonePitch = 'plasma_repeater_pitch',
+            TurretBoneYaw = 'plasma_repeater_front_yaw',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 50,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+        },
+		
+		-- torpedo cluster --
+
+        {
+            AlwaysRecheckTarget = 'true',		
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XES_Weapons',
+                    Cue = 'XES0307_Angler_Torpedo',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+			BelowWaterFireOnly = true,			
+			
+            CollideFriendly = false,
+			
+            Damage = 110,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Angler Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Seabed = 'Seabed|Sub|Water',
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 60,
+			
+            Label = 'Torpedo',
+			
+            MaxRadius = 40,
+			
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 12,
+            MuzzleVelocity = 3,
+			
+            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileLifetime = 8,
+			
+            RackBones = {
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {
+                        'torp_r1',
+                        'torp_r2',
+                        'torp_r3',
+                        'torp_r4',
+                        'torp_r5',
+                        'torp_r6',
+                        'torp_l1',
+                        'torp_l2',
+                        'torp_l3',
+                        'torp_l4',
+                        'torp_l5',
+                        'torp_l6',
+                    },
+                    RackBone = 'torso',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.1,			-- 12 * 110 = 132 DPS
+			
+            SlavedToBody = true,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE SUBMARINE',
+				'MOBILE NAVAL',
+				'MOBILE',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            Turreted = false,
+        },
+        {
+            Damage = 5600,
+            DamageFriendly = true,
+            DamageRadius = 5,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+            WeaponCategory = 'Death',
+        },	
+
+	},
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.5,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

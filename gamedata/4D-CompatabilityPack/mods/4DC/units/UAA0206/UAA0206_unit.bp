@@ -1,0 +1,348 @@
+-----------------------------------------------------------------------------
+--  File     : /units/UAA0206/UAA0206_unit.bp
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
+--  Summary  : Aeon Abolisher Gunship Blueprint 
+--  Copyright © 2010 4DC  All rights reserved.
+----------------------------------------------------------------------------- 
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 75,
+        GuardScanRadius = 60,
+    },
+	
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 0.1,
+        BankForward = false,
+        CanFly = true,
+		
+        CirclingDirChangeFrequencySec = 1,
+        CirclingElevationChangeRatio = 0.25,
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingRadiusVsAirMult = 0.66,
+        CirclingTurnMult = 3,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 0.6,
+        KMoveDamping = 2,
+		
+        KTurn = 0.8,
+        KTurnDamping = 1.5,
+		
+        LiftFactor = 5,
+		
+        MaxAirspeed = 12.5,
+        MinAirspeed = 3,
+		
+        StartTurnDistance = 6,
+		
+        Winged = false,
+		
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UAADestroy',
+            Cue = 'UAA_Destroy_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XAA',
+            Cue = 'XAA0305_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XAA',
+            Cue = 'XAA0305_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Thruster = Sound {
+            Bank = 'XAA',
+            Cue = 'XAA0305_Move_Thruster',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {},
+	
+    BuildIconSortPriority = 25,
+	
+    Categories = {
+        'AEON',
+        'AIR',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'GROUNDATTACK',
+        'MOBILE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TECH2',
+        'VISIBLETORECON',
+    },
+	
+    Defense = {
+        ArmorType = 'Light',
+        Health = 1250,
+        MaxHealth = 1250,
+        RegenRate = 4,
+        SurfaceThreatLevel = 7.5,
+    },
+	
+    Description = 'Beam Gunship',
+	
+    Display = {
+        Abilities = {
+            'Ion Beam',
+            'Defensive Teleportation',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+
+                    ShaderName = 'Aeon',
+                },
+                {
+                    AlbedoName = 'uaa0206_albedo.dds',
+                    NormalsName = 'uaa0206_normalsTS.dds',
+                    SpecularName = 'uaa0206_specteam.dds',                                        
+                    LODCutoff = 215,
+                    Scrolling = false,                   
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXA0010',
+        SpawnRandomRotation = true,
+        UniformScale = 0.003,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 16500,
+        BuildCostMass = 325,
+        BuildTime = 1500,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+        Category = 'Gunship',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Abolisher',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 30,
+    },
+	
+    Interface = {
+        HelpText = 'Abolisher',
+    },
+	
+    LifeBarHeight = 0.07,
+    LifeBarOffset = 1.0,
+    LifeBarSize = 0.6,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+        },
+        Elevation = 10,
+		
+        FuelRechargeRate = 10,
+        FuelUseTime = 240,
+		
+        GroundCollisionOffset = 1.6,
+        MaxSpeed = 0.5,
+        MeshExtentsX = 2,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 2,
+        MotionType = 'RULEUMT_Air',
+        RotateBodyWhileMoving = true,
+        TurnFacingRate = 180,
+        TurnRadius = 5,
+        TurnRate = 60,
+    },
+	
+    SelectionSizeX = 0.7,
+    SelectionSizeZ = 1.3,
+    SelectionThickness = 0.4,
+	
+    SizeSphere = 1.2,
+	
+    SizeX = 1,
+    SizeY = 0.3,
+    SizeZ = 1,
+	
+    StrategicIconName = 'icon_gunship2_directfire',
+    StrategicIconSortPriority = 66,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 2,
+    },
+	
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+			
+            ContinuousBeam = false,
+			
+            Damage = 15,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ion Beam', 
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water',
+                Land = 'Air|Land|Water',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'Ion_Beam',
+			
+            MaxRadius = 28,
+            MinRadius = 6,
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'muzzle_beam',
+                    },
+                    RackBone = 'muzzle_beam',
+                },
+            },
+			
+            RackFireTogether = true,
+			
+            
+			
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,	-- about 75dps
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 25,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {                              
+                'EXPERIMENTAL',
+                'ANTIAIR',
+                'ENGINEER',
+                'ECONOMIC',
+                'ALLUNITS -WALL',                
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR',
+            TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'muzzle_beam',
+            TurretBonePitch = 'uaa0306',
+            TurretBoneYaw = 'muzzle_beam',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -5,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 25,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 150,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+}

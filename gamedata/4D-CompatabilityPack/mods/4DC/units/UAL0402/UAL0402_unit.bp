@@ -1,0 +1,800 @@
+--  File     : /units/UAL0402/UAL0402_unit.bp
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
+--  Summary  : Aeon Overlord Experimental Assault Bot
+--  Copyright © 2010 4DC  All rights reserved.
+
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+        },
+    },
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAL0401_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGeneric = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0401_Move_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGenericSeabed = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0401_Move_UW_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0401_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0401_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+    BuildIconSortPriority = 30,
+    Categories = {
+        'AEON',
+        'BUILTBYTIER4COMMANDER',
+        'DIRECTFIRE',        
+        'DRAGBUILD', 
+        'EXPERIMENTAL',               
+        'LAND',
+        'MOBILE',
+		'AMPHIBIOUS',
+        'NEEDMOBILEBUILD',
+        'RECLAIMABLE',
+        'SELECTABLE',        
+        'VISIBLETORECON',
+    },
+	
+    CollisionOffsetY = 0.0,
+	
+    Defense = {
+        AirThreatLevel = 120,
+        ArmorType = 'Normal',
+        Health = 60000,
+        MaxHealth = 60000,
+        RegenRate = 22,
+        SurfaceThreatLevel = 230,
+    },
+	
+    Description = 'Experimental Assault Bot',
+    Display = {
+        Abilities = {
+            'Amphibious',
+			'Anti-Air',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/4DC/units/ual0402/UAL0402_Adeath01.sca',
+                AnimationRateMax = 0.9,
+                AnimationRateMin = 0.7,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/4DC/units/ual0402/UAL0402_awalk5.sca',
+        AnimationWalkRate = 2.2, 
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 500,
+                    Scrolling = false,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'Right_Footfall',
+                            HipBone = 'Right_Leg_B01',
+                            KneeBone = 'Right_Leg_B02',
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 30,
+                                TreadMarks = 'collosus_tread_02',
+                                TreadMarksSizeX = 0.95, 
+                                TreadMarksSizeZ = 1.5, 
+                                TreadOffset = {
+                                    -0.8,  --  How far left or right
+                                    0,     --  Not used
+                                    1.9,   --  How far forward
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },                        
+                        {
+                            FootBone = 'Left_Footfall',
+                            HipBone = 'Left_Leg_B01',
+                            KneeBone = 'Left_Leg_B02',
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 30,
+                                TreadMarks = 'collosus_tread_01',
+                                TreadMarksSizeX = 0.95,
+                                TreadMarksSizeZ = 1.5,
+                                TreadOffset = {
+                                    0.8,  -- How far left or right
+                                    0,    -- Not used
+                                    1.9,  -- How far forward
+                                },
+                            },
+                            Type = 'FootFall01',
+                        },
+                    },
+                    Damage = {
+                        Amount = 4500,
+                        DamageFriendly = false,
+                        Radius = 1.5,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.12,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 395000,
+        BuildCostMass = 23000,
+        BuildRate = 15, -- T3 engineer BuildRate for selfupgrade
+        BuildTime = 15000,
+    },
+	
+    Enhancements = {
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = -2,
+                y = -5,
+            },
+			LCH = {
+			},
+			RCH = {
+			},
+			Command = {
+			},			
+        },
+		
+        ChronoDampener = {
+            BuildCostEnergy = 76833,
+            BuildCostMass = 7866,
+            BuildTime = 3000,
+            Icon = 'cd',
+            Name = 'Chrono Dampener',
+            ShowBones = {
+                'Back_Upgrade',
+            },
+            Slot = 'Back',
+            UpgradeUnitAmbientBones = {
+                'UAL0402',
+            },
+            UpgradeEffectBones = {
+                'Back_Upgrade',
+                'Left_Arm_B01',
+                'Right_Arm_B01',
+            },
+        },
+		
+        ChronoDampenerRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            HideBones = {
+                'Back_Upgrade',
+            },
+            Icon = 'cd',
+            Name = 'Remove Chrono Dampener',
+            Prerequisite = 'ChronoDampener',
+            RemoveEnhancements = {
+                'ChronoDampener',
+                'ChronoDampenerRemove',
+            },
+            Slot = 'Back',
+        },                  
+    },
+	
+    General = {
+		CapCost = 5,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Overlord',
+        UnitWeight = 2,
+    },
+	
+    Intel = {
+        VisionRadius = 38,
+        WaterVisionRadius = 21,
+    },
+	
+    Interface = {
+        HelpText = 'Overlord',
+    },
+	
+    LifeBarHeight = 0.15,
+    LifeBarOffset = 1.75,
+    LifeBarSize = 3.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        LayerChangeOffsetHeight = -3.25,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.5,
+        MaxSpeedReverse = 1.0,
+		
+        MaxSteerForce = 10,
+        MeshExtentsX = 1.75,
+        MeshExtentsY = 3.3,
+        MeshExtentsZ = 1.25,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        StandUpright = true,
+        TurnRadius = 3,
+        TurnRate = 36,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.25,
+    SelectionSizeX = 2,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.4,
+    SizeX = 2.5,
+    SizeY = 4.5,
+    SizeZ = 1.5,
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 115,
+    Transport = {
+        TransportClass = 4,
+    },
+    Veteran = {
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
+    },
+	
+	#-- Looks like about 2300 DPS and 1200 DPS Air - plus can stun every 5 seconds
+	
+    Weapon = {
+	
+		-- LEFT ARM BEAM WEAPON --
+
+        {
+			AboveWaterFireOnly = true,
+            AimsStraightOnDisable = true,
+			
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0401_Phason_Laser_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,	-- dmg every tick
+            BeamLifetime = 0,	-- this beam never stops
+			
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 250,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Phason Laser',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringTolerance = 10,
+			
+            HeadingArcCenter = -50,
+            HeadingArcRange = 80,
+			
+            Label = 'EyeWeapon',
+			
+            MaxRadius = 50,
+            MinRadius = 2,
+			
+            MuzzleChargeDelay = 0.0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'MuzzleRight',
+                    },
+                    RackBone = 'WeaponRight',
+                },
+            },
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 1,				#-- about 2500 DPS
+			
+            TargetCheckInterval = 0.2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'EXPERIMENTAL',
+                'MOBILE',
+                'DEFENSE',                
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'MuzzleRight',
+            TurretBonePitch = 'WeaponRight',
+            TurretBoneYaw = 'ArmRight',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 35,
+			
+            TurretYaw = -50,
+            TurretYawRange = 80,
+            TurretYawSpeed = 40,
+			
+            Turreted = true,
+			
+            WeaponRepackTimeout = 2,
+            WeaponUnpacks = true,
+        },
+		
+		-- Left Arm Cannon
+		
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0303_Laser_Intense',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 250,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+		
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomnessWhileMoving = 0.5,
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 50,
+            HeadingArcRange = 80,
+			
+            Label = 'FrontTurret01',
+			
+            MaxRadius = 44,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 60,
+			ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp', 
+            ProjectileLifetime = 2.3,
+            ProjectilesPerOnFire = 1,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'MuzzleLeft',
+                    },
+                RackBone = 'BarrelLeft',
+				TelescopeBone = 'BarrelGun',
+                TelescopeRecoilDistance = -1,
+                },
+            },
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RackFireTogether = false,
+            RackRecoilDistance = -3.0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 2.0,			#-- 500 DPS
+			
+            TargetCheckInterval = 0.2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',                
+                'DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'MuzzleLeft',
+            TurretBonePitch = 'WeaponLeft',
+            TurretBoneYaw = 'ArmLeft',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 50,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 50,
+            TurretYawRange = 80,
+            TurretYawSpeed = 75,
+			
+            Turreted = true,
+        },
+		
+		-- ShoulderGun
+		
+        {
+			AboveWaterFireOnly = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2101_Graviton',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Graviton Projector',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 140,            
+
+            Label = 'MainGun',
+			
+            MaxRadius = 45,
+			MinRadius = 10,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 44,
+			
+            ProjectileId = '/projectiles/ADFGraviton01/ADFGraviton01_proj.bp',
+            ProjectileLifetime = 1.4,
+            ProjectilesPerOnFire = 1,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'MuzzleShoulder',
+                    },
+                    RackBone = 'ShoulderBarrel',
+                },
+            },
+			
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RackFireTogether = false,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 1.0,			#-- 300 DPS
+			
+            TargetCheckInterval = 0.2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',               
+                'TECH2 MOBILE', 	
+                'TECH1 MOBILE', 	
+                'TECH3 MOBILE',                
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+            TurretBoneMuzzle = 'MuzzleShoulder',
+            TurretBonePitch = 'ShoulderTurret',
+            TurretBoneYaw = 'ShoulderCannon',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 25,
+            TurretPitchSpeed = 90,
+            TurretYaw = 90,
+            TurretYawRange = 140,
+            TurretYawSpeed = 90,
+            Turreted = true,
+        },
+		
+		-- SAM Launcher
+		
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2304_SAM',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Open = Sound {
+                    Bank = 'UAB',
+                    Cue = 'UAB2304_Activate',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 400,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Zealot AA Missile',
+
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+				Seabed = 'Air',
+            },
+			
+            FiringTolerance = 60,
+			
+            Label = 'AntiAirMissiles',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 32,
+			
+            ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+            ProjectileLifetime = 4,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Missile1',
+                        'Missile2',
+                        'Missile3',
+                    },
+                },                                
+            },
+			
+            RangeCategory = 'UWRC_AntiAir',
+            RackFireTogether = false,
+			
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 3,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RateOfFire = 1.0,				#-- 3 missiles @ 400 every second = 1200 DPS Air
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',            
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'MOBILE',
+                'SPECIALLOWPRI',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.1,
+            Turreted = false,
+        },
+		
+		-- Chrono Dampener		# -- will STUN ALL UNITS (even Experimentals) for 2 seconds within 30 radius every 5 seconds
+		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnFire = true,
+                    },
+                    BuffType = 'STUN',
+                    Duration = 2,
+                    Radius = 30,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'COMMAND,WALL',
+                },
+            },
+
+            CollideFriendly = false,
+			
+            Damage = 1,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Chrono Dampener',
+			
+            EnabledByEnhancement = 'ChronoDampener',
+			
+            EnergyChargeForFirstShot = false,
+            EnergyDrainPerSecond = 250,
+            EnergyRequired = 1250,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 360,
+			
+            Label = 'ChronoDampener',
+			
+            MaxRadius = 30,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UAL0402',
+                    },
+                    RackBone = 'UAL0402',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 10,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            Turreted = false,
+        },
+		
+        {
+            Damage = 4000,
+            DamageFriendly = true,
+            DamageRadius = 4,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

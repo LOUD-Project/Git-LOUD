@@ -1,0 +1,67 @@
+-----------------------------------------------------------------------------
+--  File     : /mods/4DC/projectiles/BFGShell/BFGShell_proj.bp
+--
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
+--
+--  Summary  : Aeon "Annihilator" BFG Projectile
+--
+--  Note     : Projectile based off ideas from Seiya's lobber mod
+--
+--  Copyright © 2010 4DC  All rights reserved.
+-----------------------------------------------------------------------------
+
+ProjectileBlueprint {
+    Audio = {
+        Arc = Sound {
+            Bank = 'XSL_Weapon',
+            Cue = 'XSL0402_Attack_Zap',
+            LodCutoff = 'Weapon_LodCutoff',
+        },    
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'X_Impact_Land_Gen_Seraphim',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'X_Impact_Land_Gen_Seraphim',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'AEON',
+        'PROJECTILE', -- required for "Shield Piercing"
+        'DIRECTFIRE',
+        'SHIELDPIERCING', -- required for "Shield Piercing"       
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium02',
+        },    
+        StrategicIconSize = 3,
+    },
+    General = {
+        Category = 'Direct Fire',
+        Faction = 'Aeon',
+        TechLevel = 3,
+        Weapon = 'BFG',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 0,    
+        DestroyOnWater = true,
+        InitialSpeed = 12,
+        LeadTarget = true,
+        MaxSpeed = 12,        
+        TurnRate = 0,
+        UseGravity = false,        
+        VelocityAlign = true,
+    },
+}

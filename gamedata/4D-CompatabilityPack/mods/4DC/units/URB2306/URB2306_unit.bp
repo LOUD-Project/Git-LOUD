@@ -1,0 +1,409 @@
+UnitBlueprint {
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'URB',
+            Cue = 'URB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+    },
+	
+    BuildIconSortPriority = 110,
+	
+    Categories = {
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'CYBRAN',
+        'DEFENSE',        
+        'DIRECTFIRE',
+        'DRAGBUILD',        
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'STRUCTURE',        
+        'SIZE4',                
+        'SORTDEFENSE',
+        'TECH3',        
+        'VISIBLETORECON',
+		'OVERLAYINDIRECTFIRE',
+    },
+	
+    CollisionOffsetY = -0.5,
+	
+    Defense = {       
+        ArmorType = 'Normal',
+        Health = 7800,
+        MaxHealth = 7800,
+		RegenRate = 3,
+        SurfaceThreatLevel = 38,
+    },
+	
+    Description = 'Heavy Microwave Tower',
+	
+    Display = {
+        Abilities = {
+			'Aquatic',
+			'Slow Rate of Fire',
+			'Needs Energy',
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 120,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'URB2306_Albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = 'URB2306_SpecTeam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0003',
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 3.4,
+                Normal = 'Tarmacs/Tar6x_cybran_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 3.4,
+            },
+        },
+        UniformScale = 0.08,
+    },
+    Economy = {
+        BuildCostEnergy = 22000,
+        BuildCostMass = 2200,
+        BuildTime = 2200,
+    },
+
+	Footprint = {
+		SizeX = 1,
+		SizeZ = 1,
+	},
+	
+    General = {
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Beholder',
+        UnitWeight = 1,
+        SelectionPriority = 5,
+    },
+	
+    Intel = {
+        VisionRadius = 36,
+    },
+	
+    Interface = {
+    	HelpText = 'Beholder',
+    },
+	
+    LifeBarHeight = 0.09,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 1.5,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+		MeshExtentsX = 2,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 2,        
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+	
+    SelectionCenterOffsetx = 0,
+    SelectionCenterOffsety = 0,  
+    SelectionCenterOffsetZ = 0,  
+	
+    SelectionSizeX = 1.1,
+    SelectionSizeZ = 1.1,
+    SelectionThickness = 0.5,
+	
+    SizeX = 1.25,
+    SizeY = 3.3,
+    SizeZ = 1.25,
+	
+    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconSortPriority = 200,
+	
+    Veteran = {
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
+    },
+    Weapon = {
+        {
+            AimsStraightOnDisable = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 2,		-- 2 seconds of fire
+            ContinuousBeam = true,
+			
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 800,	-- 4 seconds to charge
+			
+            CollideFriendly = false,
+
+            Damage = 80,
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 62,
+			MinRadius = 6,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            NotExclusive = true,         
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Muzzle',
+                    },
+                    RackBone = 'Sleeve',
+                },
+            },
+            RangeCategory = 'UWRC_DirectFire',
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 10,		#--- 1600 every 4 seconds -  400 DPS
+			
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+            	'EXPERIMENTAL',
+                'MOBILE',
+                'DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Sleeve',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -20,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 24,
+			
+            Turreted = true,
+			
+            WeaponRepackTimeout = 0.6,
+            WeaponUnpacks = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2101_Cannon_Sgl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 50,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Laser',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'Laser',
+			
+            MaxRadius = 26,
+			MinRadius = 0,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			MuzzleVelocity = 35,
+			
+            ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
+			ProjectileLifetime = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'LaserMuzzle',
+                    },
+                    RackBone = 'LaserTurretBarrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 3,			#-- 150 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {           	
+            	'EXPERIMENTAL',
+                'MOBILE',
+                'DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',            	 
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+            TurretBoneMuzzle = 'LaserMuzzle',
+            TurretBonePitch = 'LaserTurretBarrel',
+            TurretBoneYaw = 'LaserTurret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+        },
+        {
+    		Damage = 750,
+    		DamageFriendly = true,
+    		DamageRadius = 3,
+    		DamageType = 'Normal',
+    		DummyWeapon = true,
+    		Label = 'DeathWeapon',
+    	}, 
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}
