@@ -1,0 +1,720 @@
+March 2018
+
+As we move thru March now, things are still very busy in getting the public release of LOUD settled down.  We're getting lots of data on the many ways that people play the game, and as we see new things, we try to make LOUD adaptable to them.   This takes time and repeated observations to get it right.   Here's an example;
+
+With respect to the naval AI and making it more efficient, we needed a way to make LOUD responsive to particular situations - such as a water map that has very little water, or more importantly, a map which has a decent amount of water - but the enemy is not bothering to play a naval game.   Both of those are important considerations - as otherwise LOUD will build a sizable naval force that he can't use or doesn't need.   Three metrics are used for this - the water map percentage - the unit cap - and the naval ratio.   
+
+The concept is rather straight ahead.  If a map has a low water percentage, or a low unit cap, we want LOUD to really curtail his naval investment.   That means two things to him, less naval factories, and lower minimum pool requirements for him to build.   As for the other situation, where LOUD cannot find any enemy naval presence, we use the naval ratio to tell him to cease construction of any new assets - other than his minimum requirements.
+
+These changes will require some observation to tune them better - so we'll be watching naval replays with great interest for the next while.   As for other naval progress, all the unit category changes are now in place for BOMBARDMENT.   This means it will now be possible to create a platoon definition that requires only those kind of units and build a behavior to go along with it.   That's a short sentence - but a mouthful of work.   Platoon definitions are easy - but behaviors take a lot of rinse and repeat to get 'just right'.   
+
+Another development for naval features this month includes two other minor, but interesting changes.  First, all T3 Naval Factories gain the ability to build Hovercraft  and Torpedo Bombers.  Secondly, the Economic threat for ALL factories goes up substantially.   One is a feature for our players that won't initially be used by LOUD, the other is important to LOUD as it will cause him to pay much greater interest to any factories that he finds.   Be wary - the goal here is to make LOUD almost rabid about your factories - you've been forewarned.
+
+As promised last month, the Stealth Field generators for all factions now gain T2 level teleport jamming.   The addition of factional support 'aura' will come later along with the promised radar tower additions.  We're engaging in a wider discussion of radar and the addition of new intelligence assets so for now, we're not rushing ahead with the implementation of T4 radar structures.
+
+We've added another very minor but requested mod - Realistic Nukes.   This one is dead simple - all static and sub based nukes simply do more damage - quite a bit more - and have a slightly larger radius.
+
+We've added two new maps to LOUD.  CityWars III - we released this before, but it had  some texture issues which we've resolved.   This is a fine team play scenario where you're stuck in the middle against overwhelming odds - best used with a 2 hour time limit.  The Pass - our second 10k map addition, is a very simple tactical problem, but we've provided 3 different configurations.   And, Hills of Havoc Wet.  This is another 'wet' version of an existing map - but with a twist.   While there is a lot of water surface area, none of it should be deep enough for Naval yards.   This one should feature amphibious operations.   Aside from the standard 4 v 4 configuration, we'll include a 7 v 4 configuration for our comp-stomp fans.
+
+Some unit tweaks upcoming include increased mass and energy storage for factories - nothing huge - but enough to notice.
+
+Started looking into why amphibious actions are so lacklustre.   Generally, when faced with an amphibious challenge, LOUD seems somewhat ho-hum.   Partly it's because he's not concentrating his amphibious assets, and he's not focusing enough effort on building amphibious units.   I've addressed both of those this month - LOUD will now move his amphibious forces to the best forward postion - until now - it was random - it could be either of his primary positions.   As for production, I've streamlined his production on water maps - this should get him building somewhat more amphib units.
+
+With the introduction of the Hills of Havoc Wet map, I started running some sims with an increased focus on amphibious work.   Right away, I was able to pickup a bit of data on why the amphib work can be so unfocused, and aside from the concentration issues I mentioned above, his production needed some tuning as well.   It was also clear that without a naval component, he wasn't interested in creating any Naval DP's and that had to be addressed.   The Naval DP is a valuable position for LOUD, even where naval units are not possible, simply because it gives him a staging point that may be much better than any he could find on land.   So now those work well.
+
+Found some issues with land scouts.  For some time now - when LOUD sends out land scouts, he'll send them to a point that needs scouting - and then he'll abandon the platoon there - rather than trying to pick them up and move them.   This works very well - as it frees up the platoon for LOUD to create another -- and the premise of this was great - he'll get to a point where he's got all the positions he needs to scout being observed all the time.   Sounds great.   It's not doing that.     Why ?    Well, it has nothing to do with the platoons or the intel behaviors - it has to do with the army pool.
+
+The army pool is a global 'platoon' where every unit that isn't in a platoon goes to when it isn't in any other platoon.  Using the Army Pool to do unit counts is really light on cycles  so I use it a fair bit - for example - to make sure I don't overbuild scouts.  Guess what.   It sees all those abandoned scouts as part of the pool - and as a result - I don't build any more.  Duh.   Had to fix that - I put abandoned scouts into an alternative pool now - the Structure Pool - where they'll never get seen again.  Fixed !  Not quite.   Now LOUD is making all kinds of scout platoons again - but - he's making them so fast they tend to go to the same location - that's also not good.   So - I reduce the number of active scout platoons to one - so he's only got one underway at a time, and that's good - less platoons = less memory reserved.   We'll see how effective it is.
+
+Fixed a nasty little bug that was causing some AI issues.  It seems that the Black Ops ACU has the 'DIRECTFIRE' category.   Nothing wrong with that except that Bob tries to get into a fighting platoon and get into a transport - bad bad bad.   Bob must not fly away - Bob must stay and work his base.   The stock ACU does not have this category, and in hindsight, this could have been a problem for quite some time - only recently revealed when I was streamlining combat platoon compositions.   Also, for the mindful, I've decided to re-introduce the inability for T1 transports to lift the ACU.   This is especially evident when you look at the Black Ops ACU with his 40K+ HP.   We don't let anything with that kind of awesomeness get into a transport at all - let alone T1.   There is a case to be made for preventing the ACU from being transported at all on that line of thinking -- but hey - I'm not a radical.
+
+Looking at the T1 > T2 transition.   It's really pretty cheap all things considered.   Most LOUD players acknowledge that there is a 'bite' when you go from T2 > T3, and that 'bite' is partly responsible for the lifespan of T2, but the T1 > T2 transition is almost trivial - being that it can be supported by about 10-12  T1 power gens.   I'll be looking at a more expensive Energy cost for that move - both for the factories and the ACU.
+
+I think I'm finally happy with the physical behavior of transports.  After the last pass, while we got their flight characteristics settled up for normal things, it was clear that we didn't quite understand the loading and landing behavior very well.   So, after some careful focus on that, we were able to restore the fairly efficient load/unload sequence for transports.   This should make it possible for them to drop their troops fairly quickly and get away in a smooth transition.
+
+We've made an exciting new contact.  The author of BrewLAN has joined us several times on our Discord  server, and he has energized the entire team in a number of ways.   At this point it looks likely we'll be making an adaptation of BrewLAN specifically for the LOUD AI Project in the very very near future.   There is a lot of support for this - not just because BrewLAN is a popular mod unto itself, but because there are many units which either fill a void in the LOUD arsenal, or offer a better looking and working model of a unit we already have.   I'm really pleased that everyone is getting involved in the discussion.   It won't happen overnight - but users should start seeing something fairly soon.
+
+
+February 2018
+
+The last few weeks have been very exciting times for the LOUD project.  Since launching a proper front page on ModDB and having a Discord server set up, we've made a whole lot of new friends.  We're very pleased at the response we've gotten -- despite the size of our download.  We've had a few hiccups, for sure, and we recently moved our FTP host to another service that we hope will perform much better for those around the globe that have had issues with certain files.  If you've had download issues in the past, and gave up, try again - and please - let us know if there are problems.
+
+The response from those that come and chat with us (either voice or text) on Discord has been extremely informative.  We're getting a lot of people trying LOUD in new and different situations that we simply never tried.   The feedback has been helpful in tuning LOUD to perform better in a wider variety of situations, in particular, smaller maps.   Now, having said that, it's not where I'd like it to be -- yet -- but it's replays and observations from everyone that make those changes happen.  Thanks very much.  Myself, and my team, Axle, Tanksy, Doc Sys, Stash and HtKatzmarek, are doing our best to be as responsive as we can to help everyone get the most out of the LOUD AI Project.
+
+Ok - obviously, with all this going on, it's been difficult to concentrate on new work - so there isn't a whole lot in this update.  Rather, we've tried to deal with a good number of small problems that were made obvious by the way people have been using LOUD.  Several maps with minor issues were fixed, a couple of smaller ones were added, unit repairs were made, and preliminary work on tuning LOUD for small maps are all in here.   We've moved most of the non-stock units that were part of our main unit file into a new seperately switchable mod called LOUD Unit Additions, allowing people to use LOUD with a pretty much 'stock' unit arsenal.  There's been a rework of the Large Map Preview in the lobby so that it scales much better with your screen resolution than previously.  There are also some new enhancements available for the T2 airpad in the LOUD Structure Upgrades mod.  Like I said - lots of 'bits'.
+
+New work that is on the block, but not yet complete;
+
+	- a new set of radar towers to replace the stock lineup that will introduce an intermediate T3 radar (with no omni) but lower energy consumption, and a T4 level omni radar
+	- an integration of features into the T2 Stealth Field generator that will permit upgrades to T3 (greater coverage) and various enhancements (anti-teleport, factional aura effects)
+	- the completion of the Naval Bombardment feature
+
+Please - keep letting us know how LOUD is working for you.  We're keenly interested in making sure that the LOUD AI Project gives you not only an effective AI player but the best performance in the largest possible battles.   Enjoy.
+
+
+January 2018
+
+December was a very positive month for the LOUD project.   We've gotten lots of new data on how LOUD operates (and can be improved) in the late game - especially with regards to building and using experimentals, operating air platoons, and factional composition.  We're beginning to develop some new 'factional' specific behaviors that will enhance not only the effectiveness of LOUD, but give him a 'flavor' that changes noticeably with his faction.
+
+We've seen some new opportunities for implementing the 'personality' feature that was built into the original code, for something other than just a unique name.  The idea of this is that the personality table will make minor tweaks to the AI's focus and aggression, so one day you might get the vicious AEON commander who is nuke happy, and then the next, get the timid one who is not as eager to attack, but prefers artillery.   Anyhow, you can see the options that might be possible.   Just dreaming for now.
+
+Some corrections include an update to the AIx feature called 'spawn wave'.   For those that aren't aware - AIx LOUD gets a very small periodic 'wave' of free air units.  Don't be alarmed - it's very small (like 3 fighters, bombers, gunships, etc) - and only occurs about every 22 minutes of game time - and only after he's built his first T3 Air factory.  The wave gets a little larger, and comes a little bit sooner, each time, and works ever so gently to 'nudge' the game along to an end.  Of course, like many things about the AIx LOUD, the values are modified by this cheat level.   The correction to this feature comes in the form of how LOUD was integrating those units into what he builds himself (unit specific behaviors - ie. self-preservation) and some optimizations.  We've identified an issue that isn't resolved yet in how to suppress the spawn wave if unit restrictions prohibit those units.
+
+Another correction is also the proper implementation of Naval Experimentals for LOUD.  Since such units can only be built at the naval yard or DP, it's important that LOUD recognize the need to get a SubCommander out to those positions in a timely fashion.   That was a bit problematic, but we are seeing it happen and it's really disturbing when LOUD smashes your navy with a few of those mixed in with his fleets.
+
+Still refining the naval aspects, in particular, unit construction and platoon composition.   The factional navies are quite a bit more diverse than their land counterparts, with some specific strengths and weaknesses that can only be addressed with unique platoon compositions.   This primarily involves things like the UEF Shield Boat, the Cybran CounterIntel boat and the Aeon T1 Shard AA boat.   New this month is unique compositions for the primary naval platoons (SeaAttack Small, Medium & Large) that should help LOUD deal with some of the specific 'holes' that each has in it's arsenal.   I also have to deal with the overproduction or underproduction of certain units in order to keep LOUD actively busy with as much of his naval assets as possible, and faction specific compositions allow me to address those directly.
+
+One important issue that I haven't addressed yet is the introduction of a new unit category -- 'BOMBARDMENT'.   The idea behind this is to allow LOUD to identify which units are suitable for that role in the upcoming naval bombardment behavior.   By adding this category to those units actually capable of doing this, LOUD can then build platoons specifically for the purpose of bombardment support.   At the moment, the plan is that once LOUD has gotten a certain level of control over the water, he'll alter his construction priorities and begin more emphasis on the construction of these units, and then, of course, the formation of those platoons.   Combined with the use of the NAVAL LINK map marker, this will allow LOUD to move into positions where these platoons can be most useful in assisting a ground campaign (you can see how such a platoon might force a resolution of a choke point map like Setons).   Anyhow, much work to be done, both code and unit editing, to achieve this.
+
+On the subject of unit editing, there has been a lot of that this month, in particular, flight mechanics for transports (sorry Dave, transports are not gunships) and air experimentals, naval unit acceleration and top speeds, some re-rigging of several mutli-weaponed experimentals (in particular UEF land experimentals), and a complete review of the quantity of torpedoes that are fired (reduced by half in most cases - but DPS is unchanged).   It's always a work in progress, so if you notice anything truly strange creep in, but all means, speak up and let me know.
+
+
+
+December 2017
+
+Lots of unit updates this month.  A very long list of tweaks, corrections and changes do a number of things for the game, particularily in the water, where we did a full audit of torpedoes and torpedo defense systems.   The result is a more satisfactory water game and one that isn't quite as hard on performance.  While the magnitude of the torpedo game is down, it's still very busy, so we're still watching and perhaps thinking of cutting the overall number of torpedoes in the water at any given time even further than we already have.
+
+A review of the transports was also a big part of this pass and they too, in general, behave in a much more reasonable fashion.  Just in short, they're marginally slower, more expensive, a trifle less robust, and don't pack quite the punch against ground targets.   While not a popular change, this puts them in better balance in their tier, especially since we saw players opting for transports over gunships.  By contrast, T2 gunships got a very minor perk-up.
+
+A whole bunch of other general minor fixes are included this month -- refuel and transport pool behaviors for ALL aircraft should improve the self-preservation of the AI aircraft.  The starting bomber, fighter and gunship platoons have had their lower start limits decreased to one, the idea being that almost all aircraft should be in the air, doing something, at all times, regardless of which base they are at.   This should apply to reinforcement platoons as well.
+
+The distribution of engineers, and importantly Sub-Commanders, has been revised and LOUD will now aggressively distribute his SCU to other bases and DPs when available, so that important works (like anti-nukes, Experimentals, etc) are being reliably performed at all his bases.  
+
+There will be another UNIT pass in the near future, with some minor balance and performance tweaks, and we are looking forward to some new structure upgrade options for T2 Airpads, T2 TMD and T2 Torpedo launchers, to make them more useful and combat worthy.  We're always looking for comments on those upgrades we've made available to the standard units (factories, T3 SAMS, etc.) so please let us know your ideas.
+
+Good progress on the Naval changes.  Exciting work and new ideas and, as always, it's nice to see things come together.   Perhaps the biggest change is one that isn't so visible, but really shifts gears for LOUD.  Focus.   Until recently, when LOUD was putting up new bases and DPs, he was not staying focused on his attack plan goal, that is, moving his forward position ahead in order to beat you.   Now that he has two independent primary bases (on water maps), it became clear that LOUD should only put up new DPs if they were better located than his existing one.  This means that LOUD isn't wasting time and effort putting up listening posts in far-flung places on the map where he has little interest (like behind him).   It also means that when LOUD AIs are teamed up, they don't get in each others way so much.  In general, they concentrate more effectively, and with the addition of water DPs, the amphibious attack takes on a dangerous new angle given that it can often be staged a lot closer to the goal.
+
+It's become clear that the Naval DP has really moved LOUD forward, and of course, it has also clearly revealed some shortcomings.  As a result, his build priorities have been tweaked, some factional capabilities have been accounted for, platoon compositions and sizes have been adjusted, and quite importantly, LOUD can now effectively produce Sea Experimentals, not only at his Naval bases, but at his Naval DP's.
+
+A secondary topic these last couple of weeks has been scaling.   Several of our regulars like to make use of the Resource Rich mod.   This mod greatly increases the overall mass and energy output of the game.  LOUD doesn't quite understand these huge bonuses and in a nutshell, he cannot make effective use of it - mostly because he has some upper limits on how many engineers he can make use of.   The answer - scaling those limits.   This is still new but the results are good - so far, as LOUD will respond more dynamically to resource, map size and unit cap conditions, not only increasing the number of engineers, but the number of simultaneous upgrades he'll do, and decreasing the period between new upgrades.
+
+On the subject of 'getting' in each others way, one of the most frequent questions we see is;
+
+"What is the best way to set up a game with LOUD AI ?"
+
+Well, we study so many simulations with LOUD that there are several answers.
+
+For performance, and a game that usually has a shorter timeframe, use less AIs but with a slightly higher cheat.  Our top end players routinely play 4 or 5 against 2 AIs on 40k maps, with a cheat level around 1.25.   LOUD's ability to quickly populate a map combined with a massive economy allow him to explode (since this configuration gives him a substantial increase in his unit cap versus the humans) and the focus he can have on one player is often overwhelming.  We do note that using 3 vs. 1 AI is a good trainer for building teamwork, which is an essential element in defeating LOUD.
+
+For longer games, that are not quite so devastating, equal numbers of humans versus the AI will give a good result, unit cap management often becoming an issue for a LOUD AI.   There is a small performance hit for having so many AI's but that's greatly impacted by the slowest machine in the game.  
+
+Just some global guidelines - Map size makes little difference on performance.  The number of units is everything.  Mass heavy maps don't make for a faster game but they do allow the game to get crowded very quickly.
+
+
+
+November 2017
+
+Yes - it's been a while since I wrote any notes for public consumption.    The last two months, and then some, has been consumed by a very vexing situation.  Crash bugs.   It became clear around August that something was amiss.   We were getting a number of difficult to reproduce crashes and stalls and it has taken this long to dissect the issue.   Long story short - I had (by my own hand), introduced several rare circumstances where things went sideways.   It became clear that a complete review was required and thats exactly what I've been doing since then.
+
+The process of a re-write (since this is what it became) is one of self-examination, and is often the case, we discover our own ego is at the root of things.  True in this case, and I suppose I can be partly forgiven, since I work alone, but as my dearest friend Max will say, hubris.
+
+At present, some advanced features have been disabled - the AI for now will no longer use carriers, Czar, Atlantis and Fatboy to produce units.  These features will require a complete review before they get turned back on.
+
+Quite a few minor issues with the AI have been resolved - and we've got more to do, but in this update the focus is upon the navy.
+
+There are several things going on, as mentioned in last update, the PRIMARY NAVAL BASE concept has been implemented.  In combination with the new NAVAL DP, the AI can now move his naval focus across the map with a series of staging positions.   All the supporting functions are now aware, allowing naval platoons on RTB to return to the nearest naval position, and air units to not only repair and refuel, but stage air operations as well.   Furthermore, and this is still being looked at, the AI can use these forward naval bases to stage Amphibious operations !   It will be necessary to review naval maps in general, since up until now, the Naval Defensive Point marker, and the Naval Link marker, have been little used.   While I haven't implemented the Naval Link yet, it will take on an important role in helping the AI perform specific bombardment missions against land positions.
+
+All of this excitement has forced me to revisit the reinforcement behaviors.   Since we now have alternatives to  the primary Land Attack base, we can direct certain air assets (Gunships and ASFs) to either PRIMARY base.   Likewise, by making the AI aware of the difference between Land and Amphibious reinforcement, we can direct the Amphibious platoons to either PRIMARY base.  Most importantly, this change will allow the AI to concentrate his naval assets from multiple places, and form larger, more dangerous flotillas, more quickly than ever before.
+
+Some new naval formations have been implemented.   These are more efficient formations, especially for movement, and they reduce bumping a great deal.   It does spark the notion that we can accomplish similar things for combination EXPERIMENTAL/land unit platoons.   It should be possible to form the experimentals into one formation, and the standard land units into another - and then have the two formations in the same position  with minimal conflict (similar to the way submarines behave in a naval formation).  We'll see.
+
+The newest Nuke AI is in place, and seems to be quite an improvement - as he is definately using multiple missiles (when available) to overcome defended targets.  It has been spectacular in some instances, and it's nice to see the AI reminding the human players that nukes are a part of the game that has to be planned for.
+
+
+July 2017
+
+While involved in doing the cleanup last month, on transports, it took me back to an old 'friend', the Return To Base AI function, which, over time, has reared it's ugly head as the cause of a lot of lost time for the AI.   So, I decided, once again, to tear it apart and rebuild it.   That's a good thing - since I slimmed it down a good bit, revised a few support functions as well, and overall, I think I have a better product in the end.   For now, it's expanded the AI ability to RTB to all types of bases for certain unit classes (read: Air), and perform operations from those bases.   So, now, we'll begin expanding the role of air units at the naval base -- initially with guard platoons and such, but eventually, in combination with a PRIMARY NAVAL BASE, combined air/naval operations.    It's all good.  The first trick will be to find a way to distribute air units to the naval yards.
+
+Picked up a flaw in the water map definitions that was having Cybran and UEF factions building unlimited T2 mobile flak (which for them is NOT amphibious).  Corrected - and more useful, reduced 2 conditions down to a single one.
+
+OK - it's been funny for a long time, watching the AI nuke himself, or his partners, when it looks like a good shot.  Well - it's going to come to an end.  Eventually.
+
+I'm chasing an elusive 'crash' bug that, at the moment appears to revolve around the Aeon AI.  I've focused on death events, creation events, engineering tasks, platoon formation and so far, no luck.   This leaves it pretty much down to a unit 'movement event', a platoon behavior, intel management, or a static process (like DeadBaseMonitor).
+
+This continues to be a regal 'pain in the butt' -- but we carry on.   Along the way, I've gotten a few things done - in preparation for PRIMARY NAVAL BASE, such as getting air and amphibious platoons to RTB to naval positions - and those positions being able to form platoons with them.   The Naval DP is just about ready to become an active NAVAL, AIR and AMPHIBIOUS operations point.   That will be VERY good.
+Now, other good news - along the way I found a couple of other optimizations -- one in particular GetCurrentLayer, was replaced entirely by self.CacheLayer, almost entirely eliminating that very numerous function call with already local data !  In many cases, I not only eliminated the function call, but the malloc() for the temporary local the was being used -- and thus the GC later.  All good.
+
+As mentioned before, I'll want to find some way to get air and amphib units to decide which PRIMARY to RTB to, and of course, reinforcement changes too.
+
+Working on the NukeAI.  Firstly, need to refresh myself on how nukes pick targets - and the interaction with anti-nukes.  New launchers were 'not' being added into the 'Nuke Platoon' but were all operating independantly.   Thats why it never talked about firing more than -- when in fact, it did.  Along the way, I think I've come up with a way to use semaphores to get allied AI to fire their nukes 'in concert', at whatever the best target is.   Using the brain, each AI can see the total arsenal, and compile it's best target selection which it stores back on the brain.   Using the brains in a second pass, the target with the highest value is selected -- Only the winning targets AI will calculate the firing list, and it will supply the firing list to each AI.  -- Which each AI will execute when it has a firing list.  Then repeat.
+
+
+June 2017
+
+I've been working to make sure the ping markers used by the AI are reliable.   It's not really an AI or performance issue, but it really helps with debugging.   The original system for map markers and pings is a bit stodgy.  Whenever a ping is sent, by anyone, all PING functions are locked out for 1 second.   As a result, other requests are delayed, or in some cases just 'lost'.   I broke this down into a per player restriction.  Now PING functions are locked up for only 1 tick - AND - more importantly - it's on a per player basis.  I've also altered the flash time of some of the pings.   Of some interest, when I used the new code on a slightly older replay, I got de-syncs - as one might expect - but they weren't permanent de-syncs, and soon subsided.
+
+I've implemented the Expansion Base marker for maps now (as opposed to the Large Expansion Base marker).  At the moment, it will function exactly the same as the Defensive Point marker, but the intention is that it will become a very small production base (max 4 factories).   I already have a layout planned out, but haven't coded it yet.
+
+I'm also planning on implementing the Naval Link marker and using it as a tool for notifying the AI that he can use these positions for naval bombardment.   That will of course require a new behavior and a new platoon specifically for that purpose.
+
+Created a new platoon that specifically seeks out outlying AA positions and reduces them.
+
+Did a complete review of the T4AA guns (which were substantially overpowered) and all of the transports as well.  The Aeon transports in particular were having landing issues, often exhibiting a 'circling' behavior before putting troops on the ground.  I've also rejigged the AA capabilities so that none of the transports have 'flak' weapons.   They either have SAM (UEF) or high velocity projectiles and all of their other stats (in particular regen) have been brought into line with the rest of the balance package.  On that note, two other notable changes - the Cybran T2 and Aeon T3 transports, gain radar stealth (not cloaking) and the ground attack weapons of all the T2 and T3 transports have been tweaked as well.   One final change, ALL the Black Ops T3 transports have been brought into the core UNIT file and removed from the Black Ops package.
+
+Had to review the code surrounding the AI's use of landing platforms.   It appears that there is a bug which causes platforms to report being 'full' when they are in fact empty.  Once they get this way, there is no way to fix them short of destroying them.   As a result - the AI gets 'airpad unavailable' for repair and refuel purposes, and instead, will send his units to far off platforms.   In conjunction with some logic flaws, this was really hurting the air game for the AI.  To combat the issue - I no longer check if the airpad is full - and instead - once an aircraft has been sent to the AIRSTAGINGTHREAD - it runs a loop which will buff the aircrafts fuel and health when he's in close proximity to an airpad.   As a result, units will refuel and repair without needing to actually land - thus working around the issue.   The unit will dock if it can, but it's no longer necessary.   In the future, I can rejink this process into a buff field for airpads in general, rather than processing it on the air unit - but for now, this works well enough.
+
+Along the way, I've cleaned up the air unit refit functions to eliminate some issues with aircraft cycling back to rear line bases.   This was partially related to the airpad issues, but also to the use of the RETURNTRANSPORTTOPOOL function, which I didn't really need to use -- it was just convienent at the time.   Now, no air unit actually gets into the REFUEL pool unless it actually is well damaged or less than 75% on fuel.
+
+Some cleanup on special 'transports' (UEF T2 Gunship, Gargantua) so that they get back into the army pool if they get used as air transports.
+
+
+May 2017
+
+Still  observing the new Sera TM units, a couple of minor flaws but nothing majorly unsettling, so far.
+
+Discovered a flaw in the base selection mechanisms where I was using the scenario unit cap instead of the accurate brain army cap.   As a result, AI would select small bases in low pop situations even when it's enhanced unit cap would have permitted a larger base plan.   Fixed now.  Strange that this got by me for so long.   I'm looking at some production issues involving amphibious maps and the production of land units at T2.  
+
+April 2017
+
+Finally, after some prodding from the users, I'm reviewing a more current version of Total Mayhem, specifically with an eye towards adding Seraphim unit.  I've made 14 selections and like most things TM, it will be a lot of work.   Mostly re-rigging weapons and such, since Burnie often uses incorrect projectiles (AA projectiles for low-arc direct fire for example), and factionally wrong classing, that, while it doesn't necessarily cause a problem, can lead to clarity issues later on.   And, of course, balancing.    That one always takes careful study.   However, the model qualities are, as usual, very nice.  I'm not promising anything, but I may go back and review some of the older TM choices and see if there's anything worthwhile to add in the original factions.
+
+A second feature this month has been the addition of a new behavior that will allow AI transport drops to 'abort' if they get overwhelmed, so that they can get their units on the ground ASAP when they run into trouble.  That took some doing, but I have it working, just need to observe it in action to see if I've been to conservative about when to do this.
+
+I'm looking at re-classifying factory builders.   The present builders for land units are not very organized, and it leads to some issues if I ever want to have the AI focused on a clearly amphibious build (which I do).   I'd like to standardize the builders with tiers, so that each tier has an option for all the builders (even if it's not used by one faction or another).  For now, here are what I see as the standard builders for each tier;
+
+LandBot
+LandTank
+LandAA
+LandArtillery
+
+Amphib
+AmphibAA
+AmphibArtillery
+
+LandSupport
+AmphibSupport
+
+Now, while that will expand the number of builders for each tier quite a bit, for many factions, there will be empty choices.   That's OK since this will allow a much more focused construction plan for the AI for amphibious situations.   One of the big problems with amphibious maps is that not enough amphib units get constructed since there are still quite a few non-amphib units being built.   And likewise, on Land only maps, amphibious units are being built when there are more cost effective land choices, simply because we have amphibious units being allocated to non-amphib builders.
+
+That subject to be continued.
+
+Some other work this month included the addition of a new platoon that seeks isolated AA positions.   Also, enacted the use of the 'Expansion Base' marker (blue house) on the map editor.   For now, the AI will see them as just DP markers (in addition to the existing DP marker),  but eventually, the plan is to enact a smaller production facility (4 to 6 factories) with a much smaller footprint than the existing Large Expansion base (8 to 12).   On the same subject of map markers, I'm looking at enabling the 'Naval Link' marker as a way of telling the AI that a position is suitable for use in naval bombardment -- and obviously, a specific platoon composition and a behaviour to go with it.   There has also been a little work done on naval formations, nothing exciting, but it's a bit more organized.
+
+Had a very interesting conversation this month about factional diversity and extending the 'Hunker' mod.   The idea would be to bring an extension to the hunker mod that would bring some rather unique CDR only effects to the game.   This would not only promote using the CDR in a forward offensive role, but it would accentuate some factional ideas (ie - cloaking field for Cybrans, blinding field for UEF, stun field for SERA and perhaps a capture field for AEON.   The conversation about these powerful tools extended to having the Hunker command essentially draw down ALL stored resources and that would determine the length of time that the hunker field would be in effect.
+
+
+March-April 2017
+
+-- Tanksy made some great changes to the UI, bringing a lot of weapon detail to the user so that people have some information about what units are capable of
+-- also re-jigged my crude color choices into something much smoother that made sense, I simply resorted them so that AI will get more diverse colors
+
+Well -- it's time for a limited release.   We're off to start a small thread on FAF detailing our work.  Hopefully we'll get an idea of the audience that LOUD might attract.   Either way, it should be informative and it's nice to get a number of long time fans involved in supporting LOUD.
+
+We've merged TEX entirely into the core LOUD package, and that leaves us with 2 'new' mods - for the Mass Fab Manager and the Upgrade Sequencer.   Both are selectable as UI mods and are part of the LOUD_MODS package.
+
+Reviewed the Pre-Built units option to make it function again.  It's a bit different in that it won't place a factory, but it will place 2-3 extractors and 2-3 T1 power along with 3 land scouts.  This allows the AI to function properly without any issue.
+
+As per a request, I have re-installed the setup option for AIx ACU Vision/Omni cheat.   This will allow players to toggle off the significantly enhanced ACU vision and Omni bonus for the cheating AI.  This will leave the standard intel cheat in place.
+
+Some unit changes upcoming;
+
+- Ahwassa 'shooting' it's bomb sideways or to the rear - while nice, it really makes them overly effective
+	-- also, the detonation effect of the weapon -- when impacting shields a different visual should occur (much smaller)
+	-- so, some minor tweaks to the weapon and a review of it's flight model (slower by .5 from 21 to 20.5)
+
+- Lambda effects range - should be a 'personal' defense, not an area effect - except for the static defense building
+- T3 Air transports to be reviewed for AA capability
+- several Experimentals to be renamed, to line up with factional naming schemes, and also to prepare for new voiceover files that will go with them
+- likely removing the Balrog and the Citadel Mk.1 from the UEF arsenal -- Citadel will likely be replaced by a new Experimental Gunship
+
+I'm also planning some new enhancements for various point defense units, like Torpedo Launchers, having a sonar upgrade, regen package and torpedo defense
+- some of the T2 guns getting regen upgrades
+
+Overall, the current goal of the AI work is improving the Naval component.   That's not to say that work doesn't need to be done on the ground, or in the air.  But that's where I'm at right now.
+
+
+January 2017 
+
+Happy New Year everyone !
+
+Thanks to some new users, we've incorporated an additional UI mod - Advanced Strategic Icons.   You should find both an .SCD file (in Gamedata) and an installer .EXE (in your BIN folder).   Very useful if your playing in 1080 on a large screen - really makes the Icons visible when well zoomed out.   It should help players break out of the 'tunnel vision' effect of playing zoomed in too much for too long.   Finding something while zoomed out is a lot easier and the mod is configurable in 3 sizes.    Just run the installer EXE to change to any of the 3 sizes.   Thanks to Tanksy for the 'must have' rant.   He was absolutely correct.
+
+Having some new players has really perked things up.   Not only do they confirm that LOUD is head and shoulders above any previous AI, but the performance of the package is remarkable.  After a bit of a rough start with download times (eeekk...4 hours +)...Terminator was able to find an FTP hosting service that was afffordable and has high availability and high bandwidth.   He greatly improved the interaction of the SCFA Installer with the user and a huge step up in performance.  We're just about ready to go public.   Also, thanks to having some fresh eyes on the project, we get a lot of 'rough corners' identified -- mostly cosmetic or descriptive but important all the same.
+
+The last couple of weeks has been a good time for the AI.  He's had a fabulous win/loss record, stomping all over both new and seasoned players alike.  I added a new cheat value, 1.125, to fit between 1.1 and 1.15.   This seems to be a sweet spot, and works very well for a challenging game.   Other key settings can have a huge impact on his success.  Map size (he likes big).   Team sizes - LOUD seems to do much better when he's outnumbered, sometimes as much as 2 to 1.   Lastly, it's also clear that if his resource cheat is just slightly higher than his build rate cheat, his overall aggression is MUCH more consistent.   To that end, we'll be releasing more variants of maps that come pre-configured for just that kind of scenario.  The Thawing Glacier 40 map, has a new 6 on 3 configuration that is REALLY hard.
+
+
+December 2016
+
+Ugh.   Really hard to find crash bug.   I seem to have cut it out, but I'm not entirely sure why.   I found a second bug that was related to ordering a unit to build an item for which there was no template reference - in this case, it was T2 Sonar and I had no reference to placing a T2 Sonar in the base layout template.    Once I added the reference, bug gone.   Strange that it would just crash (hang rather than to desktop) and not throw any kind of error.
+
+I'm learning how to use the Auto SCU Upgrade from GAZ UI.   Really helpful considering how many SCU are being used these days.   I highly recommend it.  No more manually having to select upgrades for your SCU.   Just place the auto-upgrade marker at the rally point of the gate, and your SCU will begin their upgrade path as soon as they're built.   You'll have to add a keymap to your interface (I used Ctrl-U) to place the marker -- AND -- you can only see the marker if you're holding down the shift key, but other than that, it's pretty easy.   You can alter the upgrade sequence as you see fit but just one other note, the little icons, which appear along the right edge of the screen, and allow you edit your upgrade path, only appear when you have an idle SCU.  (Later discovered the only some factions are properly editable -- I'll look at it some time in the future)
+
+After the success of the new base layouts, I'm motivated to consider more layouts for the AI to have as options, in particular for small and low-pop maps.   I've got prototype layouts for an 8 factory layout MAIN and a 6 Factory Expansion layout.   They will, of course, require new templates for positioning, and new builders to manage, but both reduced unit count and footprint will help on smaller maps.   I've also got to consider doing something about getting some greater focus for the AI in regards to Amphibious scenarios.   He needs to understand islands better so that he doesn't try to move non-amphib units to island bases where they're not likely to be of use.   He also really needs to understand how to have a PRIMARY LAND base AND a PRIMARY AMPHIBIOUS base.   That will take some doing.
+
+The unit balancing is really working out.   No major griping has been noticed, and just overall, once overpowered units seem a bit less while once useless units seem to have some value.   There are still a few rough spots, but the last change, governing air units and their flight time has been VERY good.   The air units (not Experimentals) in general feel more like the drones they're supposed to be, with limited range.   This all but eliminates a few dodgy tactics like the T1 Bomber rush (on large maps) or the gob of T2 Gunships.    With restricted range, the air units can still perform these tactics, but combat time is severely restricted.   The AI has adapted to it nicely and I've got some improved code in there that makes AI air units far more sensitive to being damaged or low on fuel.   They'll more actively pull themselves out of a platoon and go looking for an airpad.   The real upshot of the change is seeing the value of airpads returned to the game.
+
+Still looking at tactical missiles and tactical missile defense.   Some units simply barf so many tacs that no amount of TMD can deal with it...and more importantly, it makes the structure based TML seem rather useless other than for it's range.   Must look at making it fire a barrage, like the UEF cruiser or AEON Missile ship so that it too has a chance of penetrating a TMD system.
+
+
+October-November 2016
+
+The biggest focus seems to have been unit balancing.  The unit spreadsheet got greatly expanded this month with the addition of a lot of new information (vision range, etc.) and a whole bunch of comparitive metrics.   The metrics are VERY useful as they make seeing imbalances a lot easier, not so specifically for individual units, but between classes of units, and tiers within classes.  I've used this a lot this month to make a lot of tweaks on a great many units and so far, I'm really impressed with the way this has made some fantastic sense of the relationships between things like point defenses and land units, or between the different types of land units (for example I now have a guideline for the basic differences between tanks, hovers, bots and amphibious vehicles.  Anyhow, lots to see there.
+
+Another review this month was on the layout of all the bases -- that is LAND and NAVAL expansions.   The key focus here was on getting a better overall base defense, while using less intermediate (T2) defenses and more (T3) overall.  In doing so, I ran across some bad CATEGORY values for certain units and corrected them, and paid special attention to insuring that engineers didn't get tied down doing long jobs.  Essentially, a lot of engineers were getting hung up either trying to put down a building they couldn't find a spot for, or couldn't fit the unit into that space due to layout issues.   The biggest adjustment was in the NAVAL bases, since the factory footprints were just wrong (lopsided) and the result was that the code couldn't rotate the base layout without getting placement problems.  FIXED.  Also discovered a very interesting bug with SUBCOMMANDERS and building units.  If the SUB couldn't get to EXACTLY the spot required to build, he wouldn't.  Took a while to figure it out, but it came down to vision radius.  The code uses vision radius to initiate the building process, and if the vision radius is 0 (which any engineer has when he's underwater) he may fail to 'see' his target.  Altered the code to enforce a minimum range of 10 -- and voila -- no more problem.
+
+I re-introduced the 'flattening' code and expanded it so that the AI will flatten ALL base areas that he declares.  The effect is now tied to the rally point radius of the base and it's generally considerably smaller than the previous incarnation.   We'll see how that works out.
+
+Well - a lot depends upon the map.  On most maps it works out ok -- but -- the smoothing around the edges is still a problem as it makes some wonky looking terrain features.  I've taken it out for now.
+
+I have, however, added flattening at the start of the game when the code is re-locating mass markers outside of the base plan.   From time to time, you may see it if a mass marker gets moved to an otherwise not so flat spot.
+
+
+
+September 2016
+
+Doing another unit pass trying to make sense of veterancy and bring some standardization to the vet tables by Tier.  Along the way, I took a good look at how veterancy triggers off both the health and regen buffs that are in place.   There are two tables of built-in buffs, one for health and another for regen, both with 5 entries, one for each veterancy level.  If you've ever looked at unit blueprints, you'll see that many units have specific tables, usually for regen.   I wanted to understand how that works, and if other buffs could be specified inside of units or globally.
+
+The simple answer is yes -- BUT - of course, along the way I made some fascinating discoveries.  Here's the long and short of it.  Over the course of a game, as units gain veterancy, the game may need to make NEW buffs.  A new buff is created anytime a specific unit ID achieves a vet level for any of the buffs specified in it's blueprint.  So, if a unit has a custom buff table for regen, as so many of them do, you could end up with 5 new buffs -- just for this one unit ID.   Multiply this by the number of unique units and you can see a problem on the horizon.  The solution was really in going back thru ALL the units, and finding those whose custom buff tables were just the same as the default ones already in existence.  Remove the custom buff entry and the unit will get the default health and regen buffs.  Obviously, this is not a complete solution but consider that T1 units seem to get more vet levels that other tiers, it just makes sense that most of the savings would come from the T1 units.  And it did.  Oh...and along the way, there is a new default buff for vision radius.  It's very subtle for sure, but it works very well and every unit that can gain veterancy could benefit from it.
+
+While on the subject of BUFFS, I thought it might be time to dig into an annoying behaviour that I've seen again and again.  STUNNED aircraft and walls.  When I go looking for those weapons that can stun other units, they almost all have a category filter as follows;  'ALLUNITS -AIR'.  This reads just as you think, Stun all units except AIR.  Problem is, it's not working.  Why ?  Especially since this syntax is used all over the place for things like targeting priorities and such.  Guess what?  You can't write it like that -- you have to write it like this:  'ALLUNITS,-AIR'  and guess what -- THAT TOO DOESN"T WORK.  Apparently, the '-' operator is not functioning.  So, to get what I wanted, I had to hunt down all the units with STUN weapons and code them with 'LAND,NAVAL'.  So -- the rule is now clear -- you should construct category filters additively to be completely sure of what you're getting.   This will be a lot of editing, but at least we won't see air and wall units getting stunned, and maybe finally we'll see units no longer shoot at walls just for the hell of it.
+
+While on a binge of unit editing for the above, I redid all the T1 and T2 point defenses to get them into balance across both stock and mods, which let me eliminate a blueprint mod I was using to trim down the T2 point defense ranges.   Once I go over the T3 and Experimental PD, I can remove the blueprint mod for those as well.  The unit spreadsheet I've been building along the way is proving to be a valuable aid in identifying units that are 'out of whack' with the others.  It's not always about the combat stats -- it's more often about cost effectiveness and trying to instill the 'factional differences' between the units.  The progression from T1 thru Experimental is clearly visible on the spreadsheet and you can see the gradually diminishing return as you move up.
+
+The AI has been kicking ass of late, and I can only attribute that to a better synchronus between unit production, platoon formation and intelligence gathering.  When the AI has great intel, he's really dangerous and makes very good target choices.
+
+
+July 2016
+
+I've recently begun looking for optimizations in the processing of CONDITIONS.  Next to pathfinding (when it's happening) the 2nd biggest cost for the AI is condition processing.   Conditions are used in almost everything the AI does, engineers, factories and the forming of combat platoons all use them extensively.   It's an easy thing to create new conditions, and as a result, there are several hundred common conditions, and they need to be processed very rapidly if the AI is to make intelligent choices.
+
+Conditions come in two flavors - INSTANT CONDITIONS and simple CONDITIONS.   The difference between them is easy to explain, INSTANT conditions get checked right away, as engineers, factories and the PlatoonFormManager look for jobs to do. Simple CONDITIONS are more static and only get checked ONCE per CYCLE.  Just for reference, the CYCLE time is generally about one minute, but it will increase as an AI gets more bases (and even more conditions to check).  
+
+To sum up CONDITIONS -- you want to minimize INSTANT conditions as much as possible - BUT - you cannot sacrifice the need for accuracy that INSTANT conditions provide (such as knowing exactly how many units are in the 'pool' when forming a platoon).  Unfortunately, when forming platoons, INSTANT conditions may get processed many times during the course of a single CYCLE period (see above).
+
+Here's an example - over the course of a single minute, there will be approx. 300 conditions that may need to be checked.  Only 50 or so are simple (checked once) conditions.  The remainder are INSTANT conditions.  Many may not be checked at all while others may be processed dozens of times.  It's not unusual to see 50 simple conditions checked while 1000+ Instant conditions are checked, over a single minute (CYCLE).
+
+WOW! - You see why large games can get really slow.  More bases trying to make platoons - more engineers seeking work - more factories trying to decide what to build.  And, just as an aside, all of this has NOTHING to do with making platoons find a target, or do something smart.  This is ALL just maintenance.
+
+HOW do you make it better ?  Careful observation.  Lets examine how the AI processes a set of conditions to see if an engineer should build a factory.  Here are four conditions that govern if the AI can build a land factory.
+
+        Instant	-	{ UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
+	Instant -	{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
+        Simple	-	{ LUTL, 'UnitCapCheckLess', { .75 } },
+	Instant -	{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.5, 10, 1.03, 1.03 }},
+
+Yes - this is code.  Sorry but it's pretty easy to read. I've noted those conditions which are simple and those which are instant.  As the code runs, it runs in the order you see it.  So, one thing is clear - and it's a rule - ALWAYS put Simple conditions FIRST.  If they are false, then you bypass all the rest.  Here's the result;
+
+        Simple	-	{ LUTL, 'UnitCapCheckLess', { .75 } },
+        Instant	-	{ UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
+	Instant -	{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
+	Instant -	{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.5, 10, 1.03, 1.03 }},
+
+This one fact alone can save many instant checks per cycle.  However, in of itself, it's only one solution to condition 'glut'.  The more subtle part of this process involves examining certain instant conditions and seeing if they can be turned into simple conditions.
+
+In our example above - the UNITCAPCHECKLESS used to be an instant condition, but I realized I could make it into a simple condition since I don't need to accurately know the Unit Cap situation.  It doesn't change that rapidly inferring that if the unit cap was below 75% a minute ago, it's probably still below that now, even if it might just have passed that in the last few seconds.   Yes - it's a bit of slippery slope - but unit cap is a good place to be a little loose.   If you look thru the code, you'll see that the UnitCapCheck is used very widely - making this one of the more economical optimizations I was able to achieve.
+
+In contrast, the other 3 conditions are VERY specific - but deserve some examination.  At the start of a game, conditions can be very fluid, so it's important to identify which conditions might not come into play until late in the game.
+
+The FACTORYCAPCHECK is likely to be one.  This instant condition just tells the AI if he's already got the MAXIMUM number of LAND factories at this location.  If he does - then no further checks are done - but until he does - he's always counting the number of factories at this location. 
+
+The FACTORYLESSATLOCATION condition is just checking that there are no TECH1 LAND factories at this location.  This keeps the AI from building multiple TECH1 LAND factories at this location - instead waiting until existing factories are upgraded before adding another.  A good check, but a bit more costly than the previous one.  If you wanted to make it a little less costly, you could consider the function FACTORYLESS.  It doens't care about locations at all - it just checks if you have less than that number of factories ANYWHERE on the map.   Any condition that has a 'LocationType' in it, is quite a bit more costly than one that doesn't but of course, it's more specific.
+
+The final condition, GREATERTHANECONTRENDEFFICIENCYOVERTIME (big mouthful) is the most costly condition - since it involves checking the current economy numbers, but checking the running averages as well - and then doing some comparison against the requested values.  Definately the condition we DONT want to check if we don't have to.  It is, however, the most volatile condition in that economy numbers fluctuate rapidly so it's a very necessary check.
+
+
+
+June 2016
+
+Found and repaired some minor issues -- like the CDR Behaviour routine not running properly (kinda important for his survival).   Some tweaks and repairs to (guess what!) transports.  So far, the NAVAL and AIR review is looking pretty good.  The battles on water have been truly impressive and they feel 'right'.   There is no one boat that dominates on the water - it's about knowing what your boats can and cannot do that brings success -- AND -- most important, intelligence gathering is absolutely CRITICAL for success on the water, perhaps moreso than land since it's very freewheeling.  If you try to treat naval units like land units -- you will lose.
+
+Some further work on the AI and his ability to cope with lower unit counts.  We'll see.
+
+
+May 2016
+
+Well - still bangin' away.  A big shiny review of everything NAVAL is pretty much done.  At last.  It was about 3 years overdue.   I won't go into too much detail other than to say the naval game should be a lot more like the ground game, with each faction having some real -- and useful - diversity that makes sense.   I looked at a great number of issues, such as Surface to Air, Torpedo and Missile Defense, Radar, Sonar and Omni values, turret speeds, vessel speeds, and overall, the economic relationships that naval units in general have to the game.   Unlike the ground game, the Naval game continues to be viable T1 thru T3 right through.  While T3 will still kick down any T1, the lower tier units are more cost effective.   The factional differences are a little more pronounced in the Naval units, UEF have a minor HP bonus, AEON has a minor cost bonus, CYBRANS have higher regen and the SERA get a tiny bit of everything.
+
+Air Transports have been slightly reviewed and T2 and T3 units have been slightly slowed.
+
+As for the AI, there has been a great deal of tweaking over the last few months.  The aim of most of it has been getting him to play better with smaller unit caps -- and the composition of his platoons.   Secondarily, his pathfinding with regards to avoiding known threats is MUCH better -- so if you play large maps he'll find ways to get to you.
+
+The NUKE capability of the AI has been greatly refined.  Not only does he build and fire them with more reliability, he also fires them MUCH smarter.  Utilizing some code from the Sorian AI he is now capable of analyzing his target choices and firing the right amount of nukes at them to penetrate your known Anti-nuke capability.  If he doesn't have that many he'll find a more suitable target or wait until he does.   The AI is also more accurate in assessing moving bodies of targets as well and will nuke large concentrations, especially as they move closer to him.
+
+I've found and repaired a bug that was affecting the BUFFS that some weapons apply to enemy units, such as stunning.  I'm not sure just how long it's been broken but it's been quite a while and I'm surprised no one noticed.  In doing so, I see opportunity for some interesting buffs (such as reduced speed, unit specific damage (ie. - a weapon doing additional damage to certain categories), fuel loss to aircraft.   Lots of interesting options.
+
+As with the NAVAL review mentioned above, I'm starting a review of the AIR units, especially Experimentals.  It's obvious that some AIR EXPERIMENTALS are just too overpowered in one fashion or underpowered in another.  Putting them under the microscope and bringing all the air units into line will be useful - especially for giving some additional life to the T1 and T2 air units.  Completed.  Just in general, the T1 and T2 air units are a little more robust or have slightly better capability, while overall, all air units require slightly more energy than before (and in many cases a bit less mass).  In total, the air tiers are a bit more tightly grouped, in that the differences are less pronounced that before.
+
+Found a particularily nasty tight-loop bug (causes game to stall) in StrikeForceAI.  It was rare but it ruined a very good game I was having recently. 
+
+
+WOW - It's December 2015
+
+My apologies - I haven't been writing any patch notes simply because I didn't think anyone was really reading them.  Seems that's not the case.
+
+When I last wrote, we were talking about UNIT CAP rules and that has pretty much been the focus of the last few months.  Trying to keep the AI effective in lower unit cap games is a difficult task since he wants to do everything -- base build, fight hard, expand.   While I love what he can do, he can bring any moderate sized map to a crawl if he doesn't have a limit and the smarts to beat you.  So, I really have to work against two problems, making him decide when he can and can't build something -- and make him more effective in beating you with what he has.
+
+People have asked me why he isn't doing more base building ?  That's pretty easy to answer -- partly unit cap, and partly because, in general, humans are turtling and haven't presented any threat to his base until very very late in the game.  At that point, he's usually at unit cap and can't build the sort of static defenses you might expect him to build.  Just for reference, he stops building most defensive structures when he's at about 70% of unit cap.  He also won't start a new base -- so in effect, he often almost destroys his human opponents but then runs out of options.
+
+So - I'm working on it.  He needs a whole set of new tools that will help him streamline his efforts, for example - not building amphibious units on land only maps - or the opposite, building a lot of land units on what are essentially water maps.  I think as for base limits, I'll simply remove them - they are artificial limits on the AI and were originally there to keep performance up. He deals with that thru unit cap now and it's dynamic, so simply not needed any more.  New base layouts to be used on low unit cap maps will also help, and custom layouts, by faction, are also on the to-do list.  It's a lot of background work so it won't be immediately obvious anytime soon.
+
+There are some new units to talk about --  The Seraphim have recieved a whole set of Protector Bots right up thru T3 and Experimental, with the Experimental sporting a regen field to heal nearby units more quickly.
+
+No one really noticed, but after a review of the math, the factory bonuses for materiel efficiency got buffed up.
+
+The AI will now make use of the T3 flak buildings, which will make gunship raids a costly choice.
+
+A number of previously ineffective mobile AA platforms got reviewed and updated.
+
+The Cybrans have recieved a T3 stealth vehicle, which like it's predecessor, not only jams radar, but will negatively effect the optics, radar and omni of all enemy units within a substantial radius.  Enemy units affected by it will have an icky gooey 'aura' on them -- much like the AEON Maelstrom field effect.  This should allow the Cybran to get just a little closer than ever before without being detected.
+
+In the same vein, the UEF and AEON will get new units based upon their T2 shield vehicles, to make them somewhat more comparable to the Sera T3 Shield unit (but not quite).
+
+Another structure upgrade is coming thru soon.  T2 Stealth Towers will get an upgrade path to take them to T3 level, with greater radius of effect and perhaps some new special effects as well.
+
+Max H reminds me of another planned factory enhancement -- essentially -- if a factory is building the same unit over and over, a small production bonus will begin to apply.  I'm still working out the mechanics, but it will work much like the materiels efficiency and be based upon how long and continuous the production cycle has been going on.  For example, once you've produced the same unit X number of times, a small additional buff will be applied to the factory, that will be cancelled if a different unit is made.
+
+Also coming up -- a new victory condition -- Time Limits -- that will declare a team based victory after a certain time if one hasn't already been achieved.
+
+
+Again, sorry for the long delay - but yes, we're still at it.
+
+
+
+
+May 2015
+
+Unlike April, May has been a very slow month.  Nothing dramatic going on, but some keen observations and some tweaking of platoon rules and compositions.  This seems to have had a quite some effect upon the AI in terms of it's overall success.  That's great.
+
+Finally had a chance to seem some games with the new UNIT CAP rules and the change that gives unit cap when units veteran up.   This works VERY well, and is very valuable for keeping the unit count in a large game under some control while not sacrificing too much in terms of effectiveness for the AI.  I've added some bonuses to the AI in terms of how quickly and how much additional unit cap he gets when he veterans up.   Essentially he veterans sooner and gets more unit cap according to the Cheat level.
+
+April 2015
+
+It's been a busy month.  The primary focus has been on optimization -- in particular, localizing a lot of frequently used functions, and finding many small ways to reduce the creation of new variables and tables.   Quite pleased with the reduction and, more importantly, the stablizing of memory usage.   One thing that is often neglected in LUA is the topic of garbage collection.   As you create more temporary variables and tables, there is a greater need for garbage collection (which LUA handles automatically).   By reducing and re-using variables, the amount of garbage is decreased and the length of the garbage collection cycle is shortened, which, happily, results in better performance -- and less memory reallocation.
+
+As I close out April, there have been some very interesting finds.   Of real note, the effect of damage radius weapons and how they interact with shields.   In short - if an area effect weapon detonates, all units within the radius are damaged, regardless of if they are behind a shield or not.  You can see that this would make skin shields practically useless, since in some cases, the unit has less health than the shield.   If you looked very closely you can see units with healthy shields dying to area effect weapons.   Not good.   This only really manifested itself when we recently lowered the height of the siege shield (to avoid having gunships get underneath them).   T3 and larger artillery would detonate, on the shield, directly over the siege shield and destroy the generator.  Not cool.
+
+To address that issue, I have modded the code to remove damage radius whenever such a projectile hits a shield.   So skin shield will work as intended, and so will bubble shields.   This however does not address edge effects, so an area effect weapon that hits the ground just outside a shield, will still cause damage to units within it.   The PROPER solution for that is a little more intense, and would require setting units with skin shields to 'invulnerable' until such time as the shield goes down.    However, this would create a situation where units with shields would survive nukes and such.   Can't do that -- so for now -- the edge effects will just have to be lived with.   After all, they've always really been there.
+
+A second notable find that came from looking for optimizations, was the recognition that the Pathfinding Functions have been working too hard.  I was able to re-code them, not only to reduce memory usage, but along the way I developed a much better understanding of how it works, and why it puts so much load on the game -- and just how easy it is in LUA to do things with tables (not simple variables) that have unintended consequences.  In particular something like this;
+
+MyTable = otherTable
+
+Looks pretty clear -- I want my new variable MyTable to be a copy of otherTable.   Guess what -- that's not what it means.   What it's actually doing is creating a reference called MyTable.   What happens is that if otherTable is changed afterwards,   MyTable also changes!   So here we see a very clear difference between simple variables and tables.  The correct code would be;
+
+MyTable = table.copy(otherTable)
+
+This actually makes MyTable a seperate and unique table -- copied from otherTable.
+
+You can see pros and cons of both methods but the long and short of it is that the first one is VERY fast and uses almost no memory because it is just a reference to an already existing table.   The second actually gives you  what you want, but it creates a new table (more memory) and the copy process creates a temporary table while doing so (garbage).
+
+Yes -- I know -- too much information.
+
+Simple note:  Pathfinding code nicely optimized now.
+
+In other news, I've been struggling with the small map issues.  As I've said before,  LOUD is quite vulnerable to early attacks on small maps.   His ability to effectively skirmish is based upon mass points, and while that means he'll be out at the mass points, he isn't doing much to defend himself.   To that end, he now has a platoon formation that insures that he keeps more units at home, on patrol, on smaller maps.   Also, the skirmish platoons have been increased in size to make them more combat worthy at start, and allow them to merge into larger platoons. 
+
+
+March 2015
+
+Wow.  I think I'm exhausted.  Henry and I have been trying to eliminate the need for a 'Balance' mod by coming to some agreement on those differences that still existed between our two mods.  Some good debate, some good ideas and I'm generally happy with the comprimises that we both made to get this done.  So -- a lot of editing got done over the last two  weeks -- and some excellent review as well.   
+
+Since the introduction of EvenFlow, my sims have shown that the Air game has been sorely hurt.  I went back to assess that and realized that I capped the energy limits a little too low.  Ooops.  Sorry.  Blame the decimal points.  Air unit production has now been restored, and I'm glad to say we now have good numbers of aircraft again.  In conjunction with a pass on all the AA weapons, things are looking more normal.
+
+The INTEGRATED STORAGE mod took some getting used to, but I have to say it's now a unqualified winner.  The reduction in overall unit count, and the elimination of all the buffs they use has resulted in measurable performance gains.  Henry and I went back and expanded the concept to cover T2 power as well as Hydrocarbs and T3 so that energy storage is quickly available.  I also reviewed and increased the basic amount of energy storage that all energy buildings (T1 thru T3) give so that it doesn't hurt so bad.    Once the player base got used to the idea of having that 'additional' upgrade to their resource buildings, all the complaints seemed to vanish.
+
+IS now also includes the small and previously useless T2 mass fabricator, which will now put out 2 mass when given it's storage upgrade.  This actually gives the unit some value (not great) so I've seen players using it again.  Same with T2 power.  Now that it has an upgrade, it's actually a very useful bridge for getting to T3.
+
+IS now also covers all the shield storage bonuses as well, which are working but they can use a review in the future.
+
+The main UNITS file has gotten a fairly complete pass.   Eliminating many dead values, properly setting many others, and numerous minor 'tweaks'.   This has highlighted the need to start providing more detailed descriptions for units.   So many units have interesting but otherwise undocumented features that players don't often understand what certain units can do - and cannot.
+
+BUFF FIELDS - This is an underutilized feature.  Previously, you could only really see it in the BO Seraphim Restoration Field Generator.  Basically, like adjacency buffs, the idea is that units within a radius will get a buff of some kind (both positive and negative effects).  I wanted to understand how it works, and how you code them into other units and EUREKA.  I'm glad to say I've mastered it.   The AEON GENESIS experimental hovercraft now has a Buff Field to replace the clunky Maelstrom field weapon it was using.   Expect to see more buff fields creeping into the game as time goes on.  We have plans for faction specific Paragon effects that will make you want to build your Paragon dangerously close to your factories, and a mobile version of the Seraphim restoration field.  Do yourself a favor, build the Seraphim Restoration field and have a look at what it does now - the descption will tell you everything.
+
+While on the subject of the Seraphim, for months now, in AI testing, the poor Sera are really underdogs.   They routinely suffer defeat after defeat and I have been struggling with trying to understand why.   There are several issues, but the most obvious is that they don't have the kind of unit variety the other factions do.   That's ok.   The basic unit stats don't support that position, since the Sera equipment is not notably stronger or weaker than any other faction - but - they do have some shortcomings when it comes to mid-range artillery units.   I've always known that, and accepted it, since that should in the most part be allieviated but their excellent T3 mobile shield.   Well, guess what ?  The AI wasn't building them.   Fixed that.   Along the way, I added a T2 protector bot (from Black Ops) to fill out their mid-game platoons, and fixed the T3 Sera Gunship (also from BO), which was a shield busting unit that just didn't work correctly.
+
+Found an interest new optimization today.  Was browsing thru props and noticed that when a prop is created, it stores it's position on itself. Being that props never move - this is a valuable optimization since the GetPosition function is hooked to just return that value thus bypassing any actual lookup.  I thought to myself, well, ALL structures in general have the same behaviour - they never move.  I implemented this same idea into the DefaultUnits file at the CLASS STRUCTURE level - and hooked the GetPosition funciton - guess what ?  It works and better yet, you can do the same thing for GetCurrentLayer, since structures never change their layer once built.  There is, of course, a small tradeoff in memory usage - but this worked out pretty well.
+
+Noticed something that bugged me today - watched a unit killing some wall sections and realized it was getting 'kills' for this.  I don't think that's right - walls dont fight back so they shouldn't help a unit get veterancy.   Since I can't stop the engine from awarding a kill for it, I wrote some code to take a kill back when a wall is being killed.   Works well.
+
+I'm going to start working up a new Expansion Base layout for the AI - more compact with some new features.   Completed.
+
+
+February  2015
+
+Welcome back.  
+
+Some new work today, regarding scout behaviour.   The idea was simple.   Land scouts are cheap - and expendable.   Rather than try to manage them, just send them out to a scouting location, and forget them.   While this may seem a little wasteful, it's actually quite helpful to the AI's intelligence gathering and it reduces the demands on the small transports, leaving them for engineers and smaller platoons.
+
+Found a bug in the DistressResponseAI.  I was checking layers and noted that I had coded one of the checks as 'Naval'.  There is no 'Naval' layer, it should have been 'Water'.   I was just digging into the mechanisms that platoons use to signal distress and respond to it.
+
+Went back to the BrainConditionsMonitor to look for some additional speed.  Found some in the LocationExists function.  When a condition is being checked, the first thing that happens is that the condition must be examined for any 'LocationType' entries.   These are used to specify conditions at specific bases.   Every condition must be checked for this and originally this was done by looking at all the data for the condition, looking for string data, and then checking if it's a base.  Now -- if a condition has several pieces of data, every one of them was being checked.  However, LocationType entries are ALWAYS the first field of data in a condition, and therefore it's only necessary to check the first.  If it fails, then we can ignore the rest.  It's not a great improvement, but it helps.  ADDITION:  I was able to refine this loop even further, completely eliminating the need for a loop at all.  I simply test the first element and if it's not string data, we're done.  If it is, I simply try it as a base location.
+
+Some time ago I added a feature that would help identify if an expansion base should be considered 'amphibious'.   This is accomplished by putting an 'island' marker very near to an expansion base (or DP) marker.   The idea here was to give the AI some clue that putting a base here will pretty much force it into amphibious operations.   This is intended to do a number of things;
+
+- stop the AI from send standard land units to this base as reinforcements
+- stop the AI from building standard land units at this base and instead focusing upon amphibious units
+
+I'll have to define new base archetypes to utilize this and some way of triggering the use of those rather than the standard archetypes.  This could eventually lead to the concept of having a 'PRIMARY AMPHIBIOUS BASE' seperate from the 'PRIMARY BASE', where the AI could execute operations from both at the same time.
+
+I've coded the debug option for showing the BaseMonitor radii so that it can be turned off and on along with the other debug options -- See INITIALIZESKIRMISHSYSTEMS in aibrain.lua.  I do believe this option can cause desyncs during replays, so don't be surprised.  This feature will put a marker on the map -- and draw a circle indicating the BaseMonitorAlertRadius each time the base checks for alerts.   This gives you a visual indication of just how often each base is checking for an alert, and at what radius.   The primary base uses a red circle, while the others will show a green circle.
+
+Refined the SendPlatoonWithTransports function so that instead of the somewhat clunky flags that were used to alter the number of transport requests a platoon would make, I can just specify a number.  Cleaner, more readable and I can adjust the requests as needed.
+
+I'm following that line of thought, as I want the transport code to be more sensitive to threat so they aren't wasted.   To this end, I've made some alterations in the logic so that transports can simply deny any request that would put them in too much danger, and I've also extended the drop zone range so they'll try a little harder to find a safe drop point that the platoon can work from to get to it's goal.  Of course, none of that will help if the intelligence is just wrong, but so far, it seems quite a bit more intelligent in it's choices.
+
+Noticed a behavior in engineers that was bugging me.  They used to have no problem in reclaiming enemy structures but something is amiss.  I found it in the end and it's now corrected, but along the way I had the chance to examine just how busy the engineer code is (ProcessBuildCommand).  This got me thinking optimization, so I started looking at the many functions that engineers call and identifying those which would benefit from being local to the mainline code.  Found two - EngineerTryReclaimCaptureArea and EngineerMoving.  A nice gain in performance.  There's another -- EngineerMoveWithSafePath - but it would best be local to EngineerMoving since that's the only function which calls it.  I don't know if making it local to a local function within another function would be of any real benefit or not.
+
+
+January 2015
+
+Happy New Year.
+
+Worked with Henry to create a new mini-mod INTEGRATED STORAGE ( called IS from now on).  For example, in  most games, you will find that every extractor ends up with 4 mass storage buildings.  Given that most maps have well over 50+ extractors, plus mass fabricators,  you could potentially save well over 200 units.  Extend that to energy storage buildings and you could be making a good dent in the unit count of any game.   Not to mention that there will be less self-upgrade tasks running for the AI.
+
+The focus of the mod is to remove mass and energy storage units from the game to reduce unit count.  At the same time, mass and energy resource buildings will get new UPGRADE units to simulate the effect of the storage.   The first stage is the mass extractors.  T3 extractors now have an upgrade that will give them the effect of T2 mass storage - increased output, more HP  (10% ) and a +1 boost to regen.  At the same time, included merged edits that suppress the building of the T1 mass storage buildings (and thus the follow on T2 & T3), and removed the mass adjacency bonus from the combo storage and experimental storage buildings.  
+
+Along the way, noticed what I think is a flaw in the death weapon.  I'll have to examine it closely since the Exp Storage makes a huge explosion but seems to cause little actual damage.  Found the cause - my fault.  There is a function called GETBLUEPRINT() which is used widely throughout the code, so I often local it at the top of a module.  Unfortunately - there are two versions of it - one is a unit method, the other is a weapon method.  I was referencing the unit method rather than the weapon method.  Fixed - but a dangerous precedent to have two core methods with the same name.  BAD GPG.
+
+ Revised the EXP storage building along the way -- reducing it's ridiculous size to something more manageable, resized the hit box,  reduced building costs, HP and the amount it stores. The  IS mod will remove alll adjacency bonuses making them pure storage facilities.  Greatly reduced the death explosion values - but still dangerous over a fairly large area.
+
+In the Structure Enhancements mod, added the feature that will allow Subcommanders and T4 Commanders to directly build the T3 factories.  Now, I'm not totally for this, since it will allow a significant savings in cost and time to build T3 factories versus starting at T1 and upgrading.  It will be difficult to get the AI to understand that he too could do this, and this will be a vulnerability.
+
+Finished the installation of the IS mass storage changes.  Put in code in the ADDCUSTOMUNITS section to identify if the mod is installed so the AI brains can be notified and turn off certain tasks, while enabling others (so we don't try to build mass storage).   While doing this I realize that when it comes to energy storage, we're going to have the options of having slightly different base layouts if we want, particularily in the T3 Power facility, which will no longer have storage buildings.
+
+Made the decision today to break the LOUD mods into their own SCD file (LOUD_MODS.SCD).  Simply, the mods are growing too large and when finished, will change rarely, making it cumbersome to have to update 20+ MB of file for a simple change to the AI (which is just over 1MB of code).
+
+We were experiencing an issue where the Siege Shields wouldn't show their upgrade button - at first, couldn't figure out why.  Turned out to be an issue with the interface.   Each unit that can 'upgrade' to another unit (like factories) do this by showing a construction bar.   When you select a factory, the default construction bar is equal to the highest Tech level the factory can construct -- so a T3 factory defaults to the T3 construction bar.  This same mechanism comes into play with SubCommanders but they too would default to T3.   Now, the problem was not with the units, but with the interface -- as it never considered that the default bar might be 'EXPERIMENTAL' -- so it always defaulted to the highest level that IT supports (which was T3).   Since the Siege Shields cannot 'build' anything but the upgrade to themselves, which is EXPERIMENTAL, the interface would flip out.    I added T4 to the possible list of defaults in the CONSTRUCTION.LUA file (see CreateTabs function) and now the Siege Shields default to the T4 construction bar (thus showing their upgrade) AND now all SubCommanders default to the T4 construction bar.  So essentially - the rule for the default construction bar is 'Show the Highest Buildable Tech level' as it should be.
+
+Initial games with the IS mod have been both good and bad.  First -- it really changes the economy.  The early economy is significantly extended, since it's not possible to get early granular improvements to mass and energy output thru storage.  This will of course require a significant adjustment to ones' playing style, but I do like that impact.  Secondly -- the bad - it really changes the economy.  Since you have little early storage, it's difficult to 'bank' enough resources to get expensive jobs done without stalling the economy.   Timing of upgrades is absolutely CRITICAL.  The AI seems to be managing this well enough though - and that makes him even tougher.  The effect on gameplay overall is excellent -- making T1 and T2 much more satisfying.
+
+To address the above situation, I've gone and added some storage to the basic T3 resource buildings.  At this point,  I'm considering that we might have an upgrade for the T2 power and mass structures that would add T1 storage effects.  Not really missing the T3 storage upgrades at this point - they were always too costly for too little gain anyhow.
+
+Had discussion today about Paragon output and that we've finally got the Paragon to a point where it makes sense.  Considering removing the code that reduces output based on number of active Paragons and number of players as it no longer seems necessary to limit their construction.  Considering some 'buff fields' based upon faction - so that Paragon could have mild benefits to units in the field (consumption, production, regen,  etc).  Also broached the idea of movement speed effects, like a repulsor field that would slow enemy units.
+
+Started looking at BUFF FIELDS today.  It's a complicated process, but I think I can make it workable.  There are only two units which currently take advantage of it, the standard SERA ACU and the RESTORATION FIELD building.   Both implement their buff field in different ways, the ACU does it thru the existing BUFF FIELD code, which is how I think it should all be done.  In order to get a handle on it, I'm modifying BSB4205 with a hook, so that it too will use the standard code, instead of the code written onto the unit.   
+
+I got that working, but I'm having one problem - that is the energy consumption of such units.  Essentially we want units like this to shut down when the power drops.  I'll work on that.
+
+Reviewing a few units.  Found some errors, specifically the FATBOY II, which was actually doing 3x the damage that was intended (all guns are firing 3 projectiles).   Fixed that, and also corrected the turret arcs so that the guns no longer fire thru the body.   Rebalanced costs (lower), regen (lower), speed (faster but less accel) and added radar and omni.   This puts the unit into line with the performance of the other experimentals now.  ODD thing, the turret yaw values of this unit are all reversed.  
+
+As above, worked on the ECHIBUM, discovered that secondary batteries were firing 2  projectiles (not 1), and got the secondary turret arcs all correct now.  Increased radar range but removed sonar (no need for sonar on this unit) and resized the shield to better suit the size of the unit, and better justify its' incredible regen and strength.  The AA battery also got tweaked to look much better (fires 4 distinct shells per volley instead of just one).  The units biggest issue was it's hit box -- which was absolutely tiny -- which caused many shells to actually miss, even though they visually hit (and passed thru).
+
+Rerigged the AA guns on the MEGALITH II (Cockroach) so that they operate just like typical Cybran flak batteries and use standard sounds and projectiles.
+
+Learned a great deal about turret arcs today.  The blueprint value HeadingArcCenter is relative to the spawn direction of the body.  With values representing the actual facing of the turret.  The TurretYaw value also controls the turret facing and should be the same.  The TurretYawRange MUST be HALF of the HeadingArcRange in order for the turret to behave properly - and not try to turn to facings that it cannot fire at.  This is important in keeping those turrets which cannot fire at certain angles from turning too far - and thus not being ready to fire at targets that come into their firing arc.  Very cool shit.  The best explanation can be found here;
+
+http://forums.faforever.com/forums/viewtopic.php?f=45&t=8512
+
+Ran a pass on all flak units with respect to their burst radius (reduced).  Also found the two SERA AA units that were flinging projectiles all over the map and corrected those.  Reviewed all mobile AA SAM units to reduce projectile lifetime versus the static versions.  I still have to review the Naval and Air units that use flak.
+
+
+
+December 2014
+
+Going back to what I said last month about the BASE ALERT response.  I have put code in place to limit the response if not enough firepower can be found to match the threat.  This puts an end to players 'kiting' the AI out of his base and chewing up his units.   He'll only come out if he can put up a comparable amount of firepower to deal with the threat.  I'm also considering the range of the base alert -- perhaps the limit of the outer perimeter + 50 or so, which comes out to around 120-150.  We'll see.
+
+I've been working on enhancing the economics of the AI in order to really push early unit production without sacrificing economic and industrial development.  In most cases, this was really about balancing the numbers used to drive adding more factories against mass upgrades.   This took some doing, since it's very easy to tip the balance in such a way that the AI never really has the resources to expand his economy -- so he gets a good start and then stalls.
+
+A lot of work went into the selfupgrade functions to allow the AI to upgrade mass extractors even when his economy is mildly negative, otherwise, self upgrades are economically limited.   Likewise, some careful study went into just how and when a new factory should be added, since we want to add new factories as quickly as possible, but we also need to be able to run them ALL the time (why build if you can't use it?).  Now that evenflow has made the resource requirements of factories rather specific, we can tailor the addition of land, air or naval factories accordingly.
+
+Secondarily, it was quite successful to have the AI build multiples of units rather than one at a time, especially for T1 and T2 land units.  This gets him out on the field A LOT faster, harassing mass points and being a pest.  Often times he will now catch an unprepared human in his base with little or no defense!  
+
+Found some bugs in the Commander Behavior that was not only keeping him from  fighting, but was causing him to stall if he was building something.  Corrected now.  
+
+A great number of the engineer assist functions have had the eco requirements pushed up and standardized.   The idea of this is that we dont want to start assisting if their is not enough economy to do it for very long (low storage conditions).  The benefit of this is reduced eco stalling, and more consistent factory output as a result.  The only exception to this is when assisting the construction of energy (which is presently the AI's achilles heel).
+
+Found an interesting 'bug' that came up as a result of a map.   AI didn't build his Gates since the area was cluttered with props.  Apparently the CanBuildStructureAtLocation command doesn't like that.   Complicated to fix, but essentially I had to resort to checking if there was actually a structure at that location while setting up the engineers build queue (see AIBUILDSTRUCTURES.lua).   Later on in the EngineerBuildAI function, it passes control of the process over to the PROCESSBUILDCOMMAND, which will try to reclaim the area.  Problem was that if a reclaim was issued, it was responding with a false when it should have been true.   Now the reclaims will show up and be processed BEFORE it tries to do the CanBuildStructureAtLocation check just before issuing the build order.
+
+That bug also affected the ENGINEERMOVING function which also used the CanBuildStructureAtLocation command.  I had to change it over as well so that engineers will continue to move towards their goal (which they do before they get around to actually looking at reclaiming the area)
+
+Worked on the SPAWNWAVE function for the AIX.  Reduced the initial size of the wave from 3 to 2 -- AND -- made sure it doesn't start until the first T3 Air Factory is completed.  It was starting as soon as the first T3 Air Factory started building -- big difference in time.
+
+Discovered what I think is an unintended flaw with regards to units on transports.  I watched as a transport carried an engineer to his goal -- as the transport passed over an enemy unit, the engineer was killed.  Now as I understand it, units on transports are supposed to be invulnerable AND  untargetable.   They were not - but they are now.   They'll only die if the transport goes down.  I do believe they were taking area damage from flak bursts.  I suppose one could make a case for that, but in practice it wasn't working in what I considered to be realistic fashion.  The proper way to do it would be to make AA guns only do full damage against Air units (which have 'light' armor) but only half damage against anything else.  Have to look into that option later.  Interestingly, that would open up the possibility of having flak guns used against ground units. Hmm....idea.
+
+Modified the UI to display economy percentages upto 200% rather than 100.  This allows a better read on your eco.
+
+Finished some work on the LOUD Structure Enhancements so that all Land & Air Factories now have the T3 radar upgrade, while Naval Factories have a T3 Sonar upgrade.   While doing that I noticed that AI was not able to use the Aeon Experimental Materiels upgrade - fixed.  However, also noticed that regen bonus from production enhancements is not being shown.  I figured out how to get that to appear properly for factories (since they don't get kills) -- I had to specify NewRegenRate in the default VeterancyBuff table.  This allows GAZ UI to show the value.  GAZ will pick up regen rate from one of two sources, the NewRegenRate field in the buff, or from the Buffs table in the unit.  Also discovered that when a combat unit picks up kills it goes thru the regen buff twice!  First it gets the default regen buff from the default VeterancyBuff table -- then it is removed -- and then it gets buffed the second time from the Buffs table in the unit.   Would be nice if it didn't do that work if the unit had a Buffs[Regen] entry.  Wonder how much memory thrash and fragmentation that will cause over the course of a game.  Anyhow - found a way to bypass the default buff if a unit buff exists.
+
+Loki found an interesting situation today.  On the map Cold Valley (20km), the initial start mass markers had all been placed at ordinal points (N,S,E & W) at a range of about 50.  This put them squarely in the place that the AI builds his Gate, so the net result was that the AI could never build his Gate.  Played with the routine that will move mass markers that are too close to the start (within 36) and added a second ring that will move those resource markers that are more than 36 but less than 60, to a position about 45+ from the base centre, but at corner points.   This will fix that situation BUT will sometimes cause a marker to be duplicated (and thus lost).
+
+Started work on trying to put shields on a Factory.  Got it to work but it has an interesting bug that may explain why factories don't already have shields.  When the shield goes down, or is turned off, it won't  regenerate UNLESS the factory is building something!  Very odd.  I assume it's due to the state changes that a factory goes thru overriding the state changes that the shield goes thru.  NOPE!  Found it.  It has to do with resource consumption.  Had to remember to turn on MaintenanceConsumptionActive - duh.
+
+One more note, I wanted the shield values to show up on the unit display and discovered an interesting thing about GAZ UI.  It will only show shield values on true shields - OR - on shield enhancements that are put on the BACK slot.  Moved all the enhancements around to get the shields on the BACK slot - and voila - all done.  All factories now have what amounts to a personal shield bubble.
+
+Happy New Year!
+
+
+November 2014
+
+I've been thinking about the categorization of T3 Land Units.  I think they need to be broken out in a number of ways -- amphibious and land, standard and heavy.   The AI expends a lot of effort on building heavy amphibious units on non-water maps where quantity should take precedence over quality - and building heavy units should be reserved for those situations where mass is more plentiful.  This is important for keeping up output when reaching the T3 level.
+
+For some factions, that doesn't mean much, since they may not have a distinct standard and heavy amphib T3 unit, but for others, it means quite a bit, in particular UEF and Cybran.
+
+Cybran Standards  Unit - Loyalist
+Cybran Std Ampib	- Crawfish or Brick
+Cybran Hvy Std	- Brick
+Cybran Hvy Amphib	- Brick or Dervish
+
+Anyhow, it's just a thought right now.
+
+Modified the removal of mass points so that starting location markers that have no mass will be removed so that AI will not build a base at that location.  Only affects start locations, since we only remove resources from start locations.
+
+
+October 2014
+
+Built a new blueprint mod call EVENFLOW which is intended to normalize all engineer and factory build times so that resource usage is equivalent to the Tier of the factory or engineer.
+
+After investigating I've come to realize that buildpower is NOT equal between engineers and factories.   The build times of most engineer constructions allow them to express far more mass and energy for each unit of buildpower than factories can.   When these values are normalized, factories can really churn out units - too much in fact.    In the end, I had to use a divisor to get it somewhere rational.   Effectively, a factory has it's buildpower divided by about 2.5 or so.  This gives a T1 factory (20 buildpower) the ability to express about 8 mass and 80 energy per tick.   A T1 engineer (5 buildpower) can use about 5 and 50.  It's not perfect but it's reasonable.
+
+EVENFLOW highlighted other issues.  Aircraft require a lot more energy, and air units often cap out on energy rather than mass, Naval units are the opposite, capping out on mass rather than energy.   Adjusted the factory values so that factories have a higher energy cap (ie. T1 factories can express about 8 mass and 100+ energy per tick).  It also conflicted with my other mod which doulble the buildpower of all factories, but also doubled the buildtime of all factory built units.   I was able to resolve that one and I moved that adjustment into the EVENFLOW mod.  The overall effect is that Air and Naval factories  take longer to upgrade than Land factories which is consistent with their more specialized nature.
+
+A second issue about EVENFLOW is that it does not address the buildtimes of Enhancements (ACU,SACU, etc).   Some enhancements will use obscene amounts of mass and energy, and any assisting done to such units will also exhibit mass/energy usage outside the bounds of EVENFLOW.   Enhancement buildtimes need a review.
+
+This mod really changes the dynamics between static defense and mobile units, putting it into a far more realistic ratio IMHO.   It is no longer possible to build point defense faster than it is to build an army to overcome it.   Essentially, in a given tier, it should be possible to build about 3 land units for every point defense of the same tier, utilizing equivalent buildpower (ie.  1 T1 factory vs. 4 T1 engineers).   Note -- NONE of the costs have changed, only the time, so arguments about 'nerf' are invalid, this is a true rebalancing.  If you're a 'turtle' player, you'll just need a lot more engineers to do it.
+
+AI now needs more engineers and a mechanism to judge when it can economically support them. Done.
+
+Created a new initial build for the ACU when the game starts.  If 20km map or less, AI will now start with a land factory to counter early rush strategies.  Increased the size of the base patrol so that more units are kept at home for just that reason.  Done.
+
+Discovered a bug when AI engineers repair a shield - they never lose their assist state so never become available again.   Fixed -- needed to ClearAllCommands at the end of the RepairAI function.
+
+Found a bug that was keeping AI engineers from Assisting the upgrade of mass extractors.  The DesiresAssist field had to be set to true when the extractor is built and sent off to it's SELFUPGRADETHREAD, and again when the selfupgrade is actually executed.  Fixed.
+
+Note re greater base alert ranges.   Since the base alert range has been extended, it impairs a few things, building of new factories or engineers.  I have removed the NOBASEALERT condition on many of these so that those jobs will get done even if an alert is underway.
+
+Altered the way a base responds to an ongoing alert condition.    The longer an alert condition goes on, the longer the delay between responses will be.  This has the effect of the base 'surging' with a greater number of units each time, since the base will have more time to accumulate units with each sucessive response.  This still needs more work since he will often string his units out to a response, rather than form up and deal with it properly.
+
+
+
+September 22, 2014
+
+Discovered flaw in how beam weapons are fired and cause damage.  Did a pass on TM and 4DC to correct those
+
+- Rerigged the Owens for more suitable AA ability
+- Rerigged the Blood Asp
+- Rerigged the Elias (it was one of the units getting an huge bonus due to the beam weapon issue)
+- Fixed the Vampire (Cybran T2 Stealth fighter)
+
+Have noticed the effect of the greater base alert ranges - makes the AI more agressive -- BUT -- it can cause him to piss away his units as he continually trys to respond to a threat.   To deal with that - I'll increase the period between base responses, each response taking 20 seconds (up from previous 10) longer than the one before (to a max of 3 minutes).   I'm also going to increase the minimum size of the response group, so that he won't just throw the first few units he has into the next response. DONE.
+
+
+
+September 20, 2014
+
+Created a SMALL Naval Expansion Base Plan - to be used on maps where the water/land ratio is 20% or less - has only 3 yards, less PD and engineers -- Should also look at scaling that with map size -- for example use large base on 40km or greater 
+
+Corrected a long standing complaint about the Cheating AI getting bonuses on building nuke missiles in his launchers or subs.   That has been removed, simply by doing a category check on NUKE SILO when giving out the Buffs to new units
+
+Discussed how having a T3 flak upgrade would be better than trying to somehow make the SAM better.   The SAM is good as it is and can deal good damage, but only to single targets.   T3 flak would simply cause more damage than T2, over a larger area, but at a reduced rate of fire, and slightly better range.  Should be easy enough to do, simply take the T2 flak - scale it up -- and alter the weapon stats.
+
+Installed a change that increases a players unit cap by 1 every time a unit gains a veterancy - just a 'proof of concept' for some ideas I have about increasing unit cap dynamically 
+
+Finished creating the T3 AA Flak units for each faction -- still have to work it into the AI build
+
+Should consider making the alert radius at the Primary Attack Base a certain amount
+
+
+September 8, 2014
+
+Completed installation of WaterSpeedMultiplier which occurs in OnLayerChange (see Megalith for example usage)
+
+Sera Rift Gate - replace T3 Power facility with Rift Gate facility - only if BOU is installed - still having trouble with exit points!  Was able to correct the exit point issues by specifying Occupancy Rectangles - see blueprint.  It allows you to define the physical space the building will occupy versus the hit box.  Yea!  Works good now.
+	
+Steve suggested that Sera should just avoid T3 artillery entirely in favor of more nukes
+in contrast, should UEF and AEON focus more on artillery rather than nukes
+
+Incorporate cloaking into Cybran base - only if BOU is installed - thinking the 4 compass points in outer power ring instead of T3 power
+
+had discussion again about factional 'buffs' - Sera/Cybran - power - UEF - mass - AEON - mass or efficiency
+
+HAVE to remember that DBG COLLISION allows me to see hit boxes on units - must check all units again there are some that are very wrong
+
+Units on transport - are they invulnerable ? - Transport formations, too tight ?
+
+Installed dynamic BaseMonitorRadius for the alert system - Primary Attack Base now gets +75 to alert radius 
+
+
+June 29th - 2014
+
+	- revamp the perimeter defense building eco trigger from just ecoOverTime to EconTrendGreaterThanEconOverTime - done
+	- this allows us to monitor the average - but insure that the momentary eco is good before allowing the job to go 
+	-  after all - we want factory production over base building
+	
+	- Need a more frequent factory uprgrade trigger for T1 factories especially - done
+
+Problems with Shared Bases
+	- they often all start building and this is a problem since any builds will fail if the spot they need is already used
+	- this in turn leads to issues with jobs triggered off because a structure count failed, but it failed because other AI built on spot
+	so:
+	- When an AI declares a base it should be declared for ALL ALLIED AI as well - but only the declaror will build there
+	- ignore range restrictions on the other AI
+	- the intent is that the other AI will only run its PlatoonFormManager there - no EM - no FBM
+
+	- When a base is declared DO NOT do a check for PrimaryAttackBase, let PickEnemy do that
+	- When the primary attack base is de-listed due to destruction - check for PrimaryAttackBase
+	- other AIs will only de-list when declaror calls it dead - thus allowing them to declare it
+
+	- how can we get the allied AI to realize that a base is only gone if the host AI calls it dead ?
+
+Optics Devices
+	- should be part of the base plan instead of random position - Done - 2 positions in front
+	- reorganized T3 power builds and added 3 more - extra ring - frontal cardinal points
+
+Amphib Operations
+	-  really need to look at how to make it more effective - a more concentrated effort is required - rarely see them
+	- must look at making PrimaryLandAttackBase seperate from PrimaryAmphibAttackBase
+
+Naval Perimeter Defenses
+	- should only go up if naval threat within 10km - otherwise only the anti-air
+	- Cybran TMD should be able to target torpedoes?
+	- UEF T3 Anti-air flak should be able to target tactical missiles like TMD
+
+Naval Wreckage
+	- should it have a finite lifespan ? like a decal can ?	- YES
+
+Perimeter Shields
+	- should  not go up before internal shields are done
+	- higher priority for inner core shields
+
+Large Bomber Groups 
+	- should have large fighter escort - perhaps can be done with platoon 'squads'
+	
+Torpedo Bomber Groups
+	- make them larger and more agressive
+
+PlatoonFormManager 
+	- running the PFM hotter to more frequently form platoons - I'm coming to the conclusion that multiple smaller platoons are better
+	- might be more effective to merge when in the field than starting out big
+	- I'm thinking it should run 2x the ConditionMonitor at Primary - 1x at others - we'll try that
+
+New Factories at an Expansion Base
+	- NO if there is a threat within 200
+	- T2 Arty/TML should get higher priority ?
+	- Gotta have more focus on such targets 
+
+
+
+Interaction between SCUSelfEnhance and AssignEngineerTask  -- use unit.AssigningTask as flag to control either one
+
+SCUSelfEnhance will start only if the SCU is NOT in a platoon so it should set ASSIGNINGTASK = TRUE while it's running
+
+ASSIGNENGINEERTASK should just exit if ASSIGNINGTASK = TRUE - the SCU will get fired up again when SCUSelfEnhance sends the SCU thru RTB?
+
+ASSIGNENGINEERTASK should set ASSIGNINGTASK = TRUE when picking a task but back to FALSE when engineer is given a job
+
+
+Looking at Engineers Platoon Data
+	- BuilderLocation has the name of the Base 
+	- LocationType also has the name of the Base (could eliminate)
+	- PlatoonData LocationType also has the name of the Base
+	- other PlatoonData data, like PlatoonData Assist also can carry references like AssistLocation
+
+Looking at Factory data
+	- realized I don't need to store FactoryBuildManager and BuilderType in the BuilderManagerData table on the factory
+	- moved BuilderType directly onto the factory and eliminated the BuilderManagerData table completely
+	- so factory no longer contains a direct reference to its FBM - has to be built from pieces but that's effective - factory only needs FBM if being added or deleted - no use to carry otherwise
+
+Looking at Engineer data
+	- as above - realized I could do away with the BuilderManagerData table on the engineer
+	- moved CallbacksSetup onto the engineer - eliminated the reference to EngineerManager as it can be built using LocationType
+
+
+Examine the process by which engineers get back to ASSIGNENGINEERTASK - the first three are the primary 
+
+	- InitialWait (when engineer is first created and added to his base)
+	- DelayAssignBody (which is run if the Engy can't find a job)
+	- PlatoonDisband (which is run when the Engy finishes a job)
+
+	- EnhanceAI (used by Commander but not SCU for ehnancements)
+	- ReAssignUnit (when engineer is moved to another base)	
