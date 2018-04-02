@@ -19,9 +19,7 @@ info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gameda
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\gaz_ui\mods', mounted as '/mods/'
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\loc_us\lua', mounted as '/lua/'
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\textures\lua', mounted as '/lua/'
-warning: Search path element "C:\Users\jake_\Desktop\Mods\LOUD Dev\Git-LOUD\gamedata\meshes\lua" does not match any files
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\effects\lua', mounted as '/lua/'
-warning: Search path element "C:\Users\jake_\Desktop\Mods\LOUD Dev\Git-LOUD\gamedata\props\lua" does not match any files
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\env\lua', mounted as '/lua/'
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\projectiles\lua', mounted as '/lua/'
 info: DISK: AddSearchPath: 'c:\users\jake_\desktop\mods\loud dev\git-loud\gamedata\units\lua', mounted as '/lua/'
@@ -114,8 +112,8 @@ info:     MissileOption="0",
 info:     NoRushOption="Off",
 info:     PlayerCount=1,
 info:     PrebuiltUnits="Off",
-info:     ScenarioFile="/maps/burial mounds 20/burial mounds 20_scenario.lua",
-info:     ScenarioVersion="5.1",
+info:     ScenarioFile="/maps/the pass/the pass 1v1_scenario.lua",
+info:     ScenarioVersion=2,
 info:     TeamLock="locked",
 info:     TeamSpawn="random",
 info:     TimeLimitSetting="0",
@@ -126,356 +124,17 @@ info:     Victory="demoralization"
 info:   },
 info:   PlayerCount=1
 info: }
-info: Starting background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap"
-info: Background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap" running.
-info: *DEBUG Mohodata RuleInit
-info: Loading blueprints...
-info: loading resources from /effects
-info: loaded 6120 resources from /effects
-info: loading resources from /env
-info: loaded 670 resources from /env
-info: loading resources from /meshes
-info: loaded 66 resources from /meshes
-info: loading resources from /projectiles
-info: loaded 598 resources from /projectiles
-info: loading resources from /props
-info: loaded 2 resources from /props
-info: loading resources from /units
-info: loaded 1060 resources from /units
-info: Loaded 8516 std resources
-info: Loaded 0 mod resources
-info: Loaded 8516 blueprints in total
-info: Extracting mesh blueprints.
-info: Modding blueprints.
-info: *AI DEBUG ScenarioInfo data is { <metatable=table: 1127B208>
-info:   AIR=16,
-info:   AITarget=AITarget,
-info:   Basename=Basename,
-info:   BeamBlueprint=function: 11271960,
-info:   BeginLoggingStats=BeginLoggingStats,
-info:   BlueprintLoaderUpdateProgress=BlueprintLoaderUpdateProgress,
-info:   CreatePrefetchSet=CreatePrefetchSet,
-info:   CurrentThread=CurrentThread,
-info:   Dirname=Dirname,
-info:   DiskFindFiles=DiskFindFiles,
-info:   DiskGetFileInfo=DiskGetFileInfo,
-info:   DiskToLocal=DiskToLocal,
-info:   EmitterBlueprint=function: 11271B18,
-info:   EndLoggingStats=EndLoggingStats,
-info:   EntityCategoryEmpty=EntityCategoryEmpty,
-info:   EntityCategoryGetUnitList=EntityCategoryGetUnitList,
-info:   EnumColorNames=EnumColorNames,
-info:   EulerToQuaternion=EulerToQuaternion,
-info:   ExtractAllMeshBlueprints=function: 111DBC80,
-info:   ExtractBuildMeshBlueprint=function: 111CE300,
-info:   ExtractCloakMeshBlueprint=function: 111CE320,
-info:   ExtractMeshBlueprint=function: 1126FF50,
-info:   ExtractPhaseMeshBlueprint=function: 111CE380,
-info:   ExtractWreckageBlueprint=function: 111CE2C0,
-info:   FileCollapsePath=FileCollapsePath,
-info:   ForkThread=ForkThread,
-info:   GetCueBank=GetCueBank,
-info:   GetMovieDuration=GetMovieDuration,
-info:   GetVersion=GetVersion,
-info:   IgnoreStructures=1,
-info:   IsDestroyed=IsDestroyed,
-info:   KillThread=KillThread,
-info:   LAND=1,
-info:   LOG=LOG,
-info:   LoadBlueprints=function: 11271A00,
-info:   LuaDumpBinary=LuaDumpBinary,
-info:   MATH_IRound=MATH_IRound,
-info:   MATH_Lerp=MATH_Lerp,
-info:   MeshBlueprint=function: 1126FF78,
-info:   MinLerp=MinLerp,
-info:   MinSlerp=MinSlerp,
-info:   ModBlueprints=function: 1162B754,
-info:   ORBIT=32,
-info:   OrientFromDir=OrientFromDir,
-info:   PointVector=PointVector,
-info:   ProjectileBlueprint=function: 11271AC8,
-info:   PropBlueprint=function: 11271F78,
-info:   RPCSound=RPCSound,
-info:   RandomIter=function: 112710C8,
-info:   Rect=Rect,
-info:   RegisterAllBlueprints=function: 1162B40C,
-info:   RegisterBeamBlueprint=RegisterBeamBlueprint,
-info:   RegisterEmitterBlueprint=RegisterEmitterBlueprint,
-info:   RegisterMeshBlueprint=RegisterMeshBlueprint,
-info:   RegisterProjectileBlueprint=RegisterProjectileBlueprint,
-info:   RegisterPropBlueprint=RegisterPropBlueprint,
-info:   RegisterTrailEmitterBlueprint=RegisterTrailEmitterBlueprint,
-info:   RegisterUnitBlueprint=RegisterUnitBlueprint,
-info:   ReloadBlueprint=function: 11271A28,
-info:   ResumeThread=ResumeThread,
-info:   SEABED=2,
-info:   SPEW=SPEW,
-info:   STR_GetTokens=STR_GetTokens,
-info:   STR_Utf8Len=STR_Utf8Len,
-info:   STR_Utf8SubString=STR_Utf8SubString,
-info:   STR_itox=STR_itox,
-info:   STR_xtoi=STR_xtoi,
-info:   SUB=4,
-info:   SecondsPerTick=SecondsPerTick,
-info:   Sound=Sound,
-info:   SpecFootprints=SpecFootprints,
-info:   SuspendCurrentThread=SuspendCurrentThread,
-info:   Trace=Trace,
-info:   TrailEmitterBlueprint=function: 11271AF0,
-info:   UnitBlueprint=function: 1127CD70,
-info:   VAdd=VAdd,
-info:   VDiff=VDiff,
-info:   VDist2=VDist2,
-info:   VDist2Sq=VDist2Sq,
-info:   VDist3=VDist3,
-info:   VDist3Sq=VDist3Sq,
-info:   VDot=VDot,
-info:   VMult=VMult,
-info:   VPerpDot=VPerpDot,
-info:   Vector=Vector,
-info:   Vector2=Vector2,
-info:   WARN=WARN,
-info:   WATER=8,
-info:   WaitFor=WaitFor,
-info:   _ALERT=_ALERT,
-info:   _G=_G,
-info:   _LOADED=_LOADED,
-info:   _TRACEBACK=_TRACEBACK,
-info:   _VERSION="Lua 5.0.1",
-info:   __active_mods=__active_mods,
-info:   __blueprints=__blueprints,
-info:   __factory_objects=__factory_objects,
-info:   __pow=__pow,
-info:   assert=assert,
-info:   collectgarbage=collectgarbage,
-info:   coroutine=coroutine,
-info:   debug=debug,
-info:   dofile=dofile,
-info:   doscript=doscript,
-info:   error=error,
-info:   exists=exists,
-info:   gcinfo=gcinfo,
-info:   getfenv=getfenv,
-info:   getmetatable=getmetatable,
-info:   import=import,
-info:   ipairs=ipairs,
-info:   iscallable=iscallable,
-info:   loadfile=loadfile,
-info:   loadstring=loadstring,
-info:   math=math,
-info:   mmt=mmt,
-info:   moho=moho,
-info:   newproxy=newproxy,
-info:   next=next,
-info:   pairs=pairs,
-info:   pcall=pcall,
-info:   print=print,
-info:   rawequal=rawequal,
-info:   rawget=rawget,
-info:   rawset=rawset,
-info:   repr=function: 11271190,
-info:   require=require,
-info:   safecall=function: 1162BC24,
-info:   serialize=serialize,
-info:   setfenv=setfenv,
-info:   setmetatable=setmetatable,
-info:   sort_by=function: 1162B7C4,
-info:   sort_down_by=function: 1162B738,
-info:   sortedpairs=function: 1162B888,
-info:   string=string,
-info:   table=table,
-info:   tonumber=tonumber,
-info:   tostring=tostring,
-info:   type=type,
-info:   unpack=unpack
-info: }
-info: *AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon
-info: *AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements
-info: *AI DEBUG ual0401 Hey! ERNIE is here!! has no projectile lifetime for "Collossus Death" Label "CollossusDeath"
-info: *AI DEBUG xsa0104 Combat Air Transport has no projectile lifetime for "Phasic Autogun" Label "AutoGun"
-info: *AI DEBUG uab4302 Strategic Missile Defense has no projectile lifetime for "Saint Anti Nuke" Label "MissileRack"
-info: *AI DEBUG uab4302 Strategic Missile Defense has no projectile lifetime for "Saint Anti Sat" Label "MissileRack2"
-info: *AI DEBUG ues0304 Strategic Missile Submarine has no projectile lifetime for "Nuclear Warhead" Label "NukeMissiles"
-info: *AI DEBUG uel0103 Mobile Light Artillery has no projectile lifetime for "Fragmentation Artillery" Label "MainGun"
-info: *AI DEBUG uel0106 Light Assault Bot has no projectile lifetime for "MG" Label "ArmCannonTurret"
-info: *AI DEBUG ual0202 Heavy Tank has no projectile lifetime for "Quantum Cannon" Label "MainGun"
-info: *AI DEBUG uea0305 Heavy Gunship has no projectile lifetime for "Heavy Plasma Cannon" Label "Plasma"
-info: *AI DEBUG uas0302 Battleship has no projectile lifetime for "HV Oblivion Cannon" Label "FrontTurret"
-info: *AI DEBUG uas0302 Battleship has no projectile lifetime for "HV Oblivion Cannon" Label "MidTurret"
-info: *AI DEBUG uas0302 Battleship has no projectile lifetime for "HV Oblivion Cannon" Label "BackTurret"
-info: *AI DEBUG url0104 AA Vehicle has no projectile lifetime for "Nanodart Launcher" Label "GroundGun"
-info: *AI DEBUG dra0202 Fighter Bomber has no projectile lifetime for "Missile" Label "AntiAirMissiles"
-info: *AI DEBUG uea0104 Combat Air Transport has no projectile lifetime for "Riot Gun" Label "RiotGun"
-info: *AI DEBUG uea0104 Combat Air Transport has no projectile lifetime for "Riot Gun" Label "RiotGun"
-info: *AI DEBUG uea0104 Combat Air Transport has no projectile lifetime for "Linked Railgun" Label "LinkedRailGun"
-info: *AI DEBUG xsb2303 Field Artillery Installation has no projectile lifetime for "Zthuthaam Cannon" Label "MainGun"
-info: *AI DEBUG xrl0403 Experimental Mobile Factory has no projectile lifetime for "Proton Cannon" Label "ParticleGunRight"
-info: *AI DEBUG xrl0403 Experimental Mobile Factory has no projectile lifetime for "Proton Cannon" Label "ParticleGunLeft"
-info: *AI DEBUG xrl0403 Experimental Mobile Factory has no projectile lifetime for "Megalith Death" Label "MegalithDeath"
-info: *AI DEBUG ual0201 Light HoverTank has no projectile lifetime for "Light Disruptor" Label "MainGun"
-info: *AI DEBUG xsl0201 Medium Tank has no projectile lifetime for "Oh Spectra Cannon" Label "MainGun"
-info: *AI DEBUG url0303 Siege Assault Bot has no projectile lifetime for "Heavy Electron Bolter" Label "HeavyBolter"
-info: *AI DEBUG ura0303 Air Superiority Fighter has no projectile lifetime for "Nanite Missile System" Label "Missiles1"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Heavy Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Heavy Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG baa0309 Heavy Air Transport has no projectile lifetime for "Heavy Sonic Pulse Battery" Label "SonicPulseBattery"
-info: *AI DEBUG urb2303 Field Artillery has no projectile lifetime for "Resonance Artillery" Label "MainGun"
-info: *AI DEBUG xsa0103 Attack Bomber has no projectile lifetime for "Othe Tactical Bomb" Label "Bomb"
-info: *AI DEBUG urs0202 Cruiser has no projectile lifetime for "Proton Cannon" Label "ParticleGun"
-info: *AI DEBUG ues0302 Battleship has no projectile lifetime for "Gauss Cannon" Label "Turret"
-info: *AI DEBUG ues0302 Battleship has no projectile lifetime for "Gauss Cannon" Label "Turret"
-info: *AI DEBUG ues0302 Battleship has no projectile lifetime for "Gauss Cannon" Label "Turret"
-info: *AI DEBUG uaa0104 Combat Air Transport has no projectile lifetime for "Light Laser" Label "SonicPulseBattery"
-info: *AI DEBUG uaa0104 Combat Air Transport has no projectile lifetime for "Light Laser" Label "SonicPulseBattery"
-info: *AI DEBUG xel0305 Armored Assault Bot has no projectile lifetime for "Plasma Cannon" Label "PlasmaCannon01"
-info: *AI DEBUG ura0103 Attack Bomber has no projectile lifetime for "Neutron Cluster Bomb" Label "Bomb"
-info: *AI DEBUG urb2101 Basic Point Defense has no projectile lifetime for "Light Pulse Laser" Label "MainGun"
-info: *AI DEBUG uea0304 Strategic Bomber has no projectile lifetime for "High Yield Bomb" Label "Bomb"
-info: *AI DEBUG ues0103 Frigate has no projectile lifetime for "Gauss Cannon" Label "MainGun"
-info: *AI DEBUG ura0104 Combat Air Transport has no projectile lifetime for "EMP Pulse Laser" Label "EMPCannon"
-info: *AI DEBUG xal0203 Assault HoverTank has no projectile lifetime for "Quantum Autoguns" Label "MainGun"
-info: *AI DEBUG ues0202 Light Cruiser has no projectile lifetime for "Gauss Cannon" Label "FrontTurret01"
-info: *AI DEBUG xsl0103 Light Artillery Hovertank has no projectile lifetime for "Cannon" Label "MainGun"
-info: *AI DEBUG xsl0001 Armored Command Unit has no projectile lifetime for "Chronotron Overcharge Cannon" Label "OverCharge"
-info: *AI DEBUG xab1401 Experimental Resource Generator has no projectile lifetime for nil Label "DummyWeapon"
-info: *AI DEBUG xab1401 Experimental Resource Generator has no projectile lifetime for nil Label "DummyWeapon"
-info: *AI DEBUG ueb2303 Field Artillery has no projectile lifetime for "APDS Artillery" Label "MainGun"
-info: *AI DEBUG ual0304 Mobile Heavy Artillery has no projectile lifetime for "Sonance Artillery" Label "MainGun"
-info: *AI DEBUG uaa0203 Gunship has no projectile lifetime for "Light Laser" Label "Turret"
-info: *AI DEBUG xsl0202 Assault Bot has no projectile lifetime for "Aire-au Bolter" Label "MainGun"
-info: *AI DEBUG uab2101 Point Defense has no projectile lifetime for "Graviton Projector" Label "MainGun"
-info: *AI DEBUG xsa0202 Fighter Bomber has no projectile lifetime for "Othe Tactical Bomb" Label "Bomb"
-info: *AI DEBUG xsa0402 Experimental Bomber has no projectile lifetime for "Ohwalli Strategic Bomb" Label "Bomb"
-info: *AI DEBUG xsl0401 Experimental Assault Bot has no projectile lifetime for "Collossus Death" Label "CollossusDeath"
-info: *AI DEBUG uaa0304 Strategic Bomber has no projectile lifetime for nil Label "Bomb"
-info: *AI DEBUG ual0101 Hover Scout has no projectile lifetime for "Laser" Label "LaserTurret"
-info: *AI DEBUG xrl0302 Mobile Bomb has no projectile lifetime for "Suicide" Label "Suicide"
-info: *AI DEBUG uab2303 Field Artillery has no projectile lifetime for "Miasma Artillery" Label "MainGun"
-info: *AI DEBUG uel0203 Hovertank has no projectile lifetime for "Riot Gun" Label "Riotgun01"
-info: *AI DEBUG uaa0103 Attack Bomber has no projectile lifetime for "Graviton Bomb" Label "Bomb"
-info: *AI DEBUG xsb4302 Strategic Missile Defense has no projectile lifetime for "Hu Strategic Missile Defense" Label "MissileRack"
-info: *AI DEBUG xsb4302 Strategic Missile Defense has no projectile lifetime for "Hu Anti Satellite" Label "MissileRack2"
-info: *AI DEBUG ual0106 Light Assault Bot has no projectile lifetime for "Sonic Pulsar" Label "ArmLaserTurret"
-info: *AI DEBUG url0106 Light Assault Bot has no projectile lifetime for "Pulse Laser" Label "MainGun"
-info: *AI DEBUG uas0202 AA Cruiser has no projectile lifetime for "Dual Quantum Cannon" Label "FrontTurret"
-info: *AI DEBUG url0107 Assault Bot has no projectile lifetime for "Pulse Laser" Label "LaserArms"
-info: *AI DEBUG urb4302 Strategic Missile Defense has no projectile lifetime for "EMP Anti Nuke" Label "MissileRack"
-info: *AI DEBUG urb4302 Strategic Missile Defense has no projectile lifetime for "EMP Anti Sat" Label "MissileRack2"
-info: *AI DEBUG Capping GuardReturnRadius
-info: *AI DEBUG Adjusting View Radius
-info: *AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime
-info: *AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS
-info: Registering blueprints...
-info: Blueprints loaded
-debug: MEM: -9797722 bytes RULE
-info: *DEBUG Mohodata SessionInit
-info: *DEBUG Mohodata userInit
-info: *DEBUG Mohodata GlobalInit
-info: *AI DEBUG     Implementing Import
-info: *AI DEBUG     Implementing Utils
-info: *AI DEBUG     Implementing REPR functions
-info: *AI DEBUG     Loading Class FUnctions
-info: *AI DEBUG     Defining TRASHBAG Class
-info: *AI DEBUG     Localization begins
-info: *AI DEBUG     Creating MULTIEVENT Class
-info: *AI DEBUG     Loading COLLAPSE functions
-info: *AI DEBUG     Setup BUFF system structure
-info: *AI DEBUG     Loading Adjacency Buff functions
-info: *AI DEBUG     Loading Buff Blueprint Definitions
-info: *AI DEBUG     Loading Adjacency Buff Definitions
-info: *AI DEBUG     Setup Platoon Template Structure
-info: *AI DEBUG     Setup Builder Template Structure
-info: *AI DEBUG     Setup Builder Group Structure
-info: *AI DEBUG     Setup BaseBuilder Template Structure
-info: Active mods in session: \000{ }
-info: *AI DEBUG Loading LOUD UserSync
-warning: No tooltip in table for key: aitype_tech
-debug: MEM: -5247026 bytes STIMap
-debug: MEM: -5247026 bytes LoadTexturing
-debug: MEM: -5247026 bytes WaterMask
-debug: MEM: -12252683 bytes TERRAIN
-info: Background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap" finished.
-info: HERE IT IS{
-info:   GameName="LOUD-Dev's Skirmish",
-info:   HostedBy="LOUD-Dev",
-info:   Options={
-info:     AllowObservers=true,
-info:     BuildMult="1.075",
-info:     CapCheat="cheatlevel",
-info:     CheatMult="1.075",
-info:     CheatsEnabled="false",
-info:     CivilianAlliance="enemy",
-info:     FogOfWar="explored",
-info:     GameSpeed="normal",
-info:     MissileOption="0",
-info:     NoRushOption="Off",
-info:     PlayerCount=2,
-info:     PrebuiltUnits="Off",
-info:     ScenarioFile="/maps/burial mounds 20/burial mounds 20_scenario.lua",
-info:     ScenarioVersion="5.1",
-info:     TeamLock="locked",
-info:     TeamSpawn="random",
-info:     TimeLimitSetting="0",
-info:     Timeouts="3",
-info:     UnitCap="800",
-info:     UnusedResources="1",
-info:     Victory="demoralization"
-info:   },
-info:   PlayerCount=2
-info: }
-warning: Map Unknown is missing a save file!
-warning: Map Unknown is missing a save file!
-info: MOD LIST SET TO:
-info:         LOUD Unit Additions   (fffffffe-6e98-4864-9599-4133236eea7a)
-info:         BlackOps Adv Command Units  (9e8ea941-c306-4751-b367-e00000000302)
-info:         Total Mayhem v1.13  (62e2j64a-53a2-y6sg-32h5-146as555a18u3)
-info:         LOUD Structure Upgrades       (ffffffff-ffff-ffff-ffff-fffffffffffe)
-info:         GAZ_UI      (c39c27c4-7252-42a8-b39e-ac04cc1950db)
-info:         LOUD Integrated Storage       (ffffffff-6e98-4864-9599-4133236eea7a)
-info:         LOUD Evenflow Engineers       (ffffffff-6f00-4864-9599-4133236eea7a)
-info:         4th Dimension Pack, LOUD        (454af309-5afb-458b-bf5b-a00000000007)
-info:         Domino Mod Support V0.6       (ZLAAE2D2-6510-11DF-A8EC-B00000000005)
-info:         BlackOps Global Icon Support Mod        (9e8ea941-c306-4751-b367-f00000000005)
-info:         BlackOps Unleashed  (9e8ea941-c306-4751-b367-a11000000502)
-info: HERE IT IS{
-info:   GameName="LOUD-Dev's Skirmish",
-info:   HostedBy="LOUD-Dev",
-info:   Options={
-info:     AllowObservers=true,
-info:     BuildMult="1.075",
-info:     CapCheat="cheatlevel",
-info:     CheatMult="1.075",
-info:     CheatsEnabled="false",
-info:     CivilianAlliance="enemy",
-info:     FogOfWar="explored",
-info:     GameSpeed="normal",
-info:     MissileOption="0",
-info:     NoRushOption="Off",
-info:     PlayerCount=2,
-info:     PrebuiltUnits="Off",
-info:     ScenarioFile="/maps/burial mounds 20/burial mounds 20_scenario.lua",
-info:     ScenarioVersion="5.1",
-info:     TeamLock="locked",
-info:     TeamSpawn="random",
-info:     TimeLimitSetting="0",
-info:     Timeouts="3",
-info:     UnitCap="800",
-info:     UnusedResources="1",
-info:     Victory="demoralization"
-info:   },
-info:   PlayerCount=2
-info: }
-info: Starting background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap"
-info: Background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap" running.
+info: Starting background task "Map loader /maps/the pass/the pass.scmap"
+info: Background task "Map loader /maps/the pass/the pass.scmap" running.
 info: *DEBUG Mohodata RuleInit
 info: Hooked /lua/footprints.lua with /mods/domino_mod_support/hook/lua/footprints.lua
 info: Hooked /lua/system/Blueprints.lua with /mods/4dc/hook/lua/system/Blueprints.lua
 info: Hooked /lua/system/Blueprints.lua with /mods/loud evenflow engineers/hook/lua/system/Blueprints.lua
 info: Loading blueprints...
 info: loading resources from /effects
+warning: No tooltip in table for key: aitype_tech
+warning: No tooltip in table for key: aitype_techcheat
+warning: No tooltip in table for key: aitype_techcheat
 info: HERE IT IS{
 info:   GameName="LOUD-Dev's Skirmish",
 info:   HostedBy="LOUD-Dev",
@@ -492,36 +151,8 @@ info:     MissileOption="0",
 info:     NoRushOption="Off",
 info:     PlayerCount=2,
 info:     PrebuiltUnits="Off",
-info:     ScenarioFile="/maps/burial mounds 20/burial mounds 20_scenario.lua",
-info:     ScenarioVersion="5.1",
-info:     TeamLock="locked",
-info:     TeamSpawn="random",
-info:     TimeLimitSetting="0",
-info:     Timeouts="3",
-info:     UnitCap="800",
-info:     UnusedResources="1",
-info:     Victory="demoralization"
-info:   },
-info:   PlayerCount=2
-info: }
-info: HERE IT IS{
-info:   GameName="LOUD-Dev's Skirmish",
-info:   HostedBy="LOUD-Dev",
-info:   Options={
-info:     AllowObservers=true,
-info:     BuildMult="1.075",
-info:     CapCheat="cheatlevel",
-info:     CheatMult="1.075",
-info:     CheatsEnabled="false",
-info:     CivilianAlliance="enemy",
-info:     FogOfWar="explored",
-info:     GameSpeed="normal",
-info:     MissileOption="0",
-info:     NoRushOption="Off",
-info:     PlayerCount=2,
-info:     PrebuiltUnits="Off",
-info:     ScenarioFile="/maps/burial mounds 20/burial mounds 20_scenario.lua",
-info:     ScenarioVersion="5.1",
+info:     ScenarioFile="/maps/the pass/the pass 1v1_scenario.lua",
+info:     ScenarioVersion=2,
 info:     TeamLock="locked",
 info:     TeamSpawn="random",
 info:     TimeLimitSetting="0",
@@ -533,8 +164,6 @@ info:   },
 info:   PlayerCount=2
 info: }
 warning: SND: StopAllSounds - Invalid Category [Global]
-info: Aborting background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap"
-info: Background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap" aborted.
 info: loaded 6120 resources from /effects
 info: loading resources from /env
 info: loaded 670 resources from /env
@@ -644,11 +273,11 @@ info: Loaded 1295 mod resources
 info: Loaded 9811 blueprints in total
 info: Extracting mesh blueprints.
 info: Modding blueprints.
-info: *AI DEBUG ScenarioInfo data is { <metatable=table: 17C77528>
+info: *AI DEBUG ScenarioInfo data is { <metatable=table: 1128C078>
 info:   AIR=16,
 info:   AITarget=AITarget,
 info:   Basename=Basename,
-info:   BeamBlueprint=function: 17C72820,
+info:   BeamBlueprint=function: 11283938,
 info:   BeginLoggingStats=BeginLoggingStats,
 info:   BlueprintLoaderUpdateProgress=BlueprintLoaderUpdateProgress,
 info:   CreatePrefetchSet=CreatePrefetchSet,
@@ -657,19 +286,19 @@ info:   Dirname=Dirname,
 info:   DiskFindFiles=DiskFindFiles,
 info:   DiskGetFileInfo=DiskGetFileInfo,
 info:   DiskToLocal=DiskToLocal,
-info:   EmitterBlueprint=function: 17C72898,
+info:   EmitterBlueprint=function: 11283910,
 info:   EndLoggingStats=EndLoggingStats,
 info:   EntityCategoryEmpty=EntityCategoryEmpty,
 info:   EntityCategoryGetUnitList=EntityCategoryGetUnitList,
 info:   EnumColorNames=EnumColorNames,
 info:   EulerToQuaternion=EulerToQuaternion,
-info:   ExtractAllMeshBlueprints=function: 18035DA0,
-info:   ExtractBuildMeshBlueprint=function: 18035EA0,
-info:   ExtractCloakMeshBlueprint=function: 18035EC0,
-info:   ExtractCustomShieldMeshBlueprint=function: 180162E0,
-info:   ExtractMeshBlueprint=function: 17C6D960,
-info:   ExtractPhaseMeshBlueprint=function: 18035EE0,
-info:   ExtractWreckageBlueprint=function: 18035E40,
+info:   ExtractAllMeshBlueprints=function: 111EA120,
+info:   ExtractBuildMeshBlueprint=function: 111E0DC0,
+info:   ExtractCloakMeshBlueprint=function: 111E0DE0,
+info:   ExtractCustomShieldMeshBlueprint=function: 111F6D80,
+info:   ExtractMeshBlueprint=function: 1127E140,
+info:   ExtractPhaseMeshBlueprint=function: 111E0A00,
+info:   ExtractWreckageBlueprint=function: 111E0DA0,
 info:   FileCollapsePath=FileCollapsePath,
 info:   ForkThread=ForkThread,
 info:   GetCueBank=GetCueBank,
@@ -680,23 +309,23 @@ info:   IsDestroyed=IsDestroyed,
 info:   KillThread=KillThread,
 info:   LAND=1,
 info:   LOG=LOG,
-info:   LoadBlueprints=function: 17C72370,
+info:   LoadBlueprints=function: 11283960,
 info:   LuaDumpBinary=LuaDumpBinary,
 info:   MATH_IRound=MATH_IRound,
 info:   MATH_Lerp=MATH_Lerp,
-info:   MeshBlueprint=function: 17C6D398,
+info:   MeshBlueprint=function: 1127E118,
 info:   MinLerp=MinLerp,
 info:   MinSlerp=MinSlerp,
-info:   ModBlueprints=function: 18023C40,
+info:   ModBlueprints=function: 111F6E80,
 info:   ORBIT=32,
 info:   OrientFromDir=OrientFromDir,
 info:   PointVector=PointVector,
-info:   ProjectileBlueprint=function: 17C72168,
-info:   PropBlueprint=function: 17C72C58,
+info:   ProjectileBlueprint=function: 11283F28,
+info:   PropBlueprint=function: 11283F00,
 info:   RPCSound=RPCSound,
-info:   RandomIter=function: 17C72B18,
+info:   RandomIter=function: 11283078,
 info:   Rect=Rect,
-info:   RegisterAllBlueprints=function: 17C40E1C,
+info:   RegisterAllBlueprints=function: 115A9594,
 info:   RegisterBeamBlueprint=RegisterBeamBlueprint,
 info:   RegisterEmitterBlueprint=RegisterEmitterBlueprint,
 info:   RegisterMeshBlueprint=RegisterMeshBlueprint,
@@ -704,7 +333,7 @@ info:   RegisterProjectileBlueprint=RegisterProjectileBlueprint,
 info:   RegisterPropBlueprint=RegisterPropBlueprint,
 info:   RegisterTrailEmitterBlueprint=RegisterTrailEmitterBlueprint,
 info:   RegisterUnitBlueprint=RegisterUnitBlueprint,
-info:   ReloadBlueprint=function: 17C727F8,
+info:   ReloadBlueprint=function: 11283988,
 info:   ResumeThread=ResumeThread,
 info:   SEABED=2,
 info:   SPEW=SPEW,
@@ -719,8 +348,8 @@ info:   Sound=Sound,
 info:   SpecFootprints=SpecFootprints,
 info:   SuspendCurrentThread=SuspendCurrentThread,
 info:   Trace=Trace,
-info:   TrailEmitterBlueprint=function: 17C72500,
-info:   UnitBlueprint=function: 181EBA28,
+info:   TrailEmitterBlueprint=function: 11283898,
+info:   UnitBlueprint=function: 1128C370,
 info:   VAdd=VAdd,
 info:   VDiff=VDiff,
 info:   VDist2=VDist2,
@@ -771,15 +400,15 @@ info:   print=print,
 info:   rawequal=rawequal,
 info:   rawget=rawget,
 info:   rawset=rawset,
-info:   repr=function: 17C720C8,
+info:   repr=function: 112832F8,
 info:   require=require,
-info:   safecall=function: 150F608C,
+info:   safecall=function: 115A9DAC,
 info:   serialize=serialize,
 info:   setfenv=setfenv,
 info:   setmetatable=setmetatable,
-info:   sort_by=function: 17C40984,
-info:   sort_down_by=function: 14440D20,
-info:   sortedpairs=function: 17C40C08,
+info:   sort_by=function: 115A994C,
+info:   sort_down_by=function: 115A9C40,
+info:   sortedpairs=function: 115A9A10,
 info:   string=string,
 info:   table=table,
 info:   tonumber=tonumber,
@@ -996,7 +625,7 @@ info: *AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime
 info: *AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS
 info: Registering blueprints...
 info: Blueprints loaded
-debug: MEM: -31 bytes RULE
+debug: MEM: -9797722 bytes RULE
 info: *DEBUG Mohodata SessionInit
 info: *DEBUG Mohodata userInit
 info: Hooked /lua/globalInit.lua with /mods/4dc/hook/lua/globalInit.lua
@@ -1288,9 +917,9 @@ debug: MEM: -5247026 bytes STIMap
 debug: MEM: -5247026 bytes LoadTexturing
 debug: MEM: -5247026 bytes WaterMask
 debug: MEM: -12252683 bytes TERRAIN
-info: Background task "Map loader /maps/burial mounds 20/burial mounds 20.scmap" finished.
+info: Background task "Map loader /maps/the pass/the pass.scmap" finished.
 info: Saving replay to "C:\Users\jake_\Documents\My Games\Gas Powered Games\Supreme Commander Forged Alliance\replays\LOUD-Dev\LastGame.SCFAReplay"
-debug: MEM: -969539224 bytes LUABP
+debug: MEM: -906362520 bytes LUABP
 info: Hooked /lua/globalInit.lua with /mods/4dc/hook/lua/globalInit.lua
 info: Hooked /lua/globalInit.lua with /mods/blackopsunleashed/hook/lua/globalInit.lua
 info: Hooked /lua/globalInit.lua with /mods/blackopsacus/hook/lua/globalInit.lua
@@ -1319,8 +948,11 @@ info: Blackops Icon Support Mod - Icon Location Complete
 info: *DEBUG Mohodata simInit
 info: Hooked /lua/SimSync.lua with /mods/domino_mod_support/hook/lua/SimSync.lua
 info: *AI DEBUG Loading LOUD SimSync
-debug: MEM: -969539224 bytes OGRID
+debug: MEM: -906362520 bytes OGRID
 info: Hooked /lua/sim/ScenarioUtilities.lua with /mods/blackopsacus/hook/lua/sim/ScenarioUtilities.lua
+info: Hooked /lua/ScenarioFramework.lua with /mods/blackopsacus/hook/lua/ScenarioFramework.lua
+info: Hooked /lua/sim/scenarioutilities.lua with /mods/blackopsacus/hook/lua/sim/scenarioutilities.lua
+info: Hooked /lua/scenarioframework.lua with /mods/blackopsacus/hook/lua/scenarioframework.lua
 info: *AI DEBUG Setting LOUD options
 info: *AI DEBUG       Name Engineers is true
 info: *AI DEBUG       Display Attack Plan is false
@@ -1333,23 +965,21 @@ info: *AI DEBUG       Display Base Names is false
 info: *AI DEBUG   Report Layer Ratios to Log is false
 info: *AI DEBUG Importing LOUDUTILITIES
 info: *AI DEBUG Importing AIUTILITIES
-info: Hooked /lua/scenarioframework.lua with /mods/blackopsacus/hook/lua/scenarioframework.lua
-info: Hooked /lua/sim/scenarioutilities.lua with /mods/blackopsacus/hook/lua/sim/scenarioutilities.lua
-info: OnCreateArmyBrain 1 ARMY_3 LOUD-Dev
-info: OnCreateArmyBrain 2 ARMY_6 Zan-Ilnaa (AI: Tech)
-info: OnCreateArmyBrain 3 ARMY_9 civilian
-info: OnCreateArmyBrain 4 NEUTRAL_CIVILIAN civilian
-warning:  NUM PROPS = 10939
+info: OnCreateArmyBrain 1 ARMY_1 LOUD-Dev
+info: OnCreateArmyBrain 2 ARMY_2 Murdock (AIx: Tech)
+warning:  NUM PROPS = 1
 info: *AI DEBUG Created Props and used 0 bytes
-info: *AI DEBUG Armies is { "ARMY_3", "ARMY_6", "ARMY_9", "NEUTRAL_CIVILIAN" }
-info: *AI DEBUG Start positions are { "ARMY_1", "ARMY_2", "ARMY_3", "ARMY_4", "ARMY_5", "ARMY_6", "ARMY_7", "ARMY_8" }
+info: *AI DEBUG Armies is { "ARMY_1", "ARMY_2" }
+info: *AI DEBUG Start positions are { "ARMY_1", "ARMY_2" }
 info: *AI DEBUG Unused Start Resources value is 1
+info: *AI DEBUG Mass Point at distance 37.483329772949 - Position { 97.5, 34.773441314697, 415.5, type="VECTOR3" } too close (55) to Start position
+info: *AI DEBUG Mass Point moved to { 109.5, 34.734375, 402.5, type="VECTOR3" }
 warning: BeginSession() failed: Unable to create prop '/env/common/props/massDeposit01_prop.bp'
          stack traceback:
          	[C]: in function `CreatePropHPR'
          	...\git-loud\gamedata\lua\lua\sim\scenarioutilities.lua(255): in function `CreateResources'
          	...\git-loud\gamedata\lua\lua\sim\scenarioutilities.lua(500): in function `InitializeArmies'
-         	...ud\maps\burial mounds 20\burial mounds 20_script.lua(4): in function `OnPopulate'
+         	...\loud dev\git-loud\maps\the pass\the pass_script.lua(5): in function `OnPopulate'
          	...\mods\loud dev\git-loud\gamedata\lua\lua\siminit.lua(98): in function `BeginSession'
 info: Hooked /lua/skins/skins.lua with /mods/domino_mod_support/hook/lua/skins/skins.lua
 info: Hooked /lua/factions.lua with /mods/blackopsacus/hook/lua/factions.lua
@@ -1387,8 +1017,8 @@ info: Hooked /lua/ui/game/chat.lua with /mods/domino_mod_support/hook/lua/ui/gam
 info: creating low fidelity terrain
 info: creating low fidelity water
 info: *AI DEBUG SpreadAttack initialized
-info: *AI DEBUG Map Water Ratio is 0.3876921236515  Size is 1024  Unit Cap for Zan-Ilnaa (AI: Tech) is 800
-info: *AI DEBUG Zan-Ilnaa (AI: Tech) Selected Loud_Main_Small
+info: *AI DEBUG Map Water Ratio is 0  Size is 512  Unit Cap for Murdock (AIx: Tech) is 800
+info: *AI DEBUG Murdock (AIx: Tech) Selected Loud_Main_Small
 warning: Error running lua script: ...v\git-loud\gamedata\lua\lua\ai\aiaddbuildertable.lua(163): attempt to call method `AddBuilder' (a nil value)
          stack traceback:
          	...v\git-loud\gamedata\lua\lua\ai\aiaddbuildertable.lua(163): in function `AddBuilderTable'
@@ -1401,7 +1031,5 @@ info: *AI DEBUG Pathfinding Setup
 warning: LOUD-Dev is trying to cheat!
 warning: LOUD-Dev is trying to cheat!
 warning: LOUD-Dev is trying to cheat!
-info: Hooked /lua/ui/dialogs/keybindings.lua with /mods/gaz_ui/hook/lua/ui/dialogs/keybindings.lua
-info: Hooked /lua/keymap/keydescriptions.lua with /mods/gaz_ui/hook/lua/keymap/keydescriptions.lua
 warning: SND: StopAllSounds - Invalid Category [Global]
-info: Run time: 0h01m26s
+info: Run time: 0h00m41s
