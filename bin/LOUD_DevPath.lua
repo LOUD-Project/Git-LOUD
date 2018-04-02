@@ -52,7 +52,9 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\TotalMayhem\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\GAZ_UI\\lua', '/lua')
+--Non Game-data
 mount_dir(InitFileDir .. '\\..\\maps', '/maps')
+--mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
 
 
 hook = {
