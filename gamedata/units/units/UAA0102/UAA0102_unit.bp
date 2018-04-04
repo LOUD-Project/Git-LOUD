@@ -67,7 +67,7 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 5,
+        AirThreatLevel = 5.6,
         ArmorType = 'Light',
         Health = 320,
         MaxHealth = 320,
@@ -213,7 +213,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 12,
+            Damage = 14,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonic Pulse Battery',
@@ -228,9 +228,10 @@ UnitBlueprint {
             Label = 'SonicPulseBattery',
 			
             MaxRadius = 30,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 70,
 			
             NeedPrep = true,
 			
@@ -255,7 +256,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,		-- 28 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
@@ -301,7 +302,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 12,
+            Damage = 14,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonic Pulse Battery',
@@ -316,9 +317,10 @@ UnitBlueprint {
             Label = 'SonicPulseBattery',
 			
             MaxRadius = 30,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 70,
 			
             PrefersPrimaryWeaponTarget = true,
 			
@@ -343,7 +345,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,		-- another 28 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
