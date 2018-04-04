@@ -63,7 +63,7 @@ UnitBlueprint {
     },
     CollisionOffsetZ = 0,
     Defense = {
-        AirThreatLevel = 5,
+        AirThreatLevel = 6,
         ArmorType = 'Light',
         Health = 350,
         MaxHealth = 350,
@@ -186,10 +186,10 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 25,
+            Damage = 12,
             DamageType = 'Normal',
 			
-            DisplayName = 'Linked Railgun',
+            DisplayName = 'Railgun',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
@@ -205,10 +205,10 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
-			ProjectileLifetime = 0.6,
+			ProjectileLifetime = 0.5,
 
             RackBones = {
                 {
@@ -226,7 +226,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 50 DPS Air
+            RateOfFire = 5,		-- 60 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
