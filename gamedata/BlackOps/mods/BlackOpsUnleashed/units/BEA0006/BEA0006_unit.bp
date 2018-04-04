@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Goliath II AA Drone',
+    Description = '<LOC bea0006_desc>Goliath II AA Drone',
 	
     Display = {
 		LayerChangeEffects = {

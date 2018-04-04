@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 3,
     },
 	
-    Description = 'Hvy Mobile Shield Generator',
+    Description = '<LOC uel0308_desc>Hvy Mobile Shield Generator',
 	
     Display = {
         Abilities = {
@@ -126,7 +126,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Veloshield',
+        UnitName = '<LOC uel0308_name>Veloshield',
         UnitWeight = 1,
     },
 	

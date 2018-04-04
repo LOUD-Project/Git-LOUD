@@ -30,7 +30,7 @@ UnitBlueprint {
         RegenRate = 1,
         ThreatLevel = 0,
     },
-    Description = 'Wall Section',
+    Description = '<LOC ueb5101_desc>Wall Section',
     Display = {
         BuildMeshBlueprint = '/props/UEB5101/UEB5101_prop.bp',
         Mesh = {
@@ -82,7 +82,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Calcicrete',
+        UnitName = '<LOC ueb5101_name>Calcicrete',
         UnitWeight = 1,
     },
     Intel = {

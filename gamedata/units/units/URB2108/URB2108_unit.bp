@@ -40,7 +40,7 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 1,
     },
-    Description = 'Tactical Missile Launcher',
+    Description = '<LOC urb2108_desc>Tactical Missile Launcher',
     Display = {
         Abilities = {
             'Manual Launch',
@@ -101,7 +101,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'TML-4',
+        UnitName = '<LOC urb2108_name>TML-4',
         UnitWeight = 1,
     },
     Intel = {

@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 14,
     },
 	
-    Description = 'Sniper Bot',
+    Description = '<LOC xsl0305_desc>Sniper Bot',
 	
     Display = {
         Abilities = {
@@ -151,7 +151,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        UnitName = 'Usha-Ah',
+        UnitName = '<LOC xsl0305_name>Usha-Ah',
         UnitWeight = 1,
     },
 	

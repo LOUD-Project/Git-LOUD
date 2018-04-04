@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 4500,
         RegenRate = 2,
     },
-    Description = 'Heavy AA Flak Battery',
+    Description = '<LOC uab3304_desc>Heavy AA Flak Battery',
     Display = {
         Abilities = {
             'Aquatic',
@@ -103,7 +103,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Marriss',
+        UnitName = '<LOC uab3304_name>Marriss',
         UnitWeight = 1,
     },
     Intel = {

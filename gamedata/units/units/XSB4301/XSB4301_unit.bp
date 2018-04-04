@@ -60,7 +60,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -7,
         },
     },
-    Description = 'Heavy Shield Generator',
+    Description = '<LOC xsb4301_desc>Heavy Shield Generator',
     Display = {
         AnimationActivate = '/units/XSB4301/XSB4301_Aactivate.sca',
         Mesh = {

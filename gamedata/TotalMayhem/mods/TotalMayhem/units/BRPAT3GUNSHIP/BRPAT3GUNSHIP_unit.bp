@@ -127,7 +127,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 25,
     },
 	
-    Description = 'Heavy Gunship',
+    Description = '<LOC brpat3gunship_desc>Heavy Gunship',
     Display = {
 	
         Abilities = {
@@ -184,7 +184,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Ia-Usla',
+        UnitName = '<LOC brpat3gunship_name>Ia-Usla',
         UnitWeight = 1,
     },
 	

@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Crab Egg (Scorpion)',
+    Description = '<LOC brl0007_desc>Crab Egg (Scorpion)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0007/BRL0007_aopen.sca',
         BuildAttachBone = 'AttachPoint',

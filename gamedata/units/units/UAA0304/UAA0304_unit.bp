@@ -89,7 +89,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 69,
     },
 	
-    Description = 'Strategic Bomber',
+    Description = '<LOC uaa0304_desc>Strategic Bomber',
 	
     Display = {
         Abilities = {
@@ -141,7 +141,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Shocker',
+        UnitName = '<LOC uaa0304_name>Shocker',
         UnitWeight = 1,
     },
     Intel = {

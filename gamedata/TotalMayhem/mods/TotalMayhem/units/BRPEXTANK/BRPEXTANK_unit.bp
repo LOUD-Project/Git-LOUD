@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 71,
     },
 	
-    Description = 'Light Experimental Assault Tank',
+    Description = '<LOC brpextank_desc>Light Experimental Assault Tank',
 	
     Display = {
         Abilities = {
@@ -191,7 +191,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Yath-Us',
+        UnitName = '<LOC brpextank_name>Yath-Us',
         UnitWeight = 2,
     },
 	

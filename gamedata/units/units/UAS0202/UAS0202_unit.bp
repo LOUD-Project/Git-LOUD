@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 4,
         SurfaceThreatLevel = 14,
     },
-    Description = 'AA Cruiser',
+    Description = '<LOC uas0202_desc>AA Cruiser',
     Display = {
         Abilities = {
             'SAM AA x 2',
@@ -119,7 +119,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Infinity Class',
+        UnitName = '<LOC uas0202_name>Infinity Class',
         UnitWeight = 1,
     },
     Intel = {

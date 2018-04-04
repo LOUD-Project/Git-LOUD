@@ -55,7 +55,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Air Staging Beacon',
+    Description = '<LOC xsb5202_desc>Air Staging Beacon',
 	
     Display = {
         Abilities = {
@@ -127,7 +127,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Iathu-uhthe',
+        UnitName = '<LOC xsb5202_name>Iathu-uhthe',
         UnitWeight = 1,
     },
     Interface = {

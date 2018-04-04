@@ -42,7 +42,7 @@ UnitBlueprint {
         MaxHealth = 975,
         RegenRate = 0,
     },
-    Description = 'Tactical Missile Defense',
+    Description = '<LOC xsb4201_desc>Tactical Missile Defense',
     Display = {
         Abilities = {
             'Aquatic',
@@ -101,7 +101,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ythisatha',
+        UnitName = '<LOC xsb4201_name>Ythisatha',
         UnitWeight = 1,
     },
     Intel = {

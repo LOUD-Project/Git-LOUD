@@ -48,7 +48,7 @@ UnitBlueprint {
         MaxHealth = 19000,
         RegenRate = 2,
     },
-    Description = 'Advanced Land Factory',
+    Description = '<LOC xsb0301_desc>Advanced Land Factory',
     Display = {
         AnimationDeath = {
             {

@@ -42,7 +42,7 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 0,
     },
-    Description = 'Basic Power Generator',
+    Description = '<LOC xsb1101_desc>Basic Power Generator',
     Display = {
         AnimationDeath = {
             {

@@ -99,7 +99,7 @@ UnitBlueprint {
 		NoTeleDistance = 55,	#40
 		MaxTeleRange = 500,
     },
-    Description = 'Armored Command Unit',
+    Description = '<LOC erl0001_desc>Armored Command Unit',
     Display = {
         Abilities = {
             'Amphibious',

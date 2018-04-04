@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 725,
     },
 	
-    Description = 'Experimental Ultraheavy Beetlebot',
+    Description = '<LOC brmt3ava_desc>Experimental Ultraheavy Beetlebot',
 	
     Display = {
         Abilities = {
@@ -305,7 +305,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Avalanche',
+        UnitName = '<LOC brmt3ava_name>Avalanche',
         UnitWeight = 1,
     },
 	

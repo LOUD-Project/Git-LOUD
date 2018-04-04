@@ -59,7 +59,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 49,
 	},
 	
-    Description = 'Helltank',
+    Description = '<LOC bel0307_desc>Helltank',
 	
     Display = {
         Abilities = {
@@ -108,7 +108,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Mercury (Helltank)',
+        UnitName = '<LOC bel0307_name>Mercury (Helltank)',
         UnitWeight = 1,
     },
 	

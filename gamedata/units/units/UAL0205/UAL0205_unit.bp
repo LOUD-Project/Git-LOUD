@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'AA Flak Hovertank',
+    Description = '<LOC ual0205_desc>AA Flak Hovertank',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -96,7 +96,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ascendant',
+        UnitName = '<LOC ual0205_name>Ascendant',
         UnitWeight = 1,
     },
     Intel = {

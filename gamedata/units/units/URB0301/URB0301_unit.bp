@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 17000,
         RegenRate = 3,
     },
-    Description = 'Advanced Land Factory',
+    Description = '<LOC urb0301_desc>Advanced Land Factory',
     Display = {
         AnimationBuild = '/units/urb0301/urb0301_abuild.sca',
         BuildAttachBone = 'Attachpoint',

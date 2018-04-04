@@ -60,7 +60,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -4,
         },
     },
-    Description = 'Heavy Shield Generator',
+    Description = '<LOC uab4301_desc>Heavy Shield Generator',
     Display = {
         AnimationOpen = '/units/uab4202/uab4202_aopen.sca',
         Mesh = {
@@ -143,7 +143,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Radiance',
+        UnitName = '<LOC uab4301_name>Radiance',
         UnitWeight = 1,
         UpgradesFrom = 'uab4202',
     },

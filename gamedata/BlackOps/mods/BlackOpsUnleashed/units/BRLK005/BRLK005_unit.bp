@@ -31,7 +31,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Crab Egg (Bouncer)',
+    Description = '<LOC brlk005_desc>Crab Egg (Bouncer)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRLK005/BRLK005_aopen.sca',
         BuildAttachBone = 'AttachPoint',

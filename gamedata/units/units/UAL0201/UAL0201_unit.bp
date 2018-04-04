@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.8,
     },
 	
-    Description = 'Light HoverTank',
+    Description = '<LOC ual0201_desc>Light HoverTank',
 	
     Display = {
         Mesh = {
@@ -99,7 +99,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Aurora',
+        UnitName = '<LOC ual0201_name>Aurora',
         UnitWeight = 1,
     },
 	

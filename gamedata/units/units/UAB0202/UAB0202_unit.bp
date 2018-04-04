@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 6200,
         RegenRate = 2,
     },
-    Description = 'Improved Air Factory',
+    Description = '<LOC uab0202_desc>Improved Air Factory',
     Display = {
         Abilities = {
             'Upgradeable',

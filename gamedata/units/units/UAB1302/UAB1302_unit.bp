@@ -37,7 +37,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Advanced Mass Extractor',
+    Description = '<LOC uab1302_desc>Advanced Mass Extractor',
     Display = {
         AnimationActivate = '/units/UAB1302/UAB1302_Apump.sca',
         Mesh = {

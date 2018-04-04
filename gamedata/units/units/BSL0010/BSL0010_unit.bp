@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 6,
         SurfaceThreatLevel = 45,
     },
-    Description = 'Lambda Equipped Assault Bot',
+    Description = '<LOC bsl0010_desc>Lambda Equipped Assault Bot',
 	
     Display = {
 	
@@ -130,7 +130,7 @@ UnitBlueprint {
                 helpText = 'lambda_field',
             },
         },
-        UnitName = 'Hala Ilthysathuum',
+        UnitName = '<LOC bsl0010_name>Hala Ilthysathuum',
         UnitWeight = 1,
     },
     Intel = {

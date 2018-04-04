@@ -81,7 +81,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 287,
     },
 	
-    Description = 'Experimental Dreadnaught',
+    Description = '<LOC brs0402_desc>Experimental Dreadnaught',
 	
     Display = {
         Abilities = {
@@ -210,7 +210,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'SeaDragon MKII',
+        UnitName = '<LOC brs0402_name>SeaDragon MKII',
         UnitWeight = 1,
     },
 	

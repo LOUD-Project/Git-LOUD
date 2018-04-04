@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 68,
     },
 	
-    Description = 'Light Experimental Mech',
+    Description = '<LOC brot3ham_desc>Light Experimental Mech',
 	
     Display = {
         Abilities = {
@@ -154,7 +154,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Ezriel',
+        UnitName = '<LOC brot3ham_name>Ezriel',
         UnitWeight = 1,
     },
 	

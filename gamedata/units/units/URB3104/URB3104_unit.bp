@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 70,
         RegenRate = 1,
     },
-    Description = 'Omni Sensor Array',
+    Description = '<LOC urb3104_desc>Omni Sensor Array',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

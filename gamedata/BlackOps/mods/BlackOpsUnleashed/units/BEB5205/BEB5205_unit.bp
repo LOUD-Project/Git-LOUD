@@ -78,7 +78,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -5,
         },
     },
-    Description = 'Advanced Air Staging Facility',
+    Description = '<LOC beb5205_desc>Advanced Air Staging Facility',
     Display = {
 	
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Naval Air Staging Yard',
+        UnitName = '<LOC beb5205_name>Naval Air Staging Yard',
         UnitWeight = 1,
     },
     Interface = {

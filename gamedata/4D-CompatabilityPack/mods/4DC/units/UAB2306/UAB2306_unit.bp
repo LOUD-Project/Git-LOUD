@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 38,
     },
 	
-    Description = 'Anachronon',
+    Description = '<LOC uab2306_desc>Anachronon',
 	
     Display = {
         Abilities = {
@@ -117,7 +117,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Anachronon',
+        UnitName = '<LOC uab2306_name>Anachronon',
         UnitWeight = 1,
         SelectionPriority = 5,
     },

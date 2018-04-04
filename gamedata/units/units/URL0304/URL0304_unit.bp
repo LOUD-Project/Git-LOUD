@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 9,
     },
 	
-    Description = 'Mobile Heavy Artillery',
+    Description = '<LOC url0304_desc>Mobile Heavy Artillery',
 	
     Display = {
         Abilities = {
@@ -115,7 +115,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Trebuchet',
+        UnitName = '<LOC url0304_name>Trebuchet',
         UnitWeight = 1,
     },
 	

@@ -43,7 +43,7 @@ UnitBlueprint {
         MaxHealth = 10000,
         RegenRate = 2,
     },
-    Description = 'Advanced Power Generator',
+    Description = '<LOC uab1301_desc>Advanced Power Generator',
     Display = {
         Abilities = {
             'Volatile',

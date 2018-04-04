@@ -43,7 +43,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Basic Radar System',
+    Description = '<LOC xsb3101_desc>Basic Radar System',
     Display = {
         Abilities = {
             'Upgradeable',
@@ -129,7 +129,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Esel',
+        UnitName = '<LOC xsb3101_name>Esel',
         UnitWeight = 1,
         UpgradesTo = 'xsb3201',
     },

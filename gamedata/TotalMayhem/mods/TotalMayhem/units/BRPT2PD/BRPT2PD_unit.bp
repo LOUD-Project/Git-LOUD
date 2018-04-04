@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 27,
     },
 	
-    Description = 'Multirole Improved Point Defense',
+    Description = '<LOC brpt2pd_desc>Multirole Improved Point Defense',
 	
     Display = {
         Abilities = {
@@ -110,7 +110,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ve-Us',
+        UnitName = '<LOC brpt2pd_name>Ve-Us',
         UnitWeight = 1,
     },
 	

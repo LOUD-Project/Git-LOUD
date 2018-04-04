@@ -86,7 +86,7 @@ UnitBlueprint {
         RegenRate = 10,
         SurfaceThreatLevel = 75,
     },
-    Description = 'Armored Command Unit',
+    Description = '<LOC xsl0001_desc>Armored Command Unit',
     Display = {
         Abilities = {
             'Customizable',

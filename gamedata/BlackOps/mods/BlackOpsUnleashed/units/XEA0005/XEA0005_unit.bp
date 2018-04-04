@@ -94,7 +94,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12,
     },
 	
-    Description = 'Defense Drone',
+    Description = '<LOC xea0005_desc>Defense Drone',
 	
     Display = {
         Mesh = {

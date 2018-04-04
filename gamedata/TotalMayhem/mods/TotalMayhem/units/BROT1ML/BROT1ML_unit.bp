@@ -44,7 +44,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 3,
     },
-    Description = 'Light Rocket Artillery',
+    Description = '<LOC brot1ml_desc>Light Rocket Artillery',
     Display = {
         Mesh = {
             IconFadeInZoom = 140,
@@ -85,7 +85,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Wavecrest',
+        UnitName = '<LOC brot1ml_name>Wavecrest',
         UnitWeight = 1,
     },
     Intel = {

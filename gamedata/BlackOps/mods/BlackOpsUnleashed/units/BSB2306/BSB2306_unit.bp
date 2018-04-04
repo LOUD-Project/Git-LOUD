@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 30,
     },
-    Description = 'Heavy Point Defense',
+    Description = '<LOC bsb2306_desc>Heavy Point Defense',
 	
     Display = {
 	
@@ -112,7 +112,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Uttauthuum',
+        UnitName = '<LOC bsb2306_name>Uttauthuum',
         UnitWeight = 1,
     },
     Intel = {

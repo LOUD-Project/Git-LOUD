@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 10500,
         RegenRate = 2,
     },
-    Description = 'Advanced Power Generator',
+    Description = '<LOC xsb1301_desc>Advanced Power Generator',
     Display = {
         AnimationDeath = {
             {

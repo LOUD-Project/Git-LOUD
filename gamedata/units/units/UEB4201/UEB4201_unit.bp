@@ -42,7 +42,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Tactical Missile Defense',
+    Description = '<LOC ueb4201_desc>Tactical Missile Defense',
 	
     Display = {
         Abilities = {
@@ -102,7 +102,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Buzzkill',
+        UnitName = '<LOC ueb4201_name>Buzzkill',
         UnitWeight = 1,
     },
 	

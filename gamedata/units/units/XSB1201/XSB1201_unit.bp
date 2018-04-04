@@ -48,7 +48,7 @@ UnitBlueprint {
         MaxHealth = 2400,
         RegenRate = 1,
     },
-    Description = 'Improved Power Generator',
+    Description = '<LOC xsb1201_desc>Improved Power Generator',
     Display = {
         Abilities = {
             'Volatile',

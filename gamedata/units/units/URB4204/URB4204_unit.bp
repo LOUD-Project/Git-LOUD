@@ -54,7 +54,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -3,
         },
     },
-    Description = 'Improved Shield Generator',
+    Description = '<LOC urb4204_desc>Improved Shield Generator',
     Display = {
         Abilities = {
             'Upgradeable',
@@ -141,7 +141,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'ED2',
+        UnitName = '<LOC urb4204_name>ED2',
         UnitWeight = 1,
         UpgradesFrom = 'urb4202',
         UpgradesFromBase = 'urb4202',

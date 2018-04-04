@@ -53,7 +53,7 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 0,
     },
-    Description = 'Tactical Missile Launcher',
+    Description = '<LOC uab2108_desc>Tactical Missile Launcher',
     Display = {
         Abilities = {
             'Manual Launch required',
@@ -115,7 +115,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Serpentine',
+        UnitName = '<LOC uab2108_name>Serpentine',
         UnitWeight = 1,
     },
     Intel = {

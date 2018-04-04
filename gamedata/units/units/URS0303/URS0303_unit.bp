@@ -69,7 +69,7 @@ UnitBlueprint {
         RegenRate = 25,
     },
 	
-    Description = 'Aircraft Carrier',
+    Description = '<LOC urs0303_desc>Aircraft Carrier',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -191,7 +191,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Command Class',
+        UnitName = '<LOC urs0303_name>Command Class',
         UnitWeight = 1,
     },
 	

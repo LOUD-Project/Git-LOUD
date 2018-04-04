@@ -44,7 +44,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Mine',
+    Description = '<LOC bsb2211_desc>Mine',
 	
     Display = {
         Mesh = {
@@ -94,7 +94,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC bsb2210_name>Mine',
+        UnitName = '<LOC bsb2211_name>Mine',
         UnitWeight = 1,
     },
 	

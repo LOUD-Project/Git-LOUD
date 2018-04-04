@@ -105,7 +105,7 @@ UnitBlueprint {
         SubThreatLevel = 10,
     },
 	
-    Description = 'Torpedo Bomber',
+    Description = '<LOC ura0204_desc>Torpedo Bomber',
 	
     Display = {
         Abilities = {
@@ -159,7 +159,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Cormorant',
+        UnitName = '<LOC ura0204_name>Cormorant',
         UnitWeight = 1,
     },
 	

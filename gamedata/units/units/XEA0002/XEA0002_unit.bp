@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2,
     },
 	
-    Description = 'Defense Satellite',
+    Description = '<LOC xea0002_desc>Defense Satellite',
 	
     Display = {
         Mesh = {

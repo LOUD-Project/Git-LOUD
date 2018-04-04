@@ -70,7 +70,7 @@ UnitBlueprint {
         MaxHealth = 315,
         RegenRate = 2,
     },
-    Description = 'Interceptor',
+    Description = '<LOC ura0102_desc>Interceptor',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -125,7 +125,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Prowler',
+        UnitName = '<LOC ura0102_name>Prowler',
         UnitWeight = 1,
     },
     Intel = {

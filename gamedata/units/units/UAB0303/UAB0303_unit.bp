@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 5,
     },
 	
-    Description = 'Advanced Naval Factory',
+    Description = '<LOC uab0303_desc>Advanced Naval Factory',
 	
     Display = {
         BuildAttachBone = 'Attachpoint01',

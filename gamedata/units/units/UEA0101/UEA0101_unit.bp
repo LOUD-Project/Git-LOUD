@@ -68,7 +68,7 @@ UnitBlueprint {
         MaxHealth = 80,
         RegenRate = 0,
     },
-    Description = 'Air Scout',
+    Description = '<LOC uea0101_desc>Air Scout',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -115,7 +115,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hummingbird',
+        UnitName = '<LOC uea0101_name>Hummingbird',
         UnitWeight = 1,
     },
 	

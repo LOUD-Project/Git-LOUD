@@ -96,7 +96,7 @@ UnitBlueprint {
         SubThreatLevel = 9.6,
     },
 	
-    Description = 'Torpedo Bomber',
+    Description = '<LOC uaa0204_desc>Torpedo Bomber',
 	
     Display = {
         Abilities = {
@@ -151,7 +151,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Skimmer',
+        UnitName = '<LOC uaa0204_name>Skimmer',
         UnitWeight = 1,
     },
 	

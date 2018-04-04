@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 160,
     },
 	
-    Description = 'Lambda Generator Advanced Point Defense',
+    Description = '<LOC bsb0405_desc>Lambda Generator Advanced Point Defense',
 	
     Display = {
         Abilities = {
@@ -127,7 +127,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Uttaus-Athellu',
+        UnitName = '<LOC bsb0405_name>Uttaus-Athellu',
         UnitWeight = 1,
     },
 	

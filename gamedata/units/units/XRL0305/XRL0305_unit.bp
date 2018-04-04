@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 45,
     },
 	
-    Description = 'Armored Assault Bot',
+    Description = '<LOC xrl0305_desc>Armored Assault Bot',
 	
     Display = {
         Abilities = {
@@ -144,7 +144,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Brick',
+        UnitName = '<LOC xrl0305_name>Brick',
         UnitWeight = 1,
     },
 	

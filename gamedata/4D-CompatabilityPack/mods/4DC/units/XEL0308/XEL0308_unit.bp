@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 7.5,
     },
-    Description = 'Amphibious SAM Launcher',
+    Description = '<LOC xel0308_desc>Amphibious SAM Launcher',
     Display = {
 		Abilities = {
 			'Amphibious',
@@ -112,7 +112,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Hermes',
+        UnitName = '<LOC xel0308_name>Hermes',
         UnitWeight = 1,
     },
     Intel = {

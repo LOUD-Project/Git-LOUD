@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 5500,
         RegenRate = 1,
     },
-    Description = 'Advanced Anti-Teleport Tower',
+    Description = '<LOC bsb4309_desc>Advanced Anti-Teleport Tower',
     Display = {
         Abilities = {
             'Anti-Teleport Field:Prevents Teleportation',
@@ -110,7 +110,7 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-        UnitName = 'Haazthue-Uhthena',
+        UnitName = '<LOC bsb4309_name>Haazthue-Uhthena',
         UnitWeight = 1,
     },
     Intel = {

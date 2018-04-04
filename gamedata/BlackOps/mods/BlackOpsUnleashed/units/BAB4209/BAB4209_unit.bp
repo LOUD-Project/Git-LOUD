@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 1800,
         RegenRate = 1,
     },
-    Description = 'Anti-Teleport Generator',
+    Description = '<LOC bab4209_desc>Anti-Teleport Generator',
     Display = {
         Abilities = {
         	'Anti-Teleport Field: Prevents Teleportation',
@@ -110,7 +110,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Quantum Wake Generator',
+        UnitName = '<LOC bab4209_name>Quantum Wake Generator',
         UnitWeight = 1,
     },
     Intel = {

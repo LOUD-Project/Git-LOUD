@@ -49,7 +49,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.9,
     },
 	
-    Description = 'Medium Tank',
+    Description = '<LOC xsl0201_desc>Medium Tank',
 	
     Display = {
         Mesh = {
@@ -98,7 +98,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Thaam',
+        UnitName = '<LOC xsl0201_name>Thaam',
         UnitWeight = 1,
     },
     Intel = {

@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 6,
     },
-    Description = 'Mobile Missile Launcher',
+    Description = '<LOC uel0111_desc>Mobile Missile Launcher',
     Display = {
         AnimationOpen = '/units/uel0111/uel0111_aopen01.sca',
         Mesh = {
@@ -100,7 +100,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Flapjack',
+        UnitName = '<LOC uel0111_name>Flapjack',
         UnitWeight = 1,
     },
     Intel = {

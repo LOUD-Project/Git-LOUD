@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 21,
     },
 	
-    Description = 'Energy Mortar Emplacement',
+    Description = '<LOC bab2303_desc>Energy Mortar Emplacement',
 	
     Display = {
 		Abilities = {
@@ -107,7 +107,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Archangel',
+        UnitName = '<LOC bab2303_name>Archangel',
         UnitWeight = 1,
     },
     Intel = {

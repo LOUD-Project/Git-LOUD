@@ -45,7 +45,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'T3 Engineer',
+    Description = '<LOC uel0309_desc>T3 Engineer',
 	
     Display = {
         AnimationBuild = '/units/UEL0309/uel0309_aopen.sca',

@@ -45,7 +45,7 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 0,
     },
-    Description = 'Engineering Station',
+    Description = '<LOC beb0005_desc>Engineering Station',
     Display = {
         Abilities = {
             'Engineering Suite',
@@ -120,7 +120,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'The Kennel',
+        UnitName = '<LOC beb0005_name>The Kennel',
         UnitWeight = 1,
         UpgradesFrom = 'xeb0104',
     },

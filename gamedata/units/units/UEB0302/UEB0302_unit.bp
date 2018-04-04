@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 21000,
         RegenRate = 1,
     },
-    Description = 'Advanced Air Factory',
+    Description = '<LOC ueb0302_desc>Advanced Air Factory',
     Display = {
         AnimationFinishBuildLand = '/units/ueb0302/ueb0302_aplatform.sca',
         BuildAttachBone = 'Attachpoint',

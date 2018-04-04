@@ -40,7 +40,7 @@ UnitBlueprint {
         MaxHealth = 5500,
         RegenRate = 1,
     },
-    Description = 'Advanced Anti-Teleport Tower',
+    Description = '<LOC brb4309_desc>Advanced Anti-Teleport Tower',
     Display = {
         Abilities = {
 			'Anti-Teleport Field:Prevents Teleportation',
@@ -104,7 +104,7 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-        UnitName = 'Shroud',
+        UnitName = '<LOC brb4309_name>Shroud',
         UnitWeight = 1,
     },
     Intel = {

@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Basic Point Defense',
+    Description = '<LOC xsb2101_desc>Basic Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -100,7 +100,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Uttaus',
+        UnitName = '<LOC xsb2101_name>Uttaus',
         UnitWeight = 1,
     },
     Intel = {
@@ -193,7 +193,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,

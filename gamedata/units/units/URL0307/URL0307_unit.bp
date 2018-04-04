@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = .1,
     },
 	
-    Description = 'Adv Mobile Stealth Field System',
+    Description = '<LOC url0307_desc>Adv Mobile Stealth Field System',
 	
     Display = {
         Abilities = {
@@ -123,7 +123,7 @@ UnitBlueprint {
             RULEUTC_StealthToggle = true,
         },
 		
-        UnitName = 'Deviator',
+        UnitName = '<LOC url0307_name>Deviator',
 		
         UnitWeight = 1,
     },

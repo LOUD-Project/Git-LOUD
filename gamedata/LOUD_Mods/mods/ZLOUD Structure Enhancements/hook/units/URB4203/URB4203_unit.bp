@@ -28,7 +28,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Stealth Field Generator',
+    Description = '<LOC urb4203_desc>Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -85,7 +85,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Twilight',
+        UnitName = '<LOC urb4203_name>Twilight',
         UnitWeight = 1,
 		UpgradesTo = 'urb4304',
     },

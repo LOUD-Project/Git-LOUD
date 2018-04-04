@@ -96,7 +96,7 @@ UnitBlueprint {
         RegenRate = 4,
     },
 	
-    Description = 'Improved Fighter',
+    Description = '<LOC xaa0202_desc>Improved Fighter',
 	
     Display = {
         Abilities = {
@@ -156,7 +156,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Swift Wind',
+        UnitName = '<LOC xaa0202_name>Swift Wind',
         UnitWeight = 1,
     },
 	

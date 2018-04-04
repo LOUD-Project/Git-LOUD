@@ -78,7 +78,7 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 2,
     },
-    Description = 'Light Air Transport',
+    Description = '<LOC uea0107_desc>Light Air Transport',
     Display = {
         AnimationLand = '/units/UEA0107/UEA0107_atakeoff01.sca',
         ForcedBuildSpin = 90,
@@ -133,7 +133,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Courier',
+        UnitName = '<LOC uea0107_name>Courier',
         UnitWeight = 1,
     },
     Intel = {

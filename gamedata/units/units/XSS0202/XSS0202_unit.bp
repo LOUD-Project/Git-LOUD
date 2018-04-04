@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 5,
         SurfaceThreatLevel = 24,
     },
-    Description = 'Light Cruiser',
+    Description = '<LOC xss0202_desc>Light Cruiser',
     Display = {
         Abilities = {
 			'Missile Barrage',
@@ -136,7 +136,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ithalua',
+        UnitName = '<LOC xss0202_name>Ithalua',
         UnitWeight = 1,
     },
     Intel = {

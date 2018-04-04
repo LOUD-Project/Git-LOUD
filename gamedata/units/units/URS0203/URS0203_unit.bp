@@ -64,7 +64,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 2,
     },
 	
-    Description = 'Submarine',
+    Description = '<LOC urs0203_desc>Submarine',
 	
     Display = {
         Abilities = {
@@ -209,7 +209,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Sliver',
+        UnitName = '<LOC urs0203_name>Sliver',
         UnitWeight = 1,
     },
 	

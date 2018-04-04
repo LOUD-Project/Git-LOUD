@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 3,
     },
 	
-    Description = 'Combat Air Transport',
+    Description = '<LOC uea0104_desc>Combat Air Transport',
 	
     Display = {
         Abilities = {
@@ -150,7 +150,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Star Lifter',
+        UnitName = '<LOC uea0104_name>Star Lifter',
         UnitWeight = 1,
     },
 	

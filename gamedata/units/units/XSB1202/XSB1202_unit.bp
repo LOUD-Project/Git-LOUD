@@ -44,7 +44,7 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 1,
     },
-    Description = 'Improved Mass Extractor',
+    Description = '<LOC xsb1202_desc>Improved Mass Extractor',
     Display = {
         Abilities = {
             'Upgradeable',

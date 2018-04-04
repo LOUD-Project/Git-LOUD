@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 0,
     },
-    Description = 'Basic Sonar System',
+    Description = '<LOC ueb3102_desc>Basic Sonar System',
     Display = {
         Abilities = {
             'Sonar',

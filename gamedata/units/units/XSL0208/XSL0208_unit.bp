@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'T2 Engineer',
+    Description = '<LOC xsl0208_desc>T2 Engineer',
 	
     Display = {
         IdleEffects = {

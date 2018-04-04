@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Mobile AA Gun',
+    Description = '<LOC xsl0104_desc>Mobile AA Gun',
 	
     Display = {
 	
@@ -114,7 +114,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ia-istle',
+        UnitName = '<LOC xsl0104_name>Ia-istle',
         UnitWeight = 1,
     },
 	

@@ -41,7 +41,7 @@ UnitBlueprint {
 		NoTeleDistance = 55,
     },
 	
-    Description = 'Adv Stealth Field Generator',
+    Description = '<LOC ueb4304_desc>Adv Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -134,7 +134,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Obfuscator',
+        UnitName = '<LOC ueb4304_name>Obfuscator',
         UnitWeight = 1,
 		UpgradesFrom = 'ueb4203',
     },

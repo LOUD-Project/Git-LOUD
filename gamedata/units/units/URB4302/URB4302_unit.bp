@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 5,
     },
-    Description = 'Strategic Missile Defense',
+    Description = '<LOC urb4302_desc>Strategic Missile Defense',
     Display = {
         Abilities = {
             'Strategic Missile Defense',
@@ -103,7 +103,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Guardian',
+        UnitName = '<LOC urb4302_name>Guardian',
         UnitWeight = 1,
     },
     Intel = {

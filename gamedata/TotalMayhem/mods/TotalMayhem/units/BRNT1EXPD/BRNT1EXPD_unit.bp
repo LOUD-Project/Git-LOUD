@@ -46,7 +46,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Gatling Defense System',
+    Description = '<LOC brnt1expd_desc>Gatling Defense System',
     Display = {
         Abilities = {
             'Dual Role PD/Anti-Air',
@@ -97,7 +97,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Mayor',
+        UnitName = '<LOC brnt1expd_name>Mayor',
         UnitWeight = 1,
     },
     Intel = {

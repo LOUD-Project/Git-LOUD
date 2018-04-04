@@ -47,7 +47,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 3.4,
     },
 	
-    Description = 'Mobile Light Artillery',
+    Description = '<LOC uel0103_desc>Mobile Light Artillery',
 	
     Display = {
         Mesh = {
@@ -97,7 +97,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Lobo',
+        UnitName = '<LOC uel0103_name>Lobo',
         UnitWeight = 1,
     },
     Intel = {

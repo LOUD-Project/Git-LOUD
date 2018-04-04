@@ -38,7 +38,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1.5,
     },
 	
-    Description = 'Light Assault Bot',
+    Description = '<LOC uel0106_desc>Light Assault Bot',
 	
     Display = {
         AnimationWalk = '/units/uel0106/UEL0106_Awalk01.sca',
@@ -93,7 +93,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Mech Marine',
+        UnitName = '<LOC uel0106_name>Mech Marine',
         UnitWeight = 1,
     },
     Intel = {

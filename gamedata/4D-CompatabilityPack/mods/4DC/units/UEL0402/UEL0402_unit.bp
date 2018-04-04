@@ -3,7 +3,7 @@
 --  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
 --  Special Thanks to : Exavier_Macbeth
 --  Summary  : UEF Rampage Assault Bot Script
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 -----------------------------------------------------------------------------
 UnitBlueprint {
     AI = {
@@ -103,7 +103,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 161,
     },
 	
-    Description = 'Experimental Assault Mech',
+    Description = '<LOC uel0402_desc>Experimental Assault Mech',
 	
     Display = {
 	
@@ -242,7 +242,7 @@ UnitBlueprint {
         OrderOverrides = {},
 		
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Rampage',
+        UnitName = '<LOC uel0402_name>Rampage',
         UnitWeight = 1,
     },
 	

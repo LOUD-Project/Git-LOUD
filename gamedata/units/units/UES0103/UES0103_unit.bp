@@ -55,7 +55,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 6.5,
     },
 	
-    Description = 'Frigate',
+    Description = '<LOC ues0103_desc>Frigate',
 	
     Display = {
 	
@@ -147,7 +147,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
-        UnitName = 'Thunderhead Class',
+        UnitName = '<LOC ues0103_name>Thunderhead Class',
         UnitWeight = 1,
     },
 	

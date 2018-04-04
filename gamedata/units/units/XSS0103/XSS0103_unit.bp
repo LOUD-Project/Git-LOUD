@@ -47,7 +47,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7.5,
     },
 	
-    Description = 'Frigate',
+    Description = '<LOC xss0103_desc>Frigate',
 	
     Display = {
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hau-esel',
+        UnitName = '<LOC xss0103_name>Hau-esel',
         UnitWeight = 1,
     },
 	

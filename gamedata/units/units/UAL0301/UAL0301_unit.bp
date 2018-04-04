@@ -71,7 +71,7 @@ UnitBlueprint {
         RegenRate = 25,
         SurfaceThreatLevel = 20,
     },
-    Description = 'Support Armored Command Unit',
+    Description = '<LOC ual0301_desc>Support Armored Command Unit',
     Display = {
         Abilities = {
             'Amphibious',

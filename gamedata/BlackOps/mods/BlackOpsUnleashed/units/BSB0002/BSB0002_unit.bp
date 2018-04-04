@@ -29,7 +29,7 @@ UnitBlueprint {
         MaxHealth = 1,
         RegenRate = 0,
     },
-    Description = 'Factory',
+    Description = '<LOC bsb0002_desc>Factory',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

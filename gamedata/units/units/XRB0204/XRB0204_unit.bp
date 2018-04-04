@@ -147,7 +147,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitName = 'Hive Mk. II',
+        UnitName = '<LOC xrb0204_name>Hive Mk. II',
         UnitWeight = 1,
         UpgradesFrom = 'xrb0104',
         UpgradesTo = 'xrb0304',

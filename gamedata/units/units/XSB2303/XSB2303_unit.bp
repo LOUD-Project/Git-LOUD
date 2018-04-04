@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 14,
     },
-    Description = 'Field Artillery Installation',
+    Description = '<LOC xsb2303_desc>Field Artillery Installation',
     Display = {
         AnimationDeath = {
             {
@@ -115,7 +115,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Zthuthaam',
+        UnitName = '<LOC xsb2303_name>Zthuthaam',
         UnitWeight = 1,
     },
     Intel = {

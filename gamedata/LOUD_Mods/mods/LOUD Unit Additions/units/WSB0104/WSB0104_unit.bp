@@ -52,7 +52,7 @@ UnitBlueprint {
         MaxHealth = 3100,
         RegenRate = 2,
     },
-    Description = 'Engineering Station',
+    Description = '<LOC wsb0104_desc>Engineering Station',
     Display = {
         Abilities = {
             'Engineering Suite',
@@ -145,7 +145,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Dehgarwof',
+        UnitName = '<LOC wsb0104_name>Dehgarwof',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },

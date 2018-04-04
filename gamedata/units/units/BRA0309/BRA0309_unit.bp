@@ -99,7 +99,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 6,
     },
 	
-    Description = 'Heavy Air Transport',
+    Description = '<LOC bra0309_desc>Heavy Air Transport',
 	
     Display = {
         Abilities = {
@@ -205,7 +205,7 @@ UnitBlueprint {
         ToggleCaps = {
 			RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Vanisher',
+        UnitName = '<LOC bra0309_name>Vanisher',
         UnitWeight = 1,
     },
 	

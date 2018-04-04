@@ -72,7 +72,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 10,
     },
-    Description = 'Attack Bomber',
+    Description = '<LOC uaa0103_desc>Attack Bomber',
     Display = {
         Abilities = {
             'EMP Weapon',
@@ -129,7 +129,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Shimmer',
+        UnitName = '<LOC uaa0103_name>Shimmer',
         UnitWeight = 1,
     },
     Intel = {

@@ -65,7 +65,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Strategic Missile Launcher',
+    Description = '<LOC urb2305_desc>Strategic Missile Launcher',
 	
     Display = {
         Abilities = {
@@ -178,7 +178,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Liberator',
+        UnitName = '<LOC urb2305_name>Liberator',
         UnitWeight = 1,
     },
 	

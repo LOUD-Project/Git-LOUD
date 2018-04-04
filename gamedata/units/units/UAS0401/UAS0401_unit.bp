@@ -110,7 +110,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 180,
     },
 	
-    Description = 'Experimental Submarine',
+    Description = '<LOC uas0401_desc>Experimental Submarine',
 	
     Display = {
         Abilities = {
@@ -320,7 +320,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Tempest',
+        UnitName = '<LOC uas0401_name>Tempest',
         UnitWeight = 6,
         ToggleCaps = {
             RULEUTC_SpecialToggle = true,

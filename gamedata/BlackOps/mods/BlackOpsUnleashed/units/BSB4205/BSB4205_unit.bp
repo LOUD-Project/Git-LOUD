@@ -56,7 +56,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Restoration Field Generator',
+    Description = '<LOC bsb4205_desc>Restoration Field Generator',
 	
     Display = {
         Abilities = {
@@ -135,7 +135,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 		
-        UnitName = 'Au-iya',
+        UnitName = '<LOC bsb4205_name>Au-iya',
         UnitWeight = 1,
     },
 	

@@ -48,7 +48,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'AA Support Boat',
+    Description = '<LOC uas0102_desc>AA Support Boat',
 	
     Display = {
         Mesh = {
@@ -110,7 +110,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Shard',
+        UnitName = '<LOC uas0102_name>Shard',
         UnitWeight = 1,
     },
 	

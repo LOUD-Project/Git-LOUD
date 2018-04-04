@@ -67,7 +67,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 63,
     },
 	
-    Description = 'Experimental Support Mech',
+    Description = '<LOC brnt3ow_desc>Experimental Support Mech',
 	
     Display = {
         Abilities = {
@@ -125,7 +125,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Owens',
+        UnitName = '<LOC brnt3ow_name>Owens',
         UnitWeight = 1,
     },
 	

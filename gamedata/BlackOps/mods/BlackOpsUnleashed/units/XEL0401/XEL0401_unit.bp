@@ -67,7 +67,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 240,
     },
 	
-    Description = 'Experimental Assault Bot',
+    Description = '<LOC xel0401_desc>Experimental Assault Bot',
 	
     Display = {
 	
@@ -194,7 +194,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         TechLevel = 'RULEUTL_Secret',
-		UnitName = 'Goliath',
+		UnitName = '<LOC xel0401_name>Goliath',
         UnitWeight = 3,
     },
 	

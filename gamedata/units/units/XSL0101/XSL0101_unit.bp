@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 0.8,
     },
 	
-    Description = 'Combat Scout',
+    Description = '<LOC xsl0101_desc>Combat Scout',
 	
     Display = {
         Abilities = {
@@ -124,7 +124,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Selen',
+        UnitName = '<LOC xsl0101_name>Selen',
         UnitWeight = 1,
     },
 	

@@ -106,7 +106,7 @@ UnitBlueprint {
         SubThreatLevel = 52,
     },
 	
-    Description = 'Experimental Aircraft Carrier',
+    Description = '<LOC ues0401_desc>Experimental Aircraft Carrier',
 	
     Display = {
         AINames = {
@@ -292,7 +292,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Atlantis',
+        UnitName = '<LOC ues0401_name>Atlantis',
         UnitWeight = 1,
     },
 	

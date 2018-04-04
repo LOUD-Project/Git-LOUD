@@ -51,7 +51,7 @@ UnitBlueprint {
         MaxHealth = 100,
         RegenRate = 0,
     },
-    Description = 'Light Air Staging Facility',
+    Description = '<LOC brb5102_desc>Light Air Staging Facility',
     Display = {
         Abilities = {
             'Air Staging',

@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 5,
         SurfaceThreatLevel = 65,
     },
-    Description = 'Bombardment Ship',
+    Description = '<LOC bss0206_desc>Bombardment Ship',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -135,7 +135,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Zthuzene',
+        UnitName = '<LOC bss0206_name>Zthuzene',
         UnitWeight = 1,
     },
     Intel = {

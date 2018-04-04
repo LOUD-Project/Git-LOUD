@@ -57,7 +57,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -3,
         },
     },
-    Description = 'Standard Shield Generator',
+    Description = '<LOC uab4202_desc>Standard Shield Generator',
     Display = {
         Abilities = {
             'Upgradeable',
@@ -157,7 +157,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Shield of Light',
+        UnitName = '<LOC uab4202_name>Shield of Light',
         UnitWeight = 1,
         UpgradesTo = 'uab4301',
     },

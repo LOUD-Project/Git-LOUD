@@ -69,7 +69,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 59,
     },
 	
-    Description = 'Battle Station',
+    Description = '<LOC xel0307_desc>Battle Station',
 	
     Display = {
         Abilities = {
@@ -135,7 +135,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Juggernaut',
+        UnitName = '<LOC xel0307_name>Juggernaut',
         UnitWeight = 1,
     },
 	

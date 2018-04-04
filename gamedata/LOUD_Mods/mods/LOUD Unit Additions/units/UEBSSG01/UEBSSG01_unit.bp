@@ -68,7 +68,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -45,
         },
     },
-    Description = 'Experimental Squareshield',
+    Description = '<LOC uebssg01_desc>Experimental Squareshield',
     Display = {
         Abilities = {
 			'Square Shield',
@@ -186,7 +186,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'SSD Hope',
+        UnitName = '<LOC uebssg01_name>SSD Hope',
         UnitWeight = 1,
         UpgradesTo = 'uebssg02',
     },

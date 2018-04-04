@@ -59,7 +59,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Heavy Artillery Installation',
+    Description = '<LOC urb2302_desc>Heavy Artillery Installation',
 	
     Display = {
         Mesh = {
@@ -129,7 +129,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Disruptor',
+        UnitName = '<LOC urb2302_name>Disruptor',
         UnitWeight = 1,
     },
 	

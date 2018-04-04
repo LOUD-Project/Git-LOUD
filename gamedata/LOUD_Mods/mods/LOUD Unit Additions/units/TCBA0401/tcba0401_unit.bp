@@ -72,7 +72,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -1.5,
         }
     },
-    Description = 'Experimental Quantum Weapon',
+    Description = '<LOC tcba0401_desc>Experimental Quantum Weapon',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -141,7 +141,7 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Experimental',
         Icon = 'land',
-        UnitName = 'Sky Prism',
+        UnitName = '<LOC tcba0401_name>Sky Prism',
         UnitWeight = 1,
     },
     Intel = {

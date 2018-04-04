@@ -68,7 +68,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -40,
         },
     },
-    Description = 'Experimental Squareshield',
+    Description = '<LOC urbssg01_desc>Experimental Squareshield',
     Display = {
         Abilities = {
 			'Square Shield',
@@ -180,7 +180,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'ED-X',
+        UnitName = '<LOC urbssg01_name>ED-X',
         UnitWeight = 1,
         UpgradesTo = 'urbssg02',
     },

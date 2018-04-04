@@ -134,7 +134,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 200,	-- an approximation to avoid overstating value of death ray
     },
 	
-    Description = 'Experimental Aircraft Carrier',
+    Description = '<LOC uaa0310_desc>Experimental Aircraft Carrier',
 	
     Display = {
         Abilities = {
@@ -217,7 +217,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'CZAR',
+        UnitName = '<LOC uaa0310_name>CZAR',
         UnitWeight = 1,
     },
 	

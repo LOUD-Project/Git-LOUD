@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 17000,
         RegenRate = 3,
     },
-    Description = 'Advanced Air Factory',
+    Description = '<LOC urb0302_desc>Advanced Air Factory',
     Display = {
         AnimationBuild = '/units/urb0302/urb0302_abuild.sca',
         AnimationFinishBuildLand = '/units/urb0302/urb0302_aplatform.sca',

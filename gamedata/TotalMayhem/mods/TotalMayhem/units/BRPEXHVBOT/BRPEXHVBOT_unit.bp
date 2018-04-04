@@ -71,7 +71,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 312,
     },
 	
-    Description = 'Medium Assault Support Bot',
+    Description = '<LOC brpexhvbot_desc>Medium Assault Support Bot',
 	
     Display = {
 	
@@ -203,7 +203,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        UnitName = 'Athusil',
+        UnitName = '<LOC brpexhvbot_name>Athusil',
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },

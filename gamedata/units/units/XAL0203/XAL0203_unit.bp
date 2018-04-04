@@ -56,7 +56,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 8,
     },
 	
-    Description = 'Assault HoverTank',
+    Description = '<LOC xal0203_desc>Assault HoverTank',
 	
     Display = {
         Abilities = {
@@ -107,7 +107,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Blaze',
+        UnitName = '<LOC xal0203_name>Blaze',
         UnitWeight = 1,
     },
 	

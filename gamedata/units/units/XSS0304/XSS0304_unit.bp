@@ -73,7 +73,7 @@ UnitBlueprint {
         SubThreatLevel = 45,
     },
 	
-    Description = 'Submarine Hunter',
+    Description = '<LOC xss0304_desc>Submarine Hunter',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -208,7 +208,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Yathsou',
+        UnitName = '<LOC xss0304_name>Yathsou',
         UnitWeight = 1,
     },
 	

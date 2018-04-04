@@ -66,7 +66,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 2.5,
     },
 	
-    Description = 'Submarine',
+    Description = '<LOC ues0203_desc>Submarine',
 	
     Display = {
         Abilities = {
@@ -211,7 +211,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Tigershark',
+        UnitName = '<LOC ues0203_name>Tigershark',
         UnitWeight = 1,
     },
     Intel = {

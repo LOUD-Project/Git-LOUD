@@ -55,7 +55,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Basic Naval Factory',
+    Description = '<LOC ueb0103_desc>Basic Naval Factory',
 	
     Display = {
 	

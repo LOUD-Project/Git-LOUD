@@ -112,7 +112,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = 'Heavy Air Transport',
+    Description = '<LOC bsa0309_desc>Heavy Air Transport',
 	
     Display = {
         Abilities = {
@@ -174,7 +174,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vishathal-Atah',
+        UnitName = '<LOC bsa0309_name>Vishathal-Atah',
         UnitWeight = 1,
     },
 	

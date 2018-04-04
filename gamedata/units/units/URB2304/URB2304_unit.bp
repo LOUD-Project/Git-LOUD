@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 3850,
         RegenRate = 2,
     },
-    Description = 'AA SAM Launcher',
+    Description = '<LOC urb2304_desc>AA SAM Launcher',
     Display = {
         Abilities = {
             'Aquatic',
@@ -105,7 +105,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Myrmidon',
+        UnitName = '<LOC urb2304_name>Myrmidon',
         UnitWeight = 1,
     },
     Intel = {

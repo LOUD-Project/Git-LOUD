@@ -40,7 +40,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Improved Point Defense',
+    Description = '<LOC ueb2301_desc>Improved Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -92,7 +92,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Triad',
+        UnitName = '<LOC ueb2301_name>Triad',
         UnitWeight = 1,
     },
 	

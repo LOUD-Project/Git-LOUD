@@ -64,7 +64,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 278,
     },
 	
-    Description = 'Experimental Hover Tank',
+    Description = '<LOC bsl0401_desc>Experimental Hover Tank',
 	
     Display = {
         Abilities = {
@@ -164,7 +164,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Yenzotha',
+        UnitName = '<LOC bsl0401_name>Yenzotha',
         UnitWeight = 4,
 		ToggleCaps = {
             RULEUTC_SpecialToggle = true,

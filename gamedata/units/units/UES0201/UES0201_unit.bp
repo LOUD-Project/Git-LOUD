@@ -65,7 +65,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 24,
     },
 	
-    Description = 'Destroyer',
+    Description = '<LOC ues0201_desc>Destroyer',
 	
     Display = {
         Abilities = {
@@ -179,7 +179,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Valiant Class',
+        UnitName = '<LOC ues0201_name>Valiant Class',
         UnitWeight = 1,
     },
 	

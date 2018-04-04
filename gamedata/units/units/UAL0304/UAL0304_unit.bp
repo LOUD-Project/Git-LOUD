@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10,
     },
 	
-    Description = 'Mobile Heavy Artillery',
+    Description = '<LOC ual0304_desc>Mobile Heavy Artillery',
 	
     Display = {
         Abilities = {
@@ -103,7 +103,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Serenity',
+        UnitName = '<LOC ual0304_name>Serenity',
         UnitWeight = 1,
     },
     Intel = {

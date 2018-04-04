@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 4500,
         RegenRate = 2,
     },
-    Description = 'Heavy AA Flak Artillery',
+    Description = '<LOC xsb3304_desc>Heavy AA Flak Artillery',
     Display = {
         Abilities = {
             'Aquatic',
@@ -115,7 +115,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sinnatha Hu',
+        UnitName = '<LOC xsb3304_name>Sinnatha Hu',
         UnitWeight = 1,
     },
     Intel = {

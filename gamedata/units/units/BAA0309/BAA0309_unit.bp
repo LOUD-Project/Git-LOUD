@@ -104,7 +104,7 @@ UnitBlueprint {
         MaxTeleRange = 600,
     },
 	
-    Description = 'Heavy Air Transport',
+    Description = '<LOC baa0309_desc>Heavy Air Transport',
 	
     Display = {
         Abilities = {
@@ -179,7 +179,7 @@ UnitBlueprint {
             RULEUTC_StealthToggle = true,
         },
 		
-        UnitName = 'Illuminate',
+        UnitName = '<LOC baa0309_name>Illuminate',
         UnitWeight = 1,
     },
 	

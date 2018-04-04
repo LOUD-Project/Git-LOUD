@@ -41,7 +41,7 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 1,
     },
-    Description = 'Mobile Flak',
+    Description = '<LOC url0205_desc>Mobile Flak',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -82,7 +82,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Banger',
+        UnitName = '<LOC url0205_name>Banger',
         UnitWeight = 1,
     },
     Intel = {

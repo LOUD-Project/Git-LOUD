@@ -70,7 +70,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Strategic Missile Launcher',
+    Description = '<LOC xsb2305_desc>Strategic Missile Launcher',
 	
     Display = {
         Abilities = {
@@ -170,7 +170,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hastue',
+        UnitName = '<LOC xsb2305_name>Hastue',
         UnitWeight = 1,
     },
 	

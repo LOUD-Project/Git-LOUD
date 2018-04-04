@@ -55,7 +55,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 42,
     },
 	
-    Description = 'Lambda Equipped Assault Bot',
+    Description = '<LOC bsl0310_desc>Lambda Equipped Assault Bot',
 	
     Display = {
 	
@@ -131,7 +131,7 @@ UnitBlueprint {
                 helpText = 'lambda_field',
             },
         },
-        UnitName = 'Ilthysathuum',
+        UnitName = '<LOC bsl0310_name>Ilthysathuum',
         UnitWeight = 1,
     },
     Intel = {

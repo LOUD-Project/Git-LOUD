@@ -38,7 +38,7 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 0,
     },
-    Description = 'Basic Mass Extractor',
+    Description = '<LOC ueb1103_desc>Basic Mass Extractor',
     Display = {
         Abilities = {
             'Upgradeable',

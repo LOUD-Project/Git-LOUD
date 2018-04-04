@@ -39,7 +39,7 @@ UnitBlueprint {
         RegenRate = 30,
     },
 	
-    Description = 'Seraphim Quantum Rift Archway',
+    Description = '<LOC bsb2402_desc>Seraphim Quantum Rift Archway',
 	
     Display = {
 	
@@ -145,7 +145,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Haasioz-Iya',
+        UnitName = '<LOC bsb2402_name>Haasioz-Iya',
         UnitWeight = 1,
     },
     Intel = {

@@ -26,7 +26,7 @@ UnitBlueprint {
         MaxHealth = 7550,
         RegenRate = 12,
     },
-    Description = 'Experimental Resource Storage',
+    Description = '<LOC xsb8765_desc>Experimental Resource Storage',
 	
     Display = {
         UniformScale = 0.3,
@@ -63,7 +63,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hala-Vishual',
+        UnitName = '<LOC xsb8765_name>Hala-Vishual',
         UnitWeight = 1,
     },
     Interface = {

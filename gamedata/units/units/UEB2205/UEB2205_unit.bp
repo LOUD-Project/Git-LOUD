@@ -47,7 +47,7 @@ UnitBlueprint {
         RegenRate = 3,
         SubThreatLevel = 24,
     },
-    Description = 'Improved Torpedo Launcher',
+    Description = '<LOC ueb2205_desc>Improved Torpedo Launcher',
     Display = {
         Abilities = {
             'Sonar',
@@ -103,7 +103,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Tsunami',
+        UnitName = '<LOC ueb2205_name>Tsunami',
         UnitWeight = 1,
     },
     Intel = {

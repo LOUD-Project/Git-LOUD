@@ -98,7 +98,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 21,
     },
 	
-    Description = 'Missile Gunship',
+    Description = '<LOC bsa0310_desc>Missile Gunship',
 	
     Display = {
 	
@@ -178,7 +178,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vulthatha-Ioz',
+        UnitName = '<LOC bsa0310_name>Vulthatha-Ioz',
         UnitWeight = 1,
     },
 	

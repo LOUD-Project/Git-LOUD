@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 100,
         RegenRate = 0,
     },
-    Description = 'Light Staging Facility',
+    Description = '<LOC bab5102_desc>Light Staging Facility',
     Display = {
         Abilities = {
             'Air Staging',
@@ -100,7 +100,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC bab5202_name>Enclave',
+        UnitName = '<LOC bab5102_name>Enclave',
         UnitWeight = 1,
     },
     Interface = {

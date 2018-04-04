@@ -81,7 +81,7 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 2,
     },
-    Description = 'Light Air Transport',
+    Description = '<LOC uaa0107_desc>Light Air Transport',
     Display = {
         AnimationOpen = '/units/UAA0104/UAA0104_aopen01.sca',
         Mesh = {
@@ -136,7 +136,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Chariot',
+        UnitName = '<LOC uaa0107_name>Chariot',
         UnitWeight = 1,
     },
     Intel = {

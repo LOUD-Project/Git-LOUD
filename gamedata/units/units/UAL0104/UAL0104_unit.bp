@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Mobile Anti-Air Gun',
+    Description = '<LOC ual0104_desc>Mobile Anti-Air Gun',
 	
     Display = {
         Abilities = {
@@ -102,7 +102,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Thistle',
+        UnitName = '<LOC ual0104_name>Thistle',
         UnitWeight = 1,
     },
 	

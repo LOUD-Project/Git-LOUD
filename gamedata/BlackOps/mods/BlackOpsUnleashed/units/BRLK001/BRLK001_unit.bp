@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Mobile Missile Anti-Air',
+    Description = '<LOC brlk001_desc>Mobile Missile Anti-Air',
 	
     Display = {
 	
@@ -136,7 +136,7 @@ UnitBlueprint {
 		ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        UnitName = 'Bouncer',
+        UnitName = '<LOC brlk001_name>Bouncer',
         UnitWeight = 1,
     },
 	

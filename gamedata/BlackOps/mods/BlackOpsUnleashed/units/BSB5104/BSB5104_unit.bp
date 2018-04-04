@@ -57,7 +57,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Light Air Staging Beacon',
+    Description = '<LOC bsb5104_desc>Light Air Staging Beacon',
     Display = {
         Abilities = {
             'Air Staging',
@@ -119,7 +119,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Iasuhthe',
+        UnitName = '<LOC bsb5104_name>Iasuhthe',
         UnitWeight = 1,
     },
     Interface = {

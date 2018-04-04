@@ -66,7 +66,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 52,
     },
 	
-    Description = 'Battleship',
+    Description = '<LOC urs0302_desc>Battleship',
 	
     Display = {
         Abilities = {
@@ -182,7 +182,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Galaxy Class',
+        UnitName = '<LOC urs0302_name>Galaxy Class',
         UnitWeight = 1,
     },
 	

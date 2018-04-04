@@ -43,7 +43,7 @@ UnitBlueprint {
         MaxHealth = 175,
         RegenRate = 0,
     },
-    Description = 'Stealth Field Generator',
+    Description = '<LOC uab4203_desc>Stealth Field Generator',
     Display = {
         Abilities = {
             'Stealth Field',

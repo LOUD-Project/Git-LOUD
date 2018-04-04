@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 1425,
         RegenRate = 2,
     },
-    Description = 'T3 Engineer',
+    Description = '<LOC url0309_desc>T3 Engineer',
     Display = {
         AnimationWater = '/units/URL0309/url0309_Awheels.sca',
         Mesh = {

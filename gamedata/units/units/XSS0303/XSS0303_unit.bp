@@ -65,7 +65,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 37,
     },
 	
-    Description = 'Aircraft Carrier',
+    Description = '<LOC xss0303_desc>Aircraft Carrier',
 	
     Display = {
         Abilities = {
@@ -183,7 +183,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Iavish',
+        UnitName = '<LOC xss0303_name>Iavish',
         UnitWeight = 1,
     },
 	

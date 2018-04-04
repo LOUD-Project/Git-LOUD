@@ -2,7 +2,7 @@
 --  File     : /units/UAA0206/UAA0206_unit.bp
 --  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
 --  Summary  : Aeon Abolisher Gunship Blueprint 
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 ----------------------------------------------------------------------------- 
 UnitBlueprint {
     AI = {
@@ -95,7 +95,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7.5,
     },
 	
-    Description = 'Beam Gunship',
+    Description = '<LOC uaa0206_desc>Beam Gunship',
 	
     Display = {
         Abilities = {
@@ -158,7 +158,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Abolisher',
+        UnitName = '<LOC uaa0206_name>Abolisher',
         UnitWeight = 1,
     },
 	

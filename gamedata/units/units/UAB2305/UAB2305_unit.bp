@@ -65,7 +65,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Strategic Missile Launcher',
+    Description = '<LOC uab2305_desc>Strategic Missile Launcher',
 	
     Display = {
         Abilities = {
@@ -165,7 +165,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Apocalypse',
+        UnitName = '<LOC uab2305_name>Apocalypse',
         UnitWeight = 1,
     },
 	

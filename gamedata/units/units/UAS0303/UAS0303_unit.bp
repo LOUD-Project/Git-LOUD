@@ -68,7 +68,7 @@ UnitBlueprint {
         RegenRate = 25,
     },
 	
-    Description = 'Aircraft Carrier',
+    Description = '<LOC uas0303_desc>Aircraft Carrier',
 	
     Display = {
         Abilities = {
@@ -164,7 +164,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Keefer Class',
+        UnitName = '<LOC uas0303_name>Keefer Class',
         UnitWeight = 1,
     },
 	

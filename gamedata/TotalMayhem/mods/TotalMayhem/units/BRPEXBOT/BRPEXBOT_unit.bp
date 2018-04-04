@@ -61,7 +61,7 @@ UnitBlueprint {
         RegenRate = 15,
         SurfaceThreatLevel = 240,
     },
-    Description = 'Medium Experimental Assault Bot',
+    Description = '<LOC brpexbot_desc>Medium Experimental Assault Bot',
 	
     Display = {
         Abilities = {
@@ -181,7 +181,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        UnitName = 'Yenah-lao',
+        UnitName = '<LOC brpexbot_name>Yenah-lao',
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },

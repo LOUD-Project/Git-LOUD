@@ -56,7 +56,7 @@ UnitBlueprint {
         MaxHealth = 15000,
         RegenRate = 3,
     },
-    Description = 'Quantum Gateway',
+    Description = '<LOC ueb0304_desc>Quantum Gateway',
     Display = {
         BuildAttachBone = 'Attachpoint01',
         Mesh = {

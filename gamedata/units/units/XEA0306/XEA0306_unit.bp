@@ -117,7 +117,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = 'Heavy Air Transport',
+    Description = '<LOC xea0306_desc>Heavy Air Transport',
 	
     Display = {
         Abilities = {
@@ -200,7 +200,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 		
-        UnitName = 'Continental',
+        UnitName = '<LOC xea0306_name>Continental',
         UnitWeight = 1,
     },
 	

@@ -58,7 +58,7 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 2,
     },
-    Description = 'Engineering Station',
+    Description = '<LOC wab0201_desc>Engineering Station',
     Display = {
         Abilities = {
             'Engineering Suite',
@@ -151,7 +151,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitName = 'Saviour',
+        UnitName = '<LOC wab0201_name>Saviour',
         UnitWeight = 1,
     },
     Intel = {

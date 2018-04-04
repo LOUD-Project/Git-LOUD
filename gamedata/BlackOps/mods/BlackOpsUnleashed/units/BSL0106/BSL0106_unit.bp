@@ -45,7 +45,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.6,
     },
 	
-    Description = 'Protector bot',
+    Description = '<LOC bsl0106_desc>Protector bot',
 	
     Display = {
         Abilities = {
@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ilhaas',
+        UnitName = '<LOC bsl0106_name>Ilhaas',
         UnitWeight = 1,
     },
 	

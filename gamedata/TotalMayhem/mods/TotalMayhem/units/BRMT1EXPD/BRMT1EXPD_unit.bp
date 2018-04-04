@@ -59,7 +59,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Microwave PD/AA Defense',
+    Description = '<LOC brmt1expd_desc>Microwave PD/AA Defense',
     Display = {
         Abilities = {
             'Dual Role PD/Anti-Air',
@@ -107,7 +107,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Pen',
+        UnitName = '<LOC brmt1expd_name>Pen',
         UnitWeight = 1,
     },
     Intel = {

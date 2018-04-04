@@ -43,7 +43,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 4,
     },
-    Description = 'Mobile Bomb',
+    Description = '<LOC xrl0302_desc>Mobile Bomb',
     Display = {
         Abilities = {
             'Suicide Weapon',
@@ -102,7 +102,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Fire Beetle',
+        UnitName = '<LOC xrl0302_name>Fire Beetle',
         UnitWeight = 1,
     },
     Intel = {

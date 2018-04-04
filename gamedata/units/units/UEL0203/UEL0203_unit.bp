@@ -46,7 +46,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 8.4,
     },
 	
-    Description = 'Hovertank',
+    Description = '<LOC uel0203_desc>Hovertank',
 	
     Display = {
         Mesh = {
@@ -93,7 +93,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Riptide',
+        UnitName = '<LOC uel0203_name>Riptide',
         UnitWeight = 1,
     },
 	

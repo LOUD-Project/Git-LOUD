@@ -34,7 +34,7 @@ UnitBlueprint {
         MaxHealth = 1,
         RegenRate = 0,
     },
-    Description = 'Lambda Emitter',
+    Description = '<LOC esb0003_desc>Lambda Emitter',
     Display = {
         AnimationPermOpen = '/mods/BlackOpsACUs/units/ESB0003/ESB0003_Activate.sca',
         Mesh = {

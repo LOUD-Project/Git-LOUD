@@ -48,7 +48,7 @@ UnitBlueprint {
         MaxHealth = 18000,
         RegenRate = 2,
     },
-    Description = 'Advanced Land Factory',
+    Description = '<LOC uab0301_desc>Advanced Land Factory',
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {

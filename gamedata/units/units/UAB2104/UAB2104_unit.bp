@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 0.5,
     },
 	
-    Description = 'Basic AA Defense',
+    Description = '<LOC uab2104_desc>Basic AA Defense',
 	
     Display = {
         Abilities = {
@@ -120,7 +120,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Seeker',
+        UnitName = '<LOC uab2104_name>Seeker',
         UnitWeight = 1,
     },
 	

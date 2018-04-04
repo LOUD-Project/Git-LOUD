@@ -45,7 +45,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 30,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC brb2306_desc>Heavy Point Defense',
 	
     Display = {
         Abilities = {
@@ -97,7 +97,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Manticore',
+        UnitName = '<LOC brb2306_name>Manticore',
         UnitWeight = 1,
     },
     Intel = {

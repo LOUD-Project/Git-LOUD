@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Experimental Satellite System',
+    Description = '<LOC xeb2402_desc>Experimental Satellite System',
 	
     Display = {
 	
@@ -157,7 +157,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Novax Center',
+        UnitName = '<LOC xeb2402_name>Novax Center',
         UnitWeight = 1,
     },
 	

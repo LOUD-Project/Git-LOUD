@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Engineer',
+    Description = '<LOC ual0105_desc>Engineer',
 	
     Display = {
         Abilities = {

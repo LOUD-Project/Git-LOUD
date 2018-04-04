@@ -87,7 +87,7 @@ UnitBlueprint {
         RegenRate = 6,
         SurfaceThreatLevel = 60,
     },
-    Description = 'Strategic Bomber',
+    Description = '<LOC uea0304_desc>Strategic Bomber',
     Display = {
         Abilities = {
             'Tail Gun for Anti-Air',
@@ -139,7 +139,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Ambassador',
+        UnitName = '<LOC uea0304_name>Ambassador',
         UnitWeight = 1,
     },
     Intel = {

@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 90,
     },
 	
-    Description = 'Experimental Protector bot',
+    Description = '<LOC bsl0406_desc>Experimental Protector bot',
 	
     Display = {
         Abilities = {
@@ -140,7 +140,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 		
-        UnitName = 'Seth Ilhaas',
+        UnitName = '<LOC bsl0406_name>Seth Ilhaas',
         UnitWeight = 4,
     },
 	

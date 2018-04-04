@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 1200,	#--	250,
         RegenRate = 2,
     },
-    Description = 'Quantum Optics Facility',
+    Description = '<LOC xab3301_desc>Quantum Optics Facility',
     Display = {
         DamageEffects = {
             {
@@ -161,7 +161,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Eye of Rhianne',
+        UnitName = '<LOC xab3301_name>Eye of Rhianne',
         UnitWeight = 1,
     },
     Intel = {

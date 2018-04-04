@@ -81,7 +81,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 75,
     },
 	
-    Description = 'Experimental Siege Weapon',
+    Description = '<LOC bal0401_desc>Experimental Siege Weapon',
 	
     Display = {
         Abilities = {
@@ -207,7 +207,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Inquisitor',
+        UnitName = '<LOC bal0401_name>Inquisitor',
         UnitWeight = 1,
     },
     Intel = {

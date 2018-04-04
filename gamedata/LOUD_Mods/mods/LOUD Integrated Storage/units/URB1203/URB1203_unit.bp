@@ -32,7 +32,7 @@ UnitBlueprint {
         MaxHealth = 2640,
         RegenRate = 4,
     },
-    Description = 'Improved Power Generator & Storage',
+    Description = '<LOC urb1203_desc>Improved Power Generator & Storage',
     Display = {
         Abilities = {
             'Volatile',

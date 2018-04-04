@@ -49,7 +49,7 @@ AI = {
         MaxHealth = 7500,
         RegenRate = 10,
     },
-    Description = 'Rapid Fire Artillery',
+    Description = '<LOC mguba31_desc>Rapid Fire Artillery',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -116,7 +116,7 @@ AI = {
 	Icon = 'land',
 	SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Zion',
+        UnitName = '<LOC mguba31_name>Zion',
         UnitWeight = 1,
     },
     Intel = {

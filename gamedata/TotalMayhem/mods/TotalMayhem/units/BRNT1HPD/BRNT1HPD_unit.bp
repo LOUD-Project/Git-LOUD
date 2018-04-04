@@ -47,7 +47,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 15,
     },
 	
-    Description = 'AT Defense',
+    Description = '<LOC brnt1hpd_desc>AT Defense',
 	
     Display = {
         Mesh = {
@@ -94,7 +94,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Thug',
+        UnitName = '<LOC brnt1hpd_name>Thug',
         UnitWeight = 1,
     },
     Intel = {

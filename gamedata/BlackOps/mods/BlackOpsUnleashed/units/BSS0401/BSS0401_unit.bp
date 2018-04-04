@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 192,
     },
 	
-    Description = 'Dreadnought',
+    Description = '<LOC bss0401_desc>Dreadnought',
 	
     Display = {
         Abilities = {
@@ -182,7 +182,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hovatha-Hauthu',
+        UnitName = '<LOC bss0401_name>Hovatha-Hauthu',
         UnitWeight = 1,
     },
 	

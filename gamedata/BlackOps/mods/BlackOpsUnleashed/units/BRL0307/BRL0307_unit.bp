@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18,
     },
 	
-    Description = 'Hailfire Rocket Assault Bot',
+    Description = '<LOC brl0307_desc>Hailfire Rocket Assault Bot',
     Display = {
         Abilities = {
             'Stun Weapon',
@@ -183,7 +183,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Hailfire',
+        UnitName = '<LOC brl0307_name>Hailfire',
         UnitWeight = 1,
     },
     Intel = {

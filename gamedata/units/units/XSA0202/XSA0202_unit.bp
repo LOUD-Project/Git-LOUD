@@ -82,7 +82,7 @@ UnitBlueprint {
         RegenRate = 5,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Fighter Bomber',
+    Description = '<LOC xsa0202_desc>Fighter Bomber',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -142,7 +142,7 @@ UnitBlueprint {
         Icon = 'air',
         TarmacGlowDecal = 0.5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Notha',
+        UnitName = '<LOC xsa0202_name>Notha',
         UnitWeight = 1,
     },
     Intel = {

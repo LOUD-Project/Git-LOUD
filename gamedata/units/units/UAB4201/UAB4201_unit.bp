@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
-    Description = 'Tactical Missile Defense',
+    Description = '<LOC uab4201_desc>Tactical Missile Defense',
     Display = {
         Abilities = {
             'Aquatic',
@@ -106,7 +106,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Volcano',
+        UnitName = '<LOC uab4201_name>Volcano',
         UnitWeight = 1,
     },
     Intel = {

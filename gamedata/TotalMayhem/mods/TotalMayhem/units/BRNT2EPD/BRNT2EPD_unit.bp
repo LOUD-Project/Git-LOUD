@@ -62,7 +62,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 28,
     },
 	
-    Description = 'Plasma Cannon',
+    Description = '<LOC brnt2epd_desc>Plasma Cannon',
 	
     Display = {
         Mesh = {
@@ -126,7 +126,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Tower Boss',
+        UnitName = '<LOC brnt2epd_name>Tower Boss',
         UnitWeight = 1,
     },
 	

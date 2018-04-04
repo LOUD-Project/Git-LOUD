@@ -81,7 +81,7 @@ UnitBlueprint {
         MaxHealth = 12000,
         RegenRate = 3,
     },
-    Description = 'Experimental Missile Launcher',
+    Description = '<LOC xsb2401_desc>Experimental Missile Launcher',
     Display = {
         Abilities = {
             'Manual Launch',
@@ -199,7 +199,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Yolona Oss',
+        UnitName = '<LOC xsb2401_name>Yolona Oss',
         UnitWeight = 1,
     },
     Intel = {

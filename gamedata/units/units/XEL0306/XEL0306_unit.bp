@@ -55,7 +55,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12,
     },
 	
-    Description = 'Mobile Missile Platform',
+    Description = '<LOC xel0306_desc>Mobile Missile Platform',
 	
     Display = {
         Mesh = {
@@ -106,7 +106,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Spearhead',
+        UnitName = '<LOC xel0306_name>Spearhead',
         UnitWeight = 1,
     },
     Intel = {

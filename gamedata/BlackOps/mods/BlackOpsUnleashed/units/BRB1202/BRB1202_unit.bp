@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 2,
     },
-    Description = 'Improved Hydrocarbon Plant',
+    Description = '<LOC brb1202_desc>Improved Hydrocarbon Plant',
     Display = {
 		Abilities = {
             'Upgradeable',

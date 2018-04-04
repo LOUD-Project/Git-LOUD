@@ -44,7 +44,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'T1 Engineer',
+    Description = '<LOC url0105_desc>T1 Engineer',
 	
     Display = {
         AnimationWater = '/units/URL0105/url0105_awheels.sca',

@@ -46,7 +46,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 4,
     },
-    Description = 'Amphibious Tank',
+    Description = '<LOC brmt1bt_desc>Amphibious Tank',
     Display = {
         Mesh = {
             IconFadeInZoom = 140,
@@ -87,7 +87,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Scarab',
+        UnitName = '<LOC brmt1bt_name>Scarab',
         UnitWeight = 1,
     },
     Intel = {

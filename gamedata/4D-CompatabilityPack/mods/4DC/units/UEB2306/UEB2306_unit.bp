@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 38,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC ueb2306_desc>Heavy Point Defense',
 	
     Display = {
         Abilities = {
@@ -135,7 +135,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Brimstone',
+        UnitName = '<LOC ueb2306_name>Brimstone',
         UnitWeight = 1,
     },
 	

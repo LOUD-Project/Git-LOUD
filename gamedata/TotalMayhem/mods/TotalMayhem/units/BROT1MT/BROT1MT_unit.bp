@@ -41,7 +41,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 3,
     },
-    Description = 'Light Tank',
+    Description = '<LOC brot1mt_desc>Light Tank',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -82,7 +82,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Bonfire',
+        UnitName = '<LOC brot1mt_name>Bonfire',
         UnitWeight = 1,
     },
     Intel = {

@@ -110,7 +110,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 19,
     },
 	
-    Description = 'AA Gunship',
+    Description = '<LOC xaa0305_desc>AA Gunship',
 	
     Display = {
         Abilities = {
@@ -164,7 +164,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Restorer',
+        UnitName = '<LOC xaa0305_name>Restorer',
         UnitWeight = 1,
     },
 	

@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 7,
     },
-    Description = 'Elite Mobile Missile Launcher',
+    Description = '<LOC bsl0004_desc>Elite Mobile Missile Launcher',
     Display = {
 		Abilities = {
 			'Quantum Powered - dies if run out of power',

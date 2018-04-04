@@ -41,7 +41,7 @@ UnitBlueprint {
         RegenRate = 1,
         ThreatLevel = 0,
     },
-    Description = 'Wall Section',
+    Description = '<LOC uab5101_desc>Wall Section',
     Display = {
         DamageEffects = {
             {

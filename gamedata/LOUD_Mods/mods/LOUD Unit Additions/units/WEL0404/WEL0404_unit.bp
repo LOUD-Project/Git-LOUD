@@ -67,7 +67,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 480,
     },
 	
-    Description = 'Experimental Assault Vehicle',
+    Description = '<LOC wel0404_desc>Experimental Assault Vehicle',
 	
     Display = {
         DisplayName = 'Fatboy II',
@@ -135,7 +135,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Experimental',
-		UnitName = 'Fatboy II',
+		UnitName = '<LOC wel0404_name>Fatboy II',
         UnitWeight = 4,
     },
 	

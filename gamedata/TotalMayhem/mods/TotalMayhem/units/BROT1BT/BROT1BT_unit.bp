@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4.2,
     },
 	
-    Description = 'Assault Gun',
+    Description = '<LOC brot1bt_desc>Assault Gun',
     Display = {
         Abilities = {
             'Hover',
@@ -92,7 +92,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hervour',
+        UnitName = '<LOC brot1bt_name>Hervour',
         UnitWeight = 1,
     },
     Intel = {

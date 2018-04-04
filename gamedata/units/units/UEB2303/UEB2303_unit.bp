@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12,
     },
 	
-    Description = 'Field Artillery',
+    Description = '<LOC ueb2303_desc>Field Artillery',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -104,7 +104,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Klink Hammer',
+        UnitName = '<LOC ueb2303_name>Klink Hammer',
         UnitWeight = 1,
     },
 	

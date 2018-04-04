@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 21,
     },
-    Description = 'Elite Mobile Heavy Artillery',
+    Description = '<LOC bsl0007_desc>Elite Mobile Heavy Artillery',
     Display = {
         Abilities = {
             'Deploys',
@@ -134,7 +134,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hala Suthanus',
+        UnitName = '<LOC bsl0007_name>Hala Suthanus',
         UnitWeight = 1,
     },
     Intel = {

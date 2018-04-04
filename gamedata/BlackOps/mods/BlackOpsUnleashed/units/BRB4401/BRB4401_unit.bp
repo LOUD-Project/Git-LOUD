@@ -35,7 +35,7 @@ UnitBlueprint {
         MaxHealth = 2250,
         RegenRate = 3,
     },
-    Description = 'Cloak Field Generator',
+    Description = '<LOC brb4401_desc>Cloak Field Generator',
     Display = {
         Abilities = {
             'Cloak Field',
@@ -97,7 +97,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Shadow',
+        UnitName = '<LOC brb4401_name>Shadow',
         UnitWeight = 1,
     },
     Intel = {

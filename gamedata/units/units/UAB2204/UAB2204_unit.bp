@@ -43,7 +43,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'AA Flak Battery',
+    Description = '<LOC uab2204_desc>AA Flak Battery',
 	
     Display = {
         Abilities = {
@@ -104,7 +104,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Marr',
+        UnitName = '<LOC uab2204_name>Marr',
         UnitWeight = 1,
     },
     Intel = {

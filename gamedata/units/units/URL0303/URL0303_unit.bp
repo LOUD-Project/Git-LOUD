@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 19.5,
     },
 	
-    Description = 'Siege Assault Bot',
+    Description = '<LOC url0303_desc>Siege Assault Bot',
 	
     Display = {
         Abilities = {
@@ -144,7 +144,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Loyalist',
+        UnitName = '<LOC url0303_name>Loyalist',
         UnitWeight = 1,
     },
     Intel = {

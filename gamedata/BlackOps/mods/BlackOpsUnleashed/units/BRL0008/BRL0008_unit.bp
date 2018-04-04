@@ -40,7 +40,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Crab Egg (Deceiver)',
+    Description = '<LOC brl0008_desc>Crab Egg (Deceiver)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0008/BRL0008_aopen.sca',
         BuildAttachBone = 'AttachPoint',

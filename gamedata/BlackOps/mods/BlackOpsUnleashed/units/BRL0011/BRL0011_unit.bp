@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Crab Egg (Hailfire)',
+    Description = '<LOC brl0011_desc>Crab Egg (Hailfire)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0011/BRL0011_aopen.sca',
         BuildAttachBone = 'AttachPoint',

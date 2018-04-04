@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
-    Description = 'Air Staging Facility',
+    Description = '<LOC beb0001_desc>Air Staging Facility',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

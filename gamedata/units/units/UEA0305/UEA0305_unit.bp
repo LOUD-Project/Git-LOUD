@@ -95,7 +95,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 26,
     },
 	
-    Description = 'Heavy Gunship',
+    Description = '<LOC uea0305_desc>Heavy Gunship',
 	
     Display = {
         Abilities = {
@@ -153,7 +153,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Broadsword',
+        UnitName = '<LOC uea0305_name>Broadsword',
         UnitWeight = 1,
     },
 	

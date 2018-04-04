@@ -45,7 +45,7 @@ UnitBlueprint {
         MaxHealth = 150,
         RegenRate = 0,
     },
-    Description = 'T1 Engineer',
+    Description = '<LOC uel0105_desc>T1 Engineer',
     Display = {
         AnimationBuild = '/units/UEL0105/uel0105_aopen.sca',
         AnimationBuildRate = 5,

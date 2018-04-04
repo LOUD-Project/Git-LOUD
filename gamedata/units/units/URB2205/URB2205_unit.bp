@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 6,
         SubThreatLevel = 24,
     },
-    Description = 'Improved Torpedo Launcher',
+    Description = '<LOC urb2205_desc>Improved Torpedo Launcher',
     Display = {
         Abilities = {
             'Sonar',
@@ -104,7 +104,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Tentacle',
+        UnitName = '<LOC urb2205_name>Tentacle',
         UnitWeight = 1,
     },
     Intel = {

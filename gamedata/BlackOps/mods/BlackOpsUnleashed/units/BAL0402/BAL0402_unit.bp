@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 198,
     },
 	
-    Description = 'Experimental Assault HoverTank',
+    Description = '<LOC bal0402_desc>Experimental Assault HoverTank',
 	
     Display = {
         Abilities = {
@@ -174,7 +174,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 		
-        UnitName = 'Genesis',
+        UnitName = '<LOC bal0402_name>Genesis',
         UnitWeight = 2,
     },
     Intel = {

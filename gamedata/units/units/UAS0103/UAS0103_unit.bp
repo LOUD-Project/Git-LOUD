@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = 'Frigate',
+    Description = '<LOC uas0103_desc>Frigate',
 	
     Display = {
         Abilities = {
@@ -130,7 +130,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Beacon Class',
+        UnitName = '<LOC uas0103_name>Beacon Class',
         UnitWeight = 1,
     },
 	

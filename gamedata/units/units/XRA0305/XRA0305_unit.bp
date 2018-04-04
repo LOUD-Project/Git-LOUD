@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 20,
     },
 	
-    Description = 'Advanced Gunship',
+    Description = '<LOC xra0305_desc>Advanced Gunship',
 	
     Display = {
         Abilities = {
@@ -156,7 +156,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Wailer',
+        UnitName = '<LOC xra0305_name>Wailer',
         UnitWeight = 1,
     },
 	

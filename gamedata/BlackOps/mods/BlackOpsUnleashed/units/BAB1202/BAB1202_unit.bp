@@ -45,7 +45,7 @@ UnitBlueprint {
         Health = 3800,
         MaxHealth = 3800,
     },
-    Description = 'Improved Hydrocarbon Plant',
+    Description = '<LOC bab1202_desc>Improved Hydrocarbon Plant',
     Display = {
 		Abilities = {
             'Upgradeable',

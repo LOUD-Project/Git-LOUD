@@ -1,2 +1,5 @@
-
+*.ai
+*.tif
+*.psd
+*.ps1
 bin/Loud-Dev\.log

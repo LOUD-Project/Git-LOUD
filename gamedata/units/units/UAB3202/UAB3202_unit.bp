@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 0,
     },
-    Description = 'Improved Sonar System',
+    Description = '<LOC uab3202_desc>Improved Sonar System',
     Display = {
         Abilities = {
             'Upgradeable to Mobile Sonar',

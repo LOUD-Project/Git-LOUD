@@ -57,7 +57,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -3,
         },
     },
-    Description = 'Basic Shield Generator',
+    Description = '<LOC xsb4202_desc>Basic Shield Generator',
     Display = {
         AnimationActivate = '/units/xsb4202/XSB4202_Aactivate.sca',
         AnimationDeath = {
@@ -154,7 +154,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Atha',
+        UnitName = '<LOC xsb4202_name>Atha',
         UnitWeight = 1,
         UpgradesTo = 'xsb4301',
     },

@@ -49,7 +49,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 13,
     },
 	
-    Description = 'Sniper Bot',
+    Description = '<LOC xal0305_desc>Sniper Bot',
 	
     Display = {
         Abilities = {
@@ -130,7 +130,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Sprite Striker',
+        UnitName = '<LOC xal0305_name>Sprite Striker',
         UnitWeight = 1,
     },
 	

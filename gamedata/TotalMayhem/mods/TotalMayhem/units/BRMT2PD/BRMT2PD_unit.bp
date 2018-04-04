@@ -56,7 +56,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC brmt2pd_desc>Heavy Point Defense',
 	
     Display = {
         Mesh = {
@@ -117,7 +117,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'SlingShot',
+        UnitName = '<LOC brmt2pd_name>SlingShot',
         UnitWeight = 1,
     },
 	

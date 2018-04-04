@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 10,
     },
-    Description = 'Strategic Missile Defense',
+    Description = '<LOC uab4302_desc>Strategic Missile Defense',
     Display = {
         Abilities = {
             'Strategic Missile Defense',
@@ -130,7 +130,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Patron',
+        UnitName = '<LOC uab4302_name>Patron',
         UnitWeight = 1,
     },
     Intel = {

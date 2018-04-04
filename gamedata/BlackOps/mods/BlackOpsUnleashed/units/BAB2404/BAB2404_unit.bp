@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 400,
     },
-    Description = 'Artemis Satellite Control',
+    Description = '<LOC bab2404_desc>Artemis Satellite Control',
     Display = {
 		BuildAttachBone = 'Attachpoint',
         Mesh = {
@@ -115,7 +115,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        UnitName = 'Artemis Launch & Control Center',
+        UnitName = '<LOC bab2404_name>Artemis Launch & Control Center',
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },

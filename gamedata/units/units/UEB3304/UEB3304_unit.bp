@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 4950,
         RegenRate = 2,
     },
-    Description = 'Heavy AA Flak Artillery',
+    Description = '<LOC ueb3304_desc>Heavy AA Flak Artillery',
     Display = {
         Abilities = {
             'Aquatic',
@@ -106,7 +106,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Nailer',
+        UnitName = '<LOC ueb3304_name>Nailer',
         UnitWeight = 1,
     },
     Intel = {

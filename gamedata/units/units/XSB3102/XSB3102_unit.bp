@@ -42,7 +42,7 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
-    Description = 'Basic Sonar System',
+    Description = '<LOC xsb3102_desc>Basic Sonar System',
     Display = {
         Abilities = {
             'Upgradeable',

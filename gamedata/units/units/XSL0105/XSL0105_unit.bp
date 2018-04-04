@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'T1 Engineer',
+    Description = '<LOC xsl0105_desc>T1 Engineer',
 	
     Display = {
         AnimationBuild = '/units/ual0105/ual0105_aopen01.sca',

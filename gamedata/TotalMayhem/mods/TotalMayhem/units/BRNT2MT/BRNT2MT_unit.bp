@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4.8,
     },
 	
-    Description = 'Rapid Light Assault Tank',
+    Description = '<LOC brnt2mt_desc>Rapid Light Assault Tank',
 	
     Display = {
         Abilities = {
@@ -96,7 +96,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Statue',
+        UnitName = '<LOC brnt2mt_name>Statue',
         UnitWeight = 1,
     },
 	

@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 16.6,
     },
 	
-    Description = 'Rapid Light Assault Tank',
+    Description = '<LOC brnt3wt_desc>Rapid Light Assault Tank',
 	
     Display = {
 		Abilities = {
@@ -106,7 +106,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'WarHammer',
+        UnitName = '<LOC brnt3wt_name>WarHammer',
         UnitWeight = 1,
     },
 	

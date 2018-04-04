@@ -94,7 +94,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 350,
     },
 	
-    Description = 'Experimental Spiderbot',
+    Description = '<LOC url0402_desc>Experimental Spiderbot',
 	
     Display = {
         Abilities = {
@@ -250,7 +250,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Monkeylord',
+        UnitName = '<LOC url0402_name>Monkeylord',
         UnitWeight = 2,
     },
 	

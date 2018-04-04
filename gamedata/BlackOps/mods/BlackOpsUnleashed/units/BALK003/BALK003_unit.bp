@@ -58,7 +58,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Mobile Missile Anti-Air',
+    Description = '<LOC balk003_desc>Mobile Missile Anti-Air',
 	
     Display = {
         Abilities = {
@@ -133,7 +133,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Redeemer',
+        UnitName = '<LOC balk003_name>Redeemer',
         UnitWeight = 1,
     },
 	

@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4,
     },
 	
-    Description = 'Hvy Mobile Shield Generator',
+    Description = '<LOC ual0308_desc>Hvy Mobile Shield Generator',
 	
     Display = {
         Abilities = {
@@ -125,7 +125,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Refuge',
+        UnitName = '<LOC ual0308_name>Refuge',
         UnitWeight = 1,
     },
     Intel = {

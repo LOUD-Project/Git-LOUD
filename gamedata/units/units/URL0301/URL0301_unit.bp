@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18,
     },
 	
-    Description = 'Support Armored Command Unit',
+    Description = '<LOC url0301_desc>Support Armored Command Unit',
 	
     Display = {
         Abilities = {

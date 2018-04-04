@@ -51,7 +51,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12,
     },
 	
-    Description = 'Rapid Light Howitzer',
+    Description = '<LOC beb2303_desc>Rapid Light Howitzer',
 	
     Display = {
 		Abilities = {
@@ -101,7 +101,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Hellstorm Emplacement',
+        UnitName = '<LOC beb2303_name>Hellstorm Emplacement',
         UnitWeight = 1,
     },
     Intel = {

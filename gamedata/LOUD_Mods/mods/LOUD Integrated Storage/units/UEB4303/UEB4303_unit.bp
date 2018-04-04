@@ -46,7 +46,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -6,
         },
     },
-    Description = 'Heavy Shield Generator & Storage',
+    Description = '<LOC ueb4303_desc>Heavy Shield Generator & Storage',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -130,7 +130,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'HSD Pulse',
+        UnitName = '<LOC ueb4303_name>HSD Pulse',
         UnitWeight = 1,
         UpgradesFrom = 'ueb4301',
     },

@@ -58,7 +58,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'AutoCannon AA Defense',
+    Description = '<LOC xsb2304_desc>AutoCannon AA Defense',
 	
     Display = {
 	
@@ -125,7 +125,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Iathu-ioz',
+        UnitName = '<LOC xsb2304_name>Iathu-ioz',
         UnitWeight = 1,
     },
 	

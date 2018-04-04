@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 950,
         RegenRate = 1,
     },
-    Description = 'Tactical Missile Defense',
+    Description = '<LOC urb4201_desc>Tactical Missile Defense',
     Display = {
         Abilities = {
             'Aquatic',
@@ -94,7 +94,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Zapper',
+        UnitName = '<LOC urb4201_name>Zapper',
         UnitWeight = 1,
     },
     Intel = {

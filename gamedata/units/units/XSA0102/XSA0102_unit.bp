@@ -69,7 +69,7 @@ UnitBlueprint {
         MaxHealth = 305,
         RegenRate = 1,
     },
-    Description = 'Interceptor',
+    Description = '<LOC xsa0102_desc>Interceptor',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -126,7 +126,7 @@ UnitBlueprint {
         Icon = 'air',
         TarmacGlowDecal = 0.5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ia-atha',
+        UnitName = '<LOC xsa0102_name>Ia-atha',
         UnitWeight = 1,
     },
     Intel = {

@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 430,
     },
 	
-    Description = 'Conquest Dreadnaught',
+    Description = '<LOC bes0402_desc>Conquest Dreadnaught',
 	
     Display = {
         Abilities = {
@@ -188,7 +188,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Conquest Class',
+        UnitName = '<LOC bes0402_name>Conquest Class',
         UnitWeight = 1,
     },
 	

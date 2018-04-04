@@ -72,7 +72,7 @@ UnitBlueprint {
         },
     },
 	
-    Description = 'Field Engineer',
+    Description = '<LOC xel0209_desc>Field Engineer',
 	
     Display = {
         Abilities = {
@@ -187,7 +187,7 @@ UnitBlueprint {
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Sparky',
+        UnitName = '<LOC xel0209_name>Sparky',
         UnitWeight = 1,
     },
 	

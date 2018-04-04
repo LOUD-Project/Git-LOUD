@@ -82,7 +82,7 @@ UnitBlueprint {
 		
     },
 	
-    Description = 'Strategic Missile Submarine',
+    Description = '<LOC urs0304_desc>Strategic Missile Submarine',
 	
     Display = {
 	
@@ -260,7 +260,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Plan B',
+        UnitName = '<LOC urs0304_name>Plan B',
         UnitWeight = 1,
     },
 	

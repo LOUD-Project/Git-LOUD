@@ -41,7 +41,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Elite Assault Bot',
+    Description = '<LOC bsl0003_desc>Elite Assault Bot',
     Display = {
 		Abilities = {
 			'Quantum Power - dies if runs out of power',
@@ -126,7 +126,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = false,
         },
-        UnitName = 'Hala Ilshavoh',
+        UnitName = '<LOC bsl0003_name>Hala Ilshavoh',
         UnitWeight = 1,
     },
     Intel = {

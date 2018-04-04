@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 323,
     },
 	
-    Description = 'Experimental Heavy Support Mech',
+    Description = '<LOC brot3ncm_desc>Experimental Heavy Support Mech',
 	
     Display = {
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Eliash',
+        UnitName = '<LOC brot3ncm_name>Eliash',
         UnitWeight = 1,
     },
 	

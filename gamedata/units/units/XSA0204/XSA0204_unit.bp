@@ -96,7 +96,7 @@ UnitBlueprint {
         SubThreatLevel = 9.6,
     },
 	
-    Description = 'Torpedo Bomber',
+    Description = '<LOC xsa0204_desc>Torpedo Bomber',
 	
     Display = {
         Abilities = {
@@ -151,7 +151,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Uosioz',
+        UnitName = '<LOC xsa0204_name>Uosioz',
         UnitWeight = 1,
     },
     Intel = {

@@ -72,7 +72,7 @@ UnitBlueprint {
         RegenRate = 20,
         SurfaceThreatLevel = 55,
     },
-    Description = 'Battleship',
+    Description = '<LOC ues0302_desc>Battleship',
     Display = {
         Abilities = {
             'AA Flak x 4',
@@ -181,7 +181,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Summit Class',
+        UnitName = '<LOC ues0302_name>Summit Class',
         UnitWeight = 1,
     },
 	

@@ -74,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 22,
     },
 	
-    Description = 'Destroyer',
+    Description = '<LOC urs0201_desc>Destroyer',
 	
     Display = {
         Abilities = {
@@ -258,7 +258,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Salem Class',
+        UnitName = '<LOC urs0201_name>Salem Class',
         UnitWeight = 1,
     },
 	

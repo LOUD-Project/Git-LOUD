@@ -37,9 +37,7 @@ UnitBlueprint {
         },
     },
     Buffs = {},
-	
     BuildIconSortPriority = 25,
-	
     Categories = {
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
@@ -63,8 +61,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 2.7,
     },
-    Description = 'Amphibious Mortar Hovercraft',
-	
+    Description = '<LOC uel0107_desc>Mortar Hovercraft',
     Display = {
         Abilities = {
             'Hover',
@@ -102,7 +99,7 @@ UnitBlueprint {
                         },
                         Scale = 0.5,
                         Type = 'BackWake',
-                    },  
+                    },
                    	{
                         Bones = {
                             'uel0107',
@@ -147,7 +144,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Caiman',
+        UnitName = '<LOC uel0107_name>Caiman',
         UnitWeight = 1,
     },
     Intel = {
@@ -221,38 +218,27 @@ UnitBlueprint {
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-			
             Damage = 45,
             DamageRadius = 1.0,
             DamageType = 'Normal',
-			
             DisplayName = 'Grenade Launcher',
-			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-			
             FiringRandomness = 0.8,
             FiringRandomnessWhileMoving = 4,
-			
             FiringTolerance = 1,
-			
             Label = 'Mortar',
-			
             MaxRadius = 30,
             MinRadius = 5,
-			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 14,
-			
             MuzzleVelocityRandomness = 2.0,
-            MuzzleVelocityReduceDistance = 1, 
-			
+            MuzzleVelocityReduceDistance = 1,
             ProjectileId = '/mods/4DC/projectiles/Mortar/Mortar_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2.8,
-
             RackBones = {
                 {
                     MuzzleBones = {
@@ -279,7 +265,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -1.0,
                 },
             },
-			
+
             RackFireTogether = false,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
@@ -287,11 +273,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 2.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
             RangeCategory = 'UWRC_DirectFire',
-			
             RateOfFire = 1,	-- 3 shots then 2.1 second reload = 3 rounds over 5 seconds = 27
-			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -302,20 +285,16 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
-			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel_Housing_Pitch',
             TurretBoneYaw = 'Turret_Yaw',
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
-			
             Turreted = true,
         },
     },

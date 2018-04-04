@@ -45,7 +45,7 @@ UnitBlueprint {
         MaxHealth = 2750,
         RegenRate = 2,
     },
-    Description = 'Mobile Rapid-fire AA Cannon',
+    Description = '<LOC belk002_desc>Mobile Rapid-fire AA Cannon',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -101,7 +101,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Cougar',
+        UnitName = '<LOC belk002_name>Cougar',
         UnitWeight = 1,
     },
     Intel = {

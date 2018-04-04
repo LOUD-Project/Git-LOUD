@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 11,
     },
 	
-    Description = 'Cruiser',
+    Description = '<LOC urs0202_desc>Cruiser',
 	
     Display = {
 	
@@ -198,7 +198,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        UnitName = 'Siren Class',
+        UnitName = '<LOC urs0202_name>Siren Class',
         UnitWeight = 1,
     },
 	
