@@ -38,7 +38,7 @@ UnitBlueprint {
         Health = 6000,
         MaxHealth = 6000,
     },
-    Description = '<LOC xsm0001_desc>Wall Section',
+    Description = '<LOC xsb5101_desc>Wall Section',
     Display = {
         AnimationDeath = {
             {
