@@ -2050,7 +2050,6 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2112,7 +2111,6 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2249,7 +2247,6 @@ UnitBlueprint {
             MuzzleVelocity = 26,
 			PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2332,8 +2329,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26,
 			PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectilesPerOnFire = 1,
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp'
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2760,7 +2756,6 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
             DisplayName = 'Anti Torpedo',
-            EffectiveRadius = 42,
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
@@ -2823,8 +2818,6 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Will O Wisp Anti Missile',
-			
-            EffectiveRadius = 22,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
