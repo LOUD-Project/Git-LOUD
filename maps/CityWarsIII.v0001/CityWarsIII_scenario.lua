@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = "CityWarsIII",
-    description = "<LOC CityWarsIII.v0001_Description>War in the Cities Part III. A completely new world with custom decals and layers. No easy 'country side' warfare. Adapt your strategies and deal with the much nastier city wars.",
+    name = "CityWarsIII AD",
+    description = "<LOC CityWarsIII.v0001_Description>War in the Cities Part III. This is a Attack / Defend scenario.",
     preview = '',
     map_version = 32,
     type = 'skirmish',
