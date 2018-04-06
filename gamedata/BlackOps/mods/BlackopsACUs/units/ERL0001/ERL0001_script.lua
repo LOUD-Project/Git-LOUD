@@ -364,8 +364,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 		self.RBIntTier2 = false
 		self.RBIntTier3 = false
 		self.regenammount = 0
-
-		self.DefaultGunBuffApplied = false
     end,
 
     OnFailedToBuild = function(self)
@@ -946,35 +944,29 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBApoEngineering = false
 
 		elseif enh =='EXRipperBooster' then
-		
             local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(30)
-			self:ForkThread(self.DefaultGunBuffThread)
+			wepRipper:AddDamageMod(50)
+            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius + 5)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			self:ShowBone('Right_Upgrade', true)
 			
         elseif enh =='EXRipperBoosterRemove' then
-		
             local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
-
-        elseif enh =='EXTorpedoLauncher' then
-		
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(30)
+			wepRipper:AddDamageMod(-50)
+            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			self:HideBone('Right_Upgrade', true)
 			
+        elseif enh =='EXTorpedoLauncher' then
 			self.wcTorp01 = true
 			self.wcTorp02 = false
 			self.wcTorp03 = false
-			
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoLauncherRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
-			
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -982,22 +974,13 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoRapidLoader' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:AddDamageMod(50)
 			self.wcTorp01 = false
 			self.wcTorp02 = true
 			self.wcTorp03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
-			wepRipper:AddDamageMod(-50)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1005,9 +988,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
 		elseif enh =='EXTorpedoClusterLauncher' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:AddDamageMod(100)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = true
@@ -1015,11 +995,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoClusterLauncherRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
-			wepRipper:AddDamageMod(-150)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1027,9 +1002,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXEMPArray' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(35)
 			self.wcEMP01 = true
 			self.wcEMP02 = false
 			self.wcEMP03 = false
@@ -1037,10 +1009,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXEMPArrayRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcEMP01 = false
 			self.wcEMP02 = false
 			self.wcEMP03 = false
@@ -1048,21 +1016,13 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXImprovedCapacitors' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(40)
 			self.wcEMP01 = false
 			self.wcEMP02 = true
 			self.wcEMP03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXImprovedCapacitorsRemove' then    
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcEMP01 = false
 			self.wcEMP02 = false
 			self.wcEMP03 = false
@@ -1070,9 +1030,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXPowerBooster' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(45)
             self.wcEMP01 = false
 			self.wcEMP02 = false
 			self.wcEMP03 = true
@@ -1080,12 +1037,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXPowerBoosterRemove' then    
-		
             self:SetWeaponEnabledByLabel('EXEMPArray01', false)
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcEMP01 = false
 			self.wcEMP02 = false
 			self.wcEMP03 = false
@@ -1093,9 +1045,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXMasor' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(30)
 			self.wcMasor01 = true
 			self.wcMasor02 = false
 			self.wcMasor03 = false
@@ -1103,10 +1052,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXMasorRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcMasor01 = false
 			self.wcMasor02 = false
 			self.wcMasor03 = false
@@ -1114,21 +1059,13 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXImprovedCoolingSystem' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(30)
 			self.wcMasor01 = false
 			self.wcMasor02 = true
 			self.wcMasor03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXImprovedCoolingSystemRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcMasor01 = false
 			self.wcMasor02 = false
 			self.wcMasor03 = false
@@ -1136,9 +1073,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXAdvancedEmitterArray' then
-
-			local wepRipper = self:GetWeaponByLabel('RightRipper')
-            wepRipper:ChangeMaxRadius(30)
 			self.wcMasor01 = false
 			self.wcMasor02 = false
 			self.wcMasor03 = true
@@ -1146,10 +1080,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXAdvancedEmitterArrayRemove' then
-
-            local wepRipper = self:GetWeaponByLabel('RightRipper')
-            local bpDisruptRipperRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepRipper:ChangeMaxRadius(bpDisruptRipperRadius or 22)
 			self.wcMasor01 = false
 			self.wcMasor02 = false
 			self.wcMasor03 = false
@@ -1157,7 +1087,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXArmorPlating' then
-		
             if not Buffs['EXCybranHealthBoost22'] then
                 BuffBlueprint {
                     Name = 'EXCybranHealthBoost22',
@@ -1183,7 +1112,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBDefTier3 = false
 
 		elseif enh == 'EXArmorPlatingRemove' then
-		
             if Buff.HasBuff( self, 'EXCybranHealthBoost22' ) then
                 Buff.RemoveBuff( self, 'EXCybranHealthBoost22' )
             end
@@ -1221,7 +1149,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBDefTier3 = false
 
         elseif enh == 'EXStructuralIntegrityRemove' then
-		
             if Buff.HasBuff( self, 'EXCybranHealthBoost22' ) then
                 Buff.RemoveBuff( self, 'EXCybranHealthBoost22' )
             end
@@ -1258,7 +1185,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBDefTier3 = true
 
         elseif enh == 'EXCompositeMaterialsRemove' then
-		
             if Buff.HasBuff( self, 'EXCybranHealthBoost22' ) then
                 Buff.RemoveBuff( self, 'EXCybranHealthBoost22' )
             end
@@ -1277,7 +1203,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBDefTier3 = false
 
         elseif enh == 'EXElectronicsEnhancment' then
-		
             self:SetIntelRadius('Vision', bp.NewVisionRadius or 50)
             self:SetIntelRadius('Omni', bp.NewOmniRadius or 50)
 
@@ -1286,7 +1211,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBIntTier3 = false
 
         elseif enh == 'EXElectronicsEnhancmentRemove' then
-		
             local bpIntel = self:GetBlueprint().Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
@@ -1296,7 +1220,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBIntTier3 = false
 
         elseif enh == 'EXElectronicCountermeasures' then
-		
             self:AddToggleCap('RULEUTC_CloakToggle')
             if self.IntelEffectsBag then
                 EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
@@ -1312,7 +1235,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBIntTier3 = false
 
         elseif enh == 'EXElectronicCountermeasuresRemove' then
-		
             self:RemoveToggleCap('RULEUTC_CloakToggle')
             self:DisableUnitIntel('RadarStealth')
             self:DisableUnitIntel('SonarStealth')           
@@ -1340,7 +1262,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBIntTier3 = true
 
         elseif enh == 'EXCloakingSubsystemsRemove' then
-		
             self:RemoveToggleCap('RULEUTC_CloakToggle')
             self:DisableUnitIntel('Cloak')
             self.CloakEnh = false 
@@ -1353,7 +1274,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBIntTier3 = false
 
         elseif enh =='EXMobilitySubsystems' then
-		
 			self:SetSpeedMult(1.41176)
 
 			self.RBComTier1 = true
@@ -1361,7 +1281,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXMobilitySubsystemsRemove' then
-		
 			self:SetSpeedMult(1)
 
 			self.RBComTier1 = false
@@ -1369,7 +1288,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXDefensiveSubsystems' then
-
 			self:AddCommandCap('RULEUCC_Teleport')
 			
 			self.wcAA01 = true
@@ -1381,7 +1299,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh == 'EXDefensiveSubsystemsRemove' then
-		
 			self:SetSpeedMult(1)
 
 			self:RemoveCommandCap('RULEUCC_Teleport')
@@ -1394,13 +1311,11 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXNanoKickerSubsystems' then
-
 			self.RBComTier1 = true
 			self.RBComTier2 = true
 			self.RBComTier3 = true
 
         elseif enh == 'EXNanoKickerSubsystemsRemove' then
-		
 			self:SetSpeedMult(1)
 
 			self:RemoveCommandCap('RULEUCC_Teleport')
