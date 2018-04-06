@@ -111,8 +111,7 @@ function BeginSession()
     end
 
     if ScenarioInfo.Options.TeamLock == 'locked' then
-        -- Specify that the teams are locked.  Parts of the diplomacy dialog will
-        -- be disabled.
+        -- Specify that the teams are locked.  Parts of the diplomacy dialog will be disabled.
         ScenarioInfo.TeamGame = true
         Sync.LockTeams = true
     end
@@ -132,9 +131,12 @@ function BeginSession()
 			
             for index, cat in restrictedUnits[restriction].categories do
 			
+				-- if that category actually exists
 				if categories[cat] then
 			
 					if restrictedCategories == nil then
+					
+						LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = categories[cat]
 						

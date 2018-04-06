@@ -474,7 +474,7 @@ function ModBlueprints(all_blueprints)
 		end
 	end
 
-	LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
+	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
 
 	LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
 	LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
