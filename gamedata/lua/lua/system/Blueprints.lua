@@ -466,9 +466,9 @@ function ModBlueprints(all_blueprints)
 				if string.find(bp.BlueprintId, "/") and string.find(bp.BlueprintId, "/gamedata/") then
 					local slash = string.find(bp.BlueprintId, "/", 2)
 					slash = string.find(bp.BlueprintId, "/", slash + 1)
-					LOG(bp.BlueprintId)
+					--LOG(bp.BlueprintId)
 					bp.BlueprintId = string.sub(bp.BlueprintId, slash)
-					LOG(bp.BlueprintId)
+					--LOG(bp.BlueprintId)
 				end
 			end
 		end
