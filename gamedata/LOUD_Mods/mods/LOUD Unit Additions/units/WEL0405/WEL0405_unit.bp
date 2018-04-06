@@ -94,15 +94,16 @@ UnitBlueprint {
 		},	
         AnimationDeath = {
             {
-                Animation = '/units/WEL0405/WEL0405_Adeath01.sca',
+                Animation = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_Adeath01.sca',
                 AnimationRateMax = 0.5,
                 AnimationRateMin = 0.25,
                 Weight = 100,
             },
         },
 		
-        AnimationIdle = '/units/WEL0405/WEL0405_AIdle01.sca',
-        AnimationWalk = '/units/WEL0405/WEL0405_AWalk01.sca',
+        AnimationIdle = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_AIdle01.sca',
+		
+        AnimationWalk = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_AWalk01.sca',
 		
 		AnimationWalkRate = 0.88,
 		
@@ -121,6 +122,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -140,6 +142,12 @@ UnitBlueprint {
 							StraightLegs = false,
                         },
                     },
+                    Damage = {
+                        Amount = 2500,
+                        DamageFriendly = false,
+                        Radius = 1,
+                        Type = 'ExperimentalFootfall',
+                    },					
                     CameraShake = {
                         Interval = 1,
                         MaxShakeEpicenter = 0.125,

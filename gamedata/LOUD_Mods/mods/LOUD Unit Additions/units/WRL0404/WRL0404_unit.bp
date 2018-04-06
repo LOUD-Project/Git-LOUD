@@ -6,29 +6,34 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'FAPsb',
-            Cue = 's_UCX0101_Megabot_Move_Start',
+            Bank = 'XRL',
+            Cue = 'XRL0403_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        StopMove = Sound {
-            Bank = 'FAPsb',
-            Cue = 's_UCX0101_Megabot_Move_Stop',
+        FootFallGeneric = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Footfall',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-		UISelection = Sound {
-			Bank = 'SC2Units',
-			Cue = 'GENERIC_Select_Experimentals',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
+        FootFallGenericSeabed = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_UW_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Spider',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 20,
+            Level2 = 30,
+            Level3 = 40,
+            Level4 = 50,
+            Level5 = 60,
         },
     },
 	
@@ -72,16 +77,19 @@ UnitBlueprint {
 			'Omni Radar',
             'Volatile',
         },
+		
         AnimationDeath = {
             {
-                Animation = '/units/WRL0404/WRL0404_Adeath01.sca',
+                Animation = '/mods/LOUD Unit Additions/units/WRL0404/WRL0404_Adeath01.sca',
                 AnimationRateMax = 0.5,
                 AnimationRateMin = 0.5,
                 Weight = 100,
             },
         },
-        AnimationWalk = '/units/WRL0404/WRL0404_awalk01.sca',
+		
+        AnimationWalk = '/mods/LOUD Unit Additions/units/WRL0404/WRL0404_awalk01.sca',
         AnimationWalkRate = 0.7,
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

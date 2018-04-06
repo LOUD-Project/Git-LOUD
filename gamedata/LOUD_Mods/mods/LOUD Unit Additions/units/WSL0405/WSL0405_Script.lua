@@ -8,12 +8,15 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 
 WSL0405 = Class(SHoverLandUnit) {
     Weapons = {
+	
         MainTurret = Class(SDFThauCannon) {},
         MainTurret2 = Class(SDFThauCannon) {},
+		
         LeftTurret = Class(SDFAireauBolter) {},
         RightTurret = Class(SDFAireauBolter) {},
         RearLeftTurret = Class(SDFAireauBolter) {},
         RearRightTurret = Class(SDFAireauBolter) {},
+		
         AAGun = Class(SAAShleoCannonWeapon) {
             FxMuzzleScale = 2.25,
         },
