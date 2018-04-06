@@ -1,5 +1,9 @@
 GPGrestrictedUnits = {
 
+-- Just some notes here about categories
+-- Apparently, unlike category filtering elsewhere in the code, you cannot
+-- specify cocatenated categories - you can only use base categories - or specific unit ids
+
     T1 = {
         categories = {"TECH1"},
         name = "<LOC restricted_units_data_0000>No Tech 1",
@@ -36,10 +40,40 @@ GPGrestrictedUnits = {
         tooltip = "restricted_units_land",
     },
 	
-    AIR = {
-        categories = {"baa0309", "bra0309", "bsa0309", "bsa0310", "uaa0302", "uaa0303", "uaa0304", "uaa0310", "uea0302", "uea0303", "uea0304", "uea0305", "ura0302", "ura0303", "ura0304", "xaa0305", "xaa0306", "xea0306", "xra0305", "xsa0302", "xsa0303", "xsa0304", "daa0206", "dea0202", "dra0202", "uaa0101", "uaa0102", "uaa0103", "uaa0104", "uaa0107", "uaa0203", "uaa0204", "uaa0206", "uea0101", "uea0102", "uea0103", "uea0104", "uea0107", "uea0203", "uea0204", "ura0101", "ura0102", "ura0103", "ura0104", "ura0107", "ura0203", "ura0204", "xaa0202", "xra0105", "xsa0101", "xsa0102", "xsa0103", "xsa0104", "xsa0107", "xsa0202", "xsa0203", "xsa0204", "brpat2bomber", "brpat3gunship", "brpat2figbo", "bea0402", "bea0403", "bra0409", "xsa0402", "uaa0310", "ura0401", "tcau0401", "bsa0003", },
-        name = "No Air Units",
-        tooltip = "restricted_units_air",
+    AIRSCOUTS = {
+        categories = {"uaa0101","uaa0302","uea0101","uea0302","ura0101","ura0302","xsa0101","xsa0302" },
+        name = "No Air Scouts",
+        tooltip = "No Air Scouts or Spy Planes",
+    },
+
+    AIRFIGHTERS = {
+		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303"},
+		name = "No Air Fighters",
+		tooltip = "No Air Fighters",
+    },
+	
+    AIRBOMBERS = {
+		categories = {"BOMBER","TORPEDOBOMBER"},
+		name = "No Air Bombers or Torpedo Bombers",
+		tooltip = "No Bombers or Torpedo Bombers",
+    },
+	
+    AIRGUNSHIPS = {
+		categories = {"GROUNDATTACK"},
+		name = "No Gunships",
+		tooltip = "No Gunships",
+    },
+	
+    AIRTRANSPORTS = {
+		categories = {"TRANSPORTFOCUS"},
+		name = "No Air Transports",
+		tooltip = "No Air Transports",
+    },
+
+    AIREXPERIMENTALS = {
+		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "tcau0401", "uaa0310",},
+		name = "No Air Experimentals",
+		tooltip = "restricted_units_air_experimentals",
     },
 	
     UEF = {
@@ -113,18 +147,7 @@ GPGrestrictedUnits = {
 		name = "No T1, T2, T3 Engineers",
 		tooltip = "restricted_units_engineers",
     },
-	
-    AIRSCOUTSANDFIGHTERSONLY = {
-		categories = {"bsa0003", "bsa0310", "daa0206", "uaa0103", "uaa0203", "uaa0204", "uaa0206", "uaa0304", "uea0103", "uea0203", "uea0204", "uea0304", "uea0305", "ura0103", "ura0203", "ura0204", "ura0304", "xaa0305", "xaa0306", "xra0105", "xra0305", "xsa0103", "xsa0203", "xsa0204",  "xsa0304", "baa0309", "bra0309", "bra0409", "bsa0309", "xea0306", "uaa0104", "uaa0107", "uea0104", "uea0107", "ura0104", "ura0107", "xsa0104", "xsa0107", "brpat2bomber", "brpat3gunship", "brpat2figbo", "bsa0003",},
-		name = "Air: Scouts and Fighters only",
-		tooltip = "restricted_units_air_fighters_only",
-    },
-	
-    NOAIREXPERIMENTALS = {
-		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "tcau0401", "uaa0310",},
-		name = "No Air Experimentals",
-		tooltip = "restricted_units_air_experimentals",
-    },
+
 }
 
 GPGsortOrder = {
@@ -138,7 +161,12 @@ GPGsortOrder = {
     "EXPERIMENTAL",
     "NAVAL",
     "LAND",
-    "AIR",
+	"AIRSCOUTS",
+	"AIRFIGHTERS",
+	"AIRBOMBERS",
+	"AIRGUNSHIPS",
+	"AIRTRANSPORTS",
+    "AIREXPERIMENTALS",	
 	"TACTICALMISSILELAUNCHERS",
     "NUKE",
     "GAMEENDERS",
@@ -147,8 +175,7 @@ GPGsortOrder = {
     "SUPCOM",
     "FABS",
     "NOENGINEERS",
-    "AIRSCOUTSANDFIGHTERSONLY",
-    "NOAIREXPERIMENTALS",
+
 }
 
 GPGOptions = {}
