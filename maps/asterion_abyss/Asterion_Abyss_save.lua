@@ -922,7 +922,7 @@ Scenario = {
                     ['type'] = STRING( 'Combat Zone' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 537.5, 64.97656, 491.5 ),
+                    ['position'] = VECTOR3( 536.5, 64.98053, 490.5 ),
                 },
                 ['LandPN07'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -1114,7 +1114,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 551.5, 50, 506.5 ),
+                    ['position'] = VECTOR3( 550.5, 64.82427, 505.5 ),
                 },
                 ['ARMY_1'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -1165,26 +1165,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 32.5, 32, 160.5 ),
                 },
-                ['Mass 22'] = {
-                    ['size'] = FLOAT( 1.000000 ),
-                    ['resource'] = BOOLEAN( true ),
-                    ['amount'] = FLOAT( 100.000000 ),
-                    ['color'] = STRING( 'ff808080' ),
-                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-                    ['type'] = STRING( 'Mass' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 707.5, 63.90625, 584.5 ),
-                },
-                ['AirPN139'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN70'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN122 AirPN154 AirPN123 AirPN124 AirPN138 AirPN156 AirPN140 AirPN155' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN69 AmphPN29' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 64, 672.5 ),
+                    ['position'] = VECTOR3( 516.5, 49.16405, 219.5 ),
+                },
+                ['AmphPN69'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN72 AmphPN70 AmphPN68' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 397.5, 35, 201.5 ),
                 },
                 ['AirPN146'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1206,15 +1205,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 32.5, 89.99219, 864.5 ),
                 },
-                ['AmphPN70'] = {
+                ['AmphPN68'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN69 AmphPN29' ),
+                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN69' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 516.5, 49.16405, 219.5 ),
+                    ['position'] = VECTOR3( 343.5, 34.78125, 43.5 ),
                 },
                 ['LandPN38'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -1246,45 +1245,45 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 288.5, 32, 224.5 ),
                 },
-                ['AirPN112'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN45'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN128 AirPN95 AirPN96' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN31 LandPN46 LandPN33 LandPN43' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 64, 992.5 ),
+                    ['position'] = VECTOR3( 215.5, 64, 543.5 ),
                 },
-                ['AirPN17'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN34 AirPN18 AirPN33 AirPN2' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 32, 32.5 ),
-                },
-                ['AmphPN66'] = {
+                ['AmphPN64'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN65 AmphPN55' ),
+                    ['adjacentTo'] = STRING( 'AmphPN72 AmphPN06' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 648.5, 74.99219, 139.5 ),
+                    ['position'] = VECTOR3( 38.5, 38.08594, 514.5 ),
                 },
-                ['AirPN126'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN63'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN143 AirPN125 AirPN109 AirPN110 AirPN142 AirPN141' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN71 AmphPN62' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 480.5, 74.96875, 864.5 ),
+                    ['position'] = VECTOR3( 971.5, 34.64844, 513.5 ),
+                },
+                ['AmphPN46'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN45 AmphPN06' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 112.5, 62.625, 540.5 ),
                 },
                 ['AirPN170'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1326,15 +1325,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 928.5, 80.17188, 160.5 ),
                 },
-                ['AirPN114'] = {
+                ['AirPN181'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN131 AirPN129 AirPN97 AirPN115 AirPN130 AirPN98 AirPN99 AirPN113' ),
+                    ['adjacentTo'] = STRING( 'AirPN196 AirPN166 AirPN197 AirPN164 AirPN198 AirPN180 AirPN182 AirPN165' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 480.5, 51.20313, 96.5 ),
+                    ['position'] = VECTOR3( 736.5, 81.49219, 288.5 ),
                 },
                 ['Combat Zone 05'] = {
                     ['color'] = STRING( 'ff800000' ),
@@ -1343,77 +1342,6 @@ Scenario = {
                     ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 462.5, 64, 323.5 ),
-                },
-                ['LandPN45'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN31 LandPN46 LandPN33 LandPN43' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 215.5, 64, 543.5 ),
-                },
-                ['Mass 15'] = {
-                    ['size'] = FLOAT( 1.000000 ),
-                    ['resource'] = BOOLEAN( true ),
-                    ['amount'] = FLOAT( 100.000000 ),
-                    ['color'] = STRING( 'ff808080' ),
-                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-                    ['type'] = STRING( 'Mass' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 669.5, 74.96094, 165.5 ),
-                },
-                ['AmphPN52'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN50 AmphPN56 AmphPN49 AmphPN59 AmphPN58' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 909.5, 75.59375, 182.5 ),
-                },
-                ['LandPN31'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN45 LandPN33 LandPN14 LandPN43' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 305.5, 76.3125, 610.5 ),
-                },
-                ['AirPN244'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN245 AirPN228 AirPN229' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 66.95313, 224.5 ),
-                },
-                ['AmphPN46'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN45 AmphPN06' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 112.5, 62.625, 540.5 ),
-                },
-                ['AmphPN36'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN38 AmphPN35 AmphPN09' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 377.5, 64, 992.5 ),
                 },
                 ['AirPN163'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1435,16 +1363,6 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 535.5, 63.91406, 284.5 ),
                 },
-                ['AirPN242'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN226 AirPN225' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 85.16406, 96.5 ),
-                },
                 ['AirPN6'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
@@ -1455,15 +1373,95 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 32.5, 32, 352.5 ),
                 },
-                ['AmphPN35'] = {
+                ['LandPN31'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN45 LandPN33 LandPN14 LandPN43' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 305.5, 76.3125, 610.5 ),
+                },
+                ['AmphPN45'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN36 AmphPN03 AmphPN38 AmphPN10' ),
+                    ['adjacentTo'] = STRING( 'AmphPN33 AmphPN46 AmphPN31 AmphPN43' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 427.5, 74.10938, 936.5 ),
+                    ['position'] = VECTOR3( 215.5, 64, 543.5 ),
+                },
+                ['AmphPN31'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN33 AmphPN45 AmphPN43 AmphPN14' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 310.5, 76.13281, 607.5 ),
+                },
+                ['AmphPN36'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN38 AmphPN35 AmphPN09' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 377.5, 64, 992.5 ),
+                },
+                ['AirPN234'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN235 AirPN233 AirPN217 AirPN251 AirPN250 AirPN219 AirPN249' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 928.5, 32, 608.5 ),
+                },
+                ['AirPN158'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN174 AirPN159 AirPN143 AirPN157 AirPN175 AirPN142 AirPN173 AirPN141' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 608.5, 44.125, 864.5 ),
+                },
+                ['AirPN242'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN226 AirPN225' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 992.5, 85.16406, 96.5 ),
+                },
+                ['AirPN177'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN193 AirPN162 AirPN161' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 736.5, 66.94531, 32.5 ),
+                },
+                ['AmphPN22'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN25 AmphPN21 AmphPN23' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 544.5, 87.1875, 397.5 ),
                 },
                 ['Mass 20'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -1476,15 +1474,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 893.5, 74.76563, 329.5 ),
                 },
-                ['AirPN72'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN28'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN71 AirPN89 AirPN73 AirPN57 AirPN55 AirPN56 AirPN88 AirPN87' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN56 AmphPN26 AmphPN57 AmphPN41' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 288.5, 39.60938, 480.5 ),
+                    ['position'] = VECTOR3( 738.5, 76.16406, 350.5 ),
                 },
                 ['Mass 11'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -1507,35 +1505,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 680.5, 64, 620.5 ),
                 },
-                ['AmphPN31'] = {
+                ['LandPN67'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN68 LandPN54 LandPN70 LandPN69 LandPN65' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 496.5, 57.8672, 50.5 ),
+                },
+                ['AmphPN24'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN33 AmphPN45 AmphPN43 AmphPN14' ),
+                    ['adjacentTo'] = STRING( 'AmphPN26 AmphPN23' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 310.5, 76.13281, 607.5 ),
+                    ['position'] = VECTOR3( 654.5, 89.99219, 402.5 ),
                 },
-                ['AirPN171'] = {
+                ['AirPN186'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN154 AirPN188 AirPN156 AirPN170 AirPN155 AirPN172 AirPN187 AirPN186' ),
+                    ['adjacentTo'] = STRING( 'AirPN170 AirPN203 AirPN185 AirPN201 AirPN202 AirPN187 AirPN171 AirPN169' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 672.5, 50.58594, 672.5 ),
-                },
-                ['AirPN252'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN235 AirPN253 AirPN251 AirPN236 AirPN237' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 32, 736.5 ),
+                    ['position'] = VECTOR3( 736.5, 33.35938, 608.5 ),
                 },
                 ['Mass 21'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -1556,17 +1554,17 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 359.5, 34.86719, 155.5 ),
                 },
-                ['AmphPN54'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN203'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN65 AmphPN67 AmphPN53' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN188 AirPN204 AirPN220 AirPN219 AirPN202 AirPN187 AirPN186' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 699.5, 66.92188, 36.5 ),
+                    ['position'] = VECTOR3( 800.5, 32, 672.5 ),
                 },
-                ['Mass 05'] = {
+                ['Mass 03'] = {
                     ['size'] = FLOAT( 1.000000 ),
                     ['resource'] = BOOLEAN( true ),
                     ['amount'] = FLOAT( 100.000000 ),
@@ -1575,7 +1573,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 33.5, 89.99219, 814.5 ),
+                    ['position'] = VECTOR3( 955.5, 84.99219, 48.5 ),
                 },
                 ['AirPN147'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1597,15 +1595,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 992.5, 32, 864.5 ),
                 },
-                ['AirPN158'] = {
+                ['AirPN45'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN174 AirPN159 AirPN143 AirPN157 AirPN175 AirPN142 AirPN173 AirPN141' ),
+                    ['adjacentTo'] = STRING( 'AirPN30 AirPN62 AirPN61 AirPN46 AirPN44 AirPN29 AirPN60 AirPN28' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 608.5, 44.125, 864.5 ),
+                    ['position'] = VECTOR3( 160.5, 79.89063, 800.5 ),
                 },
                 ['AirPN105'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1617,25 +1615,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 416.5, 92.07813, 544.5 ),
                 },
-                ['AirPN102'] = {
+                ['AirPN72'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN118 AirPN119 AirPN117 AirPN85 AirPN86 AirPN87 AirPN101 AirPN103' ),
+                    ['adjacentTo'] = STRING( 'AirPN71 AirPN89 AirPN73 AirPN57 AirPN55 AirPN56 AirPN88 AirPN87' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 64, 352.5 ),
+                    ['position'] = VECTOR3( 288.5, 39.60938, 480.5 ),
                 },
-                ['AmphPN22'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN228'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN25 AmphPN21 AmphPN23' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN245 AirPN244 AirPN213 AirPN229 AirPN212 AirPN211' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 87.1875, 397.5 ),
+                    ['position'] = VECTOR3( 928.5, 72.6875, 224.5 ),
                 },
                 ['LandPN18'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -1667,15 +1665,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 864.5, 63.90625, 480.5 ),
                 },
-                ['AmphPN19'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['LandPN64'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN21 AmphPN16' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN06' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 446.5, 83.70314, 459.5 ),
+                    ['position'] = VECTOR3( 38.5, 38.08594, 514.5 ),
                 },
                 ['Defensive Point 02'] = {
                     ['color'] = STRING( 'ff008000' ),
@@ -1696,25 +1694,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 397.5, 74.98438, 917.5 ),
                 },
-                ['AirPN75'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN08'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN91 AirPN59 AirPN58 AirPN76 AirPN74 AirPN92 AirPN90 AirPN60' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN12 AmphPN01' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 288.5, 66.19531, 672.5 ),
+                    ['position'] = VECTOR3( 166.5, 89.99219, 997.5 ),
                 },
-                ['AirPN100'] = {
+                ['AirPN139'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN117 AirPN84 AirPN85 AirPN115 AirPN99 AirPN83 AirPN101 AirPN116' ),
+                    ['adjacentTo'] = STRING( 'AirPN122 AirPN154 AirPN123 AirPN124 AirPN138 AirPN156 AirPN140 AirPN155' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 35.14063, 224.5 ),
+                    ['position'] = VECTOR3( 544.5, 64, 672.5 ),
                 },
                 ['AirPN74'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1747,25 +1745,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 335.5, 34.53125, 101.5 ),
                 },
-                ['AirPN103'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN07'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN118 AirPN120 AirPN119 AirPN102 AirPN86 AirPN104 AirPN88 AirPN87' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN11 AmphPN01' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 81.55469, 416.5 ),
+                    ['position'] = VECTOR3( 29.5, 89.99219, 872.5 ),
                 },
-                ['AirPN186'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN05'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN170 AirPN203 AirPN185 AirPN201 AirPN202 AirPN187 AirPN171 AirPN169' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN06 AmphPN04' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 33.35938, 608.5 ),
+                    ['position'] = VECTOR3( 170.5, 74.96094, 635.5 ),
                 },
                 ['AirPN204'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1787,15 +1785,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 355.5, 64.125, 788.5 ),
                 },
-                ['AirPN187'] = {
+                ['AirPN185'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN188 AirPN170 AirPN204 AirPN203 AirPN202 AirPN172 AirPN186 AirPN171' ),
+                    ['adjacentTo'] = STRING( 'AirPN200 AirPN170 AirPN184 AirPN168 AirPN201 AirPN202 AirPN186 AirPN169' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 32, 672.5 ),
+                    ['position'] = VECTOR3( 736.5, 62.57813, 544.5 ),
                 },
                 ['AirPN4'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1845,15 +1843,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 612.5, 85.53125, 445.5 ),
                 },
-                ['AirPN173'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN54'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN189 AirPN174 AirPN188 AirPN156 AirPN157 AirPN172 AirPN158 AirPN190' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN67 LandPN65 LandPN53' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 672.5, 33.00781, 800.5 ),
+                    ['position'] = VECTOR3( 698.5, 66.89844, 37.5 ),
                 },
                 ['AmphPN10'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -1865,35 +1863,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 426.5, 74.99219, 857.5 ),
                 },
-                ['AirPN140'] = {
+                ['AirPN60'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN123 AirPN124 AirPN156 AirPN139 AirPN157 AirPN125 AirPN155 AirPN141' ),
+                    ['adjacentTo'] = STRING( 'AirPN59 AirPN76 AirPN61 AirPN43 AirPN44 AirPN77 AirPN45 AirPN75' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 46.45313, 736.5 ),
+                    ['position'] = VECTOR3( 224.5, 76.24219, 736.5 ),
                 },
-                ['AirPN233'] = {
+                ['AirPN39'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN234 AirPN216 AirPN217 AirPN232 AirPN250 AirPN248 AirPN249' ),
+                    ['adjacentTo'] = STRING( 'AirPN38 AirPN23 AirPN55 AirPN40 AirPN56 AirPN22 AirPN24 AirPN54' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 32, 544.5 ),
+                    ['position'] = VECTOR3( 160.5, 32, 416.5 ),
                 },
-                ['LandPN21'] = {
+                ['LandPN70'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN19 LandPN22' ),
+                    ['adjacentTo'] = STRING( 'LandPN69 LandPN67 LandPN44 LandPN29' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 493.5, 84.3125, 412.5 ),
+                    ['position'] = VECTOR3( 516.5, 49.16405, 219.5 ),
                 },
                 ['AirPN160'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -1925,23 +1923,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 544.5, 55.60156, 928.5 ),
                 },
-                ['Combat Zone 03'] = {
-                    ['color'] = STRING( 'ff800000' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['type'] = STRING( 'Combat Zone' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 593.5, 64, 678.5 ),
-                },
-                ['AirPN195'] = {
+                ['AirPN179'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN196 AirPN179 AirPN180 AirPN210 AirPN212 AirPN211' ),
+                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN196 AirPN164 AirPN162 AirPN180 AirPN195 AirPN163' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 83.25, 160.5 ),
+                    ['position'] = VECTOR3( 736.5, 78.80469, 160.5 ),
+                },
+                ['LandPN37'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN38 LandPN30 LandPN48' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 538.5, 49.02344, 796.5 ),
                 },
                 ['AmphPN12'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -1983,17 +1983,17 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 160.5, 42.91405, 480.5 ),
                 },
-                ['AirPN28'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN66'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN13 AirPN11 AirPN12 AirPN43 AirPN44 AirPN27 AirPN29 AirPN45' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN55 LandPN65' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 74.46875, 736.5 ),
+                    ['position'] = VECTOR3( 602.5, 74.99219, 171.5 ),
                 },
-                ['Mass 03'] = {
+                ['Mass 05'] = {
                     ['size'] = FLOAT( 1.000000 ),
                     ['resource'] = BOOLEAN( true ),
                     ['amount'] = FLOAT( 100.000000 ),
@@ -2002,7 +2002,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 955.5, 84.99219, 48.5 ),
+                    ['position'] = VECTOR3( 33.5, 89.99219, 814.5 ),
                 },
                 ['AirPN49'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2014,36 +2014,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 224.5, 32, 32.5 ),
                 },
-                ['AirPN45'] = {
+                ['AmphPN38'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN47 AmphPN36 AmphPN48 AmphPN37 AmphPN35' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 574.5, 51.09375, 961.5 ),
+                },
+                ['AirPN21'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN30 AirPN62 AirPN61 AirPN46 AirPN44 AirPN29 AirPN60 AirPN28' ),
+                    ['adjacentTo'] = STRING( 'AirPN38 AirPN20 AirPN4 AirPN36 AirPN5 AirPN22 AirPN37 AirPN6' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 160.5, 79.89063, 800.5 ),
+                    ['position'] = VECTOR3( 96.5, 32, 288.5 ),
                 },
-                ['Mass 06'] = {
-                    ['size'] = FLOAT( 1.000000 ),
-                    ['resource'] = BOOLEAN( true ),
-                    ['amount'] = FLOAT( 100.000000 ),
-                    ['color'] = STRING( 'ff808080' ),
-                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-                    ['type'] = STRING( 'Mass' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 211.5, 89.99219, 997.5 ),
-                },
-                ['AirPN65'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN06'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN81 AirPN49 AirPN50 AirPN66 AirPN82' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN64 AmphPN46 AmphPN05 AmphPN34 AmphPN04' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 288.5, 32, 32.5 ),
+                    ['position'] = VECTOR3( 58.5, 61.07813, 635.5 ),
                 },
                 ['AirPN36'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2065,25 +2064,22 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 304.5, 71.03125, 958.5 ),
                 },
-                ['LandPN65'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN54 LandPN67 LandPN66' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                ['ARMY_5'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 599.5, 66.71094, 76.5 ),
+                    ['position'] = VECTOR3( 870.5, 74.96875, 306.5 ),
                 },
-                ['LandPN64'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN162'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN06' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN178 AirPN146 AirPN147 AirPN177 AirPN145 AirPN179 AirPN161 AirPN163' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 38.5, 38.08594, 514.5 ),
+                    ['position'] = VECTOR3( 672.5, 74.92969, 96.5 ),
                 },
                 ['AirPN149'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2095,15 +2091,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 608.5, 79.74219, 288.5 ),
                 },
-                ['AirPN172'] = {
+                ['AirPN215'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN189 AirPN188 AirPN156 AirPN157 AirPN155 AirPN173 AirPN187 AirPN171' ),
+                    ['adjacentTo'] = STRING( 'AirPN200 AirPN199 AirPN216 AirPN198 AirPN232 AirPN230 AirPN231 AirPN214' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 672.5, 32, 736.5 ),
+                    ['position'] = VECTOR3( 864.5, 74.88281, 416.5 ),
                 },
                 ['AirPN15'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2115,45 +2111,45 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 32.5, 89.99219, 928.5 ),
                 },
-                ['LandPN56'] = {
+                ['LandPN52'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN57 LandPN28 LandPN52 LandPN27' ),
+                    ['adjacentTo'] = STRING( 'LandPN49 LandPN58 LandPN59 LandPN56 LandPN50' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 828.5, 80.11719, 240.5 ),
+                    ['position'] = VECTOR3( 909.5, 75.59375, 182.5 ),
                 },
-                ['AirPN7'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN23 AirPN8 AirPN22 AirPN24 AirPN6' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 32.5, 32, 416.5 ),
-                },
-                ['LandPN53'] = {
+                ['LandPN27'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN54 LandPN55 LandPN51 LandPN50' ),
+                    ['adjacentTo'] = STRING( 'LandPN55 LandPN56 LandPN26 LandPN50' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 796.5, 76.92969, 103.5 ),
+                    ['position'] = VECTOR3( 809.5, 86.42188, 181.5 ),
                 },
-                ['AirPN237'] = {
+                ['AmphPN62'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN60 AmphPN63 AmphPN58' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 991.5, 57.07813, 394.5 ),
+                },
+                ['AirPN219'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN254 AirPN253 AirPN220 AirPN238 AirPN222 AirPN236 AirPN221 AirPN252' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN235 AirPN234 AirPN204 AirPN203 AirPN220 AirPN236 AirPN202' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 32, 800.5 ),
+                    ['position'] = VECTOR3( 864.5, 32.17969, 672.5 ),
                 },
                 ['AmphPN21'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -2165,23 +2161,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 493.5, 84.3125, 412.5 ),
                 },
-                ['ARMY_2'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                ['AirPN211'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN194 AirPN196 AirPN227 AirPN226 AirPN228 AirPN210 AirPN212 AirPN195' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 88.5, 89.99219, 942.5 ),
+                    ['position'] = VECTOR3( 864.5, 82.99219, 160.5 ),
                 },
-                ['Mass 17'] = {
-                    ['size'] = FLOAT( 1.000000 ),
-                    ['resource'] = BOOLEAN( true ),
-                    ['amount'] = FLOAT( 100.000000 ),
-                    ['color'] = STRING( 'ff808080' ),
-                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-                    ['type'] = STRING( 'Mass' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
+                ['LandPN56'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN57 LandPN28 LandPN52 LandPN27' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 623.5, 74.89844, 165.5 ),
+                    ['position'] = VECTOR3( 828.5, 80.11719, 240.5 ),
                 },
                 ['AirPN225'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2214,15 +2212,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 847.5, 74.92969, 283.5 ),
                 },
-                ['LandPN51'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN8'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN53 LandPN50' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN25 AirPN23 AirPN24 AirPN9 AirPN7' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 870.5, 84.99219, 30.5 ),
+                    ['position'] = VECTOR3( 32.5, 32, 480.5 ),
                 },
                 ['LandPN58'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -2244,15 +2242,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 32.5, 32, 288.5 ),
                 },
-                ['LandPN54'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN140'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN67 LandPN65 LandPN53' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN123 AirPN124 AirPN156 AirPN139 AirPN157 AirPN125 AirPN155 AirPN141' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 698.5, 66.89844, 37.5 ),
+                    ['position'] = VECTOR3( 544.5, 46.45313, 736.5 ),
                 },
                 ['AirPN184'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2283,7 +2281,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 523.5, 64.92194, 479.5 ),
+                    ['position'] = VECTOR3( 522.5, 64.91021, 478.5 ),
                 },
                 ['AmphPN53'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -2295,25 +2293,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 796.5, 76.92969, 103.5 ),
                 },
-                ['AirPN202'] = {
+                ['AmphPN71'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN63 AmphPN48' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 888.5, 34.92969, 701.5 ),
+                },
+                ['AirPN217'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN203 AirPN185 AirPN217 AirPN201 AirPN219 AirPN187 AirPN186' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN200 AirPN234 AirPN216 AirPN233 AirPN232 AirPN201 AirPN202' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 32, 608.5 ),
-                },
-                ['LandPN43'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN31 LandPN45 LandPN42' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 330.5, 63.96095, 515.5 ),
+                    ['position'] = VECTOR3( 864.5, 32, 544.5 ),
                 },
                 ['AirPN157'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2335,15 +2333,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 123.5, 63.99219, 543.5 ),
                 },
-                ['AirPN60'] = {
+                ['AirPN43'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN59 AirPN76 AirPN61 AirPN43 AirPN44 AirPN77 AirPN45 AirPN75' ),
+                    ['adjacentTo'] = STRING( 'AirPN42 AirPN59 AirPN58 AirPN26 AirPN44 AirPN27 AirPN60 AirPN28' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 76.24219, 736.5 ),
+                    ['position'] = VECTOR3( 160.5, 74.99219, 672.5 ),
                 },
                 ['AirPN86'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2355,25 +2353,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 53.71875, 352.5 ),
                 },
-                ['AirPN39'] = {
+                ['AirPN202'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN38 AirPN23 AirPN55 AirPN40 AirPN56 AirPN22 AirPN24 AirPN54' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN203 AirPN185 AirPN217 AirPN201 AirPN219 AirPN187 AirPN186' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 160.5, 32, 416.5 ),
+                    ['position'] = VECTOR3( 800.5, 32, 608.5 ),
                 },
-                ['AirPN9'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN47'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN10 AirPN25 AirPN26 AirPN8 AirPN24' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN38 LandPN48' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 32.5, 44.08594, 544.5 ),
+                    ['position'] = VECTOR3( 679.5, 34.97656, 961.5 ),
                 },
                 ['AirPN144'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2395,35 +2393,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 499.5, 85.95313, 591.5 ),
                 },
-                ['AirPN136'] = {
+                ['AirPN195'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN137 AirPN120 AirPN119 AirPN152 AirPN121 AirPN151 AirPN153 AirPN135' ),
+                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN196 AirPN179 AirPN180 AirPN210 AirPN212 AirPN211' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 64.95313, 480.5 ),
+                    ['position'] = VECTOR3( 800.5, 83.25, 160.5 ),
                 },
-                ['AirPN205'] = {
+                ['LandPN30'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN15 LandPN39 LandPN37 LandPN32' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 427.5, 74.97656, 736.5 ),
+                },
+                ['AirPN104'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN189 AirPN188 AirPN204 AirPN206 AirPN220 AirPN222 AirPN221 AirPN190' ),
+                    ['adjacentTo'] = STRING( 'AirPN89 AirPN120 AirPN119 AirPN105 AirPN121 AirPN88 AirPN87 AirPN103' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 32, 800.5 ),
-                },
-                ['AmphPN23'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN24 AmphPN22 AmphPN20' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 612.5, 85.53125, 445.5 ),
+                    ['position'] = VECTOR3( 416.5, 101.0781, 480.5 ),
                 },
                 ['AirPN106'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2435,15 +2433,13 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 416.5, 89.97656, 608.5 ),
                 },
-                ['AirPN21'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['Combat Zone 03'] = {
+                    ['color'] = STRING( 'ff800000' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN38 AirPN20 AirPN4 AirPN36 AirPN5 AirPN22 AirPN37 AirPN6' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['type'] = STRING( 'Combat Zone' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 32, 288.5 ),
+                    ['position'] = VECTOR3( 593.5, 64, 678.5 ),
                 },
                 ['AirPN191'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2455,15 +2451,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 736.5, 32, 928.5 ),
                 },
-                ['AmphPN06'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN65'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN64 AmphPN46 AmphPN05 AmphPN34 AmphPN04' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN81 AirPN49 AirPN50 AirPN66 AirPN82' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 58.5, 61.07813, 635.5 ),
+                    ['position'] = VECTOR3( 288.5, 32, 32.5 ),
                 },
                 ['AirPN56'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2475,32 +2471,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 224.5, 32, 480.5 ),
                 },
-                ['ARMY_5'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 870.5, 74.96875, 306.5 ),
-                },
-                ['AirPN22'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN38 AirPN23 AirPN5 AirPN39 AirPN21 AirPN37 AirPN7 AirPN6' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 32, 352.5 ),
-                },
-                ['LandPN24'] = {
+                ['LandPN26'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN23 LandPN26' ),
+                    ['adjacentTo'] = STRING( 'LandPN25 LandPN28 LandPN27 LandPN29 LandPN24' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 654.5, 89.99219, 402.5 ),
+                    ['position'] = VECTOR3( 656.5, 89.77344, 335.5 ),
+                },
+                ['AmphPN20'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN18 AmphPN23' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 619.5, 84.91406, 534.5 ),
+                },
+                ['AmphPN25'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN26 AmphPN22' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 585.5, 89.99219, 347.5 ),
                 },
                 ['AirPN115'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2532,25 +2531,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 800.5, 32, 864.5 ),
                 },
-                ['AirPN215'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN53'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN200 AirPN199 AirPN216 AirPN198 AirPN232 AirPN230 AirPN231 AirPN214' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN54 LandPN55 LandPN51 LandPN50' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 74.88281, 416.5 ),
+                    ['position'] = VECTOR3( 796.5, 76.92969, 103.5 ),
                 },
-                ['AirPN54'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN37'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN53 AirPN71 AirPN70 AirPN38 AirPN69 AirPN55 AirPN39 AirPN37' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN30 AmphPN48 AmphPN38' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 32, 352.5 ),
+                    ['position'] = VECTOR3( 538.5, 49.02344, 796.5 ),
                 },
                 ['LandPN04'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -2582,15 +2581,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 971.5, 34.64844, 513.5 ),
                 },
-                ['LandPN27'] = {
+                ['LandPN35'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN55 LandPN56 LandPN26 LandPN50' ),
+                    ['adjacentTo'] = STRING( 'LandPN03 LandPN38 LandPN36 LandPN10' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 809.5, 86.42188, 181.5 ),
+                    ['position'] = VECTOR3( 427.5, 74.10938, 936.5 ),
                 },
                 ['AirPN180'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2632,15 +2631,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 713.5, 76.29688, 171.5 ),
                 },
-                ['AirPN211'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN20'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN194 AirPN196 AirPN227 AirPN226 AirPN228 AirPN210 AirPN212 AirPN195' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN18 LandPN23' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 82.99219, 160.5 ),
+                    ['position'] = VECTOR3( 619.5, 84.91406, 534.5 ),
                 },
                 ['AirPN192'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2662,25 +2661,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 288.5, 66.84375, 992.5 ),
                 },
-                ['AirPN198'] = {
+                ['AirPN103'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN183 AirPN197 AirPN199 AirPN215 AirPN182 AirPN213 AirPN214 AirPN181' ),
+                    ['adjacentTo'] = STRING( 'AirPN118 AirPN120 AirPN119 AirPN102 AirPN86 AirPN104 AirPN88 AirPN87' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 74.98438, 352.5 ),
+                    ['position'] = VECTOR3( 416.5, 81.55469, 416.5 ),
                 },
-                ['AirPN130'] = {
+                ['AirPN75'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN131 AirPN129 AirPN146 AirPN147 AirPN145 AirPN115 AirPN113 AirPN114' ),
+                    ['adjacentTo'] = STRING( 'AirPN91 AirPN59 AirPN58 AirPN76 AirPN74 AirPN92 AirPN90 AirPN60' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 62.8672, 96.5 ),
+                    ['position'] = VECTOR3( 288.5, 66.19531, 672.5 ),
                 },
                 ['Mass 01'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -2693,25 +2692,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 819.5, 88.0625, 23.5 ),
                 },
-                ['LandPN33'] = {
+                ['LandPN32'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN31 LandPN45 LandPN04' ),
+                    ['adjacentTo'] = STRING( 'LandPN03 LandPN30' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 251.5, 64.83594, 688.5 ),
+                    ['position'] = VECTOR3( 355.5, 64.125, 788.5 ),
                 },
-                ['AirPN212'] = {
+                ['AirPN210'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN196 AirPN197 AirPN227 AirPN228 AirPN213 AirPN229 AirPN211 AirPN195' ),
+                    ['adjacentTo'] = STRING( 'AirPN194 AirPN209 AirPN193 AirPN227 AirPN226 AirPN225 AirPN211 AirPN195' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 77.38281, 224.5 ),
+                    ['position'] = VECTOR3( 864.5, 84.69531, 96.5 ),
                 },
                 ['AirPN33'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2733,35 +2732,36 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 915.5, 74.97656, 311.5 ),
                 },
-                ['LandPN30'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN222'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN15 LandPN39 LandPN37 LandPN32' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN239 AirPN206 AirPN207 AirPN238 AirPN221 AirPN223 AirPN205 AirPN237' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 427.5, 74.97656, 736.5 ),
+                    ['position'] = VECTOR3( 864.5, 32, 864.5 ),
                 },
-                ['AmphPN03'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN32 AmphPN35 AmphPN10 AmphPN12 AmphPN02' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                ['Mass 22'] = {
+                    ['size'] = FLOAT( 1.000000 ),
+                    ['resource'] = BOOLEAN( true ),
+                    ['amount'] = FLOAT( 100.000000 ),
+                    ['color'] = STRING( 'ff808080' ),
+                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
+                    ['type'] = STRING( 'Mass' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 297.5, 74.94531, 861.5 ),
+                    ['position'] = VECTOR3( 707.5, 63.90625, 584.5 ),
                 },
-                ['LandPN26'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN207'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN25 LandPN28 LandPN27 LandPN29 LandPN24' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN191 AirPN206 AirPN192 AirPN222 AirPN208 AirPN224 AirPN223 AirPN190' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 656.5, 89.77344, 335.5 ),
+                    ['position'] = VECTOR3( 800.5, 32, 928.5 ),
                 },
                 ['AmphPN57'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -2773,25 +2773,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 837.5, 74.99219, 351.5 ),
                 },
-                ['AirPN214'] = {
+                ['AirPN232'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN197 AirPN199 AirPN198 AirPN215 AirPN213 AirPN229 AirPN230 AirPN231' ),
+                    ['adjacentTo'] = STRING( 'AirPN247 AirPN216 AirPN233 AirPN215 AirPN217 AirPN248 AirPN231 AirPN249' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 74.96875, 352.5 ),
+                    ['position'] = VECTOR3( 928.5, 46.79688, 480.5 ),
                 },
-                ['AmphPN37'] = {
+                ['AmphPN23'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN30 AmphPN48 AmphPN38' ),
+                    ['adjacentTo'] = STRING( 'AmphPN24 AmphPN22 AmphPN20' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 538.5, 49.02344, 796.5 ),
+                    ['position'] = VECTOR3( 612.5, 85.53125, 445.5 ),
                 },
                 ['LandPN44'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -2833,25 +2833,26 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 63.98438, 416.5 ),
                 },
-                ['AirPN125'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN124 AirPN140 AirPN109 AirPN110 AirPN108 AirPN142 AirPN141 AirPN126' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 480.5, 59.60938, 800.5 ),
-                },
-                ['LandPN20'] = {
+                ['LandPN13'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN18 LandPN23' ),
+                    ['adjacentTo'] = STRING( 'LandPN15 LandPN02 LandPN14' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 619.5, 84.91406, 534.5 ),
+                    ['position'] = VECTOR3( 383.5, 89.99219, 656.5 ),
+                },
+                ['Mass 29'] = {
+                    ['size'] = FLOAT( 1.000000 ),
+                    ['resource'] = BOOLEAN( true ),
+                    ['amount'] = FLOAT( 100.000000 ),
+                    ['color'] = STRING( 'ff808080' ),
+                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
+                    ['type'] = STRING( 'Mass' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 150.5, 34.97656, 251.5 ),
                 },
                 ['AirPN220'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2863,15 +2864,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 864.5, 32, 736.5 ),
                 },
-                ['AirPN221'] = {
+                ['AirPN230'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN204 AirPN206 AirPN220 AirPN238 AirPN222 AirPN236 AirPN205 AirPN237' ),
+                    ['adjacentTo'] = STRING( 'AirPN247 AirPN245 AirPN215 AirPN213 AirPN246 AirPN229 AirPN231 AirPN214' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 32, 800.5 ),
+                    ['position'] = VECTOR3( 928.5, 66.80469, 352.5 ),
                 },
                 ['AirPN92'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -2883,25 +2884,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 76.99219, 736.5 ),
                 },
-                ['AirPN98'] = {
+                ['AmphPN39'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN30 AmphPN40' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 520.5, 64, 708.5 ),
+                },
+                ['AirPN108'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN81 AirPN97 AirPN115 AirPN99 AirPN113 AirPN82 AirPN83 AirPN114' ),
+                    ['adjacentTo'] = STRING( 'AirPN91 AirPN123 AirPN124 AirPN125 AirPN92 AirPN109 AirPN93 AirPN107' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 41.96875, 96.5 ),
-                },
-                ['LandPN08'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN12 LandPN01' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 166.5, 89.99219, 997.5 ),
+                    ['position'] = VECTOR3( 416.5, 75.32813, 736.5 ),
                 },
                 ['LandPN09'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -2913,25 +2914,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 304.5, 71.03125, 958.5 ),
                 },
-                ['AirPN210'] = {
+                ['AirPN229'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN194 AirPN209 AirPN193 AirPN227 AirPN226 AirPN225 AirPN211 AirPN195' ),
+                    ['adjacentTo'] = STRING( 'AirPN245 AirPN244 AirPN228 AirPN213 AirPN246 AirPN230 AirPN214 AirPN212' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 84.69531, 96.5 ),
+                    ['position'] = VECTOR3( 928.5, 74.98438, 288.5 ),
                 },
-                ['AirPN222'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN11'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN239 AirPN206 AirPN207 AirPN238 AirPN221 AirPN223 AirPN205 AirPN237' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN34 LandPN07 LandPN04 LandPN01' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 32, 864.5 ),
+                    ['position'] = VECTOR3( 101.5, 84.19531, 822.5 ),
                 },
                 ['AmphPN02'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -2953,13 +2954,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 377.5, 64, 992.5 ),
                 },
-                ['Combat Zone 02'] = {
-                    ['color'] = STRING( 'ff800000' ),
+                ['AirPN173'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['type'] = STRING( 'Combat Zone' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN189 AirPN174 AirPN188 AirPN156 AirPN157 AirPN172 AirPN158 AirPN190' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 717.5, 64, 516.5 ),
+                    ['position'] = VECTOR3( 672.5, 33.00781, 800.5 ),
                 },
                 ['Mass 02'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -2972,15 +2975,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 994.5, 89.85156, 153.5 ),
                 },
-                ['AirPN213'] = {
+                ['AirPN50'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN196 AirPN197 AirPN198 AirPN228 AirPN229 AirPN230 AirPN214 AirPN212' ),
+                    ['adjacentTo'] = STRING( 'AirPN34 AirPN51 AirPN67 AirPN35 AirPN49 AirPN65 AirPN33 AirPN66' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 74.98438, 288.5 ),
+                    ['position'] = VECTOR3( 224.5, 32, 96.5 ),
                 },
                 ['Mass 10'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -3003,15 +3006,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 416.5, 64, 800.5 ),
                 },
-                ['LandPN13'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN245'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN15 LandPN02 LandPN14' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN244 AirPN228 AirPN246 AirPN229 AirPN230' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 383.5, 89.99219, 656.5 ),
+                    ['position'] = VECTOR3( 992.5, 64.08594, 288.5 ),
                 },
                 ['AmphPN26'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3033,15 +3036,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 928.5, 32, 864.5 ),
                 },
-                ['AirPN231'] = {
+                ['AirPN148'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN247 AirPN216 AirPN215 AirPN232 AirPN248 AirPN246 AirPN230 AirPN214' ),
+                    ['adjacentTo'] = STRING( 'AirPN131 AirPN133 AirPN164 AirPN147 AirPN149 AirPN132 AirPN163 AirPN165' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 63.58594, 416.5 ),
+                    ['position'] = VECTOR3( 608.5, 66.21875, 224.5 ),
                 },
                 ['AirPN110'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3063,15 +3066,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 124.5, 89.90625, 906.5 ),
                 },
-                ['AirPN230'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN12'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN247 AirPN245 AirPN215 AirPN213 AirPN246 AirPN229 AirPN231 AirPN214' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN03 LandPN09 LandPN01 LandPN08' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 66.80469, 352.5 ),
+                    ['position'] = VECTOR3( 221.5, 80.49219, 923.5 ),
                 },
                 ['AirPN44'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3103,25 +3106,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 736.5, 76.10156, 352.5 ),
                 },
-                ['AirPN128'] = {
+                ['AirPN98'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN143 AirPN144 AirPN112' ),
+                    ['adjacentTo'] = STRING( 'AirPN81 AirPN97 AirPN115 AirPN99 AirPN113 AirPN82 AirPN83 AirPN114' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 480.5, 63.96095, 992.5 ),
+                    ['position'] = VECTOR3( 416.5, 41.96875, 96.5 ),
                 },
-                ['AirPN229'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN22'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN245 AirPN244 AirPN228 AirPN213 AirPN246 AirPN230 AirPN214 AirPN212' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN25 LandPN23 LandPN21' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 74.98438, 288.5 ),
+                    ['position'] = VECTOR3( 544.5, 87.1875, 397.5 ),
                 },
                 ['AirPN99'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3143,15 +3146,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 676.5, 35, 830.5 ),
                 },
-                ['LandPN11'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN63'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN34 LandPN07 LandPN04 LandPN01' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN62 AirPN47 AirPN46 AirPN80 AirPN78 AirPN79 AirPN64 AirPN48' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 101.5, 84.19531, 822.5 ),
+                    ['position'] = VECTOR3( 224.5, 79.69531, 928.5 ),
                 },
                 ['AirPN168'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3163,25 +3166,22 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 672.5, 73.59375, 480.5 ),
                 },
-                ['AirPN240'] = {
+                ['AirPN79'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN255 AirPN239 AirPN224 AirPN223' ),
+                    ['adjacentTo'] = STRING( 'AirPN62 AirPN94 AirPN80 AirPN78 AirPN63 AirPN64 AirPN95 AirPN96' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 32, 992.5 ),
+                    ['position'] = VECTOR3( 288.5, 75.05469, 928.5 ),
                 },
-                ['AirPN50'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN34 AirPN51 AirPN67 AirPN35 AirPN49 AirPN65 AirPN33 AirPN66' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                ['ARMY_6'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 32, 96.5 ),
+                    ['position'] = VECTOR3( 646.5, 74.99219, 142.5 ),
                 },
                 ['AirPN78'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3241,15 +3241,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 96.5, 32, 480.5 ),
                 },
-                ['LandPN05'] = {
+                ['LandPN02'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN06 LandPN04' ),
+                    ['adjacentTo'] = STRING( 'LandPN03 LandPN04 LandPN13 LandPN01' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 170.5, 74.96094, 635.5 ),
+                    ['position'] = VECTOR3( 224.5, 88.07031, 808.5 ),
                 },
                 ['AirPN77'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3261,15 +3261,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 288.5, 77.02344, 800.5 ),
                 },
-                ['AirPN236'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN01'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN235 AirPN253 AirPN220 AirPN251 AirPN221 AirPN219 AirPN237 AirPN252' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN07 LandPN12 LandPN11 LandPN02 LandPN08' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 32, 736.5 ),
+                    ['position'] = VECTOR3( 124.5, 89.90625, 906.5 ),
                 },
                 ['AirPN93'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3291,15 +3291,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 608.5, 64, 672.5 ),
                 },
-                ['LandPN22'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN240'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN25 LandPN23 LandPN21' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN255 AirPN239 AirPN224 AirPN223' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 544.5, 87.1875, 397.5 ),
+                    ['position'] = VECTOR3( 928.5, 32, 992.5 ),
                 },
                 ['AirPN208'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3311,15 +3311,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 800.5, 32, 992.5 ),
                 },
-                ['AirPN79'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN49'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN62 AirPN94 AirPN80 AirPN78 AirPN63 AirPN64 AirPN95 AirPN96' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN50 AmphPN52' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 288.5, 75.05469, 928.5 ),
+                    ['position'] = VECTOR3( 972.5, 84.99219, 107.5 ),
                 },
                 ['AirPN66'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3351,25 +3351,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 89.5, 608.5 ),
                 },
-                ['AirPN101'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN17'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN118 AirPN117 AirPN84 AirPN85 AirPN102 AirPN100 AirPN86 AirPN116' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN15 LandPN18 LandPN16' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 42.01563, 288.5 ),
+                    ['position'] = VECTOR3( 499.5, 85.95313, 591.5 ),
                 },
-                ['AirPN113'] = {
+                ['AirPN187'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN129 AirPN97 AirPN130 AirPN98 AirPN114' ),
+                    ['adjacentTo'] = STRING( 'AirPN188 AirPN170 AirPN204 AirPN203 AirPN202 AirPN172 AirPN186 AirPN171' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 480.5, 54.90625, 32.5 ),
+                    ['position'] = VECTOR3( 736.5, 32, 672.5 ),
                 },
                 ['AirPN224'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3381,6 +3381,26 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 864.5, 32, 992.5 ),
                 },
+                ['AirPN246'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN247 AirPN245 AirPN229 AirPN230 AirPN231' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 992.5, 64.00781, 352.5 ),
+                },
+                ['AirPN251'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN235 AirPN234 AirPN250 AirPN236 AirPN252' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 992.5, 32, 672.5 ),
+                },
                 ['AirPN132'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
@@ -3390,26 +3410,6 @@ Scenario = {
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 544.5, 56.53906, 224.5 ),
-                },
-                ['AirPN27'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN42 AirPN10 AirPN11 AirPN26 AirPN12 AirPN43 AirPN44 AirPN28' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 74.35938, 672.5 ),
-                },
-                ['LandPN17'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN15 LandPN18 LandPN16' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 499.5, 85.95313, 591.5 ),
                 },
                 ['AirPN82'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3431,25 +3431,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 608.5, 84.1875, 544.5 ),
                 },
-                ['AirPN246'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN56'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN247 AirPN245 AirPN229 AirPN230 AirPN231' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN52 AmphPN28 AmphPN57 AmphPN27' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 64.00781, 352.5 ),
+                    ['position'] = VECTOR3( 828.5, 80.11719, 240.5 ),
                 },
-                ['AirPN2'] = {
+                ['AirPN29'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN19 AirPN18 AirPN3 AirPN17' ),
+                    ['adjacentTo'] = STRING( 'AirPN13 AirPN30 AirPN14 AirPN12 AirPN46 AirPN44 AirPN45 AirPN28' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 32.5, 32, 96.5 ),
+                    ['position'] = VECTOR3( 96.5, 79.11719, 800.5 ),
                 },
                 ['ARMY_3'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -3468,45 +3468,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 672.5, 35.03906, 928.5 ),
                 },
-                ['AirPN83'] = {
+                ['AirPN171'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN67 AirPN84 AirPN68 AirPN100 AirPN98 AirPN99 AirPN66 AirPN82' ),
+                    ['adjacentTo'] = STRING( 'AirPN154 AirPN188 AirPN156 AirPN170 AirPN155 AirPN172 AirPN187 AirPN186' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 352.5, 34.98438, 160.5 ),
-                },
-                ['AirPN250'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN235 AirPN234 AirPN233 AirPN251 AirPN249' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 32, 608.5 ),
-                },
-                ['AmphPN34'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN11 AmphPN06' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 95.5, 74.39844, 732.5 ),
-                },
-                ['AirPN52'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN53 AirPN51 AirPN69 AirPN67 AirPN35 AirPN68 AirPN36 AirPN37' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 32, 224.5 ),
+                    ['position'] = VECTOR3( 672.5, 50.58594, 672.5 ),
                 },
                 ['AirPN248'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3518,35 +3488,65 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 992.5, 37.80469, 480.5 ),
                 },
-                ['AirPN29'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN13 AirPN30 AirPN14 AirPN12 AirPN46 AirPN44 AirPN45 AirPN28' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 96.5, 79.11719, 800.5 ),
-                },
-                ['AmphPN56'] = {
+                ['AmphPN34'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN52 AmphPN28 AmphPN57 AmphPN27' ),
+                    ['adjacentTo'] = STRING( 'AmphPN11 AmphPN06' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 828.5, 80.11719, 240.5 ),
+                    ['position'] = VECTOR3( 95.5, 74.39844, 732.5 ),
                 },
-                ['AirPN251'] = {
+                ['AirPN250'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN235 AirPN234 AirPN250 AirPN236 AirPN252' ),
+                    ['adjacentTo'] = STRING( 'AirPN235 AirPN234 AirPN233 AirPN251 AirPN249' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 32, 672.5 ),
+                    ['position'] = VECTOR3( 992.5, 32, 608.5 ),
+                },
+                ['AirPN52'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN53 AirPN51 AirPN69 AirPN67 AirPN35 AirPN68 AirPN36 AirPN37' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 224.5, 32, 224.5 ),
+                },
+                ['AirPN114'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN131 AirPN129 AirPN97 AirPN115 AirPN130 AirPN98 AirPN99 AirPN113' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 480.5, 51.20313, 96.5 ),
+                },
+                ['AirPN2'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN19 AirPN18 AirPN3 AirPN17' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 32.5, 32, 96.5 ),
+                },
+                ['AirPN83'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN67 AirPN84 AirPN68 AirPN100 AirPN98 AirPN99 AirPN66 AirPN82' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 352.5, 34.98438, 160.5 ),
                 },
                 ['AmphPN59'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3568,42 +3568,45 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 870.5, 84.99219, 30.5 ),
                 },
-                ['AmphPN49'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN101'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN50 AmphPN52' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN118 AirPN117 AirPN84 AirPN85 AirPN102 AirPN100 AirPN86 AirPN116' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 972.5, 84.99219, 107.5 ),
+                    ['position'] = VECTOR3( 416.5, 42.01563, 288.5 ),
                 },
-                ['LandPN01'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN27'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN07 LandPN12 LandPN11 LandPN02 LandPN08' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN42 AirPN10 AirPN11 AirPN26 AirPN12 AirPN43 AirPN44 AirPN28' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 124.5, 89.90625, 906.5 ),
+                    ['position'] = VECTOR3( 96.5, 74.35938, 672.5 ),
                 },
-                ['LandPN02'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN113'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN03 LandPN04 LandPN13 LandPN01' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN129 AirPN97 AirPN130 AirPN98 AirPN114' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 88.07031, 808.5 ),
+                    ['position'] = VECTOR3( 480.5, 54.90625, 32.5 ),
                 },
-                ['ARMY_6'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                ['AirPN112'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN128 AirPN95 AirPN96' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 646.5, 74.99219, 142.5 ),
+                    ['position'] = VECTOR3( 416.5, 64, 992.5 ),
                 },
                 ['AmphPN43'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3615,15 +3618,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 330.5, 63.96095, 515.5 ),
                 },
-                ['AirPN63'] = {
+                ['AirPN17'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN62 AirPN47 AirPN46 AirPN80 AirPN78 AirPN79 AirPN64 AirPN48' ),
+                    ['adjacentTo'] = STRING( 'AirPN34 AirPN18 AirPN33 AirPN2' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 224.5, 79.69531, 928.5 ),
+                    ['position'] = VECTOR3( 96.5, 32, 32.5 ),
                 },
                 ['LandPN29'] = {
                     ['color'] = STRING( 'ff00ff00' ),
@@ -3635,35 +3638,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 637.5, 76.07031, 252.5 ),
                 },
-                ['LandPN12'] = {
+                ['AirPN236'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN235 AirPN253 AirPN220 AirPN251 AirPN221 AirPN219 AirPN237 AirPN252' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 928.5, 32, 736.5 ),
+                },
+                ['LandPN05'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN03 LandPN09 LandPN01 LandPN08' ),
+                    ['adjacentTo'] = STRING( 'LandPN06 LandPN04' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 221.5, 80.49219, 923.5 ),
+                    ['position'] = VECTOR3( 170.5, 74.96094, 635.5 ),
                 },
-                ['AirPN148'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN21'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN131 AirPN133 AirPN164 AirPN147 AirPN149 AirPN132 AirPN163 AirPN165' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN19 LandPN22' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 608.5, 66.21875, 224.5 ),
-                },
-                ['AirPN245'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN244 AirPN228 AirPN246 AirPN229 AirPN230' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 992.5, 64.08594, 288.5 ),
+                    ['position'] = VECTOR3( 493.5, 84.3125, 412.5 ),
                 },
                 ['AmphPN16'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3695,25 +3698,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 800.5, 32, 544.5 ),
                 },
-                ['AirPN108'] = {
+                ['AirPN128'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN91 AirPN123 AirPN124 AirPN125 AirPN92 AirPN109 AirPN93 AirPN107' ),
+                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN143 AirPN144 AirPN112' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 75.32813, 736.5 ),
+                    ['position'] = VECTOR3( 480.5, 63.96095, 992.5 ),
                 },
-                ['AmphPN39'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['LandPN08'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN30 AmphPN40' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN12 LandPN01' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 520.5, 64, 708.5 ),
+                    ['position'] = VECTOR3( 166.5, 89.99219, 997.5 ),
                 },
                 ['AirPN95'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3725,16 +3728,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 74.97656, 928.5 ),
                 },
-                ['Mass 29'] = {
-                    ['size'] = FLOAT( 1.000000 ),
-                    ['resource'] = BOOLEAN( true ),
-                    ['amount'] = FLOAT( 100.000000 ),
-                    ['color'] = STRING( 'ff808080' ),
-                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-                    ['type'] = STRING( 'Mass' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
+                ['AirPN231'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN247 AirPN216 AirPN215 AirPN232 AirPN248 AirPN246 AirPN230 AirPN214' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 150.5, 34.97656, 251.5 ),
+                    ['position'] = VECTOR3( 928.5, 63.58594, 416.5 ),
                 },
                 ['AirPN135'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3746,25 +3748,23 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 544.5, 82.90625, 416.5 ),
                 },
-                ['AirPN232'] = {
+                ['AirPN213'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN247 AirPN216 AirPN233 AirPN215 AirPN217 AirPN248 AirPN231 AirPN249' ),
+                    ['adjacentTo'] = STRING( 'AirPN196 AirPN197 AirPN198 AirPN228 AirPN229 AirPN230 AirPN214 AirPN212' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 46.79688, 480.5 ),
+                    ['position'] = VECTOR3( 864.5, 74.98438, 288.5 ),
                 },
-                ['AirPN207'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['Combat Zone 02'] = {
+                    ['color'] = STRING( 'ff800000' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN191 AirPN206 AirPN192 AirPN222 AirPN208 AirPN224 AirPN223 AirPN190' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['type'] = STRING( 'Combat Zone' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_CombatZone_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 32, 928.5 ),
+                    ['position'] = VECTOR3( 717.5, 64, 516.5 ),
                 },
                 ['Mass 16'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -3787,15 +3787,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 389.5, 89.99219, 590.5 ),
                 },
-                ['LandPN32'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN221'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN03 LandPN30' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN204 AirPN206 AirPN220 AirPN238 AirPN222 AirPN236 AirPN205 AirPN237' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 355.5, 64.125, 788.5 ),
+                    ['position'] = VECTOR3( 864.5, 32, 800.5 ),
                 },
                 ['AirPN48'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3807,15 +3807,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 160.5, 89.99219, 992.5 ),
                 },
-                ['LandPN35'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN125'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN03 LandPN38 LandPN36 LandPN10' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN124 AirPN140 AirPN109 AirPN110 AirPN108 AirPN142 AirPN141 AirPN126' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 427.5, 74.10938, 936.5 ),
+                    ['position'] = VECTOR3( 480.5, 59.60938, 800.5 ),
                 },
                 ['AirPN223'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3827,25 +3827,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 864.5, 32, 928.5 ),
                 },
-                ['AmphPN25'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN214'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN26 AmphPN22' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN197 AirPN199 AirPN198 AirPN215 AirPN213 AirPN229 AirPN230 AirPN231' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 585.5, 89.99219, 347.5 ),
+                    ['position'] = VECTOR3( 864.5, 74.96875, 352.5 ),
                 },
-                ['AmphPN20'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['LandPN24'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN18 AmphPN23' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN23 LandPN26' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 619.5, 84.91406, 534.5 ),
+                    ['position'] = VECTOR3( 654.5, 89.99219, 402.5 ),
                 },
                 ['AirPN142'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3857,15 +3857,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 544.5, 53.5625, 864.5 ),
                 },
-                ['AirPN104'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN03'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN89 AirPN120 AirPN119 AirPN105 AirPN121 AirPN88 AirPN87 AirPN103' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN32 AmphPN35 AmphPN10 AmphPN12 AmphPN02' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 416.5, 101.0781, 480.5 ),
+                    ['position'] = VECTOR3( 297.5, 74.94531, 861.5 ),
                 },
                 ['AirPN107'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3877,55 +3877,55 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 416.5, 88.01563, 672.5 ),
                 },
-                ['LandPN47'] = {
+                ['AirPN212'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN196 AirPN197 AirPN227 AirPN228 AirPN213 AirPN229 AirPN211 AirPN195' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 864.5, 77.38281, 224.5 ),
+                },
+                ['LandPN33'] = {
                     ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN38 LandPN48' ),
+                    ['adjacentTo'] = STRING( 'LandPN31 LandPN45 LandPN04' ),
                     ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 679.5, 34.97656, 961.5 ),
+                    ['position'] = VECTOR3( 251.5, 64.83594, 688.5 ),
                 },
-                ['AirPN43'] = {
+                ['AirPN130'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN42 AirPN59 AirPN58 AirPN26 AirPN44 AirPN27 AirPN60 AirPN28' ),
+                    ['adjacentTo'] = STRING( 'AirPN131 AirPN129 AirPN146 AirPN147 AirPN145 AirPN115 AirPN113 AirPN114' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 160.5, 74.99219, 672.5 ),
+                    ['position'] = VECTOR3( 544.5, 62.8672, 96.5 ),
                 },
-                ['AirPN217'] = {
+                ['LandPN43'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN31 LandPN45 LandPN42' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 330.5, 63.96095, 515.5 ),
+                },
+                ['AirPN198'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN200 AirPN234 AirPN216 AirPN233 AirPN232 AirPN201 AirPN202' ),
+                    ['adjacentTo'] = STRING( 'AirPN183 AirPN197 AirPN199 AirPN215 AirPN182 AirPN213 AirPN214 AirPN181' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 32, 544.5 ),
-                },
-                ['AmphPN71'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN63 AmphPN48' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 888.5, 34.92969, 701.5 ),
-                },
-                ['AirPN8'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN25 AirPN23 AirPN24 AirPN9 AirPN7' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 32.5, 32, 480.5 ),
+                    ['position'] = VECTOR3( 800.5, 74.98438, 352.5 ),
                 },
                 ['AmphPN58'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3937,25 +3937,22 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 984.5, 65.13281, 282.5 ),
                 },
-                ['AirPN219'] = {
+                ['ARMY_2'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 88.5, 89.99219, 942.5 ),
+                },
+                ['AirPN237'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN235 AirPN234 AirPN204 AirPN203 AirPN220 AirPN236 AirPN202' ),
+                    ['adjacentTo'] = STRING( 'AirPN254 AirPN253 AirPN220 AirPN238 AirPN222 AirPN236 AirPN221 AirPN252' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 864.5, 32.17969, 672.5 ),
-                },
-                ['AmphPN62'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN60 AmphPN63 AmphPN58' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 991.5, 57.07813, 394.5 ),
+                    ['position'] = VECTOR3( 928.5, 32, 800.5 ),
                 },
                 ['AirPN37'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -3967,15 +3964,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 160.5, 32, 288.5 ),
                 },
-                ['LandPN52'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN54'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN49 LandPN58 LandPN59 LandPN56 LandPN50' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN53 AirPN71 AirPN70 AirPN38 AirPN69 AirPN55 AirPN39 AirPN37' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 909.5, 75.59375, 182.5 ),
+                    ['position'] = VECTOR3( 224.5, 32, 352.5 ),
                 },
                 ['AmphPN27'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -3987,15 +3984,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 809.5, 86.42188, 181.5 ),
                 },
-                ['AirPN162'] = {
+                ['AirPN22'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN178 AirPN146 AirPN147 AirPN177 AirPN145 AirPN179 AirPN161 AirPN163' ),
+                    ['adjacentTo'] = STRING( 'AirPN38 AirPN23 AirPN5 AirPN39 AirPN21 AirPN37 AirPN7 AirPN6' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 672.5, 74.92969, 96.5 ),
+                    ['position'] = VECTOR3( 96.5, 32, 352.5 ),
                 },
                 ['Mass 04'] = {
                     ['size'] = FLOAT( 1.000000 ),
@@ -4029,55 +4026,56 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 572.5, 84.92316, 617.5 ),
                 },
-                ['AmphPN38'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN47 AmphPN36 AmphPN48 AmphPN37 AmphPN35' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                ['Mass 06'] = {
+                    ['size'] = FLOAT( 1.000000 ),
+                    ['resource'] = BOOLEAN( true ),
+                    ['amount'] = FLOAT( 100.000000 ),
+                    ['color'] = STRING( 'ff808080' ),
+                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
+                    ['type'] = STRING( 'Mass' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 574.5, 51.09375, 961.5 ),
+                    ['position'] = VECTOR3( 211.5, 89.99219, 997.5 ),
                 },
-                ['LandPN66'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN55 LandPN65' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 602.5, 74.99219, 171.5 ),
-                },
-                ['LandPN37'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN38 LandPN30 LandPN48' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 538.5, 49.02344, 796.5 ),
-                },
-                ['AirPN179'] = {
+                ['AirPN205'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN196 AirPN164 AirPN162 AirPN180 AirPN195 AirPN163' ),
+                    ['adjacentTo'] = STRING( 'AirPN189 AirPN188 AirPN204 AirPN206 AirPN220 AirPN222 AirPN221 AirPN190' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 78.80469, 160.5 ),
+                    ['position'] = VECTOR3( 800.5, 32, 800.5 ),
                 },
-                ['LandPN70'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
+                ['AirPN28'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN69 LandPN67 LandPN44 LandPN29' ),
-                    ['type'] = STRING( 'Land Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN13 AirPN11 AirPN12 AirPN43 AirPN44 AirPN27 AirPN29 AirPN45' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 516.5, 49.16405, 219.5 ),
+                    ['position'] = VECTOR3( 96.5, 74.46875, 736.5 ),
+                },
+                ['AirPN136'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN137 AirPN120 AirPN119 AirPN152 AirPN121 AirPN151 AirPN153 AirPN135' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 544.5, 64.95313, 480.5 ),
+                },
+                ['AirPN9'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN10 AirPN25 AirPN26 AirPN8 AirPN24' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 32.5, 44.08594, 544.5 ),
                 },
                 ['AirPN41'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4109,45 +4107,46 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 676.5, 35, 830.5 ),
                 },
-                ['AirPN185'] = {
+                ['LandPN51'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN53 LandPN50' ),
+                    ['type'] = STRING( 'Land Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 870.5, 84.99219, 30.5 ),
+                },
+                ['Mass 17'] = {
+                    ['size'] = FLOAT( 1.000000 ),
+                    ['resource'] = BOOLEAN( true ),
+                    ['amount'] = FLOAT( 100.000000 ),
+                    ['color'] = STRING( 'ff808080' ),
+                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
+                    ['type'] = STRING( 'Mass' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 623.5, 74.89844, 165.5 ),
+                },
+                ['AirPN7'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN200 AirPN170 AirPN184 AirPN168 AirPN201 AirPN202 AirPN186 AirPN169' ),
+                    ['adjacentTo'] = STRING( 'AirPN23 AirPN8 AirPN22 AirPN24 AirPN6' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 62.57813, 544.5 ),
+                    ['position'] = VECTOR3( 32.5, 32, 416.5 ),
                 },
-                ['AmphPN05'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN172'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN06 AmphPN04' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN189 AirPN188 AirPN156 AirPN157 AirPN155 AirPN173 AirPN187 AirPN171' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 170.5, 74.96094, 635.5 ),
-                },
-                ['AmphPN07'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN11 AmphPN01' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 29.5, 89.99219, 872.5 ),
-                },
-                ['AmphPN08'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN12 AmphPN01' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 166.5, 89.99219, 997.5 ),
+                    ['position'] = VECTOR3( 672.5, 32, 736.5 ),
                 },
                 ['AirPN141'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4159,15 +4158,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 544.5, 48.32813, 800.5 ),
                 },
-                ['AirPN228'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['LandPN65'] = {
+                    ['color'] = STRING( 'ff00ff00' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN245 AirPN244 AirPN213 AirPN229 AirPN212 AirPN211' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultLand' ),
+                    ['adjacentTo'] = STRING( 'LandPN54 LandPN67 LandPN66' ),
+                    ['type'] = STRING( 'Land Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 72.6875, 224.5 ),
+                    ['position'] = VECTOR3( 599.5, 66.71094, 76.5 ),
                 },
                 ['ARMY_4'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -4186,15 +4185,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 166.5, 76.49219, 746.5 ),
                 },
-                ['AirPN203'] = {
+                ['AirPN233'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN188 AirPN204 AirPN220 AirPN219 AirPN202 AirPN187 AirPN186' ),
+                    ['adjacentTo'] = STRING( 'AirPN218 AirPN234 AirPN216 AirPN217 AirPN232 AirPN250 AirPN248 AirPN249' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 800.5, 32, 672.5 ),
+                    ['position'] = VECTOR3( 928.5, 32, 544.5 ),
                 },
                 ['AirPN116'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4206,35 +4205,35 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 480.5, 43.85938, 224.5 ),
                 },
-                ['AmphPN24'] = {
+                ['AirPN100'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN117 AirPN84 AirPN85 AirPN115 AirPN99 AirPN83 AirPN101 AirPN116' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 416.5, 35.14063, 224.5 ),
+                },
+                ['AirPN252'] = {
+                    ['color'] = STRING( 'ffffffff' ),
+                    ['hint'] = BOOLEAN( true ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN235 AirPN253 AirPN251 AirPN236 AirPN237' ),
+                    ['type'] = STRING( 'Air Path Node' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, 0, 0 ),
+                    ['position'] = VECTOR3( 992.5, 32, 736.5 ),
+                },
+                ['AmphPN19'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN26 AmphPN23' ),
+                    ['adjacentTo'] = STRING( 'AmphPN21 AmphPN16' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 654.5, 89.99219, 402.5 ),
-                },
-                ['LandPN67'] = {
-                    ['color'] = STRING( 'ff00ff00' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultLand' ),
-                    ['adjacentTo'] = STRING( 'LandPN68 LandPN54 LandPN70 LandPN69 LandPN65' ),
-                    ['type'] = STRING( 'Land Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 496.5, 57.8672, 50.5 ),
-                },
-                ['AmphPN28'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN56 AmphPN26 AmphPN57 AmphPN41' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 738.5, 76.16406, 350.5 ),
+                    ['position'] = VECTOR3( 446.5, 83.70314, 459.5 ),
                 },
                 ['AirPN169'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4246,15 +4245,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 672.5, 64, 544.5 ),
                 },
-                ['AirPN177'] = {
+                ['AirPN102'] = {
                     ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN178 AirPN194 AirPN193 AirPN162 AirPN161' ),
+                    ['adjacentTo'] = STRING( 'AirPN118 AirPN119 AirPN117 AirPN85 AirPN86 AirPN87 AirPN101 AirPN103' ),
                     ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 66.94531, 32.5 ),
+                    ['position'] = VECTOR3( 416.5, 64, 352.5 ),
                 },
                 ['AirPN31'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4266,15 +4265,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 96.5, 90, 928.5 ),
                 },
-                ['AirPN234'] = {
-                    ['color'] = STRING( 'ffffffff' ),
+                ['AmphPN54'] = {
+                    ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN218 AirPN235 AirPN233 AirPN217 AirPN251 AirPN250 AirPN219 AirPN249' ),
-                    ['type'] = STRING( 'Air Path Node' ),
+                    ['graph'] = STRING( 'DefaultAmphibious' ),
+                    ['adjacentTo'] = STRING( 'AmphPN65 AmphPN67 AmphPN53' ),
+                    ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 928.5, 32, 608.5 ),
+                    ['position'] = VECTOR3( 699.5, 66.92188, 36.5 ),
                 },
                 ['AmphPN41'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -4286,15 +4285,15 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 726.5, 64, 468.5 ),
                 },
-                ['AmphPN45'] = {
+                ['AmphPN35'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN33 AmphPN46 AmphPN31 AmphPN43' ),
+                    ['adjacentTo'] = STRING( 'AmphPN36 AmphPN03 AmphPN38 AmphPN10' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 215.5, 64, 543.5 ),
+                    ['position'] = VECTOR3( 427.5, 74.10938, 936.5 ),
                 },
                 ['AirPN190'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4326,15 +4325,16 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 426.5, 74.99219, 857.5 ),
                 },
-                ['AirPN181'] = {
-                    ['color'] = STRING( 'ffffffff' ),
-                    ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAir' ),
-                    ['adjacentTo'] = STRING( 'AirPN196 AirPN166 AirPN197 AirPN164 AirPN198 AirPN180 AirPN182 AirPN165' ),
-                    ['type'] = STRING( 'Air Path Node' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
+                ['Mass 15'] = {
+                    ['size'] = FLOAT( 1.000000 ),
+                    ['resource'] = BOOLEAN( true ),
+                    ['amount'] = FLOAT( 100.000000 ),
+                    ['color'] = STRING( 'ff808080' ),
+                    ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
+                    ['type'] = STRING( 'Mass' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 736.5, 81.49219, 288.5 ),
+                    ['position'] = VECTOR3( 669.5, 74.96094, 165.5 ),
                 },
                 ['AmphPN14'] = {
                     ['color'] = STRING( 'ff00ffff' ),
@@ -4346,25 +4346,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 389.5, 89.99219, 590.5 ),
                 },
-                ['AmphPN63'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN244'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN71 AmphPN62' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN243 AirPN227 AirPN245 AirPN228 AirPN229' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 971.5, 34.64844, 513.5 ),
+                    ['position'] = VECTOR3( 992.5, 66.95313, 224.5 ),
                 },
-                ['AmphPN64'] = {
+                ['AmphPN52'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN72 AmphPN06' ),
+                    ['adjacentTo'] = STRING( 'AmphPN50 AmphPN56 AmphPN49 AmphPN59 AmphPN58' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 38.5, 38.08594, 514.5 ),
+                    ['position'] = VECTOR3( 909.5, 75.59375, 182.5 ),
                 },
                 ['AirPN96'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -4376,25 +4376,25 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 352.5, 64, 992.5 ),
                 },
-                ['AmphPN68'] = {
-                    ['color'] = STRING( 'ff00ffff' ),
+                ['AirPN126'] = {
+                    ['color'] = STRING( 'ffffffff' ),
                     ['hint'] = BOOLEAN( true ),
-                    ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN69' ),
-                    ['type'] = STRING( 'Amphibious Path Node' ),
+                    ['graph'] = STRING( 'DefaultAir' ),
+                    ['adjacentTo'] = STRING( 'AirPN127 AirPN111 AirPN143 AirPN125 AirPN109 AirPN110 AirPN142 AirPN141' ),
+                    ['type'] = STRING( 'Air Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 343.5, 34.78125, 43.5 ),
+                    ['position'] = VECTOR3( 480.5, 74.96875, 864.5 ),
                 },
-                ['AmphPN69'] = {
+                ['AmphPN66'] = {
                     ['color'] = STRING( 'ff00ffff' ),
                     ['hint'] = BOOLEAN( true ),
                     ['graph'] = STRING( 'DefaultAmphibious' ),
-                    ['adjacentTo'] = STRING( 'AmphPN67 AmphPN72 AmphPN70 AmphPN68' ),
+                    ['adjacentTo'] = STRING( 'AmphPN65 AmphPN55' ),
                     ['type'] = STRING( 'Amphibious Path Node' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Path_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
-                    ['position'] = VECTOR3( 397.5, 35, 201.5 ),
+                    ['position'] = VECTOR3( 648.5, 74.99219, 139.5 ),
                 },
                 ['AirPN165'] = {
                     ['color'] = STRING( 'ffffffff' ),
@@ -5195,13 +5195,6 @@ Scenario = {
                                 Position = { 618.5, 89.97656, 372.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_21'] = {
-                                type = 'urb2101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 362.5, 89.98633, 600.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
                             ['UNIT_19'] = {
                                 type = 'urb2101',
                                 orders = '',
@@ -5209,11 +5202,18 @@ Scenario = {
                                 Position = { 387.5, 89.99219, 605.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_8'] = {
-                                type = 'ueb2204',
+                            ['UNIT_403'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 625.5, 89.96875, 373.5 },
+                                Position = { 626.5, 89.98828, 369.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_21'] = {
+                                type = 'urb2101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 362.5, 89.98633, 600.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_665'] = {
@@ -5237,18 +5237,18 @@ Scenario = {
                                 Position = { 474.5, 89.99609, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_598'] = {
+                            ['UNIT_449'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 370.5, 89.99219, 589.5 },
+                                Position = { 390.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_267'] = {
+                            ['UNIT_688'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 630.5, 89.97656, 339.5 },
+                                Position = { 400.5, 90, 567.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_696'] = {
@@ -5258,39 +5258,39 @@ Scenario = {
                                 Position = { 397.5, 90, 571.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_16'] = {
-                                type = 'urb1106',
-                                orders = '',
-                                platoon = '',
-                                Position = { 424.5, 89.97656, 613.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_15'] = {
-                                type = 'urb1106',
-                                orders = '',
-                                platoon = '',
-                                Position = { 418.5, 89.97656, 611.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_13'] = {
-                                type = 'urb2301',
-                                orders = '',
-                                platoon = '',
-                                Position = { 618.5, 89.98633, 370.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_11'] = {
-                                type = 'ueb3201',
-                                orders = '',
-                                platoon = '',
-                                Position = { 618.5, 89.97656, 374.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_611'] = {
+                            ['UNIT_250'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 419.5, 89.99219, 622.5 },
+                                Position = { 627.5, 89.9707, 379.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_95'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 607.5, 89.87695, 311.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_8'] = {
+                                type = 'ueb2204',
+                                orders = '',
+                                platoon = '',
+                                Position = { 625.5, 89.96875, 373.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_684'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 481.5, 90.03711, 629.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_96'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 607.5, 89.875, 310.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_437'] = {
@@ -5314,11 +5314,11 @@ Scenario = {
                                 Position = { 385.5, 89.99219, 604.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_9'] = {
-                                type = 'ueb2301',
+                            ['UNIT_542'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 676.5, 89.98047, 381.5 },
+                                Position = { 427.5, 89.99219, 644.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_339'] = {
@@ -5349,11 +5349,11 @@ Scenario = {
                                 Position = { 637.5, 89.94141, 340.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_7'] = {
-                                type = 'ueb2204',
+                            ['UNIT_92'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 616.5, 89.99219, 364.5 },
+                                Position = { 604.5, 89.98047, 314.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_530'] = {
@@ -5370,25 +5370,25 @@ Scenario = {
                                 Position = { 618.5, 89.90625, 336.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_6'] = {
-                                type = 'ueb2204',
+                            ['UNIT_535'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 411.5, 89.98242, 611.5 },
+                                Position = { 414.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_4'] = {
-                                type = 'ueb2301',
+                            ['UNIT_698'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 452.5174, 89.99219, 672.0109 },
+                                Position = { 396.5, 90, 572.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_3'] = {
-                                type = 'ueb2301',
+                            ['UNIT_677'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 365.5, 89.99219, 593.5 },
+                                Position = { 479.5, 89.99219, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_282'] = {
@@ -5398,11 +5398,11 @@ Scenario = {
                                 Position = { 653.5, 89.79102, 352.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_448'] = {
-                                type = 'urb5101',
+                            ['UNIT_9'] = {
+                                type = 'ueb2301',
                                 orders = '',
                                 platoon = '',
-                                Position = { 385.5, 89.99219, 607.5 },
+                                Position = { 676.5, 89.98047, 381.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_94'] = {
@@ -5419,11 +5419,11 @@ Scenario = {
                                 Position = { 639.5, 89.94336, 344.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_2'] = {
-                                type = 'ueb2101',
+                            ['UNIT_429'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 656.5, 89.85938, 371.5 },
+                                Position = { 675.5, 89.93945, 377.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_460'] = {
@@ -5433,25 +5433,25 @@ Scenario = {
                                 Position = { 390.5, 89.99219, 615.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_544'] = {
-                                type = 'urb5101',
+                            ['UNIT_354'] = {
+                                type = 'urb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 424.5, 89.99219, 641.5 },
+                                Position = { 622.5, 89.99219, 366.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_100'] = {
+                            ['UNIT_235'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 603.5, 89.99219, 306.5 },
+                                Position = { 615.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_178'] = {
+                            ['UNIT_588'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 558.5, 90, 375.5 },
+                                Position = { 360.5, 89.97656, 600.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_600'] = {
@@ -5468,11 +5468,11 @@ Scenario = {
                                 Position = { 421.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_392'] = {
-                                type = 'urb2101',
+                            ['UNIT_257'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 643.5, 89.93359, 341.5 },
+                                Position = { 626.5, 89.97656, 386.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_281'] = {
@@ -5482,18 +5482,18 @@ Scenario = {
                                 Position = { 653.5, 89.79297, 351.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_219'] = {
+                            ['UNIT_220'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 612.5, 89.99219, 362.5 },
+                                Position = { 613.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_668'] = {
+                            ['UNIT_450'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 635.5, 90, 417.5 },
+                                Position = { 417.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_545'] = {
@@ -5503,11 +5503,11 @@ Scenario = {
                                 Position = { 425.5, 89.99219, 646.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_589'] = {
+                            ['UNIT_361'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 359.5, 89.98047, 599.5 },
+                                Position = { 627.5, 89.96094, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_653'] = {
@@ -5545,53 +5545,53 @@ Scenario = {
                                 Position = { 619.5, 89.99219, 364.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_610'] = {
+                            ['UNIT_691'] = {
+                                type = 'urb2101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 399.5, 90, 563.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_672'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 414.5, 89.99219, 617.5 },
+                                Position = { 478.5, 89.99219, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_687'] = {
+                            ['UNIT_636'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 400.5, 90, 563.5 },
+                                Position = { 409.5, 89.99219, 612.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_411'] = {
-                                type = 'urb1106',
-                                orders = '',
-                                platoon = '',
-                                Position = { 610.5, 90.02734, 376.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_288'] = {
+                            ['UNIT_310'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.77734, 358.5 },
+                                Position = { 652.5, 89.82227, 349.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_499'] = {
+                            ['UNIT_656'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 625.5 },
+                                Position = { 633.5, 90, 420.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_647'] = {
+                            ['UNIT_393'] = {
+                                type = 'urb2101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 651.5, 89.8418, 349.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_456'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.97656, 606.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_681'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 472.5, 89.99414, 629.5 },
+                                Position = { 390.5, 89.99219, 617.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_569'] = {
@@ -5601,11 +5601,11 @@ Scenario = {
                                 Position = { 441.5, 89.99219, 672.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_362'] = {
-                                type = 'urb5101',
+                            ['UNIT_602'] = {
+                                type = 'urb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 623.5, 89.84766, 334.5 },
+                                Position = { 369.5, 89.99219, 595.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_417'] = {
@@ -5622,11 +5622,11 @@ Scenario = {
                                 Position = { 361.5, 89.97656, 601.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_533'] = {
+                            ['UNIT_463'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 423.5, 89.99219, 646.5 },
+                                Position = { 389.5, 89.99219, 603.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_597'] = {
@@ -5636,11 +5636,11 @@ Scenario = {
                                 Position = { 370.5, 89.99219, 591.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_433'] = {
+                            ['UNIT_500'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 672.5, 89.99219, 383.5 },
+                                Position = { 411.5, 89.99219, 616.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_363'] = {
@@ -5650,11 +5650,11 @@ Scenario = {
                                 Position = { 622.5, 89.84766, 334.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_330'] = {
-                                type = 'urb5101',
+                            ['UNIT_4'] = {
+                                type = 'ueb2301',
                                 orders = '',
                                 platoon = '',
-                                Position = { 622.5, 89.99219, 365.5 },
+                                Position = { 452.5174, 89.99219, 672.0109 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_416'] = {
@@ -5671,11 +5671,11 @@ Scenario = {
                                 Position = { 471.5, 89.99219, 630.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_498'] = {
+                            ['UNIT_419'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 389.5, 89.99219, 613.5 },
+                                Position = { 685.5, 89.92188, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_221'] = {
@@ -5685,6 +5685,13 @@ Scenario = {
                                 Position = { 614.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
+                            ['UNIT_531'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 426.5, 89.99219, 641.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
                             ['UNIT_646'] = {
                                 type = 'urb5101',
                                 orders = '',
@@ -5692,39 +5699,32 @@ Scenario = {
                                 Position = { 409.5, 89.97656, 607.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_92'] = {
+                            ['UNIT_647'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 604.5, 89.98047, 314.5 },
+                                Position = { 409.5, 89.97656, 606.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_535'] = {
+                            ['UNIT_499'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 414.5, 89.99219, 641.5 },
+                                Position = { 390.5, 89.99219, 625.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_574'] = {
+                            ['UNIT_681'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 454.5, 89.99219, 664.5 },
+                                Position = { 472.5, 89.99414, 629.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_354'] = {
-                                type = 'urb2101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 622.5, 89.99219, 366.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_350'] = {
+                            ['UNIT_657'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 649.5, 89.87695, 354.5 },
+                                Position = { 633.5, 90, 423.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_343'] = {
@@ -5741,39 +5741,39 @@ Scenario = {
                                 Position = { 597.5, 90.02344, 366.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_588'] = {
+                            ['UNIT_687'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 360.5, 89.97656, 600.5 },
+                                Position = { 400.5, 90, 563.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_289'] = {
+                            ['UNIT_400'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.76953, 359.5 },
+                                Position = { 639.5, 89.94531, 343.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_220'] = {
+                            ['UNIT_314'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 613.5, 89.99219, 362.5 },
+                                Position = { 649.5, 89.875, 350.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_241'] = {
+                            ['UNIT_207'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 625.5, 89.98242, 370.5 },
+                                Position = { 600.5, 89.99219, 363.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_245'] = {
+                            ['UNIT_694'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 627.5, 89.96875, 374.5 },
+                                Position = { 396.5, 90, 559.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_584'] = {
@@ -5783,11 +5783,11 @@ Scenario = {
                                 Position = { 364.5, 89.99219, 600.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_691'] = {
-                                type = 'urb2101',
+                            ['UNIT_172'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 399.5, 90, 563.5 },
+                                Position = { 553.5, 90.11328, 371.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_617'] = {
@@ -5797,32 +5797,32 @@ Scenario = {
                                 Position = { 427.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_310'] = {
+                            ['UNIT_667'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 652.5, 89.82227, 349.5 },
+                                Position = { 633.5, 90, 422.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_402'] = {
+                            ['UNIT_434'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 620.5, 89.99219, 363.5 },
+                                Position = { 672.5, 89.98828, 382.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_385'] = {
+                            ['UNIT_483'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 621.5, 89.96094, 338.5 },
+                                Position = { 403.5, 89.99219, 637.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_393'] = {
+                            ['UNIT_676'] = {
                                 type = 'urb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 651.5, 89.8418, 349.5 },
+                                Position = { 479.5, 89.99219, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_438'] = {
@@ -5832,6 +5832,20 @@ Scenario = {
                                 Position = { 672.5, 89.97266, 380.5 },
                                 Orientation = { 0, 0, 0 },
                             },
+                            ['UNIT_316'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 653.5, 89.73828, 364.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_16'] = {
+                                type = 'urb1106',
+                                orders = '',
+                                platoon = '',
+                                Position = { 424.5, 89.97656, 613.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
                             ['UNIT_635'] = {
                                 type = 'urb5101',
                                 orders = '',
@@ -5839,25 +5853,11 @@ Scenario = {
                                 Position = { 409.5, 89.99023, 611.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_500'] = {
+                            ['UNIT_610'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 411.5, 89.99219, 616.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_602'] = {
-                                type = 'urb2101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 369.5, 89.99219, 595.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_274'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 637.5, 89.93359, 339.5 },
+                                Position = { 414.5, 89.99219, 617.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_621'] = {
@@ -5867,11 +5867,11 @@ Scenario = {
                                 Position = { 434.5, 89.97656, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_455'] = {
+                            ['UNIT_625'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 389.5, 89.99219, 604.5 },
+                                Position = { 428.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_179'] = {
@@ -5888,18 +5888,18 @@ Scenario = {
                                 Position = { 601.5, 89.98047, 319.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_419'] = {
+                            ['UNIT_541'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 685.5, 89.92188, 374.5 },
+                                Position = { 427.5, 89.99219, 643.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_605'] = {
+                            ['UNIT_504'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 411.5, 89.99219, 614.5 },
+                                Position = { 387.5, 89.99219, 602.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_482'] = {
@@ -5909,25 +5909,25 @@ Scenario = {
                                 Position = { 401.5, 89.99219, 639.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_400'] = {
+                            ['UNIT_562'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 639.5, 89.94531, 343.5 },
+                                Position = { 446.5, 89.99219, 667.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_657'] = {
+                            ['UNIT_287'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 633.5, 90, 423.5 },
+                                Position = { 653.5, 89.78711, 357.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_268'] = {
+                            ['UNIT_388'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 631.5, 89.9707, 339.5 },
+                                Position = { 625.5, 89.96289, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_18'] = {
@@ -5937,46 +5937,46 @@ Scenario = {
                                 Position = { 424.5, 89.99219, 644.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_650'] = {
+                            ['UNIT_311'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.97656, 605.5 },
+                                Position = { 651.5, 89.8457, 348.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_359'] = {
+                            ['UNIT_649'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 625.5, 89.91016, 336.5 },
+                                Position = { 409.5, 89.98438, 610.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_172'] = {
+                            ['UNIT_561'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 553.5, 90.11328, 371.5 },
+                                Position = { 448.5, 89.99219, 665.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_184'] = {
+                            ['UNIT_573'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 564.5, 90, 373.5 },
+                                Position = { 444.5, 89.99219, 675.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_667'] = {
+                            ['UNIT_622'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 633.5, 90, 422.5 },
+                                Position = { 421.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_434'] = {
+                            ['UNIT_589'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 672.5, 89.98828, 382.5 },
+                                Position = { 359.5, 89.98047, 599.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_654'] = {
@@ -6021,18 +6021,18 @@ Scenario = {
                                 Position = { 595.5, 89.96094, 319.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_483'] = {
+                            ['UNIT_668'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 403.5, 89.99219, 637.5 },
+                                Position = { 635.5, 90, 417.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_458'] = {
-                                type = 'urb5101',
+                            ['UNIT_7'] = {
+                                type = 'ueb2204',
                                 orders = '',
                                 platoon = '',
-                                Position = { 388.5, 89.99219, 612.5 },
+                                Position = { 616.5, 89.99219, 364.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_334'] = {
@@ -6049,11 +6049,74 @@ Scenario = {
                                 Position = { 622.5, 89.99219, 367.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_283'] = {
+                            ['UNIT_288'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.79102, 353.5 },
+                                Position = { 653.5, 89.77734, 358.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_465'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 386.5, 89.99219, 603.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_539'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 408.5, 89.99219, 641.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_475'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 389.5, 89.99219, 602.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_489'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 390.5, 89.99219, 614.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_699'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 400.5, 90, 565.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_211'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 604.5, 89.99219, 362.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_680'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 482.5, 90.21875, 630.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_180'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 560.5, 90, 375.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_608'] = {
+                                type = 'urb2101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 414.5, 89.99219, 618.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_471'] = {
@@ -6070,81 +6133,18 @@ Scenario = {
                                 Position = { 410.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_80'] = {
+                            ['UNIT_577'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 601.5, 89.98242, 318.5 },
+                                Position = { 445.5, 89.99023, 676.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_287'] = {
+                            ['UNIT_643'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.78711, 357.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_180'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 560.5, 90, 375.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_211'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 604.5, 89.99219, 362.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_181'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 561.5, 90, 375.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_352'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 654.5, 89.82227, 370.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_205'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 598.5, 89.99414, 365.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_388'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 625.5, 89.96289, 338.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_528'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 421.5, 89.99219, 645.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_81'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 600.5, 89.97461, 319.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_451'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 404.5, 89.99219, 641.5 },
+                                Position = { 409.5, 89.98438, 602.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_568'] = {
@@ -6154,11 +6154,11 @@ Scenario = {
                                 Position = { 453.5, 89.99219, 663.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_174'] = {
+                            ['UNIT_333'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 555.5, 89.99609, 373.5 },
+                                Position = { 623.5, 89.99219, 366.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_479'] = {
@@ -6189,18 +6189,18 @@ Scenario = {
                                 Position = { 620.5, 89.96094, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_622'] = {
+                            ['UNIT_292'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 421.5, 89.99219, 622.5 },
+                                Position = { 653.5, 89.74609, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_369'] = {
+                            ['UNIT_98'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 618.5, 89.96289, 338.5 },
+                                Position = { 605.5, 89.98047, 308.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_344'] = {
@@ -6210,32 +6210,32 @@ Scenario = {
                                 Position = { 655.5, 89.91602, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_346'] = {
+                            ['UNIT_605'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 654.5, 89.89063, 373.5 },
+                                Position = { 411.5, 89.99219, 614.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_556'] = {
+                            ['UNIT_520'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 452.5, 89.99219, 663.5 },
+                                Position = { 420.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_396'] = {
-                                type = 'urb5204',
+                            ['UNIT_411'] = {
+                                type = 'urb1106',
                                 orders = '',
                                 platoon = '',
-                                Position = { 625.5, 89.99219, 347.5 },
+                                Position = { 610.5, 90.02734, 376.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_680'] = {
+                            ['UNIT_695'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 482.5, 90.21875, 630.5 },
+                                Position = { 400.5, 90, 566.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_609'] = {
@@ -6252,11 +6252,11 @@ Scenario = {
                                 Position = { 634.5, 90, 419.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_275'] = {
+                            ['UNIT_436'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 638.5, 89.93359, 339.5 },
+                                Position = { 672.5, 89.95508, 378.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_501'] = {
@@ -6273,11 +6273,11 @@ Scenario = {
                                 Position = { 614.5, 89.97656, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_91'] = {
-                                type = 'urb5101',
+                            ['UNIT_395'] = {
+                                type = 'urb2104',
                                 orders = '',
                                 platoon = '',
-                                Position = { 603.5, 89.99219, 315.5 },
+                                Position = { 640.5, 89.94336, 342.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_490'] = {
@@ -6301,18 +6301,18 @@ Scenario = {
                                 Position = { 402.5, 89.99219, 638.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_285'] = {
+                            ['UNIT_278'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.80078, 355.5 },
+                                Position = { 641.5, 89.9375, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_88'] = {
+                            ['UNIT_427'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 595.5, 89.9707, 318.5 },
+                                Position = { 677.5, 89.9082, 375.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_286'] = {
@@ -6322,18 +6322,18 @@ Scenario = {
                                 Position = { 653.5, 89.79688, 356.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_577'] = {
+                            ['UNIT_547'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 445.5, 89.99023, 676.5 },
+                                Position = { 422.5, 89.99219, 646.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_177'] = {
+                            ['UNIT_186'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 557.5, 90, 375.5 },
+                                Position = { 566.5, 90, 371.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_663'] = {
@@ -6350,25 +6350,25 @@ Scenario = {
                                 Position = { 389.5, 89.99219, 606.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_236'] = {
+                            ['UNIT_631'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 616.5, 89.99219, 362.5 },
+                                Position = { 424.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_333'] = {
+                            ['UNIT_91'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 623.5, 89.99219, 366.5 },
+                                Position = { 603.5, 89.99219, 315.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_628'] = {
+                            ['UNIT_560'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 430.5, 89.99219, 622.5 },
+                                Position = { 449.5, 89.99219, 663.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_398'] = {
@@ -6378,25 +6378,25 @@ Scenario = {
                                 Position = { 637.5, 89.94531, 341.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_99'] = {
+                            ['UNIT_619'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 604.5, 89.99219, 307.5 },
+                                Position = { 423.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_570'] = {
+                            ['UNIT_536'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 454.5, 89.99219, 665.5 },
+                                Position = { 420.5, 89.99219, 644.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_563'] = {
+                            ['UNIT_266'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 447.5, 89.99219, 666.5 },
+                                Position = { 629.5, 89.97852, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_594'] = {
@@ -6413,11 +6413,11 @@ Scenario = {
                                 Position = { 596.5, 89.96875, 318.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_79'] = {
-                                type = 'urb2101',
+                            ['UNIT_527'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 600.5, 89.98047, 318.5 },
+                                Position = { 417.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_644'] = {
@@ -6441,46 +6441,46 @@ Scenario = {
                                 Position = { 650.5, 89.85742, 352.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_436'] = {
+                            ['UNIT_570'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 672.5, 89.95508, 378.5 },
+                                Position = { 454.5, 89.99219, 665.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_237'] = {
+                            ['UNIT_525'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 617.5, 89.99219, 362.5 },
+                                Position = { 413.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_278'] = {
+                            ['UNIT_368'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 641.5, 89.9375, 339.5 },
+                                Position = { 618.5, 89.93555, 337.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_328'] = {
+                            ['UNIT_275'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 621.5, 89.99219, 364.5 },
+                                Position = { 638.5, 89.93359, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_547'] = {
+                            ['UNIT_655'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 422.5, 89.99219, 646.5 },
+                                Position = { 633.5, 89.99609, 424.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_215'] = {
+                            ['UNIT_661'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 608.5, 89.99219, 362.5 },
+                                Position = { 633.5, 90, 419.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_182'] = {
@@ -6497,11 +6497,11 @@ Scenario = {
                                 Position = { 400.5, 90, 568.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_317'] = {
+                            ['UNIT_607'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 648.5, 89.88672, 351.5 },
+                                Position = { 413.5, 89.99219, 618.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_452'] = {
@@ -6511,18 +6511,18 @@ Scenario = {
                                 Position = { 403.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_592'] = {
+                            ['UNIT_236'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 370.5, 89.99219, 596.5 },
+                                Position = { 616.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_442'] = {
-                                type = 'urb2104',
+                            ['UNIT_308'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 673.5, 89.99219, 383.5 },
+                                Position = { 643.5, 89.93555, 340.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_428'] = {
@@ -6532,18 +6532,18 @@ Scenario = {
                                 Position = { 676.5, 89.92188, 376.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_389'] = {
+                            ['UNIT_567'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 625.5, 89.94336, 337.5 },
+                                Position = { 442.5, 89.99219, 671.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_619'] = {
+                            ['UNIT_317'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 423.5, 89.99219, 622.5 },
+                                Position = { 648.5, 89.88672, 351.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_290'] = {
@@ -6560,18 +6560,18 @@ Scenario = {
                                 Position = { 440.5, 90.12891, 617.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_238'] = {
+                            ['UNIT_571'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 618.5, 89.99219, 363.5 },
+                                Position = { 442.5, 89.99219, 673.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_527'] = {
+                            ['UNIT_633'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 417.5, 89.99219, 641.5 },
+                                Position = { 439.5, 90.00391, 618.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_97'] = {
@@ -6588,18 +6588,18 @@ Scenario = {
                                 Position = { 393.5, 89.99219, 629.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_630'] = {
+                            ['UNIT_389'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 432.5, 89.98438, 622.5 },
+                                Position = { 625.5, 89.94336, 337.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_284'] = {
+                            ['UNIT_348'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.79688, 354.5 },
+                                Position = { 654.5, 89.80273, 369.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_423'] = {
@@ -6609,18 +6609,25 @@ Scenario = {
                                 Position = { 681.5, 89.62695, 371.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_217'] = {
+                            ['UNIT_285'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 610.5, 89.99219, 362.5 },
+                                Position = { 653.5, 89.80078, 355.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_645'] = {
+                            ['UNIT_630'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.98047, 603.5 },
+                                Position = { 432.5, 89.98438, 622.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_386'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 622.5, 89.96094, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_599'] = {
@@ -6630,32 +6637,25 @@ Scenario = {
                                 Position = { 370.5, 89.99219, 590.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_567'] = {
+                            ['UNIT_312'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 442.5, 89.99219, 671.5 },
+                                Position = { 650.5, 89.85938, 349.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_358'] = {
+                            ['UNIT_690'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 624.5, 89.875, 335.5 },
+                                Position = { 399.5, 90, 562.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_313'] = {
+                            ['UNIT_523'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 643.5, 89.93164, 342.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_512'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 419.5, 89.99219, 643.5 },
+                                Position = { 424.5, 89.99219, 646.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_342'] = {
@@ -6665,18 +6665,18 @@ Scenario = {
                                 Position = { 657.5, 89.91016, 373.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_462'] = {
+                            ['UNIT_309'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 402.5, 89.99219, 640.5 },
+                                Position = { 644.5, 89.92773, 341.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_255'] = {
+                            ['UNIT_557'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 627.5, 89.97656, 384.5 },
+                                Position = { 451.5, 89.99219, 663.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_534'] = {
@@ -6686,18 +6686,18 @@ Scenario = {
                                 Position = { 416.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_293'] = {
+                            ['UNIT_564'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.73828, 363.5 },
+                                Position = { 445.5, 89.99219, 668.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_256'] = {
+                            ['UNIT_590'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 627.5, 89.97656, 385.5 },
+                                Position = { 358.5, 89.98438, 598.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_596'] = {
@@ -6728,11 +6728,11 @@ Scenario = {
                                 Position = { 409.5, 89.98828, 600.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_312'] = {
+                            ['UNIT_544'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 650.5, 89.85938, 349.5 },
+                                Position = { 424.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_425'] = {
@@ -6742,18 +6742,18 @@ Scenario = {
                                 Position = { 679.5, 89.83398, 373.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_365'] = {
+                            ['UNIT_613'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 620.5, 89.85156, 334.5 },
+                                Position = { 426.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_583'] = {
+                            ['UNIT_313'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 365.5, 89.99219, 599.5 },
+                                Position = { 643.5, 89.93164, 342.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_581'] = {
@@ -6770,11 +6770,11 @@ Scenario = {
                                 Position = { 418.5, 89.99219, 642.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_603'] = {
-                                type = 'urb2104',
+                            ['UNIT_491'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 369.5, 89.99219, 590.5 },
+                                Position = { 390.5, 89.99219, 623.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_524'] = {
@@ -6784,39 +6784,39 @@ Scenario = {
                                 Position = { 415.5, 89.99219, 620.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_641'] = {
+                            ['UNIT_519'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 411.5, 89.98438, 597.5 },
+                                Position = { 409.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_658'] = {
+                            ['UNIT_502'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 634.5, 89.99609, 425.5 },
+                                Position = { 385.5, 89.99219, 609.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_651'] = {
+                            ['UNIT_293'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 412.5, 89.99219, 615.5 },
+                                Position = { 653.5, 89.73828, 363.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_564'] = {
+                            ['UNIT_611'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 445.5, 89.99219, 668.5 },
+                                Position = { 419.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_669'] = {
+                            ['UNIT_685'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 480.5, 89.99414, 628.5 },
+                                Position = { 399.5, 90, 569.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_582'] = {
@@ -6826,25 +6826,25 @@ Scenario = {
                                 Position = { 366.5, 89.99219, 598.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_315'] = {
+                            ['UNIT_276'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 642.5, 89.93164, 343.5 },
+                                Position = { 639.5, 89.93359, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_454'] = {
+                            ['UNIT_485'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 618.5 },
+                                Position = { 390.5, 89.99219, 624.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_613'] = {
+                            ['UNIT_658'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 426.5, 89.99219, 622.5 },
+                                Position = { 634.5, 89.99609, 425.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_623'] = {
@@ -6861,32 +6861,32 @@ Scenario = {
                                 Position = { 621.5, 89.99219, 366.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_491'] = {
+                            ['UNIT_669'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 623.5 },
+                                Position = { 480.5, 89.99414, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_679'] = {
-                                type = 'urb5101',
+                            ['UNIT_3'] = {
+                                type = 'ueb2301',
                                 orders = '',
                                 platoon = '',
-                                Position = { 477.5, 89.99219, 627.5 },
+                                Position = { 365.5, 89.99219, 593.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_502'] = {
+                            ['UNIT_641'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 385.5, 89.99219, 609.5 },
+                                Position = { 411.5, 89.98438, 597.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_93'] = {
+                            ['UNIT_591'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 605.5, 89.95898, 313.5 },
+                                Position = { 369.5, 89.99219, 596.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_17'] = {
@@ -6903,11 +6903,11 @@ Scenario = {
                                 Position = { 612.5, 89.99219, 370.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_579'] = {
-                                type = 'urb2104',
+                            ['UNIT_595'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 453.5, 89.99219, 664.5 },
+                                Position = { 370.5, 89.99219, 593.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_565'] = {
@@ -6917,11 +6917,11 @@ Scenario = {
                                 Position = { 444.5, 89.99219, 669.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_486'] = {
+                            ['UNIT_516'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 392.5, 89.99219, 630.5 },
+                                Position = { 423.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_212'] = {
@@ -6938,32 +6938,32 @@ Scenario = {
                                 Position = { 682.5, 89.62891, 371.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_391'] = {
+                            ['UNIT_454'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 623.5, 89.96094, 338.5 },
+                                Position = { 390.5, 89.99219, 618.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_478'] = {
+                            ['UNIT_515'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 386.5, 89.99219, 610.5 },
+                                Position = { 407.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_614'] = {
+                            ['UNIT_267'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 437.5, 89.97656, 620.5 },
+                                Position = { 630.5, 89.97656, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_351'] = {
+                            ['UNIT_700'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 648.5, 89.88867, 353.5 },
+                                Position = { 398.5, 90, 570.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_439'] = {
@@ -6987,18 +6987,18 @@ Scenario = {
                                 Position = { 633.5, 89.94727, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
+                            ['UNIT_616'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 433.5, 89.97852, 622.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
                             ['UNIT_642'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
                                 Position = { 409.5, 89.97852, 604.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_210'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 603.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_319'] = {
@@ -7015,18 +7015,11 @@ Scenario = {
                                 Position = { 674.5, 89.95313, 378.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_183'] = {
+                            ['UNIT_365'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 563.5, 90, 374.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_246'] = {
-                                type = 'urb5101',
-                                orders = '',
-                                platoon = '',
-                                Position = { 627.5, 89.96875, 375.5 },
+                                Position = { 620.5, 89.85156, 334.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_522'] = {
@@ -7036,6 +7029,13 @@ Scenario = {
                                 Position = { 415.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
+                            ['UNIT_210'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 603.5, 89.99219, 362.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
                             ['UNIT_345'] = {
                                 type = 'urb5101',
                                 orders = '',
@@ -7043,32 +7043,32 @@ Scenario = {
                                 Position = { 654.5, 89.91016, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_612'] = {
+                            ['UNIT_183'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 420.5, 89.99219, 622.5 },
+                                Position = { 563.5, 90, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_629'] = {
-                                type = 'urb5101',
+                            ['UNIT_513'] = {
+                                type = 'urb1201',
                                 orders = '',
                                 platoon = '',
-                                Position = { 425.5, 89.99219, 622.5 },
+                                Position = { 422.5, 89.97656, 609.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_470'] = {
+                            ['UNIT_496'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 627.5 },
+                                Position = { 394.5, 89.99219, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_627'] = {
+                            ['UNIT_493'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 429.5, 89.99219, 622.5 },
+                                Position = { 385.5, 89.99219, 605.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_664'] = {
@@ -7085,11 +7085,11 @@ Scenario = {
                                 Position = { 385.5, 89.99219, 608.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_493'] = {
+                            ['UNIT_495'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 385.5, 89.99219, 605.5 },
+                                Position = { 413.5, 89.99219, 620.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_431'] = {
@@ -7113,11 +7113,11 @@ Scenario = {
                                 Position = { 621.5, 89.84766, 334.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_494'] = {
+                            ['UNIT_629'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 620.5 },
+                                Position = { 425.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_85'] = {
@@ -7176,11 +7176,11 @@ Scenario = {
                                 Position = { 624.5, 89.99219, 367.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_495'] = {
+                            ['UNIT_494'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 413.5, 89.99219, 620.5 },
+                                Position = { 390.5, 89.99219, 620.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_673'] = {
@@ -7190,25 +7190,25 @@ Scenario = {
                                 Position = { 475.5, 89.99414, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_496'] = {
+                            ['UNIT_627'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 394.5, 89.99219, 628.5 },
+                                Position = { 429.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_513'] = {
-                                type = 'urb1201',
-                                orders = '',
-                                platoon = '',
-                                Position = { 422.5, 89.97656, 609.5 },
-                                Orientation = { 0, 0, 0 },
-                            },
-                            ['UNIT_261'] = {
+                            ['UNIT_256'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 597.5, 90.07227, 367.5 },
+                                Position = { 627.5, 89.97656, 385.5 },
+                                Orientation = { 0, 0, 0 },
+                            },
+                            ['UNIT_612'] = {
+                                type = 'urb5101',
+                                orders = '',
+                                platoon = '',
+                                Position = { 420.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_265'] = {
@@ -7232,67 +7232,67 @@ Scenario = {
                                 Position = { 412.5, 89.99219, 617.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_616'] = {
+                            ['UNIT_261'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 433.5, 89.97852, 622.5 },
+                                Position = { 597.5, 90.07227, 367.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_700'] = {
-                                type = 'urb5101',
+                            ['UNIT_6'] = {
+                                type = 'ueb2204',
                                 orders = '',
                                 platoon = '',
-                                Position = { 398.5, 90, 570.5 },
+                                Position = { 411.5, 89.98242, 611.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_515'] = {
+                            ['UNIT_651'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 407.5, 89.99219, 641.5 },
+                                Position = { 412.5, 89.99219, 615.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_516'] = {
+                            ['UNIT_614'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 423.5, 89.99219, 641.5 },
+                                Position = { 437.5, 89.97656, 620.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_595'] = {
-                                type = 'urb5101',
+                            ['UNIT_603'] = {
+                                type = 'urb2104',
                                 orders = '',
                                 platoon = '',
-                                Position = { 370.5, 89.99219, 593.5 },
+                                Position = { 369.5, 89.99219, 590.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_591'] = {
+                            ['UNIT_391'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 369.5, 89.99219, 596.5 },
+                                Position = { 623.5, 89.96094, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_485'] = {
+                            ['UNIT_486'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 624.5 },
+                                Position = { 392.5, 89.99219, 630.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_276'] = {
+                            ['UNIT_246'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 639.5, 89.93359, 339.5 },
+                                Position = { 627.5, 89.96875, 375.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_685'] = {
+                            ['UNIT_470'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 399.5, 90, 569.5 },
+                                Position = { 390.5, 89.99219, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_347'] = {
@@ -7302,11 +7302,11 @@ Scenario = {
                                 Position = { 654.5, 89.86719, 372.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_519'] = {
+                            ['UNIT_679'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.99219, 641.5 },
+                                Position = { 477.5, 89.99219, 627.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_426'] = {
@@ -7323,11 +7323,11 @@ Scenario = {
                                 Position = { 653.5, 89.79492, 350.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_590'] = {
+                            ['UNIT_462'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 358.5, 89.98438, 598.5 },
+                                Position = { 402.5, 89.99219, 640.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_674'] = {
@@ -7337,32 +7337,32 @@ Scenario = {
                                 Position = { 473.5, 89.99414, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_557'] = {
+                            ['UNIT_351'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 451.5, 89.99219, 663.5 },
+                                Position = { 648.5, 89.88867, 353.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_309'] = {
+                            ['UNIT_478'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 644.5, 89.92773, 341.5 },
+                                Position = { 386.5, 89.99219, 610.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_523'] = {
+                            ['UNIT_583'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 424.5, 89.99219, 646.5 },
+                                Position = { 365.5, 89.99219, 599.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_690'] = {
-                                type = 'urb5101',
+                            ['UNIT_579'] = {
+                                type = 'urb2104',
                                 orders = '',
                                 platoon = '',
-                                Position = { 399.5, 90, 562.5 },
+                                Position = { 453.5, 89.99219, 664.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_575'] = {
@@ -7372,11 +7372,11 @@ Scenario = {
                                 Position = { 454.5, 89.99219, 663.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_386'] = {
+                            ['UNIT_93'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 622.5, 89.96094, 338.5 },
+                                Position = { 605.5, 89.95898, 313.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_209'] = {
@@ -7386,25 +7386,25 @@ Scenario = {
                                 Position = { 602.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_348'] = {
+                            ['UNIT_315'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 654.5, 89.80273, 369.5 },
+                                Position = { 642.5, 89.93164, 343.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_633'] = {
+                            ['UNIT_512'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 439.5, 90.00391, 618.5 },
+                                Position = { 419.5, 89.99219, 643.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_571'] = {
+                            ['UNIT_358'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 442.5, 89.99219, 673.5 },
+                                Position = { 624.5, 89.875, 335.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_321'] = {
@@ -7414,46 +7414,46 @@ Scenario = {
                                 Position = { 638.5, 89.95117, 343.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_308'] = {
+                            ['UNIT_645'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 643.5, 89.93555, 340.5 },
+                                Position = { 409.5, 89.98047, 603.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_607'] = {
+                            ['UNIT_217'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 413.5, 89.99219, 618.5 },
+                                Position = { 610.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_661'] = {
-                                type = 'urb5101',
+                            ['UNIT_11'] = {
+                                type = 'ueb3201',
                                 orders = '',
                                 platoon = '',
-                                Position = { 633.5, 90, 419.5 },
+                                Position = { 618.5, 89.97656, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_655'] = {
-                                type = 'urb5101',
+                            ['UNIT_79'] = {
+                                type = 'urb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 633.5, 89.99609, 424.5 },
+                                Position = { 600.5, 89.98047, 318.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_368'] = {
+                            ['UNIT_255'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 618.5, 89.93555, 337.5 },
+                                Position = { 627.5, 89.97656, 384.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_525'] = {
-                                type = 'urb5101',
+                            ['UNIT_13'] = {
+                                type = 'urb2301',
                                 orders = '',
                                 platoon = '',
-                                Position = { 413.5, 89.99219, 641.5 },
+                                Position = { 618.5, 89.98633, 370.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_10'] = {
@@ -7463,18 +7463,18 @@ Scenario = {
                                 Position = { 598.5, 89.98438, 315.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_266'] = {
-                                type = 'urb5101',
+                            ['UNIT_15'] = {
+                                type = 'urb1106',
                                 orders = '',
                                 platoon = '',
-                                Position = { 629.5, 89.97852, 339.5 },
+                                Position = { 418.5, 89.97656, 611.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_536'] = {
+                            ['UNIT_328'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 420.5, 89.99219, 644.5 },
+                                Position = { 621.5, 89.99219, 364.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_1'] = {
@@ -7484,25 +7484,25 @@ Scenario = {
                                 Position = { 621.5, 89.90625, 336.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_560'] = {
-                                type = 'urb5101',
+                            ['UNIT_442'] = {
+                                type = 'urb2104',
                                 orders = '',
                                 platoon = '',
-                                Position = { 449.5, 89.99219, 663.5 },
+                                Position = { 673.5, 89.99219, 383.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_631'] = {
+                            ['UNIT_592'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 424.5, 89.99219, 622.5 },
+                                Position = { 370.5, 89.99219, 596.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_186'] = {
+                            ['UNIT_284'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 566.5, 90, 371.5 },
+                                Position = { 653.5, 89.79688, 354.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_518'] = {
@@ -7512,11 +7512,11 @@ Scenario = {
                                 Position = { 426.5, 89.99219, 645.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_427'] = {
+                            ['UNIT_238'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 677.5, 89.9082, 375.5 },
+                                Position = { 618.5, 89.99219, 363.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_566'] = {
@@ -7526,11 +7526,11 @@ Scenario = {
                                 Position = { 443.5, 89.99219, 670.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_395'] = {
-                                type = 'urb2104',
+                            ['UNIT_237'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 640.5, 89.94336, 342.5 },
+                                Position = { 617.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_89'] = {
@@ -7540,32 +7540,32 @@ Scenario = {
                                 Position = { 595.5, 89.97461, 317.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_695'] = {
+                            ['UNIT_215'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 400.5, 90, 566.5 },
+                                Position = { 608.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_520'] = {
+                            ['UNIT_563'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 420.5, 89.99219, 641.5 },
+                                Position = { 447.5, 89.99219, 666.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_98'] = {
+                            ['UNIT_99'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 605.5, 89.98047, 308.5 },
+                                Position = { 604.5, 89.99219, 307.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_292'] = {
+                            ['UNIT_628'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.74609, 362.5 },
+                                Position = { 430.5, 89.99219, 622.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_248'] = {
@@ -7575,11 +7575,11 @@ Scenario = {
                                 Position = { 627.5, 89.96875, 377.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_643'] = {
+                            ['UNIT_556'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.98438, 602.5 },
+                                Position = { 452.5, 89.99219, 663.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_258'] = {
@@ -7589,11 +7589,11 @@ Scenario = {
                                 Position = { 625.5, 89.97656, 387.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_608'] = {
-                                type = 'urb2101',
+                            ['UNIT_88'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 414.5, 89.99219, 618.5 },
+                                Position = { 595.5, 89.9707, 318.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_467'] = {
@@ -7603,39 +7603,39 @@ Scenario = {
                                 Position = { 410.5, 89.99219, 615.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_699'] = {
-                                type = 'urb5101',
+                            ['UNIT_396'] = {
+                                type = 'urb5204',
                                 orders = '',
                                 platoon = '',
-                                Position = { 400.5, 90, 565.5 },
+                                Position = { 625.5, 89.99219, 347.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_489'] = {
+                            ['UNIT_177'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 614.5 },
+                                Position = { 557.5, 90, 375.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_475'] = {
-                                type = 'urb5101',
+                            ['UNIT_2'] = {
+                                type = 'ueb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 389.5, 89.99219, 602.5 },
+                                Position = { 656.5, 89.85938, 371.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_539'] = {
+                            ['UNIT_346'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 408.5, 89.99219, 641.5 },
+                                Position = { 654.5, 89.89063, 373.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_465'] = {
+                            ['UNIT_369'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 386.5, 89.99219, 603.5 },
+                                Position = { 618.5, 89.96289, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_466'] = {
@@ -7645,32 +7645,32 @@ Scenario = {
                                 Position = { 389.5, 89.99219, 607.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_573'] = {
+                            ['UNIT_174'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 444.5, 89.99219, 675.5 },
+                                Position = { 555.5, 89.99609, 373.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_561'] = {
+                            ['UNIT_352'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 448.5, 89.99219, 665.5 },
+                                Position = { 654.5, 89.82227, 370.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_649'] = {
+                            ['UNIT_181'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.98438, 610.5 },
+                                Position = { 561.5, 90, 375.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_311'] = {
+                            ['UNIT_528'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 651.5, 89.8457, 348.5 },
+                                Position = { 421.5, 89.99219, 645.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_447'] = {
@@ -7687,46 +7687,46 @@ Scenario = {
                                 Position = { 402.5, 89.99219, 639.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_562'] = {
+                            ['UNIT_451'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 446.5, 89.99219, 667.5 },
+                                Position = { 404.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_504'] = {
+                            ['UNIT_81'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 387.5, 89.99219, 602.5 },
+                                Position = { 600.5, 89.97461, 319.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_541'] = {
+                            ['UNIT_205'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 427.5, 89.99219, 643.5 },
+                                Position = { 598.5, 89.99414, 365.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_625'] = {
+                            ['UNIT_80'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 428.5, 89.99219, 622.5 },
+                                Position = { 601.5, 89.98242, 318.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_316'] = {
+                            ['UNIT_283'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 653.5, 89.73828, 364.5 },
+                                Position = { 653.5, 89.79102, 353.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_676'] = {
-                                type = 'urb2101',
+                            ['UNIT_458'] = {
+                                type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 479.5, 89.99219, 628.5 },
+                                Position = { 388.5, 89.99219, 612.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_484'] = {
@@ -7757,25 +7757,25 @@ Scenario = {
                                 Position = { 474.5, 89.99219, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_694'] = {
+                            ['UNIT_184'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 396.5, 90, 559.5 },
+                                Position = { 564.5, 90, 373.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_207'] = {
+                            ['UNIT_650'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 600.5, 89.99219, 363.5 },
+                                Position = { 409.5, 89.97656, 605.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_314'] = {
+                            ['UNIT_359'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 649.5, 89.875, 350.5 },
+                                Position = { 625.5, 89.91016, 336.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_247'] = {
@@ -7792,11 +7792,11 @@ Scenario = {
                                 Position = { 370.5, 89.99219, 595.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_531'] = {
+                            ['UNIT_268'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 426.5, 89.99219, 641.5 },
+                                Position = { 631.5, 89.9707, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_259'] = {
@@ -7813,11 +7813,11 @@ Scenario = {
                                 Position = { 390.5, 89.99219, 628.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_463'] = {
+                            ['UNIT_274'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 389.5, 89.99219, 603.5 },
+                                Position = { 637.5, 89.93359, 339.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_218'] = {
@@ -7827,11 +7827,11 @@ Scenario = {
                                 Position = { 611.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_456'] = {
+                            ['UNIT_455'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 617.5 },
+                                Position = { 389.5, 89.99219, 604.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_84'] = {
@@ -7841,11 +7841,11 @@ Scenario = {
                                 Position = { 599.5, 89.9668, 319.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_656'] = {
+                            ['UNIT_385'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 633.5, 90, 420.5 },
+                                Position = { 621.5, 89.96094, 338.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_549'] = {
@@ -7855,18 +7855,18 @@ Scenario = {
                                 Position = { 422.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_636'] = {
+                            ['UNIT_402'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 409.5, 89.99219, 612.5 },
+                                Position = { 620.5, 89.99219, 363.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_672'] = {
+                            ['UNIT_433'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 478.5, 89.99219, 627.5 },
+                                Position = { 672.5, 89.99219, 383.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_432'] = {
@@ -7876,18 +7876,18 @@ Scenario = {
                                 Position = { 672.5, 89.99219, 384.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_361'] = {
+                            ['UNIT_245'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 627.5, 89.96094, 338.5 },
+                                Position = { 627.5, 89.96875, 374.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_450'] = {
+                            ['UNIT_241'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 417.5, 89.99219, 622.5 },
+                                Position = { 625.5, 89.98242, 370.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_338'] = {
@@ -7897,11 +7897,11 @@ Scenario = {
                                 Position = { 658.5, 89.80859, 369.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_257'] = {
+                            ['UNIT_289'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 626.5, 89.97656, 386.5 },
+                                Position = { 653.5, 89.76953, 359.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_543'] = {
@@ -7911,11 +7911,11 @@ Scenario = {
                                 Position = { 425.5, 89.99219, 641.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_235'] = {
+                            ['UNIT_350'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 615.5, 89.99219, 362.5 },
+                                Position = { 649.5, 89.87695, 354.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_606'] = {
@@ -7925,25 +7925,25 @@ Scenario = {
                                 Position = { 415.5, 89.99219, 618.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_429'] = {
+                            ['UNIT_574'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 675.5, 89.93945, 377.5 },
+                                Position = { 454.5, 89.99219, 664.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_677'] = {
+                            ['UNIT_533'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 479.5, 89.99219, 627.5 },
+                                Position = { 423.5, 89.99219, 646.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_698'] = {
+                            ['UNIT_362'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 396.5, 90, 572.5 },
+                                Position = { 623.5, 89.84766, 334.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_341'] = {
@@ -7960,25 +7960,25 @@ Scenario = {
                                 Position = { 389.5, 89.99219, 605.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_542'] = {
+                            ['UNIT_498'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 427.5, 89.99219, 644.5 },
+                                Position = { 389.5, 89.99219, 613.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_96'] = {
+                            ['UNIT_330'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 607.5, 89.875, 310.5 },
+                                Position = { 622.5, 89.99219, 365.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_684'] = {
+                            ['UNIT_598'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 481.5, 90.03711, 629.5 },
+                                Position = { 370.5, 89.99219, 589.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_86'] = {
@@ -7988,39 +7988,39 @@ Scenario = {
                                 Position = { 596.5, 89.95703, 319.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_95'] = {
+                            ['UNIT_178'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 607.5, 89.87695, 311.5 },
+                                Position = { 558.5, 90, 375.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_250'] = {
+                            ['UNIT_100'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 627.5, 89.9707, 379.5 },
+                                Position = { 603.5, 89.99219, 306.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_688'] = {
+                            ['UNIT_448'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 400.5, 90, 567.5 },
+                                Position = { 385.5, 89.99219, 607.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_449'] = {
+                            ['UNIT_219'] = {
                                 type = 'urb5101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 390.5, 89.99219, 622.5 },
+                                Position = { 612.5, 89.99219, 362.5 },
                                 Orientation = { 0, 0, 0 },
                             },
-                            ['UNIT_403'] = {
-                                type = 'urb5101',
+                            ['UNIT_392'] = {
+                                type = 'urb2101',
                                 orders = '',
                                 platoon = '',
-                                Position = { 626.5, 89.98828, 369.5 },
+                                Position = { 643.5, 89.93359, 341.5 },
                                 Orientation = { 0, 0, 0 },
                             },
                             ['UNIT_639'] = {
