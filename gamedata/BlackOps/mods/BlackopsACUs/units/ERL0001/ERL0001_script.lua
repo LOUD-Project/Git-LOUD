@@ -1001,7 +1001,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
 
-        elseif enh =='EXEMPArray' the
+        elseif enh =='EXEMPArray' then
 			self.wcEMP01 = true
 			self.wcEMP02 = false
 			self.wcEMP03 = false

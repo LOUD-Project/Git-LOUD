@@ -532,36 +532,27 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
-        EXZephyrBooster = {
+        loudJuryRiggedUEF = {
             BuildCostEnergy = 6000,
             BuildCostMass = 600,
             BuildTime = 600,
             Icon = 'exrzb1',
-            Name = 'Jury Rigged Zephyr',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 30,
+            Name = 'Jury Rigged Weapon',
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
         },
-        EXZephyrBoosterRemove = {
+        loudJuryRiggedUEFRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'exrzb1',
-            Name = 'Remove Jury Rigged Zephyr',
-            Prerequisite = 'EXZephyrBooster',
-			ZephyrDamageMod = 100,
+            Name = 'Remove Jury Rigging',
+            Prerequisite = 'loudJuryRiggedUEF',
             RemoveEnhancements = {
-                'EXZephyrBooster',
-                'EXZephyrBoosterRemove',
+                'loudJuryRiggedUEF',
+                'loudJuryRiggedUEFRemove',
             },
             Slot = 'RCH',
         },
@@ -685,29 +676,21 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
-        EXAntiMatterCannon = {
-            BuildCostEnergy = 45000,
-            BuildCostMass = 1080,
-            BuildTime = 2700,
+        loudBossCannon = {
+            BuildCostEnergy = 16000,
+            BuildCostMass = 1600,
+            BuildTime = 1600,
             Icon = 'exramc1',
-            Name = 'Anti-Matter Cannon (T2)',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 30,
+            Name = 'Prototype Boss Cannon',
             ShowBones = {
                 'HAC',
             },
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
         },
-        EXAntiMatterCannonRemove = {
+        loudBossCannonRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -715,34 +698,25 @@ UnitBlueprint {
                 'HAC',
             },
             Icon = 'exramc1',
-            Name = 'Remove Anti-Matter Cannon',
-            Prerequisite = 'EXAntiMatterCannon',
-			ZephyrDamageMod = 100,
+            Name = 'Remove Prototype Boss Cannon',
+            Prerequisite = 'loudBossCannon',
             RemoveEnhancements = {
-                'EXAntiMatterCannon',
-                'EXAntiMatterCannonRemove',
+                'loudBossCannon',
+                'loudBossCannonRemove',
             },
             Slot = 'RCH',
         },
         EXImprovedContainmentBottle = {
-            BuildCostEnergy = 225000,
-            BuildCostMass = 1800,
-            BuildTime = 8100,
+            BuildCostEnergy = 45000,
+            BuildCostMass = 2000,
+            BuildTime = 2000,
             Icon = 'exramc2',
-            Name = 'Improved Particle Accelerator (T3)',
-			Prerequisite = 'EXAntiMatterCannon',
-			ZephyrRangeMod = 30,
-			ZephyrDamageMod = 100,
+            Name = 'Heavy Boss Cannon',
+			Prerequisite = 'loudBossCannon',
             ShowBones = {
                 'HAC',
             },
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
@@ -755,35 +729,26 @@ UnitBlueprint {
                 'HAC',
             },
             Icon = 'exramc2',
-            Name = 'Remove Improved Particle Accelerator',
+            Name = 'Remove Heavy Boss Cannon',
             Prerequisite = 'EXImprovedContainmentBottle',
-			ZephyrDamageMod = 100,
             RemoveEnhancements = {
-                'EXAntiMatterCannon',
+                'loudBossCannon',
                 'EXImprovedContainmentBottle',
                 'EXImprovedContainmentBottleRemove',
             },
             Slot = 'RCH',
         },
         EXPowerBooster = {
-            BuildCostEnergy = 525000,
-            BuildCostMass = 4500,
-            BuildTime = 18000,
+            BuildCostEnergy = 58500,
+            BuildCostMass = 2600,
+            BuildTime = 2600,
             Icon = 'exramc3',
-            Name = 'Enhanced Mag Bottle (T4)',
+            Name = 'Ultra Boss Cannon',
 			Prerequisite = 'EXImprovedContainmentBottle',
-			ZephyrRangeMod = 35,
-			ZephyrDamageMod = 100,
             ShowBones = {
                 'HAC',
             },
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
             UpgradeUnitAmbientBones = {
                 'UEL0001',
             },
@@ -796,11 +761,10 @@ UnitBlueprint {
                 'HAC',
             },
             Icon = 'exramc3',
-            Name = 'Remove Enhanced Mag Bottle',
+            Name = 'Remove Ultra Boss Cannon',
             Prerequisite = 'EXPowerBooster',
-			ZephyrDamageMod = 100,
             RemoveEnhancements = {
-                'EXAntiMatterCannon',
+                'loudBossCannon',
                 'EXImprovedContainmentBottle',
                 'EXPowerBooster',
                 'EXPowerBoosterRemove',
@@ -1550,7 +1514,7 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'RightZephyr',
+            Label = 'MainGun',
 			
             MaxRadius = 25,	#22
             MinRadius = 1,
@@ -2050,9 +2014,10 @@ UnitBlueprint {
             WeaponCategory = 'Anti Navy',
         },
         {
-			-- "Prototype Tower-Boss Cannon"
+			-- "Prototype Boss Cannon"
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+			
             Audio = {
                 Fire = Sound {
 					Bank = 'TM_UEFWEAPONS',
@@ -2060,6 +2025,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+			
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -2068,7 +2034,7 @@ UnitBlueprint {
 			DamageFriendly = true,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti-Matter Cannon',
+            DisplayName = 'Prototype Boss Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2078,10 +2044,226 @@ UnitBlueprint {
 			
             FiringTolerance = 2.5,
 			
-            Label = 'EXAntiMatterCannon01',
+            Label = 'loudBossCannon01',
 			
             MaxRadius = 40,
             MinRadius = 3,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 35,
+			
+            PrefersPrimaryWeaponTarget = true,
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT2EPDproj/BRNT2EPDproj_proj.bp',
+            ProjectileLifetime = 24,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'HAC_Muzzle',
+                    },
+                    RackBone = 'HAC',
+                },
+            },
+			
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.25,
+			
+            SlavedToBody = false,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'HAC_Muzzle',
+            TurretBonePitch = 'Right_Arm_Barrel',
+            TurretBoneYaw = 'Torso',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+			
+            WeaponCategory = 'Direct Fire',
+        },
+        {
+			-- "Heavy Boss Cannon"
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+			
+			Audio = {
+                Fire = Sound {
+					Bank = 'TM_UEFWEAPONS',
+                    Cue = 'UEFEXPERIMENTALCANNONFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+			Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.0,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+			
+            Damage = 1200,
+            DamageRadius = 4,
+			DamageFriendly = true,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Boss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2.5,
+			
+            Label = 'loudBossCannon02',
+			
+            MaxRadius = 45,
+            MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 33,
+			
+            PrefersPrimaryWeaponTarget = true,
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT2EPDproj/BRNT2EPDproj_proj.bp',
+            ProjectileLifetime = 24,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'HAC_Muzzle',
+                    },
+                    RackBone = 'HAC',
+                },
+            },
+			
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 0.25,
+			
+            SlavedToBody = false,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TurretBoneMuzzle = 'HAC_Muzzle',
+            TurretBonePitch = 'Right_Arm_Barrel',
+            TurretBoneYaw = 'Torso',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+			
+            WeaponCategory = 'Direct Fire',
+        },
+        {
+			-- "Ultra Boss Cannon"
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+			
+            Audio = {
+                Fire = Sound {
+					Bank = 'TM_UEFWEAPONS',
+                    Cue = 'UEFEXPERIMENTALCANNONFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+			Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.0,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+			
+            Damage = 2400,
+            DamageRadius = 5,
+			DamageFriendly = true,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ultra Boss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2.5,
+			
+            Label = 'loudBossCannon03',
+			
+            MaxRadius = 50,
+            MinRadius = 5,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -2089,7 +2271,7 @@ UnitBlueprint {
 			
             PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT2EPDproj/BRNT2EPDproj_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 24,
 			
             RackBones = {
                 {
@@ -2126,7 +2308,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'HAC_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-			
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
@@ -2138,153 +2319,8 @@ UnitBlueprint {
             TurretYawSpeed = 90,
 			
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
 			
-            WeaponCategory = 'Direct Fire',
-        },
-        {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0305_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-            Damage = 2500,
-            DamageRadius = 4,
-			DamageFriendly = false,
-            DamageType = 'Normal',
-            DisplayName = 'Anti-Matter Cannon',
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-            FiringTolerance = 2,
-            Label = 'EXAntiMatterCannon02',
-            MaxRadius = 30,
-            MinRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35,
-            PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter02/UEFACUAntiMatter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'HAC_Muzzle',
-                    },
-                    RackBone = 'HAC',
-                },
-            },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.25,
-            SlavedToBody = false,
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TurretBoneMuzzle = 'HAC_Muzzle',
-            TurretBonePitch = 'Right_Arm_Barrel',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
-            Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
-        },
-        {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0305_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-            Damage = 8000,
-            DamageRadius = 5,
-			DamageFriendly = false,
-            DamageType = 'Normal',
-            DisplayName = 'Anti-Matter Cannon',
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-            FiringTolerance = 2,
-            Label = 'EXAntiMatterCannon03',
-            MaxRadius = 35,
-            MinRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35,
-            PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter03/UEFACUAntiMatter03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'HAC_Muzzle',
-                    },
-                    RackBone = 'HAC',
-                },
-            },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.25,
-            SlavedToBody = false,
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TurretBoneMuzzle = 'HAC_Muzzle',
-            TurretBonePitch = 'Right_Arm_Barrel',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
-            Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Direct Fire',
         },
         {
