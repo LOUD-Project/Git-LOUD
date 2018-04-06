@@ -599,8 +599,8 @@ UnitBlueprint {
 		
         EXDisruptorrBooster = {
             BuildCostEnergy = 6000,
-            BuildCostMass = 600,
-            BuildTime = 570,
+            BuildCostMass = 570,
+            BuildTime = 600,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Disruptor (T1)',
 			ZephyrDamageMod = 100,
@@ -2293,7 +2293,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26,
 			PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp'
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
             RackBones = {
                 {
                     MuzzleBones = {
