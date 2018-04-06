@@ -598,9 +598,9 @@ UnitBlueprint {
         },
 		
         EXDisruptorrBooster = {
-            BuildCostEnergy = 15000,
-            BuildCostMass = 500,
-            BuildTime = 500,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 570,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Disruptor (T1)',
 			ZephyrDamageMod = 100,
@@ -627,42 +627,6 @@ UnitBlueprint {
             RemoveEnhancements = {
                 'EXDisruptorrBooster',
                 'EXDisruptorrBoosterRemove',
-            },
-            Slot = 'RCH',
-        },
-		
-        EXDisruptorrEnhancer = {
-            BuildCostEnergy = 30000,
-            BuildCostMass = 1000,
-            BuildTime = 1000,
-            Icon = 'exrzb2',
-            Name = 'Disruptor Amplifier (T1)',
-            Prerequisite = 'EXDisruptorrBooster',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
-        },
-		
-        EXDisruptorrEnhancerRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            Icon = 'exrzb2',
-            Name = 'Remove Disruptor Amplifier',
-            Prerequisite = 'EXDisruptorrEnhancer',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXDisruptorrBooster',
-                'EXDisruptorrEnhancer',
-                'EXDisruptorrEnhancerRemove',
             },
             Slot = 'RCH',
         },

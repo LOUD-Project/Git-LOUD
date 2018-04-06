@@ -490,9 +490,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXRipperBooster = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Ripper (T1)',
 			ZephyrDamageMod = 2,

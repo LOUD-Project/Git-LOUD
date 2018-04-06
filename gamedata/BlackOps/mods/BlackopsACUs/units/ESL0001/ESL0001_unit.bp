@@ -506,9 +506,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXChronotonBooster = {
-            BuildCostEnergy = 15000,
-            BuildCostMass = 500,
-            BuildTime = 500,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Chronoton (T1)',
 			ZephyrDamageMod = 100,
