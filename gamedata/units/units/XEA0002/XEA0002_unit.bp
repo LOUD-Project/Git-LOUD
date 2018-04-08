@@ -1,5 +1,4 @@
 UnitBlueprint {
-
     Air = {
         BankFactor = 0,
         BankForward = false,
@@ -25,7 +24,7 @@ UnitBlueprint {
         'SELECTABLE',
         'UEF',
         'MOBILE',
-        'EXPERIMENTAL',
+        'TECH3',
         'SATELLITE',
         'VISIBLETORECON',
     },
@@ -56,7 +55,6 @@ UnitBlueprint {
             },
         },
         PlaceholderMeshName = 'UXB0000',
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
@@ -123,6 +121,6 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_satellite_intel',
     StrategicIconSortPriority = 55,
 }
