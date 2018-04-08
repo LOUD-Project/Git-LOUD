@@ -3,6 +3,8 @@ local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
 local CreateAttachedEmitter = CreateAttachedEmitter
 local WaitFor = WaitFor
 
+local BuildSatTime = 15
+
 XEB2402 = Class(TStructureUnit) {
 
     DeathThreadDestructionWaitTime = 8,
@@ -19,17 +21,16 @@ XEB2402 = Class(TStructureUnit) {
 		
 			while not self.Dead do
 			
-				WaitTicks(30)
+				WaitTicks(BuildSatTime)
 
 				if not self:GetScriptBit('RULEUTC_IntelToggle') then
 			
 					local newSat = true
-            
-					--# Play open animations.  Currently both play after unit finished, but will change
-					--# to play one while being built and one when finished        
-					--# Can't use PermOpenAnimation because of the satellite
-			
 					local bp = self:GetBlueprint()
+					
+					-- Play open animations.  Currently both play after unit finished, but will change
+					-- to play one while being built and one when finished        
+					-- Can't use PermOpenAnimation because of the satellite
 					
 					-- open the launcher gantry for construction
 					self.AnimManip = CreateAnimator(self)
@@ -53,7 +54,7 @@ XEB2402 = Class(TStructureUnit) {
 					self.Trash:Add(CreateAttachedEmitter(self,'ConstuctBeam02',army, '/effects/emitters/light_red_rotator_01_emit.bp'):ScaleEmitter( 2.00 ))
             
 					if newSat then
-						WaitSeconds(30)
+						WaitSeconds(BuildSatTime)
 						self.Satellite = CreateUnitHPR('XEA0002', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
 						
 						self.Satellite:AttachTo(self, 'Attachpoint01')
@@ -76,6 +77,8 @@ XEB2402 = Class(TStructureUnit) {
 						self.Satellite:DetachFrom()
 						self.Satellite:Open()
 					end
+					
+					WaitSeconds(5)
 				
 					-- destroy all the emitters and animations we added
 					self.Trash:Destroy()
@@ -83,7 +86,7 @@ XEB2402 = Class(TStructureUnit) {
 					self.AnimManip = CreateAnimator(self)
 					
 					-- run the launch animation in reverse
-					self.AnimManip:SetRate(-1)
+					self.AnimManip:SetRate(-0.5)
 					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen01.sca' )
 					self.Trash:Add(self.AnimManip)
 					WaitFor( self.AnimManip )
@@ -91,7 +94,7 @@ XEB2402 = Class(TStructureUnit) {
 					WaitSeconds(4)
 					
 					-- close the launcher gantry
-					self.AnimManip:SetRate(-1)
+					self.AnimManip:SetRate(-0.5)
 					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2401_aopen.sca' )
 					self.Trash:Add(self.AnimManip)
 					WaitFor( self.AnimManip )
@@ -142,16 +145,11 @@ XEB2402 = Class(TStructureUnit) {
             local captorArmyIndex = captor:GetArmy()
             local captorBrain = false
             
-            # For campaigns:
-            # We need the brain to ignore army cap when transfering the unit
-            # do all necessary steps to set brain to ignore, then un-ignore if necessary the unit cap
-            
             if ScenarioInfo.CampaignMode then
                 captorBrain = captor:GetAIBrain()
                 SetIgnoreArmyUnitCap(captorArmyIndex, true)
             end
             
-            #Satellite stuff
             self.Satellite:DoUnitCallbacks('OnCaptured', captor)
             local newSatUnitCallbacks = {}
             if self.Satellite.EventCallbacks.OnCapturedNewUnit then
@@ -160,8 +158,7 @@ XEB2402 = Class(TStructureUnit) {
             local satId = self:GetEntityId()
             local satEnh = SimUnitEnhancements[satId]
             local sat = ChangeUnitArmy(self.Satellite, captorArmyIndex)
-            
-            #Unit stuff
+
             local newUnit = ChangeUnitArmy(self, captorArmyIndex)
             if newUnit then
                 newUnit.Satellite = sat
@@ -182,7 +179,6 @@ XEB2402 = Class(TStructureUnit) {
                 end
             end
             
-            #Satellite stuff
             if satEnh then
                 for k,v in satEnh do
                     sat:CreateEnhancement(v)

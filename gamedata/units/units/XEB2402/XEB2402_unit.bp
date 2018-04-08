@@ -1,5 +1,4 @@
 UnitBlueprint {
-
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UELDestroy',
@@ -28,33 +27,34 @@ UnitBlueprint {
         },
     },
 	
-	BuildIconSortPriority = 250,
+	BuildIconSortPriority = 200,
 	
     Categories = {
         'UEF',
         'STRUCTURE',
-		'BUILTBYTIER4COMMANDER',
-        'EXPERIMENTAL',
+		'BUILTBYTIER3ENGINEER',
+		'BUILTBYTIER3COMMANDER',
         'ORBITALSYSTEM',
+		'INTELLIGENCE',
+		'OPTICS',
+		'TECH3',
         'SELECTABLE',
-        'LAND',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SORTSTRATEGIC',
+		'SORTINTEL',
     },
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1623,
-        Health = 6500,
-        MaxHealth = 6500,
+        EconomyThreatLevel = 70,
+        Health = 2365,
+        MaxHealth = 2365,
         RegenRate = 1,
     },
 	
-    Description = 'Experimental Satellite System',
+    Description = 'Satellite Control Center',
 	
     Display = {
-	
         DamageEffects = {
             {
                 Bone = 0,
@@ -75,6 +75,7 @@ UnitBlueprint {
                 OffsetZ = 0.25,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -90,46 +91,46 @@ UnitBlueprint {
                 },
             },
         },
+		
         PlaceholderMeshName = 'XEB2402',
-        SpawnRandomRotation = true,
+		
         Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar12x_01_albedo',
-                FadeOut = 150,
-                Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 12.8,
-            },
+--            {
+--                Albedo = 'Tarmacs/Tar12x_01_albedo',
+--                FadeOut = 150,
+--                Length = 12.8,
+--                Normal = 'Tarmacs/Tar12x_01_normals',
+--                Orientations = {
+--                    0,
+--                    90,
+--                    180,
+--                    270,
+--                },
+--                RemoveWhenDead = false,
+--                Width = 12.8,
+--            },
         },
+
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 604500,
-        BuildCostMass = 57400, #--255000
-        BuildTime = 27900, #--159900,
-		MaintenanceConsumptionPerSecondEnergy = 6000,
+        BuildCostEnergy = 60000, --Original: 604500
+        BuildCostMass = 4250, --Original: 255000
+        BuildTime = 3900, --Original: 159900
         RebuildBonusIds = {
             'xeb2402',
         },
     },
 	
     Footprint = {
-        SizeX = 6,
-        SizeZ = 6,
+        SizeX = 5,
+        SizeZ = 5,
     },
 	
     General = {
-		CapCost = 8,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+        Category = 'Intelligence',
+        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -148,12 +149,12 @@ UnitBlueprint {
         Icon = 'land',
 		OrderOverrides = {
             RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
+                bitmapId = 'vision',
+                helpText = 'vision_toggle',
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
@@ -162,11 +163,10 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Satellite System',
+        HelpText = 'Satellite Control Center',
     },
 	
 	Intel = {
-		RadarRadius = 1,
 		VisionRadius = 10,
 	},
 	
@@ -207,6 +207,6 @@ UnitBlueprint {
     SizeY = 1.7,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_generic',
-    StrategicIconSortPriority = 207,
+    StrategicIconName = 'icon_structure3_intel',
+    StrategicIconSortPriority = 200,
 }

@@ -45,18 +45,18 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'AeonCZAR',
-                },
-                {
-                    LODCutoff = 1500,
-                    ShaderName = 'Aeon',
+                    LODCutoff = 700,
+                    ShaderName = 'Unit',
                 },
             },
         },
         PlaceholderMeshName = 'UXB0000',
         UniformScale = 0.05,
     },
+	
+	Economy = {
+		MaintenanceConsumptionPerSecondEnergy = 3000,
+	},
 	
     General = {
         CapCost = 0,
