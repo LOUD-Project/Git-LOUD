@@ -35,7 +35,6 @@ XEB2402 = Class(TStructureUnit) {
 					-- open the launcher gantry for construction
 					self.AnimManip = CreateAnimator(self)
 					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen.sca' )
-					self.Trash:Add(self.AnimManip)
 					self:PlayUnitSound('MoveArms')
 					WaitFor( self.AnimManip )
             
@@ -88,7 +87,6 @@ XEB2402 = Class(TStructureUnit) {
 					-- run the launch animation in reverse
 					self.AnimManip:SetRate(-0.5)
 					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen01.sca' )
-					self.Trash:Add(self.AnimManip)
 					WaitFor( self.AnimManip )
 					
 					WaitSeconds(4)
