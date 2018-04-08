@@ -179,7 +179,7 @@ BRL0401 = Class(CWalkingLandUnit)
 				minradius = wep:GetBlueprint().MinRadius or 0
 				dummywep:ChangeMaxRadius(maxradius)
 				dummywep:ChangeMinRadius(minradius)
-                WaitSeconds(self.AnimationManipulator:GetAnimationDuration())
+                WaitSeconds(self.AnimationManipulator:GetAnimationDuration() + 2)
 				--local durTime = self.AnimationManipulator:GetAnimationDuration()
 				--LOG( durTime,'************Animation Duration**********')
 				self:SetWeaponEnabledByLabel('ShoulderGuns', true)

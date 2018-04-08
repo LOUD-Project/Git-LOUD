@@ -117,15 +117,15 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 60000, --Original: 604500
         BuildCostMass = 4250, --Original: 255000
-        BuildTime = 3900, --Original: 159900
+        BuildTime = 4250, --Original: 159900
         RebuildBonusIds = {
             'xeb2402',
         },
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 6,
+        SizeZ = 6,
     },
 	
     General = {
@@ -187,15 +187,11 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 5.4,
-        MeshExtentsY = 5.2,
-        MeshExtentsZ = 5.7,
+        MeshExtentsY = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 9,
-        SkirtSizeZ = 9,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
         TurnRate = 0,
     },
 	
