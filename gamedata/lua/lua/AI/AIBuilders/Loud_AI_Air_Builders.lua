@@ -58,6 +58,27 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		
     },
 	
+    Builder {BuilderName = 'Spy Plane T3',
+	
+        PlatoonTemplate = 'T3AirScout',
+        Priority = 601,
+
+        BuilderConditions = {
+		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 12, [512] = 24, [1024] = 36, [2048] = 48, [4096] = 56}, categories.AIR * categories.SCOUT * categories.TECH3 }},
+			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT * categories.TECH3 }},			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
+			
+        },
+		
+        BuilderType =  {'AirT3'},
+		
+    },
+	
 	Builder {BuilderName = 'Bomber T1',
 	
         PlatoonTemplate = 'T1Bomber',
@@ -80,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 	
     Builder {BuilderName = 'Fighters T1',
 	
-        PlatoonTemplate = 'T1AirFighter',
+        PlatoonTemplate = 'T1Fighter',
         Priority = 600,
 		
 		PriorityFunction = First45Minutes,
@@ -98,16 +119,16 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		
     },
 	
-    Builder {BuilderName = 'Fighter Bomber',
+    Builder {BuilderName = 'Bomber T2',
 	
-        PlatoonTemplate = 'T2FighterBomber',
+        PlatoonTemplate = 'T2Bomber',
         Priority = 600,
 		
         BuilderConditions = {
 		
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 4, categories.FACTORY * categories.AIR * categories.TECH3 }},
 			
         },
 		
@@ -115,6 +136,21 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		
     },
 	
+    Builder {BuilderName = 'Fighters T2',
+	
+        PlatoonTemplate = 'T2Fighter',
+        Priority = 600,
+		
+        BuilderConditions = {
+		
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 4, categories.FACTORY * categories.AIR - categories.TECH1 }},
+			
+        },
+		
+        BuilderType =  {'AirT2','AirT3'},
+		
+    },
+		
     Builder {BuilderName = 'Gunship T2',
 	
         PlatoonTemplate = 'T2Gunship',
@@ -131,31 +167,26 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         BuilderType =  {'AirT2','AirT3'},
 		
     },
-    
-    Builder {BuilderName = 'Spy Plane',
 	
-        PlatoonTemplate = 'T3AirScout',
-        Priority = 601,
-
+    Builder {BuilderName = 'Bomber T3',
+	
+        PlatoonTemplate = 'T3Bomber',
+        Priority = 600,
+		
         BuilderConditions = {
 		
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 12, [512] = 24, [1024] = 36, [2048] = 48, [4096] = 56}, categories.AIR * categories.SCOUT * categories.TECH3 }},
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT * categories.TECH3 }},			
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 			
         },
 		
         BuilderType =  {'AirT3'},
 		
     },
-
+    
     Builder {BuilderName = 'Fighters T3',
 	
-        PlatoonTemplate = 'T3AirFighter',
+        PlatoonTemplate = 'T3Fighter',
         Priority = 600,
 		
         BuilderConditions = {
@@ -186,22 +217,7 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         BuilderType =  {'AirT3'},
 		
     },
-	
-    Builder {BuilderName = 'Bomber T3',
-	
-        PlatoonTemplate = 'T3Bomber',
-        Priority = 600,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
-        },
-		
-        BuilderType =  {'AirT3'},
-		
-    },
+
 }
 
 -- Torpedo Bombers have been problematic (ie. - generally overproduced)

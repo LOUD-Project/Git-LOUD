@@ -1019,7 +1019,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
         BuilderConditions = {
 		
@@ -1100,7 +1100,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Small Base',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
         BuilderConditions = {
 		
