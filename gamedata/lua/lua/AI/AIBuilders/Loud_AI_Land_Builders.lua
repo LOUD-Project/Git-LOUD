@@ -574,10 +574,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
     },
 
-	
-	
-    -- Tech 2 Amphibious Tank -- can technically be built thru entire game
-	-- it's the first priority of T2 factories until 2 are being built
+    -- Tech 2 Amphibious Tank
     Builder {BuilderName = 'T2 Amphibious Tank',
 	
         PlatoonTemplate = 'T2LandAmphibTank',
@@ -589,7 +586,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 			
             { UCBC, 'PoolLess', { 48, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2, categories.LAND }},
 			
         },
 		
@@ -654,7 +651,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 
 			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DIRECTFIRE * categories.LAND * categories.MOBILE, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
 			
         },
 		
@@ -676,7 +673,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 
 			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DIRECTFIRE * categories.LAND * categories.MOBILE, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
 			
         },
 		
@@ -705,8 +702,12 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
         BuilderType = {'LandT2'},
     },
 	
+	-- ===================  --
+	-- T3 Amphibious Units	--
+	-- ===================  --
+	-- T3 Amphibious units only start building when there are 3 or more T3 factories
+	-- In this way T2 production continues at great volume until then
 	
-	-- T3 Amphibious Units	-- 
     Builder {BuilderName = 'T3 Amphibious Assault',
 	
         PlatoonTemplate = 'T3Amphibious',
@@ -716,8 +717,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
-			
+			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.LAND * categories.AMPHIBIOUS * categories.DIRECTFIRE }},
 			
         },
@@ -726,7 +726,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
     },	
 	
-	-- T3 Amphibious AA - might be amphbious AA or might be amphibious units depending upon faction and installed mods
+	-- T3 Amphibious AA
     Builder {BuilderName = 'T3 Amphibious AA',
 	
         PlatoonTemplate = 'T3AmphibiousAA',
@@ -736,19 +736,21 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 			
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
+			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
 		
         },
 		
-        BuilderType = {'LandT3','Gate'},
+        BuilderType = {'LandT3'},
 		
     },
 	
-    -- T3 non amphibious Land Units - limited output
+	-- T3 NON-AMPHIB Production --
+	-- begins only when there are 4 T3 factories --
+	
+    -- T3 non amphibious Land Units
     Builder {BuilderName = 'Siege Assault Bot T3 - Water',
 	
         PlatoonTemplate = 'T3LandBot',
@@ -758,12 +760,10 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },			
 			
-			{ UCBC, 'PoolLess', { 30, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ UCBC, 'PoolLess', { 48, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 			
 			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
-			
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},			
 			
         },
@@ -772,7 +772,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
     },
 
-	-- T3 Mobile Artillery -- limited output on water maps
+	-- T3 Mobile Artillery
     Builder {BuilderName = 'T3 Mobile Artillery - Water',
 	
         PlatoonTemplate = 'T3LandArtillery',
@@ -782,13 +782,11 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },			
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
 			
-			{ UCBC, 'PoolLess', { 24, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},			
+			{ UCBC, 'PoolLess', { 28, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},			
 
 			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
-
- 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), categories.LAND * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), categories.LAND * categories.TECH3 }},
 
         },
 		
@@ -796,7 +794,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
     },
 	
-	-- T3 Mobile Missile -- limitied output on water maps
+	-- T3 Mobile Missile -- UEF only --
     Builder {BuilderName = 'T3 Mobile Missile - Water',
 	
         PlatoonTemplate = 'T3MobileMissile',
@@ -807,12 +805,10 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },			
 			
 			{ UCBC, 'PoolLess', { 24, categories.xel0306 }},
 
 			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
 			
         },

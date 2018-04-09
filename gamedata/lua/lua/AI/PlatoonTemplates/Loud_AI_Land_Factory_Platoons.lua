@@ -381,16 +381,16 @@ PlatoonTemplate { Name = 'T3Amphibious',
 PlatoonTemplate { Name = 'T3AmphibiousAA',
     FactionSquads = {
         UEF = {
-            { 'xel0305', 1, 1, 'Attack', 'none' }	# Percival - filler
+            { 'uel0205', 1, 2, 'Attack', 'none' }	# All factions use T2 AA by default since base game has no T3 AA (land or amphibious)
         },
         Aeon = {
-            { 'ual0205', 1, 2, 'Guard', 'none' }	# Ascendant T2 Flak Hovertank	
+            { 'ual0205', 1, 2, 'Attack', 'none' }
         },
         Cybran = {
-            { 'xrl0305', 1, 1, 'Attack', 'none' }	# Brick - filler
-        },		
+            { 'url0205', 1, 2, 'Attack', 'none' }
+        },
         Seraphim = {
-            { 'xsl0205', 1, 2, 'Guard', 'none' }	# Iashavoh T2 AA Hovertank
+            { 'xsl0205', 1, 2, 'Attack', 'none' }
         },
     }
 }
