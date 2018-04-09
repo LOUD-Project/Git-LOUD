@@ -778,7 +778,7 @@ Platoon = Class(moho.platoon_methods) {
 	--			NoStartNode - can't find a node near start position
 	--			NoEndNode - can't find a node near destination
 	--
-	--	I added a new feature to store bad paths so they are instantly reported as fails instead of recalculated - stored globally as part of ScenarioInfo
+	--	I added a feature to store bad paths so they are instantly reported as fails instead of recalculated - stored globally as part of ScenarioInfo
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -847,7 +847,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(destination))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
 				return {destination}, 'Direct', 9999
 			end
 			

@@ -19,8 +19,10 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ MIBC, 'GreaterThanGameTime', { 300 } },		
-			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.LAND }},			
+			{ MIBC, 'GreaterThanGameTime', { 240 } },
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.LAND - categories.GATE }},			
 			
         },
 		
@@ -55,7 +57,9 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ MIBC, 'GreaterThanGameTime', { 300 } },		
+			{ MIBC, 'GreaterThanGameTime', { 240 } },
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR }},			
 			
         },
@@ -98,9 +102,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.78, 20, 1.02, 1.02 }},
-			
-			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.GATE }},
-			
+
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
