@@ -233,16 +233,16 @@ PlatoonTemplate { Name = 'T2MobileShields',
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
         UEF = {
-            { 'uel0203', 1, 1, 'Attack', 'none' }	# T2 amphibious tank
+            { 'uel0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
         },	
         Aeon = {
-            { 'ual0205', 1, 2, 'Attack', 'none' }
+            { 'ual0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
         Cybran = {
-            { 'url0203', 1, 1, 'Attack', 'none' }	# T2 amphibious tank
+            { 'url0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
         },		
         Seraphim = {
-            { 'xsl0205', 1, 2, 'Attack', 'none' }
+            { 'xsl0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
     }
 }
@@ -250,16 +250,16 @@ PlatoonTemplate { Name = 'T2LandAmphibAA',
 PlatoonTemplate { Name = 'T2LandAmphibTank',
     FactionSquads = {
         UEF = {
-            { 'uel0203', 1, 3, 'Attack', 'none' }
+            { 'uel0203', 1, 3, 'Attack', 'none' }	-- Riptide
         },
         Aeon = {
-            { 'xal0203', 1, 5, 'Attack', 'none' }
+            { 'xal0203', 1, 5, 'Attack', 'none' }	-- Blaze
         },
         Cybran = {
-            { 'url0203', 1, 2, 'Attack', 'none' }
+            { 'url0203', 1, 2, 'Attack', 'none' }	-- Wagner
         },
         Seraphim = {
-            { 'xsl0203', 1, 3, 'Attack', 'none' }
+            { 'xsl0203', 1, 3, 'Attack', 'none' }	-- Yenzyne
         },
     }
 }

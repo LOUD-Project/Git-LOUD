@@ -350,7 +350,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
 		
     },
 
-	
 	-- T2 Flak Vehicle 
     Builder {BuilderName = 'T2 Mobile Flak',
 	
@@ -540,7 +539,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
 BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
     BuildersType = 'FactoryBuilder',
 	
-	-- Tech 1 Tanks - only from T1 factories
     Builder {BuilderName = 'T1 Tanks - Water',
 	
         PlatoonTemplate = 'T1LandDFTank',
@@ -551,7 +549,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
         BuilderConditions = {
 		
 			{ UCBC, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DIRECTFIRE * categories.LAND * categories.TECH1 - categories.BOT, categories.LAND }},
 			
 		},
 		
@@ -570,7 +567,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
         BuilderConditions = {
 		
 			{ UCBC, 'PoolLess', { 8, categories.INDIRECTFIRE * categories.MOBILE }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.INDIRECTFIRE * categories.MOBILE, categories.LAND }},
 			
         },
 		
@@ -591,7 +587,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-            { UCBC, 'PoolLess', { 30, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
+            { UCBC, 'PoolLess', { 48, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2, categories.LAND }},
 			
@@ -601,7 +597,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
     },
 	
-	-- T2 Amphib AA -- only for Aeon and Sera
+	-- T2 Amphibious AA 
     Builder {BuilderName = 'T2 Amphibious AA',
 	
         PlatoonTemplate = 'T2LandAmphibAA',
@@ -654,7 +650,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'PoolLess', { 24, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ UCBC, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 
 			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
@@ -676,7 +672,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'PoolLess', { 24, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ UCBC, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 
 			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
