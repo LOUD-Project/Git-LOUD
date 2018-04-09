@@ -116,16 +116,16 @@ PlatoonTemplate { Name = 'T1Fighter',
 PlatoonTemplate { Name = 'T2Fighter',
     FactionSquads = {
         UEF = {
-            { 'dea0202', 1, 5, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'dea0202', 1, 3, 'Attack', 'none' },	-- Ftr/Bmbr
         },
         Aeon = {
-            { 'xaa0202', 1, 5, 'Attack', 'none' },
+            { 'xaa0202', 1, 3, 'Attack', 'none' },
         },
         Cybran = {
-            { 'dra0202', 1, 5, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'dra0202', 1, 3, 'Attack', 'none' },	-- Ftr/Bmbr
         },
         Seraphim = {
-            { 'xsa0202', 1, 5, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'xsa0202', 1, 3, 'Attack', 'none' },	-- Ftr/Bmbr
         },
     }
 }
@@ -169,16 +169,16 @@ PlatoonTemplate { Name = 'T2Gunship',
 PlatoonTemplate { Name = 'T3Gunship',
     FactionSquads = {
         UEF = {
-            { 'uea0305', 1, 1, 'Attack', 'none' }
+            { 'uea0305', 1, 1, 'Attack', 'none' }	-- Broadsword
         },
         Aeon = {
-            { 'xaa0305', 1, 1, 'Attack', 'none' }
+            { 'xaa0305', 1, 1, 'Attack', 'none' }	-- Restorer
         },
         Cybran = {
-            { 'xra0305', 1, 1, 'Attack', 'none' }
+            { 'xra0305', 1, 1, 'Attack', 'none' }	-- Wailer
         },
         Seraphim = {
-            { 'xsa0203', 1, 1, 'Attack', 'none' }
+            { 'xsa0203', 1, 1, 'Attack', 'none' }	-- T2 Gunship
         },
     }
 }
