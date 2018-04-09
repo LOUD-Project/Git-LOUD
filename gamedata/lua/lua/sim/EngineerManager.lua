@@ -552,18 +552,12 @@ EngineerManager = Class(BuilderManager) {
     AssignTimeout = function( self, builderName, temporary )
     
 		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
-		
-    	--LOG("*AI DEBUG EM timeout for "..repr(builderName))
 
 		local priority = self:GetBuilderPriority(builderName)
-		
-		--LOG("*AI DEBUG Priority is "..repr(priority))
 		
         local builder = self:SetBuilderPriority(builderName, 10, true)
 
 		local priority = self:GetBuilderPriority(builderName)
-		
-		--LOG("*AI DEBUG timeout Priority is "..repr(priority).." builder is "..repr(builder) )
 		
 		if builder and priority then
 		

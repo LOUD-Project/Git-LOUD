@@ -3550,7 +3550,7 @@ function CarrierThread ( carrier, aiBrain )
 		-- check the current storage levels and unit cap - and decide what unit to build
 		-- here's the beauty of this - the carrier can ALWAYS be building - moving or not - platoon or not
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			building = false
 			
@@ -3756,7 +3756,7 @@ function AtlantisCarrierThread ( carrier, aiBrain )
 
 		-- check the current storage levels and build if resources good
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			-- initialize the air platoons -- keep in mind that they'll disband shortly if we dont put something in them
 			-- we'll recreate them every pass (if not present) so that we can decide what to build
@@ -3934,7 +3934,7 @@ function CzarCarrierThread ( carrier, aiBrain )
 
 		-- check the current storage levels and build if resources good
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			-- initialize the air platoons -- keep in mind that they'll disband shortly if we dont put something in them
 			-- we'll recreate them every pass (if not present) so that we can decide what to build
@@ -4504,7 +4504,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while upgradeID !='' and init_delay < initialdelay do
 		
 		-- if we have basic mass and energy then advance init_delay counter -- uses the same values as factories do
-		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000 and unit:GetFractionComplete() == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and unit:GetFractionComplete() == 1 then
 			init_delay = init_delay + 10
 		end
 		
