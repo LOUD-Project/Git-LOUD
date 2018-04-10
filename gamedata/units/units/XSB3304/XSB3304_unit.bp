@@ -209,7 +209,7 @@ UnitBlueprint {
             MuzzleVelocity = 95,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery06/SAAOlarisAAArtillery06_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.8,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -245,7 +245,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
