@@ -318,7 +318,7 @@ function CanGraphTo( unitposition, destinationposition, layer )
 end
 
 -- this is a rather broad function that fills several flexible needs
-function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, AvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
+function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, shouldcheckAvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
 
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
@@ -332,10 +332,10 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 	-- Checks radius around base to see if marker is sufficiently far away
 	-- this function is used to filter out positions that
 	-- might be within an Allied partners base (or his own)
-	local function AvoidsBases( markerPos, shouldcheck, baseRadius )
+	local function AvoidsBases( markerPos, shouldcheckAvoidBases, baseRadius )
 	
 		-- if AvoidBases flag is true then do the check 
-        if shouldcheck == true then 
+        if shouldcheckAvoidBases == true then 
 		
 			-- loop thru all brains
 			for _, brain in ArmyBrains do
@@ -391,7 +391,7 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 	-- this insures that when seeking points when it's out in the field, it will
 	-- select points closest or furthest from itself depending upon the Pointsort value
 	
-	local pointlist
+	local pointlist = {}
 	local positions = {}
 	local counter = 0
 	
@@ -427,7 +427,7 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 			if distance >= DistMin and distance <= DistMax then
 			
 				-- check if in range of Allied Base
-				if AvoidsBases( pos, AvoidBases, DistMin) then
+				if AvoidsBases( pos, shouldcheckAvoidBases, DistMin) then
 				
 					positions[counter+1] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
@@ -439,30 +439,58 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 		end
 		
 	elseif PointType == 'Marker' then
-	
+
 		if PointCategory != 'BASE' then
-		
-			pointlist = ScenarioInfo.Env.Scenario.MasterChain[PointCategory] or AIGetMarkerLocations( PointCategory )
+
+			-- added support for multiple point categories
+			-- so we can now feed it a string or a table of strings
+			local CheckCategory
+			
+			if type(PointCategory) == 'string' then
+				CheckCategory = { PointCategory }
+			else
+				CheckCategory = table.copy( PointCategory )
+			end
+			
+			for _,cat in CheckCategory do
+			
+				pointlist = table.cat(pointlist, ScenarioInfo.Env.Scenario.MasterChain[ cat ] or AIGetMarkerLocations( cat ) )
+
+			end
 		
 			if LOUDGETN(pointlist)>0 and PointSource then
-			
+
+				-- sort the list by distance from source 
+				table.sort( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
+				
+				
 				for k,v in pointlist do
 				
 					-- calculate the distance to the point from the PointSource
-					distance = LOUDV2(PointSource[1],PointSource[3], v.Position[1],v.Position[3])
+					distance = LOUDV2( PointSource[1],PointSource[3], v.Position[1],v.Position[3] )
 					
-					-- and the distance between the platoon and the PointSource
-					platdistance = LOUDV2(platpos[1],platpos[3], v.Position[1],v.Position[3])
+					if distance <= DistMax then
 					
-					if distance >= DistMin and distance <= DistMax then
+						if distance >= DistMin then
 					
-						-- check if in range of Allied Base
-						if AvoidsBases( v.Position, AvoidBases, DistMin ) then
+							-- check if in range of Allied Base
+							if AvoidsBases( v.Position, shouldcheckAvoidBases, DistMin ) then
 						
-							positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
-							counter = counter + 1
+								-- the distance between the platoon and the PointSource
+								platdistance = LOUDV2(platpos[1],platpos[3], v.Position[1],v.Position[3])
+
+								-- insert it into the list of possible choices --
+								positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
+							
+								counter = counter + 1
+							
+							end
 							
 						end
+						
+					else
+					
+						break -- beyond max distance stop checking --
 						
 					end
 					
