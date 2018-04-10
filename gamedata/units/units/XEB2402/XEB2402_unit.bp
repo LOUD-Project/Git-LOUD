@@ -118,6 +118,7 @@ UnitBlueprint {
         BuildCostEnergy = 60000, --Original: 604500
         BuildCostMass = 4250, --Original: 255000
         BuildTime = 4250, --Original: 159900
+		MaintenanceConsumptionPerSecondEnergy = 2000,
         RebuildBonusIds = {
             'xeb2402',
         },
@@ -184,7 +185,6 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
         MeshExtentsY = 5,

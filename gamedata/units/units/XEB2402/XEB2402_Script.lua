@@ -13,6 +13,11 @@ XEB2402 = Class(TStructureUnit) {
         TStructureUnit.OnStopBeingBuilt(self)
         ChangeState( self, self.OpenState )
 		self:SetMaintenanceConsumptionActive()
+		
+		-- open the launcher gantry for construction
+		self.AnimManip = CreateAnimator(self)
+		self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen.sca' )
+		self:PlayUnitSound('MoveArms')
     end,
     
     OpenState = State() {
@@ -28,16 +33,6 @@ XEB2402 = Class(TStructureUnit) {
 					local newSat = true
 					local bp = self:GetBlueprint()
 					
-					-- Play open animations.  Currently both play after unit finished, but will change
-					-- to play one while being built and one when finished        
-					-- Can't use PermOpenAnimation because of the satellite
-					
-					-- open the launcher gantry for construction
-					self.AnimManip = CreateAnimator(self)
-					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen.sca' )
-					self:PlayUnitSound('MoveArms')
-					WaitFor( self.AnimManip )
-            
 					-- Attach satellite to unit, play animation, release satellite
 					-- Create satellite and attach to attachpoint bone
 					local location = self:GetPosition('Attachpoint01')
@@ -78,25 +73,12 @@ XEB2402 = Class(TStructureUnit) {
 					end
 					
 					WaitSeconds(5)
-				
-					-- destroy all the emitters and animations we added
-					self.Trash:Destroy()
-
-					self.AnimManip = CreateAnimator(self)
 					
 					-- run the launch animation in reverse
 					self.AnimManip:SetRate(-0.5)
 					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen01.sca' )
 					WaitFor( self.AnimManip )
-					
-					WaitSeconds(4)
-					
-					-- close the launcher gantry
-					self.AnimManip:SetRate(-0.5)
-					self.AnimManip:PlayAnim( '/units/XEB2402/XEB2401_aopen.sca' )
-					self.Trash:Add(self.AnimManip)
-					WaitFor( self.AnimManip )
-					
+
 					-- destroy all the emitters and animations we added
 					self.Trash:Destroy()
 					
@@ -142,12 +124,7 @@ XEB2402 = Class(TStructureUnit) {
             local unitEnh = SimUnitEnhancements[entId]
             local captorArmyIndex = captor:GetArmy()
             local captorBrain = false
-            
-            if ScenarioInfo.CampaignMode then
-                captorBrain = captor:GetAIBrain()
-                SetIgnoreArmyUnitCap(captorArmyIndex, true)
-            end
-            
+
             self.Satellite:DoUnitCallbacks('OnCaptured', captor)
             local newSatUnitCallbacks = {}
             if self.Satellite.EventCallbacks.OnCapturedNewUnit then
@@ -160,10 +137,6 @@ XEB2402 = Class(TStructureUnit) {
             local newUnit = ChangeUnitArmy(self, captorArmyIndex)
             if newUnit then
                 newUnit.Satellite = sat
-            end
-                        
-            if ScenarioInfo.CampaignMode and not captorBrain.IgnoreArmyCaps then
-                SetIgnoreArmyUnitCap(captorArmyIndex, false)
             end
             
             if unitEnh then

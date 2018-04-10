@@ -19,6 +19,7 @@ XEA0002 = Class(TAirUnit) {
     
     Open = function(self)
         ChangeState( self, self.OpenState )
+		self:SetMaintenanceConsumptionActive()
     end,
     
     OpenState = State() {

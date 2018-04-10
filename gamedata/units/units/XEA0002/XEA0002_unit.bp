@@ -55,7 +55,7 @@ UnitBlueprint {
     },
 	
 	Economy = {
-		MaintenanceConsumptionPerSecondEnergy = 3000,
+		MaintenanceConsumptionPerSecondEnergy = 1000,
 	},
 	
     General = {
