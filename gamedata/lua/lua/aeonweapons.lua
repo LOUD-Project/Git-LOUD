@@ -273,7 +273,7 @@ AIFArtilleryMiasmaShellWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local proj = self:CreateProjectile(bone)
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = GetBlueprint(self)
         local data = {
                 Instigator = self.unit,
@@ -311,7 +311,7 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local proj = self:CreateProjectile(bone)
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = GetBlueprint(self)
         local data = {
                 Army = GetArmy(self.unit),
@@ -338,7 +338,7 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local proj = self:CreateProjectile(bone)
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = GetBlueprint(self)
         local data = {
                 Army = GetArmy(self.unit),
@@ -413,7 +413,7 @@ AIFCommanderDeathWeapon = Class(BareBonesWeapon) {
         local myBlueprint = GetBlueprint(self)
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
 		
-        myProjectile:PassDamageData(self:GetDamageTable())
+        myProjectile:PassDamageData(self.damageTable)
 		
         if self.Data then
             myProjectile:PassData(self.Data)
@@ -448,7 +448,7 @@ AIFParagonDeathWeapon = Class(BareBonesWeapon) {
         local myBlueprint = GetBlueprint(self)
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
 		
-        myProjectile:PassDamageData(self:GetDamageTable())
+        myProjectile:PassDamageData(self.damageTable)
 		
         if self.Data then
             myProjectile:PassData(self.Data)

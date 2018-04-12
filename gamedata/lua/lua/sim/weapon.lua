@@ -41,7 +41,7 @@ Weapon = Class(moho.weapon_methods) {
         if bp.Turreted == true then
             self:SetupTurret(bp)
         end
-	
+
 		-- next 3 conditions are for adv missile track and retarget
         if bp.advancedTracking then
         	self.advancedTracking = bp.advancedTracking
@@ -51,7 +51,7 @@ Weapon = Class(moho.weapon_methods) {
         if bp.ProjectileLifetime then
         	self.ProjectileLifetime = bp.ProjectileLifetime
         else
-			self.ProjectileLifetime = (bp.MaxRadius / bp.MuzzleVelocity) * 1.1
+			self.ProjectileLifetime = (bp.MaxRadius / bp.MuzzleVelocity) * 1.15
 		end
 		
 		-- calc tracking radius if not provided
@@ -82,6 +82,9 @@ Weapon = Class(moho.weapon_methods) {
 			
             ForkTo(self.AmmoThread, self, nuke, initStore)
         end
+		
+		self:SetDamageTable(bp)
+		
     end,
 
     AmmoThread = function(self, nuke, amount)
@@ -336,22 +339,30 @@ Weapon = Class(moho.weapon_methods) {
     
     GetDamageTable = function(self)
 	
-        local weaponBlueprint = GetBlueprint(self)
+		if self.damageTable then
 		
+			return self.damageTable
+			
+		end
+	
+        local weaponBlueprint = GetBlueprint(self)
+
         local damageTable = {
 		
 			DamageRadius = weaponBlueprint.DamageRadius + (self.DamageRadiusMod or 0),
 			DamageAmount = weaponBlueprint.Damage + (self.DamageMod or 0),
 			DamageType = weaponBlueprint.DamageType,
-			DamageFriendly = weaponBlueprint.DamageFriendly or true,
+			
+			DamageFriendly = weaponBlueprint.DamageFriendly,
+
+			CollideFriendly = weaponBlueprint.CollideFriendly,
+			
+			DoTTime = weaponBlueprint.DoTTime,
+			DoTPulses = weaponBlueprint.DoTPulses,
 		
-			CollideFriendly = weaponBlueprint.CollideFriendly or false,
-			DoTTime = weaponBlueprint.DoTTime or false,
-			DoTPulses = weaponBlueprint.DoTPulses or 1,
+			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks,
 		
-			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or false,
-		
-			advancedTracking = weaponBlueprint.advancedTracking or false,
+			advancedTracking = weaponBlueprint.advancedTracking,
 
 			ProjectileLifetime = self.ProjectileLifetime,
 			TrackingRadius = self.TrackingRadius,
@@ -388,6 +399,66 @@ Weapon = Class(moho.weapon_methods) {
         end  
 		
         return damageTable
+		
+    end,
+    
+	-- as opposed to creating this data every time the weapon is fired
+	-- lets create it once, store it, and eliminate all the function calls
+	-- to GetDamageTable -- imagine that
+    SetDamageTable = function(self, weaponBlueprint)
+
+        self.damageTable = {
+		
+			DamageRadius = weaponBlueprint.DamageRadius + (self.DamageRadiusMod),
+			DamageAmount = weaponBlueprint.Damage + (self.DamageMod),
+			
+			DamageType = weaponBlueprint.DamageType,
+			
+			DamageFriendly = weaponBlueprint.DamageFriendly,
+
+			CollideFriendly = weaponBlueprint.CollideFriendly,
+			
+			DoTTime = weaponBlueprint.DoTTime,
+			DoTPulses = weaponBlueprint.DoTPulses,
+		
+			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks,
+		
+			advancedTracking = weaponBlueprint.advancedTracking,
+
+			ProjectileLifetime = self.ProjectileLifetime,
+			TrackingRadius = self.TrackingRadius,
+		}
+
+        if weaponBlueprint.Buffs != nil then
+		
+			self.damageTable.Buffs = {}
+			
+            for k, v in weaponBlueprint.Buffs do
+                self.damageTable.Buffs[k] = {}
+                self.damageTable.Buffs[k] = v
+            end   
+			
+        end     
+		
+        --remove disabled buff
+        if (self.Disabledbf != nil) and (self.damageTable.Buffs != nil) then
+		
+            for k, v in self.damageTable.Buffs do
+			
+                for j, w in self.Disabledbf do
+				
+                    if v.BuffType == w then
+                        --Removing buff
+                        LOUDREMOVE( self.damageTable.Buffs, k )
+						
+                    end
+					
+                end
+				
+            end 
+			
+        end  
+
     end,
 
     CreateProjectileForWeapon = function(self, bone)
@@ -396,7 +467,7 @@ Weapon = Class(moho.weapon_methods) {
 		
         if proj and not proj:BeenDestroyed() then
 
-            proj:PassDamageData( self:GetDamageTable() )
+            proj:PassDamageData( self.damageTable )
 			
             local bp = GetBlueprint(self)
 

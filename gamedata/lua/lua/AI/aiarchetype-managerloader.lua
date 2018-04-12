@@ -119,7 +119,7 @@ function UnitCapWatchThread(aiBrain)
 		
             if not KillT1Land then
 			
-				local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.MOBILE * categories.LAND - categories.ENGINEER - categories.SCOUT, true)
+				local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.MOBILE * categories.LAND - categories.ENGINEER - categories.SCOUT, false)
 				local count = 0
 				
 				for k, v in units do
@@ -132,7 +132,7 @@ function UnitCapWatchThread(aiBrain)
 				
             elseif not KillT1Air then
 			
-				local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.MOBILE * categories.AIR - categories.SCOUT - categories.TRANSPORTFOCUS, true)
+				local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.MOBILE * categories.AIR - categories.SCOUT - categories.TRANSPORTFOCUS, false)
 				local count = 0
 				
 				for k, v in units do
@@ -145,7 +145,7 @@ function UnitCapWatchThread(aiBrain)
                 
 			elseif not KillPD then
             
-                local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.DEFENSE * categories.DIRECTFIRE * categories.STRUCTURE, true)
+                local units = GetListOfUnits(aiBrain, categories.TECH1 * categories.DEFENSE * categories.DIRECTFIRE * categories.STRUCTURE, false)
 				
                 for k, v in units do
                     v:Kill()

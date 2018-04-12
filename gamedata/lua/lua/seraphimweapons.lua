@@ -278,7 +278,7 @@ SIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     Fire = function(self)
         local myBlueprint = self:GetBlueprint()
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-        myProjectile:PassDamageData(self:GetDamageTable())
+        myProjectile:PassDamageData(self.damageTable)
         if self.Data then
             myProjectile:PassData(self.Data)
         end

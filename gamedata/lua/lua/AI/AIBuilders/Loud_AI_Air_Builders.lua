@@ -5,7 +5,7 @@ local LUTL = '/lua/loudutilities.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 
 -- imbedded into the Builder
-local First45Minutes = function( self,aiBrain )
+local First45Minutes = function( self, aiBrain )
 	
 	if GetGameTimeSeconds() > 2700 then
 		return 0, false
@@ -15,12 +15,44 @@ local First45Minutes = function( self,aiBrain )
 end
 
 -- this function will turn a builder off if the enemy is not active in the water
-local IsEnemyNavalActive = function(self,aiBrain,manager)
+local IsEnemyNavalActive = function( self, aiBrain, manager )
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 6) then
 	
 		return 600, true
 
+	end
+
+	return 10, true
+	
+end
+
+local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
+	
+	-- remove by game time --
+	if GetGameTimeSeconds() >  2700 then
+		
+		return 10, false
+		
+	end
+	
+	if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
+	
+		return 600, true
+		
+	end
+
+	
+	return 10, true
+	
+end
+
+local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
+
+	if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
+	
+		return 600, true
+		
 	end
 
 	return 10, true
@@ -84,12 +116,12 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T1Bomber',
         Priority = 600,
 		
-		PriorityFunction = First45Minutes,
+		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
 		
 			-- stop making them if we have more than 3 T2/T3 air plants -- anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
 			
@@ -104,12 +136,12 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T1Fighter',
         Priority = 600,
 		
-		PriorityFunction = First45Minutes,
+		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
 		
 			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
 			
@@ -124,11 +156,14 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T2Bomber',
         Priority = 600,
 		
-        BuilderConditions = {
+		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 4, categories.FACTORY * categories.AIR * categories.TECH3 }},
+        BuilderConditions = {
+
+			-- stop making them if we have more than 3 T3 air plants -- anywhere
+			--{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			-- stop making them if enemy has T3 AA of any kind
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR * categories.TECH3, 'Enemy' }},
 			
         },
 		
@@ -141,9 +176,11 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T2Fighter',
         Priority = 600,
 		
+		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		
         BuilderConditions = {
 		
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 4, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			
         },
 		
@@ -156,6 +193,8 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T2Gunship',
         Priority = 600,
 		
+		PriorityFunction = HaveLessThanThreeT3AirFactory,
+
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },

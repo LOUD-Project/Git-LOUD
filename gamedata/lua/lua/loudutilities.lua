@@ -3289,19 +3289,50 @@ function ParseIntelThread( aiBrain )
 
     --LOG("*AI DEBUG IMAP Size is " ..IMAPSize.. " and Parse will examine " ..ResolveBlocks.. " blocks per intel check")
 
+	--[[
+	local IntelTypes = {
+        Overall,				-- reports everything - ALL threat values
+        OverallNotAssigned,		-- hmm....
+        StructuresNotMex,		-- any building except MEX - ALL threat values
+        Structures,				-- ALL buildings - ALL threat values
+		
+        Naval,					-- reports ALL threat values but only of actual NAVAL units
+        Air,					-- reports ALL threat values but only of actual AIR units			
+        Land,					-- reports ALL threat values but only of actual LAND units
+		
+        Experimental,
+        Commander,
+        Artillery,
+		
+        AntiAir,				-- reports anti-air threat of ALL units		
+        AntiSurface,			-- reports surface threat of ALL units
+        AntiSub,				-- reports sub threat of ALL units
+        Economy,				-- reports economic threat of ALL units
+        Unknown,
+	}
+	--]]
+	
 	local intelChecks = {
 		-- ThreatType	= {max dist to merge points, threat min, timeout (-1 = never), category for exact pos, parse every x iterations}
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- added in Economy 
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { resolution, 20 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.SATELLITE, 1},
-		AntiAir			= { resolution, 10, 90, (categories.ANTIAIR), 1},
+		
+		Air 			= { resolution, 20 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.TRANSPORTFOCUS - categories.SATELLITE, 1},
+		Land 			= { resolution, 15 * ThresholdMult, 45, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 1 },
+		Naval 			= { resolution, 20 * ThresholdMult, 45, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 1 },
+		
+		--AntiAir			= { resolution, 10, 90, (categories.ANTIAIR), 1},
+		--AntiSub			= { resolution, 10, 90, (categories.NAVAL), 1},
+		--AntiSurface		= { resolution, 10, 90, (categories.ALLUNITS), 1},
+		
 		Artillery 		= { resolution/2, 100, 120, (categories.ARTILLERY * categories.STRUCTURE * categories.TECH3) + (categories.EXPERIMENTAL * categories.ARTILLERY), 2 },
 		Commander 		= { resolution, 20, 120, categories.COMMAND, 2 },
 		Economy			= { resolution/2, 100, 120, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 3 },
 		Experimental 	= { resolution, 50, 30, (categories.EXPERIMENTAL * categories.MOBILE), 2},
-		Land 			= { resolution, 15 * ThresholdMult, 45, (categories.MOBILE * categories.LAND) - categories.EXPERIMENTAL, 1 },
-		Naval 			= { resolution, 20 * ThresholdMult, 45, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 1 },
+		
+		--Structures		= { resolution, 10, 90, (categories.ALLUNITS), 1},
+		
 		StructuresNotMex = { resolution/2, 30, 120, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 3 },
 	}
 
@@ -3405,6 +3436,7 @@ function ParseIntelThread( aiBrain )
                 -- get all threats of this type from the IMAP -- table format is as follows:  posx, posy, threatamount
 				-- A note here - when you ask for 'Air' threat - you'll get ALL the threats that Air units can create for example
 				-- 12 bombers have zero anti-air threat but they'll still generate threat because they threaten surface targets
+				-- but to be clear 'Land' = Land Mobile units and does not include Land Structures
                 threats = GetThreatsAroundPosition( aiBrain, HomePosition, 32, true, threatType)
                 gametime = LOUDFLOOR(GetGameTimeSeconds())
 
@@ -3617,25 +3649,29 @@ function ParseIntelThread( aiBrain )
 
 		-- recalc the strength ratios every loop ---
 		-- get the full list of units
-		myunits = GetListOfUnits( aiBrain, categories.MOBILE, true)
+		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
+		myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
 
 		--- AIR UNITS ---
 		-----------------
 		myvalue = 0
 		
 		-- calculate my present airvalue			
-		for _,v in EntityCategoryFilterDown( categories.AIR - categories.TRANSPORTFOCUS - categories.SATELLITE, myunits ) do
+		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE, myunits ) do
 		
 			bp = GetBlueprint(v).Defense
+
 			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
-			
+
 		end
-		
+
 		if EnemyData['Air']['Total'] > 0 then
 		
+			LOG("*AI DEBUG Enemy Air Average is "..(EnemyData['Air']['Total'] / EnemyDataHistory) )
+
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the AIRRATIO at 10
-			aiBrain.AirRatio = LOUDMIN( myvalue / ((EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
+			aiBrain.AirRatio = LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
 			
 			if ScenarioInfo.ReportRatios then
 			
@@ -3654,14 +3690,17 @@ function ParseIntelThread( aiBrain )
 		myvalue = 0
 
 		-- calculate my present land value
-		for _,v in EntityCategoryFilterDown( categories.LAND, myunits ) do
+		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
 		
 			bp = GetBlueprint(v).Defense
-			myvalue = myvalue + LOUDMAX(bp.SurfaceThreatLevel, bp.AirThreatLevel)
+			
+			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
 			
 		end
-    
+
 		if EnemyData['Land']['Total'] > 0 then
+		
+			LOG("*AI DEBUG Enemy Land Average is "..(EnemyData['Land']['Total'] / EnemyDataHistory) )
 		
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the LANDRATIO at 10
@@ -3684,14 +3723,17 @@ function ParseIntelThread( aiBrain )
 		myvalue = 0
 
 		-- calculate my present naval value
-		for _,v in EntityCategoryFilterDown( categories.NAVAL, myunits ) do
+		for _,v in EntityCategoryFilterDown( (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), myunits ) do
 		
 			bp = GetBlueprint(v).Defense
+			
 			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
 			
 		end
 
 		if EnemyData['Naval']['Total'] > 0 then
+
+			LOG("*AI DEBUG Enemy Naval Average is "..(EnemyData['Naval']['Total'] / EnemyDataHistory) )
 		
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we cap the NAVALRATIO at 8
@@ -3708,6 +3750,14 @@ function ParseIntelThread( aiBrain )
 			aiBrain.NavalRatio = 0.01
 			
 		end
+		
+--[[		
+		for threatType, vx in intelChecks do
+			
+			LOG("*AI DEBUG "..threatType.." is "..repr(EnemyData[threatType][EnemyDataCount] ))
+			
+		end
+--]]
 		
     end
 	
