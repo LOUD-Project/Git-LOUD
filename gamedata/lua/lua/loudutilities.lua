@@ -3666,8 +3666,6 @@ function ParseIntelThread( aiBrain )
 		end
 
 		if EnemyData['Air']['Total'] > 0 then
-		
-			LOG("*AI DEBUG Enemy Air Average is "..(EnemyData['Air']['Total'] / EnemyDataHistory) )
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the AIRRATIO at 10
@@ -3699,9 +3697,7 @@ function ParseIntelThread( aiBrain )
 		end
 
 		if EnemyData['Land']['Total'] > 0 then
-		
-			LOG("*AI DEBUG Enemy Land Average is "..(EnemyData['Land']['Total'] / EnemyDataHistory) )
-		
+
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the LANDRATIO at 10
 			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
@@ -3733,8 +3729,6 @@ function ParseIntelThread( aiBrain )
 
 		if EnemyData['Naval']['Total'] > 0 then
 
-			LOG("*AI DEBUG Enemy Naval Average is "..(EnemyData['Naval']['Total'] / EnemyDataHistory) )
-		
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we cap the NAVALRATIO at 8
 			aiBrain.NavalRatio = LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 )
