@@ -233,16 +233,16 @@ PlatoonTemplate { Name = 'T2MobileShields',
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
         UEF = {
-            { 'uel0203', 1, 1, 'Attack', 'none' }	# T2 amphibious tank
+            { 'uel0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
         },	
         Aeon = {
-            { 'ual0205', 1, 2, 'Attack', 'none' }
+            { 'ual0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
         Cybran = {
-            { 'url0203', 1, 1, 'Attack', 'none' }	# T2 amphibious tank
+            { 'url0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
         },		
         Seraphim = {
-            { 'xsl0205', 1, 2, 'Attack', 'none' }
+            { 'xsl0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
     }
 }
@@ -250,16 +250,16 @@ PlatoonTemplate { Name = 'T2LandAmphibAA',
 PlatoonTemplate { Name = 'T2LandAmphibTank',
     FactionSquads = {
         UEF = {
-            { 'uel0203', 1, 3, 'Attack', 'none' }
+            { 'uel0203', 1, 3, 'Attack', 'none' }	-- Riptide
         },
         Aeon = {
-            { 'xal0203', 1, 5, 'Attack', 'none' }
+            { 'xal0203', 1, 5, 'Attack', 'none' }	-- Blaze
         },
         Cybran = {
-            { 'url0203', 1, 2, 'Attack', 'none' }
+            { 'url0203', 1, 2, 'Attack', 'none' }	-- Wagner
         },
         Seraphim = {
-            { 'xsl0203', 1, 3, 'Attack', 'none' }
+            { 'xsl0203', 1, 3, 'Attack', 'none' }	-- Yenzyne
         },
     }
 }
@@ -381,16 +381,16 @@ PlatoonTemplate { Name = 'T3Amphibious',
 PlatoonTemplate { Name = 'T3AmphibiousAA',
     FactionSquads = {
         UEF = {
-            { 'xel0305', 1, 1, 'Attack', 'none' }	# Percival - filler
+            { 'uel0205', 1, 2, 'Attack', 'none' }	# All factions use T2 AA by default since base game has no T3 AA (land or amphibious)
         },
         Aeon = {
-            { 'ual0205', 1, 2, 'Guard', 'none' }	# Ascendant T2 Flak Hovertank	
+            { 'ual0205', 1, 2, 'Attack', 'none' }
         },
         Cybran = {
-            { 'xrl0305', 1, 1, 'Attack', 'none' }	# Brick - filler
-        },		
+            { 'url0205', 1, 2, 'Attack', 'none' }
+        },
         Seraphim = {
-            { 'xsl0205', 1, 2, 'Guard', 'none' }	# Iashavoh T2 AA Hovertank
+            { 'xsl0205', 1, 2, 'Attack', 'none' }
         },
     }
 }

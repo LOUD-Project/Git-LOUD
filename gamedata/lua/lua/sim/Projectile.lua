@@ -95,7 +95,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnCreate = function(self, inWater)
 	
-        self.DamageData = { DamageRadius = nil, DamageAmount = nil, DamageType = nil, DamageFriendly = nil, }
+        self.DamageData = { DamageRadius = nil, DamageAmount = nil, DamageType = nil, DamageFriendly = false, }
 		
         self.Trash = TrashBag()
 		
@@ -335,7 +335,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
             if radius > 0 then
 
                 if damageData.DoTTime <= 0 then
-				
+
                     DamageArea( instigator, GetPosition(self), radius, damage, damageData.DamageType, damageData.DamageFriendly, damageData.DamageSelf or false)
 					
                 else
@@ -656,8 +656,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
         self.DamageData.DamageRadius = damageData.DamageRadius or 0
         self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
         self.DamageData.DamageType = damageData.DamageType
-        self.DamageData.DamageFriendly = damageData.DamageFriendly
-        self.DamageData.CollideFriendly = damageData.CollideFriendly
+		
+        self.DamageData.DamageFriendly = damageData.DamageFriendly or false
+		
+        self.DamageData.CollideFriendly = damageData.CollideFriendly or false
+		
         self.DamageData.DoTTime = damageData.DoTTime or 0
         self.DamageData.DoTPulses = damageData.DoTPulses
 		

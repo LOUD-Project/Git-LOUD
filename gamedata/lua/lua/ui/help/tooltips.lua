@@ -1685,45 +1685,65 @@ Tooltips = {
         title = "No Naval",
         description = "Players will not be able to build mobile naval units",
     },
-    restricted_units_air = {
-        title = "No Air",
-        description = "Players will not be able to build mobile air units",
-    },
     restricted_units_land = {
         title = "No Land",
         description = "Players will not be able to build mobile land units",
     },
-    restricted_units_uef = {
-        title = "No UEF",
-        description = "Players will not be able to build UEF units",
+	
+    restricted_units_air = {
+        title = "No Air",
+        description = "Players will not be able to build mobile air units",
     },
-    restricted_units_cybran = {
-        title = "No Cybran",
-        description = "Players will not be able to build Cybran units",
-    },
-    restricted_units_aeon = {
-        title = "No Aeon",
-        description = "Players will not be able to build Aeon units",
-    },
-    restricted_units_seraphim = {
-        title = "No Seraphim",
-        description = "Players will not be able to build Seraphim units",
-    },
+	
+	restricted_units_air_scouts = {
+		title = "No Air Scouts",
+		description = "Players cannot build scout or spy planes.",
+	},
+	restricted_units_air_fighters = {
+		title = "No Air Fighters",
+		description = "Players cannot build interceptors or other Air to Air aircraft.",
+	},
+	restricted_units_air_bombers = {
+		title = "No Air Bombers",
+		description = "Players cannot build any bombers or torpedo bombers",
+	},
+	restricted_units_air_gunships = {
+		title = "No Air Gunships",
+		description = "Players cannot build any standard or experimental gunships",
+	},
+	restricted_units_air_transports = {
+		title = "No Air Transports",
+		description = "Players cannot build any standard or experimental transports",
+	},
+	restricted_units_air_experimentals = {
+		title = "No Experimental air units",
+		description = "No Air Experimentals can be built",
+	},
+	
 	restricted_units_tactical = {
-		title = "No Tactical missile launching structures.",
+		title = "No Tactical missile structures.",
 		description = "Players will not be able to build T2 and T3 tactical missile launching structures.",
 	},
     restricted_units_nukes = {
         title = "No Nukes",
-        description = "Players will not be able to build Tech 3 strategic missile launchers ",
-    },
+        description = "Players will not be able to build any nuke launching units - launchers, subs or battleships ",
+    },	
+	restricted_units_T3_artillery = {
+		title = "No T3 Artillery structures.",
+		description = "Players will not be able to build T3 Artillery structures.",
+	},
+	restricted_units_exp_artillery = {
+		title = "No Experimental Artillery",
+		description = "Players will not be able to build Mavor, Scathis or Salvation.",
+	},
+
     restricted_units_gameenders = {
         title = "No Game Enders",
-        description = "Players will not be able to build game ending units. Restricts T3 & T4 Artillery, Paragon, Novax, and Yolona Oss",
+        description = "Players will not be able to build certain top-end experimentals, Paragon, Novax, and Yolona Oss",
     },
     restricted_units_bubbles = {
         title = "No Bubbles",
-        description = "Players will not be able to build mobile shield generators and shield defenses",
+        description = "Players will not be able to build mobile shield generators or shield defenses",
     },
     restricted_units_intel = {
         title = "No Intel Structures",
@@ -1731,28 +1751,20 @@ Tooltips = {
     },
     restricted_units_supcom = {
         title = "No Support Commanders",
-        description = "Players will not be able to build support commanders",
+        description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
     },
-    restricted_units_supremecommander = {
-        title = "No Supreme Commander",
-        description = "Players will not be able to build Supreme Commander units"
-    },
+	
+
     restricted_units_massfab = {
         title = "No Fabrication",
         description = "Players will not be able to build mass fabricators"
     },
 	restricted_units_engineers = {
-		title = "No T1, T2 or T3 engineers - Commanders and SubCommanders only",
+		title = "No standard engineers",
 		description = "Players will be unable to build standard engineers.",
 	},
-	restricted_units_air_fighters_only = {
-		title = "Air units restricted to scouts and fighters only",
-		description = "Only air scouts and fighters can be built - no transports, bombers or gunships",
-	},
-	restricted_units_air_experimentals = {
-		title = "Player will not be able to build any Air Experimental units",
-		description = "No Air Experimentals can be built",
-	},
+
+
 	
     --**********************
     --** Strategic overlay

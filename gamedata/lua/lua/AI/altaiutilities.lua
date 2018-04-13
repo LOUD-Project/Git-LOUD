@@ -2680,7 +2680,7 @@ function CheckTransportPool( aiBrain )
 
 	local TransportPool = aiBrain.TransportPool
 
-	-- get all transports except UEF gunship --
+	-- get all idle, fully built transports except UEF gunship --
 	local unitlist = aiBrain:GetListOfUnits(((categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203)), true, true)
 	
 	for k,v in unitlist do

@@ -128,7 +128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
 			
         },
@@ -164,7 +164,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},		
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
@@ -201,7 +201,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
         BuilderConditions = {
 		
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
 			
         },
@@ -273,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
 			
         },
@@ -308,7 +308,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
 			
         },
