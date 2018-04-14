@@ -4368,59 +4368,71 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         BuildCostM = EBP[CurrentEnhancement].BuildCostMass
         BuildCostT = EBP[CurrentEnhancement].BuildTime
 		
-        if IsIdleState(unit) and not HasEnhancement(unit, final) then
-            
-            EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
+        EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
+
+        RateNeededE = BuildCostE / EffTime
+        RateNeededM = BuildCostM / EffTime
+
+        while not unt.Dead and not HasEnhancement(unit, final) do
+
+			if IsIdleState(unit) then
+
+				-- if we can meet 95% of the Energy and Mass needs of the enhancement
+				if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
 			
-            RateNeededE = BuildCostE / EffTime
-            RateNeededM = BuildCostM / EffTime
+					-- note that storage requirements for enhancements are just a little higher than those for factories building units
+					-- this is to insure that unit building and upgrading take priority over enhancements
+					if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
+				
+						IssueStop({unit})
+						IssueClearCommands({unit})
+				
+						unit.Upgrading = true
+				
+						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
 
-            -- if we can meet 90% of the Energy and Mass needs of the enhancement
-            if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
-			
-				-- note that storage requirements for enhancements are just a little higher than those for factories building units
-				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
-				
-					IssueStop({unit})
-					IssueClearCommands({unit})
-				
-					unit.Upgrading = true
-				
-					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
+						repeat
+							WaitTicks(15)
+						until unit.Dead or IsUnitState(unit,'Enhancing')
 
-					repeat
-						WaitTicks(15)
-					until unit.Dead or IsUnitState(unit,'Enhancing')
+						SetBlockCommandQueue( unit, true)                
+				
+						while not unit.Dead and IsUnitState(unit,'Enhancing') do
+							WaitTicks(100)
+						end    
+				
+						SetBlockCommandQueue( unit, false)  
 
-					SetBlockCommandQueue( unit, true)                
+						unit.Upgrading = false
 				
-					while not unit.Dead and IsUnitState(unit,'Enhancing') do
-						WaitTicks(100)
-					end    
+						unit.failedbuilds = 0
 				
-					SetBlockCommandQueue( unit, false)  
-
-					unit.Upgrading = false
-				
-					unit.failedbuilds = 0
-				
-					-- since a manager will only be provided by a factory
-					if manager then
-						ForkThread(manager.DelayBuildOrder, manager, unit )
-					end
+						-- since a manager will only be provided by a factory
+						if manager then
+							ForkThread(manager.DelayBuildOrder, manager, unit )
+						end
               
-					if HasEnhancement( unit, CurrentEnhancement) then
-						table.remove(EnhanceList, 1)
+						if HasEnhancement( unit, CurrentEnhancement) then
+							table.remove(EnhanceList, 1)
+						end
+
+					else
+					
+						WaitTicks(36)
+						
 					end
 					
+				else
+				
+					WaitTicks(36)
+
 				end
 				
 			end
 			
+	        WaitTicks(36)		
+			
         end
-		
-        WaitTicks(36)
         
         if HasEnhancement( unit, final) then
 			
