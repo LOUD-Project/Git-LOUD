@@ -4239,7 +4239,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 			
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
 					unit.AssigningTask = true
             
@@ -4371,15 +4371,16 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         if IsIdleState(unit) and not HasEnhancement(unit, final) then
             
             EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
+			
             RateNeededE = BuildCostE / EffTime
             RateNeededM = BuildCostM / EffTime
 
             -- if we can meet 90% of the Energy and Mass needs of the enhancement
-            if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .9)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .9)) then
+            if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
 			
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
 					IssueStop({unit})
 					IssueClearCommands({unit})
@@ -4551,12 +4552,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
             if low_trigger_good and hi_trigger_good then
             
-			
-            
-				-- if not losing too much mass and energyflow is positive -- and energy consumption of the upgraded item is less than our current energytrend
+				-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 				-- or we have the amount of mass and energy stored to build this item
 
-				-- we could lighten these restrictions a little bit to allow more agressive upgrading
+				-- we could lighten these restrictions a little bit to allow more aggressive upgrading
 				-- currently -5 mass and gaining 50 energy
 				
                 
