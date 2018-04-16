@@ -4337,7 +4337,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     local SetBlockCommandQueue = unit.SetBlockCommandQueue
 	
 	while not unit.Dead and unit:GetFractionComplete() < 1 do
-		WaitTicks(180)
+		WaitTicks(200)
 	end
 
 	-- this gets the sequence of enhancements
@@ -4361,6 +4361,8 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local EFFTime, RateNeededE, RateNeededM
   
     while EBP and not unit.Dead do
+	
+		WaitTicks(200) -- before start of any enhancement --
 
         CurrentEnhancement = EnhanceList[1]
 		
@@ -4373,7 +4375,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         RateNeededE = BuildCostE / EffTime
         RateNeededM = BuildCostM / EffTime
 
-        while not unt.Dead and not HasEnhancement(unit, final) do
+        while not unit.Dead and not HasEnhancement(unit, CurrentEnhancement) do
 
 			if IsIdleState(unit) then
 
@@ -4418,19 +4420,19 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 
 					else
 					
-						WaitTicks(36)
+						WaitTicks(40)
 						
 					end
 					
 				else
 				
-					WaitTicks(36)
+					WaitTicks(40)
 
 				end
 				
 			end
 			
-	        WaitTicks(36)		
+	        WaitTicks(25)		
 			
         end
         

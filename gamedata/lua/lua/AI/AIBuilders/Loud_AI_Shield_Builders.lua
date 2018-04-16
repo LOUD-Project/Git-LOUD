@@ -324,13 +324,32 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+
+		-- this should turn this off if there is less than 30 minutes left in the game
+		PriorityFunction = function(self, aiBrain)
 		
-        Priority = 800,
+			local victoryTime = (tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60) or false
+			
+			if victoryTime then
+			
+				if victoryTime < ( GetGameTimeSeconds() + ( 60 * 45 ) ) then	-- less than 45 minutes left
+				
+					return 0, true
+					
+				end
+
+			end
+			
+			return self.Priority, false
+		
+		end,
+		
+        Priority = 750,
 		
         BuilderConditions = {
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
-            { LUTL, 'UnitCapCheckLess', { .95 } },			
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
@@ -373,7 +392,7 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental - Expansions',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 800,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},

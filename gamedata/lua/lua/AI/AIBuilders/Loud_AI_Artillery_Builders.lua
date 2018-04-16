@@ -18,7 +18,7 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
         BuilderConditions = {
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
@@ -56,12 +56,12 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 		
         Priority = 750,
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderConditions = {
 	
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -107,7 +107,7 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -144,12 +144,12 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		
         Priority = 750,
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderConditions = {
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			

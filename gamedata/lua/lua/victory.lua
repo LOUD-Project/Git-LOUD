@@ -115,21 +115,28 @@ function CheckVictory(ScenarioInfo)
 			-- this can never execute the first time thru as
 			-- potentialWinners will be blank
             if table.equal(stillAlive, potentialWinners) then
+			
                 if GetGameTimeSeconds() > victoryTime then
                     #-- It's a win!
                     for index,brain in stillAlive do
                         brain:OnVictory()
                     end
+					
                     CallEndGame(true, true)
+					
                     return
+					
                 end
 			
 			-- so the first time thru here we set up a victoryTime and
 			-- we set the potentialWinners list to be the same as those
 			-- who are left alive
             else
+			
                 victoryTime = GetGameTimeSeconds() + 15
+				
                 potentialWinners = stillAlive
+				
             end
 			
         elseif draw or (victoryTime and GetGameTimeSeconds() > victoryTime) then
@@ -151,6 +158,7 @@ function CheckVictory(ScenarioInfo)
     end
 	
 	LOG("*AI DEBUG Exiting CheckVictory for sandbox")
+	
 end
 
 function CallEndGame(callEndGame, submitXMLStats)
