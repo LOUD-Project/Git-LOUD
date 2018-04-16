@@ -327,12 +327,10 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental',
 
 		-- this should turn this off if there is less than 30 minutes left in the game
 		PriorityFunction = function(self, aiBrain)
-		
-			local victoryTime = (tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60) or false
 			
-			if victoryTime then
+			if aiBrain.VictoryTime then
 			
-				if victoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
+				if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
 				
 					return 0, true
 					

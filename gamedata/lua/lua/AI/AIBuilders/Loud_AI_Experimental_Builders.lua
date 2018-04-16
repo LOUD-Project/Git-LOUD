@@ -5,13 +5,11 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 local BHVR = '/lua/ai/aibehaviors.lua'
 
-local LessThan30MinutesRemain = function(self, aiBrain)
+local LessThan20MinutesRemain = function(self, aiBrain)
 
-	local victoryTime = (tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60) or false
+	if aiBrain.VictoryTime then
 
-	if victoryTime then
-
-		if victoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 20 ) ) then	-- less than 20 minutes left
 
 			return 0, false
 
@@ -23,13 +21,11 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 
 end
 
-local LessThan45MinutesRemain = function(self, aiBrain)
+local LessThan30MinutesRemain = function(self, aiBrain)
 
-	local victoryTime = (tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60) or false
+	if aiBrain.VictoryTime then
 
-	if victoryTime then
-
-		if victoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
 
 			return 0, false
 
@@ -61,7 +57,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -105,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -148,7 +144,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -192,7 +188,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan45MinutesRemain,
+		PriorityFunction = LessThan30MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -240,7 +236,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -282,7 +278,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -324,7 +320,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -367,7 +363,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan45MinutesRemain,
+		PriorityFunction = LessThan30MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -418,7 +414,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Land Map',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -459,7 +455,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Land Map',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -506,7 +502,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Water Map',
 		
         Priority = 751,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -546,7 +542,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Water Map',
 		
         Priority = 751,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -592,7 +588,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Land',
 		
         Priority = 751,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -634,7 +630,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Land',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -682,7 +678,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Water',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -723,7 +719,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Water',
 		
         Priority = 750,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
         BuilderConditions = {
 		
@@ -1196,7 +1192,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
 		
         Priority = 740,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -1236,7 +1232,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
 		
         Priority = 740,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -1281,7 +1277,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 		
         Priority = 740,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -1321,7 +1317,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 		
         Priority = 740,
 
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -1367,7 +1363,7 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders',
 		
         Priority = 850,
 		
-		PriorityFunction = LessThan45MinutesRemain,		
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1431,7 +1427,7 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Defense Builders',
 		
         Priority = 850,
 		
-		PriorityFunction = LessThan45MinutesRemain,		
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1524,7 +1520,7 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Defense Builders - LOUD_
 		
         Priority = 850,
 
-		PriorityFunction = LessThan45MinutesRemain,		
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1580,7 +1576,7 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders - Expansions',
 		
         Priority = 740,
 		
-		PriorityFunction = LessThan45MinutesRemain,
+		PriorityFunction = LessThan30MinutesRemain,
 		
         BuilderConditions = {
 		
@@ -1630,7 +1626,7 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders Naval',
 		
         Priority = 740,
 
-		PriorityFunction = LessThan45MinutesRemain,
+		PriorityFunction = LessThan30MinutesRemain,
 		
         BuilderConditions = {
 		

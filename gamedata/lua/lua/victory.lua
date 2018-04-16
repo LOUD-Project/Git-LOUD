@@ -32,12 +32,14 @@ function CheckVictory(ScenarioInfo)
 		
 		victoryTime = tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60
 		
+		ScenarioInfo.VictoryTime = victoryTime
+		
 		LOG("*AI DEBUG Launching CheckVictory for "..repr(ScenarioInfo.Options.Victory).." and "..repr(victoryTime).." Seconds Time Limit")
 		
 	else
 	
-		ScenarioInfo.Options.TimeLimitSetting = nil
-		
+		ScenarioInfo.VictoryTime = false
+
 	end
 	
 

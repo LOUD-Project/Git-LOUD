@@ -32,7 +32,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	-- remove by game time --
 	if aiBrain.CycleTime >  2700 then
 		
-		return 10, false
+		return 0, false
 		
 	end
 	
@@ -43,7 +43,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	end
 
 	
-	return 10, true
+	return 0, false
 	
 end
 
@@ -55,7 +55,7 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 		
 	end
 
-	return 10, true
+	return 0, false
 	
 end
 
