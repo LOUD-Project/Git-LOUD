@@ -32,7 +32,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
 		
-			if GetGameTimeSeconds() > 2700 then
+			if aiBrain.CycleTime > 2700 then
 				return 0, false
 			end
 			
@@ -604,7 +604,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
 		
-			if GetGameTimeSeconds() > 2700 then
+			if aiBrain.CycleTime > 2700 then
 				return 0, false
 			end
 			

@@ -11,15 +11,15 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 
 	if victoryTime then
 
-		if victoryTime < ( GetGameTimeSeconds() + ( 60 * 30 ) ) then	-- less than 30 minutes left
+		if victoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
 
-			return 0, true
+			return 0, false
 
 		end
 
 	end
 
-	return self.Priority, false
+	return self.Priority, true
 
 end
 
@@ -29,15 +29,15 @@ local LessThan45MinutesRemain = function(self, aiBrain)
 
 	if victoryTime then
 
-		if victoryTime < ( GetGameTimeSeconds() + ( 60 * 45 ) ) then	-- less than 45 minutes left
+		if victoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
 
-			return 0, true
+			return 0, false
 
 		end
 
 	end
 
-	return self.Priority, false
+	return self.Priority, true
 
 end
 

@@ -7,7 +7,7 @@ local TBC = '/lua/editor/ThreatBuildConditions.lua'
 -- imbedded into the Builder
 local First45Minutes = function( self, aiBrain )
 	
-	if GetGameTimeSeconds() > 2700 then
+	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
 	
@@ -30,7 +30,7 @@ end
 local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
 	-- remove by game time --
-	if GetGameTimeSeconds() >  2700 then
+	if aiBrain.CycleTime >  2700 then
 		
 		return 10, false
 		

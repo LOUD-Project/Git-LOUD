@@ -2325,7 +2325,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		
 				IssueClearCommands( GetPlatoonUnits(transports) )
 
-				if safePath and GetGameTimeSeconds() > 720 then 
+				if safePath and aiBrain.CycleTime > 720 then 
 			
 					local prevposition = GetPlatoonPosition(transports) or false
 		
@@ -2700,7 +2700,7 @@ function CheckTransportPool( aiBrain )
 					continue
 				end
 				
-				if platoon.CreationTime and (GetGameTimeSeconds() - platoon.CreationTime) < 360 then
+				if platoon.CreationTime and (aiBrain.CycleTime - platoon.CreationTime) < 360 then
 					continue
 				end
 				

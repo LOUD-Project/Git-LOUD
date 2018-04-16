@@ -27,11 +27,16 @@ function CheckVictory(ScenarioInfo)
         categoryCheck = false
     end
 	
-	if ScenarioInfo.Options.TimeLimitSetting != "0" then
+	-- if not sandbox check for time limit --
+	if categoryCheck and ScenarioInfo.Options.TimeLimitSetting != "0" then
 		
 		victoryTime = tonumber(ScenarioInfo.Options.TimeLimitSetting) * 60
 		
 		LOG("*AI DEBUG Launching CheckVictory for "..repr(ScenarioInfo.Options.Victory).." and "..repr(victoryTime).." Seconds Time Limit")
+		
+	else
+	
+		ScenarioInfo.Options.TimeLimitSetting = nil
 		
 	end
 	

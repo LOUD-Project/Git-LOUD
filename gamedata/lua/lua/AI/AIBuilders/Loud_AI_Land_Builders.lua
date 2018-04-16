@@ -9,7 +9,7 @@ local LUTL = '/lua/loudutilities.lua'
 
 local First30Minutes = function( self,aiBrain )
 	
-	if GetGameTimeSeconds() > 1800 then
+	if aiBrain.CycleTime > 1800 then
 		return 0, false
 	end
 	
@@ -18,7 +18,7 @@ end
 
 local First45Minutes = function(self,aiBrain)
 
-	if GetGameTimeSeconds() > 2700 then
+	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
 	

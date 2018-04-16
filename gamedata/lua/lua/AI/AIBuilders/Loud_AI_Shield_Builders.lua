@@ -332,7 +332,7 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental',
 			
 			if victoryTime then
 			
-				if victoryTime < ( GetGameTimeSeconds() + ( 60 * 45 ) ) then	-- less than 45 minutes left
+				if victoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
 				
 					return 0, true
 					

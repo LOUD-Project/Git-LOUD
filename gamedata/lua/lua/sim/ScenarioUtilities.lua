@@ -98,11 +98,13 @@ function CreateResources()
 	local Starts = {}
 	
 	LOG("*AI DEBUG Armies is "..repr(Armies))
+	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
 			table.insert( Starts, 'ARMY_'..x )
 		end
 	end
+	
 	LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
@@ -352,12 +354,10 @@ function InitializeArmies()
             return
         end
 		
-		local memstart = gcinfo()		
-		
 		--LOG("*AI DEBUG "..self.Nickname.." Initializing Skirmish Systems "..repr(ScenarioInfo))
 		--LOG("*AI DEBUG "..self.Nickname.." Initial Brain info is "..repr(self))
 		
-		-- build table of scout locations
+		-- build table of scout locations and set some starting threat at all enemy locations
 		import('/lua/loudutilities.lua').BuildScoutLocations(self)
 
         -- Create the Condition monitor
@@ -482,10 +482,8 @@ function InitializeArmies()
 	
 		end
 	
-		LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit)
-		LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Period is "..self.UpgradeIssuedPeriod.." ticks")
-		
-		LOG("*AI DEBUG InitializeSkirmishSystems used "..((gcinfo() - memstart)*1024).." bytes" )
+		--LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit)
+		--LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Period is "..self.UpgradeIssuedPeriod.." ticks")
 		
     end
 

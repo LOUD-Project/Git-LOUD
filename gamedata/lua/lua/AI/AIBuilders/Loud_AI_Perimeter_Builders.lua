@@ -37,7 +37,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 				end
 				
 				-- remove after 30 minutes
-				if GetGameTimeSeconds() > 1800 then
+				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
 				
@@ -95,7 +95,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 			end
 			
 			-- remove after 30 minutes
-			if GetGameTimeSeconds() > 1800 then
+			if aiBrain.CycleTime > 1800 then
 				return 0, false
 			end
 			
@@ -154,7 +154,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 				end
 				
 				-- remove after 30 minutes
-				if GetGameTimeSeconds() > 1800 then
+				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
 				
@@ -213,7 +213,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 			end
 			
 			-- remove after 30 minutes
-			if GetGameTimeSeconds() > 1800 then
+			if aiBrain.CycleTime > 1800 then
 				return 0, false
 			end
 			
@@ -266,12 +266,12 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 		PriorityFunction = function(self, aiBrain)
 		
 			-- remove after 30 minutes
-			if GetGameTimeSeconds() > 1800 then
+			if aiBrain.CycleTime > 1800 then
 				return 0, false
 			end
 			
 			-- turn on after 8 minutes
-			if GetGameTimeSeconds() > 480 then
+			if aiBrain.CycleTime > 480 then
 				return 800, true
 			end
 			
