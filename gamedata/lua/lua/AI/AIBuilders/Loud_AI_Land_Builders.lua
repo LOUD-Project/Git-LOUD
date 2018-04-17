@@ -135,7 +135,6 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 		
     },
 	
-
 	-- Tech 2 - Shield/Stealth Vehicles	-- starts when there are 2+ T2/T3 factories
 	-- stops when there is are 1+ T3 land factory and replaced by Tech 3 version
     Builder {BuilderName = 'T2 Mobile Shield - UEF',
@@ -314,6 +313,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
         BuilderType = {'Land'},
     },
 --]]
+
 }
 
 
@@ -424,9 +424,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
 		
     },
 
-	
-	-- T3 Assault Bots - should be amphibious
-	-- standard output on all maps
+	-- T3 Assault Bots
     Builder {BuilderName = 'T3 Armored Assault',
 	
         PlatoonTemplate = 'T3ArmoredAssault',
@@ -446,7 +444,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
     },
 
 	-- T3 Mobile AA
-	-- standard output on all maps
     Builder {BuilderName = 'T3 Mobile AA',
 	
         PlatoonTemplate = 'T3LandAA',
@@ -468,7 +465,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
     },
 	
     -- T3 Tank - non amphibious T3 Land Units
-	-- standard output on non-water maps
     Builder {BuilderName = 'Siege Assault Bot T3',
 	
         PlatoonTemplate = 'T3LandBot',
@@ -487,7 +483,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
     },
 	
     -- T3 Mobile Artillery 
-	-- standard output on non-water maps
     Builder {BuilderName = 'Mobile Artillery T3',
 	
         PlatoonTemplate = 'T3LandArtillery',
@@ -510,7 +505,6 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
     },
 	
 	-- T3 MML - UEF Only
-	-- standard output
     Builder {BuilderName = 'Mobile Missile T3',
 	
         PlatoonTemplate = 'T3MobileMissile',
@@ -816,4 +810,5 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
         BuilderType = {'LandT3'},
 		
     },
+	
 }

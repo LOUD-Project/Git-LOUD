@@ -40,7 +40,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
         self.Trash = TrashBag()
         self.Owner = spec.Owner
-		self.Brain = self.Owner:GetAIBrain()
+
         self.MeshBp = spec.Mesh
         self.MeshZBp = spec.MeshZ
         self.ImpactMeshBp = spec.ImpactMesh
@@ -392,21 +392,27 @@ Shield = Class(moho.shield_methods,Entity) {
 			local SetShieldRatio = moho.unit_methods.SetShieldRatio
 			local WaitTicks = coroutine.yield
 			
-			local aiBrain = self.Brain or self.Owner:GetAIBrain()
+			local aiBrain = self.Owner:GetAIBrain()
 			
-            #-- If the shield was turned off; use the recharge time before turning back on
+            -- If the shield was turned off; use the recharge time before turning back on
             if self.OffHealth >= 0 then
+			
                 self.Owner:SetMaintenanceConsumptionActive()
-                self:ChargingUp(0, self.ShieldEnergyDrainRechargeTime)
+				
+                self:ChargingUp( 0, self.ShieldEnergyDrainRechargeTime )
                 
-                #-- If the shield has less than full health, allow the shield to begin regening
+                -- If the shield has less than full health, allow the shield to begin regening
                 if GetHealth(self) < GetMaxHealth(self) and self.RegenRate > 0 then
+				
                     self.RegenThread = self:ForkThread(self.RegenStartThread )
+					
                     self.Owner.Trash:Add(self.RegenThread)
+					
                 end
+				
             end
             
-            #-- We are no longer turned off
+            -- We are no longer turned off
             self.OffHealth = -1
 			
             self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
@@ -415,11 +421,10 @@ Shield = Class(moho.shield_methods,Entity) {
 			self:CreateShieldMesh()
 
             WaitTicks(10)
-			
-            --local test = false
             
             -- Test in here if we have run out of power
             while true do
+			
 				WaitTicks(5)
 				
 				self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
@@ -427,18 +432,22 @@ Shield = Class(moho.shield_methods,Entity) {
                 if GetResourceConsumed( self.Owner ) != 1 and GetEconomyStored(aiBrain, 'ENERGY') < 1 then
 					
 					break
+					
 				end
+				
             end
             
-            #-- Record the amount of health on the shield here so when the unit tries to turn its shield
-            #-- back on and off it has the amount of health from before.
-            #-- self.OffHealth = GetHealth(self)
+            -- Record the amount of health on the shield here so when the unit tries to turn its shield
+            -- back on and off it has the amount of health from before.
+
             ChangeState(self, self.EnergyDrainRechargeState)
+			
         end,
 
         IsOn = function(self)
             return true
         end,
+		
     },
 
     -- When manually turned off
@@ -446,23 +455,25 @@ Shield = Class(moho.shield_methods,Entity) {
 
         Main = function(self)
 
-            #-- No regen during off state
+            -- No regen during off state
             if self.RegenThread then
                 KillThread(self.RegenThread)
                 self.RegenThread = nil
             end
 
-            #-- Set the offhealth - this is used basically to let the unit know the unit was manually turned off
+            -- Set the offhealth - this is used basically to let the unit know the unit was manually turned off
       		self.OffHealth = GetHealth(self)
 
-            #-- Get rid of the shield bar
+            -- Get rid of the shield bar
             self:UpdateShieldRatio(0)
 
             self:RemoveShield()
     		self.Owner:OnShieldDisabled()
 
-            WaitTicks(10)            
+            WaitTicks(10)
+			
         end,
+		
     },
 
     -- This state happens when the shield has been depleted due to damage
@@ -472,14 +483,16 @@ Shield = Class(moho.shield_methods,Entity) {
 		
             self:RemoveShield()
             
-            #-- make the unit charge up before gettings its shield back
+            -- make the unit charge up before gettings its shield back
             self:ChargingUp(0, self.ShieldRechargeTime)
             
-            #-- Fully charged, get full health
+            -- Fully charged, get full health
             self:SetHealth(self, GetMaxHealth(self))
             
             ChangeState(self, self.OnState)
+			
         end
+		
     },
 
     -- This state happens only when the army has run out of power
@@ -491,20 +504,29 @@ Shield = Class(moho.shield_methods,Entity) {
             
             self:ChargingUp(0, self.ShieldEnergyDrainRechargeTime)
             
-            #-- If the unit is attached to a transport, make sure the shield goes to the off state
-            #-- so the shield isn't turned on while on a transport
+            -- If the unit is attached to a transport, make sure the shield goes to the off state
+            -- so the shield isn't turned on while on a transport
             if not self.Owner:IsUnitState('Attached') then
+			
                 ChangeState(self, self.OnState)
+				
             else
+			
                 ChangeState(self, self.OffState)
+				
             end
+			
         end
+		
     },
 
     DeadState = State {
+	
         Main = function(self)
         end,
+		
     },
+	
 }
 
 
@@ -514,8 +536,9 @@ UnitShield = Class(Shield){
 		
         self.Trash = TrashBag()
         self.Owner = spec.Owner
-		self.Brain = self.Owner:GetAIBrain()
+		
         self.ImpactEffects = EffectTemplate[spec.ImpactEffects]        
+		
         self.CollisionSizeX = spec.CollisionSizeX or 1
 		self.CollisionSizeY = spec.CollisionSizeY or 1
 		self.CollisionSizeZ = spec.CollisionSizeZ or 1
@@ -579,35 +602,47 @@ UnitShield = Class(Shield){
 AntiArtilleryShield = Class(Shield){
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
-	
-		--LOG("*AI DEBUG AAShield OnCollisionCheckWeapon")
-	
+
         local bp = firingWeapon:GetBlueprint()
 		
         if bp.CollideFriendly == false then
+		
             if self.Sync.army == firingWeapon.unit.Sync.army then
+			
                 return false
+				
             end
+			
         end
 		
-        # Check DNC list
+        -- Check DNC list
 		if bp.DoNotCollideList then
+		
 			for _,v in bp.DoNotCollideList do
+			
 				if EntityCategoryContains(ParseEntityCategory(v), self) then
+				
 					return false
+					
 				end
+				
 			end
+			
 		end
 		
         if bp.ArtilleryShieldBlocks then
+		
             return true
+			
         end
 		
         return false
+		
     end,
 
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
+	
         if other:GetArmy() == -1 then
             return false
         end
@@ -621,5 +656,7 @@ AntiArtilleryShield = Class(Shield){
         end
 
         return false
+		
     end,
+	
 }

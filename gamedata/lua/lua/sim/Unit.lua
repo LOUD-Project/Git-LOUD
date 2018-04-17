@@ -3940,6 +3940,7 @@ Unit = Class(moho.unit_methods) {
 				
                     if vcb == fn then
 					
+					
                         v[kcb] = nil
 						
                     end

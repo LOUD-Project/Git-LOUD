@@ -3184,9 +3184,9 @@ function EngineerTransferAI( self, aiBrain )
 		local newbase = possibles[ Random(1,counter) ]
 		
 		-- add him to the selected base - but dont send him to assign task --
-		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, true )
+		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
 		
 		-- force platoon to use the new base as the RTBLocation
