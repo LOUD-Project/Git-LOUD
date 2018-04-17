@@ -538,9 +538,19 @@ function ModBlueprints(all_blueprints)
 				bp.AI.GuardReturnRadius = capreturnradius
 			end
 
-			if bp.AI.GuardReturnRadius > 150 then
-				bp.AI.GuardReturnRadius = 150
+			if bp.AI.GuardReturnRadius > 80 then
+				bp.AI.GuardReturnRadius = 80
 			end
+		end
+		
+		if bp.AI.GuardScanRadius then
+		
+			if bp.AI.GuardScanRadius then
+			
+				bp.AI.GuardScanRadius = 80
+				
+			end
+			
 		end
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then

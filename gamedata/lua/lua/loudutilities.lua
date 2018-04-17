@@ -3952,15 +3952,13 @@ end
 -- the index of the current enemy is kept on the brain
 function PickEnemy( self )
 	
-	--LOG("*AI DEBUG "..self.Nickname.." starts PickEnemy ")
-	
 	self.targetoveride = false
 
     while true do
 	
         AIPickEnemyLogic( self, true)
 		
-        WaitTicks(4800)	# every 8 minutes
+        WaitTicks(4800)	-- every 8 minutes
 		
     end
 	
@@ -4249,6 +4247,13 @@ function CreateAttackPlan(self,enemyPosition)
 		self.AttackPlan.StageCount = StageCount
         self.AttackPlan.StagePoints = { [0] = StartPosition }
         self.AttackPlan.GoSignal = false
+		
+		-- record if attack plan can be land based or not
+		if path then
+			self.AttackPlan.Method = 'Land'
+		else
+			self.AttackPlan.Method = 'Amphibious'
+		end
 
         --self.AttackPlan.StagePoints[0].Position = StartPosition
         local counter = 1
@@ -4262,6 +4267,8 @@ function CreateAttackPlan(self,enemyPosition)
 
         self.AttackPlan.StagePoints[counter] = Goal
 		
+		LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
+
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     end

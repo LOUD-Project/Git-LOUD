@@ -3417,12 +3417,12 @@ AirUnit = Class(MobileUnit) {
 ConstructionUnit = Class(MobileUnit) {
 
 	-- this used to be part of the platoon file and was executed every time engy got a build order
-	-- now it runs only when the engy is first added to an Engineer Manager
+	-- now it runs only when the engy is added to an Engineer Manager
     SetupEngineerCallbacks = function( eng, EM )
         
         if eng and (not eng.Dead) then
 		
-			if (not eng.CallbacksSetup) then
+			--if (not eng.CallbacksSetup) then
 
 				local EngineerBuildDone = function( unit, finishedUnit )
 				
@@ -3497,15 +3497,22 @@ ConstructionUnit = Class(MobileUnit) {
 					end
 				end
 
+				eng.EventCallbacks.OnUnitBuilt = {}
+				
 				eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
-
+				
+				eng.EventCallbacks.OnStopCapture = {}
+				eng.EventCallbacks.OnFailedCapture = {}
+				eng.EventCallbacks.OnFailedToBuild = {}
+				eng.EventCallbacks.OnStartBeingCaptured = {}
+				
 				eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
 				eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
 				eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
 				eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
 			
 				eng.CallbacksSetup = true
-			end
+			--end
         end
     end,
 

@@ -42,7 +42,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				end
 				
 				-- remove after 30 minutes
-				if GetGameTimeSeconds() > 1800 then
+				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
 				

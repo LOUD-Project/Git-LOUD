@@ -98,11 +98,13 @@ function CreateResources()
 	local Starts = {}
 	
 	LOG("*AI DEBUG Armies is "..repr(Armies))
+	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
 			table.insert( Starts, 'ARMY_'..x )
 		end
 	end
+	
 	LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
@@ -351,13 +353,11 @@ function InitializeArmies()
         if self.BrainType == 'Human' then
             return
         end
-		
-		local memstart = gcinfo()		
-		
+
 		--LOG("*AI DEBUG "..self.Nickname.." Initializing Skirmish Systems "..repr(ScenarioInfo))
 		--LOG("*AI DEBUG "..self.Nickname.." Initial Brain info is "..repr(self))
 		
-		-- build table of scout locations
+		-- build table of scout locations and set some starting threat at all enemy locations
 		import('/lua/loudutilities.lua').BuildScoutLocations(self)
 
         -- Create the Condition monitor
@@ -481,12 +481,7 @@ function InitializeArmies()
 			self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
 	
 		end
-	
-		LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit)
-		LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Period is "..self.UpgradeIssuedPeriod.." ticks")
-		
-		LOG("*AI DEBUG InitializeSkirmishSystems used "..((gcinfo() - memstart)*1024).." bytes" )
-		
+
     end
 
     local tblGroups = {}
@@ -516,6 +511,7 @@ function InitializeArmies()
                 InitializeSkirmishSystems( GetArmyBrain(strArmy) )
 				
 				import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+				
             end
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then
@@ -528,17 +524,20 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
+				
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
 			
             if wreckageGroup then
+			
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
 				
                 for num,unit in tblResult do
                     unit:CreateWreckageProp(0)
                     unit:Destroy()
                 end
+				
             end
 
             for iEnemy, strEnemy in pairs(tblArmy) do
@@ -559,12 +558,17 @@ function InitializeArmies()
                 elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
 				
                     SetAlliance( iArmy, iEnemy, 'Neutral')
+					
                 end
+				
             end
+			
         end
+		
     end
 
     return tblGroups
+	
 end
 
 function CreatePlatoons( strArmy, tblNode, tblResult, platoonList, currPlatoon, treeResult, balance )

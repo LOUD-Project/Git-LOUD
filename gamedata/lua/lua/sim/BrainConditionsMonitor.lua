@@ -94,8 +94,24 @@ BrainConditionsMonitor = Class {
 	-- and we add in some additional duration based upon number of players
     ConditionMonitorThread = function(self, aiBrain)
 	
+		-- record current game time
+		aiBrain.CycleTime = GetGameTimeSeconds()
+	
 		WaitTicks(10)	-- wait a second before starting up --
-
+		
+		-- if time-limited game record victory time on the brain
+		if ScenarioInfo.VictoryTime then
+		
+			aiBrain.VictoryTime = ScenarioInfo.VictoryTime
+			
+		else
+		
+			aiBrain.VictoryTime = false
+			
+		end
+		
+		LOG("*AI DEBUG "..aiBrain.Nickname.." VictoryTime is "..repr(aiBrain.VictoryTime))
+		
 		-- LocationType entries MUST ALWAYS be the first element so if it isnt we just
 		-- return true since it must be a global condition		
 		local function TestLocation( v )
@@ -128,6 +144,9 @@ BrainConditionsMonitor = Class {
 		
 		
         while true do
+			
+			-- record current game time
+			aiBrain.CycleTime = GetGameTimeSeconds()
 
 			-- the thread duration is always the number of conditions (minimum of 60 seconds)
 			self.ThreadWaitDuration = math.max( LOUDCEIL((numChecks) / 10) + playerfactor, 60 )

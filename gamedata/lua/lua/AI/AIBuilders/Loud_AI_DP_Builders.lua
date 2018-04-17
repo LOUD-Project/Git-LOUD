@@ -85,7 +85,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders Active DP',
 		
         Priority = 730,
 		
-        BuilderType = { 'T2','T3','Commander' },
+        BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
 		

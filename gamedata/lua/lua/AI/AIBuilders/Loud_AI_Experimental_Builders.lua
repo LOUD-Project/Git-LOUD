@@ -5,25 +5,59 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 local BHVR = '/lua/ai/aibehaviors.lua'
 
--- the key distinction here is that we dont want to be building Experimentals unless we have the army to back it up
--- this means we dont go experimental unless we have a decent army, air force or navy
+local LessThan20MinutesRemain = function(self, aiBrain)
+
+	if aiBrain.VictoryTime then
+
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 20 ) ) then	-- less than 20 minutes left
+
+			return 0, false
+
+		end
+
+	end
+
+	return self.Priority, true
+
+end
+
+local LessThan30MinutesRemain = function(self, aiBrain)
+
+	if aiBrain.VictoryTime then
+
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
+
+			return 0, false
+
+		end
+
+	end
+
+	return self.Priority, true
+
+end
+
+-- the key distinction here is that we don't want to be building Experimentals unless we have the army to back it up
+-- this means we don't go experimental unless we have a decent army, air force or navy - so we use the ratios for that
+
 -- alternatively, if we have the level of resources required - but not the force to back it up - we'll opt for nuke
--- or artillery over experimentals
+-- or artillery over experimental - since they have no ratio requirement
 
+-- Land Experimental are built using 4 definitions - the intention here is to have some economic control over which
+-- ones get built - according to resource availability - lighter ones having lower eco needs
 
--- The Land Experimentals are built using 4 definitions - the intention here is to have some economic control over which
--- experimentals get built - according to resource availablity - lighter ones having lower needs - but always trying
--- to build the biggest one if the resources are there
 BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
     BuildersType = 'EngineerBuilder',
 
--- This should be used for lighter experimentals but has the lowest priority (for experimentals)	
+-- This should be used for a light experimental - lowest eco requirements
     Builder {BuilderName = 'Land Experimental 1',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+		
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -59,13 +93,15 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
     },
 	
--- This one builds medium experimentals but has slightly higher eco needs - and slightly higher priority
+-- This one builds medium experimentals but has slightly higher eco needs
     Builder {BuilderName = 'Land Experimental 2',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -100,13 +136,15 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
     },
 
--- This one builds heavy experimentals but has the highest eco needs - and the highest priority	
+-- This one builds heavy experimentals but has the highest eco needs
 	Builder {BuilderName = 'Land Experimental 3',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -142,13 +180,15 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Builders',
 		
     },
 	
--- This one builds the heaviest experiementals of all - but not every faction has one of these
+-- This one builds the heaviest experiementals of all
 	Builder {BuilderName = 'Land Experimental 4',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan30MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -195,8 +235,10 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderConditions = {
 		
@@ -235,6 +277,8 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -275,6 +319,8 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -316,6 +362,8 @@ BuilderGroup {BuilderGroupName = 'Land Experimentals - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan30MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -360,61 +408,85 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Land Map',
 -- Like the land experimentals - we Tier the AirExps in 2 groups 
 -- We also have different priorities on land maps versus water maps - Air Exps more necessary on Water maps and trigger earlier
     Builder {BuilderName = 'Air Experimental - Land Map',
+	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
+		
 		InstanceCount = 1,
+		
         BuilderConditions = {
+		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			
         },
 		
         BuilderType = { 'SubCommander' },
 		
         BuilderData = {
+		
 			DesiresAssist = true,
+			
             Construction = {
+			
 				Radius = 50,
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 				Iterations = 1,
-                BuildStructures = {
-                    'T4AirExperimental1',
-                },
+				
+                BuildStructures = { 'T4AirExperimental1' },
+				
             }
         }
     },
 	
     Builder {BuilderName = 'Air Experimental 2 - Land Map',
+	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
+		
 		InstanceCount = 1,
+		
         BuilderConditions = {
+		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+			
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			
         },
 		
         BuilderType = { 'SubCommander' },
 
         BuilderData = {
+		
 			DesiresAssist = true,
+			
 			NumAssistees = 2,
+			
             Construction = {
+			
 				Radius = 50,
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 				Iterations = 1,
-                BuildStructures = {
-                    'T4AirExperimental2',
-                },
+				
+                BuildStructures = { 'T4AirExperimental2' },
+				
             }
         }
     },
@@ -429,6 +501,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Water Map',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -467,6 +541,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Builders - Water Map',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -511,6 +587,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Land',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -551,6 +629,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Land',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -597,6 +677,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Water',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -636,6 +718,8 @@ BuilderGroup {BuilderGroupName = 'Air Experimentals - Expansions - Water',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
         BuilderConditions = {
 		
@@ -1105,7 +1189,10 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 740,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -1142,7 +1229,10 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 740,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -1184,7 +1274,10 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 740,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 1,
 		
@@ -1221,7 +1314,10 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
         Priority = 740,
+
+		PriorityFunction = LessThan20MinutesRemain,
 		
 		InstanceCount = 2,
 		
@@ -1266,6 +1362,8 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
+		
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1328,6 +1426,8 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Defense Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
+		
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1419,6 +1519,8 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Defense Builders - LOUD_
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
+
+		PriorityFunction = LessThan30MinutesRemain,		
 		
         BuilderConditions = {
 		
@@ -1474,6 +1576,8 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders - Expansions',
 		
         Priority = 740,
 		
+		PriorityFunction = LessThan30MinutesRemain,
+		
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -1521,6 +1625,8 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
+
+		PriorityFunction = LessThan30MinutesRemain,
 		
         BuilderConditions = {
 		

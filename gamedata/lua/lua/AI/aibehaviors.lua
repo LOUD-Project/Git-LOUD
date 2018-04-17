@@ -3184,9 +3184,9 @@ function EngineerTransferAI( self, aiBrain )
 		local newbase = possibles[ Random(1,counter) ]
 		
 		-- add him to the selected base - but dont send him to assign task --
-		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, true )
+		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
 		
 		-- force platoon to use the new base as the RTBLocation
@@ -4239,7 +4239,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 			
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
 					unit.AssigningTask = true
             
@@ -4337,7 +4337,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     local SetBlockCommandQueue = unit.SetBlockCommandQueue
 	
 	while not unit.Dead and unit:GetFractionComplete() < 1 do
-		WaitTicks(180)
+		WaitTicks(200)
 	end
 
 	-- this gets the sequence of enhancements
@@ -4361,6 +4361,8 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local EFFTime, RateNeededE, RateNeededM
   
     while EBP and not unit.Dead do
+	
+		WaitTicks(200) -- before start of any enhancement --
 
         CurrentEnhancement = EnhanceList[1]
 		
@@ -4368,58 +4370,71 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         BuildCostM = EBP[CurrentEnhancement].BuildCostMass
         BuildCostT = EBP[CurrentEnhancement].BuildTime
 		
-        if IsIdleState(unit) and not HasEnhancement(unit, final) then
-            
-            EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
-            RateNeededE = BuildCostE / EffTime
-            RateNeededM = BuildCostM / EffTime
+        EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
 
-            -- if we can meet 90% of the Energy and Mass needs of the enhancement
-            if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .9)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .9)) then
+        RateNeededE = BuildCostE / EffTime
+        RateNeededM = BuildCostM / EffTime
+
+        while not unit.Dead and not HasEnhancement(unit, CurrentEnhancement) do
+
+			if IsIdleState(unit) then
+
+				-- if we can meet 95% of the Energy and Mass needs of the enhancement
+				if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
 			
-				-- note that storage requirements for enhancements are just a little higher than those for factories building units
-				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+					-- note that storage requirements for enhancements are just a little higher than those for factories building units
+					-- this is to insure that unit building and upgrading take priority over enhancements
+					if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
-					IssueStop({unit})
-					IssueClearCommands({unit})
+						IssueStop({unit})
+						IssueClearCommands({unit})
 				
-					unit.Upgrading = true
+						unit.Upgrading = true
 				
-					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
+						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
 
-					repeat
-						WaitTicks(15)
-					until unit.Dead or IsUnitState(unit,'Enhancing')
+						repeat
+							WaitTicks(15)
+						until unit.Dead or IsUnitState(unit,'Enhancing')
 
-					SetBlockCommandQueue( unit, true)                
+						SetBlockCommandQueue( unit, true)                
 				
-					while not unit.Dead and IsUnitState(unit,'Enhancing') do
-						WaitTicks(100)
-					end    
+						while not unit.Dead and IsUnitState(unit,'Enhancing') do
+							WaitTicks(100)
+						end    
 				
-					SetBlockCommandQueue( unit, false)  
+						SetBlockCommandQueue( unit, false)  
 
-					unit.Upgrading = false
+						unit.Upgrading = false
 				
-					unit.failedbuilds = 0
+						unit.failedbuilds = 0
 				
-					-- since a manager will only be provided by a factory
-					if manager then
-						ForkThread(manager.DelayBuildOrder, manager, unit )
-					end
+						-- since a manager will only be provided by a factory
+						if manager then
+							ForkThread(manager.DelayBuildOrder, manager, unit )
+						end
               
-					if HasEnhancement( unit, CurrentEnhancement) then
-						table.remove(EnhanceList, 1)
+						if HasEnhancement( unit, CurrentEnhancement) then
+							table.remove(EnhanceList, 1)
+						end
+
+					else
+					
+						WaitTicks(40)
+						
 					end
 					
+				else
+				
+					WaitTicks(40)
+
 				end
 				
 			end
 			
+	        WaitTicks(25)		
+			
         end
-		
-        WaitTicks(36)
         
         if HasEnhancement( unit, final) then
 			
@@ -4551,12 +4566,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
             if low_trigger_good and hi_trigger_good then
             
-			
-            
-				-- if not losing too much mass and energyflow is positive -- and energy consumption of the upgraded item is less than our current energytrend
+				-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 				-- or we have the amount of mass and energy stored to build this item
 
-				-- we could lighten these restrictions a little bit to allow more agressive upgrading
+				-- we could lighten these restrictions a little bit to allow more aggressive upgrading
 				-- currently -5 mass and gaining 50 energy
 				
                 

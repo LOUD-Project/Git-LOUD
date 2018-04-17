@@ -5,6 +5,39 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 
+local LessThan20MinutesRemain = function(self, aiBrain)
+
+	if aiBrain.VictoryTime then
+
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 20 ) ) then	-- less than 20 minutes left
+
+			return 0, false
+
+		end
+
+	end
+
+	return self.Priority, true
+
+end
+
+local LessThan30MinutesRemain = function(self, aiBrain)
+
+	if aiBrain.VictoryTime then
+
+		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
+
+			return 0, false
+
+		end
+
+	end
+
+	return self.Priority, true
+
+end
+
+
 BuilderGroup {BuilderGroupName = 'Artillery Builders',
     BuildersType = 'EngineerBuilder',
 	
@@ -15,10 +48,12 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 		
         Priority = 750,
 		
+		PriorityFunction = LessThan20MinutesRemain,
+
         BuilderConditions = {
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
@@ -56,12 +91,14 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 		
         Priority = 750,
 		
-		InstanceCount = 2,
+		PriorityFunction = LessThan30MinutesRemain,
+
+		InstanceCount = 1,
 		
         BuilderConditions = {
 	
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -103,11 +140,13 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		
         Priority = 750,
 		
+		PriorityFunction = LessThan20MinutesRemain,
+
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -144,12 +183,14 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		
         Priority = 750,
 		
-		InstanceCount = 2,
+		PriorityFunction = LessThan30MinutesRemain,
+
+		InstanceCount = 1,
 		
         BuilderConditions = {
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -192,6 +233,8 @@ BuilderGroup {BuilderGroupName = 'Nuke Builders',
 		
         Priority = 750,
 		
+		PriorityFunction = LessThan30MinutesRemain,
+
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },		
@@ -237,6 +280,8 @@ BuilderGroup {BuilderGroupName = 'Nuke Builders - Expansions',
 		
         Priority = 750,
 		
+		PriorityFunction = LessThan30MinutesRemain,
+
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },		
