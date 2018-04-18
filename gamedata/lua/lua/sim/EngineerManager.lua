@@ -185,7 +185,25 @@ EngineerManager = Class(BuilderManager) {
 			end	
 			
 		end
+
+		if LOUDENTITY( categories.SUBCOMMANDER, unit) then
 		
+			if unit.EnhanceThread then
+			
+				KillThread(unit.EnhanceThread)
+				
+			end
+			
+			local aiBrain = unit:GetAIBrain()
+			
+			if not unit.EnhancementsComplete then
+			
+				unit.EnhanceThread = unit:ForkThread( import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
+			
+			end
+
+		end
+
         return
 		
     end,
@@ -337,12 +355,10 @@ EngineerManager = Class(BuilderManager) {
     -- This routine runs when an engy cant find a job to do
 	-- Delays him before seeking a new task to avoid thrashing the EM
     DelayAssignEngineerTask = function( self, unit, aiBrain )
-	
-		--FloatingEntityText( unit.Sync.id,'Delay assign task')
-	
+
 		WaitTicks(14 + (unit.failedbuilds * 6))
         
-        while unit and not unit.Dead do
+        while unit and not unit.Dead and not unit.AssigningTask do
 
 			--LOG("*AI DEBUG Eng "..unit.Sync.id.." in delay assign task "..unit.failedbuilds)
 

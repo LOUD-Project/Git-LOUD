@@ -3110,8 +3110,6 @@ function EngineerTransferAI( self, aiBrain )
 	local Eng_Cat = self.PlatoonData.TransferCategory
 	local Eng_Type = self.PlatoonData.TransferType
 
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Engineer FROM "..repr(eng.LocationType).." starts")
-
 	-- scan all bases and transfer if they dont have their maximum already
 	for k,v in aiBrain.BuilderManagers do
 	
@@ -3186,9 +3184,6 @@ function EngineerTransferAI( self, aiBrain )
 		-- add him to the selected base - but dont send him to assign task --
 		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
 		
-		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
-		
 		-- force platoon to use the new base as the RTBLocation
 		-- if you don't do this then the engineer will just RTB to his original base
 		self.RTBLocation = newbase
@@ -3200,7 +3195,13 @@ function EngineerTransferAI( self, aiBrain )
 	end
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)
-
+	
+	LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
+	
+	if Eng_Type == 'SCU' then
+		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
+	end
+	
 end
 
 -- === SPECIFIC UNIT BEHAVIORS ===
@@ -4219,16 +4220,22 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 	local EFFTime, RateNeededE, RateNeededM
 	local count
     
-    while not unit.Dead do
+    while not unit.Dead and not unit.EnhancementsComplete do
 	
         CurrentEnhancement = EnhanceList[1]
+		
+		if HasEnhancement( unit, CurrentEnhancement) then
+
+			table.remove(EnhanceList, 1)
+
+		end
 		
         BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
         BuildCostM = EBP[CurrentEnhancement].BuildCostMass
         BuildCostT = EBP[CurrentEnhancement].BuildTime
 		
         -- if unit is idle and not currently in a platoon
-        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) then
+        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
             
             EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
             RateNeededE = BuildCostE / EffTime
@@ -4312,13 +4319,16 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
         
         if HasEnhancement( unit, final) then
 		
-			unit.EnhanceThread = nil
 			unit.EnhancementsComplete = true
             break
 			
         end
 		
     end
+	
+	KillThread(unit.EnhanceThread)
+	
+	unit.EnhanceThread = nil
 	
 end
 
@@ -4447,8 +4457,9 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 		
     end
 	
-	unit.EnhanceThread = nil
 	unit.EnhancementsComplete = true
+	
+	KillThread(unit.EnhanceThread)
 	
 end
 

@@ -7,27 +7,15 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
-local NotPrimaryBase = function( self,aiBrain,manager)
-
-	if (not aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase) and (not aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase) then
-	
-		return 700, false
-		
-	end
-
-	return self.Priority, true
-	
-end
-
 local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
 	
-		return self.Priority, true
+		return self.Priority, false
 		
 	end
 
-	return 10, true
+	return 10, false
 end
 
 BuilderGroup {BuilderGroupName = 'Engineer Builders Active DP',

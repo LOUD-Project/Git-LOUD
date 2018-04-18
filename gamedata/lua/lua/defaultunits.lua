@@ -2740,6 +2740,7 @@ WalkingLandUnit = Class(MobileUnit) {
 
 					self.Animator:PlayAnim(bpDisplay.AnimationWalk, true)
 					self.Animator:SetRate(bpDisplay.AnimationWalkRate or 1)
+					
 				end
 				
 			elseif ( new == 'Stopped' ) then
@@ -2758,11 +2759,14 @@ WalkingLandUnit = Class(MobileUnit) {
 						self.Animator:Destroy()
 					end
 					
-					self.Animator = false
+					self.Animator = nil
+					
 				end
+				
 			end
 		
 		end
+		
     end,
 	
 	-- so that ACU and SCU get engy callbacks
@@ -3421,99 +3425,96 @@ ConstructionUnit = Class(MobileUnit) {
     SetupEngineerCallbacks = function( eng, EM )
         
         if eng and (not eng.Dead) then
-		
-			--if (not eng.CallbacksSetup) then
 
-				local EngineerBuildDone = function( unit, finishedUnit )
+			local EngineerBuildDone = function( unit, finishedUnit )
 				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
 					
-						-- we do this to insure that the constructed unit gets acknowledged
-						-- since sometimes the original engineer dies and the unit is completed 
-						-- by an engineer in assist mode that didn't issue the original build order
-						EM:UnitConstructionFinished( eng, finishedUnit )
+					-- we do this to insure that the constructed unit gets acknowledged
+					-- since sometimes the original engineer dies and the unit is completed 
+					-- by an engineer in assist mode that didn't issue the original build order
+					EM:UnitConstructionFinished( eng, finishedUnit )
 						
-						if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
+					if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
 						
-							if not unit.NotBuildingThread then
-							
-								if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-									unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
-								end
-								
-							end
-							
-						end
-
-					end
-					
-				end
-
-				local EngineerCaptureDone = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-						if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-							unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
-						end
-					end
-				end
-
-				local EngineerFailedCapture = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-						if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-							unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
-						end	
-					end
-				end
-
-				local EngineerFailedToBuild = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-					
 						if not unit.NotBuildingThread then
-						
-							if unit.IssuedBuildCommand then
 							
-								if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-									unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
-								end
-								
+							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
 							end
-							
+								
 						end
-						
+							
 					end
-					
-				end				
 
-				local EngineerStartBeingCaptured = function( unit )
-				
-					if unit.PlatoonHandle then
+				end
 					
-						local self = unit.PlatoonHandle
-						
-						self:SetAIPlan('ReturnToBaseAI', self:GetBrain())
+			end
+
+			local EngineerCaptureDone = function( unit )
+				
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
 					end
 				end
+			end
 
-				eng.EventCallbacks.OnUnitBuilt = {}
+			local EngineerFailedCapture = function( unit )
 				
-				eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
+					end	
+				end
+			end
+
+			local EngineerFailedToBuild = function( unit )
 				
-				eng.EventCallbacks.OnStopCapture = {}
-				eng.EventCallbacks.OnFailedCapture = {}
-				eng.EventCallbacks.OnFailedToBuild = {}
-				eng.EventCallbacks.OnStartBeingCaptured = {}
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					
+					if not unit.NotBuildingThread then
+						
+						if unit.IssuedBuildCommand then
+							
+							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
+							end
+								
+						end
+							
+					end
+						
+				end
+					
+			end				
+
+			local EngineerStartBeingCaptured = function( unit )
 				
-				eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
-				eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
-				eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
-				eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
+				if unit.PlatoonHandle then
+					
+					local self = unit.PlatoonHandle
+						
+					self:SetAIPlan('ReturnToBaseAI', self:GetBrain())
+				end
+			end
+
+			eng.EventCallbacks.OnUnitBuilt = {}
 			
-				eng.CallbacksSetup = true
-			--end
+			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
+				
+			eng.EventCallbacks.OnStopCapture = {}
+			eng.EventCallbacks.OnFailedCapture = {}
+			eng.EventCallbacks.OnFailedToBuild = {}
+			eng.EventCallbacks.OnStartBeingCaptured = {}
+			
+			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
+			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
+			eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
+			eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
+
         end
+		
     end,
 
     OnCreate = function(self)
@@ -3529,18 +3530,20 @@ ConstructionUnit = Class(MobileUnit) {
         end
 
         if self.BuildingOpenAnim then
-		
-            self.BuildingOpenAnimManip = CreateAnimator(self)
+
+            self.BuildingOpenAnimManip = CreateAnimator(self):PlayAnim(self.BuildingOpenAnim):SetRate(0)
+			
 			self.Trash:Add(self.BuildingOpenAnimManip)
 			
-            self.BuildingOpenAnimManip:SetPrecedence(1)
-            self.BuildingOpenAnimManip:PlayAnim(self.BuildingOpenAnim, false):SetRate(0)
+			self.BuildingOpenAnim = nil		-- dont need this anymore after playing it
 			
             if self.BuildArmManipulator then
                 self.BuildArmManipulator:Disable()
             end
         end
+		
         self.BuildingUnit = false
+		
     end,
 
     OnPaused = function(self)

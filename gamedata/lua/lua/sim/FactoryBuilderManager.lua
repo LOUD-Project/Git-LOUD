@@ -8,7 +8,7 @@ local import = import
 local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
 
 local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
-local SCUSelfEnhanceThread = import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread
+
 local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
@@ -413,12 +413,6 @@ FactoryBuilderManager = Class(BuilderManager) {
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
-			
-			if LOUDENTITY( categories.SUBCOMMANDER, finishedUnit) and not finishedUnit.EnhanceThread then
-			
-				finishedUnit.EnhanceThread = finishedUnit:ForkThread( SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
-				
-			end
 
             ForkThread( EM.AddEngineerUnit, EM, finishedUnit )
 			
