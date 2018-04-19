@@ -919,6 +919,7 @@ MobileUnit = Class(Unit) {
 		   
             self:DestroyIdleEffects()
             self:DestroyMovementEffects()
+			
             self:CreateMovementEffects( self.MovementEffectsBag, nil )
 			
             if bpMTable.BeamExhaust then
@@ -1061,8 +1062,11 @@ MobileUnit = Class(Unit) {
     OnTerrainTypeChange = function(self, new, old)
 
         if self.MovementEffectsExist then
+		
             self:DestroyMovementEffects()
+			
             self:CreateMovementEffects( self.MovementEffectsBag, nil, new )
+			
         end
 
     end,
@@ -1168,6 +1172,8 @@ MobileUnit = Class(Unit) {
         local bpTable = GetBlueprint(self).Display.MovementEffects
 
         CleanupEffectBag(self,'MovementEffectsBag')
+		
+		self.MovementEffectsBag = nil
 
         if self.CamShakeT1 then
 		
@@ -1214,6 +1220,12 @@ MobileUnit = Class(Unit) {
         self:DestroyIdleEffects()
         self:DestroyMovementEffects()
 		
+		if not self.TransportBeamEffectsBag then
+		
+			self.TransportBeamEffectsBag = {}
+			
+		end
+		
         LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( self, -1, transport, bone, self.Sync.army, EffectTemplate.TTransportBeam01))
         LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( transport, bone, self, -1, self.Sync.army, EffectTemplate.TTransportBeam02))
         LOUDINSERT( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, self.Sync.army, EffectTemplate.TTransportGlow01) )
@@ -1230,6 +1242,8 @@ MobileUnit = Class(Unit) {
         for _, v in self.TransportBeamEffectsBag do
             v:Destroy()
         end
+		
+		self.TransportBeamEffectsBag = nil
     end,
 
     TransportAnimation = function(self, rate)
@@ -2589,33 +2603,40 @@ RadarJammerUnit = Class(StructureUnit) {
     OnStartBuild = function(self, unitbuilding, order)
 	
         StructureUnit.OnStartBuild(self, unitbuilding, order)
+		
         self:SetMaintenanceConsumptionInactive()
         self:DisableIntel('Jammer')
         self:DisableIntel('RadarStealthField')
+		
     end,
 
     -- If we abort the upgrade, re-enable the intel
     OnStopBuild = function(self, unitBeingBuilt)
 	
         StructureUnit.OnStopBuild(self, unitBeingBuilt)
+		
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
         self:EnableIntel('RadarStealthField')
+		
     end,
 
     -- If we abort the upgrade, re-enable the intel
     OnFailedToBuild = function(self)
 	
         StructureUnit.OnStopBuild(self)
+		
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
         self:EnableIntel('RadarStealthField')
+		
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
 	
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
         self:SetMaintenanceConsumptionActive()
+		
     end,
     
     OnIntelEnabled = function(self)
@@ -2623,18 +2644,26 @@ RadarJammerUnit = Class(StructureUnit) {
         StructureUnit.OnIntelEnabled(self)
 		
         if self.IntelEffects and not self.IntelFxOn then
+		
 			self.IntelEffectsBag = {}
+			
 			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 			self.IntelFxOn = true
+			
 		end
     end,
 
     OnIntelDisabled = function(self)
 	
         StructureUnit.OnIntelDisabled(self)
+		
         CleanupEffectBag(self,'IntelEffectsBag')
-        self.IntelFxOn = false
-    end,       
+		
+		self.IntelEffectsBag = nil
+        self.IntelFxOn = nil
+		
+    end,
+	
 }
 
 SonarUnit = Class(StructureUnit) {

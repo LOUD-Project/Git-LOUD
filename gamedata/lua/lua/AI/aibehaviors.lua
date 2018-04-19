@@ -4337,7 +4337,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 
     local EBP = unit:GetBlueprint().Enhancements or false
 	
-	if not EBP then
+	if not EBP or unit.EnhancementsComplete then
 		return
 	end
 	
@@ -4370,7 +4370,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local BuildCostE, BuildCostM, BuildCostT
 	local EFFTime, RateNeededE, RateNeededM
   
-    while EBP and not unit.Dead do
+    while EBP and not unit.Dead and not unit.EnhancementsComplete do
 	
 		WaitTicks(200) -- before start of any enhancement --
 
@@ -4448,7 +4448,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         
         if HasEnhancement( unit, final) then
 			
-			unit.Upgrading = false
+			unit.Upgrading = nil
 			unit.failedbuilds = 0
 			
             EBP = false
@@ -4460,6 +4460,8 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	unit.EnhancementsComplete = true
 	
 	KillThread(unit.EnhanceThread)
+	
+	unit.EnhanceThread = nil
 	
 end
 

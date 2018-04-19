@@ -1424,24 +1424,37 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
 end
 
 function CreateEnhancementEffectAtBone( unit, bone, TrashBag )
+
     for _, vEffect in EffectTemplate.UpgradeBoneAmbient do
+	
         TrashBag:Add(LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+		
     end
+	
 end
 
 function CreateEnhancementUnitAmbient( unit, bone, TrashBag )
+
     for _, vEffect in EffectTemplate.UpgradeUnitAmbient do
+	
         TrashBag:Add(LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+		
     end
+	
 end
 
 function CleanupEffectBag( self, EffectBag )
+
 	if self[EffectBag] then
+	
 		for _, v in self[EffectBag] do
 			v:Destroy()
 		end
+		
 	end
+	
     self[EffectBag] = {}
+	
 end
 
 function SeraphimRiftIn( unit )

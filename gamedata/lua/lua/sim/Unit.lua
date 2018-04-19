@@ -182,10 +182,11 @@ Unit = Class(moho.unit_methods) {
             OnFailedBeingCaptured = {},
 			
             OnFailedToBuild = {},
-            OnVeteran = {},
+			
+            --OnVeteran = {},
 
-            SpecialToggleEnableFunction = false,
-            SpecialToggleDisableFunction = false,
+            --SpecialToggleEnableFunction = false,
+            --SpecialToggleDisableFunction = false,
 
             -- new eventcallbacks. returns only 'self' as argument unless otherwise noted
             OnCreated = {},
@@ -199,21 +200,25 @@ Unit = Class(moho.unit_methods) {
 			
             OnPaused = {},				-- pause button
             OnUnpaused = {},
+			
             OnProductionPaused = {},	-- production button for f.e. mass fab
             OnProductionUnpaused = {},
-            OnHealthChanged = {},		-- returns self, newHP, oldHP   
-            OnTMLAmmoIncrease = {},		-- use AddOnMLammoIncreaseCallback function. uses 6 sec interval polling so not accurate
-            OnTMLaunched = {},
-            OnSMLAmmoIncrease = {},		-- use AddOnMLammoIncreaseCallback function. uses 6 sec interval polling so not accurate
-            OnSMLaunched = {},
+			
+            OnHealthChanged = {},		-- returns self, newHP, oldHP
+			
+            --OnTMLAmmoIncrease = {},		-- use AddOnMLammoIncreaseCallback function. uses 6 sec interval polling so not accurate
+            --OnTMLaunched = {},
+			
+            --OnSMLAmmoIncrease = {},		-- use AddOnMLammoIncreaseCallback function. uses 6 sec interval polling so not accurate
+            --OnSMLaunched = {},
 
-            OnCmdrUpgradeFinished = {},	-- happens whenever a unit is enhanced (as opposed to upgrade)
-            OnCmdrUpgradeStart = {},
+            --OnCmdrUpgradeFinished = {},	-- happens whenever a unit is enhanced (as opposed to upgrade)
+            --OnCmdrUpgradeStart = {},	-- happens whenever a unit starts an enhancement --
 
             OnTeleportCharging = {}, 	-- returns self, location
             OnTeleported = {},			-- returns self, location
 
-            OnTimedEvent = {},			-- returns self, variable (can be antyhing, value is determined when adding event callback)
+            --OnTimedEvent = {},			-- returns self, variable (can be antyhing, value is determined when adding event callback)
 
             OnAttachedToTransport = {},	-- returns self, transport unit
             OnDetachedToTransport = {},	-- returns self, transport unit
@@ -282,10 +287,9 @@ Unit = Class(moho.unit_methods) {
         self.DamageEffectsBag = { {}, {}, {}, }
         
         self.MovementEffectsBag = {}
-        self.IdleEffectsBag = {}
-
-        self.BeamExhaustEffectsBag = {}
-        self.TransportBeamEffectsBag = {}
+        --self.IdleEffectsBag = {}
+        --self.BeamExhaustEffectsBag = {}
+        --self.TransportBeamEffectsBag = {}
 
         self.BuildEffectsBag = TrashBag()
 
@@ -313,9 +317,12 @@ Unit = Class(moho.unit_methods) {
 			
         end
         
-        self.MaintenanceConsumption = false
+        --self.MaintenanceConsumption = false
+		
         self.ActiveConsumption = false
-        self.ProductionEnabled = true
+		
+        --self.ProductionEnabled = true
+		
         self.EnergyModifier = 0
         self.MassModifier = 0
 
@@ -1124,7 +1131,7 @@ Unit = Class(moho.unit_methods) {
 	
 		--LOG("*AI DEBUG Turning OFF MaintenanceConsumption")
 		
-        self.MaintenanceConsumption = false
+        self.MaintenanceConsumption = nil
         self:UpdateConsumptionValues()
 		
     end,
@@ -1138,7 +1145,7 @@ Unit = Class(moho.unit_methods) {
 
     SetActiveConsumptionInactive = function(self)
 	
-        self.ActiveConsumption = false
+        self.ActiveConsumption = nil
         self:UpdateConsumptionValues()
 		
     end,
@@ -2784,7 +2791,7 @@ Unit = Class(moho.unit_methods) {
 			-- added so that cloak effects are applied if unit was already cloaked
 			if self.InCloakField then
 			
-				self.CloakEffectEnabled = false
+				self.CloakEffectEnabled = nil
 				self:UpdateCloakEffect(bp)
 				
 			end
@@ -2794,6 +2801,7 @@ Unit = Class(moho.unit_methods) {
 		if self.OnBeingBuiltEffectsBag then
 		
 			self.OnBeingBuiltEffectsBag:Destroy()
+			self.OnBeingBuiltEffectsBag = nil
 			
 		end
 		
@@ -3476,6 +3484,7 @@ Unit = Class(moho.unit_methods) {
 		if self.UpgradeEffectsBag then
 		
 			self.UpgradeEffectsBag:Destroy()
+			self.UpgradeEffectsBag = nil
 			
 		end
 		
@@ -3595,6 +3604,12 @@ Unit = Class(moho.unit_methods) {
 
 			if bpTable[self.CacheLayer].Effects then
 			
+				if not self.IdleEffectsBag then
+				
+					self.IdleEffectsBag = {}
+					
+				end
+			
 				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, self.IdleEffectsBag )
 				
 			end
@@ -3627,7 +3642,7 @@ Unit = Class(moho.unit_methods) {
 				
             end
 			
-            if self.BeamExhaustIdle and (LOUDGETN(self.BeamExhaustEffectsBag) == 0) and (bpTable.Idle != false) then
+            if self.BeamExhaustIdle and (bpTable.Idle != false) then	-- (LOUDGETN(self.BeamExhaustEffectsBag) == 0) and
 			
                 self:CreateBeamExhaust( bpTable, self.BeamExhaustIdle )
 				
@@ -3824,6 +3839,12 @@ Unit = Class(moho.unit_methods) {
     end,
 
     AddUnitCallback = function(self, fn, cbtype)
+	
+		if not self.EventCallbacks[cbtype] then
+		
+			self.EventCallbacks[cbtype] = {}
+			
+		end
 	
         LOUDINSERT( self.EventCallbacks[cbtype], fn )
 		
@@ -4032,6 +4053,12 @@ Unit = Class(moho.unit_methods) {
             return
 			
         end
+		
+		if not self.EventCallbacks.OnTimedEvent then
+		
+			self.EventCallbacks.OnTimedEvent = {}
+			
+		end
 		
         table.insert( self.EventCallbacks.OnTimedEvent, {fn = fn, interval = interval} )
 		
@@ -4477,7 +4504,14 @@ Unit = Class(moho.unit_methods) {
 		
         local army = GetArmy(self)
 		
+		
         for kb, vb in effectBones do
+		
+			if not self.BeamExhaustEffectsBag then
+			
+				self.BeamExhaustEffectsBag = {}
+				
+			end
 		
             LOUDINSERT( self.BeamExhaustEffectsBag, CreateBeamEmitterOnEntity(self, vb, army, beamBP ))
 			
@@ -5436,11 +5470,12 @@ Unit = Class(moho.unit_methods) {
 							-- notice that this runs every pass, so units will re-cloak after only 8 seconds when revealed
 							for num, unit in UnitsInRange do
 
-								unit.InCloakField = true
+								unit.InCloakField = nil
 							
 								if unit.InCloakFieldThread then
 								
 									KillThread(unit.InCloakFieldThread)
+									
 									unit.InCloakFieldThread = nil
 									
 								end
@@ -5469,8 +5504,15 @@ Unit = Class(moho.unit_methods) {
 		self:UpdateCloakEffect(bp)
 		
 		WaitTicks(80)
-		self.InCloakField = false
-		self.InCloakFieldThread = false
+		
+		self.InCloakField = nil
+		
+		if self.InCloadFieldThread then
+		
+			KillThread(self.InCloaKFieldThread)
+			self.InCloakFieldThread = nil
+			
+		end
 		
 		self:UpdateCloakEffect(bp)
 		
@@ -5491,7 +5533,7 @@ Unit = Class(moho.unit_methods) {
 				if (not cloaked and self.CloakEffectEnabled) or self:GetHealth() <= 0 then
 				
 					self:SetMesh(bpDisplay.MeshBlueprint, true)
-					self.CloakEffectEnabled = false
+					self.CloakEffectEnabled = nil
 					
 				elseif (cloaked and not self.CloakEffectEnabled) and bpDisplay.CloakMeshBlueprint then
 				

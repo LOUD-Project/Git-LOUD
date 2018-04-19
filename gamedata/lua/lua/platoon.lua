@@ -5177,7 +5177,8 @@ Platoon = Class(moho.platoon_methods) {
 		-- we'll take a copy of this table so that we can modify it for rotations without altering the source
         local baseTmpl = table.deepcopy( baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex] )
 		
-        eng.NeedGuard = self.PlatoonData.NeedGuard or false
+		-- This value is deprecated 
+        --eng.NeedGuard = self.PlatoonData.NeedGuard or false
 		
 		eng.EngineerBuildQueue = {} 	-- clear the engineers build queue		
 
