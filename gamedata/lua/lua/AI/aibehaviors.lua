@@ -3176,12 +3176,12 @@ function EngineerTransferAI( self, aiBrain )
 	
 	if counter > 0 then
 	
-		-- remove engy from his existing base
+		-- remove engy from his existing base - destroy all existing engy callbacks
 		aiBrain.BuilderManagers[eng.LocationType].EngineerManager:RemoveEngineerUnit(eng)
 		
 		local newbase = possibles[ Random(1,counter) ]
 		
-		-- add him to the selected base - but dont send him to assign task --
+		-- add him to the selected base - but dont send him to assign task -- setup new engy callbacks
 		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
 		
 		-- force platoon to use the new base as the RTBLocation

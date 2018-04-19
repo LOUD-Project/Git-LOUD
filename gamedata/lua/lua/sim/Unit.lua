@@ -162,26 +162,31 @@ Unit = Class(moho.unit_methods) {
         end
         
         self.EventCallbacks = {
-            OnKilled = {},
-            OnUnitBuilt = {},
-            OnStartBuild = {},
-            OnReclaimed = {},
-            --OnStartReclaim = {},
-            OnStopReclaim = {},
-            OnStopBeingBuilt = {},
-
-            OnCaptured = {},
-            OnCapturedNewUnit = {},
-            OnDamaged = {},
-
-            OnStartCapture = {},
-            OnStopCapture = {},
-            OnFailedCapture = {},
-            OnStartBeingCaptured = {},
-            OnStopBeingCaptured = {},
-            OnFailedBeingCaptured = {},
+		
+            --OnKilled = {},
 			
-            OnFailedToBuild = {},
+            --OnUnitBuilt = {},
+            --OnStartBuild = {},
+			
+            --OnReclaimed = {},
+            --OnStartReclaim = {},
+            --OnStopReclaim = {},
+			
+            --OnStopBeingBuilt = {},
+
+            --OnCaptured = {},
+            --OnCapturedNewUnit = {},
+			
+            --OnDamaged = {},
+
+            --OnStartCapture = {},
+            --OnStopCapture = {},
+            --OnFailedCapture = {},
+            --OnStartBeingCaptured = {},
+            --OnStopBeingCaptured = {},
+            --OnFailedBeingCaptured = {},
+			
+            --OnFailedToBuild = {},
 			
             --OnVeteran = {},
 
@@ -189,22 +194,22 @@ Unit = Class(moho.unit_methods) {
             --SpecialToggleDisableFunction = false,
 
             -- new eventcallbacks. returns only 'self' as argument unless otherwise noted
-            OnCreated = {},
+            --OnCreated = {},
 
-            OnTransportAttach = {},
-            OnTransportDetach = {},
+            --OnTransportAttach = {},
+            --OnTransportDetach = {},
 
-            OnShieldIsUp = {},
-            OnShieldIsDown = {},
-            OnShieldIsCharging = {},
+            --OnShieldIsUp = {},
+            --OnShieldIsDown = {},
+            --OnShieldIsCharging = {},
 			
-            OnPaused = {},				-- pause button
-            OnUnpaused = {},
+            --OnPaused = {},				-- pause button
+            --OnUnpaused = {},
 			
-            OnProductionPaused = {},	-- production button for f.e. mass fab
-            OnProductionUnpaused = {},
+            --OnProductionPaused = {},	-- production button for f.e. mass fab
+            --OnProductionUnpaused = {},
 			
-            OnHealthChanged = {},		-- returns self, newHP, oldHP
+            --OnHealthChanged = {},		-- returns self, newHP, oldHP
 			
             --OnTMLAmmoIncrease = {},		-- use AddOnMLammoIncreaseCallback function. uses 6 sec interval polling so not accurate
             --OnTMLaunched = {},
@@ -215,16 +220,17 @@ Unit = Class(moho.unit_methods) {
             --OnCmdrUpgradeFinished = {},	-- happens whenever a unit is enhanced (as opposed to upgrade)
             --OnCmdrUpgradeStart = {},	-- happens whenever a unit starts an enhancement --
 
-            OnTeleportCharging = {}, 	-- returns self, location
-            OnTeleported = {},			-- returns self, location
+            --OnTeleportCharging = {}, 	-- returns self, location
+            --OnTeleported = {},			-- returns self, location
 
             --OnTimedEvent = {},			-- returns self, variable (can be antyhing, value is determined when adding event callback)
 
-            OnAttachedToTransport = {},	-- returns self, transport unit
-            OnDetachedToTransport = {},	-- returns self, transport unit
+            --OnAttachedToTransport = {},	-- returns self, transport unit
+            --OnDetachedToTransport = {},	-- returns self, transport unit
 
-            OnBeforeTransferingOwnership = {},
-            OnAfterTransferingOwnership = {},
+            --OnBeforeTransferingOwnership = {},
+            --OnAfterTransferingOwnership = {},
+			
         }
 		
 		self.PlatoonHandle = false
@@ -318,8 +324,7 @@ Unit = Class(moho.unit_methods) {
         end
         
         --self.MaintenanceConsumption = false
-		
-        self.ActiveConsumption = false
+        --self.ActiveConsumption = false
 		
         --self.ProductionEnabled = true
 		
@@ -3851,16 +3856,20 @@ Unit = Class(moho.unit_methods) {
     end,
     
     DoUnitCallbacks = function(self, cbtype, param)
+	
+		if self.EventCallbacks[cbtype] then
 
-        for num,cb in self.EventCallbacks[cbtype] do
+			for num,cb in self.EventCallbacks[cbtype] do
 		
-            if cb then
+				if cb then
 			
-				cb( self, param )
+					cb( self, param )
 				
-            end
+				end
 			
-        end
+			end
+		
+		end
 		
     end,
 
@@ -3888,23 +3897,31 @@ Unit = Class(moho.unit_methods) {
     
     AddOnStartBuildCallback = function(self, fn, category)
 	
-        local insertedTable = { CallbackFunction = fn, Category = category }
+		if not self.EventCallbacks.OnStartBuild then
+        
+			self.EventCallbacks.OnStartBuild = {}
+			
+		end
 		
-        LOUDINSERT(self.EventCallbacks.OnStartBuild, insertedTable)
+        LOUDINSERT(self.EventCallbacks.OnStartBuild, { CallbackFunction = fn, Category = category } )
 		
     end,
     
     DoOnStartBuildCallbacks = function(self, unit)
 	
-        for k,v in self.EventCallbacks.OnStartBuild do
+		if self.EventCallbacks.OnStartBuild then
+	
+			for k,v in self.EventCallbacks.OnStartBuild do
 		
-            if v and unit and not unit.Dead and LOUDENTITY(v.Category, unit) then
+				if v and unit and not unit.Dead and LOUDENTITY(v.Category, unit) then
 			
-                v.CallbackFunction(self, unit)
+					v.CallbackFunction(self, unit)
 				
-            end
+				end
 			
-        end
+			end
+			
+		end
 		
     end,
 
@@ -3927,6 +3944,12 @@ Unit = Class(moho.unit_methods) {
     end,
 
     AddOnUnitBuiltCallback = function(self, fn, category)
+	
+		if not self.EventCallbacks.OnUnitBuilt then
+		
+			self.EventCallbacks.OnUnitBuilt = {}
+		
+		end
 	
         LOUDINSERT(self.EventCallbacks.OnUnitBuilt, { CallBackFunction = fn, Category = category } )
 		
@@ -3980,6 +4003,12 @@ Unit = Class(moho.unit_methods) {
         local num = amount or -1
 		
         repeatNum = repeatNum or 1
+		
+		if not self.EventCallbacks.OnDamaged then
+		
+			self.EventCallbacks.OnDamaged =  {}
+			
+		end
 		
         LOUDINSERT(self.EventCallbacks.OnDamaged, {Func=fn, Amount=num, Called=0, Repeat=repeatNum})
 		

@@ -262,8 +262,8 @@ TPodTowerUnit = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
 	
-		self.EventCallbacks.OnTransportAttach = {}
-		self.EventCallbacks.OnTransportDetach = {}
+		--self.EventCallbacks.OnTransportAttach = {}
+		--self.EventCallbacks.OnTransportDetach = {}
 		
         TStructureUnit.OnStopBeingBuilt(self, builder, layer)
         ChangeState( self, self.FinishedBeingBuilt )

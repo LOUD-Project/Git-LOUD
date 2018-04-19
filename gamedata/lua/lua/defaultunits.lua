@@ -765,11 +765,10 @@ MobileUnit = Class(Unit) {
 	
 		Unit.OnPreCreate(self)
 		
-		self.EventCallbacks.OnHorizontalStartMove = {}
-		self.EventCallbacks.OnTransportAttach = {}
-		self.EventCallbacks.OnTransportDetach = {}
-		self.EventCallbacks.OnAttachedToTransport = {}
-		self.EventCallbacks.OnDetachedToTransport = {}
+		--self.EventCallbacks.OnTransportAttach = {}
+		--self.EventCallbacks.OnTransportDetach = {}
+		--self.EventCallbacks.OnAttachedToTransport = {}
+		--self.EventCallbacks.OnDetachedToTransport = {}
 
 		self.TransportClass = GetBlueprint(self).Transport.TransportClass or false
 	end,
@@ -1479,16 +1478,33 @@ MobileUnit = Class(Unit) {
     end,
 	
     AddOnHorizontalStartMoveCallback = function(self, fn)
+	
+		if not self.EventCallbacks.OnHorizontalStartMove then
+		
+			self.EventCallbacks.OnHorizontalStartMove = {}
+			
+		end
+		
         LOUDINSERT(self.EventCallbacks.OnHorizontalStartMove, fn)
+		
     end,
 
     DoOnHorizontalStartMoveCallbacks = function(self)
-        for k, cb in self.EventCallbacks.OnHorizontalStartMove do
-            if cb then
-				LOG("*AI DEBUG Doing OnHorizontalStartMoveCallback")
-                cb(self)
-            end
-        end
+	
+		if self.EventCallbacks.OnHorizontalStartMove then
+		
+			for k, cb in self.EventCallbacks.OnHorizontalStartMove do
+			
+				if cb then
+				
+					cb(self)
+					
+				end
+				
+			end
+			
+		end
+		
     end,
 
     StartBeingBuiltEffects = function(self, builder, layer)
@@ -2369,10 +2385,10 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 	
 		StructureUnit.OnCreate(self)
 		
-		self.EventCallbacks.OnTransportDetach = {}
-		self.EventCallbacks.OnTransportAttach = {}
-		self.EventCallbacks.OnDetachedToTransport = {}
-		self.EventCallbacks.OnAttachedToTransport = {}
+		--self.EventCallbacks.OnTransportDetach = {}
+		--self.EventCallbacks.OnTransportAttach = {}
+		--self.EventCallbacks.OnDetachedToTransport = {}
+		--self.EventCallbacks.OnAttachedToTransport = {}
 
 	end,
 	
@@ -3528,14 +3544,14 @@ ConstructionUnit = Class(MobileUnit) {
 				end
 			end
 
-			eng.EventCallbacks.OnUnitBuilt = {}
+			--eng.EventCallbacks.OnUnitBuilt = {}
 			
 			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
-				
-			eng.EventCallbacks.OnStopCapture = {}
-			eng.EventCallbacks.OnFailedCapture = {}
-			eng.EventCallbacks.OnFailedToBuild = {}
-			eng.EventCallbacks.OnStartBeingCaptured = {}
+
+			--eng.EventCallbacks.OnStopCapture = {}
+			--eng.EventCallbacks.OnFailedCapture = {}
+			--eng.EventCallbacks.OnFailedToBuild = {}
+			--eng.EventCallbacks.OnStartBeingCaptured = {}
 			
 			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
 			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')

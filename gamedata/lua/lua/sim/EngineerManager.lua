@@ -139,10 +139,6 @@ EngineerManager = Class(BuilderManager) {
 			
 		end
 
-		unit.EventCallbacks.OnReclaimed = {}
-		unit.EventCallbacks.OnCaptured = {}
-		unit.EventCallbacks.OnKilled = {}
-
         local deathFunction = function( unit )
 		
 			self:RemoveEngineerUnit( unit )
@@ -541,7 +537,7 @@ EngineerManager = Class(BuilderManager) {
 		
     end,
 
-	-- this removes an engineer from this base manager
+	-- this removes an engineer from this base manager - destroys all existing engy callbacks
 	-- used when engineer dies or is transferred to another base
     RemoveEngineerUnit = function( self, unit )
 
@@ -558,7 +554,18 @@ EngineerManager = Class(BuilderManager) {
             end
 			
 		end
+
+		unit.EventCallbacks.OnReclaimed = nil
+		unit.EventCallbacks.OnCaptured = nil
+		unit.EventCallbacks.OnKilled = nil
 		
+		unit.EventCallbacks.OnUnitBuilt = nil
+
+		unit.EventCallbacks.OnStopCapture = nil
+		unit.EventCallbacks.OnFailedCapture = nil
+		unit.EventCallbacks.OnFailedToBuild = nil
+		unit.EventCallbacks.OnStartBeingCaptured = nil
+
     end,
     
 	-- fired whenever a engineer platoon disbands on the same tick it was created
