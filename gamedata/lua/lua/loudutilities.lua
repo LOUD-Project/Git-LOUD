@@ -1,7 +1,6 @@
 --  /lua/loudutilities.lua
 --  LOUD specific things
 
-LOG("*AI DEBUG Importing LOUDUTILITIES")
 -- You will find lots of useful notes in here 
 
 local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
@@ -561,8 +560,14 @@ function SpawnWaveThread( aiBrain )
 		
 	end
 	
-	LOG("*AI DEBUG testunits is "..repr(testUnits))
-	LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
+	--LOG("*AI DEBUG testunits is "..repr(testUnits))
+	--LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
+	
+	if initialUnits then
+	
+		LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
+		
+	end
 
 	-- IF there is an initial units list then
 	-- spawnwave will begin once the first T3 Air Factory is online - check every 60 seconds until it does
@@ -2412,7 +2417,7 @@ function DeadBaseMonitor( aiBrain )
 						
 					end
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(v.BaseName).." key is "..repr(k))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(v.BaseName).." key is "..repr(k))
 
 					-- remove base from table
                     aiBrain.BuilderManagers[k] = nil

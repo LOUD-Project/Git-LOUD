@@ -208,7 +208,7 @@ function CDROverCharge( aiBrain, cdr )
 			
 				if PlatoonExists(aiBrain, cdr.PlatoonHandle) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." CDR disbands "..cdr.PlatoonHandle.BuilderName)
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." CDR disbands "..cdr.PlatoonHandle.BuilderName)
 					cdr.PlatoonHandle:PlatoonDisband( aiBrain )
 					
 				end
@@ -359,7 +359,7 @@ function CDROverCharge( aiBrain, cdr )
 						
 						elseif target and not target.Dead then
 					
-							LOG("*AI DEBUG " .. aiBrain.Nickname .. " Commander target out of overcharge range - moving to attack")
+							--LOG("*AI DEBUG " .. aiBrain.Nickname .. " Commander target out of overcharge range - moving to attack")
 							local tarPos = target:GetPosition()
 							IssueClearCommands( {cdr} )
 							IssueAttack( {cdr}, target )
@@ -3196,11 +3196,11 @@ function EngineerTransferAI( self, aiBrain )
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
 	
-	if Eng_Type == 'SCU' then
-		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
-	end
+	--if Eng_Type == 'SCU' then
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
+	--end
 	
 end
 
@@ -4415,7 +4415,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 				
 						SetBlockCommandQueue( unit, false)  
 
-						unit.Upgrading = false
+						unit.Upgrading = nil
 				
 						unit.failedbuilds = 0
 				

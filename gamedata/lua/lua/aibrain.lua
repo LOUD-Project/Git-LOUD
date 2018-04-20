@@ -1111,7 +1111,7 @@ AIBrain = Class(moho.aibrain_methods) {
 			
         end
 
-		LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName))
+		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName))
 		
 		-- add the buildermanager record to this brain
         self.BuilderManagers[baseName] = {

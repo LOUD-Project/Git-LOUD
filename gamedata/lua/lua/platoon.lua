@@ -665,7 +665,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." cannot find safe transport position to "..repr(destination).." aborting transport")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." aborting transport")
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 					
@@ -749,7 +749,7 @@ Platoon = Class(moho.platoon_methods) {
 					-- if no path then fail otherwise use it
 					if not path and destination != nil then
 				
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." transport failed and/or no path to destination ")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." transport failed and/or no path to destination ")
 					
 						return false
 				
@@ -1492,7 +1492,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- try to use transports --
 				if (self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious') and not experimental then
 				
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, transportLocation, 8, false )
+					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, transportLocation, 4, false )
 					
 				end
 				
@@ -2988,7 +2988,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 				else
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." finds no point")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." finds no point")
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					
@@ -3577,7 +3577,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- Use transports for amphib units if far or path not successful
 				if self.MovementLayer == 'Amphibious' and (not path or VDist3( position, marker ) > 900) then
 				
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 8, false )
+					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 4, false )
 					
 				end
 
@@ -5643,7 +5643,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			else
 			
-				WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
+				--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
 				
 				eng.EngineerBuildQueue = {}
 				eng.failedbuilds = eng.failedbuilds + 1
@@ -6395,7 +6395,11 @@ Platoon = Class(moho.platoon_methods) {
 										WaitTicks(2)
 
 										break
+										
+									else
 									
+										WaitTicks(12)
+										
 									end
 								
 								end
@@ -7042,14 +7046,8 @@ Platoon = Class(moho.platoon_methods) {
 					if ((not path and reason == 'NoPath') or bNeedTransports) then
 					
 						bNeedTransports = true
-						usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 15, false )
-				
-					-- use if available at 350 but use short waiting period
-					-- REPLACE 350 with PLATOON DATA - TRANSPORT DISTANCE BREAKPOINT
-					elseif (not bNeedTransports) and pos and targetdistance > 350 then
-					
-						usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 1, false )
-						
+						usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 8, false )
+
 					end
 					
 				end
@@ -7091,9 +7089,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- re-check HiPri target selection
 			-- check if Platoon becomes depleted
 			while PlatoonExists(aiBrain, self) and platpos and VDist2Sq( platpos[1],platpos[3], targetLocation[1],targetLocation[3] ) > ( 35*35 ) do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI in travel loop")
-				
+
 				WaitTicks(90)
 				
 				platpos = LOUDCOPY(GetPlatoonPosition(self))
@@ -7197,7 +7193,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 			
-			WaitTicks(90)
+			WaitTicks(50)
 			
 		end
 		
@@ -7551,11 +7547,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 				if (not path and reason == 'NoPath') then
 					
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 15, true )
-			
-				elseif VDist3( pos, targetLocation ) > 500 then
-					
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 1, true )
+					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 5, true )
 
 				end
 
@@ -7585,12 +7577,12 @@ Platoon = Class(moho.platoon_methods) {
 			local stuckcount = 0
 			local nocmdactive
 			
-			local calltransport = 4	-- call for transport on first pass --
+			local calltransport = 3	-- call for transport on first pass --
 			
             -- Move to target location and check self along the way -- try to call for transport if distant
 			while PlatoonExists(aiBrain, self) and pos and VDist2Sq( pos[1],pos[3], targetLocation[1],targetLocation[3] ) > ( 45*45 ) do
 				
-				WaitTicks(100)
+				WaitTicks(90)
 				
 				pos = GetPlatoonPosition(self)				
 
@@ -7677,8 +7669,8 @@ Platoon = Class(moho.platoon_methods) {
 				if (not experimentalunit) and pos and VDist2Sq( pos[1],pos[3], targetLocation[1],targetLocation[3] ) > ( 500*500 ) then
 				
 					-- if calltransport counter is 4 check for transport and reset the counter
-					-- thru this mechanism we only call for tranport every 5th loop (50 seconds)
-					if calltransport > 3 then
+					-- thru this mechanism we only call for tranport every 3rd loop (27 seconds)
+					if calltransport > 2 then
 						
 						usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetLocation, 1, true )
 						calltransport = 0

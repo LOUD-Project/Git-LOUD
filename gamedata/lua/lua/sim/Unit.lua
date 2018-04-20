@@ -4560,10 +4560,6 @@ Unit = Class(moho.unit_methods) {
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 		
-        -- if not shieldSpec then
-            -- bpShield = bp.Defense.Shield
-        -- end
-		
         if bpShield then
 		
             self:DestroyShield()
@@ -4584,10 +4580,12 @@ Unit = Class(moho.unit_methods) {
                 PassOverkillDamage = bpShield.PassOverkillDamage or false,
             }
 			
-            self:SetFocusEntity(self.MyShield)
-            self:EnableShield()
-            self.Trash:Add(self.MyShield)
+            self:SetFocusEntity( self.MyShield )
 			
+            self:EnableShield()
+			
+            self.Trash:Add( self.MyShield )
+
         end
 		
     end,
@@ -4641,14 +4639,9 @@ Unit = Class(moho.unit_methods) {
     CreateAntiArtilleryShield = function(self, shieldSpec)
 	
         local bp = GetBlueprint(self)
+		
         local bpShield = shieldSpec
-		
-        if not shieldSpec then
-		
-            bpShield = bp.Defense.Shield
-			
-        end
-		
+	
         if bpShield then
 		
             self:DestroyShield()

@@ -1418,8 +1418,8 @@ function GetTransports( platoon, aiBrain)
 
 		if transportplatoon then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." Returned To Pool ")
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Still needed "..neededTable.Large.." Lrg "..neededTable.Medium.." Med "..neededTable.Small.." Small slots")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." Returned To Pool ")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Still needed "..neededTable.Large.." Lrg "..neededTable.Medium.." Med "..neededTable.Small.." Small slots")
 			
 			ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true )
 			
@@ -1942,7 +1942,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					
 				else
 				
-					WARN("*AI DEBUG "..unit:GetAIBrain().Nickname.." FOUND TRANSPORT NOT ENOUGH SLOTS for "..unit:GetBlueprint().Description)
+					--WARN("*AI DEBUG "..unit:GetAIBrain().Nickname.." FOUND TRANSPORT NOT ENOUGH SLOTS for "..unit:GetBlueprint().Description)
 					
 					LOUDINSERT(leftoverUnits, unit)
 					
@@ -1950,7 +1950,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				
 			else
 			
-				LOG('*AI DEBUG: NO TRANSPORT FOUND')
+				--LOG('*AI DEBUG: NO TRANSPORT FOUND')
 				LOUDINSERT(leftoverUnits, unit)
 				
 			end
@@ -2467,9 +2467,7 @@ function ReturnUnloadedUnitToPool( aiBrain, unit )
 		
 			WaitTicks(20)
 		end
-	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." Unit unloaded now")
-	
+
 		returnpool:SetAIPlan('ReturnToBaseAI', aiBrain )
 		
 	end

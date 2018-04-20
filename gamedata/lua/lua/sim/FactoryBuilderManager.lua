@@ -631,7 +631,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 	end,
     
-	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E)
+	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
 	-- also waits for factory to be NOT busy (some units cause factory to pause after building)
 	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
     DelayBuildOrder = function( self, factory )
@@ -657,7 +657,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 		end
 
-		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - (factory.BuildLevel * 10)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - (factory.BuildLevel * 100))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
 		
 			WaitTicks(23 - (factory.BuildLevel * 3))
 			

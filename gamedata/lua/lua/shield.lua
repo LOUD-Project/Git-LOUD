@@ -36,9 +36,9 @@ Shield = Class(moho.shield_methods,Entity) {
         _c_CreateShield(self,spec)
     end,
 
-    OnCreate = function(self,spec)
+    OnCreate = function( self, spec )
 
-        self.Trash = TrashBag()
+        self.Trash = TrashBag()	-- so the shield itself has a trashbag -- why not use the Owners ?
         self.Owner = spec.Owner
 
         self.MeshBp = spec.Mesh
@@ -236,9 +236,7 @@ Shield = Class(moho.shield_methods,Entity) {
                 if self.RegenRate > 0 then
 				
                     self.RegenThread = ForkTo( self.RegenStartThread, self )
-					
-                    --self.Owner.Trash:Add(self.RegenThread)
-					
+
                 end
 				
             else
@@ -557,7 +555,7 @@ UnitShield = Class(Shield){
         self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
         self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
         
-        spec.ShieldVerticalOffset = spec.ShieldVerticalOffset
+        self.ShieldVerticalOffset = spec.ShieldVerticalOffset
 
         self:SetVizToFocusPlayer('Always')
         self:SetVizToEnemies('Intel')

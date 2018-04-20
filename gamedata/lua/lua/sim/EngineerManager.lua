@@ -182,11 +182,15 @@ EngineerManager = Class(BuilderManager) {
 			
 		end
 
+		-- SACU will have enhancement threads that may need rebuilding
+		-- so we cancel any existing thread and restart it
 		if LOUDENTITY( categories.SUBCOMMANDER, unit) then
 		
 			if unit.EnhanceThread then
 			
 				KillThread(unit.EnhanceThread)
+				
+				unit.EnhanceThread = nil
 				
 			end
 			

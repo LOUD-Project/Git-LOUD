@@ -265,7 +265,7 @@ BuilderManager = Class {
 
 				if task.OldPriority and task.OldPriority == 0 then
 				
-					LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
+					--LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
 					
 					LOUDREMOVE(self.BuilderData[unit.BuilderType].Builders,k)
 
@@ -288,7 +288,7 @@ BuilderManager = Class {
 		
 				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
 
-					LOG("*AI DEBUG Priority Function on "..TaskList[k].BuilderName.." to "..newPri)
+					--LOG("*AI DEBUG Priority Function on "..TaskList[k].BuilderName.." to "..newPri)
 					
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority(newPri, temporary)
 					
