@@ -98,9 +98,13 @@ function AIPickEnemyLogic( self, brainbool )
 			
             insertTable.Position, insertTable.Strength = self:GetHighestThreatPosition( 2, true, 'Structures', armyindex )
 			
-			--LOG("*AI DEBUG "..self.Nickname.." says Strength for "..v.Nickname.." is "..insertTable.Strength.." at "..repr(insertTable.Position))
-			--local pos,mys = v:GetHighestThreatPosition( 2, true, 'Structures', selfIndex )
-			--LOG("*AI DEBUG My strength is "..mys)
+			insertTable.Strength = math.max( insertTable.Strength, 10) 		-- a minimum of 10 --
+			
+			LOG("*AI DEBUG "..self.Nickname.." says Strength for "..v.Nickname.." is "..insertTable.Strength.." at "..repr(insertTable.Position))
+			
+			local pos,mys = v:GetHighestThreatPosition( 2, true, 'Structures', selfIndex )
+			
+			LOG("*AI DEBUG My strength is "..mys)
 			
             armyStrengthTable[armyindex] = insertTable
 			
@@ -158,8 +162,8 @@ function AIPickEnemyLogic( self, brainbool )
 			
             for k,v in armyStrengthTable do
 			
-                -- Ignore allies and weak enemies
-                if not v.Enemy or (v.Enemy and v.Strength < 20) then
+                -- Ignore allies 
+                if not v.Enemy then
 				
                     continue
 					

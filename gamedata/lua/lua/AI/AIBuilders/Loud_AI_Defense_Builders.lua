@@ -42,7 +42,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				end
 				
 				-- remove after 30 minutes
-				if GetGameTimeSeconds() > 1800 then
+				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
 				
@@ -1019,7 +1019,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
         BuilderConditions = {
 		
@@ -1100,7 +1100,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Small Base',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
         BuilderConditions = {
 		

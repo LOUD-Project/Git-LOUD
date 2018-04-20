@@ -2325,7 +2325,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		
 				IssueClearCommands( GetPlatoonUnits(transports) )
 
-				if safePath and GetGameTimeSeconds() > 720 then 
+				if safePath and aiBrain.CycleTime > 720 then 
 			
 					local prevposition = GetPlatoonPosition(transports) or false
 		
@@ -2680,7 +2680,7 @@ function CheckTransportPool( aiBrain )
 
 	local TransportPool = aiBrain.TransportPool
 
-	-- get all transports except UEF gunship --
+	-- get all idle, fully built transports except UEF gunship --
 	local unitlist = aiBrain:GetListOfUnits(((categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203)), true, true)
 	
 	for k,v in unitlist do
@@ -2700,7 +2700,7 @@ function CheckTransportPool( aiBrain )
 					continue
 				end
 				
-				if platoon.CreationTime and (GetGameTimeSeconds() - platoon.CreationTime) < 360 then
+				if platoon.CreationTime and (aiBrain.CycleTime - platoon.CreationTime) < 360 then
 					continue
 				end
 				

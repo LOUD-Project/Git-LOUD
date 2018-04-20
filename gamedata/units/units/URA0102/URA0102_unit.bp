@@ -64,7 +64,7 @@ UnitBlueprint {
         'RECLAIMABLE',
     },
     Defense = {
-        AirThreatLevel = 5,
+        AirThreatLevel = 5.6,
         ArmorType = 'Light',
         Health = 315,
         MaxHealth = 315,
@@ -183,21 +183,29 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 12,
+			
+            Damage = 14,
             DamageType = 'Normal',
+			
             DisplayName = 'Electron Autocannon',
+			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',
             },
-            FiringTolerance = 0.1,
+			
+            FiringTolerance = 0,
+			
             Label = 'AutoCannon',
+			
             MaxRadius = 30,
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 70,
+			
             ProjectileId = '/projectiles/CAAAutocannon02/CAAAutocannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.0,
+            ProjectileLifetime = 0.5,
 
             RackBones = {
                 {
@@ -214,10 +222,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 1,
+			
+            RateOfFire = 2,
+			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
+			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -226,17 +238,22 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
+			
             TrackingRadius = 1.25,
+			
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Muzzle01',
             TurretBoneYaw = 'Left_Muzzle01',
             TurretPitch = 0,
+			
             TurretPitchRange = 55,
             TurretPitchSpeed = 360,
             TurretYaw = 0,
+			
             TurretYawRange = 55,
             TurretYawSpeed = 360,
             Turreted = true,
+			
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
@@ -252,22 +269,31 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 12,
+			
+            Damage = 14,
             DamageType = 'Normal',
+			
             DisplayName = 'Electron Autocannon',
+			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',
             },
-            FiringTolerance = 0.1,
+			
+            FiringTolerance = 0,
+			
             Label = 'AutoCannon',
+			
             MaxRadius = 30,
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 70,
+			
             PrefersPrimaryWeaponTarget = true,
+			
             ProjectileId = '/projectiles/CAAAutocannon02/CAAAutocannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.0,
+            ProjectileLifetime = 0.5,
 
             RackBones = {
                 {
@@ -284,11 +310,16 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 1,
+			
+            RateOfFire = 2,
+			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -INTELLIGENCE',
@@ -297,16 +328,20 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.25,
+			
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Muzzle01',
             TurretBoneYaw = 'Right_Muzzle01',
             TurretPitch = 0,
+			
             TurretPitchRange = 55,
             TurretPitchSpeed = 360,
             TurretYaw = 0,
+			
             TurretYawRange = 55,
             TurretYawSpeed = 360,
             Turreted = true,
+			
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },

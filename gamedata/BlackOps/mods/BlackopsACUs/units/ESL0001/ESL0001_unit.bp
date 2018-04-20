@@ -506,9 +506,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXChronotonBooster = {
-            BuildCostEnergy = 15000,
-            BuildCostMass = 500,
-            BuildTime = 500,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Chronoton (T1)',
 			ZephyrDamageMod = 100,
@@ -1461,7 +1461,7 @@ UnitBlueprint {
             MaxRadius = 25,	#22
             MinRadius = 2,
 			
-            MuzzleChargeDelay = 0.4,
+            MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
@@ -1656,7 +1656,6 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
-            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1718,7 +1717,6 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
-            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1780,7 +1778,6 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
-            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2299,7 +2296,6 @@ UnitBlueprint {
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
             DisplayName = 'Olaris AA Artillery Cannon',
-            EffectiveRadius = 42,
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',

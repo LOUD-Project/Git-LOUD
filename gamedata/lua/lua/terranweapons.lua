@@ -110,7 +110,7 @@ TAAFlakArtilleryCannon = Class(DefaultProjectileWeapon) {
     #-- Custom over-ride for this weapon, so it passes data and damageTable
     CreateProjectileForWeapon = function(self, bone)
         local proj = self:CreateProjectile(bone)
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = self:GetBlueprint()
         local data = {
             Instigator = self.unit,
@@ -208,7 +208,7 @@ TIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     Fire = function(self)
         local myBlueprint = self:GetBlueprint()
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-        myProjectile:PassDamageData(self:GetDamageTable())
+        myProjectile:PassDamageData(self.damageTable)
         if self.Data then
             myProjectile:PassData(self.Data)
         end
@@ -227,7 +227,7 @@ TIFCarpetBombWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local projectile = self:CreateProjectile(bone)
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = self:GetBlueprint()
         local data = {
             Instigator = self.unit,

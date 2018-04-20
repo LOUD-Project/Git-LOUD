@@ -490,9 +490,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXRipperBooster = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'exrzb1',
             Name = 'Jury Rigged Ripper (T1)',
 			ZephyrDamageMod = 2,
@@ -2501,7 +2501,6 @@ UnitBlueprint {
             MuzzleVelocity = 100,
             ProjectileId = '/mods/BlackopsACUs/projectiles/EXInvisoProectile03/EXInvisoProectile03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
-            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2686,7 +2685,6 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            ProjectilesPerOnFire = 1,
 			PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
@@ -2774,7 +2772,6 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            ProjectilesPerOnFire = 1,
 			PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {

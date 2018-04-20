@@ -176,31 +176,43 @@ function CreateToolTip(parent, text)
 end
 
 function CreateExtendedToolTip(parent, text, desc)
+
     if text != "" or desc != "" then
+	
         local tooltip = Group(parent)
+		
         tooltip.Depth:Set(function() return parent.Depth() + 10000 end)
+		
         tooltip.Width:Set(150)
         
         if text != "" and text != nil then
+		
             tooltip.title = UIUtil.CreateText(tooltip, text, 14, UIUtil.bodyFont)
+			
             tooltip.title.Top:Set(tooltip.Top)
             tooltip.title.Left:Set(tooltip.Left)
-                    
+
             tooltip.bg = Bitmap(tooltip)
+			
             tooltip.bg:SetSolidColor(UIUtil.tooltipTitleColor)
+			
             tooltip.bg.Depth:Set(function() return tooltip.title.Depth() - 1 end)
             tooltip.bg.Top:Set(tooltip.title.Top)
             tooltip.bg.Bottom:Set(tooltip.title.Bottom)
             tooltip.bg.Left:Set(function() return tooltip.Left() - 2 end)
             tooltip.bg.Right:Set(function() return tooltip.Right() + 2 end)
+			
         end
         
         tooltip.desc = {}
         local tempTable = false
         
         if desc != "" and desc != nil then
+		
             tooltip.desc[1] = UIUtil.CreateText(tooltip, "", 12, UIUtil.bodyFont)
+
             tooltip.desc[1].Width:Set(tooltip.Width)
+
             if text == "" and text != nil then
                 tooltip.desc[1].Top:Set(tooltip.Top)
                 tooltip.desc[1].Left:Set(tooltip.Left)
@@ -209,20 +221,21 @@ function CreateExtendedToolTip(parent, text, desc)
             end
             
             local textBoxWidth = tooltip.Width()
-            tempTable = import('/lua/maui/text.lua').WrapText(LOC(desc), textBoxWidth,
-            function(text)
-                return  tooltip.desc[1]:GetStringAdvance(text)
-            end)
+
+            tempTable = import('/lua/maui/text.lua').WrapText(LOC(desc), textBoxWidth, function(text) return tooltip.desc[1]:GetStringAdvance(text)            end)
             
             for i=1, table.getn(tempTable) do
+			
                 if i == 1 then
                     tooltip.desc[i]:SetText(tempTable[i])
                 else
                     local index = i
+					
                     tooltip.desc[i] = UIUtil.CreateText(tooltip, tempTable[i], 12, UIUtil.bodyFont)
                     tooltip.desc[i].Width:Set(tooltip.desc[1].Width)
                     LayoutHelpers.Below(tooltip.desc[index], tooltip.desc[index-1])
                 end
+				
                 tooltip.desc[i]:SetColor('FFCCCCCC')
             end
             
@@ -233,6 +246,7 @@ function CreateExtendedToolTip(parent, text, desc)
             tooltip.extbg.Left:Set(function() return tooltip.Left() - 2 end)
             tooltip.extbg.Right:Set(function() return tooltip.Right() + 2 end)
             tooltip.extbg.Bottom:Set(tooltip.desc[table.getn(tempTable)].Bottom)
+			
         end
         
         

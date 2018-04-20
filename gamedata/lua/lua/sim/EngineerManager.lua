@@ -109,7 +109,7 @@ EngineerManager = Class(BuilderManager) {
 	-- this function adds an engineer to a base and sets up additional data
 	-- It then sends the engineer off to find work
     AddEngineerUnit = function( self, unit, dontAssign )
-		
+
         table.insert( self.EngineerList, unit )
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
@@ -139,26 +139,27 @@ EngineerManager = Class(BuilderManager) {
 			
 		end
 
+		unit.EventCallbacks.OnReclaimed = {}
+		unit.EventCallbacks.OnCaptured = {}
+		unit.EventCallbacks.OnKilled = {}
+
         local deathFunction = function( unit )
 		
 			self:RemoveEngineerUnit( unit )
 			
 		end
 
-		unit.EventCallbacks.OnReclaimed = {}
-		unit.EventCallbacks.OnCaptured = {}
-		unit.EventCallbacks.OnKilled = {}
-
+		-- setup engineer death callbacks --
 		unit:AddUnitCallback( deathFunction, 'OnReclaimed')
 		unit:AddUnitCallback( deathFunction, 'OnCaptured')
 		unit:AddUnitCallback( deathFunction, 'OnKilled')
 
-		if not unit.CallbacksSetup then
-		
-			unit:SetupEngineerCallbacks( self )
-			
-		end
+		-- setup other engineer callbacks --
+		unit:SetupEngineerCallbacks( self )
 
+		-- new engineers will execute this code 
+		-- transferred engineers will not since the RTB that is called by a transfer
+		-- will send them to an assignment when it completes
 		if not dontAssign then
     
 			while not unit.Dead and unit:GetFractionComplete() < 1 do
@@ -174,7 +175,7 @@ EngineerManager = Class(BuilderManager) {
 			end
 		
 			if not unit.Dead then
-			
+
 				if not unit.AssigningTask then
 				
 					self:ForkThread( self.DelayAssignEngineerTask, unit, unit:GetAIBrain() )
@@ -184,7 +185,25 @@ EngineerManager = Class(BuilderManager) {
 			end	
 			
 		end
+
+		if LOUDENTITY( categories.SUBCOMMANDER, unit) then
 		
+			if unit.EnhanceThread then
+			
+				KillThread(unit.EnhanceThread)
+				
+			end
+			
+			local aiBrain = unit:GetAIBrain()
+			
+			if not unit.EnhancementsComplete then
+			
+				unit.EnhanceThread = unit:ForkThread( import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
+			
+			end
+
+		end
+
         return
 		
     end,
@@ -336,12 +355,10 @@ EngineerManager = Class(BuilderManager) {
     -- This routine runs when an engy cant find a job to do
 	-- Delays him before seeking a new task to avoid thrashing the EM
     DelayAssignEngineerTask = function( self, unit, aiBrain )
-	
-		--FloatingEntityText( unit.Sync.id,'Delay assign task')
-	
+
 		WaitTicks(14 + (unit.failedbuilds * 6))
         
-        while unit and not unit.Dead do
+        while unit and not unit.Dead and not unit.AssigningTask do
 
 			--LOG("*AI DEBUG Eng "..unit.Sync.id.." in delay assign task "..unit.failedbuilds)
 
@@ -552,18 +569,12 @@ EngineerManager = Class(BuilderManager) {
     AssignTimeout = function( self, builderName, temporary )
     
 		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
-		
-    	--LOG("*AI DEBUG EM timeout for "..repr(builderName))
 
 		local priority = self:GetBuilderPriority(builderName)
-		
-		--LOG("*AI DEBUG Priority is "..repr(priority))
 		
         local builder = self:SetBuilderPriority(builderName, 10, true)
 
 		local priority = self:GetBuilderPriority(builderName)
-		
-		--LOG("*AI DEBUG timeout Priority is "..repr(priority).." builder is "..repr(builder) )
 		
 		if builder and priority then
 		
@@ -1325,7 +1336,7 @@ EngineerManager = Class(BuilderManager) {
 					
 						if grouplndcount > 4 then
 
-							LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 
 							-- only send response if we can muster 33% of enemy threat
 							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/3) then

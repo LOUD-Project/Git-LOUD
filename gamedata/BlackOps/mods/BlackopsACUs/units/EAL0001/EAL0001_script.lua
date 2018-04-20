@@ -385,8 +385,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 		self.ScryActive = false
 		self.regenamount = 0
 		
-		self.DefaultGunBuffApplied = false
-		self.DefaultGunBuffApplied02 = false
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self.Sync.Abilities.EXScryTarget.Active = false
     end,
@@ -583,32 +581,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 
         WaitSeconds(6)
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
-    end,
-
-    DefaultGunBuffThread = function(self)
-		if not self.DefaultGunBuffApplied then
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:AddDamageMod(100)
-			self.DefaultGunBuffApplied = true
-		end
-		if not self.wcBeam01 or not self.wcBeam02 or not self.wcBeam03 then
-			self:ShowBone('Basic_GunUp_Range', true)
-		else
-			self:HideBone('Basic_GunUp_Range', true)
-		end
-    end,
-
-    DefaultGunBuffThread02 = function(self)
-		if not self.DefaultGunBuffApplied02 then
-			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(30)
-			self.DefaultGunBuffApplied02 = true
-		end
-		if not self.wcBeam01 or not self.wcBeam02 or not self.wcBeam03 then
-			self:ShowBone('Basic_GunUp_RoF', true)
-		else
-			self:HideBone('Basic_GunUp_RoF', true)
-		end
     end,
 
     WeaponRangeReset = function(self)
@@ -1079,42 +1051,22 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBApoEngineering = false
 			
 		elseif enh =='EXDisruptorrBooster' then
-		
-			self:ForkThread(self.DefaultGunBuffThread)
+			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
+			wepDisruptor:AddDamageMod(50)
+			wepDisruptor:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius + 5)
+			self:ShowBone('Basic_GunUp_Range', true)
 			
         elseif enh =='EXDisruptorrBoosterRemove' then
-		
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
-			
-		elseif enh =='EXDisruptorrEnhancer' then
-		
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(35)
-			
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(35)
-			
-			self.DisruptorRange = true
+			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
+			wepDisruptor:AddDamageMod(-50)
+			wepDisruptor:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius)
+			self:HideBone('Basic_GunUp_Range', true)
 
-			self:ForkThread(self.DefaultGunBuffThread02)
-			
-        elseif enh =='EXDisruptorrEnhancerRemove' then
-		
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
-			self.DisruptorRange = false
-
-			
         elseif enh =='EXTorpedoLauncher' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(35)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(35)
 			self.wcTorp01 = true
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1122,12 +1074,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoLauncherRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1135,26 +1081,13 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
 		elseif enh =='EXTorpedoRapidLoader' then
-
-			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:AddDamageMod(100)
 			self.wcTorp01 = false
 			self.wcTorp02 = true
 			self.wcTorp03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-
-			self:ForkThread(self.DefaultGunBuffThread)
-			self:ForkThread(self.DefaultGunBuffThread02)
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-            wepDisruptor:AddDamageMod(-100)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1162,9 +1095,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
 		elseif enh =='EXTorpedoClusterLauncher' then
-
-			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:AddDamageMod(200)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = true
@@ -1172,13 +1102,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXTorpedoClusterLauncherRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-            wepDisruptor:AddDamageMod(-300)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1186,11 +1109,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXArtilleryMiasma' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(35)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(100)
 			self.wcArtillery01 = true
 			self.wcArtillery02 = false
 			self.wcArtillery03 = false
@@ -1201,12 +1119,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 
         elseif enh =='EXArtilleryMiasmaRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcArtillery01 = false
 			self.wcArtillery02 = false
 			self.wcArtillery03 = false
@@ -1217,7 +1129,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 
         elseif enh =='EXAdvancedShells' then
-
 			self.wcArtillery01 = false
 			self.wcArtillery02 = true
 			self.wcArtillery03 = false
@@ -1226,19 +1137,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
 			self:ForkThread(self.ArtyShieldCheck)
-
-			self:ForkThread(self.DefaultGunBuffThread)
-			self:ForkThread(self.DefaultGunBuffThread02)
 			
         elseif enh =='EXAdvancedShellsRemove' then
-		
 			self:RemoveToggleCap('RULEUTC_WeaponToggle')
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcArtillery01 = false
 			self.wcArtillery02 = false
 			self.wcArtillery03 = false
@@ -1249,7 +1150,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh =='EXImprovedReloader' then
-
 			self.wcArtillery01 = false
 			self.wcArtillery02 = false
 			self.wcArtillery03 = true
@@ -1260,14 +1160,8 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh =='EXImprovedReloaderRemove' then    
-		
 			self:RemoveToggleCap('RULEUTC_WeaponToggle')
 
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcArtillery01 = false
 			self.wcArtillery02 = false
 			self.wcArtillery03 = false
@@ -1278,11 +1172,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh =='EXBeamPhason' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(35)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(35)
 			self.wcBeam01 = true
 			self.wcBeam02 = false
 			self.wcBeam03 = false
@@ -1290,12 +1179,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXBeamPhasonRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcBeam01 = false
 			self.wcBeam02 = false
 			self.wcBeam03 = false
@@ -1304,26 +1187,14 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXImprovedCoolingSystem' then
-
-			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(40)
             self.wcBeam01 = false
 			self.wcBeam02 = true
 			self.wcBeam03 = false
 			
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)    
-
-			self:ForkThread(self.DefaultGunBuffThread)
-			self:ForkThread(self.DefaultGunBuffThread02)
 			
         elseif enh =='EXImprovedCoolingSystemRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcBeam01 = false
 			self.wcBeam02 = false
 			self.wcBeam03 = false
@@ -1332,9 +1203,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXPowerBooster' then
-
-			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            wepDisruptor:ChangeMaxRadius(40)
             self.wcBeam01 = false
 			self.wcBeam02 = false
 			self.wcBeam03 = true
@@ -1343,12 +1211,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXPowerBoosterRemove' then
-
-            local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[2].MaxRadius
-            wepDisruptor:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-			local wepTargetPainter = self:GetWeaponByLabel('EXTargetPainter')
-			wepTargetPainter:ChangeMaxRadius(22)
 			self.wcBeam01 = false
 			self.wcBeam02 = false
 			self.wcBeam03 = false
@@ -1357,7 +1219,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh == 'EXShieldBattery' then
-		
             self:AddToggleCap('RULEUTC_ShieldToggle')
 			
             self:CreatePersonalShield(bp)
@@ -1368,7 +1229,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
 		elseif enh == 'EXShieldBatteryRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXShieldBatteryRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1378,7 +1238,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh == 'EXActiveShielding' then
-		
             self:DestroyShield()
             ForkThread(function()
                 WaitTicks(1)
@@ -1391,7 +1250,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh == 'EXActiveShieldingRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXActiveShieldingRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1401,7 +1259,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh == 'EXImprovedShieldBattery' then
-		
             self:DestroyShield()
             ForkThread(function()
                 WaitTicks(1)
@@ -1415,7 +1272,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh == 'EXImprovedShieldBatteryRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXImprovedShieldBatteryRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1426,7 +1282,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.ArtyShieldCheck)
 			
         elseif enh == 'EXElectronicsEnhancment' then
-		
             self:SetIntelRadius('Vision', bp.NewVisionRadius or 50)
             self:SetIntelRadius('Omni', bp.NewOmniRadius or 50)
 
@@ -1436,7 +1291,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBIntTier3 = false
 			
         elseif enh == 'EXElectronicsEnhancmentRemove' then
-		
             local bpIntel = self:GetBlueprint().Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
@@ -1447,7 +1301,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBIntTier3 = false
 			
         elseif enh == 'EXElectronicCountermeasures' then
-
 			self.RBIntTier1 = true
 			self.RBIntTier2 = true
 			self.RBIntTier3 = false
@@ -1455,7 +1308,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.EnableRemoteViewingButtons)
 			
         elseif enh == 'EXElectronicCountermeasuresRemove' then
-		
             local bpIntel = self:GetBlueprint().Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
@@ -1468,7 +1320,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.DisableRemoteViewingButtons)
 			
         elseif enh == 'EXCloakingSubsystems' then
-		
             self:AddCommandCap('RULEUCC_Teleport')
 
 			self.RBIntTier1 = true
@@ -1476,7 +1327,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBIntTier3 = true
 			
         elseif enh == 'EXCloakingSubsystemsRemove' then
-		
             self:RemoveCommandCap('RULEUCC_Teleport')
 			
             local bpIntel = self:GetBlueprint().Intel
@@ -1491,7 +1341,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ForkThread(self.DisableRemoteViewingButtons)
 			
         elseif enh =='EXMaelstromQuantum' then
-
 			self.wcMaelstrom01 = true
 			self.wcMaelstrom02 = false
 			self.wcMaelstrom03 = false
@@ -1502,7 +1351,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBComTier3 = false
 			
         elseif enh =='EXMaelstromQuantumRemove' then
-
 			self.wcMaelstrom01 = false
 			self.wcMaelstrom02 = false
 			self.wcMaelstrom03 = false
@@ -1514,7 +1362,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBComTier3 = false
 			
         elseif enh =='EXFieldExpander' then
-
 			self:SetWeaponEnabledByLabel('EXAntiMissile', true)
             self.wcMaelstrom01 = false
 			self.wcMaelstrom02 = true
@@ -1528,7 +1375,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBComTier3 = false
 			
         elseif enh == 'EXFieldExpanderRemove' then
-
 			self:SetWeaponEnabledByLabel('EXAntiMissile', false)
             self.wcMaelstrom01 = false
 			self.wcMaelstrom02 = false
@@ -1542,7 +1388,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBComTier3 = false
 			
         elseif enh =='EXQuantumInstability' then
-
 			self:SetWeaponEnabledByLabel('EXAntiMissile', false)
             self.wcMaelstrom01 = false
 			self.wcMaelstrom02 = false
@@ -1556,7 +1401,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.RBComTier3 = true
 			
         elseif enh == 'EXQuantumInstabilityRemove' then
-
 			self:SetWeaponEnabledByLabel('EXAntiMissile', false)
             self.wcMaelstrom01 = false
 			self.wcMaelstrom02 = false

@@ -568,7 +568,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
         },    
     },
 	
-	-- forms patrols around DP (within 5k) and distress response
+	-- forms patrols around vacant DPs (within 5k) and distress response
     Builder {BuilderName = 'Standard Fighter Squadron DP',
 	
         PlatoonTemplate = 'FighterSquadron',
@@ -591,20 +591,20 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 500,
+			DistressRange = 400,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			
             LocationType = 'LocationType',
 			
 			PointType = 'Marker',		-- find closest DP marker within 200-500 --
-			PointCategory = 'Defensive Point',
+			PointCategory = { 'Defensive Point', 'Naval Defensive Point' },
 			PointSourceSelf = true,
 			PointFaction = 'Self',
-			PointRadius = 500,
+			PointRadius = 750,
 			PointSort = 'Closest',
 			PointMin = 200,
-			PointMax = 500,
+			PointMax = 750,
 			
 			StrCategory = categories.AIRSTAGINGPLATFORM - categories.MOBILE,	-- go only to those that DONT have an airstaging pad --
 			StrRadius = 50,
@@ -618,7 +618,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 			UntMin = 0,
 			UntMax = 20,
 			
-            PrioritizedCategories = {'AIR EXPERIMENTAL', 'AIR TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
+            PrioritizedCategories = {'AIR EXPERIMENTAL', 'TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
 			
 			GuardRadius = 300,
 			GuardTimer = 120,	-- patrol there for 2 minutes --

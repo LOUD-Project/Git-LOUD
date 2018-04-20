@@ -919,6 +919,7 @@ MobileUnit = Class(Unit) {
 		   
             self:DestroyIdleEffects()
             self:DestroyMovementEffects()
+			
             self:CreateMovementEffects( self.MovementEffectsBag, nil )
 			
             if bpMTable.BeamExhaust then
@@ -1061,8 +1062,11 @@ MobileUnit = Class(Unit) {
     OnTerrainTypeChange = function(self, new, old)
 
         if self.MovementEffectsExist then
+		
             self:DestroyMovementEffects()
+			
             self:CreateMovementEffects( self.MovementEffectsBag, nil, new )
+			
         end
 
     end,
@@ -1168,6 +1172,8 @@ MobileUnit = Class(Unit) {
         local bpTable = GetBlueprint(self).Display.MovementEffects
 
         CleanupEffectBag(self,'MovementEffectsBag')
+		
+		self.MovementEffectsBag = nil
 
         if self.CamShakeT1 then
 		
@@ -1214,6 +1220,12 @@ MobileUnit = Class(Unit) {
         self:DestroyIdleEffects()
         self:DestroyMovementEffects()
 		
+		if not self.TransportBeamEffectsBag then
+		
+			self.TransportBeamEffectsBag = {}
+			
+		end
+		
         LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( self, -1, transport, bone, self.Sync.army, EffectTemplate.TTransportBeam01))
         LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( transport, bone, self, -1, self.Sync.army, EffectTemplate.TTransportBeam02))
         LOUDINSERT( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, self.Sync.army, EffectTemplate.TTransportGlow01) )
@@ -1230,6 +1242,8 @@ MobileUnit = Class(Unit) {
         for _, v in self.TransportBeamEffectsBag do
             v:Destroy()
         end
+		
+		self.TransportBeamEffectsBag = nil
     end,
 
     TransportAnimation = function(self, rate)
@@ -2589,33 +2603,40 @@ RadarJammerUnit = Class(StructureUnit) {
     OnStartBuild = function(self, unitbuilding, order)
 	
         StructureUnit.OnStartBuild(self, unitbuilding, order)
+		
         self:SetMaintenanceConsumptionInactive()
         self:DisableIntel('Jammer')
         self:DisableIntel('RadarStealthField')
+		
     end,
 
     -- If we abort the upgrade, re-enable the intel
     OnStopBuild = function(self, unitBeingBuilt)
 	
         StructureUnit.OnStopBuild(self, unitBeingBuilt)
+		
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
         self:EnableIntel('RadarStealthField')
+		
     end,
 
     -- If we abort the upgrade, re-enable the intel
     OnFailedToBuild = function(self)
 	
         StructureUnit.OnStopBuild(self)
+		
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
         self:EnableIntel('RadarStealthField')
+		
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
 	
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
         self:SetMaintenanceConsumptionActive()
+		
     end,
     
     OnIntelEnabled = function(self)
@@ -2623,18 +2644,26 @@ RadarJammerUnit = Class(StructureUnit) {
         StructureUnit.OnIntelEnabled(self)
 		
         if self.IntelEffects and not self.IntelFxOn then
+		
 			self.IntelEffectsBag = {}
+			
 			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 			self.IntelFxOn = true
+			
 		end
     end,
 
     OnIntelDisabled = function(self)
 	
         StructureUnit.OnIntelDisabled(self)
+		
         CleanupEffectBag(self,'IntelEffectsBag')
-        self.IntelFxOn = false
-    end,       
+		
+		self.IntelEffectsBag = nil
+        self.IntelFxOn = nil
+		
+    end,
+	
 }
 
 SonarUnit = Class(StructureUnit) {
@@ -2740,6 +2769,7 @@ WalkingLandUnit = Class(MobileUnit) {
 
 					self.Animator:PlayAnim(bpDisplay.AnimationWalk, true)
 					self.Animator:SetRate(bpDisplay.AnimationWalkRate or 1)
+					
 				end
 				
 			elseif ( new == 'Stopped' ) then
@@ -2758,11 +2788,14 @@ WalkingLandUnit = Class(MobileUnit) {
 						self.Animator:Destroy()
 					end
 					
-					self.Animator = false
+					self.Animator = nil
+					
 				end
+				
 			end
 		
 		end
+		
     end,
 	
 	-- so that ACU and SCU get engy callbacks
@@ -3417,96 +3450,100 @@ AirUnit = Class(MobileUnit) {
 ConstructionUnit = Class(MobileUnit) {
 
 	-- this used to be part of the platoon file and was executed every time engy got a build order
-	-- now it runs only when the engy is first added to an Engineer Manager
+	-- now it runs only when the engy is added to an Engineer Manager
     SetupEngineerCallbacks = function( eng, EM )
         
         if eng and (not eng.Dead) then
-		
-			if (not eng.CallbacksSetup) then
 
-				local EngineerBuildDone = function( unit, finishedUnit )
+			local EngineerBuildDone = function( unit, finishedUnit )
 				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
 					
-						-- we do this to insure that the constructed unit gets acknowledged
-						-- since sometimes the original engineer dies and the unit is completed 
-						-- by an engineer in assist mode that didn't issue the original build order
-						EM:UnitConstructionFinished( eng, finishedUnit )
+					-- we do this to insure that the constructed unit gets acknowledged
+					-- since sometimes the original engineer dies and the unit is completed 
+					-- by an engineer in assist mode that didn't issue the original build order
+					EM:UnitConstructionFinished( eng, finishedUnit )
 						
-						if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
+					if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
 						
-							if not unit.NotBuildingThread then
-							
-								if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-									unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
-								end
-								
-							end
-							
-						end
-
-					end
-					
-				end
-
-				local EngineerCaptureDone = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-						if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-							unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
-						end
-					end
-				end
-
-				local EngineerFailedCapture = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-						if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-							unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
-						end	
-					end
-				end
-
-				local EngineerFailedToBuild = function( unit )
-				
-					if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
-					
 						if not unit.NotBuildingThread then
-						
-							if unit.IssuedBuildCommand then
 							
-								if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-									unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
-								end
-								
+							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
 							end
-							
+								
 						end
-						
+							
 					end
-					
-				end				
 
-				local EngineerStartBeingCaptured = function( unit )
-				
-					if unit.PlatoonHandle then
+				end
 					
-						local self = unit.PlatoonHandle
-						
-						self:SetAIPlan('ReturnToBaseAI', self:GetBrain())
+			end
+
+			local EngineerCaptureDone = function( unit )
+				
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
 					end
 				end
-
-				eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
-
-				eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
-				eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
-				eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
-				eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
-			
-				eng.CallbacksSetup = true
 			end
+
+			local EngineerFailedCapture = function( unit )
+				
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
+					end	
+				end
+			end
+
+			local EngineerFailedToBuild = function( unit )
+				
+				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+					
+					if not unit.NotBuildingThread then
+						
+						if unit.IssuedBuildCommand then
+							
+							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
+							end
+								
+						end
+							
+					end
+						
+				end
+					
+			end				
+
+			local EngineerStartBeingCaptured = function( unit )
+				
+				if unit.PlatoonHandle then
+					
+					local self = unit.PlatoonHandle
+						
+					self:SetAIPlan('ReturnToBaseAI', self:GetBrain())
+				end
+			end
+
+			eng.EventCallbacks.OnUnitBuilt = {}
+			
+			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
+				
+			eng.EventCallbacks.OnStopCapture = {}
+			eng.EventCallbacks.OnFailedCapture = {}
+			eng.EventCallbacks.OnFailedToBuild = {}
+			eng.EventCallbacks.OnStartBeingCaptured = {}
+			
+			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
+			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
+			eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
+			eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
+
         end
+		
     end,
 
     OnCreate = function(self)
@@ -3522,18 +3559,20 @@ ConstructionUnit = Class(MobileUnit) {
         end
 
         if self.BuildingOpenAnim then
-		
-            self.BuildingOpenAnimManip = CreateAnimator(self)
+
+            self.BuildingOpenAnimManip = CreateAnimator(self):PlayAnim(self.BuildingOpenAnim):SetRate(0)
+			
 			self.Trash:Add(self.BuildingOpenAnimManip)
 			
-            self.BuildingOpenAnimManip:SetPrecedence(1)
-            self.BuildingOpenAnimManip:PlayAnim(self.BuildingOpenAnim, false):SetRate(0)
+			self.BuildingOpenAnim = nil		-- dont need this anymore after playing it
 			
             if self.BuildArmManipulator then
                 self.BuildArmManipulator:Disable()
             end
         end
+		
         self.BuildingUnit = false
+		
     end,
 
     OnPaused = function(self)

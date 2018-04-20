@@ -9,7 +9,7 @@ local LUTL = '/lua/loudutilities.lua'
 -- imbedded into the Builder
 local First30Minutes = function( self,aiBrain )
 	
-	if GetGameTimeSeconds() > 1800 then
+	if aiBrain.CycleTime > 1800 then
 		return 0, false
 	end
 	
@@ -18,7 +18,7 @@ end
 
 local First45Minutes = function( self,aiBrain )
 	
-	if GetGameTimeSeconds() > 2700 then
+	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
 	
@@ -27,7 +27,7 @@ end
 
 local First60Minutes = function( self,aiBrain )
 	
-	if GetGameTimeSeconds() > 3600 then
+	if aiBrain.CycleTime > 3600 then
 		return 0, false
 	end
 	
@@ -50,7 +50,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'LessEconEnergyStorageCurrent', { 6000 }},
+			{ EBC, 'LessEconEnergyStorageCurrent', { 5900 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 45, 0 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
 			

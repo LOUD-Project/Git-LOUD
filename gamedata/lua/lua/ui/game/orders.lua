@@ -92,6 +92,7 @@ local function CreateAutoBuildEffect(parent)
 end
 
 function CreateMouseoverDisplay(parent, ID)
+
     if controls.mouseoverDisplay then
         controls.mouseoverDisplay:Destroy()
         controls.mouseoverDisplay = false
@@ -105,13 +106,21 @@ function CreateMouseoverDisplay(parent, ID)
     local desc = TooltipInfo['Tooltips'][ID]['description'] or ID
     
     if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] != "" then
+	
         for i, v in Keymapping do
+		
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
+			
                 local properkeyname = import('/lua/ui/dialogs/keybindings.lua').formatkeyname(i)
+				
                 text = LOCF("%s (%s)", text, properkeyname)
+				
                 break
+				
             end
+			
         end
+		
     end
     
     if not text or not desc then
@@ -119,30 +128,47 @@ function CreateMouseoverDisplay(parent, ID)
     end
 
     controls.mouseoverDisplay = Tooltip.CreateExtendedToolTip(parent, text, desc)
+	
     local Frame = GetFrame(0)
+	
     controls.mouseoverDisplay.Bottom:Set(parent.Top)
+	
     if (parent.Left() + (parent.Width() / 2)) - (controls.mouseoverDisplay.Width() / 2) < 0 then
+	
         controls.mouseoverDisplay.Left:Set(4)
+		
     elseif (parent.Right() - (parent.Width() / 2)) + (controls.mouseoverDisplay.Width() / 2) > Frame.Right() then
+	
         controls.mouseoverDisplay.Right:Set(function() return Frame.Right() - 4 end)
+		
     else
+	
         LayoutHelpers.AtHorizontalCenterIn(controls.mouseoverDisplay, parent)
+		
     end
     
     local alpha = 0.0
+	
     controls.mouseoverDisplay:SetAlpha(alpha, true)
+	
     local mdThread = ForkThread(function()
+	
         WaitSeconds(createDelay)
+		
         while alpha <= 1.0 do
+		
             controls.mouseoverDisplay:SetAlpha(alpha, true)
             alpha = alpha + 0.1
             WaitSeconds(0.01)
+			
         end
+		
     end)
 
     controls.mouseoverDisplay.OnDestroy = function(self)
         KillThread(mdThread)  
     end
+	
 end
 
 local function CreateOrderButtonGrid()

@@ -356,7 +356,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 		self.SpysatEnabled = false
 		self.regenammount = 0
 
-		self.DefaultGunBuffApplied = false
     end,
 
     PlayCommanderWarpInEffect = function(self)
@@ -563,17 +562,6 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:DisableUnitIntel('Sonar')
 			self.RadarDish1:SetTargetSpeed(0)
         end
-    end,
-
-    DefaultGunBuffThread = function(self)
-		if not self.DefaultGunBuffApplied then
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:AddDamageMod(100)
-			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(30)
-			self:ShowBone('Zephyr_Amplifier', true)
-			self.DefaultGunBuffApplied = true
-		end
     end,
 
     WeaponRangeReset = function(self)
@@ -1016,18 +1004,21 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 		elseif enh =='EXZephyrBooster' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(30)
-			self:ForkThread(self.DefaultGunBuffThread)
+            wepZephyr:AddDamageMod(50)
+			wepZephyr:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius + 5)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			self:ShowBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXZephyrBoosterRemove' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
+            wepZephyr:AddDamageMod(-50)
+			wepZephyr:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius)
+			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			self:HideBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXTorpedoLauncher' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(30)
 			self.wcTorp01 = true
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1035,10 +1026,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoLauncherRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1046,22 +1033,13 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoRapidLoader' then
-
-			local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:AddDamageMod(100)
 			self.wcTorp01 = false
 			self.wcTorp02 = true
 			self.wcTorp03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-            wepZephyr:AddDamageMod(-100)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1069,9 +1047,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
 		elseif enh =='EXTorpedoClusterLauncher' then
-
-			local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:AddDamageMod(200)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = true
@@ -1079,11 +1054,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoClusterLauncherRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
-            wepZephyr:AddDamageMod(-300)
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1091,9 +1061,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXAntiMatterCannon' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(30)
 			self.wcAMC01 = true
 			self.wcAMC02 = false
 			self.wcAMC03 = false
@@ -1101,10 +1068,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXAntiMatterCannonRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
@@ -1112,21 +1075,13 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXImprovedContainmentBottle' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(30)
 			self.wcAMC01 = false
 			self.wcAMC02 = true
 			self.wcAMC03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXImprovedContainmentBottleRemove' then    
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
@@ -1134,9 +1089,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXPowerBooster' then
-
-			local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(35)
             self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = true
@@ -1144,10 +1096,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)     
 
         elseif enh =='EXPowerBoosterRemove' then    
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
@@ -1155,9 +1103,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXGattlingEnergyCannon' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(35)
 			self.wcGatling01 = true
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1165,10 +1110,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXGattlingEnergyCannonRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1176,21 +1117,13 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXImprovedCoolingSystem' then
-
-			local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(40)
             self.wcGatling01 = false
 			self.wcGatling02 = true
 			self.wcGatling03 = false
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
-			self:ForkThread(self.DefaultGunBuffThread)
 			
         elseif enh =='EXImprovedCoolingSystemRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1198,9 +1131,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXEnergyShellHardener' then
-
-			local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:ChangeMaxRadius(45)
             self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = true
@@ -1208,10 +1138,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXEnergyShellHardenerRemove' then
-
-            local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            local bpDisruptZephyrRadius = self:GetBlueprint().Weapon[1].MaxRadius
-            wepZephyr:ChangeMaxRadius(bpDisruptZephyrRadius or 22)
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1219,7 +1145,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXShieldBattery' then
-		
             self:AddToggleCap('RULEUTC_ShieldToggle')
             self:CreatePersonalShield(bp)
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
@@ -1228,7 +1153,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.Rotator2:SetTargetSpeed(-180)
 
 		elseif enh == 'EXShieldBatteryRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXShieldBatteryRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1243,7 +1167,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.Rotator2:SetTargetSpeed(0)
 
         elseif enh == 'EXActiveShielding' then
-		
             self:DestroyShield()
             ForkThread(function()
                 WaitTicks(1)
@@ -1257,7 +1180,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXActiveShieldingRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXActiveShieldingRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1276,7 +1198,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXImprovedShieldBattery' then
-		
             self:DestroyShield()
             ForkThread(function()
                 WaitTicks(1)
@@ -1286,7 +1207,6 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:SetMaintenanceConsumptionActive()
 
         elseif enh == 'EXImprovedShieldBatteryRemove' then
-		
             self:DestroyShield()
             RemoveUnitEnhancement(self, 'EXImprovedShieldBatteryRemove')
             self:SetMaintenanceConsumptionInactive()
@@ -1305,7 +1225,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXShieldExpander' then
-		
             self:DestroyShield()
             ForkThread(function()
                 WaitTicks(1)
@@ -1315,7 +1234,6 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:SetMaintenanceConsumptionActive()
 
         elseif enh == 'EXShieldExpanderRemove' then
-		
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
@@ -1333,7 +1251,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXElectronicsEnhancment' then
-		
             self:SetIntelRadius('Vision', bp.NewVisionRadius or 50)
             self:SetIntelRadius('Omni', bp.NewOmniRadius or 50)
 			self.RadarDish1:SetTargetSpeed(45)
@@ -1347,7 +1264,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXElectronicsEnhancmentRemove' then
-		
             local bpIntel = self:GetBlueprint().Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
@@ -1362,7 +1278,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh == 'EXElectronicCountermeasures' then
-		
 			self.SpysatEnabled = true
 			self:ForkThread(self.EXSatSpawn)
             if self.IntelEffectsBag then
@@ -1381,7 +1296,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXElectronicCountermeasuresRemove' then
-		
 			self.SpysatEnabled = false
 			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
 				self.Satellite:Kill()
@@ -1405,7 +1319,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXCloakingSubsystems' then
-		
             self:AddCommandCap('RULEUCC_Teleport')
 
 			self.RBIntTier1 = true
@@ -1415,7 +1328,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXCloakingSubsystemsRemove' then
-		
 			self.SpysatEnabled = false
 			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
 				self.Satellite:Kill()
@@ -1440,7 +1352,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXClusterMisslePack' then
-
 			self.wcCMissiles01 = true
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
@@ -1453,7 +1364,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXClusterMisslePackRemove' then
-
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
@@ -1467,7 +1377,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXTacticalMisslePack' then
-		
             self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
 
@@ -1483,7 +1392,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXTacticalNukeSubstitution' then
-		
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:AddCommandCap('RULEUCC_Nuke')
@@ -1504,7 +1412,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = true
 
         elseif enh == 'EXTacticalMisslePackRemove' then
-		
             self:RemoveCommandCap('RULEUCC_Nuke')
             self:RemoveCommandCap('RULEUCC_SiloBuildNuke')
             self:RemoveCommandCap('RULEUCC_Tactical')
@@ -1549,21 +1456,20 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh == 'LeftPod' or enh == 'RightPod' then
-		
             TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
-            # making sure we have up to date information (dont delete! needed for bug fix below)
+            -- making sure we have up to date information (dont delete! needed for bug fix below)
             if not self.LeftPod or self.LeftPod:IsDead() then
                 self.HasLeftPod = false
             end
             if not self.RightPod or self.RightPod:IsDead() then
                 self.HasRightPod = false
             end
-            # fix for a bug that occurs when pod 1 is destroyed while upgrading to get pod 2
+            -- fix for a bug that occurs when pod 1 is destroyed while upgrading to get pod 2
             if enh == 'RightPod' and (not self.HasLeftPod or not self.HasRightPod) then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove')
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
             end
-            # add new pod to left or right
+            -- add new pod to left or right
             if not self.HasLeftPod then
                 local location = self:GetPosition('AttachSpecial02')
                 local pod = CreateUnitHPR('UEA0001', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
@@ -1581,13 +1487,13 @@ EEL0001 = Class(TWalkingLandUnit) {
                 self.RightPod = pod
                 self.HasRightPod = true
             end
-            # highlight correct icons: right if we have 2 pods, left if we have 1 pod (no other possibilities)
+            -- highlight correct icons: right if we have 2 pods, left if we have 1 pod (no other possibilities)
             if self.HasLeftPod and self.HasRightPod then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPod')
             else
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
             end
-        # for removing the pod upgrades
+        -- for removing the pod upgrades
         elseif enh == 'RightPodRemove' then
             TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
             if self.RightPod and not self.RightPod:IsDead() then

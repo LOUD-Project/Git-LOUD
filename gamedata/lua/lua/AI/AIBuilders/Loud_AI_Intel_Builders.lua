@@ -209,7 +209,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		PriorityFunction = function(self, aiBrain)
 		
 			if self.Priority != 0 then
-				if GetGameTimeSeconds() > 2700 then
+				if aiBrain.CycleTime > 2700 then
 					return 0, false
 				end
 			end
@@ -238,11 +238,11 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 			
 			if self.Priority != 0 then
 				
-				if GetGameTimeSeconds() > 1500 then
+				if aiBrain.CycleTime > 1500 then
 					return 803, true
 				end
 			
-				if GetGameTimeSeconds() > 4500 then
+				if aiBrain.CycleTime > 4500 then
 					return 0, false
 				end
 			end
@@ -271,7 +271,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 			
 			if self.Priority != 720 then
 			
-				if GetGameTimeSeconds() > 3600 then
+				if aiBrain.CycleTime > 3600 then
 					return 803, false
 				end
 			end
@@ -300,7 +300,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		
 			if self.Priority != 800 then
 			
-				if GetGameTimeSeconds() > 4500 then
+				if aiBrain.CycleTime > 4500 then
 					return 802, false
 				end
 			end

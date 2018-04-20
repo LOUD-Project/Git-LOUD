@@ -12,11 +12,11 @@ local LUTL = '/lua/loudutilities.lua'
 -- imbedded into the Builder
 local First30Minutes = function( self,aiBrain )
 	
-	if GetGameTimeSeconds() > 1800 then
+	if aiBrain.CycleTime > 1800 then
 		return 0, false
 	end
 	
-	return self.Priority,true
+	return self.Priority, true
 end
 
 -- Some notes here about the syntax of the Construction section of the builder task
@@ -242,7 +242,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.FACTORY }},
 			
         },
@@ -346,7 +346,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
 			
         },
@@ -380,13 +380,16 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
+		
 			if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
 				return 0, false
 			end
+			
 			-- remove after 30 minutes
-			if GetGameTimeSeconds() > 1800 then
+			if aiBrain.CycleTime > 1800 then
 				return 0, false
 			end
+			
 			return 700, false
 		end,
 		
@@ -433,7 +436,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
 			
         },
@@ -467,7 +470,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
 			
         },
@@ -527,6 +530,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
         Priority = 780,
 		
 		PriorityFunction = function(self, aiBrain)
+		
 			if ScenarioInfo.LOUD_IS_Installed then
 				return 0, false
 			end

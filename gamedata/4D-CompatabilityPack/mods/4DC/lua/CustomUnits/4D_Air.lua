@@ -1,8 +1,8 @@
 
 UnitList = {                      
     
-    T2AirGunship = {
-        Aeon = {'UAA0206', 10},     # Abolisher, Beam Cannon Gunship
+    T2Gunship = {
+        Aeon = {'UAA0206', 25},     -- Abolisher, Beam Cannon Gunship
 	},
 	
 }

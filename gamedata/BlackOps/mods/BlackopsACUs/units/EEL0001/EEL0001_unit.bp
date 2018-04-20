@@ -533,11 +533,11 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXZephyrBooster = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
+            BuildCostEnergy = 6000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'exrzb1',
-            Name = 'Jury Rigged Zephyr (T1)',
+            Name = 'Jury Rigged Zephyr',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 30,
             Slot = 'RCH',
@@ -2506,8 +2506,8 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Tactical Warhead',
-            EffectiveRadius = 0,
+            DisplayName = 'Tactical Warhead', -- Could be used with UI info.
+            EffectiveRadius = 0, -- Why is this here?
 			EnabledByEnhancement = 'EXTacticalMisslePack',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',

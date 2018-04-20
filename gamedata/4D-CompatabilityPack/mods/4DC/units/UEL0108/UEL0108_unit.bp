@@ -25,6 +25,7 @@ UnitBlueprint {
 	Buffs = {},
    
     BuildIconSortPriority = 40,
+	
     Categories = {
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
@@ -50,6 +51,7 @@ UnitBlueprint {
     Description = '<LOC uel0108_desc>Assault Tank',
 	
     Display = {
+	
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -66,6 +68,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -97,10 +100,13 @@ UnitBlueprint {
                 },
             },
         },
+		
         PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = false,
-        UniformScale = 0.019,
+        UniformScale = 0.016,
+		
     },
+	
     Economy = {
         BuildCostEnergy = 600,
         BuildCostMass = 130,
@@ -141,6 +147,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.65,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -157,9 +164,11 @@ UnitBlueprint {
         MaxSpeed = 3.0,
         MaxSpeedReverse = 3.0,
         MaxSteerForce = 10,
-        MeshExtentsX = 0.6,
-        MeshExtentsY = 0.3,
-        MeshExtentsZ = 0.85,
+		
+        MeshExtentsX = 0.5,
+        MeshExtentsY = 0.25,
+        MeshExtentsZ = 0.7,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
@@ -167,19 +176,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 40,
     },
+	
     SelectionCenterOffsetZ = -0.0,
-    SelectionSizeX = 0.4,
-    SelectionSizeZ = 0.6,
-    SelectionThickness = 0.6,
-    SizeX = 0.55,
-    SizeY = 0.36,
-    SizeZ = 0.78,
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.55,
+    SelectionThickness = 0.5,
+	
+    SizeX = 0.45,
+    SizeY = 0.3,
+    SizeZ = 0.64,
+	
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 1,
     },	
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -187,6 +201,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -202,6 +217,7 @@ UnitBlueprint {
             Damage = 88,
             DamageRadius = 1.0,
             DamageType = 'Normal',
+			DamageFriendly = false,
 			
             DisplayName = 'Gauss Cannon',
 			
@@ -272,6 +288,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

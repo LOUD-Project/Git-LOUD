@@ -128,7 +128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
 			
         },
@@ -164,7 +164,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},		
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
@@ -201,7 +201,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
         BuilderConditions = {
 		
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
 			
         },
@@ -273,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
 			
         },
@@ -302,13 +302,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         Priority = 750,
 		
-        InstanceCount = 6,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
 		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
 			
         },
@@ -329,6 +329,114 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
     },
 	
+    Builder {BuilderName = 'SCU Assist Land Experimental',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 750,
+		
+        InstanceCount = 2,
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderConditions = {
+		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
+			
+        },
+		
+        BuilderData = {
+		
+            Assist = {
+			
+				AssistRange = 125,
+                AssisteeType = 'Engineer',
+				AssisteeCategory = categories.ENGINEER,
+                BeingBuiltCategories = { (categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
+                Time = 150,
+				
+            },
+			
+        }
+		
+    },
+	
+    Builder {BuilderName = 'SCU Assist Air Experimental',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 750,
+		
+        InstanceCount = 2,
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderConditions = {
+		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
+			
+        },
+		
+        BuilderData = {
+		
+            Assist = {
+			
+				AssistRange = 125,
+                AssisteeType = 'Engineer',
+				AssisteeCategory = categories.ENGINEER,
+                BeingBuiltCategories = { (categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
+                Time = 150,
+				
+            },
+			
+        }
+		
+    },
+	
+    Builder {BuilderName = 'SCU Assist Artillery',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 750,
+		
+        InstanceCount = 2,
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderConditions = {
+		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE * categories.ARTILLERY, categories.ENGINEER, 125 }},
+			
+        },
+		
+        BuilderData = {
+		
+            Assist = {
+			
+				AssistRange = 125,
+                AssisteeType = 'Engineer',
+				AssisteeCategory = categories.ENGINEER,
+                BeingBuiltCategories = { (categories.STRUCTURE * categories.ARTILLERY) },
+                Time = 150,
+				
+            },
+			
+        }
+		
+    },
+
 }
 
 

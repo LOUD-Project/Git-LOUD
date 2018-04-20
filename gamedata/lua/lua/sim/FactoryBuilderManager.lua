@@ -8,7 +8,7 @@ local import = import
 local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
 
 local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
-local SCUSelfEnhanceThread = import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread
+
 local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
@@ -413,12 +413,6 @@ FactoryBuilderManager = Class(BuilderManager) {
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
-			
-			if LOUDENTITY( categories.SUBCOMMANDER, finishedUnit) and not finishedUnit.EnhanceThread then
-			
-				finishedUnit.EnhanceThread = finishedUnit:ForkThread( SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
-				
-			end
 
             ForkThread( EM.AddEngineerUnit, EM, finishedUnit )
 			
@@ -637,9 +631,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 	end,
     
-	-- this keeps the factory from trying to build if the basic resources are not available
+	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E)
 	-- also waits for factory to be NOT busy (some units cause factory to pause after building)
-	-- delays are dynamic - higher tier factorys wait less while those enhancing wait more
+	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
     DelayBuildOrder = function( self, factory )
 
 		if factory:BeenDestroyed() then
@@ -663,7 +657,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 		end
 
-		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - (factory.BuildLevel * 10)) or GetEconomyStored( aiBrain, 'ENERGY') < (2000 - (factory.BuildLevel * 100))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - (factory.BuildLevel * 10)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - (factory.BuildLevel * 100))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
 		
 			WaitTicks(23 - (factory.BuildLevel * 3))
 			

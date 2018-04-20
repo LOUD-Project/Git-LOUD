@@ -151,7 +151,7 @@ CANNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local projectile = CreateProjectile( self, bone )
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local bp = self:GetBlueprint()
         local data = {
             Instigator = self.unit,
@@ -202,7 +202,7 @@ CIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     Fire = function(self)
         local myBlueprint = self:GetBlueprint()
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-        myProjectile:PassDamageData(self:GetDamageTable())
+        myProjectile:PassDamageData(self.damageTable)
         if self.Data then
             myProjectile:PassData(self.Data)
         end
@@ -289,7 +289,7 @@ CAABurstCloudFlakArtilleryWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
         local projectile = CreateProjectile( self, bone )
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local blueprint = self:GetBlueprint()
         local data = {
             Instigator = self.unit,
@@ -336,7 +336,7 @@ CIFNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
     
     CreateProjectileForWeapon = function(self, bone)
         local proj = CreateProjectile( self, bone )
-        local damageTable = self:GetDamageTable()
+        local damageTable = self.damageTable
         local bp = self:GetBlueprint()
         local data = {
             Instigator = self.unit,

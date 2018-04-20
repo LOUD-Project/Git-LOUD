@@ -466,15 +466,15 @@ function ModBlueprints(all_blueprints)
 				if string.find(bp.BlueprintId, "/") and string.find(bp.BlueprintId, "/gamedata/") then
 					local slash = string.find(bp.BlueprintId, "/", 2)
 					slash = string.find(bp.BlueprintId, "/", slash + 1)
-					LOG(bp.BlueprintId)
+					--LOG(bp.BlueprintId)
 					bp.BlueprintId = string.sub(bp.BlueprintId, slash)
-					LOG(bp.BlueprintId)
+					--LOG(bp.BlueprintId)
 				end
 			end
 		end
 	end
 
-	LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
+	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
 
 	LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
 	LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
@@ -538,9 +538,19 @@ function ModBlueprints(all_blueprints)
 				bp.AI.GuardReturnRadius = capreturnradius
 			end
 
-			if bp.AI.GuardReturnRadius > 150 then
-				bp.AI.GuardReturnRadius = 150
+			if bp.AI.GuardReturnRadius > 80 then
+				bp.AI.GuardReturnRadius = 80
 			end
+		end
+		
+		if bp.AI.GuardScanRadius then
+		
+			if bp.AI.GuardScanRadius then
+			
+				bp.AI.GuardScanRadius = 80
+				
+			end
+			
 		end
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then

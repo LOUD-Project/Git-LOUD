@@ -3110,8 +3110,6 @@ function EngineerTransferAI( self, aiBrain )
 	local Eng_Cat = self.PlatoonData.TransferCategory
 	local Eng_Type = self.PlatoonData.TransferType
 
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Engineer FROM "..repr(eng.LocationType).." starts")
-
 	-- scan all bases and transfer if they dont have their maximum already
 	for k,v in aiBrain.BuilderManagers do
 	
@@ -3184,10 +3182,7 @@ function EngineerTransferAI( self, aiBrain )
 		local newbase = possibles[ Random(1,counter) ]
 		
 		-- add him to the selected base - but dont send him to assign task --
-		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, true )
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
+		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
 		
 		-- force platoon to use the new base as the RTBLocation
 		-- if you don't do this then the engineer will just RTB to his original base
@@ -3200,7 +3195,13 @@ function EngineerTransferAI( self, aiBrain )
 	end
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)
-
+	
+	LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
+	
+	if Eng_Type == 'SCU' then
+		LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
+	end
+	
 end
 
 -- === SPECIFIC UNIT BEHAVIORS ===
@@ -3550,7 +3551,7 @@ function CarrierThread ( carrier, aiBrain )
 		-- check the current storage levels and unit cap - and decide what unit to build
 		-- here's the beauty of this - the carrier can ALWAYS be building - moving or not - platoon or not
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			building = false
 			
@@ -3756,7 +3757,7 @@ function AtlantisCarrierThread ( carrier, aiBrain )
 
 		-- check the current storage levels and build if resources good
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			-- initialize the air platoons -- keep in mind that they'll disband shortly if we dont put something in them
 			-- we'll recreate them every pass (if not present) so that we can decide what to build
@@ -3934,7 +3935,7 @@ function CzarCarrierThread ( carrier, aiBrain )
 
 		-- check the current storage levels and build if resources good
 		if (aiBrain.IgnoreArmyCaps or ((GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex)) < .95) )	
-			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000) then
+			and (GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500) then
 			
 			-- initialize the air platoons -- keep in mind that they'll disband shortly if we dont put something in them
 			-- we'll recreate them every pass (if not present) so that we can decide what to build
@@ -4219,16 +4220,22 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 	local EFFTime, RateNeededE, RateNeededM
 	local count
     
-    while not unit.Dead do
+    while not unit.Dead and not unit.EnhancementsComplete do
 	
         CurrentEnhancement = EnhanceList[1]
+		
+		if HasEnhancement( unit, CurrentEnhancement) then
+
+			table.remove(EnhanceList, 1)
+
+		end
 		
         BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
         BuildCostM = EBP[CurrentEnhancement].BuildCostMass
         BuildCostT = EBP[CurrentEnhancement].BuildTime
 		
         -- if unit is idle and not currently in a platoon
-        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) then
+        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
             
             EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
             RateNeededE = BuildCostE / EffTime
@@ -4239,7 +4246,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 			
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
 					unit.AssigningTask = true
             
@@ -4312,13 +4319,16 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
         
         if HasEnhancement( unit, final) then
 		
-			unit.EnhanceThread = nil
 			unit.EnhancementsComplete = true
             break
 			
         end
 		
     end
+	
+	KillThread(unit.EnhanceThread)
+	
+	unit.EnhanceThread = nil
 	
 end
 
@@ -4327,7 +4337,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 
     local EBP = unit:GetBlueprint().Enhancements or false
 	
-	if not EBP then
+	if not EBP or unit.EnhancementsComplete then
 		return
 	end
 	
@@ -4337,7 +4347,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     local SetBlockCommandQueue = unit.SetBlockCommandQueue
 	
 	while not unit.Dead and unit:GetFractionComplete() < 1 do
-		WaitTicks(180)
+		WaitTicks(200)
 	end
 
 	-- this gets the sequence of enhancements
@@ -4360,7 +4370,9 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local BuildCostE, BuildCostM, BuildCostT
 	local EFFTime, RateNeededE, RateNeededM
   
-    while EBP and not unit.Dead do
+    while EBP and not unit.Dead and not unit.EnhancementsComplete do
+	
+		WaitTicks(200) -- before start of any enhancement --
 
         CurrentEnhancement = EnhanceList[1]
 		
@@ -4368,62 +4380,75 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
         BuildCostM = EBP[CurrentEnhancement].BuildCostMass
         BuildCostT = EBP[CurrentEnhancement].BuildTime
 		
-        if IsIdleState(unit) and not HasEnhancement(unit, final) then
-            
-            EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
-            RateNeededE = BuildCostE / EffTime
-            RateNeededM = BuildCostM / EffTime
+        EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
 
-            -- if we can meet 90% of the Energy and Mass needs of the enhancement
-            if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .9)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .9)) then
+        RateNeededE = BuildCostE / EffTime
+        RateNeededM = BuildCostM / EffTime
+
+        while not unit.Dead and not HasEnhancement(unit, CurrentEnhancement) do
+
+			if IsIdleState(unit) then
+
+				-- if we can meet 95% of the Energy and Mass needs of the enhancement
+				if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
 			
-				-- note that storage requirements for enhancements are just a little higher than those for factories building units
-				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 300 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 then
+					-- note that storage requirements for enhancements are just a little higher than those for factories building units
+					-- this is to insure that unit building and upgrading take priority over enhancements
+					if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
 				
-					IssueStop({unit})
-					IssueClearCommands({unit})
+						IssueStop({unit})
+						IssueClearCommands({unit})
 				
-					unit.Upgrading = true
+						unit.Upgrading = true
 				
-					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
+						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
 
-					repeat
-						WaitTicks(15)
-					until unit.Dead or IsUnitState(unit,'Enhancing')
+						repeat
+							WaitTicks(15)
+						until unit.Dead or IsUnitState(unit,'Enhancing')
 
-					SetBlockCommandQueue( unit, true)                
+						SetBlockCommandQueue( unit, true)                
 				
-					while not unit.Dead and IsUnitState(unit,'Enhancing') do
-						WaitTicks(100)
-					end    
+						while not unit.Dead and IsUnitState(unit,'Enhancing') do
+							WaitTicks(100)
+						end    
 				
-					SetBlockCommandQueue( unit, false)  
+						SetBlockCommandQueue( unit, false)  
 
-					unit.Upgrading = false
+						unit.Upgrading = false
 				
-					unit.failedbuilds = 0
+						unit.failedbuilds = 0
 				
-					-- since a manager will only be provided by a factory
-					if manager then
-						ForkThread(manager.DelayBuildOrder, manager, unit )
-					end
+						-- since a manager will only be provided by a factory
+						if manager then
+							ForkThread(manager.DelayBuildOrder, manager, unit )
+						end
               
-					if HasEnhancement( unit, CurrentEnhancement) then
-						table.remove(EnhanceList, 1)
+						if HasEnhancement( unit, CurrentEnhancement) then
+							table.remove(EnhanceList, 1)
+						end
+
+					else
+					
+						WaitTicks(40)
+						
 					end
 					
+				else
+				
+					WaitTicks(40)
+
 				end
 				
 			end
 			
+	        WaitTicks(25)		
+			
         end
-		
-        WaitTicks(36)
         
         if HasEnhancement( unit, final) then
 			
-			unit.Upgrading = false
+			unit.Upgrading = nil
 			unit.failedbuilds = 0
 			
             EBP = false
@@ -4432,8 +4457,11 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 		
     end
 	
-	unit.EnhanceThread = nil
 	unit.EnhancementsComplete = true
+	
+	KillThread(unit.EnhanceThread)
+	
+	unit.EnhanceThread = nil
 	
 end
 
@@ -4504,7 +4532,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while upgradeID !='' and init_delay < initialdelay do
 		
 		-- if we have basic mass and energy then advance init_delay counter -- uses the same values as factories do
-		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2000 and unit:GetFractionComplete() == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and unit:GetFractionComplete() == 1 then
 			init_delay = init_delay + 10
 		end
 		
@@ -4551,12 +4579,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
             if low_trigger_good and hi_trigger_good then
             
-			
-            
-				-- if not losing too much mass and energyflow is positive -- and energy consumption of the upgraded item is less than our current energytrend
+				-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 				-- or we have the amount of mass and energy stored to build this item
 
-				-- we could lighten these restrictions a little bit to allow more agressive upgrading
+				-- we could lighten these restrictions a little bit to allow more aggressive upgrading
 				-- currently -5 mass and gaining 50 energy
 				
                 
