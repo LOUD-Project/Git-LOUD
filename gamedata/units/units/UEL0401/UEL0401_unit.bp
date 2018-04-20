@@ -119,7 +119,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 330,
     },
 	
-    Description = 'Experimental Mobile Factory',
+    Description = '<LOC uel0401_desc>Experimental Mobile Factory',
 	
     Display = {
         Abilities = {
@@ -315,7 +315,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Fatboy',
+        UnitName = '<LOC uel0401_name>Fatboy',
         UnitWeight = 1,
     },
 	

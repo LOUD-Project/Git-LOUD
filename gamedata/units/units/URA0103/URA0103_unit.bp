@@ -74,7 +74,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Attack Bomber',
+    Description = '<LOC ura0103_desc>Attack Bomber',
     Display = {
         Abilities = {
             'Radar',
@@ -129,7 +129,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Zeus',
+        UnitName = '<LOC ura0103_name>Zeus',
         UnitWeight = 1,
     },
     Intel = {

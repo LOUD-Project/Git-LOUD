@@ -68,7 +68,7 @@ UnitBlueprint {
         },
     },
 	
-    Description = 'Experimental Squareshield & Storage',
+    Description = '<LOC uabssg02_desc>Experimental Squareshield & Storage',
 	
     Display = {
         DamageEffects = {
@@ -178,7 +178,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Luminesc',
+        UnitName = '<LOC uabssg02_name>Luminesc',
         UnitWeight = 1,
         UpgradesFrom = 'uabssg01',
     },

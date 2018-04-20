@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 3850,
         RegenRate = 1,
     },
-    Description = 'SAM Launcher',
+    Description = '<LOC uab2304_desc>SAM Launcher',
     Display = {
         Abilities = {
             'Aquatic',
@@ -107,7 +107,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Transcender',
+        UnitName = '<LOC uab2304_name>Transcender',
         UnitWeight = 1,
     },
     Intel = {

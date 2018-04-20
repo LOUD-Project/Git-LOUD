@@ -66,7 +66,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12,
     },
 	
-    Description = 'Amphibious Assault Bot',
+    Description = '<LOC brpt2btbot_desc>Amphibious Assault Bot',
 	
     Display = {
 		Abilities = {
@@ -185,7 +185,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Iltha',
+        UnitName = '<LOC brpt2btbot_name>Iltha',
         UnitWeight = 1,
     },
 	

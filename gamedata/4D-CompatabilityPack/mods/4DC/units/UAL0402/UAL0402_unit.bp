@@ -1,7 +1,7 @@
 --  File     : /units/UAL0402/UAL0402_unit.bp
 --  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
 --  Summary  : Aeon Overlord Experimental Assault Bot
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 
 UnitBlueprint {
     AI = {
@@ -78,7 +78,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 230,
     },
 	
-    Description = 'Experimental Assault Bot',
+    Description = '<LOC ual0402_desc>Experimental Assault Bot',
     Display = {
         Abilities = {
             'Amphibious',
@@ -242,7 +242,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Overlord',
+        UnitName = '<LOC ual0402_name>Overlord',
         UnitWeight = 2,
     },
 	

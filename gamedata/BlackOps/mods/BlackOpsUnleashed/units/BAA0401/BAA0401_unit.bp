@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 0,
     },
 	
-    Description = 'Experimental Satellite',
+    Description = '<LOC baa0401_desc>Experimental Satellite',
 	
     Display = {
         Mesh = {
@@ -108,7 +108,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Artemis',
+        UnitName = '<LOC baa0401_name>Artemis',
         UnitWeight = 1,
     },
 	

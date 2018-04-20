@@ -54,7 +54,7 @@ UnitBlueprint {
         MaxHealth = 1150,
         RegenRate = 1,
     },
-    Description = 'Engineering Station',
+    Description = '<LOC xeb0104_desc>Engineering Station',
     Display = {
         Abilities = {
             'Houses a mobile T2 Engineering Assist Drone',
@@ -152,7 +152,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Kennel',
+        UnitName = '<LOC xeb0104_name>Kennel',
         UnitWeight = 1,
         UpgradesTo = 'xeb0204',
     },

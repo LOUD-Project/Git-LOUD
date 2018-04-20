@@ -65,7 +65,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Strategic Missile Launcher',
+    Description = '<LOC ueb2305_desc>Strategic Missile Launcher',
 	
     Display = {
         Abilities = {
@@ -145,7 +145,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Stonager',
+        UnitName = '<LOC ueb2305_name>Stonager',
         UnitWeight = 1,
     },
 	

@@ -21,9 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     BuildIconSortPriority = 15,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYLANDTIER2FACTORY',
@@ -45,13 +45,13 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
     },
-	
+
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.05,
-	
+
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 106,	# BuildRate * 2 + 3% of health (shield included)
+        EconomyThreatLevel = 106,	-- BuildRate * 2 + 3% of health (shield included)
         Health = 630,
         MaxHealth = 630,
         RegenRate = 2,
@@ -71,18 +71,18 @@ UnitBlueprint {
             StartsOff = false,
         },
     },
-	
-    Description = 'Field Engineer',
-	
+
+    Description = '<LOC uel0209_desc>Field Engineer',
+
     Display = {
         Abilities = {
             'Field Engineering Suite - Defenses Only',
 			'Shield Bubble',
             'Radar & Sonar',
         },
-		
+
         AnimationWater = '/units/XEL0209/xel0209_afold.sca',
-		
+
 		MovementEffects = {
             Water = {
                 Effects = {
@@ -123,13 +123,13 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
-	
+
     Economy = {
         BuildCostEnergy = 1900,
         BuildCostMass = 300,
         BuildRate = 14,
         BuildTime = 1650,
-		
+
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DIRECTFIRE UEF',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE UEF',
@@ -138,23 +138,23 @@ UnitBlueprint {
 			'BUILTBYTIER2ENGINEER INTELLIGENCE UEF',
 			'BUILTBYTIER2ENGINEER WALL UEF',
         },
-		
+
         MaintenanceConsumptionPerSecondEnergy = 50,
 		MaxBuildDistance = 3.6,
-		
+
 		StorageEnergy = 200,
 		StorageMass = 20,
     },
-	
+
     General = {
-	
+
         BuildBones = {
             AimBone = 0,
             BuildEffectBones = {'Arm_Muzzle',},
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
-		
+
         Category = 'Construction',
         Classification = 'RULEUC_Engineer',
         CommandCaps = {
@@ -172,7 +172,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-		
+
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
@@ -187,10 +187,10 @@ UnitBlueprint {
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Sparky',
+        UnitName = '<LOC xel0209_name>Sparky',
         UnitWeight = 1,
     },
-	
+
     Intel = {
 		FreeIntel = true,
         OmniRadius = 10,
@@ -199,15 +199,15 @@ UnitBlueprint {
         VisionRadius = 20,
 		WaterVisionRadius = 20,
     },
-	
+
     Interface = {
         HelpText = 'Field Engineer',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.6,
-	
+
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -233,24 +233,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
-	
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.7,
-	
+
     SizeX = 0.7,
     SizeY = 1,
     SizeZ = 0.7,
-	
+
     StrategicIconName = 'icon_land2_engineer',
     StrategicIconSortPriority = 95,
-	
+
     Transport = {
         TransportClass = 2,
     },
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

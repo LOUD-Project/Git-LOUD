@@ -84,7 +84,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Spy Satellite',
+    Description = '<LOC eea0002_desc>Spy Satellite',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

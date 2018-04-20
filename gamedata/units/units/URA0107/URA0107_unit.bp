@@ -80,7 +80,7 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 4,
     },
-    Description = 'Light Air Transport',
+    Description = '<LOC ura0107_desc>Light Air Transport',
     Display = {
         AnimationIdle = '/units/URA0107/ura0107_Aidle.sca',
         AnimationLand = '/units/URA0107/ura0107_Aland.sca',
@@ -137,7 +137,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Skyhook',
+        UnitName = '<LOC ura0107_name>Skyhook',
         UnitWeight = 1,
     },
     Intel = {

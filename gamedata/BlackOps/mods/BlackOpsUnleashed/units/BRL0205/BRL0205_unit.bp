@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7.3,
     },
 	
-    Description = 'Ambush Bot',
+    Description = '<LOC brl0205_desc>Ambush Bot',
 	
     Display = {
         Abilities = {
@@ -142,7 +142,7 @@ UnitBlueprint {
             RULEUTC_CloakToggle = true,
         },
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Scorpion',
+        UnitName = '<LOC brl0205_name>Scorpion',
         UnitWeight = 1,
     },
     Intel = {

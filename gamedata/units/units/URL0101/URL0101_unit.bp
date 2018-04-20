@@ -39,7 +39,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 0.05,
     },
-    Description = 'Land Scout',
+    Description = '<LOC url0101_desc>Land Scout',
     Display = {
         Abilities = {
             'Cloaking',
@@ -96,7 +96,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_CloakToggle = true,
         },
-        UnitName = 'Mole',
+        UnitName = '<LOC url0101_name>Mole',
         UnitWeight = 1,
     },
     Intel = {

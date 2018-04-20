@@ -49,7 +49,7 @@ UnitBlueprint {
         SubThreatLevel = 9,
     },
 	
-    Description = 'Basic Torpedo Launcher',
+    Description = '<LOC uab2109_desc>Basic Torpedo Launcher',
     Display = {
         Abilities = {
             'Sonar',
@@ -102,7 +102,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Tide',
+        UnitName = '<LOC uab2109_name>Tide',
         UnitWeight = 1,
     },
     Intel = {

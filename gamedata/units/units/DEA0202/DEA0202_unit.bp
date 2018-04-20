@@ -104,7 +104,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4,
     },
 	
-    Description = 'Fighter/Bomber',
+    Description = '<LOC dea0202_desc>Fighter/Bomber',
 	
     Display = {
         Abilities = {
@@ -192,7 +192,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Janus',
+        UnitName = '<LOC dea0202_name>Janus',
         UnitWeight = 1,
     },
 	

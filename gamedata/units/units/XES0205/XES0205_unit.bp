@@ -58,7 +58,7 @@ UnitBlueprint {
         SubThreatLevel = 1,
     },
 	
-    Description = 'Shield Boat',
+    Description = '<LOC xes0205_desc>Shield Boat',
 	
     Display = {
         Abilities = {
@@ -170,7 +170,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Bulwark',
+        UnitName = '<LOC xes0205_name>Bulwark',
         UnitWeight = 1,
     },
 	

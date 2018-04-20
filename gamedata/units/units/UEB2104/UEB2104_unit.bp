@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 0.5,
     },
 	
-    Description = 'Basic AA Defense',
+    Description = '<LOC ueb2104_desc>Basic AA Defense',
 	
     Display = {
 	
@@ -116,7 +116,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Railgun',
+        UnitName = '<LOC ueb2104_name>Railgun',
         UnitWeight = 1,
     },
 	

@@ -54,7 +54,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -6,
         },
     },
-    Description = 'Heavy Shield Generator & Storage',
+    Description = '<LOC urb4303_desc>Heavy Shield Generator & Storage',
     Display = {
         AnimationUpgrade = '/units/URB4303/URB4303_aopen.sca',
         Mesh = {
@@ -140,7 +140,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'ED5',
+        UnitName = '<LOC urb4303_name>ED5',
         UnitWeight = 1,
         UpgradesFrom = 'urb4207',
         UpgradesFromBase = 'urb4202',

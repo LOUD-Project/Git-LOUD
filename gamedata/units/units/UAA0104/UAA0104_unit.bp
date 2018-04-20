@@ -94,7 +94,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 3,
     },
 	
-    Description = 'Combat Air Transport',
+    Description = '<LOC uaa0104_desc>Combat Air Transport',
 	
     Display = {
         Abilities = {
@@ -159,7 +159,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Aluminar',
+        UnitName = '<LOC uaa0104_name>Aluminar',
         UnitWeight = 1,
     },
 	

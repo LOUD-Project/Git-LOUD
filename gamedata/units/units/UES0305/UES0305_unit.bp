@@ -64,7 +64,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = 'Mobile Sonar Platform',
+    Description = '<LOC ues0305_desc>Mobile Sonar Platform',
 	
     Display = {
         Abilities = {

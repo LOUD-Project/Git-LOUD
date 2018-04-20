@@ -44,7 +44,7 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 2,
     },
-    Description = 'Improved Hydrocarbon Plant',
+    Description = '<LOC bsb1202_desc>Improved Hydrocarbon Plant',
     Display = {
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
         Mesh = {
@@ -100,7 +100,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Uya-atoh',
+        UnitName = '<LOC bsb1202_name>Uya-atoh',
         UnitWeight = 1,
 		UpgradesFrom = 'xsb1102',
         UpgradesTo = 'bsb1302',

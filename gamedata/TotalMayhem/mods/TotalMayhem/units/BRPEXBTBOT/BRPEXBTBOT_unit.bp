@@ -65,7 +65,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 75,
     },
 	
-    Description = 'Light Experimental AA Battle Bot',
+    Description = '<LOC brpexbtbot_desc>Light Experimental AA Battle Bot',
 	
     Display = {
 	
@@ -133,7 +133,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        UnitName = 'Tha-Yath',
+        UnitName = '<LOC brpexbtbot_name>Tha-Yath',
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },

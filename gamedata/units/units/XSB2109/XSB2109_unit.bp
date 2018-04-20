@@ -41,10 +41,10 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'SORTDEFENSE',
     },
-	
+
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0.05,
-	
+
     Defense = {
         ArmorType = 'Structure',
         Health = 1625,
@@ -53,9 +53,9 @@ UnitBlueprint {
         SubThreatLevel = 10,
         SurfaceThreatLevel = 10,
     },
-	
-    Description = 'Basic Torpedo Launcher',
-	
+
+    Description = '<LOC xsb2109_desc>Basic Torpedo Launcher',
+
     Display = {
         Abilities = {
             'Sonar',
@@ -119,7 +119,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Sou-atha',
+        UnitName = '<LOC xsb2109_name>Sou-atha',
         UnitWeight = 1,
     },
     Intel = {
@@ -183,25 +183,25 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-			
+
             Damage = 100,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Uall Cavitation Torpedo Launcher',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
             FiringTolerance = 30,
-			
+
             Label = 'Turret01',
-			
+
             MaxRadius = 45,
-			
+
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
-			
+
             ProjectileId = '/projectiles/SANUallCavitationTorpedo03/SANUallCavitationTorpedo03_proj.bp',
             ProjectileLifetime = 7,
 
@@ -220,18 +220,18 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
-			
+
             RateOfFire = 0.25,		-- 400 dmg every 4 secs = 100 dps
             TargetCheckInterval = 1,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -241,20 +241,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.3,
-			
+
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'XSB2109',
             TurretBoneYaw = 'XSB2109',
             TurretDualManipulators = false,
-			
+
             TurretPitch = -10,
             TurretPitchRange = 35,
             TurretPitchSpeed = 35,
-			
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 45,
-			
+
             Turreted = true,
         },
     },

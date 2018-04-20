@@ -59,7 +59,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 52,
     },
 	
-    Description = 'Assault Tank',
+    Description = '<LOC brpt3bt_desc>Assault Tank',
 	
     Display = {
         Abilities = {
@@ -125,7 +125,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hethaamah',
+        UnitName = '<LOC brpt3bt_name>Hethaamah',
         UnitWeight = 1,
     },
 	

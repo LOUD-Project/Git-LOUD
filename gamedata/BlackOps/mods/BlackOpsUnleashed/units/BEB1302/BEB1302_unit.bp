@@ -37,7 +37,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Advanced Hydrocarbon Power Plant',
+    Description = '<LOC beb1302_desc>Advanced Hydrocarbon Power Plant',
 	
     Display = {
 	
@@ -94,7 +94,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'HCPP - X3000',
+        UnitName = '<LOC beb1302_name>HCPP - X3000',
         UnitWeight = 1,
 		UpgradesFrom = 'beb1202',
     },

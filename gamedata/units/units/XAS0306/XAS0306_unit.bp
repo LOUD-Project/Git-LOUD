@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 225,
     },
 	
-    Description = 'Missile Cruiser',
+    Description = '<LOC xas0306_desc>Missile Cruiser',
 	
     Display = {
         Abilities = {
@@ -168,7 +168,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Torrent Class',
+        UnitName = '<LOC xas0306_name>Torrent Class',
         UnitWeight = 1,
     },
 	

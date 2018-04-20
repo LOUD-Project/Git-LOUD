@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 3,
     },
 	
-    Description = 'Light Sniper Bot',
+    Description = '<LOC bal0110_desc>Light Sniper Bot',
 	
     Display = {
     	Abilities = {
@@ -106,7 +106,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Requiem',
+        UnitName = '<LOC bal0110_name>Requiem',
         UnitWeight = 1,
     },
     Intel = {

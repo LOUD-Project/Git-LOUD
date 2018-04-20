@@ -33,7 +33,7 @@ UnitBlueprint {
         Health = 5500,
         MaxHealth = 5500,
     },
-    Description = 'Advanced Anti-Teleport Field Tower',
+    Description = '<LOC beb4309_desc>Advanced Anti-Teleport Field Tower',
     Display = {
         Abilities = {
         	'Anti-Teleport Field:Prevents Teleportation',
@@ -97,7 +97,7 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-        UnitName = 'ATF-305 Preventer',
+        UnitName = '<LOC beb4309_name>ATF-305 Preventer',
         UnitWeight = 1,
     },
     Intel = {

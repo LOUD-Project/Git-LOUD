@@ -74,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18,
     },
 	
-    Description = 'Rapid Assault Bot',
+    Description = '<LOC uel0303_desc>Rapid Assault Bot',
 	
     Display = {
         Abilities = {
@@ -159,7 +159,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Titan',
+        UnitName = '<LOC uel0303_name>Titan',
         UnitWeight = 1,
     },
 	

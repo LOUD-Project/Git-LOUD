@@ -84,7 +84,7 @@ UnitBlueprint {
         RegenRate = 6,
     },
 	
-    Description = 'Air-Superiority Fighter',
+    Description = '<LOC uaa0303_desc>Air-Superiority Fighter',
 	
     Display = {
         Abilities = {
@@ -138,7 +138,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Corona',
+        UnitName = '<LOC uaa0303_name>Corona',
         UnitWeight = 1,
     },
 	

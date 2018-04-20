@@ -67,7 +67,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 730,
     },
 	
-    Description = 'Experimental Roachbot',
+    Description = '<LOC wrl0404_desc>Experimental Roachbot',
 	
     Display = {
         Abilities = {
@@ -223,7 +223,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret', 
-        UnitName = 'Megalith MK II',
+        UnitName = '<LOC wrl0404_name>Megalith MK II',
         UnitWeight = 1,
     },
 	

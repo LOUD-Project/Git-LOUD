@@ -52,7 +52,7 @@ UnitBlueprint {
         MaxHealth = 4800,
         RegenRate = 2,
     },
-    Description = 'Basic Naval Factory',
+    Description = '<LOC xsb0103_desc>Basic Naval Factory',
     Display = {
         Abilities = {
             'Upgradeable',

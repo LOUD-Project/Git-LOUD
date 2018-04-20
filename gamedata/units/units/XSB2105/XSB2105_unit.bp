@@ -27,7 +27,7 @@ UnitBlueprint {
         'ENERGYSTORAGE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SHOWQUEUE',	
+        'SHOWQUEUE',
     },
     Defense = {
         ArmorType = 'Structure',
@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
-    Description = 'Improved Energy Storage',
+    Description = '<LOC xsb1105_desc>Improved Energy Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',

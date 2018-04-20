@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 0.2,
     },
 	
-    Description = 'Hover Scout',
+    Description = '<LOC ual0101_desc>Hover Scout',
 	
     Display = {
         Mesh = {
@@ -103,7 +103,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Spirit',
+        UnitName = '<LOC ual0101_name>Spirit',
         UnitWeight = 1,
     },
     Intel = {

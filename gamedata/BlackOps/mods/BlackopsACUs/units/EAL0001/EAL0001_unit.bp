@@ -112,7 +112,7 @@ UnitBlueprint {
 		MaxTeleRange = 500,
     },
 	
-    Description = 'Armored Command Unit',
+    Description = '<LOC eal0001_desc>Armored Command Unit',
 	
     Display = {
         Abilities = {

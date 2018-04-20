@@ -75,7 +75,7 @@ UnitBlueprint {
         SubThreatLevel = 15,
     },
 	
-    Description = 'Submarine Hunter',
+    Description = '<LOC xas0204_desc>Submarine Hunter',
 	
     Display = {
 	
@@ -225,7 +225,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Vesper',
+        UnitName = '<LOC xas0204_name>Vesper',
         UnitWeight = 1,
     },
 	

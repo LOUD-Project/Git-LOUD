@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 27,
     },
 	
-    Description = 'Advanced Multi-role Point Defense',
+    Description = '<LOC brot2epd_desc>Advanced Multi-role Point Defense',
 	
     Display = {
         Abilities = {
@@ -155,7 +155,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Daelek',
+        UnitName = '<LOC brot2epd_name>Daelek',
         UnitWeight = 1,
     },
 	

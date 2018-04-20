@@ -55,7 +55,7 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 4,
     },
-    Description = 'Hover Shield Generator',
+    Description = '<LOC xsl0307_desc>Hover Shield Generator',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -115,7 +115,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Athanah',
+        UnitName = '<LOC xsl0307_name>Athanah',
         UnitWeight = 1,
     },
     Intel = {

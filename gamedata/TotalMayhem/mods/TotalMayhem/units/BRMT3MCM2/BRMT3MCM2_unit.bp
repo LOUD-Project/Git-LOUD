@@ -63,7 +63,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 213,
     },
 	
-    Description = 'Experimental Medium Assault Mech',
+    Description = '<LOC brmt3mcm2_desc>Experimental Medium Assault Mech',
 	
     Display = {
         Abilities = {
@@ -177,7 +177,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'MadBolo',
+        UnitName = '<LOC brmt3mcm2_name>MadBolo',
         UnitWeight = 1,
     },
     Intel = {

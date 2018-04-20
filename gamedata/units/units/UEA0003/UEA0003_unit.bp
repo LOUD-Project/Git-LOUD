@@ -51,7 +51,7 @@ UnitBlueprint {
         MaxHealth = 6,
         RegenRate = 0,
     },
-    Description = 'Engineer Drone',
+    Description = '<LOC uea0003_desc>Engineer Drone',
     Display = {
         Abilities = {
             'Engineer Suite',
@@ -122,7 +122,7 @@ UnitBlueprint {
         },
         SelectionPriority = 6,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'C-D2 "Rover"',
+        UnitName = '<LOC uea0003_name>C-D2 "Rover"',
         UnitWeight = 1,
     },
     Intel = {

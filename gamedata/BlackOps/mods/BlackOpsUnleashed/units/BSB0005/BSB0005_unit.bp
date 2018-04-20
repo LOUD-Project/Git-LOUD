@@ -34,7 +34,7 @@ UnitBlueprint {
         MaxHealth = 1,
         RegenRate = 0,
     },
-    Description = 'Lambda Emitter',
+    Description = '<LOC bsb0005_desc>Lambda Emitter',
     Display = {
         AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BSB0005/BSB0005_Activate.sca',
         Mesh = {

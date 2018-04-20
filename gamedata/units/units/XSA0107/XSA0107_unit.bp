@@ -78,7 +78,7 @@ UnitBlueprint {
         MaxHealth = 595,
         RegenRate = 2,
     },
-    Description = 'Light Air Transport',
+    Description = '<LOC xsa0107_desc>Light Air Transport',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -133,7 +133,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vish',
+        UnitName = '<LOC xsa0107_name>Vish',
         UnitWeight = 1,
     },
     Intel = {

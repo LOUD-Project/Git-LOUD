@@ -40,7 +40,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Naval Factory',
+    Description = '<LOC bsb0004_desc>Naval Factory',
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {

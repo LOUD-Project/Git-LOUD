@@ -50,7 +50,7 @@ UnitBlueprint {
         MaxHealth = 30000,
         RegenRate = 8,
     },
-    Description = 'Advanced Naval Factory',
+    Description = '<LOC urb0303_desc>Advanced Naval Factory',
     Display = {
         BuildAttachBone = 'Attachpoint',
 

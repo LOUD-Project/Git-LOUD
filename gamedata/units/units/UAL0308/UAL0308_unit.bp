@@ -34,7 +34,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-	
+
     Defense = {
         ArmorType = 'Normal',
         Health = 425,
@@ -56,17 +56,17 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 4,
     },
-	
-    Description = 'Hvy Mobile Shield Generator',
-	
+
+    Description = '<LOC ual0307_desc>Hvy Mobile Shield Generator',
+
     Display = {
         Abilities = {
             'Hover',
             'Shield Dome',
         },
-		
+
         AnimationOpen = '/units/UAL0307/UAL0307_aopen.sca',
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -87,14 +87,14 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.65,
     },
-	
+
     Economy = {
         BuildCostEnergy = 4800,
         BuildCostMass = 600,
         BuildTime = 3200,
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
-	
+
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -125,7 +125,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Refuge',
+        UnitName = '<LOC ual0308_name>Refuge',
         UnitWeight = 1,
     },
     Intel = {

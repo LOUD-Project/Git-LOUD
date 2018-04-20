@@ -43,7 +43,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Basic Point Defense',
+    Description = '<LOC urb2101_desc>Basic Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -93,7 +93,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Auto Gun',
+        UnitName = '<LOC urb2101_name>Auto Gun',
         UnitWeight = 1,
     },
     Intel = {

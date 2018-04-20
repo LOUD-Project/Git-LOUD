@@ -51,7 +51,7 @@ UnitBlueprint {
         MaxHealth = 4500,
         RegenRate = 3,
     },
-    Description = 'Heavy AA Flak Artillery',
+    Description = '<LOC urb3304_desc>Heavy AA Flak Artillery',
     Display = {
         Abilities = {
             'Aquatic',
@@ -109,7 +109,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sky Net',
+        UnitName = '<LOC urb3304_name>Sky Net',
         UnitWeight = 1,
     },
     Intel = {

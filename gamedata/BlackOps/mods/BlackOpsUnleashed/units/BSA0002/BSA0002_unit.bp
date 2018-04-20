@@ -84,7 +84,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 1,
     },
-    Description = 'Repair Drone',
+    Description = '<LOC bsa0002_desc>Repair Drone',
     Display = {
     	Abilities = {
             'Engineering Suite',

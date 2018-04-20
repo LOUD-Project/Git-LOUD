@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 38,
     },
 	
-    Description = 'Heavy Microwave Tower',
+    Description = '<LOC urb2306_desc>Heavy Microwave Tower',
 	
     Display = {
         Abilities = {
@@ -135,7 +135,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Beholder',
+        UnitName = '<LOC urb2306_name>Beholder',
         UnitWeight = 1,
         SelectionPriority = 5,
     },

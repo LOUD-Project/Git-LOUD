@@ -48,7 +48,7 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 2,
     },
-    Description = 'Upgraded Engineering Station',
+    Description = '<LOC xeb0204_desc>Upgraded Engineering Station',
     Display = {
         Abilities = {
             'Adds a 2nd T2 Engineering Assist drone to existing Engineer Station',
@@ -133,7 +133,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Kennel',
+        UnitName = '<LOC xeb0204_name>Kennel',
         UnitWeight = 1,
         UpgradesFrom = 'xeb0104',
     },

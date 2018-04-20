@@ -46,7 +46,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 5.3,
     },
 	
-    Description = 'Heavy Tank',
+    Description = '<LOC uel0202_desc>Heavy Tank',
 	
     Display = {
         Mesh = {
@@ -96,7 +96,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Pillar',
+        UnitName = '<LOC uel0202_name>Pillar',
         UnitWeight = 1,
     },
     Intel = {

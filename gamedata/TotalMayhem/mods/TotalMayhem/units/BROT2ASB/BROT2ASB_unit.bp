@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Amphib Assault Bot',
+    Description = '<LOC brot2asb_desc>Amphib Assault Bot',
     Display = {
         Abilities = {
             'Amphibious',
@@ -133,7 +133,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Amphorak',
+        UnitName = '<LOC brot2asb_name>Amphorak',
         UnitWeight = 1,
     },
 	

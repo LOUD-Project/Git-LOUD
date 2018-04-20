@@ -89,7 +89,7 @@ UnitBlueprint {
 
     },
 	
-    Description = 'Gunship',
+    Description = '<LOC uaa0203_desc>Gunship',
 	
     Display = {
         LayerChangeEffects = {
@@ -161,7 +161,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Specter',
+        UnitName = '<LOC uaa0203_name>Specter',
         UnitWeight = 1,
     },
 	

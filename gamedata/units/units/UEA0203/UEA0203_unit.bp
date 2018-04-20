@@ -88,7 +88,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 6.4,
     },
 	
-    Description = 'Gunship',
+    Description = '<LOC uea0203_desc>Gunship',
     Display = {
 	
         Abilities = {
@@ -191,7 +191,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Stinger',
+        UnitName = '<LOC uea0203_name>Stinger',
         UnitWeight = 1,
     },
 	

@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7.5,
     },
 	
-    Description = 'Hover Tank',
+    Description = '<LOC xsl0203_desc>Hover Tank',
 	
     Display = {
         Mesh = {
@@ -112,7 +112,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Yenzyne',
+        UnitName = '<LOC xsl0203_name>Yenzyne',
         UnitWeight = 1,
     },
     Intel = {

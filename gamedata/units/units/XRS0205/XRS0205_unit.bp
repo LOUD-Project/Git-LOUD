@@ -43,7 +43,7 @@ UnitBlueprint {
         SubThreatLevel = 1,
     },
 	
-    Description = 'Counter-Intelligence Boat',
+    Description = '<LOC xrs0205_desc>Counter-Intelligence Boat',
 	
     Display = {
         Abilities = {
@@ -147,7 +147,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Mermaid',
+        UnitName = '<LOC xrs0205_name>Mermaid',
         UnitWeight = 1,
     },
 	

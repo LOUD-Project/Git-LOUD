@@ -27,7 +27,7 @@ UnitBlueprint {
         MaxHealth = 200,
         RegenRate = 0,
     },
-    Description = 'Stealth Field Generator',
+    Description = '<LOC xsb4203_desc>Stealth Field Generator',
     Display = {
         Abilities = {
 			'Upgradeable',
@@ -151,7 +151,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Sele-ioz',
+        UnitName = '<LOC xsb4203_name>Sele-ioz',
         UnitWeight = 1,
 		UpgradesTo = 'xsb4304',
 		

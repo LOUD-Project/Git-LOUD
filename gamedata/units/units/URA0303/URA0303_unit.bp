@@ -78,7 +78,7 @@ UnitBlueprint {
         RegenRate = 10,
     },
 	
-    Description = 'Air Superiority Fighter',
+    Description = '<LOC ura0303_desc>Air Superiority Fighter',
 	
     Display = {
         Abilities = {
@@ -143,7 +143,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Gemini',
+        UnitName = '<LOC ura0303_name>Gemini',
         UnitWeight = 1,
     },
     Intel = {

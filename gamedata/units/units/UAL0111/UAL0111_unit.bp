@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
-    Description = 'Mobile Missile Launcher',
+    Description = '<LOC ual0111_desc>Mobile Missile Launcher',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -100,7 +100,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Evensong',
+        UnitName = '<LOC ual0111_name>Evensong',
         UnitWeight = 1,
     },
     Intel = {

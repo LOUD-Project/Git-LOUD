@@ -73,7 +73,7 @@ UnitBlueprint {
         },
     },
 	
-    Description = 'Experimental Squareshield',
+    Description = '<LOC uabssg01_desc>Experimental Squareshield',
 	
     Display = {
         Abilities = {
@@ -195,7 +195,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Luminesc',
+        UnitName = '<LOC uabssg01_name>Luminesc',
         UnitWeight = 1,
         UpgradesTo = 'uabssg02',
     },

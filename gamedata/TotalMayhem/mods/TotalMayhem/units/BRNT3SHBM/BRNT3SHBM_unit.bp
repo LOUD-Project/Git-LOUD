@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 544,
     },
 	
-    Description = 'Experimental Battle Mech',
+    Description = '<LOC brnt3shbm_desc>Experimental Battle Mech',
 	
     Display = {
 	
@@ -182,7 +182,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Mayhem Mk.2',
+        UnitName = '<LOC brnt3shbm_name>Mayhem Mk.2',
         UnitWeight = 4,
     },
 	

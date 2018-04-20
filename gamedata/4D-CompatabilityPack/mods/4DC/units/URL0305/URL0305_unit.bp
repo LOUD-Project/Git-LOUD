@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 16,
     },
 	
-    Description = 'Crawfish',
+    Description = '<LOC url0305_desc>Crawfish',
 	
     Display = {
 		Abilities = {
@@ -122,7 +122,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Crawfish',
+        UnitName = '<LOC url0305_name>Crawfish',
         UnitWeight = 1,
     },
 	

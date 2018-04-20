@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.4,
     },
 	
-    Description = 'Assault Bot',
+    Description = '<LOC url0107_desc>Assault Bot',
 	
     Display = {
         Abilities = {
@@ -128,7 +128,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Mantis',
+        UnitName = '<LOC url0107_name>Mantis',
         UnitWeight = 1,
     },
 	

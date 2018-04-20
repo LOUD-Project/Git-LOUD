@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 4,
     },
 	
-    Description = 'Improved Naval Factory',
+    Description = '<LOC urb0203_desc>Improved Naval Factory',
 	
     Display = {
         Abilities = {

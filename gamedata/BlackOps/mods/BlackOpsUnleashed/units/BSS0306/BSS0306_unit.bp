@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 93,
     },
 	
-    Description = 'Heavy Cruiser',
+    Description = '<LOC bss0306_desc>Heavy Cruiser',
 	
     Display = {
         Abilities = {
@@ -151,7 +151,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ithaluthe-Esel',
+        UnitName = '<LOC bss0306_name>Ithaluthe-Esel',
         UnitWeight = 1,
     },
 	

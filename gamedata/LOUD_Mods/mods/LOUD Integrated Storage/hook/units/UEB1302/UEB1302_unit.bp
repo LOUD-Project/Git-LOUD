@@ -2,7 +2,7 @@ UnitBlueprint {
 	Merge = true,
 	BlueprintId = "ueb1302",
 
-    Description = 'Advanced Mass Extractor',
+    Description = '<LOC ueb1302_desc>Advanced Mass Extractor',
 
     Economy = {
         BuildCostEnergy = 31625,

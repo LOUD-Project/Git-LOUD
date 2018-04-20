@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 14, 
     },
 	
-    Description = 'Sniper Bot',
+    Description = '<LOC ual0204_desc>Sniper Bot',
 	
     Display = {
         Abilities = {
@@ -202,7 +202,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Predator',
+        UnitName = '<LOC ual0204_name>Predator',
         UnitWeight = 1,
     },
     Intel = {

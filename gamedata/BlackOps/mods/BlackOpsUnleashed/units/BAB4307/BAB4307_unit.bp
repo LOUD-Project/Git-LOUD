@@ -56,7 +56,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 10,
     },
-    Description = 'Advanced Tactical Missile Defense',
+    Description = '<LOC bab4307_desc>Advanced Tactical Missile Defense',
     Display = {
         Abilities = {
             'Tactical Missile Defense',

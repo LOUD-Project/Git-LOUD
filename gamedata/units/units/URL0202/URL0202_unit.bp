@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7.2,
     },
 	
-    Description = 'Heavy Tank',
+    Description = '<LOC url0202_desc>Heavy Tank',
 	
     Display = {
         Mesh = {
@@ -95,7 +95,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Rhino',
+        UnitName = '<LOC url0202_name>Rhino',
         UnitWeight = 1,
     },
 	

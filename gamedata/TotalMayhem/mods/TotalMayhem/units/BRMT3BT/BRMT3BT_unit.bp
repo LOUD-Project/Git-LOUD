@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 22,
     },
 	
-    Description = 'Adv. Assault Tank',
+    Description = '<LOC brmt3bt_desc>Adv. Assault Tank',
 	
     Display = {
         Mesh = {
@@ -96,7 +96,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Mastodon',
+        UnitName = '<LOC brmt3bt_name>Mastodon',
         UnitWeight = 1,
     },
     Intel = {

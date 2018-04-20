@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Mobile AA Gun',
+    Description = '<LOC uel0104_desc>Mobile AA Gun',
 	
     Display = {
         Mesh = {
@@ -99,7 +99,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Archer',
+        UnitName = '<LOC uel0104_name>Archer',
         UnitWeight = 1,
     },
 	

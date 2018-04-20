@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 225,
     },
 	
-    Description = 'Bombardment Ship',
+    Description = '<LOC brmst3bom_desc>Bombardment Ship',
 	
     Display = {
         Abilities = {
@@ -174,7 +174,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Magna Class',
+        UnitName = '<LOC brmst3bom_name>Magna Class',
         UnitWeight = 1,
     },
 	

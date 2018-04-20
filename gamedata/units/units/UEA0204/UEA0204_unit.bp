@@ -98,7 +98,7 @@ UnitBlueprint {
         SubThreatLevel = 9.6,
     },
 	
-    Description = 'Torpedo Bomber',
+    Description = '<LOC uea0204_desc>Torpedo Bomber',
 	
     Display = {
 	
@@ -155,7 +155,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Stork',
+        UnitName = '<LOC uea0204_name>Stork',
         UnitWeight = 1,
     },
 	

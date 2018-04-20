@@ -94,7 +94,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 55,
     },
 	
-    Description = 'Strategic Bomber',
+    Description = '<LOC ura0304_desc>Strategic Bomber',
 	
     Display = {
         Abilities = {
@@ -160,7 +160,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Revenant',
+        UnitName = '<LOC ura0304_name>Revenant',
         UnitWeight = 1,
     },
     Intel = {

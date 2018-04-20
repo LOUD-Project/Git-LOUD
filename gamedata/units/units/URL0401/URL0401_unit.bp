@@ -85,7 +85,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 390,
     },
 	
-    Description = 'Experimental Mobile Rapid-Fire Artillery',
+    Description = '<LOC url0401_desc>Experimental Mobile Rapid-Fire Artillery',
 	
     Display = {
         Abilities = {
@@ -145,7 +145,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Scathis',
+        UnitName = '<LOC url0401_name>Scathis',
         UnitWeight = 1,
     },
 	

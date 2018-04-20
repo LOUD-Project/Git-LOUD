@@ -46,7 +46,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Improved Point Defense',
+    Description = '<LOC urb2301_desc>Improved Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -98,7 +98,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Cerberus',
+        UnitName = '<LOC urb2301_name>Cerberus',
         UnitWeight = 1,
     },
 	

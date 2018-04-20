@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'AA Flak Artillery',
+    Description = '<LOC ueb2204_desc>AA Flak Artillery',
 	
     Display = {
         Abilities = {
@@ -109,7 +109,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Air Cleaner',
+        UnitName = '<LOC ueb2204_name>Air Cleaner',
         UnitWeight = 1,
     },
     Intel = {

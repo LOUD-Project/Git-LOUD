@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 6,
     },
 	
-    Description = 'Mobile Sonar Platform',
+    Description = '<LOC urs0305_desc>Mobile Sonar Platform',
 	
     Display = {
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
 			RULEUTC_CloakToggle = true,
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Flood XR',
+        UnitName = '<LOC urs0305_name>Flood XR',
         UnitWeight = 1,
         UpgradesFrom = 'urb3202',
     },

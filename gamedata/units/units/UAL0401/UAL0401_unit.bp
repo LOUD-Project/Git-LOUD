@@ -80,7 +80,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 280,
     },
 	
-    Description = 'Hey! ERNIE is here!!',
+    Description = '<LOC ual0401_desc>Hey! ERNIE is here!!',
 	
     Display = {
         Abilities = {
@@ -197,7 +197,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Galactic Colossus',
+        UnitName = '<LOC ual0401_name>Galactic Colossus',
         UnitWeight = 1,
     },
 	

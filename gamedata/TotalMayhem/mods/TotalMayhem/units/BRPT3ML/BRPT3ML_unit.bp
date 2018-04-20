@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 11,
     },
 	
-    Description = 'Thau Battery',
+    Description = '<LOC brpt3ml_desc>Thau Battery',
 	
     Display = {
 		Abilities = {
@@ -153,7 +153,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Heth-Zthuha',
+        UnitName = '<LOC brpt3ml_name>Heth-Zthuha',
         UnitWeight = 1,
     },
     Intel = {

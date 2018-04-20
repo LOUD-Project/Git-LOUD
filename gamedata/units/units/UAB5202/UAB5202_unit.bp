@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Air Staging Facility',
+    Description = '<LOC uab5202_desc>Air Staging Facility',
 	
     Display = {
         Abilities = {
@@ -115,7 +115,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Cradle',
+        UnitName = '<LOC uab5202_name>Cradle',
         UnitWeight = 1,
     },
     Interface = {

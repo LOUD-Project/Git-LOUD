@@ -61,7 +61,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 7,
     },
-    Description = 'Assault Bot',
+    Description = '<LOC brot1exm1_desc>Assault Bot',
     Display = {
         AnimationDeath = {
             {
@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Medusa',
+        UnitName = '<LOC brot1exm1_name>Medusa',
         UnitWeight = 1,
     },
     Intel = {

@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 105,
     },
 	
-    Description = 'Experimental AA Cruiser',
+    Description = '<LOC xss0403_desc>Experimental AA Cruiser',
 	
     Display = {
 	
@@ -164,7 +164,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Vergra',
+        UnitName = '<LOC xss0403_name>Vergra',
         UnitWeight = 1,
     },
 	

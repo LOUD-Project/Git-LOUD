@@ -39,7 +39,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 6,
     },
-    Description = 'Basic Point Defense',
+    Description = '<LOC ueb2101_desc>Basic Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -89,7 +89,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Plasma Cannon',
+        UnitName = '<LOC ueb2101_name>Plasma Cannon',
         UnitWeight = 1,
     },
     Intel = {

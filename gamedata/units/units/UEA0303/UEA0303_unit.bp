@@ -78,7 +78,7 @@ UnitBlueprint {
         MaxHealth = 2300,
         RegenRate = 6,
     },
-    Description = 'Air-Superiority Fighter',
+    Description = '<LOC uea0303_desc>Air-Superiority Fighter',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -130,7 +130,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Wasp',
+        UnitName = '<LOC uea0303_name>Wasp',
         UnitWeight = 1,
     },
     Intel = {

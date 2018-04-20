@@ -35,7 +35,7 @@ UnitBlueprint {
         MaxHealth = 9000,
         RegenRate = 2,
     },
-    Description = 'Advanced Mass Extractor',
+    Description = '<LOC ueb1302_desc>Advanced Mass Extractor',
     Display = {
         AnimationOpen = '/units/ueb1302/ueb1302_Apump.sca',
         AnimationUpgrade = '/units/ueb1302/ueb1302_Aupgrade.sca',

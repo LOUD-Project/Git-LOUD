@@ -27,7 +27,7 @@ UnitBlueprint {
         MaxHealth = 225,
     },
 	
-    Description = 'Stealth Field Generator',
+    Description = '<LOC ueb4203_desc>Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -84,7 +84,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Scattershield',
+        UnitName = '<LOC ueb4203_name>Scattershield',
         UnitWeight = 1,
 		UpgradesTo = 'ueb4304',
     },

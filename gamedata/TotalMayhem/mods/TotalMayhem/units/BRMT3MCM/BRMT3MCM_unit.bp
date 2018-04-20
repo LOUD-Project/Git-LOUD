@@ -64,7 +64,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 193,
     },
 	
-    Description = 'Experimental Light Assault Mech',
+    Description = '<LOC brmt3mcm_desc>Experimental Light Assault Mech',
 	
     Display = {
         Abilities = {
@@ -178,7 +178,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'MadCat',
+        UnitName = '<LOC brmt3mcm_name>MadCat',
         UnitWeight = 1,
     },
     Intel = {

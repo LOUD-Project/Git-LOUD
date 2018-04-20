@@ -43,7 +43,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 40,
     },
-    Description = 'Rocket System',
+    Description = '<LOC brnt3pdro_desc>Rocket System',
     Display = {
         Mesh = {
             IconFadeInZoom = 160,
@@ -104,7 +104,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Rocket Pad',
+        UnitName = '<LOC brnt3pdro_name>Rocket Pad',
         UnitWeight = 1,
     },
     Intel = {

@@ -67,7 +67,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10,
     },
 	
-    Description = 'Mobile Heavy Artillery',
+    Description = '<LOC xsl0304_desc>Mobile Heavy Artillery',
     Display = {
         AnimationDeath = {
             {
@@ -151,7 +151,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Suthanus',
+        UnitName = '<LOC xsl0304_name>Suthanus',
         UnitWeight = 1,
     },
     Intel = {

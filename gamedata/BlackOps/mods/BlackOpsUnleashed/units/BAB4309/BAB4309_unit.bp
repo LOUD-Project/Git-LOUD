@@ -44,7 +44,7 @@ UnitBlueprint {
         MaxHealth = 5500,
         RegenRate = 1,
     },
-    Description = 'Adv. Anti-Teleport Generator',
+    Description = '<LOC bab4309_desc>Adv. Anti-Teleport Generator',
     Display = {
         Abilities = {
         	'Anti-Teleport Field: Prevents Teleportation',

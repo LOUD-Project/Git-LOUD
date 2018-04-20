@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4.4, 
     },
 	
-    Description = 'Assault Tank',
+    Description = '<LOC uel0108_desc>Assault Tank',
 	
     Display = {
 	
@@ -132,7 +132,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Crusher',
+        UnitName = '<LOC uel0108_name>Crusher',
         UnitWeight = 1,
     },
 	

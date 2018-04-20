@@ -48,7 +48,7 @@ UnitBlueprint {
         RegenRate = 9,
     },
 	
-    Description = 'Advanced Power Generator & Storage',
+    Description = '<LOC urb1306_desc>Advanced Power Generator & Storage',
 	
     Display = {
 		Abilities = {

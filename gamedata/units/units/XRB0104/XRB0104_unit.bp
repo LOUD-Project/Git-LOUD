@@ -66,7 +66,7 @@ UnitBlueprint {
         MaxHealth = 1100,
         RegenRate = 1,
     },
-    Description = 'Engineering Station',
+    Description = '<LOC xrb0104_desc>Engineering Station',
     Display = {
         Abilities = {
             'Engineering Suite - provides T2 level Engineering Assist',

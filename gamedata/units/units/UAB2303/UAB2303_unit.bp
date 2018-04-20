@@ -44,7 +44,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 13,
     },
 	
-    Description = 'Field Artillery',
+    Description = '<LOC uab2303_desc>Field Artillery',
 	
     Display = {
         AnimationPermOpen = '/units/uab2303/uab2303_aopen.sca',
@@ -116,7 +116,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Miasma',
+        UnitName = '<LOC uab2303_name>Miasma',
         UnitWeight = 1,
     },
 	

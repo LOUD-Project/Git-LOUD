@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 100,
         RegenRate = 0,
     },
-    Description = 'Light Air Staging Facility',
+    Description = '<LOC beb5102_desc>Light Air Staging Facility',
     Display = {
         Abilities = {
             'Air Staging',
@@ -102,7 +102,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Refuel & Repair',
+        UnitName = '<LOC beb5102_name>Refuel & Repair',
         UnitWeight = 1,
     },
     Interface = {

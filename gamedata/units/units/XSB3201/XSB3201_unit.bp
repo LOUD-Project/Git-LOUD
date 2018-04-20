@@ -43,7 +43,7 @@ UnitBlueprint {
         MaxHealth = 50,
         RegenRate = 1,
     },
-    Description = 'Improved Radar System',
+    Description = '<LOC xsb3201_desc>Improved Radar System',
     Display = {
         Abilities = {
             'Upgradeable',

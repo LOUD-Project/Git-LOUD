@@ -109,7 +109,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 90,
     },
 	
-    Description = 'Citadel II Aerial Fortress',
+    Description = '<LOC bea0402_desc>Citadel II Aerial Fortress',
 	
     Display = {
         Abilities = {
@@ -162,7 +162,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Experimental',
-        UnitName = 'Citadel Mk.2',
+        UnitName = '<LOC bea0402_name>Citadel Mk.2',
         UnitWeight = 1,
     },
 	

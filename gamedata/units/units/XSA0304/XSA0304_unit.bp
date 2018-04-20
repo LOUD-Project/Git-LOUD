@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 65,
     },
 	
-    Description = 'Strategic Bomber',
+    Description = '<LOC xsa0304_desc>Strategic Bomber',
 	
     Display = {
         Abilities = {
@@ -147,7 +147,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Sinntha',
+        UnitName = '<LOC xsa0304_name>Sinntha',
         UnitWeight = 1,
     },
 	

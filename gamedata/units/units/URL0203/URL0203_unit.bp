@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 9,
     },
 	
-    Description = 'Amphibious Tank',
+    Description = '<LOC url0203_desc>Amphibious Tank',
 	
     Display = {
         Abilities = {
@@ -107,7 +107,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Wagner',
+        UnitName = '<LOC url0203_name>Wagner',
         UnitWeight = 1,
     },
 	

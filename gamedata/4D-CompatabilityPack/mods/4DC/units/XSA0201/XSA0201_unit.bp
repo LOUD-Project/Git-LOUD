@@ -5,7 +5,7 @@
 --
 --  Summary  : Shield Drone 
 --
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 -----------------------------------------------------------------------------
 UnitBlueprint {
     Air = {
@@ -96,7 +96,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0, 
     },
-    Description = 'Shield Drone',
+    Description = '<LOC xsa0201_desc>Shield Drone',
     Display = {
         Abilities = {
             'One-Shot Projected Shield Generator',
@@ -192,7 +192,7 @@ UnitBlueprint {
         Icon = 'air',           
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',     
-        UnitName = 'Shyeld',
+        UnitName = '<LOC xsa0201_name>Shyeld',
         UnitWeight = 1,
     },
     Intel = {

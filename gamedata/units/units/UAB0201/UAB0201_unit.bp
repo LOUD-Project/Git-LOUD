@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 6200,
         RegenRate = 2,
     },
-    Description = 'Improved Land Factory',
+    Description = '<LOC uab0201_desc>Improved Land Factory',
     Display = {
         Abilities = {
             'Upgradeable',

@@ -73,7 +73,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Air Scout',
+    Description = '<LOC uaa0101_desc>Air Scout',
 	
     Display = {
         Mesh = {
@@ -130,7 +130,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Mirage',
+        UnitName = '<LOC uaa0101_name>Mirage',
         UnitWeight = 1,
     },
 	

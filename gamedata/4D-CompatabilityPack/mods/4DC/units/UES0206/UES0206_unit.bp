@@ -53,7 +53,7 @@ UnitBlueprint {
         SubThreatLevel = 30,
         SurfaceThreatLevel = 30,
     },
-    Description = 'UEF Naval Mine',
+    Description = '<LOC ues0206_desc>UEF Naval Mine',
     Display = {
         Abilities = {
             'High Explosive Mine',
@@ -118,7 +118,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Barnacle',
+        UnitName = '<LOC ues0206_name>Barnacle',
         UnitWeight = 1,
     },
     Intel = {

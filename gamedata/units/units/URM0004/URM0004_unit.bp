@@ -38,7 +38,7 @@ UnitBlueprint {
         Health = 6000,
         MaxHealth = 6000,
     },
-    Description = 'Wall Section',
+    Description = '<LOC urb5101_desc>Wall Section',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

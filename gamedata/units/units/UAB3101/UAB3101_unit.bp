@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Basic Radar System',
+    Description = '<LOC uab3101_desc>Basic Radar System',
     Display = {
         Abilities = {
             'Upgradeable',

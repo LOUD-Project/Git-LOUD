@@ -27,21 +27,21 @@ UnitBlueprint {
         },
     },
 	
-	BuildIconSortPriority = 200,
+    BuildIconSortPriority = 200,
 	
     Categories = {
         'UEF',
         'STRUCTURE',
-		'BUILTBYTIER3ENGINEER',
-		'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
         'ORBITALSYSTEM',
-		'INTELLIGENCE',
-		'OPTICS',
-		'TECH3',
+        'INTELLIGENCE',
+        'OPTICS',
+        'TECH3',
         'SELECTABLE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SORTINTEL',
+        'SORTINTEL',
     },
 	
     Defense = {
@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Satellite Control Center',
+    Description = '<LOC xseb3303_desc>Observation Satellite Uplink', --BrewLAN string, for translation purposes.
 	
     Display = {
         DamageEffects = {
@@ -118,7 +118,7 @@ UnitBlueprint {
         BuildCostEnergy = 60000, --Original: 604500
         BuildCostMass = 4250, --Original: 255000
         BuildTime = 4250, --Original: 159900
-		MaintenanceConsumptionPerSecondEnergy = 2000,
+        MaintenanceConsumptionPerSecondEnergy = 2000,
         RebuildBonusIds = {
             'xeb2402',
         },
@@ -148,7 +148,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-		OrderOverrides = {
+        OrderOverrides = {
             RULEUTC_IntelToggle = {
                 bitmapId = 'vision',
                 helpText = 'vision_toggle',
@@ -159,7 +159,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Novax Center',
+        UnitName = '<LOC xeb2402_name>Novax Center',
         UnitWeight = 1,
     },
 	

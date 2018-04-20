@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.6,
     },
 	
-    Description = 'Medium Hovertank',
+    Description = '<LOC brpt1ht_desc>Medium Hovertank',
 	
     Display = {
         Abilities = {
@@ -187,7 +187,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Yenshavoh',
+        UnitName = '<LOC brpt1ht_name>Yenshavoh',
         UnitWeight = 1,
     },
 	

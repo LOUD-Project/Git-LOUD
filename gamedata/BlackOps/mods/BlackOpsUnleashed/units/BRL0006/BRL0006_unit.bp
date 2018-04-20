@@ -31,7 +31,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Crab Egg (Loyalist)',
+    Description = '<LOC brl0006_desc>Crab Egg (Loyalist)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0006/BRL0006_aopen.sca',
         BuildAttachBone = 'AttachPoint',

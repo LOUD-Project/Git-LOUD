@@ -61,7 +61,7 @@ UnitBlueprint {
         RegenRate = 15,
         SurfaceThreatLevel = 85,
     },
-    Description = 'Light Experimental Mech',
+    Description = '<LOC brmt3vul_desc>Light Experimental Mech',
     Display = {
         Abilities = {
             'Amphibious',
@@ -171,7 +171,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Vulture',
+        UnitName = '<LOC brmt3vul_name>Vulture',
         UnitWeight = 1,
     },
     Intel = {

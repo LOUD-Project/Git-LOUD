@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 70,
         RegenRate = 1,
     },
-    Description = 'Omni Sensor Suite',
+    Description = '<LOC xsb3104_desc>Omni Sensor Suite',
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -114,7 +114,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Aezesel',
+        UnitName = '<LOC xsb3104_name>Aezesel',
         UnitWeight = 1,
         UpgradesFrom = 'xsb3201',
     },

@@ -42,7 +42,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 5.4,
     },
 	
-    Description = 'Assault Tank',
+    Description = '<LOC bal0206_desc>Assault Tank',
 	
     Display = {
         Mesh = {
@@ -85,7 +85,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Zealot',
+        UnitName = '<LOC bal0206_name>Zealot',
         UnitWeight = 1,
     },
 	

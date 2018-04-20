@@ -47,7 +47,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0.2,
     },
-    Description = 'Land Scout',
+    Description = '<LOC uel0101_desc>Land Scout',
     Display = {
         Abilities = {
             'Radar',
@@ -98,7 +98,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Snoop',
+        UnitName = '<LOC uel0101_name>Snoop',
         UnitWeight = 1,
     },
     Intel = {

@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 222,
     },
 	
-    Description = 'Experimental Medium Mech',
+    Description = '<LOC brnt3blasp_desc>Experimental Medium Mech',
 	
     Display = {
         Abilities = {
@@ -172,7 +172,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Blood Asp',
+        UnitName = '<LOC brnt3blasp_name>Blood Asp',
         UnitWeight = 1,
     },
 	

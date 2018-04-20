@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 24,
     },
 	
-    Description = 'Destroyer',
+    Description = '<LOC xss0201_desc>Destroyer',
 	
     Display = {
 	
@@ -171,7 +171,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Uashavoh',
+        UnitName = '<LOC xss0201_name>Uashavoh',
         UnitWeight = 1,
     },
 	

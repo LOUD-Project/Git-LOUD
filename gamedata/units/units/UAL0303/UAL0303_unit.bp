@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 37,
     },
 	
-    Description = 'Heavy Assault Bot',
+    Description = '<LOC ual0303_desc>Heavy Assault Bot',
 	
     Display = {
         Abilities = {
@@ -155,7 +155,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Harbinger',
+        UnitName = '<LOC ual0303_name>Harbinger',
         UnitWeight = 1,
     },
     Intel = {

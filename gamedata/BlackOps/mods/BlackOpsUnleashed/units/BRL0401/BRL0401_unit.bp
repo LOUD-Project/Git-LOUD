@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 490,
     },
 	
-    Description = 'Basilisk Regenerative Heavy Assault Mech',
+    Description = '<LOC brl0401_desc>Basilisk Regenerative Heavy Assault Mech',
 	
     Display = {
 		Abilities = {
@@ -194,7 +194,7 @@ UnitBlueprint {
                 helpText = 'transform_stationary',
             },
         },
-        UnitName = 'Basilisk',
+        UnitName = '<LOC brl0401_name>Basilisk',
         UnitWeight = 3,
     },
     Intel = {

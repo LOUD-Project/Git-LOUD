@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1.5,
     },
 	
-    Description = 'Light Assault Bot',
+    Description = '<LOC ual0106_desc>Light Assault Bot',
 	
     Display = {
         AnimationWalk = '/units/ual0106/ual0106_awalk01.sca',
@@ -107,7 +107,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Flare',
+        UnitName = '<LOC ual0106_name>Flare',
         UnitWeight = 1,
     },
 	

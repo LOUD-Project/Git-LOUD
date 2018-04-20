@@ -41,7 +41,7 @@ UnitBlueprint {
         RegenRate = 15,
     },
 	
-    Description = 'Experimental Resource Generator',
+    Description = '<LOC xab1401_desc>Experimental Resource Generator',
 	
     Display = {
         Abilities = {
@@ -182,7 +182,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = false,
         },
-        UnitName = 'Paragon',
+        UnitName = '<LOC xab1401_name>Paragon',
         UnitWeight = 1,
     },
     Interface = {

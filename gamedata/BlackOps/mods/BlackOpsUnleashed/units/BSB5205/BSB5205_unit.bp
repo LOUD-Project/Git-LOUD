@@ -71,7 +71,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
         },
     },
-    Description = 'Advanced Air Staging Beacon',
+    Description = '<LOC bsb5205_desc>Advanced Air Staging Beacon',
     Display = {
         Abilities = {
             'Air Staging',
@@ -157,7 +157,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Iathuum-Hovathu',
+        UnitName = '<LOC bsb5205_name>Iathuum-Hovathu',
         UnitWeight = 1,
     },
     Intel = {

@@ -66,7 +66,7 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 0,
     },
-    Description = 'Tactical Missile Launcher',
+    Description = '<LOC xsb2108_desc>Tactical Missile Launcher',
     Display = {
         Abilities = {
             'Manual Launch',
@@ -138,7 +138,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ythis',
+        UnitName = '<LOC xsb2108_name>Ythis',
         UnitWeight = 1,
     },
     Intel = {
@@ -233,7 +233,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -250,7 +250,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
             Turreted = false,
-			
+
             WeaponRepackTimeout = 3,
             WeaponUnpackAnimation = '/units/xsb2108/xsb2108_aopen.sca',
             WeaponUnpackAnimationRate = 1,

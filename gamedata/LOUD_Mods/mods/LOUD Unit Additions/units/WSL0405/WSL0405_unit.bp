@@ -76,9 +76,9 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 650,
     },
-	
-    Description = 'Experimental Hover Tank',
-	
+    
+    Description = '<LOC wsl0405_desc>Experimental Hover Tank',
+    
     Display = {
         Abilities = {
             'Shield Dome',
@@ -244,7 +244,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Echibum',
+        UnitName = '<LOC wsl0405_name>Echibum',
         UnitWeight = 1,
     },
 	

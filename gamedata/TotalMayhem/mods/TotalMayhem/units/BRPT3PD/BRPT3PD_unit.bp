@@ -55,7 +55,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 42,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC brpt3pd_desc>Heavy Point Defense',
 	
     Display = {
 		Abilities = {
@@ -113,7 +113,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Athaamla',
+        UnitName = '<LOC brpt3pd_name>Athaamla',
         UnitWeight = 1,
     },
 	

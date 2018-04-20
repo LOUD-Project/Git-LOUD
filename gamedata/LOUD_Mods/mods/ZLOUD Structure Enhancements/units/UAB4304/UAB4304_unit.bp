@@ -47,7 +47,7 @@ UnitBlueprint {
 		NoTeleDistance = 55,
     },
 	
-    Description = 'Adv Stealth Field Generator',
+    Description = '<LOC uab4304_desc>Adv Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -143,7 +143,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Shador',
+        UnitName = '<LOC uab4304_name>Shador',
         UnitWeight = 1,
 		UpgradesFrom = 'uab4203',
     },

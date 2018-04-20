@@ -99,7 +99,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 75,
     },
 	
-    Description = 'Experimental Artillery Support Bot',
+    Description = '<LOC brpexshbm_desc>Experimental Artillery Support Bot',
 	
     Display = {
 	
@@ -322,7 +322,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        UnitName = 'Thaez-Atha',
+        UnitName = '<LOC brpexshbm_name>Thaez-Atha',
         TechLevel = 'RULEUTL_Experimental',
         UnitWeight = 4,
     },

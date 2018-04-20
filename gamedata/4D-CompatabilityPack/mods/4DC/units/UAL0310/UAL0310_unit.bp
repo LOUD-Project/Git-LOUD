@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Mobile Defense Unit',   
+    Description = '<LOC ual0310_desc>Mobile Defense Unit',   
 	
     Display = {
 	
@@ -213,7 +213,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vindicator',
+        UnitName = '<LOC ual0310_name>Vindicator',
         UnitWeight = 1,
     },
 	

@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'AA SAM Launcher',
+    Description = '<LOC ueb2304_desc>AA SAM Launcher',
 	
     Display = {
         Abilities = {
@@ -110,7 +110,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Flayer',
+        UnitName = '<LOC ueb2304_name>Flayer',
         UnitWeight = 1,
     },
 	

@@ -90,7 +90,7 @@ UnitBlueprint {
         },
     },
 	
-    Description = 'Assault Submarine',
+    Description = '<LOC brs0305_desc>Assault Submarine',
 	
     Display = {
 	
@@ -234,7 +234,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Leviathan',
+        UnitName = '<LOC brs0305_name>Leviathan',
         UnitWeight = 1,
     },
 	

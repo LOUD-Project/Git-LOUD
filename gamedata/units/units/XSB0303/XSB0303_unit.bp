@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 36000,
         RegenRate = 6,
     },
-    Description = 'Advanced Naval Factory',
+    Description = '<LOC xsb0303_desc>Advanced Naval Factory',
     Display = {
         AnimationDeath = {
             {
@@ -130,7 +130,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Uosiya',
+        UnitName = '<LOC xsb0303_name>Uosiya',
         UnitWeight = 1,
         UpgradesFrom = 'xsb0203',
     },

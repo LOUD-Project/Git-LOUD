@@ -47,7 +47,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 30,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC xeb2306_desc>Heavy Point Defense',
 	
     Display = {
         Abilities = {
@@ -128,7 +128,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ravager',
+        UnitName = '<LOC xeb2306_name>Ravager',
         UnitWeight = 1,
     },
 	

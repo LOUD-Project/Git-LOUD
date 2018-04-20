@@ -44,7 +44,7 @@ AI = {
         MaxHealth = 5250,
         RegenRate = 12,
     },
-    Description = 'Rapid Fire Artillery',
+    Description = '<LOC mgubc31_desc>Rapid Fire Artillery',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -110,7 +110,7 @@ AI = {
 	Icon = 'land',
 	SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Trigger',
+        UnitName = '<LOC mgubc31_name>Trigger',
         UnitWeight = 1,
     },
     Intel = {

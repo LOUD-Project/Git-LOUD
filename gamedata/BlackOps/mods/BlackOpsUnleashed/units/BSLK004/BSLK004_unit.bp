@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 20,
     },
 	
-    Description = 'Lightning AA Tank',
+    Description = '<LOC bslk004_desc>Lightning AA Tank',
 	
     Display = {
         Abilities = {
@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Uyanah',
+        UnitName = '<LOC bslk004_name>Uyanah',
         UnitWeight = 1,
     },
     Intel = {

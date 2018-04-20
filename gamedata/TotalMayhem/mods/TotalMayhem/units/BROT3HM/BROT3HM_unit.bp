@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 57,
     },
 	
-    Description = 'Siege Mech',
+    Description = '<LOC brot3hm_desc>Siege Mech',
 	
     Display = {
         Abilities = {
@@ -138,7 +138,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Spectre',
+        UnitName = '<LOC brot3hm_name>Spectre',
         UnitWeight = 2,
     },
     Intel = {

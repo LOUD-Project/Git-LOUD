@@ -49,7 +49,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18,
     },
 	
-    Description = 'Point Defense',
+    Description = '<LOC brnt2pd2_desc>Point Defense',
 	
     Display = {
         Mesh = {
@@ -112,7 +112,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Angry Ace',
+        UnitName = '<LOC brnt2pd2_name>Angry Ace',
         UnitWeight = 1,
     },
 	

@@ -41,7 +41,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = .1,
     },
-    Description = 'Mobile Stealth Field System',
+    Description = '<LOC url0306_desc>Mobile Stealth Field System',
     Display = {
         Abilities = {
             'Stealth Field',

@@ -62,7 +62,7 @@ UnitBlueprint {
         MaxHealth = 1350,
         RegenRate = 2,
     },
-    Description = 'Spy Plane',
+    Description = '<LOC uea0302_desc>Spy Plane',
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -114,7 +114,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Blackbird',
+        UnitName = '<LOC uea0302_name>Blackbird',
         UnitWeight = 1,
     },
     Intel = {

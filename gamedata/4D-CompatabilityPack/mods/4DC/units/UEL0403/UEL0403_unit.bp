@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 544,
 	},
 	
-    Description = 'Experimental Quadruped', 
+    Description = '<LOC uel0403_desc>Experimental Quadruped', 
 	
     Display = {
 	
@@ -237,7 +237,7 @@ UnitBlueprint {
         FactionName = 'UEF', 
         Icon = 'amph', 
         TechLevel = 'RULEUTL_Secret', 
-        UnitName = 'Balrog', 
+        UnitName = '<LOC uel0403_name>Balrog', 
         UnitWeight = 3, 
     },
 	

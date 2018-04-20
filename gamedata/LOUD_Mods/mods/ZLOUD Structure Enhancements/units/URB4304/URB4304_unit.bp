@@ -41,7 +41,7 @@ UnitBlueprint {
 		NoTeleDistance = 55,
     },
 	
-    Description = 'Adv Radar & Sonar Stealth Field Generator',
+    Description = '<LOC urb4304_desc>Adv Radar & Sonar Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -135,7 +135,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'BlackOut',
+        UnitName = '<LOC urb4304_name>BlackOut',
         UnitWeight = 1,
 		UpgradesFrom = 'urb4203',
     },

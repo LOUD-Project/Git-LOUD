@@ -125,7 +125,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hala-Vishual',
+        UnitName = '<LOC xsb8765_name>Hala-Vishual',
         UnitWeight = 1,
     },
     Interface = {

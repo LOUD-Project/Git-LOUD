@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Mobile Rocket Battery',
+    Description = '<LOC brmt3ml_desc>Mobile Rocket Battery',
     Display = {
         Mesh = {
             IconFadeInZoom = 150,
@@ -90,7 +90,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Pavestone',
+        UnitName = '<LOC brmt3ml_name>Pavestone',
         UnitWeight = 1,
     },
     Intel = {

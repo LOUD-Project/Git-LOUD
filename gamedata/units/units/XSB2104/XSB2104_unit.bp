@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     Audio = {
-	
+
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
             Cue = 'XSB_Destroy_Huge',
@@ -13,11 +13,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     Buffs = {},
-	
+
     BuildIconSortPriority = 120,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -35,9 +35,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-	
+
     CollisionOffsetY = -0.25,
-	
+
     Defense = {
         AirThreatLevel = 7.2,
         ArmorType = 'Structure',
@@ -46,11 +46,11 @@ UnitBlueprint {
         MaxHealth = 1400,
         RegenRate = 0.5,
     },
-	
-    Description = 'Basic AA Defense',
-	
+
+    Description = '<LOC xsb2104_desc>Basic AA Defense',
+
     Display = {
-	
+
         Abilities = {
             'Aquatic',
         },
@@ -76,7 +76,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.037,
     },
-	
+
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 200,
@@ -85,11 +85,11 @@ UnitBlueprint {
             'xsb2104',
         },
     },
-	
+
     Footprint = {
         MinWaterDepth = 1,
     },
-	
+
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -111,22 +111,22 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Ialla',
+        UnitName = '<LOC xsb2104_name>Ialla',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 26,
     },
-	
+
     Interface = {
         HelpText = 'Basic AA Defense',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -150,18 +150,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
-	
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.1,
-	
+
     SizeX = 0.5,
     SizeY = 1,
     SizeZ = 0.5,
-	
+
     StrategicIconName = 'icon_structure1_antiair',
     StrategicIconSortPriority = 205,
-	
+
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -169,7 +169,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
-	
+
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -183,29 +183,29 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 12,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Shleo AA AutoGun',
-			
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
-			
+
             FiringTolerance = 0.1,
-			
+
             Label = 'AAGun',
-			
+
 			LeadTarget = true,
-			
+
             MaxRadius = 44,
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
-			
+
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
 
@@ -219,42 +219,42 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 72 DPS Air
-			
+
             TargetCheckInterval = 0.3,
-			
+
             TargetPriorities = {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
-			
+
             TurretBoneMuzzle = 'Turret_Aiming_Bone',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 60,
             TurretPitchSpeed = 100,
-			
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 100,
-			
+
             Turreted = true,
         },
     },
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

@@ -49,7 +49,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-	Description = 'Drone Station',
+	Description = '<LOC brb0004_desc>Drone Station',
 	
     Display = {
         AnimationOpen = '/units/BRB0304/BRB0304_Aopen.sca',

@@ -43,7 +43,7 @@ UnitBlueprint {
         RegenRate = 6,
     },
 	
-    Description = 'Advanced Power Generator & Storage',
+    Description = '<LOC xsb1306_desc>Advanced Power Generator & Storage',
 	
     Display = {
         AnimationDeath = {

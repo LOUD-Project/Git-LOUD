@@ -50,7 +50,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 1,
     },
 	
-    Description = 'AA Vehicle',
+    Description = '<LOC url0104_desc>AA Vehicle',
 	
     Display = {
         Abilities = {
@@ -106,7 +106,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        UnitName = 'Sky Slammer',
+        UnitName = '<LOC url0104_name>Sky Slammer',
         UnitWeight = 1,
     },
 	

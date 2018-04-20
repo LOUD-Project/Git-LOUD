@@ -46,7 +46,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 40,
     },
-    Description = 'Rocket Pod',
+    Description = '<LOC brmt3pdro_desc>Rocket Pod',
     Display = {
         Abilities = {
 			'Aquatic',
@@ -98,7 +98,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Agronar',
+        UnitName = '<LOC brmt3pdro_name>Agronar',
         UnitWeight = 1,
     },
     Intel = {

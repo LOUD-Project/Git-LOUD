@@ -17,11 +17,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     Buffs = {},
-	
+
     BuildIconSortPriority = 120,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -39,9 +39,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-	
+
     CollisionOffsetY = -0.55,
-	
+
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
@@ -49,15 +49,15 @@ UnitBlueprint {
         MaxHealth = 3500,
         RegenRate = 2,
     },
-	
-    Description = 'AA Flak Artillery',
-	
+
+    Description = '<LOC xsb2204_desc>AA Flak Artillery',
+
     Display = {
-	
+
         Abilities = {
             'Aquatic',
         },
-		
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb2204/xsb2204_ADeath.sca',
@@ -66,7 +66,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -84,7 +84,7 @@ UnitBlueprint {
                 },
             },
         },
-		
+
         PlaceholderMeshName = 'UXB0002',
         SpawnRandomRotation = true,
         UniformScale = 0.042,
@@ -97,11 +97,11 @@ UnitBlueprint {
             'xsb2204',
         },
     },
-	
+
     Footprint = {
         MinWaterDepth = 2,
     },
-	
+
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -123,22 +123,22 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sinnatha',
+        UnitName = '<LOC xsb2204_name>Sinnatha',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 30,
     },
-	
+
     Interface = {
         HelpText = 'AA Flak Artillery',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.8,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -163,19 +163,19 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
-	
+
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
-	
+
     SelectionThickness = 0.71,
-	
+
     SizeX = 0.8,
     SizeY = 1.55,
     SizeZ = 0.8,
-	
+
     StrategicIconName = 'icon_structure2_antiair',
     StrategicIconSortPriority = 200,
-	
+
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -183,7 +183,7 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
-	
+
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -197,33 +197,33 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 50,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
-			
+
             DetonatesAtTargetHeight = true,
-			
+
             DisplayName = 'Olaris AA Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
-			
+
             FiringRandomness = 0.5,
             FiringTolerance = 0.4,
-			
+
             Label = 'AAFizz',
 			LeadTarget = true,
-			
+
             MaxRadius = 44,
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
-			
+
             ProjectileId = '/projectiles/SAAOlarisAAArtillery06/SAAOlarisAAArtillery06_proj.bp',
 			ProjectileLifetime = 1,
 
@@ -242,18 +242,18 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 150 DPS Air
-			
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

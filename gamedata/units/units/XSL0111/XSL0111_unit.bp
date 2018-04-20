@@ -44,7 +44,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
-    Description = 'Mobile Missile Launcher',
+    Description = '<LOC xsl0111_desc>Mobile Missile Launcher',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -94,7 +94,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Ythisah',
+        UnitName = '<LOC xsl0111_name>Ythisah',
         UnitWeight = 1,
     },
     Intel = {

@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 650,
     },
 	
-    Description = 'Experimental Assault Bot',
+    Description = '<LOC wel0405_desc>Experimental Assault Bot',
 	
     Display = {
         Abilities = {
@@ -226,7 +226,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 
-        UnitName = 'King Kriptor',
+        UnitName = '<LOC wel0405_name>King Kriptor',
         UnitWeight = 1,
     },
 	

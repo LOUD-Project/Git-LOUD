@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
-    Description = 'Improved Energy Storage',
+    Description = '<LOC urb1105_desc>Improved Energy Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',

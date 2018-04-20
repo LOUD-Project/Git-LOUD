@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
-    Description = 'Crab Egg (Firebeetle)',
+    Description = '<LOC brl0009_desc>Crab Egg (Firebeetle)',
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0009/BRL0009_aopen.sca',
         BuildAttachBone = 'AttachPoint',

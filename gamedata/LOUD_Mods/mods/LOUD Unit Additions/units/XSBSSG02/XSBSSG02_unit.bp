@@ -67,7 +67,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -48,
         },
     },
-    Description = 'Experimental Squareshield & Storage',
+    Description = '<LOC xsbssg02_desc>Experimental Squareshield & Storage',
     Display = {
         AnimationDeath = {
             {
@@ -172,7 +172,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Thanatos',
+        UnitName = '<LOC xsbssg02_name>Thanatos',
         UnitWeight = 1,
         UpgradesFrom = 'xsbssg01',
     },

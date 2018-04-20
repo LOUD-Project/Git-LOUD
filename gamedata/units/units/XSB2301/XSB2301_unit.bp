@@ -17,9 +17,9 @@ UnitBlueprint {
         },
     },
     Buffs = {},
-	
+
     BuildIconSortPriority = 110,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -37,9 +37,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-	
+
     CollisionOffsetY = -0.5,
-	
+
     Defense = {
         ArmorType = 'Structure',
         Health = 2100,
@@ -47,9 +47,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 16,
     },
-	
-    Description = 'Improved Point Defense',
-	
+
+    Description = '<LOC xsb2301_desc>Improved Point Defense',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -72,7 +72,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
-	
+
     Economy = {
         BuildCostEnergy = 5000,
         BuildCostMass = 550,
@@ -103,18 +103,18 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Uttaushala',
+        UnitName = '<LOC xsb2301_name>Uttaushala',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 30,
     },
-	
+
     Interface = {
         HelpText = 'Improved Point Defense',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.25,
@@ -178,33 +178,33 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-			
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.5,
             CollideFriendly = false,
-			
+
             Damage = 66,
             DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Ultrachromatic Beam Generator',
-			
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-			
+
             FiringRandomness = 0,
             FiringTolerance = 0,
-			
+
             Label = 'MainGun',
-			
+
             MaxRadius = 44,
-			
+
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -213,7 +213,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-			
+
             RackFireTogether = false,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
@@ -222,33 +222,33 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,		#-- 330 damage every 2 seconds = 165 DPS
-			
+
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'ALLUNITS -AIR',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 36,
             TurretPitchSpeed = 44,
-			
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 48,
-			
+
             Turreted = true,
         },
     },

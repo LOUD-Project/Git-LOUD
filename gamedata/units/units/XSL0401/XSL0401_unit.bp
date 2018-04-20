@@ -79,7 +79,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 330,
     },
 	
-    Description = 'Experimental Assault Bot',
+    Description = '<LOC xsl0401_desc>Experimental Assault Bot',
     Display = {
         Abilities = {
 			'AntiAir',
@@ -203,7 +203,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Ythotha',
+        UnitName = '<LOC xsl0401_name>Ythotha',
         UnitWeight = 1,
     },
     Intel = {

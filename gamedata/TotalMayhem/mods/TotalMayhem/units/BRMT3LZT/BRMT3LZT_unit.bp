@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 4,
         SurfaceThreatLevel = 30,
     },
-    Description = 'Amphib AA/Support',
+    Description = '<LOC brmt3lzt_desc>Amphib AA/Support',
     Display = {
         Abilities = {
 			'Amphbious',
@@ -102,7 +102,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Trilobyte',
+        UnitName = '<LOC brmt3lzt_name>Trilobyte',
         UnitWeight = 1,
     },
     Intel = {

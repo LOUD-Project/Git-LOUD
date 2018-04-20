@@ -63,7 +63,7 @@ UnitBlueprint {
         MaxHealth = 1190,
         RegenRate = 4,
     },
-    Description = 'Spy Plane',
+    Description = '<LOC ura0302_desc>Spy Plane',
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -115,7 +115,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Spook',
+        UnitName = '<LOC ura0302_name>Spook',
         UnitWeight = 1,
     },
     Intel = {

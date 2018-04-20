@@ -63,7 +63,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 4,
     },
-    Description = 'Guided Missile',
+    Description = '<LOC daa0206_desc>Guided Missile',
     Display = {
         Abilities = {
             'Suicide Weapon',
@@ -120,7 +120,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Mercy',
+        UnitName = '<LOC daa0206_name>Mercy',
         UnitWeight = 1,
     },
     Intel = {

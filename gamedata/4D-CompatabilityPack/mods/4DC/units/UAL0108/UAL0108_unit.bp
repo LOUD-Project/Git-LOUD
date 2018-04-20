@@ -67,7 +67,7 @@ UnitBlueprint {
         MaxHealth = 210,
         SurfaceThreatLevel = 4.4,
     },
-    Description = 'Light Assault Walker',  
+    Description = '<LOC ual0108_desc>Light Assault Walker',  
         Display = {
         Abilities = {
             'Customizable',
@@ -200,7 +200,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Artos',
+        UnitName = '<LOC ual0108_name>Artos',
         UnitWeight = 1,
     },
     Intel = {

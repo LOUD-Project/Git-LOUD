@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 40,
     },
-    Description = 'Advanced Air Staging Facility',
+    Description = '<LOC bab5205_desc>Advanced Air Staging Facility',
     Display = {
         Abilities = {
             'Air Staging for multiple aircraft',
@@ -129,7 +129,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sanctuary',
+        UnitName = '<LOC bab5205_name>Sanctuary',
         UnitWeight = 1,
     },
     Intel = {

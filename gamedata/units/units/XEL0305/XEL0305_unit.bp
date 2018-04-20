@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 45,
     },
 	
-    Description = 'Armored Assault Bot',
+    Description = '<LOC xel0305_desc>Armored Assault Bot',
 	
     Display = {
         Abilities = {
@@ -132,7 +132,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Percival',
+        UnitName = '<LOC xel0305_name>Percival',
         UnitWeight = 1,
     },
     Intel = {

@@ -77,7 +77,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 30,
     },
 	
-    Description = 'Experimental Guardian',
+    Description = '<LOC ualx401_desc>Experimental Guardian',
 	
     Display = {
         Abilities = {
@@ -151,7 +151,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Angel',
+        UnitName = '<LOC ualx401_name>Angel',
         UnitWeight = 1,
     },
 	

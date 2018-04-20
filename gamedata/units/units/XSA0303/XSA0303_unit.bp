@@ -81,7 +81,7 @@ UnitBlueprint {
         RegenRate = 8,
     },
 	
-    Description = 'Air-Superiority Fighter',
+    Description = '<LOC xsa0303_desc>Air-Superiority Fighter',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -135,7 +135,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Iazyne',
+        UnitName = '<LOC xsa0303_name>Iazyne',
         UnitWeight = 1,
     },
     Intel = {

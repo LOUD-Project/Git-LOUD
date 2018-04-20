@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 360,
         RegenRate = 1,
     },
-    Description = 'Mass Fabricator',
+    Description = '<LOC urb1104_desc>Mass Fabricator',
     Display = {
         Abilities = {
             'Volatile',

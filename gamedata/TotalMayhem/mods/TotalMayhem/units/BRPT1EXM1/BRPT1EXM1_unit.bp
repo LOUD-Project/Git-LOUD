@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4.8,
     },
 	
-    Description = 'Madium Assault Bot',
+    Description = '<LOC brpt1exm1_desc>Madium Assault Bot',
 	
     Display = {
         AnimationDeath = {
@@ -142,7 +142,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Othazyne',
+        UnitName = '<LOC brpt1exm1_name>Othazyne',
         UnitWeight = 1,
     },
 	

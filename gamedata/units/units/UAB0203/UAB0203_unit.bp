@@ -50,7 +50,7 @@ UnitBlueprint {
         MaxHealth = 12000,
         RegenRate = 3,
     },
-    Description = 'Improved Naval Factory',
+    Description = '<LOC uab0203_desc>Improved Naval Factory',
 	
     Display = {
         Abilities = {

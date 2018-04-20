@@ -51,7 +51,7 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 0,
     },
-    Description = 'AA Hovertank',
+    Description = '<LOC xsl0205_desc>AA Hovertank',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -98,7 +98,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Iashavoh',
+        UnitName = '<LOC xsl0205_name>Iashavoh',
         UnitWeight = 1,
     },
     Intel = {

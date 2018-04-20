@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 3.6,
     },
 	
-    Description = 'Combat Air Transport',
+    Description = '<LOC xsa0104_desc>Combat Air Transport',
 	
     Display = {
         Abilities = {
@@ -156,7 +156,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vishala',
+        UnitName = '<LOC xsa0104_name>Vishala',
         UnitWeight = 1,
     },
 	

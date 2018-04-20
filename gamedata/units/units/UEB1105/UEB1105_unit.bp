@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 1,
     },
-    Description = 'Basic Energy Storage',
+    Description = '<LOC ueb1105_desc>Basic Energy Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',

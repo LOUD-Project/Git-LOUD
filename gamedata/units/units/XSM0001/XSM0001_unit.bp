@@ -38,7 +38,7 @@ UnitBlueprint {
         Health = 6000,
         MaxHealth = 6000,
     },
-    Description = 'Wall Section',
+    Description = '<LOC xsb5101_desc>Wall Section',
     Display = {
         AnimationDeath = {
             {
@@ -113,7 +113,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sele-haas',
+        UnitName = '<LOC xsm0001_name>Sele-haas',
         UnitWeight = 1,
     },
     Intel = {

@@ -71,7 +71,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Attack Bomber',
+    Description = '<LOC uea0103_desc>Attack Bomber',
     Display = {
         Abilities = {
             'Radar',
@@ -126,7 +126,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Scorcher',
+        UnitName = '<LOC uea0103_name>Scorcher',
         UnitWeight = 1,
     },
     Intel = {

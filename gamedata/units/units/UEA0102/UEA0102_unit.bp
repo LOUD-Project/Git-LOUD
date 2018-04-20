@@ -69,7 +69,7 @@ UnitBlueprint {
         MaxHealth = 350,
         RegenRate = 1,
     },
-    Description = 'Interceptor',
+    Description = '<LOC uea0102_desc>Interceptor',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -124,7 +124,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Cyclone',
+        UnitName = '<LOC uea0102_name>Cyclone',
         UnitWeight = 1,
     },
     Intel = {

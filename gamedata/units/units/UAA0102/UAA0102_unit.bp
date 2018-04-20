@@ -74,7 +74,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Interceptor',
+    Description = '<LOC uaa0102_desc>Interceptor',
 	
     Display = {
         Abilities = {
@@ -134,7 +134,7 @@ UnitBlueprint {
         Icon = 'air',
         TarmacGlowDecal = 0.5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Conservator',
+        UnitName = '<LOC uaa0102_name>Conservator',
         UnitWeight = 1,
     },
 	

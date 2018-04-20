@@ -47,7 +47,7 @@ UnitBlueprint {
         MaxHealth = 15000,
         RegenRate = 3,
     },
-    Description = 'Quantum Gateway',
+    Description = '<LOC xsb0304_desc>Quantum Gateway',
     Display = {
         AnimationDeath = {
             {
@@ -181,7 +181,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Aezthu-uhthe',
+        UnitName = '<LOC xsb0304_name>Aezthu-uhthe',
         UnitWeight = 1,
     },
     Intel = {

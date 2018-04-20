@@ -33,7 +33,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
         },
     },
-    Description = 'Shield Emitter',
+    Description = '<LOC beb0006_desc>Shield Emitter',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

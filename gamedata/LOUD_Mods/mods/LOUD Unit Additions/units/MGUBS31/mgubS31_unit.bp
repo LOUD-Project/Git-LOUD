@@ -43,7 +43,7 @@ UnitBlueprint {
         MaxHealth = 5900,
         RegenRate = 8,
     },
-    Description = 'Rapid Fire Artillery',
+    Description = '<LOC mgubs31_desc>Rapid Fire Artillery',
     Display = {
         AnimationDeath = {
             {
@@ -119,7 +119,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Incubus',
+        UnitName = '<LOC mgubs31_name>Incubus',
         UnitWeight = 1,
     },
     Intel = {

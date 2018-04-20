@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 85,
     },
 	
-    Description = 'Experimental Multirole Point Defense',
+    Description = '<LOC brpexpd_desc>Experimental Multirole Point Defense',
 	
     Display = {
         Abilities = {
@@ -134,7 +134,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Heth-Athala',
+        UnitName = '<LOC brpexpd_name>Heth-Athala',
         UnitWeight = 1,
     },
 	

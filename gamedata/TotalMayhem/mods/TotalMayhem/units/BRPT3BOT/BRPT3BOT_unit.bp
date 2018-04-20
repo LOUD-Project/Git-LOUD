@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 56,
     },
 	
-    Description = 'Advanced Battle Bot',
+    Description = '<LOC brpt3bot_desc>Advanced Battle Bot',
 	
     Display = {
         Abilities = {
@@ -124,7 +124,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        UnitName = 'Thaam-Thuum',
+        UnitName = '<LOC brpt3bot_name>Thaam-Thuum',
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 2,
     },

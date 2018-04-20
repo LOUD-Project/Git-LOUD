@@ -46,7 +46,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10,
     },
 	
-    Description = 'Mobile Light Artillery',
+    Description = '<LOC ual0103_desc>Mobile Light Artillery',
 	
     Display = {
         Mesh = {
@@ -95,7 +95,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Fervor',
+        UnitName = '<LOC ual0103_name>Fervor',
         UnitWeight = 1,
     },
     Intel = {

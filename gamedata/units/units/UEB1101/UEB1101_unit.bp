@@ -38,7 +38,7 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 0,
     },
-    Description = 'Basic Power Generator',
+    Description = '<LOC ueb1101_desc>Basic Power Generator',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

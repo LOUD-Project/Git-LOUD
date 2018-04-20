@@ -76,7 +76,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Experimental Artillery',
+    Description = '<LOC ueb2401_desc>Experimental Artillery',
 	
     Display = {
         AnimationOpen = '/units/ueb2401/ueb2401_aopen.sca',
@@ -161,7 +161,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Mavor',
+        UnitName = '<LOC ueb2401_name>Mavor',
         UnitWeight = 1,
     },
 	

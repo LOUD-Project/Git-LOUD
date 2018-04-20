@@ -74,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 43,
     },
 	
-    Description = 'Amphib Battle Tank',
+    Description = '<LOC brot3bt_desc>Amphib Battle Tank',
 	
     Display = {
         Abilities = {
@@ -134,7 +134,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Transoma',
+        UnitName = '<LOC brot3bt_name>Transoma',
         UnitWeight = 1,
     },
     Intel = {

@@ -59,7 +59,7 @@ UnitBlueprint {
         RegenRate = 4,
         SurfaceThreatLevel = 18,
     },
-    Description = 'Light Cruiser',
+    Description = '<LOC ues0202_desc>Light Cruiser',
     Display = {
         Abilities = {
 			'Medium Range Missiles',
@@ -172,7 +172,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Governor Class',
+        UnitName = '<LOC ues0202_name>Governor Class',
         UnitWeight = 1,
     },
     Intel = {

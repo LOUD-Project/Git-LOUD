@@ -31,12 +31,12 @@ UnitBlueprint {
     },
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 37,	#-- .1% storage + 2% health
+        EconomyThreatLevel = 37,	-- .1% storage + 2% health
         Health = 1500,
         MaxHealth = 1500,
         RegenRate = 2,
     },
-    Description = 'Improved Energy Storage',
+    Description = '<LOC ueb1105_desc>Improved Energy Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',

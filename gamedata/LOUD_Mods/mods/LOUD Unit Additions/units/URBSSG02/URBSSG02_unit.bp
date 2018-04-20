@@ -67,7 +67,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -40,
         },
     },
-    Description = 'Experimental Squareshield & Storage',
+    Description = '<LOC urbssg02_desc>Experimental Squareshield & Storage',
     Display = {
         DamageEffects = {
             {
@@ -168,7 +168,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'ED-X',
+        UnitName = '<LOC urbssg02_name>ED-X',
         UnitWeight = 1,
         UpgradesFrom = 'urbssg01',
     },

@@ -47,7 +47,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 5.4,
     },
-    Description = 'Rocket Bot',
+    Description = '<LOC drl0204_desc>Rocket Bot',
     Display = {
         AnimationDeath = {
             {
@@ -128,7 +128,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hoplite',
+        UnitName = '<LOC drl0204_name>Hoplite',
         UnitWeight = 1,
     },
     Intel = {

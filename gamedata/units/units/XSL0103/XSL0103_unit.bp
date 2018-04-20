@@ -48,7 +48,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 1.5,
     },
-    Description = 'Light Artillery Hovertank',
+    Description = '<LOC xsl0103_desc>Light Artillery Hovertank',
     Display = {
         IdleEffects = {
             Water = {
@@ -127,7 +127,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Zthuee',
+        UnitName = '<LOC xsl0103_name>Zthuee',
         UnitWeight = 1,
     },
 	

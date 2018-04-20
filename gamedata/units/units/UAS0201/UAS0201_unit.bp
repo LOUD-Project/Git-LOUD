@@ -62,7 +62,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 25,
     },
 	
-    Description = 'Destroyer',
+    Description = '<LOC uas0201_desc>Destroyer',
 	
     Display = {
         Abilities = {
@@ -141,7 +141,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Exodus Class',
+        UnitName = '<LOC uas0201_name>Exodus Class',
         UnitWeight = 1,
     },
 	

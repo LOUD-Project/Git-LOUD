@@ -49,7 +49,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 510,
     },
 	
-    Description = 'Heavy Fortification',
+    Description = '<LOC brnt3shpd_desc>Heavy Fortification',
 	
     Display = {
 	
@@ -230,7 +230,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Blockhouse',
+        UnitName = '<LOC brnt3shpd_name>Blockhouse',
         UnitWeight = 1,
     },
 	

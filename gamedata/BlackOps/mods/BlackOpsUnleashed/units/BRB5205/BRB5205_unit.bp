@@ -64,7 +64,7 @@ UnitBlueprint {
         RegenRate = 4,
         SubThreatLevel = 9,
     },
-    Description = 'Advanced Air Staging Facility',
+    Description = '<LOC brb5205_desc>Advanced Air Staging Facility',
     Display = {
         Abilities = {
             'Air Staging',
@@ -134,7 +134,7 @@ UnitBlueprint {
 			RULEUTC_CloakToggle = true,
         },
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC BRB5205_name>Adv Air Staging',
+        UnitName = '<LOC brb5205_name>Adv Air Staging',
         UnitWeight = 1,
     },
     Intel = {

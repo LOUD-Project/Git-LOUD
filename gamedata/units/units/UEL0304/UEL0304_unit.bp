@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10,
     },
 	
-    Description = 'Mobile Heavy Artillery',
+    Description = '<LOC uel0304_desc>Mobile Heavy Artillery',
 	
     Display = {
         Abilities = {
@@ -108,7 +108,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Demolisher',
+        UnitName = '<LOC uel0304_name>Demolisher',
         UnitWeight = 1,
     },
     Intel = {

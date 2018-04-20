@@ -63,7 +63,7 @@ UnitBlueprint {
         SubThreatLevel = 6,
     },
 	
-    Description = 'Submarine',
+    Description = '<LOC uas0203_desc>Submarine',
 	
     Display = {
         Abilities = {
@@ -184,7 +184,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Sylph',
+        UnitName = '<LOC uas0203_name>Sylph',
         UnitWeight = 1,
     },
 	

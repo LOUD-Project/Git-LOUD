@@ -41,7 +41,7 @@ UnitBlueprint {
         MaxHealth = 1800,
         RegenRate = 1,
     },
-    Description = 'Anti-Teleport Tower',
+    Description = '<LOC brb4209_desc>Anti-Teleport Tower',
     Display = {
         Abilities = {
            'Anti-Teleport Field:Prevents Teleportation',
@@ -105,7 +105,7 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-        UnitName = '<LOC xrb4209_name>Mist',
+        UnitName = '<LOC brb4209_name>Mist',
         UnitWeight = 1,
         UpgradesTo = 'brb4309',
     },

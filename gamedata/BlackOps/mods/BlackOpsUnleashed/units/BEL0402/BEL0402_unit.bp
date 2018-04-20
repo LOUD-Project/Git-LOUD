@@ -86,7 +86,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 560,
     },
 	
-    Description = 'Goliath II Assault Bot',
+    Description = '<LOC bel0402_desc>Goliath II Assault Bot',
 	
     Display = {
 	
@@ -223,7 +223,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-		UnitName = 'Goliath MK.2',
+		UnitName = '<LOC bel0402_name>Goliath MK.2',
         UnitWeight = 4,
 		
         ToggleCaps = {

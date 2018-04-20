@@ -40,7 +40,7 @@ UnitBlueprint {
         MaxHealth = 1600,
         RegenRate = 1,
     },
-    Description = 'Basic Hydrocarbon Power Plant',
+    Description = '<LOC urb1102_desc>Basic Hydrocarbon Power Plant',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

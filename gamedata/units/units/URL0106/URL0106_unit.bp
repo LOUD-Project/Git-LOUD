@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1.5,
     },
 	
-    Description = 'Light Assault Bot',
+    Description = '<LOC url0106_desc>Light Assault Bot',
 	
     Display = {
         AnimationWalk = '/units/url0106/URL0106_Awalk01.sca',
@@ -101,7 +101,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hunter',
+        UnitName = '<LOC url0106_name>Hunter',
         UnitWeight = 1,
     },
     Intel = {

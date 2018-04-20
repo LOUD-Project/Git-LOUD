@@ -48,7 +48,7 @@ UnitBlueprint {
         MaxHealth = 19000,
         RegenRate = 2,
     },
-    Description = 'Advanced Air Factory',
+    Description = '<LOC xsb0302_desc>Advanced Air Factory',
     Display = {
         AnimationDeath = {
             {

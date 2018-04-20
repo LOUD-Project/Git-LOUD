@@ -22,7 +22,7 @@ UnitBlueprint {
     },
 
     BuildIconSortPriority = 110,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -35,9 +35,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
-	
+
     CollisionOffsetZ = 0.05,
-	
+
     Defense = {
         ArmorType = 'Normal',
         Health = 600,
@@ -59,16 +59,16 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 3,
     },
-	
-    Description = 'Hvy Mobile Shield Generator',
-	
+
+    Description = '<LOC uel0307_desc>Mobile Shield Generator',
+
     Display = {
         Abilities = {
             'Shield Dome',
         },
-		
+
         AnimationOpen = '/units/uel0307/uel0307_Aactivate.sca',
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -89,14 +89,14 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.14,
     },
-	
+
     Economy = {
         BuildCostEnergy = 4500,
         BuildCostMass = 700,
         BuildTime = 3600,
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
-	
+
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -126,22 +126,22 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Veloshield',
+        UnitName = '<LOC uel0308_name>Veloshield',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 21,
     },
-	
+
     Interface = {
         HelpText = 'Hvy Mobile Shield Generator',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.7,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {

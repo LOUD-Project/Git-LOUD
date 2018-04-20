@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Air Staging Facility',
+    Description = '<LOC urb5202_desc>Air Staging Facility',
 	
     Display = {
         Abilities = {

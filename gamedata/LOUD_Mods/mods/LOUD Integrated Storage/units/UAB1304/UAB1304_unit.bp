@@ -33,7 +33,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Advanced Mass Extractor & Storage',
+    Description = '<LOC uab1304_desc>Advanced Mass Extractor & Storage',
 	
     Display = {
 		-- we point to the standard T3 animation file

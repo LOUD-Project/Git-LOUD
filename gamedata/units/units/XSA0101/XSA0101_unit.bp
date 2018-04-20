@@ -69,7 +69,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Air Scout',
+    Description = '<LOC xsa0101_desc>Air Scout',
 	
     Display = {
         Mesh = {
@@ -127,7 +127,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Sele-istle',
+        UnitName = '<LOC xsa0101_name>Sele-istle',
         UnitWeight = 1,
     },
 	

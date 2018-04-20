@@ -135,7 +135,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 120,
     },
 	
-    Description = 'Experimental Bomber',
+    Description = '<LOC xsa0402_desc>Experimental Bomber',
 	
     Display = {
         Abilities = {
@@ -221,7 +221,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Ahwassa',
+        UnitName = '<LOC xsa0402_name>Ahwassa',
         UnitWeight = 1,
     },
 	

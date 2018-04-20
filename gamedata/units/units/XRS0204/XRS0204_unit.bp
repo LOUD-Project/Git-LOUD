@@ -75,7 +75,7 @@ UnitBlueprint {
         SubThreatLevel = 15,
     },
 	
-    Description = 'Submarine Killer',
+    Description = '<LOC xrs0204_desc>Submarine Killer',
 	
     Display = {
         Abilities = {
@@ -230,7 +230,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Barracuda',
+        UnitName = '<LOC xrs0204_name>Barracuda',
         UnitWeight = 1,
     },
 	

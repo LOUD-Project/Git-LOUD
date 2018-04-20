@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 57,
     },
 	
-    Description = 'Armored Battle Bot',
+    Description = '<LOC brnt3abb_desc>Armored Battle Bot',
 	
     Display = {
 		Abilities = {
@@ -144,7 +144,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'IronFist',
+        UnitName = '<LOC brnt3abb_name>IronFist',
         UnitWeight = 2,
     },
     Intel = {

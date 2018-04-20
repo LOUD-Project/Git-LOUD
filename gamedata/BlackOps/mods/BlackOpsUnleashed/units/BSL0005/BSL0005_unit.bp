@@ -48,7 +48,7 @@ UnitBlueprint {
 		SubThreatLevel = 3,
         SurfaceThreatLevel = 51,
     },
-    Description = 'Elite Siege Tank',
+    Description = '<LOC bsl0005_desc>Elite Siege Tank',
     Display = {
         Abilities = {
 			'Quantum Powered - dies if run out of power',
@@ -100,7 +100,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hala Othuum',
+        UnitName = '<LOC bsl0005_name>Hala Othuum',
         UnitWeight = 1,
     },
     Intel = {

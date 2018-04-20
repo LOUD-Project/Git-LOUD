@@ -62,7 +62,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 285,
     },
 	
-    Description = 'Experimental Medium Assault Mech',
+    Description = '<LOC brot3shbm_desc>Experimental Medium Assault Mech',
 	
     Display = {
         Abilities = {
@@ -153,7 +153,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Elias',
+        UnitName = '<LOC brot3shbm_name>Elias',
         UnitWeight = 1,
     },
 	

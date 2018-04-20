@@ -47,7 +47,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 6,
     },
-    Description = 'Shield Disruptor',
+    Description = '<LOC dal0310_desc>Shield Disruptor',
     Display = {
         Abilities = {
             'Hover',
@@ -99,7 +99,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Absolver',
+        UnitName = '<LOC dal0310_name>Absolver',
         UnitWeight = 1,
     },
     Intel = {

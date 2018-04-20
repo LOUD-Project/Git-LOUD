@@ -55,7 +55,7 @@ UnitBlueprint {
         MaxHealth = 15000,
         RegenRate = 3,
     },
-    Description = 'Quantum Teleporter',
+    Description = '<LOC ueb0305_desc>Quantum Teleporter',
     Display = {
         BuildAttachBone = 'Attachpoint01',
         Mesh = {

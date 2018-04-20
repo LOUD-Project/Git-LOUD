@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 30,
         RegenRate = 0,
     },
-    Description = 'Build Bot',
+    Description = '<LOC ura0001_desc>Build Bot',
     Display = {
         Mesh = {
             IconFadeInZoom = 2000,

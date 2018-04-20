@@ -74,7 +74,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
-    Description = 'Attack Bomber',
+    Description = '<LOC xsa0103_desc>Attack Bomber',
     Display = {
         Abilities = {
             'Radar',
@@ -132,7 +132,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Sinnve',
+        UnitName = '<LOC xsa0103_name>Sinnve',
         UnitWeight = 1,
     },
     Intel = {

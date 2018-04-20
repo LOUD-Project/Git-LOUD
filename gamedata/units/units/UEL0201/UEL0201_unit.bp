@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.4,
     },
 	
-    Description = 'Medium Tank',
+    Description = '<LOC uel0201_desc>Medium Tank',
 	
     Display = {
         Mesh = {
@@ -98,7 +98,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Striker',
+        UnitName = '<LOC uel0201_name>Striker',
         UnitWeight = 1,
     },
 	

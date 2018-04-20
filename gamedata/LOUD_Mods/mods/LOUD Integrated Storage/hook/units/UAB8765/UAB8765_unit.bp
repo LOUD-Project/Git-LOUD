@@ -27,7 +27,7 @@ UnitBlueprint {
         RegenRate = 10,
     },
 	
-    Description = 'Experimental Resource Storage',
+    Description = '<LOC uab8765_desc>Experimental Resource Storage',
 	
     Display = {
         UniformScale = 0.7,

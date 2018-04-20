@@ -41,7 +41,7 @@ UnitBlueprint {
         MaxHealth = 12550,
         RegenRate = 20,
     },
-    Description = 'Experimental Resource Storage',
+    Description = '<LOC ueb8765_desc>Experimental Resource Storage',
     Display = {
         Abilities = {
             'Volatile',

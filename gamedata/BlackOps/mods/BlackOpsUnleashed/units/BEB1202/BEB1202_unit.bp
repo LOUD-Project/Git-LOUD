@@ -39,7 +39,7 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 1,
     },
-    Description = 'Improved Hydrocarbon Plant',
+    Description = '<LOC beb1202_desc>Improved Hydrocarbon Plant',
     Display = {
 	
 		Abilities = {
@@ -101,7 +101,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'HCPP - X2000',
+        UnitName = '<LOC beb1202_name>HCPP - X2000',
         UnitWeight = 1,
 		UpgradesFrom = 'ueb1102',
         UpgradesTo = 'beb1302',

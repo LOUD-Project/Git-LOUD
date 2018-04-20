@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 8,
     },
 	
-    Description = 'Rapid Fire Artillery',
+    Description = '<LOC mgubu31_desc>Rapid Fire Artillery',
 	
     Display = {
         Mesh = {
@@ -122,7 +122,7 @@ UnitBlueprint {
 		Icon = 'land',
 		SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Jackhammer',
+        UnitName = '<LOC mgubu31_name>Jackhammer',
         UnitWeight = 1,
     },
 	

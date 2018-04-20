@@ -61,7 +61,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 14,
     },
-    Description = 'Multirole Point Defense',
+    Description = '<LOC brot1expd_desc>Multirole Point Defense',
     Display = {
         Abilities = {
             'Anti-Air',
@@ -109,7 +109,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Mizura',
+        UnitName = '<LOC brot1expd_name>Mizura',
         UnitWeight = 1,
     },
     Intel = {

@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 48,
     },
 	
-    Description = 'Heavy Hover Tank',
+    Description = '<LOC bal0310_desc>Heavy Hover Tank',
 	
     Display = {
 	
@@ -106,7 +106,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Wraith',
+        UnitName = '<LOC bal0310_name>Wraith',
         UnitWeight = 1,
     },
     Intel = {

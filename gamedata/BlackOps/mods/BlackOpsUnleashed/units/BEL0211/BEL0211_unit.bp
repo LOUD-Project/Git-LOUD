@@ -45,7 +45,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 9,
     },
 	
-    Description = 'FlameThrower Vehicle',
+    Description = '<LOC bel0211_desc>FlameThrower Vehicle',
 	
     Display = {
         Abilities = {
@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Inferno',
+        UnitName = '<LOC bel0211_name>Inferno',
         UnitWeight = 1,
     },
     Intel = {

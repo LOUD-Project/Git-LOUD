@@ -65,7 +65,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Air Scout',
+    Description = '<LOC ura0101_desc>Air Scout',
 	
     Display = {
         Mesh = {
@@ -122,7 +122,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Peeker',
+        UnitName = '<LOC ura0101_name>Peeker',
         UnitWeight = 1,
     },
 	

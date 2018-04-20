@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 51,
     },
-    Description = 'Heavy Point Defense',
+    Description = '<LOC brmt3pd_desc>Heavy Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 200,
@@ -100,7 +100,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Tripple Threat',
+        UnitName = '<LOC brmt3pd_name>Tripple Threat',
         UnitWeight = 1,
     },
     Intel = {

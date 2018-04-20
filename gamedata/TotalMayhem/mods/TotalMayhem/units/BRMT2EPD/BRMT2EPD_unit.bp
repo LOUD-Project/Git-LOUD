@@ -79,7 +79,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 27,
     },
 	
-    Description = 'Adv. Shielded PD/AA',
+    Description = '<LOC brmt2epd_desc>Adv. Shielded PD/AA',
 	
     Display = {
         Abilities = {
@@ -150,7 +150,7 @@ UnitBlueprint {
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Anode',
+        UnitName = '<LOC brmt2epd_name>Anode',
         UnitWeight = 1,
     },
 	

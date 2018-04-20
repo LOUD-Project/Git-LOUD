@@ -35,7 +35,7 @@ UnitBlueprint {
         MaxHealth = 9600,
         RegenRate = 3,
     },
-    Description = 'Advanced Mass Storage',
+    Description = '<LOC uab1106_desc>Advanced Mass Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',

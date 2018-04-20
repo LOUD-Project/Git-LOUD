@@ -35,7 +35,7 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 3,
     },
-    Description = 'Advanced Energy Storage',
+    Description = '<LOC xsb1105_desc>Advanced Energy Storage',
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -46,7 +46,7 @@ UnitBlueprint {
               LODs = {
                  {
                     AlbedoName = '/units/xsb1105/xsb1105_albedo.dds',
-                    
+
                     LODCutoff = 120,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     MeshName = '/units/xsb1105/xsb1105_lod0.scm',

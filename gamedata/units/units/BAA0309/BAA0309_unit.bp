@@ -3,43 +3,43 @@ UnitBlueprint {
         BeaconName = 'UAB5102',
         TargetBones = {	'UAA0104','Slots_Right01','Slots_Left01' },
     },
-	
+
     Air = {
         AutoLandTime = 1.5,
         BankFactor = 0.4,
         BankForward = false,
         CanFly = true,
-		
+
         CirclingDirChange = true,
         CirclingElevationChangeRatio = 0.4,
         CirclingFlightChangeFrequency = 15,
         CirclingRadiusChangeMaxRatio = 0.95,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingTurnMult = 1,
-		
+
         KLift = 2.5,
         KLiftDamping = 2.5,
-		
+
         KMove = 1.0,
         KMoveDamping = 2.5,
-		
+
         KRoll = 0.5,
         KRollDamping = 0.95,
-		
+
         KTurn = 0.5,
         KTurnDamping = 1.0,
-		
+
         LiftFactor = 9,
-		
+
         MaxAirspeed = 14.5,
-		
+
         StartTurnDistance = 15,
-		
+
         TransportHoverHeight = 4.5,
-		
+
 		Turnspeed = 1.3,
     },
-	
+
     Audio = {
         Killed = Sound {
             Bank = 'UAADestroy',
@@ -57,9 +57,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     AverageDensity = 1,
-	
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -69,9 +69,9 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
-	
+
     BuildIconSortPriority = 60,
-	
+
     Categories = {
         'BUILTBYTIER3FACTORY',
 		'SELECTABLE',
@@ -89,11 +89,11 @@ UnitBlueprint {
 		'OVERLAYCOUNTERINTEL',
 		'OVERLAYRADAR',
     },
-	
+
     CollisionOffsetX = 0,
     CollisionOffsetZ = -0.4,
     CollisionOffsetY = -1,
-	
+
     Defense = {
         AirThreatLevel = 24,
         ArmorType = 'Light',
@@ -103,9 +103,9 @@ UnitBlueprint {
         SurfaceThreatLevel = 9,
         MaxTeleRange = 600,
     },
-	
-    Description = 'Heavy Air Transport',
-	
+
+    Description = '<LOC xea0306_desc>Heavy Air Transport',
+
     Display = {
         Abilities = {
 			'2 Ground Attack Autocannon',
@@ -114,11 +114,11 @@ UnitBlueprint {
 			'Can Teleport Short Distances',
 			'Radar & Radar Stealth',
         },
-		
+
         AnimationPermOpen = '/units/BAA0309/BAA0309_aopen01.sca',
-		
+
         ForcedBuildSpin = 90,
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -132,24 +132,24 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.048,
     },
-	
+
     Economy = {
         BuildCostEnergy = 31500,
         BuildCostMass = 1375,
         BuildTime = 685,
-		
+
         TeleportBurstEnergyCost = 2500,
         TeleportEnergyMod = 0.09,
         TeleportMassMod = 1.0,
         TeleportTimeMod = 0.0008,
     },
-	
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 5,
     },
-	
+
     General = {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -174,15 +174,15 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-		
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-		
-        UnitName = 'Illuminate',
+
+        UnitName = '<LOC baa0309_name>Illuminate',
         UnitWeight = 1,
     },
-	
+
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 60,
@@ -191,15 +191,15 @@ UnitBlueprint {
         VisionRadius = 40,
 		WaterVisionRadius = 0,
     },
-	
+
     Interface = {
         HelpText = 'Heavy Air Transport',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,
     LifeBarSize = 2,
-	
+
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -218,27 +218,27 @@ UnitBlueprint {
         MeshExtentsZ = 4.0,
         MotionType = 'RULEUMT_Air',
     },
-	
+
     SelectionSizeX = 3.6,
     SelectionSizeZ = 3.8,
     SelectionThickness = 0.26,
-	
+
     SizeX = 2.7,
     SizeY = 1.8,
     SizeZ = 5.6,
-	
+
     StrategicIconName = 'icon_gunship3_transport',
     StrategicIconSortPriority = 65,
-	
+
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,
         Class3AttachSize = 2,
         TransportClass = 10,
     },
-	
+
     UseOOBTestZoom = 200,
-	
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -246,7 +246,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
-	
+
     Weapon = {
 		-- 2 x Ground Attack Weapons
         {
@@ -260,26 +260,26 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Sonic Pulse Battery',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
             },
-			
+
 			FiringRandomness = 0.3,
             FiringTolerance = 0.5,
-			
+
             Label = 'SonicPulseBattery',
-			
+
 			LeadTarget = true,
-			
+
             MaxRadius = 32,
-			
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 40,
@@ -294,46 +294,46 @@ UnitBlueprint {
                     RackBone = 'Turret_Right01',
                 },
             },
-			
+
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 45 DPS Ground
-			
+
             TargetCheckInterval = 0.5,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE,WALL,HIGHALTAIR,SATELLITE',
-			
+
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'Muzzle_R01',
             TurretBonePitch = 'Turret_Right01',
             TurretBoneYaw = 'Turret_Right01',
             TurretDualManipulators = false,
-			
+
             TurretPitch = -10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
-			
+
             TurretYaw = 0,
             TurretYawRange = 75,
             TurretYawSpeed = 90,
-			
+
             Turreted = true,
         },
-		
+
         {
             Audio = {
                 Fire = Sound {
@@ -345,26 +345,26 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Sonic Pulse Battery',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
             },
-			
+
 			FiringRandomness = 0.35,
             FiringTolerance = 0,
-			
+
             Label = 'SonicPulseBattery',
-			
+
 			LeadTarget = true,
-			
+
             MaxRadius = 32,
-			
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 40,
@@ -379,45 +379,45 @@ UnitBlueprint {
                     RackBone = 'Turret_Left',
                 },
             },
-			
+
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 45 DPS Ground
-			
+
             TargetCheckInterval = 0.5,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE,WALL,HIGHALTAIR,SATELLITE',
-			
+
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Turret_Left',
             TurretBoneYaw = 'Turret_Left',
             TurretDualManipulators = false,
-			
+
             TurretPitch = -10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
-			
+
             TurretYaw = 0,
             TurretYawRange = 75,
             TurretYawSpeed = 90,
             Turreted = true,
         },
-		
+
 		#-- The following 4 weapons are all top mounted AA only
         {
             AlwaysRecheckTarget = true,
@@ -432,25 +432,25 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Sonic Pulse Battery',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
             },
-			
+
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
-			
+
             Label = 'SonicPulseBattery',
 			LeadTarget = true,
-			
+
             MaxRadius = 36,
-			
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 75,
@@ -465,19 +465,19 @@ UnitBlueprint {
                     RackBone = 'Turret_Front',
                 },
             },
-			
+
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,		-- 60 DPS Air
-			
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -485,26 +485,26 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-			
+
             TrackingRadius = 1.5,
-			
+
             TurretBoneMuzzle = 'Muzzle_F',
             TurretBonePitch = 'Turret_Front',
             TurretBoneYaw = 'Turret_Front',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
-			
+
             Turreted = true,
         },
         {
-            AlwaysRecheckTarget = true,		
+            AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound {
                     Bank = 'UAAWeapon',
@@ -516,24 +516,24 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Heavy Sonic Pulse Battery',
             FireTargetLayerCapsTable = {
                 Air = 'Air',
             },
-			
+
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
-			
+
             Label = 'SonicPulseBattery',
 			LeadTarget = true,
-			
+
             MaxRadius = 36,
-			
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 75,
@@ -549,45 +549,45 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,		-- 60 DPS Air
-			
+
             TargetCheckInterval = 0.5,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE -INTELLIGENCE',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-			
+
             TrackingRadius = 1.5,
-			
+
             TurretBoneMuzzle = 'Muzzle_B',
             TurretBonePitch = 'Turret_Back',
             TurretBoneYaw = 'Turret_Back',
             TurretDualManipulators = false,
             TurretPitch = 45,
-			
+
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
-			
+
             TurretYawRange = 180,
             TurretYawSpeed = 150,
             Turreted = true,
         },
         {
-            AlwaysRecheckTarget = true,		
+            AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound {
                     Bank = 'UAAWeapon',
@@ -599,29 +599,29 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Heavy Sonic Pulse Battery',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
             },
-			
+
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
-			
+
             Label = 'SonicPulseBattery',
 			LeadTarget = true,
-			
+
             MaxRadius = 36,
-			
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 75,
-			
+
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
 
             RackBones = {
@@ -633,46 +633,46 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,		-- 60 DPS Air
-			
+
             TargetCheckInterval = 0.5,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-			
+
             TrackingRadius = 1.5,
-			
+
             TurretBoneMuzzle = 'Muzzle_F01',
             TurretBonePitch = 'Turret_Front01',
             TurretBoneYaw = 'Turret_Front01',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
-			
+
             Turreted = true,
         },
         {
-            AlwaysRecheckTarget = true,		
+            AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound {
                     Bank = 'UAAWeapon',
@@ -684,25 +684,25 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 15,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Heavy Sonic Pulse Battery',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
             },
-			
+
             FiringTolerance = 0.5,
-			
+
             Label = 'SonicPulseBattery',
-			
+
 			LeadTarget = true,
-			
+
             MaxRadius = 36,
-			
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 66,
@@ -718,41 +718,41 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,		-- 80 DPS Air
-			
+
             TargetCheckInterval = 0.5,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-			
+
             TrackingRadius = 1.5,
-			
+
             TurretBoneMuzzle = 'Muzzle_B01',
             TurretBonePitch = 'Turret_Back01',
             TurretBoneYaw = 'Turret_Back01',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
-			
+
             Turreted = true,
         },
         {

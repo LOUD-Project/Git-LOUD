@@ -56,7 +56,7 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 9,
     },
-    Description = 'Mobile Shield Generator',
+    Description = '<LOC ual0307_desc>Mobile Shield Generator',
     Display = {
         Abilities = {
             'Hover',
@@ -119,7 +119,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Asylum',
+        UnitName = '<LOC ual0307_name>Asylum',
         UnitWeight = 1,
     },
     Intel = {

@@ -63,7 +63,7 @@ UnitBlueprint {
         MaxHealth = 1350,
         RegenRate = 2,
     },
-    Description = 'Spy Plane',
+    Description = '<LOC xsa0302_desc>Spy Plane',
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -121,7 +121,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Iaselen',
+        UnitName = '<LOC xsa0302_name>Iaselen',
         UnitWeight = 1,
     },
     Intel = {

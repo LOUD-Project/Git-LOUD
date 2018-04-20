@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 40,
     },
 	
-    Description = 'Amphibious Siege Tank',
+    Description = '<LOC xsl0303_desc>Amphibious Siege Tank',
 	
     Display = {
         Mesh = {
@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Othuum',
+        UnitName = '<LOC xsl0303_name>Othuum',
         UnitWeight = 1,
     },
 	

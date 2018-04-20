@@ -64,7 +64,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 50,
     },
 	
-    Description = 'Battlecruiser',
+    Description = '<LOC xes0307_desc>Battlecruiser',
 	
     Display = {
 	
@@ -176,7 +176,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Neptune Class',
+        UnitName = '<LOC xes0307_name>Neptune Class',
         UnitWeight = 1,
     },
 	

@@ -65,7 +65,7 @@ UnitBlueprint {
         RegenRate = 4,
     },
 	
-    Description = 'T4 SAM Launcher',
+    Description = '<LOC vsb2302_desc>T4 SAM Launcher',
 	
     Display = {
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Tuvatham',
+        UnitName = '<LOC vsb2302_name>Tuvatham',
         UnitWeight = 1,
     },
 	

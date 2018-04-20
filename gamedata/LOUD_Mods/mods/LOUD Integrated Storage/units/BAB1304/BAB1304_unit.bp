@@ -42,7 +42,7 @@ UnitBlueprint {
         RegenRate = 5,
     },
 	
-    Description = 'Advanced Hydrocarbon Plant & Storage',
+    Description = '<LOC bab1304_desc>Advanced Hydrocarbon Plant & Storage',
 	
     Display = {
 		Abilities = {

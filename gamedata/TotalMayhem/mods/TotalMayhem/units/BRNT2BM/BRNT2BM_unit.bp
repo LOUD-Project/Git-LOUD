@@ -58,7 +58,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 9,
     },
-    Description = 'Amphibious Gatling Mech',
+    Description = '<LOC brnt2bm_desc>Amphibious Gatling Mech',
     Display = {
         Abilities = {
             'Radar',
@@ -112,7 +112,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Banshee',
+        UnitName = '<LOC brnt2bm_name>Banshee',
         UnitWeight = 1,
     },
     Intel = {

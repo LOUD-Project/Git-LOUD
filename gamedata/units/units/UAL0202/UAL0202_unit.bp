@@ -65,7 +65,7 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 10,
     },
-    Description = 'Heavy Tank',
+    Description = '<LOC ual0202_desc>Heavy Tank',
     Display = {
         Abilities = {
             'Personal Shield',
@@ -127,7 +127,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Obsidian',
+        UnitName = '<LOC ual0202_name>Obsidian',
         UnitWeight = 1,
     },
     Intel = {

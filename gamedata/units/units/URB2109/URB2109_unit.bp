@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 4,
     },
 	
-    Description = 'Basic Torpedo Launcher',
+    Description = '<LOC urb2109_desc>Basic Torpedo Launcher',
 	
     Display = {
         Abilities = {
@@ -101,7 +101,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Scuttle',
+        UnitName = '<LOC urb2109_name>Scuttle',
         UnitWeight = 1,
     },
     Intel = {

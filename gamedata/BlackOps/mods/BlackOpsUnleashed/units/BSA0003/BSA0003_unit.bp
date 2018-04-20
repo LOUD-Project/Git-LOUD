@@ -89,7 +89,7 @@ UnitBlueprint {
 		AirThreatLevel = 9,
         SurfaceThreatLevel = 9,
     },
-    Description = 'Elite Gunship',
+    Description = '<LOC bsa0003_desc>Elite Gunship',
     Display = {
         LayerChangeEffects = {
             AirLand = {
@@ -160,7 +160,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Hala Vulthoo',
+        UnitName = '<LOC bsa0003_name>Hala Vulthoo',
         UnitWeight = 1,
     },
     Intel = {

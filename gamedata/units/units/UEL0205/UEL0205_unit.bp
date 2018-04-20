@@ -41,7 +41,7 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 0,
     },
-    Description = 'Mobile Flak Tank',
+    Description = '<LOC uel0205_desc>Mobile Flak Tank',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -88,7 +88,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sky Boxer',
+        UnitName = '<LOC uel0205_name>Sky Boxer',
         UnitWeight = 1,
     },
     Intel = {

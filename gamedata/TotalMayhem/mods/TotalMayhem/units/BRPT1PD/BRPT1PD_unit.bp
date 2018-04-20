@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 16,
     },
 	
-    Description = 'Heavy Point Defense',
+    Description = '<LOC brpt1pd_desc>Heavy Point Defense',
 	
     Display = {
 		Abilities = {'Good Range',},
@@ -126,7 +126,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Hethula-Uttaus',
+        UnitName = '<LOC brpt1pd_name>Hethula-Uttaus',
         UnitWeight = 1,
     },
 	

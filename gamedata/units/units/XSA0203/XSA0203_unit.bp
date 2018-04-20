@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = 'Gunship',
+    Description = '<LOC xsa0203_desc>Gunship',
 	
     Display = {
         Mesh = {
@@ -144,7 +144,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vulthoo',
+        UnitName = '<LOC xsa0203_name>Vulthoo',
         UnitWeight = 1,
     },
     Intel = {

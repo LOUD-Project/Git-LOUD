@@ -73,7 +73,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 90,
     },
 	
-    Description = 'Experimental Sniper',
+    Description = '<LOC bal0403_desc>Experimental Sniper',
 	
     Display = {
 	
@@ -199,7 +199,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Interrogater',
+        UnitName = '<LOC bal0403_name>Interrogater',
         UnitWeight = 2,
     },
 	

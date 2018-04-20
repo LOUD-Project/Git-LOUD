@@ -103,7 +103,7 @@ UnitBlueprint {
         RegenRate = 20,
     },
 	
-    Description = 'Experimental Fighter/Bomber',
+    Description = '<LOC tcau0401_desc>Experimental Fighter/Bomber',
 	
     Display = {
         Abilities = {
@@ -197,7 +197,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Lucidity',
+        UnitName = '<LOC tcau0401_name>Lucidity',
         UnitWeight = 1,
     },
 	

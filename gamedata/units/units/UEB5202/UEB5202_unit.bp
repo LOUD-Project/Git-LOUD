@@ -53,7 +53,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Air Staging Facility',
+    Description = '<LOC ueb5202_desc>Air Staging Facility',
 	
     Display = {
         Abilities = {
@@ -115,7 +115,7 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Refuel & Repair',
+        UnitName = '<LOC ueb5202_name>Refuel & Repair',
         UnitWeight = 1,
     },
     Interface = {

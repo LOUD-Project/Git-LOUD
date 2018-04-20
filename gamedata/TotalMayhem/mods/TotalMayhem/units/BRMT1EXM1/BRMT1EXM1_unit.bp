@@ -62,7 +62,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 5.4,
     },
 	
-    Description = 'Medium Assault Bot',
+    Description = '<LOC brmt1exm1_desc>Medium Assault Bot',
 	
     Display = {
         AnimationDeath = {
@@ -113,7 +113,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Proton',
+        UnitName = '<LOC brmt1exm1_name>Proton',
         UnitWeight = 1,
     },
     Intel = {

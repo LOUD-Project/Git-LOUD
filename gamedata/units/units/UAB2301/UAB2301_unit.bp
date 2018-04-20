@@ -44,7 +44,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 15,
     },
 	
-    Description = 'Improved Point Defense',
+    Description = '<LOC uab2301_desc>Improved Point Defense',
 	
     Display = {
         AnimationPermOpen = '/units/UAB2301/UAB2301_Aopen.sca',
@@ -98,7 +98,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Oblivion',
+        UnitName = '<LOC uab2301_name>Oblivion',
         UnitWeight = 1,
     },
 	

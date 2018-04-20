@@ -38,7 +38,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = 'Advanced Mass Extractor & Storage',
+    Description = '<LOC xsb1304_desc>Advanced Mass Extractor & Storage',
 	
     Display = {
         AnimationActivate = '/units/XSB1302/XSB1302_Apump.sca',

@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Improved Point Defense',
+    Description = '<LOC brmt1pd_desc>Improved Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -95,7 +95,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'SlyFox',
+        UnitName = '<LOC brmt1pd_name>SlyFox',
         UnitWeight = 1,
     },
     Intel = {

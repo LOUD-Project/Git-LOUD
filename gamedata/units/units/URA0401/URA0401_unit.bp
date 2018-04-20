@@ -117,7 +117,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 149,
     },
 	
-    Description = 'Experimental Gunship',
+    Description = '<LOC ura0401_desc>Experimental Gunship',
 	
     Display = {
         Abilities = {
@@ -206,7 +206,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Soul Ripper',
+        UnitName = '<LOC ura0401_name>Soul Ripper',
         UnitWeight = 12,
     },
 	

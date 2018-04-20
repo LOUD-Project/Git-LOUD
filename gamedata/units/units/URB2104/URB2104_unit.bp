@@ -58,7 +58,7 @@ UnitBlueprint {
         RegenRate = 1,
 	},
 	
-    Description = 'Basic AA Defense',
+    Description = '<LOC urb2104_desc>Basic AA Defense',
 	
     Display = {
 	
@@ -123,7 +123,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Tracer',
+        UnitName = '<LOC urb2104_name>Tracer',
         UnitWeight = 1,
     },
 	

@@ -80,7 +80,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 38,
     },
 	
-    Description = 'Strategic Missile Submarine',
+    Description = '<LOC ues0304_desc>Strategic Missile Submarine',
 	
     Display = {
         Abilities = {
@@ -227,7 +227,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Ace',
+        UnitName = '<LOC ues0304_name>Ace',
         UnitWeight = 1,
     },
 	

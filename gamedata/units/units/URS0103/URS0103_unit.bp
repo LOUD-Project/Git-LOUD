@@ -63,7 +63,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 6.5,
     },
 	
-    Description = 'Frigate',
+    Description = '<LOC urs0103_desc>Frigate',
 	
     Display = {
 	
@@ -171,7 +171,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Trident Class',
+        UnitName = '<LOC urs0103_name>Trident Class',
         UnitWeight = 1,
     },
 	

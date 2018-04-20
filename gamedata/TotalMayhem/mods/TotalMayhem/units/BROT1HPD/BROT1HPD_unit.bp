@@ -50,7 +50,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 15,
     },
-    Description = 'Enhanced Point Defense',
+    Description = '<LOC brot1hpd_desc>Enhanced Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -94,7 +94,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Zpyker',
+        UnitName = '<LOC brot1hpd_name>Zpyker',
         UnitWeight = 1,
     },
     Intel = {

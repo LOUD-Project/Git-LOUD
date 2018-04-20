@@ -38,7 +38,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Crab Egg (Artillery)',
+    Description = '<LOC xrl0005_desc>Crab Egg (Artillery)',
     Display = {
         AnimationOpen = '/units/xrl0005/xrl0005_aopen.sca',
         BuildAttachBone = 'AttachPoint',

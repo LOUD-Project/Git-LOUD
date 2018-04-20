@@ -44,7 +44,7 @@ UnitBlueprint {
         MaxHealth = 2150,
         RegenRate = 3,
     },
-    Description = 'Perimeter Monitoring System',
+    Description = '<LOC xrb3301_desc>Perimeter Monitoring System',
     Display = {
         AnimationPermOpen = '/units/xrb3301/xrb3301_aopen.sca',
         Mesh = {
@@ -126,7 +126,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Soothsayer',
+        UnitName = '<LOC xrb3301_name>Soothsayer',
         UnitWeight = 1,
     },
     Intel = {

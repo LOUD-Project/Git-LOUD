@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 225,
     },
 	
-    Description = 'Battleship',
+    Description = '<LOC xss0302_desc>Battleship',
 	
     Display = {
         Abilities = {
@@ -189,7 +189,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Hauthuum',
+        UnitName = '<LOC xss0302_name>Hauthuum',
         UnitWeight = 1,
     },
 	

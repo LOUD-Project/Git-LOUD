@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 18000,
         RegenRate = 2,
     },
-    Description = 'Advanced Air Factory',
+    Description = '<LOC uab0302_desc>Advanced Air Factory',
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {

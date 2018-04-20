@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 13,
     },
 	
-    Description = 'Field Artillery',
+    Description = '<LOC urb2303_desc>Field Artillery',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -103,7 +103,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Gunther',
+        UnitName = '<LOC urb2303_name>Gunther',
         UnitWeight = 1,
     },
 	

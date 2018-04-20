@@ -43,7 +43,7 @@ UnitBlueprint {
         Health = 6000,
         MaxHealth = 6000,
     },
-    Description = 'Wall Section',
+    Description = '<LOC ueb5101_desc>Wall Section',
     Display = {
         BuildMeshBlueprint = '/props/UEB5101/UEB5101_prop.bp',
         Mesh = {
@@ -93,7 +93,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Calcicrete 2.0',
+        UnitName = '<LOC uem0006_name>Calcicrete 2.0',
         UnitWeight = 1,
     },
     Intel = {

@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 62,
     },
 	
-    Description = 'Escort Cruiser',
+    Description = '<LOC brs0304_desc>Escort Cruiser',
 	
     Display = {
         Abilities = {
@@ -193,7 +193,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        UnitName = 'Reaper Class',
+        UnitName = '<LOC brs0304_name>Reaper Class',
         UnitWeight = 1,
     },
 	

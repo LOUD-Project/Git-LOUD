@@ -100,7 +100,7 @@ UnitBlueprint {
         SubThreatLevel = 33,
     },
 	
-    Description = 'Advanced Torpedo Bomber',
+    Description = '<LOC xaa0306_desc>Advanced Torpedo Bomber',
 	
     Display = {
         Abilities = {
@@ -154,7 +154,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Solace',
+        UnitName = '<LOC xaa0306_name>Solace',
         UnitWeight = 1,
     },
 	

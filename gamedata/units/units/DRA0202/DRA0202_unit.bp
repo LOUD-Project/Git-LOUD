@@ -91,7 +91,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 4,
     },
 	
-    Description = 'Fighter Bomber',
+    Description = '<LOC dra0202_desc>Fighter Bomber',
 	
     Display = {
         Abilities = {
@@ -146,7 +146,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Talon',
+        UnitName = '<LOC dra0202_name>Talon',
         UnitWeight = 1,
     },
     Intel = {

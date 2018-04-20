@@ -67,7 +67,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Tempest Defense Drone',
+    Description = '<LOC baa0001_desc>Tempest Defense Drone',
 	
     Display = {
 		AnimationLand = '/mods/BlackOpsUnleashed/units/BAA0001/BAA0001_AClose01.sca',

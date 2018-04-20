@@ -52,7 +52,7 @@ UnitBlueprint {
         MaxHealth = 3500,
         RegenRate = 3,
     },
-    Description = 'AA Flak Artillery',
+    Description = '<LOC urb2204_desc>AA Flak Artillery',
     Display = {
         Abilities = {
             'Aquatic',
@@ -110,7 +110,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sky Web',
+        UnitName = '<LOC urb2204_name>Sky Web',
         UnitWeight = 1,
     },
     Intel = {

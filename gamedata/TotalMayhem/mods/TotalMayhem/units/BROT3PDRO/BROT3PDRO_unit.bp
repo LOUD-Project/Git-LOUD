@@ -46,7 +46,7 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 40,
     },
-    Description = 'Plasma Rocket Battery',
+    Description = '<LOC brot3pdro_desc>Plasma Rocket Battery',
     Display = {
         Mesh = {
             IconFadeInZoom = 160,
@@ -90,7 +90,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Zheela',
+        UnitName = '<LOC brot3pdro_name>Zheela',
         UnitWeight = 1,
     },
     Intel = {

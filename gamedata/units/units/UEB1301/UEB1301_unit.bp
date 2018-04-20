@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = 'Advanced Power Generator',
+    Description = '<LOC ueb1301_desc>Advanced Power Generator',
 	
     Display = {
         DamageEffects = {

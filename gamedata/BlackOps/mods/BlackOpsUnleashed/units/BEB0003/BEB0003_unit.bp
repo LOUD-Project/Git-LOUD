@@ -14,7 +14,7 @@ UnitBlueprint {
         MaxHealth = 1,
     	NoTeleDistance = 100,
     },
-    Description = 'Anti-Teleport Emitter',
+    Description = '<LOC beb0003_desc>Anti-Teleport Emitter',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

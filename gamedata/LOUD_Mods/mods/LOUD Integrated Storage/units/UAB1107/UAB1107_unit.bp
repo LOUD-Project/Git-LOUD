@@ -33,7 +33,7 @@ UnitBlueprint {
         MaxHealth = 400,
         RegenRate = 3,
     },
-    Description = 'Mass Fabricator & Storage',
+    Description = '<LOC uab1107_desc>Mass Fabricator & Storage',
     Display = {
         Abilities = {
             'Volatile',

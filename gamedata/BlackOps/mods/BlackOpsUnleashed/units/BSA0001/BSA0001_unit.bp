@@ -79,7 +79,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = 'Air Drone',
+    Description = '<LOC bsa0001_desc>Air Drone',
     Display = {
         Abilities = {
             'Anti-Air',

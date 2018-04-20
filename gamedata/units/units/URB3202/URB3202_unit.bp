@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 625,
         RegenRate = 0,
     },
-    Description = 'Improved Sonar System',
+    Description = '<LOC urb3202_desc>Improved Sonar System',
     Display = {
         Abilities = {
             'Upgradeable',
@@ -103,7 +103,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Flood',
+        UnitName = '<LOC urb3202_name>Flood',
         UnitWeight = 1,
         UpgradesFrom = 'urb3102',
         UpgradesTo = 'urs0305',

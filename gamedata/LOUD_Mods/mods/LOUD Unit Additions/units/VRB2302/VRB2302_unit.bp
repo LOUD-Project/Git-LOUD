@@ -60,7 +60,7 @@ UnitBlueprint {
         RegenRate = 6,
     },
 	
-    Description = 'T4 AA Gun',
+    Description = '<LOC vrb2302_desc>T4 AA Gun',
 	
     Display = {
         Abilities = {
@@ -129,7 +129,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Sky Bloom',
+        UnitName = '<LOC vrb2302_name>Sky Bloom',
         UnitWeight = 1,
     },
 	

@@ -51,7 +51,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 17,
     },
-    Description = 'Light Rocket Artillery',
+    Description = '<LOC brb2303_desc>Light Rocket Artillery',
     Display = {
 		Abilities = {
 			'Rapid Fire Rocket Barrage',
@@ -102,7 +102,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Squall',
+        UnitName = '<LOC brb2303_name>Squall',
         UnitWeight = 1,
     },
 	

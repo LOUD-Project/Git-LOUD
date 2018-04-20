@@ -86,7 +86,7 @@ UnitBlueprint {
         SubThreatLevel = 180,
         SurfaceThreatLevel = 245,
     },
-    Description = 'Experimental Mobile Factory',
+    Description = '<LOC xrl0403_desc>Experimental Mobile Factory',
     Display = {
         Abilities = {
             'Amphibious',
@@ -229,7 +229,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Megalith',
+        UnitName = '<LOC xrl0403_name>Megalith',
         UnitWeight = 1,
     },
     Intel = {

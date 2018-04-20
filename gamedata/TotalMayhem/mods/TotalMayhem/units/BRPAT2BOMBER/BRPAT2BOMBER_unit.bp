@@ -116,7 +116,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 22,
     },
 	
-    Description = 'Improved Attack Bomber',
+    Description = '<LOC brpat2bomber_desc>Improved Attack Bomber',
 	
     Display = {
         Abilities = {
@@ -168,7 +168,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Vesinnee',
+        UnitName = '<LOC brpat2bomber_name>Vesinnee',
         UnitWeight = 1,
     },
 	

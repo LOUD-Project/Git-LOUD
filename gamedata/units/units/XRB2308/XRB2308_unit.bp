@@ -68,7 +68,7 @@ UnitBlueprint {
         RegenRate = 7,
     },
 	
-    Description = 'Torpedo Ambushing System',
+    Description = '<LOC xrb2308_desc>Torpedo Ambushing System',
 	
     Display = {
         Abilities = {
@@ -125,7 +125,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'HARMS',
+        UnitName = '<LOC xrb2308_name>HARMS',
         UnitWeight = 1,
     },
 	

@@ -54,7 +54,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = 'Strategic Missile Defense',
+    Description = '<LOC ueb4302_desc>Strategic Missile Defense',
 	
     Display = {
         Abilities = {
@@ -130,7 +130,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Nuke Eliminator',
+        UnitName = '<LOC ueb4302_name>Nuke Eliminator',
         UnitWeight = 1,
     },
     Intel = {

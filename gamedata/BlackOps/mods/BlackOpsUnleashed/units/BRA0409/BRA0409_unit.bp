@@ -108,7 +108,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 88,
     },
 	
-    Description = 'Assault Transport',
+    Description = '<LOC bra0409_desc>Assault Transport',
 	
     Display = {
         Abilities = {
@@ -227,7 +227,7 @@ UnitBlueprint {
             RULEUTC_StealthToggle = true,
         },
 
-        UnitName = 'Gargantuan',
+        UnitName = '<LOC bra0409_name>Gargantuan',
         UnitWeight = 1,
     },
 	

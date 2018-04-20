@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 11660,
         RegenRate = 6,
     },
-    Description = 'Advanced Hydrocarbon Power Plant & Storage',
+    Description = '<LOC bsb1304_desc>Advanced Hydrocarbon Power Plant & Storage',
     Display = {
 		Abilities = {
 			'Cusstomizable',
@@ -215,7 +215,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Uya-atoh',
+        UnitName = '<LOC bsb1304_name>Uya-atoh',
         UnitWeight = 1,
         UpgradesFrom = 'bsb1302',
     },

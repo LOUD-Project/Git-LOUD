@@ -51,7 +51,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 0,
     },
 	
-    Description = 'Unidentified Residual Energy Signature',
+    Description = '<LOC bsl0404_desc>Unidentified Residual Energy Signature',
 	
     Display = {
         IdleEffects = {
@@ -133,7 +133,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Othuy',
+        UnitName = '<LOC bsl0404_name>Othuy',
         UnitWeight = 1,
     },
 	

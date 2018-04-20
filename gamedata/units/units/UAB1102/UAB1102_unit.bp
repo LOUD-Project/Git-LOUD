@@ -46,7 +46,7 @@ UnitBlueprint {
         MaxHealth = 1600,
         RegenRate = 0,
     },
-    Description = 'Basic Hydrocarbon Power Plant',
+    Description = '<LOC uab1102_desc>Basic Hydrocarbon Power Plant',
     Display = {
         AnimationPermOpen = '/Units/UAB1102/UAB1102_Aopen.sca',
         Mesh = {

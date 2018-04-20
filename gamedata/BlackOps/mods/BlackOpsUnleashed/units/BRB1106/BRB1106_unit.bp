@@ -37,7 +37,7 @@ UnitBlueprint {
         MaxHealth = 7200,
         RegenRate = 4,
     },
-    Description = 'Mass & Energy Storage',
+    Description = '<LOC brb1106_desc>Mass & Energy Storage',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

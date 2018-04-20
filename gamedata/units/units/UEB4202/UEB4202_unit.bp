@@ -52,7 +52,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -3,
         },
     },
-    Description = 'Standard Shield Generator',
+    Description = '<LOC ueb4202_desc>Standard Shield Generator',
     Display = {
         Abilities = {
             'Upgradeable',
@@ -143,7 +143,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'SD - Pulse',
+        UnitName = '<LOC ueb4202_name>SD - Pulse',
         UnitWeight = 1,
         UpgradesTo = 'ueb4301',
     },

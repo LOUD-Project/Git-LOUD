@@ -51,7 +51,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 51,
     },
 	
-    Description = 'Heavy Defense Battery',
+    Description = '<LOC brot3shpd_desc>Heavy Defense Battery',
 	
     Display = {
 	
@@ -227,7 +227,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Mothra',
+        UnitName = '<LOC brot3shpd_name>Mothra',
         UnitWeight = 1,
     },
     Intel = {

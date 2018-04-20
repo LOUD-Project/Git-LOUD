@@ -42,7 +42,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Crab Egg (Engineer)',
+    Description = '<LOC xrl0002_desc>Crab Egg (Engineer)',
     Display = {
         AnimationOpen = '/units/xrl0002/xrl0002_aopen.sca',
         BuildAttachBone = 'AttachPoint',

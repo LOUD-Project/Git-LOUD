@@ -45,7 +45,7 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 18,
     },
-    Description = 'Unidentified Residual Energy Signature',
+    Description = '<LOC xsl0402_desc>Unidentified Residual Energy Signature',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

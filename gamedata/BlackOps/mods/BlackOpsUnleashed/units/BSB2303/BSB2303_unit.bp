@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 40,
     },
 	
-    Description = 'Land Mine Dispenser',
+    Description = '<LOC bsb2303_desc>Land Mine Dispenser',
 	
     Display = {
 		Abilities = {
@@ -112,7 +112,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        #UnitName = 'Hethatha',
+        #UnitName = '<LOC bsb2303_name>Hethatha',
         UnitWeight = 1,
     },
 	

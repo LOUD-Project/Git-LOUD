@@ -68,7 +68,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -48,
         },
     },
-    Description = 'Experimental Squareshield',
+    Description = '<LOC xsbssg01_desc>Experimental Squareshield',
     Display = {
         Abilities = {
 			'Square Shield Dome',
@@ -184,7 +184,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'Thanatos',
+        UnitName = '<LOC xsbssg01_name>Thanatos',
         UnitWeight = 1,
         UpgradesTo = 'xsbssg02',
     },

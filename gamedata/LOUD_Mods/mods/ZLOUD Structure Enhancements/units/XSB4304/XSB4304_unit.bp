@@ -47,7 +47,7 @@ UnitBlueprint {
 		NoTeleDistance = 55,
     },
 	
-    Description = 'Adv Stealth Field Generator',
+    Description = '<LOC xsb4304_desc>Adv Stealth Field Generator',
 	
     Display = {
         Abilities = {
@@ -149,7 +149,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-        UnitName = 'Ultha Sele-ioz',
+        UnitName = '<LOC xsb4304_name>Ultha Sele-ioz',
         UnitWeight = 1,
 		UpgradesFrom = 'xsb4203',
     },

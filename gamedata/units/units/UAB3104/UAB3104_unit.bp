@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 60,
         RegenRate = 1,
     },
-    Description = 'Omni Sensor Array',
+    Description = '<LOC uab3104_desc>Omni Sensor Array',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -101,7 +101,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitName = 'Oculus',
+        UnitName = '<LOC uab3104_name>Oculus',
         UnitWeight = 1,
         UpgradesFrom = 'uab3201',
     },

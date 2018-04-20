@@ -36,7 +36,7 @@ UnitBlueprint {
         MaxHealth = 10600,
         RegenRate = 4,
     },
-    Description = 'Advanced Hydrocarbon Power Plant',
+    Description = '<LOC brb1302_desc>Advanced Hydrocarbon Power Plant',
     Display = {
 		Abilities = {
             'Volatile',

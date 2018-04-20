@@ -72,7 +72,7 @@ UnitBlueprint {
         RegenRate = 6,
         SurfaceThreatLevel = 58,
     },
-    Description = 'Adv. Amphib Battle Bot',
+    Description = '<LOC brmt3bm2_desc>Adv. Amphib Battle Bot',
     Display = {
         Abilities = {
             'Amphibious',
@@ -130,7 +130,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Dervish',
+        UnitName = '<LOC brmt3bm2_name>Dervish',
         UnitWeight = 2,
     },
 	

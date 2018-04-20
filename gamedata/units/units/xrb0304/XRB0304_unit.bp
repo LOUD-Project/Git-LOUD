@@ -58,7 +58,7 @@ UnitBlueprint {
         MaxHealth = 1950,
         RegenRate = 3,
     },
-    Description = 'Advanced Engineering Station',
+    Description = '<LOC xrb0304_desc>Advanced Engineering Station',
     Display = {
         Abilities = {
             'Further range and slight increase to assistance level of Engineering Suite',
@@ -137,7 +137,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitName = 'Hive Mk. III',
+        UnitName = '<LOC xrb0304_name>Hive Mk. III',
         UnitWeight = 1,
         UpgradesFrom = 'xrb0204',
     },

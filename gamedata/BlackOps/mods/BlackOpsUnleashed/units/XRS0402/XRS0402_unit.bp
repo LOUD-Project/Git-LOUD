@@ -69,7 +69,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 287,
     },
 	
-    Description = 'Dreadnaught',
+    Description = '<LOC xrs0402_desc>Dreadnaught',
 	
     Display = {
         Abilities = {
@@ -191,7 +191,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'SeaDragon Class',
+        UnitName = '<LOC xrs0402_name>SeaDragon Class',
         UnitWeight = 1,
     },
 	

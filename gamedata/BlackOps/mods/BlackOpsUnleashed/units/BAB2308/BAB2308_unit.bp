@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 95,
     },
 	
-    Description = 'Advanced Tactical Missile Launcher',
+    Description = '<LOC bab2308_desc>Advanced Tactical Missile Launcher',
 	
     Display = {
 	
@@ -120,7 +120,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Purifier',
+        UnitName = '<LOC bab2308_name>Purifier',
         UnitWeight = 1,
     },
 	
