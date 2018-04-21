@@ -38,7 +38,7 @@ UnitBlueprint {
         RegenRate = 5,
     },
 	
-    Description = '<LOC sea0002_desc>Observation Satellite', --BrewLAN string, for translation purposes.
+    Description = '<LOC xea0002_desc>Intelligence Satellite',
     
     Display = {
         Mesh = {
@@ -83,7 +83,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 75,
+        VisionRadius = 50,
     },
 	
     Interface = {
