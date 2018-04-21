@@ -52,7 +52,7 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = '<LOC xseb3303_desc>Observation Satellite Uplink', --BrewLAN string, for translation purposes.
+    Description = '<LOC xeb3303_desc>Satellite Control Center',
 	
     Display = {
         DamageEffects = {
