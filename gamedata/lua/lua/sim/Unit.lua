@@ -5214,7 +5214,7 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
-	--  Copyright © 2010 4DC  All rights reserved.
+	--  Copyright ï¿½ 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
         if not self.Dead then    
@@ -5492,7 +5492,7 @@ Unit = Class(moho.unit_methods) {
 							-- notice that this runs every pass, so units will re-cloak after only 8 seconds when revealed
 							for num, unit in UnitsInRange do
 
-								unit.InCloakField = nil
+								unit.InCloakField = true
 							
 								if unit.InCloakFieldThread then
 								
@@ -5522,12 +5522,12 @@ Unit = Class(moho.unit_methods) {
 
 	-- Will deactivate the cloak effect if it is not renewed by a cloak field
 	InCloakFieldWatchThread = function(self, bp)
-	
+
 		self:UpdateCloakEffect(bp)
 		
 		WaitTicks(80)
 		
-		self.InCloakField = nil
+		self.InCloakField = false
 		
 		if self.InCloadFieldThread then
 		
