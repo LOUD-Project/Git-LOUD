@@ -1172,7 +1172,7 @@ MobileUnit = Class(Unit) {
 
         CleanupEffectBag(self,'MovementEffectsBag')
 		
-		self.MovementEffectsBag = nil
+		self.MovementEffectsBag = {}
 
         if self.CamShakeT1 then
 		
