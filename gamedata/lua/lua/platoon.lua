@@ -516,13 +516,13 @@ Platoon = Class(moho.platoon_methods) {
 				local markerlist = {}
 				local path, reason, pathlength
 	
-				-- locate the requested markers within markerrange of the supplied location	
+				-- locate the requested markers within markerrange of the supplied location	that the platoon can safely land at
 				for _,v in markerTypes do
 				
-					markerlist = LOUDCAT(markerlist, AIGetMarkersAroundLocation(aiBrain, v, destination, markerrange) )
+					markerlist = LOUDCAT( markerlist, AIGetMarkersAroundLocation(aiBrain, v, destination, markerrange, 0, threatMax, 0, 'AntiSurface') )
 					
 				end
-    
+				
 				-- sort the markers by closest distance to final destination
 				LOUDSORT(markerlist, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
 
@@ -559,9 +559,9 @@ Platoon = Class(moho.platoon_methods) {
 							
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe AIR path for transports to "..repr(destination).." from "..repr(self:GetPlatoonPosition() ))
 						
-						else
+						--else
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe LAND path to "..repr(destination).." from "..repr(v.Position).." using "..layer)
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe LAND path to "..repr(destination).." from "..repr(v.Position).." using "..layer.." reason is "..repr(reason) )
 							
 						end
 					
@@ -644,6 +644,8 @@ Platoon = Class(moho.platoon_methods) {
 			
 				-- we'll look for a drop zone at least half as close as we already are
 				local markerrange = VDist3( self:GetPlatoonPosition(), destination ) * .5
+				
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
 			
 				transportLocation = false
 
@@ -665,7 +667,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." aborting transport")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - aborting transport")
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 					
@@ -2293,6 +2295,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
 
+		local lastmarker = false
 		local marker
 		local UnitToGuard = false
 		local guarding = false
@@ -2310,32 +2313,56 @@ Platoon = Class(moho.platoon_methods) {
 				break
 				
 			end
---[[		
-			if MissionTimer != 'Abort' then
-			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." seeks a point with "..MissionTimer - (LOUDTIME() - self.CreationTime ).." MISSION ticks remaining")
-				
-			end
---]]		
+
 			OriginalThreat = self:CalculatePlatoonThreat('Land', categories.ALLUNITS)
 			
 			position = GetPlatoonPosition(self) or false
 			
 			-- FIRST TASK -- FIND A POINT WE CAN GET TO --
+			-- new feature to insure the same point is not picked repeatedly
+			
+			marker = false
 			
 			if position then
 			
-				-- Get a point that meets all of the required conditions 
+				-- Get a list of points that meet all of the required conditions 
 				pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
 
-				-- if  pointlist select a random marker otherwise Return to Base
+				-- if list then select a random marker
+				-- never re-select the same point if it already failed
+				-- if no point is found then Return to Base
 				if pointlist then
-			
-					-- this will pick one of the points
-					choice = Random( 1, math.ceil( LOUDGETN(pointlist) ) )
+
+					-- randomly pick a marker (but cannot be the same as recently failed)
+					-- exit
+					while marker == false do
 					
-					-- format marker position --
-					marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
+						local choices = math.ceil(LOUDGETN(pointlist))
+						
+						-- if there are no choices left
+						if choices < 1 then 
+							break
+						end
+						
+						-- this will pick one of the points
+						choice = Random( 1, choices )
+					
+						-- format the marker --
+						marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
+						
+						-- and remove the marker so it cant be picked again
+						table.remove( pointlist, choice )
+						
+						-- is it the same as last failed marker
+						if marker == lastmarker then
+						
+							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+						
+							marker = false
+							
+						end
+						
+					end
 					
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker))
 
@@ -2346,9 +2373,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 			
-			if not position or not pointlist then
+			if not position or not marker then
 				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." fails - position is "..repr(position))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." fails - position is "..repr(position))
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
@@ -2360,18 +2387,22 @@ Platoon = Class(moho.platoon_methods) {
 			
 			distance = VDist3( GetPlatoonPosition(self), marker )
 			
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, position, marker, OriginalThreat, 160)
+			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, position, marker, OriginalThreat, 160)
 			
 			if PlatoonExists(aiBrain, self) then
 			
 				if not path then
 				
-					-- try 3 transport calls -- 
+					-- try 3 transport calls -- if they fail - record this marker so it doesn't get
+					-- picked again the next time this platoon picks a new point
 					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 3, false )
 				
 					if not usedTransports then
 				
+						lastmarker = table.copy(marker)
+						
 						marker = false
+						
 						continue
 					
 					end
@@ -2381,24 +2412,17 @@ Platoon = Class(moho.platoon_methods) {
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." path is "..repr(path))
 					
 					if PlatoonExists(aiBrain,self) then
-
-						if distance > 300 then
 				
-							usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
-					
-						end
-
-						if not usedTransports and distance < 1024 then
-				
-							self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
-
-						end
+						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
 						
 					end
 				
 					if not usedTransports and not self.MoveThread then
+					
+						lastmarker = table.copy(marker)
 				
 						marker = false
+						
 						continue
 						
 					end
@@ -2485,11 +2509,13 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if marker and PlatoonExists( aiBrain, self ) then
 					
+						-- travel uses up guardtime
 						guardtime = guardtime + 8
 
 						distance = VDist3( GetPlatoonPosition(self), marker )
 
-						if marker and calltransport > 3 and distance > 300 then
+						-- call transports if still far (every fourth iteration)
+						if marker and calltransport > 3 and distance > 350 then
 					
 							usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
 
@@ -2540,6 +2566,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- if there is a target prosecute it
 				if target then
 					
+					-- issue attack orders on target --
 					if target.Sync.id and not target.Dead then
 					
 						self:Stop()
@@ -2580,10 +2607,11 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 					
-					-- Engage target until dead or outside radius
+					-- Engage target until dead or target is outside guard radius
 					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
 
-						WaitTicks(75)
+						WaitTicks(90)
+						guardtime = guardtime + 9
 						
 						if PlatoonExists(aiBrain,self) then
 					
@@ -2811,7 +2839,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			marker = false
 			
-			WaitTicks(30)
+			WaitTicks(35)
 			
 		end
 

@@ -43,7 +43,7 @@ UnitList = {
     
     T3LandBot = {
 
-    	Cybran = {'brl0307', 30 },  	# Hailfire
+    	Cybran = {'brl0307', 25 },  	# Hailfire
     	Seraphim = {'bsl0310', 100},    # Lambda Bot        
     },
 	

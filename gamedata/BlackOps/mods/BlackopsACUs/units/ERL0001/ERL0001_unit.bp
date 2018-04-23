@@ -1268,9 +1268,9 @@ UnitBlueprint {
             Slot = 'Back',
         },
         EXNanoKickerSubsystems = {
-            BuildCostEnergy = 315000,
-            BuildCostMass = 2700,
-            BuildTime = 10800,
+            BuildCostEnergy = 400000,
+            BuildCostMass = 10800,
+            BuildTime = 14500,
             Icon = 'exbbat3',
             Name = 'Nano Regeneration Subsystem (T4)',
 			Prerequisite = 'EXDefensiveSubsystems',
@@ -1294,6 +1294,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'URL0001',
             },
+			NewRegenRate = 100,
         },
         EXNanoKickerSubsystemsRemove = {
             BuildCostEnergy = 1,

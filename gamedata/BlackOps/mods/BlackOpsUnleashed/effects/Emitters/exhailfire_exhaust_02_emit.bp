@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'exhailfire_exhaust_02_emit',
-	Lifetime = 40.00,
-	Repeattime = 40.00,
+	Lifetime = 6.00,
+	Repeattime = 6.00,
 	TextureFramecount = 1.00,
 	Blendmode = 0.00,
 	LocalVelocity = true,
@@ -25,24 +25,28 @@ EmitterBlueprint {
 	HighFidelity = true,
 	Texture = [[/textures/particles/cloud_smoke_alpha_13.dds]],
 	RampTexture = [[/textures/particles/ramp_white_07.dds]],
+	
 	XDirectionCurve = {
 		XRange = 40.00,
 		Keys = {
 			{ x=20.000,y=0.000,z=0.030 },
 		},
 	},
+	
 	YDirectionCurve = {
 		XRange = 40.00,
 		Keys = {
 			{ x=20.000,y=0.000,z=0.030 },
 		},
 	},
+	
 	ZDirectionCurve = {
 		XRange = 40.00,
 		Keys = {
 			{ x=20.000,y=0.000,z=0.030 },
 		},
 	},
+	
 	EmitRateCurve = {
 		XRange = 40.00,
 		Keys = {
@@ -51,12 +55,14 @@ EmitterBlueprint {
 			{ x=39.947,y=5.571,z=0.000 },
 		},
 	},
+	
 	LifetimeCurve = {
 		XRange = 40.00,
 		Keys = {
 			{ x=20.000,y=7.500,z=0.000 },
 		},
 	},
+	
 	VelocityCurve = {
 		XRange = 40.00,
 		Keys = {

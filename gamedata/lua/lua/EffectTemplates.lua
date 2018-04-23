@@ -906,6 +906,7 @@ CNanoDartUnitHit02 = {
 }
 
 CNanoDartPolyTrail01= '/effects/emitters/cybran_nano_dart_polytrail_01_emit.bp'
+
 CNanoDartPolyTrail02= '/effects/emitters/cybran_nano_dart_polytrail_02_emit.bp'
 
 CCorsairMissileHit01 = {

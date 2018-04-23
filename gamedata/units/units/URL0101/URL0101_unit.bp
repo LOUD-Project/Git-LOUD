@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -31,7 +34,9 @@ UnitBlueprint {
         'RECLAIMABLE',
 		'OVERLAYRADAR',
     },
+	
     CollisionOffsetY = 0.05,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 20,
@@ -39,7 +44,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 0.05,
     },
+	
     Description = '<LOC url0101_desc>Land Scout',
+	
     Display = {
         Abilities = {
             'Cloaking',
@@ -66,12 +73,14 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.027,
     },
+	
     Economy = {
         BuildCostEnergy = 80,
         BuildCostMass = 10,
         BuildTime = 80,
         MaintenanceConsumptionPerSecondEnergy = 5,
     },
+	
     General = {
 		CapCost = 0.5,
         Category = 'Utility',
@@ -99,6 +108,7 @@ UnitBlueprint {
         UnitName = '<LOC url0101_name>Mole',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         Cloak = true,
@@ -106,12 +116,15 @@ UnitBlueprint {
         RadarRadius = 50,
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Land Scout',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.5,
+	
     Physics = {
         BackUpDistance = 2,
         BankingSlope = 0,
@@ -134,14 +147,18 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 180,
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+	
     SizeX = 0.5,
     SizeY = 0.3,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_land1_intel',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         TransportClass = 1,
     },

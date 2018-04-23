@@ -231,6 +231,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 		
 			-- get the standard regen
 			local bpregn = unit:GetBlueprint().Defense.RegenRate or 0
+			
 			-- get the total current regen subtract the standard regen to get extra regen
 			local vetregn = BuffCalculate(unit, nil, 'Regen', bpregn) - bpregn
 
