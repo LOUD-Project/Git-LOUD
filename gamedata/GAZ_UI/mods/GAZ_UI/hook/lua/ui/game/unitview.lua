@@ -97,7 +97,7 @@ do
                         if getEnh.GetEnhancements(info.entityId) != nil then
                             for k,v in getEnh.GetEnhancements(info.entityId) do
                                 if info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate != nil then
-                                    enhRegen = info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate
+                                    enhRegen = enhRegen + info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate
                                 end
                             end
                         end

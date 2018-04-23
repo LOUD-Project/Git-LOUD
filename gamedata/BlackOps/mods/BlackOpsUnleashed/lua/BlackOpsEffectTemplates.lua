@@ -1,12 +1,3 @@
-#****************************************************************************
-#**
-#**  File     :  /data/lua/EffectTemplates.lua
-#**  Author(s):  Gordon Duclos, Greg Kohne, Matt Vainio, Aaron Lundquist
-#**
-#**  Summary  :  Generic templates for commonly used effects
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
 TableCat = import('/lua/utilities.lua').TableCat
 
 local EmtBpPath = '/effects/emitters/'
@@ -14,13 +5,9 @@ local EmtBpPathAlt = '/mods/BlackOpsUnleashed/effects/emitters/'
 local EmitterTempEmtBpPath = '/effects/emitters/temp/'
 
 
-WeaponSteam02 = {
-    EmtBpPathAlt .. 'weapon_mist_02_emit.bp',
-}
-
-#---------------------------------------------------------------
-
+WeaponSteam02 = { EmtBpPathAlt .. 'weapon_mist_02_emit.bp' }
 UnitHitShrapnel01 = { EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',}
+
 Aeon_MirvHit = {
 	#EmtBpPathAlt .. 'aeon_mirv_hit_01_emit.bp',	# initial flash
 	#EmtBpPathAlt .. 'aeon_mirv_hit_02_emit.bp',	# glow
@@ -761,7 +748,7 @@ CybranHailfire01FXTrails = {
     #EmtBpPath .. 'missile_munition_trail_02_emit.bp',
     #EmtBpPath .. 'missile_smoke_exhaust_02_emit.bp',
     #EmtBpPathAlt .. 'exhailfire_exhaust_01_emit.bp',
-    EmtBpPathAlt .. 'exhailfire_exhaust_02_emit.bp',
+    --EmtBpPathAlt .. 'exhailfire_exhaust_02_emit.bp',
 }
 CybranHailfire02FXTrails = {
     EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',

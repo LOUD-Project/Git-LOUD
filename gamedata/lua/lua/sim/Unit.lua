@@ -5433,7 +5433,8 @@ Unit = Class(moho.unit_methods) {
 	-- Black Ops Unleashed - cloaking mod
 	-- All credit to the Black Ops team - I merely optimized some aspects and moved the functions into the core
     
-	-- This thread runs constantly in the background for ALL units. It ensures that the cloak effect and cloak field are always in the correct state
+	-- This thread runs constantly in the background for ALL units that generate cloaking fields bigger than themselves.
+	-- It ensures that the cloak effect and cloak field are always in the correct state for units that are in the field
 	-- This task hogs a buttload of CPU - original wait period was 2 ticks - now 80 
 	CloakEffectControlThread = function(self,blueprint)
 	

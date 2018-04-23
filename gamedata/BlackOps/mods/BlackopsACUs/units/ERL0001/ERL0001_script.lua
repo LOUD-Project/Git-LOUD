@@ -1311,11 +1311,32 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh =='EXNanoKickerSubsystems' then
+		
+            if not Buffs['EXCybranRegenBoost100'] then
+                BuffBlueprint {
+                    Name = 'EXCybranRegenBoost100',
+                    BuffType = 'ACUREGENRATE',
+					EntityCategory = 'COMMAND',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        Regen = {
+                            Add = 100,
+                            Mult = 1.0,
+                        },
+                    },
+                }
+            end
+            Buff.ApplyBuff(self, 'EXCybranRegenBoost100')		
+			
 			self.RBComTier1 = true
 			self.RBComTier2 = true
 			self.RBComTier3 = true
 
         elseif enh == 'EXNanoKickerSubsystemsRemove' then
+		
+			Buff.RemoveBuff( self, 'EXCybranRegenBoost100' )
+			
 			self:SetSpeedMult(1)
 
 			self:RemoveCommandCap('RULEUCC_Teleport')
