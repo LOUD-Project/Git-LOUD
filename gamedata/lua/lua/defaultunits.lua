@@ -93,60 +93,89 @@ StructureUnit = Class(Unit) {
     },
 
     UpgradingState = State {
+	
         Main = function(self)
-		
-            local bp = GetBlueprint(self).Display
-			
+
             self:DestroyTarmac()
             self:PlayUnitSound('UpgradeStart')
             self:DisableDefaultToggleCaps()
+		
+            local bp = GetBlueprint(self).Display
 			
             if bp.AnimationUpgrade then
+			
                 local unitBuilding = self.UnitBeingBuilt
 				
                 self.AnimatorUpgradeManip = CreateAnimator(self)
+				
                 self.Trash:Add(self.AnimatorUpgradeManip)
 				
                 local fractionOfComplete = 0
 				
                 self:StartUpgradeEffects(unitBuilding)
+				
                 self.AnimatorUpgradeManip:PlayAnim(bp.AnimationUpgrade, false):SetRate(0)
 
                 while fractionOfComplete < 1 and not self.Dead do
+				
                     fractionOfComplete = unitBuilding:GetFractionComplete()
+					
                     self.AnimatorUpgradeManip:SetAnimationFraction(fractionOfComplete)
+					
                     WaitTicks(10)
+					
                 end
 				
                 if not self.Dead then
                     self.AnimatorUpgradeManip:SetRate(1)
                 end
+				
             end
+			
         end,
 
         OnStopBuild = function(self, unitBuilding)
+		
             Unit.OnStopBuild(self, unitBuilding)
+			
             self:EnableDefaultToggleCaps()
             
             if unitBuilding:GetFractionComplete() == 1 then
+			
                 NotifyUpgrade(self, unitBuilding)
+				
                 self:StopUpgradeEffects(unitBuilding)
+				
                 self:PlayUnitSound('UpgradeEnd')
 				self:DoDestroyCallbacks()
                 self:Destroy()
+				
             end
+			
         end,
 
         OnFailedToBuild = function(self)
+		
             Unit.OnFailedToBuild(self)
+			
             self:EnableDefaultToggleCaps()
             
-            if self.AnimatorUpgradeManip then self.AnimatorUpgradeManip:Destroy() end
+            if self.AnimatorUpgradeManip then
+			
+				self.AnimatorUpgradeManip:Destroy()
+				
+				self.AnimatorUpgradeManip = nil
+				
+			end
             
             self:PlayUnitSound('UpgradeFailed')
+			
             self:PlayActiveAnimation()
+			
             self:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP)
+			
             ChangeState(self, self.IdleState)
+			
         end,
     },
 
@@ -162,20 +191,29 @@ StructureUnit = Class(Unit) {
 			local bp = GetBlueprint(self)
 			
 			if bp.Physics.FlattenSkirt then
+			
 				self:FlattenSkirt(bp)
+				
 			end
-        end        
+			
+        end 
+		
     end,
 	
 	-- since Structures dont move we'll override the GetPosition function and use
 	-- the cacheposition we stored above -- great savings
 	GetPosition = function(self)
+	
 		return self.CachePosition
+		
 	end,
 	
     OnFailedToBeBuilt = function(self)
+	
         Unit.OnFailedToBeBuilt(self)
+		
         self:DestroyTarmac()
+		
     end,
 
     FlattenSkirt = function( self, bp )
@@ -185,6 +223,7 @@ StructureUnit = Class(Unit) {
         x0,z0,x1,z1 = LOUDFLOOR(x0),LOUDFLOOR(z0),LOUDCEIL(x1),LOUDCEIL(z1)
 		
         FlattenMapRect(x0, z0, x1-x0, z1-z0, GetPosition(self)[2])
+		
     end,
 	
     CreateEnhancement = function(self, enh)
@@ -537,8 +576,9 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( categories.FACTORY - categories.EXPERIMENTAL, finishedUnit ) then
 		
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradesComplete = false
+
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.01, 9999, 9999, 18, 150, false )
+				
 			end
 			
 		end
@@ -547,8 +587,9 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL, finishedUnit ) then
 		
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradesComplete = false
+			
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.02, 9999, 9999, 27, 360, true )
+				
 			end
 			
 		end
@@ -557,8 +598,9 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
 		
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradesComplete = false
+
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.01, 9999, 9999, 18, 90, true )
+				
 			end
 			
 		end
@@ -577,37 +619,55 @@ StructureUnit = Class(Unit) {
 			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
 			
 			if not finishedUnit.UpgradeThread then
+			
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, .69, 1.02, 1.5, 9999, 18, 90, true )
+				
 			end
+			
         end
         
 		-- shields --
         if EntityCategoryContains( categories.SHIELD, finishedUnit ) then
+		
 			if not finishedUnit.UpgradeThread then
+			
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1, 1.01, 9999, 9999, 24, 180, false )
+				
 			end
+			
         end
         
 		-- radar and sonar -- 
         if EntityCategoryContains( categories.INTELLIGENCE - categories.OPTICS, finishedUnit ) then
+		
 			if not finishedUnit.UpgradeThread then
+			
 			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1, 1.02, 9999, 9999, 24, 180, false )
+				
 			end
+			
         end
 		
 		-- pick up any structure that has an upgrade not covered by above
 		if finishedUnit:GetBlueprint().General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
+		
 			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.03, 9999, 9999, 36, 360, false )
+			
 		end
 		
 		-- add thread to the units trash
 		if finishedUnit.UpgradeThread then
+		
 			finishedUnit.Trash:Add(finishedUnit.UpgradeThread)
+			
 		end
 		
 		if finishedUnit.EnhanceThread then
+		
 			finishedUnit.Trash:Add(finishedUnit.EnhanceThread)
+			
 		end
+		
 	end,
     
     StartBeingBuiltEffects = function(self, builder, layer)
@@ -3479,7 +3539,7 @@ ConstructionUnit = Class(MobileUnit) {
 					-- since sometimes the original engineer dies and the unit is completed 
 					-- by an engineer in assist mode that didn't issue the original build order
 					EM:UnitConstructionFinished( eng, finishedUnit )
-						
+
 					if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
 						
 						if not unit.NotBuildingThread then
@@ -3487,31 +3547,39 @@ ConstructionUnit = Class(MobileUnit) {
 							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
 							end
-								
+
 						end
-							
+
 					end
 
 				end
-					
+
 			end
 
 			local EngineerCaptureDone = function( unit )
 				
 				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+				
 					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
 					end
+					
 				end
+				
 			end
 
 			local EngineerFailedCapture = function( unit )
 				
 				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
+				
 					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+					
 						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
+						
 					end	
+					
 				end
+				
 			end
 
 			local EngineerFailedToBuild = function( unit )
@@ -3525,13 +3593,13 @@ ConstructionUnit = Class(MobileUnit) {
 							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
 							end
-								
+
 						end
-							
+
 					end
-						
+
 				end
-					
+
 			end				
 
 			local EngineerStartBeingCaptured = function( unit )
@@ -3539,20 +3607,13 @@ ConstructionUnit = Class(MobileUnit) {
 				if unit.PlatoonHandle then
 					
 					local self = unit.PlatoonHandle
-						
+
 					self:SetAIPlan('ReturnToBaseAI', self:GetBrain())
 				end
 			end
 
-			--eng.EventCallbacks.OnUnitBuilt = {}
-			
 			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
 
-			--eng.EventCallbacks.OnStopCapture = {}
-			--eng.EventCallbacks.OnFailedCapture = {}
-			--eng.EventCallbacks.OnFailedToBuild = {}
-			--eng.EventCallbacks.OnStartBeingCaptured = {}
-			
 			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
 			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
 			eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
@@ -3580,11 +3641,14 @@ ConstructionUnit = Class(MobileUnit) {
 			
 			self.Trash:Add(self.BuildingOpenAnimManip)
 			
-			self.BuildingOpenAnim = nil		-- dont need this anymore after playing it
+			self.BuildingOpenAnim = nil
 			
             if self.BuildArmManipulator then
+			
                 self.BuildArmManipulator:Disable()
+				
             end
+			
         end
 		
         self.BuildingUnit = false
@@ -3598,15 +3662,22 @@ ConstructionUnit = Class(MobileUnit) {
 		
         if self.BuildingUnit then
             Unit.StopBuildingEffects(self, self.UnitBeingBuilt )
-        end    
+        end
+
     end,
     
     OnUnpaused = function(self)
+	
         if self.BuildingUnit then
+		
             --self:PlayUnitAmbientSound( 'ConstructLoop' )
+			
             Unit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
+			
         end
+		
         Unit.OnUnpaused(self)
+		
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order )
@@ -3618,11 +3689,16 @@ ConstructionUnit = Class(MobileUnit) {
         self.BuildingUnit = true
 		
 		if order == 'Upgrade' then
+		
 			if unitBeingBuilt:GetUnitId() == GetBlueprint(self).General.UpgradesTo then
+			
 				self.Upgrading = true
 				self.BuildingUnit = false
+				
 			end
+			
         end
+		
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
@@ -3630,31 +3706,48 @@ ConstructionUnit = Class(MobileUnit) {
         Unit.OnStopBuild(self,unitBeingBuilt)
 		
         if self.CurrentBuildOrder == 'MobileBuild' then  -- this prevents false positives by assisted enhancing
+		
             if self.OnStopBuildWasRun then
+			
                 if unitBeingBuilt and not unitBeingBuilt:BeenDestroyed() then
-                    unitBeingBuilt:Destroy()  # [164]
+				
+                    unitBeingBuilt:Destroy()
+					
                 end
+				
             else
+			
                 self.OnStopBuildWasRun = true
+				
                 self:ForkThread( function(self) WaitTicks(2) self.OnStopBuildWasRun = nil end )
+				
             end
+			
         end
 		
         if self.Upgrading then
+		
             NotifyUpgrade(self,unitBeingBuilt)
+			
             self:Destroy()
+			
         end
 		
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
 
         if self.BuildingOpenAnimManip and self.BuildArmManipulator then
+		
             self.StoppedBuilding = true
+			
         elseif self.BuildingOpenAnimManip then
+		
             self.BuildingOpenAnimManip:SetRate(-1)
+			
         end
 		
         self.BuildingUnit = false
+		
     end,
 
     WaitForBuildAnimation = function(self, enable)
@@ -3664,31 +3757,49 @@ ConstructionUnit = Class(MobileUnit) {
             WaitFor(self.BuildingOpenAnimManip)
 	
             if (enable) then
+			
                 self.BuildArmManipulator:Enable()
+				
             end
+			
         end
+		
     end,
 
     OnPrepareArmToBuild = function(self)
+	
         --Unit.OnPrepareArmToBuild(self)
 
         if self.BuildingOpenAnimManip then
+		
             self.BuildingOpenAnimManip:SetRate( GetBlueprint(self).Display.AnimationBuildRate or 1 )
+			
             if self.BuildArmManipulator then
+			
                 self.StoppedBuilding = false
+				
                 self:ForkThread( self.WaitForBuildAnimation, true )
+				
             end
+			
         end
+		
     end,
 
     OnStopBuilderTracking = function(self)
 
         if self.StoppedBuilding then
+		
             self.StoppedBuilding = false
+			
             self.BuildArmManipulator:Disable()
+			
             self.BuildingOpenAnimManip:SetRate(-(GetBlueprint(self).Display.AnimationBuildRate or 1))
+			
         end
+		
     end,
+	
 }
 
 
