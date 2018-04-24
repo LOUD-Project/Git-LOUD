@@ -168,6 +168,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 
     },	
 
+
     Builder {BuilderName = 'T1 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Small',
@@ -292,7 +293,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2 } },
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
@@ -687,7 +688,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
@@ -752,6 +752,47 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressRange = 200,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
+			
+			MissionTime = 1200,		-- 20 minute mission
+			
+			UseFormation = 'GrowthFormation',
+			
+			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
+			
+        },
+
+    },
+
+	
+    Builder {BuilderName = 'Sea Attack - Bombardment',
+	
+        PlatoonTemplate = 'SeaAttack Bombardment',
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 810,
+
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 2,
+		
+		RTBLocation = 'Any',
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+		
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 2 } },
+		
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.BOMBARDMENT}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
+			
+        },
+		
+        BuilderData = {
 			
 			MissionTime = 1200,		-- 20 minute mission
 			
