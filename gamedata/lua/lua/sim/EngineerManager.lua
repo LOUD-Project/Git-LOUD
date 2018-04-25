@@ -1345,7 +1345,7 @@ EngineerManager = Class(BuilderManager) {
 
 						grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER, baseposition, radius )
 					
-						if grouplndcount > 4 then
+						if grouplndcount > 2 then
 
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 
@@ -1354,10 +1354,37 @@ EngineerManager = Class(BuilderManager) {
 					
 								-- Move the land group to the distress location and then back to the location of the base
 								IssueClearCommands( grouplnd )
-
-								IssueFormAggressiveMove( grouplnd, distressLocation, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( baseposition, distressLocation ))
+								
+								-- make a response platoon -- 
+								
+								-- store platoon handle somewhere
+								
+								-- put units into a platoon --
+								
+								-- order them about --
+								if self:GetSquadUnits('Scout') then
+									IssueFormMove( self:GetSquadUnits('Scout'), waypointPath, 'BlockFormation', Direction)
+								end
 					
-								DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
+								if self:GetSquadUnits('Attack') then
+									IssueFormMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
+								end
+					
+								if self:GetSquadUnits('Artillery') then
+									IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), waypointPath, PlatoonFormation, Direction)
+								end
+					
+								if self:GetSquadUnits('Guard') then
+									IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+								end
+					
+								if self:GetSquadUnits('Support') then
+									IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+								end
+
+								--IssueFormAggressiveMove( grouplnd, distressLocation, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( baseposition, distressLocation ))
+					
+								--DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 
 								response = true
 								distress_land = true
