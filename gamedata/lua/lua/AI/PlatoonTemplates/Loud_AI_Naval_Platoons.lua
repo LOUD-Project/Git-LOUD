@@ -225,6 +225,18 @@ PlatoonTemplate { Name = 'SeaAttack Large',
 	
 }
 
+PlatoonTemplate { Name = 'SeaAttack Bombardment',
+
+    GlobalSquads = {
+	
+		{ categories.BOMBARDMENT, 5, 8, 'Attack', 'none' },													# Bombardment capable ships
+        { (categories.CRUISER), 5, 5, 'Attack', 'none' },													# Cruisers
+        { (categories.DEFENSIVEBOAT), 4, 6, 'Guard', 'none' },												# Shield CounterIntel AA
+		
+    },
+	
+}
+
 PlatoonTemplate { Name = 'SeaAttack Reinforcement',
 
     GlobalSquads = {

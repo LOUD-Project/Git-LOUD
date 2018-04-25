@@ -2354,7 +2354,7 @@ Platoon = Class(moho.platoon_methods) {
 						table.remove( pointlist, choice )
 						
 						-- is it the same as last failed marker
-						if marker == lastmarker then
+						if table.equal( marker, lastmarker ) then
 						
 							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
@@ -3456,13 +3456,23 @@ Platoon = Class(moho.platoon_methods) {
 		local startx, startz
 		
 		if PSourceSelf then
-		
-			startx, startz = aiBrain.BuilderManagers[self.BuilderLocation].Position
-			PSource = {startx[1], 0, startx[3]}
+			
+			if aiBrain.BuilderManagers[self.BuilderLocation] then
+			
+				PSource = aiBrain.BuilderManagers[self.BuilderLocation].Position
+				
+			else
+			
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+				
+			end
 			
 		else
 		
 			startx, startz = aiBrain:GetCurrentEnemy():GetArmyStartPos()
+			
+			LOG("*AI DEBUG Army Start position is "..repr(aiBrain:GetCurrentEnemy():GetArmyStartPos()))
+			
 			PSource = {startx, 0, startz}
 			
 		end
@@ -3505,7 +3515,6 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local AssistRange = self.PlatoonData.AssistRange or 0	
         local guardTimer = self.PlatoonData.GuardTimer or 600	
-		local guardtime	= 0										
 		
 		local MissionTimer = self.PlatoonData.MissionTime or 1200
 		
@@ -3540,48 +3549,71 @@ Platoon = Class(moho.platoon_methods) {
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 		
-		local OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
-		local myThreat = 0
-		local usedTransports = false
+		local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees		
+		
+		local lastmarker = false
 		local marker
 		local UnitToGuard = false
 		local guarding = false
-		local guardunits = {}
-		
-		local oldplatpos = false
-		
-		local position = GetPlatoonPosition(self)
-		
-		local path, reason, pathlength
+		local guardtime = 0
+
+		local OriginalThreat, position, pointlist, distance, usedTransports, path, reason, pathlength, choice
+		local stuckcount, oldplatpos, calltransport
+		local target, targetposition, units, direction
+		local oldNumberOfUnitsInPlatoon, numberOfUnitsInPlatoon
 		
 		while PlatoonExists(aiBrain,self) do
-        
-            local units = GetPlatoonUnits(self)
 		
-			-- Get a point that meets all of the required conditions
-			local pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
-
-			if PlatoonExists( aiBrain, self ) then
+			if MissionTimer != 'Abort' and (LOUDTIME() - self.CreationTime ) > MissionTimer then
+			
+				break
+				
+			end
+		
+			OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+			
+            units = GetPlatoonUnits(self)
+			
+			position = GetPlatoonPosition(self) or false
+			
+			marker = false
+			
+			if position then
+			
+				-- Get a point that meets all of the required conditions
+				pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
 			
 				if pointlist then
 				
-					for _,point in pointlist do
-					
-						path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, platLoc, { point[1], point[2], point[3] }, OriginalThreat, 200 )
-						
-						if path then
-			
-							marker = { point[1], point[2], point[3] }
-							guardtime = 0
-							guarding = false
-							usedTransports = false
+					while marker == false do
 				
-							IssueClearCommands( GetPlatoonUnits(self))
+						local choices = math.ceil(LOUDGETN(pointlist))
+						
+						if choices < 1 then
 							break
+						end
+						
+						choice = Random( 1, choices )
+						
+						-- format the marker --
+						marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
+						
+						-- and remove the marker so it cant be picked again
+						table.remove( pointlist, choice )
+						
+						-- is it the same as last failed marker
+						if table.equal( marker, lastmarker ) then
+						
+							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+						
+							marker = false
 							
 						end
 						
 					end
+
+					guardtime = 0
+					guarding = false
 					
 				end
 
@@ -3593,239 +3625,358 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 			
-			self:Stop()
-		
-			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 200)
-			
-			-- Issue Path or Order Transports for platoon
-			if PlatoonExists(aiBrain, self) and path and marker and position then
-			
-				usedTransports = false
-
-				-- Use transports for amphib units if far or path not successful
-				if self.MovementLayer == 'Amphibious' and (not path or VDist3( position, marker ) > 900) then
+			if not position or not marker then
 				
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 4, false )
-					
-				end
-
-				if not usedTransports then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT AMPHIB "..repr(self.BuilderName).." fails - position is "..repr(position))
 				
-					if not path then
-					
-						marker = false 	-- clear the marker to trigger looking for another
-						LOG("*AI DEBUG "..aiBrain.Nickname.." GuardpointAmphib "..self.BuilderName.." no path/transport break")
-						
-					else
-					
-						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove )
-						
-					end
-					
-				end
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
 
-			-- TRAVEL TO THE MARKER POINT -- Check for exit and call transport along the way
-			local stuckcount = 0
-
-			oldplatpos = false
+			IssueClearCommands( GetPlatoonUnits(self))
 			
-			local calltransport = 0
+			usedTransports = false
+			
+			distance = VDist3( GetPlatoonPosition(self), marker )
 
-			while marker and VDist3( position, marker) > UntRadius and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
-
-				position = GetPlatoonPosition(self)
+			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 200)
+			
+			if PlatoonExists(aiBrain, self) then
+			
+				if not path then
 				
-				-- Check Str/Unit Parameters 
-				if StrCat and StrTrigger then
+					-- try 3 transport calls -- if they fail - record this marker so it doesn't get
+					-- picked again the next time this platoon picks a new point
+					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 3, false )
 				
-					if self:GuardPointStructureCheck(  aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
+					if not usedTransports then
+				
+						lastmarker = table.copy(marker)
+						
+						marker = false
+						
+						continue
 					
-						guardtime = guardTimer
+					end
+
+				else
+
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." path is "..repr(path))
+					
+					if PlatoonExists(aiBrain,self) then
+				
+						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
 						
 					end
+				
+					if not usedTransports and not self.MoveThread then
 					
+						lastmarker = table.copy(marker)
+				
+						marker = false
+						
+						continue
+						
+					end
+				
 				end
 				
-				if UntCat and UntTrigger then
+			end			
+
+			-- TRAVEL TO THE MARKER POINT
+			-- Check for exit and call transport along the way
+			stuckcount = 0
+			oldplatpos = false
+			calltransport = 0
+
+			distance = VDist3( GetPlatoonPosition(self), marker )			
+
+			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
+
+				position = GetPlatoonPosition(self) or false
 				
-					if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
-					
-						guardtime = guardTimer
-						
-					end
-					
-				end		
+				if position then
+			
+					if StrCat and StrTrigger then
 				
-				if self:CheckForStuckPlatoon( position, oldplatpos ) then
-				
-					stuckcount = stuckcount + 1
-					
-					-- if stuck count > 3 (about 30 seconds) then process out the stuck units
-					if stuckcount > 3 then
-					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." Looks like a stuck "..self.BuilderName.." platoon at "..repr(position))
+						if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
 						
-						if self:ProcessStuckPlatoon( marker ) then
-						
-							stuckcount = 0
+							marker = false
+							break
 							
-						else
+						end
+					
+					end
+				
+					if UntCat and UntTrigger then
+				
+						if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
 						
-							guardtime = guardTimer
+							marker = false
+							break
 							
 						end
 						
 					end
-					
-				else
 				
-					oldplatpos = LOUDCOPY(position)
-					stuckcount = 0
-					
-				end
+					if self:CheckForStuckPlatoon( position, oldplatpos ) then
 				
-				-- if still distant try a transport call
-				if calltransport > 3 then
-				
-					if position and VDist3( position, marker ) > 350 then
+						stuckcount = stuckcount + 1
 					
-						usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
+						-- if stuck count > 4 (about 32 seconds) then process out the stuck units
+						if marker and stuckcount > 3 then
+					
+							if self:ProcessStuckPlatoon( marker ) then
+							
+								stuckcount = 0
+							
+							else
+						
+								marker = false
+								break
+								
+							end
+						
+						end	
+					
+					else
+				
+						if position then
+					
+							oldplatpos = LOUDCOPY(position)
+							stuckcount = 0
+						
+						else
+					
+							continue
+						
+						end
+					
+					end
+
+					WaitTicks(80)
+				
+					if marker and PlatoonExists( aiBrain, self ) then
+					
+						-- travel uses up guardtime
+						guardtime = guardtime + 8
+
+						distance = VDist3( GetPlatoonPosition(self), marker )
+
+						-- call transports if still far (every fourth iteration)
+						if marker and calltransport > 3 and distance > 350 then
+					
+							usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
+
+							calltransport = 0	-- reset the calltransport trigger
+						
+						end
+				
+						calltransport = calltransport + 1
 						
 					end
-					
-					calltransport = 0
+
+				end				
+				
+			end
+			
+			-- if we still have a marker - stop any move thread -- otherwise find a new point
+			if marker then
+			
+				if PlatoonExists(aiBrain,self) and self.MoveThread then
+
+					self:KillMoveThread()
+				
 				end
-				
-				calltransport = calltransport + 1
-				
-				WaitTicks(80)
-				
-			end
+			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." at marker ")
 		
-			-- Account for being air transported
-			while self.UsingTransport and PlatoonExists(aiBrain,self) do
+			else
 			
-				WaitTicks(30)
-				
-			end
-			
-			-- If Exit parameters have been met before we arrive
-			if guardtime >= guardTimer then
-			
-				marker = false
-				
-			end
-			
-			-- kill any existing move thread and stop the platoon
-			if self.MoveThread then
-			
-				self:KillMoveThread()
+				continue
 				
 			end
 
-			self:Stop()
 			
-			IssueClearCommands ( units )
-
-			local oldNumberOfUnitsInPlatoon = LOUDGETN( units )
-		
 			-- Guard Point and Attack Enemy within guardRadius
-			local guarding = false
-			
+			guarding = false
 			guardtime = 0
-			
-			local target = false
-			local targetposition = false
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain,self) do
 			
+				target = false
+			
 				target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
 
-				local units = GetPlatoonUnits(self)
+				units = GetPlatoonUnits(self)
 				
 				if target then
-				
-					IssueClearCommands ( units )
-					IssueFormAttack( units, target, 'AttackFormation', 0)
-					guarding = false
-                    
-				elseif not guarding then
-				
-					if self.MoveThread then
-
-						self:KillMoveThread()
+					
+					-- issue attack orders on target --
+					if target.Sync.id and not target.Dead then
+					
+						self:Stop()
+						
+						position = GetPlatoonPosition(self) or false
+						
+						if position then
+						
+							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
+						
+							IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', direction)
+						
+							if self:GetSquadUnits('Artillery') then
+							
+								IssueFormAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+							
+							end
+						
+							if self:GetSquadUnits('Guard') then
+							
+								IssueFormAggressiveMove( self:GetSquadUnits('Guard'),targetposition,'DMSCircleFormation', direction)
+								
+							end
+						
+							if self:GetSquadUnits('Support') then
+							
+								IssueFormAggressiveMove( self:GetSquadUnits('Support'),targetposition,'ScatterFormation', direction)
+								
+							end
+						
+							guarding = false
+							
+						end
+						
+					else
+						
+						target = false
 						
 					end
 					
+					-- Engage target until dead or target is outside guard radius
+					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
+
+						WaitTicks(90)
+						guardtime = guardtime + 9
+						
+						if PlatoonExists(aiBrain,self) then
+					
+							if UnitToGuard and not UnitToGuard.Dead then
+					
+								marker = UnitToGuard:GetPosition()
+						
+							end
+					
+							if target.Dead or VDist3( target:GetPosition(), marker) > guardRadius then
+
+								self:Stop()
+								
+								break
+						
+							end
+					
+							-- if platoon is exhausted --
+							if self:CalculatePlatoonThreat('Land', categories.ALLUNITS) <= (OriginalThreat * .40) then
+						
+								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 80, false)
+								
+								-- RTB any leftovers
+								return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+							
+							end
+						
+							target = false
+							guarding = false
+							
+						end
+					
+					end
+				
+				end				
+				
+				-- if no target and not already guarding - setup a guard around the point --
+				if (not target) and (not guarding) and PlatoonExists(aiBrain, self) then
+
 					self:Stop()
 				
 					local randlist = { AssistRange, AssistRange * -1 }
 					
-					self:MoveToLocation({marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)])}, false)
-                    
-					for _,u in units do
+					local counter = 0
+					local newunits = {}
 					
-						if LOUDENTITY( categories.REPAIR, u ) then
+					for k,unit in units do
+					
+						if not unit.Dead then
 						
-							IssueGuard({u},{ marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) })
+							counter = counter + 1
+							newunits[counter] = unit
 							
 						end
 						
+					end
+					
+					if counter < LOUDGETN(GetPlatoonUnits(self)) then
+					
+						units = newunits
+						
+					end
+					
+					if counter > 0 then
+					
+						IssueFormMove( units, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker )) 
+					
+						for _,u in units do
+					
+							if LOUDENTITY( categories.REPAIR, u ) then
+							
+								IssueGuard({u}, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) })
+								
+							end
+						
+							if LOUDENTITY( categories.SCOUT, u ) then
+						
+								local loclist = GetBasePerimeterPoints( aiBrain, marker, guardRadius/2, 'ALL', false, 'Land', true )
+							
+								for k,v in loclist do
+								
+									if u:CanPathTo( v ) then
+									
+										v[2] = GetSurfaceHeight(v[1], v[3])
+										
+										if GetTerrainHeight(v[1],v[3]) < (v[2] - 1) then
+										
+											continue
+											
+										end
+							
+										if k == 1 then
+								
+											IssueMove( {u}, v )
+									
+										else
+								
+											if k != 4 and k !=7 and k != 10 then
+										
+												IssuePatrol( {u}, v )
+											
+											end
+											
+										end
+									
+									end
+								
+								end
+							
+							end
+						
+						end
+					
 					end
 					
 					guarding = true
 					target = false
-					
-				end
-				
-				-- Engage target until dead or outside radius
-				while target and not target.Dead do 
-				
-					WaitTicks(75)
-					
-					if UnitToGuard and not UnitToGuard.Dead then
-					
-						marker = UnitToGuard:GetPosition()
-						
-					end
-					
-					if not target.Dead and VDist3( target:GetPosition(), marker) > guardRadius then
-					
-						target = false
-						guarding = false
-						
-						self:Stop()
-						
-					end
-					
-					-- Check SelfThreat for Retreat
-					oldNumberOfUnitsInPlatoon = 0
-				
-					for _,v in units do
-					
-						if not v.Dead then
-						
-							oldNumberOfUnitsInPlatoon = oldNumberOfUnitsInPlatoon + 1
-							
-						end
-						
-					end
-					
-					myThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
 
-					if myThreat <= (OriginalThreat * .40) then
-					
-						self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAmphibious', 50, false)
-						
-						return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-						
-					end
-					
 				end
-				
-				target = false
 				
 				-- Check Str/Unit Parameters 
 				if StrCat and StrTrigger then
@@ -3849,15 +4000,29 @@ Platoon = Class(moho.platoon_methods) {
 				end		
 				
 				-- MERGE with other GuardPoint Platoons during regular guardtime
-				if MergeLimit and (guardtime <= guardTimer and not target) then
+				if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
+				
+					oldNumberOfUnitsInPlatoon = 0
+				
+					for _,v in units do
+					
+						if not v.Dead then
+						
+							oldNumberOfUnitsInPlatoon = oldNumberOfUnitsInPlatoon + 1
+							
+						end
+						
+					end
 				
 					if oldNumberOfUnitsInPlatoon < MergeLimit then
 					
-						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPointAmphibious', 45, true, MergeLimit) then
+						if self:MergeWithNearbyPlatoons( aiBrain, 'GuardPoint Amphibious', 60, false, MergeLimit) then
 						
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT AMPHIB "..repr(self.BuilderName).." completing MergeWith")
+				
 							units = GetPlatoonUnits(self)
 						
-							local numberOfUnitsInPlatoon = 0
+							numberOfUnitsInPlatoon = 0
 						
 							for _,v in units do
 							
@@ -3875,8 +4040,9 @@ Platoon = Class(moho.platoon_methods) {
 								self:SetPlatoonFormationOverride(PlatoonFormation)
 								
 							end
-						
-							OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) 
+
+							OriginalThreat = self:CalculatePlatoonThreat('Land', categories.ALLUNITS)
+							
 							target = false
 							guarding = false
 							
@@ -3887,47 +4053,44 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				-- Check SelfThreat for Retreat
-				oldNumberOfUnitsInPlatoon = 0
-				
-				for _,v in units do
-				
-					if not v.Dead then
-					
-						oldNumberOfUnitsInPlatoon = oldNumberOfUnitsInPlatoon + 1
-						
-					end
-					
-				end
-
-				myThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
-
-				if myThreat <= (OriginalThreat * .40) then
+				if self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) <= (OriginalThreat * .40) then
 				
 					self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAmphibious', 50, false)
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					
 				end
-				
-				WaitTicks(60)
-				guardtime = guardtime + 6
-				
+
 				if marker and UnitToGuard and not UnitToGuard.Dead then
 				
 					marker = UnitToGuard:GetPosition()
 					
 				end
 				
-			end		-- end of current marker guardtime
-			
-			if (LOUDTIME() - self.CreationTime ) > MissionTimer then
-			
-				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+				if MissionTimer == 'Abort' then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." Abort Platoon")
+					
+					-- assign them to the structure pool so they dont interfere with normal unit pools
+					AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
+					
+					return aiBrain:DisbandPlatoon(self)
+					
+				end
+				
+				WaitTicks(80)
+				guardtime = guardtime + 8
 				
 			end
 			
+			marker = false
+			
+			WaitTicks(35)
+			
 		end		-- end of current marker - get new marker
-		
+
+		return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+
     end,  
 	
     ScoutingAI = function( self, aiBrain )

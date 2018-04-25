@@ -29,7 +29,7 @@
 	ScenarioInfo.DisplayBaseNames = false
 	LOG("*AI DEBUG 		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 	
-	ScenarioInfo.ReportRatios = false
+	ScenarioInfo.ReportRatios = true
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 local import = import

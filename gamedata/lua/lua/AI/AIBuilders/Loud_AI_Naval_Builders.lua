@@ -27,7 +27,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 	
         PlatoonTemplate = 'T1SeaSub',
 		
-        Priority = 600,
+        Priority = 560,
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
@@ -55,7 +55,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 	
         PlatoonTemplate = 'T1SeaFrigate',
 		
-        Priority = 600,
+        Priority = 560,
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 		
@@ -199,7 +199,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
+
         },
 		
     },
@@ -263,10 +264,10 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			
-			{ UCBC, 'PoolLess', { 8, categories.xrs0205 }},			
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.xrs0205 }},
-			
+			{ UCBC, 'PoolLess', { 8, categories.xrs0205 }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},
+
         },
 		
     },
