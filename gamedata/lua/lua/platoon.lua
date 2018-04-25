@@ -4143,6 +4143,29 @@ Platoon = Class(moho.platoon_methods) {
 	
 	end,
 
+	BombardForceAI = function( self, aiBrain )
+	
+
+        if self.MovementLayer == 'Water' then
+		
+			self:ForkAIThread( Behaviors.NavalBombardAILOUD, aiBrain)
+			
+		end	
+
+		if self.MovementLayer == 'Land' then
+		
+			self:ForkAIThread( Behaviors.LandForceAILOUD, aiBrain)
+		
+		end
+		
+		if self.MovementLayer == 'Amphibious' then
+		
+			self:ForkAIThread( Behaviors.AmphibForceAILOUD, aiBrain)
+		
+		end
+	
+	end,
+
 	-- platoon will patrol in a circle around a point 
     PlatoonPatrolPointAI = function( self, aiBrain )
 		
