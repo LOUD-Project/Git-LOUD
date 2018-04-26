@@ -188,7 +188,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType , closeToBuilder
 		
     else
 	
-		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
+		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName))	--	.." template is "..repr(buildingTemplate))
 		
 	end
 
