@@ -769,7 +769,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         PlatoonTemplate = 'SeaAttack Bombardment',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'BombardForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -787,18 +787,18 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { 2 } },
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.BOMBARDMENT}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
 			
         },
 		
         BuilderData = {
 			
-			MissionTime = 1200,		-- 20 minute mission
+			MissionTime = 1500,		-- 30 minute mission
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'DMSCircleFormation',
 			
-			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
+			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
 			
         },
 
@@ -888,7 +888,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
     },
 
 	
-	-- these are supressed for now - 
+	-- this is supressed for now - 
 	Builder {BuilderName = 'T3 Sea Attack Nuke',
 	
         PlatoonTemplate = 'SeaNuke',

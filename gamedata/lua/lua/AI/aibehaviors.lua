@@ -2471,7 +2471,7 @@ function NavalForceAILOUD( self, aiBrain )
 
     local path, reason, pathlength
     local target, targetposition
-	local destination
+	local destination, destinationpath
 
 	local maxRange, selectedWeaponArc, turretPitch = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
 
@@ -2526,13 +2526,29 @@ function NavalForceAILOUD( self, aiBrain )
 	massmarkers = nil
 
 	-- remove any points within 100 of ourselves
+	-- or 100 of any Base we may have
 	for k,v in navalAreas do
 	
 		if VDist3( v.Position, GetPlatoonPosition(self) ) < 100 then
 		
 			navalAreas[k] = nil
 			
-		end
+			
+		else
+		
+			for _,base in aiBrain.BuilderManagers do
+			
+				if VDist3( v.Position, base.Position ) < 100 then
+				
+					navalAreas[k] = nil
+					
+					break
+					
+				end
+				
+			end
+			
+		end			
 		
 	end
 
@@ -2671,7 +2687,7 @@ function NavalForceAILOUD( self, aiBrain )
 					
 					end
 
-					if not GetTerrainHeight(Target.Position[1], Target.Position[3]) < GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 1 then
+					if GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 2 < GetTerrainHeight(Target.Position[1], Target.Position[3]) then
 				
 						continue    -- skip targets that are NOT in or on water
 					
@@ -2699,14 +2715,10 @@ function NavalForceAILOUD( self, aiBrain )
 					
 						ecovalue = 6.0
 						
-					elseif ecovalue < 1 then
+					elseif ecovalue < 0.5 then
 					
 						ecovalue = 0.5
-						
-					elseif ecovalue < 2 then
-					
-						ecovalue = 2.0
-						
+
 					end
 
 					-- target value is relative to the platoons strength vs. the targets strength
@@ -2714,14 +2726,13 @@ function NavalForceAILOUD( self, aiBrain )
 					-- anything stronger than us gets valued even lower to avoid going after targets too strong
 					milvalue =  (mythreat/sthreat) 
 
-					if milvalue > 4.0 then 
+					if milvalue > 3.0 then 
 					
-						milvalue = 4.0
+						milvalue = 3.0
 						ecovalue = ecovalue * 2
 
-					elseif milvalue < 1.3 then
+					elseif milvalue < 1 then
 					
-						milvalue = milvalue * .66
 						milvalue = milvalue * milvalue
 						ecovalue = ecovalue * .5
 						
@@ -2736,11 +2747,15 @@ function NavalForceAILOUD( self, aiBrain )
 					-- ignore targets we are still too weak against
 					if value < 1.0 then
 					
+						--LOG("*AI DEBUG Value too low")
+					
 						continue
 						
+					else
+						
+						--LOG("*AI DEBUG Values are Eco "..repr(ecovalue).." Mil is "..repr(milvalue))
+					
 					end
-
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." seeking HiPri - get path")
 
 					-- naval platoons must be able to get to the position
 					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), Target.Position, mythreat, 200 )
@@ -2751,19 +2766,20 @@ function NavalForceAILOUD( self, aiBrain )
 
 						distancefactor = aiBrain.dist_comp/Target.Distance   -- makes closer targets more valuable
 
-						if VDist3( GetPlatoonPosition(self), Target.Position) < 400 then -- and very close targets even more valuable
+						if VDist3( GetPlatoonPosition(self), Target.Position) < 500 then -- and very close targets even more valuable
 						
-							distancefactor = distancefactor + 50
+							distancefactor = distancefactor * 2
 							
 						end
 					
 						-- store the destination of the most valuable target
 						if (value * distancefactor) > targetvalue then
 						
-							targetvalue = value
+							targetvalue = (value * distancefactor)
 							destination = table.copy(Target.Position)
+							destinationpath = table.copy( path )
 							
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets HiPri target at "..repr(Target.Position) )
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." adds HiPri target "..repr(Target).." - Value is "..repr(targetvalue).." Distance factor is "..repr(distancefactor) )
 							
 						end
 
@@ -2864,15 +2880,14 @@ function NavalForceAILOUD( self, aiBrain )
 				
 			end
 
-			-- we already have a path at this point --
-			-- get a path and if so, issue move -- otherwise fail and cancel target
-			--path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, self:GetPlatoonPosition(), destination, mythreat, 200 )
-			
-			if PlatoonExists( aiBrain, self ) and path then
+			-- use the destinationpath to plot movement to the target
+			if PlatoonExists( aiBrain, self ) and destinationpath then
 			
 				self:Stop()
-			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove )
+				
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." moving to selected HiPri target at "..repr(destination))
+				
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
 				
 			else
 			
@@ -3096,6 +3111,504 @@ function NavalForceAILOUD( self, aiBrain )
     end
 	
 end
+
+-- NAVAL BOMBARDMENT --
+function NavalBombardAILOUD( self, aiBrain )
+
+	if not GetPlatoonPosition(self) then
+	
+        return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+		
+    end
+
+    local armyIndex = aiBrain.ArmyIndex
+
+	local LOUDGETN = LOUDGETN
+	local LOUDPARSE = ParseEntityCategory
+	
+	local AIFindTargetInRange = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRange
+	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+	local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
+	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	
+	local VDist3 = VDist3
+
+    local data = self.PlatoonData
+
+	local bAggroMove = true
+	local MergeLimit = data.MergeLimit or 60
+    local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
+	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
+    local searchRadius = data.SearchRadius or 150
+	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
+
+    local categoryList = {}
+    local atkPri = {}
+
+    if data.PrioritizedCategories then
+	
+        for _,v in data.PrioritizedCategories do
+		
+            LOUDINSERT( atkPri, v )
+            LOUDINSERT( categoryList, LOUDPARSE( v ) )
+			
+        end
+		
+    else
+	
+		LOUDINSERT( atkPri, 'NAVAL' )
+		LOUDINSERT( categoryList, categories.NAVAL )
+		
+	end
+
+    self:SetPrioritizedTargetList( 'Attack', categoryList )
+
+    local path, reason, pathlength
+    local target, targetposition
+	local destination
+
+	local platoonUnits = GetPlatoonUnits(self)
+	local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
+
+	local OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+
+	-- get all the possible naval markers that we want the bombardment platoon to operate from
+	local navalmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Area'] or AIGetMarkerLocations('Naval Area')
+	-- include naval links
+	local linkmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Link'] or AIGetMarkerLocations('Naval Link')
+	local navalmarkers = table.cat( navalmarkers, linkmarkers )
+	-- and water nodes
+	local nodemarkers = ScenarioInfo.Env.Scenario.MasterChain['Water Path Node'] or AIGetMarkerLocations('Water Path Node')
+	local navalmarkers = table.cat( navalmarkers, nodemarkers )
+
+	-- make a copy of the naval base markers
+	local navalAreas = LOUDCOPY(navalmarkers)
+
+	navalmarkers = nil
+	linkmarkers = nil
+	nodemarkers = nil
+
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." Bombardment positions are "..repr(navalAreas))
+	
+	local function StopAttack( self )
+
+		self:Stop()
+		
+		destination = false
+		target = false
+		targetposition = false
+
+	end
+
+	local EndMissionTime = LOUDTIME() + MissionTime
+
+	local mythreat, targetlist, targetvalue, maxRange
+	local sthreat, ethreat, ecovalue, milvalue, value
+	local path, reason, pathlength, distancefactor
+	local waitneeded
+	local updatedtargetposition
+	
+	-- force the plan name 
+	self.PlanName = 'BombardmentForceAI'	
+
+    while PlatoonExists(aiBrain, self) do
+
+		target = false
+		
+		mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+		maxRange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
+		
+		-- platoon no longer qualifies for bombardment
+		if maxRange < 100 then
+			return self:SetAIPlan('ReturnToBaseAI',aiBrain)		
+		end
+	
+		-- Locate LOCAL targets in bombardment range using the attackpriority list
+		target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', maxRange, atkPri )
+
+		-- if target -- issue attack orders -- but no need to move
+        if target and not target.Dead then
+
+			LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." finds target in bombard range")
+			
+			-- order the artillery units to form an attack on the target
+			IssueFormAttack( self:GetSquadUnits('Artillery'), target, 'LOUDClusterFormation', 0)
+
+			-- Make sure any units in platoon which are guards are actually guarding
+			-- loop thru all the artillery units and clear the guarded marks
+			for _,v in self:GetSquadUnits('Artillery') do
+				
+				if v and not v.Dead then
+
+					v.guardset = nil
+					
+					-- if there are Guards - and unit is not guarded --
+					if self:GetSquadUnits('Guard') and not v.guardset then
+						
+						-- loop thru all guards and issue guard orders
+						for _,m in self:GetSquadUnits('Guard') do
+							
+							if m and not m.Dead then
+							
+								if not m.guardset then
+							
+									IssueGuard( {m}, v )
+									
+									m.guardset = true
+									v.guardset = true
+									
+									break
+									
+								end
+								
+							end
+							
+						end
+						
+					end
+					
+				end
+				
+			end
+			
+			-- at this point all the artillery units should be guarded --
+			-- so we'll now clear all the guarding marks
+			for _,v in sefl:GetPlatoonUnits() do
+			
+				v.guardset = nil
+				
+			end
+			
+        else
+		
+			target = false
+			
+		end
+
+		-- if no target and no movement orders -- use HiPri list or random Naval marker
+		-- issue movement orders -- if list is empty RTB instead --
+        if not target and not self.MoveThread then
+		
+			-- get HiPri list
+			targetlist = GetHiPriTargetList( aiBrain, GetPlatoonPosition(self) )
+
+			targetvalue = 0
+
+            mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+	
+			LOUDSORT( targetlist, function(a,b) return a.Distance < b.Distance end )
+
+			-- get a HiPri target from the targetlist -- set as destination
+			for _,Target in targetlist do
+			
+				if PlatoonExists( aiBrain, self ) then
+				
+					if Target.Type != 'Economy' and Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Naval' then
+				
+						continue	-- allow only the target types listed above
+					
+					end
+
+					-- sort the markers to see if any are within range of the Target.Position
+					LOUDSORT( navalAreas, function(a,b) return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
+					
+					-- at this point we really need to check if the target position is within range of one of the markers we assembled earlier
+					
+					LOG("*AI DEBUG "..aiBrain.Nickname.." Testing "..repr(navalAreas[1].Position).." type is "..repr(Target).." distance to "..repr(Target.Position))
+					
+					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
+				
+						continue    -- skip targets that are NOT in range of a marker
+					
+					end					
+
+					-- get basic threat types at position
+					sthreat = Target.Threats.Sur + Target.Threats.Sub
+					ethreat = Target.Threats.Eco
+
+					if sthreat < 1 then
+					
+						sthreat = 1
+						
+					end
+
+					if ethreat < 1 then
+					
+						ethreat = 1
+						
+					end
+
+					ecovalue = ethreat/mythreat
+
+					if ecovalue > 10.0 then
+					
+						ecovalue = 10.0
+						
+					elseif ecovalue < 1 then
+					
+						ecovalue = 0.5
+						
+					elseif ecovalue < 2 then
+					
+						ecovalue = 2.0
+						
+					end
+
+					-- target value is relative to the platoons strength vs. the targets strength
+					-- cap the value at 3 to limit chasing worthless targets
+					-- anything stronger than us gets valued even lower to avoid going after targets too strong
+					milvalue =  (mythreat/sthreat) 
+
+					if milvalue > 0.25 then 
+					
+						milvalue = 1.0
+
+					-- for BOMBARDMENT we're not much concerned with enemy surface value
+					-- so we'll accept relatively low values as nominal
+					elseif milvalue < 0.25 then
+					
+						milvalue = .25
+						ecovalue = ecovalue * .75
+						
+					end
+
+					-- now add in the economic value of the target
+					-- this will make targets that we are stronger than, that have eco value, more valuable
+					-- and targets that have overpowering military value made even less valuable
+					-- which should focus the platoon on economic goals versus ground units
+					value = ecovalue * milvalue
+
+					-- ignore targets we are still too weak against
+					if value < 1.0 then
+					
+						continue
+						
+					end
+
+					LOG("*AI DEBUG "..aiBrain.Nickname.." seeking HiPri - get path")
+					
+					-- naval platoons must be able to get to the closest bombardment position
+					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), navalAreas[1].Position, mythreat, 200 )
+
+					-- if we have a path to the bombardment position and its value is highest one so far then set destination
+					-- and store the targetvalue for comparison 
+					if path and PlatoonExists( aiBrain, self ) then
+
+						distancefactor = aiBrain.dist_comp/Target.Distance   -- makes closer targets more valuable
+
+						if VDist3( GetPlatoonPosition(self), Target.Position) < 400 then -- and very close targets even more valuable
+						
+							distancefactor = distancefactor + 50
+							
+						end
+					
+						-- store the destination of the most valuable target
+						if (value * distancefactor) > targetvalue then
+						
+							targetvalue = (value * distancefactor)
+							destination = table.copy( navalAreas[1].Position )
+							destinationpath = table.copy( path )
+							
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets HiPri target at "..repr(Target.Position).." destination is "..repr(destination) )
+							
+						end
+
+					end
+				
+					WaitTicks(1) -- check next target --
+					
+				else
+				
+					destination = false
+					break
+					
+				end
+				
+			end
+
+			-- if no HiPri target then RTB - bombardment platoons dont wander
+			if PlatoonExists( aiBrain,self) and (not destination) then
+			
+				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
+				
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+				
+			end
+
+			-- Issue Dive Order to ALL SERAPHIM Submersible Units -- that are not already submerged
+			for _,v in GetPlatoonUnits(self) do
+			
+				if v.Dead or v.CacheLayer == 'Sub' then
+					continue
+				end
+
+				if LOUDENTITY( categories.SERAPHIM * categories.SUBMERSIBLE, v ) then
+				
+					IssueDive( {v} )
+					
+				end
+				
+			end
+
+			-- we already have a path at this point --
+			if PlatoonExists( aiBrain, self ) and path then
+			
+				self:Stop()
+			
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destination, PlatoonFormation, bAggroMove )
+				
+			else
+			
+				LOG("*AI DEBUG "..aiBrain.Nickname.." BOMBARDFORCEAI "..self.BuilderName.." has no path")
+				
+				target = false
+				
+			end
+			
+		end
+
+		-- if given movement (assumes we have NO target) - watch progress towards destination
+		if self.MoveThread then
+
+			-- if we're not moving or we're close to destination --
+			if (not destination) or VDist3(GetPlatoonPosition(self), destination) < 40 then
+			
+				if self.MoveThread then
+
+					self:KillMoveThread()
+					
+				end 
+			
+				IssueClearCommands( GetPlatoonUnits(self) )
+
+				self:SetPlatoonFormationOverride(PlatoonFormation)
+				
+				destination = false
+				target = false
+				
+			end
+			
+        end
+
+		-- loop here until target dies or moves out of range -- 
+		-- wait 6 seconds between target checks --
+		while target and PlatoonExists(aiBrain, self) do
+		
+			LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." fighting - target dead is "..repr(target.Dead))
+		
+			updatedtargetposition = false
+
+			if not target.Dead then
+			
+				updatedtargetposition = table.copy(target:GetPosition())
+				
+			end
+
+			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
+			
+				-- if the target is still alive but it's moved out of range - let me know
+				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." target is beyond radius "..repr(maxRange))
+					
+				end
+
+				StopAttack(self)
+				
+				target = false
+				
+				break
+				
+			end
+
+			mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+
+			if PlatoonExists( aiBrain, self) and mythreat <= (OriginalThreat * .40) then
+			
+				self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false)
+				
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+				
+			end
+			
+			if target.dead then
+			
+				break
+				
+			end
+
+			WaitTicks(60)
+			
+		end
+
+		-- otherwise we must be underway somewhere
+		if self.MoveThread then
+		
+			WaitTicks(40)
+			
+		end
+
+		-- check mission timer for RTB
+		if LOUDTIME() > EndMissionTime then
+		
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Mission Time expires")
+			
+			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+			
+		end
+		
+		-- if there is a mergelimit (we allow merging platoons)
+        if PlatoonExists( aiBrain, self) and MergeLimit then
+		
+			-- if weak try and join nearby platoon --
+			if mythreat <= (OriginalThreat * .40) then
+		
+				self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false)
+			
+				-- leftovers will RTB
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+			
+			end
+			
+			-- otherwise try and grab other smaller platoons --
+            if self.MergeWithNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false, MergeLimit) then
+
+                platoonUnits = GetPlatoonUnits(self)
+				
+                local numberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
+
+				-- if we have a change in the number of units --
+                if (oldNumberOfUnitsInPlatoon != numberOfUnitsInPlatoon) then
+					
+					if self.MoveThread then
+					
+						self:KillMoveThread()
+						
+					end 
+
+                    StopAttack(self)
+
+					-- reform the platoon --
+                    self:SetPlatoonFormationOverride(PlatoonFormation)
+					
+                end
+
+                oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
+
+                OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+				
+            end
+			
+        end
+	
+    end
+	
+end
+
+
+
+
 
 
 -- This function will transfer engineers to a base which does not have one of that specific type

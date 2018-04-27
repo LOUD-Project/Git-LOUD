@@ -14,7 +14,7 @@
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG 		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
-	ScenarioInfo.DisplayIntelPoints = false
+	ScenarioInfo.DisplayIntelPoints = true
 	LOG("*AI DEBUG 		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 
 	ScenarioInfo.DisplayPlatoonPlans = true
@@ -29,7 +29,7 @@
 	ScenarioInfo.DisplayBaseNames = false
 	LOG("*AI DEBUG 		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 	
-	ScenarioInfo.ReportRatios = true
+	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 local import = import
