@@ -785,9 +785,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderConditions = {
 		
-			--{ LUTL, 'NavalStrengthRatioGreaterThan', { 2 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 2 } },
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.BOMBARDMENT}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
 			
         },
@@ -796,7 +796,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			MissionTime = 1500,		-- 30 minute mission
 			
-			UseFormation = 'ClusterFormation',
+			UseFormation = 'DMSCircleFormation',
 			
 			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
 			

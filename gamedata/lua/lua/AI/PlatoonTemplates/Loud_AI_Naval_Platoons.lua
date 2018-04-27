@@ -227,11 +227,38 @@ PlatoonTemplate { Name = 'SeaAttack Large',
 
 PlatoonTemplate { Name = 'SeaAttack Bombardment',
 
-    GlobalSquads = {
+    FactionSquads = {
 	
-		{ categories.BOMBARDMENT, 5, 8, 'Artillery', 'none' },												# Bombardment capable ships
-        { (categories.CRUISER), 5, 5, 'Support', 'none' },													# Cruisers
-        { (categories.DEFENSIVEBOAT), 4, 6, 'Guard', 'none' },												# Shield CounterIntel AA
+		UEF = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												# Bombardment capable ships
+			{ (categories.CRUISER), 5, 5, 'Support', 'none' },													# Cruisers
+			{ (categories.DEFENSIVEBOAT), 3, 4, 'Guard', 'none' },												# Shield
+			
+		},
+		
+		Aeon = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												# Bombardment capable ships
+			{ (categories.CRUISER), 5, 5, 'Support', 'none' },													# Cruisers
+			{ (categories.DEFENSIVEBOAT), 4, 6, 'Guard', 'none' },												# AA
+		
+		},
+		
+		Cybran = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												# Bombardment capable ships
+			{ (categories.CRUISER), 5, 5, 'Support', 'none' },													# Cruisers
+			{ (categories.DEFENSIVEBOAT), 2, 3, 'Guard', 'none' },												# CounterIntel
+		
+		},
+		
+		Seraphim = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												# Bombardment capable ships
+			{ (categories.CRUISER), 5, 5, 'Support', 'none' },													# Cruisers
+		
+		},
 		
     },
 	

@@ -2686,12 +2686,8 @@ function NavalForceAILOUD( self, aiBrain )
 						continue	-- allow only the target types listed above
 					
 					end
-					
-					LOG("*AI DEBUG Checking HiPri target "..repr(Target))
 
 					if GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 2 < GetTerrainHeight(Target.Position[1], Target.Position[3]) then
-					
-						LOG("*AI DEBUG Target not in water - Terrain is "..GetTerrainHeight(Target.Position[1], Target.Position[3]).." Surface is "..repr(GetSurfaceHeight(Target.Position[1], Target.Position[3])))
 				
 						continue    -- skip targets that are NOT in or on water
 					
@@ -2751,13 +2747,15 @@ function NavalForceAILOUD( self, aiBrain )
 					-- ignore targets we are still too weak against
 					if value < 1.0 then
 					
-						LOG("*AI DEBUG Value too low")
+						--LOG("*AI DEBUG Value too low")
 					
 						continue
 						
+					else
+						
+						--LOG("*AI DEBUG Values are Eco "..repr(ecovalue).." Mil is "..repr(milvalue))
+					
 					end
-
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." seeking HiPri - get path")
 
 					-- naval platoons must be able to get to the position
 					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), Target.Position, mythreat, 200 )
@@ -2777,11 +2775,11 @@ function NavalForceAILOUD( self, aiBrain )
 						-- store the destination of the most valuable target
 						if (value * distancefactor) > targetvalue then
 						
-							targetvalue = value
+							targetvalue = (value * distancefactor)
 							destination = table.copy(Target.Position)
 							destinationpath = table.copy( path )
 							
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets HiPri target at "..repr(Target.Position) )
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." adds HiPri target "..repr(Target).." - Value is "..repr(targetvalue).." Distance factor is "..repr(distancefactor) )
 							
 						end
 
@@ -2887,7 +2885,7 @@ function NavalForceAILOUD( self, aiBrain )
 			
 				self:Stop()
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." moving to HiPri target at "..repr(destination))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." moving to selected HiPri target at "..repr(destination))
 				
 				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
 				
@@ -3408,8 +3406,9 @@ function NavalBombardAILOUD( self, aiBrain )
 						-- store the destination of the most valuable target
 						if (value * distancefactor) > targetvalue then
 						
-							targetvalue = value
-							destination = table.copy(navalAreas[1].Position)
+							targetvalue = (value * distancefactor)
+							destination = table.copy( navalAreas[1].Position )
+							destinationpath = table.copy( path )
 							
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets HiPri target at "..repr(Target.Position).." destination is "..repr(destination) )
 							
@@ -3428,68 +3427,8 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			end
 
-			-- if no HiPri target then try random NAVAL MARKER and set that as the destination but with TARGET == false
-			-- that condition would get the platoon moving towards the destination but still checking along the way
-			-- for targets 
+			-- if no HiPri target then RTB - bombardment platoons dont wander
 			if PlatoonExists( aiBrain,self) and (not destination) then
-			
-				-- rebuild the table in case some points have been used
-				navalAreas = aiBrain:RebuildTable(navalAreas)
-				
-				if table.getn(navalAreas) > 0 then
-				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." seeking random Naval Area")
-
-					for k,v in RandomIter(navalAreas) do
-
-						-- this is essentially the AVOIDS BASES function
-						-- if we find an allied naval base there we'll just skip this BUT we'll keep it for later checking
-						if GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ) > 0 then
-						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." - position "..repr(v.Position).." finds "..GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ).." allied units")
-							
-							navalAreas[k] = nil
-							continue
-							
-						end
-						
-						if PlatoonExists(aiBrain, self) then
-
-							-- get a path to the Position
-							path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), v.Position, mythreat, 200 )
-
-							-- remove this entry from the platoons list since are either going there or we cant there
-							-- and we dont want to bounce around - if we've visited a site remove it from the list so 
-							-- if we're just cruising around for any great length of time we'll finally run out of 
-							-- choices and the will trigger a RTB for the platoon !  Aha...me smart.
-							navalAreas[k] = nil
-
-							if not path then
-							
-								LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." finds no path to ".. repr(v))
-								continue
-								
-							end
-
-							-- set a destination but note the FALSE on the target -- we'll start moving but we'll then cycle back 
-							-- and keep looking for targets --
-							destination = table.copy(v.Position)
-							target = false
-
-							LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." gets marker at "..repr(destination))
-							
-						end
-					
-						break
-						
-					end
-					
-				end
-				
-			end
-
-			-- if still nothing - RTB --
-			if not destination then
 			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
 				
@@ -3517,11 +3456,11 @@ function NavalBombardAILOUD( self, aiBrain )
 			
 				self:Stop()
 			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destination, PlatoonFormation, bAggroMove )
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NAVALFORCEAI "..self.BuilderName.." has no path")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." BOMBARDFORCEAI "..self.BuilderName.." has no path")
 				
 				target = false
 				
