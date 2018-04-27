@@ -2471,7 +2471,7 @@ function NavalForceAILOUD( self, aiBrain )
 
     local path, reason, pathlength
     local target, targetposition
-	local destination
+	local destination, destinationpath
 
 	local maxRange, selectedWeaponArc, turretPitch = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
 
@@ -2686,8 +2686,12 @@ function NavalForceAILOUD( self, aiBrain )
 						continue	-- allow only the target types listed above
 					
 					end
+					
+					LOG("*AI DEBUG Checking HiPri target "..repr(Target))
 
-					if not GetTerrainHeight(Target.Position[1], Target.Position[3]) < GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 1 then
+					if GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 2 < GetTerrainHeight(Target.Position[1], Target.Position[3]) then
+					
+						LOG("*AI DEBUG Target not in water - Terrain is "..GetTerrainHeight(Target.Position[1], Target.Position[3]).." Surface is "..repr(GetSurfaceHeight(Target.Position[1], Target.Position[3])))
 				
 						continue    -- skip targets that are NOT in or on water
 					
@@ -2775,6 +2779,7 @@ function NavalForceAILOUD( self, aiBrain )
 						
 							targetvalue = value
 							destination = table.copy(Target.Position)
+							destinationpath = table.copy( path )
 							
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets HiPri target at "..repr(Target.Position) )
 							
@@ -2877,15 +2882,14 @@ function NavalForceAILOUD( self, aiBrain )
 				
 			end
 
-			-- we already have a path at this point --
-			-- get a path and if so, issue move -- otherwise fail and cancel target
-			--path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, self:GetPlatoonPosition(), destination, mythreat, 200 )
-			
-			if PlatoonExists( aiBrain, self ) and path then
+			-- use the destinationpath to plot movement to the target
+			if PlatoonExists( aiBrain, self ) and destinationpath then
 			
 				self:Stop()
-			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove )
+				
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." moving to HiPri target at "..repr(destination))
+				
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
 				
 			else
 			
