@@ -2715,14 +2715,10 @@ function NavalForceAILOUD( self, aiBrain )
 					
 						ecovalue = 6.0
 						
-					elseif ecovalue < 1 then
+					elseif ecovalue < 0.5 then
 					
 						ecovalue = 0.5
-						
-					elseif ecovalue < 2 then
-					
-						ecovalue = 2.0
-						
+
 					end
 
 					-- target value is relative to the platoons strength vs. the targets strength
@@ -2730,14 +2726,13 @@ function NavalForceAILOUD( self, aiBrain )
 					-- anything stronger than us gets valued even lower to avoid going after targets too strong
 					milvalue =  (mythreat/sthreat) 
 
-					if milvalue > 4.0 then 
+					if milvalue > 3.0 then 
 					
-						milvalue = 4.0
+						milvalue = 3.0
 						ecovalue = ecovalue * 2
 
-					elseif milvalue < 1.3 then
+					elseif milvalue < 1 then
 					
-						milvalue = milvalue * .66
 						milvalue = milvalue * milvalue
 						ecovalue = ecovalue * .5
 						
@@ -2751,6 +2746,8 @@ function NavalForceAILOUD( self, aiBrain )
 
 					-- ignore targets we are still too weak against
 					if value < 1.0 then
+					
+						LOG("*AI DEBUG Value too low")
 					
 						continue
 						
@@ -2767,9 +2764,9 @@ function NavalForceAILOUD( self, aiBrain )
 
 						distancefactor = aiBrain.dist_comp/Target.Distance   -- makes closer targets more valuable
 
-						if VDist3( GetPlatoonPosition(self), Target.Position) < 400 then -- and very close targets even more valuable
+						if VDist3( GetPlatoonPosition(self), Target.Position) < 500 then -- and very close targets even more valuable
 						
-							distancefactor = distancefactor + 50
+							distancefactor = distancefactor * 2
 							
 						end
 					
@@ -3169,10 +3166,6 @@ function NavalBombardAILOUD( self, aiBrain )
     local target, targetposition
 	local destination
 
-	local maxRange, selectedWeaponArc, turretPitch = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
-	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombard reports max range as "..repr(maxRange))
-
 	local platoonUnits = GetPlatoonUnits(self)
 	local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
@@ -3180,13 +3173,11 @@ function NavalBombardAILOUD( self, aiBrain )
 
 	-- get all the possible naval markers that we want the bombardment platoon to operate from
 	local navalmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Area'] or AIGetMarkerLocations('Naval Area')
-	
+	-- include naval links
 	local linkmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Link'] or AIGetMarkerLocations('Naval Link')
-	
 	local navalmarkers = table.cat( navalmarkers, linkmarkers )
-	
+	-- and water nodes
 	local nodemarkers = ScenarioInfo.Env.Scenario.MasterChain['Water Path Node'] or AIGetMarkerLocations('Water Path Node')
-	
 	local navalmarkers = table.cat( navalmarkers, nodemarkers )
 
 	-- make a copy of the naval base markers
@@ -3210,7 +3201,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
 	local EndMissionTime = LOUDTIME() + MissionTime
 
-	local mythreat, targetlist, targetvalue
+	local mythreat, targetlist, targetvalue, maxRange
 	local sthreat, ethreat, ecovalue, milvalue, value
 	local path, reason, pathlength, distancefactor
 	local waitneeded
@@ -3224,67 +3215,66 @@ function NavalBombardAILOUD( self, aiBrain )
 		target = false
 		
 		mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+		maxRange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
 		
---[[		
+		-- platoon no longer qualifies for bombardment
+		if maxRange < 100 then
+			return self:SetAIPlan('ReturnToBaseAI',aiBrain)		
+		end
+	
+		-- Locate LOCAL targets in bombardment range using the attackpriority list
+		target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', maxRange, atkPri )
 
-		-- Locate LOCAL targets in the searchRadius range using the attackpriority list
-		target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
-
-		-- if target, insure that it's in water and set the destination -- issue attack orders --
+		-- if target -- issue attack orders -- but no need to move
         if target and not target.Dead then
 
-			LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." finds target ")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." finds target in bombard range")
 			
-			-- if the target is in the water
-			if GetTerrainHeight(targetposition[1], targetposition[3]) < GetSurfaceHeight(targetposition[1], targetposition[3]) - 1 then
+			-- order the artillery units to form an attack on the target
+			IssueFormAttack( self:GetSquadUnits('Artillery'), target, 'LOUDClusterFormation', 0)
 
-				destination = table.copy(targetposition)
-
-				if self.MoveThread then
+			-- Make sure any units in platoon which are guards are actually guarding
+			-- loop thru all the artillery units and clear the guarded marks
+			for _,v in self:GetSquadUnits('Artillery') do
 				
-					self:KillMoveThread()
+				if v and not v.Dead then
+
+					v.guardset = nil
 					
-				end
-				
-				self:Stop()
-
-				-- would direction help here ? --
-				IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', 0)
-				
-				local guardset = false
-
-				-- Make sure any units in platoon which are guards are actually guarding attack units
-				for _,v in self:GetSquadUnits('Attack') do
-					
-					if v and not v.Dead then
+					-- if there are Guards - and unit is not guarded --
+					if self:GetSquadUnits('Guard') and not v.guardset then
 						
-						-- if there are Guards - and we are not set to guard --
-						if self:GetSquadUnits('Guard') and not guardset then
+						-- loop thru all guards and issue guard orders
+						for _,m in self:GetSquadUnits('Guard') do
 							
-							-- issue a guard order to each guard unit to the first attack unit we find --
-							for _,m in self:GetSquadUnits('Guard') do
-								
-								if m and not m.Dead then
-								
-									IssueGuard( self:GetSquadUnits('Guard'), v )
+							if m and not m.Dead then
+							
+								if not m.guardset then
+							
+									IssueGuard( {m}, v )
+									
+									m.guardset = true
+									v.guardset = true
+									
+									break
 									
 								end
 								
 							end
 							
-							guardset = true
-							
 						end
-						
-						break
 						
 					end
 					
-				end	
+				end
 				
-			else
+			end
 			
-				target = false
+			-- at this point all the artillery units should be guarded --
+			-- so we'll now clear all the guarding marks
+			for _,v in sefl:GetPlatoonUnits() do
+			
+				v.guardset = nil
 				
 			end
 			
@@ -3293,8 +3283,6 @@ function NavalBombardAILOUD( self, aiBrain )
 			target = false
 			
 		end
-
---]]
 
 		-- if no target and no movement orders -- use HiPri list or random Naval marker
 		-- issue movement orders -- if list is empty RTB instead --
@@ -3521,9 +3509,6 @@ function NavalBombardAILOUD( self, aiBrain )
 			end
 
 			-- we already have a path at this point --
-			-- get a path and if so, issue move -- otherwise fail and cancel target
-			--path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, self:GetPlatoonPosition(), destination, mythreat, 200 )
-			
 			if PlatoonExists( aiBrain, self ) and path then
 			
 				self:Stop()
@@ -3555,57 +3540,6 @@ function NavalBombardAILOUD( self, aiBrain )
 				IssueClearCommands( GetPlatoonUnits(self) )
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
-
-				-- Build in movement delay if platoon has carriers and air units nearby
-				-- Account for the surfacing and diving of Atlantis or other submersible air carriers
-				waitneeded = false
-
-				-- bring submersibles to the surface if there are friendly air units
-				for k,v in GetPlatoonUnits(self) do
-					
-					if not v.Dead and LOUDENTITY ( categories.AIRSTAGINGPLATFORM, v) then
-
-						if GetOwnUnitsAroundPoint( aiBrain, categories.AIR * categories.MOBILE - categories.TRANSPORTFOCUS, v:GetPosition(), 32) then
-							
-							waitneeded = true
-
-							if (not v.Dead) and v.CacheLayer == 'Sub' then
-							
-								IssueDive( {v} )
-								
-							end
-							
-						end
-						
-					end
-					
-				end
-
-				-- if friendly air units in area -- wait 40 seconds --
-				-- then submerge them
-				if waitneeded then
-					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NSFAI on Air Wait")
-					
-					WaitTicks(300)
-					
-					waitneeded = false
-
-					if PlatoonExists( aiBrain, self ) then
-					
-						for k,v in GetPlatoonUnits(self) do
-						
-							if not v.Dead and LOUDENTITY( categories.AIRSTAGINGPLATFORM * categories.SUBMERSIBLE, v) then
-							
-								IssueDive( {v} )	-- submerge Atlantis
-								
-							end
-							
-						end
-						
-					end
-					
-				end
 				
 				destination = false
 				target = false
@@ -3614,7 +3548,8 @@ function NavalBombardAILOUD( self, aiBrain )
 			
         end
 
-		-- loop here while prosecuting a target -- 
+		-- loop here until target dies or moves out of range -- 
+		-- wait 6 seconds between target checks --
 		while target and PlatoonExists(aiBrain, self) do
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." fighting - target dead is "..repr(target.Dead))
@@ -3627,11 +3562,12 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			end
 
-			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
+			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
+			
+				-- if the target is still alive but it's moved out of range - let me know
+				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
 				
-				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
-				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NSFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
+					LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." target is beyond radius "..repr(maxRange))
 					
 				end
 
@@ -3640,32 +3576,6 @@ function NavalBombardAILOUD( self, aiBrain )
 				target = false
 				
 				break
-				
-			end
-
-			if (not target.Dead) and updatedtargetposition and updatedtargetposition != targetposition then
-			
-				if self:GetSquadUnits('Attack') then
-				
-					targetposition = table.copy(updatedtargetposition)
-				
-					IssueAttack( self:GetSquadUnits('Attack'), target )
-					
-				else
-				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." all attack units dead - fight over")
-					
-					target = false
-					
-					if self.MoveThread then
-					
-						self:KillMoveThread()
-						
-					end
-					
-					break
-				
-				end
 				
 			end
 
@@ -3685,7 +3595,7 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			end
 
-			WaitTicks(45)
+			WaitTicks(60)
 			
 		end
 
