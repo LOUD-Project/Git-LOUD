@@ -1052,6 +1052,7 @@ function SetupAICheat(aiBrain)
 	-- resource rate cheat buff
     buffDef = Buffs['CheatIncome']
 	buffAffects = buffDef.Affects
+
 	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.CheatMult)
 	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.CheatMult)
 	

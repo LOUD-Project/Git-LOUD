@@ -3315,7 +3315,7 @@ function NavalBombardAILOUD( self, aiBrain )
 					
 					-- at this point we really need to check if the target position is within range of one of the markers we assembled earlier
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." Testing "..repr(navalAreas[1].Position).." type is "..repr(Target).." distance to "..repr(Target.Position))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Testing "..repr(navalAreas[1].Position).." type is "..repr(Target).." distance to "..repr(Target.Position))
 					
 					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
 				

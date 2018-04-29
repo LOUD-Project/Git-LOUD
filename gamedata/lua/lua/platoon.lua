@@ -524,7 +524,7 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 				-- sort the markers by closest distance to final destination
-				LOUDSORT(markerlist, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
+				LOUDSORT( markerlist, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
 
 				-- loop thru each marker -- see if you can form a safe path on the surface 
 				-- and a safe path for the transports -- use the first one that satisfies both
@@ -556,19 +556,15 @@ Platoon = Class(moho.platoon_methods) {
 								return v.Position, v.Name
 							
 							end
-							
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe AIR path for transports to "..repr(destination).." from "..repr(self:GetPlatoonPosition() ))
-						
-						--else
-						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe LAND path to "..repr(destination).." from "..repr(v.Position).." using "..layer.." reason is "..repr(reason) )
-							
+
 						end
 					
 					end
 					
 				end
 
+				WaitTicks(2)
+				
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe drop for "..repr(destination).." using "..layer)
 				
 				return false, nil
@@ -667,11 +663,13 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - aborting transport")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - aborting transport")
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 					
 				end
+				
+				WaitTicks(2)
 				
 				return false
 				
@@ -704,6 +702,8 @@ Platoon = Class(moho.platoon_methods) {
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 					
 				end
+				
+				WaitTicks(2)
 				
 				return false
 				
@@ -750,9 +750,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 					-- if no path then fail otherwise use it
 					if not path and destination != nil then
-				
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." transport failed and/or no path to destination ")
-					
+
+						WaitTicks(2)
+						
 						return false
 				
 					elseif path then

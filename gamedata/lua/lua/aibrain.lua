@@ -5,7 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD options")
 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG 		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
 	ScenarioInfo.DisplayAttackPlans = false
@@ -14,10 +14,10 @@
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG 		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
-	ScenarioInfo.DisplayIntelPoints = true
+	ScenarioInfo.DisplayIntelPoints = false
 	LOG("*AI DEBUG 		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG 		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
 	ScenarioInfo.DisplayPlatoonMembership = false
@@ -89,7 +89,7 @@ local CustomVOReplayTime = {
 	--EnergyDepleted = 120,
 	--UnitStartBeingBuilt = 1,
 	--UnitComplete = 1,
-	EnemyUnitDetected = 20,
+	EnemyUnitDetected = 28,
 	UnitUnderAttack = 20,
 	--UnitHealthAt = 20,
 	--UnitDestroyed = 3,

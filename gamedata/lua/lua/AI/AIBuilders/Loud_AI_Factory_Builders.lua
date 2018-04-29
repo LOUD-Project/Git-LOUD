@@ -225,7 +225,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction - Expansions',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 20, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.78, 20, 1.02, 1.02 }},
 			
         },
 		
@@ -307,13 +307,13 @@ BuilderGroup {BuilderGroupName = 'Naval Factory Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			--{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 			
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.NAVAL * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.78, 20, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.73, 25, 1.02, 1.02 }},
 			
         },
 		
