@@ -677,7 +677,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = true,		-- repeat this build until it fails
 				ThreatMin = -9999,
-				ThreatMax = 75,
+				ThreatMax = 60,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = { 'T1Resource' }
@@ -715,7 +715,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = false,		-- build and RTB
 				ThreatMin = -9999,
-				ThreatMax = 75,
+				ThreatMax = 60,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = { 'T2Resource' }
@@ -779,7 +779,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 30, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
 			
         },
 		
@@ -790,8 +790,8 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
 				BuildClose = true,		-- build on mass points closest to itself
 				LoopBuild = false,		-- dont repeat - just build once then RTB
 				ThreatMin = -9999,
-				ThreatMax = 25,
-				ThreatRings = 1,
+				ThreatMax = 45,
+				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = { 'T2Resource' }
 				
@@ -895,7 +895,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders - Expansions',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },			
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 30, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
 			
         },
 		
@@ -906,7 +906,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders - Expansions',
 				BuildClose = true,
 				LoopBuild = true,		-- repeat build until no target or dead
 				ThreatMin = -9999,
-				ThreatMax = 25,
+				ThreatMax = 45,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = { 'T2Resource' }
@@ -975,7 +975,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders Naval Expansions',
 			{ LUTL, 'NeedMassPointShare', {} },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 30, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -984,8 +984,8 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders Naval Expansions',
 			
 				LoopBuild = false,	#-- build only once then RTB
 				ThreatMin = -9999,
-				ThreatMax = 25,
-				ThreatRings = 1,
+				ThreatMax = 45,
+				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = {'T1Resource'}
 				

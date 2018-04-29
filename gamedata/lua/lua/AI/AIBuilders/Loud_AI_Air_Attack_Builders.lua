@@ -855,7 +855,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.GROUNDATTACK }},
-			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 30, 1, 'AntiAir', 1 }},
+			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 150, 1, 'AntiAir', 1 }},
 			
         },
 		
