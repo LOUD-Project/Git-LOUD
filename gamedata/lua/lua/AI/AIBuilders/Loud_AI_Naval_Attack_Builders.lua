@@ -8,7 +8,7 @@ local BHVR = '/lua/ai/aibehaviors.lua'
 local NotPrimaryBase = function( self,aiBrain,manager)
 
 	if not aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return 800, false
+		return 710, false
 	end
 
 	return self.Priority, true
@@ -47,7 +47,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 
         Priority = 700,
 		
-        InstanceCount = 7,
+        InstanceCount = 6,
 		
 		RTBLocation = 'Any',
 		
@@ -105,7 +105,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 800,
+        Priority = 710,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
@@ -585,7 +585,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
@@ -636,7 +636,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP - categories.xas0306}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.xas0306}},
@@ -688,7 +688,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-		
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
+			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
@@ -738,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
@@ -773,7 +774,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 810,
+        Priority = 710,
 
 		PriorityFunction = IsPrimaryBase,
 
@@ -794,7 +795,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 			
-			MissionTime = 1500,		-- 30 minute mission
+			MissionTime = 1800,		-- 30 minute mission
 			
 			UseFormation = 'DMSCircleFormation',
 			
@@ -952,7 +953,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {

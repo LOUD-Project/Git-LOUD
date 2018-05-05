@@ -364,7 +364,7 @@ PlatoonTemplate { Name = 'T3ArmoredAssault',
 PlatoonTemplate { Name = 'T3Amphibious',
     FactionSquads = {
         UEF = {
-            { 'xel0305', 1, 2, 'Attack', 'none' },  # Percival
+            { 'xel0305', 1, 1, 'Attack', 'none' },  # Percival
         },
         Aeon = {
             { 'xal0203', 1, 2, 'Attack', 'none' },	# T2 Blaze - filler
@@ -373,7 +373,7 @@ PlatoonTemplate { Name = 'T3Amphibious',
             { 'xrl0305', 1, 1, 'Attack', 'none' },  # Brick
         },
         Seraphim = {
-            { 'xsl0303', 1, 2, 'Attack', 'none' },  # Othuum
+            { 'xsl0303', 1, 1, 'Attack', 'none' },  # Othuum
         },
     }
 }

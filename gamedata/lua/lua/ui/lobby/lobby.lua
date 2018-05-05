@@ -1109,52 +1109,79 @@ local function GetPlayersNotReady()
 end
 
 local function AssignRandomFactions(gameInfo)
+
     local randomFactionID = table.getn(FactionData.Factions) + 1
+	
     for index, player in gameInfo.PlayerOptions do
+	
         if hasSupcom then
+		
             if player.Faction >= randomFactionID then
                 player.Faction = math.random(1, table.getn(FactionData.Factions))
             end
+			
         else
+		
             player.Faction = 4
+			
         end
+		
     end
+	
 end
 
 local function AssignRandomStartSpots(gameInfo)
+
     if gameInfo.GameOptions['TeamSpawn'] == 'random' then
+	
         local numAvailStartSpots = nil
         local scenarioInfo = nil
+		
         if gameInfo.GameOptions.ScenarioFile and (gameInfo.GameOptions.ScenarioFile != "") then
             scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
         end
+		
         if scenarioInfo then
+		
             local armyTable = MapUtil.GetArmies(scenarioInfo)
+			
             if armyTable then
                 numAvailStartSpots = table.getn(armyTable)
             end
+			
         else
+		
             WARN("Can't assign random start spots, no scenario selected.")
             return
+			
         end
         
         for i = 1, numAvailStartSpots do
+		
             if gameInfo.PlayerOptions[i] then
+			
                 -- don't select closed slots for random pick
                 local randSlot
+				
                 repeat
                     randSlot = math.random(1,numAvailStartSpots)
                 until gameInfo.ClosedSlots[randSlot] == nil
                 
                 local temp = nil
+				
                 if gameInfo.PlayerOptions[randSlot] then
                     temp = table.deepcopy(gameInfo.PlayerOptions[randSlot])
                 end
+				
                 gameInfo.PlayerOptions[randSlot] = table.deepcopy(gameInfo.PlayerOptions[i])
                 gameInfo.PlayerOptions[i] = temp
+				
             end
+			
         end
+		
     end
+	
 end
 
 local function AssignAINames(gameInfo)

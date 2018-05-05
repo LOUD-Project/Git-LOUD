@@ -702,12 +702,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			if builder then
 		
-				if ScenarioInfo.DisplayFactoryBuilds then
-				
-					factory:SetCustomName(repr(builder.BuilderName))
-					
-				end
-				
                 factory.addplan = false
 				factory.addbehavior = false
 				
@@ -734,9 +728,15 @@ FactoryBuilderManager = Class(BuilderManager) {
 					end
 					
 				end
-
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." Building Platoon "..repr(builder.BuilderName))
 				
+				if ScenarioInfo.DisplayFactoryBuilds then
+				
+					factory:SetCustomName(repr(builder.BuilderName))
+					
+					FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
+				
+				end
+
                 aiBrain:BuildPlatoon( self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName ), {factory}, buildplatoonsqty )
 
 				if Builders[builder.BuilderName].PlatoonAddFunctions then

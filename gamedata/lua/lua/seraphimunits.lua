@@ -97,20 +97,29 @@ SAirFactoryUnit = Class(FactoryUnit) {
 
     RollOffUnit = function(self)
         if EntityCategoryContains( categories.AIR, self.UnitBeingBuilt ) then
+		
             local spin, x, y, z = self:CalculateRollOffPoint()
             local units = { self.UnitBeingBuilt }
+			--LOG("*AI DEBUG Warp")
+			--Warp( self.UnitBeingBuilt, Vector(x,y,z) )
+			
             self.MoveCommand = IssueMove(units, Vector(x, y, z))
         end
     end,
 
     RolloffBody = function(self)
+	
         self:SetBusy(true)
+		
         local unitBuilding = self.UnitBeingBuilt
         
         -- If the unit being built isn't an engineer use normal rolloff
         if not EntityCategoryContains( categories.LAND, unitBuilding ) then
+		
             FactoryUnit.RolloffBody(self)
+			
         else
+		
             -- Engineers need to be slid off the factory
             local bp = self:GetBlueprint()
 			
@@ -141,7 +150,9 @@ SAirFactoryUnit = Class(FactoryUnit) {
             self:DestroyRollOffEffects()
             self:SetBusy(false)
             ChangeState(self, self.IdleState)
+			
         end
+		
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order )
@@ -177,35 +188,46 @@ SAirFactoryUnit = Class(FactoryUnit) {
     UpgradingState = State(FactoryUnit.UpgradingState) {
 	
         OnStopBuild = function(self, unitBuilding)
+		
             if unitBuilding:GetFractionComplete() == 1 then
+			
                 --start halted rotators on upgraded unit
                 if (unitBuilding.Rotator1) then
                     unitBuilding.Rotator1:ClearGoal()
                 end
+				
                 if (unitBuilding.Rotator2) then
                     unitBuilding.Rotator2:ClearGoal()
                 end
+				
                 if (unitBuilding.Rotator3) then
                     unitBuilding.Rotator3:ClearGoal()
-                end                  
+                end
+				
             end
+			
             FactoryUnit.UpgradingState.OnStopBuild(self, unitBuilding)
         end,
 
         OnFailedToBuild = function(self)
+		
            FactoryUnit.UpgradingState.OnFailedToBuild(self)
+		   
            -- failed to build, so resume rotators
-           if (self.Rotator1) then
-               self.Rotator1:ClearGoal()
-               self.Rotator1:SetSpeed(5)
-           end
+			if (self.Rotator1) then
+				self.Rotator1:ClearGoal()
+				self.Rotator1:SetSpeed(5)
+			end
            
             if (self.Rotator2) then
-               self.Rotator2:ClearGoal()
-               self.Rotator2:SetSpeed(5)
-           end
+				self.Rotator2:ClearGoal()
+				self.Rotator2:SetSpeed(5)
+			end
+			
         end,
-    }, 
+		
+    },
+	
 }
 
 SAirUnit = Class(AirUnit) {

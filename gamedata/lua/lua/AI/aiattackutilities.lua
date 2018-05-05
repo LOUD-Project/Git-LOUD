@@ -614,8 +614,8 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 end	
 
 -- this function locates a target for a squad within a given range and list of priority target types
--- returning an actual unit and its position --
-function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri )
+-- returning an actual unit and its position -- modified to include the nolayercheck option
+function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck )
 
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 	
@@ -630,7 +630,7 @@ function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri )
 	if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, GetPlatoonPosition(self), maxRange, 'Enemy' ) < 1 then
 	
 		return false, false
-		
+
 	end
 	
 	local GetPosition = moho.entity_methods.GetPosition
@@ -640,7 +640,7 @@ function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri )
 	local VDist2Sq = VDist2Sq
 	
 	local unit = false
-	
+
 	if PlatoonExists( aiBrain,self) then
 		
 		local position = table.copy(GetPlatoonPosition(self))
@@ -651,17 +651,25 @@ function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri )
 		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
 		
 		for _,v in atkPri do
-		
+
 			-- filter for the desired category
 			for _, u in EntityCategoryFilterDown( LOUDPARSE(v), enemyunits) do
 
-				-- if unit not dead and can attack the target and can get there -- go for it
 				if not u.Dead then
 				
 					-- if can attack this kind of target and get somewhere close to it ? (I don't like this function)
-					if CanAttackTarget( self, squad, u ) and CanGraphTo( position, GetPosition(u), self.MovementLayer ) then
-					
-						return u, GetPosition(u)
+					if CanAttackTarget( self, squad, u ) then
+
+						if nolayercheck then 
+						
+							return u, GetPosition(u)
+
+						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) then
+
+							return u, GetPosition(u)
+							
+						end
+
 					end
 					
 				end

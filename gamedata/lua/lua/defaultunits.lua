@@ -1636,7 +1636,7 @@ FactoryUnit = Class(StructureUnit) {
         end
 		
         self.FactoryBuildFailed = false
-		
+
     end,
 
     OnStopBuild = function(self, unitBeingBuilt, order )
@@ -1697,11 +1697,11 @@ FactoryUnit = Class(StructureUnit) {
             self:SetBusy(false)
 			
         end
-		
+
     end,
 
     OnFailedToBuild = function(self)
-	
+
         self.FactoryBuildFailed = true        
 		
         StructureUnit.OnFailedToBuild(self)
@@ -1729,7 +1729,7 @@ FactoryUnit = Class(StructureUnit) {
 	
         local bp = GetBlueprint(self).Physics.RollOffPoints
 		
-		local pos = self.CachePosition	--GetPosition(self)
+		local pos = self.CachePosition
 		
 		local px = pos[1]
 		local py = pos[2]

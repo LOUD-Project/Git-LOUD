@@ -63,8 +63,8 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 6250,
         MaxHealth = 6250,
-        RegenRate = 3,
-        SubThreatLevel = 2.5,
+        RegenRate = 4,
+        SubThreatLevel = 5,
         SurfaceThreatLevel = 45,
     },
 	
@@ -348,7 +348,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {

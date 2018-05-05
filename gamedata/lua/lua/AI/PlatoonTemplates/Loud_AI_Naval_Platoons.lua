@@ -270,7 +270,7 @@ PlatoonTemplate { Name = 'SeaAttack Reinforcement',
 	
 		{ (categories.MOBILE * categories.NAVAL * categories.CARRIER), 0, 1, 'Support', 'none' },			# Carriers
         { (categories.BATTLESHIP), 0, 4, 'Attack', 'none' },												# Capital Ships	
-        { (categories.DESTROYER), 2, 6, 'Attack', 'none' },													# Destroyers
+        { (categories.DESTROYER), 1, 6, 'Attack', 'none' },													# Destroyers
         { (categories.CRUISER), 1, 5, 'Attack', 'none' },													# Cruisers
         { (categories.FRIGATE), 4, 10, 'Attack', 'none' },													# Frigates
         { (categories.SUBMARINE), 5, 16, 'Attack', 'none' },												# Submarines		

@@ -498,7 +498,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrend', { 2500 }},
+			{ EBC, 'LessThanEnergyTrend', { 2800 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 29, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
 			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering', true }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
@@ -642,7 +642,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - BOACU',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'LessThanEnergyTrend', { 2500 }},
+			{ EBC, 'LessThanEnergyTrend', { 2800 }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 29, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
         },

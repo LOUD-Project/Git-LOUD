@@ -100,7 +100,7 @@ function UnitCapCheckLess(aiBrain, percent)
 		return true
 		
 	end
-	
+
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
 	
 end
@@ -3823,16 +3823,16 @@ function BuildScoutLocations( self )
 
                 if army and startPos then
 				
-					-- if position has enemy player put into high priority for 15 minutes with initial 200 threat
+					-- if position has enemy player put into high priority for 20 minutes with initial 300 threat
 					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
 						
 						-- assign initial threat of 200 at enemy position
-						self:AssignThreatAtPosition( startPos, 200, 0.002, 'Economy' )
+						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'StructuresNotMex', LastScouted = 900, LastUpdate = 0, Threat = 200, Permanent = false } )
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'StructuresNotMex', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
 						
                     else
 					
@@ -3867,17 +3867,24 @@ function BuildScoutLocations( self )
                 local startPos = GetMarker('ARMY_' .. i).position
 
                 if army and startPos then
-
-                    if army.ArmyIndex == myArmy.ArmyIndex or (army.Team == myArmy.Team) then
+				
+					-- if position has enemy player put into high priority for 15 minutes with initial 200 threat
+					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
 					
-                        allyStarts['ARMY_' .. i] = startPos
+                        opponentStarts['ARMY_' .. i] = startPos
+                        numOpponents = numOpponents + 1
+						
+						-- assign initial threat of 300 at enemy position
+						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
+						
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'StructuresNotMex', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
 						
                     else
 					
-                        numOpponents = numOpponents + 1
+                        allyStarts['ARMY_' .. i] = startPos
 						
-                    end
-					
+                    end				
+
                 end
 				
             end

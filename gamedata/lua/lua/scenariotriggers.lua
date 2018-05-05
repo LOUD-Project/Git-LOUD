@@ -498,8 +498,6 @@ function CreateUnitToPositionDistanceTrigger( callbackFunction, unit, marker, di
 end
 
 function CreatePlatoonToPositionDistanceTrigger( callbackFunction, platoon, marker, distance )
-
-	--LOG("*AI DEBUG Creating PlatoonToPosition Trigger")
 	
 	return ForkThread( PlatoonToPositionDistanceTriggerThread, callbackFunction, platoon, marker, distance)
 	
@@ -570,6 +568,8 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 	
 	local count = 0
 	local distancecheck = distance * distance
+	
+	WaitTicks(10)
 	
     while true do
 	

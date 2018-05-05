@@ -100,15 +100,11 @@ Platoon = Class(moho.platoon_methods) {
         self.Trash = TrashBag()
 
         if plan and plan != 'none' then
-		
-			--LOG("*AI DEBUG Plan is "..repr(plan))
-			
+
 			self:ForkAIThread( self[plan], GetBrain(self) )
 			
         end
-		
-		--LOG("*AI DEBUG Created Platoon "..repr(self))
-		
+
     end,
 
     SetPlatoonData = function( self, dataTable)
@@ -218,17 +214,13 @@ Platoon = Class(moho.platoon_methods) {
     end,
 
     OnDestroy = function( self)
-	
-		--LOG("*AI DEBUG OnDestroy for platoon "..repr(self.BuilderName))
-        
+
 		self:DoDestroyCallbacks()
 		
         if self.Trash then
 		
             self.Trash:Destroy()
-			
-			--LOG("*AI DEBUG Platoon Trash Destroyed for "..repr(self.BuilderName) )
-			
+
         end
 		
     end,
@@ -236,9 +228,7 @@ Platoon = Class(moho.platoon_methods) {
 	MovePlatoon = function( self, path, PlatoonFormation, AggroMove)
 		
 		local prevpoint = GetPlatoonPosition(self) or false
-		
-		--LOG("*AI DEBUG "..repr(self.BuilderName).." starts MoveThread")
-		
+
 		if prevpoint and path then
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -251,8 +241,6 @@ Platoon = Class(moho.platoon_methods) {
 			
 					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevpoint, waypointPath )
 
-					--LOG("*AI DEBUG "..repr(self.BuilderName).." moving to "..repr(waypointPath))
-			
 					if AggroMove then
 
 						if self:GetSquadUnits('Scout') then
@@ -287,8 +275,6 @@ Platoon = Class(moho.platoon_methods) {
 					
 					end
 
-					--LOG("*AI DEBUG "..repr(self.BuilderName).." moved to "..repr(waypointPath))
-					
 				end
 			
 				IssueClearCommands( GetPlatoonUnits(self))
@@ -311,8 +297,6 @@ Platoon = Class(moho.platoon_methods) {
 	end,
 	
 	KillMoveThread = function( self )
-	
-		--LOG("*AI DEBUG "..repr(self.BuilderName).." killing MoveThread")
 		
 		if self.WaypointCallback then
 		
@@ -876,15 +860,15 @@ Platoon = Class(moho.platoon_methods) {
 		local AIGetThreatLevelsAroundPoint = function( position, threatradius )
 	
 			if threattype == 'AntiAir' then
-				return aiBrain:GetThreatAtPosition( position, 1, true, 'AntiAir')	--airthreat
+				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiAir')	--airthreat
 			elseif threattype == 'AntiSurface' then
-				return aiBrain:GetThreatAtPosition( position, 1, true, 'AntiSurface')	--surthreat
+				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiSurface')	--surthreat
 			elseif threattype == 'AntiSub' then
-				return aiBrain:GetThreatAtPosition( position, 1, true, 'AntiSub')	--subthreat
+				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiSub')	--subthreat
 			elseif threattype == 'Economy' then
-				return aiBrain:GetThreatAtPosition( position, 1, true, 'Economy')	--ecothreat
+				return aiBrain:GetThreatAtPosition( position, 0, true, 'Economy')	--ecothreat
 			else
-				return aiBrain:GetThreatAtPosition( position, 1, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
+				return aiBrain:GetThreatAtPosition( position, 0, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
 			end
 	
 		end
@@ -2356,7 +2340,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
 							marker = false
 							
@@ -2375,7 +2359,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if not position or not marker then
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." fails - position is "..repr(position))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." fails - position is "..repr(position))
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
@@ -3604,7 +3588,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
 							marker = false
 							
