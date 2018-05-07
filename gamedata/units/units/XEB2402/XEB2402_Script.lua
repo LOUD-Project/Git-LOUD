@@ -26,7 +26,6 @@ XEB2402 = Class(TStructureUnit) {
 			local army = self:GetArmy()
 
 			while not self.Dead do
-				LOG("Looping")
 				-- Check if the IntelToggle is clicked or not. If not, that means it's enabled (Confusing)
 				if not self:GetScriptBit('RULEUTC_IntelToggle') then
 					if self.hasSat == false then
