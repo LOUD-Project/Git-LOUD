@@ -2358,9 +2358,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			if not position or not marker then
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." fails - position is "..repr(position))
-				
+
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
@@ -2393,10 +2391,10 @@ Platoon = Class(moho.platoon_methods) {
 
 				else
 
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." path is "..repr(path))
+					
 					
 					if PlatoonExists(aiBrain,self) then
-				
+
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
 						
 					end
@@ -2427,9 +2425,7 @@ Platoon = Class(moho.platoon_methods) {
 			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
 			
 				position = GetPlatoonPosition(self) or false
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." guardtime used is "..guardtime.." watching travel - position "..repr(position))
-				
+
 				if position then
 			
 					if StrCat and StrTrigger then
@@ -2500,7 +2496,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- call transports if still far (every fourth iteration)
 						if marker and calltransport > 3 and distance > 350 then
-					
+
 							usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
 
 							calltransport = 0	-- reset the calltransport trigger
@@ -2516,7 +2512,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			-- if we still have a marker - stop any move thread -- otherwise find a new point
-			if marker then
+			if marker and guardtime < guardTimer then
 			
 				if PlatoonExists(aiBrain,self) and self.MoveThread then
 
@@ -4718,24 +4714,18 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- must have an EM and be active
 						if base.EngineerManager.Active then
-						
-							--LOG("*AI DEBUG Examining base "..base.BaseName.." "..repr(base.EngineerManager.BaseMonitor.AlertsTable))
-						
+
 							-- is EM sounding an alert for my kind of distress response ? --
 							-- remember - each base will only track one alert for each type --
 							-- therefore - we either have an alert or we don't for any given base -- 
 							if base.EngineerManager.BaseMonitor.AlertsTable[distresstype] then
 							
 								local alert = base.EngineerManager.BaseMonitor.AlertsTable[distresstype]
-								
-								--LOG("*AI DEBUG "..aibrain.Nickname.." "..platoon.BuilderName.." "..base.BaseName.." - "..distresstype.." threat of "..alert.Threat.." detected at "..repr(alert.Position))
 
 								-- is threat high enough for me to notice ?
 								if alert.Threat >= threatthreshold then
 							
 									local rangetoalert = VDist2( platoonposition[1],platoonposition[3], alert.Position[1], alert.Position[2])
-									
-									--LOG("*AI DEBUG Range to alert is "..rangetoalert.." my tether is "..distressrange )
 								
 									if rangetoalert <= (distressrange * 2) then
                                 
@@ -4823,22 +4813,34 @@ Platoon = Class(moho.platoon_methods) {
 			local eng = GetPlatoonUnits(self)[1]
 			
 			if eng then
+			
 				local beingBuilt = self.PlatoonData.Assist.BeingBuiltCategories or categories.ALLUNITS
+				
 				for _,catString in beingBuilt do
+				
 					local assistList = FindDamagedShield( aiBrain, self.BuilderLocation, catString )
+					
 					if assistList then
+					
 						self:Stop()
 						IssueGuard( {eng}, assistList )
+						
 						return true
+						
 					end
+					
 				end
+				
 			end
 			
 			return false
+			
 		end
 		
         if EconDamagedShield() then
+		
 			WaitSeconds(self.PlatoonData.Assist.Time or 15)
+			
 		end
 		
 		self:Stop()
@@ -4930,7 +4932,9 @@ Platoon = Class(moho.platoon_methods) {
             until allIdle
 			
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+			
         end
+		
     end,
 	
 	EngineerReclaimUnitAI = function( self, aiBrain )
@@ -6532,9 +6536,9 @@ Platoon = Class(moho.platoon_methods) {
 
 				if EngineerThreatened( buildlocation ) then
 				
-					eng.failedmoves = 10	-- clear all orders -- 
+					eng.failedmoves = 10	-- clear all orders --
 					
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." threatened at start of engineer moving")
+					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
 					return false
 					
@@ -6544,7 +6548,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					eng.failedmoves = 10	-- clear all orders --
 					
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." no SafePath at start of engineer moving")
+					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
 					return false
 					
@@ -6563,7 +6567,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 								eng.failedmoves = eng.failedmoves + 2
 								
-								--LOG("*AI DEBUG Eng "..eng.Sync.id.." build invalid While engineer moving")
+								ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )								
 							
 								return false
 							
@@ -6572,8 +6576,6 @@ Platoon = Class(moho.platoon_methods) {
 							if EngineerThreatened( buildlocation ) then
 						
 								eng.failedmoves = eng.failedmoves + 2
-								
-								--LOG("*AI DEBUG Eng "..eng.Sync.id.." threatened while engineer moving")
 							
 							end
 						
@@ -6617,7 +6619,9 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				if not eng.Dead and eng.failedmoves >= 10 then
-				
+
+					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
+					
 					return false
 					
 				end
@@ -6642,8 +6646,6 @@ Platoon = Class(moho.platoon_methods) {
 
 				-- build the structure -- STD callbacks will relaunch PBC
                 if buildItem then
-				
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." ready to build "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
 
 					if not eng.Dead then
                         
@@ -6792,8 +6794,6 @@ Platoon = Class(moho.platoon_methods) {
 				-- and the job will be put in delay so it isn't selected again right away --
 				if not eng.Dead then
 				
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." fails to build - failedmoves is "..eng.failedmoves)
-				
 					if eng.failedmoves < 10 then
 
 						-- move onto next item to build
@@ -6833,8 +6833,6 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			if eng.NewExpansion then
-			
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." started a new base with "..repr(eng.NewExpansion).." new base thread is "..repr(eng.NewBaseThread) )
 				
 				eng.NeedsBaseData = nil
 				
@@ -6849,8 +6847,6 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 			end
-
-			--LOG("*AI DEBUG Eng "..eng.Sync.id.." exiting PBC")
 
 			eng.failedmoves = 0
 			eng.failedbuilds = eng.failedbuilds + 1

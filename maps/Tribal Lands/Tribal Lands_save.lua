@@ -4246,10 +4246,10 @@ Scenario = {
                     ['position'] = VECTOR3( 305.5, 6.501171, 664.5 ),
                 },
                 ['Naval Area 01'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 103.5, 6.501171, 667.5 ),
                 },
@@ -6783,71 +6783,6 @@ Scenario = {
                 },
             },
         },
-        --[[                                                                           ]]--
-        --[[  ARMY_9                                                                   ]]--
-        --[[                                                                           ]]--
-        ['ARMY_9'] = 
-        {
-            personality = '',
-            plans = '',
-            color = 0,
-            faction = 0,
-            Economy = {
-                mass = 0,
-                energy = 0,
-            },
-            Alliances = {
-            },
-            ['Units'] = GROUP {
-                orders = '',
-                platoon = '',
-                Units = {
-                    ['INITIAL'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                        },
-                    },
-                },
-            },
-            PlatoonBuilders = {
-                next_platoon_builder_id = '1',
-                Builders = {
-                },
-            },
-        },
-        --[[                                                                           ]]--
-        --[[  NEUTRAL_CIVILIAN                                                         ]]--
-        --[[                                                                           ]]--
-        ['NEUTRAL_CIVILIAN'] = 
-        {
-            personality = '',
-            plans = '',
-            color = 0,
-            faction = 0,
-            Economy = {
-                mass = 0,
-                energy = 0,
-            },
-            Alliances = {
-            },
-            ['Units'] = GROUP {
-                orders = '',
-                platoon = '',
-                Units = {
-                    ['INITIAL'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                        },
-                    },
-                },
-            },
-            PlatoonBuilders = {
-                next_platoon_builder_id = '1',
-                Builders = {
-                },
-            },
-        },
+
     },
 }

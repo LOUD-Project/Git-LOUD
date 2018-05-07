@@ -1620,10 +1620,10 @@ Scenario = {
                     ['position'] = VECTOR3( 1362.5, 36.73438, 731.5 ),
                 },
                 ['Naval Area 08'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 914.5, 25, 1325.5 ),
                 },
@@ -2286,10 +2286,10 @@ Scenario = {
                     ['position'] = VECTOR3( 1409.5, 35.97656, 705.5 ),
                 },
                 ['Naval Area 05'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 1193.5, 25, 129.5 ),
                 },
@@ -5917,10 +5917,10 @@ Scenario = {
                     ['position'] = VECTOR3( 1088.5, 25, 192.5 ),
                 },
                 ['Naval Area 11'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 1551.5, 25, 1238.5 ),
                 },
@@ -7140,10 +7140,10 @@ Scenario = {
                     ['position'] = VECTOR3( 755.5, 30.86719, 1785.5 ),
                 },
                 ['Naval Area 06'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 1148.5, 25, 699.5 ),
                 },
@@ -7393,10 +7393,10 @@ Scenario = {
                     ['position'] = VECTOR3( 1856.5, 25, 1088.5 ),
                 },
                 ['Naval Area 07'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 1841.5, 25, 920.5 ),
                 },
@@ -7799,10 +7799,10 @@ Scenario = {
                     ['position'] = VECTOR3( 1530.5, 27.95313, 850.5 ),
                 },
                 ['Naval Area 04'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 204.5, 25, 972.5 ),
                 },
@@ -8914,10 +8914,10 @@ Scenario = {
                     ['position'] = VECTOR3( 2001.5, 30.99219, 532.5 ),
                 },
                 ['Naval Area 14'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 1262.5, 25, 1969.5 ),
                 },
@@ -9853,10 +9853,10 @@ Scenario = {
                     ['position'] = VECTOR3( 59.5, 30, 233.5 ),
                 },
                 ['Naval Area 01'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 614.5, 25, 716.5 ),
                 },
@@ -11881,18 +11881,18 @@ Scenario = {
                     ['position'] = VECTOR3( 1740.5, 31.89063, 1483.5 ),
                 },
                 ['Naval Area 10'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 832.5, 25, 1950.5 ),
                 },
                 ['Naval Area 13'] = {
-                    ['color'] = STRING( 'ff0000FF' ),' ),
+                    ['color'] = STRING( 'ff0000FF' ),
                     ['hint'] = BOOLEAN( true ),
                     ['type'] = STRING( 'Naval Area' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Expansion_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0, 0 ),
                     ['position'] = VECTOR3( 818.5, 25, 101.5 ),
                 },
@@ -12337,71 +12337,6 @@ Scenario = {
                 },
             },
         },
-        --[[                                                                           ]]--
-        --[[  ARMY_13                                                                  ]]--
-        --[[                                                                           ]]--
-        ['ARMY_13'] = 
-        {
-            personality = '',
-            plans = '',
-            color = 0,
-            faction = 0,
-            Economy = {
-                mass = 0,
-                energy = 0,
-            },
-            Alliances = {
-            },
-            ['Units'] = GROUP {
-                orders = '',
-                platoon = '',
-                Units = {
-                    ['INITIAL'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                        },
-                    },
-                },
-            },
-            PlatoonBuilders = {
-                next_platoon_builder_id = '1',
-                Builders = {
-                },
-            },
-        },
-        --[[                                                                           ]]--
-        --[[  NEUTRAL_CIVILIAN                                                         ]]--
-        --[[                                                                           ]]--
-        ['NEUTRAL_CIVILIAN'] = 
-        {
-            personality = '',
-            plans = '',
-            color = 0,
-            faction = 0,
-            Economy = {
-                mass = 0,
-                energy = 0,
-            },
-            Alliances = {
-            },
-            ['Units'] = GROUP {
-                orders = '',
-                platoon = '',
-                Units = {
-                    ['INITIAL'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                        },
-                    },
-                },
-            },
-            PlatoonBuilders = {
-                next_platoon_builder_id = '1',
-                Builders = {
-                },
-            },
-        },
+
     },
 }
