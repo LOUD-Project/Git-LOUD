@@ -3,25 +3,37 @@ UnitBlueprint {
         GuardScanRadius = 30, 
     }, 
     Audio = {
+       AmbientMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0201_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
             Cue = 'BRMT1BTEXPLODE1',
             LodCutoff = 'Weapon_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Start',
+
+            Bank = 'URL',
+            Cue = 'URL0103_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0103_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
             Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
+            Cue = 'Cybran_Select_Vehicle',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
     Buffs = {},
 	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -39,6 +51,7 @@ UnitBlueprint {
         'TANK',
         'OVERLAYDIRECTFIRE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 225,
@@ -46,7 +59,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 4,
     },
+	
     Description = '<LOC brmt1bt_desc>Amphibious Tank',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 140,
@@ -60,13 +75,15 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = false,
-        UniformScale = 0.12,
+        UniformScale = 0.024,
     },
+	
     Economy = {
         BuildCostEnergy = 600,
         BuildCostMass = 85,
         BuildTime = 360,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -90,15 +107,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt1bt_name>Scarab',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Amphibious Tank',
     },
+	
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.6,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -115,9 +136,9 @@ UnitBlueprint {
         MaxSpeed = 2.5,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
-        MeshExtentsX = 0.5,
-        MeshExtentsY = 0.5,
-        MeshExtentsZ = 0.6,
+        MeshExtentsX = 0.65,
+        MeshExtentsY = 0.35,
+        MeshExtentsZ = 0.95,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         RotateOnSpot = false,
@@ -126,14 +147,20 @@ UnitBlueprint {
         TurnRate = 60,
 		WaterSpeedMultiplier = 1.2,
     },
+	
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.15,
     SelectionSizeX = 0.5,
-    SelectionSizeZ = 0.5,
-    SelectionThickness = 0.7,
-    SizeX = 0.5,
-    SizeY = 0.5,
-    SizeZ = 0.6,
+    SelectionSizeZ = 0.65,
+    SelectionThickness = 0.5,
+	
+    SizeX = 0.55,
+    SizeY = 0.35,
+    SizeZ = 0.85,
+	
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -141,9 +168,11 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Transport = {
         TransportClass = 1,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

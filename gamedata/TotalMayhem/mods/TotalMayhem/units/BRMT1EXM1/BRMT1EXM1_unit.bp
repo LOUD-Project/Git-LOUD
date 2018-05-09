@@ -73,7 +73,7 @@ UnitBlueprint {
         },
 		
         AnimationWalk = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Walk.sca',
-        AnimationWalkRate = 4.8,
+        AnimationWalkRate = 10,
 		
         Mesh = {
             IconFadeInZoom = 120,
@@ -81,6 +81,19 @@ UnitBlueprint {
                 {
                     LODCutoff = 180,
                     ShaderName = 'Insect',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust_Left',
+                            'Exhaust_Right',
+                        },
+                        Type = 'GroundKickup01',
+                    },
                 },
             },
         },
