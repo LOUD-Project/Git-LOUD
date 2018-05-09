@@ -26,8 +26,8 @@ function GetNavalPlatoonMaxRange(aiBrain, platoon)
         
 			for _,weapon in GetBlueprint(unit).Weapon do
 			
-				-- weapon must be able to fire FROM the Water layer
-				if not weapon.FireTargetLayerCapsTable or not weapon.FireTargetLayerCapsTable.Water then
+				-- weapon must be able to fire FROM the Water layer and not be a nuke
+				if weapon.NukeWeapon or not weapon.FireTargetLayerCapsTable or not weapon.FireTargetLayerCapsTable.Water then
 				
 					continue
 					

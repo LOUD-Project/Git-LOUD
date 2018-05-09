@@ -919,12 +919,10 @@ function SetPrimaryLandAttackBase( aiBrain )
         -- make the closest one the Primary
         local Primary = Bases[1].BaseName
         
-        -- iterate thru all existing LAND bases
-        for k,v in Bases do		--aiBrain.BuilderManagers do
+        for k,v in Bases do
 			
 			local builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
 
-			-- if the position is to be the primary --
 			if v.BaseName == Primary then
 				
 				aiBrain.BuilderManagers[v.BaseName].PrimaryLandAttackBase = true
@@ -1020,8 +1018,8 @@ function SetPrimarySeaAttackBase( aiBrain )
 		
 			if v.EngineerManager.Active and v.BaseType == "Sea" then
 			
-				-- here is the distance calculation - very crude since it only accounts for the 'as the crow flies' distance
-				-- ideally we should get a path (Land or Amphib) and use that value instead
+				-- here is the distance calculation - crude since it only accounts for the 'as the crow flies' distance
+				-- ideally we should get a path ( Amphib since this base is on water and the goal is on land ) and use that value instead
 				Bases[counter+1] = { BaseName = v.BaseName, Position = v.Position, Distance = VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
 				counter = counter + 1
 				
@@ -1040,7 +1038,6 @@ function SetPrimarySeaAttackBase( aiBrain )
 
 			local builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
 
-			-- if the position is to be the primary --
 			if v.BaseName == Primary then
 				
 				aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = true
@@ -1129,7 +1126,7 @@ function ClearOutBase( manager, aiBrain )
 	--LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
 	
 	-- all standard land units but Not experimentals 
-	local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 90 )
+	local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
 	if grouplndcount > 0 then
 
@@ -1162,7 +1159,7 @@ function ClearOutBase( manager, aiBrain )
 	end
 	
 	-- all amphibious land units including experimentals
-	local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.AMPHIBIOUS * categories.MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 90 )
+	local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.AMPHIBIOUS * categories.MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
 	if groupamphibcount > 0 then
 
@@ -1195,7 +1192,7 @@ function ClearOutBase( manager, aiBrain )
 	end
 	
 	-- all naval units 
-	local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.MOBILESONAR - categories.INSIGNIFICANTUNIT, Position, 90 )
+	local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.MOBILESONAR - categories.INSIGNIFICANTUNIT, Position, 100 )
 
 	if groupseacount > 0 then
 
@@ -1228,7 +1225,7 @@ function ClearOutBase( manager, aiBrain )
 	end
 
 	-- all fighter units
-	local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * categories.ANTIAIR), Position, 95 )
+	local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * categories.ANTIAIR), Position, 100 )
 
 	if groupaircount > 0 then
 
@@ -1250,7 +1247,7 @@ function ClearOutBase( manager, aiBrain )
 	end
 	
 	-- all gunship units
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 95 )
+	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100 )
 
 	if groupaircount > 0 then
 
@@ -1272,7 +1269,7 @@ function ClearOutBase( manager, aiBrain )
 	end	
 
 	-- all bomber units
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 95 )
+	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100 )
 
 	if groupaircount > 0 then
 
@@ -1294,7 +1291,7 @@ function ClearOutBase( manager, aiBrain )
 	end
 	
 	-- all torpedo bomber units but NOT experimentals
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.ANTINAVY * categories.AIR ), Position, 95 )
+	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.ANTINAVY * categories.AIR ), Position, 100 )
 
 	if groupaircount > 0 then
 

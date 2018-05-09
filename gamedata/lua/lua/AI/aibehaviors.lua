@@ -3224,7 +3224,6 @@ function NavalBombardAILOUD( self, aiBrain )
 		
 		if not self.MoveThread then
 
-			-- Locate LOCAL targets in bombardment range using the attackpriority list but with no layercheck
 			target, targetposition = AIFindTargetInRange( self, aiBrain, 'Artillery', maxRange, atkPri, true )
 		
 		end
@@ -3232,7 +3231,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		-- if target -- issue attack orders -- no need to move
         if target and not target.Dead then
 
-			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." finds target in bombard range")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." finds target "..repr( target:GetBlueprint().Description ).." in bombard range")
 			
 			-- order the artillery units to form an attack on the target
 			IssueFormAttack( self:GetSquadUnits('Artillery'), target, 'LOUDClusterFormation', 0)
@@ -3516,10 +3515,6 @@ function NavalBombardAILOUD( self, aiBrain )
 				destination = false
 				destinationpath = false
 
-			else
-
-				WaitTicks(50)
-				
 			end
 			
         end
@@ -3562,14 +3557,10 @@ function NavalBombardAILOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
-			
-			if target.dead then
-			
-				break
-				
-			end
 
 			WaitTicks(60)
+			
+			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." engaging target "..repr(target.Dead).." "..repr( target:GetBlueprint().Description ).." in bombard range "..maxRange.." at "..VDist3( updatedtargetposition, GetPlatoonPosition(self)) )
 			
 		end
 
@@ -3625,7 +3616,10 @@ function NavalBombardAILOUD( self, aiBrain )
             end
 			
         end
-	
+
+		-- wait 4.5 seconds
+		WaitTicks(45)
+		
     end
 	
 end
