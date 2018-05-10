@@ -3202,7 +3202,7 @@ function NavalBombardAILOUD( self, aiBrain )
 	local mythreat, targetlist, targetvalue, maxRange
 	local sthreat, ethreat, ecovalue, milvalue, value
 	local path, reason, pathlength, distancefactor
-	local waitneeded
+	local previousbombardmentposition
 	local updatedtargetposition
 	
 	-- force the plan name 
@@ -3230,6 +3230,8 @@ function NavalBombardAILOUD( self, aiBrain )
 
 		-- if target -- issue attack orders -- no need to move
         if target and not target.Dead then
+		
+			previousbombardmentposition = false
 
 			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." finds target "..repr( target:GetBlueprint().Description ).." in bombard range")
 			
@@ -3334,6 +3336,12 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 						continue	-- allow only the target types listed above
 					
+					end
+					
+					if table.equal(Target.Position, previousbombardmentposition) then
+					
+						continue	-- dont pick the same location as last time
+						
 					end
 
 					-- sort the bombardment markers to see if any are within range of the Target.Position
@@ -3455,6 +3463,9 @@ function NavalBombardAILOUD( self, aiBrain )
 			else
 			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI selects bombardment position at "..repr(destination))
+				
+				-- store the selected bombardment position
+				previousbombardmentposition = table.copy(destination)
 				
 			end
 
