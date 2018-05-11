@@ -712,7 +712,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.LAND * categories.AMPHIBIOUS * categories.DIRECTFIRE }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, (categories.LAND * categories.AMPHIBIOUS) * categories.DIRECTFIRE }},
 			
         },
 		

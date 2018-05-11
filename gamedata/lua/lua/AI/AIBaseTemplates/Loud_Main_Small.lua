@@ -52,7 +52,7 @@ BaseBuilderTemplate {
 
 		'Point Guard Land Formations',
 		'Base Guard Formations',
-		'Base Reinforcement Formations',
+		--'Base Reinforcement Formations',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Air Factory Builders',

@@ -48,8 +48,8 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 		UEF = {
 	
 			{ (categories.BATTLESHIP), 0, 1, 'Attack', 'none' },								# Capital Ships
-			{ (categories.DESTROYER), 2, 6, 'Attack', 'none' },									# Destroyers
-			{ (categories.CRUISER), 2, 6, 'Attack', 'none' },									# Cruisers
+			{ (categories.DESTROYER), 1, 6, 'Attack', 'none' },									# Destroyers
+			{ (categories.CRUISER), 1, 5, 'Attack', 'none' },									# Cruisers
 			{ (categories.FRIGATE), 4, 10, 'Attack', 'none' },									# Frigates
 			{ (categories.SUBMARINE) + categories.LIGHTBOAT, 7, 16, 'Attack', 'none' },			# Submarines & Coopers
 			{ (categories.DEFENSIVEBOAT), 1, 1, 'Guard', 'none' },								# UEF Shield
@@ -59,10 +59,10 @@ PlatoonTemplate { Name = 'SeaAttack Small',
         Aeon = {
 	
 			{ (categories.BATTLESHIP), 0, 1, 'Attack', 'none' },								# Capital Ships
-			{ (categories.DESTROYER), 2, 6, 'Attack', 'none' },									# Destroyers
-			{ (categories.CRUISER), 2, 5, 'Attack', 'none' },									# Cruisers
+			{ (categories.DESTROYER), 1, 6, 'Attack', 'none' },									# Destroyers
+			{ (categories.CRUISER), 1, 5, 'Attack', 'none' },									# Cruisers
 			{ (categories.FRIGATE), 4, 10, 'Attack', 'none' },									# Frigates
-			{ (categories.SUBMARINE), 5, 12, 'Attack', 'none' },								# Submarines
+			{ (categories.SUBMARINE), 4, 12, 'Attack', 'none' },								# Submarines
 			{ (categories.DEFENSIVEBOAT), 6, 6, 'Guard', 'none' },								# T1 Shard AA boat
 		
         },
@@ -70,10 +70,10 @@ PlatoonTemplate { Name = 'SeaAttack Small',
         Cybran = {
 	
 			{ (categories.BATTLESHIP), 0, 1, 'Attack', 'none' },								# Capital Ships
-			{ (categories.DESTROYER), 2, 6, 'Attack', 'none' },									# Destroyers
-			{ (categories.CRUISER), 2, 5, 'Attack', 'none' },									# Cruisers
+			{ (categories.DESTROYER), 1, 6, 'Attack', 'none' },									# Destroyers
+			{ (categories.CRUISER), 1, 5, 'Attack', 'none' },									# Cruisers
 			{ (categories.FRIGATE), 4, 10, 'Attack', 'none' },									# Frigates
-			{ (categories.SUBMARINE), 5, 12, 'Attack', 'none' },								# Submarines
+			{ (categories.SUBMARINE), 4, 12, 'Attack', 'none' },								# Submarines
 			{ (categories.DEFENSIVEBOAT), 1, 1, 'Guard', 'none' },								# Cyb CounterIntel
 			
         },
@@ -81,10 +81,10 @@ PlatoonTemplate { Name = 'SeaAttack Small',
         Seraphim = {
 	
 			{ (categories.BATTLESHIP), 0, 1, 'Attack', 'none' },								# Capital Ships
-			{ (categories.DESTROYER), 2, 6, 'Attack', 'none' },									# Destroyers
-			{ (categories.CRUISER), 2, 5, 'Attack', 'none' },									# Cruisers
+			{ (categories.DESTROYER), 1, 6, 'Attack', 'none' },									# Destroyers
+			{ (categories.CRUISER), 1, 5, 'Attack', 'none' },									# Cruisers
 			{ (categories.FRIGATE), 4, 10, 'Attack', 'none' },									# Frigates
-			{ (categories.SUBMARINE), 5, 12, 'Attack', 'none' },								# Submarines
+			{ (categories.SUBMARINE), 4, 12, 'Attack', 'none' },								# Submarines
 			
         },	
 	

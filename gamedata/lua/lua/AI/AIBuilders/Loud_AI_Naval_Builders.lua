@@ -111,9 +111,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 8, categories.DESTROYER }},
+			{ UCBC, 'PoolLess', { 10, categories.DESTROYER }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
 			
         },
 		
@@ -713,9 +713,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 6, categories.DESTROYER }},
+			{ UCBC, 'PoolLess', { 8, categories.DESTROYER }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
 			
         },
 		

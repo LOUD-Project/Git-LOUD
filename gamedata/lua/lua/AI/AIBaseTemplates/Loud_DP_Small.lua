@@ -15,7 +15,7 @@ BaseBuilderTemplate {
 
 		'Point Guard Land Formations',
 		'Base Guard Formations',
-		'Base Reinforcement Formations',
+		--'Base Reinforcement Formations',
 		
 		'Air Hunt Formations',
 		'Point Guard Air Formations', 

@@ -284,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Air Builders - Water Map',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 			
 			-- a credible naval threat exists
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 50, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.AIR * categories.TECH2 }},
@@ -311,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Air Builders - Water Map',
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 50, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.AIR * categories.TECH3 }},

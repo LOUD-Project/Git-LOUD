@@ -666,7 +666,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 
 		RTBLocation = 'Any',		
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
@@ -674,7 +674,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 36, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 			
 		},
 		
@@ -713,7 +713,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 		BuilderConditions = {
 		
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 64, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 48, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 			
         },
 		
@@ -753,7 +753,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 		
 		BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 80, categories.LAND * categories.AMPHIBIOUS * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 72, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 			
         },
 		
@@ -1853,7 +1853,7 @@ BuilderGroup {BuilderGroupName = 'Base Reinforcement Formations',
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 500, 'Land', 100 }},
 			
         },
