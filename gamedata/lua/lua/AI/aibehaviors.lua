@@ -3334,25 +3334,24 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 					if Target.Type != 'Economy' and Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Naval' then
 				
-						continue					
-					end
-					
-					-- sort the bombardment markers to see if any are within range of the Target.Position
-					LOUDSORT( navalAreas, function(a,b) return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
-
-					-- if the closest marker is beyond the maxRange or the position is the same
-					-- as the previously selected position - move on to the next HiPri target
-					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
-				
-						continue
+						continue	-- allow only the target types listed above
 					
 					end
 					
-					if table.equal(navalAreas[1].Position, previousbombardmentposition) then
-
-						continue
+					if table.equal(Target.Position, previousbombardmentposition) then
+					
+						continue	-- dont pick the same location as last time
 						
 					end
+
+					-- sort the bombardment markers to see if any are within range of the Target.Position
+					LOUDSORT( navalAreas, function(a,b) return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
+					
+					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
+				
+						continue    -- the closest one is outside the range - so onto next HiPri
+					
+					end					
 
 					-- get basic threat types at position
 					sthreat = Target.Threats.Sur + Target.Threats.Sub
@@ -3463,7 +3462,7 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI selects bombardment position at "..repr(destination).." previous was "..repr(previousbombardmentposition))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI selects bombardment position at "..repr(destination))
 				
 				-- store the selected bombardment position
 				previousbombardmentposition = table.copy(destination)

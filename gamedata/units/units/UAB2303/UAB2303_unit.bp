@@ -187,7 +187,7 @@ UnitBlueprint {
 			
             Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
@@ -208,7 +208,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 125,
             MinRadius = 5,
 			
             MuzzleSalvoDelay = 0,

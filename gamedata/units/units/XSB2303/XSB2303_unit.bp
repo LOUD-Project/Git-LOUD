@@ -203,7 +203,7 @@ UnitBlueprint {
 			
             Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Zthuthaam Cannon',
@@ -221,7 +221,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 125,
             MinRadius = 5,
 			
             MuzzleChargeDelay = 1,

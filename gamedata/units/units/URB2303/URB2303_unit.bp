@@ -185,7 +185,7 @@ UnitBlueprint {
 			
             Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 3.5,
+            DamageRadius = 2.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Resonance Artillery',
@@ -203,7 +203,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 125,
             MinRadius = 5,
 			
             MuzzleSalvoDelay = 0,

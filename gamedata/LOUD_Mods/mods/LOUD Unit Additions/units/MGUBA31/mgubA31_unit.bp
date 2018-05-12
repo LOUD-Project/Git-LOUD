@@ -5,6 +5,7 @@ AI = {
             'Turret',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -27,13 +28,19 @@ AI = {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 140,
+	
+	Buffs = {},
+	
+    BuildIconSortPriority = 160,
+	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER3COMMANDER',
+		'BUILTBYTIER3ENGINEER',
         'AEON',
         'STRUCTURE',
-        'EXPERIMENTAL',
+        'TECH3',
+		'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
         'VISIBLETORECON',
@@ -41,15 +48,19 @@ AI = {
 		'SHOWATTACKRETICLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-	SurfaceThreatLevel = 399,
-        ArmorType = 'Normal',
-        Health = 7500,
-        MaxHealth = 7500,
-        RegenRate = 10,
+        ArmorType = 'Structure',
+        Health = 4800,
+        MaxHealth = 4800,
+        RegenRate = 1,
+		SurfaceThreatLevel = 80,		
     },
+	
     Description = '<LOC mguba31_desc>Rapid Fire Artillery',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -82,20 +93,23 @@ AI = {
         },
         UniformScale = 0.02,
     },
+	
     Economy = {
-        BuildCostEnergy = 872110,
-        BuildCostMass = 87211,
-        BuildTime = 59475,
-	RebuildBonusIds = {
+        BuildCostEnergy = 125000,
+        BuildCostMass = 9500,
+        BuildTime = 10500,
+		RebuildBonusIds = {
             'mgubA31',
         },
     },
+	
 	Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
-	CapCost = 5,
+		CapCost = 5,
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -113,21 +127,25 @@ AI = {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-	Icon = 'land',
-	SelectionPriority = 5,
+		Icon = 'land',
+		SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC mguba31_name>Zion',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 48,
+        VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'Rapid Fire Artillery',
     },
+	
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -152,21 +170,26 @@ AI = {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2,
     SelectionSizeZ = 2,
     SelectionThickness = 0.5,
+	
     SizeX = 2,
     SizeY = 3,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
-        Level1 = 15,
-        Level2 = 30,
-        Level3 = 45,
-        Level4 = 60,
-        Level5 = 75,
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -181,36 +204,40 @@ AI = {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1333,
+            Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 400,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 2,
+            FiringRandomness = 1.6,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
             LeadTarget = true,
 			
-            MaxRadius = 192,
+            MaxRadius = 175,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            MuzzleVelocityReduceDistance = 256,
+            MuzzleVelocity = 33,
 			
-            ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 10,
 			
             RackBones = {
@@ -223,7 +250,7 @@ AI = {
             },
             RackFireTogether = false,
             RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
@@ -232,11 +259,10 @@ AI = {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
-			
-            RenderFireClock = true,
+            RateOfFire = 0.1,
 			
             TargetCheckInterval = 1,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
@@ -272,37 +298,41 @@ AI = {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1333,
+            Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 400,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 2,
+            FiringRandomness = 1.6,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
             LeadTarget = true,
 			
-            MaxRadius = 192,
+            MaxRadius = 175,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            MuzzleVelocityReduceDistance = 256,
+            MuzzleVelocity = 33,
 			
-            ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 10,
 			
             RackBones = {
@@ -315,14 +345,14 @@ AI = {
             },
             RackFireTogether = false,
             RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0.2,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            RackSlavedToTurret = true,
 			
-            RateOfFire = 1,
+            RateOfFire = 0.1,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -346,7 +376,7 @@ AI = {
             TurretYawRange = 180,
             TurretYawSpeed = 6,
 			
-            Turreted = true,
+            Turreted = false,
         },
 		
 		{
@@ -359,29 +389,44 @@ AI = {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 1333,
+			
+            Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
+			
             DisplayName = 'Miasma Artillery',
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+			
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 400,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
-            FiringRandomness = 2,
+			
+            FiringRandomness = 1.6,
             FiringTolerance = 1,
+			
             Label = 'MainGun',
+			
             LeadTarget = true,
-            MaxRadius = 192,
+			
+            MaxRadius = 175,
             MinRadius = 25,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            MuzzleVelocityReduceDistance = 256,
-            ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            MuzzleVelocity = 33,
+			
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 10,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -392,13 +437,15 @@ AI = {
             },
             RackFireTogether = false,
             RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0.4,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RateOfFire = 1,
+            RackSlavedToTurret = true,
+			
+            RateOfFire = 0.1,
+			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -411,13 +458,16 @@ AI = {
             TurretBonePitch = 'Turret_Barrel02',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 5,
             TurretPitchSpeed = 2,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 6,
-            Turreted = true,
+			
+            Turreted = false,
         },
     },
     Wreckage = {

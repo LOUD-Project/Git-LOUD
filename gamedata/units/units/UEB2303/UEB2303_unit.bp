@@ -176,7 +176,7 @@ UnitBlueprint {
 			
             Damage = 1500,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
@@ -195,7 +195,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 125,
             MinRadius = 10,
 			
             MuzzleSalvoDelay = 0,
