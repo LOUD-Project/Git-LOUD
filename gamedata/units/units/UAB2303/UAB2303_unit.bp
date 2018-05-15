@@ -41,7 +41,7 @@ UnitBlueprint {
         Health = 2000,
         MaxHealth = 2000,
         RegenRate = 1,
-        SurfaceThreatLevel = 13,
+        SurfaceThreatLevel = 15,
     },
 	
     Description = '<LOC uab2303_desc>Field Artillery',
@@ -131,6 +131,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -159,11 +160,14 @@ UnitBlueprint {
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.42,
+	
     SizeX = 0.9,
     SizeY = 1.2,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -171,6 +175,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -195,8 +200,8 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 			
-            EnergyDrainPerSecond = 30,
-            EnergyRequired = 150,
+            EnergyDrainPerSecond = 30,	-- specifically one shot every 9 seconds --
+            EnergyRequired = 270,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -236,10 +241,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 5,
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SPECIALLOWPRI',
@@ -262,7 +266,9 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

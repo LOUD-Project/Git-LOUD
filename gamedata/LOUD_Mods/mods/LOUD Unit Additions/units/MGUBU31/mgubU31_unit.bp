@@ -5,12 +5,8 @@ UnitBlueprint {
             'Turret',
         },
     },
+	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'UELDestroy',
             Cue = 'UEB_Destroy_Huge',
@@ -28,16 +24,21 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 140,
+	Buffs = {},
+	
+    BuildIconSortPriority = 160,
 	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER3COMMANDER',
+		'BUILTBYTIER3ENGINEER',
         'UEF',
         'STRUCTURE',
-        'EXPERIMENTAL',
+		'TECH3',
+        'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
+		'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
 		'SHOWATTACKRETICLE',
@@ -47,14 +48,14 @@ UnitBlueprint {
     CollisionOffsetY = -0.25,
 	
     Defense = {
-		SurfaceThreatLevel = 399,
         ArmorType = 'Normal',
-        Health = 6000,
-        MaxHealth = 6000,
-        RegenRate = 8,
+        Health = 5200,
+        MaxHealth = 5200,
+        RegenRate = 2,
+		SurfaceThreatLevel = 80,
     },
 	
-    Description = '<LOC mgubu31_desc>Rapid Fire Artillery',
+    Description = '<LOC mgubu31_desc>Barrage Artillery',
 	
     Display = {
         Mesh = {
@@ -85,13 +86,13 @@ UnitBlueprint {
                 Width = 12,
             },
         },
-        UniformScale = 0.02,
+        UniformScale = 0.018,
     },
 	
     Economy = {
-        BuildCostEnergy = 857813,
-        BuildCostMass = 85781,
-        BuildTime = 58500,
+        BuildCostEnergy = 125000,
+        BuildCostMass = 9500,
+        BuildTime = 10500,
 		RebuildBonusIds = { 'mgubU31' },
     },
 	
@@ -127,7 +128,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 48,
+        VisionRadius = 30,
     },
 	
     Interface = {
@@ -163,10 +164,10 @@ UnitBlueprint {
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 2,
-    SelectionSizeZ = 2,
-	SelectionCenterOffsetZ = -0.5,
-    SelectionThickness = 0.5,
+    SelectionSizeX = 1.8,
+    SelectionSizeZ = 1.8,
+	SelectionCenterOffsetZ = -0.6,
+    SelectionThickness = 0.47,
 	
     SizeX = 2,
     SizeY = 3,
@@ -176,11 +177,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 15,
-        Level2 = 30,
-        Level3 = 45,
-        Level4 = 60,
-        Level5 = 75,
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
     },
 	
     Weapon = {
@@ -197,37 +198,37 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-			Damage = 1333,
-            DamageRadius = 2.5,
+			Damage = 1500,
+            DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 
-            FiringRandomness = 2,
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 192,
-
+            MaxRadius = 175,
             MinRadius = 25,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-			MuzzleVelocityReduceDistance = 256,			
+            MuzzleVelocity = 33,
+			MuzzleVelocityReduceDistance = 175,
 			
-            ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
+            ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
 			ProjectileLifetime = 10,
 
             RackBones = {
@@ -250,9 +251,8 @@ UnitBlueprint {
 			
             RateOfFire = 1,
 			
-            RenderFireClock = true,
+            TargetCheckInterval = 3,
 			
-            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
@@ -275,6 +275,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		
 		{
 			AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
@@ -286,30 +287,40 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-	    LeadTarget = true,
             CollideFriendly = false,
-            Damage = 1333,
-            DamageRadius = 2.5,
+			
+            Damage = 1500,
+            DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
+			
             DisplayName = 'APDS Artillery',
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+			
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
-            FiringRandomness = 2,
+			
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
+			
             Label = 'MainGun',
-            MaxRadius = 192,
-	    MuzzleVelocityReduceDistance = 256,
+			LeadTarget = true,
+			
+            MaxRadius = 175,
             MinRadius = 25,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
+            MuzzleVelocity = 33,
+			MuzzleVelocityReduceDistance = 175,
+
+            ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
 			ProjectileLifetime = 10,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -325,29 +336,35 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RateOfFire = 1,
-            TargetCheckInterval = 1,
+			
+            TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel01',
             TurretBoneYaw = 'Turret_Barrel01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 6,
+			
             TurretYaw = 0,
             TurretYawRange = 5,
             TurretYawSpeed = 2,
+			
             Turreted = true,
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
 		},
+		
 		{
 			AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
@@ -359,30 +376,41 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-	    LeadTarget = true,
             CollideFriendly = false,
-            Damage = 1333,
-            DamageRadius = 2.5,
+			
+            Damage = 1500,
+            DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
+			
             DisplayName = 'APDS Artillery',
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+			
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
-            FiringRandomness = 2,
+			
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
+			
             Label = 'MainGun',
+			
+			LeadTarget = true,
+			
             MaxRadius = 192,
-	    MuzzleVelocityReduceDistance = 256,
             MinRadius = 25,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
+            MuzzleVelocity = 33,
+			MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
 			ProjectileLifetime = 10,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -398,30 +426,37 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RateOfFire = 1,
-            TargetCheckInterval = 1,
+			
+            TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Barrel02',
             TurretBoneYaw = 'Turret_Barrel02',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 6,
+			
             TurretYaw = 0,
             TurretYawRange = 5,
             TurretYawSpeed = 2,
+			
             Turreted = true,
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

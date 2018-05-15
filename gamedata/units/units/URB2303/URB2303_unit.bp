@@ -11,6 +11,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -20,7 +21,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -39,6 +42,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.1,
 	
@@ -51,6 +55,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC urb2303_desc>Field Artillery',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -118,6 +123,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -139,14 +145,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+	
     SizeX = 0.5,
     SizeY = 1.4,
     SizeZ = 0.8,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -154,6 +164,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -177,7 +188,7 @@ UnitBlueprint {
                     Duration = 2.0,
                     Radius = 2.5,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
-                    TargetDisallow = 'EXPERIMENTAL,COMMAND,WALL',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
             },
 			
@@ -190,8 +201,8 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 100,
-            EnergyRequired = 500,
+            EnergyDrainPerSecond = 30,	-- fires every 9 seconds --
+            EnergyRequired = 270,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -230,10 +241,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 5,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -257,7 +267,9 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

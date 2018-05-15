@@ -5,6 +5,7 @@ AI = {
             'Turret',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -22,29 +23,41 @@ AI = {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 140,
+	
+	Buffs = {},
+	
+    BuildIconSortPriority = 160,
+	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER3COMMANDER',
+		'BUILTBYTIER3ENGINEER',
         'CYBRAN',
         'STRUCTURE',
-        'EXPERIMENTAL',
+        'TECH3',
+		'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
+		'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
-	'SHOWATTACKRETICLE',
+		'SHOWATTACKRETICLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-	SurfaceThreatLevel = 399,
+		
         ArmorType = 'Normal',
-        Health = 5250,
-        MaxHealth = 5250,
-        RegenRate = 12,
+        Health = 4800,
+        MaxHealth = 4800,
+        RegenRate = 6,
+		SurfaceThreatLevel = 72,		
     },
-    Description = '<LOC mgubc31_desc>Rapid Fire Artillery',
+	
+    Description = '<LOC mgubc31_desc>Barrage Artillery',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -74,22 +87,23 @@ AI = {
                 Width = 12,
             },
         },
-        UniformScale = 0.02,
+        UniformScale = 0.018,
     },
+	
     Economy = {
-        BuildCostEnergy = 829219,
-        BuildCostMass = 82922,
-        BuildTime = 56550,
-	RebuildBonusIds = {
-            'mgubC31',
-        },
+        BuildCostEnergy = 125000,
+        BuildCostMass = 9500,
+        BuildTime = 10500,
+		RebuildBonusIds = { 'mgubC31' },
     },
+	
 	Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
-	CapCost = 5,
+		CapCost = 5,
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -107,21 +121,25 @@ AI = {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-	Icon = 'land',
-	SelectionPriority = 5,
+		Icon = 'land',
+		SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC mgubc31_name>Trigger',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 48,
+        VisionRadius = 30,
     },
+	
     Interface = {
-        HelpText = 'Rapid Fire Artillery',
+        HelpText = 'Barrage Artillery',
     },
+	
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,7 +148,7 @@ AI = {
             LAYER_Orbit = false,
             LAYER_Seabed = false,
             LAYER_Sub = false,
-            LAYER_Water = false,
+            LAYER_Water = true,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -143,21 +161,26 @@ AI = {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
-    SelectionSizeX = 2,
-    SelectionSizeZ = 2,
+	
+    SelectionSizeX = 1.5,
+    SelectionSizeZ = 1.5,
     SelectionThickness = 0.5,
-    SizeX = 2,
-    SizeY = 3,
-    SizeZ = 2,
+	
+    SizeX = 1.3,
+    SizeY = 2.8,
+    SizeZ = 1.6,
+	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
-        Level1 = 15,
-        Level2 = 30,
-        Level3 = 45,
-        Level4 = 60,
-        Level5 = 75,
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 80,
+        Level5 = 100,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -170,39 +193,55 @@ AI = {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2.0,
+                    Radius = 2.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                },
+            },
+
             CollideFriendly = false,
 			
-            Damage = 1333,
+            Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 2,
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
             LeadTarget = true,
 			
-            MaxRadius = 192,
+            MaxRadius = 175,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-			MuzzleVelocityReduceDistance = 256,
+            MuzzleVelocity = 33,
 			
-            ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
+			MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
 			ProjectileLifetime = 10,			
 			
             RackBones = {
@@ -214,8 +253,8 @@ AI = {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
+            RackRecoilDistance = -36,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -223,11 +262,10 @@ AI = {
 			
 			RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1.0,	-- RoF is controlled by Energy Drain
+
+            TargetCheckInterval = 3,
 			
-            RenderFireClock = true,
-			
-            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
@@ -252,7 +290,10 @@ AI = {
 			
             Turreted = true,
         },
+
         {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,		
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -261,39 +302,55 @@ AI = {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2.0,
+                    Radius = 2.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                },
+            },
+			
             CollideFriendly = false,
 			
-            Damage = 1333,
+            Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 2,
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 192,
+            MaxRadius = 175,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-			MuzzleVelocityReduceDistance = 256,			
+            MuzzleVelocity = 33,
 			
-            ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
+			MuzzleVelocityReduceDistance = 175,			
+			
+            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
 			ProjectileLifetime = 10,
 			
             RackBones = {
@@ -305,14 +362,19 @@ AI = {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
+            RackRecoilDistance = -36,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+			
             RackSlavedToTurret = false,
-            RateOfFire = 1,
-            TargetCheckInterval = 1,
+			
+			RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 1.0,	-- RoF controlled by energy drain
+			
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
@@ -321,18 +383,23 @@ AI = {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'gun_muzzle01',
             TurretBonePitch = 'gun01',
             TurretBoneYaw = 'gun01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 6,
+			
             TurretYaw = 0,
             TurretYawRange = 5,
             TurretYawSpeed = 2,
+			
             Turreted = true,
         },
+		
         {
             Audio = {
                 Fire = Sound {
@@ -342,39 +409,55 @@ AI = {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2.0,
+                    Radius = 2.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                },
+            },
+			
             CollideFriendly = false,
 			
-            Damage = 1333,
+            Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 2,
+            FiringRandomness = 1.5,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 192,
+            MaxRadius = 175,
 	        MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-			MuzzleVelocityReduceDistance = 256,
+            MuzzleVelocity = 33,
 			
-            ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
+			MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
 			ProjectileLifetime = 10,
 			
             RackBones = {
@@ -386,16 +469,18 @@ AI = {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -30,
-            RackReloadTimeout = 10,
+            RackRecoilDistance = -36,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 1,
+			RangeCategory = 'UWRC_IndirectFire',
 			
-            TargetCheckInterval = 1,
+            RateOfFire = 1.0,	-- RoF controlled by energy drain
+			
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
@@ -419,7 +504,9 @@ AI = {
 			
             Turreted = true,
         },
+
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

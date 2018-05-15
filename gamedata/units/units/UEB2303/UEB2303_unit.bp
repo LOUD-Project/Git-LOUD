@@ -50,10 +50,11 @@ UnitBlueprint {
         Health = 2200,
         MaxHealth = 2200,
         RegenRate = 1,
-        SurfaceThreatLevel = 12,
+        SurfaceThreatLevel = 17,
     },
 	
     Description = '<LOC ueb2303_desc>Field Artillery',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -74,13 +75,12 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.35,
     },
+	
     Economy = {
         BuildCostEnergy = 18000,
         BuildCostMass = 2000,
         BuildTime = 2000,
-        RebuildBonusIds = {
-            'ueb2303',
-        },
+        RebuildBonusIds = { 'ueb2303' },
     },
 
     General = {
@@ -144,15 +144,19 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -0.4,
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.47,
+	
     SizeX = 1,
     SizeY = 1.7,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -176,13 +180,13 @@ UnitBlueprint {
 			
             Damage = 1500,
             DamageFriendly = true,
-            DamageRadius = 2.4,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 60,
-            EnergyRequired = 360,
+            EnergyDrainPerSecond = 30,	-- every 9 seconds --
+            EnergyRequired = 270,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -203,6 +207,7 @@ UnitBlueprint {
             MuzzleVelocity = 26.13,
 			
             ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
+			ProjectileLifetime = 10,
 			
             RackBones = {
                 {
@@ -222,10 +227,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08,	-- every 12 seconds
-            RenderFireClock = true,
+            RateOfFire = 1,		-- controlled by energy drain
 			
-            TargetCheckInterval = 5,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -247,7 +251,9 @@ UnitBlueprint {
             TurretYawSpeed = 10,
             Turreted = true,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
