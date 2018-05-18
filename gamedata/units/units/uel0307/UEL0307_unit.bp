@@ -1,8 +1,5 @@
 UnitBlueprint {
-    AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
-    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -20,9 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    Buffs = {},
 	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -36,12 +33,15 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+	
     CollisionOffsetZ = 0.05,
+	
     Defense = {
         ArmorType = 'Normal',
-        Health = 180,
-        MaxHealth = 180,
+        Health = 130,
+        MaxHealth = 130,
         RegenRate = 1,
+		
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -49,16 +49,18 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 4400,
-            ShieldRechargeTime = 15,
-            ShieldRegenRate = 85,
+            ShieldMaxHealth = 3600,
+            ShieldRechargeTime = 21,
+            ShieldRegenRate = 43,
             ShieldRegenStartTime = 1,
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
-        SurfaceThreatLevel = 1,
+        SurfaceThreatLevel = 9,
     },
+	
     Description = '<LOC uel0307_desc>Mobile Shield Generator',
+	
     Display = {
         Abilities = {
             'Shield Dome',
@@ -84,12 +86,14 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+	
     Economy = {
-        BuildCostEnergy = 900,
-        BuildCostMass = 120,
+        BuildCostEnergy = 1800,
+        BuildCostMass = 202,
         BuildTime = 600,
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 150,
     },
+	
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -122,15 +126,19 @@ UnitBlueprint {
         UnitName = '<LOC uel0307_name>Parashield',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 21,
     },
+	
     Interface = {
         HelpText = 'Mobile Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.7,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -143,9 +151,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         MaxAcceleration = 3.5,
-        MaxBrake = 4,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 3,
+        MaxBrake = 3.5,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3.5,
         MaxSteerForce = 10,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.6,
@@ -157,16 +165,21 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.85,
+	
     SizeX = 0.6,
     SizeY = 0.35,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_land2_shield',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },

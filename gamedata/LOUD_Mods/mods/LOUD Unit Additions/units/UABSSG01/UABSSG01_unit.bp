@@ -57,6 +57,7 @@ UnitBlueprint {
         Health = 3000,
         MaxHealth = 3000,
 		RegenRate = 10,
+		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
         	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
@@ -149,9 +150,7 @@ UnitBlueprint {
         BuildTime = 38294,
         MaintenanceConsumptionPerSecondEnergy = 9573,
         BuildRate = 30,
-        BuildableCategory = {
-            'uabssg02',
-        },
+        BuildableCategory = { 'uabssg02' },
         RebuildBonusIds = {
             'uabssg01',
             'uabssg02',

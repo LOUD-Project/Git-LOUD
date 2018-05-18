@@ -88,11 +88,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 7750,
         BuildCostMass = 750,
         BuildTime = 3000,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -116,17 +118,21 @@ UnitBlueprint {
         UnitName = '<LOC bsl0306_name>Uthla Ilhaas',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 75,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Advanced Protector bot',
     },
+	
     LifeBarHeight = 0.08,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.7,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -153,17 +159,22 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 65,
     },
+	
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.9,
+	
     SizeX = 1.2,
     SizeY = 0.9,
     SizeZ = 1.2,
-    StrategicIconName = 'icon_land2_directfire',
+	
+    StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -171,6 +182,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -184,7 +196,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 55,
+            Damage = 60,
             DamageType = 'Normal',
             DisplayName = 'Phasic Autogun',
 			
@@ -254,6 +266,7 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.4,

@@ -47,15 +47,15 @@ UnitBlueprint {
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 6,
-            ShieldMaxHealth = 7800,
-            ShieldRechargeTime = 39,
-            ShieldRegenRate = 100,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 8500,
+            ShieldRechargeTime = 22,
+            ShieldRegenRate = 101,
             ShieldRegenStartTime = 1,
             ShieldSize = 72,
             ShieldVerticalOffset = -24,
         },
-        SubThreatLevel = 1,
+        SubThreatLevel = 9,
     },
 	
     Description = '<LOC xes0205_desc>Shield Boat',
@@ -135,10 +135,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 13000,
-        BuildCostMass = 1300,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 848,
         BuildTime = 5400,
-        MaintenanceConsumptionPerSecondEnergy = 400,
+        MaintenanceConsumptionPerSecondEnergy = 250,
     },
 
     General = {
