@@ -16,6 +16,6 @@ UnitList = {
 	
 	T4AirExperimental2 = {
         UEF = {'bea0402', 50},		# Citadel Mk 2
-		Cybran = { 'bra0409', 100},		# Gargantua Transport
+		Cybran = { 'bra0409', 50},		# Gargantua Transport
     }, 
 }
