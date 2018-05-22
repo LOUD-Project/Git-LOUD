@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'UEB0304',
@@ -8,6 +9,7 @@ UnitBlueprint {
             'Attachpoint03',
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'UEB',
@@ -30,7 +32,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 42,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -48,15 +52,19 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 480,
-        Health = 15000,
-        MaxHealth = 15000,
+        Health = 12500,
+        MaxHealth = 12500,
         RegenRate = 3,
     },
+	
     Description = '<LOC ueb0304_desc>Quantum Gateway',
+	
     Display = {
         BuildAttachBone = 'Attachpoint01',
         Mesh = {
@@ -100,7 +108,7 @@ UnitBlueprint {
 	
         BuildCostEnergy = 100000,
         BuildCostMass = 10000,
-        BuildRate = 90,
+        BuildRate = 80,
         BuildTime = 13500,
 		
         BuildableCategory = {
@@ -120,7 +128,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         Category = 'Strategic',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -145,15 +153,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Quantum Gateway',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.75,
     LifeBarSize = 5.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -325,19 +337,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 4,
     SelectionSizeZ = 3.75,
     SelectionThickness = 0.26,
+	
     SizeX = 7.25,
     SizeY = 3.5,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_structure3_transport',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
