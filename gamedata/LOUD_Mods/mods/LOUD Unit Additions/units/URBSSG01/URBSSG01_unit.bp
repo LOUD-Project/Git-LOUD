@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -31,7 +32,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -46,29 +49,34 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1304,
-        Health = 2800,
-        MaxHealth = 2800,
-		RegenRate = 15,
+        Health = 3000,
+        MaxHealth = 3000,
+		RegenRate = 18,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
         	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
         	Mesh = '/effects/entities/SquareShields/CybranShield02_mesh',
         	MeshZ = '/effects/entities/SquareShields/Shield02z_mesh',
             RegenAssistMult = 10000,
-            ShieldEnergyDrainRechargeTime = 10,
-            ShieldMaxHealth = 29500,
-            ShieldRechargeTime = 38,
-            ShieldRegenRate = 347,
+            ShieldEnergyDrainRechargeTime = 20,
+            ShieldMaxHealth = 36000,
+            ShieldRechargeTime = 36,
+            ShieldRegenRate = 250,
             ShieldRegenStartTime = 1,
             ShieldSize = 100,
             ShieldVerticalOffset = -40,
         },
     },
+	
     Description = '<LOC urbssg01_desc>Experimental Squareshield',
+	
     Display = {
         Abilities = {
 			'Square Shield',
@@ -130,24 +138,22 @@ UnitBlueprint {
         },
         UniformScale = 0.14,
     },
+	
     Economy = {
-        BuildCostEnergy = 450000,
-        BuildCostMass = 27000,
-        BuildTime = 35000,
-        MaintenanceConsumptionPerSecondEnergy = 8125,
+        BuildCostEnergy = 610000,
+        BuildCostMass = 21996,
+        BuildTime = 38294,
+        MaintenanceConsumptionPerSecondEnergy = 8000,
         BuildRate = 30,
-        BuildableCategory = {
-            'urbssg02',
-        },
-        RebuildBonusIds = {
-            'urbssg01',
-            'urbssg02',
-        },
+        BuildableCategory = {'urbssg02'},
+        RebuildBonusIds = {'urbssg01','urbssg02'},
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 10,
         Category = 'Defense',
@@ -184,15 +190,19 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesTo = 'urbssg02',
     },
+	
     Intel = {
         VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Experimental Squareshield',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -214,14 +224,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 5.3,
     SelectionSizeZ = 4.7,
     SelectionThickness = 0.32,
+	
     SizeX = 7,
     SizeY = 5.5,
     SizeZ = 7,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

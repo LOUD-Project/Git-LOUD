@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -36,13 +39,16 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2,
         Health = 500,
         MaxHealth = 500,
         RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -52,15 +58,15 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 4000,
             ShieldRechargeTime = 16,
-            ShieldRegenRate = 65,
+            ShieldRegenRate = 62,
             ShieldRegenStartTime = 1,
             ShieldSize = 18,
             ShieldVerticalOffset = -3,
         },
-        
-        
     },
+	
     Description = '<LOC urb4202_desc>Basic Shield Generator',
+	
     Display = {
         Abilities = {
             'Upgradeable',
@@ -102,27 +108,24 @@ UnitBlueprint {
         },
         UniformScale = 0.2,
     },
+	
     Economy = {
         BuildCostEnergy = 2000,
-        BuildCostMass = 160,
+        BuildCostMass = 153,
         BuildRate = 10,
         BuildTime = 400,
-        BuildableCategory = {
-            'urb4204',
-        },
+        BuildableCategory = { 'urb4204' },
+		
         MaintenanceConsumptionPerSecondEnergy = 120,
-        RebuildBonusIds = {
-            'urb4202',
-            'urb4204',
-            'urb4205',
-            'urb4206',
-            'urb4207',
-        },
+		
+        RebuildBonusIds = {'urb4202','urb4204','urb4205','urb4206','urb4207' },
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -158,12 +161,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesTo = 'urb4204',
     },
+	
     Interface = {
         HelpText = 'Basic Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -185,14 +191,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,
+	
     SizeX = 2,
     SizeY = 5,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure2_shield',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

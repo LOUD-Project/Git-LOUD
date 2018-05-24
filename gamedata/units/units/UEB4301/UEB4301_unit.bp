@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,13 +31,16 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 50,
         Health = 750,
         MaxHealth = 750,
         RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -42,15 +48,17 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 15000,
-            ShieldRechargeTime = 23,
-            ShieldRegenRate = 131,
+            ShieldMaxHealth = 16000,
+            ShieldRechargeTime = 22,
+            ShieldRegenRate = 181,
             ShieldRegenStartTime = 1,
             ShieldSize = 44,
             ShieldVerticalOffset = -6,
         },
     },
+	
     Description = '<LOC ueb4301_desc>Heavy Shield Generator',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -88,6 +96,7 @@ UnitBlueprint {
         },
         UniformScale = 0.4,
     },
+	
     Economy = {
         BuildCostEnergy = 50000,
         BuildCostMass = 3000,
@@ -97,10 +106,12 @@ UnitBlueprint {
             'ueb4301',
         },
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -136,12 +147,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'ueb4202',
     },
+	
     Interface = {
         HelpText = 'Heavy Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -166,14 +180,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.45,
+	
     SizeX = 1.5,
     SizeY = 2.5,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 195,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

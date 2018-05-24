@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -64,10 +65,10 @@ UnitBlueprint {
         	Mesh = '/effects/entities/SquareShields/AeonShield02_mesh',
         	MeshZ = '/effects/entities/SquareShields/Shield02z_mesh',
             RegenAssistMult = 10000,
-            ShieldEnergyDrainRechargeTime = 10,
+            ShieldEnergyDrainRechargeTime = 20,
             ShieldMaxHealth = 36000,
-            ShieldRechargeTime = 48,
-            ShieldRegenRate = 360,
+            ShieldRechargeTime = 36,
+            ShieldRegenRate = 250,
             ShieldRegenStartTime = 1,
             ShieldSize = 96,
             ShieldVerticalOffset = -38,	#--the code doubles this so in effect the shield will only be 20 units above ground
@@ -146,15 +147,12 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 561640,
-        BuildCostMass = 30635,
+        BuildCostMass = 21996,
         BuildTime = 38294,
-        MaintenanceConsumptionPerSecondEnergy = 9573,
+        MaintenanceConsumptionPerSecondEnergy = 6000,
         BuildRate = 30,
         BuildableCategory = { 'uabssg02' },
-        RebuildBonusIds = {
-            'uabssg01',
-            'uabssg02',
-        },
+        RebuildBonusIds = {'uabssg01','uabssg02'},
     },
 	
     Footprint = {

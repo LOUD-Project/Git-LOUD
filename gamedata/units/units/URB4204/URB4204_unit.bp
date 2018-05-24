@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -32,13 +35,16 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
         Health = 500,
         MaxHealth = 500,
         RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -48,13 +54,15 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 7000,
             ShieldRechargeTime = 16,
-            ShieldRegenRate = 98,
+            ShieldRegenRate = 109,
             ShieldRegenStartTime = 1,
             ShieldSize = 24,
             ShieldVerticalOffset = -3,
         },
     },
+	
     Description = '<LOC urb4204_desc>Improved Shield Generator',
+	
     Display = {
         Abilities = {
             'Upgradeable',
@@ -96,20 +104,22 @@ UnitBlueprint {
         },
         UniformScale = 0.2,
     },
+	
     Economy = {
         BuildCostEnergy = 3000,
-        BuildCostMass = 300,
+        BuildCostMass = 470,
         BuildRate = 10,
         BuildTime = 300,
-        BuildableCategory = {
-            'urb4205',
-        },
+        BuildableCategory = { 'urb4205' },
+		
         MaintenanceConsumptionPerSecondEnergy = 210,
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -147,12 +157,15 @@ UnitBlueprint {
         UpgradesFromBase = 'urb4202',
         UpgradesTo = 'urb4205',
     },
+	
     Interface = {
         HelpText = 'Improved Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -174,14 +187,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,
+	
     SizeX = 2,
     SizeY = 5,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure2_shield',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
