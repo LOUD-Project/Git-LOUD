@@ -242,7 +242,7 @@ AI = {
 			MuzzleVelocityReduceDistance = 175,
 			
             ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
-			ProjectileLifetime = 10,			
+			ProjectileLifetime = 12,			
 			
             RackBones = {
                 {
