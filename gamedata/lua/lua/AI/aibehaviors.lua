@@ -939,7 +939,7 @@ function AirScoutingAI( self, aiBrain )
 	local targetArea, vec, mustScoutArea, mustScoutIndex
 
 	-- this basically limits all air scout platoons to about 15 minutes of work -- rather should use MISSIONTIMER from platoondata
-    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 900) do
+    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 900) and (not aiBrain:IsDefeated()) do
 		
 		for _,v in GetPlatoonUnits(self) do
 		

@@ -49,8 +49,12 @@ end
 ---	tagetnickname	- Target name
 function AISendChat(aigroup, ainickname, aiaction, targetnickname, extrachat)
 
+	LOG("*AI DEBUG "..repr(ainickname).." sends "..aiaction.." to "..repr(aigroup))
+	
+	local army = GetArmyData(ainickname)
+
 	-- if theres a group to send it to and you're not defeated -- and its not for allies or it is and you have allies -- then send it
-	if aigroup and (not GetArmyData(ainickname):IsDefeated()) and (aigroup !='allies' or AIHasAlly(GetArmyData( ainickname ))) then
+	if (army and aigroup) and (not army:IsDefeated()) and (  aigroup !='allies' or AIHasAlly(army) ) then
 	
 		if aiaction and AIChatText[aiaction] then
 		
@@ -902,21 +906,28 @@ end
 #   Args:
 #       army		 	- Army
 #   Description:
-#       Returns army data for an army.
+#       Returns army data for an army nickname.
 #   Returns:  
 #       Army data table
 #-----------------------------------------------------
 function GetArmyData(army)
-    local result
+    
     if type(army) == 'string' then
+	
         for i, v in ArmyBrains do
+		
             if v.Nickname == army then
-                result = v
-                break
+
+                return v
+				
             end
+			
         end
+		
     end
-    return result
+	
+    return false
+	
 end
 
 

@@ -752,7 +752,11 @@ AIBrain = Class(moho.aibrain_methods) {
 
 				LOG("*AI DEBUG Shutting down AI "..self.Nickname)
 				
+				self.ConditionsMonitor.Trash:Destroy()
+				
 				self.ConditionsMonitor:Destroy()
+				
+				self.ConditionsMonitor = nil
 			
 				for k,v in self.BuilderManagers do
 				
@@ -800,18 +804,63 @@ AIBrain = Class(moho.aibrain_methods) {
 					self.WaveThread = nil
 
 				end
-			
+
+				-- Kill DrawPlanThread if exists
+				if self.DrawPlanThread then
+					
+					KillThread(self.DrawPlanThread)
+					
+					self.DrawPlanThread = nil
+					
+				end
+
+				if self.AttackPlanMonitorThread then
+				
+					KillThread(self.AttackPlanMonitorThread)
+					
+					self.AttackPlanMonitorThread = nil
+					
+				end
+
+				self.AttackPlan = nil
+				self.EcoData = nil
+				self.EnemyData = nil
+				self.IL = nil
+				self.PathRequests = nil
+				
+				self:DisbandPlatoon(self.RefuelPool)
+				self:DisbandPlatoon(self.StructurePool)
+				self:DisbandPlatoon(self.TransportPool)
+				
+				if self.ArmyPool.AIThread then
+				
+					KillThread(self.ArmyPool.AIThread)
+					
+					self.ArmyPool.Trash:Destroy()
+					self:DisbandPlatoon(self.ArmyPool)
+					
+				end
+				
+				self.ArmyPool = nil
+				self.RefuelPool = nil
+				self.StructurePool = nil
+				self.TransportPool = nil
+				self.TransportSlotTable = nil
+				
 			end
 
 	        ForkThread(KillArmy)
-			
+
 			self.BuilderManagers = nil
+			self.CurrentPlanScript = nil
 			
 			if self.Trash then
 			
 				self.Trash:Destroy()
 				
 			end
+			
+			LOG("*AI DEBUG Shut down complete "..repr(self))
 			
         end
 
