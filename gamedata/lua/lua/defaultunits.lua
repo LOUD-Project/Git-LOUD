@@ -1483,6 +1483,27 @@ MobileUnit = Class(Unit) {
             -- local wep = GetWeapon(self,i)
             -- wep:OnMotionHorzEventChange(new, old)
         -- end
+		
+		if ( old == 'Cruise' ) then
+			self.MotionStatus.old = 'Cruise'
+		elseif ( old == 'TopSpeed' ) then
+			self.MotionStatus.old = 'TopSpeed'
+		elseif ( old == 'Stopping' ) then
+			self.MotionStatus.old = 'Stopping'
+		elseif ( old == 'Stopped' ) then
+			self.MotionStatus.old = 'Stopped'
+		end
+
+		if ( new == 'Cruise' ) then
+			self.MotionStatus.new = 'Cruise'
+		elseif ( new == 'TopSpeed' ) then
+			self.MotionStatus.new = 'TopSpeed'
+		elseif ( new == 'Stopping' ) then
+			self.MotionStatus.new = 'Stopping'
+		elseif ( new == 'Stopped' ) then
+			self.MotionStatus.new = 'Stopped'
+		end	
+		
     end,
 
     OnMotionVertEventChange = function( self, new, old )

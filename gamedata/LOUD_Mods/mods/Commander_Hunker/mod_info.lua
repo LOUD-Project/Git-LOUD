@@ -1,5 +1,5 @@
-name = "Domino's Commander Hunker V4"
-version = 0.4
+name = "Domino's Commander Hunker for LOUD"
+version = 0.5
 copyright = "Made by Domino"
 description = "Adds support to make faction commanders hunker"
 author = "Domino"
@@ -8,7 +8,7 @@ url = "None"
 exclusive = false
 ui_only = false
 
-requires = {}
+requires = {"ZLAAE2D2-6510-11DF-A8EC-B00000000005"}
 
 conflicts = {}
 

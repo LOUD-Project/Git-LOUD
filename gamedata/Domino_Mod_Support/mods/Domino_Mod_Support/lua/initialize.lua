@@ -5,6 +5,8 @@
 
 --]]
 
+LOG("*AI DEBUG Initializing Domino Mod Support")
+
 local file_paths = {
 	abilities = '/customize/abilities/abilities.lua',
 	description = '/customize/description/description.lua',
