@@ -11,6 +11,8 @@ local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Selection = import('/lua/ui/game/selection.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 
+local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
+
 controls = {
     groups = {},
 }
@@ -72,8 +74,11 @@ function SetLayout()
 end
 
 function OnSelectionSetChanged(name, units, applied)
+
     if not validGroups[name] then return end
+	
     local function CreateGroup(units, label)
+	
         local bg = Bitmap(controls.container, UIUtil.SkinnableFile('/game/avatar/avatar-control-group_bmp.dds'))
         
         bg.icon = Bitmap(bg)
@@ -112,17 +117,62 @@ function OnSelectionSetChanged(name, units, applied)
                     end
                 end
                 
-                if iconID != '' and DiskGetFileInfo('/textures/ui/common/icons/units/'..iconID..'_icon.dds') then
-                    self.icon:SetTexture('/textures/ui/common/icons/units/'..iconID..'_icon.dds')
-                else
-                    self.icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
-                end
+				--####################
+				--Exavier Code Block +
+				--####################
+				
+				local EXunitID = iconID
+				
+				if iconID != '' and BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+				
+					-- Check manually assigned overwrite table
+					local expath = EXunitID..'_icon.dds'
+					self.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+					
+				elseif iconID != '' and BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+				
+					-- Check modded icon hun table
+					local expath = EXunitID..'_icon.dds'
+					self.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+					
+				else
+					-- Check default GPG directories
+					if iconID != '' and DiskGetFileInfo('/textures/ui/common/icons/units/'..iconID..'_icon.dds') then
+					
+						self.icon:SetTexture('/textures/ui/common/icons/units/'..iconID..'_icon.dds')
+						
+					else
+					
+						-- Sets placeholder because no other icon was found
+						self.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+						
+						if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+						
+							-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+							WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+							BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+							
+						end
+						
+					end
+					
+				end
+				
+				--####################
+				--Exavier Code Block -
+				--####################
+				
             else
+			
                 self:Destroy()
                 controls.groups[self.name] = nil
+				
             end
+			
         end
+		
         bg.name = label
+		
         bg.HandleEvent = function(self,event)
             if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                 if event.Modifiers.Shift and event.Modifiers.Ctrl then
@@ -139,27 +189,42 @@ function OnSelectionSetChanged(name, units, applied)
         
         return bg
     end
+	
     if not controls.groups[name] and units then
+	
         PlaySound(Sound({Bank = 'Interface', Cue = 'UI_Economy_Click'}))
+		
         controls.groups[name] = CreateGroup(units, name)
+		
         local unitIDs = {}
+		
         for _, unit in units do
             table.insert(unitIDs, unit:GetEntityId())
         end
+		
         SimCallback({Func = 'OnControlGroupAssign', Args = unitIDs})
+		
     elseif controls.groups[name] and not units then
+	
         controls.groups[name]:Destroy()
         controls.groups[name] = nil
+		
     elseif controls.groups[name] then
+	
         controls.groups[name].units = units
         controls.groups[name]:UpdateGroup()
+		
         local unitIDs = {}
+		
         for _, unit in units do
             table.insert(unitIDs, unit:GetEntityId())
         end        
+		
         SimCallback({Func = 'OnControlGroupAssign', Args = unitIDs})
     end
+	
     import(UIUtil.GetLayoutFilename('controlgroups')).LayoutGroups()
+	
 end
 
 function ToggleControlGroups(state)

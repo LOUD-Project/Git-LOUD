@@ -27,8 +27,8 @@ local Edit = import('/lua/maui/edit.lua').Edit
 local _InternalUpdateStatus
 
 
-# This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
-# If called when the ModManger is -not- active, it is a no-op.
+-- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
+-- If called when the ModManger is -not- active, it is a no-op.
 function UpdateClientModStatus(selectedModsFromHost)
     if _InternalUpdateStatus then
         _InternalUpdateStatus(selectedModsFromHost)

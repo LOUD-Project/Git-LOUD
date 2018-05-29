@@ -1,4 +1,4 @@
 AI = {
-	Name = "BlackOps.scd",
-	Version = "3.6 LOUD",
+	Name = "BlackOps",
+	Version = "4.0 LOUD",
 }

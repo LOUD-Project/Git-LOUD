@@ -42,16 +42,14 @@ LOG("*AI DEBUG     Loading COLLAPSE functions")
 doscript '/lua/system/collapse.lua'
 
 
-
-#
 # Classes exported from the engine are in the 'moho' table. But they aren't full
 # classes yet, just lists of exported methods and base classes. Turn them into
 # real classes.
-#
 for name,cclass in moho do
     --SPEW('C->lua ',name)
     ConvertCClassToLuaClass(cclass)
 end
+
 
 # Flag initial loading of blueprints
 InitialRegistration = true

@@ -47,6 +47,8 @@ local activeTab = nil
 
 local showBuildIcons = false
 
+local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
+
 controls = {
     minBG = false,
     maxBG = false,
@@ -367,26 +369,145 @@ function getCurrentCommandQueue()
 end
 
 function GetEnhancementPrefix(unitID, iconID)
-    local prefix = ''
+
+    local factionPrefix = ''
+	
     if string.sub(unitID, 2, 2) == 'a' then
-        prefix = '/game/aeon-enhancements/'..iconID
+        factionPrefix = 'aeon-enhancements/' 
     elseif string.sub(unitID, 2, 2) == 'e' then
-        prefix = '/game/uef-enhancements/'..iconID
+        factionPrefix = 'uef-enhancements/'
     elseif string.sub(unitID, 2, 2) == 'r' then
-        prefix = '/game/cybran-enhancements/'..iconID
+        factionPrefix = 'cybran-enhancements/'
     elseif string.sub(unitID, 2, 2) == 's' then
-        prefix = '/game/seraphim-enhancements/'..iconID
+        factionPrefix = 'seraphim-enhancements/'
     end
+	
+    local prefix = '/game/' .. factionPrefix .. iconID
+	
+	--####################
+	--Exavier Code Block +
+	--####################
+	
+	local EXunitID = unitID
+	
+	if BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID) and DiskGetFileInfo(BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID..'_btn_up.dds') then
+		-- Check manually assigned overwrite table
+		prefix = BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID
+		return prefix
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'A') and string.sub(unitID, 2, 2) == 'a' then
+		local EXunitID = iconID..'A'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'U') and string.sub(unitID, 2, 2) == 'e' then
+		local EXunitID = iconID..'U'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'C') and string.sub(unitID, 2, 2) == 'r' then
+		local EXunitID = iconID..'C'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'S') and string.sub(unitID, 2, 2) == 's' then
+		local EXunitID = iconID..'S'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix
+	elseif DiskGetFileInfo('/textures/ui/common'..prefix..'_btn_up.dds') then
+		prefix = '/textures/ui/common'..prefix
+		return prefix
+	else
+		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
+			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
+			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
+		end
+		
+		return prefix
+	end	
+	
     return prefix
 end
 
 function GetEnhancementTextures(unitID, iconID)
-    local prefix = GetEnhancementPrefix(unitID, iconID)
-    return UIUtil.UIFile(prefix..'_btn_up.dds'),
-        UIUtil.UIFile(prefix..'_btn_down.dds'),
-        UIUtil.UIFile(prefix..'_btn_over.dds'),
-        UIUtil.UIFile(prefix..'_btn_up.dds'),
-        UIUtil.UIFile(prefix..'_btn_sel.dds')
+
+    local factionPrefix = ''
+	
+    if string.sub(unitID, 2, 2) == 'a' then
+        factionPrefix = 'aeon-enhancements/' 
+    elseif string.sub(unitID, 2, 2) == 'e' then
+        factionPrefix = 'uef-enhancements/'
+    elseif string.sub(unitID, 2, 2) == 'r' then
+        factionPrefix = 'cybran-enhancements/'
+    elseif string.sub(unitID, 2, 2) == 's' then
+        factionPrefix = 'seraphim-enhancements/'
+    end
+	
+    local prefix = '/game/' .. factionPrefix .. iconID
+	
+	--####################
+	--Exavier Code Block +
+	--####################
+	local EXunitID = unitID
+	if BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID) and DiskGetFileInfo(BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID..'_btn_up.dds') then
+		-- Check manually assigned overwrite table
+		prefix = BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID
+		return prefix..'_btn_up.dds',
+			prefix..'_btn_down.dds',
+			prefix..'_btn_over.dds',
+			prefix..'_btn_up.dds',
+			prefix..'_btn_sel.dds'
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'A') and string.sub(unitID, 2, 2) == 'a' then
+		local EXunitID = iconID..'A'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix..'_btn_up.dds',
+			prefix..'_btn_down.dds',
+			prefix..'_btn_over.dds',
+			prefix..'_btn_up.dds',
+			prefix..'_btn_sel.dds'
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'U') and string.sub(unitID, 2, 2) == 'e' then
+		local EXunitID = iconID..'U'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix..'_btn_up.dds',
+			prefix..'_btn_down.dds',
+			prefix..'_btn_over.dds',
+			prefix..'_btn_up.dds',
+			prefix..'_btn_sel.dds'
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'C') and string.sub(unitID, 2, 2) == 'r' then
+		local EXunitID = iconID..'C'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix..'_btn_up.dds',
+			prefix..'_btn_down.dds',
+			prefix..'_btn_over.dds',
+			prefix..'_btn_up.dds',
+			prefix..'_btn_sel.dds'
+	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'S') and string.sub(unitID, 2, 2) == 's' then
+		local EXunitID = iconID..'S'
+		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
+		return prefix..'_btn_up.dds',
+			prefix..'_btn_down.dds',
+			prefix..'_btn_over.dds',
+			prefix..'_btn_up.dds',
+			prefix..'_btn_sel.dds'
+	elseif DiskGetFileInfo('/textures/ui/common'..prefix..'_btn_up.dds') then
+		return UIUtil.UIFile(prefix..'_btn_up.dds'),
+			UIUtil.UIFile(prefix..'_btn_down.dds'),
+			UIUtil.UIFile(prefix..'_btn_over.dds'),
+			UIUtil.UIFile(prefix..'_btn_up.dds'),
+			UIUtil.UIFile(prefix..'_btn_sel.dds')
+	else
+		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
+			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
+			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
+		end
+		return UIUtil.UIFile(prefix..'_btn_up.dds'),
+			UIUtil.UIFile(prefix..'_btn_down.dds'),
+			UIUtil.UIFile(prefix..'_btn_over.dds'),
+			UIUtil.UIFile(prefix..'_btn_up.dds'),
+			UIUtil.UIFile(prefix..'_btn_sel.dds')
+	end
+	--####################
+	--Exavier Code Block -
+	--####################
+
 end
 
 local UPPER_GLOW_THRESHHOLD = .5
@@ -394,43 +515,101 @@ local LOWER_GLOW_THRESHHOLD = .1
 local GLOW_SPEED = 2
 
 function CommonLogic()
+
     controls.choices:SetupScrollControls(controls.scrollMin, controls.scrollMax, controls.pageMin, controls.pageMax)
     controls.secondaryChoices:SetupScrollControls(controls.secondaryScrollMin, controls.secondaryScrollMax, controls.secondaryPageMin, controls.secondaryPageMax)
     
     controls.secondaryProgress:SetNeedsFrameUpdate(true)
+	
     controls.secondaryProgress.OnFrame = function(self, delta)
+	
         if sortedOptions.selection[1] and not sortedOptions.selection[1]:IsDead() and sortedOptions.selection[1]:GetWorkProgress() then
             controls.secondaryProgress:SetValue(sortedOptions.selection[1]:GetWorkProgress())
         end
+		
         if controls.secondaryChoices.top == 1 and not controls.selectionTab:IsChecked() and not controls.constructionGroup:IsHidden() then
+		
             self:SetAlpha(1, true)
+			
         else
+		
             self:SetAlpha(0, true)
+			
         end
+		
     end
     
     controls.secondaryChoices.SetControlToType = function(control, type)
+	
         local function SetIconTextures(control)
-            if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..control.Data.id..'_icon.dds')) then
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/'..control.Data.id..'_icon.dds'))
-            else
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-            end
+		
+            local path = '/icons/units/'..control.Data.id..'_icon.dds'
+			
+			--####################
+			--Exavier Code Block +
+			--####################
+			
+			local EXunitID = control.Data.id
+			
+			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+			
+				-- Check manually assigned overwrite table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID)..expath)
+				
+			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+			
+				-- Check modded icon hun table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID)..expath)
+				
+			else
+			
+				-- Check default GPG directories
+				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+					control.Icon:SetTexture(UIUtil.UIFile(path))
+				else 
+					-- Sets placeholder because no other icon was found
+					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+					end
+				end
+				
+			end
+			
+			--####################
+			--Exavier Code Block -
+			--####################
+			
             if __blueprints[control.Data.id].StrategicIconName then
+			
                 local iconName = __blueprints[control.Data.id].StrategicIconName
+				
                 if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds') then
+				
+					-- Exavier Possible Later Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
                     control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
                     control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
+					
                 else
+				
                     control.StratIcon:SetSolidColor('ff00ff00')
+					
                 end
+				
             else
+			
                 control.StratIcon:SetSolidColor('00000000')
+				
             end
         end
         
         if type == 'spacer' then
+		
             if controls.secondaryChoices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 control.Width:Set(48)
@@ -448,7 +627,9 @@ function CommonLogic()
             control:SetSolidColor('00000000')
 #            control.ConsBar:SetAlpha(0, true)
             control.BuildKey = nil
+			
         elseif type == 'queuestack' or type == 'attachedunit' then
+		
             SetIconTextures(control)
             local up, down, over, dis = GetBackgroundTextures(control.Data.id)
             control:SetNewTextures(up, down, over, dis)
@@ -464,19 +645,25 @@ function CommonLogic()
 #            else
 #                control.ConsBar:SetAlpha(0, true)
 #            end
+
             control.BuildKey = nil
+			
             if control.Data.count > 1 then 
                 control.Count:SetText(control.Data.count)
                 control.Count:SetColor('ffffffff')
             else
                 control.Count:SetText('')
             end
+			
             control.Icon:Show()
             control:Enable()
+			
         end
+		
     end
     
     controls.secondaryChoices.CreateElement = function()
+	
         local btn = Button(controls.choices)
         
         btn.Icon = Bitmap(btn)
@@ -621,28 +808,86 @@ function CommonLogic()
     end
     
     controls.choices.SetControlToType = function(control, type)
+	
         local function SetIconTextures(control, optID)
+		
             local id = optID or control.Data.id
-            if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..id..'_icon.dds')) then
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/'..id..'_icon.dds'))
-            else
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-            end
+			
+            local path = '/icons/units/'..id..'_icon.dds'
+			
+			--####################
+			--Exavier Code Block +
+			--####################
+			
+			local EXunitID = control.Data.id
+			
+			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+			
+				-- Check manually assigned overwrite table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+				
+			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+			
+				-- Check modded icon hun table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+				
+			else
+				-- Check default GPG directories
+				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+				
+					control.Icon:SetTexture(UIUtil.UIFile(path))
+					
+				else
+				
+					-- Sets placeholder because no other icon was found
+					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+					
+					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+					
+						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+						
+					end
+					
+				end
+				
+			end
+			
+			--####################
+			--Exavier Code Block -
+			--####################
+			
             if __blueprints[id].StrategicIconName then
+			
                 local iconName = __blueprints[id].StrategicIconName
+				
                 if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds') then
+				
+					-- Exavier Possible Future Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
                     control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
                     control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
+					
                 else
+				
                     control.StratIcon:SetSolidColor('ff00ff00')
+					
                 end
+				
             else
+			
                 control.StratIcon:SetSolidColor('00000000')
+				
             end
+			
         end
+
         
         if type == 'arrow' then
+		
             control.Count:SetText('')
             control:Disable()
             control:SetSolidColor('00000000')
@@ -663,7 +908,9 @@ function CommonLogic()
 #            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+			
         elseif type == 'spacer' then
+		
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 control.Width:Set(48)
@@ -683,7 +930,9 @@ function CommonLogic()
 #            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+			
         elseif type == 'enhancement' then
+		
             control.Icon:SetSolidColor('00000000')
             control:SetNewTextures(GetEnhancementTextures(control.Data.unitID, control.Data.icon))
             local _,down,over,_,up = GetEnhancementTextures(control.Data.unitID, control.Data.icon)
@@ -709,35 +958,95 @@ function CommonLogic()
             else
                 control:Enable()
             end
+			
         elseif type == 'templates' then
+		
             control.mAltToggledFlag = false
             SetIconTextures(control, control.Data.template.icon)
             control:SetNewTextures(GetBackgroundTextures(control.Data.template.icon))
             control.Height:Set(48)
             control.Width:Set(48)
+			
             if control.Data.template.icon then
-                control.Icon:SetTexture('/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds')
+			
+                local path = '/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds'
+				
+				--####################
+				--Exavier Code Block +
+				--####################
+				
+				local EXunitID = control.Data.id
+				
+				if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+				
+					-- Check manually assigned overwrite table
+					local expath = EXunitID..'_icon.dds'
+					control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+					
+				elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+				
+					-- Check modded icon hun table
+					local expath = EXunitID..'_icon.dds'
+					control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+					
+				else
+				
+					-- Check default GPG directories
+					if DiskGetFileInfo(path) then
+					
+						control.Icon:SetTexture(path)
+						
+					else
+					
+						-- Sets placeholder because no other icon was found
+						control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
+						
+						if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+						
+							-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+							WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+							BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+							
+						end
+						
+					end
+					
+				end
+				
+				--####################
+				--Exavier Code Block -
+				--####################
+				
             else
+			
                 control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
+				
             end
+			
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.StratIcon:SetSolidColor('00000000')
             control.tooltipID = control.Data.template.name or 'no description'
             control.BuildKey = control.Data.template.key
+			
             if showBuildIcons and control.Data.template.key then 
                 control.Count:SetText(string.char(control.Data.template.key) or '')
                 control.Count:SetColor('ffff9000')
             else
                 control.Count:SetText('')
             end
+			
             control.Icon:Show()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
+			
 #            control.ConsBar:SetAlpha(0, true)
+
             control.LowFuel:SetNeedsFrameUpdate(false)
+			
         elseif type == 'item' then
+		
             SetIconTextures(control)
             control:SetNewTextures(GetBackgroundTextures(control.Data.id))
             local _,down = GetBackgroundTextures(control.Data.id)
@@ -807,7 +1116,9 @@ function CommonLogic()
                     end
                 end
             end
+			
         elseif type == 'unitstack' then
+		
             SetIconTextures(control)
             control:SetNewTextures(GetBackgroundTextures(control.Data.id))
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
@@ -838,7 +1149,9 @@ function CommonLogic()
             control.Icon:Show()
             control:Enable()
         end
+		
     end
+	
 end
 
 function OnRolloverHandler(button, state)

@@ -27,6 +27,8 @@ local selectedCheckboxFile = UIUtil.UIFile('/widgets/rad_sel.dds')
 
 local nameFilters = import('/lua/ui/dialogs/createunitfilters.lua').Filters
 
+local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
+
 local function getItems()
     local idlist = EntityCategoryGetUnitList(categories.ALLUNITS)
     table.sort(idlist)
@@ -448,11 +450,37 @@ function CreateDialog(x, y)
         mouseover.img.Height:Set(40)
         mouseover.img.Width:Set(40)
         LayoutHelpers.AtLeftTopIn(mouseover.img, mouseover, 2,2)
-        if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds')) then
-            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds'))
-        else
-            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-        end
+        local path = '/icons/units/'..unitData..'_icon.dds'
+		
+		--####################
+		--Exavier Code Block +
+		--####################
+		local EXunitID = unitData
+		if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+			-- Check manually assigned overwrite table
+			local expath = EXunitID..'_icon.dds'
+			mouseover.img:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+		elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+			-- Check modded icon hun table
+			local expath = EXunitID..'_icon.dds'
+			mouseover.img:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+		else
+			-- Check default GPG directories
+			if DiskGetFileInfo(UIUtil.UIFile(path)) then
+				mouseover.img:SetTexture(UIUtil.UIFile(path))
+			else 
+				-- Sets placeholder because no other icon was found
+				mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+					WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+				end
+			end
+		end
+		--####################
+		--Exavier Code Block -
+		--####################
         
         mouseover.name = UIUtil.CreateText(mouseover, __blueprints[unitData].Description, 14, UIUtil.bodyFont)
         LayoutHelpers.RightOf(mouseover.name, mouseover.img, 2)

@@ -1,4 +1,4 @@
 AI = {
-	Name = "4th Dimension Units",
-	Version = "LOUD 2.13",
+	Name = "4D Units",
+	Version = "2.2 LOUD",
 }
