@@ -7,15 +7,12 @@ EXNoIconLogSpamControl = {}
 EXUpgradeIconTemp = nil
 
 function BlackopsBlueprintLocator()
-
     EXBuildIconReferenceTables()
-
+    --EXBlueprintScanner()
 end
 
 function EXUnitIconPathCondensor(EXIconID)
-
 	local EXIconID = EXIconID
-	
 	if string.find(EXIconID, '/', 1) then
 		EXIconID = string.sub(EXIconID, string.find(EXIconID, '/', 1), string.len(EXIconID))
 		EXIconID = string.gsub(EXIconID,'/','',1)
@@ -24,13 +21,10 @@ function EXUnitIconPathCondensor(EXIconID)
 	else
 		return EXUnitIconTemp
 	end
-	
 end
 
 function EXUpgradeIconPathCondensor(EXUIconID)
-
 	local EXUIconID = EXUIconID
-	
 	if string.find(EXUIconID, '/', 1) then
 		EXUIconID = string.sub(EXUIconID, string.find(EXUIconID, '/', 1), string.len(EXUIconID))
 		EXUIconID = string.gsub(EXUIconID,'/','',1)
@@ -39,16 +33,12 @@ function EXUpgradeIconPathCondensor(EXUIconID)
 	else
 		return EXUpgradeIconTemp
 	end
-	
 end
 
 function EXBuildIconReferenceTables()
-
     for id, mod in __active_mods do
-	
 		-- Icon hunt script locates all icon DDS files in the active mod directories
         local LocatedIcons = DiskFindFiles(mod.location, '*_icon.dds')
-		
         for id, icon in LocatedIcons do
 			-- Converts results of the icon hunt into location tables referenced by other scripts
             EXIconID = string.gsub(icon, '_icon.dds', '')
@@ -58,13 +48,9 @@ function EXBuildIconReferenceTables()
             EXIconID = string.upper(EXIconID)
 			EXIconPath = string.sub(EXIconPath, 0, (string.len(EXIconPath) - string.len(EXIconID)))
             EXIconPaths[EXIconID] = EXIconPath
-			
         end
-		
         local LocatedIcons = DiskFindFiles(mod.location, '*_btn_up.dds')
-		
         for id2, upgrades in LocatedIcons do
-		
 			-- Converts results of the icon hunt into location tables referenced by other scripts
             EXUIconID = string.gsub(upgrades, '_btn_up.dds', '')
             EXUIconPath = EXUIconID
@@ -72,129 +58,85 @@ function EXBuildIconReferenceTables()
             EXUIconID = EXUpgradeIconTemp
             EXUIconID = string.upper(EXUIconID)
 			EXUIconPath = string.sub(EXUIconPath, 0, (string.len(EXUIconPath) - string.len(EXUIconID)))
-			
 			if string.find(EXUIconPath, 'uef\-', 1) then
 				EXUIconID = EXUIconID..'U'
 				EXUpgradeIconPaths[EXUIconID] = EXUIconPath
-				
 			elseif string.find(EXUIconPath, 'aeon\-', 1) then
 				EXUIconID = EXUIconID..'A'
 				EXUpgradeIconPaths[EXUIconID] = EXUIconPath
-				
 			elseif string.find(EXUIconPath, 'cybran\-', 1) then
 				EXUIconID = EXUIconID..'C'
 				EXUpgradeIconPaths[EXUIconID] = EXUIconPath
-				
 			elseif string.find(EXUIconPath, 'seraphim\-', 1) then
 				EXUIconID = EXUIconID..'S'
 				EXUpgradeIconPaths[EXUIconID] = EXUIconPath
-				
 			end
-			
         end
-		
     end
-	
 	for k, v in __blueprints do
-	
 		-- Runs a quick scan of all blueprints sorting to just blueprints with 7 digit names
 		-- key: k = unitid, v = bp
 		if string.len(k) == 7 then
-		
 			if v.Display.AlternateIconPath then
-			
 				-- Tables icons selected for manual overwrite so the game knows where to check for them
 				EXAltIcon = v.BlueprintId
 				EXAltIcon = string.upper(EXAltIcon)
-				
 				if DiskGetFileInfo(v.Display.AlternateIconPath..EXAltIcon..'_icon.dds') then
-				
 					EXIconPathOverwrites[EXAltIcon] = v.Display.AlternateIconPath
-					
 				else
-				
 					WARN('Blackops Icon Mod: Alternate Unit Icon Path Not Valid - '..EXAltIcon)
-					
 				end
-				
 			end
-			
 			if v.Display.AlternateUpgradeIconPath then
-			
 				-- Tables enhancment icons selected for manual overwrite so the game knows where to check for them
 				EXAltUpgrade = v.BlueprintId
 				EXAltUpgrade = string.upper(EXAltUpgrade)
 				EXUpgradeIconOverwrites[EXAltUpgrade] = v.Display.AlternateUpgradeIconPath
-				
 			end
-			
 		end
-		
 	end
-	
 	LOG('Blackops Icon Support Mod - Icon Location Complete')
-	
 	--LOG(repr(EXUpgradeIconOverwrites))
 	--LOG(repr(EXIconPathOverwrites))
 	--LOG(repr(EXIconPaths))
 	--LOG(repr(EXUpgradeIconPaths))
-	
 end
 
 function GetCustomIconLocation(unitID)
-
     unitID = string.upper(unitID)
-	
-    if not BlueprintList[unitID] then
-	
-        --LOG("Mod icons folder not found!", unitID)
-		WARN('Blackops Support Alert: '.. unitID ..' is not a modded unit')
-		
-	    --LOG(unitID)
-	    --LOG(repr(BlueprintLocations))
-		
-        return ''
-		
-    else
-	
-        return BlueprintLocations[unitID]
-		
-    end
-	
+        if not BlueprintList[unitID] then
+            --LOG("Mod icons folder not found!", unitID)
+			WARN('Blackops Support Alert: '.. unitID ..' is not a modded unit')
+	        --LOG(unitID)
+	        --LOG(repr(BlueprintLocations))
+            return ''
+        else
+            return BlueprintLocations[unitID]
+        end
 end
 
 function EXIconTableScan(unitID)
-
     unitID = string.upper(unitID)
-    return EXIconPaths[unitID]
-	
+        return EXIconPaths[unitID]
 end
 
 function EXIconTableScanOverwrites(unitID)
-
     unitID = string.upper(unitID)
-    return EXIconPathOverwrites[unitID]
-	
+        return EXIconPathOverwrites[unitID]
 end
 
 function EXUpgradeIconTableOverwrites(unitID)
-
     unitID = string.upper(unitID)
-    return EXUpgradeIconOverwrites[unitID]
-	
+        return EXUpgradeIconOverwrites[unitID]
 end
 
 function EXUpgradeIconTableScan(unitID)
-
     unitID = string.upper(unitID)
-    return EXUpgradeIconPaths[unitID]
-	
+        return EXUpgradeIconPaths[unitID]
 end
 
 function EXBlueprintScanner()
-
 	for k, v in __blueprints do
-	
 		-- Runs a quick scan of all blueprints sorting to just blueprints with 7 digit names
 		-- key: k = unitid, v = bp
 		if string.len(k) == 7 then
