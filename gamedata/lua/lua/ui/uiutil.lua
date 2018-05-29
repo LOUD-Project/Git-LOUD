@@ -20,6 +20,8 @@ local Border = import('/lua/maui/border.lua').Border
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Layouts = import('/lua/skins/layouts.lua')
 
+local BlackopsIcons = import('/mods/BlackopsSupport/lua/BlackopsIconSearch.lua')
+
 -- global variables to assist skinning
 buttonFont = import('/lua/lazyvar.lua').Create()            -- default font used for button faces
 factionFont = import('/lua/lazyvar.lua').Create()      		-- default font used for dialog button faces
@@ -298,34 +300,104 @@ function RotateLayout(direction)
 end
 
 --* given a path and name relative to the skin path, returns the full path based on the current skin
+
 function UIFile(filespec)
-    local skins = import('/lua/skins/skins.lua').skins
-    local visitingSkin = currentSkin()
-    local currentPath = skins[visitingSkin].texturesPath
 
-    if visitingSkin == nil or currentPath == nil then
-        return nil
-    end
+	for i, v in BlackopsIcons.EXIconPaths do
+	
+		temp1 = v .. '_icon'
+		temp2 = string.upper(v .. '_icon')
+		temp3 = string.lower(v .. '_icon')
+		
+		if string.find(filespec, temp1) or string.find(filespec, temp2) or string.find(filespec, temp3) then
+		
+			temp4 = string.upper(filespec)
+			local curfile = '/textures/ui/common' .. filespec
 
-    -- if current skin is default, then don't bother trying to look for it, just append the default dir
-    if visitingSkin == 'default' then
-        return currentPath .. filespec
-    else
-        while visitingSkin do
-            local curFile = currentPath .. filespec
-            if DiskGetFileInfo(curFile) then
-                return curFile
-            else
-                visitingSkin = skins[visitingSkin].default
-                if visitingSkin then currentPath = skins[visitingSkin].texturesPath end
-            end
-        end
-    end
+			--####################
+			--Exavier Code Block +
+			--####################
+			local EXunitID = bp.temp4
+			
+			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+			
+				-- Check manually assigned overwrite table
+				local expath = EXunitID..'_icon.dds'
+				excurfile =  BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. EXunitID
+				
+			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+			
+				-- Check modded icon hun table
+				local expath = EXunitID..'_icon.dds'
+				excurfile =  BlackopsIcons.EXIconTableScan(EXunitID) .. EXunitID
+				
+			else
+			
+				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+				
+					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+					WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+					
+					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+					
+				end
+				
+			end
+			--####################
+			--Exavier Code Block -
+			--####################
+			return curfile
+			
+		end
+		
+		local skins = import('/lua/skins/skins.lua').skins
+		local visitingSkin = currentSkin()
+		local currentPath = skins[visitingSkin].texturesPath
 
-    LOG("Warning: Unable to find file ".. currentPath .. filespec)
-    -- pass out the final string anyway so resource loader can gracefully fail
-    return filespec
-end
+		if visitingSkin == nil or currentPath == nil then
+			return nil
+		end
+
+		-- if current skin is default, then don't bother trying to look for it, just append the default dir
+		if visitingSkin == 'default' then
+	
+			return currentPath .. filespec
+		
+		else
+	
+			while visitingSkin do
+		
+				local curFile = currentPath .. filespec
+			
+				if DiskGetFileInfo(curFile) then
+			
+					return curFile
+				
+				else
+			
+					visitingSkin = skins[visitingSkin].default
+				
+					if visitingSkin then
+				
+						currentPath = skins[visitingSkin].texturesPath
+						
+					end
+				
+				end
+			
+			end
+		
+		end
+
+		LOG("Warning: Unable to find file ".. currentPath .. filespec)
+	
+		-- pass out the final string anyway so resource loader can gracefully fail
+		return filespec		
+
+	end
+	
+end 
+
 
 --* return the filename as a lazy var function to allow triggering of OnDirty
 function SkinnableFile(filespec)
