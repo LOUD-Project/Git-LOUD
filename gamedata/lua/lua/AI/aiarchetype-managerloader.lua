@@ -67,7 +67,7 @@ function ExecutePlan(aiBrain)
 		
 		if not aiBrain.IgnoreArmyCaps then
 		
-			ForkThread(UnitCapWatchThread, aiBrain)
+			aiBrain:ForkThread(UnitCapWatchThread)
 			
 		end
 		
@@ -111,11 +111,11 @@ function UnitCapWatchThread(aiBrain)
     local GetListOfUnits = aiBrain.GetListOfUnits
     local armyindex = aiBrain.ArmyIndex
 	
-    while true do
+    while not aiBrain:IsDefeated() do
 	
         WaitSeconds(300)
 		
-        if GetArmyUnitCostTotal(armyindex) > 500 then
+        if GetArmyUnitCostTotal(armyindex) > 600 then
 		
             if not KillT1Land then
 			
@@ -154,6 +154,7 @@ function UnitCapWatchThread(aiBrain)
                 KillPD = true
 
             else
+			
                 KillPD = false
 				KillT1Land = false
 				KillT1Air = false
@@ -161,4 +162,5 @@ function UnitCapWatchThread(aiBrain)
             end
         end
     end
+	
 end

@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -35,13 +38,16 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 9,
         Health = 600,
         MaxHealth = 600,
 		RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -51,13 +57,15 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 13000,
             ShieldRechargeTime = 17,
-            ShieldRegenRate = 153,
+            ShieldRegenRate = 191,
             ShieldRegenStartTime = 1,
             ShieldSize = 28,
             ShieldVerticalOffset = -3,
         },
     },
+	
     Description = '<LOC xsb4202_desc>Basic Shield Generator',
+	
     Display = {
         AnimationActivate = '/units/xsb4202/XSB4202_Aactivate.sca',
         AnimationDeath = {
@@ -105,24 +113,24 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 7000,
-        BuildCostMass = 700,
+        BuildCostMass = 1557,
         BuildRate = 10,
         BuildTime = 700,
-        BuildableCategory = {
-            'xsb4301',
-        },
+        BuildableCategory = { 'xsb4301' },
+		
         MaintenanceConsumptionPerSecondEnergy = 300,
-        RebuildBonusIds = {
-            'xsb4202',
-            'xsb4301',
-        },
+		
+        RebuildBonusIds = { 'xsb4202','xsb4301' },
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -158,12 +166,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesTo = 'xsb4301',
     },
+	
     Interface = {
         HelpText = 'Basic Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -188,14 +199,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 1.75,
     SizeY = 2.5,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure2_shield',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

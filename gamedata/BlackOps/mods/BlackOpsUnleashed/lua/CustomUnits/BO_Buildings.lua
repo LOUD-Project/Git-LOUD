@@ -14,7 +14,7 @@ UnitList = {
     },
 
     T4EconExperimental = {
-        Seraphim = {'bsb2402', 20},		-- Rift Gate
+        Seraphim = {'bsb2402', 05},		-- Rift Gate
     },
 	
 	T4GroundDefense = {
@@ -34,12 +34,6 @@ UnitList = {
 }
 
 --[[	
-	T3AirStagingPlatform = {
-		UEF = {'beb5205', 100},
-		Aeon = {'bab5205', 100},
-		Cybran = {'brb5205', 100},
-		Seraphim = {'bsb5205', 100},
-	},
 	
 	T3MissileDefense = {
 		Aeon = {'bab4307', 100},		-- T3 TMD

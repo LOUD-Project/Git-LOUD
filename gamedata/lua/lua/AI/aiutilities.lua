@@ -14,7 +14,7 @@ local VDist2Sq = VDist2Sq
 -- Adds an area to the brains MustScout table
 function AIAddMustScoutArea( aiBrain, location )
 
-	if location then
+	if location and ( not aiBrain:IsDefeated() ) then
 	
 		for _,v in aiBrain.IL.MustScout do
 		

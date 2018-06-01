@@ -29,6 +29,8 @@ local currentFaction = GetArmiesTable().armiesTable[GetFocusArmy()].faction
 local expandedCheck = false
 local currentIndex = 1
 
+local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
+
 function GetEngineerGeneric()
 
     local idleEngineers = GetIdleEngineers()
@@ -139,11 +141,43 @@ function CreateAvatar(unit)
     bg.icon = Bitmap(bg)
     LayoutHelpers.AtLeftTopIn(bg.icon, bg, 5, 5)
 	
-    if DiskGetFileInfo('/textures/ui/common/icons/units/'..bg.Blueprint.BlueprintId..'_icon.dds') then
-        bg.icon:SetTexture('/textures/ui/common/icons/units/'..bg.Blueprint.BlueprintId..'_icon.dds')
-    else
-        bg.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-    end
+    local path = '/textures/ui/common/icons/units/'..bg.Blueprint.BlueprintId..'_icon.dds'
+	
+	--####################
+	--Exavier Code Block +
+	--####################
+	local EXunitID = unit:GetBlueprint().BlueprintId
+	
+	if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+	
+		-- Check manually assigned overwrite table
+		local expath = EXunitID..'_icon.dds'
+		bg.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+		
+	elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+	
+		-- Check modded icon hun table
+		local expath = EXunitID..'_icon.dds'
+		bg.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+		
+	else
+		-- Check default GPG directories
+		if DiskGetFileInfo(path) then
+			bg.icon:SetTexture(path)
+		else 
+			-- Sets placeholder because no other icon was found
+			bg.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+			if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+				-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+				WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+				BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+			end
+		end
+		
+	end
+	--####################
+	--Exavier Code Block -
+	--####################
 	
     bg.icon.Height:Set(44)
     bg.icon.Width:Set(44)

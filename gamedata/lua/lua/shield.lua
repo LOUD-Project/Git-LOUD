@@ -1,4 +1,5 @@
 ---  /lua/shield.lua
+--- Added support for hunker shields
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -52,6 +53,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		end
 
 		self:SetSize(spec.Size)
+		
         self:SetMaxHealth(spec.ShieldMaxHealth)
         self:SetHealth(self, spec.ShieldMaxHealth)
 
@@ -295,11 +297,14 @@ Shield = Class(moho.shield_methods,Entity) {
     end,
 
     OnDestroy = function(self)
+	
 		self:SetMesh('')
+		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
 			self.MeshZ = nil
 		end
+		
 		self:UpdateShieldRatio(0)
         ChangeState(self, self.DeadState)
     end,
@@ -337,6 +342,7 @@ Shield = Class(moho.shield_methods,Entity) {
     end,
 
     CreateShieldMesh = function(self)
+	
 		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
 
 		self:SetMesh(self.MeshBp)
@@ -356,6 +362,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			self.MeshZ:SetVizToAllies('Always')
 			self.MeshZ:SetVizToNeutrals('Intel')
 		end
+		
         self.Owner:OnShieldIsUp() # added by brute51
     end,
 
@@ -527,16 +534,11 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 }
 
-
+-- Unit shields typically hug the shape of the unit
 UnitShield = Class(Shield){
 
     OnCreate = function(self,spec)
-		
-        self.Trash = TrashBag()
-        self.Owner = spec.Owner
-		
-        self.ImpactEffects = EffectTemplate[spec.ImpactEffects]        
-		
+
         self.CollisionSizeX = spec.CollisionSizeX or 1
 		self.CollisionSizeY = spec.CollisionSizeY or 1
 		self.CollisionSizeZ = spec.CollisionSizeZ or 1
@@ -545,31 +547,8 @@ UnitShield = Class(Shield){
 		self.CollisionCenterZ = spec.CollisionCenterZ or 0
 		self.OwnerShieldMesh = spec.OwnerShieldMesh or ''
 
-		self:SetSize(spec.Size)
+		Shield.OnCreate(self,spec)
 
-        self:SetMaxHealth(spec.ShieldMaxHealth)
-        self:SetHealth(self,spec.ShieldMaxHealth)
-
-        self:UpdateShieldRatio(1.0)
-        
-        self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
-        self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
-        
-        self.ShieldVerticalOffset = spec.ShieldVerticalOffset
-
-        self:SetVizToFocusPlayer('Always')
-        self:SetVizToEnemies('Intel')
-        self:SetVizToAllies('Always')
-        self:SetVizToNeutrals('Always')
-
-        self:AttachBoneTo(-1,spec.Owner,-1)
-
-        self:SetShieldRegenRate(spec.ShieldRegenRate)
-        self:SetShieldRegenStartTime(spec.ShieldRegenStartTime)
-
-        self.PassOverkillDamage = spec.PassOverkillDamage
-        
-        ChangeState(self, self.EnergyDrainRechargeState)
     end,
 
     -- I've turned off impact effects on skin shields simply for performance 
@@ -578,25 +557,38 @@ UnitShield = Class(Shield){
     end,
 
     CreateShieldMesh = function(self)
+	
   		self:SetCollisionShape( 'Box', self.CollisionCenterX, self.CollisionCenterY, self.CollisionCenterZ, self.CollisionSizeX, self.CollisionSizeY, self.CollisionSizeZ)
+		
 		self.Owner:SetMesh(self.OwnerShieldMesh,true)
+		
+        self.Owner:OnShieldIsUp()
+		
     end,
-
+	
     RemoveShield = function(self)
+	
         self:SetCollisionShape('None')
+		
 		self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		
+        self.Owner:OnShieldIsDown()
+		
     end,
 
     OnDestroy = function(self)
+	
         if not self.Owner.MyShield or self.Owner.MyShield:GetEntityId() == self:GetEntityId() then
 	        self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
 		end
+		
 		self:UpdateShieldRatio(0)
         ChangeState(self, self.DeadState)
     end,
 
 }
 
+-- AntiArtillery shields are typical bubbles but only intercept certain projectiles
 AntiArtilleryShield = Class(Shield){
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
@@ -657,4 +649,49 @@ AntiArtilleryShield = Class(Shield){
 		
     end,
 	
+}
+
+-- Hunker Shields take no damage while on --
+DomeHunkerShield = Class(Shield) {
+	
+	OnCollisionCheckWeapon = function(self, firingWeapon)
+		return true
+	end,
+
+	OnCollisionCheck = function(self,other)
+		if other:GetArmy() == -1 then
+			return true
+		end
+
+		return true
+	end,
+}
+
+-- Hunker Shields are time limited shields that take no damage --
+PersonalHunkerShield = Class(Shield) {
+
+	OnDamage =  function(self,instigator,amount,vector,type)
+	end, 
+
+    CreateImpactEffect = function(self, vector)
+    end,
+
+    CreateShieldMesh = function(self)
+		self:SetCollisionShape( 'Box', self.CollisionCenterX, self.CollisionCenterY, self.CollisionCenterZ, self.CollisionSizeX, self.CollisionSizeY, self.CollisionSizeZ)
+		self.Owner:SetMesh(self.OwnerShieldMesh,true)
+    end,
+
+    RemoveShield = function(self)
+        self:SetCollisionShape('None')
+		self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+    end,
+
+    OnDestroy = function(self)
+        if not self.Owner.MyShield or self.Owner.MyShield:GetEntityId() == self:GetEntityId() then
+	        self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		end
+		self:UpdateShieldRatio(0)
+        ChangeState(self, self.DeadState)
+    end,
+
 }

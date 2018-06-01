@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -44,6 +47,7 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
 	
     Defense = {
@@ -53,7 +57,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 14,
     },
+	
     Description = '<LOC xsb2303_desc>Field Artillery Installation',
+	
     Display = {
         AnimationDeath = {
             {
@@ -86,14 +92,14 @@ UnitBlueprint {
 
         UniformScale = 0.03,
     },
+	
     Economy = {
         BuildCostEnergy = 17100,
         BuildCostMass = 2000,
         BuildTime = 2000,
-        RebuildBonusIds = {
-            'xsb2303',
-        },
+        RebuildBonusIds = { 'xsb2303' },
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
@@ -118,15 +124,19 @@ UnitBlueprint {
         UnitName = '<LOC xsb2303_name>Zthuthaam',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'T2 Artillery Installation',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.65,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -151,14 +161,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+	
     SizeX = 1,
     SizeY = 1.2,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -166,6 +180,7 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -198,18 +213,18 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Zthuthaam Cannon',
 			
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 35,	-- every 8 seconds + 1 second for muzzle charge --
+            EnergyRequired = 275,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -221,16 +236,17 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 125,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 1,		-- one second delay for muzzle charge --
             MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
 			
             ProjectileId = '/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
+			ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -242,7 +258,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
@@ -251,10 +267,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 5,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',

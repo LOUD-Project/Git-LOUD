@@ -1,15 +1,13 @@
 UnitList = {
 	T1LandDFTank = {
-		Seraphim = {'bsl0106', 30}, #Protector Bot
+		Seraphim = {'bsl0106', 25}, #Protector Bot
 	},
-    
---    T1LandDFBot = { Aeon = {'bal0110', 35} },	#-- light sniper bot
-    
+
 	T2AttackTank = {
 		UEF = {'bel0211', 30 },     	# Flamethrower
         Aeon = {'bal0206', 50 },    	# Zealot
         Cybran = {'brl0205', 15 },  	# Ambush Bot
-		Seraphim = {'bsl0206', 35 },	# Imp. Protector Bot
+		Seraphim = {'bsl0206', 25 },	# Imp. Protector Bot
 	},
     
     T3LandAA = {

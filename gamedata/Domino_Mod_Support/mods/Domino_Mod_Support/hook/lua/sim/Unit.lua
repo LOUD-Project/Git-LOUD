@@ -1,65 +1,70 @@
 #****************************************************************************
-#**
 #**  File     :  /lua/unit.lua
 #**  Author(s):  John Comes, David Tomandl, Gordon Duclos
-#**
-#**
 #**  Edited by Domino 
 #**  Summary  : The Unit lua module
-#**
 #**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') 
-local AvailableToggles =  __DMSI.Custom_Toggles()
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local Custom_Mfd = __DMSI.Custom_Mfd()
 
-local Shield = import('/lua/shield.lua').Shield
-local UnitShield = import('/lua/shield.lua').UnitShield
-local AntiArtilleryShield = import('/lua/shield.lua').AntiArtilleryShield
-local HunkerShield = import('/lua/shield.lua')
+local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') 
+
+local AvailableToggles =  __DMSI.Custom_Toggles()
+
 local Game = import('/lua/game.lua')
 
-local oldUnit=Unit
+local oldUnit = Unit
+
 Unit = Class(oldUnit) {
 
 	OnStopBeingBuilt = function(self,builder,layer)
+	
 		oldUnit.OnStopBeingBuilt(self,builder,layer)
-		
-		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }
+
 		self.Usages = {	Energy = {},Mass = {},BuildRate = {},}
 		
 		local UnitBp = self:GetBlueprint()
 		local BpToggles = self:GetBlueprint().General.ExtraCaps or false
 		local BpAbilities = self:GetBlueprint().Abilities or false
 
-		if BpToggles and table.getsize(BpToggles) > 0 then 
+		if BpToggles and table.getsize(BpToggles) > 0 then
+		
 			for Cap, Param in BpToggles do
-				if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
+			
+				if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then
+				
 					if Param then 
 						self:AddExtraCap(Cap)
 					end
+					
 				end
+				
 			end
+			
 		end
 		
-		if self:GetArmy() == GetFocusArmy() and UnitBp.Categories then 
-			if table.find(UnitBp.Categories, 'HOLOGRAM') or table.find(UnitBp.Categories, 'PASSTHROUGH') then 
+		if self:GetArmy() == GetFocusArmy() and UnitBp.Categories then
+		
+			if table.find(UnitBp.Categories, 'HOLOGRAM') or table.find(UnitBp.Categories, 'PASSTHROUGH') then
+			
 				if UnitBp.OldHitBoxSize then 
 					self:ForkThread(self.CreateUnitHitBox)
 				end
+				
 			end
+			
 		end
 		
-		if not self.Sync.Abilities and BpAbilities and table.getsize(BpAbilities) > 0 then 
+		if not self.Sync.Abilities and BpAbilities and table.getsize(BpAbilities) > 0 then
+		
 			self.Sync.Abilities = BpAbilities
+			
 		end
 
 		self:RequestRefreshUI()
+		
     end,
 	
 	CreateUnitHitBox = function(self)	
-	--	LOG('setting up unit hitbox')
+
 		local bp = self:GetBlueprint()
 		local scale = bp.Display.UniformScale or 1
 		
@@ -67,121 +72,24 @@ Unit = Class(oldUnit) {
 		
 	end,
 
-	############
-    ## toggles
-    ############
-	
-	AddExtraCap = function(self, Cap)
-		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
-			if not UnitData[self:GetEntityId()].Data[Cap] then
-				self.Sync[Cap] = true
-				self.Sync[Cap.. '_state'] = AvailableToggles[Cap].initialState
-			end
-		end
-		
-		self:RequestRefreshUI()
-	end,
-	
-	RemoveExtraCap = function(self, Cap)
-		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
-			if UnitData[self:GetEntityId()].Data[Cap] then 
-				self.Sync[Cap] = false
-				self.Sync[Cap .. '_state'] = AvailableToggles[Cap].initialState
-			end
-		end
-		
-		self:RequestRefreshUI()
-	end,
-	
-	GetExtraBit = function(self, Cap)
-		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
-			if not UnitData[self:GetEntityId()].Data[Cap] then
-				LOG('DMOD --> No Toggle exists on the unit by the name of ' .. Cap)
-			else
-				local ToggleData = UnitData[self:GetEntityId()].Data[Cap.. '_state']
- 
-				if ToggleData then 
-					return true
-				else
-					return false
-				end
-			end
-		else
-			return nil
-		end
-	end,
-	
-	SetExtraBit = function(self, Cap, Param)
-		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then
-			if not UnitData[self:GetEntityId()].Data[Cap] then
-				LOG('DMOD --> No Toggle exists on the unit by the name of ' .. Cap)
-			else
-				if Param then 
-					self.Sync[Cap .. '_state'] = Param
-					self:OnExtraToggleSet(Cap)
-				else
-					self.Sync[Cap .. '_state'] = Param
-					self:OnExtraToggleClear(Cap)
-				end
-				
-				self:RequestRefreshUI()
-			end
-		else
-			LOG('DMod --> Invalid Toggle Cap specified for SetExtraBit ' .. Cap)
-		end
-	end,
-		
-	OnExtraToggleClear = function(self, ToggleName)
-	end,
-	
-	OnExtraToggleSet = function(self, ToggleName)
-	end,
-	
+
 	############
     ## MOTION
     ############
 	
-	OnMotionHorzEventChange = function( self, new, old )
-        oldUnit.OnMotionHorzEventChange(self, new, old)
-				
-		if ( old == 'Cruise' ) then
-			self.MotionStatus.old = 'Cruise'
-		elseif ( old == 'TopSpeed' ) then
-			self.MotionStatus.old = 'TopSpeed'
-		elseif ( old == 'Stopping' ) then
-			self.MotionStatus.old = 'Stopping'
-		elseif ( old == 'Stopped' ) then
-			self.MotionStatus.old = 'Stopped'
-		end
-
-		if ( new == 'Cruise' ) then
-			self.MotionStatus.new = 'Cruise'
-		elseif ( new == 'TopSpeed' ) then
-			self.MotionStatus.new = 'TopSpeed'
-		elseif ( new == 'Stopping' ) then
-			self.MotionStatus.new = 'Stopping'
-		elseif ( new == 'Stopped' ) then
-			self.MotionStatus.new = 'Stopped'
-		end
-	end,
-	
 	create_crator = function(self)
 		--> call with this --> self:ForkThread(self.create_crator)
+		
 		local x, y, z = unpack(self:GetPosition())
-		local DeformTerrain = { 
-			artilery = {
-				radiusI = 2,
-				radiusO = 2,
-				Depth = 1.5,
-				mound = 0.5,
-			},
-		}
-			
-       import('/mods/domino_mod_support/lua/deform/deformterrain.lua').Deform(x, z, DeformTerrain)
+		
+		local DeformTerrain = { artilery = { radiusI = 2, radiusO = 2, Depth = 1.5,	mound = 0.5	},	}
+
+		import('/mods/domino_mod_support/lua/deform/deformterrain.lua').Deform(x, z, DeformTerrain)
 	
 	end,
 	
 	GetMotionStatus = function(self)
+	
 		if self.MotionStatus.new then 
 			return self.MotionStatus.new
 		else
@@ -190,6 +98,7 @@ Unit = Class(oldUnit) {
 	end, 
 	
 	GetOldMotionStatus = function(self)
+	
 		if self.MotionStatus.old then 
 			return self.MotionStatus.old
 		else
@@ -198,6 +107,7 @@ Unit = Class(oldUnit) {
 	end, 
 	
 	GetIsSelected = function(self)
+	
 		if self.IsSelected then 
 			return true
 		else
@@ -334,6 +244,7 @@ Unit = Class(oldUnit) {
     end,
 
 	GetMyRealTarget = function(self)
+	
 		local HasATarget = false
 		local MyRealTarget
 		local numWep = self:GetWeaponCount()
@@ -361,11 +272,13 @@ Unit = Class(oldUnit) {
 		else 
 			return false
 		end
+		
 	end,	
 	
 	###########
     ## Economy
     ###########
+	
 	Get_Econ = function(self, what)
 	
 		local aiBrain = GetArmyBrain(self:GetArmy())
@@ -423,7 +336,9 @@ Unit = Class(oldUnit) {
 	end,
 	
 	RemoveEnergyUsage = function(self, key)
+	
 		local ValidEntry = true
+		
 		if not key then 
 			WARN('RemoveEnergyUsage --> No key specified')
 			ValidEntry = false
@@ -439,6 +354,7 @@ Unit = Class(oldUnit) {
 	end, 
 	
 	SetEnergyUsage = function(self, key, amount)
+	
 		local ValidEntry = true
 		if not key then 
 			WARN('SetEnergyUsage --> No key specified')
@@ -458,6 +374,7 @@ Unit = Class(oldUnit) {
 	end,
 	
 	SetEnergyUsageActive = function(self, key)
+	
 		local ValidEntry = true
 		if not key then 
 			WARN('SetEnergyUsageActive --> No key specified')
@@ -474,6 +391,7 @@ Unit = Class(oldUnit) {
 	end,
 	
 	SetEnergyUsageInActive = function(self, key)
+	
 		local ValidEntry = true
 		if not key then 
 			WARN('SetEnergyUsageInActive --> No key specified')
@@ -490,6 +408,7 @@ Unit = Class(oldUnit) {
 	end,
 	
 	GetEnergyUsage = function(self, key)
+	
 		local ValidEntry = true
 		if not key then 
 			ValidEntry = false
@@ -505,6 +424,7 @@ Unit = Class(oldUnit) {
 	end,
 	
 	GetTotalEnergyUsage = function(self)
+	
 		local mai_energy = 0
 			
 		if self.Usages and table.getsize(self.Usages.Energy) > 0 then 
@@ -640,25 +560,32 @@ Unit = Class(oldUnit) {
 
 	-----------------------------------------------------------------------------------------
 	--Thanks to furyofthestars for this function.. slightly modified.
-	
 	UpdateConsumptionValues = function(self)
+	
+		local energy_rate = 0
+		local mass_rate = 0
+		
 		--FotS: CBFP v4 had a change in this function which I have (unfortunately) destructively
 		--hooked.  I've copy/pasted that change here to ensure this mod doesn't break that.
 		--Start CBFP v4 copy/paste
 		
 		--added by brute51 - to make sure we use the proper consumption values. [132]
 		if self.ActiveConsumption then
+		
 			local focus = self:GetFocusUnit()
-			if focus and self.WorkItem and self.WorkProgress < 1 and (focus:IsUnitState('Enhancing')
-				or focus:IsUnitState('Building')) then
+			
+			if focus and self.WorkItem and self.WorkProgress < 1 and (focus:IsUnitState('Enhancing') or focus:IsUnitState('Building')) then
+			
 				self.WorkItem = focus.WorkItem    --set our workitem to the focus unit work item, is specific for enhancing
+				
 			end
+			
 		end
+		
 		--FotS: End CBFP v4 copy/paste
 		local myBlueprint = self:GetBlueprint()
 
-		local energy_rate = 0
-		local mass_rate = 0
+
 		local build_rate = 0
 		
 		if not self.Dead then
@@ -673,34 +600,43 @@ Unit = Class(oldUnit) {
 			
 				-- if the unit is enhancing (as opposed to upgrading ie. - commander, subcommander)
 				if self.WorkItem then
+				
 					time, energy, mass = Game.GetConstructEconomyModel(self, self.WorkItem)
 				
 				-- if the unit is assisting something that is building ammo
 				elseif focus and focus:IsUnitState('SiloBuildingAmmo') then
+				
 					--GPG: If building silo ammo; create the energy and mass costs based on build rate
 					--of the silo against the build rate of the assisting unit
 					time, energy, mass = focus:GetBuildCosts(focus.SiloProjectile)
 
 					local siloBuildRate = focus:GetBuildRate() or 1
+					
 					energy = (energy / siloBuildRate) * (self:GetBuildRate() or 1)
 					mass = (mass / siloBuildRate) * (self:GetBuildRate() or 1)
 				
 				-- if the unit is upgrading or assisting an upgrade, or repairing something
 				elseif focus then
+				
 					--GPG: bonuses are already factored in by GetBuildCosts
 					time, energy, mass = self:GetBuildCosts(focus:GetBlueprint())
+					
 				end
 			
 				energy = energy * (self.EnergyBuildAdjMod or 1)
 				
 				if energy < 1 then
+				
 					energy = 0
+					
 				end
 			
 				mass = mass * (self.MassBuildAdjMod or 1)
 			
 				if mass < .1 then
+				
 					mass = 0
+					
 				end
 
 				energy_rate = energy / time
@@ -711,7 +647,9 @@ Unit = Class(oldUnit) {
 					
 					energy_rate = energy_rate + (myBlueprint.Economy.ActiveConsumptionPerSecondEnergy or 0)
 					mass_rate = mass_rate + (myBlueprint.Economy.ActiveConsumptionPerSecondMass or 0)
+					
 				end
+				
 			end
 
 			if self.MaintenanceConsumption then
@@ -741,118 +679,15 @@ Unit = Class(oldUnit) {
 		self:SetConsumptionPerSecondMass(mass_rate)
 
 		if (energy_rate > 0) or (mass_rate > 0) then
+		
 			self:SetConsumptionActive(true)
+			
 		else
+		
 			self:SetConsumptionActive(false)
+			
 		end
+		
 	end,
-	
-	############
-    ## SHIELDS
-    ############
-	
-
-	CreateShield = function(self, shieldSpec)
-        oldUnit.CreateShield(self, shieldSpec)
-		self.MyShieldType = 'Shield'
-    end,
-
-    CreatePersonalShield = function(self, shieldSpec)
-        oldUnit.CreatePersonalShield(self, shieldSpec)
-		self.MyShieldType = 'Personal'
-    end,
-
-    CreateAntiArtilleryShield = function(self, shieldSpec)
-        oldUnit.CreateAntiArtilleryShield(self, shieldSpec)
-		self.MyShieldType = 'AntiArtilleryShield'
-    end,
-
-	CreateDomeHunkerShield = function(self, shieldSpec)
-        local bp = self:GetBlueprint()
-        local bpShield = shieldSpec
-		
-        if not shieldSpec then
-            bpShield = bp.Defense.Shield
-        end
-		
-        if bpShield then
-            self:DestroyHunkerShield()
-            self.MyHunkerShield = HunkerShield.DomeHunkerShield {
-                Owner = self,
-                FactionName = bp.General.FactionName,
-                Size = bpShield.ShieldSize or 10,
-                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
-                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
-                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-				Mesh = bpShield.Mesh,
-				MeshZ = bpShield.MeshZ,
-				ImpactEffects = bpShield.ImpactEffects,
-				ImpactMesh = bpShield.ImpactMesh,
-				PassOverkillDamage = bpShield.PassOverkillDamage or false
-            }
-            self:SetFocusEntity(self.MyHunkerShield)
-            self:EnableShield()
-            self.Trash:Add(self.MyHunkerShield)
-			self.MyShieldType = 'HunkerShield'
-        end
-    end,
-	
-	CreatePersonalHunkerShield = function(self, shieldSpec)
-        local bp = self:GetBlueprint()
-        local bpShield = shieldSpec
-		
-        if not shieldSpec then
-            bpShield = bp.Defense.Shield
-        end
-		
-        if bpShield then
-            self:DestroyHunkerShield()
-            if bpShield.OwnerShieldMesh then
-                self.MyHunkerShield = HunkerShield.PersonalHunkerShield {
-                    Owner = self,
-                    FactionName = bp.General.FactionName,
-                    CollisionSizeX = bp.SizeX * 0.75 or 1,
-                    CollisionSizeY = bp.SizeY * 0.75 or 1,
-                    CollisionSizeZ = bp.SizeZ * 0.75 or 1,
-                    CollisionCenterX = bp.CollisionOffsetX or 0,
-                    CollisionCenterY = bp.CollisionOffsetY or 0,
-                    CollisionCenterZ = bp.CollisionOffsetZ or 0,
-                    OwnerShieldMesh = bpShield.OwnerShieldMesh,
-					ImpactEffects = 'UEFShieldHit01',
-                    ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                    ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                    ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
-                    ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                    ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-					PassOverkillDamage = bpShield.PassOverkillDamage or false
-                }
-				self:SetFocusEntity(self.MyHunkerShield)
-                self:EnableShield()
-                self.Trash:Add(self.MyHunkerShield)
-				self.MyShieldType = 'HunkerPersonal'
-            else
-                LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self:GetUnitId()),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
-            end
-        end
-    end,
-	
-	DestroyHunkerShield = function(self)
-        if self.MyHunkerShield then
-            self:ClearFocusEntity()
-            self.MyHunkerShield:Destroy()
-            self.MyHunkerShield = nil
-			self.MyShieldType = nil
-        end
-    end,
-	
-	DestroyShield = function(self)
-		oldUnit.DestroyShield(self)
-        self.MyShieldType = nil
-    end,
-	
-
 	
 }

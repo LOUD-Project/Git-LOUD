@@ -10,6 +10,7 @@ LOG("*DEBUG Mohodata userInit")
 
 __language = GetPreference('options_overrides.language', '')
 
+
 # Do global init
 doscript '/lua/globalInit.lua'
 
@@ -33,6 +34,7 @@ function PrintText(textData)
         import('/lua/ui/game/textdisplay.lua').PrintToScreen(data)
     end
 end
+
 
 # a table designed to allow communication from different user states to the front end lua state
 FrontEndData = {}

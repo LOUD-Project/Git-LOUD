@@ -68,6 +68,9 @@ local commandMode = false
 local modeData = false
 local issuedOneCommand = false
 
+
+local ignoreSelection = false
+
 local startBehaviors = {}
 local endBehaviors = {}
 

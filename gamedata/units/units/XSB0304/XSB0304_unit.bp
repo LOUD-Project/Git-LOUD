@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Construct = Sound {
             Bank = 'XSB',
@@ -21,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 42,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -39,15 +42,19 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+	
     CollisionOffsetZ = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 480,
-        Health = 15000,
-        MaxHealth = 15000,
-        RegenRate = 3,
+        Health = 12500,
+        MaxHealth = 12500,
+        RegenRate = 4,
     },
+	
     Description = '<LOC xsb0304_desc>Quantum Gateway',
+	
     Display = {
         AnimationDeath = {
             {
@@ -134,11 +141,12 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
 	
         BuildCostEnergy = 100000,
         BuildCostMass = 10000,
-        BuildRate = 90,
+        BuildRate = 80,
         BuildTime = 13500,
 		
         BuildableCategory = {
@@ -158,7 +166,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         Category = 'Strategic',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -184,15 +192,19 @@ UnitBlueprint {
         UnitName = '<LOC xsb0304_name>Aezthu-uhthe',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Quantum Gateway',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.65,
     LifeBarSize = 5.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -324,19 +336,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.75,
     SelectionSizeZ = 3.5,
     SelectionThickness = 0.27,
+	
     SizeX = 5,
     SizeY = 1.5,
     SizeZ = 5,
+	
     StrategicIconName = 'icon_structure3_transport',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

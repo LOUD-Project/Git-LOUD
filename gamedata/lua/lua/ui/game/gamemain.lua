@@ -262,7 +262,7 @@ function CreateUI(isReplay)
 		
 			if UnitData.VOs then
 			
-				if LOUDGETN(UnitData.VOs) > 0 then
+--				if LOUDGETN(UnitData.VOs) > 0 then
 				
 					for _,vo in pairs(UnitData.VOs) do
 					
@@ -283,11 +283,11 @@ function CreateUI(isReplay)
 					
 					UnitData.VOs = {}
 					
-				end
+--				end
 				
 			end
 			
-			WaitTicks(11)
+			WaitTicks(15)
 			
 		end
 		

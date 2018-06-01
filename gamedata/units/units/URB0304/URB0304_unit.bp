@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Target_01',
@@ -9,6 +10,7 @@ UnitBlueprint {
             'Target_06',
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'URB',
@@ -31,7 +33,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 42,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -49,14 +53,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 480,
-        Health = 15000,
-        MaxHealth = 15000,
-        RegenRate = 5,
+        Health = 12500,
+        MaxHealth = 12500,
+        RegenRate = 8,
     },
+	
     Description = '<LOC urb0304_desc>Quantum Gateway',
+	
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {
@@ -95,10 +102,11 @@ UnitBlueprint {
         },
         UniformScale = 0.07,
     },
+	
     Economy = {
         BuildCostEnergy = 100000,	#--60000,
         BuildCostMass = 10000,	#--6000,
-        BuildRate = 90,
+        BuildRate = 80,
         BuildTime = 13500,	#--8000,
         BuildableCategory = {
            	'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',
@@ -110,12 +118,14 @@ UnitBlueprint {
             'urb0304',
         },
     },
+	
     Footprint = {
         SizeX = 7,
         SizeZ = 7,
     },
+	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         Category = 'Strategic',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -140,15 +150,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Quantum Gateway',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.85,
     LifeBarSize = 6,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -320,19 +334,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.95,
     SelectionSizeZ = 3.65,
     SelectionThickness = 0.26,
+	
     SizeX = 4.75,
     SizeY = 2,
     SizeZ = 3.5,
+	
     StrategicIconName = 'icon_structure3_transport',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

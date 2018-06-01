@@ -19,6 +19,8 @@ local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Shield = import('/lua/shield.lua').Shield
 local UnitShield = import('/lua/shield.lua').UnitShield
 local AntiArtilleryShield = import('/lua/shield.lua').AntiArtilleryShield
+local DomeHunkerShield = import('/lua/shield.lua').DomeHunkerShield
+local PersonalHunkerShield = import('/lua/shield.lua').PersonalHunkerShield
 
 local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
 
@@ -26,6 +28,10 @@ local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
 local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
 
 local ApplyCheatBuffs = import('/lua/ai/aiutilities.lua').ApplyCheatBuffs
+
+-- from Domino Mod Support
+local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
+local AvailableToggles =  __DMSI.Custom_Toggles()
 
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -736,7 +742,161 @@ Unit = Class(moho.unit_methods) {
         end
 		
     end,
+	
+	############
+    ## toggles
+    ############
+	
+    EnableSpecialToggle = function(self)
+	
+        if self.EventCallbacks.SpecialToggleEnableFunction then
+		
+            self.EventCallbacks.SpecialToggleEnableFunction(self)
+			
+        end
+		
+    end,
 
+    DisableSpecialToggle = function(self)
+	
+        if self.EventCallbacks.SpecialToggleDisableFunction then
+		
+            self.EventCallbacks.SpecialToggleDisableFunction(self)
+			
+        end
+		
+    end,
+
+    AddSpecialToggleEnable = function(self, fn)
+	
+        if fn then
+		
+            self.EventCallbacks.SpecialToggleEnableFunction = fn
+			
+        end
+		
+    end,
+
+    AddSpecialToggleDisable = function(self, fn)
+	
+        if fn then
+		
+            self.EventCallbacks.SpecialToggleDisableFunction = fn
+			
+        end
+		
+    end,
+
+    EnableDefaultToggleCaps = function( self )
+	
+        if self.ToggleCaps then
+		
+            for k,v in self.ToggleCaps do
+			
+                self:AddToggleCap(v)
+				
+            end
+			
+        end
+		
+    end,
+
+    DisableDefaultToggleCaps = function( self )
+	
+        self.ToggleCaps = {}
+		
+		local counter = 0
+		
+        local capsCheckTable = {'RULEUTC_WeaponToggle', 'RULEUTC_ProductionToggle', 'RULEUTC_GenericToggle', 'RULEUTC_SpecialToggle'}
+		
+        for k,v in capsCheckTable do
+		
+            if self:TestToggleCaps(v) == true then
+			
+                self.ToggleCaps[counter+1] = v
+				counter = counter + 1
+				
+            end
+			
+            self:RemoveToggleCap(v)
+			
+        end
+		
+    end,
+	
+	-- all these Extra Caps functions come from Domino Mod Support
+	AddExtraCap = function(self, Cap)
+	
+		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
+			if not UnitData[self:GetEntityId()].Data[Cap] then
+				self.Sync[Cap] = true
+				self.Sync[Cap.. '_state'] = AvailableToggles[Cap].initialState
+			end
+		end
+		
+		self:RequestRefreshUI()
+	end,
+	
+	RemoveExtraCap = function(self, Cap)
+	
+		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
+			if UnitData[self:GetEntityId()].Data[Cap] then 
+				self.Sync[Cap] = false
+				self.Sync[Cap .. '_state'] = AvailableToggles[Cap].initialState
+			end
+		end
+		
+		self:RequestRefreshUI()
+	end,
+	
+	GetExtraBit = function(self, Cap)
+	
+		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then 
+			if not UnitData[self:GetEntityId()].Data[Cap] then
+				LOG('DMOD --> No Toggle exists on the unit by the name of ' .. Cap)
+			else
+				local ToggleData = UnitData[self:GetEntityId()].Data[Cap.. '_state']
+ 
+				if ToggleData then 
+					return true
+				else
+					return false
+				end
+			end
+		else
+			return nil
+		end
+	end,
+	
+	SetExtraBit = function(self, Cap, Param)
+	
+		if string.sub(Cap,1,8) == 'RULEETC_' and AvailableToggles[Cap] then
+			if not UnitData[self:GetEntityId()].Data[Cap] then
+				LOG('DMOD --> No Toggle exists on the unit by the name of ' .. Cap)
+			else
+				if Param then 
+					self.Sync[Cap .. '_state'] = Param
+					self:OnExtraToggleSet(Cap)
+				else
+					self.Sync[Cap .. '_state'] = Param
+					self:OnExtraToggleClear(Cap)
+				end
+				
+				self:RequestRefreshUI()
+			end
+		else
+			LOG('DMod --> Invalid Toggle Cap specified for SetExtraBit ' .. Cap)
+		end
+		
+	end,
+
+	OnExtraToggleClear = function(self, ToggleName)
+	end,
+	
+	OnExtraToggleSet = function(self, ToggleName)
+	end,
+	
+	-- standard script bits --
     OnScriptBitSet = function(self, bit)
 	
         if bit == 0 then			-- shield toggle
@@ -910,83 +1070,6 @@ Unit = Class(moho.unit_methods) {
     OnAfterTransferingOwnership = function(self, FromArmy)
 	
         self:DoUnitCallbacks('OnAfterTransferingOwnership')
-		
-    end,
-	
-    EnableSpecialToggle = function(self)
-	
-        if self.EventCallbacks.SpecialToggleEnableFunction then
-		
-            self.EventCallbacks.SpecialToggleEnableFunction(self)
-			
-        end
-		
-    end,
-
-    DisableSpecialToggle = function(self)
-	
-        if self.EventCallbacks.SpecialToggleDisableFunction then
-		
-            self.EventCallbacks.SpecialToggleDisableFunction(self)
-			
-        end
-		
-    end,
-
-    AddSpecialToggleEnable = function(self, fn)
-	
-        if fn then
-		
-            self.EventCallbacks.SpecialToggleEnableFunction = fn
-			
-        end
-		
-    end,
-
-    AddSpecialToggleDisable = function(self, fn)
-	
-        if fn then
-		
-            self.EventCallbacks.SpecialToggleDisableFunction = fn
-			
-        end
-		
-    end,
-
-    EnableDefaultToggleCaps = function( self )
-	
-        if self.ToggleCaps then
-		
-            for k,v in self.ToggleCaps do
-			
-                self:AddToggleCap(v)
-				
-            end
-			
-        end
-		
-    end,
-
-    DisableDefaultToggleCaps = function( self )
-	
-        self.ToggleCaps = {}
-		
-		local counter = 0
-		
-        local capsCheckTable = {'RULEUTC_WeaponToggle', 'RULEUTC_ProductionToggle', 'RULEUTC_GenericToggle', 'RULEUTC_SpecialToggle'}
-		
-        for k,v in capsCheckTable do
-		
-            if self:TestToggleCaps(v) == true then
-			
-                self.ToggleCaps[counter+1] = v
-				counter = counter + 1
-				
-            end
-			
-            self:RemoveToggleCap(v)
-			
-        end
 		
     end,
 
@@ -2610,6 +2693,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
+	
+		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }	
 		
 		local bp = GetBlueprint(self)
 
@@ -4580,6 +4665,8 @@ Unit = Class(moho.unit_methods) {
                 PassOverkillDamage = bpShield.PassOverkillDamage or false,
             }
 			
+			self.MyShieldType = 'Shield'
+			
             self:SetFocusEntity( self.MyShield )
 			
             self:EnableShield()
@@ -4619,6 +4706,8 @@ Unit = Class(moho.unit_methods) {
                     ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
                     PassOverkillDamage = bpShield.PassOverkillDamage != false, -- default to true
                 }
+				
+				self.MyShieldType = 'Personal'
 				
                 self:SetFocusEntity(self.MyShield)
 				
@@ -4662,11 +4751,97 @@ Unit = Class(moho.unit_methods) {
                 PassOverkillDamage = bpShield.PassOverkillDamage or false,
             }
 			
+			self.MyShieldType = 'AntiArtilleryShield'
+			
             self:SetFocusEntity(self.MyShield)
 			
             self:EnableShield()
 			
             self.Trash:Add(self.MyShield)
+			
+        end
+		
+    end,
+
+	CreateDomeHunkerShield = function(self, shieldSpec)
+	
+        local bp = GetBlueprint(self)
+		
+        local bpShield = shieldSpec or bp.Defense.Shield
+
+        if bpShield then
+		
+            self:DestroyHunkerShield()
+			
+            self.MyHunkerShield = DomeHunkerShield {
+                Owner = self,
+				Mesh = bpShield.Mesh,
+				MeshZ = bpShield.MeshZ,
+				ImpactMesh = bpShield.ImpactMesh,
+				ImpactEffects = bpShield.ImpactEffects,				
+                Size = bpShield.ShieldSize or 10,
+                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
+                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
+                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
+                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
+                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
+				PassOverkillDamage = bpShield.PassOverkillDamage or false
+            }
+			
+			self.MyShieldType = 'HunkerShield'
+			
+            self:SetFocusEntity(self.MyHunkerShield)
+			
+            self:EnableShield()
+			
+            self.Trash:Add(self.MyHunkerShield)
+
+        end
+		
+    end,
+
+	CreatePersonalHunkerShield = function(self, shieldSpec)
+	
+        local bp = self:GetBlueprint()
+		
+        local bpShield = shieldSpec or bp.Defense.Shield
+		
+        if bpShield then
+		
+            self:DestroyHunkerShield()
+			
+            if bpShield.OwnerShieldMesh then
+			
+                self.MyHunkerShield = PersonalHunkerShield {
+                    Owner = self,
+                    CollisionSizeX = bp.SizeX * 0.75 or 1,
+                    CollisionSizeY = bp.SizeY * 0.75 or 1,
+                    CollisionSizeZ = bp.SizeZ * 0.75 or 1,
+                    CollisionCenterX = bp.CollisionOffsetX or 0,
+                    CollisionCenterY = bp.CollisionOffsetY or 0,
+                    CollisionCenterZ = bp.CollisionOffsetZ or 0,
+                    OwnerShieldMesh = bpShield.OwnerShieldMesh,
+					ImpactEffects = 'UEFShieldHit01',
+                    ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
+                    ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
+                    ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
+                    ShieldRegenRate = bpShield.ShieldRegenRate or 1,
+                    ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
+					PassOverkillDamage = bpShield.PassOverkillDamage or false
+                }
+				
+				self.MyShieldType = 'HunkerPersonal'				
+				
+				self:SetFocusEntity(self.MyHunkerShield)
+				
+                self:EnableShield()
+				
+                self.Trash:Add(self.MyHunkerShield)
+
+            else
+                LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self:GetUnitId()),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
+            end
 			
         end
 		
@@ -4721,10 +4896,24 @@ Unit = Class(moho.unit_methods) {
             self:ClearFocusEntity()
             self.MyShield:Destroy()
             self.MyShield = nil
+			self.MyShieldType = nil
 			
         end
 		
     end,
+	
+	DestroyHunkerShield = function(self)
+	
+        if self.MyHunkerShield then
+		
+            self:ClearFocusEntity()
+            self.MyHunkerShield:Destroy()
+            self.MyHunkerShield = nil
+			self.MyShieldType = nil
+			
+        end
+    end,
+		
 
     ShieldIsOn = function(self)
 	

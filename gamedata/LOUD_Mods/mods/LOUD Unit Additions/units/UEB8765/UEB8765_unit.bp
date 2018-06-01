@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'ExperimentalStorageAdjacencyBuff',
+	
     Audio = {
         Killed = Sound {
             Bank = 'Explosions',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -27,25 +31,26 @@ UnitBlueprint {
         'EXPERIMENTAL',
         'MASSSTORAGE',
         'ENERGYSTORAGE',
-        'DRAGBUILD',
         'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2126,# 1% Health + .1% Energy Storage + 1% Mass Storage
-        Health = 12550,
-        MaxHealth = 12550,
-        RegenRate = 20,
+        Health = 7500,
+        MaxHealth = 7500,
+        RegenRate = 10,
     },
+	
     Description = '<LOC ueb8765_desc>Experimental Resource Storage',
+	
     Display = {
-        Abilities = {
-            'Volatile',
-        },
+        Abilities = { 'Volatile' },
         Mesh = {
             IconFadeInZoom = 200,
             LODs = {
@@ -80,20 +85,20 @@ UnitBlueprint {
                 Width = 18,
             },
         },
-        UniformScale = 0.900,
+        UniformScale = 0.7,
     },
+	
     Economy = {
-        BuildCostEnergy = 1440000,
-        BuildCostMass = 54000,
-        BuildTime = 40500,
-        RebuildBonusIds = {
-            'ueb8765',
-        },
-        StorageMass = 100000,
-        StorageEnergy = 1000000,
+        BuildCostEnergy = 850000,
+        BuildCostMass = 35000,
+        BuildTime = 36500,
+
+        StorageMass = 32000,
+        StorageEnergy = 500000,
     },
+	
     General = {
-	CapCost = 10,
+		CapCost = 10,
         Category = 'Experimental',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -116,16 +121,20 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Experimental Resource Storage',
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.5,
     LifeBarSize = 8,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -150,14 +159,18 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 6,
     SelectionSizeZ = 6,
     SelectionThickness = 0.25,
-    SizeX = 12,
-    SizeY = 12,
-    SizeZ = 12,
+	
+    SizeX = 7,
+    SizeY = 5,
+    SizeZ = 7,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 250,
+	
 	Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -174,12 +187,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
-            NukeInnerRingDamage = 14500,
-            NukeInnerRingRadius = 15,
-            NukeInnerRingTotalTime = 0,
-            NukeOuterRingDamage = 5500,
-            NukeOuterRingRadius = 25,
-            NukeOuterRingTotalTime = 0,
+            NukeInnerRingDamage = 12500,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTotalTime = 1,
+            NukeOuterRingDamage = 3500,
+            NukeOuterRingRadius = 40,
+            NukeOuterRingTotalTime = 1,
             ProjectileId = '/effects/Entities/UEFNukeEffectController01/UEFNukeEffectController01_proj.bp',
             RackBones = {
                 {
@@ -197,18 +210,4 @@ UnitBlueprint {
         },
     },
 
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.025,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
 }
