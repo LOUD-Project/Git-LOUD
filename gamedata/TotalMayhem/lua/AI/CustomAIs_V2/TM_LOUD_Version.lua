@@ -1,4 +1,4 @@
 AI = {
-	Name = "TotalMayhem.scd",
-	Version = "LOUD 3.8",
+	Name = "TotalMayhem",
+	Version = "LOUD 3.9",
 }

@@ -9,8 +9,8 @@ local Cinematics = import('/lua/cinematics.lua')
 local SimUIVars = import('/lua/sim/SimUIState.lua')
 local Utilities = import('/lua/Utilities.lua') # enabled so we can hide strat icons during NISs
 
-PingGroups = import('/lua/SimPingGroup.lua')
-Objectives = import('/lua/SimObjectives.lua')
+--PingGroups = import('/lua/SimPingGroup.lua')
+--Objectives = import('/lua/SimObjectives.lua')
 
 function FakeGateInUnit(unit, callbackFunction)
     local faction

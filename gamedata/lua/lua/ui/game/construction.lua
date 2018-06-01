@@ -384,45 +384,57 @@ function GetEnhancementPrefix(unitID, iconID)
 	
     local prefix = '/game/' .. factionPrefix .. iconID
 	
-	--####################
-	--Exavier Code Block +
-	--####################
-	
 	local EXunitID = unitID
 	
 	if BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID) and DiskGetFileInfo(BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID..'_btn_up.dds') then
+	
 		-- Check manually assigned overwrite table
 		prefix = BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID
-		return prefix
+		--return prefix
+		
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'A') and string.sub(unitID, 2, 2) == 'a' then
+	
 		local EXunitID = iconID..'A'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix
+		--return prefix
+		
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'U') and string.sub(unitID, 2, 2) == 'e' then
+	
 		local EXunitID = iconID..'U'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix
+		--return prefix
+		
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'C') and string.sub(unitID, 2, 2) == 'r' then
+	
 		local EXunitID = iconID..'C'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix
+		--return prefix
+		
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'S') and string.sub(unitID, 2, 2) == 's' then
+	
 		local EXunitID = iconID..'S'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix
+		--return prefix
+		
 	elseif DiskGetFileInfo('/textures/ui/common'..prefix..'_btn_up.dds') then
+	
 		prefix = '/textures/ui/common'..prefix
-		return prefix
+		--return prefix
+		
 	else
+	
 		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
+		
 			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
 			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
 			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
+			
 		end
 		
-		return prefix
+		--return prefix
+		
 	end	
-	
+
     return prefix
 end
 
@@ -441,72 +453,65 @@ function GetEnhancementTextures(unitID, iconID)
     end
 	
     local prefix = '/game/' .. factionPrefix .. iconID
-	
-	--####################
-	--Exavier Code Block +
-	--####################
+
 	local EXunitID = unitID
+	
 	if BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID) and DiskGetFileInfo(BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID..'_btn_up.dds') then
+	
 		-- Check manually assigned overwrite table
 		prefix = BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID
-		return prefix..'_btn_up.dds',
-			prefix..'_btn_down.dds',
-			prefix..'_btn_over.dds',
-			prefix..'_btn_up.dds',
-			prefix..'_btn_sel.dds'
+		
+		return prefix..'_btn_up.dds', prefix..'_btn_down.dds', prefix..'_btn_over.dds', prefix..'_btn_up.dds', prefix..'_btn_sel.dds'
+
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'A') and string.sub(unitID, 2, 2) == 'a' then
+	
 		local EXunitID = iconID..'A'
+		
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix..'_btn_up.dds',
-			prefix..'_btn_down.dds',
-			prefix..'_btn_over.dds',
-			prefix..'_btn_up.dds',
-			prefix..'_btn_sel.dds'
+		
+		return prefix..'_btn_up.dds', prefix..'_btn_down.dds', prefix..'_btn_over.dds',	prefix..'_btn_up.dds', prefix..'_btn_sel.dds'
+
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'U') and string.sub(unitID, 2, 2) == 'e' then
+	
 		local EXunitID = iconID..'U'
+		
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix..'_btn_up.dds',
-			prefix..'_btn_down.dds',
-			prefix..'_btn_over.dds',
-			prefix..'_btn_up.dds',
-			prefix..'_btn_sel.dds'
+
+		return prefix..'_btn_up.dds', prefix..'_btn_down.dds', prefix..'_btn_over.dds',	prefix..'_btn_up.dds', prefix..'_btn_sel.dds'
+
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'C') and string.sub(unitID, 2, 2) == 'r' then
+	
 		local EXunitID = iconID..'C'
+		
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix..'_btn_up.dds',
-			prefix..'_btn_down.dds',
-			prefix..'_btn_over.dds',
-			prefix..'_btn_up.dds',
-			prefix..'_btn_sel.dds'
+		
+		return prefix..'_btn_up.dds', prefix..'_btn_down.dds', prefix..'_btn_over.dds',	prefix..'_btn_up.dds', prefix..'_btn_sel.dds'
+		
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'S') and string.sub(unitID, 2, 2) == 's' then
+	
 		local EXunitID = iconID..'S'
+		
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		return prefix..'_btn_up.dds',
-			prefix..'_btn_down.dds',
-			prefix..'_btn_over.dds',
-			prefix..'_btn_up.dds',
-			prefix..'_btn_sel.dds'
+		
+		return prefix..'_btn_up.dds', prefix..'_btn_down.dds', prefix..'_btn_over.dds',	prefix..'_btn_up.dds', prefix..'_btn_sel.dds'
+		
 	elseif DiskGetFileInfo('/textures/ui/common'..prefix..'_btn_up.dds') then
-		return UIUtil.UIFile(prefix..'_btn_up.dds'),
-			UIUtil.UIFile(prefix..'_btn_down.dds'),
-			UIUtil.UIFile(prefix..'_btn_over.dds'),
-			UIUtil.UIFile(prefix..'_btn_up.dds'),
-			UIUtil.UIFile(prefix..'_btn_sel.dds')
+	
+		return UIUtil.UIFile(prefix..'_btn_up.dds'),UIUtil.UIFile(prefix..'_btn_down.dds'),UIUtil.UIFile(prefix..'_btn_over.dds'),UIUtil.UIFile(prefix..'_btn_up.dds'),UIUtil.UIFile(prefix..'_btn_sel.dds')
+		
 	else
+	
 		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
+		
 			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
 			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
 			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
+			
 		end
-		return UIUtil.UIFile(prefix..'_btn_up.dds'),
-			UIUtil.UIFile(prefix..'_btn_down.dds'),
-			UIUtil.UIFile(prefix..'_btn_over.dds'),
-			UIUtil.UIFile(prefix..'_btn_up.dds'),
-			UIUtil.UIFile(prefix..'_btn_sel.dds')
+		
+		return UIUtil.UIFile(prefix..'_btn_up.dds'),UIUtil.UIFile(prefix..'_btn_down.dds'),UIUtil.UIFile(prefix..'_btn_over.dds'),UIUtil.UIFile(prefix..'_btn_up.dds'),UIUtil.UIFile(prefix..'_btn_sel.dds')
+		
 	end
-	--####################
-	--Exavier Code Block -
-	--####################
 
 end
 
@@ -544,11 +549,7 @@ function CommonLogic()
         local function SetIconTextures(control)
 		
             local path = '/icons/units/'..control.Data.id..'_icon.dds'
-			
-			--####################
-			--Exavier Code Block +
-			--####################
-			
+
 			local EXunitID = control.Data.id
 			
 			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
@@ -580,10 +581,6 @@ function CommonLogic()
 				
 			end
 			
-			--####################
-			--Exavier Code Block -
-			--####################
-			
             if __blueprints[control.Data.id].StrategicIconName then
 			
                 local iconName = __blueprints[control.Data.id].StrategicIconName
@@ -611,14 +608,19 @@ function CommonLogic()
         if type == 'spacer' then
 		
             if controls.secondaryChoices._vertical then
+			
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 control.Width:Set(48)
                 control.Height:Set(20)
+				
             else
+			
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_bmp.dds'))
                 control.Width:Set(20)
                 control.Height:Set(48)
+				
             end
+			
             control.Icon.Width:Set(control.Icon.BitmapWidth)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
@@ -631,7 +633,9 @@ function CommonLogic()
         elseif type == 'queuestack' or type == 'attachedunit' then
 		
             SetIconTextures(control)
+			
             local up, down, over, dis = GetBackgroundTextures(control.Data.id)
+			
             control:SetNewTextures(up, down, over, dis)
             control:SetUpAltButtons(down,down,down,down)
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
@@ -640,6 +644,7 @@ function CommonLogic()
             control.Width:Set(48)
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
+			
 #            if __blueprints[control.Data.id].General.ConstructionBar then
 #                control.ConsBar:SetAlpha(1, true)
 #            else
@@ -690,12 +695,18 @@ function CommonLogic()
         btn.Glow = Bitmap(btn)
         btn.Glow:SetTexture(UIUtil.UIFile('/game/units_bmp/glow.dds'))
         btn.Glow:DisableHitTest()
+		
         LayoutHelpers.FillParent(btn.Glow, btn)
+		
         btn.Glow:SetAlpha(0)
         btn.Glow.Incrementing = 1
+		
         btn.Glow.OnFrame = function(glow, elapsedTime)
+		
             local curAlpha = glow:GetAlpha()
+			
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing * GLOW_SPEED)
+			
             if curAlpha > UPPER_GLOW_THRESHHOLD then
                 curAlpha = UPPER_GLOW_THRESHHOLD
                 glow.Incrementing = -1
@@ -703,17 +714,22 @@ function CommonLogic()
                 curAlpha = LOWER_GLOW_THRESHHOLD
                 glow.Incrementing = 1
             end
+			
             glow:SetAlpha(curAlpha)
+			
         end
         
         btn.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
                 PlaySound(Sound({Cue = "UI_MFD_Rollover", Bank = "Interface"}))
                 Tooltip.CreateMouseoverDisplay(self, self.tooltipID, nil, false)
             elseif event.Type == 'MouseExit' then
                 Tooltip.DestroyMouseoverDisplay()
             end
+			
             return Button.HandleEvent(self, event)
+			
         end
         
         btn.OnRolloverEvent = OnRolloverHandler
@@ -723,6 +739,7 @@ function CommonLogic()
     end
     
     controls.choices.CreateElement = function()
+	
         local btn = Button(controls.choices)
         
         btn.Icon = Bitmap(btn)
@@ -738,6 +755,7 @@ function CommonLogic()
         btn.Count:SetColor('ffffffff')
         btn.Count:SetDropShadow(true)
         btn.Count:DisableHitTest()
+		
         LayoutHelpers.AtBottomIn(btn.Count, btn)
         LayoutHelpers.AtRightIn(btn.Count, btn)
         
@@ -748,19 +766,26 @@ function CommonLogic()
         btn.LowFuel = Bitmap(btn)
         btn.LowFuel:SetSolidColor('ffff0000')
         btn.LowFuel:DisableHitTest()
+		
         LayoutHelpers.FillParent(btn.LowFuel, btn)
+		
         btn.LowFuel:SetAlpha(0)
         btn.LowFuel:DisableHitTest()
         btn.LowFuel.Incrementing = 1
         
         btn.LowFuelIcon = Bitmap(btn.LowFuel, UIUtil.UIFile('/game/unit_view_icons/fuel.dds'))
+		
         LayoutHelpers.AtLeftIn(btn.LowFuelIcon, btn, 4)
         LayoutHelpers.AtBottomIn(btn.LowFuelIcon, btn, 4)
+		
         btn.LowFuelIcon:DisableHitTest()
         
         btn.LowFuel.OnFrame = function(glow, elapsedTime)
+		
             local curAlpha = glow:GetAlpha()
+			
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing)
+			
             if curAlpha > .4 then
                 curAlpha = .4
                 glow.Incrementing = -1
@@ -768,18 +793,26 @@ function CommonLogic()
                 curAlpha = 0
                 glow.Incrementing = 1
             end
+			
             glow:SetAlpha(curAlpha)
+			
         end
         
         btn.Glow = Bitmap(btn)
         btn.Glow:SetTexture(UIUtil.UIFile('/game/units_bmp/glow.dds'))
         btn.Glow:DisableHitTest()
+		
         LayoutHelpers.FillParent(btn.Glow, btn)
+		
         btn.Glow:SetAlpha(0)
         btn.Glow.Incrementing = 1
+		
         btn.Glow.OnFrame = function(glow, elapsedTime)
+		
             local curAlpha = glow:GetAlpha()
+			
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing * GLOW_SPEED)
+			
             if curAlpha > UPPER_GLOW_THRESHHOLD then
                 curAlpha = UPPER_GLOW_THRESHHOLD
                 glow.Incrementing = -1
@@ -787,24 +820,32 @@ function CommonLogic()
                 curAlpha = LOWER_GLOW_THRESHHOLD
                 glow.Incrementing = 1
             end
+			
             glow:SetAlpha(curAlpha)
         end
         
-        
         btn.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 PlaySound(Sound({Cue = "UI_MFD_Rollover", Bank = "Interface"}))
                 Tooltip.CreateMouseoverDisplay(self, self.tooltipID, nil, false)
+				
             elseif event.Type == 'MouseExit' then
+			
                 Tooltip.DestroyMouseoverDisplay()
+				
             end
+			
             return Button.HandleEvent(self, event)
+			
         end
         
         btn.OnRolloverEvent = OnRolloverHandler
         btn.OnClick = OnClickHandler
         
         return btn
+		
     end
     
     controls.choices.SetControlToType = function(control, type)
@@ -814,11 +855,7 @@ function CommonLogic()
             local id = optID or control.Data.id
 			
             local path = '/icons/units/'..id..'_icon.dds'
-			
-			--####################
-			--Exavier Code Block +
-			--####################
-			
+
 			local EXunitID = control.Data.id
 			
 			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
@@ -855,11 +892,7 @@ function CommonLogic()
 				end
 				
 			end
-			
-			--####################
-			--Exavier Code Block -
-			--####################
-			
+
             if __blueprints[id].StrategicIconName then
 			
                 local iconName = __blueprints[id].StrategicIconName
@@ -891,6 +924,7 @@ function CommonLogic()
             control.Count:SetText('')
             control:Disable()
             control:SetSolidColor('00000000')
+			
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/arrow_vert_bmp.dds'))
                 control.Width:Set(48)
@@ -900,6 +934,7 @@ function CommonLogic()
                 control.Width:Set(20)
                 control.Height:Set(48)
             end
+			
             control.Icon.Depth:Set(function() return control.Depth() + 5 end)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Icon.Width:Set(30)
@@ -920,6 +955,7 @@ function CommonLogic()
                 control.Width:Set(20)
                 control.Height:Set(48)
             end
+			
             control.Icon.Width:Set(control.Icon.BitmapWidth)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
@@ -950,13 +986,19 @@ function CommonLogic()
 #            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+			
             if control.Data.Disabled then
+			
                 control:Disable()
+				
                 if not control.Data.Selected then
                     control.Icon:SetSolidColor('aa000000')
                 end
+				
             else
+			
                 control:Enable()
+				
             end
 			
         elseif type == 'templates' then
@@ -970,11 +1012,7 @@ function CommonLogic()
             if control.Data.template.icon then
 			
                 local path = '/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds'
-				
-				--####################
-				--Exavier Code Block +
-				--####################
-				
+
 				local EXunitID = control.Data.id
 				
 				if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
@@ -1012,11 +1050,7 @@ function CommonLogic()
 					end
 					
 				end
-				
-				--####################
-				--Exavier Code Block -
-				--####################
-				
+
             else
 			
                 control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
@@ -1059,6 +1093,7 @@ function CommonLogic()
             control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.BuildKey = nil
+			
             if showBuildIcons then 
                 local unitBuildKeys = BuildMode.GetUnitKeys(sortedOptions.selection[1]:GetBlueprint().BlueprintId, GetCurrentTechTab())
                 control.Count:SetText(unitBuildKeys[control.Data.id] or '')
@@ -1066,26 +1101,37 @@ function CommonLogic()
             else
                 control.Count:SetText('')
             end
+			
             control.Icon:Show()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
+			
 #            if __blueprints[control.Data.id].General.ConstructionBar then
 #                control.ConsBar:SetAlpha(1, true)
 #            else
 #                control.ConsBar:SetAlpha(0, true)
 #            end
+
             control.LowFuel:SetNeedsFrameUpdate(false)
+			
             if newTechUnits and table.find(newTechUnits, control.Data.id) then
+			
                 table.remove(newTechUnits, table.find(newTechUnits, control.Data.id))
+				
                 control.NewInd = Bitmap(control, UIUtil.UIFile('/game/selection/selection_brackets_player_highlighted.dds'))
                 control.NewInd.Height:Set(80)
                 control.NewInd.Width:Set(80)
+				
                 LayoutHelpers.AtCenterIn(control.NewInd, control)
+				
                 control.NewInd:DisableHitTest()
                 control.NewInd.Incrementing = false
                 control.NewInd:SetNeedsFrameUpdate(true)
+				
                 control.NewInd.OnFrame = function(ind, delta)
+				
                     local newAlpha = ind:GetAlpha() - delta / 5
+					
                     if newAlpha < 0 then
                         ind:SetAlpha(0)
                         ind:SetNeedsFrameUpdate(false)
@@ -1093,8 +1139,11 @@ function CommonLogic()
                     else
                         ind:SetAlpha(newAlpha)
                     end
+					
                     if ind.Incrementing then
+					
                         local newheight = ind.Height() + delta * 100
+						
                         if newheight > 80 then
                             ind.Height:Set(80)
                             ind.Width:Set(80)
@@ -1103,8 +1152,11 @@ function CommonLogic()
                             ind.Height:Set(newheight)
                             ind.Width:Set(newheight)
                         end
+						
                     else
+					
                         local newheight = ind.Height() - delta * 100
+						
                         if newheight < 50 then
                             ind.Height:Set(50)
                             ind.Width:Set(50)
@@ -1113,6 +1165,7 @@ function CommonLogic()
                             ind.Height:Set(newheight)
                             ind.Width:Set(newheight)
                         end
+						
                     end
                 end
             end
@@ -1120,6 +1173,7 @@ function CommonLogic()
         elseif type == 'unitstack' then
 		
             SetIconTextures(control)
+			
             control:SetNewTextures(GetBackgroundTextures(control.Data.id))
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
             control.mAltToggledFlag = false
@@ -1128,26 +1182,32 @@ function CommonLogic()
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
             control.LowFuel:SetAlpha(0, true)
+			
 #            if __blueprints[control.Data.id].General.ConstructionBar then
 #                control.ConsBar:SetAlpha(1, true)
 #            else
 #                control.ConsBar:SetAlpha(0, true)
 #            end
+
             control.BuildKey = nil
+			
             if control.Data.lowFuel then
                 control.LowFuel:SetNeedsFrameUpdate(true)
                 control.LowFuelIcon:SetAlpha(1)
             else
                 control.LowFuel:SetNeedsFrameUpdate(false)
             end
+			
             if table.getn(control.Data.units) > 1 then 
                 control.Count:SetText(table.getn(control.Data.units))
                 control.Count:SetColor('ffffffff')
             else
                 control.Count:SetText('')
             end
+			
             control.Icon:Show()
             control:Enable()
+			
         end
 		
     end
@@ -1155,26 +1215,44 @@ function CommonLogic()
 end
 
 function OnRolloverHandler(button, state)
+
     local item = button.Data
+	
     if state == 'enter' then
+	
         button.Glow:SetNeedsFrameUpdate(true)
+		
         if item.type == 'item' then
+		
             UnitViewDetail.Show(__blueprints[item.id], sortedOptions.selection[1], item.id)
+			
         elseif item.type == 'enhancement' then
+		
             UnitViewDetail.ShowEnhancement(item.enhTable, item.unitID, item.icon, GetEnhancementPrefix(item.unitID, item.icon), sortedOptions.selection[1])
+			
         end
+		
     else
+	
         button.Glow:SetNeedsFrameUpdate(false)
         button.Glow:SetAlpha(0)
+		
         UnitViewDetail.Hide()
+		
     end
+	
 end
 
 function OnClickHandler(button, modifiers)
+
     PlaySound(Sound({Cue = "UI_MFD_Click", Bank = "Interface"}))
-    local item = button.Data
+    
+	local item = button.Data
+	
     if item.type == 'item' then
+	
         ClearBuildTemplates()
+		
         local blueprint = __blueprints[item.id]
         local count = 1
         local performUpgrade = false
@@ -1185,118 +1263,186 @@ function OnClickHandler(button, modifiers)
         end
 
         if modifiers.Left then
-            # see if we are issuing an upgrade order
+		
+            -- see if we are issuing an upgrade order
             if blueprint.General.UpgradesFrom == 'none' then
+			
                 performUpgrade = false
+				
             else
+			
                 for i,v in sortedOptions.selection do
-                    if v then   # it's possible that your unit will have died by the time this gets to it
+				
+                    if v then   -- it's possible that your unit will have died by the time this gets to it
+					
                         local unitBp = v:GetBlueprint()
+						
                         if blueprint.General.UpgradesFrom == unitBp.BlueprintId then
+						
                             performUpgrade = true
+							
                         elseif blueprint.General.UpgradesFrom == unitBp.General.UpgradesTo then
-                            performUpgrade = true
+                       
+							performUpgrade = true
+							
                         elseif blueprint.General.UpgradesFromBase != "none" then
-                            # try testing against the base
+						
+                            -- try testing against the base
                             if blueprint.General.UpgradesFromBase == unitBp.BlueprintId then
+							
                                 performUpgrade = true
+								
                             elseif blueprint.General.UpgradesFromBase == unitBp.General.UpgradesFromBase then
+							
                                 performUpgrade = true
+								
                             end
-                        end                        
+							
+                        end 
+						
                     end
+					
                 end
+				
             end
 
             if performUpgrade then
+			
                 IssueBlueprintCommand("UNITCOMMAND_Upgrade", item.id, 1, false)
+				
             else
+			
                 if blueprint.Physics.MotionType == 'RULEUMT_None' or EntityCategoryContains(categories.NEEDMOBILEBUILD, item.id) then
-                    # stationary means it needs to be placed, so go in to build mobile mode
+				
+                    -- stationary means it needs to be placed, so go in to build mobile mode
 					import('/lua/ui/game/commandmode.lua').StartCommandMode(buildCmd, {name=item.id})
+					
                 else
-                    # if the item to build can move, it must be built by a factory
-                    #TODO -what about mobile factories?
+				
+                    -- if the item to build can move, it must be built by a factory
                     IssueBlueprintCommand("UNITCOMMAND_BuildFactory", item.id, count)
+					
                 end
+				
             end
+			
         else
+		
             local unitIndex = false
+			
             for index, unitStack in currentCommandQueue do
+			
                 if unitStack.id == item.id then
                     unitIndex = index
                 end
+				
             end
+			
             if unitIndex != false then
                 DecreaseBuildCountInQueue(unitIndex, count)
             end
+			
         end
+		
     elseif item.type == 'unitstack' then
+	
         if modifiers.Left then
+		
             SelectUnits(item.units)
+			
         elseif modifiers.Right then
+		
             local selection = {}
+			
             for _, unit in sortedOptions.selection do
+			
                 local found = false
+				
                 for _, checkUnit in item.units do
+				
                     if checkUnit == unit then
                         found = true
                         break
                     end
+					
                 end
+				
                 if not found then
                     table.insert(selection, unit)
                 end
+				
             end
+			
             SelectUnits(selection)
+			
         end
+		
     elseif item.type == 'attachedunit' then
+	
         if modifiers.Left then
+		
             -- Toggling selection of the entity
             button:OnAltToggle()
     
             -- Add or Remove the entity to the session selection
             if button.mAltToggledFlag then
+			
                 AddToSessionExtraSelectList(item.unit)
+				
             else
+			
                 RemoveFromSessionExtraSelectList(item.unit)
+				
             end
+			
         end
+		
     elseif item.type == 'templates' then
+	
         ClearBuildTemplates()
+		
         if modifiers.Right then
+		
             if button.OptionMenu then
                 button.OptionMenu:Destroy()
                 button.OptionMenu = nil
             else
                 button.OptionMenu = CreateTemplateOptionsMenu(button)
             end
+			
             for _, otherBtn in controls.choices.Items do
                 if button != otherBtn and otherBtn.OptionMenu then
                     otherBtn.OptionMenu:Destroy()
                     otherBtn.OptionMenu = false
                 end
             end
+			
         else
+		
             import('/lua/ui/game/commandmode.lua').StartCommandMode('build', {name=item.template.templateData[3][1]})
             SetActiveBuildTemplate(item.template.templateData)
         end
+		
     elseif item.type == 'enhancement' then
+	
         local existingEnhancements = EnhanceCommon.GetEnhancements(sortedOptions.selection[1]:GetEntityId())
+		
         if existingEnhancements[item.enhTable.Slot] and existingEnhancements[item.enhTable.Slot] != item.enhTable.Prerequisite then
+		
             if existingEnhancements[item.enhTable.Slot] != item.id then
-            UIUtil.QuickDialog(GetFrame(0), "<LOC enhancedlg_0000>Choosing this enhancement will destroy the existing enhancement in this slot.  Are you sure?", 
+			
+				UIUtil.QuickDialog(GetFrame(0), "<LOC enhancedlg_0000>Choosing this enhancement will destroy the existing enhancement in this slot.  Are you sure?", 
                 "<LOC _Yes>", function()
                         ForkThread(function()
                             local orderData = {
-                                # UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
+                                -- UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
                                 TaskName = "EnhanceTask",
                                 Enhancement = existingEnhancements[item.enhTable.Slot]..'Remove',
                             }
                             IssueCommand("UNITCOMMAND_Script", orderData, true)
                             WaitSeconds(.5)
                             orderData = {
-                                # UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
+                                -- UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
                                 TaskName = "EnhanceTask",
                                 Enhancement = item.id,
                             }
@@ -1306,8 +1452,11 @@ function OnClickHandler(button, modifiers)
                 "<LOC _No>", nil,
                 nil, nil,
                 true,  {worldCover = true, enterButton = 1, escapeButton = 2})
+				
             end
+			
         else
+		
             local orderData = {
                 # UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
                 TaskName = "EnhanceTask",
@@ -1315,53 +1464,81 @@ function OnClickHandler(button, modifiers)
             }
             IssueCommand("UNITCOMMAND_Script", orderData, true)
         end
+		
     elseif item.type == 'queuestack' then
+	
         local count = 1
+		
         if modifiers.Shift or modifiers.Ctrl then
             count = 5
         end
+		
         if modifiers.Left then
+		
             IncreaseBuildCountInQueue(item.position, count)
+			
         elseif modifiers.Right then
+		
             DecreaseBuildCountInQueue(item.position, count)
+			
         end
+		
     end
+	
 end
 
 local warningtext = false
+
 function ProcessKeybinding(key, templateID)
+
     if key == UIUtil.VK_ESCAPE then
+	
         Templates.ClearTemplateKey(capturingKeys or templateID)
         RefreshUI()
+		
     elseif key == string.byte('b') or key == string.byte('B') then
+	
         warningtext:SetText(LOC("<LOC CONSTRUCT_0005>Key must not be b!"))
+		
     else
+	
         if (key >= string.byte('A') and key <= string.byte('Z')) or (key >= string.byte('a') and key <= string.byte('z')) then
+		
             if (key >= string.byte('a') and key <= string.byte('z')) then
                 key = string.byte(string.upper(string.char(key)))
             end
+			
             if Templates.SetTemplateKey(capturingKeys or templateID, key) then
                 RefreshUI()
             else
                 warningtext:SetText(LOCF("<LOC CONSTRUCT_0006>%s is already used!", string.char(key)))
             end
+			
         else
+		
             warningtext:SetText(LOC("<LOC CONSTRUCT_0007>Key must be a-z!"))
+			
         end
+		
     end
+	
     return true
+	
 end
 
 function CreateTemplateOptionsMenu(button)
+
     local group = Group(button)
+	
     group.Depth:Set(button:GetRootFrame():GetTopmostDepth() + 1)
+	
     local title = Edit(group)
+	
     local items = {
-        {label = '<LOC _Rename>Rename',
-        action = function()
-            title:AcquireFocus()
-        end,},
+        {label = '<LOC _Rename>Rename', action = function() title:AcquireFocus() end,},
+		
         {label = '<LOC _Change_Icon>Change Icon',
+		
         action = function()
             local contents = {}
             local controls = {}
@@ -1384,6 +1561,7 @@ function CreateTemplateOptionsMenu(button)
             end)
         end,
         arrow = true},
+		
         {label = '<LOC _Change_Keybinding>Change Keybinding',
         action = function()
             local text = UIUtil.CreateText(group, "<LOC CONSTRUCT_0008>Press a key to bind", 12, UIUtil.bodyFont)
@@ -1409,6 +1587,7 @@ function CreateTemplateOptionsMenu(button)
                 RefreshUI()
             end, false)
         end,},
+		
         {label = '<LOC _Send_to>Send to',
         action = function()
             local armies = GetArmiesTable().armiesTable
@@ -1435,20 +1614,29 @@ function CreateTemplateOptionsMenu(button)
             end
         end,
         arrow = true},
+		
         {label = '<LOC _Delete>Delete',
         action = function()
             Templates.RemoveTemplate(button.Data.template.templateID)
             RefreshUI()
         end,},
+		
     }
+	
     local function CreateItem(data)
+	
         local bg = Bitmap(group)
+		
         bg:SetSolidColor('00000000')
         bg.label = UIUtil.CreateText(bg, LOC(data.label), 12, UIUtil.bodyFont)
         bg.label:DisableHitTest()
+		
         LayoutHelpers.AtLeftTopIn(bg.label, bg, 2)
+		
         bg.Height:Set(function() return bg.label.Height() + 2 end)
+		
         bg.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
                 self:SetSolidColor('ff777777')
             elseif event.Type == 'MouseExit' then
@@ -1470,34 +1658,50 @@ function CreateTemplateOptionsMenu(button)
         
         return bg
     end
+	
     local totHeight = 0
     local maxWidth = 0
+	
     title.Height:Set(function() return title:GetFontHeight() end)
     title.Width:Set(function() return title:GetStringAdvance(LOC(button.Data.template.name)) end)
+	
     UIUtil.SetupEditStd(title, "ffffffff", nil, "ffaaffaa", UIUtil.highlightColor, UIUtil.bodyFont, 14, 200)
+	
     title:SetDropShadow(true)
     title:ShowBackground(true)
     title:SetText(LOC(button.Data.template.name))
+	
     LayoutHelpers.AtLeftTopIn(title, group)
+	
     totHeight = totHeight + title.Height()
+	
     maxWidth = math.max(maxWidth, title.Width())
+	
     local itemControls = {}
     local prevControl = false
+	
     for index, actionData in items do
+	
         local i = index
+		
         itemControls[i] = CreateItem(actionData)
+		
         if prevControl then
             LayoutHelpers.Below(itemControls[i], prevControl)
         else
             LayoutHelpers.Below(itemControls[i], title)
         end
+		
         totHeight = totHeight + itemControls[i].Height()
         maxWidth = math.max(maxWidth, itemControls[i].label.Width()+4)
         prevControl = itemControls[i]
+		
     end
+	
     for _, control in itemControls do
         control.Width:Set(maxWidth)
     end
+	
     title.Width:Set(maxWidth)
     group.Height:Set(totHeight)
     group.Width:Set(maxWidth)
@@ -1507,6 +1711,7 @@ function CreateTemplateOptionsMenu(button)
         Edit.HandleEvent(self, event)
         return true
     end
+	
     title.OnEnterPressed = function(self, text)
         Templates.RenameTemplate(button.Data.template.templateID, text)
         RefreshUI()
@@ -1522,23 +1727,32 @@ function CreateTemplateOptionsMenu(button)
 end
 
 function CreateSubMenu(parentMenu, contents, onClickFunc, setupOnClickHandler)
+
     local menu = Group(parentMenu)
+	
     menu.Left:Set(function() return parentMenu.Right() + 25 end)
     menu.Bottom:Set(parentMenu.Bottom)
     
     local totHeight = 0
     local maxWidth = 0
+	
     for index, inControl in contents do
+	
         local i = index
         local control = inControl
+		
         if i == 1 then
             LayoutHelpers.AtLeftTopIn(control, menu)
         else
             LayoutHelpers.Below(control, contents[i-1])
         end
+		
         if setupOnClickHandler != false then
+		
             control.bg = Bitmap(control)
+			
             control.bg.HandleEvent = function(self, event)
+			
                 if event.Type == 'MouseEnter' then
                     self:SetSolidColor('ff777777')
                 elseif event.Type == 'MouseExit' then
@@ -1546,24 +1760,33 @@ function CreateSubMenu(parentMenu, contents, onClickFunc, setupOnClickHandler)
                 elseif event.Type == 'ButtonPress' then
                     onClickFunc(control.ID)
                 end
+				
             end
+			
             control.bg.Depth:Set(function() return control.Depth() - 1 end)
             control.bg.Top:Set(control.Top)
             control.bg.Bottom:Set(control.Bottom)
             control.bg.Left:Set(function() return control.Left() - 2 end)
             control.bg.Right:Set(function() return control.Right() + 2 end)
+			
         end
+		
         control:SetParent(menu)
         control.Depth:Set(function() return menu.Depth() + 5 end)
         control:DisableHitTest()
+		
         totHeight = totHeight + control.Height()
         maxWidth = math.max(maxWidth, control.Width() + 4)
+		
     end
     
     menu.Height:Set(totHeight)
     menu.Width:Set(maxWidth)
+	
     local bg = CreateMenuBorder(menu)
+	
     return menu
+	
 end
 
 function CreateMenuBorder(group)
@@ -1643,19 +1866,29 @@ function DisablePauseToggle()
 end
 
 function ToggleUnitPause()
+
     if controls.selectionTab:IsChecked() or controls.constructionTab:IsChecked() then
+	
         controls.extraBtn2:ToggleCheck()
+		
     else
+	
         SetPaused(sortedOptions.selection, not GetIsPaused(sortedOptions.selection))
+		
     end
+	
 end
 
 function CreateExtraControls(controlType)
+
     if controlType == 'construction' or controlType == 'templates' then
+	
         Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'construction_infinite')
+		
         controls.extraBtn1.OnClick = function(self, modifiers)
             return Checkbox.OnClick(self, modifiers)
         end
+		
         controls.extraBtn1.OnCheck = function(self, checked)
             for i,v in sortedOptions.selection do
                 if checked then
@@ -1665,8 +1898,10 @@ function CreateExtraControls(controlType)
                 end
             end
         end
+		
         local allFactories = true
         local currentInfiniteQueueCheckStatus = false
+		
         for i,v in sortedOptions.selection do
             if v:IsRepeatQueue() then
                 currentInfiniteQueueCheckStatus = true
@@ -1675,6 +1910,7 @@ function CreateExtraControls(controlType)
                 allFactories = false
             end
         end
+		
         if allFactories then
             controls.extraBtn1:SetCheck(currentInfiniteQueueCheckStatus, true)
             controls.extraBtn1:Enable()
@@ -1683,55 +1919,87 @@ function CreateExtraControls(controlType)
         end
         
         Tooltip.AddCheckboxTooltip(controls.extraBtn2, 'construction_pause')
+		
         controls.extraBtn2.OnCheck = function(self, checked)
             SetPaused(sortedOptions.selection, checked)
         end
+		
         if pauseEnabled then
+		
             controls.extraBtn2:Enable()
+			
         else
+		
             controls.extraBtn2:Disable()
         end
+		
         controls.extraBtn2:SetCheck(GetIsPaused(sortedOptions.selection),true)
+		
     elseif controlType == 'selection' then
+	
         Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'save_template')
+		
         local validForTemplate = true
         local faction = false
+		
         for i,v in sortedOptions.selection do
+		
             if not v:IsInCategory('STRUCTURE') then
                 validForTemplate = false
                 break
             end
+			
             if i == 1 then
+			
                 local factions = import('/lua/factions.lua').Factions
+				
                 for _, factionData in factions do
+				
                     if v:IsInCategory(factionData.Category) then
+					
                         faction = factionData.Category
                         break
+						
                     end
+					
                 end
+				
             elseif not v:IsInCategory(faction) then
+			
                 validForTemplate = false
                 break
+				
             end
+			
         end
+		
         if validForTemplate then
+		
             controls.extraBtn1:Enable()
             controls.extraBtn1.OnClick = function(self, modifiers)
                 Templates.CreateBuildTemplate()
             end
+			
         else
+		
             controls.extraBtn1:Disable()
+			
         end
+		
         Tooltip.AddCheckboxTooltip(controls.extraBtn2, 'construction_pause')
+		
         controls.extraBtn2.OnCheck = function(self, checked)
             SetPaused(sortedOptions.selection, checked)
         end
+		
         if pauseEnabled then
             controls.extraBtn2:Enable()
         else
             controls.extraBtn2:Disable()
         end
+		
         controls.extraBtn2:SetCheck(GetIsPaused(sortedOptions.selection),true)
+		
     else
         controls.extraBtn1:Disable()
         controls.extraBtn2:Disable()
@@ -1739,8 +2007,11 @@ function CreateExtraControls(controlType)
 end
 
 function FormatData(unitData, type)
+
     local retData = {}
+	
     if type == 'construction' then
+	
         local function SortFunc(unit1, unit2)
             local bp1 = __blueprints[unit1].BuildIconSortPriority or __blueprints[unit1].StrategicIconSortPriority
             local bp2 = __blueprints[unit2].BuildIconSortPriority or __blueprints[unit2].StrategicIconSortPriority
@@ -1750,7 +2021,9 @@ function FormatData(unitData, type)
                 return true
             end
         end
+		
         local sortedUnits = {}
+		
         local sortCategories = {
             categories.SORTCONSTRUCTION,
             categories.SORTECONOMY,
@@ -1759,80 +2032,119 @@ function FormatData(unitData, type)
             categories.SORTINTEL,
             categories.SORTOTHER,
         }
+		
         local miscCats = categories.ALLUNITS
         local borders = {}
+		
         for i, v in sortCategories do
+		
             local category = v
             local index = i - 1
             local tempIndex = i
+			
             while index > 0 do
                 category = category - sortCategories[index]
                 index = index - 1
             end
+			
             local units = EntityCategoryFilterDown(category, unitData)
+			
             table.insert(sortedUnits, units)
+			
             miscCats = miscCats - v
+			
         end
         
         table.insert(sortedUnits, EntityCategoryFilterDown(miscCats, unitData))
         
         for i, units in sortedUnits do
+		
             table.sort(units, SortFunc)
+			
             local index = i
+			
             if table.getn(units) > 0 then
+			
                 if table.getn(retData) > 0 then
                     table.insert(retData, {type = 'spacer'})
                 end
+				
                 for unitIndex, unit in units do
                     table.insert(retData, {type = 'item', id = unit})
                 end
+				
             end
+			
         end
+		
         CreateExtraControls('construction')
         SetSecondaryDisplay('buildQueue')
+		
     elseif type == 'selection' then
+	
         local sortedUnits = {}
         local lowFuelUnits = {}
         local ids = {}
+		
         for _, unit in unitData do
+		
             local id = unit:GetBlueprint().BlueprintId
 
             if unit:IsInCategory('AIR') and unit:GetFuelRatio() < .2 and unit:GetFuelRatio() > -1 then
+			
                 if not lowFuelUnits[id] then 
                     table.insert(ids, id)
                     lowFuelUnits[id] = {}
                 end
+				
                 table.insert(lowFuelUnits[id], unit)
+				
             else
+			
                 if not sortedUnits[id] then 
                     table.insert(ids, id)
                     sortedUnits[id] = {}
                 end
+				
                 table.insert(sortedUnits[id], unit)
+				
             end
         end
         
         local displayUnits = true
+		
         if table.getsize(sortedUnits) == table.getsize(lowFuelUnits) then
+		
             displayUnits = false
+			
             for id, units in sortedUnits do
                 if lowFuelUnits[id] and not table.equal(lowFuelUnits[id], units) then
                     displayUnits = true
                     break
                 end
             end
+			
         end
+		
         if displayUnits then
+		
             for i, v in sortedUnits do
                 table.insert(retData, {type = 'unitstack', id = i, units = v})
             end
+			
         end
+		
         for i, v in lowFuelUnits do
+		
             table.insert(retData, {type = 'unitstack', id = i, units = v, lowFuel = true})
+			
         end
+		
         CreateExtraControls('selection')
         SetSecondaryDisplay('attached')
+		
     elseif type == 'templates' then
+	
         table.sort(unitData, function(a,b)
             if a.key and not b.key then
                 return true
@@ -1850,6 +2162,7 @@ function FormatData(unitData, type)
                 end
             end
         end)
+		
         for _, v in unitData do
             table.insert(retData, {type = 'templates', id = 'template', template = v})
         end
@@ -1998,29 +2311,40 @@ function FormatData(unitData, type)
 end
 
 function SetSecondaryDisplay(type)
+
     local data = {}
+	
     if type == 'buildQueue' then
+	
         if currentCommandQueue and table.getn(currentCommandQueue) > 0 then
             for index, unit in currentCommandQueue do
                 table.insert(data, {type = 'queuestack', id = unit.id, count = unit.count, position = index})
             end
         end
+		
         if table.getn(sortedOptions.selection) == 1 and table.getn(data) > 0 then
             controls.secondaryProgress:SetNeedsFrameUpdate(true)
         else
             controls.secondaryProgress:SetNeedsFrameUpdate(false)
             controls.secondaryProgress:SetAlpha(0, true)
         end
+		
     elseif type == 'attached' then
+	
         local attachedUnits = EntityCategoryFilterDown(categories.MOBILE, GetAttachedUnitsList(sortedOptions.selection))
+		
         if attachedUnits and table.getn(attachedUnits) > 0 then
             for _, v in attachedUnits do
                 table.insert(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
             end
         end
+		
         controls.secondaryProgress:SetAlpha(0, true)
+		
     end
+	
     controls.secondaryChoices:Refresh(data)
+	
 end
 
 local prevBuildables = false
@@ -2028,40 +2352,55 @@ local prevSelection = false
 local prevBuildCategories = false
 
 function OnQueueChanged(newQueue)
+
     currentCommandQueue = newQueue
+	
     if not controls.selectionTab:IsChecked() then
         SetSecondaryDisplay('buildQueue')
     end
 end
 
+
 function CheckForOrderQueue(newSelection)
+
     if table.getn(selection) == 1 then
+	
         -- render the command queue
         if currentCommandQueue then
             SetQueueGrid(currentCommandQueue, selection)
         else
             ClearQueueGrid()
         end
+		
         SetQueueState(false)
+		
     elseif table.getn(selection) > 0 then
+	
         ClearCurrentFactoryForQueueDisplay()
         ClearQueueGrid()
         SetQueueState(false)
+		
     else
+	
         ClearCurrentFactoryForQueueDisplay()
         ClearQueueGrid()
         SetQueueState(true)
+		
     end
+	
 end
 
 function RefreshUI()
+
     OnSelection(prevBuildCategories, prevSelection, true)
     capturingKeys = false
+	
 end
 
 function OnSelection(buildableCategories, selection, isOldSelection)
 
     if table.getsize(selection) > 0 then
+	
         capturingKeys = false
 		
         -- Sorting down units - get all the units
