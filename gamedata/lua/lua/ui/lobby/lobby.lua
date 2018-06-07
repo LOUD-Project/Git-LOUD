@@ -710,10 +710,23 @@ end
 
 -- create the lobby as a host
 function HostGame(desiredGameName, scenarioFileName, inSinglePlayer, friendsOnly)
+
     singlePlayer = inSinglePlayer
     gameName = lobbyComm:MakeValidGameName(desiredGameName)
     lobbyComm.desiredScenario = scenarioFileName
-    lobbyComm:HostGame()
+	
+	LOG("*AI DEBUG Game Version is "..repr(GetVersion()))
+	
+	if string.sub(GetVersion(),1,3) != '1.6' then
+	
+		lobbyComm:HostGame()
+		
+	else
+	
+		lobbyComm:HostGame(friendsOnly)
+		
+	end
+	
 end
 
 -- join an already existing lobby
