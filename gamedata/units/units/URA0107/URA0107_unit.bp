@@ -1,13 +1,8 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'URB5102',
-        TargetBones = {
-            'Char01',
-            'Char02',
-            'Char03',
-            'Char04',
-        },
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 0.2,
@@ -37,6 +32,7 @@ UnitBlueprint {
         StartTurnDistance = 4,
         TransportHoverHeight = 3.5,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'URADestroy',
@@ -53,9 +49,13 @@ UnitBlueprint {
             Cue = 'Cybran_Select_Air',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-    },
+    
+	},
+	
     AverageDensity = 1,
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -72,7 +72,9 @@ UnitBlueprint {
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
     },
+	
     CollisionOffsetY = 0, #-0.7,
+	
     Defense = {
         AirThreatLevel = 1,
         ArmorType = 'Light',
@@ -80,7 +82,9 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 4,
     },
+	
     Description = '<LOC ura0107_desc>Light Air Transport',
+	
     Display = {
         AnimationIdle = '/units/URA0107/ura0107_Aidle.sca',
         AnimationLand = '/units/URA0107/ura0107_Aland.sca',
@@ -105,16 +109,19 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
+	
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 80,
         BuildTime = 800,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+	
     General = {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -140,15 +147,19 @@ UnitBlueprint {
         UnitName = '<LOC ura0107_name>Skyhook',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Basic Air Transport',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.35,
     LifeBarSize = 2.5,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -159,19 +170,25 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 10,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+		
+        FuelRechargeRate = 60,
+        FuelUseTime = 270,
+		
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1.6,
     SelectionSizeZ = 3.25,
     SelectionThickness = 0.21,
+	
     SizeX = 1.4,
     SizeY = 1.1, #-2.2,
     SizeZ = 4.5,
+	
     StrategicIconName = 'icon_gunship1_transport',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,

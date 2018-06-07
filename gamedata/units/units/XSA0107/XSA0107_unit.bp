@@ -1,14 +1,13 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'XSB5102',
-        TargetBones = {
-            'XSA0107',
-        },
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 0.2,
         BankForward = false,
+		
         CanFly = true,
         CirclingDirChange = false,
         CirclingElevationChangeRatio = 0.25,
@@ -34,6 +33,7 @@ UnitBlueprint {
         StartTurnDistance = 4,
         TransportHoverHeight = 3.5,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSA_Destroy',
@@ -51,8 +51,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     AverageDensity = 1,
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'TRANSPORTBUILTBYTIER1FACTORY',
@@ -69,8 +72,10 @@ UnitBlueprint {
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
     },
+	
     CollisionOffsetY = -0.2, #-2,
     CollisionOffsetZ = 1.5,
+	
     Defense = {
         AirThreatLevel = 1,
         ArmorType = 'Light',
@@ -78,7 +83,9 @@ UnitBlueprint {
         MaxHealth = 595,
         RegenRate = 2,
     },
+	
     Description = '<LOC xsa0107_desc>Light Air Transport',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -101,16 +108,19 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 80,
         BuildTime = 800,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+	
     General = {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -136,15 +146,19 @@ UnitBlueprint {
         UnitName = '<LOC xsa0107_name>Vish',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Basic Air Transport',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.5,
     LifeBarSize = 3,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -155,22 +169,28 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 10,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+		
+        FuelRechargeRate = 60,
+        FuelUseTime = 270,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 1.6,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1.6,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 2.1,
     SelectionSizeZ = 4.5,
     SelectionThickness = 0.23,
+	
     SizeX = 4.5,
     SizeY = 1.2, #3,
     SizeZ = 7,
+	
     StrategicIconName = 'icon_gunship1_transport',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,

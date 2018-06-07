@@ -20,7 +20,7 @@ UnitBlueprint {
         KLift = 1.5,
         KLiftDamping = 1.5,
 		
-        KMove = 0.76,
+        KMove = 0.85,
         KMoveDamping = 0.9,
 		
         KRoll = 0.5,

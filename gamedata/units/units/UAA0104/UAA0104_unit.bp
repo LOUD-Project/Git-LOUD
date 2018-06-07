@@ -20,8 +20,8 @@ UnitBlueprint {
         KLift = 2,
         KLiftDamping = 2,
 		
-        KMove = 0.85,
-        KMoveDamping = 0.95,
+        KMove = 1.2,
+        KMoveDamping = 1.1,
 		
         KRoll = 0.5,
         KRollDamping = 0.95,
@@ -185,8 +185,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 11,
-        FuelRechargeRate = 95,
-        FuelUseTime = 665,
+		
+        FuelRechargeRate = 75,
+        FuelUseTime = 360,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 2.5,
         MeshExtentsY = 1.6,

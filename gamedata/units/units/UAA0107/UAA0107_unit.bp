@@ -1,9 +1,6 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'UAB5102',
-        TargetBones = {
-            'UAA0107',
-        },
     },
 	
     Air = {
@@ -54,8 +51,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     AverageDensity = 1,
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'TRANSPORTBUILTBYTIER1FACTORY',
@@ -72,8 +72,10 @@ UnitBlueprint {
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
     },
+	
     CollisionOffsetY = -0.7,
     CollisionOffsetZ = 0,
+	
     Defense = {
         AirThreatLevel = 1,
         ArmorType = 'Light',
@@ -81,7 +83,9 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 2,
     },
+	
     Description = '<LOC uaa0107_desc>Light Air Transport',
+	
     Display = {
         AnimationOpen = '/units/UAA0104/UAA0104_aopen01.sca',
         Mesh = {
@@ -104,16 +108,19 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.06,
     },
+	
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 80,
         BuildTime = 800,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+	
     General = {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -139,15 +146,19 @@ UnitBlueprint {
         UnitName = '<LOC uaa0107_name>Chariot',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Basic Air Transport',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -158,22 +169,28 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 8,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+		
+        FuelRechargeRate = 60,
+        FuelUseTime = 270,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 1.6,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1.6,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.43,
+	
     SizeX = 2,
     SizeY = 1.2,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_gunship1_transport',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,

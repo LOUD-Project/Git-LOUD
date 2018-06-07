@@ -1,9 +1,6 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'XSB5102',
-        TargetBones = {
-            'XSA0104',
-        },
     },
 	
     Air = {
@@ -22,8 +19,8 @@ UnitBlueprint {
         KLift = 2,
         KLiftDamping = 2,
 		
-        KMove = 0.75,
-        KMoveDamping = 1.0,
+        KMove = 1.2,
+        KMoveDamping = 1.1,
 		
         KRoll = 0.8,
         KRollDamping = 1.0,
@@ -182,8 +179,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 11,
+		
         FuelRechargeRate = 75,
-        FuelUseTime = 675,
+        FuelUseTime = 360,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 2.5,
         MeshExtentsY = 0.5,

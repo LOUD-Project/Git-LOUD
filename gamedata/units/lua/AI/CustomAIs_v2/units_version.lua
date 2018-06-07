@@ -1,4 +1,4 @@
 AI = {
-	Name = "Units.scd",
-	Version = "LOUD 4.7",
+	Name = "Units",
+	Version = "LOUD 4.8",
 }

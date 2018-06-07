@@ -1,15 +1,13 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'UEB5102',
-        TargetBones = {
-            'UEA0107',
-            'Attachpoint_Lrg_01',
-        },
     },
+	
     Air = {
         AutoLandTime = 1.5,
         BankFactor = 0.1,
         BankForward = false,
+		
         CanFly = true,
         CirclingDirChange = false,
         CirclingElevationChangeRatio = 0.25,
@@ -35,6 +33,7 @@ UnitBlueprint {
         StartTurnDistance = 40,
         TransportHoverHeight = 3.5,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -52,8 +51,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     AverageDensity = 1,
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -69,8 +71,10 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
-    },
+	},
+	
     CollisionOffsetY = 0, #-0.7,
+	
     Defense = {
 		AirThreatLevel = 1,
         ArmorType = 'Light',
@@ -78,7 +82,9 @@ UnitBlueprint {
         MaxHealth = 560,
         RegenRate = 2,
     },
+	
     Description = '<LOC uea0107_desc>Light Air Transport',
+	
     Display = {
         AnimationLand = '/units/UEA0107/UEA0107_atakeoff01.sca',
         ForcedBuildSpin = 90,
@@ -101,16 +107,19 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.059,
     },
+	
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 80,
         BuildTime = 800,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+	
     General = {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -136,15 +145,19 @@ UnitBlueprint {
         UnitName = '<LOC uea0107_name>Courier',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Basic Air Transport',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.65,
     LifeBarSize = 1.25,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -155,22 +168,28 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 10,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+		
+        FuelRechargeRate = 60,
+        FuelUseTime = 270,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 1.25,
         MeshExtentsY = 1,
         MeshExtentsZ = 5.25,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.8,
     SelectionSizeZ = 3,
     SelectionThickness = 0.22,
+	
     SizeX = 1.4,
     SizeY = 0.7, #1.8,
     SizeZ = 4.5,
+	
     StrategicIconName = 'icon_gunship1_transport',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,

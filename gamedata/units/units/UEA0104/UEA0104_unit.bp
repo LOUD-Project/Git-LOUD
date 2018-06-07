@@ -20,8 +20,8 @@ UnitBlueprint {
         KLift = 2,
         KLiftDamping = 2,
 		
-        KMove = 0.84,
-        KMoveDamping = 0.95,
+        KMove = 1.2,
+        KMoveDamping = 1.1,
 		
         KRoll = 0.5,
         KRollDamping = 0.95,
@@ -176,8 +176,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 11,
+		
         FuelRechargeRate = 75,
-        FuelUseTime = 675,
+        FuelUseTime = 360,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 2,
         MeshExtentsY = 1,
@@ -188,9 +190,11 @@ UnitBlueprint {
     SelectionSizeX = 0.95,
     SelectionSizeZ = 5,
     SelectionThickness = 0.19,
+	
     SizeX = 2,
     SizeY = 1,
     SizeZ = 7,
+	
     StrategicIconName = 'icon_gunship2_transport',
     StrategicIconSortPriority = 65,
 	

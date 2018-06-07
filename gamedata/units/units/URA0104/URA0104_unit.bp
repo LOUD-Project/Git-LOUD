@@ -20,8 +20,8 @@ UnitBlueprint {
         KLift = 2,
         KLiftDamping = 2,
 		
-        KMove = 0.85,
-        KMoveDamping = 1.0,
+        KMove = 1.2,
+        KMoveDamping = 1.1,
 		
         KRoll = 0.5,
         KRollDamping = 0.95,
@@ -182,26 +182,34 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 11,
+		
         FuelRechargeRate = 75,
-        FuelUseTime = 675,
+        FuelUseTime = 360,
+		
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1.65,
     SelectionSizeZ = 4.25,
     SelectionThickness = 0.22,
+	
     SizeX = 3,
     SizeY = 1.4,
     SizeZ = 6,
+	
     StrategicIconName = 'icon_gunship2_transport',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         Class2AttachSize = 1,
         Class3AttachSize = 2,
         TransportClass = 10,
     },
+	
     UseOOBTestZoom = 200,
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -209,6 +217,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
