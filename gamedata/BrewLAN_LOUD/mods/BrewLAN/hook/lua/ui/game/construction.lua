@@ -5,7 +5,12 @@
 --|
 --+-----------------------------------------------------------------------------
 local VersionIsSC = import(import( '/lua/game.lua' ).BrewLANPath() .. '/lua/legacy/VersionCheck.lua').VersionIsSC()
+
 do
+
+	LOG("*AI DEBUG Version is "..repr(VersionIsSC))
+
+--[[	
     if not VersionIsSC then --If not original Steam SupCom
         local OldOnClickHandler = OnClickHandler
         function OnClickHandler(button, modifiers, ...)
@@ -302,4 +307,7 @@ do
         -- END OF LEGACY CRAP                                                                                                                         --
         ------------------------------------------------------------------------------------------------------------------------------------------------
     end
+	
+--]]
+
 end
