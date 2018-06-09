@@ -29,7 +29,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 
     if not whatToBuild then
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(eng.BuilderName) .." - ".. engineer.Sync.id)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
 		
         return false
 		
