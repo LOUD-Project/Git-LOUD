@@ -87,7 +87,7 @@ function CreateUI()
 			action = function() ButtonSkirmish() end,
 		},
 		{
-			name = '<LOC main_menu_0001>Multiplayer LAN',
+			name = 'Direct IP',
 			tooltip = 'mainmenu_mp',    
 			action = function() ButtonLAN() end, 
 		},
@@ -100,12 +100,6 @@ function CreateUI()
 			name = 'Replay',
 			tooltip = 'mainmenu_replay',    
 			action = function() ButtonReplay() end,
-			color = menuFontColorAlt,
-		},
-		{
-			name = 'Mod Manager',
-			tooltip = 'mainmenu_mod',    
-			action = function() ButtonMod() end,
 			color = menuFontColorAlt,
 		},
 		{
@@ -783,17 +777,25 @@ function CreateUI()
 
 	function ButtonLAN()
 		MenuHide(function()
-			import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end)
+			import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, false)
 		end)
 	end
 	
 	function ButtonMatchmaking()
-		if not IsSignedInToSteam() then
-			UIUtil.ShowInfoDialog(parent, "<LOC SteamNotSignedIn>You must first sign into Steam to use Matchmaking", "<LOC _OK>")	
-		else
-			MenuHide(function()
-				import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, true)			
-			end)
+		if pcall(function()
+					if not IsSignedInToSteam() then
+						return
+					end
+				end) then		
+			if not IsSignedInToSteam() then
+				UIUtil.ShowInfoDialog(parent, "<LOC SteamNotSignedIn>You must first sign into Steam to use Matchmaking", "<LOC _OK>")	
+			else
+				MenuHide(function()
+					import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, true)			
+				end)
+			end
+		else -- They're running CD.
+			UIUtil.ShowInfoDialog(parent, "You must be running the Steam version of Supreme Commander Forged Alliance to access matchmaking.", "<LOC _OK>")
 		end
     end
 
