@@ -6,32 +6,32 @@
 	LOG("*AI DEBUG Setting LOUD options")
 
 	ScenarioInfo.NameEngineers = true
-	LOG("*AI DEBUG 		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
+	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
 	ScenarioInfo.DisplayAttackPlans = false
-	LOG("*AI DEBUG 		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
+	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
 
+	ScenarioInfo.DisplayBaseMonitors = false
+	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
+	
+	ScenarioInfo.DisplayBaseNames = false
+	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
+	
 	ScenarioInfo.DisplayFactoryBuilds = false
-	LOG("*AI DEBUG 		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
+	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
 	ScenarioInfo.DisplayIntelPoints = false
-	LOG("*AI DEBUG 		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
+	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 	
-	ScenarioInfo.DisplayPingAlerts = true
+	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 	ScenarioInfo.DisplayPlatoonPlans = true
-	LOG("*AI DEBUG 		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
+	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
 	ScenarioInfo.DisplayPlatoonMembership = false
-	LOG("*AI DEBUG      Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
+	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 
-	ScenarioInfo.DisplayBaseMonitors = false
-	LOG("*AI DEBUG 		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
-	
-	ScenarioInfo.DisplayBaseNames = false
-	LOG("*AI DEBUG 		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
-	
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
