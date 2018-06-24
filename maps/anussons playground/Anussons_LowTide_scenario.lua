@@ -14,7 +14,7 @@ ScenarioInfo = {
   },
   description = '<LOC Anussons_LowTide_Description> When the tide rolls out, the Anusson Islands become a mobile playground.  This is a moderate difficulty AI scenario played either North/South or East/West.',
   map = '/maps/anussons playground/Anussons_LowTide.scmap',
-  map_version = '2.1',
+  map_version = '2.2',
   name = 'Anussons - LowTide',
   norushradius = 55,
   preview = '',
