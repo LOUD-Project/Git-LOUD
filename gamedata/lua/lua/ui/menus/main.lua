@@ -45,20 +45,22 @@ function CreateUI()
 	local menuExtras = {
 		title = 'Extras',
 		{
-			name = 'Credits',
+			name = '<LOC OPTIONS_0073>Credits',
 			tooltip = 'options_credits',
 			action = function() ButtonCredits() end,
 		},
 		{
-			name = 'EULA',
+			name = '<LOC OPTIONS_0086>EULA',
 			tooltip = 'options_eula',    
 			action = function() ButtonEULA() end,
 			color = menuFontColorAlt,
 		},
 		{
-			name = '',
-			color = menuFontColorAlt,
-		}, 
+            name = '<LOC _Mod_Manager>',
+            tooltip = 'mainmenu_mod',    
+            action = function() ButtonMod() end,
+            color = menuFontColorAlt,
+        },
 		{
 			name = '',
 			color = menuFontColorAlt,
@@ -72,22 +74,27 @@ function CreateUI()
 			color = menuFontColorAlt,
 		}, 
 		{
-			name = 'Back',
+			name = '<LOC _Back>',
 			action = function() ButtonBack() end,
 			color = menuFontColorAlt,
 		},
 	}
 	local menuTop = {
-		title = 'Forged Alliance',
+		title = '<LOC main_menu_0000>Forged Alliance',
 		{
-			name = 'Skirmish',
+			name = '<LOC _Skirmish>',
 			tooltip = 'mainmenu_skirmish',    
 			action = function() ButtonSkirmish() end,
 		},
 		{
-			name = 'Multiplayer LAN',
+			name = 'Direct IP',
 			tooltip = 'mainmenu_mp',    
 			action = function() ButtonLAN() end, 
+		},
+		{
+			name = '<LOC MAINMENU_STEAM_0001>Matchmaking',
+			tooltip = 'mpselect_steam',
+			action = function() ButtonMatchmaking() end,
 		},
 		{
 			name = 'Replay',
@@ -96,25 +103,19 @@ function CreateUI()
 			color = menuFontColorAlt,
 		},
 		{
-			name = 'Mod Manager',
-			tooltip = 'mainmenu_mod',    
-			action = function() ButtonMod() end,
-			color = menuFontColorAlt,
-		},
-		{
-			name = 'Options',
+			name = '<LOC _Options>Options',
 			tooltip = 'mainmenu_options',    
 			action = function() ButtonOptions() end,
 			color = menuFontColorAlt,
 		},
 		{
-			name = 'Extras',
+			name = '<LOC tooltipui0355>Extras',
 			tooltip = 'mainmenu_extras',    
 			action = function() ButtonExtras() end,
 			color = menuFontColorAlt,
 		},
 		{
-			name = 'Exit',
+			name = '<LOC _Exit>',
 			tooltip = 'mainmenu_exit',    
 			action = function() ButtonExit() end,
 		},
@@ -776,9 +777,27 @@ function CreateUI()
 
 	function ButtonLAN()
 		MenuHide(function()
-			import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end)
+			import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, false)
 		end)
 	end
+	
+	function ButtonMatchmaking()
+		if pcall(function()
+					if not IsSignedInToSteam() then
+						return
+					end
+				end) then		
+			if not IsSignedInToSteam() then
+				UIUtil.ShowInfoDialog(parent, "<LOC SteamNotSignedIn>You must first sign into Steam to use Matchmaking", "<LOC _OK>")	
+			else
+				MenuHide(function()
+					import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, true)			
+				end)
+			end
+		else -- They're running CD.
+			UIUtil.ShowInfoDialog(parent, "You must be running the Steam version of Supreme Commander Forged Alliance to access matchmaking.", "<LOC _OK>")
+		end
+    end
 
 	function ButtonSkirmish()
 		MenuHide(function()

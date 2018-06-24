@@ -27,6 +27,8 @@ local errorDialog = false
 
 local editInFocus = nil
 
+local friendsOnly = false
+
 local MapUtil = import('/lua/ui/maputil.lua')
 local scenarios = MapUtil.EnumerateSkirmishScenarios()
 local gameOptions = {}
@@ -160,8 +162,15 @@ function CreateEditField(parent, width, maxChars)
     return control
 end
 
-function CreateUI(over, exitBehavior)
+function CreateUI(over, exitBehavior, useSteam)
     local discovery = import('/lua/ui/lobby/lobbyComm.lua').CreateDiscoveryService()
+	
+	if not useSteam then
+		discovery = import('/lua/ui/lobby/lobbyComm.lua').CreateDiscoveryService()
+	else
+		discovery = import('/lua/ui/lobby/lobbyComm.lua').CreateSteamDiscoveryService()
+	end
+	
 	local parent = over
 	# panel and title
     local panel = Bitmap(parent, UIUtil.SkinnableFile('/scx_menu/gameselect/panel_bmp.dds'))
@@ -169,7 +178,13 @@ function CreateUI(over, exitBehavior)
 
     panel.brackets = UIUtil.CreateDialogBrackets(panel, 42, 32, 40, 30)
 
-    local title = UIUtil.CreateText(panel, "<LOC GAMESEL_0000>LAN/IP Connect", 24)
+    local title
+	if not useSteam then
+		title = UIUtil.CreateText(panel, "<LOC GAMESEL_0000>LAN/IP Connect", 24)
+	else
+		title = UIUtil.CreateText(panel, "<LOC GAMESEL_STEAM_0000>Matchmaking Connect", 24)
+	end
+	
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
     LayoutHelpers.AtTopIn(title, panel, 26)
     
@@ -202,7 +217,11 @@ function CreateUI(over, exitBehavior)
     LayoutHelpers.AtRightTopIn(createButton, panel, -17, 645)
     createButton.HandleEvent = function(self, event)
         if event.Type == 'MouseEnter' then
-            Tooltip.CreateMouseoverDisplay(self, "mpselect_create", nil, true)
+            if useSteam then
+				Tooltip.CreateMouseoverDisplay(self, "mpselect_steam_create", nil, true)				
+			else
+				Tooltip.CreateMouseoverDisplay(self, "mpselect_create", nil, true)
+			end
         elseif event.Type == 'MouseExit' then
             Tooltip.DestroyMouseoverDisplay()
         end
@@ -263,75 +282,99 @@ function CreateUI(over, exitBehavior)
         end
     end
     
-	# ip address and port edit
-	local ipaddressEdit = CreateEditField(panel, 290)
-    LayoutHelpers.AtLeftTopIn(ipaddressEdit, panel, 28, 615)
-    ipaddressEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_ipaddress') or "")
-    ipaddressEdit:ShowBackground(false)
+	if useSteam == false then
+		-- ip address and port edit
+		local ipaddressEdit = CreateEditField(panel, 290)
+		LayoutHelpers.AtLeftTopIn(ipaddressEdit, panel, 28, 615)
+		ipaddressEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_ipaddress') or "")
+		ipaddressEdit:ShowBackground(false)
 
-    local portEdit = CreateEditField(panel, 79, 5)
-    LayoutHelpers.RightOf(portEdit, ipaddressEdit, 15)
-    portEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_port') or "")
-    portEdit:ShowBackground(false)
+		local portEdit = CreateEditField(panel, 79, 5)
+		LayoutHelpers.RightOf(portEdit, ipaddressEdit, 15)
+		portEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_port') or "")
+		portEdit:ShowBackground(false)
 
-    ipaddressEdit.OnCharPressed = nameEdit.OnCharPressed
-    ipaddressEdit.OnEnterPressed = function(self, text)
-        ipaddressEdit:AbandonFocus()
-        portEdit:AcquireFocus()
-        return true
-    end
-    
-    portEdit.OnCharPressed = nameEdit.OnCharPressed
-    portEdit.OnEnterPressed = function(self, text)
-        portEdit:AbandonFocus()
-        ipaddressEdit:AcquireFocus()
-        return true
-    end    
-    
-    local portLabel = UIUtil.CreateText(panel, "<LOC _Port>", 18, UIUtil.bodyFont)
-    LayoutHelpers.Above(portLabel, portEdit, 2)
+		ipaddressEdit.OnCharPressed = nameEdit.OnCharPressed
+		ipaddressEdit.OnEnterPressed = function(self, text)
+			ipaddressEdit:AbandonFocus()
+			portEdit:AcquireFocus()
+			return true
+		end
+	    
+		portEdit.OnCharPressed = nameEdit.OnCharPressed
+		portEdit.OnEnterPressed = function(self, text)
+			portEdit:AbandonFocus()
+			ipaddressEdit:AcquireFocus()
+			return true
+		end    
+	    
+		local portLabel = UIUtil.CreateText(panel, "<LOC _Port>", 18, UIUtil.bodyFont)
+		LayoutHelpers.Above(portLabel, portEdit, 2)
 
-    local ipaddressLabel = UIUtil.CreateText(panel, "<LOC DIRCON_0001>IP Address/Hostname", 18, UIUtil.bodyFont)
-    LayoutHelpers.Above(ipaddressLabel, ipaddressEdit, 2)
-    
-    local ipconnectBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Connect>Connect", 14)
-    Tooltip.AddButtonTooltip(ipconnectBtn, 'mainmenu_quickipconnect')
-    LayoutHelpers.RightOf(ipconnectBtn, portEdit, 10)
-    LayoutHelpers.AtVerticalCenterIn(ipconnectBtn, portEdit, -10)
-    ipconnectBtn.OnClick = function(self, modifiers)
-        local ipaddress = ipaddressEdit:GetText()
-        local portstr = portEdit:GetText()
-        local port = tonumber(portstr)
-    
-        if not port or math.floor(port) != port or port < 1 or port > 65535 then
-            UIUtil.ShowInfoDialog(parent,
-                                  LOCF('<LOC DIRCON_0003>Invalid port number: %s.  Must be an integer between 1 and 65535', portstr),
-                                  "<LOC _OK>")
-        else
-            local name = nameEdit:GetText()
-            if not IsNameOK(name) then
-                if errorDialog then errorDialog:Destroy() end
-                errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
-                return
-            end
+		local ipaddressLabel = UIUtil.CreateText(panel, "<LOC DIRCON_0001>IP Address/Hostname", 18, UIUtil.bodyFont)
+		LayoutHelpers.Above(ipaddressLabel, ipaddressEdit, 2)
+	    
+		local ipconnectBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Connect>Connect", 14)
+		Tooltip.AddButtonTooltip(ipconnectBtn, 'mainmenu_quickipconnect')
+		LayoutHelpers.RightOf(ipconnectBtn, portEdit, 10)
+		LayoutHelpers.AtVerticalCenterIn(ipconnectBtn, portEdit, -10)
+		ipconnectBtn.OnClick = function(self, modifiers)
+			local ipaddress = ipaddressEdit:GetText()
+			local portstr = portEdit:GetText()
+			local port = tonumber(portstr)
+	    
+			if not port or math.floor(port) != port or port < 1 or port > 65535 then
+				UIUtil.ShowInfoDialog(parent,
+									  LOCF('<LOC DIRCON_0003>Invalid port number: %s.  Must be an integer between 1 and 65535', portstr),
+									  "<LOC _OK>")
+			else
+				local name = nameEdit:GetText()
+				if not IsNameOK(name) then
+					if errorDialog then errorDialog:Destroy() end
+					errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
+					return
+				end
 
-            local valid = ipaddress != '' and ValidateIPAddress(ipaddress .. ':' .. port)
-            if valid then
-                Prefs.SetToCurrentProfile('last_dc_ipaddress', ipaddress)
-                Prefs.SetToCurrentProfile('last_dc_port', tostring(port))
-    
-                lobby.CreateLobby("UDP", 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
-               	panel:Destroy()
-               	discovery:Destroy()
-            	discovery = false
-                lobby.JoinGame(valid, false)
-            else
-                UIUtil.ShowInfoDialog(parent,
-                                      LOC("<LOC DIRCON_0004>Invalid/unknown IP address"),
-                                      "<LOC _OK>")
-            end
-        end
-    end
+				local valid = ipaddress != '' and ValidateIPAddress(ipaddress .. ':' .. port)
+				if valid then
+					Prefs.SetToCurrentProfile('last_dc_ipaddress', ipaddress)
+					Prefs.SetToCurrentProfile('last_dc_port', tostring(port))
+	    
+					lobby.CreateLobby("UDP", 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+               		panel:Destroy()
+               		discovery:Destroy()
+            		discovery = false
+					lobby.JoinGame(valid, false)
+				else
+					UIUtil.ShowInfoDialog(parent,
+										  LOC("<LOC DIRCON_0004>Invalid/unknown IP address"),
+										  "<LOC _OK>")
+				end
+			end
+		end
+	else
+		-- Using steam
+		local refreshBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Refresh>Refresh", 14)
+		--LayoutHelpers.RightOf(refreshBtn, portEdit, 10)
+		--LayoutHelpers.AtVerticalCenterIn(refreshBtn, portEdit, -10)
+		LayoutHelpers.AtLeftTopIn(refreshBtn, panel, 430, 580)
+		refreshBtn.OnClick = function(self, modifiers)
+			RefreshSteamGames(friendsOnly)
+		end
+				
+		local friendsOnlyCheck = UIUtil.CreateCheckboxStd(panel, '/dialogs/check-box_btn/radio')
+		LayoutHelpers.AtLeftTopIn(friendsOnlyCheck, panel, 28, 612)
+		-- friendsOnlyCheck.Right:Set(portEdit.Right)
+		-- friendsOnlyCheck.Bottom:Set(function() return portEdit.Top() - 5 end)
+		friendsOnlyCheck.OnCheck = function(self, checked)			
+			friendsOnly = checked;			
+		end
+		friendsOnlyCheck:SetCheck(false)
+	    
+		local friendsOnlyLabel = UIUtil.CreateText(panel, "<LOC STEAM_FRIENDS_ONLY>Friends Only", 14, UIUtil.bodyFont)
+		friendsOnlyLabel.Left:Set(friendsOnlyCheck.Right)
+		friendsOnlyLabel.Bottom:Set(function() return friendsOnlyCheck.Bottom() - 5 end)
+	end
     
     gameList._tabs = {}
     gameList._sortby = {field = 'wrappedName', ascending = true, isOption = false, customField = 'AllowObservers', customFieldIsOption = false}
@@ -571,8 +614,16 @@ function CreateUI(over, exitBehavior)
             panel:Destroy()
             discovery:Destroy()
             discovery = false
-            --LOG('Joining ', repr(hostInfo))
-            lobby.JoinGame(hostInfo.Address, false)
+            --LOG( repr(hostInfo) )
+                        
+            if hostInfo.Address == nil then
+				LOG( "Join Steam" )
+				lobby.JoinSteamGame(hostInfo, false)
+            else
+				lobby.JoinGame(hostInfo.Address, false)
+			end         
+			
+			LOG( "Joining game" )
         end
         
         gameListObjects[index].obsBtn = Button(gameListObjects[index], 
@@ -599,7 +650,11 @@ function CreateUI(over, exitBehavior)
             discovery:Destroy()
             discovery = false
             --LOG('Joining ', repr(hostInfo))
-            lobby.JoinGame(hostInfo.Address, true)
+            if hostInfo.Address == nil then				
+				lobby.JoinSteamGame(hostInfo, true)
+            else
+	            lobby.JoinGame(hostInfo.Address, true)
+	        end
         end
         
         gameListObjects[index].preview = MapPreview(gameListObjects[index])
@@ -916,4 +971,6 @@ function CreateUI(over, exitBehavior)
     ForkThread(function()
         gameList._tabs[2]:OnClick()
     end)
+	
+	InternalStartSteamDiscoveryService()
 end
