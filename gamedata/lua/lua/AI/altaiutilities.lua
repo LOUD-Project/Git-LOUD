@@ -2896,12 +2896,17 @@ function AISendPing( position, pingType, army, message )
 	}
 
 	if PingTypes[pingType] then
-	if not note then
+	
+		if not note then
+		
 			-- standard map pings --
-		import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position} , PingTypes[pingType] ) )
-	else
+			import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position} , PingTypes[pingType] ) )
+			
+		else
 			-- ping the map and place a marker --
-		return import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position, Name = note, Color = 'ffe80a0a'} , PingTypes[pingType] ) )
+			return import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position, Name = note, Color = 'ffe80a0a'} , PingTypes[pingType] ) )
+			
 		end
 	end
+	
 end

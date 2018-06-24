@@ -1176,9 +1176,7 @@ EngineerManager = Class(BuilderManager) {
 
 				pos = table.copy(newpos)
 			
-				-- send the visible ping to the interface --
-				ForkThread( import('/lua/ai/altaiutilities.lua').AISendPing, newpos, 'attack', aiBrain.ArmyIndex )
-				
+		
 				self.BaseMonitor.LastAlertTime = LOUDFLOOR(GetGameTimeSeconds())
 
 				-- if we haven't launched a response thread
@@ -1187,6 +1185,13 @@ EngineerManager = Class(BuilderManager) {
 					aiBrain.BuilderManagers[self.LocationType].EngineerManager.BMDistressResponseThread = true
 				
 					self:ForkThread( self.BaseMonitorDistressResponseThread, aiBrain)
+
+					if ScenarioInfo.DisplayPingAlerts then
+					
+						-- send the visible ping to the interface --
+						ForkThread( import('/lua/ai/altaiutilities.lua').AISendPing, newpos, 'attack', aiBrain.ArmyIndex )
+						
+					end
 				
 				end
         

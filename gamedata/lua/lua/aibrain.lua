@@ -16,6 +16,9 @@
 
 	ScenarioInfo.DisplayIntelPoints = false
 	LOG("*AI DEBUG 		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
+	
+	ScenarioInfo.DisplayPingAlerts = true
+	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 	ScenarioInfo.DisplayPlatoonPlans = true
 	LOG("*AI DEBUG 		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))

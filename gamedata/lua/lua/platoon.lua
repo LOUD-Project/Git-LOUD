@@ -4414,8 +4414,12 @@ Platoon = Class(moho.platoon_methods) {
 								-- mark the platoon as having a distress call
 								self.DistressCall = true
 								
-								-- send a visual ping to the interface -- 
-								AISendPing( LOUDCOPY(pos), 'attack', aiBrain.ArmyIndex )
+								if ScenarioInfo.DispalyPingAlerts then
+								
+									-- send a visual ping to the interface -- 
+									AISendPing( LOUDCOPY(pos), 'attack', aiBrain.ArmyIndex )
+									
+								end
 								
 							end
 							

@@ -1,7 +1,7 @@
 #
 # Lobby communications and common services
 #
-quietTimeout = 12000.0 # milliseconds to wait before booting people
+quietTimeout = 16000.0 # milliseconds to wait before booting people
 maxPlayerSlots = 16
 maxConnections = 19 # count doesn't include ourself.
 

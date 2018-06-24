@@ -125,6 +125,7 @@ local tabData = {
 }
 
 local function IsNameOK(name)
+
     if name == nil then
         return false
     end
@@ -135,6 +136,7 @@ local function IsNameOK(name)
     
     -- test for name consisting only of whitespace
     local nBegin, nEnd = string.find(name, "%s+")
+	
     if nBegin and (nBegin == 1 and nEnd == string.len(name)) then
         return false
     end
@@ -143,27 +145,37 @@ local function IsNameOK(name)
 end
 
 function GetHostString(hostInfo)
+
     local playerstr = "<LOC GAMSEL_0000>player"
+	
     if hostInfo.PlayerCount > 1 then
         playerstr = "<LOC GAMSEL_0001>players"
     end
+	
     return LOCF("%s (%d %s)", hostInfo.GameName, hostInfo.PlayerCount, playerstr)
 end
 
 function CreateEditField(parent, width, maxChars)
+
     local control = Edit(parent)
+	
     control:SetForegroundColor(UIUtil.fontColor)
     control:SetHighlightForegroundColor(UIUtil.highlightColor)
     control:SetHighlightBackgroundColor("880085EF")
     control.Height:Set(19)
     control.Width:Set(width)
     control:SetFont(UIUtil.bodyFont, 16)
-    if maxChars then control:SetMaxChars(maxChars) end
+	
+    if maxChars then
+		control:SetMaxChars(maxChars)
+	end
+	
     return control
 end
 
 function CreateUI(over, exitBehavior, useSteam)
-    local discovery = import('/lua/ui/lobby/lobbyComm.lua').CreateDiscoveryService()
+
+    local discovery
 	
 	if not useSteam then
 		discovery = import('/lua/ui/lobby/lobbyComm.lua').CreateDiscoveryService()
@@ -172,13 +184,16 @@ function CreateUI(over, exitBehavior, useSteam)
 	end
 	
 	local parent = over
-	# panel and title
+	
+	-- panel and title
     local panel = Bitmap(parent, UIUtil.SkinnableFile('/scx_menu/gameselect/panel_bmp.dds'))
+	
     LayoutHelpers.AtCenterIn(panel, parent)
 
     panel.brackets = UIUtil.CreateDialogBrackets(panel, 42, 32, 40, 30)
 
     local title
+	
 	if not useSteam then
 		title = UIUtil.CreateText(panel, "<LOC GAMESEL_0000>LAN/IP Connect", 24)
 	else
@@ -189,122 +204,187 @@ function CreateUI(over, exitBehavior, useSteam)
     LayoutHelpers.AtTopIn(title, panel, 26)
     
     local exitButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Back>", 14, 0, 0, "UI_Back_MouseDown")
+	
     LayoutHelpers.AtLeftTopIn(exitButton, panel, 15, 645)
     
     local games = {}
 	local serverList = {}
     
     exitButton.OnClick = function(self)
+	
     	if exitBehavior then
         	exitBehavior()
         end
+		
    		panel:Destroy()
+		
 		discovery:Destroy()
     	discovery = false
+		
     end
+	
     exitButton.HandleEvent = function(self, event)
+	
         if event.Type == 'MouseEnter' then
             Tooltip.CreateMouseoverDisplay(self, "mpselect_exit", nil, true)
         elseif event.Type == 'MouseExit' then
             Tooltip.DestroyMouseoverDisplay()
         end
+		
         Button.HandleEvent(self, event)
+		
     end
 
     import('/lua/ui/uimain.lua').SetEscapeHandler(function() exitButton.OnClick() end)
     
     local createButton = UIUtil.CreateButtonStd(panel, '/scx_menu/large-no-bracket-btn/large', "<LOC _Create>Create", 18, 2)
+	
     LayoutHelpers.AtRightTopIn(createButton, panel, -17, 645)
+	
     createButton.HandleEvent = function(self, event)
+	
         if event.Type == 'MouseEnter' then
+		
             if useSteam then
 				Tooltip.CreateMouseoverDisplay(self, "mpselect_steam_create", nil, true)				
 			else
 				Tooltip.CreateMouseoverDisplay(self, "mpselect_create", nil, true)
 			end
+			
         elseif event.Type == 'MouseExit' then
+		
             Tooltip.DestroyMouseoverDisplay()
+			
         end
+		
         Button.HandleEvent(self, event)
+		
     end
     
     gameList = Group(panel)
+	
     LayoutHelpers.AtLeftTopIn(gameList, panel, 30, 152)
+	
     gameList.Width:Set(function() return panel.Width() - 90 end)
     gameList.Height:Set(432)
     gameList.top = 0
     
     local gamesTitle = UIUtil.CreateText(panel, '<LOC GAMESEL_0002>Server List', 18, UIUtil.bodyFont)
+	
     LayoutHelpers.Above(gamesTitle, gameList, 6)
     
-	# name edit field
+	-- name edit field
     local nameEdit = CreateEditField(panel, 375, 20)
+	
     LayoutHelpers.AtLeftIn(nameEdit, panel, 30)
     LayoutHelpers.AtTopIn(nameEdit, panel, 92)
+	
     nameEdit:SetText(Prefs.GetFromCurrentProfile('NetName') or Prefs.GetFromCurrentProfile('Name'))
     nameEdit:ShowBackground(false)
+	
     nameEdit.HandleEvent = function(self, event)
+	
         if event.Type == 'MouseEnter' then
             Tooltip.CreateMouseoverDisplay(self, "mpselect_name", nil, true)
         elseif event.Type == 'MouseExit' then
             Tooltip.DestroyMouseoverDisplay()
         end
+		
         Edit.HandleEvent(self, event)
+		
     end
+	
     nameEdit.OnCharPressed = function(self, charcode)
+	
         if charcode == UIUtil.VK_TAB then
             return true
         end
+		
         local charlim = self:GetMaxChars()
+		
         if STR_Utf8Len(self:GetText()) >= charlim then
             local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
             PlaySound(sound)
         end
+		
     end
+	
     nameEdit.OnEnterPressed = function(self, text)
+	
         nameEdit:AbandonFocus()
+		
         return true
+		
     end
+	
     local nameLabel = UIUtil.CreateText(panel, "<LOC NICKNAME>Nickname", 18, UIUtil.bodyFont)
+	
     LayoutHelpers.Above(nameLabel, nameEdit, 3)
     
     createButton.OnClick = function(self)
+	
         local name = nameEdit:GetText()
+		
         if IsNameOK(name) then
+		
             Prefs.SetToCurrentProfile('NetName', name)
+			
            	panel:Destroy()
+			
             discovery:Destroy()
             discovery = false
-            import('/lua/ui/lobby/gamecreate.lua').CreateUI(name, over, exitBehavior)
+			
+            import('/lua/ui/lobby/gamecreate.lua').CreateUI(name, over, exitBehavior, useSteam)
+			
         else
-            if errorDialog then errorDialog:Destroy() end
+		
+            if errorDialog then
+				errorDialog:Destroy()
+			end
+			
             errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
+			
         end
+		
     end
+
+	LOG("*GAMESELECT DEBUG useSteam is "..repr(useSteam))
     
 	if useSteam == false then
+	
 		-- ip address and port edit
 		local ipaddressEdit = CreateEditField(panel, 290)
+		
 		LayoutHelpers.AtLeftTopIn(ipaddressEdit, panel, 28, 615)
+		
 		ipaddressEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_ipaddress') or "")
 		ipaddressEdit:ShowBackground(false)
 
 		local portEdit = CreateEditField(panel, 79, 5)
+		
 		LayoutHelpers.RightOf(portEdit, ipaddressEdit, 15)
+		
 		portEdit:SetText(Prefs.GetFromCurrentProfile('last_dc_port') or "")
 		portEdit:ShowBackground(false)
 
 		ipaddressEdit.OnCharPressed = nameEdit.OnCharPressed
+		
 		ipaddressEdit.OnEnterPressed = function(self, text)
+		
 			ipaddressEdit:AbandonFocus()
 			portEdit:AcquireFocus()
+			
 			return true
 		end
 	    
 		portEdit.OnCharPressed = nameEdit.OnCharPressed
+		
 		portEdit.OnEnterPressed = function(self, text)
+		
 			portEdit:AbandonFocus()
+			
 			ipaddressEdit:AcquireFocus()
+			
 			return true
 		end    
 	    
@@ -316,111 +396,154 @@ function CreateUI(over, exitBehavior, useSteam)
 	    
 		local ipconnectBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Connect>Connect", 14)
 		Tooltip.AddButtonTooltip(ipconnectBtn, 'mainmenu_quickipconnect')
+		
 		LayoutHelpers.RightOf(ipconnectBtn, portEdit, 10)
 		LayoutHelpers.AtVerticalCenterIn(ipconnectBtn, portEdit, -10)
+		
 		ipconnectBtn.OnClick = function(self, modifiers)
+		
 			local ipaddress = ipaddressEdit:GetText()
 			local portstr = portEdit:GetText()
 			local port = tonumber(portstr)
 	    
 			if not port or math.floor(port) != port or port < 1 or port > 65535 then
-				UIUtil.ShowInfoDialog(parent,
-									  LOCF('<LOC DIRCON_0003>Invalid port number: %s.  Must be an integer between 1 and 65535', portstr),
-									  "<LOC _OK>")
+			
+				UIUtil.ShowInfoDialog(parent, LOCF('<LOC DIRCON_0003>Invalid port number: %s.  Must be an integer between 1 and 65535', portstr), "<LOC _OK>")
+				
 			else
+			
 				local name = nameEdit:GetText()
+				
 				if not IsNameOK(name) then
+				
 					if errorDialog then errorDialog:Destroy() end
+					
 					errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
+					
 					return
 				end
 
 				local valid = ipaddress != '' and ValidateIPAddress(ipaddress .. ':' .. port)
+				
 				if valid then
+				
 					Prefs.SetToCurrentProfile('last_dc_ipaddress', ipaddress)
 					Prefs.SetToCurrentProfile('last_dc_port', tostring(port))
 	    
 					lobby.CreateLobby("UDP", 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+					
                		panel:Destroy()
+					
                		discovery:Destroy()
+					
             		discovery = false
+					
 					lobby.JoinGame(valid, false)
+					
 				else
-					UIUtil.ShowInfoDialog(parent,
-										  LOC("<LOC DIRCON_0004>Invalid/unknown IP address"),
-										  "<LOC _OK>")
+				
+					UIUtil.ShowInfoDialog(parent, LOC("<LOC DIRCON_0004>Invalid/unknown IP address"), "<LOC _OK>")
+					
 				end
 			end
 		end
+		
 	else
+	
 		-- Using steam
 		local refreshBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Refresh>Refresh", 14)
+		
 		--LayoutHelpers.RightOf(refreshBtn, portEdit, 10)
 		--LayoutHelpers.AtVerticalCenterIn(refreshBtn, portEdit, -10)
+		
 		LayoutHelpers.AtLeftTopIn(refreshBtn, panel, 430, 580)
+		
 		refreshBtn.OnClick = function(self, modifiers)
 			RefreshSteamGames(friendsOnly)
 		end
-				
+
 		local friendsOnlyCheck = UIUtil.CreateCheckboxStd(panel, '/dialogs/check-box_btn/radio')
+		
 		LayoutHelpers.AtLeftTopIn(friendsOnlyCheck, panel, 28, 612)
+		
 		-- friendsOnlyCheck.Right:Set(portEdit.Right)
 		-- friendsOnlyCheck.Bottom:Set(function() return portEdit.Top() - 5 end)
+	
 		friendsOnlyCheck.OnCheck = function(self, checked)			
 			friendsOnly = checked;			
 		end
+		
 		friendsOnlyCheck:SetCheck(false)
 	    
 		local friendsOnlyLabel = UIUtil.CreateText(panel, "<LOC STEAM_FRIENDS_ONLY>Friends Only", 14, UIUtil.bodyFont)
+		
 		friendsOnlyLabel.Left:Set(friendsOnlyCheck.Right)
 		friendsOnlyLabel.Bottom:Set(function() return friendsOnlyCheck.Bottom() - 5 end)
+		
 	end
     
     gameList._tabs = {}
     gameList._sortby = {field = 'wrappedName', ascending = true, isOption = false, customField = 'AllowObservers', customFieldIsOption = false}
     
     local function CreateTab(data)
+	
         local btn = Bitmap(panel, UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_m.dds'))
         
         btn.lcap = Bitmap(btn, UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_l.dds'))
         btn.lcap.Depth:Set(btn.Depth)
+		
         LayoutHelpers.LeftOf(btn.lcap, btn)
         
         btn.rcap = Bitmap(btn, UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_r.dds'))
         btn.rcap.Depth:Set(btn.Depth)
+		
         LayoutHelpers.RightOf(btn.rcap, btn)
         
         if data.options then
+		
             btn.combo = Combo(btn, 14, 20, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
             btn.combo.Width:Set(260)
+			
             LayoutHelpers.AtLeftIn(btn.combo, btn, 38)
             LayoutHelpers.AtVerticalCenterIn(btn.combo, btn, -1)
+			
             btn.combo.Depth:Set(function() return btn.Depth() + 20 end)
             
             local itemArray = {}
+			
             btn.combo.keyMap = {}
+			
             for index, val in data.options do
                 itemArray[index] = LOC(val.title)
                 btn.combo.keyMap[index] = {field = val.sortby, isOption = val.isGameOption}
             end
+			
             btn.combo:AddItems(itemArray, 1)
             
             btn.combo.OnClick = function(self, index, text)
+			
                 gameList._sortby.customField = self.keyMap[index].field
                 gameList._sortby.customFieldIsOption = self.keyMap[index].isOption
                 formatData()
+				
             end
+			
         else
+		
             btn.text = UIUtil.CreateText(btn, LOC(data.name), 16, UIUtil.bodyFont)
             btn.text:DisableHitTest()
+			
             LayoutHelpers.AtLeftIn(btn.text, btn, 18)
             LayoutHelpers.AtVerticalCenterIn(btn.text, btn, -1)
+			
         end
         
         btn.arrow = Bitmap(btn, UIUtil.UIFile('/dialogs/sort_btn/sort-arrow-down_bmp.dds'))
         btn.arrow:DisableHitTest()
+		
         LayoutHelpers.AtLeftIn(btn.arrow, btn.lcap, 4)
         LayoutHelpers.AtVerticalCenterIn(btn.arrow, btn.lcap)
+		
         btn.arrow:Hide()
         
         btn.Width:Set(data.width)
@@ -454,42 +577,59 @@ function CreateUI(over, exitBehavior, useSteam)
         gameList._tabs[index]._sortKey = tabinfo.sortby
 		
         gameList._tabs[index].OnClick = function(control, event)
+		
             control.arrow:Show()
+			
             if control._checked then
                 gameList._sortby.ascending = not gameList._sortby.ascending 
             end
+			
             for index, tab in gameList._tabs do
                 if index != i then
                     tab:Uncheck()
                 end
             end
+			
             control._checked = true
+			
             if gameList._sortby.ascending then
                 control.arrow:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort-arrow-down_bmp.dds'))
             else
                 control.arrow:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort-arrow-up_bmp.dds'))
             end
+			
             gameList._sortby.field = control._sortKey
+			
             formatData()
+			
         end
 		
         gameList._tabs[index].HandleEvent = function(control, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 control:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_over_m.dds'))
                 control.lcap:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_over_l.dds'))
                 control.rcap:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_over_r.dds'))
+				
                 if control.text then
                     control.text:SetColor('ff333333')
                 end
+				
             elseif event.Type == 'MouseExit' then
+			
                 control:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_m.dds'))
                 control.lcap:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_l.dds'))
                 control.rcap:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_r.dds'))
+				
                 if control.text then
                     control.text:SetColor(UIUtil.fontColor)
                 end
+				
             elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+			
                 control:OnClick()
+				
             end
         end
     end
@@ -497,8 +637,11 @@ function CreateUI(over, exitBehavior, useSteam)
     gameListObjects = {}
     
     function CreateRollover(parent)
+	
         local bg = Bitmap(parent, UIUtil.UIFile('/scx_menu/gameselect/map-panel_bmp.dds'))
+		
         bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
+		
         LayoutHelpers.RightOf(bg, parent.preview)
         LayoutHelpers.AtVerticalCenterIn(bg, parent.preview)
         
@@ -506,7 +649,9 @@ function CreateUI(over, exitBehavior, useSteam)
         LayoutHelpers.AtLeftTopIn(bg.preview, bg, 44, 26)
         
         bg.mapglow = Bitmap(bg.preview, UIUtil.UIFile('/scx_menu/gameselect/map-panel-glow_bmp.dds'))
+		
         LayoutHelpers.AtLeftTopIn(bg.mapglow, bg, 35, 17)
+		
         bg.mapglow:DisableHitTest()
         
         if parent.data.ScenarioMap then
@@ -535,13 +680,17 @@ function CreateUI(over, exitBehavior, useSteam)
         local prevcontrol = bg.textfields.mapname
 		
         for i, v in parent.data.RolloverData.FormattedOptions do
+		
             local index = i
+			
             bg.textfields[index] = UIUtil.CreateText(bg, string.format("%s: %s", v.title, v.value), 14, UIUtil.bodyFont)
             LayoutHelpers.Below(bg.textfields[index], prevcontrol)
             prevcontrol = bg.textfields[index]
+			
         end
         
         bg.RefreshData = function(self, data) 
+		
             if data.ScenarioMap then
                 self.preview:SetTextureFromMap(data.ScenarioMap)
                 self.preview.Width:Set(240)
@@ -557,65 +706,86 @@ function CreateUI(over, exitBehavior, useSteam)
             self.textfields.mapname:SetText(LOCF("<LOC gamesel_0005>Map: %s", data.RolloverData.scenario.name))
 			
             for i, v in data.RolloverData.FormattedOptions do
+			
                 if self.textfields[i] then
                     self.textfields[i]:SetText(string.format("%s: %s", v.title, v.value))
                 end
+				
             end
         end
         
         bg:DisableHitTest(true)
+		
         return bg
+		
     end
     
     if table.getn(gameListObjects) > 0 then
+	
         for i, v in gameListObjects do
             v:Destroy()
         end
+		
     end
 	
     gameListObjects = {}
 	
     local function CreateElement(index)
+	
         gameListObjects[index] = Group(gameList)
         gameListObjects[index].Depth:Set(function() return gameList.Depth() + 10 end)
         
         gameListObjects[index].bg = Bitmap(gameListObjects[index], UIUtil.UIFile('/scx_menu/gameselect/slot_bmp.dds'))
+		
         LayoutHelpers.AtLeftTopIn(gameListObjects[index].bg, gameListObjects[index], 235)
+		
         gameListObjects[index].bg.Depth:Set(gameListObjects[index].Depth)
         
         gameListObjects[index].mapbg = Bitmap(gameListObjects[index], UIUtil.UIFile('/scx_menu/gameselect/map-slot_bmp.dds'))
+		
         LayoutHelpers.AtLeftTopIn(gameListObjects[index].mapbg, gameListObjects[index], 163)
+		
         gameListObjects[index].mapbg.Depth:Set(gameListObjects[index].Depth)
         
         gameListObjects[index].Width:Set(gameList.Width)
         gameListObjects[index].Height:Set(gameListObjects[index].bg.Height)
         
-        gameListObjects[index].joinBtn = Button(gameListObjects[index], 
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_up.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_down.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_over.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_dis.dds'))
+        gameListObjects[index].joinBtn = Button(gameListObjects[index], UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_up.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_down.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_over.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_dis.dds'))
+		
         gameListObjects[index].joinBtn.label = UIUtil.CreateText(gameListObjects[index].joinBtn, LOC("<LOC _Join>"), 14, UIUtil.bodyFont)
+		
         LayoutHelpers.AtCenterIn(gameListObjects[index].joinBtn.label, gameListObjects[index].joinBtn)
+		
         gameListObjects[index].joinBtn.label:DisableHitTest()
+		
         LayoutHelpers.AtLeftTopIn(gameListObjects[index].joinBtn, gameListObjects[index], -5, -5)
+		
         gameListObjects[index].joinBtn.OnClick = function(self, modifiers)
+		
     	    if errorDialog then errorDialog:Destroy() end
+			
             local name = nameEdit:GetText()
+			
             if not IsNameOK(name) then
                 errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
                 return
             end
 
     		errorDialog = UIUtil.ShowInfoDialog(panel, "<LOC GAMESEL_0012>Attempting to Join")
+			
             Prefs.SetToCurrentProfile('NetName', name)
+			
             local hostInfo = games[self.GameID]
+			
             lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+			
             panel:Destroy()
+			
             discovery:Destroy()
             discovery = false
+			
             --LOG( repr(hostInfo) )
-                        
+
             if hostInfo.Address == nil then
 				LOG( "Join Steam" )
 				lobby.JoinSteamGame(hostInfo, false)
@@ -626,30 +796,41 @@ function CreateUI(over, exitBehavior, useSteam)
 			LOG( "Joining game" )
         end
         
-        gameListObjects[index].obsBtn = Button(gameListObjects[index], 
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_up.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_down.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_over.dds'),
-            UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_dis.dds'))
+        gameListObjects[index].obsBtn = Button(gameListObjects[index], UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_up.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_down.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_over.dds'), UIUtil.UIFile('/scx_menu/small-short-btn/small-btn_dis.dds'))
+		
         gameListObjects[index].obsBtn.label = UIUtil.CreateText(gameListObjects[index].obsBtn, LOC("<LOC _Observe>"), 14, UIUtil.bodyFont)
+		
         LayoutHelpers.AtCenterIn(gameListObjects[index].obsBtn.label, gameListObjects[index].obsBtn)
+		
         gameListObjects[index].obsBtn.label:DisableHitTest()
+		
         LayoutHelpers.Below(gameListObjects[index].obsBtn, gameListObjects[index].joinBtn, -15)
+		
         gameListObjects[index].obsBtn.OnClick = function(self, modifiers)
+		
     	    if errorDialog then errorDialog:Destroy() end
+			
             local name = nameEdit:GetText()
+			
             if not IsNameOK(name) then
                 errorDialog = UIUtil.ShowInfoDialog(parent, "<LOC GAMESEL_0003>Please fill in your nickname", "<LOC _OK>")
                 return
             end
+			
     		errorDialog = UIUtil.ShowInfoDialog(panel, "<LOC GAMESEL_0012>Attempting to Join")
+			
             Prefs.SetToCurrentProfile('NetName', name)
+			
             local hostInfo = games[self.GameID]
+			
             lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+			
             panel:Destroy()
             discovery:Destroy()
             discovery = false
+			
             --LOG('Joining ', repr(hostInfo))
+			
             if hostInfo.Address == nil then				
 				lobby.JoinSteamGame(hostInfo, true)
             else
@@ -660,8 +841,10 @@ function CreateUI(over, exitBehavior, useSteam)
         gameListObjects[index].preview = MapPreview(gameListObjects[index])
         gameListObjects[index].preview.Width:Set(58)
         gameListObjects[index].preview.Height:Set(58)
+		
         LayoutHelpers.AtHorizontalCenterIn(gameListObjects[index].preview, gameList._tabs[1])
         LayoutHelpers.AtVerticalCenterIn(gameListObjects[index].preview, gameListObjects[index])
+		
         gameListObjects[index].preview:DisableHitTest()
         
         gameListObjects[index].mapglow = Bitmap(gameListObjects[index].preview, UIUtil.UIFile('/scx_menu/gameselect/map-panel-glow_bmp.dds'))
@@ -672,27 +855,37 @@ function CreateUI(over, exitBehavior, useSteam)
         gameListObjects[index].mapglow:DisableHitTest()
         
         gameListObjects[index].nopreview = UIUtil.CreateText(gameListObjects[index], '?', 60, UIUtil.bodyFont)
+		
         LayoutHelpers.AtCenterIn(gameListObjects[index].nopreview, gameListObjects[index].preview)
+		
         gameListObjects[index].nopreview:DisableHitTest()
         
         gameListObjects[index].name1 = UIUtil.CreateText(gameListObjects[index], '', 16)
+		
         LayoutHelpers.AtLeftIn(gameListObjects[index].name1, gameList._tabs[2])
         LayoutHelpers.AtVerticalCenterIn(gameListObjects[index].name1, gameListObjects[index])
+		
         gameListObjects[index].name1:DisableHitTest()
         
         gameListObjects[index].name2 = UIUtil.CreateText(gameListObjects[index], '', 16)
+		
         LayoutHelpers.Below(gameListObjects[index].name2, gameListObjects[index].name1)
         LayoutHelpers.AtLeftIn(gameListObjects[index].name2, gameList._tabs[2])
+		
         gameListObjects[index].name2:DisableHitTest()
         
         gameListObjects[index].players = UIUtil.CreateText(gameListObjects[index], '', 16)
+		
         LayoutHelpers.AtHorizontalCenterIn(gameListObjects[index].players, gameList._tabs[3])
         LayoutHelpers.AtVerticalCenterIn(gameListObjects[index].players, gameListObjects[index])
+		
         gameListObjects[index].players:DisableHitTest()
         
         gameListObjects[index].custom = UIUtil.CreateText(gameListObjects[index], 'custom', 16)
+		
         LayoutHelpers.AtLeftIn(gameListObjects[index].custom, gameList._tabs[4])
         LayoutHelpers.AtVerticalCenterIn(gameListObjects[index].custom, gameListObjects[index])
+		
         gameListObjects[index].custom:DisableHitTest()
         
         gameListObjects[index].roGroup = Group(gameListObjects[index])
@@ -700,15 +893,22 @@ function CreateUI(over, exitBehavior, useSteam)
         gameListObjects[index].roGroup.Right:Set(gameListObjects[index].mapbg.Right)
         gameListObjects[index].roGroup.Top:Set(gameListObjects[index].mapbg.Top)
         gameListObjects[index].roGroup.Bottom:Set(gameListObjects[index].mapbg.Bottom)
+		
         gameListObjects[index].roGroup.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 if not gameListObjects[index].rollover then
                     gameListObjects[index].rollover = CreateRollover(gameListObjects[index])
                 end
+				
             elseif event.Type == 'MouseExit' then
+			
                 if gameListObjects[index].rollover then
+				
                     gameListObjects[index].rollover:Destroy()
                     gameListObjects[index].rollover = false
+					
                 end
             end
         end
@@ -717,15 +917,18 @@ function CreateUI(over, exitBehavior, useSteam)
     local formattedData = {}
     
     CreateElement(1)
+	
     LayoutHelpers.AtLeftTopIn(gameListObjects[1], gameList, 0, 10)
-        
+
     local index = 2
+	
     while gameListObjects[table.getsize(gameListObjects)].Bottom() + gameListObjects[1].Height() < gameList.Bottom() do
+	
         CreateElement(index)
         LayoutHelpers.Below(gameListObjects[index], gameListObjects[index-1], 5)
         index = index + 1
     end
-            
+
     local numLines = function() return table.getsize(gameListObjects) end
     
     local function DataSize()
@@ -765,6 +968,7 @@ function CreateUI(over, exitBehavior, useSteam)
     gameList.IsScrollable = function(control, axis)
         return true
     end
+	
     -- determines what controls should be visible or not
     gameList.CalcVisible = function(control)
 	
@@ -863,18 +1067,21 @@ function CreateUI(over, exitBehavior, useSteam)
 		
         for i, gameData in games do
 		
-            if gameData.ProductCode == nil or gameData.ProductCode != import('/lua/productcode.lua').productCode then continue end
+			-- this line prevented us from seeing Steam matchmaking game --
+            --if gameData.ProductCode == nil or gameData.ProductCode != import('/lua/productcode.lua').productCode then continue end
 			
             gameData.wrappedName = import('/lua/maui/text.lua').WrapText(gameData.GameName, 
                 gameList._tabs[2].Right() - gameList._tabs[2].Left(), 
                 function(curText) return gameListObjects[1].name1:GetStringAdvance(curText) end)
             
             for i, v in scenarios do
+			
                 if v.file == string.lower(gameData.Options.ScenarioFile) then
                     gameData.scenario = v
                     gameData.MaxPlayers = table.getsize(v.Configurations.standard.teams[1].armies)
                     break
                 end
+				
             end
             
             if not gameData.scenario then
@@ -940,11 +1147,14 @@ function CreateUI(over, exitBehavior, useSteam)
         end
 		
         table.sort(formattedData, sortFunc)
+		
         --LOG(repr(formattedData))
+		
         gameList:CalcVisible()
+		
     end
     
--- discovery behaviors
+	-- discovery behaviors
     discovery.RemoveGame = function(self,index)
         games[index+1] = nil
         --LOG(repr(games))

@@ -1749,10 +1749,21 @@ local function UpdateGame()
 		scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
 		CreateBigPreview(GUI.mapPanel)
 	end
-	
 	gameInfo.GameOptions.PlayerCount = GetPlayerCount()
+    
+    lobbyComm:UpdateSteamLobby(  
+		{            
+			Options = gameInfo.GameOptions,
+            HostedBy = localPlayerName,
+            PlayerCount = GetPlayerCount(),
+            GameName = gameName,
+            ProductCode = import('/lua/productcode.lua').productCode,
+        } )
+    
+	
 	
     LOG("HERE IT IS"..repr({ Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
+	
 end
 
 -- Update our local gameInfo.GameMods from selected map name and selected mods, then

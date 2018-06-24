@@ -133,23 +133,26 @@ function CreateResources()
 			
 				local armyposition = MarkerToPosition(Starts[x])
 				
-				-- if the resource is within 60 of a start position it should be examined for removal
+				-- if the resource is within 55 of a start position it should be examined for removal
 				if VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) < 55 then
 				
-					-- is the start position is being used
 					for y = 1, table.getn(Armies) do
-						-- keep it 
+					
+						-- if the position is being used keep it 
 						if Armies[y] == Starts[x] then
 							doit = true
 							break
 						end
+						
 						-- else turn it off
 						doit = false
+						
 					end
 					
 					if not tblData.hint then
 					
 						-- Give me a log when a mass point is too close to a start position and needs to be moved
+						-- only 4 points are permitted at a range of 36 - all others will be 55 or greater
 						-- those closer than 37 will be put at 36 from the start - those greater than 37 will be pushed out to 55
 						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37 then
 					
@@ -232,15 +235,21 @@ function CreateResources()
 
 				-- keep it 
 				if chance == doit_value then
+				
 					doit = true
+					
 				-- delete the resource point from the masterchain
 				else
+				
 					LOG("*AI DEBUG Removing resource at "..repr(tblData.position))
 					ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
+					
 				end
+				
 			end	
 			
 			if doit then
+			
 				FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
 		
 				CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
@@ -249,38 +258,27 @@ function CreateResources()
 				local albedo, sx, sz, lod
 				
 				if tblData.type == "Mass" then
+				
 					albedo = "/env/common/splats/mass_marker.dds"
 					sx = 2
 					sz = 2
 					lod = 100
-					--LOG("*AI DEBUG Creating prop at "..repr(tblData.position))
-					CreatePropHPR(
-						'/env/common/props/massDeposit01_prop.bp',
-						tblData.position[1], tblData.position[2], tblData.position[3],
-						Random(0,360), 0, 0
-					)
+
+					CreatePropHPR('/env/common/props/massDeposit01_prop.bp', tblData.position[1], tblData.position[2], tblData.position[3],	Random(0,360), 0, 0	)
+					
 				else
+				
 					albedo = "/env/common/splats/hydrocarbon_marker.dds"
 					sx = 6
 					sz = 6
 					lod = 200
-					CreatePropHPR(
-						'/env/common/props/hydrocarbonDeposit01_prop.bp',
-						tblData.position[1], tblData.position[2], tblData.position[3],
-						Random(0,360), 0, 0
-					)
+					
+					CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
+					
 				end
 
-				CreateSplat(
-					tblData.position,           # Position
-					0,                          # Heading (rotation)
-					albedo,                     # Texture name for albedo
-					sx, sz,                     # SizeX/Z
-					lod,                        # LOD
-					0,                          # Duration (0 == does not expire)
-					-1 ,                         # army (-1 == not owned by any single army)
-					0
-				)
+				-- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
+				CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
 			
 			end
         end
@@ -288,21 +286,28 @@ function CreateResources()
 		if tblData.prop then
 			tblData.prop = nil
 		end
+		
 		if tblData.color then
 			tblData.color = nil
 		end
+		
 		if tblData.size then
 			tblData.size = nil
 		end
+		
 		if tblData.amount then
 			tblData.amount = nil
 		end
+		
 		if tblData.position then
+		
 			local a = tblData.position[1]
 			local b = tblData.position[2]
 			local c = tblData.position[3]
 			tblData.position = { a, b, c }
+			
 		end
+		
     end
 	
 	-- loop thru all the start positions and eliminate those which
