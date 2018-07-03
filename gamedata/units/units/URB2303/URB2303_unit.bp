@@ -220,6 +220,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
+			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
 

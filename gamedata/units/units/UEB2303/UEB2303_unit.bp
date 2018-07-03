@@ -205,6 +205,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
+			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
 			ProjectileLifetime = 10,
@@ -235,7 +236,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',

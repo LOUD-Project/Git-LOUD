@@ -1,19 +1,9 @@
 UnitBlueprint {
-  AI = {
-        TargetBones = {
-            'Target01',
-            'Target02',
-        },
-    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
             Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB2101_Activate',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -22,27 +12,20 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    Buffs = {
-        Regen = {
-            Level1 = 1,
-            Level2 = 2,
-            Level3 = 3,
-            Level4 = 4,
-            Level5 = 5,
-        },
-    },
+	
+    Buffs = {},
+	
     BuildIconSortPriority = 140,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-	'BUILTBYTIER1ENGINEER',
+		'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
         'AEON',
         'STRUCTURE',
-        'STRATEGIC',
         'TECH1',
         'INDIRECTFIRE',
         'ARTILLERY',
@@ -50,21 +33,21 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYINDIRECTFIRE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.1,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 15,
-        Health = 1500,
-        MaxHealth = 1500,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 25,
+        Health = 1000,
+        MaxHealth = 1000,
+        RegenRate = 1,
+        SurfaceThreatLevel = 7,
     },
-    Description = '<LOC sbui2103>Light Artillery Installation',
+	
+    Description = '<LOC sbui2103>Light Field Artillery Installation',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -88,14 +71,16 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
+	
     Economy = {
-        BuildCostEnergy = 7500,
-        BuildCostMass = 900,
-        BuildTime = 900,
+        BuildCostEnergy = 7000,
+        BuildCostMass = 750,
+        BuildTime = 750,
         RebuildBonusIds = {
             'sab2103',
         },
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
@@ -120,15 +105,19 @@ UnitBlueprint {
         UnitName = '<LOC sab2103_name>Charis',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2103>Light Artillery Installation',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -153,22 +142,27 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -.05,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.71,
+	
     SizeX = 0.5,
     SizeY = 0.75,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_structure1_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
-     	Level1 = 8,
-        Level2 = 16,
-        Level3 = 24,
-        Level4 = 32,
-        Level5 = 40,
+     	Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -182,27 +176,41 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 600,
+			
+            Damage = 120,
             DamageFriendly = true,
-            DamageRadius = 1.5,
+            DamageRadius = 1.25,
             DamageType = 'Normal',
+			
             DisplayName = 'Charis Artillery',
-            EnergyDrainPerSecond = 100,
-            EnergyRequired = 500,
+			
+			DoTPulses = 5,	-- 5 x 120 damage
+			DoTTime = 3,	-- applied over 3 seconds
+			
+            EnergyDrainPerSecond = 15,	-- 8 second charge
+            EnergyRequired = 120,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.5,
-            FiringTolerance = 1,
+			
+            FiringRandomness = 1.1,
+            FiringTolerance = 0.7,
+			
             Label = 'MainGun',
-            MaxRadius = 60,
+			
+            MaxRadius = 55,
             MinRadius = 5,
+			
+			MuzzleChargeDelay = 1,		-- 1 second muzzle delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 18,
+            MuzzleVelocity = 16,
+			MuzzleVelocityReduceDistance = 50,
+			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -219,36 +227,41 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.1,
-            RenderFireClock = true,
-            TargetCheckInterval = 5,
+			
+            RateOfFire = 1,
+
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-		'INDIRECTFIRE',
+				'INDIRECTFIRE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 15,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 15,
+			
             Turreted = true,
-            WeaponCategory = 'Artillery',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.5,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,

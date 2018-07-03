@@ -1,19 +1,9 @@
 UnitBlueprint {
-	AI = {
-        TargetBones = {
-            'Target01',
-            'Target02',
-        },
-    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB2303_Activate',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -22,51 +12,43 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    Buffs = {
-        Regen = {
-            Level1 = 1,
-            Level2 = 2,
-            Level3 = 3,
-            Level4 = 4,
-            Level5 = 5,
-        },
-    },
+	
+    Buffs = {},
+	
     BuildIconSortPriority = 140,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-	'BUILTBYTIER1ENGINEER',
+		'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
         'CYBRAN',
         'STRUCTURE',
-        'STRATEGIC',
         'TECH1',
         'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
         'SIZE4',
         'VISIBLETORECON',
-        'SHOWATTACKRETICLE',
         'RECLAIMABLE',
-        'OVERLAYINDIRECTFIRE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.1,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 15,
-        Health = 1500,
-        MaxHealth = 1500,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 25,
+        Health = 1000,
+        MaxHealth = 1000,
+        RegenRate = 2,
+        SurfaceThreatLevel = 7,
     },
-    Description = '<LOC sbui2103>Light Artillery Installation',
+	
+    Description = '<LOC sbui2103>Light Field Artillery Installation',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -92,14 +74,16 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
+	
     Economy = {
-        BuildCostEnergy = 7500,
-        BuildCostMass = 900,
-        BuildTime = 900,
+        BuildCostEnergy = 7000,
+        BuildCostMass = 750,
+        BuildTime = 750,
         RebuildBonusIds = {
             'srb2103',
         },
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
@@ -124,15 +108,19 @@ UnitBlueprint {
         UnitName = '<LOC srb2103_name>Little Bertha',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2103>Light Artillery Installation',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -154,22 +142,27 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -.1,
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.2,
+	
     SizeX = 0.6,
     SizeY = 0.8,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_structure1_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
-        Level1 = 8,
-        Level2 = 16,
-        Level3 = 24,
-        Level4 = 32,
-        Level5 = 40,
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -183,27 +176,37 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+			
             Damage = 600,
             DamageFriendly = true,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
+			
             DisplayName = 'Resonance Artillery',
-            EnergyDrainPerSecond = 100,
-            EnergyRequired = 500,
+			
+            EnergyDrainPerSecond = 20,
+            EnergyRequired = 180,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 2.5,
-            FiringTolerance = 1,
+			
+            FiringRandomness = 1.5,
+            FiringTolerance = 0.5,
+			
             Label = 'MainGun',
-            MaxRadius = 60,
+			
+            MaxRadius = 55,
             MinRadius = 5,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 20,
+            MuzzleVelocity = 17,
+			MuzzleVelocityReduceDistance = 50,
+			
             ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -219,34 +222,40 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+			
+            RateOfFire = 1,
+
             TargetCheckInterval = 4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-		'INDIRECTFIRE',
-                'SPECIALLOWPRI',
+				'INDIRECTFIRE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 15,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 15,
+			
             Turreted = true,
-            WeaponCategory = 'Artillery',
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.5,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,

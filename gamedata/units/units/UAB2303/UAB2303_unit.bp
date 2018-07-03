@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -219,6 +220,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
+			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 
@@ -249,7 +251,7 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS -AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
