@@ -20,8 +20,8 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.45,
         CirclingTurnMult = 1,
 		
-        KLift = 3,
-        KLiftDamping = 3,
+        KLift = 2.5,
+        KLiftDamping = 3.5,
 		
         KMove = 0.95,
         KMoveDamping = 2,
@@ -258,8 +258,6 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 12,
-        FuelRechargeRate = 500,
-        FuelUseTime = 6500,
 		SkirtOffsetX = 0,
         SkirtOffsetZ = -6,
         SkirtSizeX = 5,
