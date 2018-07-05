@@ -145,7 +145,7 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 54,
         ArmorType = 'Light',
-        EconomyThreatLevel = 0,
+        EconomyThreatLevel = 3,
         Health = 5400,
         MaxHealth = 5400,
 		
@@ -167,7 +167,6 @@ UnitBlueprint {
         },
 		
         RegenRate = 12,
-        SurfaceThreatLevel = 0,
     },
 	
     Description = '<LOC xea0306_desc>Experimental Air Transport',
@@ -292,7 +291,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = true,
         },
-        Elevation = 9,
+        Elevation = 10.5,
         MaxSpeed = 0.5,
         MeshExtentsX = 4,
         MeshExtentsY = 1,
