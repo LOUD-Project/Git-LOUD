@@ -10,6 +10,8 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 		for _,v in threatTable do
 
 			if v[3] > threatcutoff then
+			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat within "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
 		
 				if VDist2( v[1], v[2], position[1], position[3] ) <= distance then
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat within "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))

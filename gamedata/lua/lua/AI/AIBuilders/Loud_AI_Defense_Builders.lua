@@ -24,7 +24,7 @@ end
 BuilderGroup {BuilderGroupName = 'Base Defenses',
     BuildersType = 'EngineerBuilder',
 
-    Builder {BuilderName = 'T1 Base PD - Small Maps',
+    Builder {BuilderName = 'T1 Base PD',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -36,11 +36,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		PriorityFunction = function(self, aiBrain)
 		
 			if self.Priority != 0 then
-			
-				if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
-					return 0, false
-				end
-				
+
 				-- remove after 30 minutes
 				if aiBrain.CycleTime > 1800 then
 					return 0, false
@@ -55,6 +51,10 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         BuilderConditions = {
 		
 			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
+			
+			-- Greater than 50 economy threat closer than 18km
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
+			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},

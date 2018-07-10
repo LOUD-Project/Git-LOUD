@@ -524,7 +524,7 @@ function ModBlueprints(all_blueprints)
 	LOG("*AI DEBUG Capping GuardReturnRadius")
 	LOG("*AI DEBUG Adjusting View Radius")
 	
-	local capreturnradius = 50
+	local capreturnradius = 80
 	
     local econScale = 0
 	local speedScale = 0
@@ -575,25 +575,35 @@ function ModBlueprints(all_blueprints)
 						if catj == 'MOBILE' then
 			
 							if bp.Economy.BuildTime then
+							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
+								
 							end
 						
 							if bp.Physics.Maxspeed then
+							
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
+								
 							end	
 							
 							if bp.Intel.VisionRadius then
+							
 								bp.Intel.VisionRadius = math.floor(bp.Intel.VisionRadius + (bp.Intel.VisionRadius * viewScale))
+								
 							end
 							
 							if bp.Intel.WaterVisionRadius then
+							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
+								
 							else
+							
 								if bp.Intel then
 									bp.Intel.WaterVisionRadius = 6
 								end
+								
 							end
 					
 						end
@@ -602,15 +612,21 @@ function ModBlueprints(all_blueprints)
 						if catj == 'STRUCTURE' then
 				
 							if bp.Intel.VisionRadius then
+							
 								bp.Intel.VisionRadius = math.floor(bp.Intel.VisionRadius + (bp.Intel.VisionRadius * viewScale))
+								
 							end
 						
 							if bp.Intel.WaterVisionRadius then
+							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
+								
 							else
+							
 								if bp.Intel then
 									bp.Intel.WaterVisionRadius = 6
 								end
+								
 							end
 						end						
 					end
@@ -627,29 +643,41 @@ function ModBlueprints(all_blueprints)
 						if catj == 'MOBILE' then
 			
 							if bp.Economy.BuildTime then
+							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
+								
 							end
 							
 							if bp.Physics.Maxspeed then
+							
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
+								
 							end
 
 							if bp.Physics.MaxBrake then
+							
 								bp.Physics.MaxBrake = bp.Physics.MaxBrake + (bp.Physics.MaxBrake * speedScale)
+								
 							end
 							
 							if bp.Intel.VisionRadius then
+							
 								bp.Intel.VisionRadius = math.floor(bp.Intel.VisionRadius + (bp.Intel.VisionRadius * viewScale))
+								
 							end
 							
 							if bp.Intel.WaterVisionRadius then
+							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
+								
 							else
+							
 								if bp.Intel then
 									bp.Intel.WaterVisionRadius = 0
 								end
+								
 							end
 						end
 					end

@@ -396,6 +396,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 
 }
 
+
 BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
     BuildersType = 'PlatoonFormBuilder',
 	
@@ -843,6 +844,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
     },
 
 }
+
 
 BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
     BuildersType = 'PlatoonFormBuilder',
@@ -1607,6 +1609,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
     }, 	
 }
 
+
 BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 	BuildersType = 'PlatoonFormBuilder',
 	
@@ -1770,6 +1773,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
     },
 	
 }
+
 
 BuilderGroup {BuilderGroupName = 'Base Reinforcement Formations',
 	BuildersType = 'PlatoonFormBuilder',

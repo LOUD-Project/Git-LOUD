@@ -1,5 +1,5 @@
 -- /lua/ai/AIBaseTemplates/Loud_DP_Small.lua
--- This layout is used for small Land DP Points
+-- This layout is used for small Land DP Points or those with island markers nearby
 
 BaseBuilderTemplate {
 
@@ -91,8 +91,10 @@ BaseBuilderTemplate {
         local mapSizeX, mapSizeZ = GetMapSize()		
 		local basevalue = 0
 		
-        -- If we're playing on a 20k or less or low pop
-        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
+        -- If we're playing on a 20k or less or low pop or this is an island
+		-- This means that if it's an island it'll be a 50% chance on a large map since the larger DP will also
+		-- be valued at 100
+        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(ScenarioInfo.Options.UnitCap) < 1000 or island then
 		
             basevalue = 100
 			
@@ -109,15 +111,18 @@ BaseBuilderTemplate {
 		
 		-- if no threat or distance to threat > 10km -- reduce value
         if not distance or distance > 500 then
+		
 			return basevalue/2, island
 			
 		-- increase value for nearby threats between 3.5km and 10km	
         elseif distance > 175 then
+		
 			return ( basevalue * ( 500 / (distance or 500) ) ),island
 			
 		-- otherwise too close
         end
         
         return 0,island
+		
     end,
 }

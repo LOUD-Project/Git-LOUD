@@ -1888,9 +1888,9 @@ function NukeAI( self, aiBrain )
 					continue
 				end
 
-				-- the +0.9 is to insure the calculation is not divided by zero
+				-- the +0.75 is to insure the calculation is not divided by zero
 				-- AND it makes a target with NO ANTIS a little more valuable
-				antinukes = antinukes + 0.9
+				antinukes = antinukes + 0.75
 
 				-- value of target is divided by number of anti-nukes in area
 				value = (allthreat/antinukes)

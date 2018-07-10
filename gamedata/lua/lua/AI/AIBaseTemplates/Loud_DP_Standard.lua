@@ -109,10 +109,12 @@ BaseBuilderTemplate {
 		
 		-- if no threat or distance to threat > 10km -- reduce value
         if not distance or distance > 500 then
+		
 			return basevalue/2, island
 			
 		-- increase value for nearby threats between 3.5km and 10km	
         elseif distance > 175 then
+		
 			return ( basevalue * ( 500 / (distance or 500) ) ),island
 			
 		-- otherwise too close

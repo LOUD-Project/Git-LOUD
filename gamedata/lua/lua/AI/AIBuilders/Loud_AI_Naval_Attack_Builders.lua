@@ -602,7 +602,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1200,		-- 20 minute mission
+			MissionTime = 1500,		-- 25 minute mission
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -654,7 +654,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1200,		-- 20 minute mission
+			MissionTime = 1500,		-- 25 minute mission
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -705,7 +705,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1200,		-- 20 minute mission
+			MissionTime = 1500,		-- 25 minute mission
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -754,7 +754,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1200,		-- 20 minute mission
+			MissionTime = 1500,		-- 25 minute mission
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -778,7 +778,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 
 		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
 		RTBLocation = 'Any',
 		

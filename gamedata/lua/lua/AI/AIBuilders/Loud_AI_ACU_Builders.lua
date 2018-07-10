@@ -68,8 +68,8 @@ BuilderGroup {BuilderGroupName = 'Loud Initial ACU Builders',
 		end,
 		
         BuilderConditions = {
-			-- Greater than 50 economy threat closer than 10km
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 50, 'Economy' }},
+			-- Greater than 50 economy threat closer than 18km
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
         },
 		
         BuilderType = { 'Commander' },

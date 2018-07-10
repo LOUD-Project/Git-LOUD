@@ -4017,7 +4017,7 @@ function CreateAttackPlan(self,enemyPosition)
 	end
 
 	local mapsize = ScenarioInfo.size[1]
-	local stagesize = math.floor(math.min(mapsize/2, 375)) #-- should give a range between 128 and 350 for the staging points
+	local stagesize = math.floor(math.min(mapsize/2, 400)) #-- should give a range between 128 and 400 for the staging points
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
 
@@ -4028,7 +4028,7 @@ function CreateAttackPlan(self,enemyPosition)
 	-- this should probably get set to the current PrimaryLandAttackBase
     local StartPosition = self.BuilderManagers.MAIN.Position
 
-    local markertypes = { 'Defensive Point','Naval Defensive Point', 'Blank Marker', 'Expansion Area', 'Large Expansion Area', 'Combat Zone' }
+    local markertypes = { 'Defensive Point','Naval Defensive Point', 'Blank Marker', 'Expansion Area', 'Large Expansion Area', 'Small Expansion Area' }
     local markerlist = {}
     local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 
@@ -4074,8 +4074,10 @@ function CreateAttackPlan(self,enemyPosition)
 				
 				-- only add markers that are at least 50% a stagesize away
                 if VDist2Sq(Position[1],Position[3], StartPosition[1],StartPosition[3]) > ( (stagesize*0.5)*(stagesize*0.5))
+				
 					-- and at least 50% stagesize from goal
 					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) > ((stagesize*0.5)*(stagesize*0.5))
+					
 					-- and closer to the goal than the startposition
 					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) <= VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
 					
@@ -4094,7 +4096,7 @@ function CreateAttackPlan(self,enemyPosition)
 
 	if table.getn(markerlist) < 1 then
 	
-		LOG("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements")
+		WARN("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
 		
 	end
 
@@ -4126,15 +4128,31 @@ function CreateAttackPlan(self,enemyPosition)
                 
                 -- if the position is at least half the stagesize away 
                 if VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= ( (stagesize*0.5) * (stagesize*0.5) )
+				
 					-- and at least half a stagesize from the goal
 					and VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) >= ( (stagesize*0.5) * (stagesize*0.5) )
+					
 					-- and 30% closer to the final goal than the last selected point 
 					and (VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) < (VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) * .70 ))
+					
 					-- and Goal is NOT between the current point and this point
 					and not DestinationBetweenPoints( Goal, CurrentPoint, v.Position )	then
                     
                     pathvalue = 0
-                    path, reason = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD(self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 250, 200)
+					
+					-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
+					self.AttackPlan.Method = 'Land'
+					
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 350, 160)
+					
+					if not path then
+
+						-- attack plan will be amphibious if no land path, even if we dont find a path --
+						self.AttackPlan.Method = 'Amphibious'
+						
+						path, reason, pathlength = import('lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 350, 240)
+						
+					end
 
                     -- calculate the distance of the path steps or distance + 300 if no path
                     if not path then
@@ -4162,7 +4180,7 @@ function CreateAttackPlan(self,enemyPosition)
 						
                     end
 
-                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathvalue, Type = 'Land', Path = path})
+                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathvalue, Type = self.AttackPlanMethod, Path = path})
 					
                 end
 				
@@ -4205,7 +4223,7 @@ function CreateAttackPlan(self,enemyPosition)
 				
                     --LOG("*AI DEBUG Could not find Land Node with 200 of resultposition "..repr(result).." using Water at 300")
 					
-                    fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 300)
+                    fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 400)
 					
                 else
 				
@@ -4246,8 +4264,7 @@ function CreateAttackPlan(self,enemyPosition)
         end 
 		
     end
-	
-	--LOG("*AI DEBUG "..self.Nickname.." Goal reached ")
+
 	
     if StageCount >= 0 then
 	
@@ -4257,14 +4274,7 @@ function CreateAttackPlan(self,enemyPosition)
         self.AttackPlan.StagePoints = { [0] = StartPosition }
         self.AttackPlan.GoSignal = false
 		
-		-- record if attack plan can be land based or not
-		if path then
-			self.AttackPlan.Method = 'Land'
-		else
-			self.AttackPlan.Method = 'Amphibious'
-		end
 
-        --self.AttackPlan.StagePoints[0].Position = StartPosition
         local counter = 1
 
         for _,i in StagePoints do
@@ -4277,7 +4287,6 @@ function CreateAttackPlan(self,enemyPosition)
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     end
