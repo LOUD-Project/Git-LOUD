@@ -10,7 +10,7 @@ XSB8765 = Class(SMassStorageUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         SMassStorageUnit.OnStopBeingBuilt(self,builder,layer)
-        self.Trash:Add(CreateStorageManip(self, 'B01', 'ENERGY', 0, 0, -6.875, 0, 0, 0))
+        self.Trash:Add(CreateStorageManip(self, 'B01', 'ENERGY', 0, 0, -4.5, 0, 0, 0))
     end,
 }
 

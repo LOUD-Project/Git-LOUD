@@ -15,7 +15,7 @@ UEB8765 = Class(TEnergyStorageUnit) {
 
     OnCreate = function(self)
         TEnergyStorageUnit.OnCreate(self)
-        self.Trash:Add(CreateStorageManip(self, 'B01', 'ENERGY', 0, 0, -3.0, 0, 0, 0))
+        self.Trash:Add(CreateStorageManip(self, 'B01', 'ENERGY', 0, 0, -2.4, 0, 0, 0))
     end,
 
 }

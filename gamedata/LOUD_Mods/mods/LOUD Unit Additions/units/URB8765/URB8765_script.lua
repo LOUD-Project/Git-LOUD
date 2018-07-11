@@ -21,7 +21,7 @@ URB8765 = Class(CEnergyStorageUnit) {
             self:PlaySound(myBlueprint.Audio.Activate)
         end
 
-        local sliderManip = CreateStorageManip(self, 'Lift', 'ENERGY', 0, 0, 0, 0, 6.25, 0)
+        local sliderManip = CreateStorageManip(self, 'Lift', 'ENERGY', 0, 0, 0, 0, 4, 0)
     end,
 }
 

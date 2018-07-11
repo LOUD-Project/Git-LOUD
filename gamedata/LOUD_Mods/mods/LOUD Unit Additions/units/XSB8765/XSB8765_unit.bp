@@ -52,35 +52,38 @@ UnitBlueprint {
         RegenRate = 10,
     },
 	
-    Description = '<LOC xsb8765_desc>Experimental Resource Storage',
+    Description = '<LOC xsb8765_desc>Resource Storage Facility',
 	
     Display = {
+	
         Abilities = { '<LOC ability_deathaoe>Volatile' },
+		
         Mesh = {
-            IconFadeInZoom = 200,
+            IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 225,
+                    LODCutoff = 160,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
                 },
                 {
                     AlbedoName = 'xsb8765_lod1_albedo.dds',
-                    LODCutoff = 350,
+                    LODCutoff = 300,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
                     SpecularName = 'xsb8765_lod1_specteam.dds',
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0012',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
-                Length = 18,
+                Length = 12,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
                 Orientations = {
                     0,
@@ -88,15 +91,15 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 18,
+                RemoveWhenDead = true,
+                Width = 12,
             },
         },
-        UniformScale = 0.28,
+        UniformScale = 0.21,
     },
 	
     Economy = {
-        BuildCostEnergy = 850000,
+        BuildCostEnergy = 650000,
         BuildCostMass = 35000,
         BuildTime = 36500,
 
@@ -110,7 +113,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 10,
+		CapCost = 8,
         Category = 'Experimental',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -136,16 +139,16 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC xsb8765_help>Experimental Resource Storage',
+        HelpText = '<LOC xsb8765_help>Resource Storage Facility',
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 4.25,
-    LifeBarSize = 10.0,
+    LifeBarOffset = 3,
+    LifeBarSize = 6.0,
 	
     Footprint = {
-        SizeX = 6,
-        SizeZ = 6,
+        SizeX = 5,
+        SizeZ = 5,
     },
 	
     Physics = {
@@ -154,7 +157,7 @@ UnitBlueprint {
             LAYER_Air = false,
             LAYER_Land = true,
             LAYER_Orbit = false,
-            LAYER_Seabed = false,
+            LAYER_Seabed = true,
             LAYER_Sub = false,
             LAYER_Water = false,
         },
@@ -166,22 +169,23 @@ UnitBlueprint {
         MeshExtentsZ = 6,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -2.5,
-        SkirtOffsetZ = -2.5,
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 6,
-    SelectionSizeZ = 6,
+    SelectionSizeX = 4,
+    SelectionSizeZ = 4,
     SelectionThickness = 0.33,
 	
-    SizeX = 5,
-    SizeY = 5,
-    SizeZ = 5,
+    SizeX = 4,
+    SizeY = 4,
+    SizeZ = 4,
 	
     StrategicIconName = 'icon_experimental_generic',
+	
     StrategicIconSortPriority = 250,
 	
     Weapon = {
@@ -200,12 +204,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
-            NukeInnerRingDamage = 12500,
+            NukeInnerRingDamage = 15000,
             NukeInnerRingRadius = 20,
-            NukeInnerRingTotalTime = 1,
+            NukeInnerRingTotalTime = 3,
             NukeOuterRingDamage = 3500,
-            NukeOuterRingRadius = 40,
-            NukeOuterRingTotalTime = 1,
+            NukeOuterRingRadius = 44,
+            NukeOuterRingTotalTime = 5,
             ProjectileId = '/effects/entities/InainoEffectController01/InainoEffectController01_proj.bp',
             RackBones = {
                 {

@@ -1,3 +1,4 @@
+-- Unit Upgrades Descriptions --
 Description['uab2304-Radar_T2'] = "Installs typical T2 radar on this structure"
 Description['ueb2304-Radar_T2'] = "Installs typical T2 radar on this structure"
 Description['urb2304-Radar_T2'] = "Installs typical T2 radar on this structure"
