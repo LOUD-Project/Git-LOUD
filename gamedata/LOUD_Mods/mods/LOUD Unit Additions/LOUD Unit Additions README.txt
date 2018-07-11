@@ -20,7 +20,7 @@ Quantum Teleportation Units - point one at another and press the teleport button
 
 T3 Engineering Stations for Aeon and Seraphim - they feel left out so we fixed that
 
-T3 Rapid Fire Defense Artillery for all factions - multi-barrelled medium range rapid fire artillery
+T3 Barrage Artillery for all factions - multi-barrelled medium range rapid fire artillery
 
 
 All the above units are fully balanced and AI enabled for use with the LOUD AI Project.

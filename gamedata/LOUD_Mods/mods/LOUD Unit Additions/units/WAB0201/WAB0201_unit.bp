@@ -102,9 +102,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 6500,
         BuildCostMass = 1450,
-        BuildRate = 30,
+        BuildRate = 25,
         BuildTime = 3100,
-        MaxBuildDistance = 25,
+        MaxBuildDistance = 20,
         RebuildBonusIds = {
             'wab0201',
         },
@@ -114,7 +114,7 @@ UnitBlueprint {
         SizeZ = 1,
     },
     General = {
-	CapCost = 3,
+		CapCost = 3,
         BuildBones = {
             AimBone = 0,
             BuildEffectBones = {

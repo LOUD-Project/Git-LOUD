@@ -57,7 +57,7 @@ UnitBlueprint {
         ArmorType = 'Experimental',
         Health = 59000,
         MaxHealth = 59000,
-        RegenRate = 22,
+        RegenRate = 20,
         SurfaceThreatLevel = 105,
     },
 	
@@ -173,7 +173,7 @@ UnitBlueprint {
         RadarRadius = 165,
         SonarRadius = 75,
         VisionRadius = 44,
-        WaterVisionRadius = 20,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -244,7 +244,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 700,
-            DamageRadius = 2.5,
+            DamageRadius = 2.25,
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Artillery',
@@ -262,7 +262,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35,
+            MuzzleVelocity = 39,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell02/SIFSuthanusArtilleryShell02_proj.bp',
             ProjectileLifetime = 3.5,
@@ -331,7 +331,7 @@ UnitBlueprint {
 			
             Damage = 110,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -342,19 +342,19 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0.4,
-			FiringRandomnessWhileMoving = 0.8,
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 0.6,
 			
-            FiringTolerance = 0.3,
+            FiringTolerance = 0.2,
 			
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 68,
+            MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
             ProjectileLifetime = 1.2,			
@@ -403,7 +403,7 @@ UnitBlueprint {
 			
             TurretPitch = 15,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 33,
+            TurretPitchSpeed = 36,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
@@ -425,7 +425,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 110,
-			DamageRadius = 2.5,
+			DamageRadius = 2,
             DamageType = 'Normal',
 
             DetonatesAtTargetHeight = true,
@@ -436,19 +436,19 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0.4,
-			FiringRandomnessWhileMoving = 0.8,			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 0.6,
 
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.3,
 			
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 68,
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',			
             ProjectileLifetime = 1.2,

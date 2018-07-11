@@ -60,20 +60,23 @@ UnitBlueprint {
         Health = 85500,
         MaxHealth = 85500,
         RegenRate = 32,
+		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
             Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+			
+            ShieldEnergyDrainRechargeTime = 25,
             ShieldMaxHealth = 35500,
-            ShieldRechargeTime = 90,
+            ShieldRechargeTime = 55,
             ShieldRegenRate = 200,
             ShieldRegenStartTime = 1,
             ShieldSize = 10,
             ShieldVerticalOffset = -1,
         },
+		
         SurfaceThreatLevel = 650,
     },
     

@@ -6,26 +6,31 @@ local nukeFiredOnGotTarget = false
 UALX401 = Class(AShieldHoverLandUnit) {
 
 	Weapons = {
-        --AntiMissile01 = Class(SAMElectrumMissileDefense) {},
-        --AntiMissile02 = Class(SAMElectrumMissileDefense) {},
-        --AntiMissile03 = Class(SAMElectrumMissileDefense) {},
-        --AntiMissile04 = Class(SAMElectrumMissileDefense) {},
 		
         MissileRack = Class(AAMSaintWeapon) {
+		
             IdleState = State(AAMSaintWeapon.IdleState) {
+			
                 OnGotTarget = function(self)
+				
                     local bp = self:GetBlueprint()
-                    #only say we've fired if the parent fire conditions are met
+					
+                    -- only say we've fired if the parent fire conditions are met
                     if (bp.CountedProjectile == false) or self:CanFire() then
                          nukeFiredOnGotTarget = true
                     end
+					
                     AAMSaintWeapon.IdleState.OnGotTarget(self)
+					
                 end,
-                # uses OnGotTarget, so we shouldn't do this.
+				
+                -- uses OnGotTarget, so we shouldn't do this.
                 OnFire = function(self)
+				
                     if not nukeFiredOnGotTarget then
                         AAMSaintWeapon.IdleState.OnFire(self)
                     end
+					
                     nukeFiredOnGotTarget = false
                     
                     self:ForkThread(function()
@@ -45,8 +50,11 @@ UALX401 = Class(AShieldHoverLandUnit) {
     },
     
     OnStopBeingBuilt = function(self,builder,layer)
+	
         AShieldHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
+		
 		self.ShieldEffectsBag = {}
+		
         self.Trash:Add(CreateRotator(self, 'Spinner01', 'y', nil, 0, 24, 120))
         self.Trash:Add(CreateRotator(self, 'Spinner02', 'y', nil, 0, -64, -160))
         self.Trash:Add(CreateRotator(self, 'Spinner03', 'y', nil, 0, 12, 230))
@@ -63,42 +71,58 @@ UALX401 = Class(AShieldHoverLandUnit) {
         self.Trash:Add(CreateRotator(self, 'Spinner14', 'y', nil, 0, -76, -360))
         self.Trash:Add(CreateRotator(self, 'Spinner15', 'y', nil, 0, 12, 440))
         self.Trash:Add(CreateRotator(self, 'Spinner16', 'y', nil, 0, -15, -500))
+		
     end,
     
     OnShieldEnabled = function(self)
+	
         AShieldHoverLandUnit.OnShieldEnabled(self)
+		
         if not self.Animator then
             self.Animator = CreateAnimator(self)
             self.Trash:Add(self.Animator)
             self.Animator:PlayAnim(self:GetBlueprint().Display.AnimationOpen)
         end
+		
         self.Animator:SetRate(1)
-                
+
         if self.ShieldEffectsBag then
+		
             for k, v in self.ShieldEffectsBag do
                 v:Destroy()
             end
+			
 		    self.ShieldEffectsBag = {}
+			
 		end
+		
         for k, v in self.ShieldEffects do
+		
             table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, self:GetArmy(), v ) )
+			
         end
+		
     end,
 
     OnShieldDisabled = function(self)
+	
         AShieldHoverLandUnit.OnShieldDisabled(self)
+		
         if self.Animator then
             self.Animator:SetRate(-1)
         end
          
         if self.ShieldEffectsBag then
+		
             for k, v in self.ShieldEffectsBag do
                 v:Destroy()
             end
+			
 		    self.ShieldEffectsBag = {}
+			
 		end
+		
     end,
-
 
 }
 

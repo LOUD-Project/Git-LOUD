@@ -223,7 +223,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret', 
-        UnitName = '<LOC wrl0404_name>Megalith MK II',
+        UnitName = '<LOC wrl0404_name>Megaroach',
         UnitWeight = 1,
     },
 	

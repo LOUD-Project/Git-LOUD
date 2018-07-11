@@ -45,6 +45,7 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'SILO',
         'ANTIMISSILE',
+		'ANTITELEPORT',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
@@ -55,23 +56,26 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 55000,
-        MaxHealth = 55000,
-        RegenRate = 30,
+        Health = 48000,
+        MaxHealth = 48000,
+        RegenRate = 18,
+		NoTeleDistance = 55,
+		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
             Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 10,
+			
+            ShieldEnergyDrainRechargeTime = 24,
 			
             ShieldMaxHealth = 22500,
-            ShieldRechargeTime = 20,
-            ShieldRegenRate = 258,
+            ShieldRechargeTime = 24,
+            ShieldRegenRate = 281,
             ShieldRegenStartTime = 1,
-            ShieldSize = 49,
-            ShieldVerticalOffset = -6,
+            ShieldSize = 45,
+            ShieldVerticalOffset = -5,
         },
         EconomyThreatLevel = 1500,
 		SurfaceThreatLevel = 30,
@@ -85,6 +89,7 @@ UnitBlueprint {
             'Heavy Shield Dome',
             'Omni Radar',
             'Strategic Missile Defense',
+			'Anti-Teleport Field: Prevents Teleportation',
         },
 		
         IdleEffects = { Land = {}  },
@@ -112,10 +117,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-		BuildCostEnergy = 945000,
-        BuildCostMass = 57000,
+		BuildCostEnergy = 750000,
+        BuildCostMass = 42500,
         BuildRate = 1950,
-        BuildTime = 15750,
+        BuildTime = 12500,
         MaintenanceConsumptionPerSecondEnergy = 4250,
     },
 	
@@ -156,14 +161,15 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 41,
+		CloakFieldRadius = 55,	-- anti-teleport range
+        VisionRadius = 50,
         OmniRadius = 60,
         RadarRadius = 165,
-        WaterVisionRadius = 16,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
-        HelpText = 'Mobile shield & Anti-nuke',
+        HelpText = 'Mobile shield, Omni & Anti-nuke',
     },
 	
     LifeBarHeight = 0.075,
