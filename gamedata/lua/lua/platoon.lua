@@ -232,10 +232,14 @@ Platoon = Class(moho.platoon_methods) {
 		if prevpoint and path then
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
+
+			--LOG("*AI DEBUG "..self.BuilderName.." has path of "..repr(path))			
 			
 			for wpidx, waypointPath in path do
 			
 				if self.MoveThread then
+
+					--LOG("*AI DEBUG "..self.BuilderName.." is moving to "..repr(waypointPath))
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, 30)
 			
@@ -264,21 +268,23 @@ Platoon = Class(moho.platoon_methods) {
 						end
 					
 					else
-				
+			
 						self:MoveToLocation( waypointPath, false )
-					
+						
 					end
+					
+					--LOG("*AI DEBUG Status is "..repr(navigator:GetStatus()).." Unit is at "..repr(GetPlatoonUnits(self)[1]:GetPosition() ))
 
 					while self.MovingToWaypoint do
-				
+
 						WaitTicks(15)
-					
+
 					end
 
 				end
-			
+				
 				IssueClearCommands( GetPlatoonUnits(self))
-
+				
 				if self.WaypointCallback then
 				
 					KillThread(self.WaypointCallback)
@@ -1610,11 +1616,13 @@ Platoon = Class(moho.platoon_methods) {
 				platPos = LOUDCOPY(GetPlatoonPosition(self) or RTBLocation)
 				
 				distance = VDist2Sq( platPos[1],platPos[3], RTBLocation[1],RTBLocation[3] )
-
-				-- call for transports -- standard or if stuck
-				if ( distance > (300*300) or StuckCount > 5 ) and platPos and transportLocation and PlatoonExists(aiBrain, self) then
 				
-					if (not experimental) and (self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious')  then
+				usedTransports = false
+
+				-- call for transports for those platoons that need it -- standard or if stuck
+				if (not experimental) and (self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious')  then
+				
+					if ( distance > (300*300) or StuckCount > 5 ) and platPos and transportLocation and PlatoonExists(aiBrain, self) then
 				
 						-- if calltransport counter is 3 check for transport and reset the counter
 						-- thru this mechanism we only call for tranport every 4th loop (40 seconds)
@@ -1798,11 +1806,11 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 			end
-			
-			WaitTicks(55)
 
 			nocmdactive = true	-- this will trigger the nocmdactive check on the next pass
-			
+
+			WaitTicks(55)
+
         end
         
 		if PlatoonExists(aiBrain, self) then
@@ -5733,8 +5741,9 @@ Platoon = Class(moho.platoon_methods) {
 				LOG("*AI DEBUG No position found for Adjacency category ")
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-			
-			reference = GetOwnUnitsAroundPointWithThreatCheck( aiBrain, LOUDPARSE(cons.AdjacencyCategory), pos, cons.AdjacencyDistance or 50, cons.ThreatMin, cons.ThreatMax, cons.ThreatRings)
+
+			reference = GetOwnUnitsAroundPointWithThreatCheck( aiBrain, cons.AdjacencyCategory, pos, cons.AdjacencyDistance or 50, cons.ThreatMin, cons.ThreatMax, cons.ThreatRings)
+
 			buildFunction = AIBuildAdjacency
 			LOUDINSERT( baseTmplList, baseTmpl )
 		end

@@ -697,7 +697,7 @@ function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectB
 
     local bp = GetBlueprint(unitBeingBuilt)
     local army = builder.Sync.army
-	local pos = builder.CachePosition
+	local pos = table.copy(builder.CachePosition)
 	
 	local x = pos[1]
 	local y = pos[2]

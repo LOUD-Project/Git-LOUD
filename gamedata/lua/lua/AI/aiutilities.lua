@@ -642,11 +642,20 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	
         if not v.Dead and not IsBeingBuilt(v) and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
 
-            local threat = GetThreatAtPosition( aiBrain, v:GetPosition(), rings or 1, true, tType or 'Overall' )
-
-            if threat >= tmin and threat <= tmax then
+			if tmin and tmax then
 			
-                mlist[counter+1] = v
+				local threat = GetThreatAtPosition( aiBrain, v:GetPosition(), rings or 1, true, tType or 'Overall' )
+				
+				if threat >= tmin and threat <= tmax then
+			
+					mlist[counter+1] = v
+					counter = counter + 1
+					
+				end
+				
+			else
+			
+				mlist[counter+1] = v
 				counter = counter + 1
 				
             end

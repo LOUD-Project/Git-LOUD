@@ -572,9 +572,9 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
     for k,v in reference do
 	
         if not v.Dead then
-		
+
             local targetSize = v:GetBlueprint().Physics
-            local targetPos = v:GetPosition()
+            local targetPos = table.copy(v.CachePosition)
 			
             targetPos[1] = targetPos[1] - (targetSize.SkirtSizeX* 0.5)
             targetPos[3] = targetPos[3] - (targetSize.SkirtSizeZ* 0.5)

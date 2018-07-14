@@ -228,7 +228,7 @@ BuilderGroup {BuilderGroupName = 'Energy Storage',
         BuilderData = {
             Construction = {
 			
-				AdjacencyCategory = 'HYDROCARBON',
+				AdjacencyCategory = categories.HYDROCARBON,
 				
 				AdjacencyDistance = 450,
                 BuildStructures = {

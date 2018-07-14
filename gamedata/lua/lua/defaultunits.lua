@@ -185,7 +185,7 @@ StructureUnit = Class(Unit) {
 
 		-- ALL STRUCTURES now cache their position - as it never changes
 		self.CachePosition = table.copy(moho.entity_methods.GetPosition(self))
-		
+
         if self.CacheLayer == 'Land' then
 		
 			local bp = GetBlueprint(self)
@@ -1750,7 +1750,7 @@ FactoryUnit = Class(StructureUnit) {
 	
         local bp = GetBlueprint(self).Physics.RollOffPoints
 		
-		local pos = self.CachePosition
+		local pos = table.copy(self.CachePosition)
 		
 		local px = pos[1]
 		local py = pos[2]

@@ -249,7 +249,7 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
             if not v.Dead then
 			
                 local targetSize = v:GetBlueprint().Physics
-                local targetPos = v:GetPosition()
+                local targetPos = table.copy( v:GetPosition() )
 				
                 targetPos[1] = targetPos[1] - (targetSize.SkirtSizeX * 0.5)
                 targetPos[3] = targetPos[3] - (targetSize.SkirtSizeZ * 0.5)
@@ -300,11 +300,11 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
         end
 		
         -- Build in a regular spot if adjacency not found - commented out by LOUD so that build fails when adjacency fails
-		LOG("*AI DEBUG Eng "..builder.Sync.id.." Unable to build in regular location during adjacency check")
+		LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.Sync.id.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
 		
     end
 
-	LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
 
     return false, false
 	

@@ -4150,7 +4150,7 @@ function CreateAttackPlan(self,enemyPosition)
 						-- attack plan will be amphibious if no land path, even if we dont find a path --
 						self.AttackPlan.Method = 'Amphibious'
 						
-						path, reason, pathlength = import('lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 350, 240)
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 350, 240)
 						
 					end
 
