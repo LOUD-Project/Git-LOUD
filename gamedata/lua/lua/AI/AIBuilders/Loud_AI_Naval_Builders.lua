@@ -7,7 +7,7 @@ local LUTL = '/lua/loudutilities.lua'
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function(self,aiBrain,manager)
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 6) then
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 8) then
 	
 		return 560, true	-- standard naval priority -- 
 
@@ -44,7 +44,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolLess', { 8, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
 			
@@ -155,7 +155,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 12, categories.xes0102 } },
+			{ UCBC, 'PoolLess', { 15, categories.xes0102 } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
         },
@@ -178,7 +178,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 15, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
 			
@@ -205,7 +205,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 15, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
 
@@ -296,9 +296,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},			
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.BATTLESHIP - categories.xas0306, categories.NAVAL * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
 			
         },
 		
@@ -322,7 +322,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
+			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
@@ -346,7 +346,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
+			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
 			
@@ -426,7 +426,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 20, categories.SUBMARINE }},
+			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
 			
@@ -452,7 +452,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 20, categories.SUBMARINE }},
+			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
 			
@@ -650,7 +650,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolLess', { 6, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
 			
@@ -801,7 +801,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 8, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -822,7 +822,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 8, categories.SUBMARINE } },			
+			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },			
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -889,9 +889,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.BATTLESHIP - categories.xas0306, categories.NAVAL * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
 			
         },
 		

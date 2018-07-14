@@ -128,7 +128,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
-			MissionTime = 1200,		-- 20 minute mission			
+			MissionTime = 1300,		-- 25 minute mission			
 			
 			PointType = 'Unit',
 			PointCategory = categories.ECONOMIC * categories.STRUCTURE,
@@ -638,8 +638,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP - categories.xas0306}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.xas0306}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
@@ -816,8 +815,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 710,
-		
-		PriorityFunction = IsEnemyNavalActive,
 
         InstanceCount = 2,
 		
@@ -833,14 +830,14 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			Radius = 75,
 			
-			PatrolTime = 300,	-- 5 minutes
+			PatrolTime = 360,	-- 6 minutes
 			PatrolType = true,
 			
         },
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 60, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			
         },
@@ -857,8 +854,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 710,
-		
-		PriorityFunction = IsEnemyNavalActive,
 
         InstanceCount = 1,
 		
@@ -874,14 +869,14 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			Radius = 75,
 			
-			PatrolTime = 300,	-- 5 minutes
+			PatrolTime = 360,	-- 6 minutes
 			PatrolType = true,
 			
         },
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 60, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			
         },

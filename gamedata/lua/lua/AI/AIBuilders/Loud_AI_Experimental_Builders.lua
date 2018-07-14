@@ -1201,7 +1201,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
             { LUTL, 'UnitCapCheckLess', { .95 } },		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -1243,7 +1243,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
@@ -1290,7 +1290,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -1332,7 +1332,7 @@ BuilderGroup {BuilderGroupName = 'Sea Experimental Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP - categories.xas0306 }},			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			

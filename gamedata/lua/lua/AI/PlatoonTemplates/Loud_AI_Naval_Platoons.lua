@@ -188,8 +188,7 @@ PlatoonTemplate { Name = 'SeaAttack Large',
 	
 		Aeon = {
 
-			{ (categories.BATTLESHIP - categories.xas0306), 3, 8, 'Attack', 'none' },							# Capital Ships
-			{ (categories.xas0306), 0, 3, 'Artillery', 'none' },												# Missile Cruisers
+			{ (categories.BATTLESHIP), 3, 8, 'Attack', 'none' },							# Capital Ships
 			{ (categories.DESTROYER), 5, 12, 'Attack', 'none' },												# Destroyers
 			{ (categories.CRUISER), 6, 12, 'Attack', 'none' },													# Cruisers
 			{ (categories.FRIGATE), 4, 12, 'Attack', 'none' },													# Frigates
@@ -207,7 +206,7 @@ PlatoonTemplate { Name = 'SeaAttack Large',
 			{ (categories.FRIGATE), 4, 12, 'Attack', 'none' },													# Frigates
 			{ (categories.SUBMARINE), 7, 25, 'Attack', 'none' },												# Submarines
 			{ (categories.MOBILE * categories.NAVAL * categories.CARRIER), 0, 1, 'Guard', 'none' },				# Carriers
-			{ (categories.DEFENSIVEBOAT), 4, 6, 'Guard', 'none' },												# Cyb CounterIntel
+			{ (categories.DEFENSIVEBOAT), 3, 6, 'Guard', 'none' },												# Cyb CounterIntel
 			
 		},
 	
