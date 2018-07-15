@@ -188,16 +188,16 @@ PlatoonTemplate { Name = 'T3Gunship',
 PlatoonTemplate { Name = 'T2TorpedoBomber',
     FactionSquads = {
         UEF = {
-            { 'uea0204', 1, 4, 'Attack', 'none' }
+            { 'uea0204', 1, 3, 'Attack', 'none' }
         },
         Aeon = {
-            { 'uaa0204', 1, 4, 'Attack', 'none' }
+            { 'uaa0204', 1, 3, 'Attack', 'none' }
         },
         Cybran = {
-            { 'ura0204', 1, 4, 'Attack', 'none' }
+            { 'ura0204', 1, 3, 'Attack', 'none' }
         },
         Seraphim = {
-            { 'xsa0204', 1, 4, 'Attack', 'none' }
+            { 'xsa0204', 1, 3, 'Attack', 'none' }
         },
     }
 }

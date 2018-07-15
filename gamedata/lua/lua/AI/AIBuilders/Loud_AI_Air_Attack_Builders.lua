@@ -1063,7 +1063,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.HIGHALTAIR * categories.ANTINAVY } },
 			
         },
 		
@@ -1269,25 +1269,25 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
         Priority = 710,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 4,
 			LocationType = 'LocationType',
             MergeLimit = 24,
             MissionTime = 150,
-            PrioritizedCategories = {categories.SUBMARINE, categories.STRUCTURE, categories.MOBILE - categories.AIR},
-			SearchRadius = 200,	
+            PrioritizedCategories = { categories.SUBMARINE, categories.STRUCTURE },
+			SearchRadius = 100,	
             UseFormation = 'AttackFormation',
 			
         },
@@ -1357,7 +1357,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			LocationType = 'LocationType',
             MergeLimit = false,
             MissionTime = 360,
-            PrioritizedCategories = { (categories.OPTICS + categories.ORBITALSYSTEM) * categories.STRUCTURE},
+            PrioritizedCategories = { categories.SONAR * categories.STRUCTURE },
 			SearchRadius = 500,
             UseFormation = 'AttackFormation',
 			
