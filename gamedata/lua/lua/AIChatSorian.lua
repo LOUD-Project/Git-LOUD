@@ -108,6 +108,16 @@ function GetArmyData(army)
     return nil
 end
 
+-- Certain Text messages to AI Allies can trigger one of several AI responses
+-- As follows
+--		-- target at will	-- returns enemy selection back over to the AI if it was being overridden
+--		-- target X			-- makes the AI select that player as his enemy 
+--		-- focus
+--		-- give an engineer	-- The AI will donate an available engineer - if he has any
+--		-- current focus	-- The AI will reply with who his current enemy is
+--		-- current plan		-- The AI will begin drawing his current plan on the map
+--		-- current status	-- The AI will begin reporting his current military ratio evaluations
+
 function ProcessAIChat(to, from, text)
 
 	local function trim(s)

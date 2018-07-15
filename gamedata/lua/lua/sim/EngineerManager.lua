@@ -1186,7 +1186,7 @@ EngineerManager = Class(BuilderManager) {
 				
 					self:ForkThread( self.BaseMonitorDistressResponseThread, aiBrain)
 
-					if ScenarioInfo.DisplayPingAlerts then
+					if ScenarioInfo.DisplayPingAlerts or aiBrain.DeliverStatus then
 					
 						-- send the visible ping to the interface --
 						ForkThread( import('/lua/ai/altaiutilities.lua').AISendPing, newpos, 'attack', aiBrain.ArmyIndex )

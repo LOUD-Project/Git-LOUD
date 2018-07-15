@@ -115,6 +115,8 @@ end
 
 
 --- Sends a response to a human ally's chat message.
+
+-- Handles all the resulting AI actions from a chat message
 function FinishAIChat(data)
 
 	local aiBrain = GetArmyBrain(data.Army)
@@ -270,13 +272,13 @@ function FinishAIChat(data)
 		
 			AISendChat(data.ToArmy, aiBrain.Nickname, 'target <enemy>: <enemy> is the name of the enemy you want me to attack or \'at will\' if you want me to choose targets myself.')
 			
-		elseif data.Text == 'focus' then
+		--elseif data.Text == 'focus' then
 		
-			AISendChat(data.ToArmy, aiBrain.Nickname, 'focus <strat>: <strat> is the name of the strategy you want me to use or \'at will\' if you want me to choose strategies myself. Available strategies: rush arty, rush nuke, air.')
+			--AISendChat(data.ToArmy, aiBrain.Nickname, 'focus <strat>: <strat> is the name of the strategy you want me to use or \'at will\' if you want me to choose strategies myself. Available strategies: rush arty, rush nuke, air.')
 			
 		else
 		
-			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give an engineer, command <target or strat>.')
+			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give an engineer.')
 			
 		end
 		
