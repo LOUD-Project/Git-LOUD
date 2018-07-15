@@ -488,12 +488,14 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
         WaitTicks(5)
     end
+	
+	slider:SetGoal( 0, 0, 0 )
 
     if not BuildBaseEffect:BeenDestroyed() then
-	    BuildBaseEffect:SetScaleVelocity(-0.15, -0.15, -0.15)
+	    BuildBaseEffect:SetScaleVelocity(-0.12, -0.12, -0.12)
 	end    
 	
-    slider:SetSpeed(0.5)
+    slider:SetSpeed(0.3)
 	
 	repeat
 		WaitTicks(5)
