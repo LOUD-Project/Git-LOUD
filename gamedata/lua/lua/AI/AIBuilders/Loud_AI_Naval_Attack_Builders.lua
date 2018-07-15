@@ -209,7 +209,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 480,		-- 8 minute mission
+			MissionTime = 600,		-- 10 minute mission
 			
 			UseFormation = 'AttackFormation',
 			
@@ -259,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 480,		-- 8 minute mission
+			MissionTime = 600,		-- 10 minute mission
 			
 			UseFormation = 'AttackFormation',
 			
@@ -309,7 +309,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 480,		-- 8 minute mission
+			MissionTime = 600,		-- 10 minute mission
 			
 			UseFormation = 'AttackFormation',
 			
@@ -358,7 +358,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 480,		-- 8 minute mission
+			MissionTime = 600,		-- 8 minute mission
 			
 			UseFormation = 'AttackFormation',
 			
@@ -442,7 +442,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
@@ -589,7 +589,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
@@ -640,7 +640,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
@@ -837,7 +837,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			
         },
@@ -876,7 +876,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 1000, 60, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			
         },

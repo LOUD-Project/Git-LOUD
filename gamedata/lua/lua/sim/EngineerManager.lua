@@ -645,8 +645,6 @@ EngineerManager = Class(BuilderManager) {
 			AssignUnitsToPlatoon( aiBrain, StructurePool, {finishedUnit}, 'Support', 'none' )
 
 			finishedUnit:LaunchUpgradeThread( aiBrain )
-			
-			--LOG("*AI DEBUG Upgrade thread for "..finishedUnit:GetBlueprint().Description.." at "..repr(moho.entity_methods.GetPosition(finishedUnit)).." Cache is "..repr(finishedUnit.CachePosition))
 
 			-- massfabricators --
 			if LOUDENTITY( categories.MASSFABRICATION - categories.EXPERIMENTAL, finishedUnit ) then

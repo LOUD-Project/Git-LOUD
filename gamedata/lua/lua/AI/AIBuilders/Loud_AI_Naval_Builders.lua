@@ -296,7 +296,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},			
+			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
 			
@@ -323,7 +325,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-			
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -349,7 +353,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
-			
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -375,7 +381,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-			
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -401,7 +409,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},			
 			
 			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
-			
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -886,10 +896,12 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
+			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
+			
+			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
 			
@@ -917,6 +929,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -941,6 +955,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -967,6 +983,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
 
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
@@ -993,6 +1011,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
 
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
+		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
 			
         },
