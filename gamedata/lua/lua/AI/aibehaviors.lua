@@ -1907,7 +1907,7 @@ function NukeAI( self, aiBrain )
 						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.9).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.9
+						targetantis = antinukes - 0.75
 						nukePos = target.Position
 
 					-- if same as our last target and we've scouted it since then it's ok to fire again
@@ -1917,13 +1917,13 @@ function NukeAI( self, aiBrain )
 						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.9
+						targetantis = antinukes - 0.75
 						nukePos = target.Position
 						
 					end
 
-					-- get an actual unit so we can plan for moving targets
-					for _, u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS, nukePos, 40, 'Enemy') do
+					-- get an actual unit so we can plan for moving targets - do not target units that can fly -
+					for _, u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - (categories.AIR * categories.MOBILE), nukePos, 40, 'Enemy') do
 						targetunit = u
 						break
 					end
@@ -1961,7 +1961,7 @@ function NukeAI( self, aiBrain )
 				LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
 
 				-- if we have enough launches to overcome expected antinukes
-				if launches > targetantis then
+				if launches > antinukes then
 					
 					-- store the target and time
 					lasttarget = nukePos
@@ -2008,12 +2008,17 @@ function NukeAI( self, aiBrain )
 						
 					end
 
-					local aitarget = targetunit:GetAIBrain().ArmyIndex
+					if firednukes > 0 then
 					
-					AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
+						local aitarget = targetunit:GetAIBrain().ArmyIndex
+					
+						AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
 
-					-- send a scout for BDA
-					ForkThread( AIAddMustScoutArea, aiBrain, nukePos)
+						-- send a scout for BDA
+						ForkThread( AIAddMustScoutArea, aiBrain, nukePos)
+						
+					end
+					
 				end
 
 			else
