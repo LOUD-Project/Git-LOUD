@@ -482,7 +482,7 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 	
     slider:SetSpeed(0.25)
 
-    -- while we are less than 95% complete, grow in small bits
+    -- while we are less than 95% complete, raise the model in small steps
     while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.95 do
 		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
         WaitTicks(5)
