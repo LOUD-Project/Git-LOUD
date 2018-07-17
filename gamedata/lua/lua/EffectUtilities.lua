@@ -458,18 +458,20 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     -- Create a pool mercury that slowly draws into the build unit
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
+	-- size the pool so that its slightly larger on the Y
     BuildBaseEffect:SetScale(sx, sy * 1.5, sz)
+	
     LOUDWARP( BuildBaseEffect, Vector(x,y,z))
+	
     BuildBaseEffect:SetOrientation(unitBeingBuilt:GetOrientation(), true)    
+	
     unitBeingBuilt.Trash:Add(BuildBaseEffect)
+	
     EffectsBag:Add(BuildBaseEffect)
 
-    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_01_emit.bp')
-    :SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5)
-    :SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
+    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_01_emit.bp'):SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5):SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
     
-    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_03_emit.bp')
-    :ScaleEmitter( (sx + sz) * 0.3 )
+    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_03_emit.bp'):ScaleEmitter( (sx + sz) * 0.3 )
 
     local slider = CreateSlider( unitBeingBuilt, 0 )
 	
@@ -478,13 +480,10 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     slider:SetSpeed(-2)
     WaitFor(slider)
 	
---    slider:SetGoal(0,0,0)
     slider:SetSpeed(0.25)
 
-    -- Wait till we are 80% done building, then snap our slider to
-	-- hmmm..is this why Aeon Buildings seem to grow quickly at first and then almost stop ?
-	-- nope -- this just seems to control the mercury pool
-    while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.9 do
+    -- while we are less than 95% complete, grow in small bits
+    while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.95 do
 		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
         WaitTicks(5)
     end
@@ -498,7 +497,7 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     slider:SetSpeed(0.3)
 	
 	repeat
-		WaitTicks(5)
+		WaitTicks(3)
 	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
 	
     slider:Destroy()

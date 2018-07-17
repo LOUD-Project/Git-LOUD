@@ -3405,6 +3405,7 @@ function ParseIntelThread( aiBrain )
 
         -- roll the iteration count back to one if it exceeds the maximum number of iterations
         if iterationcount > 4 then
+		
             iterationcount = 1
 
 			-- if human ally has requested status updates
@@ -3416,7 +3417,23 @@ function ParseIntelThread( aiBrain )
 					
 					aiBrain.LastLandRatio = aiBrain.LandRatio
 				end
+			
+				if not aiBrain.LastAirRatio or aiBrain.LastAirRatio != aiBrain.AirRatio then
+				
+					ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My present AIR ratio is '..aiBrain.AirRatio )
+					
+					aiBrain.LastAirRatio = aiBrain.AirRatio
+				end
+			
+				if not aiBrain.LastNavalRatio or aiBrain.LastNavalRatio != aiBrain.NavalRatio then
+				
+					ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My present NAVAL ratio is '..aiBrain.NavalRatio )
+					
+					aiBrain.LastNavalRatio = aiBrain.NavalRatio
+				end
+				
 			end
+			
         end
 
         -- advance the sample counter for the EnemyData array
