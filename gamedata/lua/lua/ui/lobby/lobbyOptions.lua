@@ -2,7 +2,7 @@
 --* File: lua/modules/ui/lobby/lobbyOptions.lua
 --* Summary: Lobby options
 --*
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 -- options that show up in the team options panel
@@ -122,7 +122,7 @@ globalOpts = {
                 text = "0.9",
                 help = "Resources -10% - slow",
                 key = '0.9',
-            },			
+            },
             {
                 text = "1.0",
                 help = "Standard Resources",
@@ -147,7 +147,7 @@ globalOpts = {
                 text = "1.125",
                 help = "AIx Resources +12.5%",
                 key = '1.125',
-            },			
+            },
             {
                 text = "1.150",
                 help = "AIx Resources +15%",
@@ -157,7 +157,7 @@ globalOpts = {
                 text = "1.175",
                 help = "AIx Resources +17.5%",
                 key = '1.175',
-            },			
+            },
             {
                 text = "1.200",
                 help = "AIx Resources +20%",
@@ -167,7 +167,7 @@ globalOpts = {
                 text = "1.225",
                 help = "AIx Resources +22.5%",
                 key = '1.225',
-            },			
+            },
             {   text = "1.250",
                 help = "AIx Resources +25%",
                 key = '1.25',
@@ -250,7 +250,7 @@ globalOpts = {
                 text = "1.175",
                 help = "AIx Build Rate +17.5%",
                 key = '1.175',
-            },			
+            },
             {
                 text = "1.200",
                 help = "AIx Build Rate +20%",
@@ -260,7 +260,7 @@ globalOpts = {
                 text = "1.225",
                 help = "AIx Build Rate +22.5%",
                 key = '1.225',
-            },			
+            },
             {
                 text = "1.250",
                 help = "AIx Build Rate +25%",
@@ -275,7 +275,7 @@ globalOpts = {
                 text = "1.35",
                 help = "AIx Build Rate +35%",
                 key = '1.35',
-            },			
+            },
             {
                 text = "1.40",
                 help = "AIx Build Rate +40%",
@@ -320,7 +320,7 @@ globalOpts = {
                 text = "350",
                 help = "350 units per player may be in play",
                 key = '350',
-            },			
+            },
             {
                 text = "400",
                 help = "400 units per player may be in play",
@@ -330,7 +330,7 @@ globalOpts = {
                 text = "450",
                 help = "450 units per player may be in play",
                 key = '450',
-            },			
+            },
             {
                 text = "500",
                 help = "500 units per player may be in play",
@@ -345,7 +345,7 @@ globalOpts = {
                 text = "600",
                 help = "600 units per player may be in play",
                 key = '600',
-            },			
+            },
             {
                 text = "650",
                 help = "650 units per player may be in play",
@@ -355,7 +355,7 @@ globalOpts = {
                 text = "700",
                 help = "700 units per player may be in play",
                 key = '700',
-            },			
+            },
             {
                 text = "750",
                 help = "750 units per player may be in play",
@@ -365,7 +365,7 @@ globalOpts = {
                 text = "800",
                 help = "800 units per player may be in play",
                 key = '800',
-            },			
+            },
             {
                 text = "875",
                 help = "875 units per player may be in play",
@@ -395,7 +395,7 @@ globalOpts = {
 				text = "4000",
 				help = "4000 units per player may be in play",
 				key = '4000',
-			},			
+			},
         },
     },
 	{   default = 2,
@@ -594,16 +594,11 @@ globalOpts = {
         key = 'Victory',
         pref = 'Lobby_Gen_Victory',
         values = {
-			{	
+			{
 				text = "Advanced Assassination",
-				help = "Game ends when Commander and all SubCommanders are destroyed",
+				help = "Game ends when Commander and all support Commanders are destroyed",
 				key = 'decapitation',
 			},
-            {
-                text = "<LOC lobui_0122>Assassination",
-                help = "Game ends when the Commander is destroyed",
-                key = 'demoralization',
-            },
             {
                 text = "<LOC lobui_0124>Supremacy",
                 help = "<LOC lobui_0125>Game ends when all structures, Commanders and engineers are destroyed",
@@ -619,6 +614,11 @@ globalOpts = {
                 help = "<LOC lobui_0129>Game never ends - you must end game manually",
                 key = 'sandbox',
             },
+            {
+                text = "<LOC lobui_0122>Assassination",
+                help = "<LOC lobui_0123>Game ends when the Commander is destroyed",
+                key = 'demoralization',
+            },
         },
     },
     {
@@ -633,37 +633,37 @@ globalOpts = {
 				help = "Game has no specific time limit - use only Victory Condition",
 				key = '0',
 			},
-			{	
+			{
 				text = "90 Minutes (1.5 Hours)",
 				help = "Game ends at 1.5 Hours or when Commander and all SubCommanders are destroyed",
 				key = '90',
 			},
-			{	
+			{
 				text = "120 Minutes (2 Hours)",
 				help = "Game ends at 2 Hours or when Commander and all SubCommanders are destroyed",
 				key = '120',
 			},
-			{	
+			{
 				text = "150 Minutes (2.5 Hours)",
 				help = "Game ends at 2.5 Hours or when Commander and all SubCommanders are destroyed",
 				key = '150',
 			},
-			{	
+			{
 				text = "180 Minutes (3 Hours)",
 				help = "Game ends at 3 Hours or when Commander and all SubCommanders are destroyed",
 				key = '180',
 			},
-			{	
+			{
 				text = "210 Minutes (3.5 Hours)",
 				help = "Game ends at 3.5 Hours or when Commander and all SubCommanders are destroyed",
 				key = '210',
 			},
-			{	
+			{
 				text = "240 Minutes (4 Hours)",
 				help = "Game ends at 4 Hours or when Commander and all SubCommanders are destroyed",
 				key = '240',
 			},
         },
-    },		
+    },
 
 }
