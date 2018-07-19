@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'AttackTarget001',
@@ -7,6 +8,7 @@ UnitBlueprint {
             'AttackTarget004',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -24,9 +26,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'BUILTBYTIER2FIELD',
         'BUILTBYTIER3FIELD',
         'SELECTABLE',
@@ -40,18 +43,22 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTDEFENSE',
-        'MEDIUMWALL',
+		'MEDIUMWALL',
     },
+	
     CollisionOffsetX = 0,
     CollisionOffsetY = 0,
     CollisionOffsetZ = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 20000,
         MaxHealth = 20000,
         RegenRate = 0,
     },
+	
     Description = '<LOC sbui5210>Heavy Wall Segment',
+	
     Display = {
         AdjacencyConnection = 'MEDIUMWALL',
         AdjacencyConnectionInfo = {

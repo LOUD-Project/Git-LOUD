@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 150,
+        GuardScanRadius = 125,
     },
+	
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -11,41 +12,38 @@ UnitBlueprint {
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 20,
         CanFly = true,
-        CombatTurnSpeed = 1.4,
+        CombatTurnSpeed = 1.3,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
+		
+        KMove = 0.95,
         KMoveDamping = 2,
+		
         KRoll = 2,
         KRollDamping = 2,
-        KTurn = 0.9,
-        KTurnDamping = 1.3,
-        LiftFactor = 7,
+		
+        KTurn = 0.8,
+        KTurnDamping = 1.1,
+		
+        LiftFactor = 9,
+		
         MaxAirspeed = 15,
-        MinAirspeed = 15,
-        PredictAheadForBombDrop = 2,
+        MinAirspeed = 10,
+		
+        PredictAheadForBombDrop = 3,
+		
         StartTurnDistance = 5,
+		
         TightTurnMultiplier = 0,
-        TurnSpeed = 1.4,
+		
+        TurnSpeed = 1.3,
+		
         Winged = true,
     },
+	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Killed = Sound {
             Bank = 'UAADestroy',
             Cue = 'UAA_Destroy_Air_Killed',
@@ -66,22 +64,13 @@ UnitBlueprint {
             Cue = 'UAA0304_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        StopMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Aeon_Select_Air',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -91,9 +80,10 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 18,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
@@ -108,22 +98,25 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'OVERLAYRADAR',
     },
+	
     CollisionOffsetZ = 0.2,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Light',
-        EconomyThreatLevel = 1,
-        Health = 1225,
-        MaxHealth = 1225,
-        RegenRate = 0,
-        SubThreatLevel = 0,
+        Health = 1500,
+        MaxHealth = 1500,
+        RegenRate = 4,
         SurfaceThreatLevel = 11,
     },
+	
     Description = '<LOC saa0211_desc>Tactical Bomber',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_radar>Radar',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -142,6 +135,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Air = {
                 Contrails = {
@@ -176,20 +170,24 @@ UnitBlueprint {
                 },
             },
         },
+		
         PlaceholderMeshName = 'UXA0002',
         SpawnRandomRotation = true,
-        UniformScale = 0.15*0.8,
+        UniformScale = 0.1,
     },
+	
     Economy = {
-        BuildCostEnergy = 8400,
-        BuildCostMass = 420,
-        BuildTime = 2400,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 325,
+        BuildTime = 400,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Bomber',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -214,48 +212,56 @@ UnitBlueprint {
         UnitName = '<LOC saa0211_name>Impaler',
         UnitWeight = 1,
     },
+	
     Intel = {
-        RadarRadius = 65,
+		FreeIntel =true,
+        RadarRadius = 50,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = '<LOC saa0211_desc>Tactical Bomber',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1.5,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 18,
+		
         FuelRechargeRate = 10,
-        FuelUseTime = 500,
+        FuelUseTime = 320,
+		
         GroundCollisionOffset = 2,
         MaxSpeed = 0.5,
-        MeshExtentsX = 2*0.8,
-        MeshExtentsY = 0.5*0.8,
-        MeshExtentsZ = 2*0.8,
+        MeshExtentsX = 1.5,
+        MeshExtentsY = 0.35,
+        MeshExtentsZ = 1.5,
         MotionType = 'RULEUMT_Air',
     },
-    SelectionSizeX = 2*0.8,
-    SelectionSizeZ = 1.3*0.8,
+	
+    SelectionSizeX = 1.6,
+    SelectionSizeZ = 1,
     SelectionThickness = 0.35,
-    SizeSphere = 2*0.8,
-    SizeX = 2*0.8,
-    SizeY = 0.5*0.8,
-    SizeZ = 1.6*0.8,
+	
+    SizeSphere = 1.5,
+	
+    SizeX = 1.75,
+    SizeY = 0.35,
+    SizeZ = 1.1,
+	
     StrategicIconName = 'icon_bomber2_directfire',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -263,6 +269,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -273,30 +280,54 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+			
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1,
+					Radius = 1.5,
+                    TargetAllow = 'ALLUNITS',
+                    TargetDisallow = 'AIR,COMMAND,WALL,TECH3,EXPERIMENTAL',
+                },
+            },
+
             BombDropThreshold = 3.5,
+			
             CollideFriendly = false,
-            Damage = 1125,
+			
+            Damage = 1500,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
-            Display = 'Quark Bomb',
-            DisplayName = 'Quark Bomb',
+
             EffectiveRadius = 25,
+		
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0,
-            FiringTolerance = 3,
+			
+            FiringRandomness = 0.2,
+            FiringTolerance = 4,
+			
             Label = 'Bomb',
+			
             MaxRadius = 90,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
+			
             NeedToComputeBombDrop = true,
             ProjectileId = '/projectiles/AIFBombQuark01/AIFBombQuark01_proj.bp',
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -306,14 +337,17 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RateOfFire = 0.2,
+			
+            RateOfFire = 0.2,		-- 300 DPS
+			
             TargetCheckInterval = 2.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'TECH4',
@@ -323,15 +357,18 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TrackingRadius = 1.15,
             WeaponCategory = 'Bomb',
         },
+		
         {
             AboveWaterTargetsOnly = true,
             Damage = 200,
             DamageFriendly = true,
-            DamageRadius = 1,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,
@@ -339,18 +376,18 @@ UnitBlueprint {
             Label = 'DeathImpact',
             WeaponCategory = 'Death',
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.1,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = false,
-            Sub = false,
             Water = false,
         },
     },

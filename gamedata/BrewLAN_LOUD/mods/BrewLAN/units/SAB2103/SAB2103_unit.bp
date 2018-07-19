@@ -30,7 +30,6 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
-        'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTDEFENSE',
@@ -67,18 +66,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
 	
     Economy = {
-        BuildCostEnergy = 7000,
-        BuildCostMass = 750,
-        BuildTime = 750,
-        RebuildBonusIds = {
-            'sab2103',
-        },
+        BuildCostEnergy = 6000,
+        BuildCostMass = 550,
+        BuildTime = 550,
+		
+        RebuildBonusIds = { 'sab2103' },
     },
 	
     General = {
@@ -203,7 +201,6 @@ UnitBlueprint {
             MaxRadius = 55,
             MinRadius = 5,
 			
-			MuzzleChargeDelay = 1,		-- 1 second muzzle delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 16,
@@ -220,7 +217,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -2,
+            RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
@@ -235,9 +232,8 @@ UnitBlueprint {
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'INDIRECTFIRE',
                 'SPECIALLOWPRI',
-                'ALLUNITS',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			

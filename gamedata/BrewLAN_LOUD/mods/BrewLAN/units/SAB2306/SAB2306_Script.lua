@@ -26,11 +26,15 @@ SAB2306 = Class(AStructureUnit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+	
         AStructureUnit.OnStopBeingBuilt(self, builder, layer)
+		
         local vectors = {'x','y','z'}
+		
         for i, v in vectors do
             self.Trash:Add(CreateRotator(self, 'Head', v, nil, 0, 15, 10 + Random(0, 80) * (-1 + (2 * Random(0,1)))))
         end
     end,
+
 }
 TypeClass = SAB2306

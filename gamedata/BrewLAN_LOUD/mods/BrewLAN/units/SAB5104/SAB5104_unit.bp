@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 200,
         RefuelingMultiplier = 33,
@@ -8,6 +9,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 200,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -25,9 +27,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
@@ -36,7 +39,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'AEON',
         'STRUCTURE',
-        'STRATEGIC',
         'TECH1',
         'AIRSTAGINGPLATFORM',
         'DRAGBUILD',
@@ -46,6 +48,7 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
+	
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
@@ -56,7 +59,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC sbui5104>Air Staging Facility',
+	
     Display = {
         Abilities = {
             '<LOC ability_airstaging>Air Staging',
@@ -98,14 +103,15 @@ UnitBlueprint {
         },
         UniformScale = 0.065,
     },
+	
     Economy = {
         BuildCostEnergy = 1050,
         BuildCostMass = 90,
         BuildTime = 175,
-        RebuildBonusIds = {
-            'sab5104',
-        },
+		
+        RebuildBonusIds = { 'sab5104' },
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -136,12 +142,15 @@ UnitBlueprint {
         UnitName = '<LOC sab5104_name>Pedestal',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = '<LOC sbui5104>Air Staging Facility',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = .65,
     LifeBarSize = 1.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -166,14 +175,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = .4,
     SelectionSizeZ = .4,
     SelectionThickness = 1,
+	
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure1_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
@@ -181,6 +194,7 @@ UnitBlueprint {
         RepairRate = 0.1,
         StorageSlots = 0,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

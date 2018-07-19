@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 40,
         StagingPlatformScanRadius = 40,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -16,9 +17,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
@@ -36,20 +38,21 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 5,
         Health = 250,
         MaxHealth = 250,
         RegenRate = 0,
-        SubThreatLevel = 0,
         SurfaceThreatLevel = 7000,
     },
+	
     Description = '<LOC sbui2222>Nuke Mine',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_cloak>Cloaking',
@@ -59,6 +62,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
             '<LOC ability_deathaoe>Volatile',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,29 +85,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.005,
     },
+	
     DoNotCollideList = {
         'ALLUNITS',
     },
+	
     Economy = {
         BuildCostEnergy = 135000*3,
         BuildCostMass = 1200*1.5,
         BuildTime = 600*2,
-        RebuildBonusIds = {
-            'seb2220',
-            'seb2221',
-            'seb2222',
-        },
     },
+	
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
+	
     General = {
-        CapCost = 0.1,
+        CapCost = 0.5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -139,6 +142,7 @@ UnitBlueprint {
         UnitName = '<LOC sab2222_name>Silencer',
         UnitWeight = 1,
     },
+	
     Intel = {
         Cloak = true,
         RadarStealth = true,
@@ -147,15 +151,17 @@ UnitBlueprint {
         RadarRadius = 29,
         SonarRadius = 29,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2222>Nuke Mine',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.8,
+	
     Physics = {
         BankingSlope = 0,
-        --BlockPath = false,
         BuildOnLayerCaps = {
             LAYER_Air = false,
             LAYER_Land = true,
@@ -179,22 +185,28 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 1,
+	
     SizeX = .5,
     SizeY = 0.2,
     SizeZ = .5,
-    #StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
+	
     StrategicIconName = 'icon_structure3_bomb',
     StrategicIconSortPriority = 210,
+	
     Weapon = {
         {
             CollideFriendly = false,
+			
             Damage = 0,
             DamageFriendly = true,
             DamageType = 'Normal',
+			
             DisplayName = 'Suicide',
+			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
@@ -203,8 +215,11 @@ UnitBlueprint {
             },
             FiringTolerance = 360,
             FireOnSelfDestruct = true,
+			
             Label = 'Suicide',
+			
             ManualFire = 1,
+			
             MaxRadius = 30,
 
             NukeInnerRingDamage = 70000,
@@ -231,6 +246,7 @@ UnitBlueprint {
             Turreted = false,
             WeaponCategory = 'Kamikaze',
         },
+		
         {
             CollideFriendly = false,
             Damage = 1000,
@@ -261,20 +277,7 @@ UnitBlueprint {
             Turreted = false,
             WeaponCategory = 'Death',
         },
+		
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.1,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
+	
 }

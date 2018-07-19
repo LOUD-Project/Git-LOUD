@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -11,9 +12,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 130,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER2FIELD',
         'BUILTBYTIER3FIELD',
@@ -31,8 +33,8 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
     },
+	
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
@@ -43,8 +45,11 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 450,
     },
+	
     Description = '<LOC sbui2221>Proximity Mine',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_cloak>Cloaking',
@@ -53,6 +58,7 @@ UnitBlueprint {
             '<LOC ability_sonar>Sonar',
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -75,24 +81,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.02,
     },
+	
     DoNotCollideList = {
         'ALLUNITS',
     },
+	
     Economy = {
         BuildCostEnergy = 1800,
         BuildCostMass = 100,
         BuildTime = 50,
     },
+	
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
+	
     General = {
-        CapCost = 0.1,
+        CapCost = 0.25,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -126,6 +136,7 @@ UnitBlueprint {
         UnitName = '<LOC sab2221_name>',
         UnitWeight = 1,
     },
+	
     Intel = {
         Cloak = true,
         RadarStealth = true,
@@ -134,12 +145,15 @@ UnitBlueprint {
         RadarRadius = 4,
         SonarRadius = 4,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2221>Proximity Mine',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.8,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -165,14 +179,18 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 1,
+	
     SizeX = .5,
     SizeY = 0.2,
     SizeZ = .5,
+	
     StrategicIconName = 'icon_structure2_bomb',
     StrategicIconSortPriority = 210,
+	
     Weapon = {
         {
             CollideFriendly = false,
@@ -198,22 +216,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
-            WeaponCategory = 'Kamikaze',
         },
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.1,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
+
 }

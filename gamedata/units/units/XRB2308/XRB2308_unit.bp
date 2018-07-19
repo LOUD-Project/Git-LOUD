@@ -50,7 +50,6 @@ UnitBlueprint {
         'TECH3',
         'ANTINAVY',
         'DRAGBUILD',
-        'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYSONAR',
@@ -134,7 +133,7 @@ UnitBlueprint {
         RadarStealth = true,
         SonarRadius = 95,
         SonarStealth = true,
-        VisionRadius = 30,
+        VisionRadius = 20,
         WaterVisionRadius = 48,
     },
 	
@@ -218,7 +217,7 @@ UnitBlueprint {
 			
             Label = 'Turret01',
 			
-            MaxRadius = 75,
+            MaxRadius = 80,
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
@@ -226,7 +225,7 @@ UnitBlueprint {
 			MuzzleVelocityRandom = 2.5,
 			
             ProjectileId = '/projectiles/CANKrilTorpedo01/CANKrilTorpedo01_proj.bp',
-            ProjectileLifetime = 11,
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -256,10 +255,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMARINE',
+				'NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

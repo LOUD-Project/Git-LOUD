@@ -31,7 +31,7 @@ UnitBlueprint {
         KTurn = 1.5,
         KTurnDamping = 4,
 		
-        LiftFactor = 8,
+        LiftFactor = 9.5,
 		
         MaxAirspeed = 14.5,
 		
@@ -166,7 +166,7 @@ UnitBlueprint {
             TransportShield = true,
         },
 		
-        RegenRate = 12,
+        RegenRate = 20,
     },
 	
     Description = '<LOC xea0306_desc>Experimental Air Transport',
@@ -223,7 +223,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 102000,
         BuildCostMass = 8650,
-        BuildTime = 16000,
+        BuildTime = 2950,
 		
         MaintenanceConsumptionPerSecondEnergy = 500,
     },
@@ -356,10 +356,7 @@ UnitBlueprint {
 			
             FiringRandomness = 3,
             FiringTolerance = 1,
-			
-            --HeadingArcCenter = 30,
-            --HeadingArcRange = 120,
-			
+
             Label = 'AAFizz',
 			
 			LeadTarget = true,
@@ -393,7 +390,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,		-- 96 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
