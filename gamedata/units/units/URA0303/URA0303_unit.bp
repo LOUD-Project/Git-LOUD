@@ -36,6 +36,7 @@ UnitBlueprint {
         TurnSpeed = 1.6,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'URADestroy',
@@ -53,9 +54,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -81,11 +84,13 @@ UnitBlueprint {
     Description = '<LOC ura0303_desc>Air Superiority Fighter',
 	
     Display = {
+	
         Abilities = {
             'Anti-Air',
 			'Radar',
             'Personal Stealth',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -101,7 +106,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+		
         SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
@@ -110,6 +115,7 @@ UnitBlueprint {
         BuildCostEnergy = 48000,
         BuildCostMass = 660,
         BuildTime = 5325,
+		
         MaintenanceConsumptionPerSecondEnergy = 20,		#-- for stealth 
     },
 
@@ -146,18 +152,22 @@ UnitBlueprint {
         UnitName = '<LOC ura0303_name>Gemini',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 50,
         RadarStealth = true,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Air Superiority Fighter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.85,
     LifeBarSize = 1.1,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -170,6 +180,7 @@ UnitBlueprint {
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.36,
@@ -182,10 +193,12 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_fighter3_antiair',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -193,6 +206,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -230,9 +244,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 80,
+            MuzzleVelocity = 50,	-- was 80
 			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
+			ProjectileLifetime = 2.5,	-- was defaulted to projectile lifetime which is 3 --
 
             RackBones = {
                 {
