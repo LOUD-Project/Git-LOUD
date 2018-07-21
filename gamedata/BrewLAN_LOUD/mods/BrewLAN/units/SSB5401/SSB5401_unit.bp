@@ -1,0 +1,460 @@
+UnitBlueprint {
+    Abilities = {
+        TargetLocation = {
+            bitmapId = 'teleport',
+            helpText = 'stargate_dial',
+        },
+    },
+    Audio = {
+        ActiveLoop = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0304_Active',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Construct = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0304_Construct_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructLoop = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0304_Construct_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DeathExplosion = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0304_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOff = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB4301_On_Off',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOn = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB4301_On_Off',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldImpact = Sound {
+            --Bank = 'AmbientTest',
+            --Cue = 'Gen_Fire_Start',
+            Bank = 'Impacts',
+            Cue = 'X_Impact_Land_Gen_Seraphim',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
+        },
+    },
+    BuildIconSortPriority = 220,
+    Categories = {
+        'PRODUCTBREWLAN',
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'SERAPHIM',
+        'STRUCTURE',
+        'EXPERIMENTAL',
+        --'RALLYPOINT',
+        'DRAGBUILD',
+        'SIZE24',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        --'SHOWQUEUE',
+        'SORTSTRATEGIC',
+        'STARGATE',
+        'RESEARCHLOCKED',
+    },
+    CollisionOffsetZ = 0,
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 2005,
+        Health = 100000,
+        MaxHealth = 100000,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+        Shield = {
+            ImpactEffects = 'SeraphimShieldHit01',
+            Mesh = '/mods/BrewLAN/units/SSB5401/SSB5401_PersonalShield_mesh',
+            MeshZ = '/mods/BrewLAN/units/SSB5401/SSB5401_PersonalShield_mesh',
+            --MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            PassOverkillDamage = true,
+            RegenAssistMult = 60,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 100000,
+            ShieldRechargeTime = 300,
+            ShieldRegenRate = 10,
+            ShieldRegenStartTime = 3,
+            ShieldSize = 0.12,
+            ShieldVerticalOffset = -4.6,
+            PassOverkillDamage = false,
+        },
+    },
+    Description = '<LOC ssb5401_desc>Experimental Quantum Gateway',
+    Display = {
+        BlinkingLights = {
+            {
+                BLBone = 'Light04',
+                BLOffsetZ = 0.05,
+                BLScale = 1,
+            },
+            {
+                BLBone = 'Light05',
+                BLOffsetZ = 0.05,
+                BLScale = 1,
+            },
+            {
+                BLBone = 'Light06',
+                BLOffsetZ = 0.05,
+                BLScale = 1,
+            },
+            {
+                BLBone = 'Light07',
+                BLOffsetZ = 0.05,
+                BLScale = 1,
+            },
+        },
+        BlinkingLightsFx = {
+            Green = '/effects/emitters/light_green_03_emit.bp',
+            Red = '/effects/emitters/light_red_03_emit.bp',
+            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+        },
+        BuildAttachBone = 'Attachpoint',
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.75,
+                OffsetY = 0,
+                OffsetZ = 2.75,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.75,
+                OffsetY = 0,
+                OffsetZ = -2.75,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.75,
+                OffsetY = 0,
+                OffsetZ = 2.75,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.75,
+                OffsetY = 0,
+                OffsetZ = -2.75,
+            },
+            {
+                Bone = 0,
+                OffsetX = 1.5,
+                OffsetY = 2,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -1.5,
+                OffsetY = 2,
+                OffsetZ = 0,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 250,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    --MeshName = 'SSB5401_lod0.scm',
+                    --AlbedoName = '/units/xsb0304/xsb0304_albedo.dds',
+                    --NormalsName = '/units/xsb0304/xsb0304_normalsTS.dds',
+                    --SpecularName = '/units/xsb0304/xsb0304_specteam.dds',
+                },
+                {
+                    LODCutoff = 500,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    AlbedoName = 'ssb5401_albedo.dds',
+                    NormalsName = 'ssb5401_normalsTS.dds',
+                    SpecularName = 'ssb5401_specteam.dds',
+                },
+                --[[{
+                    LODCutoff = 500,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    AlbedoName = '/units/xsc2201/xsc2201_lod1_albedo.dds',
+                    NormalsName = '/units/xsc2201/xsc2201_lod1_normalsTS.dds',
+                    SpecularName = '/units/xsc2201/xsc2201_lod1_specteam.dds',
+                },]]--
+            },
+        },
+        PlaceholderMeshName = 'UAB0304',
+        SpawnRandomRotation = false,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 0.12,
+    },
+    Economy = {
+        DialingCostBase = 10000,
+        BuildCostEnergy = 30000*5,
+        BuildCostMass = 3000*5,
+        BuildTime = 3000*5,
+        MaintenanceConsumptionPerSecondEnergy = 500,
+        StorageEnergy = 5000,
+        RebuildBonusIds = {
+            'ssb5401',
+        },
+    },
+    Footprint = {
+        SizeX = 9,
+        SizeZ = 9,
+    },
+    General = {
+        Category = 'Strategic',
+        Classification = 'RULEUC_Factory',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = false,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_GenericToggle = {
+                bitmapId = 'stop',
+                helpText = 'stargate_stop',
+            },
+            RULEUTC_ShieldToggle = {
+                helpText = 'stargate_iris_shield',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+            RULEUTC_GenericToggle = true,
+        },
+        UnitName = "<LOC ssb5401_name>Chappa'ko",
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 20,
+    },
+    Interface = {
+        HelpText = '<LOC ssb5401_desc>Experimental Quantum Gateway',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 2.65,
+    LifeBarSize = 5.5,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 7.5,
+        MeshExtentsY = 2.5,
+        MeshExtentsZ = 7.5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        OccupyRects = {
+
+            # offsetX offsetZ  sizeX sizeZ, offset from center of unit
+            -4.5,
+            -0.5,
+            2,
+            1.5,
+            4.5,
+            -0.5,
+            2,
+            1.5,
+        },
+        RaisedPlatforms = {
+
+            # The main ramp
+            # TopLeft Offset From Center
+            -1*3,
+
+            # x
+            -1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # TopRight Offset From Center
+            1*3,
+
+            # x
+            -1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # BottomLeft Offset From Center
+            -1*3,
+
+            # x
+            1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # BottomRight Offset From Center
+            1*3,
+
+            # x
+            1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # South side
+            # TopLeft Offset From Center
+            -1*3,
+
+            # x
+            1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # TopRight Offset From Center
+            1*3,
+
+            # x
+            1*3,
+
+            # z
+            0.4*3,
+
+            # height
+            # BottomLeft Offset From Center
+            -0.4*3,
+
+            # x
+            2.4*3,
+
+            # z
+            0*3,
+
+            # height
+            # BottomRight Offset From Center
+            0.4*3,
+
+            # x
+            2.4*3,
+
+            # z
+            0*3,
+        },
+        RollOffPoints = {
+            {
+                UnitSpin = 0,
+                X = 0,
+                Y = 0,
+                Z = 3,
+            },
+        },
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 12,
+        SkirtSizeZ = 12,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 7+2,
+    SelectionSizeZ = 1.5+2,
+    SelectionThickness = 0.15,
+    SizeX = 10,
+    SizeY = 9.5,
+    SizeZ = 2,
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconSortPriority = 175,
+    Transport = {
+        Class2AttachSize = 1,
+        Class3AttachSize = 1,
+        ClassGenericUpTo = 3,
+    },
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

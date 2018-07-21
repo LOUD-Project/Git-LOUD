@@ -1,0 +1,332 @@
+UnitBlueprint {
+    AI = {
+        --[[TargetBones = {
+            'Blinking_001',
+            'Blinking_002',
+            'Blinking_003',
+            'Blinking_004',
+            'Blinking_005',
+            'Blinking_006',
+            'Blinking_007',
+            'Blinking_008',
+        },]]
+        --This list is populated on game launch
+        Experimentals = {
+            Requirements = {
+                SkirtSizeX = 26,
+            },
+            BuildableCategory = 'BUILTBYSOUIYA',
+            Air = {},
+            Other = {
+                --'xss0302',
+                --'xss0202',
+                --'xss0302',
+                --'xss0304',
+            },
+        },
+        BuildOrder = {
+            'xsl0309',
+            'xsl0309',
+            false,
+            'xsl0309',
+            'xsl0309',
+            false,
+            'xsl0309',
+            'xsl0309',
+        },
+        BuildBackups = {
+            EarlyNoRush = 'xss0302',
+            LastResorts = {
+                'xss0302',
+                'xss0202',
+                'xss0304',
+                'xss0201',
+                'xss0103',
+            },
+        },
+    },
+    Audio = {
+        Construct = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0303_Construct_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructLoop = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0303_Construct_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DeathExplosion = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB0303_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Factory',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 40,
+    Categories = {
+        'PRODUCTBREWLAN',
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'SERAPHIM',
+        'STRUCTURE',
+        'NAVAL',
+        'EXPERIMENTAL',
+        'CONSTRUCTION',
+        'GANTRY',
+        'FACTORY',
+        'RALLYPOINT',
+        'DRAGBUILD',
+        'SIZE32',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWQUEUE',
+        'SORTCONSTRUCTION',
+        'GATE',
+    },
+    CollisionOffsetY = -1,
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 4071,
+        Health = 152000,
+        MaxHealth = 152000,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+    },
+    Description = '<LOC ssb0401_desc>Experimental Naval Factory',
+    Display = {
+        --[[AnimationDeath = {
+            {
+                Animation = '/units/xsb0303/xsb0303_ADeath.sca',
+                AnimationRateMax = 1,
+                AnimationRateMin = 1,
+                Weight = 100,
+            },
+        },]]--
+        BlinkingLights = {
+            {
+                BLBone = 'Light_001',
+                BLScale = 2,
+            },
+            {
+                BLBone = 'Light_002',
+                BLScale = 2,
+            },
+            {
+                BLBone = 'Light_003',
+                BLScale = 2,
+            },
+            {
+                BLBone = 'Light_004',
+                BLScale = 2,
+            },
+            {
+                BLBone = 'Light_005',
+                BLScale = 2,
+            },
+            {
+                BLBone = 'Light_006',
+                BLScale = 2,
+            },
+        },
+        BlinkingLightsFx = {
+            Green = '/effects/emitters/light_green_03_emit.bp',
+            Red = '/effects/emitters/light_red_03_emit.bp',
+            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+        },
+        BuildAttachBone = 'Attachpoint',
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            0,
+                        },
+                        Scale = 3,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 400,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    --MeshName = '/units/xsb0303/xsb0303_lod0.scm',
+                    AlbedoName = '/units/xsb0302/xsb0302_albedo.dds',
+                    NormalsName = '/units/xsb0302/xsb0302_normalsTS.dds',
+                    SpecularName = '/units/xsb0302/xsb0302_specteam.dds',
+                },
+                {
+                    LODCutoff = 1000,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    --MeshName = '/units/xsb0302/xsb0302_lod1.scm',
+                    AlbedoName = '/units/xsb0302/xsb0302_albedo.dds',
+                    NormalsName = '/units/xsb0302/xsb0302_normalsTS.dds',
+                    SpecularName = '/units/xsb0302/xsb0302_specteam.dds',
+                },
+            },
+        },
+        SpawnRandomRotation = false,
+        UniformScale = 0.15,
+    },
+    Economy = {
+        BuildCostEnergy = 70200,
+        BuildCostMass = 11920,
+        BuildRate = 60*8.5,
+        BuildTime = 6000,
+        BuildableCategory = {
+            'BUILTBYTIER3FACTORY SERAPHIM',
+            'TRANSPORTBUILTBYTIER3FACTORY SERAPHIM',
+            'BUILTBYSOUIYA SERAPHIM',
+            'BUILTBYSOUIYA EXPERIMENTAL',
+        },
+        InitialRallyX = 0,
+        InitialRallyZ = 10,
+        StorageEnergy = 10000,
+        StorageMass = 1000,
+    },
+    Footprint = {
+        MinWaterDepth = 1.5,
+        SizeX = 13,
+        SizeZ = 13,
+    },
+    General = {
+        BuildBones = {
+            BuildEffectBones = {
+                'Muzzle001',
+                'Muzzle002',
+                'Muzzle003',
+                'Muzzle004',
+                'Muzzle005',
+                'Muzzle006',
+            },
+        },
+        Category = 'Factory',
+        Classification = 'RULEUC_Factory',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Seraphim',
+        Icon = 'sea',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC ssb0401_name>Souiya',
+        UnitWeight = 1,
+        --UpgradesFrom = 'xsb0203',
+    },
+    Intel = {
+        VisionRadius = 20,
+    },
+    Interface = {
+        HelpText = '<LOC ssb0401_desc>Experimental Naval Factory',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 6.7,
+    LifeBarSize = 7.5,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxSteerForce = 0,
+        MeshExtentsX = 14,
+        MeshExtentsY = 14,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        --The raised platform is on the surface of the water, not the seabed.
+        --[[RaisedPlatforms = {
+            -- Platform 1
+            -- x    z    height
+            -- TopLeft Offset From Center
+            -13, -13, 1.5,
+            -- TopRight Offset From Center
+            13, -13, 1.5,
+            -- BottomLeft Offset From Center
+            -13, 13, 1.5,
+            -- BottomRight Offset From Center
+            13, 13, 1.5,
+        },]]--
+        RollOffPoints = {
+            {UnitSpin = 0,   X = 0,     Y = 0, Z = 8},
+            {UnitSpin = 45,  X = 5.66,  Y = 0, Z = 5.66},
+            {UnitSpin = 90,  X = 8,     Y = 0, Z = 0},
+            {UnitSpin = 135, X = 5.66,  Y = 0, Z = -5.66},
+            {UnitSpin = 180, X = 0,     Y = 0, Z = -8},
+            {UnitSpin = 225, X = -5.66, Y = 0, Z = -5.66},
+            {UnitSpin = 270, X = -8,    Y = 0, Z = 0},
+            {UnitSpin = 315, X = -5.66, Y = 0, Z = 5.66},
+        },
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 16,
+        SkirtSizeZ = 16,
+        TurnRate = 0,
+    },
+    --SelectionCenterOffsetX = -1.6,
+    --SelectionCenterOffsetZ = -0.14,
+    SelectionSizeX = 8,
+    SelectionSizeZ = 8,
+    SelectionThickness = 0.11,
+    SizeX = 14,
+    SizeY = 14,
+    SizeZ = 3,
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconNameEIOOverride = 'icon_experimental_factory_navy',
+    StrategicIconSortPriority = 210,
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

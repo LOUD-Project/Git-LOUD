@@ -1,0 +1,82 @@
+#Aeon Buildings	----------------------------------#
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId="xab3301",		##T3 Quantum Optics
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+    Physics = {
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId="xab2307",		##Salvation
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
+        },
+    },
+    BuildIconSortPriority = 150,
+    Description = '<LOC srb2401_desc>Experimental Rapid-Fire Artillery',
+    StrategicIconName = 'icon_experimental_generic',
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId="xab1401",		##Paragon
+    Adjacency = 'ParagonAdjacencyBuffs',
+}
+
+#Aeon Units	----------------------------------#
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId="ual0101",		##spirit
+    Intel = {
+        OmniRadius = 2,
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId="ual0303",		##Harbinger
+    Defense = {
+        Health = 2125,
+        MaxHealth = 2125,
+        Shield = {
+            ShieldMaxHealth = 1200,
+        },
+        SurfaceThreatLevel = 9,
+    },
+    Economy = {
+        BuildCostEnergy = 5400,
+        BuildCostMass = 480,
+        BuildTime = 2400,
+    },
+    Physics = {
+        MaxAcceleration = 4,
+        MaxBrake = 4,
+        MaxSpeed = 4,
+    },
+    Weapon = {
+        {
+            Damage = 150,
+            MaxRadius = 20,
+        },
+    },
+}
+
+#Aeon Aircrafts	----------------------------------#
+
+
