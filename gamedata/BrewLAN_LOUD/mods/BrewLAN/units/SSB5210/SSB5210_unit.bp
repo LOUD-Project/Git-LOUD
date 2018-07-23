@@ -7,6 +7,7 @@ UnitBlueprint {
             'AttackTarget004',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -29,9 +30,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'BUILTBYTIER2FIELD',
         'BUILTBYTIER3FIELD',
         'SELECTABLE',
@@ -47,16 +49,16 @@ UnitBlueprint {
         'SORTDEFENSE',
         'MEDIUMWALL',
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 20000,
         MaxHealth = 20000,
         RegenRate = 0,
     },
-    Description = '<LOC sbui5210>Heavy Wall Segment', 
+	
+    Description = '<LOC sbui5210>Medium Wall Segment', 
+	
     Display = {      
         AdjacencyConnection = 'MEDIUMWALL',
         AdjacencyConnectionInfo = {  
@@ -131,10 +133,11 @@ UnitBlueprint {
         }, ]]-- 
         UniformScale = 0.05*.66666666666666666,
     },
+	
     Economy = {
-        BuildCostEnergy = 10*5,
-        BuildCostMass = 2*5,
-        BuildTime = 10,
+        BuildCostEnergy = 1000,
+        BuildCostMass = 200,
+        BuildTime = 15,
         RebuildBonusIds = {
             'sab5210',
             'seb5210',
@@ -142,12 +145,14 @@ UnitBlueprint {
             'ssb5210',
         },
     },
+	
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+	
     General = {         
-        CapCost = 0,
+        CapCost = 0.5,
         Category = 'Defense', 
         Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
@@ -171,15 +176,19 @@ UnitBlueprint {
         UnitName = '<LOC ssb5210_name>Haas-haas',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
-        HelpText = '<LOC sbui5210>Heavy Wall Segment',
+        HelpText = '<LOC sbui5210>Medium Wall Segment',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
     LifeBarSize = 0.075,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -205,14 +214,18 @@ UnitBlueprint {
         SkirtSizeZ = 0,
         TurnRate = 0,
     },
+	
     SelectionSizeX = .8,
     SelectionSizeZ = .8,
     SelectionThickness = 0.31,
+	
     SizeX = 2,
     SizeY = 2,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 207,
+	
     Wreckage = {    
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
