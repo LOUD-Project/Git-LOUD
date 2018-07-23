@@ -22,23 +22,28 @@ function ExperimentalIconOverhaul(all_bps)
         --ssb5401 = 'icon_experimental_structure_transport',
     }
     for id, bp in all_bps do
+	
         ------------------------------------------------------------------------
         -- Check for pre-defined overrides
         ------------------------------------------------------------------------
         if bp.StrategicIconName == 'icon_experimental_generic' and (bp.StrategicIconNameEIOOverride or units[id]) then
             bp.StrategicIconName = units[id] or bp.StrategicIconNameEIOOverride
         end
+		
         if bp.StrategicIconName == 'icon_experimental_generic' and bp.Categories and type(bp.Categories[1]) == "string" then
+		
             local icon = 'icon_experimental_'
             --------------------------------------------------------------------
             -- Define background shape
             --------------------------------------------------------------------
             if table.find(bp.Categories, 'AIR') and table.find(bp.Categories, 'MOBILE') then
+			
                 if bp.Air.Winged then
                     icon = icon .. 'bomber_'
                 elseif not bp.Air.Winged then
                     icon = icon .. 'gunship_'
                 end
+				
             elseif table.find(bp.Categories, 'STRUCTURE') and bp.Physics.MotionType == 'RULEUMT_None' then
                 if table.find(bp.Categories, 'FACTORY') then
                     icon = icon .. 'factory_'

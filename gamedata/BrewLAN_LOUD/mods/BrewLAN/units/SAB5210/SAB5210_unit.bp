@@ -57,7 +57,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = '<LOC sbui5210>Heavy Wall Segment',
+    Description = '<LOC sbui5210>Medium Wall Segment',
 	
     Display = {
         AdjacencyConnection = 'MEDIUMWALL',
@@ -137,10 +137,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.0769230769230769230769230,
     },
+	
     Economy = {
-        BuildCostEnergy = 10*5,
-        BuildCostMass = 2*5,
-        BuildTime = 10,
+        BuildCostEnergy = 1000,
+        BuildCostMass = 200,
+        BuildTime = 15,
         RebuildBonusIds = {
             'sab5210',
             'seb5210',
@@ -148,12 +149,14 @@ UnitBlueprint {
             'ssb5210',
         },
     },
+	
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+	
     General = {
-        CapCost = 0,
+        CapCost = 0.5,
         Category = 'Defense',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -178,15 +181,19 @@ UnitBlueprint {
         --UnitName = '<LOC sab5210_name>Bulkhead',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
-        HelpText = '<LOC sbui5210>Heavy Wall Segment',
+        HelpText = '<LOC sbui5210>Medium Wall Segment',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
     LifeBarSize = 0.075,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -212,14 +219,18 @@ UnitBlueprint {
         SkirtSizeZ = 0,
         TurnRate = 0,
     },
+	
     SelectionSizeX = .8,
     SelectionSizeZ = .8,
     SelectionThickness = 0.8,
+	
     SizeX = 2,
     SizeY = 2,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 208,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
