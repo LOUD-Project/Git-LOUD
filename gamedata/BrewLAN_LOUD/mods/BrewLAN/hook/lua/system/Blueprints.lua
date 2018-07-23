@@ -6,16 +6,20 @@
 do
 
 local OldModBlueprints = ModBlueprints
+
 local BrewLANPath = function()
+
     for i, mod in __active_mods do
         --UID also hard referenced in /hook/lua/game.lua and mod_info.lua and in paragongame blueprints
         if mod.uid == "25D57D85-7D84-27HT-A501-BR3WL4N000079" then
             return mod.location
         end
     end
+	
 end
 
 function ModBlueprints(all_blueprints)
+
     OldModBlueprints(all_blueprints)
     BrewLANBuildCatChanges(all_blueprints.Unit)
     BrewLANCategoryChanges(all_blueprints.Unit)
@@ -34,6 +38,7 @@ function ModBlueprints(all_blueprints)
     BrewLANRelativisticLinksUpdate(all_blueprints)
     BrewLANMegalithEggs(all_blueprints.Unit)
     ExtractFrozenMeshBlueprint(all_blueprints.Unit)
+	
 end
 
 --------------------------------------------------------------------------------
@@ -41,24 +46,26 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANBuildCatChanges(all_bps)
-    --[[local bb = function(data)
+    --[[
+	local bb = function(data)
         return 'BUILTBY' .. (data[1] or '') .. 'TIER' .. (data[t] or '')
     end
+	
     local T1LF = 'BUILTBYLANDTIER1FACTORY '
     local T2LF = 'BUILTBYLANDTIER2FACTORY '
     local T3LF = 'BUILTBYLANDTIER3FACTORY '
     ]]--
     local units_buildcats = {
-        urb0101 = {'BUILTBYLANDTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',},
+        --urb0101 = {'BUILTBYLANDTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',},
         urb0201 = {'BUILTBYLANDTIER2FACTORY CYBRAN MOBILE CONSTRUCTION',},
         urb0301 = {'BUILTBYLANDTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',},
-        uab0101 = {'BUILTBYLANDTIER1FACTORY AEON MOBILE CONSTRUCTION',},
+        --uab0101 = {'BUILTBYLANDTIER1FACTORY AEON MOBILE CONSTRUCTION',},
         uab0201 = {'BUILTBYLANDTIER2FACTORY AEON MOBILE CONSTRUCTION',},
         uab0301 = {'BUILTBYLANDTIER3FACTORY AEON MOBILE CONSTRUCTION',},
-        xsb0101 = {'BUILTBYLANDTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',},
+        --xsb0101 = {'BUILTBYLANDTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',},
         xsb0201 = {'BUILTBYLANDTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',},
         xsb0301 = {'BUILTBYLANDTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-        ueb0101 = {'BUILTBYLANDTIER1FACTORY UEF MOBILE CONSTRUCTION',},
+        --ueb0101 = {'BUILTBYLANDTIER1FACTORY UEF MOBILE CONSTRUCTION',},
         ueb0301 = {'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',},
         uel0401 = {'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',},
         --TeaD tiny factories
@@ -67,19 +74,19 @@ function BrewLANBuildCatChanges(all_bps)
         sab0101 = {'BUILTBYLANDTIER1FACTORY AEON MOBILE CONSTRUCTION',},
         ssb0101 = {'BUILTBYLANDTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',},
         --FAF support factories
-        zab9501 = {'BUILTBYLANDTIER2FACTORY AEON MOBILE CONSTRUCTION',},
-        zab9601 = {'BUILTBYLANDTIER3FACTORY AEON MOBILE CONSTRUCTION',},
-        zeb9501 = {'BUILTBYLANDTIER2FACTORY UEF MOBILE CONSTRUCTION',},
-        zeb9601 = {'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',},
-        zrb9501 = {'BUILTBYLANDTIER2FACTORY CYBRAN MOBILE CONSTRUCTION',},
-        zrb9601 = {'BUILTBYLANDTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',},
-        zsb9501 = {'BUILTBYLANDTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-        zsb9601 = {'BUILTBYLANDTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',},
+        --zab9501 = {'BUILTBYLANDTIER2FACTORY AEON MOBILE CONSTRUCTION',},
+        --zab9601 = {'BUILTBYLANDTIER3FACTORY AEON MOBILE CONSTRUCTION',},
+        --zeb9501 = {'BUILTBYLANDTIER2FACTORY UEF MOBILE CONSTRUCTION',},
+        --zeb9601 = {'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',},
+        --zrb9501 = {'BUILTBYLANDTIER2FACTORY CYBRAN MOBILE CONSTRUCTION',},
+        --zrb9601 = {'BUILTBYLANDTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',},
+        --zsb9501 = {'BUILTBYLANDTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',},
+        --zsb9601 = {'BUILTBYLANDTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',},
         --Tech 1 Field Engineers
-        sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
-        srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
-        ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
-        sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
+        --sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
+        --srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
+        --ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
+        --sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
         --Tech 2 Field Engineers
         srl0209 = {'BUILTBYTIER2ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
         ssl0219 = {'BUILTBYTIER2ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
@@ -109,13 +116,19 @@ function BrewLANBuildCatChanges(all_bps)
         url0301 = {'BUILTBYTIER3FIELD CYBRAN',},
         xsl0301 = {'BUILTBYTIER3FIELD SERAPHIM',},
     }
+	
     for unitid, buildcat in units_buildcats do
+	
         if all_bps[unitid] and all_bps[unitid].Economy.BuildableCategory then   --Xtreme Wars crash fix here. They removed the Fatboys ability to build.
+		
             for i in buildcat do
                 table.insert(all_bps[unitid].Economy.BuildableCategory, buildcat[i])
             end
+			
         end
+		
     end
+	
 end
 
 --------------------------------------------------------------------------------
@@ -123,6 +136,7 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANNavalEngineerCatFixes(all_bps)
+
     local cats_table = {
         {'BUILTBYTIER3FACTORY UEF MOBILE CONSTRUCTION',      'BUILTBYTIER3FACTORY UEF MOBILE LAND CONSTRUCTION'},
         {'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',   'BUILTBYTIER3FACTORY CYBRAN MOBILE LAND CONSTRUCTION'},
@@ -137,6 +151,7 @@ function BrewLANNavalEngineerCatFixes(all_bps)
         {'BUILTBYTIER1FACTORY AEON MOBILE CONSTRUCTION',     'BUILTBYTIER1FACTORY AEON MOBILE LAND CONSTRUCTION'},
         {'BUILTBYTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION', 'BUILTBYTIER1FACTORY SERAPHIM MOBILE LAND CONSTRUCTION'},
     }
+	
     for id, bp in all_bps do
         if bp.General.Classification == 'RULEUC_Factory' and bp.Physics.BuildOnLayerCaps.LAYER_Water == false then
             if bp.Economy.BuildableCategory then
@@ -157,6 +172,7 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANCategoryChanges(all_bps)
+
     local Units = {
         --Cybran Shields
         urb4202 = {'TECH1','BUILTBYTIER1ENGINEER','BUILTBYTIER2ENGINEER','BUILTBYTIER2COMMANDER','BUILTBYTIER3ENGINEER','BUILTBYTIER3COMMANDER', r = 'TECH2', },
@@ -179,6 +195,7 @@ function BrewLANCategoryChanges(all_bps)
         url0401 = {NoBuild = true, }, -------------------------Scathis
         xeb2402 = {NoBuild = true, },--------------------------Noxav Defence Satelite Uplink
     }
+	
     local buildcats = {
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER1COMMANDER',
@@ -192,6 +209,7 @@ function BrewLANCategoryChanges(all_bps)
         'BUILTBYGANTRY',
         'BUILTBYHEAVYWALL',
     }
+	
     for k, v in Units do
         --Make sure the unit exists, and has its table
         if all_bps[k] and all_bps[k].Categories then
@@ -243,7 +261,9 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANGantryBuildList(all_bps)
+
     local Gantries = {}
+	
     for id, bp in all_bps do
         if bp.AI.Experimentals then
             Gantries[id] = {
@@ -252,23 +272,31 @@ function BrewLANGantryBuildList(all_bps)
             }
         end
     end
+	
     for id, bp in all_bps do
+	
         --Check it has a category table first
         for gantryId, info in Gantries do
+		
             if bp.Categories then
+			
                 --Check the Gantry can't already build it, and that its a mobile experimental
                 if table.find(bp.Categories, info.Cat) and table.find(bp.Categories, 'EXPERIMENTAL') then
+				
                     --Populate the Gantry AI table
                     if table.find(bp.Categories, 'AIR') then
                         table.insert(all_bps[gantryId].AI.Experimentals.Air, {id})
                     else
                         table.insert(all_bps[gantryId].AI.Experimentals.Other, {id})
                     end
+					
                 elseif --table.find(bp.Categories, 'MOBILE')
+				
                 --and table.find(bp.Categories, 'EXPERIMENTAL') or
                 table.find(bp.Categories, 'NEEDMOBILEBUILD')
                 --WHAT THE FUCK BLACKOPS
                 and table.find(bp.Categories, 'MOBILE')
+				
                 then
                     --Check it should actually be buildable
                     if table.find(bp.Categories, 'BUILTBYTIER1COMMANDER')
@@ -306,9 +334,12 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANHeavyWallBuildList(all_bps)
+
     for id, bp in all_bps do
+	
         --Check its not hard coded to be buildable, then check it meets the standard requirements.
         if bp.Categories then
+		
             if not table.find(bp.Categories, 'BUILTBYHEAVYWALL')
             and not table.find(bp.Categories, 'WALL')
             and not table.find(bp.Categories, 'HEAVYWALL')
@@ -373,6 +404,7 @@ end
 --------------------------------------------------------------------------------
 
 function UpgradeableToBrewLAN(all_bps)
+
     local VanillasToUpgrade = {
         uab4202 = 'uab4301',--FromAeon T2 shield
         xsb3202 = 'sss0305',--From Seraphim T2 sonar
@@ -395,7 +427,9 @@ function UpgradeableToBrewLAN(all_bps)
         xsb1303 = 'ssb1313',--To Armored Fabricator
         --srb5310 = 'srb5311',--Cybran wall into cybran gate. Caused issues.
     }
+	
     for unitid, upgradeid in VanillasToUpgrade do
+	
         if all_bps[unitid] and all_bps[upgradeid] then
             table.insert(all_bps[unitid].Categories, 'SHOWQUEUE')
 
@@ -417,6 +451,7 @@ function UpgradeableToBrewLAN(all_bps)
             all_bps[unitid].General.CommandCaps.RULEUCC_Pause = true
         end
     end
+	
     local UpgradesFromBase = {
         -- Base        Max
         urb1103 = 'srb1312',--To Cloakable Extractor
