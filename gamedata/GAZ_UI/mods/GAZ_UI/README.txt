@@ -6,22 +6,6 @@
 Hi AdmiralZeech here, since Goom is currently not into SCFA anymore, 
 I've gotten his permission to take over management of his UI mod.
 
-Because the mod is so complex, I'll be documenting it gradually when I
-get the time.  If you cant find something here, try the forum post:
-
-http://forums.gaspowered.com/viewtopic.php?p=414706
-
-
-----------------
-|Install Notes:
-
-- Be sure to remove old versions of the mod!
-
-- Make sure the GAZ_UI folder inside this archive is placed into the 
-FA "mods" folder.  For example, the path to this README should be:
-
-<ForgedAlliance>\mods\GAZ_UI\README.txt
-
 
 ---------------- 
 |Overview - Options
@@ -31,9 +15,6 @@ menu Options/Interface.  In the various items marked "GUI:".
 
 Here's a short explanation of each item, which gives an overview of
 the features of GAZ_UI.
-
-NOTE: There are some options that must be disabled to be compatible with
-AngryZealot's AZUI mod.  Do a text search for AZUI in this document.
 
 
 - GUI: Bigger Strategic Build Icons

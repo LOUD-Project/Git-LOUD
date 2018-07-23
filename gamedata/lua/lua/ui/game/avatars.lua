@@ -304,6 +304,7 @@ function CreateIdleTab(unitData, id, expandFunc)
     bg.count = UIUtil.CreateText(bg.icon, '', 18, UIUtil.bodyFont)
     bg.count:DisableHitTest()
     bg.count:SetDropShadow(true)
+	
     LayoutHelpers.AtBottomIn(bg.count, bg.icon)
     LayoutHelpers.AtRightIn(bg.count, bg.icon)
     
@@ -317,22 +318,35 @@ function CreateIdleTab(unitData, id, expandFunc)
 	)
 	
     bg.expandCheck.Right:Set(function() return bg.Left() + 4 end)
+	
     LayoutHelpers.AtVerticalCenterIn(bg.expandCheck, bg)
 	
     bg.expandCheck.OnCheck = function(self, checked)
+	
         if checked then
+		
             if expandedCheck and expandedCheck != bg.id and GetCheck(expandedCheck) then
+			
                 GetCheck(expandedCheck):SetCheck(false)
+				
             end
+			
             expandedCheck = bg.id
             self.expandList = expandFunc(self, bg.units)
+			
         else
+		
             expandedCheck = false
+			
             if self.expandList then
+			
                 self.expandList:Destroy()
                 self.expandList = nil
+				
             end
+			
         end
+		
     end
 	
     bg.curIndex = 1
@@ -346,14 +360,16 @@ function CreateIdleTab(unitData, id, expandFunc)
         if self.id == 'engineer' then
 		
             local sortedUnits = {}
+
+            sortedUnits[7] = EntityCategoryFilterDown(categories.SUBCOMMANDER, self.allunits)
+            sortedUnits[6] = EntityCategoryFilterDown(categories.TECH3 * categories.FIELDENGINEER, self.allunits)
+            sortedUnits[5] = EntityCategoryFilterDown(categories.TECH3 - categories.FIELDENGINEER - categories.SUBCOMMANDER, self.allunits)
+            sortedUnits[4] = EntityCategoryFilterDown(categories.TECH2 * categories.FIELDENGINEER, self.allunits)
+            sortedUnits[3] = EntityCategoryFilterDown(categories.TECH2 - categories.FIELDENGINEER, self.allunits)
+            sortedUnits[2] = EntityCategoryFilterDown(categories.TECH1 * categories.FIELDENGINEER, self.allunits)
+            sortedUnits[1] = EntityCategoryFilterDown(categories.TECH1 - categories.FIELDENGINEER, self.allunits)
 			
-            sortedUnits[5] = EntityCategoryFilterDown(categories.SUBCOMMANDER, self.allunits)
-            sortedUnits[4] = EntityCategoryFilterDown(categories.TECH3 - categories.SUBCOMMANDER, self.allunits)
-            sortedUnits[3] = EntityCategoryFilterDown(categories.FIELDENGINEER, self.allunits)
-            sortedUnits[2] = EntityCategoryFilterDown(categories.TECH2 - categories.FIELDENGINEER, self.allunits)
-            sortedUnits[1] = EntityCategoryFilterDown(categories.TECH1, self.allunits)
-            
-            local keyToIcon = {'T1','T2','T2F','T3','SCU'}
+            local keyToIcon = {'T1','T1F','T2','T2F','T3','T3F','SCU'}
             
             local i = table.getn(sortedUnits)
             local needIcon = true
@@ -362,15 +378,15 @@ function CreateIdleTab(unitData, id, expandFunc)
 			
                 if table.getn(sortedUnits[i]) > 0 then
 				
-                    if needIcon then
+                    if needIcon and Factions[currentFaction].IdleEngTextures[keyToIcon[i]] then
 					
-                        if Factions[currentFaction].IdleEngTextures[keyToIcon[i]] and DiskGetFileInfo('/textures/ui/common'..Factions[currentFaction].IdleEngTextures[keyToIcon[i]]) then
+						if string.lower(string.sub(Factions[currentFaction].IdleEngTextures[keyToIcon[i]],1,7)) == '/icons/' then
 						
                             self.icon:SetTexture('/textures/ui/common'..Factions[currentFaction].IdleEngTextures[keyToIcon[i]])
 							
                         else
 						
-                            self.icon:SetTexture(UIUtil.UIFile(Factions[currentFaction].IdleEngTextures['T2']))
+							self.icon:SetTexture(Factions[currentFaction].IdleEngTextures[keyToIcon[i]])
 							
                         end
 						
@@ -415,14 +431,20 @@ function CreateIdleTab(unitData, id, expandFunc)
 					
                         if needIcon then
 						
-                            if DiskGetFileInfo('/textures/ui/common'..Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i]) then
-							
+                            if string.lower(string.sub(Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i],1,7)) == '/icons/'
+                            and DiskGetFileInfo('/textures/ui/common'..Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i])
+                            then
+								
                                 self.icon:SetTexture('/textures/ui/common'..Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i])
+
+                            elseif DiskGetFileInfo(Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i]) then
 								
+                                self.icon:SetTexture(Factions[currentFaction].IdleFactoryTextures[categoryTable[curCat]][i])
+
                             else
-							
-                                self.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 								
+                                self.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+
                             end
 							
                             needIcon = false
@@ -565,6 +587,7 @@ function ClickFunc(self, event)
 end
 
 function CreateIdleEngineerList(parent, units)
+
     local group = Group(parent)
     
     local bgTop = Bitmap(group, UIUtil.SkinnableFile('/game/avatar-engineers-panel/panel-eng_bmp_t.dds'))
@@ -595,17 +618,30 @@ function CreateIdleEngineerList(parent, units)
     group.icons = {}
     
     group.Update = function(self, unitData)
-        local function CreateUnitEntry(techLevel, userUnits, icontexture)
+	
+        local function CreateUnitEntry( techLevel, userUnits, icontexture )
+		
             local entry = Group(self)
             
             entry.icon = Bitmap(entry)
+			
             if DiskGetFileInfo('/textures/ui/common'..icontexture) then
+			
                 entry.icon:SetTexture('/textures/ui/common'..icontexture)
+
+            elseif DiskGetFileInfo(icontexture) then
+				
+                entry.icon:SetTexture(icontexture)
+
             else
+			
                 entry.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+				
             end
+			
             entry.icon.Height:Set(34)
             entry.icon.Width:Set(34)
+			
             LayoutHelpers.AtRightIn(entry.icon, entry, 22)
             LayoutHelpers.AtVerticalCenterIn(entry.icon, entry)
             
@@ -648,51 +684,81 @@ function CreateIdleEngineerList(parent, units)
             
             return entry
         end
+		
         local engineers = {}
-        engineers[5] = EntityCategoryFilterDown(categories.SUBCOMMANDER, unitData)
-        engineers[4] = EntityCategoryFilterDown(categories.TECH3 - categories.SUBCOMMANDER, unitData)
-        engineers[3] = EntityCategoryFilterDown(categories.FIELDENGINEER, unitData)
-        engineers[2] = EntityCategoryFilterDown(categories.TECH2 - categories.FIELDENGINEER, unitData)
-        engineers[1] = EntityCategoryFilterDown(categories.TECH1, unitData)
-        
-        local indexToIcon = {'1', '2', '2', '3', '3'}
-        local keyToIcon = {'T1','T2','T2F','T3','SCU'}
+
+        engineers[7] = EntityCategoryFilterDown(categories.SUBCOMMANDER, unitData)
+        engineers[6] = EntityCategoryFilterDown(categories.TECH3 * categories.FIELDENGINEER, unitData)
+        engineers[5] = EntityCategoryFilterDown(categories.TECH3 - categories.FIELDENGINEER - categories.SUBCOMMANDER, unitData)
+        engineers[4] = EntityCategoryFilterDown(categories.TECH2 * categories.FIELDENGINEER, unitData)
+        engineers[3] = EntityCategoryFilterDown(categories.TECH2 - categories.FIELDENGINEER, unitData)
+        engineers[2] = EntityCategoryFilterDown(categories.TECH1 * categories.FIELDENGINEER, unitData)
+        engineers[1] = EntityCategoryFilterDown(categories.TECH1 - categories.FIELDENGINEER, unitData)
+
+        local indexToIcon = {'1', '1', '2', '2', '3', '3', '3'}
+        local keyToIcon = {'T1','T1F','T2','T2F','T3','T3F','SCU'}
+		
         for index, units in engineers do
+		
             local i = index
-            if i == 3 and currentFaction != 1 then
-                continue
-            end
-            if not self.icons[i] then
-                self.icons[i] = CreateUnitEntry(indexToIcon[i], units, Factions[currentFaction].IdleEngTextures[keyToIcon[index]])
+			
+            if not self.icons[i] and Factions[currentFaction].IdleEngTextures[keyToIcon[index]] then
+			
+                self.icons[i] = CreateUnitEntry( indexToIcon[i], units, Factions[currentFaction].IdleEngTextures[keyToIcon[index]] )
                 self.icons[i].priority = i
+				
             end
-            if table.getn(units) > 0 and not self.icons[i]:IsHidden() then
-                self.icons[i].units = units
-                self.icons[i].count:SetText(table.getn(units))
-                self.icons[i].count:Show()
-                self.icons[i].countBG:Show()
-                self.icons[i].icon:SetAlpha(1)
-            else
-                self.icons[i].units = {}
-                self.icons[i].count:Hide()
-                self.icons[i].countBG:Hide()
-                self.icons[i].icon:SetAlpha(.2)
+			
+			if self.icons[i] then
+			
+				if table.getn(units) > 0 and not self.icons[i]:IsHidden() then
+			
+					self.icons[i].units = units
+					self.icons[i].count:SetText(table.getn(units))
+					self.icons[i].count:Show()
+					self.icons[i].countBG:Show()
+					self.icons[i].icon:SetAlpha(1)
+				
+				else
+			
+					self.icons[i].units = {}
+					self.icons[i].count:Hide()
+					self.icons[i].countBG:Hide()
+					self.icons[i].icon:SetAlpha(.35)
+					
+				end
+				
             end
+			
         end
+		
         local prevGroup = false
         local groupHeight = 0
+		
         for index, engGroup in engineers do
+		
             local i = index
-            if not self.icons[i] then continue end
+			
+            if not self.icons[i] then
+				continue
+			end
+			
             if prevGroup then
+			
                 LayoutHelpers.Above(self.icons[i], prevGroup)
+				
             else
+			
                 LayoutHelpers.AtLeftIn(self.icons[i], self, 7)
                 LayoutHelpers.AtBottomIn(self.icons[i], self, 2)
+				
             end
+			
             groupHeight = groupHeight + self.icons[i].Height()
             prevGroup = self.icons[i]
+			
         end
+		
         group.Height:Set(groupHeight)
     end
     
@@ -703,14 +769,17 @@ end
 
 #-- modified to show idle Quantum Gateways
 function CreateIdleFactoryList(parent, units)
+
     local bg = Bitmap(parent, UIUtil.SkinnableFile('/game/avatar-factory-panel/factory-panel_bmp.dds'))
     
-	#-- original offset was -9 now -32 to allow for showing gateways
+	-- original offset was -9 now -32 to allow for showing gateways
     bg.Right:Set(function() return parent.Left() - 32 end)
     bg.Top:Set(function() return math.max(controls.avatarGroup.Top()+10, (parent.Top() + (parent.Height() / 2)) - (bg.Height() / 2)) end)
     
     local connector = Bitmap(bg, UIUtil.SkinnableFile('/game/avatar-factory-panel/bracket_bmp.dds'))
+	
     LayoutHelpers.AtVerticalCenterIn(connector, parent)
+	
     connector.Right:Set(function() return parent.Left() + 7 end)
     
     bg:DisableHitTest(true)
@@ -726,17 +795,25 @@ function CreateIdleFactoryList(parent, units)
     for type, category in iconData do
 	
         local function CreateIcon(texture)
+		
             local icon = Bitmap(bg)
+			
             if DiskGetFileInfo('/textures/ui/common'..texture) then
+			
                 icon:SetTexture('/textures/ui/common'..texture)
+				
             else
+			
                 icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+				
             end
+			
             icon.Height:Set(40)
             icon.Width:Set(40)
             
             icon.count = UIUtil.CreateText(icon, '', 20, UIUtil.bodyFont)
             icon.count:SetColor('ffffffff')
+			
             LayoutHelpers.AtRightIn(icon.count, icon)
             LayoutHelpers.AtBottomIn(icon.count, icon)
             
@@ -751,6 +828,7 @@ function CreateIdleFactoryList(parent, units)
             icon.count.Depth:Set(function() return icon.countBG.Depth() + 1 end)
             
             icon.curIndex = 1
+			
             icon.HandleEvent = ClickFunc
             
             return icon
@@ -760,45 +838,72 @@ function CreateIdleFactoryList(parent, units)
 		
         local table = bg.icons[category]
 		
-        for index=1, 3 do
+        for index = 1,3 do
+		
             local i = index
-            table[i] = CreateIcon(idleTextures[category][i])
+			
+            table[i] = CreateIcon( idleTextures[category][i] )
+			
             if i == 1 then
+			
                 if prevIcon then
+				
                     LayoutHelpers.RightOf(table[i], prevIcon, 4)
+					
                 else
+				
                     LayoutHelpers.AtLeftIn(table[i], bg, 38)
                     LayoutHelpers.AtBottomIn(table[i], bg, 10)
+					
                 end
+				
                 prevIcon = table[i]
+				
             else
+			
                 LayoutHelpers.Above(table[i], table[i-1], 4)
+				
             end
         end
     end
     
     bg.Update = function(self, unitData)
+	
         local factories = {LAND = {}, AIR = {}, NAVAL = {}, GATE = {}}
+		
         for type, table in factories do
+		
             table[1] = EntityCategoryFilterDown(categories.TECH1 * categories[type], unitData)
             table[2] = EntityCategoryFilterDown(categories.TECH2 * categories[type], unitData)
             table[3] = EntityCategoryFilterDown(categories.TECH3 * categories[type], unitData)
+			
         end
+		
         for type, icons in bg.icons do
-            for index=1,3 do
+		
+            for index = 1,3 do
+			
                 local i = index
+				
                 if table.getn(factories[type][i]) > 0 then
+				
                     bg.icons[type][i].units = factories[type][i]
                     bg.icons[type][i]:SetAlpha(1)
                     bg.icons[type][i].countBG:Show()
                     bg.icons[type][i].count:SetText(table.getn(factories[type][i]))
+					
                 else
+				
                     bg.icons[type][i]:SetAlpha(.2)
                     bg.icons[type][i].countBG:Hide()
                     bg.icons[type][i].count:SetText('')
+					
                 end
+				
             end
+			
         end
+		
     end
     
     bg:Update(units)
@@ -807,9 +912,11 @@ function CreateIdleFactoryList(parent, units)
 end
 
 function AvatarUpdate()
+
     if import('/lua/ui/game/gamemain.lua').IsNISMode() then
         return
     end
+	
     local avatars = GetArmyAvatars()
     local engineers = GetIdleEngineers()
     local factories = GetIdleFactories()
@@ -819,115 +926,188 @@ function AvatarUpdate()
     currentFaction = GetArmiesTable().armiesTable[GetFocusArmy()].faction + 1
     
     if avatars then
+	
         for _, unit in avatars do
+		
             if controls.avatars[unit:GetEntityId()] then
                 controls.avatars[unit:GetEntityId()]:Update()
             else
                 controls.avatars[unit:GetEntityId()] = CreateAvatar(unit)
                 needsAvatarLayout = true
-            end
+			end
+			
             validAvatars[unit:GetEntityId()] = true
+			
         end
+		
         for entID, control in controls.avatars do
+		
             local i = entID
+			
             if not validAvatars[i] then
                 controls.avatars[i]:Destroy()
                 controls.avatars[i] = nil
                 needsAvatarLayout = true
             end
+			
         end
+		
     elseif controls.avatars then
+	
         for entID, control in controls.avatars do
+		
             local i = entID
+			
             controls.avatars[i]:Destroy()
             controls.avatars[i] = nil
+			
             needsAvatarLayout = true
+			
         end
+		
     end
     
     if engineers then
+	
         if controls.idleEngineers then
+		
             controls.idleEngineers:Update(engineers)
+			
         else
+		
             controls.idleEngineers = CreateIdleTab(engineers, 'engineer', CreateIdleEngineerList)
+			
             if expandedCheck == 'engineer' then
+			
                 controls.idleEngineers.expandCheck:SetCheck(true)
+				
             end
+			
             needsAvatarLayout = true
+			
         end
+		
     else
+	
         if controls.idleEngineers then
+		
             controls.idleEngineers:Destroy()
             controls.idleEngineers = nil
+			
             needsAvatarLayout = true
+			
         end
+		
     end
     
-	#-- there were several reference to - categories.GATE that I removed here so that idle gates will show up as idle factories
+	-- there were several reference to - categories.GATE that I removed here so that idle gates will show up as idle factories
     if factories and table.getn(EntityCategoryFilterDown(categories.ALLUNITS, factories)) > 0 then
+	
         if controls.idleFactories then
+		
             controls.idleFactories:Update(EntityCategoryFilterDown(categories.ALLUNITS, factories))
+			
         else
+		
             controls.idleFactories = CreateIdleTab(EntityCategoryFilterDown(categories.ALLUNITS, factories), 'factory', CreateIdleFactoryList)
+			
             if expandedCheck == 'factory' then
                 controls.idleFactories.expandCheck:SetCheck(true)
             end
+			
             needsAvatarLayout = true
+			
         end
+		
     else
+	
         if controls.idleFactories then
+		
             controls.idleFactories:Destroy()
             controls.idleFactories = nil
+			
             needsAvatarLayout = true
+			
         end
+		
     end
     
     if needsAvatarLayout then
+	
         import(UIUtil.GetLayoutFilename('avatars')).LayoutAvatars()
+		
     end
+	
 end
 
 function FocusArmyChanged()
+
     for i, control in controls.avatars do
+	
         local index = i
+		
         if controls.avatars[index] then
             controls.avatars[index]:Destroy()
             controls.avatars[index] = nil
         end
+		
     end
+	
     if GetFocusArmy() == -1 then
+	
         GameMain.RemoveBeatFunction(AvatarUpdate)
         recievingBeatUpdate = false
+		
     elseif not recievingBeatUpdate then
+	
         recievingBeatUpdate = true
         GameMain.AddBeatFunction(AvatarUpdate)
+		
     end
+	
 end
 
 local preContractState = false
+
 function Contract()
+
     preContractState = controls.avatarGroup:IsHidden()
+	
     controls.avatarGroup:Hide()
     controls.collapseArrow:Hide()
+	
 end
 
 function Expand()
+
     controls.avatarGroup:SetHidden(preContractState)
     controls.collapseArrow:Show()
 end
 
 function InitialAnimation()
+
     controls.avatarGroup:Show()
+	
     controls.avatarGroup.Left:Set(controls.parent.Left()-controls.avatarGroup.Width())
     controls.avatarGroup:SetNeedsFrameUpdate(true)
+	
     controls.avatarGroup.OnFrame = function(self, delta)
+	
         local newLeft = self.Left() + (1000*delta)
+		
         if newLeft > controls.parent.Left()-3 then
+		
             newLeft = function() return controls.parent.Left()-3 end
+			
             self:SetNeedsFrameUpdate(false)
+			
         end
+		
         self.Left:Set(newLeft)
+		
     end
+	
     controls.collapseArrow:Show()
     controls.collapseArrow:SetCheck(false, true)
+	
 end

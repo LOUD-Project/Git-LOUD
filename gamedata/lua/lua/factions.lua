@@ -1,5 +1,7 @@
 -- Note that the order here will determine the faction index
 -- (it's the automatically assigned array index)
+-- and all factions now have the T2 Field Engineer Icon defaulted to the UEF Sparky
+-- this is for compatability with BrewLAN and it's larger range of Field Engineers
 Factions = {
     {
         Key = 'uef',
@@ -69,6 +71,7 @@ Factions = {
         IdleEngTextures = {
             T1 = '/icons/units/ual0105_icon.dds',
             T2 = '/icons/units/ual0208_icon.dds',
+			T2F = '/icons/units/xel0209_icon.dds',
             T3 = '/icons/units/ual0309_icon.dds',
             SCU = '/icons/units/ual0301_icon.dds',
         },
@@ -116,6 +119,7 @@ Factions = {
         IdleEngTextures = {
             T1 = '/icons/units/url0105_icon.dds',
             T2 = '/icons/units/url0208_icon.dds',
+			T2F = '/icons/units/xel0209_icon.dds',
             T3 = '/icons/units/url0309_icon.dds',
             SCU = '/icons/units/url0301_icon.dds',
         },
@@ -163,6 +167,7 @@ Factions = {
         IdleEngTextures = {
             T1 = '/icons/units/xsl0105_icon.dds',
             T2 = '/icons/units/xsl0208_icon.dds',
+			T2F = '/icons/units/xel0209_icon.dds',
             T3 = '/icons/units/xsl0309_icon.dds',
             SCU = '/icons/units/xsl0301_icon.dds',
         },
