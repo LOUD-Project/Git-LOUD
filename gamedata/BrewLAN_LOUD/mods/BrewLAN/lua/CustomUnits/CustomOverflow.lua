@@ -1,8 +1,7 @@
---[[
 UnitList = {
-
-T3LandArtillery = {
-    Cybran = {'srl0311', 40},
-},
-}
+--[[
+	T3LandArtillery = {
+		Cybran = {'srl0311', 40},
+	},
 --]]
+}

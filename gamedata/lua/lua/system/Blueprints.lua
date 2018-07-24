@@ -649,7 +649,8 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 								
 							end
-							
+
+							-- although air units speed is not controlled by this I do it anyways for visual reference in-game.
 							if bp.Physics.Maxspeed then
 							
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
@@ -660,21 +661,19 @@ function ModBlueprints(all_blueprints)
 							
 								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
 								
-								if not bp.SizeSphere then
-								
-									LOG("*AI DEBUG "..bp.Description.." has no SizeSphere")
-									
-								end
-								
 							end
 						
+							-- if the unit uses a SizeSphere for collisions, make sure it's big enough as related to it's max speed
+							-- if the value is set too low, the unit becomes nearly unhittable except by tracking SAMs
+							-- this steep dropoff starts to occur around .9 but is tolerable at that setting with a decent amount of
+							-- hits but a few misses at the top end (of particular note are the AA lasers)
 							if bp.SizeSphere and bp.Air.MaxAirspeed then
 								
-								LOG("*AI DEBUG "..bp.Description.." has a sphere of "..bp.SizeSphere.." at max speed of "..bp.Air.MaxAirspeed)
+								--LOG("*AI DEBUG "..bp.Description.." has a sphere of "..bp.SizeSphere.." at max speed of "..bp.Air.MaxAirspeed)
 
 								bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
 
-								LOG("*AI DEBUG "..bp.Description.." has a new sphere of "..bp.SizeSphere)
+								--LOG("*AI DEBUG "..bp.Description.." has a new sphere of "..bp.SizeSphere)
 
 							end
 			

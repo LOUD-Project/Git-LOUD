@@ -1736,10 +1736,13 @@ function AddCustomUnitSupport( aiBrain )
 		
 		--If mod has a CustomUnits folder
 		local CustomUnitFiles = DiskFindFiles(m.location..'/lua/CustomUnits', '*.lua')
+		
 		--LOG('*AI DEBUG: Custom unit files found: '..repr(CustomUnitFiles))
 		
 		--Loop through files in CustomUnits folder
 		for k, v in CustomUnitFiles do
+		
+			LOG("*AI DEBUG: Adding Custom unit file "..repr(v))
 		
 			local tempfile = import(v).UnitList
 			
@@ -1756,16 +1759,16 @@ function AddCustomUnitSupport( aiBrain )
 						end
 				
 						if ScenarioInfo.CustomUnits[plat] and ScenarioInfo.CustomUnits[plat][fac] then
-							--LOG('*AI DEBUG: Adding to EXISTING template and EXISTING faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
+							LOG('*AI DEBUG: Adding to EXISTING template and EXISTING faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
 						
 						elseif ScenarioInfo.CustomUnits[plat] then
-							--LOG('*AI DEBUG: Adding to EXISTING template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )                    
+							LOG('*AI DEBUG: Adding to EXISTING template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )                    
 							ScenarioInfo.CustomUnits[plat][fac] = {}
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
 						
 						else
-							--LOG('*AI DEBUG: Adding to NEW template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
+							LOG('*AI DEBUG: Adding to NEW template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
 							ScenarioInfo.CustomUnits[plat] = {}
 							ScenarioInfo.CustomUnits[plat][fac] = {}
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
