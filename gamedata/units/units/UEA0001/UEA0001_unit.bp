@@ -3,6 +3,7 @@ UnitBlueprint {
         GuardScanRadius = 10,
         InitialAutoMode = true,
     },
+	
     Air = {
         BankFactor = 0.1,
         BankForward = false,
@@ -12,17 +13,24 @@ UnitBlueprint {
         CirclingRadiusChangeMaxRatio = 0.9,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingTurnMult = 2,
+		
         KLift = 1,
         KLiftDamping = 1,
+		
         KMove = 1,
         KMoveDamping = 1.2,
+		
         KTurn = 3,
         KTurnDamping = 3,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 4,
         MinAirspeed = 3,
+		
         StartTurnDistance = 5,
     },
+	
     Audio = {
         UISelection = Sound {
             Bank = 'Interface',
@@ -30,6 +38,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -44,7 +53,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = -0.07,
+	
     Defense = {
         ArmorType = 'Light',
         EconomyThreatLevel = 1,
@@ -52,7 +63,9 @@ UnitBlueprint {
         MaxHealth = 6,
         RegenRate = 0,
     },
+	
     Description = '<LOC uea0001_desc>Engineer Drone',
+	
     Display = {
         Abilities = {
             'Engineer Suite',
@@ -66,10 +79,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 160,
@@ -79,12 +93,14 @@ UnitBlueprint {
             'BUILTBYCOMMANDER UEF',
         },
         NaturalProducer = true,
-    },
+	},
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -122,15 +138,19 @@ UnitBlueprint {
         UnitName = '<LOC uea0001_name>C-D1 "Rover"',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 12,
     },
+	
     Interface = {
         HelpText = 'Engineering Drone',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.3,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -150,15 +170,21 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 100,
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.0,
+	
+	SizeSphere = 0.5,
+	
     SizeX = 0.5,
     SizeY = 0.5,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_land1_engineer',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,
+	
     Transport = {
         AirClass = true,
         TransportClass = 5,

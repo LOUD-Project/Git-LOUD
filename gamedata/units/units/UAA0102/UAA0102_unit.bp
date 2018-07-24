@@ -12,20 +12,28 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1.5,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 7,
-        MaxAirspeed = 18,
+		
+        MaxAirspeed = 19,
         MinAirspeed = 10,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.02,
         TurnSpeed = 1.5,
+		
         Winged = true,
     },
 	
@@ -95,7 +103,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
@@ -358,16 +366,20 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.25,
+			
             TurretBoneMuzzle = 'Turret_Muzzle_Left',
             TurretBonePitch = 'Turret_Muzzle_Left',
             TurretBoneYaw = 'Turret_Muzzle_Left',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 55,
             TurretYawSpeed = 180,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },

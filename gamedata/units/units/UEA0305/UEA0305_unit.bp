@@ -24,7 +24,7 @@ UnitBlueprint {
         KLift = 0.5,
         KLiftDamping = 0.65,
 		
-        KMove = 0.5,
+        KMove = 0.6,
         KMoveDamping = 1,
 		
 		KRoll = 1.5,
@@ -121,7 +121,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXA0009',
         SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
@@ -196,7 +195,7 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.4,
 	
-    SizeSphere = 1.7,
+    SizeSphere = 1.15,
 	
     SizeX = 1.7,
     SizeY = 0.6,

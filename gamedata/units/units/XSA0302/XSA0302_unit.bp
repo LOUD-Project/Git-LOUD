@@ -6,22 +6,31 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 10,
+		
         MaxAirspeed = 30,
         MinAirspeed = 25,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.1,
         TurnSpeed = 1,
+		
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSA_Destroy',
@@ -39,7 +48,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -56,6 +67,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
     },
+	
     Defense = {
         AirThreatLevel = 0.1,
         ArmorType = 'Light',
@@ -63,7 +75,9 @@ UnitBlueprint {
         MaxHealth = 1350,
         RegenRate = 2,
     },
+	
     Description = '<LOC xsa0302_desc>Spy Plane',
+	
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -86,20 +100,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 7500,
         BuildCostMass = 195,
         BuildTime = 900,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -124,6 +141,7 @@ UnitBlueprint {
         UnitName = '<LOC xsa0302_name>Iaselen',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         OmniRadius = 30,
@@ -132,12 +150,15 @@ UnitBlueprint {
         SonarRadius = 60,
         VisionRadius = 60,
     },
+	
     Interface = {
         HelpText = 'Spy Plane',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.25,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -158,15 +179,20 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.4,
-    SizeSphere = 1.2,
+	
+    SizeSphere = 2.4,
+	
     SizeX = 0.8,
     SizeY = 0.25,
     SizeZ = 1.4,
+	
     StrategicIconName = 'icon_fighter3_intel',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,

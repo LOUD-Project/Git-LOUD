@@ -123,7 +123,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXA0008',
         SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
@@ -184,7 +183,7 @@ UnitBlueprint {
         Elevation = 14,
 		
         FuelRechargeRate = 12,
-        FuelUseTime = 300,
+        FuelUseTime = 250,
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
@@ -198,7 +197,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.4,
 	
-    --SizeSphere = 1.4,
+    SizeSphere = 1.4,
 	
     SizeX = 1,
     SizeY = 0.6,

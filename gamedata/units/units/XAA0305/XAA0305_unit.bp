@@ -132,7 +132,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0009',
+
         SpawnRandomRotation = true,
         UniformScale = 0.35,
     },
@@ -204,7 +204,7 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.4,
 	
-	SizeSphere = 1.7,
+	SizeSphere = 1.5,
 	
     SizeX = 1.7,
     SizeY = 0.67,

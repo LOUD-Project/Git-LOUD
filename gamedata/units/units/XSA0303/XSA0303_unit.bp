@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 125,
 		GuardRadius = 125,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 5,
@@ -36,6 +37,7 @@ UnitBlueprint {
         TurnSpeed = 1.9,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSA_Destroy',
@@ -53,6 +55,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 30,
@@ -82,6 +85,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC xsa0303_desc>Air-Superiority Fighter',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -104,10 +108,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.17,
     },
+	
     Economy = {
         BuildCostEnergy = 48000,
         BuildCostMass = 660,
@@ -138,17 +143,21 @@ UnitBlueprint {
         UnitName = '<LOC xsa0303_name>Iazyne',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 50,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Air-Superiority Fighter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 1.1,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -165,11 +174,12 @@ UnitBlueprint {
         MeshExtentsZ = 1.6,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.36,
 	
-    SizeSphere = 1.5,
+    SizeSphere = 2.4,
 	
     SizeX = 1.5,
     SizeY = 0.3,
@@ -182,6 +192,7 @@ UnitBlueprint {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 11,
         Level2 = 22,
@@ -189,6 +200,7 @@ UnitBlueprint {
         Level4 = 44,
         Level5 = 55,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -199,28 +211,36 @@ UnitBlueprint {
                 },
             },
 			AlwaysRecheckTarget = true,
+			
             AutoInitiateAttackCommand = false,
+			
             BallisticArc = 'RULEUBA_None',
+			
             CannotAttackGround = true,
             CollideFriendly = false,
+			
             Damage = 205,
 			DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',
+			
             DisplayName = 'Losaare AA Autocannon',
+			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',
             },
             FiringTolerance = 0,
+			
             Label = 'AutoCannon1',
+			
             MaxRadius = 40,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 100,
+            MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.65,
 			
             RackBones = {
                 {
@@ -237,10 +257,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
+			
             RateOfFire = 1,
+			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
+			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
 				'EXPERIMENTAL',

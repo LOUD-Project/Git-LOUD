@@ -13,22 +13,30 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1.5,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 18,
         MinAirspeed = 10,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.02,
         TurnSpeed = 1.5,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSA_Destroy',
@@ -96,7 +104,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
@@ -172,7 +180,8 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.42,
 	
-    SizeSphere = 1.4,
+    SizeSphere = 1.7,
+	
     SizeX = 0.8,
     SizeY = 0.2,
     SizeZ = 1,

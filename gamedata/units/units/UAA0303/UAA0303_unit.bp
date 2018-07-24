@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 125,
 		GuardRadius = 125,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 5,
@@ -39,6 +40,7 @@ UnitBlueprint {
         TurnSpeed = 1.9,
         Winged = true,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UAADestroy',
@@ -56,9 +58,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 25,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -107,10 +111,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
+	
     Economy = {
         BuildCostEnergy = 48000,
         BuildCostMass = 660,
@@ -151,9 +156,11 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Air-Superiority Fighter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.1,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -170,11 +177,12 @@ UnitBlueprint {
         MeshExtentsZ = 1.6,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.36,
 	
-    SizeSphere = 1.5,
+    SizeSphere = 2.25,
 	
     SizeX = 1.5,
     SizeY = 0.3,
@@ -182,10 +190,12 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_fighter3_antiair',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -193,6 +203,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+	
     Weapon = {
         {
             Audio = {

@@ -37,6 +37,7 @@ UnitBlueprint {
         TurnSpeed = 0.85,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -54,6 +55,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -63,7 +65,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -87,7 +91,9 @@ UnitBlueprint {
         RegenRate = 6,
         SurfaceThreatLevel = 60,
     },
+	
     Description = '<LOC uea0304_desc>Strategic Bomber',
+	
     Display = {
         Abilities = {
             'Tail Gun for Anti-Air',
@@ -112,6 +118,7 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.035,
     },
+	
     Economy = {
         BuildCostEnergy = 90000,
         BuildCostMass = 2000,
@@ -142,17 +149,21 @@ UnitBlueprint {
         UnitName = '<LOC uea0304_name>Ambassador',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 60,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Strategic Bomber',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.5,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -173,6 +184,8 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.38,
 
+	SizeSphere = 1.7,
+	
     SizeX = 2,
     SizeY = 0.5,
     SizeZ = 1.5,
@@ -184,6 +197,7 @@ UnitBlueprint {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -191,6 +205,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

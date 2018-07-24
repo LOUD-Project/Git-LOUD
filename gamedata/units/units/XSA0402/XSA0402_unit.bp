@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardRadius = 150,
         GuardReturnRadius = 200,
         GuardScanRadius = 175,
+		
         TargetBones = {
             'Right_Rear_Autocannon_Muzzle',
             'Left_Rear_Autocannon_Muzzle',
@@ -188,9 +189,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
-        UniformScale = 0.032,
+        UniformScale = 0.030,
     },
 	
     Economy = {
@@ -271,11 +272,14 @@ UnitBlueprint {
     SelectionSizeX = 5.5,
     SelectionSizeZ = 5.5,
     SelectionThickness = 0.22,
+	
     SizeX = 9.8,
     SizeY = 2.7,
     SizeZ = 9.8,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         TransportClass = 10,
     },

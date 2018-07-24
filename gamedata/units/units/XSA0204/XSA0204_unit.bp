@@ -120,7 +120,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0008',
+
         SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
@@ -154,6 +154,7 @@ UnitBlueprint {
         UnitName = '<LOC xsa0204_name>Uosioz',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         SonarRadius = 60,
@@ -177,7 +178,7 @@ UnitBlueprint {
         Elevation = 13,
 		
         FuelRechargeRate = 12,
-        FuelUseTime = 300,
+        FuelUseTime = 250,
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
@@ -186,11 +187,12 @@ UnitBlueprint {
         MeshExtentsZ = 1.25,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.7,
 	
-    --SizeSphere = 1.4,
+    SizeSphere = 1.6,
 	
     SizeX = 1,
     SizeY = 0.6,

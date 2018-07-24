@@ -18,8 +18,8 @@ UnitBlueprint {
         KLift = 3.8,
         KLiftDamping = 2.5,
 		
-        KMove = 2.0,
-        KMoveDamping = 2.2,
+        KMove = 1.5,
+        KMoveDamping = 1.6,
 		
         KRoll = 2,
         KRollDamping = 1.4,
@@ -37,6 +37,7 @@ UnitBlueprint {
         TurnSpeed = 1.9,
         Winged = true,
     },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSA',
@@ -102,9 +103,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYRADAR',
     },
-	
-    CollisionOffsetY = 0,
-	
+
     Defense = {
         AirThreatLevel = 18,
         ArmorType = 'Light',
@@ -156,29 +155,7 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Air = {
-                Contrails = {
-                    Bones = {
-                        'BRPAT2FIGBO',
-                    },
-                    ZOffset = 0,
-                },
-            },
-            BeamExhaust = {
-                Bones = {
-                    'tir05',
-                    'tir04',
-                    'tir06',
-                    'tir08',
-                    'tir07',
-                    'tir09',
-                },
-                Cruise = true,
-                Idle = true,
-            },
-        },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.045,
     },
@@ -244,7 +221,7 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.37,
 	
-    SizeSphere = 1.3,
+    SizeSphere = 1.8,
 	
     SizeX = 1,
     SizeY = 0.4,
@@ -252,10 +229,12 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_fighter2_antiair',
     StrategicIconSortPriority = 75,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -263,6 +242,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

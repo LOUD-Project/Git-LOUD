@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 125,
 		GuardRadius = 125,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 5,
@@ -39,6 +40,7 @@ UnitBlueprint {
         TurnSpeed = 1.9,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -56,8 +58,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -71,6 +76,7 @@ UnitBlueprint {
 		'OVERLAYRADAR',
         'RECLAIMABLE',
     },
+	
     Defense = {
         AirThreatLevel = 41,
         ArmorType = 'Light',
@@ -78,7 +84,9 @@ UnitBlueprint {
         MaxHealth = 2300,
         RegenRate = 6,
     },
+	
     Description = '<LOC uea0303_desc>Air-Superiority Fighter',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -99,10 +107,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 48000,
         BuildCostMass = 660,
@@ -133,17 +142,21 @@ UnitBlueprint {
         UnitName = '<LOC uea0303_name>Wasp',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 50,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Air-Superiority Fighter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.65,
     LifeBarSize = 1.1,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -160,21 +173,25 @@ UnitBlueprint {
         MeshExtentsZ = 1.6,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.42,
 	
-    SizeSphere = 1.5,
+    SizeSphere = 2.25,
 	
     SizeX = 1.5,
     SizeY = 0.3,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_fighter3_antiair',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -182,6 +199,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+	
     Weapon = {
         {
             Audio = {

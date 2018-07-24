@@ -14,15 +14,21 @@ UnitBlueprint {
         CirclingRadiusChangeMaxRatio = 0.5,
         CirclingRadiusChangeMinRatio = 0.2,
         CirclingTurnMult = 3,
+		
         KLift = 3,
         KLiftDamping = 2.5,
+		
         KMove = 2,
         KMoveDamping = 2,
+		
         KTurn = 2,
         KTurnDamping = 1.5,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 10,
         MinAirspeed = 2,
+		
         StartTurnDistance = 5,
     },
 
@@ -47,6 +53,7 @@ UnitBlueprint {
     CollisionOffsetZ = -0.07,
 	
     Defense = {
+		AirThreatLevel = 29,
         ArmorType = 'Light',
         EconomyThreatLevel = 1,
         Health = 2100,
@@ -90,7 +97,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.2,
     },
@@ -147,7 +154,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 5,
+        Elevation = 8,
         GroundCollisionOffset = 0.2,
         MaxAcceleration = 10,
         MaxSpeed = 10,
@@ -162,7 +169,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
 	
-    SizeSphere = 0.6,
+    SizeSphere = 0.9,
 	
     SizeX = 0.5,
     SizeY = 0.2,
@@ -205,15 +212,14 @@ UnitBlueprint {
 			
             Label = 'Cannon01',
 			
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
-			MuzzleVelocity = 40,
+			MuzzleVelocity = 36,
 			
 			ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-			ProjectileLifetime = 4,
+			ProjectileLifetime = 3.5,
 			
             RackBones = {
                 {

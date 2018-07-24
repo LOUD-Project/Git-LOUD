@@ -69,6 +69,7 @@ UnitBlueprint {
     },
 	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -115,7 +116,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0002',
+
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
@@ -190,6 +191,8 @@ UnitBlueprint {
     SelectionSizeX = 2.3,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.29,
+	
+	SizeSphere = 1.8,
 
     SizeX = 2.25,
     SizeY = 0.5,

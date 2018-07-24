@@ -6,20 +6,28 @@ UnitBlueprint {
         BreakOffDistance = 30,
         BreakOffTrigger = 10,
         CanFly = true,
+		
         KLift = 5,
         KLiftDamping = 2,
+		
         KMove = 1,
         KMoveDamping = 1,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 2,
         KTurnDamping = 3,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 15,
         MinAirspeed = 10,
+		
         TurnSpeed = 0.6,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UAADestroy',
@@ -37,7 +45,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 35,
+	
     Categories = {
         'SELECTABLE',
         'TRANSPORTBUILTBYTIER2FACTORY',
@@ -52,9 +62,11 @@ UnitBlueprint {
         'CANNOTUSEAIRSTAGING',
         'SHOWATTACKRETICLE',
     },
+	
     ContrailEffects = {
         '/effects/emitters/contrail_ser_ohw_polytrail_01_emit.bp',
     },
+	
     Defense = {
 		AirThreatLevel = 23,
         ArmorType = 'Light',
@@ -63,7 +75,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 4,
     },
+	
     Description = '<LOC daa0206_desc>Guided Missile',
+	
     Display = {
         Abilities = {
             'Suicide Weapon',
@@ -84,20 +98,22 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
         SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+	
     Economy = {
         BuildCostEnergy = 6000,
         BuildCostMass = 300,
         BuildTime = 670,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 1,
         Category = 'Utility',
@@ -123,15 +139,19 @@ UnitBlueprint {
         UnitName = '<LOC daa0206_name>Mercy',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Guided Missile',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.75,
+	
     Physics = {
         AttackElevation = 0.5,
         BuildOnLayerCaps = {
@@ -153,19 +173,25 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.3,
-    SizeSphere = 0.6,
+	
+    SizeSphere = 1.4,
+	
     SizeX = 0.3,
     SizeY = 0.2,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_fighter2_bomb',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 10,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -178,23 +204,32 @@ UnitBlueprint {
             },
             BallicsticArc = 'RULEUBA_None',
             CollideFriendly = true,
+			
             Damage = 1700,
             DamageFriendly = true,
             DamageRadius = 3,
             DamageType = 'Normal',
+			
             DisplayName = 'Kamikaze',
+			
             EffectiveRadius = 0,
+			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Seabed|Water',
                 Land = 'Air|Land|Seabed|Water',
                 Water = 'Air|Land|Seabed|Water',
             },
+			
             FiringTolerance = 2,
+			
             Label = 'Suicide',
+			
             MaxRadius = 22,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 18,
+			
             ProjectileId = '/projectiles/AIFGuidedMissile01/AIFGuidedMissile01_proj.bp',
             ProjectileLifetime = 10,
 
@@ -213,9 +248,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 10,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RateOfFire = 10,
+			
             SlavedToBody = true,
             SlavedToBodyArcRange = 35,
+			
             TargetCheckInterval = 999999,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -223,16 +261,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 0.5,
+			
             TurretBoneMuzzle = 'DAA0206',
             TurretBonePitch = 'DAA0206',
             TurretBoneYaw = 'DAA0206',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 720,
+			
             TurretYaw = 0,
             TurretYawRange = 40,
             TurretYawSpeed = 720,
+			
             Turreted = true,
         },
         {

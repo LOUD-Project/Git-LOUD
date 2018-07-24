@@ -118,7 +118,6 @@ UnitBlueprint {
             },
         },
 
-        PlaceholderMeshName = 'UXA0002',
         SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
@@ -163,6 +162,7 @@ UnitBlueprint {
         UnitName = '<LOC ura0304_name>Revenant',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 60,
@@ -196,6 +196,8 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.36,
 
+	SizeSphere = 1.7,
+	
     SizeX = 1.8,
     SizeY = 0.5,
     SizeZ = 1.5,

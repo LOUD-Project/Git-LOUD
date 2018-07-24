@@ -6,22 +6,31 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 10,
+		
         MaxAirspeed = 30,
         MinAirspeed = 25,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.1,
         TurnSpeed = 1,
+		
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -39,7 +48,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -55,14 +66,18 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYOMNI',
     },
+	
     CollisionOffsetY = 0.07,
+	
     Defense = {
         ArmorType = 'Light',
         Health = 1350,
         MaxHealth = 1350,
         RegenRate = 2,
     },
+	
     Description = '<LOC uea0302_desc>Spy Plane',
+	
     Display = {
         Abilities = {
             'Omni Sensor',
@@ -83,10 +98,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 7500,
         BuildCostMass = 195,
@@ -117,6 +133,7 @@ UnitBlueprint {
         UnitName = '<LOC uea0302_name>Blackbird',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         OmniRadius = 30,
@@ -125,12 +142,15 @@ UnitBlueprint {
         SonarRadius = 60,
         VisionRadius = 55,
     },
+	
     Interface = {
         HelpText = 'Spy Plane',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.25,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -151,15 +171,20 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.9,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.36,
-    SizeSphere = 1.2,
+	
+    SizeSphere = 2.4,
+	
     SizeX = 0.8,
     SizeY = 0.25,
     SizeZ = 1.8,
+	
     StrategicIconName = 'icon_fighter3_intel',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,

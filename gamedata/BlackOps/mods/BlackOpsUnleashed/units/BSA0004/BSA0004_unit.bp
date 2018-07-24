@@ -3,6 +3,7 @@ UnitBlueprint {
         GuardScanRadius = 45,
         InitialAutoMode = true,
     },
+	
     Air = {
         AutoLandTime = 1,
         BankFactor = 0.1,
@@ -15,18 +16,25 @@ UnitBlueprint {
         CirclingRadiusChangeMaxRatio = 0.95,
         CirclingRadiusChangeMinRatio = 0.50,
         CirclingTurnMult = 5,
+		
         KLift = 4,
         KLiftDamping = 2,
+		
         KMove = 4,
         KMoveDamping = 4,
+		
         KTurn = 2,
         KTurnDamping = 1.5,
+		
         LiftFactor = 5,
+		
         MaxAirspeed = 10,
         MinAirspeed = 2,
+		
 		TurnRate = 1,
         StartTurnDistance = 30,
     },
+	
     Audio = {
         StartMove = Sound {
             Bank = 'XSA',
@@ -44,6 +52,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = { # time need for full hp regen assuming 4k base hp:
             Level1 = 40, # 220s
@@ -53,6 +62,7 @@ UnitBlueprint {
             Level5 = 200, # 60s
         },
     }, 
+	
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -62,15 +72,20 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = -0.07,
+	
     Defense = {
+		AirThreatLevel = 8,
         ArmorType = 'Light',
         Health = 1200,
         MaxHealth = 1200,
         RegenRate = 0,
 		SurfaceThreatLevel = 8,
     },
+	
     Description = '<LOC bsa0004_desc>Heavy Defense Drone',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 175,
@@ -81,15 +96,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.45,
     },
+	
     Economy = {
         BuildCostEnergy = 1500,
         BuildCostMass = 180,
         BuildTime = 210,
     },
+	
     General = {
         CapCost = 0,
         Category = 'Utility',
@@ -115,13 +132,17 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Defense Drone',
     },
+	
     LifeBarRender = false,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -142,20 +163,26 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 1,
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+	
     SizeSphere = 0.5,
+	
     SizeX = 0.5,
     SizeY = 0.2,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_gunship1_directfire',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,
+	
     Transport = {
         AirClass = true,
         TransportClass = 5,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -190,14 +217,16 @@ UnitBlueprint {
             },
             FiringTolerance = 0,
             FiringRandomness = 0.2,
+			
             Label = 'EyeWeapon01',
+			
             MaxRadius = 28,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',	
-            },
+			
+			DoNotCollideList = { 'TORPEDO', 'MISSILE' },
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -213,10 +242,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
+			
             RateOfFire = 0.5,		-- 75 DPS Air
+			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
+			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -225,19 +258,22 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Beam_Muzzle01',
             TurretBonePitch = 'Beam_Muzzle01',
             TurretBoneYaw = 'Beam_Muzzle01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 720,
+			
             TurretYaw = 0,
             TurretYawRange = 50,
             TurretYawSpeed = 720,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
         },
     },
 }

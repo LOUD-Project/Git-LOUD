@@ -3,6 +3,7 @@ UnitBlueprint {
         GuardReturnRadius = 175,
         GuardScanRadius = 150,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 2,
@@ -12,22 +13,31 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1.5,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 7,
-        MaxAirspeed = 17,
+		
+        MaxAirspeed = 18,
         MinAirspeed = 10,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.02,
         TurnSpeed = 1.5,
+		
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -45,8 +55,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -61,7 +74,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-    CollisionOffsetZ = 0,
+
     Defense = {
         AirThreatLevel = 6,
         ArmorType = 'Light',
@@ -69,7 +82,9 @@ UnitBlueprint {
         MaxHealth = 350,
         RegenRate = 1,
     },
+	
     Description = '<LOC uea0102_desc>Interceptor',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -89,20 +104,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.075,
     },
+	
     Economy = {
         BuildCostEnergy = 3500,
         BuildCostMass = 50,
         BuildTime = 500,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Fighter',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -127,15 +145,19 @@ UnitBlueprint {
         UnitName = '<LOC uea0102_name>Cyclone',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Interceptor',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.65,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -155,16 +177,21 @@ UnitBlueprint {
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.65,
-    SizeSphere = 1.4,
+	
+    SizeSphere = 1.8,
+	
     SizeX = 1,
     SizeY = 0.2,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_fighter1_antiair',
     StrategicIconSortPriority = 75,
+	
     Transport = {
         AirClass = true,
         TransportClass = 1,
     },
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -172,6 +199,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -249,10 +277,13 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 55,
             TurretYawSpeed = 180,
+			
             Turreted = true,
+			
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },

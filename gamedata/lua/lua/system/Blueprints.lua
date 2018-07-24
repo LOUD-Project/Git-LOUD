@@ -566,7 +566,7 @@ function ModBlueprints(all_blueprints)
 		
 				if cat == 'NAVAL' then
 			
-					econScale = 0.05    # -- cost more
+					econScale = 0.0    # -- cost more
 					speedScale = -0.1  # -- move slower
 					viewScale = 0.0   
 			
@@ -635,13 +635,13 @@ function ModBlueprints(all_blueprints)
 				if cat == 'AIR' then
 			
 					econScale = 0.20	# -- cost more
-					speedScale = -0.05   # -- move slower
+					speedScale = -0.0   # -- move slower
 					viewScale = -0.05    # -- see less
 		
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
-			
+
 							if bp.Economy.BuildTime then
 							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
@@ -655,6 +655,29 @@ function ModBlueprints(all_blueprints)
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
 								
 							end
+							
+							if bp.Air.MaxAirspeed then
+							
+								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
+								
+								if not bp.SizeSphere then
+								
+									LOG("*AI DEBUG "..bp.Description.." has no SizeSphere")
+									
+								end
+								
+							end
+						
+							if bp.SizeSphere and bp.Air.MaxAirspeed then
+								
+								LOG("*AI DEBUG "..bp.Description.." has a sphere of "..bp.SizeSphere.." at max speed of "..bp.Air.MaxAirspeed)
+
+								bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
+
+								LOG("*AI DEBUG "..bp.Description.." has a new sphere of "..bp.SizeSphere)
+
+							end
+			
 
 							if bp.Physics.MaxBrake then
 							

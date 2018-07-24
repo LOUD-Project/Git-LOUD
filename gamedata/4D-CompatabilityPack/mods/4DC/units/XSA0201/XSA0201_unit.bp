@@ -18,19 +18,26 @@ UnitBlueprint {
         CirclingRadiusChangeMaxRatio = 0.9,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.66,
-        CirclingTurnMult = 3,        
+        CirclingTurnMult = 3,
+		
         KLift = 3,
         KLiftDamping = 1,
+		
         KMove = 4,
         KMoveDamping = 1,
+		
         KTurn = 4,
         KTurnDamping = 2,
+		
         LiftFactor = 7,
-        MaxAirspeed = 2,
+		
+        MaxAirspeed = 2.6,
         MinAirspeed = 0,        
+		
         StartTurnDistance = 5,
         Winged = false,
     },
+	
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
@@ -73,8 +80,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },           
     },
-    AverageDensity = 1,
+	
     BuildIconSortPriority = 50,
+	
     Categories = { 
         'AIR',
         'BUILTBYTIER2FACTORY',                      
@@ -88,7 +96,9 @@ UnitBlueprint {
         'TECH2',                                 
         'VISIBLETORECON',                  
     },
+	
     CollisionOffsetY = -0.7,
+	
     Defense = {
         ArmorType = 'Light',
         Health = 10,
@@ -96,12 +106,15 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0, 
     },
+	
     Description = '<LOC xsa0201_desc>Shield Drone',
+	
     Display = {
         Abilities = {
             'One-Shot Projected Shield Generator',
 			'Merges with other units',
         },
+		
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
@@ -148,20 +161,23 @@ UnitBlueprint {
                     ShaderName = 'Seraphim',	                
                 },                },
         },         
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.06,
     },
+	
     Economy = {
-        BuildCostEnergy = 3600,
+        BuildCostEnergy = 4800,
         BuildCostMass = 450,
         BuildTime = 3000, 
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+	
     General = {
         BuildBones = {
             AimBone = 'xsa0201',
@@ -195,16 +211,20 @@ UnitBlueprint {
         UnitName = '<LOC xsa0201_name>Shyeld',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Shyeld',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.5,
     LifeBarRender = false,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -225,14 +245,17 @@ UnitBlueprint {
         TurnRadius = 360,
         TurnRate = 180,      
     },
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.22, 
-    SizeSphere = 1,    
-    SizeSphere = 0.5,   
+	
+    SizeSphere = 0.6,
+	
     SizeX = 0.5,
     SizeY = 1.0,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_land2_shield',
     StrategicIconSortPriority = 65,
 }

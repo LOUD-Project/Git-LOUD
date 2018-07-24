@@ -6,14 +6,19 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 10,
         MaxAirspeed = 20,
         MinAirspeed = 17,
@@ -22,6 +27,7 @@ UnitBlueprint {
         TurnSpeed = 1,
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'URADestroy',
@@ -39,7 +45,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -83,7 +91,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
@@ -167,7 +175,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.85,
 	
-    SizeSphere = 0.5,
+    SizeSphere = 1.8,
 	
     SizeX = 0.4,
     SizeY = 0.15,

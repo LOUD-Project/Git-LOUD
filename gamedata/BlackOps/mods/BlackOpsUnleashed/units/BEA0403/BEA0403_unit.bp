@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
 		GuardRadius = 75,
 		GuardReturnRadius = 80,
@@ -129,7 +130,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.4,
     },

@@ -147,12 +147,15 @@ UnitBlueprint {
         UnitName = '<LOC xsa0203_name>Vulthoo',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'Gunship',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.6,
@@ -182,7 +185,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.47,
 	
-    SizeSphere = 1.2,
+    SizeSphere = 1.1,
 	
     SizeX = 1,
     SizeY = 0.5,

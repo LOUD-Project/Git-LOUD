@@ -14,15 +14,21 @@ UnitBlueprint {
         CirclingRadiusChangeMaxRatio = 0.9,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingTurnMult = 3,
+		
         KLift = 3,
         KLiftDamping = 2.5,
+		
         KMove = 1,
         KMoveDamping = 2,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 6,
         MinAirspeed = 3,
+		
         StartTurnDistance = 5,
     },
 
@@ -70,7 +76,7 @@ UnitBlueprint {
     },
 	
     Categories = {
-        'UNTARGETABLE',
+        --'UNTARGETABLE',
         'UEF',
         'MOBILE',
         'AIR',
@@ -84,7 +90,7 @@ UnitBlueprint {
     CollisionOffsetZ = -0.07,
 	
     Defense = {
-        AirThreatLevel = 0,
+        AirThreatLevel = 9,
         ArmorType = 'Light',
         EconomyThreatLevel = 1,
         Health = 60,
@@ -106,7 +112,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.2,
     },
@@ -178,7 +184,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
 	
-    SizeSphere = 1,
+    SizeSphere = 0.7,
 	
     SizeX = 0.5,
     SizeY = 0.2,

@@ -3,6 +3,7 @@ UnitBlueprint {
         GuardReturnRadius = 125,
         GuardScanRadius = 100,
     },
+	
     Air = {
         AutoLandTime = 1,
         BankFactor = 3,
@@ -13,23 +14,33 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1.2,
         EngageDistance = 50,
+		
         KLift = 2,
         KLiftDamping = 2.5,
+		
         KMove = 0.8,
         KMoveDamping = 2,
+		
         KRoll = 2,
         KRollDamping = 2,
+		
         KTurn = 0.7,
         KTurnDamping = 1,
+		
         LiftFactor = 15,
+		
         MaxAirspeed = 11,
         MinAirspeed = 10,
+		
         PredictAheadForBombDrop = 3,        
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 0,
         TurnSpeed = 1.2,
+		
         Winged = true,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UEADestroy',
@@ -47,8 +58,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
+	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -64,6 +78,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYRADAR',
     },
+	
     Defense = {
         ArmorType = 'Light',
         Health = 300,
@@ -71,7 +86,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
+	
     Description = '<LOC uea0103_desc>Attack Bomber',
+	
     Display = {
         Abilities = {
             'Radar',
@@ -91,20 +108,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0002',
+
         SpawnRandomRotation = true,
         UniformScale = 0.125,
     },
+	
     Economy = {
         BuildCostEnergy = 4250,
         BuildCostMass = 75,
         BuildTime = 750,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Bomber',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -129,17 +149,21 @@ UnitBlueprint {
         UnitName = '<LOC uea0103_name>Scorcher',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 50,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Attack Bomber',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1.25,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -156,19 +180,25 @@ UnitBlueprint {
         MeshExtentsZ = 1.3,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.54,
-    SizeSphere = 1.5,
+	
+    SizeSphere = 1.05,
+	
     SizeX = 1.2,
     SizeY = 0.3,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_bomber1_directfire',
     StrategicIconSortPriority = 75,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -176,6 +206,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

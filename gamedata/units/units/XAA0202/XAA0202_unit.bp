@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardReturnRadius = 200,
         GuardScanRadius = 175,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 2,
@@ -30,7 +31,7 @@ UnitBlueprint {
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 20,
+        MaxAirspeed = 21,
         MinAirspeed = 8,
 		
         StartTurnDistance = 5,
@@ -70,6 +71,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 15,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -119,7 +121,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.058,
     },
@@ -135,6 +137,7 @@ UnitBlueprint {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Fighter',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -190,11 +193,12 @@ UnitBlueprint {
         MeshExtentsZ = 2,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.75,
     SelectionSizeZ = 1,
     SelectionThickness = 0.37,
 	
-    SizeSphere = 1.3,
+    SizeSphere = 1.9,
 	
     SizeX = 1,
     SizeY = 0.4,
@@ -202,10 +206,12 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_fighter2_antiair',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -213,6 +219,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             Audio = {

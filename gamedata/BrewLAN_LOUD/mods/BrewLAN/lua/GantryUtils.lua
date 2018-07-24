@@ -8,6 +8,7 @@ function BuildModeChange(self, mode)
     ------------------------------------------------------------------------
     -- The "Stolen tech" clause
     ------------------------------------------------------------------------
+	
     local aiBrain = self:GetAIBrain()
 
     local stolentech = { CYBRAN = false, AEON = false, SERAPHIM = false, UEF = false }
@@ -22,23 +23,27 @@ function BuildModeChange(self, mode)
 		
     end
 	
-    local engineers = aiBrain:GetUnitsAroundPoint( categories.ENGINEER, self.CachePosition, 30, 'Ally' )
+	if self.CachePosition then
 
-    for k, v in engineers do
+		local engineers = aiBrain:GetUnitsAroundPoint( categories.ENGINEER, self.CachePosition, 30, 'Ally' )
+
+		for k, v in engineers do
 	
-        if EntityCategoryContains(categories.TECH3, v) then
+			if EntityCategoryContains(categories.TECH3, v) then
 		
-            for race, val in stolentech do
+				for race, val in stolentech do
 			
-                if EntityCategoryContains(ParseEntityCategory(race), v) then
-                    stolentech[race] = true
-                end
+					if EntityCategoryContains(ParseEntityCategory(race), v) then
+						stolentech[race] = true
+					end
 				
-            end
+				end
 			
-        end
+			end
 		
-    end
+		end
+		
+	end
 	
     for race, val in stolentech do
 	

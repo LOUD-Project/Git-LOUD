@@ -54,7 +54,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'URA0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.14,
     },
