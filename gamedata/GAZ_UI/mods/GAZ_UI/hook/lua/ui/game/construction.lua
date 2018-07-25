@@ -5,80 +5,7 @@ do
     -- norem
     local TemplatesFactory = import('/mods/GAZ_UI/modules/templates_factory.lua')
 
-    --AZ Improved Unit Selection Logic
-	local oldFormatData = FormatData
-    function FormatData(unitData, type)
-       local retData = {}
-       if type == 'selection' then
---          LOG("******************Hiya!")
-          local function SortFunc(unit1, unit2)
-             if unit1.id >= unit2.id then
-                return false
-             else
-                return true
-             end
-          end
-
-          local sortedUnits = {}
-          local lowFuelUnits = {}
-          local idleConsUnits = {}
-          for _, unit in unitData do
-             local id = unit:GetBlueprint().BlueprintId
-
-             if unit:IsInCategory('AIR') and unit:GetFuelRatio() < .2 and unit:GetFuelRatio() > -1 then
-                if not lowFuelUnits[id] then 
-                   lowFuelUnits[id] = {}
-                end
-                table.insert(lowFuelUnits[id], unit)
-             elseif options.gui_seperate_idle_builders != 0 and unit:IsInCategory('CONSTRUCTION') and unit:IsIdle() then
-                if not idleConsUnits[id] then 
-                   idleConsUnits[id] = {}
-                end
-                table.insert(idleConsUnits[id], unit)
-             else
-                if not sortedUnits[id] then 
-                   sortedUnits[id] = {}
-                end
-                table.insert(sortedUnits[id], unit)
-             end
-          end
-          
-          local displayUnits = true
---        [AZ] I dont know what this is supposed to do - it looks like it causes a
---             bug... so comment out.
---          if table.getsize(sortedUnits) == table.getsize(lowFuelUnits) then
---             displayUnits = false
---             for id, units in sortedUnits do
---                if lowFuelUnits[id] and not table.equal(lowFuelUnits[id], units) then
---                   displayUnits = true
---                   break
---                end
---             end
---          end
-          if displayUnits then
-             for i, v in sortedUnits do
-                table.insert(retData, {type = 'unitstack', id = i, units = v})
-             end
-          end
-          for i, v in lowFuelUnits do
-             table.insert(retData, {type = 'unitstack', id = i, units = v, lowFuel = true})
-          end
-          for i, v in idleConsUnits do
-             table.insert(retData, {type = 'unitstack', id = i, units = v, idleCon = true})
-          end
-
-          -- Sort unit types
-          table.sort(retData, SortFunc)
-
-          CreateExtraControls('selection')
-          SetSecondaryDisplay('attached')
-
-          import(UIUtil.GetLayoutFilename('construction')).OnTabChangeLayout(type)
-          return retData
-       else
-          return oldFormatData(unitData, type)
-       end
-    end
+--[[
 
 	local oldOnSelection = OnSelection
 	
@@ -199,6 +126,7 @@ do
 			end
 		end
 	end
+--]]
 
 	--template rotator
 	if options.gui_template_rotator != 0 then
@@ -206,6 +134,7 @@ do
 		local oldOnClickHandler = OnClickHandler
 		
 		function OnClickHandler(button, modifiers)
+		
 			oldOnClickHandler(button, modifiers)
 			
 			local item = button.Data
@@ -236,7 +165,6 @@ do
 			end
 		end
 	end
-
 
 	--draggable build queue
 	if options.gui_draggable_queue != 0 then

@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-    }, 
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -24,6 +25,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -33,7 +35,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 22,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -56,15 +60,16 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 3200,
         MaxHealth = 3200,
-        RegenRate = 2,
+        RegenRate = 3,
+		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
             OwnerShieldMesh = '/mods/TotalMayhem/units/BROT3BT/BROT3BT_personalshield_mesh',
             PersonalShield = true,
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 1800,
-            ShieldRechargeTime = 30,
+            ShieldEnergyDrainRechargeTime = 4,
+            ShieldMaxHealth = 2000,
+            ShieldRechargeTime = 15,
             ShieldRegenRate = 60,
             ShieldRegenStartTime = 1,
             ShieldSize = 3,
@@ -91,17 +96,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
-        UniformScale = 0.12,
+        UniformScale = 0.105,
     },
 	
     Economy = {
         BuildCostEnergy = 15000,
-        BuildCostMass = 1250,
+        BuildCostMass = 1200,
         BuildTime = 5000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 30,
+        MaintenanceConsumptionPerSecondEnergy = 25,
     },
 	
     General = {
@@ -137,17 +142,20 @@ UnitBlueprint {
         UnitName = '<LOC brot3bt_name>Transoma',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
 		WaterVisionRadius = 21,
     },
+	
     Interface = {
-        HelpText = 'Battle Tank',
+        HelpText = 'Amphibious Battle Tank',
     },
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 0.95,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -159,7 +167,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 1.9,
         MaxBrake = 2.5,
         MaxSpeed = 2.5,
         MaxSpeedReverse = 2,
@@ -171,11 +179,11 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
-        RotateOnSpot = false,
+        RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
 		
-        TurnRadius = 6,
-        TurnRate = 35,
+        TurnRadius = 0,
+        TurnRate = 50,
 		
 		WaterSpeedMultiplier = 1.2,
     },
@@ -184,9 +192,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.4,
-    SizeY = 0.8,
-    SizeZ = 2.0,
+    SizeX = 1.2,
+    SizeY = 0.72,
+    SizeZ = 1.6,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
@@ -230,10 +238,10 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 440,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -243,16 +251,17 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
+			FiringRandomnessWhileMoving = 0.2,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
 			
             MaxRadius = 32,
 			
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.4,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3BTproj/BROT3BTproj_proj.bp',
 			ProjectileLifetime = 1,
@@ -281,7 +290,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	# 200 dps
+            RateOfFire = 0.5,	# 220 dps
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -304,7 +313,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 33,
 			
             Turreted = true,
 		},
@@ -337,7 +346,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 10,
-            MuzzleVelocity = 75,
+            MuzzleVelocity = 70,
 			
             PrefersPrimaryWeaponTarget = true,
 			
@@ -389,7 +398,7 @@ UnitBlueprint {
             TurretPitchSpeed = 30,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 33,
             Turreted = true,
         },
 		{
@@ -422,7 +431,7 @@ UnitBlueprint {
 			
             FiringRandomness = 0.95,
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 6,
@@ -483,10 +492,20 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 33,
 			
             Turreted = true,
         },
+        {
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
+        },		
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',

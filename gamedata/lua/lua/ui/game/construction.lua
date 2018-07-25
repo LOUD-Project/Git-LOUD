@@ -20,6 +20,17 @@ local Templates = import('/lua/ui/game/build_templates.lua')
 local BuildMode = import('/lua/ui/game/buildmode.lua')
 local UnitViewDetail = import('/lua/ui/game/unitviewdetail.lua')
 
+local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
+local LOUDSORT = table.sort
+
+-- these are all from GAZ_UI
+local Prefs = import('/lua/user/prefs.lua')
+local options = Prefs.GetFromCurrentProfile('options')
+local Effect = import('/lua/maui/effecthelpers.lua')
+-- norem
+local TemplatesFactory = import('/mods/GAZ_UI/modules/templates_factory.lua')
+
 --LOG("*AI DEBUG Construction.lua loaded")
 
 local unitGridPages = {
@@ -30,7 +41,7 @@ local unitGridPages = {
     RULEUTL_Munition = {Order = 4, Label = "<LOC CONSTRUCT_0004>Munition"},   # note that this doesn't exist yet
 }
 
-# these are external controls used for positioning, so don't add them to our local control table
+-- these are external controls used for positioning, so don't add them to our local control table
 controlClusterGroup = false
 mfdControl = false
 ordersControl = false
@@ -302,7 +313,7 @@ function CreateTabs(type)
                     if enhTable.Slot == slotName then
                         enhTable.ID = enhName
                         enhTable.UnitID = selection[1]:GetBlueprint().BlueprintId
-                        table.insert(sortedOptions[slotName], enhTable)
+                        LOUDINSERT(sortedOptions[slotName], enhTable)
                     end
                 end
             end
@@ -324,7 +335,7 @@ function CreateTabs(type)
     local numActive = 0
 	
     for _, tab in controls.tabs do
-        if sortedOptions[tab.ID] and table.getn(sortedOptions[tab.ID]) > 0 then
+        if sortedOptions[tab.ID] and LOUDGETN(sortedOptions[tab.ID]) > 0 then
             tab:Enable()
             numActive = numActive + 1
             if defaultTabOrder[tab.ID] then
@@ -1198,8 +1209,8 @@ function CommonLogic()
                 control.LowFuel:SetNeedsFrameUpdate(false)
             end
 			
-            if table.getn(control.Data.units) > 1 then 
-                control.Count:SetText(table.getn(control.Data.units))
+            if LOUDGETN(control.Data.units) > 1 then 
+                control.Count:SetText(LOUDGETN(control.Data.units))
                 control.Count:SetColor('ffffffff')
             else
                 control.Count:SetText('')
@@ -1368,7 +1379,7 @@ function OnClickHandler(button, modifiers)
                 end
 				
                 if not found then
-                    table.insert(selection, unit)
+                    LOUDINSERT(selection, unit)
                 end
 				
             end
@@ -1484,7 +1495,7 @@ function OnClickHandler(button, modifiers)
         end
 		
     end
-	
+
 end
 
 local warningtext = false
@@ -1553,7 +1564,7 @@ function CreateTemplateOptionsMenu(button)
                 bmp.Height:Set(30)
                 bmp.Width:Set(30)
                 bmp.ID = iconType
-                table.insert(controls, bmp)
+                LOUDINSERT(controls, bmp)
             end
             group.SubMenu = CreateSubMenu(group, controls, function(id)
                 Templates.SetTemplateIcon(button.Data.template.templateID, id)
@@ -1596,7 +1607,7 @@ function CreateTemplateOptionsMenu(button)
                 if i != GetFocusArmy() and armyData.human then
                     local entry = UIUtil.CreateText(group, armyData.nickname, 12, UIUtil.bodyFont)
                     entry.ID = i
-                    table.insert(entries, entry)
+                    LOUDINSERT(entries, entry)
                 end
             end
             if table.getsize(entries) > 0 then
@@ -1852,12 +1863,14 @@ function GetTabByID(id)
 end
 
 local pauseEnabled = false
+
 function EnablePauseToggle()
     if controls.extraBtn2 then
         controls.extraBtn2:Enable()
     end
     pauseEnabled = true
 end
+
 function DisablePauseToggle()
     if controls.extraBtn2 then
         controls.extraBtn2:Disable()
@@ -2013,13 +2026,16 @@ function FormatData(unitData, type)
     if type == 'construction' then
 	
         local function SortFunc(unit1, unit2)
+		
             local bp1 = __blueprints[unit1].BuildIconSortPriority or __blueprints[unit1].StrategicIconSortPriority
             local bp2 = __blueprints[unit2].BuildIconSortPriority or __blueprints[unit2].StrategicIconSortPriority
+			
             if bp1 >= bp2 then
                 return false
             else
                 return true
             end
+			
         end
 		
         local sortedUnits = {}
@@ -2049,28 +2065,28 @@ function FormatData(unitData, type)
 			
             local units = EntityCategoryFilterDown(category, unitData)
 			
-            table.insert(sortedUnits, units)
+            LOUDINSERT(sortedUnits, units)
 			
             miscCats = miscCats - v
 			
         end
         
-        table.insert(sortedUnits, EntityCategoryFilterDown(miscCats, unitData))
+        LOUDINSERT(sortedUnits, EntityCategoryFilterDown(miscCats, unitData))
         
         for i, units in sortedUnits do
 		
-            table.sort(units, SortFunc)
+            LOUDSORT(units, SortFunc)
 			
             local index = i
 			
-            if table.getn(units) > 0 then
+            if LOUDGETN(units) > 0 then
 			
-                if table.getn(retData) > 0 then
-                    table.insert(retData, {type = 'spacer'})
+                if LOUDGETN(retData) > 0 then
+                    LOUDINSERT(retData, {type = 'spacer'})
                 end
 				
                 for unitIndex, unit in units do
-                    table.insert(retData, {type = 'item', id = unit})
+                    LOUDINSERT(retData, {type = 'item', id = unit})
                 end
 				
             end
@@ -2081,11 +2097,21 @@ function FormatData(unitData, type)
         SetSecondaryDisplay('buildQueue')
 		
     elseif type == 'selection' then
+	   
+		local function SortFunc(unit1, unit2)
+			
+			if unit1.id >= unit2.id then
+				return false
+			else
+				return true
+			end
+
+		end
 	
         local sortedUnits = {}
         local lowFuelUnits = {}
-        local ids = {}
-		
+		local idleConsUnits = {}		
+
         for _, unit in unitData do
 		
             local id = unit:GetBlueprint().BlueprintId
@@ -2093,20 +2119,28 @@ function FormatData(unitData, type)
             if unit:IsInCategory('AIR') and unit:GetFuelRatio() < .2 and unit:GetFuelRatio() > -1 then
 			
                 if not lowFuelUnits[id] then 
-                    table.insert(ids, id)
                     lowFuelUnits[id] = {}
                 end
 				
-                table.insert(lowFuelUnits[id], unit)
+                LOUDINSERT(lowFuelUnits[id], unit)
+				
+			elseif options.gui_seperate_idle_builders != 0 and unit:IsInCategory('CONSTRUCTION') and unit:IsIdle() then
+				
+				if not idleConsUnits[id] then 
+					idleConsUnits[id] = {}
+				end
+					
+				LOUDINSERT(idleConsUnits[id], unit)
 				
             else
 			
-                if not sortedUnits[id] then 
-                    table.insert(ids, id)
+                if not sortedUnits[id] then
+				
                     sortedUnits[id] = {}
+					
                 end
 				
-                table.insert(sortedUnits[id], unit)
+                LOUDINSERT(sortedUnits[id], unit)
 				
             end
         end
@@ -2125,27 +2159,38 @@ function FormatData(unitData, type)
             end
 			
         end
-		
-        if displayUnits then
-		
-            for i, v in sortedUnits do
-                table.insert(retData, {type = 'unitstack', id = i, units = v})
-            end
+
+		if displayUnits then
 			
-        end
-		
-        for i, v in lowFuelUnits do
-		
-            table.insert(retData, {type = 'unitstack', id = i, units = v, lowFuel = true})
+			for i, v in sortedUnits do
+				
+				LOUDINSERT(retData, {type = 'unitstack', id = i, units = v})
+					
+			end
+				
+		end
 			
-        end
-		
+		for i, v in lowFuelUnits do
+			
+			LOUDINSERT(retData, {type = 'unitstack', id = i, units = v, lowFuel = true})
+				
+		end
+			
+		for i, v in idleConsUnits do
+			
+			LOUDINSERT(retData, {type = 'unitstack', id = i, units = v, idleCon = true})
+			
+		end
+
+        -- Sort unit types
+        LOUDSORT(retData, SortFunc)
+
         CreateExtraControls('selection')
         SetSecondaryDisplay('attached')
 		
     elseif type == 'templates' then
 	
-        table.sort(unitData, function(a,b)
+        LOUDSORT(unitData, function(a,b)
             if a.key and not b.key then
                 return true
             elseif b.key and not a.key then
@@ -2164,7 +2209,7 @@ function FormatData(unitData, type)
         end)
 		
         for _, v in unitData do
-            table.insert(retData, {type = 'templates', id = 'template', template = v})
+            LOUDINSERT(retData, {type = 'templates', id = 'template', template = v})
         end
 		
         CreateExtraControls('templates')
@@ -2200,7 +2245,7 @@ function FormatData(unitData, type)
                 end
 				
                 if not restricted then
-                    table.insert(filteredEnh, enhTable)
+                    LOUDINSERT(filteredEnh, enhTable)
                 end
 				
             end
@@ -2247,7 +2292,7 @@ function FormatData(unitData, type)
                 iconData.Selected = true
             end
 			
-            table.insert(retData, iconData)
+            LOUDINSERT(retData, iconData)
 			
         end
 		
@@ -2265,7 +2310,7 @@ function FormatData(unitData, type)
 					
                     while searching do
 					
-                        table.insert(retData, {type = 'arrow'})
+                        LOUDINSERT(retData, {type = 'arrow'})
                         local tempEnh = GetEnhByID(FindDependancy(curID))
                         local disabled = true
 						
@@ -2281,7 +2326,7 @@ function FormatData(unitData, type)
                         else
                             searching = false
                             if table.getsize(usedEnhancements) <= table.getsize(filteredEnh)-1 then
-                                table.insert(retData, {type = 'spacer'})
+                                LOUDINSERT(retData, {type = 'spacer'})
                             end
                         end
 						
@@ -2290,7 +2335,7 @@ function FormatData(unitData, type)
                 else
 				
                     if table.getsize(usedEnhancements) <= table.getsize(filteredEnh)-1 then
-                        table.insert(retData, {type = 'spacer'})
+                        LOUDINSERT(retData, {type = 'spacer'})
                     end
 					
                 end
@@ -2316,13 +2361,13 @@ function SetSecondaryDisplay(type)
 	
     if type == 'buildQueue' then
 	
-        if currentCommandQueue and table.getn(currentCommandQueue) > 0 then
+        if currentCommandQueue and LOUDGETN(currentCommandQueue) > 0 then
             for index, unit in currentCommandQueue do
-                table.insert(data, {type = 'queuestack', id = unit.id, count = unit.count, position = index})
+                LOUDINSERT(data, {type = 'queuestack', id = unit.id, count = unit.count, position = index})
             end
         end
 		
-        if table.getn(sortedOptions.selection) == 1 and table.getn(data) > 0 then
+        if LOUDGETN(sortedOptions.selection) == 1 and LOUDGETN(data) > 0 then
             controls.secondaryProgress:SetNeedsFrameUpdate(true)
         else
             controls.secondaryProgress:SetNeedsFrameUpdate(false)
@@ -2333,9 +2378,9 @@ function SetSecondaryDisplay(type)
 	
         local attachedUnits = EntityCategoryFilterDown(categories.MOBILE, GetAttachedUnitsList(sortedOptions.selection))
 		
-        if attachedUnits and table.getn(attachedUnits) > 0 then
+        if attachedUnits and LOUDGETN(attachedUnits) > 0 then
             for _, v in attachedUnits do
-                table.insert(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
+                LOUDINSERT(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
             end
         end
 		
@@ -2360,10 +2405,9 @@ function OnQueueChanged(newQueue)
     end
 end
 
-
 function CheckForOrderQueue(newSelection)
 
-    if table.getn(selection) == 1 then
+    if LOUDGETN(selection) == 1 then
 	
         -- render the command queue
         if currentCommandQueue then
@@ -2374,7 +2418,7 @@ function CheckForOrderQueue(newSelection)
 		
         SetQueueState(false)
 		
-    elseif table.getn(selection) > 0 then
+    elseif LOUDGETN(selection) > 0 then
 	
         ClearCurrentFactoryForQueueDisplay()
         ClearQueueGrid()
@@ -2449,11 +2493,11 @@ function OnSelection(buildableCategories, selection, isOldSelection)
 			-- now add the CONSTRUCTIONSORTDOWN units to the tier below
 			for _, unit in sortDowns do
 				if EntityCategoryContains(categories.EXPERIMENTAL, unit) then
-					table.insert(sortedOptions.t3, unit)
+					LOUDINSERT(sortedOptions.t3, unit)
 				elseif EntityCategoryContains(categories.TECH3, unit) then
-					table.insert(sortedOptions.t2, unit)
+					LOUDINSERT(sortedOptions.t2, unit)
 				elseif EntityCategoryContains(categories.TECH2, unit) then
-					table.insert(sortedOptions.t1, unit)
+					LOUDINSERT(sortedOptions.t1, unit)
 				end
 			end
 		else
@@ -2464,7 +2508,7 @@ function OnSelection(buildableCategories, selection, isOldSelection)
 			sortedOptions.t4 = EntityCategoryFilterDown(categories.EXPERIMENTAL, buildableUnits)		
 		end
         
-        if table.getn(buildableUnits) > 0 then
+        if LOUDGETN(buildableUnits) > 0 then
             controls.constructionTab:Enable()
         else
             controls.constructionTab:Disable()
@@ -2480,31 +2524,46 @@ function OnSelection(buildableCategories, selection, isOldSelection)
         local bpID = false
         local allMobile = true
 		
+		-- decide if all mobile, all same unit, and bpID if it is
         for i, v in selection do
 		
             if allMobile and not v:IsInCategory('MOBILE') then
+			
                 allMobile = false
+				
             end
 			
             if allSameUnit and bpID and bpID != v:GetBlueprint().BlueprintId then
+			
                 allSameUnit = false
+				
             else
+			
                 bpID = v:GetBlueprint().BlueprintId
+				
             end
 			
             if not allMobile and not allSameUnit then
                 break
             end
-        end
-        
-        if table.getn(selection) == 1 and selection[1]:GetBlueprint().Enhancements then
-            controls.enhancementTab:Enable()
-        else
-            controls.enhancementTab:Disable()
+			
         end
 
-        local templates = Templates.GetTemplates()
+        -- turn on enhancement tab if it has enhancement and all same unit
+		-- this permits multiple units to enhance at once
+		if selection[1]:GetBlueprint().Enhancements and allSameUnit then
+
+            controls.enhancementTab:Enable()
+			
+        else
 		
+            controls.enhancementTab:Disable()
+			
+        end
+
+		-- see if there are any building templates
+        local templates = Templates.GetTemplates()
+
         if allMobile and templates and table.getsize(templates) > 0 then
 		
             sortedOptions.templates = {}
@@ -2524,75 +2583,214 @@ function OnSelection(buildableCategories, selection, isOldSelection)
 				
                 if valid then
                     template.templateID = templateIndex
-                    table.insert(sortedOptions.templates, template)
+                    LOUDINSERT(sortedOptions.templates, template)
                 end
             end
         end
         
-        if table.getn(selection) == 1 then
+        if LOUDGETN(selection) == 1 then
+		
             currentCommandQueue = SetCurrentFactoryForQueueDisplay(selection[1])
+			
         else
+		
             currentCommandQueue = {}
             ClearCurrentFactoryForQueueDisplay()
+			
         end
+
+		-- Allow all races to build other races templates
+		-- by trying to replace unit prefixes - doesn't handle
+		-- much but the stock units
+		if options.gui_all_race_templates != 0 then
+		
+	        local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
+
+	        if allMobile and templates and table.getsize(templates) > 0 then
+				
+				local currentFaction = selection[1]:GetBlueprint().General.FactionName
+
+				if currentFaction then
+					
+		            sortedOptions.templates = {}
+
+					local function ConvertID(BPID)
+						local prefixes = {
+							["AEON"] = {
+								"uab",
+								"xab",
+								"dab",
+							},
+							["UEF"] = {
+								"ueb",
+								"xeb",
+								"deb",
+							},
+							["CYBRAN"] = {
+								"urb",
+								"xrb",
+								"drb",
+							},
+							["SERAPHIM"] = {
+								"xsb",
+								"usb",
+								"dsb",
+							},
+						}
+						
+						for i, prefix in prefixes[string.upper(currentFaction)] do
+						
+							if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
+							
+								return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
+								
+							end
+						end
+						
+						return false
+						
+					end
+
+		            for templateIndex, template in templates do
+						
+		                local valid = true
+						local converted = false
+						
+		                for _, entry in template.templateData do
+							
+		                    if type(entry) == 'table' then
+								
+		                        if not table.find(buildableUnits, entry[1]) then
+
+									entry[1] = ConvertID(entry[1])
+
+									converted = true
+
+			                        if not table.find(buildableUnits, entry[1]) then
+										valid = false
+			                            break
+									end
+		                        end
+		                    end
+		                end
+
+		                if valid then
+							
+							if converted then
+								
+								template.icon = ConvertID(template.icon)
+
+		                    end
+
+							template.templateID = templateIndex
+							
+		                    table.insert(sortedOptions.templates, template)
+
+						end
+	                end
+	            end
+				
+			end
+
+
+			
+
+			--refresh the construction tab to show any new available templates
+			if not isOldSelection then
+				
+	            if not controls.constructionTab:IsDisabled() then
+				
+	                controls.constructionTab:SetCheck(true)
+					
+	            else
+				
+	                controls.selectionTab:SetCheck(true)
+					
+	            end
+				
+	        elseif controls.constructionTab:IsChecked() then
+			
+	            controls.constructionTab:SetCheck(true)
+				
+	        elseif controls.enhancementTab:IsChecked() then
+			
+	            controls.enhancementTab:SetCheck(true)
+				
+	        else
+			
+	            controls.selectionTab:SetCheck(true)
+				
+	        end
+
+			
+			prevSelection = selection
+			prevBuildCategories = buildableCategories
+			prevBuildables = buildableUnits
+			import(UIUtil.GetLayoutFilename('construction')).OnSelection(false)
         
-        if not isOldSelection then
-            if not controls.constructionTab:IsDisabled() then
-                controls.constructionTab:SetCheck(true)
-            else
-                controls.selectionTab:SetCheck(true)
-            end
-        elseif controls.constructionTab:IsChecked() then
-            controls.constructionTab:SetCheck(true)
-        elseif controls.enhancementTab:IsChecked() then
-            controls.enhancementTab:SetCheck(true)
-        else
-            controls.selectionTab:SetCheck(true)
-        end
-        
-        prevSelection = selection
-        prevBuildCategories = buildableCategories
-        prevBuildables = buildableUnits
-        import(UIUtil.GetLayoutFilename('construction')).OnSelection(false)
-        
-        controls.constructionGroup:Show()
-        controls.choices:CalcVisible()
-        controls.secondaryChoices:CalcVisible()
+			controls.constructionGroup:Show()
+			controls.choices:CalcVisible()
+			controls.secondaryChoices:CalcVisible()
+
+		end
+		
     else
+	
         if BuildMode.IsInBuildMode() then
             BuildMode.ToggleBuildMode()
         end
+		
         currentCommandQueue = {}
         ClearCurrentFactoryForQueueDisplay()
         import(UIUtil.GetLayoutFilename('construction')).OnSelection(true)
-    end
+
+	end
+	
 end
 
 function ShowBuildModeKeys(show)
+
     showBuildIcons = show
+	
     if not controls.constructionTab:IsChecked() and show then
+	
         controls.constructionTab:SetCheck(true)
+		
     end
+	
     if not controls.choices:IsHidden() then
+	
         controls.choices:CalcVisible()
+		
     end
+	
 end
 
 function SetLayout(layout)
+
     if controls.choices.Items then
+	
         for index, _ in controls.choices.Items do
+		
             local i = index
+			
             if controls.choices.Items[i] then
+			
                 controls.choices.Items[i]:Destroy()
                 controls.choices.Items[i] = nil
+				
             end
+			
         end
+		
     end
+	
     import(UIUtil.GetLayoutFilename('construction')).SetLayout()
     CommonLogic()
 end
 
 function SetupConstructionControl(parent, inMFDControl, inOrdersControl)
+
     mfdControl = inMFDControl
     ordersControl = inOrdersControl
     controlClusterGroup = parent
@@ -2608,7 +2806,7 @@ end
 function NewTech(Data)
     for _, unitlist in Data do
         for _, unit in unitlist do
-            table.insert(newTechUnits, unit)
+            LOUDINSERT(newTechUnits, unit)
         end
     end
 end
