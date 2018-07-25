@@ -1057,7 +1057,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 10,
 		
-		-- this function removes the builder 
+		-- this function turns the builder on
 		PriorityFunction = NotPrimaryBase,
 
         BuilderConditions = {
@@ -1267,7 +1267,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 
-        Priority = 710,
+        Priority = 700,
+		
+		-- this will only form at primary bases
+		PriorityFunction = IsPrimaryBase,
 		
         InstanceCount = 3,
 		
@@ -1285,7 +1288,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			DistressThreshold = 4,
 			LocationType = 'LocationType',
             MergeLimit = 24,
-            MissionTime = 150,
+            MissionTime = 100,
             PrioritizedCategories = { categories.SUBMARINE, categories.STRUCTURE },
 			SearchRadius = 100,	
             UseFormation = 'AttackFormation',
@@ -1305,6 +1308,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 710,
 		
+		-- this will only form at primary bases
+		PriorityFunction = IsPrimaryBase,
+
         InstanceCount = 1,
 		
         BuilderType = 'Any',
@@ -1321,7 +1327,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 			LocationType = 'LocationType',
             MergeLimit = false,
-            MissionTime = 360,
+            MissionTime = 180,
             PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
 			SearchRadius = 500,
             UseFormation = 'AttackFormation',
@@ -1340,6 +1346,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 710,
 		
+		-- this will only form at primary bases
+		PriorityFunction = IsPrimaryBase,
+		
         InstanceCount = 1,
 		
         BuilderType = 'Any',
@@ -1356,7 +1365,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 			LocationType = 'LocationType',
             MergeLimit = false,
-            MissionTime = 360,
+            MissionTime = 180,
             PrioritizedCategories = { categories.SONAR * categories.STRUCTURE },
 			SearchRadius = 500,
             UseFormation = 'AttackFormation',
@@ -1375,6 +1384,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 710,
 		
+		-- this will only form at primary bases
+		PriorityFunction = IsPrimaryBase,
+		
         InstanceCount = 1,
 		
         BuilderType = 'Any',
@@ -1391,7 +1403,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 			LocationType = 'LocationType',
             MergeLimit = false,
-            MissionTime = 600,
+            MissionTime = 180,
             PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL, categories.MASSFABRICATION},
 			SearchRadius = 500,
             UseFormation = 'AttackFormation',
