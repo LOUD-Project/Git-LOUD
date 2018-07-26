@@ -5,27 +5,27 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1,
-        BankFactor = 2,
+        AutoLandTime = 1.6,
+        BankFactor = 2.5,
         BankForward = false,
-        BreakOffDistance = 30,
+        BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 20,
+        BreakOffTrigger = 25,
         CanFly = true,
-        CombatTurnSpeed = 1.3,
+        CombatTurnSpeed = 0.9,
         EngageDistance = 50,
 		
-        KLift = 3,
+        KLift = 3.5,
         KLiftDamping = 2.5,
 		
-        KMove = 0.95,
-        KMoveDamping = 2,
+        KMove = 1.0,
+        KMoveDamping = 2.5,
 		
         KRoll = 2,
         KRollDamping = 2,
 		
-        KTurn = 0.8,
-        KTurnDamping = 1.1,
+        KTurn = 1.4,
+        KTurnDamping = 1.6,
 		
         LiftFactor = 9,
 		
@@ -36,7 +36,7 @@ UnitBlueprint {
 		
         StartTurnDistance = 5,
 		
-        TightTurnMultiplier = 0,
+        TightTurnMultiplier = 1.05,
 		
         TurnSpeed = 1.3,
 		
@@ -47,16 +47,6 @@ UnitBlueprint {
         Killed = Sound {
             Bank = 'UAADestroy',
             Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -103,8 +93,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1500,
-        MaxHealth = 1500,
+        Health = 1400,
+        MaxHealth = 1400,
         RegenRate = 4,
         SurfaceThreatLevel = 11,
     },
@@ -178,7 +168,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 16500,
-        BuildCostMass = 325,
+        BuildCostMass = 320,
         BuildTime = 400,
     },
 	
@@ -302,7 +292,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1500,
+            Damage = 1000,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -316,6 +306,7 @@ UnitBlueprint {
 			
             FiringRandomness = 0.2,
             FiringTolerance = 4,
+			FixBombTrajectory = true,
 			
             Label = 'Bomb',
 			
@@ -344,24 +335,18 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,		-- 300 DPS
+            RateOfFire = 0.2,		-- 200 DPS
 			
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH4',
-                'TECH3 STRUCTURE',
-                'TECH2 STRUCTURE',
-                'TECH1 STRUCTURE',
-                'SPECIALLOWPRI',
+                'STRUCTURE',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-			
-            TrackingRadius = 1.15,
-            WeaponCategory = 'Bomb',
+            TrackingRadius = 1.1,
         },
 		
         {
@@ -374,7 +359,6 @@ UnitBlueprint {
             DummyWeapon = true,
             FiringTolerance = 2,
             Label = 'DeathImpact',
-            WeaponCategory = 'Death',
         },
 		
     },
@@ -384,11 +368,12 @@ UnitBlueprint {
         EnergyMult = 0.1,
         HealthMult = 0.5,
         MassMult = 0.5,
+		Lifetime = 600,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
-            Seabed = false,
-            Water = false,
+            Seabed = true,
+            Water = true,
         },
     },
 }

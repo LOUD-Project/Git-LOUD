@@ -165,7 +165,7 @@ UnitBlueprint {
 	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
-    SelectionThickness = 0.48,
+    SelectionThickness = 0.5,
 	
     SizeX = 1,
     SizeY = 2,
@@ -299,7 +299,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = true,
+            Seabed = false,
             Sub = false,
             Water = false,
         },

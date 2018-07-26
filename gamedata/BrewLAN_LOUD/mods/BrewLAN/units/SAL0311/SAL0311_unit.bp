@@ -10,21 +10,6 @@ UnitBlueprint {
             Cue = 'UAL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Pack = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Shield_Off',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Shield_On',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UAL',
             Cue = 'UAL0202_Move_Start',
@@ -40,12 +25,8 @@ UnitBlueprint {
             Cue = 'Aeon_Select_Tank',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Unpack = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -55,33 +36,36 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'AEON',
         'MOBILE',
         'LAND',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
         'TECH3',
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'TANK',
-        'OVERLAYDIRECTFIRE',
     },
+	
     CollisionOffsetZ = 0.1,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 0,
-        Health = 9000,
-        MaxHealth = 9000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 33,
+        Health = 6000,
+        MaxHealth = 6000,
+        RegenRate = 3,
+        SurfaceThreatLevel = 46,
     },
+	
     Description = '<LOC sal0311_desc>Armored Assault Tank',
+	
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
@@ -103,24 +87,7 @@ UnitBlueprint {
                 },
             },
         },
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Turret',
-                        },
-                        Offset = {
-                            0,
-                            -.12,
-                            .07,
-                        },
-                        Type = 'AeonGroundFX01',
-                        Scale = 0.5,
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Land = {
                 Effects = {
@@ -131,26 +98,14 @@ UnitBlueprint {
                         },
                         Type = 'GroundKickup03',
                     },
-                    {
-                        Bones = {
-                            'Turret',
-                        },
-                        Offset = {
-                            0,
-                            -.12,
-                            .09,
-                        },
-                        Type = 'AeonGroundFX01',
-                        Scale = 0.5,
-                    },
                 },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.09,
-                            TreadMarksSizeX = 0.2,
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.25,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 -.45,
@@ -160,8 +115,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.09,
-                            TreadMarksSizeX = 0.2,
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.25,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 -0.25,
@@ -171,8 +126,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.09,
-                            TreadMarksSizeX = 0.2,
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.25,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 .45,
@@ -182,8 +137,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.09,
-                            TreadMarksSizeX = 0.2,
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.25,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 0.25,
@@ -195,25 +150,27 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
+		
         TransportAnimation = {
             {
                 Animation = '/mods/BrewLAN/units/SAL0311/SAL0311_Afold.sca',
                 Weight = 100,
             },
         },
-        UniformScale = 0.035,
+		
+        UniformScale = 0.044,
     },
+	
     Economy = {
-        BuildCostEnergy = 14000,
-        BuildCostMass = 1250,
-        BuildTime = 4800,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 1650,
+        BuildTime = 825,
     },
+	
     General = {
+		CapCost = 2,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -236,16 +193,20 @@ UnitBlueprint {
         UnitName = '<LOC sal0311_name>Moldavite',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 22,
-        WaterVisionRadius = 25,
+        VisionRadius = 32,
+        WaterVisionRadius = 21,
     },
+	
     Interface = {
-        HelpText = '<LOC sal0311_desc>Armored Assault Tank',
+        HelpText = '<LOC sal0311_desc>Amphibious Assault Tank',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.95,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -258,39 +219,50 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         MaxAcceleration = 2,
-        MaxBrake = 2,
-        MaxSpeed = 2,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.5,
         MaxSpeedReverse = 2,
+		
         MaxSteerForce = 5,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
+		
         TurnRadius = 0,
         TurnRate = 60,
+		
+		WaterSpeedMultiplier = 1.2,
     },
-    SelectionSizeX = 0.7,
-    SelectionSizeZ = 0.85,
-    SelectionThickness = 0.53,
-    SizeX = 0.8,
-    SizeY = 0.5,
-    SizeZ = 0.9,
+	
+    SelectionSizeX = 1.0,
+    SelectionSizeZ = 1.2,
+    SelectionThickness = 0.5,
+	
+    SizeX = 1.0,
+    SizeY = 0.7,
+    SizeZ = 1.2,
+	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 115,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
-        Level1 = 9,
-        Level2 = 18,
-        Level3 = 27,
-        Level4 = 36,
-        Level5 = 45,
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -308,24 +280,33 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 800,
+			
+            Damage = 920,
             DamageRadius = 1,
             DamageType = 'Normal',
+			
             DisplayName = 'Oblivion Cannon',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
+			FiringRandomness = 0.1,
+			FiringRandomnessWhileMoving = 0.3,
             FiringTolerance = 1,
+			
             Label = 'MainGun',
-            MaxRadius = 35,
+			
+            MaxRadius = 37,
+			
             MuzzleChargeDelay = 0.4,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 43,
+			MuzzleVelocityRandom = 3,
+			
             ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
-            ProjectilesPerOnFire = 1,
+            ProjectileLifetimeUsesMultiplier = 1.1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -343,52 +324,55 @@ UnitBlueprint {
             RackFireTogether = false,
             RackRecoilDistance = -2.5,
             RackReloadTimeout = 10,
-	    RackSlavedToTurret = true,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.5,
-            TargetCheckInterval = 0.6,
+			
+            RateOfFire = 0.5,	-- 460 DPS	
+			
+            TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+				'DEFENSE',
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+			
             TurretBoneDualMuzzle = 'Turret_muzzle_2',
             TurretBoneDualPitch = 'Turret',
             TurretBoneMuzzle = 'Turret_muzzle_1',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
+			
             TurretPitch = 0,
-            TurretPitchRange = 30,
+            TurretPitchRange = 35,
             TurretPitchSpeed = 45,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 40,
+			
             Turreted = true,
+			
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },

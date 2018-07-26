@@ -39,23 +39,18 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    Buffs = {
-        Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
-        },
-    },
+	
+    Buffs = {},
+	
     BuildIconSortPriority = 12,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'AEON',
         'MOBILE',
         'LAND',
+		'AMPHIBIOUS',
         'INTELLIGENCE',
         'TECH3',
         'OMNI',
@@ -65,17 +60,16 @@ UnitBlueprint {
         'OVERLAYOMNI',
         'OVERLAYRADAR',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 44,
+        EconomyThreatLevel = 35,
         Health = 250,
         MaxHealth = 250,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC srl0324_desc>Mobile Sensor Array',
+	
     Display = {
         Abilities = {
             '<LOC ability_hover>Hover',
@@ -90,7 +84,7 @@ UnitBlueprint {
                 Weight = 10,
             },
         },
-        --AnimationOpen = '/mods/brewlan/units/SRL0324/SRL0324_AOpen.sca',
+
         BlinkingLights = {
             {
                 BLBone = 'AttachPoint',
@@ -100,25 +94,15 @@ UnitBlueprint {
                 BLScale = 1,
             },
         },
+		
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_blinking_02_emit.bp',
         },
+		
         IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
                     {
                         Bones = {
                             'B01',
@@ -184,19 +168,20 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0003',
+
         SpawnRandomRotation = true,
-        UniformScale = 0.25,
+        UniformScale = 0.225,
     },
+	
     Economy = {
         BuildCostEnergy = 30000*0.9,
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
+		
         MaintenanceConsumptionPerSecondEnergy = 2500,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
+
     },
+	
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
@@ -229,18 +214,23 @@ UnitBlueprint {
         UnitName = '<LOC sal0324_name>Metatron',
         UnitWeight = 1,
     },
+	
     Intel = {
-        OmniRadius = 100,
-        RadarRadius = 700,
+        OmniRadius = 125,
+        RadarRadius = 290,
         ShowIntelOnSelect = true,
-        VisionRadius = 33,
+        VisionRadius = 40,
+		WaterVisionRadius = 15,
     },
+	
     Interface = {
         HelpText = '<LOC srl0324_desc>Mobile Sensor Array',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -266,31 +256,19 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
-    SelectionThickness = 0.55,
-    SizeX = 1.3,
-    SizeY = 4,
-    SizeZ = 1.3,
+    SelectionThickness = 0.5,
+	
+    SizeX = 1.25,
+    SizeY = 2.75,
+    SizeZ = 1.25,
+	
     StrategicIconName = 'icon_land3_intel',
     StrategicIconSortPriority = 115,
+	
     Transport = {
         TransportClass = 3,
-    },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
     },
 }

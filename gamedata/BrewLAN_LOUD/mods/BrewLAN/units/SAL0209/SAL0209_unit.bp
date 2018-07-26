@@ -5,6 +5,7 @@ UnitBlueprint {
             'Spinner_02',
         },
     },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'UAL',
@@ -67,9 +68,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 15,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYLANDTIER2FACTORY',
         'BUILTBYLANDTIER3FACTORY',
@@ -90,9 +92,10 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYRADAR',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 41,
         Health = 725,
@@ -116,8 +119,11 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC sal0209_desc>Defence Engineer',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
@@ -125,7 +131,9 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sacrifice>Sacrifice',
         },
+		
         AnimationBuild = '/units/ual0208/ual0208_aopen.sca',
+		
         IdleEffects = {
             Land = {
                 Effects = {
@@ -155,6 +163,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -213,8 +222,9 @@ UnitBlueprint {
             },
         },
         SpawnRandomRotation = false,
-        UniformScale = 0.07,
+        UniformScale = 0.063,
     },
+	
     Economy = {
         BuildCostEnergy = 1025,
         BuildCostMass = 200,
@@ -225,15 +235,15 @@ UnitBlueprint {
             'BUILTBYTIER2ENGINEER INDIRECTFIRE AEON',
             'BUILTBYTIER2FIELD AEON',
         },
+		
         MaintenanceConsumptionPerSecondEnergy = 5,
+		
         SacrificeEnergyMult = 0.6,
         SacrificeMassMult = 0.6,
         StorageEnergy = 500,
         StorageMass = 25,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
+	
     General = {
         Category = 'Construction',
         Classification = 'RULEUC_Engineer',

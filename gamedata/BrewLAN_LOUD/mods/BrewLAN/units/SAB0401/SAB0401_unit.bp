@@ -47,6 +47,7 @@ UnitBlueprint {
             },
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'UAB',
@@ -79,12 +80,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        --'BUILTBYTIER3ENGINEER',
+        --'BUILTBYTIER3COMMANDER',
         'AEON',
         'STRUCTURE',
         'LAND',
@@ -101,7 +103,9 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'GATE',
     },
+	
     CollisionOffsetY = 5,
+	
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
@@ -112,12 +116,16 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC sab0401>Experimental Air Factory',
+	
     Display = {
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
         },
+		
         AnimationPermOpen = '/mods/BrewLAN/units/sab0401/SAB0401_aopen.sca',
+		
         BlinkingLights = {
             {
                 BLBone = 'Blinking_001',
@@ -152,12 +160,15 @@ UnitBlueprint {
                 BLScale = 6,
             },
         },
+		
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_03_emit.bp',
             Yellow = '/effects/emitters/light_yellow_02_emit.bp',
         },
+		
         BuildAttachBone = 'Attachpoint',
+		
         IdleEffects = {
             Water = {
                 Effects = {
@@ -178,6 +189,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -208,7 +220,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = false,
         Tarmacs = {
             {
@@ -230,29 +242,38 @@ UnitBlueprint {
         },
         UniformScale = 0.14*2.1,
     },
+	
     Economy = {
+	
         BuildCostEnergy = 315000,
         BuildCostMass = 7090,
         BuildRate = 60*4,
         BuildTime = 7000,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON',
             'TRANSPORTBUILTBYTIER3FACTORY AEON',
             'BUILTBYIENGINE AEON',
             'BUILTBYIENGINE EXPERIMENTAL',
         },
+		
         RebuildBonusIds = {
             'sab0401',
         },
+		
         StorageEnergy = 10000,
         StorageMass = 1000,
         InitialRallyZ = 20,
+		
     },
+	
     Footprint = {
         SizeX = 27,
         SizeZ = 27,
     },
+	
     General = {
+		CapCost = 12,
         BuildBones = {
             BuildEffectBones = {
                 'BuilderM_001',
@@ -290,15 +311,19 @@ UnitBlueprint {
         UnitName = '<LOC sab0401_name>Independence Engine',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 37,
     },
+	
     Interface = {
         HelpText = '<LOC sab0401>Experimental Air Factory',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 13,
     LifeBarSize = 32,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -326,6 +351,7 @@ UnitBlueprint {
             0,    -8.5,    27/2,    2/2,
             0,    8.5,    27/2,    2/2,
         },
+		
         RaisedPlatforms = {
             -- Platform 1
             -- x    z    height
@@ -338,6 +364,7 @@ UnitBlueprint {
             -- BottomRight Offset From Center
             14, 14, 1.5,
         },
+		
         RollOffPoints = {
             {UnitSpin = 0,   X = 0,     Y = 0, Z = 8},
             {UnitSpin = 45,  X = 5.66,  Y = 0, Z = 5.66},
@@ -348,25 +375,32 @@ UnitBlueprint {
             {UnitSpin = 270, X = -8,    Y = 0, Z = 0},
             {UnitSpin = 315, X = -5.66, Y = 0, Z = 5.66},
         },
+		
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 30,
         SkirtSizeZ = 30,
         TurnRate = 0,
     },
+	
     --SelectionMeshScaleX = 0.5,
     --SelectionMeshScaleZ = 0.5,
     --SelectionMeshUseTopAmount = 0.15,
+	
     SelectionSizeX = 15,
     SelectionSizeZ = 15,
-    SelectionThickness = 0.1,
+    SelectionThickness = 0.5,
+	
     SizeX = 27,
     SizeY = 10,
     SizeZ = 27,
+	
     SizeSphere = 13,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconNameEIOOverride = 'icon_experimental_factory_air',
     StrategicIconSortPriority = 210,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

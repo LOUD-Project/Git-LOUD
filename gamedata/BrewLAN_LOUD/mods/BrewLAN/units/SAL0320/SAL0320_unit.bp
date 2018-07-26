@@ -59,39 +59,22 @@ UnitBlueprint {
     },
 
     Defense = {
-        AirThreatLevel = 51,
+        AirThreatLevel = 40,
         ArmorType = 'Normal',
-        Health = 3600,
-        MaxHealth = 3600,
+        Health = 3000,
+        MaxHealth = 3000,
         RegenRate = 2,
     },
 	
-    Description = '<LOC sal0320_desc>Mobile Anti-Air Defense',
+    Description = '<LOC sal0320_desc>Mobile Laser AA',
 	
     Display = {
         Abilities = {
-            '<LOC ability_aa>Beam Based Anti-Air',
+            '<LOC ability_aa>Beam Based AA',
             '<LOC ability_hover>Hover',
             '<LOC ability_deathaoe>Volitile',
         },
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -109,6 +92,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -145,17 +129,17 @@ UnitBlueprint {
             },
         },
         SpawnRandomRotation = true,
-        UniformScale = 0.06,
+        UniformScale = 0.07,
     },
 	
     Economy = {
         BuildCostEnergy = 15000,
-        BuildCostMass = 1150,
-        BuildTime = 575,
+        BuildCostMass = 1100,
+        BuildTime = 550,
     },
 	
     General = {
-		CapCost = 1,
+		CapCost = 2,
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -184,7 +168,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sal0320_desc>Mobile Anti-Air Defense',
+        HelpText = '<LOC sal0320_desc>Mobile Laser AA',
     },
 	
     LifeBarHeight = 0.075,
@@ -203,14 +187,18 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
+		
         MaxAcceleration = 1.2,
         MaxBrake = 1.8,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
+		
         MaxSteerForce = 1000,
+		
         MeshExtentsX = 1.4,
         MeshExtentsY = 0.6,
         MeshExtentsZ = 1.25,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
@@ -219,6 +207,7 @@ UnitBlueprint {
         TurnFacingRate = 180,
         TurnRadius = 0,
         TurnRate = 120,
+		
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
@@ -226,14 +215,14 @@ UnitBlueprint {
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
 	
-    SelectionSizeX = 0.75,
-    SelectionSizeZ = 0.55,
+    SelectionSizeX = 0.9,
+    SelectionSizeZ = 0.6,
 	
-    SelectionThickness = 0.56,
+    SelectionThickness = 0.5,
 	
-    SizeX = 1.4,
-    SizeY = 0.6,
-    SizeZ = 1.25,
+    SizeX = 1.35,
+    SizeY = 0.7,
+    SizeZ = 1.35,
 	
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 125,
@@ -278,14 +267,14 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 256,
+            Damage = 100,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -304,7 +293,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 40,
+            MaxRadius = 42,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -334,17 +323,13 @@ UnitBlueprint {
 			
 			ReTargetOnMiss = true,
 			
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE EXPERIMENTAL',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
+                'AIR EXPERIMENTAL',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -356,11 +341,11 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 900,
+            TurretPitchSpeed = 250,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 900,
+            TurretYawSpeed = 250,
 			
             Turreted = true,
 

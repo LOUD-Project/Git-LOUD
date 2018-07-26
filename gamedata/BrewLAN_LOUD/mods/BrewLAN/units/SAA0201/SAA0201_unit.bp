@@ -1,33 +1,37 @@
 UnitBlueprint {
     Air = {
-        AutoLandTime = 1,
+        AutoLandTime = 1.6,
         BankFactor = 5,
         BankForward = false,
         CanFly = true,
         CombatTurnSpeed = 1.9,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
+		
         KMove = 1.5,
         KMoveDamping = 1,
+		
         KRoll = 1.5,
         KRollDamping = 1,
+		
         KTurn = 1.5,
         KTurnDamping = 2.3,
+		
         LiftFactor = 7,
+		
         MaxAirspeed = 25,
         MinAirspeed = 8,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.02,
         TurnSpeed = 1.9,
+		
         Winged = true,
     },
+	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         AmbientMove = Sound {
             Bank = 'UAA',
             Cue = 'UAA0302_Move_Loop',
@@ -41,16 +45,6 @@ UnitBlueprint {
         Killed = Sound {
             Bank = 'UAADestroy',
             Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -74,9 +68,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 12,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
@@ -91,17 +86,17 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SPECIALHIGHPRI',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Light',
         EconomyThreatLevel = 250,
         Health = 1050,
         MaxHealth = 1050,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+		Regen = 1,
     },
+	
     Description = '<LOC sair0201>Decoy Plane',
+	
     Display = {
         Abilities = {
             '<LOC ability_jamming>Jamming',
@@ -150,13 +145,6 @@ UnitBlueprint {
         },
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Left_Contrail',
-                        'Right_Contrail',
-                    },
-                    ZOffset = 0,
-                },
                 Effects = {
                     {
                         Bones = {
@@ -167,21 +155,25 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = true,
         UniformScale = 0.39,
     },
+	
     Economy = {
-        BuildCostEnergy = 5000 * 1.8,
-        BuildCostMass = 195 * 1.8 - 1,
-        BuildTime = 900 * 2,
+        BuildCostEnergy = 9000,
+        BuildCostMass = 200,
+        BuildTime = 250,
+		
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -216,20 +208,24 @@ UnitBlueprint {
         UnitName = '<LOC saa0201_name>',
         UnitWeight = 1,
     },
+	
     Intel = {
         JamRadius = {
-            Max = 64,
+            Max = 60,
             Min = 10,
         },
-        JammerBlips = 19,
+        JammerBlips = 10,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = '<LOC sair0201>Decoy Plane',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.75,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -241,7 +237,7 @@ UnitBlueprint {
         },
         Elevation = 25,
         FuelRechargeRate = 15,
-        FuelUseTime = 1500,
+        FuelUseTime = 1000,
         GroundCollisionOffset = 1.6,
         MaxSpeed = 10,
         MeshExtentsX = 1.5 * 0.5,
@@ -250,19 +246,25 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.42,
-    SizeSphere = 1.6 * 0.8,
+	
+    SizeSphere = 2.4,
+	
     SizeX = 0.8,
     SizeY = 0.25,
     SizeZ = .8,
+	
     StrategicIconName = 'icon_fighter2_counterintel',
     StrategicIconSortPriority = 55,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -277,18 +279,5 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
+	
 }

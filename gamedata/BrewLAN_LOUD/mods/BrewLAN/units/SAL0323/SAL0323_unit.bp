@@ -26,35 +26,35 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
         'AEON',
         'MOBILE',
         'LAND',
-        'DEFENSE',
-        'DRAGBUILD',
         'TECH2',
-        'ANTIMISSILE',
+        --'ANTIMISSILE',
+		'AMPHIBIOUS',
         'HOVER',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
-        ArmorType = 'Structure',
-        EconomyThreatLevel = 10,
-        Health = 500,
-        MaxHealth = 500,
+        ArmorType = 'Light',
+        EconomyThreatLevel = 2,
+        Health = 480,
+        MaxHealth = 480,
         RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC sl0323_desc>Mobile Tactical Missile Defense',
+	
     Display = {
         Abilities = {
             '<LOC ability_hover>Hover',
@@ -134,22 +134,21 @@ UnitBlueprint {
             },
         },
         SpawnRandomRotation = true,
-        PlaceholderMeshName = 'UXB0022',
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
         UniformScale = 0.05,
+		
     },
+	
     Economy = {
-        BuildCostEnergy = 3200,
-        BuildCostMass = 280,
-        BuildTime = 1200,
+        BuildCostEnergy = 3500,
+        BuildCostMass = 320,
+        BuildTime = 440,
     },
+	
     Footprint = {
-        MinWaterDepth = 1,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -173,15 +172,19 @@ UnitBlueprint {
         UnitName = '<LOC sal0323_name>Rupture',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = '<LOC uab4201_help>Tactical Missile Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -194,9 +197,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.6,
-        MaxBrake = 3.6,
-        MaxSpeed = 3.6,
+        MaxAcceleration = 1.8,
+        MaxBrake = 1.8,
+        MaxSpeed = 3.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 1.15,
@@ -210,17 +213,22 @@ UnitBlueprint {
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.45,
+	
     SizeX = 0.65,
     SizeY = 0.5,
     SizeZ = 0.65,
+	
     StrategicIconName = 'icon_land2_antimissile',
     StrategicIconSortPriority = 200,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -230,29 +238,42 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+			
             BallisticArc = 'RULEUBA_None',
+			
             CollideFriendly = false,
+			
             Damage = 30,
             DamageType = 'Normal',
+			
             DisplayName = 'Will O Wisp Anti Missile',
-            EffectiveRadius = 10,
+			
+            EffectiveRadius = 22,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
+			
+			FiringRandomness = 20,
             FiringTolerance = 360,
+			
             Flare = {
                 Category = 'MISSILE',
-                Radius = 15,
+                Radius = 22,
             },
+			
             Label = 'AntiMissile',
-            MaxRadius = 30,
+			
+            MaxRadius = 22,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 25,
+			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
             ProjectileLifetime = 4,
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -262,21 +283,23 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
+			
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+			
             RangeCategory = 'UWRC_Countermeasure',
-            RateOfFire = 0.32,
+			
+            RateOfFire = 0.9,
+			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
-            Turreted = false,
-            WeaponCategory = 'Defense',
-            WeaponRepackTimeout = 1,
+            TrackingRadius = 1.35,
+
+            WeaponRepackTimeout = 0.8,
             WeaponUnpackAnimation = '/units/uab4201/uab4201_Aopen.sca',
             WeaponUnpackAnimationRate = 10,
             WeaponUnpacks = true,
