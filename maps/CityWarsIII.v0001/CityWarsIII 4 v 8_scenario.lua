@@ -1,9 +1,9 @@
-version = 3
+version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
     name = "CityWarsIII 4 v 8",
     description = "War in the Cities Part III. A completely new world with custom decals and layers. No easy 'country side' warfare. Adapt your strategies and deal with the much nastier city wars.",
     preview = '',
-    map_version = '3.2',
+    map_version = 1,
     type = 'skirmish',
     starts = true,
     size = {2048, 2048},
