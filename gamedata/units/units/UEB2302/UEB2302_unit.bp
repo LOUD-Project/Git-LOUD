@@ -76,7 +76,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -95,16 +95,15 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.04,
+        UniformScale = 0.036,
     },
 	
     Economy = {
-        BuildCostEnergy = 855000,
-        BuildCostMass = 44000,
-        BuildTime = 47500,	#-- was 30K
-        RebuildBonusIds = {
-            'ueb2302',
-        },
+        BuildCostEnergy = 660000,
+        BuildCostMass = 34500,
+        BuildTime = 41000,	#-- was 30K
+		
+        RebuildBonusIds = {'ueb2302'},
     },
 	
     Footprint = {
@@ -139,7 +138,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 28,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -180,9 +179,9 @@ UnitBlueprint {
     SelectionSizeZ = 3.4,
     SelectionThickness = 0.3,
 	
-    SizeX = 4,
+    SizeX = 3.6,
     SizeY = 2,
-    SizeZ = 4,
+    SizeZ = 3.6,
 	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 175,
