@@ -274,16 +274,20 @@ UnitBlueprint {
         UnitName = '<LOC sal0209_name>Butler',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
         RadarRadius = 30,
     },
+	
     Interface = {
         HelpText = '<LOC sal0209_desc>Defence Engineer',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+	
     Physics = {
         BackUpDistance = 0,
         BankingSlope = 0.5,
@@ -316,18 +320,23 @@ UnitBlueprint {
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
+	
     SelectionCenterOffsetY = -0.5,
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.6,
-    SizeX = 1,
-    SizeY = 0.8,
-    SizeZ = 0.8,
+	
+    SizeX = 0.9,
+    SizeY = 0.72,
+    SizeZ = 0.72,
+	
     StrategicIconName = 'icon_land2_engineer',
     StrategicIconSortPriority = 95,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
