@@ -11,8 +11,6 @@ SAA0306 = Class(AAirUnit) {
 
     DestroyNoFallRandomChance = 1.1,
 
-    ShieldEffects = { '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' },
-
     AirDestructionEffectBones = {
 		'Outer1', 'Outer002', 'Outer003', 'Outer004', 'Outer005', 'Outer006',
 		'Outer007', 'Outer008', 'Outer009', 'Outer010', 'Outer011', 'Outer012',
@@ -75,7 +73,7 @@ SAA0306 = Class(AAirUnit) {
 		
         if not self.ShieldEffectsBag[1] then
 		
-            self.ShieldEffectsBag = {CreateAttachedEmitter( self, 0, self:GetArmy(), self.ShieldEffect ):ScaleEmitter(1):OffsetEmitter(0,-3,0)}
+            self.ShieldEffectsBag = { CreateAttachedEmitter( self, 0, self:GetArmy(), '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0,-3,0)}
 			
     	end
 		

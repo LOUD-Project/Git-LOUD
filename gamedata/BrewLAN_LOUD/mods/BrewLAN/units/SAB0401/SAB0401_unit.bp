@@ -85,8 +85,8 @@ UnitBlueprint {
 	
     Categories = {
         'SELECTABLE',
-        --'BUILTBYTIER3ENGINEER',
-        --'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4ENGINEER',
+        'BUILTBYTIER4COMMANDER',
         'AEON',
         'STRUCTURE',
         'LAND',
@@ -107,14 +107,11 @@ UnitBlueprint {
     CollisionOffsetY = 5,
 	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 2091,
-        Health = 80000,
-        MaxHealth = 80000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        Health = 25000,
+        MaxHealth = 25000,
+        RegenRate = 3,
     },
 	
     Description = '<LOC sab0401>Experimental Air Factory',
@@ -222,12 +219,13 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = false,
+
         Tarmacs = {
             {
                 Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_albedo.dds',
                 DeathLifetime = 300,
                 FadeOut = 450,
-                Length = 12.8*3.15,
+                Length = 24,	--3.15,
                 Normal = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_normals.dds',
                 Glow = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_spec.dds',
                 Orientations = {
@@ -236,18 +234,19 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 12.8*3.15,
+                RemoveWhenDead = true,
+                Width = 24,
             },
         },
-        UniformScale = 0.14*2.1,
+
+        UniformScale = .195,		--0.14*2.1,
     },
 	
     Economy = {
 	
         BuildCostEnergy = 315000,
         BuildCostMass = 7090,
-        BuildRate = 60*4,
+        BuildRate = 240,
         BuildTime = 7000,
 		
         BuildableCategory = {
@@ -257,19 +256,17 @@ UnitBlueprint {
             'BUILTBYIENGINE EXPERIMENTAL',
         },
 		
-        RebuildBonusIds = {
-            'sab0401',
-        },
+        RebuildBonusIds = { 'sab0401' },
 		
         StorageEnergy = 10000,
         StorageMass = 1000,
-        InitialRallyZ = 20,
+        InitialRallyZ = 25,
 		
     },
 	
     Footprint = {
-        SizeX = 27,
-        SizeZ = 27,
+        SizeX = 18,
+        SizeZ = 18,
     },
 	
     General = {
@@ -313,7 +310,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 37,
+        VisionRadius = 25,
     },
 	
     Interface = {
@@ -339,30 +336,37 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         OccupyRects = {
             --offsetX offsetZ  sizeX sizeZ, offset from center of unit
-            0,    0,    7/2,     27/2,
-            0,    0,    27/2,    7/2,
-            0,    0,    21/2,    25/2,
-            0,    0,    25/2,    21/2,
-            0,    0,    23/2,    23/2,
-            8.5,    0,    2/2,    27/2,
-            -8.5,    0,    2/2,    27/2,
-            0,    -8.5,    27/2,    2/2,
-            0,    8.5,    27/2,    2/2,
+--[[
+            0,    0,    6/2,     21/2,
+            0,    0,    21/2,    6/2,
+            0,    0,    17/2,    20/2,
+            0,    0,    20/2,    17/2,
+            0,    0,    19/2,    19/2,
+            7,    0,    2/2,    21/2,
+            -7,    0,    2/2,    21/2,
+            0,    -7,    21/2,    2/2,
+            0,    7,    21/2,    2/2,
+-]]
+			0,	   0,  7.5, 	 8,
+			0,	   0,	 8,		7.5,
+		 -0.5,	   0,	 5,		 9,
+		    0,	-0.5,	 9,		 5,
         },
 		
         RaisedPlatforms = {
             -- Platform 1
             -- x    z    height
             -- TopLeft Offset From Center
-            -14, -14, 1.5,
+            -7, -7, 1.5,
             -- TopRight Offset From Center
-            14, -14, 1.5,
+            7, -7, 1.5,
             -- BottomLeft Offset From Center
-            -14, 14, 1.5,
+            -7, 7, 1.5,
             -- BottomRight Offset From Center
-            14, 14, 1.5,
+            7, 7, 1.5,
         },
 		
         RollOffPoints = {
@@ -378,8 +382,10 @@ UnitBlueprint {
 		
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
-        SkirtSizeX = 30,
-        SkirtSizeZ = 30,
+		
+        SkirtSizeX = 20,
+        SkirtSizeZ = 20,
+		
         TurnRate = 0,
     },
 	
@@ -391,11 +397,11 @@ UnitBlueprint {
     SelectionSizeZ = 15,
     SelectionThickness = 0.5,
 	
-    SizeX = 27,
-    SizeY = 10,
-    SizeZ = 27,
+    SizeX = 16,
+    SizeY = 8,
+    SizeZ = 16,
 	
-    SizeSphere = 13,
+    SizeSphere = 10,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconNameEIOOverride = 'icon_experimental_factory_air',

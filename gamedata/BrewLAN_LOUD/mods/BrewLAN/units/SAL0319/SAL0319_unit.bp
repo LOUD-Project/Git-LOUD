@@ -12,54 +12,9 @@ UnitBlueprint {
             Cue = 'UAL0309_Move_Loop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        CaptureLoop = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Capture_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ReclaimLoop = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Reclaim_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartCapture = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Capture_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UAL',
             Cue = 'UAL0309_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -68,8 +23,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    Buffs = {},
 
     BuildIconSortPriority = 11,
 	
@@ -91,17 +44,16 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
-        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 83,
-        Health = 1470,
-        MaxHealth = 1470,
-        RegenRate = 0,
+        EconomyThreatLevel = 93,
+        Health = 1380,
+        MaxHealth = 1380,
+        RegenRate = 1,
 		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
@@ -113,8 +65,8 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 600,
             ShieldRechargeTime = 15,
-            ShieldRegenRate = 9,
-            ShieldRegenStartTime = 3,
+            ShieldRegenRate = 40,
+            ShieldRegenStartTime = 1,
             ShieldSize = 1.2,
             ShieldVerticalOffset = -.1,
         },
@@ -135,16 +87,6 @@ UnitBlueprint {
         AnimationBuild = '/units/ual0309/ual0309_aopen.sca',
 		
         IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                },
-            },
             Water = {
                 Effects = {
                     {
@@ -215,15 +157,16 @@ UnitBlueprint {
                 },
             },
         },
+		
         SpawnRandomRotation = false,
         UniformScale = 0.063,
     },
 	
     Economy = {
-        BuildCostEnergy = 3625,
-        BuildCostMass = 675,
-        BuildRate = 20,
-        BuildTime = 2400,
+        BuildCostEnergy = 6600,
+        BuildCostMass = 950,
+        BuildRate = 15,
+        BuildTime = 4500,
 		
         BuildableCategory = {
             'BUILTBYTIER3ENGINEER DEFENSE AEON',
@@ -231,11 +174,15 @@ UnitBlueprint {
             'BUILTBYTIER3ENGINEER NUKE SILO AEON',
             'BUILTBYTIER3FIELD AEON',
         },
-        SacrificeEnergyMult = 0.6,
-        SacrificeMassMult = 0.6,
-        MaintenanceConsumptionPerSecondEnergy = 5,
-        StorageEnergy = 500,
-        StorageMass = 50,
+		
+        SacrificeEnergyMult = 0.85,
+        SacrificeMassMult = 0.85,
+		
+        MaintenanceConsumptionPerSecondEnergy = 10,
+		MaxBuildDistance = 5,
+		
+        StorageEnergy = 200,
+        StorageMass = 20,
     },
 	
     General = {
@@ -270,7 +217,9 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+		FreeIntel = true,
+        VisionRadius = 28,
+		OmniRadius = 12,
     },
 	
     Interface = {
@@ -294,9 +243,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.5,
-        MaxAcceleration = 1.9,
-        MaxBrake = 1.9,
-        MaxSpeed = 1.9,
+        MaxAcceleration = 2,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 1.1,
@@ -319,9 +268,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
 	
-    SizeX = 0.8,
-    SizeY = 0.63,
-    SizeZ = 0.8,
+    SizeX = 0.9,
+    SizeY = 0.7,
+    SizeZ = 0.9,
 	
     StrategicIconName = 'icon_land3_engineer',
     StrategicIconSortPriority = 85,

@@ -119,9 +119,11 @@ SAB0401 = Class(AAirFactoryUnit) {
     PlatformRaisingThread = function(self)
         --CreateSlider(unit, bone, [goal_x, goal_y, goal_z, [speed,
         --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
+		
         local pSlider = CreateSlider(self, 'Platform', 0, 0, 0, 10)
 		
         --local bRotator = CreateRotator(self, 'Builder_Node', 'y', 0, 1000, 100, 1000)
+		
         local nSliders = {}
 		
         for i = 1, 8 do
