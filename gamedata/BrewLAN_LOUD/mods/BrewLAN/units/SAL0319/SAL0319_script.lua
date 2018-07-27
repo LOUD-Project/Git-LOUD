@@ -28,7 +28,7 @@ SAL0319 = Class(AConstructionUnit) {
 
 		if not self.ShieldEffectsBag[1] then
 		
-			self.ShieldEffectsBag[1] = { CreateAttachedEmitter( self, 0, self:GetArmy(), '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' ):ScaleEmitter(0.25):OffsetEmitter(0,-.8,0) }
+			self.ShieldEffectsBag = { CreateAttachedEmitter( self, 0, self:GetArmy(), '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' ):ScaleEmitter(0.25):OffsetEmitter(0,-.8,0) }
 			
 		end
 		

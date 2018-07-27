@@ -4,17 +4,17 @@ UnitList = {
 --------------------------------------------------------------------------------
 
 T2BuildEngineer = {
-    UEF = {'xel0209', 10},
-    Aeon = {'sal0209', 10},
-    Cybran = {'srl0209', 10},
-    Seraphim = {'ssl0219', 10},
+    UEF = {'xel0209', 15},
+    Aeon = {'sal0209', 15},
+    Cybran = {'srl0209', 15},
+    Seraphim = {'ssl0219', 15},
 },
 
 T3BuildEngineer = {
-    UEF = {'sel0319', 10},
-    Aeon = {'sal0319', 10},
-    Cybran = {'srl0319', 10},
-    Seraphim = {'ssl0319', 10},
+    UEF = {'sel0319', 15},
+    Aeon = {'sal0319', 15},
+    Cybran = {'srl0319', 15},
+    Seraphim = {'ssl0319', 15},
 },
 
 --[[
