@@ -13,7 +13,7 @@ UnitBlueprint {
         --This list is populated on game launch
         Experimentals = {
             Requirements = {
-                SkirtSizeX = 26,
+                SkirtSizeX = 17,
             },
             BuildableCategory = 'BUILTBYIENGINE',
             Air = {},
@@ -244,8 +244,8 @@ UnitBlueprint {
 	
     Economy = {
 	
-        BuildCostEnergy = 315000,
-        BuildCostMass = 7090,
+        BuildCostEnergy = 240000,
+        BuildCostMass = 20000,
         BuildRate = 240,
         BuildTime = 7000,
 		
@@ -339,17 +339,7 @@ UnitBlueprint {
 		
         OccupyRects = {
             --offsetX offsetZ  sizeX sizeZ, offset from center of unit
---[[
-            0,    0,    6/2,     21/2,
-            0,    0,    21/2,    6/2,
-            0,    0,    17/2,    20/2,
-            0,    0,    20/2,    17/2,
-            0,    0,    19/2,    19/2,
-            7,    0,    2/2,    21/2,
-            -7,    0,    2/2,    21/2,
-            0,    -7,    21/2,    2/2,
-            0,    7,    21/2,    2/2,
--]]
+
 			0,	   0,  7.5, 	 8,
 			0,	   0,	 8,		7.5,
 		 -0.5,	   0,	 5,		 9,
