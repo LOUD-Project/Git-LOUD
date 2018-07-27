@@ -21,21 +21,29 @@ end
 function ModBlueprints(all_blueprints)
 
     OldModBlueprints(all_blueprints)
+	
     BrewLANBuildCatChanges(all_blueprints.Unit)
-    BrewLANCategoryChanges(all_blueprints.Unit)
-    BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
+	
+    --BrewLANCategoryChanges(all_blueprints.Unit)
+    --BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
+	
     BrewLANGantryBuildList(all_blueprints.Unit)
     BrewLANHeavyWallBuildList(all_blueprints.Unit)
+	
     --BrewLANNameCalling(all_blueprints.Unit)
+	
     UpgradeableToBrewLAN(all_blueprints.Unit)
     TorpedoBomberWaterLandCat(all_blueprints.Unit)
     RoundGalacticCollosusHealth(all_blueprints.Unit)
-    BrewLANMatchBalancing(all_blueprints.Unit)
-    BrewLANFAFExclusiveChanges(all_blueprints.Unit)
-    BrewLANNavalShields(all_blueprints.Unit)
+	
+    --BrewLANMatchBalancing(all_blueprints.Unit)
+    --BrewLANFAFExclusiveChanges(all_blueprints.Unit)
+    --BrewLANNavalShields(all_blueprints.Unit)
+	
     BrewLANBomberDamageType(all_blueprints.Unit)
     BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
-    BrewLANRelativisticLinksUpdate(all_blueprints)
+	
+    --BrewLANRelativisticLinksUpdate(all_blueprints)
     BrewLANMegalithEggs(all_blueprints.Unit)
     ExtractFrozenMeshBlueprint(all_blueprints.Unit)
 	
@@ -409,22 +417,22 @@ function UpgradeableToBrewLAN(all_bps)
         uab4202 = 'uab4301',--FromAeon T2 shield
         xsb3202 = 'sss0305',--From Seraphim T2 sonar
         --urb2301 = 'srb0306',--From Cybran T2 PD Cerberus to Hades. A little OP.
-        urb1301 = 'srb1311',--To Cloakable Generator
-        urb1302 = 'srb1312',--To Cloakable Extractor
-        urb1303 = 'srb1313',--To Cloakable Fabricator
-        urb4203 = 'srb4313',--To Cloakable stealth gen
-        ueb1301 = 'seb1311',--To engineering Generator
-        ueb1302 = 'seb1312',--To engineering Extractor
-        ueb1303 = 'seb1313',--To engineering Fabricator
-        uab1301 = 'sab1311',--To shielded Generator
-        uab1302 = 'sab1312',--To shielded Extractor
-        uab1303 = 'sab1313',--To shielded Fabricator
-        sab4102 = 'uab4202',--From Aeon T1 Shield
-        seb4102 = 'ueb4202',--From UEF T1 Shield
-        ssb4102 = 'xsb4202',--From Seraphim T1 Shield
-        xsb1301 = 'ssb1311',--To Armored Generator
-        xsb1302 = 'ssb1312',--To Armored Extractor
-        xsb1303 = 'ssb1313',--To Armored Fabricator
+        --urb1301 = 'srb1311',--To Cloakable Generator
+        --urb1302 = 'srb1312',--To Cloakable Extractor
+        --urb1303 = 'srb1313',--To Cloakable Fabricator
+        --urb4203 = 'srb4313',--To Cloakable stealth gen
+        --ueb1301 = 'seb1311',--To engineering Generator
+        --ueb1302 = 'seb1312',--To engineering Extractor
+        --ueb1303 = 'seb1313',--To engineering Fabricator
+        --uab1301 = 'sab1311',--To shielded Generator
+        --uab1302 = 'sab1312',--To shielded Extractor
+        --uab1303 = 'sab1313',--To shielded Fabricator
+        --sab4102 = 'uab4202',--From Aeon T1 Shield
+        --seb4102 = 'ueb4202',--From UEF T1 Shield
+        --ssb4102 = 'xsb4202',--From Seraphim T1 Shield
+        --xsb1301 = 'ssb1311',--To Armored Generator
+        --xsb1302 = 'ssb1312',--To Armored Extractor
+        --xsb1303 = 'ssb1313',--To Armored Fabricator
         --srb5310 = 'srb5311',--Cybran wall into cybran gate. Caused issues.
     }
 	
@@ -454,11 +462,12 @@ function UpgradeableToBrewLAN(all_bps)
 	
     local UpgradesFromBase = {
         -- Base        Max
-        urb1103 = 'srb1312',--To Cloakable Extractor
-        ueb1103 = 'seb1312',--To engineering Extractor
-        uab1103 = 'sab1312',--To shielded Extractor
-        xsb1103 = 'ssb1312',--To Armored Extractor
+        --urb1103 = 'srb1312',--To Cloakable Extractor
+        --ueb1103 = 'seb1312',--To engineering Extractor
+        --uab1103 = 'sab1312',--To shielded Extractor
+        --xsb1103 = 'ssb1312',--To Armored Extractor
     }
+	
     --This could potentially loop forever if someone broke the upgrade chain elsewhere
     for unitid, upgradeid in UpgradesFromBase do
         if all_bps[upgradeid] then
@@ -499,6 +508,7 @@ function TorpedoBomberWaterLandCat(all_bps)
         all_bps['ssa0106'], --T1 Seraphim
         all_bps['saa0106'], --T1 Aeon
     }
+	
     for arrayIndex, bp in TorpedoBombers do
         --Check they exist, and have all their things.
         if bp and bp.Categories and bp.Weapon then
@@ -915,14 +925,23 @@ end
 --------------------------------------------------------------------------------
 
 function ExtractFrozenMeshBlueprint(all_bps)
+
     for id, bp in all_bps do
+	
         local meshid = bp.Display.MeshBlueprint
+		
         if meshid then
+		
             local meshbp = original_blueprints.Mesh[meshid]
+			
             if meshbp then
+			
                 local frozenbp = table.deepcopy(meshbp)
+				
                 if frozenbp.LODs then
+				
                     for i,lod in frozenbp.LODs do
+					
                         if lod.ShaderName == 'TMeshAlpha' or lod.ShaderName == 'NormalMappedAlpha' or lod.ShaderName == 'UndulatingNormalMappedAlpha' then
                             --lod.ShaderName = 'BlackenedNormalMappedAlpha'
                         else
@@ -930,13 +949,19 @@ function ExtractFrozenMeshBlueprint(all_bps)
                             lod.SpecularName = BrewLANPath() .. '/env/common/frozen_specular.dds'
                             lod.NormalsName = BrewLANPath() .. '/env/common/frozen_normals.dds'
                         end
+						
                     end
+					
                 end
+				
                 frozenbp.BlueprintId = meshid .. '_frozen'
                 bp.Display.MeshBlueprintFrozen = frozenbp.BlueprintId
                 MeshBlueprint(frozenbp)
+				
             end
+			
         end
+		
     end
 end
 

@@ -2,18 +2,14 @@ UnitList = {
 --------------------------------------------------------------------------------
 -- Field Engineers
 --------------------------------------------------------------------------------
-T1BuildEngineer = {
-    UEF = {'sel0119', 10},
-    Aeon = {'sal0119', 10},
-    Cybran = {'srl0119', 10},
-    Seraphim = {'ssl0119', 10},
-},
+
 T2BuildEngineer = {
     UEF = {'xel0209', 10},
     Aeon = {'sal0209', 10},
     Cybran = {'srl0209', 10},
     Seraphim = {'ssl0219', 10},
 },
+
 T3BuildEngineer = {
     UEF = {'sel0319', 10},
     Aeon = {'sal0319', 10},
