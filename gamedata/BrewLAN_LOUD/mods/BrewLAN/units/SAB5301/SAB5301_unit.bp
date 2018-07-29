@@ -37,12 +37,11 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
+        EconomyThreatLevel = 42,
         Health = 4000,
         MaxHealth = 4000,
-        RegenRate = 1,
+        RegenRate = 2,
 		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
@@ -52,11 +51,11 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 20000,
-            ShieldRechargeTime = 15,
-            ShieldRegenRate = 139,
+            ShieldRechargeTime = 23,
+            ShieldRegenRate = 217,
             ShieldRegenStartTime = 1,
             ShieldSize = 2.5,
-            ShieldVerticalOffset = 1.25-.6,
+            ShieldVerticalOffset = 0.65,
         },
 
     },
@@ -151,11 +150,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1000,
-        BuildCostMass = 20,
-        BuildTime = 40,
+        BuildCostEnergy = 1500,
+        BuildCostMass = 2885,
+        BuildTime = 1000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 5,
+        MaintenanceConsumptionPerSecondEnergy = 30,
 		
         RebuildBonusIds = {'sab5301'},
     },

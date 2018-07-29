@@ -13,7 +13,7 @@ UnitBlueprint {
         --This list is populated on game launch
         Experimentals = {
             Requirements = {
-                SkirtSizeX = 17,
+                SkirtSizeX = 18,
             },
             BuildableCategory = 'BUILTBYIENGINE',
             Air = {},
@@ -220,25 +220,6 @@ UnitBlueprint {
 
         SpawnRandomRotation = false,
 
-        Tarmacs = {
-            {
-                Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_albedo.dds',
-                DeathLifetime = 300,
-                FadeOut = 450,
-                Length = 24,	--3.15,
-                Normal = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_normals.dds',
-                Glow = '/mods/brewlan/env/common/decals/Tarmacs/Tar48x_aeon_01_spec.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = true,
-                Width = 24,
-            },
-        },
-
         UniformScale = .195,		--0.14*2.1,
     },
 	
@@ -247,7 +228,7 @@ UnitBlueprint {
         BuildCostEnergy = 240000,
         BuildCostMass = 20000,
         BuildRate = 240,
-        BuildTime = 7000,
+        BuildTime = 7500,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON',
@@ -258,8 +239,8 @@ UnitBlueprint {
 		
         RebuildBonusIds = { 'sab0401' },
 		
-        StorageEnergy = 10000,
-        StorageMass = 1000,
+        StorageEnergy = 4000,
+        StorageMass = 400,
         InitialRallyZ = 25,
 		
     },
@@ -310,7 +291,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 25,
+        VisionRadius = 15,
     },
 	
     Interface = {
@@ -318,8 +299,8 @@ UnitBlueprint {
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 13,
-    LifeBarSize = 32,
+    LifeBarOffset = 11,
+    LifeBarSize = 20,
 	
     Physics = {
         BankingSlope = 0,
@@ -383,9 +364,9 @@ UnitBlueprint {
     --SelectionMeshScaleZ = 0.5,
     --SelectionMeshUseTopAmount = 0.15,
 	
-    SelectionSizeX = 15,
-    SelectionSizeZ = 15,
-    SelectionThickness = 0.5,
+    SelectionSizeX = 11,
+    SelectionSizeZ = 11,
+    SelectionThickness = 0.4,
 	
     SizeX = 16,
     SizeY = 8,
