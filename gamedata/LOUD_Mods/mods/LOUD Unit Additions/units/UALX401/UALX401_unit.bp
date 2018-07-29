@@ -89,7 +89,6 @@ UnitBlueprint {
             'Heavy Shield Dome',
             'Omni Radar',
             'Strategic Missile Defense',
-			'Anti-Teleport Field: Prevents Teleportation',
         },
 		
         IdleEffects = { Land = {}  },
@@ -161,7 +160,6 @@ UnitBlueprint {
     },
 	
     Intel = {
-		CloakFieldRadius = 55,	-- anti-teleport range
         VisionRadius = 50,
         OmniRadius = 60,
         RadarRadius = 165,
