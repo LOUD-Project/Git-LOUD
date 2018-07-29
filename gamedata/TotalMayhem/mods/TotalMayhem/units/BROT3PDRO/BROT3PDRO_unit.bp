@@ -160,7 +160,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 670,
-            DamageRadius = 4,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
@@ -171,7 +171,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 2,
-            FiringRandomness = 0.8,
+            FiringRandomness = 0.9,
 			
             Label = 'MainGun',
 			
