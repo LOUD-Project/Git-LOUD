@@ -116,15 +116,18 @@ UnitBlueprint {
         MaxBrake = 3,
         MaxSpeed = 3,
         MaxSpeedReverse = 2,
+		
         MaxSteerForce = 10,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = true,
-        RotateOnSpotThreshold = 0.5,
-        TurnRadius = 5,
+        RotateOnSpotThreshold = 0.1,
+		
+        TurnRadius = 0,
         TurnRate = 65,
     },
 	
