@@ -192,7 +192,7 @@ UnitBlueprint {
         },
         Elevation = 20,
         FuelRechargeRate = 25,
-        FuelUseTime = 1250,
+        FuelUseTime = 1000,
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
@@ -285,7 +285,7 @@ UnitBlueprint {
 			
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,	#-- drops 5 torps every 10 secs - each torp splits into 2 - so 10 * 500 = 5000 every 10 or 500 DPS
+            RateOfFire = 0.1,	#-- drops 4 torps every 10 secs - each torp splits into 2 - so 8 * 500 = 4000 every 10 or 400 DPS
 			
             TargetCheckInterval = 3.5,
             TargetPriorities = {

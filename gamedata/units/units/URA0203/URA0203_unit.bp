@@ -175,7 +175,7 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.38,
 	
-    SizeSphere = 1,
+    SizeSphere = 1.05,
 	
     SizeX = 1,
     SizeY = 0.5,
@@ -211,7 +211,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 40,
 			DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',

@@ -66,11 +66,11 @@ local LandCategories = {
 
     Art1 = Artillery * categories.TECH1,
     Art2 = Artillery * categories.TECH2,
-    Art3 = Artillery * categories.TECH3,
+    Art3 = Artillery * (categories.TECH3 + categories.EXPERIMENTAL),
 
     AA1 = AntiAir * categories.TECH1,
     AA2 = AntiAir * categories.TECH2,
-    AA3 = AntiAir * categories.TECH3,
+    AA3 = AntiAir * (categories.TECH3 + categories.EXPERIMENTAL),
 
     Com1 = Construction * categories.TECH1,
     Com2 = Construction * categories.TECH2,

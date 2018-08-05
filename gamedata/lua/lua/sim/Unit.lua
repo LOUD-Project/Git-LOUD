@@ -2772,7 +2772,7 @@ Unit = Class(moho.unit_methods) {
 		-- end
 
 		if bp.Defense.Shield.ShieldSize > 0 then
-		
+
 			if bp.Defense.Shield.StartOn != false then
 			
 				if bp.Defense.Shield.PersonalShield == true then
@@ -4729,7 +4729,7 @@ Unit = Class(moho.unit_methods) {
 	
         local bp = GetBlueprint(self)
 		
-        local bpShield = shieldSpec
+        local bpShield = shieldSpec or bp.Defense.Shield
 	
         if bpShield then
 		

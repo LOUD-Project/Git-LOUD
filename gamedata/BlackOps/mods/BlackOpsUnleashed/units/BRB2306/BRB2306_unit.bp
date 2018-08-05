@@ -11,6 +11,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -19,8 +20,17 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
-    BuildIconSortPriority = 110,
+	
+    BuildIconSortPriority = 108,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -36,7 +46,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 6350,
@@ -66,13 +78,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+	
     Economy = {
         BuildCostEnergy = 16500,
         BuildCostMass = 1650,
         BuildTime = 1900,
-        RebuildBonusIds = {
-            'xrb2306',
-        },
+		
+        RebuildBonusIds = {'xrb2306'},
     },
 	
     General = {
@@ -100,15 +112,19 @@ UnitBlueprint {
         UnitName = '<LOC brb2306_name>Manticore',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 36,
     },
+	
     Interface = {
         HelpText = 'Heavy Point Defense',
     },
+	
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,14 +146,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.6,
+	
     SizeX = 0.5,
     SizeY = 2.7,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 230,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -145,6 +165,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },   
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

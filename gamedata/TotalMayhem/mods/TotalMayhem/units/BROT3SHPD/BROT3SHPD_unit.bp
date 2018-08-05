@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 12,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 60,
         },
     },
+	
     BuildIconSortPriority = 112,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -42,13 +45,14 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'SORTDEFENSE',
     },
+	
     Defense = {
-        AirThreatLevel = 27,
+        AirThreatLevel = 66,
         ArmorType = 'Structure',
         Health = 22500,
         MaxHealth = 22500,
         RegenRate = 25,
-        SurfaceThreatLevel = 51,
+        SurfaceThreatLevel = 240,
     },
 	
     Description = '<LOC brot3shpd_desc>Heavy Defense Battery',
@@ -200,11 +204,7 @@ UnitBlueprint {
             Slot = 'Back',
         },	
     },	
-	
-#    Footprint = {
-#        SizeX = 4,
-#        SizeZ = 4,
-#    },
+
     General = {
 		CapCost = 3,
         Category = 'Defense',
@@ -230,15 +230,19 @@ UnitBlueprint {
         UnitName = '<LOC brot3shpd_name>Mothra',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 42,
     },
+	
     Interface = {
         HelpText = 'Heavy Defense Battery',
     },
+	
     LifeBarHeight = 0.1,
     LifeBarOffset = 1.0,
     LifeBarSize = 2.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -263,6 +267,7 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.1,
     SelectionSizeZ = 2.1,
     SelectionThickness = 0.5,
@@ -306,7 +311,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 5000,
+            Damage = 3000,
             DamageRadius = 3,
             DamageType = 'Normal',
 			
@@ -361,7 +366,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,		-- 4000 dps
+            RateOfFire = 0.4,		-- 2400 dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 1,

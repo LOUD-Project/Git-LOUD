@@ -42,6 +42,7 @@ URL0307 = Class(CLandUnit) {
     end,
 
     OnIntelDisabled = function(self)
+	
         CLandUnit.OnIntelDisabled(self)
 		
         EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')

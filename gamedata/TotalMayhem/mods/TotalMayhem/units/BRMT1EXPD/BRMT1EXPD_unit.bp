@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -32,7 +33,9 @@ UnitBlueprint {
             Level5 = 5,
 		},
     },
+	
     BuildIconSortPriority = 112,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -50,7 +53,9 @@ UnitBlueprint {
 		'OVERLAYANTIAIR',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.5,
+	
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
@@ -59,7 +64,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
+	
     Description = '<LOC brmt1expd_desc>Microwave PD/AA Defense',
+	
     Display = {
         Abilities = {
             'Dual Role PD/Anti-Air',
@@ -78,6 +85,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
+	
     Economy = {
         BuildCostEnergy = 6600,
         BuildCostMass = 600,
@@ -86,6 +94,7 @@ UnitBlueprint {
             'BRMT1EXPD',
         },
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -262,6 +271,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

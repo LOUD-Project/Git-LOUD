@@ -289,7 +289,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'ALLUNITS,-WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE,SATELLITE',
 			
             TurretBoneDualMuzzle = 'Turret_Down_Muzzle_02',
             TurretBoneDualPitch = 'Turret_Down_Barrel_02',

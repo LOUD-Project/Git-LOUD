@@ -266,7 +266,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 13,
             DamageType = 'Normal',
 			
             DisplayName = 'Riot Gun',
@@ -281,7 +281,7 @@ UnitBlueprint {
 			
             Label = 'Turret01',
 			
-            MaxRadius = 24,
+            MaxRadius = 28,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
@@ -308,7 +308,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,		-- 13 * 3 * 2 = 78 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

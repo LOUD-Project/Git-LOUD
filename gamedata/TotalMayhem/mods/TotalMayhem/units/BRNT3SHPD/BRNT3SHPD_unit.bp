@@ -45,8 +45,8 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 39900,
         MaxHealth = 39900,
-        RegenRate = 40,
-        SurfaceThreatLevel = 510,
+        RegenRate = 25,
+        SurfaceThreatLevel = 244,
     },
 	
     Description = '<LOC brnt3shpd_desc>Heavy Fortification',
@@ -71,7 +71,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0006',
         SpawnRandomRotation = true,
 		
         Tarmacs = {
@@ -93,15 +92,14 @@ UnitBlueprint {
         },
         UniformScale = 0.026,
     },
+	
     Economy = {
-        BuildCostEnergy = 295000,	--95700,
-        BuildCostMass = 35000,		--10750,
-		BuildRate = 20,				-- for enhancement purposes
-        BuildTime = 21500,			--7700,
+        BuildCostEnergy = 295000,
+        BuildCostMass = 35000,
+		BuildRate = 20,
+        BuildTime = 21500,
 		
-        RebuildBonusIds = {
-            'BRNT3SHPD',
-        },
+        RebuildBonusIds = {'BRNT3SHPD'},
     },
 	
 	
@@ -238,7 +236,7 @@ UnitBlueprint {
 		FreeIntel = true,
 		OmniRadius = 0,
 		RadarRadius = 120,
-        VisionRadius = 36,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -272,14 +270,18 @@ UnitBlueprint {
         SkirtSizeZ = 4.0,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
+	
     SizeX = 3.0,
     SizeY = 1.5,
     SizeZ = 3.0,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 35,
         Level2 = 70,
@@ -287,6 +289,7 @@ UnitBlueprint {
         Level4 = 140,
         Level5 = 175,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -316,7 +319,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2250,
+            Damage = 900,
             DamageRadius = 2.5,
             DamageType = 'Normal',
 			
@@ -331,18 +334,18 @@ UnitBlueprint {
 			
             Label = 'Gauss01',
 			
-            MaxRadius = 90,
+            MaxRadius = 105,
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 46,
+            MuzzleVelocity = 36,
 			MuzzleVelocityRandom = 2,
 			
             NoPause = true,
 			
-            ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',		--'/mods/TotalMayhem/projectiles/BRNT3SHPDproj/BRNT3SHPDproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
+            ProjectileLifetime = 3.5,
 
             RackBones = {
                 {
@@ -383,9 +386,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.4,	-- 9000 Damage every 2.5 seconds = 3600 DPS
+            RateOfFire = 0.4,	-- 3600 Damage every 2.5 seconds = 1440 DPS
 			
-            TargetCheckInterval = 1.0,
+            TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'EXPERIMENTAL',
@@ -401,13 +404,13 @@ UnitBlueprint {
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
 			
-            TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 33,
+            TurretPitch = 10,
+            TurretPitchRange = 24,
+            TurretPitchSpeed = 13,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
         },

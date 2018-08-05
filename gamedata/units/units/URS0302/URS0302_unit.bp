@@ -30,11 +30,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 9,
-            Level2 = 15,
-            Level3 = 21,
-            Level4 = 27,
-            Level5 = 33,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 	
@@ -286,7 +286,8 @@ UnitBlueprint {
             MaxRadius = 110,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 38,
+            MuzzleVelocity = 35,
+			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
 			ProjectileLifetime = 4,
@@ -318,6 +319,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,		-- 1050 dmg every 4 seconds = 262 DPS Surface
@@ -385,7 +387,8 @@ UnitBlueprint {
             MaxRadius = 110,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 38,
+            MuzzleVelocity = 35,
+			MuzzleVelocityReduceDistance = 100,
 
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
 			ProjectileLifetime = 4,
@@ -477,10 +480,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.9,
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {
@@ -566,10 +569,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.9,
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

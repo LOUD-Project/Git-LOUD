@@ -1,21 +1,32 @@
 UnitBlueprint {
     Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },	
         Killed = Sound {
             Bank = 'UASDestroy',
             Cue = 'UAS0302_Destroy',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0302_Move_Start',
+            Bank = 'UAL',
+            Cue = 'UAL0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0304_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
             Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
+            Cue = 'Aeon_Select_Tank',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 12,
@@ -31,6 +42,7 @@ UnitBlueprint {
 	},
 	
     BuildIconSortPriority = 170,
+	
     Categories = {
         'SELECTABLE',
 		'BUILTBYTIER4COMMANDER',
@@ -60,32 +72,15 @@ UnitBlueprint {
     Description = '<LOC bal0402_desc>Experimental Assault HoverTank',
 	
     Display = {
+	
         Abilities = {
             'Hovercraft',
 			'Main Battery, 2 Secondaries',
 			'Fires salvo of 9 tactical missiles',
-			'Emits Miasma field (50 DPS - Range 36)',
+			'Emits Heavy Miasma field',
             'Tactical Missile Defense',
         },
-		
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BAL0402',
-                        },
-                        Offset = {
-                            0,
-                            -0.05,
-                            0,
-                        },
-                        Type = 'AeonGroundFX01',
-                    },
-                },
-            },
-        },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -129,7 +124,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0005',
+
         SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
@@ -200,37 +195,49 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = true,
         },
+		
         CatchUpAcc = 10,
+		
+        DragCoefficient = 0.1,		
 		Elevation = 0.5,
-        DragCoefficient = 0.1,
-        MaxAcceleration = 1.1,
-        MaxBrake = 1.7,
+
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.2,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 3.3,
-        MaxSteerForce = 8,
+		
+        MaxSteerForce = 24,
         MeshExtentsX = 2,
-        MeshExtentsY = 1.65,
+        MeshExtentsY = 1.7,
         MeshExtentsZ = 5,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
+		
 		SkirtOffsetX = -0,
         SkirtOffsetZ = -2.2,
         SkirtSizeX = 2.4,
         SkirtSizeZ = 5,
+		
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 45,
+		
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 32,
+        TurnRate = 36,
     },
+	
     SelectionSizeX = 1.8,
     SelectionSizeZ = 4.8,
     SelectionThickness = 0.5,
+	
     SizeX = 2.25,
     SizeY = 1.4,
     SizeZ = 5.0,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 145,
+	
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -262,7 +269,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringTolerance = 5,
+            FiringTolerance = 90,
 			
             Label = 'MissileRack',
 			
@@ -276,7 +283,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/projectiles/AIFMissileSerpentine01/AIFMissileSerpentine01_proj.bp',
+            ProjectileId = '/projectiles/AIFMissileSerpentine03/AIFMissileSerpentine03_proj.bp',			
             ProjectileLifetime = 25,
 
             RackBones = {
@@ -308,7 +315,8 @@ UnitBlueprint {
             RateOfFire = 0.1,	# 900 dps
             RenderFireClock = true,
 			
-            SlavedToBody = true,
+            SlavedToBody = false,
+			
             TargetCheckInterval = 5.0,
 			
             TargetPriorities = {
@@ -319,7 +327,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
             TrackingRadius = 1.1,
 			
@@ -341,7 +349,7 @@ UnitBlueprint {
 			
             Damage = 800,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
@@ -351,8 +359,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.5,
-            FiringTolerance = 1,
+            FiringRandomness = 0.9,
+            FiringTolerance = 0.5,
 			
             Label = 'MainGun',
 			
@@ -362,7 +370,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 28,
 			
             NotExclusive = true,
 			
@@ -382,9 +390,9 @@ UnitBlueprint {
                     RackBone = 'Wraith_Left_Recoil_01',
                 },
             },
-			
             RackFireTogether = true,
-            RackRecoilDistance = -1,
+			
+            RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -392,7 +400,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 30,
+            SlavedToBodyArcRange = 90,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -402,13 +410,13 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE -WALL',
+                'STRUCTURE DEFENSE',
 				'EXPERIMENTAL MOBILE',
                 'MOBILE',
-                'ALLUNITS -WALL',
+                'ALLUNITS',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
             TurretBoneMuzzle = 'Wraith_Weapon_Focus',
             TurretBonePitch = 'Wraith_Turret_Barrel',
@@ -417,11 +425,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 25,
 			
             TurretYaw = 0,
-            TurretYawRange = 30,
-            TurretYawSpeed = 20,
+            TurretYawRange = 90,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },
@@ -487,9 +495,6 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,	# 300 dps
 			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 20,
-			
             TargetCheckInterval = 4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -510,9 +515,9 @@ UnitBlueprint {
             TurretPitchRange = 40,
             TurretPitchSpeed = 30,
 			
-            TurretYaw = 0,
-            TurretYawRange = 20,
-            TurretYawSpeed = 30,
+            TurretYaw = 40,
+            TurretYawRange = 55,
+            TurretYawSpeed = 35,
 			
             Turreted = true,
         },
@@ -580,9 +585,6 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,	# 300 dps
 			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 20,
-			
             TargetCheckInterval = 4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -603,9 +605,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 30,
-            TurretYaw = 0,
-            TurretYawRange = 20,
-            TurretYawSpeed = 30,
+			
+            TurretYaw = 320,
+            TurretYawRange = 55,
+            TurretYawSpeed = 35,
+			
             Turreted = true,
         },
 		
@@ -678,9 +682,9 @@ UnitBlueprint {
 
 		{
             AboveWaterTargetsOnly = true,
-            Damage = 6500,
+            Damage = 5500,
             DamageFriendly = true,
-            DamageRadius = 8,
+            DamageRadius = 7,
             DamageType = 'Normal',
             DisplayName = 'Collossus Death',
             DummyWeapon = true,

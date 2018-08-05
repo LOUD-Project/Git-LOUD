@@ -196,14 +196,14 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringTolerance = 1,
+            FiringTolerance = 0.5,
 			
 			FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.5,
 			
-            Label = 'rocket1',
+            Label = 'rocket',
 			
-            MaxRadius = 34,
+            MaxRadius = 36,
 			MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.2,
@@ -211,7 +211,7 @@ UnitBlueprint {
             MuzzleVelocity = 16,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 4.85,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -252,15 +252,18 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
+			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rocketlauncher',
+			
             TurretBoneMuzzle = 'rl03',
             TurretBonePitch = 'rocketlauncher01',
+			
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
-            TurretPitchRange = 75,
+            TurretPitchRange = 65,
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
@@ -292,17 +295,21 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed|Air',
             },
 			
+			FiringRandomness = 0.6,
+			FiringRandomnessWhileMoving = 1.1,
             FiringTolerance = 1,
-            Label = 'gatling1',
 			
-            MaxRadius = 36,
+            Label = 'gatling',
+			
+            MaxRadius = 32,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 48,
+            MuzzleVelocity = 46,
 			
 			NoPause = true,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', #'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
+			ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -342,25 +349,28 @@ UnitBlueprint {
 			
             RateOfFire = 1,	# we get 80dps
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'DEFENSE',
                 'SPECIALLOWPRI',
-                'ALLUNITS,-WALL',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
             TrackingRadius = 1.10,
+			
             TurretBoneDualMuzzle = 'minigunmuzzle',
-            TurretBoneDualPitch = 'minigun',
-            TurretBoneMuzzle = 'minigunmuzzle',
-            TurretBonePitch = 'minigun',
+            TurretBoneDualPitch = 'arm',
+			
+            TurretBoneMuzzle = 'minigunmuzzle03',
+            TurretBonePitch = 'arm01',
+			
             TurretBoneYaw = 'Turret',
+			
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
-            TurretPitchRange = 75,
+            TurretPitchRange = 65,
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
@@ -370,6 +380,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

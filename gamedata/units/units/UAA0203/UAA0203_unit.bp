@@ -243,7 +243,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 16,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Light Laser',
@@ -258,7 +258,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 26,
+            MaxRadius = 29,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
@@ -287,7 +287,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 64 DPS Surface
+            RateOfFire = 1,		-- 80 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

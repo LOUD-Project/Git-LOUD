@@ -185,7 +185,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.47,
 	
-    SizeSphere = 1.1,
+    SizeSphere = 1.05,
 	
     SizeX = 1,
     SizeY = 0.5,
@@ -226,7 +226,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 17,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -241,7 +241,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 27,
+            MaxRadius = 28,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -269,14 +269,14 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		#-- 2 projectiles of 17 = 34 DPS
+            RateOfFire = 1,		#-- 2 projectiles of 20 = 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
 			
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -306,7 +306,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 17,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -321,7 +321,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 27,
+            MaxRadius = 28,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -349,14 +349,14 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		#-- another 34 DPS
+            RateOfFire = 1,		#-- another 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',

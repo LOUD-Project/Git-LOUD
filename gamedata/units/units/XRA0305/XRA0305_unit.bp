@@ -295,7 +295,7 @@ UnitBlueprint {
 				'ANTIAIR',
                 'ALLUNITS,-WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
 			
             TurretBoneDualMuzzle = 'Turret_Down_Muzzle_02',
             TurretBoneDualPitch = 'Turret_Down_Barrel_02',
@@ -383,7 +383,7 @@ UnitBlueprint {
                 'MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TurretBoneMuzzle = 'Turret_Up_Barrel',

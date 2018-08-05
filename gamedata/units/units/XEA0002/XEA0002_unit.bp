@@ -5,6 +5,10 @@ UnitBlueprint {
         KLiftDamping = 2,
 		KTurn = 0,
         LiftFactor = 10,
+		
+        MaxAirspeed = 4,
+        MinAirspeed = 0,
+
     },
 	
     Audio = {

@@ -1,8 +1,5 @@
 UnitBlueprint {
-    AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
-    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -72,7 +69,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0008',
+
         SpawnRandomRotation = true,
         UniformScale = 0.13,
     },
@@ -81,10 +78,6 @@ UnitBlueprint {
         BuildCostEnergy = 1600,
         BuildCostMass = 160,
         BuildTime = 600,
-
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
 
     General = {

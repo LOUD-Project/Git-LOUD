@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -30,6 +31,13 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
 	
     BuildIconSortPriority = 110,
@@ -84,27 +92,12 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 3.4,
-                Normal = 'Tarmacs/Tar6x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 3.4,
-            },
-        },
+ 
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 22000,
         BuildCostMass = 2200,
@@ -117,6 +110,7 @@ UnitBlueprint {
 	},
 	
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -199,6 +193,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+	
     Weapon = {
         {
             AimsStraightOnDisable = true,
@@ -303,6 +298,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 0.6,
             WeaponUnpacks = true,
         },
+		
         {
             Audio = {
                 Fire = Sound {

@@ -214,6 +214,7 @@ UnitBlueprint {
 		CloakFieldRadius = 10,
 		RadarStealth = true,
 		RadarStealthFieldRadius = 12,
+		SonarStealth = true,
 		SonarStealthFieldRadius = 12,
         VisionRadius = 38,
 		WaterVisionRadius = 0,

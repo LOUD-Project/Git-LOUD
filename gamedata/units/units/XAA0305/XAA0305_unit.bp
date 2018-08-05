@@ -294,7 +294,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'ALLUNITS,-WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
 			
             TrackingRadius = 1.15,
 			
