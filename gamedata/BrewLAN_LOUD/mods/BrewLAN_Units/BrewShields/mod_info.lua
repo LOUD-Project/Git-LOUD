@@ -1,10 +1,10 @@
-name = "Bubble Tea"
+name = "BrewLAN Bubble Tea for LOUD"
 uid = "25D57D85-9JA7-D842-BREW-SHIELDS000005"
 version = 0.5
 copyright = "© 2017–2018 Sean Wheeldon"
 description = "Adds experimental shields."
 author = "Sean Wheeldon"
-icon = "/mods/BrewLAN_Units/BrewShields/mod_icon.png"
+icon = "/mods/BrewLAN/documentation/BrewLAN-LOUD-full.png"	--"/mods/BrewLAN_Units/BrewShields/mod_icon.png"
 selectable = true
 enabled = true
 exclusive = false
