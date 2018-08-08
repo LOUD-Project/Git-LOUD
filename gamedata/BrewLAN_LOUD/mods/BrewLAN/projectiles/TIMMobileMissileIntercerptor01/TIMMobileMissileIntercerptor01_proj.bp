@@ -1,4 +1,9 @@
+-- notice how this anti-nuke costs a lot less than standard
+-- making it reasonably buildable in the field by an SACU
+-- this UEF one builds twice as fast but has only 1/2 the firepower
+
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -6,13 +11,15 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+	
     Categories = {
-        'UEF',
         'PROJECTILE',
         'NOSPLASHDAMAGE',
         'ANTIMISSILE',
     },
-    Description = 'UEF Anti Nuclear Missile',
+	
+    Description = 'Anti Nuclear Missile',
+	
     Display = {
         Mesh = {
             LODs = {
@@ -27,20 +34,24 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 1.2,
     },
+	
     Economy = {
-        BuildCostEnergy = 360000/3,
-        BuildCostMass = 3600/3,
-        BuildTime = 16200/3,
+        BuildCostEnergy = 72000/2,
+        BuildCostMass = 1800/2,
+        BuildTime = 12200/2,
     },
+	
     General = {
         Category = 'Defense',
         Faction = 'UEF',
     },
+	
     Interface = {
         HelpText = 'UEF Anti Nuclear Missile',
     },
+	
     Physics = {
-        Acceleration = 30,
+        Acceleration = 22,
         DestroyOnWater = false,
         HitAssignedTarget = true,
         LeadTarget = true,
@@ -50,5 +61,6 @@ ProjectileBlueprint {
         UseGravity = false,
         VelocityAlign = true,
     },
+	
     StrategicIconName = '/textures/ui/common/game/strategicicons/icon_strategic_antinuke.dds',
 }

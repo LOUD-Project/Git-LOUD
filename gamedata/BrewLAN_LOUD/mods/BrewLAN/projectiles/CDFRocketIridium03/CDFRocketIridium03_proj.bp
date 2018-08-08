@@ -16,6 +16,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+	
     Categories = {
         'CYBRAN',
         'PROJECTILE',
@@ -23,6 +24,7 @@ ProjectileBlueprint {
         'TACTICAL',
         'MISSILE',
     },
+	
     Display = {
         ImpactEffects = {
             Scale = 1,
@@ -41,6 +43,7 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.3,
     },
+	
     General = {
         Category = 'Missile',
         EntityCategory = {
@@ -53,18 +56,20 @@ ProjectileBlueprint {
         Faction = 'Cybran',
         Weapon = 'Iridium Rocket Barrage',
     },
+	
     Interface = {
         HelpText = 0,
     },
+	
     Physics = {
-        Acceleration = 0,
+        Acceleration = 1,
         DestroyOnWater = true,
-        InitialSpeed = 35,
-        MaxSpeed = 45,
+        InitialSpeed = 18,
+        MaxSpeed = 35,
         MaxZigZag = 5,
         TrackTarget = false,
         TurnRate = 360,
         VelocityAlign = true,
-        ZigZagFrequency = 1,
+        ZigZagFrequency = 0.5,
     },
 }
