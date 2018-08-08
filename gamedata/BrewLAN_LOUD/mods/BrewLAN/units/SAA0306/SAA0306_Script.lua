@@ -1,8 +1,7 @@
-#********************************************
-#**  Author(s):  Sean Wheeldon
-#**  Summary  :  Aeon Transport Script
-#********************************************
-
+--------------------------------------------------------------------------------
+--  Author:  Sean Wheeldon
+--  Summary  :  Aeon T3 Transport Script
+--------------------------------------------------------------------------------
 local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
 local AAATemporalFizzWeapon = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
 local explosion = import('/lua/defaultexplosions.lua')
@@ -11,13 +10,14 @@ SAA0306 = Class(AAirUnit) {
 
     DestroyNoFallRandomChance = 1.1,
 
+    ShieldEffect = '/effects/emitters/aeon_shield_generator_t3_03_emit.bp',
     AirDestructionEffectBones = {
 		'Outer1', 'Outer002', 'Outer003', 'Outer004', 'Outer005', 'Outer006',
 		'Outer007', 'Outer008', 'Outer009', 'Outer010', 'Outer011', 'Outer012',
 		'Torus001', 'Torus002', 'Torus003', 'Torus004', 'Torus005', 'Torus006',
 		'Torus007', 'Torus008', 'Torus009', 'Torus010', 'Torus011', 'Torus012',
-        'Sphere', 'Shutter1', 'Shutter2', 'Shutter3', 'Shutter4', 'Shutter5', 'Shutter6',
-		'Disk1', 'Disk2'
+        'Shutter1', 'Shutter2', 'Shutter3', 'Shutter4', 'Shutter5', 'Shutter6',
+        'Disk1', 'Disk2', 'Sphere',
 	},
 
     Weapons = {
@@ -27,14 +27,9 @@ SAA0306 = Class(AAirUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
         AAirUnit.OnStopBeingBuilt(self,builder,layer)
-
-        self:HideBone('Shutter1', true)
-        self:HideBone('Shutter2', true)
-        self:HideBone('Shutter3', true)
-        self:HideBone('Shutter4', true)
-        self:HideBone('Shutter5', true)
-        self:HideBone('Shutter6', true)
-		
+        for i = 1, 6 do
+            self:HideBone('Shutter' .. i, true)
+        end
     end,
 
     OnShieldEnabled = function(self)
@@ -73,7 +68,7 @@ SAA0306 = Class(AAirUnit) {
 		
         if not self.ShieldEffectsBag[1] then
 		
-            self.ShieldEffectsBag = { CreateAttachedEmitter( self, 0, self:GetArmy(), '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0,-3,0)}
+            self.ShieldEffectsBag = {CreateAttachedEmitter( self, 0, self:GetArmy(), self.ShieldEffect ):ScaleEmitter(1):OffsetEmitter(0,-3,0)}
 			
     	end
 		
@@ -96,7 +91,6 @@ SAA0306 = Class(AAirUnit) {
 		
     end,
 
-    -- When one of our attached units gets killed, detach it
     OnAttachedKilled = function(self, attached)
 	
         attached:DetachFrom()

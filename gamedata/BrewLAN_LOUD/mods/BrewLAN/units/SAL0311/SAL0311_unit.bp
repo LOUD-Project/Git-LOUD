@@ -103,8 +103,8 @@ UnitBlueprint {
                     TreadMarks = {
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.25,
+                            TreadMarksInterval = 0.09,
+                            TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 -.45,
@@ -114,8 +114,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.25,
+                            TreadMarksInterval = 0.09,
+                            TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 -0.25,
@@ -125,8 +125,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.25,
+                            TreadMarksInterval = 0.09,
+                            TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 .45,
@@ -136,8 +136,8 @@ UnitBlueprint {
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.25,
+                            TreadMarksInterval = 0.09,
+                            TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
                             TreadOffset = {
                                 0.25,
@@ -159,7 +159,7 @@ UnitBlueprint {
             },
         },
 		
-        UniformScale = 0.044,
+        UniformScale = 0.035,
     },
 	
     Economy = {
@@ -238,13 +238,13 @@ UnitBlueprint {
 		WaterSpeedMultiplier = 1.2,
     },
 	
-    SelectionSizeX = 1.0,
-    SelectionSizeZ = 1.2,
-    SelectionThickness = 0.5,
+    SelectionSizeX = 0.7,
+    SelectionSizeZ = 0.85,
+    SelectionThickness = 0.53,
 	
-    SizeX = 1.0,
-    SizeY = 0.7,
-    SizeZ = 1.2,
+    SizeX = 1.2,
+    SizeY = 0.6,
+    SizeZ = 1.3,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 115,

@@ -22,8 +22,7 @@ SEA0401 = Class(TAirUnit) {
 
     Weapons = {
 	
-        HeadAAGun = Class(TAAFlakArtilleryCannon) {},
-        RearAAGun = Class(TAAFlakArtilleryCannon) {},
+        AAGun = Class(TAAFlakArtilleryCannon) {},
 		
         SAM = Class(TSAMLauncher) {},
 		
@@ -121,7 +120,7 @@ SEA0401 = Class(TAirUnit) {
 		
         if new == 'Down' then
             self.LandingAnimManip:SetRate(-1)
-        elseif new == 'Up' then
+        elseif new == 'Up' or new == 'Top' then
             self.LandingAnimManip:SetRate(1)
         end
 		

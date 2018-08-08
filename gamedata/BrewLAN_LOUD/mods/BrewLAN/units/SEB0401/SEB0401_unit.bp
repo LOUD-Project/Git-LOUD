@@ -388,9 +388,9 @@ UnitBlueprint {
     SelectionSizeZ = 6.5,
     SelectionThickness = 0.4,
 	
-    SizeX = 17,
-    SizeY = 2,
-    SizeZ = 11,
+    SizeX = 16,
+    SizeY = 6,
+    SizeZ = 10,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 210,

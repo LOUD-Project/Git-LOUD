@@ -163,7 +163,7 @@ UnitBlueprint {
     General = {
         CapCost = 0.5,
         Category = 'Defense',
-        Classification = 'RULEUC_Factory',
+        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,

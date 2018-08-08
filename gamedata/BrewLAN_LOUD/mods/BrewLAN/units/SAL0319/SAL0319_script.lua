@@ -6,6 +6,12 @@ local AConstructionUnit = import('/lua/aeonunits.lua').AConstructionUnit
 
 SAL0319 = Class(AConstructionUnit) {
 
+    ShieldEffects = {
+        --'/effects/emitters/aeon_shield_generator_t2_01_emit.bp',
+        --'/effects/emitters/aeon_shield_generator_t2_02_emit.bp',
+        '/effects/emitters/aeon_shield_generator_t3_03_emit.bp',
+        --'/effects/emitters/aeon_shield_generator_t3_04_emit.bp',
+    },
     OnCreate = function( self ) 
         AConstructionUnit.OnCreate(self)
     end,
@@ -19,16 +25,20 @@ SAL0319 = Class(AConstructionUnit) {
            CreateRotator(self, 'Tube00' .. i , 'y', nil, 0, 45, -45)
            CreateRotator(self, 'Tube00' .. i , 'z', nil, 0, 45, -45)
         end 
-
+	     self.ShieldEffectsBag = {}
     end,  
 
     OnShieldEnabled = function(self)
 	
         AConstructionUnit.OnShieldEnabled(self)
-
-		if not self.ShieldEffectsBag[1] then
-		
-			self.ShieldEffectsBag = { CreateAttachedEmitter( self, 0, self:GetArmy(), '/effects/emitters/aeon_shield_generator_t3_03_emit.bp' ):ScaleEmitter(0.25):OffsetEmitter(0,-.8,0) }
+        if self.ShieldEffectsBag then
+            for k, v in self.ShieldEffectsBag do
+                v:Destroy()
+            end
+            self.ShieldEffectsBag = {}
+        end
+        for k, v in self.ShieldEffects do
+            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, self:GetArmy(), v ):ScaleEmitter(0.25):OffsetEmitter(0,-.8,0) )
 			
 		end
 		
@@ -38,11 +48,12 @@ SAL0319 = Class(AConstructionUnit) {
 	
         AConstructionUnit.OnShieldDisabled(self)
 		
-        if self.ShieldEffectsBag[1] then
+        if self.ShieldEffectsBag then
 		
-            self.ShieldEffectsBag[1]:Destroy()
-			
-            self.ShieldEffectsBag = nil
+            for k, v in self.ShieldEffectsBag do
+                v:Destroy()
+            end
+            self.ShieldEffectsBag = {}
 			
         end
 		

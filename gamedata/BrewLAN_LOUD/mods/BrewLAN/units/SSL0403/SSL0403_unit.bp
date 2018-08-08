@@ -172,6 +172,26 @@ UnitBlueprint {
                     },
                 },
             },
+            LandSeabed = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust_Ring',
+                            'Exhaust_Neck_001',
+                            'Exhaust_Neck_002',
+                            'Weapon',
+                            'Kickup001',
+                            'Kickup002',
+                            'Footfall_001',
+                            'Footfall_002',
+                            'Footfall_003',
+                            'Footfall_004',
+                        },
+                        Scale = 2,
+                        Type = 'Surface01',
+                    },
+                },
+            },
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -391,7 +411,12 @@ UnitBlueprint {
 		
         MaxBuildDistance = 20,
         NeedToFaceTargetToBuild = true,
+        SacrificeEnergyMult = 0.95,
+        SacrificeMassMult = 0.95,
         StorageMass = 1000,
+        TeleportEnergyMod = 0.15,
+        TeleportMassMod = 1,
+        TeleportTimeMod = 0.01,
     },
 	
     Footprint = {
@@ -505,9 +530,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.8*2,
     SelectionThickness = 0.34,
 	
-    SizeX = 6,
-    SizeY = 4,
-    SizeZ = 6,
+    SizeX = 5.5,
+    SizeY = 3.5,
+    SizeZ = 7,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 45,
@@ -580,7 +605,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			
+            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -629,7 +655,9 @@ UnitBlueprint {
             TurretYawSpeed = 90,
 			
             Turreted = true,
-        },
+            WeaponCategory = 'Direct Fire',
+            WeaponUnpacks = false,
+        },--[[
 		
 		-- this is essentially a melee weapon so we dont' include it in the surface threat
 		
@@ -718,7 +746,7 @@ UnitBlueprint {
             WeaponCategory = 'Direct Fire Experimental',
             WeaponRepackTimeout = 0,
             WeaponUnpacks = false,
-        },
+        },]]
         {
             Damage = 1500,
             DamageFriendly = true,

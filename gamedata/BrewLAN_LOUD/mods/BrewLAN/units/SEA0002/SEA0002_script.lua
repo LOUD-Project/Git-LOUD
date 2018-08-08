@@ -22,9 +22,6 @@ SEA0002 = Class(TAirUnit) {
         ChangeState( self, self.OpenState )
     end,
 
-    SetupIntel = function(self)
-        return false --OpenState.Main calls parent TAirUnit.SetupIntel(self)
-    end,
 
     OnScriptBitClear = function(self, bit)
         if bit == 3 and not self.IntelDisables then
@@ -45,7 +42,6 @@ SEA0002 = Class(TAirUnit) {
             end
             self.OpenAnim:PlayAnim( '/units/XEA0002/xea0002_aopen02.sca' )
             WaitFor( self.OpenAnim )
-            TAirUnit.SetupIntel(self)--self:SetupIntel()
             self:CreateVisEntity()
             self:SetScriptBit('RULEUTC_IntelToggle', false)
         end,

@@ -104,7 +104,7 @@ UnitBlueprint {
             },
         },
 		
-        UniformScale = 0.0275*3.5,
+        UniformScale = 0.06,
     },
 	
     Economy = {
@@ -118,8 +118,8 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 3,
+        SizeZ = 3,
     },
 	
     General = {
@@ -175,9 +175,9 @@ UnitBlueprint {
 		
         MaxSteerForce = 0,
 		
-        MeshExtentsX = 5,
+        MeshExtentsX = 3,
         MeshExtentsY = 2,
-        MeshExtentsZ = 5,
+        MeshExtentsZ = 3,
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
@@ -185,19 +185,19 @@ UnitBlueprint {
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
 		
-        SkirtSizeX = 6,
-        SkirtSizeZ = 6,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
 		
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 4.25,
-    SelectionSizeZ = 4,
+    SelectionSizeX = 2.25,
+    SelectionSizeZ = 2.25,
     SelectionThickness = 0.24,
 	
-    SizeX = 5,
-    SizeY = 2,
-    SizeZ = 5,
+    SizeX = 3,
+    SizeY = 1.6,
+    SizeZ = 3,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 175,
@@ -224,9 +224,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
 
             CameraShakeDuration = 0.1,
-            CameraShakeMax = 3,
+            CameraShakeMax = 2.2,
             CameraShakeMin = 0,
-            CameraShakeRadius = 2,
+            CameraShakeRadius = 1,
 
             CollideFriendly = false,
 			

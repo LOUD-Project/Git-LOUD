@@ -113,7 +113,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.04,
+        UniformScale = 0.036,
     },
 	
     Economy = {
@@ -176,14 +176,14 @@ UnitBlueprint {
 		
         MaxAcceleration = 0.7,
         MaxBrake = 0.7,
-        MaxSpeed = 2.1,
+        MaxSpeed = 2.5,
         MaxSpeedReverse = 0.8,
 		
         MaxSteerForce = 5,
 		
-        MeshExtentsX = 0.95,
-        MeshExtentsY = 0.95,
-        MeshExtentsZ = 1.75,
+        MeshExtentsX = 0.85,
+        MeshExtentsY = 0.85,
+        MeshExtentsZ = 1.55,
 		
         MinSpeedPercent = 0,
 		
@@ -199,9 +199,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.4,
 	
-    SizeX = 1,
-    SizeY = 0.8,
-    SizeZ = 2,
+    SizeX = 0.9,
+    SizeY = 0.75,
+    SizeZ = 1.75,
 	
     StrategicIconName = 'icon_land3_antimissile',
     StrategicIconSortPriority = 195,
@@ -294,7 +294,9 @@ UnitBlueprint {
             WeaponUnpackAnimationRate = 1.5,
             WeaponUnpacks = true,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

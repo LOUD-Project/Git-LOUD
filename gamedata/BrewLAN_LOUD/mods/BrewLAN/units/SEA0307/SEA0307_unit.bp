@@ -45,6 +45,11 @@ UnitBlueprint {
             Cue = 'Expl_Water_Lrg_01',
             LodCutoff = 'UnitMove_LodCutoff',
         },
+        AmbientMove = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0204_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
         Destroyed = Sound {
             Bank = 'UEADestroy',
             Cue = 'UEA_Destroy_Med',
@@ -384,7 +389,7 @@ UnitBlueprint {
 			FiringRandomness = 0.5,
             FiringTolerance = 0.3,
 			
-            Label = 'LinkedRailGun1',
+            Label = 'LinkedRailGun',
 			LeadTarget = true,
 			
             MaxRadius = 32,
@@ -466,7 +471,7 @@ UnitBlueprint {
 			FiringRandomness = 0.5,
             FiringTolerance = 0.3,
 			
-            Label = 'LinkedRailGun2',
+            Label = 'LinkedRailGun',
 			
             MaxRadius = 35,
 			
@@ -531,6 +536,20 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'DeathImpact',
             WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
         },
     },
 }

@@ -117,8 +117,9 @@ UnitBlueprint {
         'MOBILE',
         'AIR',
         'EXPERIMENTAL',
-        'ANTIAIR',
+        'GROUNDATTACK',
         'NEEDMOBILEBUILD',
+        'ANTIAIR',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
@@ -369,7 +370,7 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 45,
 
-            Label = 'HeadAAGun',			
+            Label = 'AAGun',			
             LeadTarget = 'true',
 			
             MaxRadius = 64,
@@ -492,7 +493,7 @@ UnitBlueprint {
             FiringRandomness = 0.4,
             FiringTolerance = 2,
 			
-            Label = 'RearAAGun',			
+            Label = 'AAGun',			
 			
             LeadTarget = 'true',
 			

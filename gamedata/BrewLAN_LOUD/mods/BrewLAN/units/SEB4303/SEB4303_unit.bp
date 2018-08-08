@@ -33,6 +33,7 @@ UnitBlueprint {
         'DEFENSE',
         'TECH3',
         'SHIELD',
+		'ANTIARTILLERY',
         'DRAGBUILD',
         'SIZE12',
         'VISIBLETORECON',
@@ -45,7 +46,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 309,
+        EconomyThreatLevel = 450,
         Health = 1250,
         MaxHealth = 1250,
         RegenRate = 0,
@@ -65,9 +66,7 @@ UnitBlueprint {
             ShieldSize = 70,
             ShieldVerticalOffset = 0,
         },
-		
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+
     },
 	
     Description = '<LOC deb4303_desc>Artillery Defense Grid',
@@ -165,7 +164,7 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
-            RULEUTC_ShieldToggle = false,
+            RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC seb4303_name>Recoil',
         UnitWeight = 1,
