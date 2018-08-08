@@ -65,7 +65,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 85,
+        EconomyThreatLevel = 250,
         Health = 2800,
         MaxHealth = 2800,
         RegenRate = 3,
@@ -84,21 +84,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = false,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    MeshName = '/units/url0111/url0111_lod1.scm',
-                    AlbedoName = '/units/url0111/url0111_lod1_albedo.dds',
-                    NormalsName = '/units/url0111/url0111_lod1_normalsTS.dds',
-                    SpecularName = '/units/url0111/url0111_lod1_specteam.dds',
-                },
+                {LODCutoff = 100, ShaderName = 'Aeon'},
+                {LODCutoff = 300, ShaderName = 'Aeon'},
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -118,10 +108,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 50000,
-        BuildCostMass = 3600,
+        BuildCostEnergy = 45000,
+        BuildCostMass = 3000,
         BuildRate = 1,
-        BuildTime = 1800,
+        BuildTime = 1500,
     },
 	
     General = {
@@ -174,15 +164,16 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
+		
         MaxAcceleration = 0.8,
         MaxBrake = 0.8,
-        MaxSpeed = 0.8,
-        MaxSpeedReverse = 0.6,
+        MaxSpeed = 1.6,
+        MaxSpeedReverse = 0.8,
+		
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
---        RotateOnSpot = true,
---        RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 0,
         TurnRate = 60,
     },
@@ -223,8 +214,6 @@ UnitBlueprint {
 			
             DisplayName = 'EMP Anti Nuke',
 			
-            EffectiveRadius = 75,
-			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
@@ -237,16 +226,17 @@ UnitBlueprint {
 			
             Label = 'MissileRack',
 			
-            MaxProjectileStorage = 1,
+            MaxProjectileStorage = 2,
 			
-            MaxRadius = 90,
+            MaxRadius = 75,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 10,
+			
             RackBones = {
                 {
                     HideMuzzle = true,
@@ -257,7 +247,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -266,13 +256,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 2,
+            RateOfFire = 0.5,
 			
-            TargetCheckInterval = 0.2,
+            TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.5,
 			
             Turreted = false,
 
@@ -282,6 +272,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

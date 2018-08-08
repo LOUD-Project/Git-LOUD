@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'AttackTarget001',
@@ -7,6 +8,7 @@ UnitBlueprint {
             'AttackTarget004',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -24,9 +26,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'BUILTBYHEAVYWALL',
         'SELECTABLE',
         'CYBRAN',
@@ -40,16 +43,16 @@ UnitBlueprint {
         'SORTDEFENSE',
         'HEAVYWALL',
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 40000,
         MaxHealth = 40000,
-        RegenRate = 0,
+        RegenRate = 1,
     },
+	
     Description = '<LOC srb5310_desc>Armored Wall Segment',
+	
     Display = {
         AdjacencyConnection = 'HEAVYWALL',
         AdjacencyConnectionInfo = {
@@ -156,8 +159,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_albedo.dds',
@@ -177,28 +181,27 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 500,
-        BuildCostMass = 250,
+        BuildCostEnergy = 2250,
+        BuildCostMass = 3800,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'sab5310',
-            'seb5310',
-            'srb5310',
-            'ssb5310',
-        },
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
                 0,
             },
         },
-        CapCost = 0,
+		
+        CapCost = 1,
+		
         Category = 'Defense',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -223,15 +226,19 @@ UnitBlueprint {
         UnitName = '<LOC srb5310_name>Procyon Defiance',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
         HelpText = '<LOC srb5310_desc>Armored Wall Segment',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
     LifeBarSize = 0.075,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -256,14 +263,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.31,
+	
     SizeX = 3,
     SizeY = 3,
     SizeZ = 3,
+	
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 207,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -34,7 +34,6 @@ UnitBlueprint {
         'SELECTABLE',
         'CYBRAN',
         'STRUCTURE',    
-        'DEFENSE',      
         'WALL',
         'DRAGBUILD',
         'BENIGN',
@@ -44,19 +43,15 @@ UnitBlueprint {
         'SORTDEFENSE',
         'MEDIUMWALL',
     },
-	
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
-	
+
     Defense = {
         ArmorType = 'Structure',
         Health = 20000,
         MaxHealth = 20000,
-        RegenRate = 0,
+        RegenRate = 1,
     },
 	
-    Description = '<LOC sbui5210>Medium Wall Segment', 
+    Description = 'Medium Wall Segment', 
 	
     Display = {      
         AdjacencyConnection = 'MEDIUMWALL',
@@ -149,15 +144,16 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,   
         UniformScale = 0.05*.66666666666666666,
     },
 	
     Economy = {
         BuildCostEnergy = 1000,
-        BuildCostMass = 200,
+        BuildCostMass = 300,
         BuildTime = 15,
+		
         RebuildBonusIds = {
             'sab5210',
             'seb5210',
@@ -237,7 +233,7 @@ UnitBlueprint {
 	
     SelectionSizeX = .8,
     SelectionSizeZ = .8,
-    SelectionThickness = 0.8,
+    SelectionThickness = 0.3,
 	
     SizeX = 2,
     SizeY = 2,

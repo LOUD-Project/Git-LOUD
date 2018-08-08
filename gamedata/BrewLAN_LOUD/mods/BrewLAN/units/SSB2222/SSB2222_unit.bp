@@ -4,12 +4,8 @@ UnitBlueprint {
         GuardScanRadius = 40,
         StagingPlatformScanRadius = 40,
     },
+	
     Audio = {
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB5101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Killed = Sound {
             Bank = 'XSL_Destroy',
             Cue = 'XSB_Destroy_Lrg_PreDestroy',
@@ -20,46 +16,37 @@ UnitBlueprint {
             Cue = 'Seraphim_Select_Structure',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        NukeExplosion = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB2305_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
-        'OVERLAYRADAR',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYMISC',
-        'INTELLIGENCE',
-        'COUNTERINTELLIGENCE',
         'SERAPHIM',
         'STRUCTURE',
-        'DEFENSE',
         'TECH3',
         'NUKE',
         'MINE',
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 5,
+        EconomyThreatLevel = 500,
         Health = 250,
         MaxHealth = 250,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 7000,
+        RegenRate = 0.1,
+        SurfaceThreatLevel = 1000,
     },
+	
     Description = '<LOC sbui2222>Nuke Mine',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_cloak>Cloaking',
@@ -69,6 +56,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
             '<LOC ability_deathaoe>Volatile',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -92,29 +80,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     DoNotCollideList = {
         'ALLUNITS',
     },
+	
     Economy = {
         BuildCostEnergy = 135000*3,
         BuildCostMass = 1200*1.5,
         BuildTime = 600*2,
-        RebuildBonusIds = {
-            'ssb2220',
-            'ssb2221',
-            'ssb2222',
-        },
     },
+	
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
+	
     General = {
-        CapCost = 0.1,
+        CapCost = 2.5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -150,6 +137,7 @@ UnitBlueprint {
         UnitName = '<LOC ssb2222_name>Inaino',
         UnitWeight = 1,
     },
+	
     Intel = {
         Cloak = true,
         RadarStealth = true,
@@ -158,12 +146,15 @@ UnitBlueprint {
         RadarRadius = 29,
         SonarRadius = 29,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2222>Nuke Mine',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.10,
     LifeBarSize = 0.6,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -189,15 +180,18 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 1,
+	
     SizeX = .5,
     SizeY = 0.2,
     SizeZ = .5,
-    #StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
+	
     StrategicIconName = 'icon_structure3_bomb',
     StrategicIconSortPriority = 210,
+	
     Weapon = {
         {
             CollideFriendly = false,
@@ -217,8 +211,8 @@ UnitBlueprint {
             ManualFire = 1,
             MaxRadius = 30,
 
-            NukeInnerRingDamage = 70000,
-            NukeInnerRingRadius = 30,
+            NukeInnerRingDamage = 50000,
+            NukeInnerRingRadius = 25,
             NukeInnerRingTicks = 24,
             NukeInnerRingTotalTime = 0,
 
@@ -272,19 +266,5 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.1,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
+
 }

@@ -25,13 +25,8 @@ UnitBlueprint {
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
         'OVERLAYRADAR',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYMISC',
-        'INTELLIGENCE',
-        'COUNTERINTELLIGENCE',
         'AEON',
         'STRUCTURE',
-        'DEFENSE',
         'TECH3',
         'NUKE',
         'MINE',
@@ -42,11 +37,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 5,
+        EconomyThreatLevel = 500,
         Health = 250,
         MaxHealth = 250,
-        RegenRate = 0,
-        SurfaceThreatLevel = 7000,
+        RegenRate = 0.1,
+        SurfaceThreatLevel = 1000,
     },
 	
     Description = '<LOC sbui2222>Nuke Mine',
@@ -106,7 +101,7 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = 0.5,
+        CapCost = 2.5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -222,8 +217,8 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 
-            NukeInnerRingDamage = 70000,
-            NukeInnerRingRadius = 30,
+            NukeInnerRingDamage = 50000,
+            NukeInnerRingRadius = 25,
             NukeInnerRingTicks = 24,
             NukeInnerRingTotalTime = 0,
 

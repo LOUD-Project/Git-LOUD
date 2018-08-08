@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'AttackTarget001',
@@ -7,6 +8,7 @@ UnitBlueprint {
             'AttackTarget004',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -24,9 +26,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 151,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'BUILTBYTIER3FIELD',
         'SELECTABLE',
         'CYBRAN',
@@ -43,16 +46,16 @@ UnitBlueprint {
         'HEAVYGATEOPEN',
         'WALL',
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+
     Defense = {
         ArmorType = 'Structure',
         Health = 40000,
         MaxHealth = 40000,
-        RegenRate = 0,
+        RegenRate = 1,
     },
+	
     Description = '<LOC srb5311_desc>Armored Gate Segment',
+	
     Display = {
         AdjacencyConnection = 'HEAVYWALLGATE',
         AdjacencyConnectionInfo = {
@@ -136,8 +139,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_albedo.dds',
@@ -157,23 +161,22 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 750,
-        BuildCostMass = 250,
+        BuildCostEnergy = 2250,
+        BuildCostMass = 3800,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'sab5311',
-            'seb5311',
-            'srb5311',
-            'ssb5311',
-        },
+		
+        RebuildBonusIds = {'seb5311'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
-        CapCost = 0,
+        CapCost = 1,
         Category = 'Defense',
         Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
@@ -212,15 +215,19 @@ UnitBlueprint {
         UnitName = '<LOC srb5311_name>Procyon Offering',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
         HelpText = '<LOC srb5311_desc>Armored Gate Segment',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
     LifeBarSize = 0.075,
+	
     Physics = {
         AltitudeToTerrain = {
             'North',
@@ -252,14 +259,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.31,
+	
     SizeX = 3,
     SizeY = 3,
     SizeZ = 3,
+	
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 207,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

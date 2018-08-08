@@ -48,9 +48,9 @@ SAB0401 = Class(AAirFactoryUnit) {
 		
         AAirFactoryUnit.OnStopBeingBuilt(self, builder, layer)
 		
-        self:ForkThread(self.PlatformRaisingThread)
-		
-        AIStartOrders(self)
+		self:ForkThread(self.PlatformRaisingThread)		
+
+        --AIStartOrders(self)
     end,
 
     OnLayerChange = function(self, new, old)
@@ -61,6 +61,8 @@ SAB0401 = Class(AAirFactoryUnit) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
+		
+        
 	
         AICheats(self, Buff)
 		
@@ -72,10 +74,11 @@ SAB0401 = Class(AAirFactoryUnit) {
     OnStopBuild = function(self, unitBeingBuilt)
 	
         AAirFactoryUnit.OnStopBuild(self, unitBeingBuilt)
-		
-        AIControl(self, unitBeingBuilt)
+	
+        --AIControl(self, unitBeingBuilt)
 		
         BuildModeChange(self)
+
     end,
 --------------------------------------------------------------------------------
 -- Button controls
@@ -117,17 +120,17 @@ SAB0401 = Class(AAirFactoryUnit) {
     --end,
 
     PlatformRaisingThread = function(self)
-        --CreateSlider(unit, bone, [goal_x, goal_y, goal_z, [speed,
-        --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
-		
+
         local pSlider = CreateSlider(self, 'Platform', 0, 0, 0, 10)
-		
-        --local bRotator = CreateRotator(self, 'Builder_Node', 'y', 0, 1000, 100, 1000)
-		
+
         local nSliders = {}
 		
         for i = 1, 8 do
-            nSliders[i] = CreateSlider(self, 'Builder_00' .. i, 0, 0, 0, 50)
+		
+			nSliders[i] = CreateSlider(self, 'Builder_00' .. i, 0, 0, 0, 50)
+			
+			self.Trash:Add(nSliders[i])
+			
         end
 		
         local pMaxHeight = 32
@@ -175,25 +178,31 @@ SAB0401 = Class(AAirFactoryUnit) {
                     end
 					
                 end
-				
+
             else
 			
-                WaitTicks(3) -- If there is something building after 3 ticks, then assume inf build and stay up.
+				WaitTicks(1) -- If there is something building after 3 ticks, then assume inf build and stay up.
 				
-                if (buildState == 'active' or buildState == 'repeat') and self:GetFocusUnit() then
+                --if (buildState == 'active' or buildState == 'repeat') and self:GetFocusUnit() then
 				
-                    buildState = 'repeat'
+                   -- buildState = 'repeat'
+					--pSliderPos = 0
 					
-                else
+                --else
 				
                     buildState = 'start'
                     pSliderPos = 0
 					
-                end
+                --end
 				
+				pSlider:Destroy()
+				
+				pSlider = CreateSlider(self, 'Platform', 0, 0, 0, 10)
+
             end
+
+            pSlider:SetGoal( 0, pSliderPos, 0 )
 			
-            pSlider:SetGoal(0,pSliderPos,0)
             WaitTicks(1)
 			
         end

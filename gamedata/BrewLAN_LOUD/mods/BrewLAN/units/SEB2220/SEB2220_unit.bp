@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,9 +17,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER1FIELD',
         'BUILTBYTIER2FIELD',
@@ -26,34 +28,27 @@ UnitBlueprint {
         'BUILTBYTIER1TEAD',
         'BUILTBYTIER2TEAD',
         'BUILTBYTIER3TEAD',
-        'OVERLAYOMNI',
-        'OVERLAYDIRECTFIRE',
-        'INTELLIGENCE',
-        'COUNTERINTELLIGENCE',
         'UEF',
         'STRUCTURE',
-        'DEFENSE',
         'TECH1',
         'MINE',
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
     },
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
         Health = 20,
         MaxHealth = 20,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 90,
+        RegenRate = 0.1,
+        SurfaceThreatLevel = 30,
     },
+	
     Description = '<LOC sbui2220>Pressure Mine',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_cloak>Cloaking',
@@ -61,41 +56,38 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 50,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 130,
-                    ShaderName = 'Unit',
-                    MeshName = '/mods/BrewLAN/units/seb2221/seb2221_lod1.scm',
-                    AlbedoName = '/mods/BrewLAN/units/seb2221/seb2221_lod1_albedo.dds',
-                    NormalsName = '/mods/BrewLAN/units/seb2221/seb2221_lod1_normalsTS.dds',
-                    SpecularName = '/mods/BrewLAN/units/seb2221/seb2221_lod1_specteam.dds',
-                },
+                {LODCutoff = 50, ShaderName = 'Aeon'},
+                {LODCutoff = 100, ShaderName = 'Aeon'},
+                {LODCutoff = 200, ShaderName = 'Aeon'},
+                {LODCutoff = 400, ShaderName = 'Aeon'},
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.02,
     },
+	
     DoNotCollideList = {
         'ALLUNITS',
     },
+	
     Economy = {
-        BuildCostEnergy = 1800*.2,
-        BuildCostMass = 100*.2,
-        BuildTime = 50*.2,
+        BuildCostEnergy = 2500,
+        BuildCostMass = 150,
+        BuildTime = 10,
     },
+	
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
+	
     General = {
-        CapCost = 0.025,
+        CapCost = 0.2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -129,6 +121,7 @@ UnitBlueprint {
         UnitName = '<LOC seb2220_name>AM-12 Trap',
         UnitWeight = 1,
     },
+	
     Intel = {
         Cloak = true,
         RadarStealth = true,
@@ -136,12 +129,15 @@ UnitBlueprint {
         VisionRadius = 0,
         OmniRadius = 1,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2220>Pressure Mine',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.10,
     LifeBarSize = 0.4,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -166,22 +162,29 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.4*.666,
     SelectionSizeZ = 0.4*.666,
     SelectionThickness = 1*.666,
-    SizeX = .5*.666,
-    SizeY = 0.2*.666,
-    SizeZ = .5*.666,
+	
+    SizeX = .35,
+    SizeY = 0.15,
+    SizeZ = .35,
+	
     StrategicIconName = 'icon_structure1_bomb',
     StrategicIconSortPriority = 210,
+	
     Weapon = {
         {
             CollideFriendly = false,
+			
             Damage = 900,
             DamageFriendly = true,
             DamageRadius = 1,
             DamageType = 'Normal',
+			
             DisplayName = 'Suicide',
+			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
@@ -190,31 +193,19 @@ UnitBlueprint {
             },
             FiringTolerance = 360,
             FireOnSelfDestruct = true,
+			
             Label = 'Suicide',
+			
             MaxRadius = 1,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
-            WeaponCategory = 'Kamikaze',
-        },
-    },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.1,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -32,6 +32,13 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
 	
     BuildIconSortPriority = 141,
@@ -49,7 +56,7 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYOMNI',
+		'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
 	
@@ -73,17 +80,40 @@ UnitBlueprint {
 			'Capable against low-altitude air units',
 			'High Damage but slow rate of fire',
         },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/brewlan/units/sab2306/sab2306_ADeath01.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 1.4,
+                Weight = 100,
+            },
+        },		
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 215,
+                    LODCutoff = 80,
+                    ShaderName = 'Aeon',
+                    AlbedoName = '/units/ual0401/ual0401_albedo.dds',
+                    NormalsName = '/units/ual0401/ual0401_normalsts.dds',
+                    SpecularName = '/units/ual0401/ual0401_specteam.dds',
+                },
+                {
+                    LODCutoff = 160,
+                    ShaderName = 'Aeon',
+                    AlbedoName = '/units/ual0401/ual0401_albedo.dds',
+                    NormalsName = '/units/ual0401/ual0401_normalsts.dds',
+                    SpecularName = '/units/ual0401/ual0401_specteam.dds',
+                },
+                {
+                    LODCutoff = 320,
                     Scrolling = true,
                     ShaderName = 'Aeon',
-					AlbedoName = '/units/ual0401/ual0401_albedo.dds',
-					NormalsName = '/units/ual0401/ual0401_normalsts.dds',
-					SpecularName = '/units/ual0401/ual0401_specteam.dds',
+                    AlbedoName = '/units/ual0401/ual0401_lod1_albedo.dds',
+                    NormalsName = '/units/ual0401/ual0401_lod1_normalsts.dds',
+                    SpecularName = '/units/ual0401/ual0401_lod1_specteam.dds',
                 },
             },
         },

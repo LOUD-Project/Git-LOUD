@@ -190,7 +190,7 @@ UnitBlueprint {
 		
         MaxAcceleration = 1.2,
         MaxBrake = 1.8,
-        MaxSpeed = 3.5,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
 		
         MaxSteerForce = 1000,
@@ -274,7 +274,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 100,
+            Damage = 90,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',

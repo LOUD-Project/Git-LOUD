@@ -70,10 +70,9 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 220,
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4ENGINEER',
+        'BUILTBYTIER4COMMANDER',
         'SERAPHIM',
         'STRUCTURE',
         'EXPERIMENTAL',

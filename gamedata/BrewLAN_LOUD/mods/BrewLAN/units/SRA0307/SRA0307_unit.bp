@@ -8,40 +8,45 @@ UnitBlueprint {
             'Wing_L02',
         },
     },
+	
     Air = {
         AutoLandTime = 1,
-        BankFactor = 2.5,
+        BankFactor = 3,
         BankForward = false,
-        BreakOffDistance = 34,
+        BreakOffDistance = 40,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 15,
         CanFly = true,
         CombatTurnSpeed = 0.8,
-        EngageDistance = 75,
+        EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
+		
         KMove = 1,
         KMoveDamping = 2,
+		
         KRoll = 2,
-        KRollDamping = 2,
+        KRollDamping = 4,
+		
         KTurn = 1,
         KTurnDamping = 1,
+		
         LiftFactor = 7,
-        MaxAirspeed = 20,
+		
+        MaxAirspeed = 17,
         MinAirspeed = 13,
+		
         StartTurnDistance = 5,
         TurnSpeed = 0.8,
+		
         Winged = true,
     },
+	
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
             Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Loop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
@@ -54,29 +59,9 @@ UnitBlueprint {
             Cue = 'URA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Landing = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'URA',
             Cue = 'URA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Thruster',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -85,18 +70,20 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
+	
     BuildIconSortPriority = 45,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'CYBRAN',
@@ -105,24 +92,23 @@ UnitBlueprint {
         'HIGHALTAIR',
         'TECH3',
         'ANTINAVY',
-        'BOMBER',
+        'TORPEDOBOMBER',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYSONAR',
     },
+	
     CollisionOffsetY = -0.2,
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Light',
-        EconomyThreatLevel = 0,
-        Health = 3500,
-        MaxHealth = 3500,
-        RegenRate = 0,
+        Health = 3250,
+        MaxHealth = 3250,
+        RegenRate = 10,
         SubThreatLevel = 38,
-        SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC ura0204_desc>Torpedo Bomber',
-#    Description = '<LOC sair0307>Heavy Torpedo Bomber',
+
     Display = {
         Abilities = {
             '<LOC ability_personalstealth>Personal Stealth',
@@ -192,24 +178,27 @@ UnitBlueprint {
                 },
                 Cruise = true,
                 Idle = true,
-                #Landed = true,
             },
         },
-        PlaceholderMeshName = 'UXA0008',
+
         SpawnRandomRotation = true,
-        UniformScale = 0.038,
+        UniformScale = 0.034,
     },
+	
     Economy = {
-        BuildCostEnergy = 55000,
+        BuildCostEnergy = 72000,
         BuildCostMass = 1650,
-        BuildTime = 6600,
+        BuildTime = 1000,
+		
         MaintenanceConsumptionPerSecondEnergy = 30,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Bomber',
         Classification = 'RULEUC_MilitaryAircraft',
@@ -243,20 +232,25 @@ UnitBlueprint {
         UnitName = '<LOC sra0307_name>Zenith',
         UnitWeight = 1,
     },
+	
     Intel = {
+		FreeIntel = true,
         RadarStealth = true,
-        SonarRadius = 90,
+        SonarRadius = 75,
         VisionRadius = 32,
+		WaterVisionRadius = 12,
     },
+	
     Interface = {
-	HelpText = '<LOC ura0204_help>Torpedo Bomber',
-#        HelpText = '<LOC sair0307>Torpedo Bomber',
+		HelpText = '<LOC ura0204_help>Torpedo Bomber',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.85,
     LifeBarSize = 2,
+	
     Physics = {
-        AttackElevation = 4,
+        AttackElevation = 3,
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Land = false,
@@ -265,26 +259,32 @@ UnitBlueprint {
             LAYER_Sub = true,
             LAYER_Water = false,
         },
-        Elevation = 25,
-        FuelRechargeRate = 15,
-        FuelUseTime = 1200,
+        Elevation = 20,
+        FuelRechargeRate = 25,
+        FuelUseTime = 750,
         GroundCollisionOffset = 2,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.2,
-    SelectionThickness = 0.43,
-    SizeSphere = 2,
-    SizeX = 2,
-    SizeY = 0.5,
-    SizeZ = 1.5,
+    SelectionThickness = 0.4,
+	
+    SizeSphere = 1.7,
+	
+    SizeX = 1.8,
+    SizeY = 0.45,
+    SizeZ = 1.3,
+	
     StrategicIconName = 'icon_bomber3_antinavy',
     StrategicIconSortPriority = 65,
+	
     Transport = {
         AirClass = true,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -292,6 +292,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -304,28 +305,38 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 75,
+			
+            Damage = 150,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Nanite Torpedo',
-            DoTPulses = 5,
-            DoTTime = 1,
+			
+            DoTPulses = 5,	-- 170 * 5 = 850 damage
+            DoTTime = 2,	-- over 2 seconds
+			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
                 Land = 'Seabed|Sub|Water',
             },
             FiringRandomness = 3,
             FiringTolerance = 2,
+			
             HeadingArcCenter = 0,
-            HeadingArcRange = 30,
+            HeadingArcRange = 40,
+			
             Label = 'Bomb',
-            MaxRadius = 42,
-            MinRadius = 4,
+			
+            MaxRadius = 34,
+            MinRadius = 8,
+			
             MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 10,
-            MuzzleVelocity = 14,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 6,
+			
             ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 10,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -336,25 +347,24 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+			
             RackReloadTimeout = 7,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 2,
+            RackSalvoSize = 1,
+			
             RackSlavedToTurret = false,
-            RateOfFire = 0.08,
-            TargetCheckInterval = 2.5,
+			
+            RateOfFire = 0.1,	-- 850 * 4 = 3400/10 = 340 DPS Sub
+			
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
-            Turreted = false,
-            WeaponCategory = 'Anti Navy',
         },
         {
             Damage = 150,

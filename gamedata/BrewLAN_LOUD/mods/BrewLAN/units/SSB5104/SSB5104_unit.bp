@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 200,
         RefuelingMultiplier = 33,
@@ -8,6 +9,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 200,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -19,25 +21,16 @@ UnitBlueprint {
             Cue = 'XSB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB5202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'SeraphimSelect',
             Cue = 'Seraphim_Select_Structure',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
@@ -56,21 +49,22 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1,
+        EconomyThreatLevel = 5,
         Health = 200,
         MaxHealth = 200,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 0.2,
     },
+	
     Description = '<LOC sbuisera5104>Air Staging Beacon',
+	
     Display = {
         Abilities = {
             '<LOC ability_airstaging>Air Staging',
         },
+		
         AnimationDeath = {
             {
                 Animation = '/mods/brewlan/units/ssb5104/ssb5104_Adeath.sca',
@@ -79,6 +73,7 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -97,7 +92,9 @@ UnitBlueprint {
                 },
             },
         },
+		
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_seraphim_01_albedo',
@@ -117,14 +114,15 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 1050,
         BuildCostMass = 90,
         BuildTime = 175,
-        RebuildBonusIds = {
-            'ssb5104',
-        },
+		
+        RebuildBonusIds = { 'ssb5104' },
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -155,12 +153,15 @@ UnitBlueprint {
         UnitName = '<LOC ssb5104_name>Iathu-uhthe',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = '<LOC sbuisera5104>Air Staging Beacon',
-    },
+	},
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = .45,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -185,14 +186,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = .4,
     SelectionSizeZ = .4,
     SelectionThickness = 1,
+	
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure1_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
@@ -200,6 +205,7 @@ UnitBlueprint {
         RepairRate = 0.1,
         StorageSlots = 0,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

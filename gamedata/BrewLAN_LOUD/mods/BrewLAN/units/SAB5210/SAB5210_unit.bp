@@ -35,7 +35,6 @@ UnitBlueprint {
         'SELECTABLE',
         'AEON',
         'STRUCTURE',
-        'DEFENSE',
         'WALL',
         'DRAGBUILD',
         'BENIGN',
@@ -45,11 +44,7 @@ UnitBlueprint {
         'SORTDEFENSE',
 		'MEDIUMWALL',
     },
-	
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
-	
+
     Defense = {
         ArmorType = 'Structure',
         Health = 20000,
@@ -57,7 +52,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = '<LOC sbui5210>Medium Wall Segment',
+    Description = 'Medium Wall Segment',
 	
     Display = {
         AdjacencyConnection = 'MEDIUMWALL',
@@ -105,6 +100,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         DamageEffects = {
             {
                 Bone = 0,
@@ -119,6 +115,7 @@ UnitBlueprint {
                 OffsetZ = 0.25,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -126,22 +123,30 @@ UnitBlueprint {
                     LODCutoff = 250,
                     ShaderName = 'Aeon',
                     Scrolling = true,
-                    --MeshName = '/mods/BrewLAN/units/srb5312/srb5312_lod0.scm',
+                    AlbedoName = '/units/UAC1301/UAC1301_albedo.dds',
+                    NormalsName = '/units/UAC1301/UAC1301_normalsts.dds',
+                    SpecularName = '/units/UAC1301/UAC1301_specteam.dds',
+                },
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'Aeon',
+                    Scrolling = true,
                     AlbedoName = '/units/UAC1301/UAC1301_albedo.dds',
                     NormalsName = '/units/UAC1301/UAC1301_normalsts.dds',
                     SpecularName = '/units/UAC1301/UAC1301_specteam.dds',
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.0769230769230769230769230,
     },
 	
     Economy = {
         BuildCostEnergy = 1000,
-        BuildCostMass = 200,
+        BuildCostMass = 300,
         BuildTime = 15,
+		
         RebuildBonusIds = {
             'sab5210',
             'seb5210',
@@ -222,7 +227,7 @@ UnitBlueprint {
 	
     SelectionSizeX = .8,
     SelectionSizeZ = .8,
-    SelectionThickness = 0.8,
+    SelectionThickness = 0.3,
 	
     SizeX = 2,
     SizeY = 2,

@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -24,10 +26,18 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
-    BuildIconSortPriority = 110,
+	
+    BuildIconSortPriority = 109,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
@@ -43,18 +53,19 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 93,
         Health = 7000,
         MaxHealth = 7000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 23,
+        RegenRate = 3,
+        SurfaceThreatLevel = 37,
     },
+	
     Description = '<LOC xeb2306_desc>Heavy Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -75,39 +86,25 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 6.4,
-                Normal = 'Tarmacs/Tar6x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 6.4,
-            },
-        },
-        UniformScale = 0.06,
+
+        UniformScale = 0.08,
     },
+	
     Economy = {
-        BuildCostEnergy = 16000,
+        BuildCostEnergy = 18500,
         BuildCostMass = 1800,
-        BuildTime = 1500,
-        RebuildBonusIds = {
-            'srb2306',
-        },
+        BuildTime = 1800,
+		
+        RebuildBonusIds = {'srb2306'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -130,19 +127,21 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC srb2306_name>Hades',
-#        UpgradesFrom = 'urb2301',
-#        UpgradesFromBase = 'urb2301',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 24,
+        VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = '<LOC xeb2306_help>Heavy Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1.1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -158,27 +157,34 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
+		
         TurnRate = 0,
     },
-    SelectionSizeX = 0.75,
-    SelectionSizeZ = 0.75,
-    SelectionThickness = 0.5,
-    SizeX = 0.5,
-    SizeY = 1.8,
-    SizeZ = 0.7,
+	
+    SelectionSizeX = 0.8,
+    SelectionSizeZ = 0.8,
+    SelectionThickness = 0.4,
+	
+    SizeX = 0.69,
+    SizeY = 2.0,
+    SizeZ = 0.95,
+	
     StrategicIconName = 'icon_structure3_directfire',
-    StrategicIconSortPriority = 200,
+    StrategicIconSortPriority = 205,
+	
     Veteran = {
-        Level1 = 24,
-        Level2 = 48,
-        Level3 = 72,
-        Level4 = 96,
-        Level5 = 120,
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -205,28 +211,39 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0.1,
-            BeamLifetime = 0,
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
             CollideFriendly = false,
             ContinuousBeam = true,
-            Damage = 65,
+			
+            Damage = 75,
+			
             DamageFriendly = false,
             DamageType = 'Normal',
+			
             DisplayName = 'Microwave Laser',
+			
             EnergyCumulativeUpkeepCost = 10,
-            EnergyConsumptionPerSecondMin = 10,
-            EnergyConsumptionPerSecondMax = 1000,
+            EnergyConsumptionPerSecondMin = 100,
+            EnergyConsumptionPerSecondMax = 600,
             EnergyDissipationPerSecond = 30,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringRandomness = 0,
-            FiringTolerance = 2,
+            FiringTolerance = 1,
+			
             Label = 'MainGun',
-            MaxRadius = 70,
+			
+            MaxRadius = 52,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -236,38 +253,44 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 3,
+			
+            RateOfFire = 1,
+			
             ReTargetOnMiss = true,
+			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_B02',
             TurretBoneYaw = 'Turret_B01',
             TurretDualManipulators = false,
-            TurretPitch = 0,
+			
+            TurretPitch = 10,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 38,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 34,
+			
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

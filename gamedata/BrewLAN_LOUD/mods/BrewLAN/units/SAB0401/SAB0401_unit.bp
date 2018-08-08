@@ -13,7 +13,7 @@ UnitBlueprint {
         --This list is populated on game launch
         Experimentals = {
             Requirements = {
-                SkirtSizeX = 18,
+                SkirtSizeX = 19,
             },
             BuildableCategory = 'BUILTBYIENGINE',
             Air = {},
@@ -111,7 +111,7 @@ UnitBlueprint {
         EconomyThreatLevel = 2091,
         Health = 25000,
         MaxHealth = 25000,
-        RegenRate = 3,
+        RegenRate = 12,
     },
 	
     Description = '<LOC sab0401>Experimental Air Factory',

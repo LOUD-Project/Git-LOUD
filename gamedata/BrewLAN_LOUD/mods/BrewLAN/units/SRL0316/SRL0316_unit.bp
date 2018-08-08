@@ -1,10 +1,6 @@
 UnitBlueprint {
+
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0306_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URL_Destroy_Land',
@@ -15,49 +11,48 @@ UnitBlueprint {
             Cue = 'URL0306_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0306_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Cybran_Select_Vehicle',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 60,
+	
+    BuildIconSortPriority = 62,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'CYBRAN',
         'MOBILE',
         'LAND',
+		'AMPHIBIOUS',
+		'SUBMERSIBLE',
         'TECH3',
-        'INTELLIGENCE',
         'COUNTERINTELLIGENCE',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 2,
+        EconomyThreatLevel = 15,
         Health = 700,
         MaxHealth = 700,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 3,
     },
+	
     Description = '<LOC url0306_desc>Mobile Stealth Field System',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_cloak>Cloaking',
             '<LOC ability_stealthfield>Stealth Field',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -80,48 +75,25 @@ UnitBlueprint {
                 },
             },
         },
+--[[		
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-                Treads = {
-                    ScrollTreads = true,
-                    TreadMarks = {
-                        {
-                            BoneName = 0,
-                            TreadMarks = 'tank_treads03_albedo',
-                            TreadMarksInterval = 0.09,
-                            TreadMarksSizeX = 0.5,
-                            TreadMarksSizeZ = 2.5,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -1.5,
-                            },
-                        },
-                    },
-                },
+                Effects = { { Bones = { 0 }, Type = 'GroundKickup01' } },
             },
         },
-        PlaceholderMeshName = 'UXL0008',
+--]]
         SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
+	
     Economy = {
-        BuildCostEnergy = 800 * 5,
-        BuildCostMass = 80 * 5,
-        BuildTime = 400 * 5,
-        MaintenanceConsumptionPerSecondEnergy = 25 * 5,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
+        BuildCostEnergy = 1960,
+        BuildCostMass = 210,
+        BuildTime = 780,
+		
+        MaintenanceConsumptionPerSecondEnergy = 100,
     },
+	
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -142,33 +114,47 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
+		
         OrderOverrides = {
             RULEUTC_StealthToggle = {
                 bitmapId = 'stealth-field',
                 helpText = 'toggle_stealth_field',
             },
         },
+		
         TechLevel = 'RULEUTL_Secret',
+		
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
+		
         UnitName = '<LOC srl0316_name>Operative',
         UnitWeight = 1,
     },
+	
     Intel = {
         Cloak = true,
+		
         RadarStealth = true,
         RadarStealthField = true,
-        RadarStealthFieldRadius = 18*1.5,
-        SonarStealthFieldRadius = 18*1.5,
-        VisionRadius = 16*1.5,
+		SonarStealth = true,
+		SonarStealthField = true,
+		
+        RadarStealthFieldRadius = 28,
+        SonarStealthFieldRadius = 28,
+		
+        VisionRadius = 28,
+		WaterVisionRadius = 12,
     },
+	
     Interface = {
         HelpText = '<LOC url0306_help>Mobile Stealth Field System',
     },
+	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0.25*1.2,
-    LifeBarSize = 0.75*1.2,
+    LifeBarOffset = 0.25,
+    LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -180,9 +166,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 4,
-        MaxBrake = 4,
-        MaxSpeed = 4,
+        MaxAcceleration = 1.7,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -192,29 +178,32 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
-    SelectionSizeX = 0.35*1.2,
-    SelectionSizeZ = 0.45*1.2,
-    SelectionThickness = 0.83*1.2,
-    SizeX = 0.6*1.2,
-    SizeY = 0.2*1.2,
-    SizeZ = 0.7*1.2,
+
+    SelectionSizeX = 0.38,
+    SelectionSizeZ = 0.49,
+    SelectionThickness = 0.91,
+	
+    SizeX = 0.66,
+    SizeY = 0.22,
+    SizeZ = 0.77,
+	
     StrategicIconName = 'icon_land3_counterintel',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },

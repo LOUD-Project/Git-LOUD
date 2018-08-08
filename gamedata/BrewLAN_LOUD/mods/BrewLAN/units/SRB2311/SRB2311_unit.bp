@@ -1,10 +1,12 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'URS0302',
             'Front_Turret',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -22,6 +24,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 5,
@@ -30,17 +33,25 @@ UnitBlueprint {
             Level4 = 20,
             Level5 = 25,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},				
     },
+	
     BuildIconSortPriority = 115,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'CYBRAN',
         'STRUCTURE',
         'DEFENSE',
         'TECH3',
-        'DIRECTFIRE',
+        'INDIRECTFIRE',
         'DRAGBUILD',
         'SIZE4',
         'VISIBLETORECON',
@@ -49,18 +60,20 @@ UnitBlueprint {
         'OVERLAYINDIRECTFIRE',
         'SORTDEFENSE',
     },
-    CollisionOffsetY = -0.375,
+	
+    CollisionOffsetY = -0.275,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 95,
-        Health = 15000,
-        MaxHealth = 15000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 5,
+        EconomyThreatLevel = 120,
+        Health = 9500,
+        MaxHealth = 9500,
+        RegenRate = 6,
+        SurfaceThreatLevel = 35,
     },
+	
     Description = '<LOC sbui2311_desc>Anti-Armor Point Defence',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -81,8 +94,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0005',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_albedo.dds',
@@ -100,21 +114,20 @@ UnitBlueprint {
                 RemoveWhenDead = false,
             },
         },
-        UniformScale = 0.12,
+		
+        UniformScale = 0.072,
     },
+	
     Economy = {
-        BuildCostEnergy = 54000*.55,
-        BuildCostMass = 9000*.3333334,
-        BuildTime = 18000*.15,
-        RebuildBonusIds = {
-            'srb2311',
-        },
+        BuildCostEnergy = 37500,
+        BuildCostMass = 3900,
+        BuildTime = 3900,
+		
+        RebuildBonusIds = {'srb2311'},
     },
-    Footprint = {
-        SizeX = 2,
-        SizeZ = 2,
-    },
+
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -138,15 +151,19 @@ UnitBlueprint {
         UnitName = '<LOC srb2311_name>Punisher',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 50,
+        VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defence',
     },
+	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 1.4,
-    LifeBarSize = 1.85,
+    LifeBarOffset = 1.0,
+    LifeBarSize = 1.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -160,33 +177,43 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 3.1,
-        MeshExtentsY = 1.15,
-        MeshExtentsZ = 3.1,
+		
+        MeshExtentsX = 2.0,
+        MeshExtentsY = 1.3,
+        MeshExtentsZ = 2.0,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-        SkirtSizeX = 3,
-        SkirtSizeZ = 3,
+		
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+		
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -0.4,
-    SelectionSizeX = 1.25,
-    SelectionSizeZ = 1.25,
-    SelectionThickness = 0.48,
-    SizeX = 1.3,
-    SizeY = 1.3,
-    SizeZ = 1.3,
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1,
+    SelectionThickness = 0.35,
+	
+    SizeX = 1.1,
+    SizeY = 1.2,
+    SizeZ = 1.1,
+	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 205,
+	
     Veteran = {
-        Level1 = 32,
-        Level2 = 64,
-        Level3 = 96,
-        Level4 = 128,
-        Level5 = 160,
+        Level1 = 15,
+        Level2 = 30,
+        Level3 = 45,
+        Level4 = 60,
+        Level5 = 75,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -209,26 +236,36 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 900,
-            DamageRadius = 2,
+			
+            Damage = 350,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
+			
             DisplayName = 'Proton Cannon',
-            EnergyDrainPerSecond = 750,
-            EnergyRequired = 1500,
+			
+            EnergyDrainPerSecond = 300,
+            EnergyRequired = 900,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.15,
-            FiringTolerance = 2,
+			
+            FiringRandomness = 0.35,
+            FiringTolerance = 0.6,
+			
             Label = 'FrontCannon01',
-            MaxRadius = 145,
+			
+            MaxRadius = 110,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+			MuzzleVelocityReduceDistance = 100,
+			
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
-            ProjectilesPerOnFire = 3,
+			ProjectileLifetime = 4,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -254,36 +291,39 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 3,
+            RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.25*.65,
-            TargetCheckInterval = 2,
+			
+            RateOfFire = 1.0,	-- 1050 dmg every 3 seconds = 346 DPS
+			
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL MOBILE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'SPECIALLOWPRI',
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Front_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
-            TurretPitchRange = 45,
+            TurretPitchRange = 40,
             TurretPitchSpeed = 10,
+			
             TurretYaw = 0,
-            TurretYawRange = 360,
+            TurretYawRange = 180,
             TurretYawSpeed = 45,
             Turreted = true,
-            WeaponCategory = 'Indirect Fire',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

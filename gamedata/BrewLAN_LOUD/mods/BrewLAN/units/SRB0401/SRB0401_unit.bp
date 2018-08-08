@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Platform',
@@ -42,6 +43,7 @@ UnitBlueprint {
             },
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'URB',
@@ -74,12 +76,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4ENGINEER',
+        'BUILTBYTIER4COMMANDER',
         'CYBRAN',
         'STRUCTURE',
         'LAND',
@@ -96,19 +99,21 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'GATE',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 2011,
         Health = 76000,
         MaxHealth = 76000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 10,
     },
+	
     Description = '<LOC srb0401>Experimental Land Factory',
+	
     Display = {
+	
         BlinkingLights = {
             {
                 BLBone = 'Arm1',
@@ -123,12 +128,15 @@ UnitBlueprint {
                 BLScale = 6,
             },
         },
+		
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_03_emit.bp',
             Yellow = '/effects/emitters/light_yellow_02_emit.bp',
         },
+		
         BuildAttachBone = 'AttachPoint',
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -142,8 +150,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = false,
+		
         Tarmacs = {
             {
                 Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar18x_cybran_01_albedo.dds',
@@ -163,11 +172,14 @@ UnitBlueprint {
         },
         UniformScale = 0.07,
     },
+	
     Economy = {
-        BuildCostEnergy = 85050,
-        BuildCostMass = 8790,
-        BuildRate = 60*4,
-        BuildTime = 6580,
+	
+        BuildCostEnergy = 264000,
+        BuildCostMass = 22000,
+        BuildRate = 240,
+        BuildTime = 7500,
+		
         BuildableCategory = {
             'BUILTBYLANDTIER3FACTORY CYBRAN',
             'BUILTBYTIER3FACTORY CYBRAN',
@@ -175,17 +187,20 @@ UnitBlueprint {
             'BUILTBYARTHROLAB CYBRAN',
             'BUILTBYARTHROLAB EXPERIMENTAL',
         },
-        RebuildBonusIds = {
-            'srb0401',
-        },
-        StorageEnergy = 10000,
-        StorageMass = 1000,
+		
+        RebuildBonusIds = {'srb0401'},
+		
+        StorageEnergy = 4000,
+        StorageMass = 400,
         InitialRallyZ = 20,
+		
     },
+	
     Footprint = {
         SizeX = 17,
         SizeZ = 17,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -231,15 +246,19 @@ UnitBlueprint {
         UnitName = '<LOC srb0401_name>Arthrolab',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 37,
+        VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = '<LOC srb0401>Experimental Land Factory',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 9,
     LifeBarSize = 18,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -255,6 +274,7 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         RaisedPlatforms = {
             -- Main Platform middle
             -- TopLeft Offset From Center
@@ -350,6 +370,7 @@ UnitBlueprint {
             --Top right corner spike
             --Undefined for now
         },
+		
         RollOffPoints = {
             {
                 UnitSpin = 0,
@@ -370,25 +391,30 @@ UnitBlueprint {
                 Z = 4.5,
             },
         },
+		
         SkirtOffsetX = -.5,
         SkirtOffsetZ = -.5,
+		
         SkirtSizeX = 18,
         SkirtSizeZ = 18,
+		
         TurnRate = 0,
     },
-    --SelectionMeshScaleX = 0.5,
+
     SelectionMeshScaleZ = 0.8,
-    --SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 10,
     SelectionSizeZ = 8.5,
-    SelectionThickness = 0.1,
+    SelectionThickness = 0.3,
+	
     SizeX = 15,
     SizeY = 5,
     SizeZ = 15,
-    --SizeSphere = 13,
+
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconNameEIOOverride = 'icon_experimental_factory_land',
+	
     StrategicIconSortPriority = 210,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

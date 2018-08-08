@@ -12,9 +12,7 @@ UnitBlueprint {
         },
         --This list is populated on game launch
         Experimentals = {
-            Requirements = {
-                SkirtSizeX = 13,
-            },
+            Requirements = { SkirtSizeX = 13 },
             BuildableCategory = 'BUILTBYGANTRY',
             Air = {},
             Other = {},
@@ -47,6 +45,7 @@ UnitBlueprint {
             },
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'UEB',
@@ -79,12 +78,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4ENGINEER',
+        'BUILTBYTIER4COMMANDER',
         'UEF',
         'STRUCTURE',
         'LAND',
@@ -101,23 +101,26 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'GATE',
     },
+	
     CollisionOffsetY = -2,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 2731,
-        Health = 112000,
-        MaxHealth = 112000,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        Health = 27500,
+        MaxHealth = 27500,
+		RegenRate = 12,
     },
+	
     Description = '<LOC seb0401>Experimental Factory',
+	
     Display = {
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
         },
+		
         AnimationBuild = '/mods/BrewLAN/units/seb0401/SEB0401_abuild.sca',
+		
         BlinkingLights = {
             {
                 BLBone = 'Base_001',
@@ -176,12 +179,15 @@ UnitBlueprint {
                 BLScale = 3,
             },
         },
+		
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_03_emit.bp',
             Yellow = '/effects/emitters/light_yellow_02_emit.bp',
         },
+		
         BuildAttachBone = 'Attachpoint',
+		
         IdleEffects = {
             Water = {
                 Effects = {
@@ -202,6 +208,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -218,8 +225,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+		
         SpawnRandomRotation = false,
+		
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar20x_01_albedo.dds',
@@ -236,11 +244,13 @@ UnitBlueprint {
         },
         UniformScale = 0.28,
     },
+	
     Economy = {
-        BuildCostEnergy = 156750,
-        BuildCostMass = 9450,
-        BuildRate = 60*4,
-        BuildTime = 7034,
+        BuildCostEnergy = 264000,
+        BuildCostMass = 22000,
+        BuildRate = 240,
+        BuildTime = 7500,
+		
         BuildableCategory = {
             'BUILTBYLANDTIER3FACTORY UEF',
             'BUILTBYTIER3FACTORY UEF',
@@ -248,18 +258,21 @@ UnitBlueprint {
             'BUILTBYGANTRY UEF',
             'BUILTBYGANTRY EXPERIMENTAL',
         },
-        RebuildBonusIds = {
-            'seb0401',
-        },
-        StorageEnergy = 10000,
-        StorageMass = 1000,
-        InitialRallyZ = 20,
+		
+        RebuildBonusIds = {'seb0401'},
+		
+        StorageEnergy = 4000,
+        StorageMass = 400,
+        InitialRallyZ = 25,
     },
+	
     Footprint = {
         SizeX = 15,
         SizeZ = 9,
     },
+	
     General = {
+		CapCost = 12,
         BuildBones = {
             BuildEffectBones = {
                 'Muzzle001',
@@ -306,15 +319,19 @@ UnitBlueprint {
         UnitName = '<LOC seb0401_name>Gantry',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 20,
+        VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = '<LOC seb0401>Experimental Factory',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 5,
     LifeBarSize = 16,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -362,22 +379,27 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+	
     SelectionMeshScaleX = 0.5,
     SelectionMeshScaleZ = 0.5,
     SelectionMeshUseTopAmount = 0.15,
+	
     SelectionSizeX = 10.5,
     SelectionSizeZ = 6.5,
-    SelectionThickness = 0.1,
+    SelectionThickness = 0.4,
+	
     SizeX = 17,
     SizeY = 2,
     SizeZ = 11,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 210,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

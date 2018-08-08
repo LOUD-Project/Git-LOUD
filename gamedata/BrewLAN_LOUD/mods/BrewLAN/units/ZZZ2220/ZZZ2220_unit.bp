@@ -1,7 +1,6 @@
 UnitBlueprint {
     Categories = {
         'INVULNERABLE',
-        'PRODUCTBREWLAN',
         'STRUCTURE',
         'DEFENSE',
         'WALL',

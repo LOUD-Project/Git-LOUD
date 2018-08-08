@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'URL',
@@ -61,6 +62,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -70,9 +72,10 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+		
     BuildIconSortPriority = 15,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYLANDTIER2FACTORY',
         'BUILTBYLANDTIER3FACTORY',
@@ -94,18 +97,20 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'OVERLAYDIRECTFIRE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 41,
-        Health = 1010,
-        MaxHealth = 1010,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 3,
+		
+        Health = 620,
+        MaxHealth = 620,
+        RegenRate = 2,
     },
+	
     Description = '<LOC uel0209_desc>Field Engineer',
+	
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
@@ -113,7 +118,9 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
         },
+		
         AnimationWater = '/units/URL0208/URL0208_Awheels.sca',
+		
         IdleEffects = {
             Water = {
                 Effects = {
@@ -127,6 +134,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -146,6 +154,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -157,41 +166,9 @@ UnitBlueprint {
                         Type = 'GroundKickup01',
                     },
                 },
-                Treads = {
-                    ScrollMultiplier = 0.5,
-                    ScrollTreads = true,
-                    TreadMarks = {
-                        {
-                            BoneName = 'BRL0209',
-                            TreadMarks = 'tank_treads_albedo',
-                            TreadMarksInterval = 0.27,
-                            TreadMarksSizeX = 0.75,
-                            TreadMarksSizeZ = 0.4,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
-                        },
-                    },
-                },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 0.6,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 0.6,
-                        Type = 'RightFrontWake',
-                    },
                     {
                         Bones = {
                             'BRL0209',
@@ -202,27 +179,32 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1175,
     },
+	
     Economy = {
-        BuildCostEnergy = 1000,
-        BuildCostMass = 225,
-        BuildRate = 10,
+        BuildCostEnergy = 2400,
+        BuildCostMass = 400,
+        BuildRate = 12,
         BuildTime = 1000,
+		
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE CYBRAN',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE CYBRAN',
             'BUILTBYTIER2FIELD CYBRAN',
         },
+		
         MaintenanceConsumptionPerSecondEnergy = 15,
-        StorageEnergy = 200,
-        StorageMass = 30,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
+		
+		MaxBuildDistance = 4.1,
+		
+        StorageEnergy = 100,
+        StorageMass = 15,
+
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -266,18 +248,24 @@ UnitBlueprint {
         UnitName = '<LOC srl0209_name>Wilson',
         UnitWeight = 1,
     },
+	
     Intel = {
+		FreeIntel = true,
         RadarStealth = true,
         SonarStealth = true,
+		OmniRadius = 12,
         RadarRadius = 30,
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = '<LOC uel0209_help>Field Engineer',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.75,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -290,36 +278,44 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-        MaxSpeedReverse = 16,
+        MaxAcceleration = 1.5,
+        MaxBrake = 1.5,
+        MaxSpeed = 2.1,
+        MaxSpeedReverse = 2.1,
+		
         MaxSteerForce = 15,
         MinSpeedPercent = 0,
+		
         MotionType = 'RULEUMT_AmphibiousFloating',
         TurnRadius = 0,
         TurnRate = 120,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.85,
+	
     SizeX = 0.7,
     SizeY = 0.9,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_land2_engineer',
     StrategicIconSortPriority = 95,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
-        Level1 = 6,
-        Level2 = 12,
-        Level3 = 18,
-        Level4 = 24,
-        Level5 = 30,
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -332,23 +328,31 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+			
             Damage = 25,
+			DamageRadius = 0,
             DamageType = 'Normal',
-            DisplayName = 'Heavy Electron Bolter',
+			
+            DisplayName = 'Electron Bolter',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             Label = 'Bolter',
             LeadTarget = true,
-            MaxRadius = 18,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+			
+            MaxRadius = 22,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 38,
+			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
-            ProjectilesPerOnFire = 1,
+            ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -359,38 +363,44 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -0.2,
+			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.5,
+			
+            RateOfFire = 0.5,	-- 50 DPS
+			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Turret01_Muzzle',
             TurretBonePitch = 'Turret01_Barrel',
             TurretBoneYaw = 'Turret01_Barrel',
             TurretDualManipulators = false,
+			
             TurretPitch = 5,
             TurretPitchRange = 40,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+			
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

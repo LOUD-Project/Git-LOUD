@@ -19,20 +19,16 @@ UnitBlueprint {
             Cue = 'UEB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB5202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'UEF_Select_Structure',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
@@ -41,7 +37,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'UEF',
         'STRUCTURE',
-        'STRATEGIC',
         'TECH1',
         'AIRSTAGINGPLATFORM',
         'DRAGBUILD',
@@ -51,18 +46,19 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.2,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1,
+        EconomyThreatLevel = 5,
         Health = 200,
         MaxHealth = 200,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 0.2,
     },
+	
     Description = '<LOC sbui5104>Air Staging Facility',
+	
     Display = {
         Abilities = {
             '<LOC ability_airstaging>Air Staging',
@@ -83,8 +79,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -102,16 +99,18 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+		
         UniformScale = 0.1875,
     },
+	
     Economy = {
         BuildCostEnergy = 1050,
         BuildCostMass = 90,
         BuildTime = 175,
-        RebuildBonusIds = {
-            'seb5104',
-        },
+		
+        RebuildBonusIds = {'seb5104'},
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -142,12 +141,15 @@ UnitBlueprint {
         UnitName = '<LOC seb5104_name>Resupply',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = '<LOC sbui5104>Air Staging Facility',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = .8,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -172,14 +174,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 1,
+	
     SizeX = 1,
     SizeY = 2,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure1_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
@@ -187,6 +193,7 @@ UnitBlueprint {
         RepairRate = 0.1,
         StorageSlots = 0,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

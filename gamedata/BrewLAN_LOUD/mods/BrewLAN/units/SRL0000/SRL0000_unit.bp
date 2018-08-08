@@ -52,7 +52,6 @@ UnitBlueprint {
     BuildIconSortPriority = 10,
     Categories = {
         '', --Empty key because it wont overwrite 'MEGALITHEGG'
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'CYBRAN',
         'STRUCTURE',

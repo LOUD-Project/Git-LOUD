@@ -4,6 +4,7 @@ UnitBlueprint {
             'Target',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -26,30 +27,30 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'SERAPHIM',
         'STRUCTURE',
-        'DEFENSE',
         'DRAGBUILD',
         'TECH3',
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SHIELD',
         'SORTDEFENSE',
         'SHIELDWALL',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
+        EconomyThreatLevel = 42,
         Health = 4000,
         MaxHealth = 4000,
-        RegenRate = 0,
+        RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -58,21 +59,21 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 20000,
-            ShieldRechargeTime = 12,
-            ShieldRegenRate = 139,
+            ShieldRechargeTime = 23,
+            ShieldRegenRate = 217,
             ShieldRegenStartTime = 1,
             ShieldSize = 2.5,
             ShieldVerticalOffset = 1.25-.6,
         },
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
-        ThreatLevel = 0,
     },
+	
     Description = '<LOC ssb5301_desc>Shield Wall Section',
+	
     Display = {
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
         },
+		
         AnimationDeath = {
             {
                 Animation = '/units/xsb5101/xsb5101_ADeath.sca',
@@ -81,6 +82,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+		
         DamageEffects = {
             {
                 Bone = 0,
@@ -95,6 +97,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -116,42 +119,29 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar6x_seraphim_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 6.4,
-                Normal = 'Tarmacs/Tar6x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 6.4,
-            },
-        },
+
         UniformScale = 0.14*1.2,
     },
+	
     Economy = {
-        BuildCostEnergy = 1000,
-        BuildCostMass = 20,
-        BuildTime = 40,
-        MaintenanceConsumptionPerSecondEnergy = 5,
-        RebuildBonusIds = {
-            'ssb5301',
-        },
+        BuildCostEnergy = 2500,
+        BuildCostMass = 2885,
+        BuildTime = 288,
+		
+        MaintenanceConsumptionPerSecondEnergy = 30,
+		
+        RebuildBonusIds = {'ssb5301'},
     },
+	
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+	
     General = {
-        CapCost = 0,
+        CapCost = 0.5,
         Category = 'Defense',
         Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
@@ -184,15 +174,19 @@ UnitBlueprint {
         UnitName = '<LOC ssb5301_name>Athahaas',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
         HelpText = '<LOC ssb5301_desc>Shield Wall Section',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 0.8*1.2,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -218,14 +212,18 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.6*1.2,
     SelectionSizeZ = 0.6*1.2,
     SelectionThickness = 0.66,
+	
     SizeX = 1*1.2,
     SizeY = 0.4*4,
     SizeZ = 1*1.2,
+	
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 210,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

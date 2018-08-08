@@ -1,8 +1,10 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 2000,
         StagingPlatformScanRadius = 2000,
     },
+	
     Audio = {
         ActiveLoop = Sound {
             Bank = 'URB',
@@ -25,42 +27,42 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 200,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4ENGINEER',
+        'BUILTBYTIER4COMMANDER',
         'CYBRAN',
         'STRUCTURE',
-        'INTELLIGENCE',
         'EXPERIMENTAL',
         'COUNTERINTELLIGENCE',
-        'DRAGBUILD',
         'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYMISC',
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
-        'RESEARCHLOCKED',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 175,
+        EconomyThreatLevel = 7500,
         Health = 17500*.75,
         MaxHealth = 17500*.75,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 3,
     },
+	
     Description = '<LOC srb4402_desc>Experimental Omni Disrupting Facility',
+	
     Display = {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
         },
+		
         AnimationDeath = {
             {
                 Animation = '/units/XRC2201/XRC2201_Adeath1.sca',
@@ -69,6 +71,7 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+		
         DamageEffects = {
             {
                 Bone = 0,
@@ -83,6 +86,7 @@ UnitBlueprint {
                 OffsetZ = 0.25,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -104,8 +108,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UEC1101',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -123,8 +128,10 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+		
         UniformScale = 0.04,
     },
+	
     Economy = {
         BuildCostEnergy = 990990,
         BuildCostMass = 82000,
@@ -135,11 +142,14 @@ UnitBlueprint {
         },
         ResearchMult = 0.5,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
+		CapCost = 10,
         Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -173,18 +183,22 @@ UnitBlueprint {
         UnitName = '<LOC srb4402_name>Darkness',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
         RadarStealthField = true,
         RadarStealthFieldRadius = 50,
         --OmniRadius = 20,
     },
+	
     Interface = {
         HelpText = '<LOC srb4402_desc>Experimental Omni Disrupting Facility',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 3,
     LifeBarSize = 5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -209,15 +223,19 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -1.5,
     SelectionSizeX = 3,
     SelectionSizeZ = 3,
     SelectionThickness = 0.2,
+	
     SizeX = 2.5,
     SizeY = 2.5,
     SizeZ = 2.5,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 200,
+	
     Weapon = {
         {
             Audio = {
@@ -229,12 +247,11 @@ UnitBlueprint {
             },
             DisplayName = 'Omni Disrupter Pulse',
             Label = 'PulseWeapon',
-            --EnergyDrainPerSecond = 2000,
-            --EnergyRequired = 10000,
             MaxRadius = 2000,
             WeaponCategory = 'Defense',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

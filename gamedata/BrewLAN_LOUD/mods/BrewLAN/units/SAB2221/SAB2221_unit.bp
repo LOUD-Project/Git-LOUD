@@ -21,13 +21,8 @@ UnitBlueprint {
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER2TEAD',
         'BUILTBYTIER3TEAD',
-        'OVERLAYRADAR',
-        'OVERLAYDIRECTFIRE',
-        'INTELLIGENCE',
-        'COUNTERINTELLIGENCE',
         'AEON',
         'STRUCTURE',
-        'DEFENSE',
         'TECH2',
         'MINE',
         'DRAGBUILD',
@@ -36,14 +31,12 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 0,
-        Health = 100,
-        MaxHealth = 100,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 450,
+        Health = 80,
+        MaxHealth = 80,
+        RegenRate = 0.1,
+        SurfaceThreatLevel = 150,
     },
 	
     Description = '<LOC sbui2221>Proximity Mine',
@@ -91,8 +84,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1800,
-        BuildCostMass = 100,
+        BuildCostEnergy = 6000,
+        BuildCostMass = 300,
         BuildTime = 50,
     },
 	

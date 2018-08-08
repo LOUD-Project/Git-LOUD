@@ -84,18 +84,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.015,
     },
 	
     Economy = {
-        BuildCostEnergy = 7000,
-        BuildCostMass = 750,
-        BuildTime = 750,
-        RebuildBonusIds = {
-            'bsb2103',
-        },
+        BuildCostEnergy = 6600,
+        BuildCostMass = 600,
+        BuildTime = 600,
+		
+        RebuildBonusIds = {'ssb2103'},
     },
 	
     General = {
@@ -237,7 +236,7 @@ UnitBlueprint {
             MaxRadius = 55,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 0.6,
             MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

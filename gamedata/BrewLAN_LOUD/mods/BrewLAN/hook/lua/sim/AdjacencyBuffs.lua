@@ -341,6 +341,7 @@ end
 -- PARAGON ADJACENCY BONUSES BECAUSE WHY NOT
 ------------------------------------------------------------------
 
+--[[
 ParagonAdjacencyBuffs = {
     'ParagonEnergyBuildBonus',
     'ParagonEnergyMaintenanceBonus',
@@ -438,3 +439,4 @@ BuffBlueprint {
         },
     },
 }
+--]]

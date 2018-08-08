@@ -37,15 +37,16 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 10,
+    BuildIconSortPriority = 171,
 	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
-        'BUILTBYTIER4ENGINEER',
         'AEON',
         'MOBILE',
         'LAND',
+		'AMPHIBIOUS',
+        'HOVER',		
         'EXPERIMENTAL',
         'INDIRECTFIRE',
         'ARTILLERY',
@@ -53,8 +54,6 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'DRAGBUILD',
-        'HOVER',
         'OVERLAYINDIRECTFIRE',
         'OVERLAYCOUNTERMEASURE',
     },
@@ -62,7 +61,7 @@ UnitBlueprint {
     CollisionOffsetZ = -0.1,
 	
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = 'Experimental',
         EconomyThreatLevel = 490,
         Health = 45000,
         MaxHealth = 45000,
@@ -83,25 +82,6 @@ UnitBlueprint {
         },
 		
         IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Glow_01',
-                            'Glow_02',
-                            'Glow_03',
-                            'Glow_04',
-                            'Glow_05',
-                            'Glow_06',
-                            'Glow_07',
-                            'Glow_08',
-                            'Glow_09',
-                            'Glow_10',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                },
-            },
             Water = {
                 Effects = {
                     {
@@ -138,6 +118,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -156,6 +137,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -226,7 +208,7 @@ UnitBlueprint {
     General = {
 		CapCost = 5,
         Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
+        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = false,
@@ -243,9 +225,11 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Experimental',
+		
+        TechLevel = 'RULEUTL_Secret',
+		
         UnitName = '<LOC sal0401_name>Absolution',
-        UnitWeight = 1,
+        UnitWeight = 2,
     },
 	
     Intel = {
@@ -258,7 +242,7 @@ UnitBlueprint {
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.35,
-    LifeBarSize = 5.75,
+    LifeBarSize = 4.5,
 	
     Physics = {
         BackUpDistance = 20,
@@ -297,12 +281,10 @@ UnitBlueprint {
         SkirtSizeX = 5,
         SkirtSizeZ = 5,
 		
-        TurnFacingRate = 120,
+        TurnFacingRate = 80,
         TurnRadius = 0,
         TurnRate = 36,
     },
-	
-    SelectionCenterOffsetX = 0,
 	
     SelectionSizeX = 2,
     SelectionSizeZ = 4,
@@ -313,7 +295,7 @@ UnitBlueprint {
     SizeZ = 5,
 	
     StrategicIconName = 'icon_experimental_generic',
-    StrategicIconSortPriority = 135,
+    StrategicIconSortPriority = 146,
 	
     Transport = {
         TransportClass = 4,
@@ -356,7 +338,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 6000,
-            DamageRadius = 4,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
@@ -373,7 +355,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			LeadTarget = true,
 			
-            MaxRadius = 132,
+            MaxRadius = 128,
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 1.2,

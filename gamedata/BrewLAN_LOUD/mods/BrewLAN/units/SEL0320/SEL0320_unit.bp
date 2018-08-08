@@ -50,9 +50,8 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 30,
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
+        --'BUILTBYTIER3FACTORY',
         'UEF',
         'MOBILE',
         'LAND',

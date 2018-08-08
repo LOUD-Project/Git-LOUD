@@ -6,33 +6,31 @@ UnitBlueprint {
         CanFly = true,
         CombatTurnSpeed = 1,
         EngageDistance = 50,
+		
         KLift = 3,
         KLiftDamping = 2.5,
-        KMove = 1,
-        KMoveDamping = 1,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
         KRoll = 2,
         KRollDamping = 1,
+		
         KTurn = 1,
         KTurnDamping = 1.5,
-        LiftFactor = 7,
+		
+        LiftFactor = 10,
+		
         MaxAirspeed = 25,
         MinAirspeed = 21,
+		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.1,
         TurnSpeed = 0.8,
         Winged = true,
     },
+	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'UEADestroy',
             Cue = 'UEA_Destroy_Med',
@@ -43,29 +41,9 @@ UnitBlueprint {
             Cue = 'UEA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Landing = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UEA',
             Cue = 'UEA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Thruster',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -74,9 +52,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 16,
+	
+    BuildIconSortPriority = 21,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
@@ -86,31 +65,31 @@ UnitBlueprint {
         'HIGHALTAIR',
         'TECH2',
         'INTELLIGENCE',
-        'RADAR',
-        'SONAR',
+		'SCOUT',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
-        --'OVERLAYOMNI',
     },
+	
     CollisionOffsetY = 0.07,
+	
     Defense = {
-        AirThreatLevel = 0,
+        AirThreatLevel = 0.3,
         ArmorType = 'Light',
-        EconomyThreatLevel = 0,
         Health = 595,
         MaxHealth = 595,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 1,
     },
+	
     Description = '<LOC sea0201_desc>Recon Craft',
+	
     Display = {
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
+		
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
@@ -133,6 +112,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -148,6 +128,7 @@ UnitBlueprint {
                 },]]--
             },
         },
+		
         MovementEffects = {
             Air = {
                 Contrails = {
@@ -167,21 +148,25 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+		
         SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
+	
     Economy = {
         BuildCostEnergy = 4550*0.5,
         BuildCostMass = 120,
         BuildTime = 650,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
+		CapCost = 0.2,
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -205,17 +190,22 @@ UnitBlueprint {
         UnitName = '<LOC sea0201_name>UX Dragonlady',
         UnitWeight = 1,
     },
+	
     Intel = {
-        SonarRadius = 30,
+		FreeIntel = true,
         RadarRadius = 64,
-        VisionRadius = 53,
+        SonarRadius = 30,		
+        VisionRadius = 45,
     },
+	
     Interface = {
         HelpText = '<LOC sea0201_desc>Recon Craft',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.25,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -236,45 +226,22 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
+	
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.4,
     SelectionThickness = 0.36,
-    SizeSphere = 1.6,
+	
+    SizeSphere = 2.4,
+	
     SizeX = 2,
     SizeY = 0.25,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_fighter2_intel',
-    StrategicIconSortPriority = 65,
+    StrategicIconSortPriority = 75,
+	
     Transport = {
         AirClass = true,
         TransportClass = 2,
-    },
-    Weapon = {
-        {
-            AboveWaterTargetsOnly = true,
-            Damage = 50,
-            DamageFriendly = true,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-            DisplayName = 'Air Crash',
-            DummyWeapon = true,
-            FiringTolerance = 2,
-            Label = 'DeathImpact',
-            WeaponCategory = 'Death',
-        },
-    },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
     },
 }

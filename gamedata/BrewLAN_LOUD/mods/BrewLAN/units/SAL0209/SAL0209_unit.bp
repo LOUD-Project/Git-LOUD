@@ -157,6 +157,7 @@ UnitBlueprint {
 		
         Mesh = {
             IconFadeInZoom = 130,
+			
             LODs = {
                 {
                     LODCutoff = 100,
@@ -167,15 +168,16 @@ UnitBlueprint {
                     SpecularName = '/mods/BrewLAN/units/sal0319/sal0319_specteam.dds',
                 },
                 {
-                    LODCutoff = 215,
+                    LODCutoff = 250,
                     ShaderName = 'Aeon',
-                    MeshName = '/units/UAL0105/UAL0105_lod1.scm',
-                    AlbedoName = '/units/UAL0105/UAL0105_lod1_albedo.dds',
-                    NormalsName = '/units/UAL0105/UAL0105_lod1_normalsTS.dds',
-                    SpecularName = '/units/UAL0105/UAL0105_lod1_specteam.dds',
+                    MeshName = '/mods/BrewLAN/units/sal0319/sal0319_lod1.scm',
+                    AlbedoName = '/mods/BrewLAN/units/sal0319/sal0319_albedo.dds',
+                    NormalsName = '/mods/BrewLAN/units/sal0319/sal0319_normalsts.dds',
+                    SpecularName = '/mods/BrewLAN/units/sal0319/sal0319_specteam.dds',
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Effects = {
@@ -220,7 +222,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2200,
         BuildCostMass = 360,
-        BuildRate = 10,
+        BuildRate = 12,
         BuildTime = 1000,
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE AEON',

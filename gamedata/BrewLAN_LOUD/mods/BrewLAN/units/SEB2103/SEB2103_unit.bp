@@ -74,9 +74,9 @@ UnitBlueprint {
         BuildCostEnergy = 7000,
         BuildCostMass = 750,
         BuildTime = 750,
-        RebuildBonusIds = {
-            'seb2103',
-        },
+		
+        RebuildBonusIds = {'seb2103'},
+		
     },
 	
     Footprint = {

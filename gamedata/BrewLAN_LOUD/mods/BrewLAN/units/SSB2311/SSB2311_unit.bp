@@ -6,6 +6,7 @@ UnitBlueprint {
             'Rotor3',
         },
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSL',
@@ -18,6 +19,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 5,
@@ -26,10 +28,18 @@ UnitBlueprint {
             Level4 = 20,
             Level5 = 25,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},			
     },
+	
     BuildIconSortPriority = 115,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'SERAPHIM',
@@ -45,18 +55,19 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
-#    CollisionOffsetZ = 1.65,
+
     Defense = {
         AirThreatLevel = 50,
         ArmorType = 'Structure',
-        EconomyThreatLevel = 68,
-        Health = 15750,
-        MaxHealth = 15750,
-        RegenRate = 0,
-        SubThreatLevel = 0,
+        EconomyThreatLevel = 120,
+        Health = 9500,
+        MaxHealth = 9500,
+        RegenRate = 6,
         SurfaceThreatLevel = 4,
     },
+	
     Description = '<LOC sbui2311_desc>Anti-Armor Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -92,19 +103,17 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 54000*.55,
-        BuildCostMass = 9000*.3333334,
-        BuildTime = 18000*.15,
-        RebuildBonusIds = {
-            'ssb2311',
-        },
+        BuildCostEnergy = 37500,
+        BuildCostMass = 3900,
+        BuildTime = 3900,
+		
+        RebuildBonusIds = { 'ssb2311' },
     },
-    Footprint = {
-        SizeX = 2,
-        SizeZ = 2,
-    },
+
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -128,15 +137,19 @@ UnitBlueprint {
         UnitName = '<LOC ssb2311_name>Sinn Unthe',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 50,
+        VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -161,22 +174,27 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = -.55,
     SelectionSizeX = 1.2,
     SelectionSizeZ = 1.2,
     SelectionThickness = .6,
+	
     SizeX = 1.3,
     SizeY = 1.3,
     SizeZ = 1.3,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 205,
+	
     Veteran = {
-        Level1 = 32,
-        Level2 = 64,
-        Level3 = 96,
-        Level4 = 128,
-        Level5 = 160,
+        Level1 = 14,
+        Level2 = 28,
+        Level3 = 42,
+        Level4 = 56,
+        Level5 = 70,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -193,29 +211,40 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             Damage = 1200,
-            DamageRadius = 2.5,
+			DamageFriendly = true,
+            DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Heavy Sinn Unthe Cannon',
-            EnergyDrainPerSecond = 2250/2,
+			
+            DisplayName = 'Sinn Unthe Cannon',
+			
+            EnergyDrainPerSecond = 1125,
             EnergyRequired = 2250,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
-            FiringTolerance = 1,
+			
+			FiringRandomness = .3,
+            FiringTolerance = 1.5,
+			
             Label = 'RightArm',
-            MaxRadius = 145,
-            MinRadius = 0,
-            MuzzleChargeDelay = 2.5,
+			
+            MaxRadius = 100,
+            MinRadius = 6,
+			
+            MuzzleChargeDelay = 1.0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 23,
+			
             ProjectileId = '/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
+			ProjectileLifetime = 5,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -225,40 +254,46 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.111111,
+			
+            RateOfFire = 1,		-- fires every 3 seconds = 400 DPS
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE',
+                'STRUCTURE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+			
             TurretBoneMuzzle = 'RightHand_Muzzle',
             TurretBonePitch = 'Right_Arm_B03',
             TurretBoneYaw = 'Arm_B01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 50,
+            TurretPitchRange = 25,
+            TurretPitchSpeed = 15,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 25,
+			
             Turreted = true,
+			
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire Experimental',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -268,7 +303,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = true,
+            Seabed = false,
             Sub = false,
             Water = false,
         },

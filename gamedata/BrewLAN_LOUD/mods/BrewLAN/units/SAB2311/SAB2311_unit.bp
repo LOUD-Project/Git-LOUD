@@ -4,6 +4,7 @@ UnitBlueprint {
             'Turret',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -60,7 +61,7 @@ UnitBlueprint {
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 2,
-        SurfaceThreatLevel = 50,
+        SurfaceThreatLevel = 40,
     },
 	
     Description = '<LOC sbui2311_desc>Oblivion Field Artillery',
@@ -73,11 +74,18 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 215,
+                    LODCutoff = 200,
                     ShaderName = 'Aeon',
                     AlbedoName = '/units/UAS0401/UAS0401_albedo.dds',
                     NormalsName = '/units/UAS0401/UAS0401_normalsTS.dds',
                     SpecularName = '/units/UAS0401/UAS0401_specteam.dds',
+                },
+                {
+                    LODCutoff = 600,
+                    ShaderName = 'Aeon',
+                    AlbedoName = '/units/UAS0401/UAS0401_lod1_albedo.dds',
+                    NormalsName = '/units/UAS0401/UAS0401_lod1_normalsTS.dds',
+                    SpecularName = '/units/UAS0401/UAS0401_lod1_specteam.dds',
                 },
             },
         },
@@ -87,7 +95,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 64000,
+        BuildCostEnergy = 60000,
         BuildCostMass = 3900,
         BuildTime = 4300,
 		
@@ -127,7 +135,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 36,
+        VisionRadius = 30,
 		WaterVisionRadius = 20,
     },
 	
@@ -215,7 +223,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2400,
+            Damage = 1800,
 			DamageFriendly = true,
             DamageRadius = 3,
             DamageType = 'Normal',
@@ -235,7 +243,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 130,
+            MaxRadius = 128,
 			MinRadius = 14,
 			
             MuzzleChargeDelay = 1.2,
@@ -268,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,	-- 480 DPS
+            RateOfFire = 0.2,	-- 360 DPS
 			
             SlavedToBody = false,
 			
