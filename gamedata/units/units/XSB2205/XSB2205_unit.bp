@@ -55,6 +55,8 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
+        'OVERLAYANTINAVY',		
         'SORTDEFENSE',
     },
 

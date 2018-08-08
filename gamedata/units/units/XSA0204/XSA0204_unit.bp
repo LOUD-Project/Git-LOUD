@@ -12,13 +12,13 @@ UnitBlueprint {
         BankFactor = 4,
         BankForward = false,
 		
-        BreakOffDistance = 70,
+        BreakOffDistance = 40,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 15,
 		
         CanFly = true,
 		
-        CombatTurnSpeed = 0.5,
+        CombatTurnSpeed = 0.65,
 		
         EngageDistance = 75,
 		
@@ -159,6 +159,7 @@ UnitBlueprint {
 		FreeIntel = true,
         SonarRadius = 60,
         VisionRadius = 30,
+		WaterVisionRadius = 10,
     },
 	
     Interface = {

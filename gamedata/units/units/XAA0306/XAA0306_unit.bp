@@ -12,7 +12,7 @@ UnitBlueprint {
         AutoLandTime = 1,
         BankFactor = 2.5,
         BankForward = false,
-        BreakOffDistance = 34,
+        BreakOffDistance = 40,
         BreakOffTrigger = 15,
         CanFly = true,
         CombatTurnSpeed = 0.8,
@@ -102,8 +102,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 3850,
-        MaxHealth = 3850,
+        Health = 3400,
+        MaxHealth = 3400,
         RegenRate = 6,
         SubThreatLevel = 33,
     },
@@ -170,6 +170,7 @@ UnitBlueprint {
 		FreeIntel = true,
         SonarRadius = 75,
         VisionRadius = 32,
+		WaterVisionRadius = 12,
     },
 	
     Interface = {
@@ -181,7 +182,7 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        AttackElevation = 6,
+        AttackElevation = 3,
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Land = false,
@@ -192,7 +193,7 @@ UnitBlueprint {
         },
         Elevation = 20,
         FuelRechargeRate = 25,
-        FuelUseTime = 1000,
+        FuelUseTime = 750,
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
@@ -287,13 +288,11 @@ UnitBlueprint {
 			
             RateOfFire = 0.1,	#-- drops 4 torps every 10 secs - each torp splits into 2 - so 8 * 500 = 4000 every 10 or 400 DPS
 			
-            TargetCheckInterval = 3.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS,-WALL',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
         },
