@@ -13,7 +13,7 @@ CANKrilTorpedo01 = Class(CKrilTorpedo) {
 	
         CKrilTorpedo.OnCreate(self, true)
 		
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        self:SetCollisionShape('Sphere', 0, 0, 0, 1.5)
 		
 		self:ForkThread(self.IncreaseTurnRate)
 		
