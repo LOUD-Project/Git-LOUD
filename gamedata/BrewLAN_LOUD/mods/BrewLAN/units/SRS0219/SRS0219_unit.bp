@@ -1,0 +1,367 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Front_Turret',
+            'Back_Turret',
+        },
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'URSDestroy',
+            Cue = 'URS0103_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URS',
+            Cue = 'URS0103_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 1,
+            Level2 = 3,
+            Level3 = 5,
+            Level4 = 7,
+            Level5 = 9,
+        },
+    },
+	
+    BuildIconSortPriority = 16,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'FIELDENGINEER',
+        'CAPTURE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'CYBRAN',
+        'MOBILE',
+        'NAVAL',
+        'TECH2',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'FRIGATE',
+        'OVERLAYANTIAIR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
+    },
+	
+    CollisionOffsetY = -0.3,
+	
+    Defense = {
+        AirThreatLevel = 7,
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 112,
+        Health = 1900,
+        MaxHealth = 1900,
+        RegenRate = 4,
+    },
+	
+    Description = '<LOC ss0319_desc>Field Engineering Ship',
+	
+    Display = {
+	
+        Abilities = {
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_engineeringsuite>Engineering Suite',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/units/urs0103/urs0103_asink.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/urs0103/urs0103_asink02.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+            {
+                Animation = '/units/urs0103/urs0103_asink03.sca',
+                AnimationRateMax = 1.2,
+                AnimationRateMin = 0.8,
+                Weight = 100,
+            },
+        },
+		
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'URS0103',
+                        },
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 140,
+                    ShaderName = 'Insect',
+                },
+                {
+                    MeshName = '/units/urs0103/urs0103_lod1.scm',
+                    AlbedoName = '/units/urs0103/urs0103_lod1_albedo.dds',
+                    LODCutoff = 250,
+                    ShaderName = 'Insect',
+                    NormalsName = '/units/urs0103/urs0103_lod1_normalsts.dds',
+                    SpecularName = '/units/urs0103/urs0103_lod1_specteam.dds',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Back_Wake',
+                            'Front_Left_Wake',
+                            'Front_Right_Wake',
+                        },
+                        Scale = 0.3,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.055,
+    },
+	
+    Economy = {
+	
+        BuildCostEnergy = 4200,
+        BuildCostMass = 750,
+        BuildTime = 545,
+        BuildRate = 15,
+		
+		MaxBuildDistance = 8,
+		
+        BuildableCategory = {
+            'BUILTBYTIER2ENGINEER NAVAL CYBRAN',
+            'BUILTBYTIER2ENGINEER ANTINAVY CYBRAN',
+            'BUILTBYTIER2ENGINEER ANTIAIR CYBRAN',
+            'BUILTBYTIER2ENGINEER ANTIMISSILE CYBRAN',
+            'BUILTBYTIER2ENGINEER SHIELD CYBRAN',
+            'BUILTBYTIER2ENGINEER MINE CYBRAN',
+            'BUILTBYTIER2FIELD NAVAL CYBRAN',
+            'BUILTBYTIER2FIELD ANTINAVY CYBRAN',
+            'BUILTBYTIER2FIELD ANTIAIR CYBRAN',
+            'BUILTBYTIER2FIELD ANTIMISSILE CYBRAN',
+            'BUILTBYTIER2FIELD SHIELD CYBRAN',
+            'BUILTBYTIER2FIELD MINE CYBRAN',
+        },
+        StorageEnergy = 150,
+        StorageMass = 25,
+    },
+
+    General = {
+        BuildBones = {
+            --AimBone = 0,
+            BuildEffectBones = {
+                'Buildpoint_Left',
+                'Buildpoint_Right',
+            },
+            PitchBone = 'Buildpoint_Left',
+            YawBone = 'Buildpoint_Right',
+        },
+        Category = 'Ship',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'sea',
+        SelectionPriority = 2,
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = '<LOC srs0219_name>Barwick Class',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		OmniRadius = 5,
+        RadarRadius = 60,
+        SonarRadius = 45,
+        VisionRadius = 32,
+        WaterVisionRadius = 18,
+    },
+	
+    Interface = {
+        HelpText = 'Engineering Frigate',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.8,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 4.4,
+        MaxSpeed = 4.4,
+        MaxSpeedReverse = 5,
+        MaxSteerForce = 5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 12,
+        TurnRate = 60,
+    },
+	
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 2.2,
+    SelectionThickness = 0.23,
+	
+    SizeX = 0.4,
+    SizeY = 0.7,
+    SizeZ = 2.6,
+	
+    StrategicIconName = 'icon_ship2_engineer',
+    StrategicIconSortPriority = 165,
+	
+    Veteran = {
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 32,
+        Level5 = 40,
+    },
+	
+    Weapon = {
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0103_Cannon_Electron',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 9,
+			DamageFriendly = false,
+			DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Light Quad Electron Flak',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+            FiringRandomness = 1,
+            FiringTolerance = 0.3,
+			
+            Label = 'AAGun',
+            LeadTarget = true,
+			
+            MaxRadius = 44,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
+            MuzzleVelocity = 70,
+			
+            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 0.7,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Turret_Muzzle01',
+                        'Back_Turret_Muzzle02',
+                        'Back_Turret_Muzzle03',
+                        'Back_Turret_Muzzle04',
+                    },
+                    RackBone = 'Back_Turret_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 1,		-- 72 DPS Air
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Back_Turret_Barrel',
+            TurretBonePitch = 'Back_Turret_Barrel',
+            TurretBoneYaw = 'Back_Turret_AA',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 45,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 80,
+			
+            Turreted = true,
+        },
+    },
+}

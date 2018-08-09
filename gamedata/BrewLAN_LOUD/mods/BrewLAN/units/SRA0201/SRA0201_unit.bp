@@ -1,0 +1,251 @@
+UnitBlueprint {
+    Air = {
+        AutoLandTime = 1,
+        BankFactor = 2,
+        BankForward = false,
+        CanFly = true,
+        CombatTurnSpeed = 1,
+        EngageDistance = 50,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 1.5,
+        KMoveDamping = 1.5,
+		
+        KRoll = 2,
+        KRollDamping = 1,
+		
+        KTurn = 1,
+        KTurnDamping = 1.5,
+		
+        LiftFactor = 10,
+		
+        MaxAirspeed = 25,
+        MinAirspeed = 21,
+		
+        StartTurnDistance = 5,
+        TightTurnMultiplier = 1.1,
+        TurnSpeed = 0.8,
+        Winged = true,
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URADestroy',
+            Cue = 'URA_Destroy_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'URADestroy',
+            Cue = 'URA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URA',
+            Cue = 'URA0302_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 14,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH2',
+        'INTELLIGENCE',
+		'SCOUT',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYSONAR',
+        'OVERLAYRADAR',
+    },
+
+    Defense = {
+        AirThreatLevel = 0.3,
+        ArmorType = 'Light',
+        Health = 595,
+        MaxHealth = 595,
+        RegenRate = 1,
+    },
+	
+    Description = '<LOC sra0201_desc>Recon Plane',
+	
+    Display = {
+        Abilities = {
+            --'<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_stealthfield>Stealth Field',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Type = 'Landing01',
+                    },
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Type = 'TakeOff01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    ShaderName = 'Insect',
+                },
+                {
+                    LODCutoff = 260,
+                    ShaderName = 'Insect',
+                },
+            },
+        },
+		
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Contrail_Left',
+                        'Contrail_Right',
+                    },
+                    ZOffset = 0,
+                },
+                Effects = {
+                    {
+                        Bones = {
+                            'Exhaust_Left',
+                            'Exhaust_Middle',
+                            'Exhaust_Right',
+                        },
+                        Type = 'AirMoveExhaust01',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.023,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 2275,
+        BuildCostMass = 120,
+        MaintenanceConsumptionPerSecondEnergy = 50,
+        BuildTime = 650,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+		CapCost = 0.2,
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'air',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-field',
+                helpText = 'toggle_stealth_field',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+        UnitName = '<LOC sra0201_name>Blade Raven',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 64,
+        RadarStealth = true,
+        SonarRadius = 30,
+        VisionRadius = 45,
+    },
+	
+    Interface = {
+        HelpText = '<LOC ura0302_help>Spy Plane',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.4,
+    LifeBarSize = 1.4,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 22,
+        FuelRechargeRate = 10,
+        FuelUseTime = 1000,
+        GroundCollisionOffset = 1.6,
+        MaxSpeed = 10,
+        MinSpeedPercent = 0.85,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 0.9,
+    SelectionSizeZ = 0.4,
+    SelectionThickness = 0.35,
+	
+    SizeSphere = 2.4,
+	
+    SizeX = 2,
+    SizeY = 0.25,
+    SizeZ = 0.6,
+	
+    StrategicIconName = 'icon_fighter2_intel',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 2,
+    },
+
+}
