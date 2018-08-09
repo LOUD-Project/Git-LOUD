@@ -1,9 +1,5 @@
 UnitBlueprint {
 
-    AI = {
-        InitialAutoMode = true,
-    },
-	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XEL',
@@ -13,11 +9,6 @@ UnitBlueprint {
         Destroyed = Sound {
             Bank = 'UELDestroy',
             Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Pack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Close',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -33,11 +24,6 @@ UnitBlueprint {
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Open',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -71,14 +57,12 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 11,
+        AirThreatLevel = 36,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 0,
-        Health = 5250,
-        MaxHealth = 5250,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        EconomyThreatLevel = 150,
+        Health = 2250,
+        MaxHealth = 2250,
+        RegenRate = 2,
     },
 	
     Description = '<LOC sal0320_desc>Mobile Anti-Air Defense',
@@ -226,9 +210,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.9,
-        MaxBrake = 2.9,
-        MaxSpeed = 2.9,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
+        MaxSpeed = 3,
         MaxSpeedReverse = 2.5,
         MaxSteerForce = 5*.5,
         MeshExtentsX = 1,
@@ -289,15 +273,15 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
             },
-            FiringTolerance = 60,
+            FiringTolerance = 45,
 			
             Label = 'MissileRack01',
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 2.8,
@@ -327,7 +311,7 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,
 			
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
@@ -350,7 +334,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 48,
+            TurretYawSpeed = 35,
 			
             Turreted = true,
         },
