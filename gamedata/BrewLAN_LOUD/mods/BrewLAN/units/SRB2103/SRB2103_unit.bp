@@ -76,12 +76,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 7000,
-        BuildCostMass = 750,
-        BuildTime = 750,
-        RebuildBonusIds = {
-            'srb2103',
-        },
+        BuildCostEnergy = 6000,
+        BuildCostMass = 600,
+        BuildTime = 600,
+		
+        RebuildBonusIds = {'srb2103'},
     },
 	
     General = {
@@ -177,22 +176,22 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 300,
             DamageFriendly = true,
-            DamageRadius = 1.2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 20,
-            EnergyRequired = 180,
+            EnergyDrainPerSecond = 40,	-- 4 second charge
+            EnergyRequired = 160,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.1,
             FiringTolerance = 0.5,
 			
             Label = 'MainGun',
@@ -202,7 +201,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 17,
+            MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
@@ -227,7 +226,7 @@ UnitBlueprint {
 			
             RateOfFire = 1,
 
-            TargetCheckInterval = 4,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'INDIRECTFIRE',
@@ -246,7 +245,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 15,
+            TurretYawSpeed = 18,
 			
             Turreted = true,
         },

@@ -90,7 +90,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 6600,
+        BuildCostEnergy = 6000,
         BuildCostMass = 600,
         BuildTime = 600,
 		
@@ -220,8 +220,8 @@ UnitBlueprint {
 			
             DisplayName = 'Thaam-atha Artillery Cannon',
 			
-            EnergyDrainPerSecond = 25,
-            EnergyRequired = 195,
+            EnergyDrainPerSecond = 50,
+            EnergyRequired = 200,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -236,11 +236,11 @@ UnitBlueprint {
             MaxRadius = 55,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 0.6,
+            MuzzleChargeDelay = 0.5,
             MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
@@ -286,7 +286,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 15,
+            TurretYawSpeed = 18,
 			
             Turreted = true,
         },

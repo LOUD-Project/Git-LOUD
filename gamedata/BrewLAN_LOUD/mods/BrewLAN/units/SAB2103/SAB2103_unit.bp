@@ -72,7 +72,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 6000,
+        BuildCostEnergy = 5400,
         BuildCostMass = 550,
         BuildTime = 550,
 		
@@ -175,17 +175,17 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 120,
+            Damage = 60,
             DamageFriendly = true,
-            DamageRadius = 1.25,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Charis Artillery',
 			
-			DoTPulses = 5,	-- 5 x 120 damage
+			DoTPulses = 5,	-- 5 x 60 damage
 			DoTTime = 3,	-- applied over 3 seconds
 			
-            EnergyDrainPerSecond = 15,	-- 8 second charge
+            EnergyDrainPerSecond = 30,	-- 4 second charge
             EnergyRequired = 120,
 			
             FireTargetLayerCapsTable = {
@@ -203,7 +203,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
@@ -233,7 +233,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SPECIALLOWPRI',
-                'ALLUNITS -AIR',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -248,7 +248,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 15,
+            TurretYawSpeed = 18,
 			
             Turreted = true,
         },
