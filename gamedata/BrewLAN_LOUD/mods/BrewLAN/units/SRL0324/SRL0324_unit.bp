@@ -176,7 +176,7 @@ UnitBlueprint {
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 3500,
+        MaintenanceConsumptionPerSecondEnergy = 2750,
     },
 	
     General = {
@@ -205,7 +205,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         ToggleCaps = {
-            RULEUTC_IntelToggle = true,
+            RULEUTC_IntelToggle = false,
         },
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srl0324_name>Citron',
@@ -219,7 +219,6 @@ UnitBlueprint {
         VisionRadius = 40,
 		
         RadarStealth = true,
-        --SonarStealth = true,
         Cloak = true,
     },
 	
@@ -269,4 +268,5 @@ UnitBlueprint {
     Transport = {
         TransportClass = 3,
     },
+	
 }

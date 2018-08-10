@@ -32,34 +32,34 @@ UnitBlueprint {
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
+            Bank = 'XSA_Destroy',
+            Cue = 'XSA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
+            Bank = 'XSA_Destroy',
+            Cue = 'XSA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Start',
+            Bank = 'XSA',
+            Cue = 'XSA0302_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Air',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
 	
-    BuildIconSortPriority = 21,
+    BuildIconSortPriority = 14,
 	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'UEF',
+        'SERAPHIM',
         'MOBILE',
         'AIR',
         'HIGHALTAIR',
@@ -71,9 +71,6 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
     },
-	
-    CollisionOffsetY = 0.07,
-	
     Defense = {
         AirThreatLevel = 0.3,
         ArmorType = 'Light',
@@ -82,10 +79,11 @@ UnitBlueprint {
         RegenRate = 1,
     },
 	
-    Description = '<LOC sea0201_desc>Recon Craft',
+    Description = '<LOC sea0201_desc>Recon Plane',
 	
     Display = {
         Abilities = {
+            --'<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
@@ -94,9 +92,7 @@ UnitBlueprint {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            0,
-                        },
+                        Bones = {0},
                         Type = 'Landing01',
                     },
                 },
@@ -104,45 +100,46 @@ UnitBlueprint {
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            0,
-                        },
+                        Bones = {0},
                         Type = 'TakeOff01',
                     },
                 },
             },
         },
-		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {LODCutoff = 100, ShaderName = 'Unit',},
-                {LODCutoff = 250, ShaderName = 'Unit',},
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                    AlbedoName = '/units/xsa0302/xsa0302_albedo.dds',
+                    NormalsName = '/units/xsa0302/xsa0302_normalsts.dds',
+                    SpecularName = '/units/xsa0302/xsa0302_specteam.dds',
+                },
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Seraphim',
+                    AlbedoName = '/units/xsa0302/xsa0302_lod1_albedo.dds',
+                    NormalsName = '/units/xsa0302/xsa0302_lod1_normalsts.dds',
+                    SpecularName = '/units/xsa0302/xsa0302_lod1_specteam.dds',
+                },
             },
         },
-		
         MovementEffects = {
             Air = {
                 Contrails = {
                     Bones = {
-                        'Contrail_L',
-                        'Contrail_R',
-                    },
-                    ZOffset = 0,
-                },
-                Effects = {
-                    {
-                        Bones = {
-                            'Engine',
-                        },
-                        Type = 'AirExhaust01',
+                        'Exhaust_Right',
+                        'Exhaust_Left',
                     },
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
-        UniformScale = 0.04,
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.05*0.7,
     },
 	
     Economy = {
@@ -176,27 +173,27 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'UEF',
+        FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC sea0201_name>UX Dragonlady',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = '<LOC ssa0201_name>Selia',
         UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
+        SonarRadius = 30,
         RadarRadius = 64,
-        SonarRadius = 30,		
         VisionRadius = 45,
     },
 	
     Interface = {
-        HelpText = '<LOC sea0201_desc>Recon Craft',
+        HelpText = '<LOC xsa0302_help>Spy Plane',
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0.8,
-    LifeBarSize = 1.25,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 1,
 	
     Physics = {
         BuildOnLayerCaps = {
@@ -212,28 +209,29 @@ UnitBlueprint {
         FuelUseTime = 1000,
         GroundCollisionOffset = 1.6,
         MaxSpeed = 10,
-        MeshExtentsX = 1.5,
-        MeshExtentsY = 0.5,
-        MeshExtentsZ = 2.25,
+        MeshExtentsX = 1*0.7,
+        MeshExtentsY = 0.25,
+        MeshExtentsZ = 1.5*0.7,
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
     },
 	
-    SelectionSizeX = 0.9,
-    SelectionSizeZ = 0.4,
-    SelectionThickness = 0.36,
+    SelectionSizeX = 0.7*0.6,
+    SelectionSizeZ = 1.1*0.6,
+    SelectionThickness = 0.6,
 	
     SizeSphere = 2.4,
 	
-    SizeX = 2,
+    SizeX = 0.8*0.7,
     SizeY = 0.25,
-    SizeZ = 1,
+    SizeZ = 1.4*0.7,
 	
     StrategicIconName = 'icon_fighter2_intel',
-    StrategicIconSortPriority = 75,
+    StrategicIconSortPriority = 65,
 	
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+
 }
