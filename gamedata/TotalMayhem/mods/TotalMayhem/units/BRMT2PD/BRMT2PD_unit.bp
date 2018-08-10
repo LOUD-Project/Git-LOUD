@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -24,7 +26,15 @@ UnitBlueprint {
             Level4 = 10,
             Level5 = 12,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
+	
     BuildIconSortPriority = 110,
 	
     Categories = {
@@ -68,8 +78,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
@@ -222,7 +233,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 48,
+            MuzzleVelocity = 44,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
 
@@ -256,13 +267,14 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.2,
+			
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Recoil',
             TurretBoneYaw = 'Turret',
@@ -277,8 +289,9 @@ UnitBlueprint {
             TurretYawSpeed = 30,
 			
             Turreted = true,
- 	   },
+		},
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

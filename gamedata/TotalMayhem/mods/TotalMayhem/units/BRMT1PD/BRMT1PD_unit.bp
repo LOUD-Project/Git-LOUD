@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -24,8 +26,17 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
+	
     BuildIconSortPriority = 111,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -43,7 +54,9 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 1750,
@@ -51,7 +64,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
+	
     Description = '<LOC brmt1pd_desc>Improved Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -62,18 +77,20 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.021,
     },
+	
     Economy = {
         BuildCostEnergy = 4500,
         BuildCostMass = 500,
         BuildTime = 500,
-        RebuildBonusIds = {
-            'BRMT1PD',
-        },
+		
+        RebuildBonusIds = {'BRMT1PD'},
+		
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -98,15 +115,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt1pd_name>SlyFox',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Improved Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = .75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,14 +151,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 0.55,
+	
     SizeX = 0.65,
     SizeY = 0.75,
     SizeZ = 0.65,
+	
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -145,6 +170,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -173,7 +199,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 75,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -185,7 +211,7 @@ UnitBlueprint {
             },
 			
 			FiringRandomness = 0.2,
-            FiringTolerance = 1,
+            FiringTolerance = 0.5,
 			
             Label = 'MainGun',
 			
@@ -194,9 +220,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 31,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVYproj/BRMT2HVYproj_proj.bp',
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
@@ -216,9 +243,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,
+            RateOfFire = 2,
 			
-            TargetCheckInterval = 1.0,
+            TargetCheckInterval = 0.8,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -243,8 +270,9 @@ UnitBlueprint {
             TurretYawSpeed = 34,
 			
             Turreted = true,
- 	   },
+		},
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.9,

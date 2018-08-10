@@ -15,6 +15,7 @@ UnitBlueprint {
             'BRNT3BM2WK',
         },
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -32,6 +33,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -41,7 +43,9 @@ UnitBlueprint {
             Level5 = 20,
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -58,6 +62,7 @@ UnitBlueprint {
 		'OVERLAYINDIRECTFIRE',
 		'OVERLAYRADAR',
     },
+	
     Defense = {
         AntiMissile = {
             AttachBone = 'rocketaim',
@@ -72,7 +77,9 @@ UnitBlueprint {
         RegenRate = 6,
         SurfaceThreatLevel = 58,
     },
+	
     Description = '<LOC brmt3bm2_desc>Adv. Amphib Battle Bot',
+	
     Display = {
         Abilities = {
             'Amphibious',
@@ -144,6 +151,7 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Amphib Battle Mech',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
@@ -184,22 +192,27 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.5,
+	
     SizeX = 1.1,
     SizeY = 1.5,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 40,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
         Level3 = 30,
         Level4 = 40,
         Level5 = 50,
-   },
+	},
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -390,12 +403,12 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'STRUCTURE',
                 'ALLUNITS',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'rightarm_muzzle01',
@@ -493,11 +506,11 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'gun01',

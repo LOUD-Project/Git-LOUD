@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 50, 
-    }, 
+    },
+	
     Audio = {
 		DeathExplosion = Sound {
 			Bank = 'URLWeapon',
@@ -29,6 +30,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -38,7 +40,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 21,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -89,16 +93,17 @@ UnitBlueprint {
             },
         },
 
-        PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = true,
 		
         UniformScale = 0.055,
     },
+	
     Economy = {
         BuildCostEnergy = 4100,
         BuildCostMass = 740,
         BuildTime = 3000,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -122,16 +127,20 @@ UnitBlueprint {
         UnitName = '<LOC brmt2medm_name>Immortal',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 26,
 		WaterVisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Amphibious Medium Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -178,6 +187,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 115,
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -185,6 +195,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Transport = {
         TransportClass = 2,
     },
@@ -407,6 +418,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

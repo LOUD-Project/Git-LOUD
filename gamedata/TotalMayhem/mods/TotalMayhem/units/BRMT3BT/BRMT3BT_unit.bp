@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-    }, 
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -19,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -28,7 +30,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 21,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -65,7 +69,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.15,
     },
@@ -99,15 +103,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt3bt_name>Mastodon',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'Adv. Assault Tank',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 0.95,
+	
     Physics = {
 		BackUpDistance = 2,
         BankingSlope = 0,
@@ -135,14 +143,18 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 30,
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.5,
+	
     SizeX = 1.0,
     SizeY = 0.35,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -150,9 +162,11 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Transport = {
         TransportClass = 3,
     },
+	
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
@@ -256,9 +270,9 @@ UnitBlueprint {
                 'DEFENSE',
 				'MOBILE',
                 'SPECIALLOWPRI',
-                'ALLUNITS,-WALL',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'rl01',
@@ -357,9 +371,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'ALLUNITS,-WALL',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.10,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',

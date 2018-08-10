@@ -81,7 +81,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
@@ -90,9 +90,8 @@ UnitBlueprint {
         BuildCostEnergy = 6600,
         BuildCostMass = 600,
         BuildTime = 600,
-        RebuildBonusIds = {
-            'BRMT1EXPD',
-        },
+		
+        RebuildBonusIds = {'BRMT1EXPD'},
     },
 	
     General = {
@@ -119,15 +118,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt1expd_name>Pen',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 26,
     },
+	
     Interface = {
         HelpText = 'Microwave PD/AA Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -151,14 +154,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 1,
+	
     SizeX = 0.65,
     SizeY = 1.2,
     SizeZ = 0.65,
+	
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 207,
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -166,6 +173,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -206,7 +214,7 @@ UnitBlueprint {
 			
             DisplayName = 'Microwave Laser',
 			
-			EnergyDrainPerSecond = 100,
+			EnergyDrainPerSecond = 10,
 			EnergyRequired = 100,
 			
             FireTargetLayerCapsTable = {
@@ -239,6 +247,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
@@ -249,12 +258,13 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TrackingRadius = 1.20,
+			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret01',

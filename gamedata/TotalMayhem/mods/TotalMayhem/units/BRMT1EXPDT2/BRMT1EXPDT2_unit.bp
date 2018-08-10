@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -32,7 +34,9 @@ UnitBlueprint {
             Level5 = 5,
 		},
     },
+	
     BuildIconSortPriority = 113,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -48,7 +52,9 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.5,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 1600,
@@ -56,7 +62,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 20,
     },
+	
     Description = '<LOC brmt1expdt2_desc>Microwave PD - Dual',
+	
     Display = {
         Abilities = {
             'Dual Barrel PD Beam Weapon',
@@ -71,18 +79,20 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.040,
     },
+	
     Economy = {
         BuildCostEnergy = 10000,
         BuildCostMass = 900,
         BuildTime = 900,
-        RebuildBonusIds = {
-            'BRMT1EXPDT2',
-        },
+		
+        RebuildBonusIds = {'BRMT1EXPDT2'},
+		
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -107,15 +117,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt1expdt2_name>Dual Pen',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Dual Microwave PD',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -139,14 +153,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.1,
+	
     SizeX = 0.65,
     SizeY = 1.2,
     SizeZ = 0.65,
+	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 208,
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -154,6 +172,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

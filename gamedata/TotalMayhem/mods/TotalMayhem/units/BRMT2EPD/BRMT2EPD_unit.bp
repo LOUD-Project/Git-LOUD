@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -32,6 +34,7 @@ UnitBlueprint {
             Level5 = 6,
 		},
     },
+	
     BuildIconSortPriority = 111,
 	
     Categories = {
@@ -61,6 +64,7 @@ UnitBlueprint {
         Health = 3500,
         MaxHealth = 3500,
         RegenRate = 3,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -76,6 +80,7 @@ UnitBlueprint {
             ShieldSize = 2.8,
             ShieldVerticalOffset = -0.3,
         },
+		
         SurfaceThreatLevel = 27,
     },
 	
@@ -120,10 +125,10 @@ UnitBlueprint {
         BuildCostEnergy = 16500,
         BuildCostMass = 1800,
         BuildTime = 1800,
+		
 		MaintenanceConsumptionPerSecondEnergy = 40,
-        RebuildBonusIds = {
-            'BRMT2EPD',
-        },
+		
+        RebuildBonusIds = {'BRMT2EPD'},
     },
 
     General = {
@@ -318,6 +323,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.7,

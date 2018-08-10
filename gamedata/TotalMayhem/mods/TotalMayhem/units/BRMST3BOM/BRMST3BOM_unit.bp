@@ -143,7 +143,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0005',
+
         SpawnRandomRotation = true,
         UniformScale = 0.072,
     },
@@ -647,8 +647,8 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0,
-            FiringTolerance = 1,
+            FiringRandomness = 0.1,
+            FiringTolerance = 0.2,
 			
             Label = 'AAGun',
 			
@@ -658,7 +658,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 90,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
 
@@ -687,14 +687,14 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+			
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
             TurretBoneYaw = 'Back_Turret_AA',

@@ -1,7 +1,9 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 15, 
     }, 
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -19,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -28,7 +31,9 @@ UnitBlueprint {
             Level5 = 20,
         },
     },
+	
     BuildIconSortPriority = 26,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -44,6 +49,7 @@ UnitBlueprint {
 		'OVERLAYRADAR',
         'OVERLAYDIRECTFIRE',
     },
+	
     Defense = {
 		AirThreatLevel = 30,
         ArmorType = 'Normal',
@@ -52,7 +58,9 @@ UnitBlueprint {
         RegenRate = 4,
         SurfaceThreatLevel = 30,
     },
+	
     Description = '<LOC brmt3lzt_desc>Amphib AA/Support',
+	
     Display = {
         Abilities = {
 			'Amphbious',
@@ -70,7 +78,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
@@ -82,7 +90,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 1,
+		CapCost = 1.5,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -105,6 +113,7 @@ UnitBlueprint {
         UnitName = '<LOC brmt3lzt_name>Trilobyte',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 75,
@@ -143,10 +152,14 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
+		
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.1,
+		
         TurnRadius = 30,
+		
         TurnRate = 70,
+		
 		WaterSpeedMultiplier = 1.1,
     },
 	
@@ -253,9 +266,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE,AIR',
+                'AIR',
 				'ENGINEER',
-                'MOBILE,-AIR',
+                'MOBILE',
 				'ANTIAIR',
                 'DEFENSE',
                 'ALLUNITS',
