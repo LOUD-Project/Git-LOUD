@@ -286,8 +286,8 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0.4,
-            FiringTolerance = 0.5,
+            FiringRandomness = 0.2,
+            FiringTolerance = 0.2,
 			
             Label = 'LeftAAGun',
 			

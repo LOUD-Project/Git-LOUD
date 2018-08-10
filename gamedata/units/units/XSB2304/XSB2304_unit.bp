@@ -212,7 +212,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-			
+			FiringRandomness = 0.05,
             FiringTolerance = 0.1,
 			
             Label = 'AutoCannon',
@@ -221,9 +221,9 @@ UnitBlueprint {
             MaxRadius = 64,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
 			
-            MuzzleVelocity = 98,
+            MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon04/SAALosaareAutoCannon04_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.7,
@@ -248,15 +248,15 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 440 DPS Air
-            TargetCheckInterval = 0.5,
+            RateOfFire = 4,		-- 440 DPS Air
+            TargetCheckInterval = 0.1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

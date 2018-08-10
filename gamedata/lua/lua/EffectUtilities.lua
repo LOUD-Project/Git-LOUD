@@ -1449,6 +1449,7 @@ function CleanupEffectBag( self, EffectBag )
 	if self[EffectBag] then
 	
 		for _, v in self[EffectBag] do
+
 			v:Destroy()
 		end
 		

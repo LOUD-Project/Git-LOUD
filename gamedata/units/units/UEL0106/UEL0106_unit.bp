@@ -1,8 +1,10 @@
 UnitBlueprint {
+
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -15,8 +17,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -31,6 +36,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BOT',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 85,
@@ -68,11 +74,13 @@ UnitBlueprint {
         },
         UniformScale = 0.0625,
     },
+	
     Economy = {
         BuildCostEnergy = 120,
         BuildCostMass = 25,
         BuildTime = 100,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -96,15 +104,19 @@ UnitBlueprint {
         UnitName = '<LOC uel0106_name>Mech Marine',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 18,
     },
+	
     Interface = {
         HelpText = 'Light Assault Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.1,
     LifeBarSize = 0.45,
+	
     Physics = {
 		BackUpDistance = 2,
         BankingSlope = 0,
@@ -131,18 +143,23 @@ UnitBlueprint {
         TurnRadius = 1,
         TurnRate = 45,
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+	
     SizeX = 0.45,
     SizeY = 0.45,
     SizeZ = 0.45,
+	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
 		CanFireFromTransport = true,
         TransportClass = 1,
     },	
+	
     Veteran = {
         Level1 = 2,
         Level2 = 4,
@@ -150,6 +167,7 @@ UnitBlueprint {
         Level4 = 8,
         Level5 = 10,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
