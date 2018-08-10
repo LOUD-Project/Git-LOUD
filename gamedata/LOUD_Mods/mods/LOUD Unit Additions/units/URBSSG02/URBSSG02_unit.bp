@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -31,7 +32,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -45,7 +48,9 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1956,
@@ -67,7 +72,9 @@ UnitBlueprint {
             ShieldVerticalOffset = -40,
         },
     },
+	
     Description = '<LOC urbssg02_desc>Experimental Squareshield & Storage',
+	
     Display = {
         DamageEffects = {
             {
@@ -105,8 +112,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'URBSSG02',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -125,17 +133,22 @@ UnitBlueprint {
         },
         UniformScale = 0.168,
     },
+	
     Economy = {
         BuildCostEnergy = 225000,
         BuildCostMass = 13500,
         BuildTime = 17500,
+		
         MaintenanceConsumptionPerSecondEnergy = 8938,
+		
         StorageEnergy = 20000,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 8,
         Category = 'Defense',
@@ -172,15 +185,19 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'urbssg01',
     },
+	
     Intel = {
         VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Experimental Squareshield & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -202,14 +219,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 5.3,
     SelectionSizeZ = 4.7,
     SelectionThickness = 0.32,
+	
     SizeX = 7,
     SizeY = 5.5,
     SizeZ = 7,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -5,6 +5,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 20,
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'UAL',
@@ -27,7 +28,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 200,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYCOMMANDER',
@@ -51,6 +54,7 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTCONSTRUCTION',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 120,
@@ -58,7 +62,9 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 2,
     },
+	
     Description = '<LOC wab0201_desc>Engineering Station',
+	
     Display = {
         Abilities = {
             'Engineering Suite',
@@ -99,20 +105,26 @@ UnitBlueprint {
         },
         UniformScale = 0.3,
     },
+	
     Economy = {
         BuildCostEnergy = 6500,
         BuildCostMass = 1450,
+		
         BuildRate = 25,
+		
         BuildTime = 3100,
+		
         MaxBuildDistance = 20,
-        RebuildBonusIds = {
-            'wab0201',
-        },
+		
+        RebuildBonusIds = {'wab0201'},
+		
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 3,
         BuildBones = {
@@ -154,15 +166,19 @@ UnitBlueprint {
         UnitName = '<LOC wab0201_name>Saviour',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Engineering Station',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -181,20 +197,27 @@ UnitBlueprint {
         MeshExtentsZ = 2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
+		
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
+		
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+	
     SizeX = 1.2,
     SizeY = 1.6,
     SizeZ = 1.2,
+	
     StrategicIconName = 'icon_structure2_engineer',
     StrategicIconSortPriority = 225,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

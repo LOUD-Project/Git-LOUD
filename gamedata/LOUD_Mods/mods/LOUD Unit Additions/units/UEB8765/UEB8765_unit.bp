@@ -36,9 +36,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
-	
-    CollisionOffsetY = 0,
-	
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2126,# 1% Health + .1% Energy Storage + 1% Mass Storage

@@ -31,7 +31,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -45,7 +47,9 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1654,
@@ -113,8 +117,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UABSSG02',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -131,13 +136,17 @@ UnitBlueprint {
                 Width = 18,
             },
         },
+		
         UniformScale = 0.168,
     },
+	
     Economy = {
         BuildCostEnergy = 280820,
         BuildCostMass = 15318,
         BuildTime = 19147,
+		
         MaintenanceConsumptionPerSecondEnergy = 10530,
+		
         StorageEnergy = 20000,
     },
 	
@@ -182,15 +191,19 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'uabssg01',
     },
+	
     Intel = {
         VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Experimental Squareshield & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.9,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -215,14 +228,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 5.6,
     SelectionSizeZ = 5.6,
     SelectionThickness = 0.45,
+	
     SizeX = 7,
     SizeY = 2,
     SizeZ = 7,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 195,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

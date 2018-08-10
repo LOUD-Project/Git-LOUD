@@ -13,9 +13,6 @@ tcba0401 = Class( AShieldStructureUnit ) {
             '/effects/emitters/cybran_shield_05_generator_02_emit.bp',
             '/effects/emitters/cybran_shield_05_generator_03_emit.bp',
             '/effects/emitters/cybran_shield_05_generator_04_emit.bp',
---			'/effects/emitters/aeon_shield_generator_t2_01_emit.bp',
---			'/effects/emitters/aeon_shield_generator_t3_02_emit.bp',
---			'/effects/emitters/aeon_shield_generator_t3_03_emit.bp',
     },
     
     OnStopBeingBuilt = function(self,builder,layer)

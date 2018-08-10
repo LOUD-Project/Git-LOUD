@@ -78,10 +78,12 @@ UnitBlueprint {
     Description = '<LOC uabssg01_desc>Experimental Squareshield',
 	
     Display = {
+	
         Abilities = {
 			'Square Shield',
 			'Size not affected by storage',
         },
+		
         DamageEffects = {
             {
                 Bone = 0,
@@ -108,6 +110,7 @@ UnitBlueprint {
                 OffsetZ = -1.3,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -124,8 +127,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UABSSG01',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -142,6 +146,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+		
         UniformScale = 0.14,
     },
 	
@@ -149,9 +154,13 @@ UnitBlueprint {
         BuildCostEnergy = 561640,
         BuildCostMass = 21996,
         BuildTime = 38294,
+		
         MaintenanceConsumptionPerSecondEnergy = 6000,
+		
         BuildRate = 30,
+		
         BuildableCategory = { 'uabssg02' },
+		
         RebuildBonusIds = {'uabssg01','uabssg02'},
     },
 	

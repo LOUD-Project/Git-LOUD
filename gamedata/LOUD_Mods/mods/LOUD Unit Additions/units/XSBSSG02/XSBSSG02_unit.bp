@@ -31,7 +31,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -45,13 +47,17 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2373,
         Health = 6750,
         MaxHealth = 6750,
+		
 		RegenRate = 23,
+		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
         	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
@@ -67,7 +73,9 @@ UnitBlueprint {
             ShieldVerticalOffset = -48,
         },
     },
+	
     Description = '<LOC xsbssg02_desc>Experimental Squareshield & Storage',
+	
     Display = {
         AnimationDeath = {
             {
@@ -108,8 +116,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'XSBSSG02',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -123,12 +132,13 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
+                RemoveWhenDead = true,
                 Width = 18,
             },
         },
         UniformScale = 0.078,
     },
+	
     Economy = {
         BuildCostEnergy = 381550,
         BuildCostMass = 22893,
@@ -136,10 +146,12 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 12592,
         StorageEnergy = 20000,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 8,
         Category = 'Defense',
@@ -176,15 +188,19 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'xsbssg01',
     },
+	
     Intel = {
         VisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Experimental Squareshield & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 3.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -209,14 +225,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 4.4,
     SelectionSizeZ = 4.4,
     SelectionThickness = 0.45,
+	
     SizeX = 5,
     SizeY = 5,
     SizeZ = 5,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 195,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -11,6 +11,7 @@ UnitBlueprint {
             'Target_06',
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'URB',
@@ -33,7 +34,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 42,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -48,6 +51,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTINTEL',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 145,
@@ -55,7 +59,9 @@ UnitBlueprint {
         MaxHealth = 15000,
         RegenRate = 5,
     },
+	
     Description = '<LOC urb0305_desc>Quantum Teleporter',
+	
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {
@@ -73,8 +79,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = false,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -94,21 +101,22 @@ UnitBlueprint {
         },
         UniformScale = 0.081,
     },
+	
     Economy = {
         BuildCostEnergy = 100000,
         BuildCostMass = 10000,
         BuildTime = 10000,
-        BuildableCategory = {
-       	'AEON UEF MOBILE',
-        },
-        RebuildBonusIds = {
-            'urb0305',
-        },
+		
+        BuildableCategory = {'AEON UEF MOBILE'},
+		
+        RebuildBonusIds = {'urb0305'},
     },
+	
     Footprint = {
         SizeX = 7,
         SizeZ = 7,
     },
+	
     General = {
 		CapCost = 5,
         Category = 'Strategic',
@@ -144,15 +152,19 @@ UnitBlueprint {
 		},
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Quantum Teleporter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.85,
     LifeBarSize = 6,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -324,19 +336,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.95,
     SelectionSizeZ = 3.65,
     SelectionThickness = 0.26,
+	
     SizeX = 4.75,
     SizeY = 2,
     SizeZ = 3.5,
+	
     StrategicIconName = 'icon_structure3_transport',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

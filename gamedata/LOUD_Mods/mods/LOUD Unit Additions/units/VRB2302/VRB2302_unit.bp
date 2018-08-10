@@ -77,8 +77,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -98,6 +99,7 @@ UnitBlueprint {
         },
         UniformScale = 0.045,
     },
+	
     Economy = {
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,

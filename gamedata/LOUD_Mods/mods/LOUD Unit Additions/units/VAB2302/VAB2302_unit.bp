@@ -89,8 +89,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -110,6 +111,7 @@ UnitBlueprint {
         },
         UniformScale = 0.06,
     },
+	
     Economy = {
 	
         BuildCostEnergy = 132000,
@@ -117,7 +119,6 @@ UnitBlueprint {
         BuildTime = 13000,
 		
         RebuildBonusIds = {'vab2302'},
-		
     },
 	
     General = {

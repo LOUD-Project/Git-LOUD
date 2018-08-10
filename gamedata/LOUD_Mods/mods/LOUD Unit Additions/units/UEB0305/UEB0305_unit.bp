@@ -10,6 +10,7 @@ UnitBlueprint {
             'Attachpoint03',
         },
     },
+	
     Audio = {
         Construct = Sound {
             Bank = 'UEB',
@@ -32,7 +33,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 42,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -47,7 +50,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 145,
@@ -55,7 +60,9 @@ UnitBlueprint {
         MaxHealth = 15000,
         RegenRate = 3,
     },
+	
     Description = '<LOC ueb0305_desc>Quantum Teleporter',
+	
     Display = {
         BuildAttachBone = 'Attachpoint01',
         Mesh = {
@@ -73,8 +80,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = false,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -94,23 +102,24 @@ UnitBlueprint {
         },
         UniformScale = 0.081,
     },
+	
     Economy = {
         BuildCostEnergy = 100000,
         BuildCostMass = 10000,
         BuildTime = 10000,
-        BuildableCategory = {
-       	'AEON UEF MOBILE',
-        },
-        RebuildBonusIds = {
-            'ueb0305',
-        },
+		
+        BuildableCategory = {'AEON UEF MOBILE'},
+		
+        RebuildBonusIds = {'ueb0305'},
     },
+	
     Footprint = {
         SizeX = 7,
         SizeZ = 7,
     },
+	
     General = {
-	CapCost = 5,
+		CapCost = 5,
         Category = 'Strategic',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -131,28 +140,32 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'land',
-	OrderOverrides = {
-		RULEUTC_WeaponToggle = {
-			bitmapId = 'teleport',
-			helpText = 'gateway_teleport',
+		OrderOverrides = {
+			RULEUTC_WeaponToggle = {
+				bitmapId = 'teleport',
+				helpText = 'gateway_teleport',
+			},
 		},
-	},
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-	ToggleCaps = {
-		RULEUTC_WeaponToggle = true,
-	},
+		ToggleCaps = {
+			RULEUTC_WeaponToggle = true,
+		},
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Quantum Teleporter',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.75,
     LifeBarSize = 5.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -324,19 +337,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 4,
     SelectionSizeZ = 3.75,
     SelectionThickness = 0.26,
+	
     SizeX = 7.25,
     SizeY = 3.5,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_structure3_transport',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

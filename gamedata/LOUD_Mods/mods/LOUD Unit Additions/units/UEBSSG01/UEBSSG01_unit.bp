@@ -124,8 +124,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UEBSSG01',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -149,8 +150,11 @@ UnitBlueprint {
         BuildCostEnergy = 610000,
         BuildCostMass = 21996,
         BuildTime = 46875,
+		
         MaintenanceConsumptionPerSecondEnergy = 6000,
+		
         BuildRate = 30,
+		
         BuildableCategory = { 'uebssg02' },
 		
         RebuildBonusIds = {'uebssg01','uebssg02'},

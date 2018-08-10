@@ -118,8 +118,11 @@ UnitBlueprint {
     Economy = {
 		BuildCostEnergy = 750000,
         BuildCostMass = 42500,
+		
         BuildRate = 1950,
+		
         BuildTime = 12500,
+		
         MaintenanceConsumptionPerSecondEnergy = 4250,
     },
 	
@@ -260,7 +263,7 @@ UnitBlueprint {
 			
             ForceSingleFire = true,
 			
-            InitialProjectileStorage = 1,
+            InitialProjectileStorage = 0,
 			
             Label = 'MissileRack',
 			
