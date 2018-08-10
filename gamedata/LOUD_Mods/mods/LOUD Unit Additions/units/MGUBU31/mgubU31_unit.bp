@@ -90,7 +90,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 125000,
+        BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
 		RebuildBonusIds = { 'mgubU31' },
@@ -177,11 +177,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 20,
-        Level2 = 40,
-        Level3 = 60,
-        Level4 = 80,
-        Level5 = 100,
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
     },
 	
     Weapon = {
@@ -205,8 +205,8 @@ UnitBlueprint {
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -220,7 +220,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -296,8 +296,8 @@ UnitBlueprint {
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -310,7 +310,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -385,8 +385,8 @@ UnitBlueprint {
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -400,7 +400,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 192,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,

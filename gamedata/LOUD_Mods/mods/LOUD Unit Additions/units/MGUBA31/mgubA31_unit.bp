@@ -73,7 +73,7 @@ AI = {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -96,7 +96,7 @@ AI = {
     },
 	
     Economy = {
-        BuildCostEnergy = 125000,
+        BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
 		RebuildBonusIds = { 'mgubA31' },
@@ -182,11 +182,11 @@ AI = {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 20,
-        Level2 = 40,
-        Level3 = 60,
-        Level4 = 80,
-        Level5 = 100,
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
     },
 	
     Weapon = {
@@ -213,8 +213,8 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -227,7 +227,7 @@ AI = {
             Label = 'MainGun',
             LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -306,8 +306,8 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -321,7 +321,7 @@ AI = {
 			
             LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -400,8 +400,8 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -415,7 +415,7 @@ AI = {
 			
             LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
