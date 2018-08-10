@@ -3641,9 +3641,9 @@ Unit = Class(moho.unit_methods) {
 
     CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
 
-        local effects = {}
-
         for _, vTypeGroup in effectTypeGroups do
+		
+	        local effects = {}
 		
             if TerrainType then
 			
@@ -3660,9 +3660,9 @@ Unit = Class(moho.unit_methods) {
 				for kb, vBone in vTypeGroup.Bones do
 				
 					for ke, vEffect in effects do
-					
+
 						local emit = LOUDATTACHEMITTER( self, vBone, self.Sync.army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1)
-						
+
 						if vTypeGroup.Offset then
 						
 							emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)

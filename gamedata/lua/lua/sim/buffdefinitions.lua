@@ -131,6 +131,24 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 	EffectsScale = 0.25,
 }
 
+BuffBlueprint { Name = 'DarknessOmniNerf',
+    DisplayName = 'DarknessOmniNerf',
+    BuffType = 'OmniRadius',
+    Stacks = 'REPLACE',
+    Duration = 20.1,
+    Affects = {
+        OmniRadius = {
+            Add = 0,
+            Mult = 0.6,
+        },
+    },
+	Effects = {
+		'/effects/emitters/jammer_ambient_01_emit.bp',
+		'/effects/emitters/jammer_ambient_02_emit.bp',
+	},
+	EffectsScale = 0.65,	
+}
+
 -- This buff is for Aeon Maelstrom Field from BAL0402
 -- and the Aeon BO ACU
 BuffBlueprint { Name = 'AeonMaelstromField',

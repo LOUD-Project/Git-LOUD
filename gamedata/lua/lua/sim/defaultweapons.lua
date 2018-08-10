@@ -92,7 +92,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         local totalMuzzleFiringTime = (self.NumMuzzles - 1) * bp.MuzzleSalvoDelay
 		
-        if totalMuzzleFiringTime > (1 / bp.RateOfFire) then
+        if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
             local strg = '*ERROR: The total time to fire ('..totalMuzzleFiringTime..') '..self.NumMuzzles..' muzzles is longer than the RateOfFire '..bp.RateOfFire..' allows, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit:GetUnitId()
             error(strg, 2)
             return false
