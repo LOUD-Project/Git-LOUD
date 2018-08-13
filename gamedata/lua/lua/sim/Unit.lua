@@ -2989,9 +2989,7 @@ Unit = Class(moho.unit_methods) {
         --self:PlayUnitAmbientSound('ConstructLoop')
 		
         if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
-		
-			--LOG("*AI DEBUG Disallowing Collisions on "..unitBeingBuilt:GetBlueprint().Description)
-			
+
             unitBeingBuilt.DisallowCollisions = true
 			
         end
@@ -5143,17 +5141,23 @@ Unit = Class(moho.unit_methods) {
 					
 				end
 				
+				-- the range at which this unit blocks teleportation
 				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance
+				
 				local atposition = unit:GetPosition()
 				local selfpos = self:GetPosition()
+				
 				local targetdest = VDist2(location[1], location[3], atposition[1], atposition[3])
+				
 				local sourcecheck = VDist2(selfpos[1], selfpos[3], atposition[1], atposition[3])
 				
+				-- if the destination is blocked --
 				if noTeleDistance and noTeleDistance > targetdest then
 				
 					FloatingEntityText(id,'Teleport Destination Scrambled')
 					return
 					
+				-- if start point is within a jammer radius --
 				elseif noTeleDistance and noTeleDistance >= sourcecheck then
 				
 					FloatingEntityText(id,'Teleport Generator Scrambled')
@@ -5167,8 +5171,11 @@ Unit = Class(moho.unit_methods) {
 		
         -- Economy Check and Drain
 		local bp = self:GetBlueprint()
-		local telecost = bp.Economy.TeleportBurstEnergyCost or 0
+		
+		local telecost = bp.Economy.TeleportBurstEnergyCost or 1500
+		
         local mybrain = self:GetAIBrain()
+		
         local storedenergy = mybrain:GetEconomyStored('ENERGY')
 		
 		if telecost > 0 and not self.TeleportCostPaid then
@@ -5345,10 +5352,10 @@ Unit = Class(moho.unit_methods) {
 			
             energyCost = mass + energy
 			
-			-- teleport never takes more than 5 seconds --
-            time = math.min(5, energyCost * math.max(.02, bp.TeleportTimeMod or 0.0001))
+			-- teleport never takes more than 10 seconds --
+            time = math.min(10, energyCost * math.max(.02, bp.TeleportTimeMod or 0.0001))
 			
-			--LOG('*UNIT DEBUG: TELEPORTING, bp values Mass '..repr(mass)..'  Energy '..repr(energy)..'  Combined Cost '..repr(energyCost)..' time = '..repr(time) )
+			LOG('*UNIT DEBUG: TELEPORTING, bp values Mass '..repr(mass)..'  Energy '..repr(energy)..'  Combined Cost '..repr(energyCost)..' time = '..repr(time) )
 			
         end
 
