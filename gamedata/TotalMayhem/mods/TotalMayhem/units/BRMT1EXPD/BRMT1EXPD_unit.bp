@@ -214,7 +214,7 @@ UnitBlueprint {
 			
             DisplayName = 'Microwave Laser',
 			
-			EnergyDrainPerSecond = 10,
+			EnergyDrainPerSecond = 100,
 			EnergyRequired = 100,
 			
             FireTargetLayerCapsTable = {
