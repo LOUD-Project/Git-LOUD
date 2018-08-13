@@ -323,10 +323,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'AIR',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',			
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Muzzle1',
