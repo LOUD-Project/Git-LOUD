@@ -50,10 +50,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2750,
+        EconomyThreatLevel = 4500,
         Health = 17500*.8,
         MaxHealth = 17500*.8,
-        RegenRate = 0,
+        RegenRate = 2,
     },
 	
     Description = '<LOC seb3404_desc>Experimental Sensor Array',
@@ -105,11 +105,15 @@ UnitBlueprint {
         BuildCostEnergy = 990990,
         BuildCostMass = 82000,
         BuildTime = 27000,
-        MaintenanceConsumptionPerSecondEnergy = 10000,
-        RebuildBonusIds = {
-            'seb3404',
-        },
+		
+        MaintenanceConsumptionPerSecondEnergy = 15000,
+		
+        RebuildBonusIds = {'seb3404'},
+		
         ResearchMult = 0.5,
+		
+		MinimumBuilding = 125,
+		MinimumMobile = 1250,
     },
 	
     Footprint = {

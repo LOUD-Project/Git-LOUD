@@ -112,6 +112,10 @@ SEB3404 = Class(TStructureUnit) {
         -- Calculate the overall cost and cut off point for the energy restricted radius
         ------------------------------------------------------------------------
         local NewUpkeep = self:GetBlueprint().Economy.MaintenanceConsumptionPerSecondEnergy
+		
+		local MinimumPerBuilding = self:GetBlueprint().Economy.MinimumPerBuilding or 100
+		local MinimumPerMobile = self:GetBlueprint().Economy.MinimumPerMobile or 1000
+		
         local SpareEnergy = self:GetAIBrain():GetEconomyIncome( 'ENERGY' ) - self:GetAIBrain():GetEconomyRequested('ENERGY') + self.PanopticonUpkeep
 		
         for i, v in LocalUnits do
@@ -123,13 +127,13 @@ SEB3404 = Class(TStructureUnit) {
             if string.lower(ebp.Physics.MotionType or 'NOPE') == string.lower('RULEUMT_None') then
 			
                 --If building cost
-                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 10000, 1), 100)
+                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 10000, 1), MinimumPerBuilding)
                 LocalUnits[i].cost = cost
 				
             else
 			
                 --If mobile cost
-                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 1000, 10), 1000)
+                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 1000, 10), MinimumPerMobile)
                 LocalUnits[i].cost = cost
 				
             end
