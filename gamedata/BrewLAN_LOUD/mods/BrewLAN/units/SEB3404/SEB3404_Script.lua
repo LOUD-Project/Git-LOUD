@@ -6,6 +6,8 @@ local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
+local TeleportLocationBlocked = import('/lua/loudutilities.lua').TeleportLocationBlocked
+
 SEB3404 = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self, ...)
@@ -89,7 +91,7 @@ SEB3404 = Class(TStructureUnit) {
         local maxrange = self:GetIntelRadius('radar') or self:GetBlueprint().Intel.RadarRadius or 6000
 		
         -- Find visible things to attach vis entities to
-        local LocalUnits = self:FindAllUnits(categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
+        local LocalUnits = self:FindAllUnits(categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
         ------------------------------------------------------------------------
         -- IF self.ActiveConsumptionRestriction Sort the table by distance
         ------------------------------------------------------------------------
@@ -111,29 +113,36 @@ SEB3404 = Class(TStructureUnit) {
         ------------------------------------------------------------------------
         -- Calculate the overall cost and cut off point for the energy restricted radius
         ------------------------------------------------------------------------
-        local NewUpkeep = self:GetBlueprint().Economy.MaintenanceConsumptionPerSecondEnergy
+		local Eco = self:GetBlueprint().Economy
 		
-		local MinimumPerBuilding = self:GetBlueprint().Economy.MinimumPerBuilding or 100
-		local MinimumPerMobile = self:GetBlueprint().Economy.MinimumPerMobile or 1000
+        local NewUpkeep = Eco.MaintenanceConsumptionPerSecondEnergy
+		
+		local MinimumPerBuilding = Eco.MinimumPerBuilding or 100
+		local MaximumPerBuilding = Eco.MaximumPerBuilding or 500
+		
+		local MinimumPerMobile = Eco.MinimumPerMobile or 200
+		local MinimumPerMobile = Eco.MaximumPerMobile or 500
+		
+		local SpyBlipRadius = self:GetBlueprint().Intel.SpyBlipRadius or 2
 		
         local SpareEnergy = self:GetAIBrain():GetEconomyIncome( 'ENERGY' ) - self:GetAIBrain():GetEconomyRequested('ENERGY') + self.PanopticonUpkeep
 		
         for i, v in LocalUnits do
 
             --Calculate costs per unit as we go
-            local ebp = v:GetBlueprint()
+            local ebp = v:GetBlueprint().Economy
             local cost
 			
             if string.lower(ebp.Physics.MotionType or 'NOPE') == string.lower('RULEUMT_None') then
 			
                 --If building cost
-                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 10000, 1), MinimumPerBuilding)
+                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 10000, MinimumPerBuilding), MaximumPerBuilding)
                 LocalUnits[i].cost = cost
 				
             else
 			
                 --If mobile cost
-                cost = math.min(math.max((ebp.Economy.BuildCostEnergy or 10000) / 1000, 10), MinimumPerMobile)
+                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 1000, MinimumPerMobile), MaximumPerMobile)
                 LocalUnits[i].cost = cost
 				
             end
@@ -142,7 +151,7 @@ SEB3404 = Class(TStructureUnit) {
             if self.ActiveConsumptionRestriction and NewUpkeep + cost > SpareEnergy then
 			
                 if i == 1 then
-                    NewUpkeep = self:GetBlueprint().Economy.MaintenanceConsumptionPerSecondEnergy
+                    NewUpkeep = Eco.MaintenanceConsumptionPerSecondEnergy
                 end
 
                 break
@@ -150,35 +159,41 @@ SEB3404 = Class(TStructureUnit) {
             else
 			
                 NewUpkeep = NewUpkeep + cost
-                self:AttachVisEntityToTargetUnit(v)
+				
+                self:AttachVisEntityToTargetUnit(v,SpyBlipRadius)
 
             end
         end
 		
         self.PanopticonUpkeep = NewUpkeep
+		
         self:SetMaintenanceConsumptionActive()
         self:SetEnergyMaintenanceConsumptionOverride(self.PanopticonUpkeep)
 		
     end,
 
-    AttachVisEntityToTargetUnit = function(self, unit)
+    AttachVisEntityToTargetUnit = function(self, unit, SpyBlipRadius)
 	
         local location = unit:GetPosition()
+
+		if not TeleportLocationBlocked( self, location ) then
 		
-        local spec = {
-            X = location[1],
-            Z = location[3],
-            Radius = self:GetBlueprint().Intel.SpyBlipRadius or 2,
-            LifeTime = 1,
-            Omni = false,
-            Radar = false,
-            Vision = true,
-            Army = self:GetAIBrain():GetArmyIndex(),
-        }
+			local spec = {
+				X = location[1],
+				Z = location[3],
+				Radius = SpyBlipRadius,
+				LifeTime = 1,
+				Omni = false,
+				Radar = false,
+				Vision = true,
+				Army = self:GetAIBrain():GetArmyIndex(),
+			}
 		
-        local visentity = VizMarker(spec)
+			local visentity = VizMarker(spec)
 		
-        visentity:AttachTo(unit, -1)
+			visentity:AttachTo(unit, -1)
+			
+		end
 		
     end,
 

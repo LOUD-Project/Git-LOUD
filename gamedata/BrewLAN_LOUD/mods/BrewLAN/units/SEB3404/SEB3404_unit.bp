@@ -68,14 +68,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 1000,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 200, ShaderName = 'Unit' },
+                { LODCutoff = 1000, ShaderName = 'Unit' },
             },
         },
 
@@ -112,8 +106,10 @@ UnitBlueprint {
 		
         ResearchMult = 0.5,
 		
-		MinimumBuilding = 125,
-		MinimumMobile = 1250,
+		MinimumPerBuilding = 100,
+		MaximumPerBuilding = 500,
+		MinimumPerMobile = 200,
+		MaximumPerMobile = 500,
     },
 	
     Footprint = {
