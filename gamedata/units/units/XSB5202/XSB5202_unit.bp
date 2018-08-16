@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         RefuelingMultiplier = 15,
         RefuelingRepairAmount = 500,
@@ -7,6 +8,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 650,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -29,7 +31,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
+	BuffFields = {
+		RegenField = 'AirStagingBuffField',
+	},	
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -47,6 +55,7 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -92,14 +101,15 @@ UnitBlueprint {
 
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 175,
         BuildTime = 350,
-        RebuildBonusIds = {
-            'xsb5202',
-        },
+		
+        RebuildBonusIds = {'xsb5202'},
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -118,7 +128,7 @@ UnitBlueprint {
             RULEUCC_Transport = true,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUCC_Transport = {
                 bitmapId = 'deploy',
@@ -130,12 +140,15 @@ UnitBlueprint {
         UnitName = '<LOC xsb5202_name>Iathu-uhthe',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Air Staging Beacon',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.15,
     LifeBarSize = 2.7,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -156,14 +169,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.15,
     SelectionSizeZ = 2.15,
     SelectionThickness = 0.32,
+	
     SizeX = 2.75,
     SizeY = 1,
     SizeZ = 2.75,
+	
     StrategicIconName = 'icon_structure2_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
 		AirClass = true,
 		ClassGenericUpTo = 3,
@@ -172,6 +189,7 @@ UnitBlueprint {
         DockingSlots = 4,
 		TransportClass = 10,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

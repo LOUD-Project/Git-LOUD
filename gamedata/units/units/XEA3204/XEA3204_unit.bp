@@ -81,7 +81,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.011,
     },
@@ -102,7 +102,9 @@ UnitBlueprint {
             PitchBone = 'Arm_Nozzle',
             YawBone = 'Arm',
         },
+		
         CapCost = 1,
+		
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {

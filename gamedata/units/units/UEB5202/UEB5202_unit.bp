@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         RefuelingMultiplier = 15,
         RefuelingRepairAmount = 500,
@@ -7,6 +8,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 650,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UELDestroy',
@@ -24,7 +26,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
+	BuffFields = {
+		RegenField = 'AirStagingBuffField',
+	},	
+
     BuildIconSortPriority = 210,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -76,18 +84,19 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1875,
     },
+	
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 175,
         BuildTime = 350,
-        RebuildBonusIds = {
-            'ueb5202',
-        },
+		
+        RebuildBonusIds = {'ueb5202'},
     },
+	
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -106,7 +115,7 @@ UnitBlueprint {
             RULEUCC_Transport = true,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUCC_Transport = {
                 bitmapId = 'deploy',
@@ -118,12 +127,15 @@ UnitBlueprint {
         UnitName = '<LOC ueb5202_name>Refuel & Repair',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Air Staging Facility',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.4,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -144,14 +156,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.15,
     SelectionSizeZ = 2.15,
     SelectionThickness = 0.32,
+	
     SizeX = 2.9,
     SizeY = 1.5,
     SizeZ = 2.9,
+	
     StrategicIconName = 'icon_structure2_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
 		AirClass = true,
 		ClassGenericUpTo = 3,
@@ -160,6 +176,7 @@ UnitBlueprint {
         DockingSlots = 4,
 		TransportClass = 10,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

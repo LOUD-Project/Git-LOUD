@@ -24,6 +24,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
+	BuffFields = {
+		RegenField = 'AirStagingBuffField',
+	},
+
     BuildIconSortPriority = 210,
     Categories = {
         'SELECTABLE',
@@ -106,7 +111,7 @@ UnitBlueprint {
             RULEUCC_Transport = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUCC_Transport = {
                 bitmapId = 'deploy',

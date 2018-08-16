@@ -16,8 +16,6 @@ XEA3204 = Class(TConstructionUnit) {
 
     SetParent = function(self, parent, podName)
 	
-		LOG("*AI DEBUG XEA3204 Set Parent")
-		
         self.Parent = parent
         self.PodName = podName
         self:SetCreator(parent)
@@ -99,9 +97,7 @@ XEA3204 = Class(TConstructionUnit) {
                 elseif distSq > ( 15 * 15 ) then
 				
 					self.docked = false
-					
-					--LOG("*AI DEBUG Pod is outside radius")
-					
+
 					self:OnFailedToBuild()
 					
 				end
@@ -122,7 +118,7 @@ XEA3204 = Class(TConstructionUnit) {
             local parentPosition = self.Parent:GetPosition()	--self.Parent.PodData[self.PodName].PodAttachpoint)
             local distSq = VDist2Sq(myPosition[1], myPosition[3], parentPosition[1], parentPosition[3])		
 			
-			if distSq > (17 * 17) then
+			if distSq > (15 * 15) then
 			
 				--LOG("*AI DEBUG Pod is beyond range")
 				
