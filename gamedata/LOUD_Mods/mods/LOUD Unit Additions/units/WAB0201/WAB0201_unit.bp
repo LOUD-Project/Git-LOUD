@@ -42,7 +42,6 @@ UnitBlueprint {
         'TECH3',
         'DRAGBUILD',
         'VISIBLETORECON',
-        'ENGINEER',
         'RECLAIMABLE',
         'STATIONASSISTPOD',
         'REPAIR',
@@ -110,11 +109,11 @@ UnitBlueprint {
         BuildCostEnergy = 6500,
         BuildCostMass = 1450,
 		
-        BuildRate = 25,
+        BuildRate = 20,
 		
         BuildTime = 3100,
 		
-        MaxBuildDistance = 20,
+        MaxBuildDistance = 18.5,
 		
         RebuildBonusIds = {'wab0201'},
 		
