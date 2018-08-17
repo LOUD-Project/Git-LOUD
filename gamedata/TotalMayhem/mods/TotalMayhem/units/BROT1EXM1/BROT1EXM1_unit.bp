@@ -107,7 +107,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'amph',
+        Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot1exm1_name>Medusa',
         UnitWeight = 1,

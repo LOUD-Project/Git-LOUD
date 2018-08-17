@@ -104,7 +104,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brmt1bt_name>Scarab',
         UnitWeight = 1,

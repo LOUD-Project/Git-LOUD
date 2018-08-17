@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -32,7 +34,9 @@ UnitBlueprint {
             Level5 = 8,
 		},
     },
+	
     BuildIconSortPriority = 121,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -52,7 +56,9 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.5,
+	
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Structure',
@@ -61,7 +67,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 14,
     },
+	
     Description = '<LOC brot1expd_desc>Multirole Point Defense',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -76,18 +84,19 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.26,
     },
+	
     Economy = {
         BuildCostEnergy = 6350,
         BuildCostMass = 570,
         BuildTime = 600,
-        RebuildBonusIds = {
-            'BROT1EXPD',
-        },
+		
+        RebuildBonusIds = {'BROT1EXPD'},
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -106,21 +115,25 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot1expd_name>Mizura',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 26,
     },
+	
     Interface = {
         HelpText = 'Multirole Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -145,14 +158,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 1,
+	
     SizeX = 0.75,
     SizeY = 1.2,
     SizeZ = 0.75,
+	
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -160,6 +177,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -239,7 +257,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE',
+                'DEFENSE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
@@ -264,6 +282,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

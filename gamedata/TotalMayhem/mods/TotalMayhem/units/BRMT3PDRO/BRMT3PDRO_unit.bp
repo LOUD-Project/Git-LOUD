@@ -46,7 +46,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 40,
     },
+	
     Description = '<LOC brmt3pdro_desc>Rocket Pod',
+	
     Display = {
         Abilities = {
 			'Aquatic',
@@ -63,7 +65,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.4,
     },
@@ -72,9 +74,8 @@ UnitBlueprint {
         BuildCostEnergy = 40000,
         BuildCostMass = 2700,
         BuildTime = 2700,
-        RebuildBonusIds = {
-            'BRMT3PDRO',
-        },
+		
+        RebuildBonusIds = {'BRMT3PDRO'},
     },
 	
     General = {
@@ -95,21 +96,25 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3pdro_name>Agronar',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Long Range Rocket System',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -137,11 +142,14 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.55,
+	
     SizeX = 0.9,
     SizeY = 1.4,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -149,6 +157,7 @@ UnitBlueprint {
         Level4 = 60,
         Level5 = 72,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -251,9 +260,10 @@ UnitBlueprint {
 			RenderFireClock = true,
 			
             TargetCheckInterval = 5,
+			
             TargetPriorities = {
                 'EXPERIMENTAL',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'SPECIALHIGHPRI',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
@@ -261,8 +271,9 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Turret_Muzzle2',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -271,9 +282,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 13,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 13,
+			
             Turreted = true,
  	   },
     },

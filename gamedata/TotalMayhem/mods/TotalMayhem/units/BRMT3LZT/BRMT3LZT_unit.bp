@@ -108,7 +108,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3lzt_name>Trilobyte',
         UnitWeight = 1,
