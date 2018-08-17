@@ -1,9 +1,11 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Turret_Barrel',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -21,6 +23,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -30,7 +33,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 145,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -47,7 +52,9 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.65,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 65,
@@ -56,7 +63,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 10,
     },
+	
     Description = '<LOC bab4307_desc>Advanced Tactical Missile Defense',
+	
     Display = {
         Abilities = {
             'Tactical Missile Defense',
@@ -76,6 +85,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
+	
     Economy = {
         BuildCostEnergy = 27000,
         BuildCostMass = 1800,
@@ -84,9 +94,11 @@ UnitBlueprint {
             'bab4307',
         },
     },
+	
     Footprint = {
         MinWaterDepth = 1,
     },
+	
     General = {
 		CapCost = 2,
         Category = 'Defense',
@@ -112,15 +124,19 @@ UnitBlueprint {
         UnitName = '<LOC bab4307_name>Purger',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Advanced Tactical Missile Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -145,14 +161,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+	
     SizeX = 0.6,
     SizeY = 1.4,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_structure3_antimissile',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -160,6 +180,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -224,6 +245,7 @@ UnitBlueprint {
             WeaponUnpacks = false,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

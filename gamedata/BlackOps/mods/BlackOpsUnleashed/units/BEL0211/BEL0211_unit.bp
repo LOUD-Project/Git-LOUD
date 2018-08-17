@@ -107,7 +107,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'amph',
+        Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bel0211_name>Inferno',
         UnitWeight = 1,

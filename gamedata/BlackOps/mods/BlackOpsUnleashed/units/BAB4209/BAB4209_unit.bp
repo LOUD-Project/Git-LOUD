@@ -4,6 +4,7 @@ UnitBlueprint {
             'xab4309',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -21,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -38,7 +41,9 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 55,
@@ -46,7 +51,9 @@ UnitBlueprint {
         MaxHealth = 1800,
         RegenRate = 1,
     },
+	
     Description = '<LOC bab4209_desc>Anti-Teleport Generator',
+	
     Display = {
         Abilities = {
         	'Anti-Teleport Field: Prevents Teleportation',
@@ -66,19 +73,22 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.0225,
     },
+	
     Economy = {
         BuildCostEnergy = 13125,
         BuildCostMass = 700,
         BuildTime = 1050,
+		
         MaintenanceConsumptionPerSecondEnergy = 350,
-        RebuildBonusIds = {
-            'bab4209',
-        },
+		
+        RebuildBonusIds = {'bab4209'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 1,
         Category = 'Economy',
@@ -98,7 +108,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
@@ -113,16 +123,20 @@ UnitBlueprint {
         UnitName = '<LOC bab4209_name>Quantum Wake Generator',
         UnitWeight = 1,
     },
+	
     Intel = {
     	FreeIntel = true,
         CloakFieldRadius = 65,
     },
+	
     Interface = {
         HelpText = 'Anti-Teleport Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -147,14 +161,18 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.45,
     SelectionSizeZ = 1.45,
     SelectionThickness = 0.39,
+	
     SizeX = 2,
     SizeY = 1.375,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 900,
@@ -167,6 +185,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

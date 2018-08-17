@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 160,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -33,7 +36,9 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 55,
@@ -41,7 +46,9 @@ UnitBlueprint {
         MaxHealth = 1800,
         RegenRate = 1,
     },
+	
     Description = '<LOC brb4209_desc>Anti-Teleport Tower',
+	
     Display = {
         Abilities = {
            'Anti-Teleport Field:Prevents Teleportation',
@@ -57,23 +64,26 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 13125,
         BuildCostMass = 700,
         BuildTime = 1050,
+		
         MaintenanceConsumptionPerSecondEnergy = 350,
-        RebuildBonusIds = {
-            'brb4209',
-        },
+		
+        RebuildBonusIds = {'brb4209'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
@@ -93,7 +103,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
@@ -109,16 +119,20 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesTo = 'brb4309',
     },
+	
     Intel = {
     	FreeIntel = true,
         CloakFieldRadius = 55,
     },
+	
     Interface = {
         HelpText = 'Anti-Teleport Tower',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -140,14 +154,18 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.32,
+	
     SizeX = 1,
     SizeY = 3.5,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+	
     Weapon = {
         {
             Damage = 800,
