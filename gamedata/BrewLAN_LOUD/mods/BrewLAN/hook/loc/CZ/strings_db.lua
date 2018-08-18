@@ -64,6 +64,10 @@ floatingtextIVAN02="Opakování příkazů vypnuto"
 tooltipbrewlan0029="Vypnout/Zapnout Ekonomický Dozor Sledování"
 tooltipbrewlan0030="Sleduje spotřebu energie. Aktivní dynamicky snižuje dosah sledování na ekonomicky udržitelnou úroveň."
 
+--Seraphim Mobile AA / TMD
+tooltipbrewlan0031="Toggle Weapon Priority"
+tooltipbrewlan0032="Přepínání mezi anti-vzduch priority objektů a taktické raketové cílovou prioritu."
+
 --------------------------------------------------------------------------------
 -- Vylepšení Podpůrného Velitele
 --------------------------------------------------------------------------------
@@ -260,9 +264,14 @@ Unit_Description_BrewLAN_T3B007="Velmi těžká obranná věž. Útočí na poze
 Unit_Description_BrewLAN_T3B008="Velmi těžká obranná věž. Útočí na pozemní a námořní jednotky výkonným dělem typu Oblivion na úrovni bitevní lodi."
 
 seb3303_desc="Středisko Pozorovací Družice"
+seb3303b_desc="Satellite Launch Complex"
+Unit_Description_BrewLAN_T3B002="Vyrábí a uvádí na trh satelity"
+
+ability_satellite_uplink="Satellite Uplink"
+
 sea0002_desc="Pozorvací Družice"
 sea0002_name="Hořící Hvězda"
-Unit_Description_BrewLAN_T3B002="Družicový systém pro pozorování. Má senzory rozsáhlé viditelnosti a omni. Pokud je její řídící centrum zničeno, je družice okamžitě vyřazena z provozu."
+Unit_Description_BrewLAN_T3A012="Družicový systém pro pozorování. vizuální satelitních snímků z oběžné dráhy poskytuje. Vyžaduje speciální satelitní uplink pro příjem dat z něj."
 
 --alternativy Sniperů
 sel0320_desc="Mobilní Družicové Středisko"
@@ -366,6 +375,8 @@ Unit_Description_BrewLAN_T3L015="Mobilní protiletecký odpalovač raket. Vybave
 --srl0320_desc=--Mobilní Raketomet
 srl0320_name="Tulák"
 Unit_Description_BrewLAN_T3L009="Maskovaný mobilní protiletecký raketomet. Musí se demaskovat při útoku."
+ssl0320_name="Atha-Ythia"
+Unit_Description_BrewLAN_T3L020="Vznášející mobilní anti-vzduch a taktické raketové obrany."
 
 seb4303_name="Nárazník"
 Unit_Description_BrewLAN_T3B0028="Síť dělostřelecké obrany. Vybavena integrovaným sledovacím systémem a vyhodnocení ohrožení."
@@ -391,6 +402,7 @@ Unit_Description_BrewLAN_T3L014="Mobilní taktická raketová obrana. Ochrana je
 srl0324_desc="Mobilní Senzorové Pole"
 srl0324_name="Adramelech"
 sal0324_name="Metatron"
+ssl0324_name="Yenesel"
 Unit_Description_BrewLAN_T3L016="Špičkový zpravodajský systém. Nehybný je viditelný pouze pro omni a poskytuje rozsáhlé radarové a omni pokrytí."
 Unit_Description_BrewLAN_T3L019="Vznášedlo se senzorovým polem. Spotřebovává vysoké množství energie aby fungovalo."
 
@@ -402,6 +414,11 @@ Unit_Description_BrewLAN_T3L018="Mobilní protinámořní vznášedlo"
 
 sss0306_name="Uosthuum"
 Unit_Description_BrewLAN_T3S004="Vznášedlo s torpédovým systémem. Schopný zničit největší plavidla."
+
+ssb4317_desc="Radar Jammer"
+ssb4317_name="Yathesel"
+Unit_Description_BrewLAN_T3B0029="Radar narušení objektu. Vytváří velký počet falešných radarových signálů v rámci své působnosti, což způsobuje rozptýlení a narušují činnost nepřítele cílení."
+ssa00002_desc="hologram"
 
 --------------------------------------------------------------------------------
 --Experimentalní jednotky
@@ -428,6 +445,10 @@ Unit_Description_BrewLAN_T4B003="Expermimentální generátor štítu. Chrání 
 srs0401="Expermimentální Bitevní loď"
 srs0401_name="Hlubinný Pronásledovatel"
 Unit_Description_BrewLAN_T4S001="Experimentální obojživelná bitevní loď."
+
+srs0402_desc="experimentální Transport"
+srs0402_name="Abyss Crawler"
+Unit_Description_BrewLAN_T4L003="Experimentální obojživelný transport. Cestuje rychleji pod vodou. Vybaven středně výkonných univerzálních zbraní."
 
 seb0401="Experimentální Továrna"
 seb0401_name="Gantry"

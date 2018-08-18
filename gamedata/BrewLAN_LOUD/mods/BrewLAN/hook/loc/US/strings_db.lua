@@ -1,3 +1,4 @@
+--ISO_639-1_code=EN
 --+---------------+--+----------------------------------------------------------
 --¦'-,_  ¦ ¦ _,-'¯¦--¦
 --¦------+ +------¦--¦   BrewLAN English strings table
@@ -12,22 +13,22 @@
 tooltipbrewlan0000="Toggle air production"
 tooltipbrewlan0001="Enables or disables production of air units"
 
---Toolttips for the T3 decoy planes.
+--Tooltips for the T3 decoy planes.
 tooltipbrewlan0002="Toggle air speed"
 tooltipbrewlan0003="Toggles impersonation of an air superiority or a CZAR"
 tooltipbrewlan0004="Toggles impersonation of an air superiority or a Soulripper"
 tooltipbrewlan0005="Toggles impersonation of an air superiority or an Ahwassa"
 tooltipbrewlan0006="Toggles impersonation of an air superiority or an AC-500 Centurion"
 
---Toolttips for the landmines.
+--Tooltips for the landmines.
 tooltipbrewlan0007="Detonate"
 tooltipbrewlan0008="Immediately detonate the payload."
 
---Tooltips for the builderwalls
+--Tooltips for the builder walls
 tooltipbrewlan0009="Clear build area"
 tooltipbrewlan0010="Removes any structures or remains from the build area."
 
---Tooltops for the Seraphim spy facility
+--Tooltips for the Seraphim spy facility
 tooltipbrewlan0011="Scry"
 tooltipbrewlan0012="Choose a unit to spy on"
 
@@ -46,7 +47,7 @@ tooltipbrewlan0019="Reclaim a unit or wreckage and learn its blueprint."
 
 --Tooltips for the Stargate
 tooltipbrewlan0020="Dial Gateway"
-tooltipbrewlan0021="Selects a target quantum gateway to create a one way transportation link with."
+tooltipbrewlan0021="Selects a target quantum gateway with which to create a one-way transportation link."
 tooltipbrewlan0022="Enable or disable the shield preventing access in or out of the gateway."
 tooltipbrewlan0023="Stop Link"
 tooltipbrewlan0024="Closes an outgoing link."
@@ -63,8 +64,12 @@ floatingtextIVAN02="Repeating orders disabled"
 tooltipbrewlan0029="Toggle Economy Watch"
 tooltipbrewlan0030="While active, this unit will dynamically reduce its operational spying radius to an economically sustainable level."
 
+--Seraphim Mobile AA/TMD
+tooltipbrewlan0031="Toggle Weapon Priority"
+tooltipbrewlan0032="Toggle between anti-air target priority and tactical missile target priority."
+
 --------------------------------------------------------------------------------
--- Support commander enchancements
+-- Support commander enhancements
 --------------------------------------------------------------------------------
 
 Unit_Description_BrewLAN_E001="Adds field engineer build capabilities to the SACU."
@@ -122,6 +127,7 @@ Unit_Description_BrewLAN_T1L003="Tech 1 amphibious construction, repair, capture
 
 ss0119_desc="Field Engineering Boat"
 ses0119_name="Mendy Class"
+srs0119_name="Franklin Class"
 Unit_Description_BrewLAN_T1S001="Tech 1 construction, repair, capture, reclamation, and mine layer unit."
 
 --------------------------------------------------------------------------------
@@ -185,7 +191,28 @@ Unit_Description_BrewLAN_T2L004="Mobile shield generator."
 --Field Engineering Ship
 ss0219_desc="Field Engineering Ship"
 ses0219_name="Fixxie Class"
+srs0219_name="Barwick Class"
 Unit_Description_BrewLAN_T2S001="Tech 2 naval construction, repair, capture and reclamation unit. Equipped with a single AA weapon."
+Unit_Description_BrewLAN_T2S002="Tech 2 naval construction, repair, capture, reclaimation, and mine layer unit."
+
+sea0201_desc="Recon Plane"
+sea0201_name="UX Dragonlady"
+ssa0201_name="Selia"
+Unit_Description_BrewLAN_T2A002="Tactical reconnaissance aircraft."
+
+sra0201_desc="Stealth Plane"
+sra0201_name="Blade Raven"
+Unit_Description_BrewLAN_T2A003="Tactical counter-intelligence and reconnaissance aircraft. Equipped with a stealth field generator."
+
+sair0201="Decoy Plane"
+sea0310_name="Nark"
+saa0201_name="Beguiler"
+sra0310_name="Vanguard"
+ssa0310_name="Iathuselen"
+Unit_Description_BrewLAN_T3A006="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
+Unit_Description_BrewLAN_T3A009="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
+Unit_Description_BrewLAN_T3A010="Lightly armored stealth decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
+Unit_Description_BrewLAN_T3A011="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
 
 --------------------------------------------------------------------------------
 -- Tech 3
@@ -210,16 +237,6 @@ ssa0307_name="Souioz"
 Unit_Description_BrewLAN_T3A005="High-level stealth torpedo bomber. Designed to engage high-level naval units and overwhelm torpedo defenses with large salvos."
 Unit_Description_BrewLAN_T3A007="High-level torpedo bomber. Designed to engage powerful naval units. Equipped with light anti-air defense."
 Unit_Description_BrewLAN_T3A008="High-level torpedo bomber. Designed to engage powerful naval units."
-
-sair0310="Decoy Plane"
-sea0310_name="Nark"
-saa0310_name="Beguiler"
-sra0310_name="Vanguard"
-ssa0310_name="Iathuselen"
-Unit_Description_BrewLAN_T3A006="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
-Unit_Description_BrewLAN_T3A009="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
-Unit_Description_BrewLAN_T3A010="Lightly armored stealth decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
-Unit_Description_BrewLAN_T3A011="Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
 
 sal0311_desc="Armored Assault Tank"
 sal0311_name="Moldavite"
@@ -247,9 +264,14 @@ Unit_Description_BrewLAN_T3B007="Very heavy defensive tower. Attacks land- and s
 Unit_Description_BrewLAN_T3B008="Very heavy defensive tower. Attacks land- and sea-based units with a powerful oblivion cannon."
 
 seb3303_desc="Observation Satellite Uplink"
+seb3303b_desc="Satellite Launch Complex"
+Unit_Description_BrewLAN_T3B002="Produces and launches satellites"
+
+ability_satellite_uplink="Satellite Uplink"
+
 sea0002_desc="Observation Satellite"
 sea0002_name="Burning Star"
-Unit_Description_BrewLAN_T3B002="Satellite-based observation system. Has a wide line-of-sight and omni sensors. If its control center is destroyed, the satellite is immediately disabled."
+Unit_Description_BrewLAN_T3A012="Satellite-based observation system. Provides visual satellite imagery from orbit. Requires a dedicated satellite uplink to receive data from it."
 
 --Sniper alternatives
 sel0320_desc="Mobile Satellite Uplink"
@@ -344,15 +366,17 @@ sal0322_name="Flame Lotus"
 sel0322_name="Ella"
 --Short and long descriptions both the same as default.
 
---Mobile AA
+--Mobile anti-air
 sal0320_desc="Mobile Anti-Air Defense"
 sal0320_name="Armillary"
 Unit_Description_BrewLAN_T3L012="Hovering mobile anti-air defence system. Consumes power with each shot."
 sel0324_name="NG3 Longbow"
 Unit_Description_BrewLAN_T3L015="Mobile anti-air missile launcher. Equipped with advanced scanning equipment."
---srl0320_desc="Mobile Missile Launcher"
+--srl0320_desc=--Mobile Missile Launcher
 srl0320_name="Slink"
 Unit_Description_BrewLAN_T3L009="Mobile cloaking anti-air missile launcher. Must decloak to fire."
+ssl0320_name="Atha-Ythia"
+Unit_Description_BrewLAN_T3L020="Hovering mobile anti-air and tactical missile defense."
 
 seb4303_name="Recoil"
 Unit_Description_BrewLAN_T3B0028="Stationary artillery defense grid. Equipped with an integrated threat identification and tracking system."
@@ -367,18 +391,42 @@ Unit_Description_BrewLAN_T3L011="Mobile multiple rocket launcher. Long reload ti
 
 ss0319_desc="Field Engineering Ship"
 ses0319_name="Patch Class"
+srs0319_name="Stillson Class"
 Unit_Description_BrewLAN_T3S002="Tech 3 naval construction, repair, capture and reclamation unit. Equipped with a torpedo bay, anti-torpedo defense, and a single AA weapon."
+Unit_Description_BrewLAN_T3S003="Tech 3 naval construction, repair, capture, reclaimation, and mine layer unit."
 
 sl0323_desc="Mobile Tactical Missile Defense"
 sal0323_name="Rupture"
 Unit_Description_BrewLAN_T3L014="Mobile tactical missile defense. Protection is limited to unit's operational area."
+
+srl0324_desc="Mobile Sensor Array"
+srl0324_name="Adramelech"
+sal0324_name="Metatron"
+ssl0324_name="Yenesel"
+Unit_Description_BrewLAN_T3L016="High-end mobile intelligence system. While stationary it is visible only to omni, and provides extensive radar and omni coverage."
+Unit_Description_BrewLAN_T3L019="Hovering sensor array. Consumes large quantities of power to function."
+
+sl0325_desc="Mobile Torpedo Launcher"
+sel0325_name="PT-57 Croc"
+sal0325_name="Limbo"
+Unit_Description_BrewLAN_T3L017="Mobile anti-naval vehicle."
+Unit_Description_BrewLAN_T3L018="Mobile hovering anti-naval vehicle."
+
+sss0306_name="Uosthuum"
+Unit_Description_BrewLAN_T3S004="Hovering torpedo system. Capable of destroying the largest of enemy vessels."
+
+ssb4317_desc="Radar Jammer"
+ssb4317_name="Yathesel"
+Unit_Description_BrewLAN_T3B0029="Radar disruption facility. Creates a large number of false radar signals within its operational area, causing a distraction and disrupting enemy targeting."
+ssa00002_desc="Hologram"
+
 --------------------------------------------------------------------------------
 -- Experimentals
 --------------------------------------------------------------------------------
 
 ssl0403_desc="Experimental Reconstruction Engineer"
 ssl0403_name="Iyadesu"
-Unit_Description_BrewLAN_T4L001="Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them."
+Unit_Description_BrewLAN_T4L001="Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them. Can only store 8 blueprints at a time."
 ssa00001_desc="Drone"
 
 sea0401_desc="Experimental AA Gunship"
@@ -397,6 +445,10 @@ Unit_Description_BrewLAN_T4B003="Experimental shield generator. Protects a large
 srs0401="Experimental Battleship"
 srs0401_name="Abyssal Persecutor"
 Unit_Description_BrewLAN_T4S001="Experimental amphibious battleship."
+
+srs0402_desc="Experimental Transport"
+srs0402_name="Abyss Crawler"
+Unit_Description_BrewLAN_T4L003="Experimental amphibious transport. Travels faster underwater. Equipped with moderate-power general-purpose weapons."
 
 seb0401="Experimental Factory"
 seb0401_name="Gantry"
@@ -433,3 +485,15 @@ Unit_Description_BrewLAN_T4B008="Experimental sensor array. Gives line of sight 
 sab0401_desc="Experimental Air Factory"
 sab0401_name="Independence Engine"
 Unit_Description_BrewLAN_T4B009="Constructs air units."
+
+srb0401_desc="Experimental Land Factory"
+srb0401_name="Arthrolab"
+Unit_Description_BrewLAN_T4B010="Constructs land units."
+
+ssb0401_desc="Experimental Naval Factory"
+ssb0401_name="Souiya"
+Unit_Description_BrewLAN_T4B011="Constructs naval units."
+
+seb2401_desc="Experimental Point Defence"
+seb2401_name="Excalibur"
+Unit_Description_BrewLAN_T4B012="Experimental defensive building. Consumes large amounts of power with each shot."

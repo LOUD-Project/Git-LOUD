@@ -64,6 +64,10 @@ floatingtextIVAN02="Powtarzanie Zamówienia wyłączone"
 tooltipbrewlan0029="Przegubowe Economy Watch"
 tooltipbrewlan0030="Podczas gdy aktywna, to urządzenie będzie dynamicznie zmniejszyć promień operacyjny szpiegostwo do zrównoważonego ekonomicznie poziomie."
 
+--Seraphim Komórka AA / TMD
+tooltipbrewlan0031="Przegubowe Broń Priorytet"
+tooltipbrewlan0032="Przełączać się między anty-powietrze priorytetu docelowej i taktycznego priorytetu docelowej pocisk."
+
 --------------------------------------------------------------------------------
 -- Udoskonalenia wsparcie dowódcy
 --------------------------------------------------------------------------------
@@ -260,9 +264,14 @@ Unit_Description_BrewLAN_T3B007="Bardzo ciężki wieża obronna. Ataki lądowych
 Unit_Description_BrewLAN_T3B008="Bardzo ciężki wieża obronna. Ataki lądowych i morskich jednostek opartych o potężnej niepamięci armaty."
 
 seb3303_desc="Observation Satellite Uplink"
+seb3303b_desc="Satellite Launch Complex"
+Unit_Description_BrewLAN_T3B002="Produkuje i wprowadza na rynek satelity"
+
+ability_satellite_uplink="Uplink satelitarna"
+
 sea0002_desc="obserwacja satelitarna"
 sea0002_name="spalanie Gwiazda"
-Unit_Description_BrewLAN_T3B002="Satelitarnie system obserwacji. Posiada szeroką linię-of-sight i czujników omni. Jeśli jego centrum sterowania jest zniszczona, satelita zostanie natychmiast wyłączona."
+Unit_Description_BrewLAN_T3A012="Satelitarnie system obserwacji. Zapewnia wizualną obrazów satelitarnych z orbity. Wymaga dedykowanego połączenie satelitarne do odbioru danych z niego."
 
 --Snajper alternatywy
 sel0320_desc="Komórka Satellite Uplink"
@@ -366,6 +375,8 @@ Unit_Description_BrewLAN_T3L015="Komórka anty-air missile launcher. Wyposażony
 --srl0320_desc=--Komórka Missile Launcher
 srl0320_name="Poroniony płód"
 Unit_Description_BrewLAN_T3L009="Komórka zakamuflowana ziemia-powietrze wyrzutnię rakiet. Musi stać się widoczny do ataku."
+ssl0320_name="Atha-Ythia"
+Unit_Description_BrewLAN_T3L020="Najechanie Mobile Anti-powietrze i taktycznych obrony przeciwrakietowej."
 
 seb4303_name="Odrzut"
 Unit_Description_BrewLAN_T3B0028="Stacjonarna siatka artylerii obrony. Wyposażony w zintegrowany system identyfikacji i śledzenia zagrożeniem."
@@ -391,17 +402,23 @@ Unit_Description_BrewLAN_T3L014="Komórka taktycznych obrony przeciwrakietowej. 
 srl0324_desc="Sensor Array mobilna"
 srl0324_name="adramelech"
 sal0324_name="Metatron"
+ssl0324_name="Yenesel"
 Unit_Description_BrewLAN_T3L016="High-end mobilny system inteligencja. Natomiast stacjonarna jest widoczny tylko dla omni, i zapewnia szeroki zasięg radaru i Omni."
 Unit_Description_BrewLAN_T3L019="Unoszące się szereg czujników. Zużywa duże ilości mocy, aby funkcjonować."
 
 sl0325_desc="Komórka Torpedo Launcher"
-sel0325_name="PT-57 croc"
+sel0325_name="PT-57 Croc"
 sal0325_name="Otchłań"
 Unit_Description_BrewLAN_T3L017="Mobile Anti-Naval pojazdu."
 Unit_Description_BrewLAN_T3L018="Komórka unosić anty-morską pojazdu."
 
 sss0306_name="Uosthuum"
 Unit_Description_BrewLAN_T3S004="Najechanie systemu torpedy. Zdolne do niszczenia największy statków wroga."
+
+ssb4317_desc="Radar Jammer"
+ssb4317_name="Yathesel"
+Unit_Description_BrewLAN_T3B0029="Radar zakład zakłócenie. Tworzy dużą liczbę fałszywych sygnałów radarowych w obrębie swojego obszaru działania, powodując rozproszenie i psując wroga kierowania."
+ssa00002_desc="hologram"
 
 --------------------------------------------------------------------------------
 -- doświadczalnej
@@ -428,6 +445,10 @@ Unit_Description_BrewLAN_T4B003="Eksperymentalny generator tarczy. Chroni dużą
 srs0401="eksperymentalna Battleship"
 srs0401_name="Abyssal Prześladowca"
 Unit_Description_BrewLAN_T4S001="Eksperymentalna amfibii pancernik."
+
+srs0402_desc="eksperymentalna transportowa"
+srs0402_name="Abyss gąsienicowe"
+Unit_Description_BrewLAN_T4L003="Eksperymentalny ziemnowodny transportu. Przemieszcza się szybciej pod wodą. Wyposażony w umiarkowanej mocy broni ogólnego przeznaczenia."
 
 seb0401="eksperymentalna fabryczne"
 seb0401_name="Suwnica"
