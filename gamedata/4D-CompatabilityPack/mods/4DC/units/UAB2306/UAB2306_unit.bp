@@ -4,6 +4,7 @@ UnitBlueprint {
             'mid_joint',
         },
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -21,6 +22,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -30,7 +32,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'AEON',
         'BUILTBYTIER3ENGINEER',
@@ -79,7 +83,7 @@ UnitBlueprint {
                 },
             },
         },      
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.0018,
     },
@@ -88,9 +92,8 @@ UnitBlueprint {
         BuildCostEnergy = 22000,
         BuildCostMass = 1980,
         BuildTime = 2200,
-        RebuildBonusIds = {
-            'uab2306',
-        },
+		
+        RebuildBonusIds = {'uab2306'},
     },
 	
 	Footprint = {
@@ -116,6 +119,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
+		Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uab2306_name>Anachronon',
         UnitWeight = 1,
@@ -129,9 +133,11 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Anachronon',
     },
+	
     LifeBarHeight = 0.1,
     LifeBarOffset = 1.35,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -156,14 +162,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,  
         TurnRate = 0,
     },  
+	
     SelectionSizeX = 1.05,   
     SelectionSizeZ = 1.05, 
     SelectionThickness = 0.45,
+	
     SizeX = 1.5,
     SizeY = 1.5,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -171,6 +181,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -274,10 +285,12 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'ALLUNITS,-WALL',
+                'ALLUNITS',
             },
             TrackingRadius = 1.2,
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'mid_joint',
             TurretBoneYaw = 'lower_joint',

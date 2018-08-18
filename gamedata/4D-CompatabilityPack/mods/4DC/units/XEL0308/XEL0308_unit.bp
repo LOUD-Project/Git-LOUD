@@ -111,6 +111,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
+		Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xel0308_name>Hermes',
         UnitWeight = 1,

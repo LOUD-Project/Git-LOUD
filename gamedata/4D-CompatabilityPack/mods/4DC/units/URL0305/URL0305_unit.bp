@@ -121,6 +121,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
+		Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC url0305_name>Crawfish',
         UnitWeight = 1,
