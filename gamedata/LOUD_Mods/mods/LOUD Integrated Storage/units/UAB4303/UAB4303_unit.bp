@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -34,7 +36,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 57,
@@ -56,7 +60,9 @@ UnitBlueprint {
             ShieldVerticalOffset = -4,
         },
     },
+	
     Description = '<LOC uab4303_desc>Heavy Shield Generator & Storage',
+	
     Display = {
         AnimationOpen = '/units/uab4202/uab4202_aopen.sca',
         Mesh = {
@@ -75,8 +81,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -94,22 +101,26 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.06,
+        UniformScale = 0.059,
     },
+	
     Economy = {
         BuildCostEnergy = 48000,
         BuildCostMass = 4800,
         BuildTime = 4800,
+		
         MaintenanceConsumptionPerSecondEnergy = 825,
-        RebuildBonusIds = {
-            'UAB4303',
-        },
+		
+        RebuildBonusIds = {'UAB4303'},
+		
         StorageEnergy = 12000,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Defense',

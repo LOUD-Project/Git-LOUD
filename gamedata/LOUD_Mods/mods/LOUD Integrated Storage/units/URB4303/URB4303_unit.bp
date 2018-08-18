@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -39,6 +42,7 @@ UnitBlueprint {
         Health = 616,
         MaxHealth = 616,
         RegenRate = 4,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -47,14 +51,16 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18438,
-            ShieldRechargeTime = 19,
-            ShieldRegenRate = 251,
+            ShieldRechargeTime = 20,
+            ShieldRegenRate = 231,
             ShieldRegenStartTime = 1,
             ShieldSize = 51,
             ShieldVerticalOffset = -6,
         },
     },
+	
     Description = '<LOC urb4303_desc>Heavy Shield Generator & Storage',
+	
     Display = {
         AnimationUpgrade = '/units/URB4303/URB4303_aopen.sca',
         Mesh = {
@@ -72,8 +78,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -91,23 +98,25 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.24,
+        UniformScale = 0.205,
     },
+	
     Economy = {
-        BuildCostEnergy = 48000,
-        BuildCostMass = 4800,
-        BuildTime = 4800,
+        BuildCostEnergy = 36000,
+        BuildCostMass = 2000,
+        BuildTime = 2000,
         MaintenanceConsumptionPerSecondEnergy = 715,
-        RebuildBonusIds = {
-            'URB4207',
-			'URB4202',
-        },
+		
+        RebuildBonusIds = {'URB4207','URB4202' },
+		
         StorageEnergy = 12000,
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Defense',
@@ -145,12 +154,15 @@ UnitBlueprint {
         UpgradesFrom = 'urb4207',
         UpgradesFromBase = 'urb4202',
     },
+	
     Interface = {
         HelpText = 'Heavy Shield Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -172,14 +184,19 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
+	SelectionCenterOffsetZ = -0.5,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,
+	
     SizeX = 2.4,
     SizeY = 5,
     SizeZ = 2.4,
-    StrategicIconName = 'icon_structure2_shield',
+	
+    StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 200,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

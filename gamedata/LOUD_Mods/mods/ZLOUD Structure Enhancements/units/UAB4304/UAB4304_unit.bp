@@ -131,7 +131,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUTC_StealthToggle = {
                 bitmapId = 'stealth-field',
@@ -149,9 +149,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-	
-		--CloakFieldRadius = 55,		-- used for antiteleport radius --
-		
+
         RadarStealthFieldRadius = 38,
         ReactivateTime = 5,
 		

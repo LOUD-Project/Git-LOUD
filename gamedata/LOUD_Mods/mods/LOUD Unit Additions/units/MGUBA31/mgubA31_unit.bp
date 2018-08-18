@@ -126,7 +126,7 @@ AI = {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-		Icon = 'land',
+		Icon = 'amph',
 		SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC mguba31_name>Zion',

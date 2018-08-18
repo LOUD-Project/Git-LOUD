@@ -11,16 +11,22 @@ URBSSG02 = Class(CShieldStructureUnit) {
 		'/effects/emitters/cybran_shield_01_generator_02_emit.bp',
 		'/effects/emitters/cybran_shield_01_generator_03_emit.bp',
 	},
+	
 	OnStopBeingBuilt = function(self,builder,layer)
+	
 		CShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
+		
 		self.ShieldEffectsBag = {}
 		
 		local OldCreateShieldMesh = self.MyShield.CreateShieldMesh
+		
 		self.MyShield.CreateShieldMesh = function(self)
 			OldCreateShieldMesh(self)
 			self:SetCollisionShape( 'Box', 0,0,0,self.Size/2,self.Size/2,self.Size/2)
 	    end
+		
 		local OldCreateImpactEffect = self.MyShield.CreateImpactEffect
+		
 	    self.MyShield.CreateImpactEffect = function(self, vector)
 	        local army = self:GetArmy()
 			local ImpactMesh = Entity { Owner = self.Owner }

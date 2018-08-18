@@ -137,7 +137,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUTC_StealthToggle = {
                 bitmapId = 'stealth-field',

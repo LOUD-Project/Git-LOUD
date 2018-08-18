@@ -16,16 +16,6 @@ UnitBlueprint {
             Cue = 'UAB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        ShieldOff = Sound {
-            Bank = 'URB',
-            Cue = 'URB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'URB',
-            Cue = 'URB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Cybran_Select_Structure',
@@ -143,9 +133,13 @@ UnitBlueprint {
         BuildCostEnergy = 610000,
         BuildCostMass = 21996,
         BuildTime = 38294,
+		
         MaintenanceConsumptionPerSecondEnergy = 8000,
+		
         BuildRate = 30,
+		
         BuildableCategory = {'urbssg02'},
+		
         RebuildBonusIds = {'urbssg01','urbssg02'},
     },
 	
