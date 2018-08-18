@@ -91,6 +91,8 @@ BuffField = Class(Entity) {
 	
         if self:GetBlueprint().InitiallyEnabled then
             self:Enable()
+			
+			LOG("*AI DEBUG Creating "..repr(self:GetBlueprint().Name).." Buff")
         end
 		
     end,

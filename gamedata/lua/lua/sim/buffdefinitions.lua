@@ -700,7 +700,7 @@ BuffBlueprint { Name = 'CheatALL',
 
 BuffBlueprint { Name = 'CheatAIRSTAGING',
 	BuffType = 'AIRSTAGINGCHEAT',
-	EntityCategory = 'AIR,MOBILE',
+	EntityCategory = 'AIR +MOBILE',
 	Stacks = 'REPLACE',
 	Duration = -1,
 	Affects = {
@@ -709,7 +709,7 @@ BuffBlueprint { Name = 'CheatAIRSTAGING',
 			Mult = 1.10,
 		},
 		FuelRatio = {
-			Add = 0.05,
+			Add = 0.1,
 			Mult = 1.0,
 		}
 	},

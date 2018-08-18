@@ -5355,7 +5355,7 @@ Unit = Class(moho.unit_methods) {
 			-- teleport never takes more than 10 seconds --
             time = math.min(10, energyCost * math.max(.02, bp.TeleportTimeMod or 0.0001))
 			
-			LOG('*UNIT DEBUG: TELEPORTING, bp values Mass '..repr(mass)..'  Energy '..repr(energy)..'  Combined Cost '..repr(energyCost)..' time = '..repr(time) )
+			--LOG('*UNIT DEBUG: TELEPORTING, bp values Mass '..repr(mass)..'  Energy '..repr(energy)..'  Combined Cost '..repr(energyCost)..' time = '..repr(time) )
 			
         end
 
