@@ -19,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -35,7 +37,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 430,		# 10% Energy + 2% Health
@@ -43,7 +47,9 @@ UnitBlueprint {
         MaxHealth = 10000,
         RegenRate = 2,
     },
+	
     Description = '<LOC uab1301_desc>Advanced Power Generator',
+	
     Display = {
         Abilities = {
             'Volatile',
@@ -141,6 +147,7 @@ UnitBlueprint {
         },
         UniformScale = 0.045,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -7,
         BuildCostEnergy = 112500,
@@ -148,10 +155,12 @@ UnitBlueprint {
         BuildTime = 15000,
         ProductionPerSecondEnergy = 2300,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 4,
         Category = 'Economy',
@@ -171,17 +180,20 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Advanced Power Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -206,14 +218,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.9,
     SelectionSizeZ = 2.9,
     SelectionThickness = 0.39,
+	
     SizeX = 4,
     SizeY = 2.75,
     SizeZ = 4,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 6000,

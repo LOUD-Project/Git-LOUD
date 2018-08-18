@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -29,6 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = -0.25,
 	
     Defense = {
@@ -40,6 +45,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC uab1303_desc>Advanced Mass Fabricator',
+	
     Display = {
         Abilities = {
             'Volatile',
@@ -129,17 +135,22 @@ UnitBlueprint {
         },
         UniformScale = 0.03,
     },
+	
     Economy = {
         BuildCostEnergy = 90000,
         BuildCostMass = 6050,
         BuildTime = 8500,
+		
         MaintenanceConsumptionPerSecondEnergy = 3600,
+		
         ProductionPerSecondMass = 12,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 5,
         Category = 'Economy',
@@ -160,7 +171,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
@@ -168,12 +179,15 @@ UnitBlueprint {
         },
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Advanced Mass Fabricator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -198,14 +212,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 1.75,
     SizeY = 1.75,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5000,

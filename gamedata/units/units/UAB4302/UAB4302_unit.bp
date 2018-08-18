@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+	
     Audio = {
         Close = Sound {
             Bank = 'UAB',
@@ -24,10 +25,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 155,
+	
     Categories = {
         'SELECTABLE',
-#        'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER4COMMANDER',
         'AEON',
         'DRAGBUILD',
@@ -41,7 +43,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 294,
@@ -49,7 +53,9 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 10,
     },
+	
     Description = '<LOC uab4302_desc>Strategic Missile Defense',
+	
     Display = {
         Abilities = {
             'Strategic Missile Defense',
@@ -72,7 +78,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0027',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -93,20 +99,22 @@ UnitBlueprint {
         },
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 105000,
         BuildCostMass = 7500,
         BuildRate = 1350,
         BuildTime = 7000,
-        RebuildBonusIds = {
-            'uab4302',
-        },
+		
+        RebuildBonusIds = {'uab4302'},
     },
+	
     Footprint = {
         MinWaterDepth = 3,
         SizeX = 2,
         SizeZ = 2,
     },
+	
     General = {
 		CapCost = 2,
         Category = 'Defense',
@@ -127,21 +135,25 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uab4302_name>Patron',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 10,
     },
+	
     Interface = {
         HelpText = 'Strategic Missile Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -166,14 +178,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.25,
     SelectionSizeZ = 1.25,
     SelectionThickness = 0.55,
+	
     SizeX = 1.75,
     SizeY = 0.6,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure3_antimissile',
     StrategicIconSortPriority = 195,
+	
     Weapon = {
         {
             AlwaysRecheckTarget = false,
@@ -294,6 +310,7 @@ UnitBlueprint {
             Turreted = false,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

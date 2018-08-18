@@ -65,8 +65,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_aeon_01_albedo',
@@ -91,9 +92,8 @@ UnitBlueprint {
         BuildCostEnergy = 18000,
         BuildCostMass = 1800,
         BuildTime = 2000,
-        RebuildBonusIds = {
-            'uab2303',
-        },
+		
+        RebuildBonusIds = {'uab2303'},
     },
 
     General = {
@@ -114,7 +114,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab2303_name>Miasma',
@@ -249,7 +249,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SPECIALLOWPRI',
-                'ALLUNITS -AIR',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			

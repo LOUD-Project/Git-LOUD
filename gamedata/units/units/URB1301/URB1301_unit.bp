@@ -8,7 +8,9 @@ UnitBlueprint {
             'URB1301',
         },
     },
+	
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -26,7 +28,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -42,7 +46,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 490,		# 10% Energy + 2% Health
@@ -50,7 +56,9 @@ UnitBlueprint {
         MaxHealth = 9500,
         RegenRate = 3,
     },
+	
     Description = '<LOC urb1301_desc>Advanced Power Generator',
+	
     Display = {
 		Abilities = {
 			'Volatile',
@@ -70,8 +78,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0023',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -91,20 +100,23 @@ UnitBlueprint {
         },
         UniformScale = 0.09,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -7,
         BuildCostEnergy = 112500,
         BuildCostMass = 11250,
         BuildTime = 15000,
+		
         ProductionPerSecondEnergy = 2300,
-        RebuildBonusIds = {
-            'urb1301',
-        },
+		
+        RebuildBonusIds = {'urb1301'},
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 4,
         Category = 'Economy',
@@ -124,17 +136,20 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Advanced Power Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.25,
     LifeBarSize = 5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -156,14 +171,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.1,
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.35,
+	
     SizeX = 4,
     SizeY = 3,
     SizeZ = 4,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 6000,

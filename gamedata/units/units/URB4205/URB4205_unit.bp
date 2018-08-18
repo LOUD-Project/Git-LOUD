@@ -82,8 +82,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -187,6 +188,7 @@ UnitBlueprint {
         TurnRate = 0,
     },
 	
+	SelectionCenterOffsetZ = 0.5,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,

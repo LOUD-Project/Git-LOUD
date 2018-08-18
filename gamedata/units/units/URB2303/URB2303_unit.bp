@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -72,7 +73,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
 
         UniformScale = 0.5,
@@ -82,9 +83,8 @@ UnitBlueprint {
         BuildCostEnergy = 18000,
         BuildCostMass = 2000,
         BuildTime = 2000,
-        RebuildBonusIds = {
-            'urb2303',
-        },
+		
+        RebuildBonusIds = {'urb2303'},
     },
 
     General = {
@@ -105,7 +105,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2303_name>Gunther',
@@ -248,11 +248,13 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE -WALL',
+                'DEFENSE',
                 'SPECIALLOWPRI',
-                'ALLUNITS -AIR',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',

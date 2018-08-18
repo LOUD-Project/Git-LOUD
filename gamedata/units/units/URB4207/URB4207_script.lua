@@ -1,6 +1,5 @@
-
 local CShieldStructureUnit = import('/lua/cybranunits.lua').CShieldStructureUnit
-#local Shield = import('/lua/shield.lua').Shield
+--local Shield = import('/lua/shield.lua').Shield
 
 URB4207 = Class(CShieldStructureUnit) {
     
@@ -9,7 +8,7 @@ URB4207 = Class(CShieldStructureUnit) {
                     '/effects/emitters/cybran_shield_05_generator_02_emit.bp',
                     '/effects/emitters/cybran_shield_05_generator_03_emit.bp',
                     '/effects/emitters/cybran_shield_05_generator_04_emit.bp',
-                    },
+	},
     
     OnStopBeingBuilt = function(self,builder,layer)
         CShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
@@ -21,7 +20,7 @@ URB4207 = Class(CShieldStructureUnit) {
     OnShieldEnabled = function(self)
         CShieldStructureUnit.OnShieldEnabled(self)
         if self.Rotator1 then
-            self.Rotator1:SetTargetSpeed(10)
+            self.Rotator1:SetTargetSpeed(9)
         end
         
         if self.ShieldEffectsBag then

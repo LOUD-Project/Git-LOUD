@@ -1,9 +1,9 @@
 UnitBlueprint {
+
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 120,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -41,7 +44,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.5,
+	
     Defense = {
         AirThreatLevel = 44,
         ArmorType = 'Structure',
@@ -49,7 +54,9 @@ UnitBlueprint {
         MaxHealth = 3850,
         RegenRate = 2,
     },
+	
     Description = '<LOC urb2304_desc>AA SAM Launcher',
+	
     Display = {
         Abilities = {
             'Aquatic',
@@ -69,21 +76,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
+	
     Economy = {
         BuildCostEnergy = 10500,
         BuildCostMass = 950,
         BuildTime = 950,
-        RebuildBonusIds = {
-            'urb2304',
-        },
+		
+        RebuildBonusIds = {'urb2304'},
     },
+	
     Footprint = {
         MinWaterDepth = 2,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -108,15 +117,19 @@ UnitBlueprint {
         UnitName = '<LOC urb2304_name>Myrmidon',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 36,
     },
+	
     Interface = {
         HelpText = 'SAM Launcher',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -138,14 +151,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+	
     SizeX = 0.6,
     SizeY = 2,
     SizeZ = 0.3,
+	
     StrategicIconName = 'icon_structure3_antiair',
     StrategicIconSortPriority = 195,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -153,6 +170,7 @@ UnitBlueprint {
         Level4 = 60,
         Level5 = 72,
     },
+	
     Weapon = {
         {
 			advancedTracking = true,
@@ -228,27 +246,31 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'AIR MOBILE',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+			
             TurretBoneMuzzle = 'Turret_Left_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
+			
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

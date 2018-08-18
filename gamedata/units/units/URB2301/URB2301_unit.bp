@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -11,6 +12,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -19,8 +21,17 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -38,7 +49,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.5,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 2025,
@@ -46,7 +59,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = 15,
     },
+	
     Description = '<LOC urb2301_desc>Improved Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -63,18 +78,18 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
 
         UniformScale = 0.06,
     },
+	
     Economy = {
         BuildCostEnergy = 5000,
         BuildCostMass = 550,
         BuildTime = 550,
-        RebuildBonusIds = {
-            'urb2301',
-        },
+		
+        RebuildBonusIds = {'urb2301'},
     },
 
     General = {
@@ -95,7 +110,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2301_name>Cerberus',
@@ -113,6 +128,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1.1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -134,14 +150,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+	
     SizeX = 0.5,
     SizeY = 1.5,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -149,6 +169,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -215,11 +236,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'ALLUNITS -AIR',
+                'MOBILE',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_B02',
             TurretBoneYaw = 'Turret_B01',
@@ -234,7 +256,9 @@ UnitBlueprint {
             TurretYawSpeed = 48,
             Turreted = true,
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
