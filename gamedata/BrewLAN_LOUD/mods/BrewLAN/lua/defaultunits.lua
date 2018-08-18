@@ -86,15 +86,6 @@ MineStructureUnit = Class(StructureUnit) {
         local bp = self:GetBlueprint()
         if self:GetCurrentLayer() == 'Water' then
             self.Trash:Add(CreateSlider(self, 0, 0, -1 * 1 / bp.Display.UniformScale, 0, 5))
-        elseif not bp.Physics.SlopeToTerrain and not self.TerrainSlope then
-            --This has since been moved to the unit parent class, it is retained here so
-            --that if other mods overwrite that, it still works.
-            local Angles = GetTerrainAngles(self:GetPosition(),1)
-            self.TerrainSlope = {
-            --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
-                CreateRotator(self, 0, 'z', -Angles[1], 1000, 1000, 1000),
-                CreateRotator(self, 0, 'x', Angles[2], 1000, 1000, 1000)
-            }
         end
         if self.blocker then
             --This tricks the engine into thinking the area is clear:
@@ -130,7 +121,16 @@ MineStructureUnit = Class(StructureUnit) {
 
 NukeMineStructureUnit = Class(MineStructureUnit) {
     Weapons = {
-        DeathWeapon = Class(DeathNukeWeapon) {},
+        DeathWeapon = Class(DefaultWeapons.BareBonesWeapon) {
+            OnFire = function(self)
+            end,
+
+            Fire = function(self)
+                local myBlueprint = self:GetBlueprint()
+                local myProjectile = self.unit:CreateProjectile(myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+                myProjectile:PassDamageData(self:GetDamageTable())
+            end,
+        },
         Suicide = Class(DeathNukeWeapon) {
             Fire = function(self, ...)
                 local radius = self:GetBlueprint().NukeInnerRingRadius or self:GetBlueprint().DamageRadius

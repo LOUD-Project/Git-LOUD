@@ -64,6 +64,10 @@ floatingtextIVAN02="Ripetendo ordini disabilitati"
 tooltipbrewlan0029="Toggle Economia Guarda"
 tooltipbrewlan0030="Quando è attiva, l'unità ridurrà dinamicamente suo raggio spionaggio operativo ad un livello economicamente sostenibile."
 
+--Seraphim mobile AA / TMD
+tooltipbrewlan0031="Toggle Arma priorità"
+tooltipbrewlan0032="Commutare tra la priorità della destinazione anti-aria e priorità della destinazione missile tattico."
+
 --------------------------------------------------------------------------------
 -- Miglioramenti Supporto comandante
 --------------------------------------------------------------------------------
@@ -260,9 +264,14 @@ Unit_Description_BrewLAN_T3B007="Molto pesante torre difensiva. Gli attacchi ter
 Unit_Description_BrewLAN_T3B008="Molto pesante torre difensiva. Gli attacchi terrestri e unità navali-based con un potente cannone oblio."
 
 seb3303_desc="Osservazione satellitare Uplink"
+seb3303b_desc="Satellite Launch Complex"
+Unit_Description_BrewLAN_T3B002="Produce e lancia satelliti"
+
+ability_satellite_uplink="Uplink satellitare"
+
 sea0002_desc="Observation Satellite"
 sea0002_name="Burning Star"
-Unit_Description_BrewLAN_T3B002="Satellite-based sistema di osservazione. Ha una vasta linea di vista e sensori Omni. Se il suo centro di controllo è distrutto, il satellite viene immediatamente disattivata."
+Unit_Description_BrewLAN_T3A012="Satellite-based sistema di osservazione. Fornisce immagini satellitari visiva dall'orbita. Richiede un uplink satellitare dedicato per ricevere i dati da esso."
 
 --alternative Sniper
 sel0320_desc="Mobile satellitare Uplink"
@@ -366,6 +375,8 @@ Unit_Description_BrewLAN_T3L015="Cellulare lanciamissili anti-air. Dotata di app
 --srl0320_desc=--Cellulare Lanciamissili
 srl0320_name="sgattaiolare"
 Unit_Description_BrewLAN_T3L009="Cellulare mimetizzato lanciamissili terra-aria. Deve diventare visibile agli attacchi."
+ssl0320_name="Atha-Ythia"
+Unit_Description_BrewLAN_T3L020="Librarsi Mobile Anti-aria e la difesa antimissile tattico."
 
 seb4303_name="Rinculo"
 Unit_Description_BrewLAN_T3B0028="griglia difesa dell'artiglieria stazionario. Dotato di un sistema di identificazione delle minacce e il monitoraggio integrato."
@@ -391,6 +402,7 @@ Unit_Description_BrewLAN_T3L014="Mobile di difesa missilistica tattico. La prote
 srl0324_desc="Array Sensor mobile"
 srl0324_name="Adramelech"
 sal0324_name="Metatron"
+ssl0324_name="Yenesel"
 Unit_Description_BrewLAN_T3L016="High-end sistema di intelligenza mobile. Mentre stazionario è visibile solo omni, e fornisce un'ampia radar e copertura omnidirezionale."
 Unit_Description_BrewLAN_T3L019="Bilico matrice di sensori. Consuma grandi quantità di energia per funzionare."
 
@@ -402,6 +414,11 @@ Unit_Description_BrewLAN_T3L018="Cellulare in bilico veicolo anti-navale."
 
 sss0306_name="Uosthuum"
 Unit_Description_BrewLAN_T3S004="Librarsi sistema di siluro. Capace di distruggere la più grande delle navi nemiche."
+
+ssb4317_desc="Radar Jammer"
+ssb4317_name="Yathesel"
+Unit_Description_BrewLAN_T3B0029="impianto di interruzione del radar. Crea un gran numero di falsi segnali radar nella propria area operativa, causando una distrazione e interrompere nemico targeting."
+ssa00002_desc="Ologramma"
 
 --------------------------------------------------------------------------------
 -- sperimentazione
@@ -428,6 +445,10 @@ Unit_Description_BrewLAN_T4B003="generatore di scudi sperimentale. Protegge una 
 srs0401="Sperimentale Battleship"
 srs0401_name="Abyssal Persecutor"
 Unit_Description_BrewLAN_T4S001="Sperimentale corazzata anfibio."
+
+srs0402_desc="Trasporti Sperimentale"
+srs0402_name="Abyss Crawler"
+Unit_Description_BrewLAN_T4L003="Sperimentale trasporto anfibia. Viaggia più velocemente sott'acqua. Equipaggiato con armi general-purpose moderata potenza."
 
 seb0401="Sperimentale di fabbrica"
 seb0401_name="Gantry"

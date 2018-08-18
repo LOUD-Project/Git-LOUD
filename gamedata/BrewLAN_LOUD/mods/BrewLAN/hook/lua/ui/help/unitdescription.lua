@@ -108,6 +108,7 @@ Description['ssa0307'] = "<LOC Unit_Description_BrewLAN_T3A008>High-level torped
 Description['saa0201'] = "<LOC Unit_Description_BrewLAN_T3A009>Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
 Description['sra0310'] = "<LOC Unit_Description_BrewLAN_T3A010>Lightly armored stealth decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
 Description['ssa0310'] = "<LOC Unit_Description_BrewLAN_T3A011>Lightly armored decoy plane. Equipped with powerful radar jamming equipment designed to create multiple false radar signals. Mimics air superiority fighter movements."
+Description['sea0002'] = "<LOC Unit_Description_BrewLAN_T3A012>Satellite-based observation system. Provides visual satellite imagery from orbit. Requires a dedicated satellite uplink to receive data from it."
 
 --Tech 3 land units
 Description['ssl0311'] = "<LOC Unit_Description_BrewLAN_T3L001>Shielded Siege assault bot. Armed with dual Aire-au Bolters."
@@ -137,10 +138,12 @@ Description['srl0324'] = "<LOC Unit_Description_BrewLAN_T3L016>High-end mobile i
 Description['sel0325'] = "<LOC Unit_Description_BrewLAN_T3L017>Mobile anti-naval vehicle."
 Description['sal0325'] = "<LOC Unit_Description_BrewLAN_T3L018>Mobile hovering anti-naval vehicle."
 Description['sal0324'] = "<LOC Unit_Description_BrewLAN_T3L019>Hovering sensor array. Consumes large quantities of power to function."
+Description['ssl0324'] = "<LOC Unit_Description_BrewLAN_T3L019>Hovering sensor array. Consumes large quantities of power to function."
+Description['ssl0320'] = "<LOC Unit_Description_BrewLAN_T3L020>Hovering mobile anti-air and tactical missile defense."
 
 --Tech 3 buildings
 Description['srb2306'] = "<LOC Unit_Description_BrewLAN_T3B001>Heavy defensive tower. Attacks land- and sea-based units with a powerful sweeping laser. Does not engage aircraft or submerged units. Requires cumulative amounts of energy to maintain prolonged fire; will overheat if active for too long."
-Description['seb3303'] = "<LOC Unit_Description_BrewLAN_T3B002>Satellite-based observation system. Has a wide line-of-sight and omni censors. If its control center is destroyed, the satelite is immediately disabled."
+Description['seb3303'] = "<LOC Unit_Description_BrewLAN_T3B002>Produces and launches satellites."
 Description['ssb2306'] = "<LOC Unit_Description_BrewLAN_T3B003>Heavy defensive tower. Attacks land- and sea-based units with a gatling plasma cannon. Does not engage aircraft or submerged units."
 Description['sab2306'] = "<LOC Unit_Description_BrewLAN_T3B004>Heavy defensive tower. Attacks land-based units, sea-based units, and low-altitude aircraft with a powerful laser. Does not engage high altitude aircraft, or submerged units."
 Description['seb2311'] = "<LOC Unit_Description_BrewLAN_T3B005>Very heavy defensive tower. Attacks land- and sea-based units with a powerfull battleship-grade gauss cannon."
@@ -171,6 +174,7 @@ Description['seb2308'] = "<LOC Unit_Description_BrewLAN_T3B0025>Heavy torpedo la
 Description['ssb3301'] = "<LOC Unit_Description_BrewLAN_T3B0026>Offers line-of-sight of a targetted friendly or enemy unit. Can target radar blips."
 Description['sab2308'] = "<LOC Unit_Description_BrewLAN_T3B0027>Very heavy long-range anti-naval defense system. Designed to engage the most powerful of naval units."
 Description['seb4303'] = "<LOC Unit_Description_BrewLAN_T3B0028>Stationary artillery defense grid. Equipped with an integrated threat identification and tracking system."
+Description['ssb4317'] = "<LOC Unit_Description_BrewLAN_T3B0029>Radar disruption facility. Creates a large number of false radar signals within its operational area."
 
 --Tech 3 Naval units
 Description['sss0305'] = "<LOC Unit_Description_BrewLAN_T3S001>Sonar system with exceptional range. Detects and tracks naval units. Equipped with a personal teleporter."
@@ -197,6 +201,7 @@ Description['sab0401'] = "<LOC Unit_Description_BrewLAN_T4B009>Constructs air un
 Description['srb0401'] = "<LOC Unit_Description_BrewLAN_T4B010>Constructs land units."
 Description['ssb0401'] = "<LOC Unit_Description_BrewLAN_T4B011>Constructs naval units."
 Description['seb2401'] = "<LOC Unit_Description_BrewLAN_T4B012>Experimental defensive building. Consumes large amounts of power with each shot."
+Description['srl0401'] = "<LOC Unit_Description_BrewLAN_T4L003>Experimental amphibious transport. Travels faster underwater. Equipped with moderate-power general-purpose weapons."
 
 --Megalith eggs
 Description['srl0001'] = "<LOC Unit_Description_0152>Amphibious destroyer. Armed with a single Dual-Proton cannon, AA auto-cannon and torpedo tubes."
