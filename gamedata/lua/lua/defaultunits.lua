@@ -416,15 +416,25 @@ StructureUnit = Class(Unit) {
 		local CreateDecal = CreateDecal
 
         if not specTarmac then
+		
             if bp and LOUDGETN(bp) > 0 then
+			
                 local num = Random(1, LOUDGETN(bp))
+				
                 tarmac = bp[num]
+				
             else
+			
                 return false
+				
             end
+			
         else
+		
             tarmac = specTarmac
+			
         end
+		
 
         local army = self.Sync.army
         local w = tarmac.Width
@@ -432,6 +442,7 @@ StructureUnit = Class(Unit) {
         local fadeout = tarmac.FadeOut
 
 		local pos = GetPosition(self)
+		
 		local x = pos[1]
 		local y = pos[2]
 		local z = pos[3]
@@ -439,26 +450,31 @@ StructureUnit = Class(Unit) {
         local orient = orientation
 
         if not orientation then
+		
             if tarmac.Orientations and LOUDGETN(tarmac.Orientations) > 0 then
+			
                 orient = tarmac.Orientations[Random(1, LOUDGETN(tarmac.Orientations))]
                 orient = (0.01745 * orient)
+				
             else
+			
                 orient = 0
+				
             end
+			
         end
 
         if not self.TarmacBag then
-            self.TarmacBag = {
-                Decals = {},
-                Orientation = orient,
-                CurrentBP = tarmac,
-            }
+		
+            self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
+			
         end
 
         local GetTarmac = import('/lua/tarmacs.lua').GetTarmacType
 
         local terrain = GetTerrainType(x, z)
         local terrainName
+		
         if terrain then
             terrainName = terrain.Name
         end
@@ -467,35 +483,48 @@ StructureUnit = Class(Unit) {
         local faction  = factionTable[string.sub(self:GetUnitId(),2,2)]
 
         if albedo and tarmac.Albedo then
-            local albedo2 = tarmac.Albedo2
+		
+            local albedo2 = tarmac.Albedo2 or false
+			
             if albedo2 then
                 albedo2 = albedo2 .. GetTarmac(faction, terrain)
             end
 
-            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Albedo .. GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 0, army, 0)
-            LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
+			LOG("*AI DEBUG creating Tarmac for "..repr(self:GetBlueprint().Description).." at "..repr(GetPosition(self)).."  Tarmac is "..repr(tarmac).." "..GetTarmac(faction, terrainName) )
+			
+            local tarmacHndl = CreateDecal( GetPosition(self), orient, tarmac.Albedo .. GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
+			
+            LOUDINSERT( self.TarmacBag.Decals, tarmacHndl)
+			
             if tarmac.RemoveWhenDead then
                 self.Trash:Add(tarmacHndl)
             end
         end
 
         if normal and tarmac.Normal then
-            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 0, army, 0)
+		
+            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 300, army, 0)
 
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
+			
             if tarmac.RemoveWhenDead then
                 self.Trash:Add(tarmacHndl)
             end
+			
         end
 
         if glow and tarmac.Glow then
-            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 0, army, 0)
+		
+            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 300, army, 0)
 
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
+			
             if tarmac.RemoveWhenDead then
                 self.Trash:Add(tarmacHndl)
             end
+			
         end
+		
     end,
 
     DestroyTarmac = function(self)
@@ -508,14 +537,21 @@ StructureUnit = Class(Unit) {
 
 			self.TarmacBag.Orientation = nil
 			self.TarmacBag.CurrentBP = nil
+			self.TarmacBag.Decals = nil
+			
+			self.TarmacBag = nil
 		end
+		
     end,
 
     HasTarmac = function(self)
 
         if self.TarmacBag then
-			return (LOUDGETN(self.TarmacBag.Decals) != 0)
+		
+			return true		--(LOUDGETN(self.TarmacBag.Decals) != 0)
+			
 		end
+		
 		return false
     end,
 
@@ -727,10 +763,13 @@ StructureUnit = Class(Unit) {
     OnKilled = function(self, instigator, type, overkillRatio)
 
 		self:DestroyAdjacentEffects()
-
-        self:DestroyTarmac()
-
-        self:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP, self.TarmacBag.CurrentBP.DeathLifetime or 300)
+		
+		if self.TarmacBag then
+			-- put down replacement
+			self:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP, self.TarmacBag.CurrentBP.DeathLifetime or 300)
+			-- destroy the original
+			self:DestroyTarmac()
+		end
 
         Unit.OnKilled(self, instigator, type, overkillRatio)
     end,
@@ -2563,6 +2602,8 @@ EnergyCreationUnit = Class(StructureUnit) {
 		Unit.OnStopBeingBuilt(self,builder,layer)
     end,
 }
+
+EnergyStorageUnit = Class(StructureUnit) {}
 
 MassCollectionUnit = Class(StructureUnit) {
 

@@ -1639,7 +1639,7 @@ end
 -- unit is in range of the location
 function TeleportLocationBlocked( self, location )
 
-	local aiBrain = self.unit:GetAIBrain()
+	local aiBrain = self:GetAIBrain()
 	
 	for num, brain in ArmyBrains do
 	
@@ -1656,14 +1656,14 @@ function TeleportLocationBlocked( self, location )
 				-- if the antiteleport range covers the targetlocation
 				if noTeleDistance and noTeleDistance > targetdestdistance then
 				
-					FloatingEntityText(self.unit.Sync.id,'Teleportation Malfunction')
+					--FloatingEntityText(self.Sync.id,'Teleportation Malfunction')
 					
 					-- play audio warning
-					if GetFocusArmy() == self.unit:GetArmy() then
-						local Voice = Sound {Bank = 'LOUD', Cue = 'AttackRequestFailed',}
+					--if GetFocusArmy() == self:GetArmy() then
+						--local Voice = Sound {Bank = 'LOUD', Cue = 'AttackRequestFailed',}
 
-						ForkThread(aiBrain.PlayVOSound, aiBrain, Voice, 'RemoteViewingFailed')
-					end
+						--ForkThread(aiBrain.PlayVOSound, aiBrain, Voice, 'RemoteViewingFailed')
+					--end
 					
 					return true
 				end
