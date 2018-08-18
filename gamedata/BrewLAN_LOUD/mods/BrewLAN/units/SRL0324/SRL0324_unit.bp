@@ -196,17 +196,21 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
+		
         OrderOverrides = {
             RULEUTC_IntelToggle = {
                 bitmapId = 'omni',
                 helpText = 'toggle_omni',
             },
         },
+		
         FactionName = 'Cybran',
         Icon = 'land',
+		
         ToggleCaps = {
-            RULEUTC_IntelToggle = false,
+            RULEUTC_IntelToggle = true,
         },
+		
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srl0324_name>Citron',
         UnitWeight = 1,
@@ -219,6 +223,7 @@ UnitBlueprint {
         VisionRadius = 40,
 		
         RadarStealth = true,
+		StealthWaitTime = 2,
         Cloak = true,
     },
 	

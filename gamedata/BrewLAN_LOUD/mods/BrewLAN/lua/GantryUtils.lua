@@ -2,167 +2,111 @@
 -- UI buildmode change function
 --------------------------------------------------------------------------------
 function BuildModeChange(self, mode)
-
     self:RestoreBuildRestrictions()
-	
     ------------------------------------------------------------------------
     -- The "Stolen tech" clause
     ------------------------------------------------------------------------
-	
     local aiBrain = self:GetAIBrain()
-
-    local stolentech = { CYBRAN = false, AEON = false, SERAPHIM = false, UEF = false }
-	
+    local pos = self.CachePosition or self:GetPosition()
+    local engineers
+    if pos then
+        engineers = aiBrain:GetUnitsAroundPoint(categories.ENGINEER, self:GetPosition(), 30, 'Ally' )
+    end
+    local stolentech = {
+        CYBRAN = false,
+        AEON = false,
+        SERAPHIM = false,
+        UEF = false,
+    }
     for race, val in stolentech do
-	
         if EntityCategoryContains(ParseEntityCategory(race), self) then
-		
             stolentech[race] = true
-			
         end
-		
     end
-	
-	if self.CachePosition then
-
-		local engineers = aiBrain:GetUnitsAroundPoint( categories.ENGINEER, self.CachePosition, 30, 'Ally' )
-
-		for k, v in engineers do
-	
-			if EntityCategoryContains(categories.TECH3, v) then
-		
-				for race, val in stolentech do
-			
-					if EntityCategoryContains(ParseEntityCategory(race), v) then
-						stolentech[race] = true
-					end
-				
-				end
-			
-			end
-		
-		end
-		
-	end
-	
+    if type(engineers) == 'table' then
+        for k, v in engineers do
+            if EntityCategoryContains(categories.TECH3, v) then
+                for race, val in stolentech do
+                    if EntityCategoryContains(ParseEntityCategory(race), v) then
+                        stolentech[race] = true
+                    end
+                end
+            end
+        end
+    end
     for race, val in stolentech do
-	
         if not val then
-		
             self:AddBuildRestriction(categories[race])
-			
         end
-		
     end
-	
     ------------------------------------------------------------------------
     -- Human UI air/other switch
     ------------------------------------------------------------------------
     local Layer = self:GetCurrentLayer()
-	
     if aiBrain.BrainType == 'Human' then
-	
         if self.airmode then
-		
             self:AddBuildRestriction(categories.NAVAL)
             self:AddBuildRestriction(categories.MOBILESONAR)
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
-			
         else
-		
             if Layer == 'Land' then
-			
                 self:AddBuildRestriction(categories.NAVAL)
                 self:AddBuildRestriction(categories.MOBILESONAR)
-				
             elseif Layer == 'Water' or Layer == 'Seabed' then
-			
                 self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
-				
             end
-			
             self:AddBuildRestriction(categories.AIR)
-			
         end
-		
     ------------------------------------------------------------------------
     -- AI functional restrictions (allows easier AI control)
     ------------------------------------------------------------------------
     else
-	
         if Layer == 'Land' then
-		
             self:AddBuildRestriction(categories.NAVAL)
             self:AddBuildRestriction(categories.MOBILESONAR)
-			
         elseif Layer == 'Water' or Layer == 'Seabed' then
-		
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
-			
             --AI's can't handle the Atlantis
             self:AddBuildRestriction(categories.ues0401)
-			
         end
-		
     end
-	
     self:RequestRefreshUI()
 end
 --------------------------------------------------------------------------------
 -- AI control
 --------------------------------------------------------------------------------
 function AIStartOrders(self)
-
     local aiBrain = self:GetAIBrain()
-	
     if aiBrain.BrainType != 'Human' then
-	
         local uID = self:GetUnitId()
-		
         self.Time = GetGameTimeSeconds()
-		
         BuildModeChange(self)
-		
         aiBrain:BuildUnit(self, ChooseExpimental(self), 1)
-		
         --This probably causes a crash without sorian ai.
         --Probably fine because regular AI can't build this
         --But it could happen with another custom AI.
         local AINames = import('/lua/AI/sorianlang.lua').AINames
-		
         if AINames[uID] then
             local num = Random(1, table.getn(AINames[uID]))
             self:SetCustomName(AINames[uID][num])
         end
-		
     end
-	
 end
 
 function AIControl(self, unitBeingBuilt)
-
     local aiBrain = self:GetAIBrain()
-	
     if aiBrain.BrainType != 'Human' then
-	
         if self.AIUnitControl then
             self.AIUnitControl(self, unitBeingBuilt, aiBrain)
         end
-		
         aiBrain:BuildUnit(self, ChooseExpimental(self), 1)
-		
     end
-	
 end
 
 function ChooseExpimental(self)
-
     if not self.RequestedUnits then self.RequestedUnits = {} end
-	
     if not self.AcceptedRequests then self.AcceptedRequests = {} end
-	
     if not self.BuiltUnitsCount then self.BuiltUnitsCount = 1 else self.BuiltUnitsCount = self.BuiltUnitsCount + 1 end
-	
     local bp = self:GetBlueprint()
     local buildorder = bp.AI.BuildOrder
 
@@ -187,7 +131,6 @@ function ChooseExpimental(self)
 
     local bpAirExp = self:GetBlueprint().AI.Experimentals.Air
     local bpOtherExp = self:GetBlueprint().AI.Experimentals.Other
-	
     if not self.ExpIndex then self.ExpIndex = {math.random(1, table.getn(bpAirExp)),math.random(1, table.getn(bpOtherExp)),} end
 
     if not self.togglebuild then
@@ -213,7 +156,6 @@ function ChooseExpimental(self)
         self.togglebuild = true
         --LOG('Gantry failed to find experimental fliers')
     end
-	
     if self.togglebuild then
         for i=1,2 do
             for i, v in bpOtherExp do
@@ -237,33 +179,26 @@ function ChooseExpimental(self)
         self.togglebuild = false
         --LOG('Gantry failed to find non-flying experimentals')
     end
-	
     --Attempts last successfull experimental, probably air at this point
     if self.Lastbuilt then
         --LOG('Returning last built = ', self.Lastbuilt)
         return self.Lastbuilt
     --If nothing else works, flip a coin and build an ASF or a bomber
     end
-	
     --LAST RESORT TABLE
     for i, v in BuildBackups.LastResorts do
         if type(v) == 'string' and self:CanBuild(v) then
             return v
         end
     end
-	
 end
 --------------------------------------------------------------------------------
 -- AI Cheats
 --------------------------------------------------------------------------------
 function AIStartCheats(self, Buff)
-
     local aiBrain = self:GetAIBrain()
-	
     if aiBrain.BrainType != 'Human' then
-	
         if aiBrain.CheatEnabled then
-		
             if not Buffs['GantryAIxBaseBonus'] then
                 BuffBlueprint {
                     Name = 'GantryAIxBaseBonus',
@@ -288,7 +223,6 @@ function AIStartCheats(self, Buff)
                 }
             end
             Buff.ApplyBuff(self, 'GantryAIxBaseBonus')
-			
         else
             if not Buffs['GantryAIBaseBonus'] then
                 BuffBlueprint {

@@ -194,9 +194,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.4,
     SelectionThickness = 0.4,
 	
-    SizeX = 2,
-    SizeY = 2,
-    SizeZ = 3,
+    SizeX = 1.1,
+    SizeY = 1.5,
+    SizeZ = 1.6,
 
     StrategicIconName = 'icon_land3_antimissile',
     StrategicIconSortPriority = 195,

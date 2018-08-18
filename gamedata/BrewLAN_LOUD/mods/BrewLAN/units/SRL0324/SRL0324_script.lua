@@ -49,8 +49,8 @@ SRL0324 = Class(CLandUnit) {
     end,
 
     OnIntelDisabled = function(self)
-	
-        CLandUnit.OnIntelDisabled(self)
+
+        CRadarUnit.OnIntelDisabled(self)
 		
         if self.Threads and self.Threads[4][1] then
 		
@@ -83,8 +83,8 @@ SRL0324 = Class(CLandUnit) {
     end,
 
     OnIntelEnabled = function(self)
-	
-        CLandUnit.OnIntelEnabled(self)
+
+        CRadarUnit.OnIntelEnabled(self)
 		
         if self.Threads and not self.Threads[4][1] then
 		
@@ -103,8 +103,7 @@ SRL0324 = Class(CLandUnit) {
             )
             self:DestroyBlinkingLights()
             self:CreateBlinkingLights('Green')
-			
-            --self:CreateIdleEffects()
+
         end
 		
         if not self.Threads then
@@ -112,7 +111,6 @@ SRL0324 = Class(CLandUnit) {
             self.Threads = { {'Sensor_D001'},{'Sensor_D002'},{'Sensor_D003'} }
 			
             for i, v in self.Threads do
-                --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
                 self.Threads[i][2] = CreateRotator(self, v[1], 'z', 0, 10, 4, 10)
                 self.Trash:Add(self.Threads[i][2])
             end
@@ -129,6 +127,7 @@ SRL0324 = Class(CLandUnit) {
             self.Threads[4][1] = true
 			
         end
+		
     end,
 
     DishBehavior = function(self)
@@ -155,15 +154,18 @@ SRL0324 = Class(CLandUnit) {
     end,
 
     CreateBlinkingLights = function(self, color)
+	
         if CRadarUnit.CreateBlinkingLights then
-        CRadarUnit.CreateBlinkingLights(self, color)
+			CRadarUnit.CreateBlinkingLights(self, color)
         end
     end,
 
     DestroyBlinkingLights = function(self)
+	
         if CRadarUnit.DestroyBlinkingLights then
-        CRadarUnit.DestroyBlinkingLights(self)
+			CRadarUnit.DestroyBlinkingLights(self)
         end
+		
     end,
 
     OnStartTransportBeamUp = function(self, transport, bone)
@@ -186,7 +188,7 @@ SRL0324 = Class(CLandUnit) {
             if bp.Intel.StealthWaitTime then
                 WaitSeconds( bp.Intel.StealthWaitTime )
             end
-			
+
             if not self.Bits[3] then
                 self:EnableUnitIntel('RadarStealth')
                 self:EnableUnitIntel('Cloak')
@@ -195,7 +197,10 @@ SRL0324 = Class(CLandUnit) {
 				
                 self:SetMaintenanceConsumptionActive()
 				
+				self:AddToggleCap('RULEUTC_IntelToggle')
+				
                 self.Cloaked = true
+				
             end
 			
         end,
@@ -203,18 +208,21 @@ SRL0324 = Class(CLandUnit) {
         OnMotionHorzEventChange = function(self, new, old)
 		
             if new != 'Stopped' then
+
                 ChangeState( self, self.VisibleState )
-                --LOG("OnMotionHorzEventChange become visible")
+
             end
 			
             CLandUnit.OnMotionHorzEventChange(self, new, old)
+			
         end,
+		
     },
 
     VisibleState = State() {
 	
         Main = function(self)
-		
+
             if self.Cloaked then
 			
                 self:DisableUnitIntel('RadarStealth')
@@ -223,19 +231,26 @@ SRL0324 = Class(CLandUnit) {
                 self:DisableUnitIntel('Radar')
 				
                 self:SetMaintenanceConsumptionInactive()
+
             end
+			
         end,
 
         OnMotionHorzEventChange = function(self, new, old)
 		
             if new == 'Stopped' and (self.LastTransportedTime or 0) + 2 < GetGameTimeSeconds() then
+			
+				self:AddToggleCap('RULEUTC_IntelToggle')
+				
                 ChangeState( self, self.InvisState )
-                --LOG("OnMotionHorzEventChange become invisible", new, old)
+
             end
 			
             CLandUnit.OnMotionHorzEventChange(self, new, old)
         end,
+		
     },
+	
 }
 
 TypeClass = SRL0324

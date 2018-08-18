@@ -206,6 +206,7 @@ UnitBlueprint {
     },
 	
     Intel = {
+		FreeIntel = true,
         RadarStealth = true,
         SonarStealth = true,
 		OmniRadius = 5,

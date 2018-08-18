@@ -84,34 +84,24 @@ UnitBlueprint {
             },
         },
         SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar6x_seraphim_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 6.4,
-                Normal = 'Tarmacs/Tar6x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 6.4,
-            },
-        },
-        UniformScale = 0.05,
+
+        UniformScale = 0.032,
     },
 	
     Economy = {
-        BuildCostEnergy = 37500,
+        BuildCostEnergy = 44500,
         BuildCostMass = 3900,
         BuildTime = 3900,
 		
         RebuildBonusIds = { 'ssb2311' },
     },
-
+	
+    Footprint = {
+        MinWaterDepth = 3.5,
+        SizeX = 1,
+        SizeZ = 1,		
+    },
+	
     General = {
 		CapCost = 2,
         Category = 'Defense',
@@ -143,7 +133,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defense',
+        HelpText = '<LOC ssb2311_desc>Anti-Armor Point Defense',
     },
 	
     LifeBarHeight = 0.075,
@@ -168,21 +158,24 @@ UnitBlueprint {
         MeshExtentsZ = 3.1,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-        SkirtSizeX = 3,
-        SkirtSizeZ = 3,
+		
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+		
         TurnRate = 0,
     },
 	
-    SelectionCenterOffsetZ = -.55,
-    SelectionSizeX = 1.2,
-    SelectionSizeZ = 1.2,
-    SelectionThickness = .6,
+	SelectionCentreOffsetZ = -0.2,
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1,
+    SelectionThickness = .5,
 	
-    SizeX = 1.3,
-    SizeY = 1.3,
-    SizeZ = 1.3,
+    SizeX = 1.4,
+    SizeY = 1.7,
+    SizeZ = 1.4,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 205,
@@ -222,8 +215,8 @@ UnitBlueprint {
 			
             DisplayName = 'Sinn Unthe Cannon',
 			
-            EnergyDrainPerSecond = 1125,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 600,
+            EnergyRequired = 1800,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -281,12 +274,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 25,
+            TurretPitchRange = 50,
             TurretPitchSpeed = 15,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
 			

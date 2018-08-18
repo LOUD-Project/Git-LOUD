@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Air = {
         BankForward = false,
         CanFly = true,
@@ -6,6 +7,7 @@ UnitBlueprint {
 		KTurn = 0,
         LiftFactor = 10,
     },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XEA',
@@ -43,9 +45,10 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 10,
+	
     Categories = {
-        'PRODUCTBREWLAN',
         'BUILTBYTIER3SPACEPORT',
         'SELECTABLE',
         'UEF',
@@ -62,7 +65,9 @@ UnitBlueprint {
         'TARGETCHASER',
         'CANNOTUSEAIRSTAGING',
     },
+	
     CollisionOffsetY = -0.65,
+	
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -73,7 +78,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC sea0002_desc>Observation Satellite',
+	
     Display = {
     	AINames = {
             'Skynet',
@@ -90,7 +97,7 @@ UnitBlueprint {
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_personalstealth>Personal Stealth',
         },
-        --IconName = 'XEA0002',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -111,21 +118,25 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+		
         SpawnRandomRotation = true,
         UniformScale = 0.045,
     },
+	
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
         BuildTime = 400,
+		
         MaintenanceConsumptionPerSecondEnergy = 2500,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         CapCost = 1,
         Category = 'Intelligence',
@@ -161,6 +172,7 @@ UnitBlueprint {
         UnitName = '<LOC sea0002_name>Burning Star',
         UnitWeight = 1,
     },
+	
     Intel = {
         RadarStealth = true,
         VisionRadius = 0,
@@ -171,12 +183,15 @@ UnitBlueprint {
         OrbitSonar = false,
         OrbitOmni = false,
     },
+	
     Interface = {
         HelpText = '<LOC sea0002_desc>Observation Satellite',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -206,12 +221,15 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 0.02,
     },
+	
     SelectionSizeX = 2,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.36,
+	
     SizeX = 2,
     SizeY = 2,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_fighter_intel',
     StrategicIconSortPriority = 55,
 }

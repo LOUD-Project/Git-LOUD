@@ -93,29 +93,12 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-		
-        Tarmacs = {
-            {
-                Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_01_albedo.dds',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 6.4,
-                Normal = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_01_normals.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 6.4,
-            },
-        },
+
         UniformScale = 0.09,
     },
 	
     Economy = {
-        BuildCostEnergy = 65000,
+        BuildCostEnergy = 45000,
         BuildCostMass = 4250,
         BuildTime = 4250,
 		
@@ -158,7 +141,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defense',
+        HelpText = '<LOC seb2311_desc>Anti-Armor Point Defense',
     },
 	
     LifeBarHeight = 0.075,
@@ -192,11 +175,11 @@ UnitBlueprint {
 		
         TurnRate = 0,
     },
-	
-    SelectionCenterOffsetZ = -0.4,
-    SelectionSizeX = 1.25,
-    SelectionSizeZ = 1.25,
-    SelectionThickness = 0.4,
+
+	SelectionCentreOffsetZ = -0.2,	
+    SelectionSizeX = 1,
+    SelectionSizeZ = 1,
+    SelectionThickness = 0.5,
 	
     SizeX = 1.5,
     SizeY = 0.9,
@@ -250,8 +233,8 @@ UnitBlueprint {
 			
             DisplayName = 'Gauss Cannon',
 			
-            EnergyDrainPerSecond = 1250,
-            EnergyRequired = 2500,
+            EnergyDrainPerSecond = 600,
+            EnergyRequired = 1500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -307,7 +290,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.4,	-- 360 DPS
+            RateOfFire = 1.0,	-- 2.5 seconds to charge = 360 DPS
 			
             TargetCheckInterval = 3,
 			
@@ -331,7 +314,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 29,
 			
             Turreted = true,
         },

@@ -11,16 +11,6 @@ UnitBlueprint {
             Cue = 'URB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        ShieldOff = Sound {
-            Bank = 'URB',
-            Cue = 'URB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'URB',
-            Cue = 'URB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Cybran_Select_Structure',
@@ -28,34 +18,32 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 16,
+    BuildIconSortPriority = 59,
 	
     Categories = {
         'SELECTABLE',
-        --'BUILTBYTIER4ENGINEER',
-        --'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER4COMMANDER',
         'CYBRAN',
         'STRUCTURE',
         'DEFENSE',
         'EXPERIMENTAL',
         'SHIELD',
-        'DRAGBUILD',
-        'SIZE16',
+        'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SHOWQUEUE',
         'OVERLAYDEFENSE',
-        'SORTDEFENSE',
+        'SORTSTRATEGIC',
     },
 	
     CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3149,
-        Health = 6950,
-        MaxHealth = 6950,
-        RegenRate = 6,
+        EconomyThreatLevel = 100,
+        Health = 850,
+        MaxHealth = 850,
+        RegenRate = 5,
+		
         Shield = {
             ImpactEffects = 'CybranShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -63,18 +51,19 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 140000,
-            ShieldRechargeTime = 90,
-            ShieldRegenRate = 280,
+            ShieldMaxHealth = 22500,
+            ShieldRechargeTime = 20,
+            ShieldRegenRate = 255,
             ShieldRegenStartTime = 1,
-            ShieldSize = 80,
-            ShieldVerticalOffset = -20,
+            ShieldSize = 55,
+            ShieldVerticalOffset = -3,
         },
     },
 	
     Description = '<LOC srb4401>Experimental Shield Generator',
 	
     Display = {
+	
         AINames = {
             'ED6',
             'Vorhang',
@@ -83,10 +72,11 @@ UnitBlueprint {
             'Wraithguard',
             'Hedgehog',
         },
+		
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
         },
-        #AnimationUpgrade = '/units/urb4207/urb4207_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -105,15 +95,16 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
+                Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_cybran_01_normals',
+                Normal = 'Tarmacs/Tar8x_cybran_01_normals',
                 Orientations = {
                     0,
                     90,
@@ -124,26 +115,25 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.2*1.1,
-    },
+        UniformScale = .245,
+	},
 	
     Economy = {
-        BuildCostEnergy = 400000*.5,
-        BuildCostMass = 24000*.5,
-        BuildTime = 16000*.5,
+        BuildCostEnergy = 65000,	--400000*.5,
+        BuildCostMass = 4127,	--24000*.5,
+        BuildTime = 2600,	--16000*.5,
 		
-        MaintenanceConsumptionPerSecondEnergy = 2500,
+        MaintenanceConsumptionPerSecondEnergy = 1000,
 		
-        RebuildBonusIds = {'srb4401'},
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 1,
+        SizeZ = 1,
     },
 	
     General = {
-		CapCost = 10,
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -177,18 +167,14 @@ UnitBlueprint {
         UnitName = '<LOC srb4401_name>Iron Curtain',
         UnitWeight = 1,
     },
-	
-    Intel = {
-        VisionRadius = 37,
-    },
-	
+
     Interface = {
         HelpText = '<LOC srb4401>Experimental Shield Generator',
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 2.7,
-    LifeBarSize = 5,
+    LifeBarOffset = 1.3,
+    LifeBarSize = 3.5,
 	
     Physics = {
         BankingSlope = 0,
@@ -206,23 +192,24 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
 		
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
 		
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
 		
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 3.1,
-    SelectionSizeZ = 3.1,
-    SelectionThickness = 0.35,
-    SelectionCenterOffsetZ = 1,
+	SelectionCenterOffsetZ = 1.5,
 	
-    SizeX = 5*1.1,
-    SizeY = 5*1.1,
-    SizeZ = 5*1.1,
+    SelectionSizeX = 2.5,
+    SelectionSizeZ = 2.5,
+    SelectionThickness = 0.4,
+	
+    SizeX = 2.5,
+    SizeY = 5.5,
+    SizeZ = 2.5,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 100,

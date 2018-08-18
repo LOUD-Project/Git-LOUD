@@ -95,7 +95,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 60000,
+        BuildCostEnergy = 55000,
         BuildCostMass = 3900,
         BuildTime = 4300,
 		
@@ -127,7 +127,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sab2311_name>Nihiloid',
@@ -230,8 +230,8 @@ UnitBlueprint {
 			
             DisplayName = 'Oblivion Cannon',
 			
-            EnergyDrainPerSecond = 800,
-            EnergyRequired = 2800,
+            EnergyDrainPerSecond = 500,
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -251,7 +251,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
 			MuzzleVelocityRandom = 1.5,
-            MuzzleVelocityReduceDistance = 130,
+            MuzzleVelocityReduceDistance = 100,
 			
             NotExclusive = true,
 			
@@ -276,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,	-- 360 DPS
+            RateOfFire = 1,	-- 5 second charge = 360 DPS
 			
             SlavedToBody = false,
 			
@@ -300,7 +300,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 24,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },

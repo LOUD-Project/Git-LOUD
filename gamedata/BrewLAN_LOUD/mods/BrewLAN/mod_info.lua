@@ -1,8 +1,8 @@
 name = "BrewLAN for LOUD"
 uid = "25D57D85-7D84-27HT-A501-BR3WL4N000079" -- this is UID hard coded into hook/lua/game.lua and hook/lua/system/blueprints.lua
-version = 0.4
-copyright = "© 2009 - 2018 Sean Wheeldon"
-description = "BrewLAN for LOUD Version 0.4. Base Units. Not yet fully AI enabled. "
+version = 0.43
+copyright = "ï¿½ 2009 - 2018 Sean Wheeldon"
+description = "BrewLAN for LOUD Version 0.42. Base Units. Not yet fully AI enabled. "
 author = "Sean Wheeldon"
 icon = "/mods/BrewLAN/documentation/BrewLAN-LOUD-full.png"
 selectable = true

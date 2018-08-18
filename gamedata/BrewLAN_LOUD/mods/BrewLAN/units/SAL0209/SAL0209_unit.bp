@@ -275,7 +275,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         VisionRadius = 20,
-        OmniRadius = 12,
+        OmniRadius = 5,
     },
 	
     Interface = {

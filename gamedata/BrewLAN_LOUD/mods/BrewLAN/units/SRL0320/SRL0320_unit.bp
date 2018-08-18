@@ -167,7 +167,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
 		
         OrderOverrides = {
             RULEUTC_StealthToggle = {

@@ -253,7 +253,7 @@ UnitBlueprint {
 		FreeIntel = true,
         RadarStealth = true,
         SonarStealth = true,
-		OmniRadius = 12,
+		OmniRadius = 5,
         RadarRadius = 30,
         VisionRadius = 20,
     },

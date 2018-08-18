@@ -1,9 +1,12 @@
 local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+
 local BrewLANPath = import( '/lua/game.lua' ).BrewLANPath()
 local OffsetBoneToTerrain = import(BrewLANPath .. '/lua/TerrainUtils.lua').OffsetBoneToTerrain
 
 SEA0002 = Class(TAirUnit) {
+
     DestroyNoFallRandomChance = 0,
 
     HideBones = { 'Shell01', 'Shell02', 'Shell03', 'Shell04' },
@@ -24,25 +27,41 @@ SEA0002 = Class(TAirUnit) {
 
 
     OnScriptBitClear = function(self, bit)
+	
         if bit == 3 and not self.IntelDisables then
             LOG("Someone tried to enable satellite intel before it's ready.")
         else
             TAirUnit.OnScriptBitClear(self, bit)
         end
+		
     end,
+	
+	OnMotionVertEventChange = function(self,new,old)
+	
+	end,
 
     OpenState = State() {
+	
         Main = function(self)
+
             self.OpenAnim = CreateAnimator(self)
-            self.OpenAnim:PlayAnim( '/units/XEA0002/xea0002_aopen01.sca' )
+
+            self.OpenAnim:PlayAnim('/units/XEA0002/xea0002_aopen01.sca')
+
             self.Trash:Add( self.OpenAnim )
-            WaitFor( self.OpenAnim )
+			
+			WaitFor(self.OpenAnim)
+
             for k, v in self.HideBones do
                 self:HideBone( v, true )
             end
-            self.OpenAnim:PlayAnim( '/units/XEA0002/xea0002_aopen02.sca' )
-            WaitFor( self.OpenAnim )
+
+            self.OpenAnim:PlayAnim('/units/XEA0002/xea0002_aopen02.sca')
+			
+			WaitFor(self.OpenAnim)
+			
             self:CreateVisEntity()
+			
             self:SetScriptBit('RULEUTC_IntelToggle', false)
         end,
     },
@@ -85,8 +104,12 @@ SEA0002 = Class(TAirUnit) {
     end,
 
     CreateVisEntity = function(self)
+
         local pos = self:GetPosition()
         local bp = self:GetBlueprint().Intel
+
+		LOG("*AI DEBUG Creating VizEntity")
+		
         self.VisEntity = VizMarker({
             X = pos[1],
             Z = pos[3],
@@ -99,17 +122,23 @@ SEA0002 = Class(TAirUnit) {
             WaterVision = bp.OrbitWaterVision or true,
             Army = self:GetAIBrain():GetArmyIndex(),
         })
+		
         self.VisEntity:AttachTo(self, 'VisEntity')
         self.VisEntity.Radius = bp.OrbitIntelRadius
+		
         self.Trash:Add(self.VisEntity)
+		
         OffsetBoneToTerrain(self, 'VisEntity')
     end,
 
     OnRunOutOfFuel = function(self)
+	
         TAirUnit.OnRunOutOfFuel(self)
+		
         self:SetSpeedMult(self:GetBlueprint().Physics.NoFuelSpeedMult)
         self:SetAccMult(1)
         self:SetTurnMult(1)
+		
     end,
 
     --[[ disabled because self.Parent is no longer defined.

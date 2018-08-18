@@ -97,25 +97,7 @@ UnitBlueprint {
 
         SpawnRandomRotation = true,
 		
-        Tarmacs = {
-            {
-                Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_albedo.dds',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
-                Width = 12.8,
-                Normal = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_normals.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-            },
-        },
-		
-        UniformScale = 0.072,
+        UniformScale = 0.085,
     },
 	
     Economy = {
@@ -125,7 +107,12 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'srb2311'},
     },
-
+	
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,		
+    },
+	
     General = {
 		CapCost = 2,
         Category = 'Defense',
@@ -178,9 +165,9 @@ UnitBlueprint {
         FlattenSkirt = true,
         MaxSteerForce = 0,
 		
-        MeshExtentsX = 2.0,
+        MeshExtentsX = 1.6,
         MeshExtentsY = 1.3,
-        MeshExtentsZ = 2.0,
+        MeshExtentsZ = 1.6,
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
@@ -194,14 +181,14 @@ UnitBlueprint {
         TurnRate = 0,
     },
 	
-    SelectionCenterOffsetZ = -0.4,
+	SelectionCentreOffsetZ = -0.3,	
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
-    SelectionThickness = 0.35,
+    SelectionThickness = 0.5,
 	
-    SizeX = 1.1,
+    SizeX = 1.4,
     SizeY = 1.2,
-    SizeZ = 1.1,
+    SizeZ = 1.4,
 	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 205,
@@ -243,8 +230,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
 			
-            EnergyDrainPerSecond = 300,
-            EnergyRequired = 900,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 1350,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -319,7 +306,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
             Turreted = true,
         },
     },
