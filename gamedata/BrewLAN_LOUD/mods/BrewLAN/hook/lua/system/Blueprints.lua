@@ -24,6 +24,7 @@ function ModBlueprints(all_blueprints)
 
     BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
     BrewLANGantryBuildList(all_blueprints.Unit)
+    BrewLANGantryTechShareCheck(all_blueprints.Unit)
     BrewLANHeavyWallBuildList(all_blueprints.Unit)
 
     --BrewLANNameCalling(all_blueprints.Unit)
@@ -374,6 +375,38 @@ function BrewLANGantryBuildList(all_bps)
                     end
                 end
             end
+        end
+    end
+end
+
+--------------------------------------------------------------------------------
+-- Allowing other experimentals that look like they fit to be gantry buildable
+--------------------------------------------------------------------------------
+
+function BrewLANGantryTechShareCheck(all_bps)
+    for id, bp in all_bps do
+        if bp.Categories then
+            if not table.find(bp.Categories,'GANTRYSHARETECH')
+            and (table.find(bp.Categories,'FACTORY') or table.find(bp.Categories,'ENGINEER'))
+            and (table.find(bp.Categories,'TECH3') or table.find(bp.Categories,'EXPERIMENTAL') or table.find(bp.Categories,'COMMAND'))
+            then
+                if bp.Economy.BuildableCategory then
+                    for i, buildcat in bp.Economy.BuildableCategory do
+                        if string.find(buildcat, 'FACTORY') or string.find(buildcat, 'ENGINEER') or string.find(buildcat, 'COMMANDER') then
+                            table.insert(bp.Categories, 'GANTRYSHARETECH')
+                        end
+                    end
+                end
+            end
+        end
+    end
+    local Explicit = {
+        'xrl0403',
+        'ssl0403',
+    }
+    for i, cat in Explicit do
+        if all_bps[cat] and all_bps[cat].Economy.BuildableCategory then
+            table.insert(all_bps[cat].Categories, 'GANTRYSHARETECH')
         end
     end
 end
