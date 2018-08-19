@@ -11,7 +11,12 @@ function BuildModeChange(self, mode)
     local ParseEntityCategory = ParseEntityCategory
     local EntityCategoryContains = EntityCategoryContains
     local engineers
-    if pos then
+    if pos and categories.GANTRYSHARETECH then
+        engineers = aiBrain:GetUnitsAroundPoint(
+            (categories.GANTRYSHARETECH),
+            pos, 30, 'Ally'
+        )
+    elseif pos then
         engineers = aiBrain:GetUnitsAroundPoint(
             (categories.ENGINEER + categories.FACTORY) *
             (categories.TECH3 + categories.EXPERIMENTAL),
