@@ -1,9 +1,9 @@
-version = 3
+version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
     name = "Asterion_Abyss",
     description = "<LOC Asterion_Abyss_Description>Map  Author : ~FCA~ Valerius.",
     preview = '',
-    map_version = '3.1',
+    map_version = 3.1,
     type = 'skirmish',
     starts = true,
     size = {1024, 1024},
@@ -16,7 +16,7 @@ ScenarioInfo = {
             teams = {
                 {
                     name = 'FFA',
-                    armies = {'ARMY_1', 'ARMY_2', 'ARMY_3', 'ARMY_4', 'ARMY_5', 'ARMY_6', 'NEUTRAL_CIVILIAN', 'ARMY_9'}
+                    armies = {'ARMY_1', 'ARMY_2', 'ARMY_3', 'ARMY_4', 'ARMY_5', 'ARMY_6'}
                 },
             },
             customprops = {

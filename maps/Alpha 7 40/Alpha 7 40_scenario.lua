@@ -1,9 +1,9 @@
-version = 3
+version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
     name = "Alpha 7 Quarantine 40",
     description = "<LOC Alpha 7 40_Description>Flagged 'hazard' by the old Earth Empire, Alpha 7 has been quarantined for hundreds of years. Only now have the factions begun to wonder why. Did it contain aliens, some sort of plague or virus? No one knows, but the factions are willing to fight to find out.",
     preview = '',
-    map_version = '8.2',
+    map_version = 8.2,
     type = 'skirmish',
     starts = true,
     size = {2048, 2048},
