@@ -106,7 +106,7 @@ URL0301 = Class(CWalkingLandUnit) {
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-       SpawnBuildBots( self, unitBeingBuilt, 3, self.BuildEffectsBag )
+       --SpawnBuildBots( self, unitBeingBuilt, 3, self.BuildEffectsBag )
        CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
 

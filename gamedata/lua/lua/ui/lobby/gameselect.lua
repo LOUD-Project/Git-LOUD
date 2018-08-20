@@ -347,9 +347,7 @@ function CreateUI(over, exitBehavior, useSteam)
         end
 		
     end
-
-	LOG("*GAMESELECT DEBUG useSteam is "..repr(useSteam))
-    
+   
 	if useSteam == false then
 	
 		-- ip address and port edit

@@ -507,25 +507,26 @@ end
 
 function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-    WaitTicks(2)    -- this delay seems to be necessary so that the position of the unit is correct
-    
-    local BeamBuildEmtBp = '/effects/emitters/build_beam_02_emit.bp'
-
-	local pos = unitBeingBuilt:GetPosition()
-	local ox = pos[1]
-	local oy = pos[2]
-	local oz = pos[3]
-
-    local army = builder.Sync.army
-	
-    local BeamEndEntities = {}
-	local counter = 0
-    
     if BuildEffectBones then
+	
+		WaitTicks(2)    -- this delay seems to be necessary so that the position of the unit is correct
+    
+		local BeamBuildEmtBp = '/effects/emitters/build_beam_02_emit.bp'
+
+		local pos = unitBeingBuilt:GetPosition()
+		local ox = pos[1]
+		local oy = pos[2]
+		local oz = pos[3]
+
+		local army = builder.Sync.army
+	
+		local BeamEndEntities = {}
+		local counter = 0
     
         for i, BuildBone in BuildEffectBones do
 		
             local beamEnd = Entity()
+			
             builder.Trash:Add(beamEnd)
 			
             BeamEndEntities[counter+1] = beamEnd
@@ -534,26 +535,32 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
             BuildEffectsBag:Add( beamEnd )
 			
             LOUDWARP( beamEnd, Vector(ox, oy, oz))
+			
             LOUDEMITONENTITY( beamEnd, army, CybranBuildSparks01 )
             LOUDEMITONENTITY( beamEnd, army, CybranBuildFlash01 )
 			
-            BuildEffectsBag:Add(LOUDATTACHBEAMENTITY(builder, BuildBone, beamEnd, -1, army, BeamBuildEmtBp))
+            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, BeamBuildEmtBp ) )
+			
         end
-    end
-
-	-- flip the drones about every 16 ticks
-    while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
-        for k, v in BeamEndEntities do
 		
-            local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
+		-- move the beams around every 16 ticks
+		while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
+		
+			for k, v in BeamEndEntities do
+		
+				local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
 			
-            if v and not BeenDestroyed(v) then
-                LOUDWARP( v, Vector(ox + x, oy + y, oz + z))
-            end
+				if v and not BeenDestroyed(v) then
+					LOUDWARP( v, Vector(ox + x, oy + y, oz + z))
+				end
 			
-        end
-        WaitTicks(16)
+			end
+			
+			WaitTicks(16)
+		end
+		
     end
+	
 end
 
 function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
@@ -586,6 +593,7 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
 	
         xVec = LOUDSIN( 180 + (i*angle)) * 0.5
         zVec = LOUDCOS( 180 + (i*angle)) * 0.5
+		
         tunit = CreateUnit('ura0001', army, x + xVec, y + yVec, z + zVec, qx, qy, qz, qw, 'Air' )
 
         -- Make build bots unkillable
@@ -596,17 +604,20 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
 		counter = counter + 1
 		
         BuildEffectsBag:Add(tunit)
+		
     end
 	
     IssueGuard( BuilderUnits, unitBeingBuilt )
 	
     return BuilderUnits
+	
 end
 
 function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, BuildEffectsBag )
 
-    -- Create build constant build effect for each build effect bone defined
+    -- Create constant build effect for each build bone defined
     if BuildBones then
+	
         local army = builder.Sync.army
 		
         for _, vBone in BuildBones do
