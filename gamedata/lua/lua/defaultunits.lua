@@ -410,10 +410,7 @@ StructureUnit = Class(Unit) {
         local bp = GetBlueprint(self).Display.Tarmacs
 
 		local LOUDGETN = table.getn
-		local LOUDINSERT = table.insert
 		local Random = Random
-
-		local CreateDecal = CreateDecal
 
         if not specTarmac then
 		
@@ -435,11 +432,13 @@ StructureUnit = Class(Unit) {
 			
         end
 		
+		local LOUDINSERT = table.insert
+		local CreateDecal = CreateDecal
 
         local army = self.Sync.army
         local w = tarmac.Width
         local l = tarmac.Length
-        local fadeout = tarmac.FadeOut
+        local fadeout = tarmac.FadeOut or 300
 
 		local pos = GetPosition(self)
 		
@@ -464,12 +463,6 @@ StructureUnit = Class(Unit) {
 			
         end
 
-        if not self.TarmacBag then
-		
-            self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
-			
-        end
-
         local GetTarmac = import('/lua/tarmacs.lua').GetTarmacType
 
         local terrain = GetTerrainType(x, z)
@@ -484,17 +477,23 @@ StructureUnit = Class(Unit) {
 
         if albedo and tarmac.Albedo then
 		
-            local albedo2 = tarmac.Albedo2 or false
+            local albedo2 = tarmac.Albedo2
 			
             if albedo2 then
                 albedo2 = albedo2 .. GetTarmac(faction, terrain)
             end
+			
+			--LOG("*AI DEBUG Creating Decal with "..repr(GetPosition(self)).." Orient is "..repr(orient).." Albedo is "..repr(tarmac.Albedo).." 2 is "..repr(albedo2).." w "..w.." l is "..l.." fade "..repr(fadeout).." lifetime "..repr(lifeTime).." Army is "..repr(army) )
 
-			LOG("*AI DEBUG creating Tarmac for "..repr(self:GetBlueprint().Description).." at "..repr(GetPosition(self)).."  Tarmac is "..repr(tarmac).." "..GetTarmac(faction, terrainName) )
+            local tarmacHndl = CreateDecal( GetPosition(self), orient, tarmac.Albedo..GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
+
+			if not self.TarmacBag then
+		
+				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
 			
-            local tarmacHndl = CreateDecal( GetPosition(self), orient, tarmac.Albedo .. GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
+			end
 			
-            LOUDINSERT( self.TarmacBag.Decals, tarmacHndl)
+            LOUDINSERT( self.TarmacBag.Decals, tarmacHndl )
 			
             if tarmac.RemoveWhenDead then
                 self.Trash:Add(tarmacHndl)
@@ -504,6 +503,12 @@ StructureUnit = Class(Unit) {
         if normal and tarmac.Normal then
 		
             local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 300, army, 0)
+
+			if not self.TarmacBag then
+		
+				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
+			
+			end
 
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
 			
@@ -516,6 +521,12 @@ StructureUnit = Class(Unit) {
         if glow and tarmac.Glow then
 		
             local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 300, army, 0)
+
+			if not self.TarmacBag then
+			
+				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
+			
+			end
 
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
 			
