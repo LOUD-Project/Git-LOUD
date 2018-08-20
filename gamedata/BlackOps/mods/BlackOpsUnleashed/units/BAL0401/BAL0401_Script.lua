@@ -91,7 +91,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 				local pos0 = self:GetCurrentTargetPos()
 				
 				-- blocked by antiteleport jammers causes unit to bombard self
-				if LoudUtils.TeleportLocationBlocked( self, pos0 ) then
+				if LoudUtils.TeleportLocationBlocked( self.unit, pos0 ) then
 					pos0 = self.unit:GetPosition()
 				end
 
