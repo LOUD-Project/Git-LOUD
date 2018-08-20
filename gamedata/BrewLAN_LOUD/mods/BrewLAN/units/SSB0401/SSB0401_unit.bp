@@ -90,10 +90,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 4071,
+        EconomyThreatLevel = 2500,
         Health = 35000,
         MaxHealth = 35000,
-        RegenRate = 10,
+        RegenRate = 12,
     },
 	
     Description = '<LOC ssb0401_desc>Experimental Naval Factory',
@@ -177,9 +177,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 360000,
-        BuildCostMass = 30000,
-        BuildRate = 360,
+        BuildCostEnergy = 400000,
+        BuildCostMass = 32500,
+        BuildRate = 270,
         BuildTime = 10500,
 		
         BuildableCategory = {
@@ -190,7 +190,7 @@ UnitBlueprint {
         },
 		
         InitialRallyX = 0,
-        InitialRallyZ = 15,
+        InitialRallyZ = 18,
 		
         StorageEnergy = 4000,
         StorageMass = 400,
@@ -213,7 +213,9 @@ UnitBlueprint {
                 'Muzzle006',
             },
         },
-		CapCost = 18,
+		
+		CapCost = 16,
+		
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -241,7 +243,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 20,
 		WaterVisionRadius = 20,
     },
 	

@@ -108,9 +108,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2091,
-        Health = 25000,
-        MaxHealth = 25000,
+        EconomyThreatLevel = 2011,
+        Health = 29000,
+        MaxHealth = 29000,
         RegenRate = 12,
     },
 
@@ -225,10 +225,10 @@ UnitBlueprint {
 
     Economy = {
 
-        BuildCostEnergy = 240000,
-        BuildCostMass = 20000,
-        BuildRate = 240,
-        BuildTime = 7500,
+        BuildCostEnergy = 320000,
+        BuildCostMass = 26200,
+        BuildRate = 210,
+        BuildTime = 8200,
 
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON',
@@ -241,7 +241,7 @@ UnitBlueprint {
 
         StorageEnergy = 4000,
         StorageMass = 400,
-        InitialRallyZ = 25,
+        InitialRallyZ = 28,
 
     },
 
@@ -251,7 +251,7 @@ UnitBlueprint {
     },
 
     General = {
-		CapCost = 12,
+
         BuildBones = {
             BuildEffectBones = {
                 'BuilderM_001',
@@ -264,6 +264,9 @@ UnitBlueprint {
                 'BuilderM_008',
             },
         },
+		
+		CapCost = 12,
+		
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
