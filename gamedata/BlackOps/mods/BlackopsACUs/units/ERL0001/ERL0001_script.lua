@@ -753,7 +753,7 @@ ERL0001 = Class(CWalkingLandUnit) {
     # Build/Upgrade
     # *************
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-       --EffectUtil.SpawnBuildBots( self, unitBeingBuilt, 5, self.BuildEffectsBag )
+       EffectUtil.SpawnBuildBots( self, unitBeingBuilt, 5, self.BuildEffectsBag )
        EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
 

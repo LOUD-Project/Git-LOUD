@@ -2965,7 +2965,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
-
+	
         self:UpdateConsumptionValues()
 	
 		if order == 'Repair' and unitBeingBuilt.WorkItem != self.WorkItem then
@@ -2994,10 +2994,18 @@ Unit = Class(moho.unit_methods) {
 			
         end
         
-        if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
+        if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt:HasTarmac() then
+		
+            if self.TarmacBag and self:HasTarmac() then
 			
-            unitBeingBuilt:CreateTarmac(true, true, true, false, false)
-
+                unitBeingBuilt:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP )
+				
+            else
+			
+                unitBeingBuilt:CreateTarmac(true, true, true, false, false)
+				
+            end
+			
         end
 		
         self.CurrentBuildOrder = order		

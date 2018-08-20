@@ -161,7 +161,7 @@ LobbyComm = Class(moho.lobby_methods) {
 
 function CreateLobbyComm(protocol, localport, localPlayerName, localPlayerUID, natTraversalProvider)
 
-	LOG("Creating Lobby Protocol "..repr(protocol).." Port: "..repr(localport).." MaxConnects: "..repr(maxConnections) )
+	LOG("Creating Lobby Protocol "..repr(protocol).." Port: "..repr(localport))
 	
     return InternalCreateLobby(LobbyComm, protocol, localport, maxConnections, localPlayerName, localPlayerUID, natTraversalProvider)
 	

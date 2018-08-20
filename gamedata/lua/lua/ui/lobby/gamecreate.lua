@@ -235,7 +235,6 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 		
         if useSteam then
 			protocol = "STEAM"
-			gameName = 'LOUD '..gameName
 		else
 			protocol = "UDP"
 		end
@@ -248,7 +247,7 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 			
             Prefs.SetToCurrentProfile('last_game_name', gameName)
 			
-            lobby.HostGame( gameName, scenarioFileName, false, friendsOnly)
+            lobby.HostGame( 'LOUD '..gameName, scenarioFileName, false, friendsOnly)
 			
         end
 		

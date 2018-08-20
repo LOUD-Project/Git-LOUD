@@ -91,6 +91,8 @@ BuffField = Class(Entity) {
 	
         if self:GetBlueprint().InitiallyEnabled then
             self:Enable()
+			
+			LOG("*AI DEBUG Creating "..repr(self:GetBlueprint().Name).." Buff")
         end
 		
     end,
@@ -288,7 +290,7 @@ BuffField = Class(Entity) {
                    continue
                 end
 				
-                if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
+                if not unit.HasBuffFieldThreadHandle[bp.Name] then
 				
                     if type(unit.HasBuffFieldThreadHandle) != 'table' then
                         unit.HasBuffFieldThreadHandle = {}
