@@ -2,7 +2,9 @@
 -- UI buildmode change function
 --------------------------------------------------------------------------------
 function BuildModeChange(self, mode)
+
     self:RestoreBuildRestrictions()
+	
     ------------------------------------------------------------------------
     -- The "Stolen tech" clause
     ------------------------------------------------------------------------
@@ -11,76 +13,105 @@ function BuildModeChange(self, mode)
     local ParseEntityCategory = ParseEntityCategory
     local EntityCategoryContains = EntityCategoryContains
     local engineers
+	
     if pos and categories.GANTRYSHARETECH then
-        engineers = aiBrain:GetUnitsAroundPoint(
-            (categories.GANTRYSHARETECH),
-            pos, 30, 'Ally'
-        )
+	
+        engineers = aiBrain:GetUnitsAroundPoint( (categories.GANTRYSHARETECH), pos, 30, 'Ally' )
+		
     elseif pos then
-        engineers = aiBrain:GetUnitsAroundPoint(
-            (categories.ENGINEER + categories.FACTORY) *
-            (categories.TECH3 + categories.EXPERIMENTAL),
-            pos, 30, 'Ally'
-        )
+	
+        engineers = aiBrain:GetUnitsAroundPoint( (categories.ENGINEER + categories.FACTORY) * (categories.TECH3 + categories.EXPERIMENTAL), pos, 30, 'Ally' )
+		
     end
+	
     local stolentech = {CYBRAN = false, AEON = false, SERAPHIM = false, UEF = false}
+	
     for race, val in stolentech do
+	
         if EntityCategoryContains(ParseEntityCategory(race), self) then
+		
             stolentech[race] = true
+			
         end
+		
     end
+	
     if type(engineers) == 'table' then
+	
         for k, v in engineers do
+		
             for race, val in stolentech do
+			
                 if EntityCategoryContains(ParseEntityCategory(race), v) then
+				
                     stolentech[race] = true
                     --a break here would be less checks, but would cause issues with units with multiple faction categories.
                 end
             end
         end
     end
+	
     for race, val in stolentech do
+	
         if not val then
             self:AddBuildRestriction(categories[race])
         end
+		
     end
     ------------------------------------------------------------------------
     -- Human UI air/other switch
     ------------------------------------------------------------------------
     local Layer = self:GetCurrentLayer()
+	
     if aiBrain.BrainType == 'Human' then
+	
         if self.airmode then
+		
             self:AddBuildRestriction(categories.NAVAL)
             self:AddBuildRestriction(categories.MOBILESONAR)
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
+			
         else
             if Layer == 'Land' then
+			
                 self:AddBuildRestriction(categories.NAVAL)
                 self:AddBuildRestriction(categories.MOBILESONAR)
+				
             elseif Layer == 'Water' or Layer == 'Seabed' then
+			
                 self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
+				
             end
+			
             self:AddBuildRestriction(categories.AIR)
+			
         end
+		
     ------------------------------------------------------------------------
     -- AI functional restrictions (allows easier AI control)
     ------------------------------------------------------------------------
     else
         if Layer == 'Land' then
+		
             self:AddBuildRestriction(categories.NAVAL)
             self:AddBuildRestriction(categories.MOBILESONAR)
+			
         elseif Layer == 'Water' or Layer == 'Seabed' then
+		
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
             --AI's can't handle the Atlantis
             --self:AddBuildRestriction(categories.ues0401)
         end
+		
     end
+	
     self:RequestRefreshUI()
 end
 --------------------------------------------------------------------------------
 -- AI control
 --------------------------------------------------------------------------------
 function AIStartOrders(self)
+--[[
     local aiBrain = self:GetAIBrain()
     if aiBrain.BrainType != 'Human' then
         local uID = self:GetUnitId()
@@ -96,9 +127,11 @@ function AIStartOrders(self)
             self:SetCustomName(AINames[uID][num])
         end
     end
+--]]
 end
 
 function AIControl(self, unitBeingBuilt)
+--[[
     local aiBrain = self:GetAIBrain()
     if aiBrain.BrainType != 'Human' then
         if self.AIUnitControl then
@@ -106,9 +139,11 @@ function AIControl(self, unitBeingBuilt)
         end
         aiBrain:BuildUnit(self, ChooseExpimental(self), 1)
     end
+--]]
 end
 
 function ChooseExpimental(self)
+--[[
     if not self.RequestedUnits then self.RequestedUnits = {} end
     if not self.AcceptedRequests then self.AcceptedRequests = {} end
     if not self.BuiltUnitsCount then self.BuiltUnitsCount = 1 else self.BuiltUnitsCount = self.BuiltUnitsCount + 1 end
@@ -196,11 +231,13 @@ function ChooseExpimental(self)
             return v
         end
     end
+--]]
 end
 --------------------------------------------------------------------------------
 -- AI Cheats
 --------------------------------------------------------------------------------
 function AIStartCheats(self, Buff)
+--[[
     local aiBrain = self:GetAIBrain()
     if aiBrain.BrainType != 'Human' then
         if aiBrain.CheatEnabled then
@@ -247,6 +284,7 @@ function AIStartCheats(self, Buff)
             Buff.ApplyBuff(self, 'GantryAIBaseBonus')
         end
     end
+--]]
 end
 
 function AICheats(self, Buff)
