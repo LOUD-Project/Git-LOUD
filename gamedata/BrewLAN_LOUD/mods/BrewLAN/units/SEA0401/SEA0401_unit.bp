@@ -443,6 +443,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Head_Turret_Pitch',
@@ -552,6 +553,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Rear_Turret_Pitch',
@@ -816,6 +818,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Rack_Gun_Muzzle01',
