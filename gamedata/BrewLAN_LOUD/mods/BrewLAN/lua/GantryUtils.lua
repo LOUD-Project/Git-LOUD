@@ -72,7 +72,7 @@ function BuildModeChange(self, mode)
         elseif Layer == 'Water' or Layer == 'Seabed' then
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
             --AI's can't handle the Atlantis
-            self:AddBuildRestriction(categories.ues0401)
+            --self:AddBuildRestriction(categories.ues0401)
         end
     end
     self:RequestRefreshUI()
