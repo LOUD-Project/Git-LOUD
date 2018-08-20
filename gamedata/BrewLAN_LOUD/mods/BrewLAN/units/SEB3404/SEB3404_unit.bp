@@ -106,10 +106,10 @@ UnitBlueprint {
 		
         ResearchMult = 0.5,
 		
-		MinimumPerBuilding = 100,
+		MinimumPerBuilding = 75,
 		MaximumPerBuilding = 500,
-		MinimumPerMobile = 200,
-		MaximumPerMobile = 500,
+		MinimumPerMobile = 50,
+		MaximumPerMobile = 650,
     },
 	
     Footprint = {

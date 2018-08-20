@@ -18,14 +18,20 @@ SEB3404 = Class(TStructureUnit) {
 		
         self:SetScriptBit('RULEUTC_WeaponToggle', true)
 		
+        local aiBrain = self:GetAIBrain()
+		
         self:ForkThread(
             function()
                 while true do
+				
                     if self.Intel == true then
-                        self:IntelSearch()
+                        self:IntelSearch(aiBrain)
                     end
+					
                     WaitSeconds(1)
+					
                 end
+				
             end
         )
 		
@@ -84,14 +90,31 @@ SEB3404 = Class(TStructureUnit) {
         end
     end,
 
-    IntelSearch = function(self)
+    IntelSearch = function(self, aiBrain)
+
+		local function FindAllUnits( aiBrain, category, range, cloakcheck)
 	
-        local aiBrain = self:GetAIBrain()
+			local Ftable = {}
+		
+			for i, unit in aiBrain:GetUnitsAroundPoint(category, self:GetPosition(), range, 'Enemy' ) do
+		
+				if cloakcheck and unit:IsIntelEnabled('Cloak') then
+					--LOG("Counterintel guy")
+				else
+					table.insert(Ftable, unit)
+				end
+			
+			end
+		
+			return Ftable
+			
+		end
 		
         local maxrange = self:GetIntelRadius('radar') or self:GetBlueprint().Intel.RadarRadius or 6000
 		
         -- Find visible things to attach vis entities to
         local LocalUnits = self:FindAllUnits(categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
+		
         ------------------------------------------------------------------------
         -- IF self.ActiveConsumptionRestriction Sort the table by distance
         ------------------------------------------------------------------------
@@ -110,6 +133,7 @@ SEB3404 = Class(TStructureUnit) {
             LocalUnits = DistanceSortedLocalUnits
 			
         end
+		
         ------------------------------------------------------------------------
         -- Calculate the overall cost and cut off point for the energy restricted radius
         ------------------------------------------------------------------------
@@ -117,11 +141,11 @@ SEB3404 = Class(TStructureUnit) {
 		
         local NewUpkeep = Eco.MaintenanceConsumptionPerSecondEnergy
 		
-		local MinimumPerBuilding = Eco.MinimumPerBuilding or 100
+		local MinimumPerBuilding = Eco.MinimumPerBuilding or 75
 		local MaximumPerBuilding = Eco.MaximumPerBuilding or 500
 		
-		local MinimumPerMobile = Eco.MinimumPerMobile or 200
-		local MinimumPerMobile = Eco.MaximumPerMobile or 500
+		local MinimumPerMobile = Eco.MinimumPerMobile or 50
+		local MaximumPerMobile = Eco.MaximumPerMobile or 600
 		
 		local SpyBlipRadius = self:GetBlueprint().Intel.SpyBlipRadius or 2
 		
@@ -136,13 +160,13 @@ SEB3404 = Class(TStructureUnit) {
             if string.lower(ebp.Physics.MotionType or 'NOPE') == string.lower('RULEUMT_None') then
 			
                 --If building cost
-                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 10000, MinimumPerBuilding), MaximumPerBuilding)
+                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 1000, MinimumPerBuilding), MaximumPerBuilding)
                 LocalUnits[i].cost = cost
 				
             else
 			
                 --If mobile cost
-                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 1000, MinimumPerMobile), MaximumPerMobile)
+                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 500, MinimumPerMobile), MaximumPerMobile)
                 LocalUnits[i].cost = cost
 				
             end
@@ -195,23 +219,6 @@ SEB3404 = Class(TStructureUnit) {
 			
 		end
 		
-    end,
-
-    FindAllUnits = function(self, category, range, cloakcheck)
-	
-        local Ftable = {}
-		
-        for i, unit in self:GetAIBrain():GetUnitsAroundPoint(category, self:GetPosition(), range, 'Enemy' ) do
-		
-            if cloakcheck and unit:IsIntelEnabled('Cloak') then
-                --LOG("Counterintel guy")
-            else
-                table.insert(Ftable, unit)
-            end
-			
-        end
-		
-        return Ftable
     end,
 
     OnScriptBitSet = function(self, bit)
