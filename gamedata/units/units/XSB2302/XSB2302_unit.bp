@@ -46,6 +46,7 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
+        'SIZE16',		
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
@@ -240,7 +241,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
 
             CameraShakeDuration = 0.5,
-            CameraShakeMax = 2,
+            CameraShakeMax = 1.5,
             CameraShakeMin = 0,
             CameraShakeRadius = 20,
 
@@ -249,11 +250,11 @@ UnitBlueprint {
             Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 6,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.3',
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 1000,
+            EnergyDrainPerSecond = 700,
             EnergyRequired = 7000,
 
             FireTargetLayerCapsTable = {
@@ -297,18 +298,17 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 0.1,	#-- 5000 damage every 10 seconds -- 8000 to shields
-            RenderFireClock = true,
+            RateOfFire = 1,	#-- 5000 damage every 10 seconds -- 6500 to shields - controlled by energy
 
             ShieldDamage = 6000,
 
             TargetCheckInterval = 8,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE -WALL',
-                'ALLUNITS -AIR -WALL',
+                'STRUCTURE',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_B01',
             TurretBoneYaw = 'Turret',
@@ -316,11 +316,11 @@ UnitBlueprint {
 
             TurretPitch = 30,
             TurretPitchRange = 35,
-            TurretPitchSpeed = 4,
+            TurretPitchSpeed = 6,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 4,
+            TurretYawSpeed = 6,
 
             Turreted = true,
         },
