@@ -1,9 +1,9 @@
-version = 3
+version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
     name = "The Pass 1v1",
     description = "<LOC The Pass_Description>Built for a simple 1 v 1 conflict",
     preview = '',
-    map_version = '2',
+    map_version = 2,
     type = 'skirmish',
     starts = true,
     size = {512, 512},
