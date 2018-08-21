@@ -226,10 +226,12 @@ SAB0401 = Class(AAirFactoryUnit) {
 
         end
 
-    end
+    end,
 
     FinishBuildThread = function(self, unitBeingBuilt, order)
+	
         if EntityCategoryContains(categories.LAND * categories.EXPERIMENTAL, unitBeingBuilt) and self.PermOpenAnimManipulator then
+		
             self:SetBusy(true)
             self:SetBlockCommandQueue(true)
 
@@ -240,6 +242,7 @@ SAB0401 = Class(AAirFactoryUnit) {
             if unitBeingBuilt and not unitBeingBuilt:IsDead() then
                 unitBeingBuilt:DetachFrom(true)
             end
+			
             self:DetachAll(__blueprints.sab0401.Display.BuildAttachBone or 'Attachpoint')
             self:DestroyBuildRotator()
 

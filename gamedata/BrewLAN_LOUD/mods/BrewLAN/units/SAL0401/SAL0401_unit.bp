@@ -311,6 +311,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+			ArtilleryShieldBlocks = true,
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UAS',
