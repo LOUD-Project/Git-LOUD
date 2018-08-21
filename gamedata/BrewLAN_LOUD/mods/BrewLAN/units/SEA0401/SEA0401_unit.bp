@@ -6,8 +6,8 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 4.5,
-        BankFactor = 0.1,
+        AutoLandTime = 2.5,
+        BankFactor = 0.2,
         BankForward = false,
         BreakOffIfNearNewTarget = true,
         CanFly = true,
@@ -25,7 +25,7 @@ UnitBlueprint {
         KLift = 0.9,
         KLiftDamping = 0.8,
 		
-        KMove = 0.78,
+        KMove = 0.85,
         KMoveDamping = 2,
 		
         KRoll = 2,
@@ -36,7 +36,7 @@ UnitBlueprint {
 		
         LiftFactor = 2.5,
 		
-        MaxAirspeed = 10, -- originally 18, then 12, then 15
+        MaxAirspeed = 11, -- originally 18, then 12, then 15
 
         TransportHoverHeight = 3,
 		
@@ -136,8 +136,8 @@ UnitBlueprint {
         EconomyThreatLevel = 25,
         Health = 57500,
         MaxHealth = 57500,
-        RegenRate = 12,
-        SurfaceThreatLevel = 3,
+        RegenRate = 18,
+        SurfaceThreatLevel = 30,
     },
 	
     Description = '<LOC sea0401_desc>Experimental AA Gunship',
@@ -246,6 +246,7 @@ UnitBlueprint {
     },
 	
     General = {
+		CapCost = 5,
         Category = 'Gunship',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -272,7 +273,7 @@ UnitBlueprint {
 	
     Intel = {
         RadarRadius = 75,
-        VisionRadius = 40,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -292,7 +293,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 16,
+        Elevation = 18,
         GroundCollisionOffset = 10,
         MaxSpeed = 0.5,
 		
@@ -314,8 +315,8 @@ UnitBlueprint {
 	
     --SizeSphere = 6,
 	
-    SizeX = 6.3,
-    SizeY = 2.9,
+    SizeX = 4.8,
+    SizeY = 2.0,
     SizeZ = 9,
 	
     StrategicIconName = 'icon_experimental_generic',
@@ -328,11 +329,11 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 40,
-        Level2 = 80,
-        Level3 = 120,
-        Level4 = 160,
-        Level5 = 200,
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
     },
 	
     Weapon = {
@@ -347,21 +348,24 @@ UnitBlueprint {
                 },
             },
 			
+			AutoInitiateAttackCommand = true,
+			
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 225,
+            Damage = 150,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
 			
-            --DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
 			
             DisplayName = 'Fragmentation Flak',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
+				Land = 'Air|Land',
             },
 			
             FiringRandomness = 0.4,
@@ -378,7 +382,9 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 50,
+            MuzzleVelocity = 60,
+			
+			NotExclusive = true,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
@@ -424,7 +430,7 @@ UnitBlueprint {
             RackFireTogether = false,
 			
             RackRecoilDistance = -7,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -432,9 +438,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 4,		-- 900 DPS Air
+            RateOfFire = 5,		-- 900 DPS Air
 
-            TargetCheckInterval = 0.2,
+            TargetCheckInterval = 0.1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -457,7 +463,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -480,7 +486,7 @@ UnitBlueprint {
             DamageRadius = 2.5,
             DamageType = 'Normal',
 			
-            --DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 55,
@@ -489,6 +495,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
+				Land = 'Air|Land',
             },
 			
             FiringRandomness = 0.4,
@@ -503,8 +510,12 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 60,
+			
+			NotExclusive = true,
 
+            PrefersPrimaryWeaponTarget = false,
+		
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
             ProjectileLifetime = 1.25,
 
@@ -593,6 +604,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air',
+				Land = 'Air',
             },
 			
             FiringTolerance = 10,
@@ -604,7 +616,11 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
+			
+			NotExclusive = true,
 
+            PrefersPrimaryWeaponTarget = false,
+		
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4.5,
 
@@ -679,6 +695,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air',
+				Land = 'Air',
             },
 			
             FiringTolerance = 10,
@@ -690,7 +707,11 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
+			
+			NotExclusive = true,
 
+            PrefersPrimaryWeaponTarget = false,
+		
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4.5,
 
@@ -788,7 +809,11 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
+			NotExclusive = true,
 
+            PrefersPrimaryWeaponTarget = false,
+		
             RackBones = {
                 {
                     MuzzleBones = {
@@ -861,6 +886,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
+				Land = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
@@ -873,6 +899,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 24,
             MuzzleVelocity = 40,
+			
+			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
 			
@@ -931,7 +959,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Damage = 5000,
             DamageFriendly = true,
-            DamageRadius = 8,
+            DamageRadius = 7,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,
@@ -953,7 +981,7 @@ UnitBlueprint {
             Land = true,
             Seabed = false,
             Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 }
