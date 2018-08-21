@@ -3,46 +3,48 @@ UnitBlueprint {
         BeaconName = 'UEB5102',
 		GuardReturnRadius = 100,
 		GuardScanRadius = 100,
-        TargetBones = {
-            'UES0401',
-        },
+		
+        TargetBones = { 'UES0401' },
     },
 	
     Air = {
         AutoLandTime = 2.9,
-        BankFactor = 1.4,
+        BankFactor = 3.0,
         BankForward = false,
 
         BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 40,
         CanFly = true,
-        CombatTurnSpeed = .9,
+		
+		CirclingTurnMult = 3.0,
+        CombatTurnSpeed = .85,
+		
         EngageDistance = 50,
 		
         KLift = 3,
-        KLiftDamping = 4.5,
+        KLiftDamping = 2.5,
 		
-        KMove = 0.85,
-        KMoveDamping = 0.9,
+        KMove = 1.1,
+        KMoveDamping = 4.0,
 		
-        KRoll = 4,
-        KRollDamping = 6,
+        KRoll = 1.5,
+        KRollDamping = 1.5,
 		
-        KTurn = 1.3,
-        KTurnDamping = 2.2,
+        KTurn = 1.6,
+        KTurnDamping = 2,
 		
-        LiftFactor = 10,
+        LiftFactor = 8,
 		
         MaxAirspeed = 16,
         MinAirspeed = 12,
 		
         PredictAheadForBombDrop = 1,
 		
-        StartTurnDistance = 25,
-        TightTurnMultiplier = 1.1,
+        StartTurnDistance = 5,
+        TightTurnMultiplier = 1.03,
 		
-        TurnSpeed = 0.9,
+        TurnSpeed = 0.8,
 		
         Winged = true,
     },
@@ -95,12 +97,12 @@ UnitBlueprint {
     CollisionOffsetY = -1,
 	
     Defense = {
-        AirThreatLevel = 320,
+        AirThreatLevel = 256,
         SurfaceThreatLevel = 616,
         ArmorType = 'Light',
-        Health = 65000,
-        MaxHealth = 65000,
-        RegenRate = 20,
+        Health = 50000,
+        MaxHealth = 50000,
+        RegenRate = 18,
     },
 	
     Description = '<LOC tcau0401_desc>Experimental Fighter/Bomber',
@@ -164,8 +166,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 906000,
-        BuildCostMass = 46189,
+        BuildCostEnergy = 960000,
+        BuildCostMass = 41000,
         BuildTime = 12595,
     },
 	
@@ -210,9 +212,9 @@ UnitBlueprint {
         HelpText = 'Experimental Fighter Bomber',
     },
 	
-    LifeBarHeight = 0.075,
-    LifeBarOffset = 11,
-    LifeBarSize = 14,
+    LifeBarHeight = 0.08,
+    LifeBarOffset = 2.5,
+    LifeBarSize = 5.5,
 	
     Physics = {
         BuildOnLayerCaps = {
@@ -231,13 +233,15 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Air',
     },
 	
-    SelectionSizeX = 6,
-    SelectionSizeZ = 6,
-    SelectionThickness = 0.15,
+    SelectionSizeX = 4.8,
+    SelectionSizeZ = 5.2,
+    SelectionThickness = 0.2,
 	
-    SizeX = 5,
+	SizeSphere = 2.2,
+	
+    SizeX = 4.8,
     SizeY = 1.5,
-    SizeZ = 6,
+    SizeZ = 5.5,
 	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 65,
@@ -363,18 +367,18 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 5,
-            FiringTolerance = 999,
+            FiringTolerance = 45,
 			
             Label = 'Missile',
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 7.5,
+            ProjectileLifetime = 5.5,
 
             RackBones = {
                 {
@@ -398,16 +402,17 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 1600 DPS Air
+            RateOfFire = 0.7,		-- 1120 DPS Air
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE ANTIAIR',
+                'ANTIAIR',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
         {
@@ -437,18 +442,18 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 5,
-            FiringTolerance = 999,
+            FiringTolerance = 45,
 			
             Label = 'Missile',
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 7.5,
+            ProjectileLifetime = 5.5,
 
             RackBones = {
                 {
@@ -471,16 +476,17 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,			-- another 1600 DPS Air
+            RateOfFire = 0.7,			-- another 1120 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE ANTIAIR',
+                'ANTIAIR',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 		},
 		
