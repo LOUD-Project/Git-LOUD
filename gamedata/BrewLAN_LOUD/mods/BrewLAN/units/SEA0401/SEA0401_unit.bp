@@ -106,7 +106,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 100,
+    BuildIconSortPriority = 224,
 	
     Categories = {
         'SELECTABLE',
@@ -293,7 +293,9 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 18,
+		
+        Elevation = 23,
+		
         GroundCollisionOffset = 10,
         MaxSpeed = 0.5,
 		
@@ -348,7 +350,7 @@ UnitBlueprint {
                 },
             },
 			
-			AutoInitiateAttackCommand = true,
+			AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -372,17 +374,16 @@ UnitBlueprint {
             FiringTolerance = 3,
 			
             HeadingArcCenter = 0,
-            HeadingArcRange = 45,
+            HeadingArcRange = 50,
 
             Label = 'AAGun',			
             LeadTarget = 'true',
 			
-            MaxRadius = 64,
-			MinRadius = 3,
+            MaxRadius = 58,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 55,
 			
 			NotExclusive = true,
 			
@@ -439,14 +440,14 @@ UnitBlueprint {
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 5,		-- 900 DPS Air
+			
+			ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.1,
+            TargetCheckInterval = 0.2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
@@ -488,9 +489,6 @@ UnitBlueprint {
 			
             DetonatesAtTargetHeight = true,
 			
-            HeadingArcCenter = 180,
-            HeadingArcRange = 55,
-			
             DisplayName = 'Fragmentation Flak',
 			
             FireTargetLayerCapsTable = {
@@ -499,18 +497,17 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.4,
-            FiringTolerance = 2,
+            FiringTolerance = 30,
 			
             Label = 'AAGun',			
 			
             LeadTarget = 'true',
 			
-            MaxRadius = 64,
-			MinRadius = 3,
+            MaxRadius = 58,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 55,
 			
 			NotExclusive = true,
 
@@ -556,12 +553,14 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-			RateOfFire = 3,		-- 775 DPS
+			RateOfFire = 2,		-- 450 DPS
+			
+			ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
@@ -577,7 +576,7 @@ UnitBlueprint {
             TurretPitchSpeed = 360,
 			
             TurretYaw = 0,
-            TurretYawRange = 55,
+            TurretYawRange = 60,
             TurretYawSpeed = 360,
 			
             Turreted = true,
@@ -653,10 +652,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
+                'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			
@@ -744,7 +742,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
@@ -790,8 +788,8 @@ UnitBlueprint {
             DamageRadius = 0,
             DamageType = 'Normal',
 			
-            HeadingArcCenter = 180,
-            HeadingArcRange = 90,
+            --HeadingArcCenter = 180,
+            --HeadingArcRange = 90,
 			
             DisplayName = 'Hiro Plasma Cannon',
 			
@@ -836,11 +834,11 @@ UnitBlueprint {
 			
             RateOfFire = 3,		-- 1200 DPS Air
 			
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
@@ -930,7 +928,7 @@ UnitBlueprint {
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
@@ -981,7 +979,7 @@ UnitBlueprint {
             Land = true,
             Seabed = false,
             Sub = false,
-            Water = true,
+            Water = false,
         },
     },
 }
