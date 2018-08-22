@@ -1,5 +1,8 @@
 local TAirUnit = import('/lua/terranunits.lua').TAirUnit
 
+local Buff = import('/lua/sim/Buff.lua')
+local BuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
+
 local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TAAFlakArtilleryCannon = WeaponsFile.TAAFlakArtilleryCannon
@@ -17,6 +20,16 @@ BEA0402 = Class(TAirUnit) {
     DestroyNoFallRandomChance = 1.1,
     FxDamageScale = 2,
 
+	BuffFields = {
+	
+		RegenField = Class(BuffField){
+		
+			OnCreate = function(self)
+				BuffField.OnCreate(self)
+			end,
+		},
+	},
+	
     Weapons = {
 	
 		MainTurret = Class(RailGunWeapon02) {},
@@ -167,6 +180,7 @@ BEA0402 = Class(TAirUnit) {
 				self.Trash:Add(AirPad03)
 				self.Trash:Add(AirPad05)
 				self.Trash:Add(AirPad07)
+
 			end
 		end 
 	end,
@@ -174,13 +188,13 @@ BEA0402 = Class(TAirUnit) {
 	--Cleans up threads and drones on death
 	OnKilled = function(self, instigator, type, overkillRatio)
 		self:ShowBone('AirPad01', true)
-		self:ShowBone('AirPad02', true)
+		--self:ShowBone('AirPad02', true)
 		self:ShowBone('AirPad03', true)
-		self:ShowBone('AirPad04', true)
+		--self:ShowBone('AirPad04', true)
 		self:ShowBone('AirPad05', true)
-		self:ShowBone('AirPad06', true)
+		--self:ShowBone('AirPad06', true)
 		self:ShowBone('AirPad07', true)
-		self:ShowBone('AirPad08', true)
+		--self:ShowBone('AirPad08', true)
 
 		if table.getn({self.AirPadTable}) > 0 then
 			for k, v in self.AirPadTable do 
