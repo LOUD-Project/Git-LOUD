@@ -167,10 +167,8 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXS0001',
         SpawnRandomRotation = true,
         UniformScale = 0.045,
-		
     },
 	
     Economy = {
@@ -314,7 +312,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/projectiles/AIFMissileSerpentine03/AIFMissileSerpentine03_proj.bp',
+            ProjectileId = '/projectiles/AIFMissileSerpentine03/AIFMissileSerpentine02_proj.bp',
 			ProjectileLifetime = 50,
 
             RackBones = {
@@ -346,7 +344,7 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			TrackingRadius = 1.1,
         },
 		
@@ -436,7 +434,7 @@ UnitBlueprint {
         {
             BallisticArc = 'RULEUBA_None',
 			
-			--CannotAttackGround = true,
+			CannotAttackGround = true,
 			
             CollideFriendly = false,
 			

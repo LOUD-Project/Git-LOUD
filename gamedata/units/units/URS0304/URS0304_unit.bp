@@ -223,7 +223,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UES0304',
+
         SpawnRandomRotation = true,
         UniformScale = 0.036,
     },
@@ -231,7 +231,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 400000,
         BuildCostMass = 10000,
-        BuildRate = 600,	# was 1000
+        BuildRate = 600,
         BuildTime = 12000,
     },
 
