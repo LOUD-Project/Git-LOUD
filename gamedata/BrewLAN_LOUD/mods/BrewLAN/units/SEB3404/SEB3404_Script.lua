@@ -92,7 +92,7 @@ SEB3404 = Class(TStructureUnit) {
 
     IntelSearch = function(self, aiBrain)
 
-		local function FindAllUnits( aiBrain, category, range, cloakcheck)
+		local function FindAllUnits( aiBrain, category, range, cloakcheck )
 	
 			local Ftable = {}
 		
@@ -113,7 +113,7 @@ SEB3404 = Class(TStructureUnit) {
         local maxrange = self:GetIntelRadius('radar') or self:GetBlueprint().Intel.RadarRadius or 6000
 		
         -- Find visible things to attach vis entities to
-        local LocalUnits = self:FindAllUnits(categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
+        local LocalUnits = FindAllUnits( aiBrain, categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
 		
         ------------------------------------------------------------------------
         -- IF self.ActiveConsumptionRestriction Sort the table by distance
