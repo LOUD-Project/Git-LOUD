@@ -39,8 +39,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 66,
-        Health = 616,
-        MaxHealth = 616,
+        Health = 630,
+        MaxHealth = 630,
         RegenRate = 4,
 		
         Shield = {
@@ -51,11 +51,11 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18438,
-            ShieldRechargeTime = 20,
-            ShieldRegenRate = 231,
+            ShieldRechargeTime = 18,
+            ShieldRegenRate = 299,
             ShieldRegenStartTime = 1,
             ShieldSize = 51,
-            ShieldVerticalOffset = -6,
+            ShieldVerticalOffset = -5,
         },
     },
 	
@@ -102,10 +102,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 36000,
-        BuildCostMass = 2000,
-        BuildTime = 2000,
-        MaintenanceConsumptionPerSecondEnergy = 715,
+        BuildCostEnergy = 20000,
+        BuildCostMass = 3007,
+        BuildTime = 2100,
+		
+        MaintenanceConsumptionPerSecondEnergy = 902,
 		
         RebuildBonusIds = {'URB4207','URB4202' },
 		

@@ -56,8 +56,8 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 11000,
-            ShieldRechargeTime = 16,
-            ShieldRegenRate = 172,
+            ShieldRechargeTime = 17,
+            ShieldRegenRate = 161,
             ShieldRegenStartTime = 1,
             ShieldSize = 20,
             ShieldVerticalOffset = -3,
@@ -95,8 +95,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -119,10 +120,11 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 5760,
-        BuildCostMass = 1161,
+        BuildCostMass = 1115,
         BuildRate = 10,
         BuildTime = 480,
-        MaintenanceConsumptionPerSecondEnergy = 250,
+		
+        MaintenanceConsumptionPerSecondEnergy = 249,
 		
         BuildableCategory = { 'uab4301' },
 		

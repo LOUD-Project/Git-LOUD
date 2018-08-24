@@ -53,10 +53,10 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 10000,
             ShieldRechargeTime = 16,
-            ShieldRegenRate = 139,
+            ShieldRegenRate = 156,
             ShieldRegenStartTime = 1,
             ShieldSize = 29,
-            ShieldVerticalOffset = -4,
+            ShieldVerticalOffset = -2,
         },
     },
 	
@@ -89,8 +89,8 @@ UnitBlueprint {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
+                FadeOut = 300,
+                Length = 10,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
                 Orientations = {
                     0,
@@ -98,21 +98,21 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 12.8,
+                RemoveWhenDead = true,
+                Width = 10,
             },
         },
         UniformScale = 0.2,
     },
 	
     Economy = {
-        BuildCostEnergy = 10000,
-        BuildCostMass = 884,
+        BuildCostEnergy = 7500,
+        BuildCostMass = 960,
         BuildRate = 20,
         BuildTime = 600,
         BuildableCategory = { 'urb4206' },
 		
-        MaintenanceConsumptionPerSecondEnergy = 330,
+        MaintenanceConsumptionPerSecondEnergy = 405,
     },
 	
     Footprint = {

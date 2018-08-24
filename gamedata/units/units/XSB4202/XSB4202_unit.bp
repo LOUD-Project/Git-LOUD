@@ -56,11 +56,11 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 13000,
-            ShieldRechargeTime = 17,
+            ShieldRechargeTime = 18,
             ShieldRegenRate = 191,
             ShieldRegenStartTime = 1,
             ShieldSize = 28,
-            ShieldVerticalOffset = -3,
+            ShieldVerticalOffset = -2,
         },
     },
 	
@@ -92,14 +92,15 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
+                FadeOut = 300,
+                Length = 10,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
                 Orientations = {
                     0,
@@ -107,8 +108,8 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 12.8,
+                RemoveWhenDead = true,
+                Width = 10,
             },
         },
         UniformScale = 0.05,
@@ -116,12 +117,13 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 7000,
-        BuildCostMass = 1557,
+        BuildCostMass = 1495,
         BuildRate = 10,
         BuildTime = 700,
+		
         BuildableCategory = { 'xsb4301' },
 		
-        MaintenanceConsumptionPerSecondEnergy = 300,
+        MaintenanceConsumptionPerSecondEnergy = 425,
 		
         RebuildBonusIds = { 'xsb4202','xsb4301' },
     },

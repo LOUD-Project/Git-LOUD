@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -24,7 +27,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 66,
@@ -40,13 +45,15 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18750,
             ShieldRechargeTime = 23,
-            ShieldRegenRate = 188,
+            ShieldRegenRate = 288,
             ShieldRegenStartTime = 1,
             ShieldSize = 56,
             ShieldVerticalOffset = -6,
         },
     },
+	
     Description = '<LOC ueb4303_desc>Heavy Shield Generator & Storage',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -63,14 +70,15 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 8,
+                FadeOut = 300,
+                Length = 10,
                 Normal = 'Tarmacs/Tar8x_01_normals',
                 Orientations = {
                     0,
@@ -79,25 +87,29 @@ UnitBlueprint {
                     270,
                 },
                 RemoveWhenDead = false,
-                Width = 8,
+                Width = 10,
             },
         },
         UniformScale = 0.48,
     },
+	
     Economy = {
-        BuildCostEnergy = 48000,
-        BuildCostMass = 4800,
-        BuildTime = 4800,
-        MaintenanceConsumptionPerSecondEnergy = 743,
-        RebuildBonusIds = {
-            'UEB4303',
-        },
+        BuildCostEnergy = 24000,
+        BuildCostMass = 2866,
+        BuildTime = 2400,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1132,
+		
+        RebuildBonusIds = {'UEB4303'},
+		
         StorageEnergy = 12000,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Defense',
@@ -134,12 +146,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'ueb4301',
     },
+	
     Interface = {
         HelpText = 'Heavy Shield Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -164,14 +179,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.45,
+	
     SizeX = 2,
     SizeY = 3,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 195,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

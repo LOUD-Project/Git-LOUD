@@ -49,7 +49,7 @@ UnitBlueprint {
         EconomyThreatLevel = 42,
         Health = 4000,
         MaxHealth = 4000,
-        RegenRate = 2,
+        RegenRate = 3,
 		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -58,9 +58,9 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 20000,
-            ShieldRechargeTime = 23,
-            ShieldRegenRate = 217,
+            ShieldMaxHealth = 18000,
+            ShieldRechargeTime = 29,
+            ShieldRegenRate = 155,
             ShieldRegenStartTime = 1,
             ShieldSize = 2.5,
             ShieldVerticalOffset = 1.25-.6,
@@ -126,9 +126,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5900,
-        BuildCostMass = 1885,
-        BuildTime = 288,
+        BuildCostEnergy = 6500,
+        BuildCostMass = 1829,
+        BuildTime = 365,
 		
         MaintenanceConsumptionPerSecondEnergy = 30,
 		

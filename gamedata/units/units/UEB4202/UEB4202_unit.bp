@@ -55,7 +55,7 @@ UnitBlueprint {
             ShieldRegenRate = 150,
             ShieldRegenStartTime = 1,
             ShieldSize = 26,
-            ShieldVerticalOffset = -3,
+            ShieldVerticalOffset = -2,
         },
     },
 	
@@ -81,8 +81,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -111,7 +112,7 @@ UnitBlueprint {
 		
         BuildableCategory = { 'ueb4301' },
 		
-        MaintenanceConsumptionPerSecondEnergy = 225,
+        MaintenanceConsumptionPerSecondEnergy = 319,
 		
         RebuildBonusIds = {'ueb4202','ueb4301' },
     },

@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -21,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -34,7 +37,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 81,
@@ -50,13 +55,15 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 26250,
             ShieldRechargeTime = 25,
-            ShieldRegenRate = 241,
+            ShieldRegenRate = 294,
             ShieldRegenStartTime = 1,
             ShieldSize = 59,
             ShieldVerticalOffset = -7,
         },
     },
+	
     Description = '<LOC xsb4303_desc>Heavy Shield Generator & Storage',
+	
     Display = {
         AnimationActivate = '/units/XSB4303/XSB4303_Aactivate.sca',
         Mesh = {
@@ -77,14 +84,15 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
+                FadeOut = 300,
+                Length = 10.8,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
                 Orientations = {
                     0,
@@ -93,25 +101,29 @@ UnitBlueprint {
                     270,
                 },
                 RemoveWhenDead = false,
-                Width = 12.8,
+                Width = 10.8,
             },
         },
         UniformScale = 0.0696,
     },
+	
     Economy = {
-        BuildCostEnergy = 48000,
+        BuildCostEnergy = 30000,
         BuildCostMass = 4800,
-        BuildTime = 4800,
-        MaintenanceConsumptionPerSecondEnergy = 990,
-        RebuildBonusIds = {
-            'XSB4301',
-        },
+        BuildTime = 2400,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1334,
+		
+        RebuildBonusIds = {'XSB4301' },
+		
         StorageEnergy = 12000,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Defense',
@@ -146,12 +158,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'xsb4301',
     },
+	
     Interface = {
         HelpText = 'Heavy Shield Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -176,14 +191,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 3,
     SizeY = 4.5,
     SizeZ = 3,
+	
     StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 195,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

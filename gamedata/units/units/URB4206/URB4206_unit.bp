@@ -41,8 +41,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 28,
-        Health = 500,
-        MaxHealth = 500,
+        Health = 550,
+        MaxHealth = 550,
         RegenRate = 3,
 		
         Shield = {
@@ -53,11 +53,11 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 13000,
-            ShieldRechargeTime = 20,
-            ShieldRegenRate = 162,
+            ShieldRechargeTime = 18,
+            ShieldRegenRate = 180,
             ShieldRegenStartTime = 1,
             ShieldSize = 35,
-            ShieldVerticalOffset = -5,
+            ShieldVerticalOffset = -4,
         },
 
     },
@@ -91,8 +91,8 @@ UnitBlueprint {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
+                FadeOut = 300,
+                Length = 10.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
                 Orientations = {
                     0,
@@ -100,21 +100,21 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 12.8,
+                RemoveWhenDead = true,
+                Width = 10.8,
             },
         },
         UniformScale = 0.2,
     },
 	
     Economy = {
-        BuildCostEnergy = 21600,
-        BuildCostMass = 1377,
+        BuildCostEnergy = 15000,
+        BuildCostMass = 1495,
         BuildRate = 30,
         BuildTime = 1080,
         BuildableCategory = {'urb4207'},
 		
-        MaintenanceConsumptionPerSecondEnergy = 440,
+        MaintenanceConsumptionPerSecondEnergy = 644,
     },
 	
     Footprint = {
@@ -199,7 +199,7 @@ UnitBlueprint {
     SizeY = 5,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_structure2_shield',
+    StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 200,
 	
     Wreckage = {
