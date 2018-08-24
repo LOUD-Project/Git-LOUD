@@ -1,6 +1,6 @@
 name = "LOUD Structure Upgrades"
 uid = "ffffffff-ffff-ffff-ffff-fffffffffffe"
-version = 1.3
+version = 2.0
 copyright = "None"
 description = "Adds production and defensive enhancements to factories and upgrades to other structures."
 author = "Sprouto"

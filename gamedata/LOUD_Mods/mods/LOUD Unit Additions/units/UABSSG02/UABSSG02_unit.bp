@@ -45,14 +45,13 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
-        'SORTSTRATEGIC',
     },
 	
     CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1654,
+        EconomyThreatLevel = 1200,
         Health = 4500,
         MaxHealth = 4500,
 		RegenRate = 15,
@@ -61,11 +60,11 @@ UnitBlueprint {
         	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
         	Mesh = '/effects/entities/SquareShields/AeonShield02_mesh',
         	MeshZ = '/effects/entities/SquareShields/Shield02z_mesh',
-            RegenAssistMult = 9000,
-            ShieldEnergyDrainRechargeTime = 10,
-            ShieldMaxHealth = 54000,
-            ShieldRechargeTime = 32,
-            ShieldRegenRate = 675,
+            RegenAssistMult = 10000,
+            ShieldEnergyDrainRechargeTime = 20,
+            ShieldMaxHealth = 46875,
+            ShieldRechargeTime = 37,
+            ShieldRegenRate = 390,
             ShieldRegenStartTime = 1,
             ShieldSize = 96,
             ShieldVerticalOffset = -38,	#--the code doubles this so in effect the shield will only be 20 units above ground
@@ -124,7 +123,7 @@ UnitBlueprint {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
                 FadeOut = 300,
-                Length = 18,
+                Length = 16.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
                 Orientations = {
                     0,
@@ -132,8 +131,8 @@ UnitBlueprint {
                     180,
                     270,
                 },
-                RemoveWhenDead = false,
-                Width = 18,
+                RemoveWhenDead = true,
+                Width = 16.8,
             },
         },
 		
@@ -145,7 +144,7 @@ UnitBlueprint {
         BuildCostMass = 15318,
         BuildTime = 19147,
 		
-        MaintenanceConsumptionPerSecondEnergy = 10530,
+        MaintenanceConsumptionPerSecondEnergy = 5565,
 		
         StorageEnergy = 20000,
     },
@@ -156,7 +155,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 8,
+		CapCost = 5,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -191,11 +190,7 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'uabssg01',
     },
-	
-    Intel = {
-        VisionRadius = 15,
-    },
-	
+
     Interface = {
         HelpText = 'Experimental Squareshield & Storage',
     },
