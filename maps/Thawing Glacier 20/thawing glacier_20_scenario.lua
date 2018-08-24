@@ -16,11 +16,11 @@ ScenarioInfo = {
             teams = {
                 {
                     name = 'FFA',
-                    armies = {'ARMY_1', 'ARMY_2', 'ARMY_3', 'ARMY_4', 'ARMY_5', 'ARMY_6', 'ARMY_10', 'ARMY_9'}
+                    armies = {'ARMY_1', 'ARMY_2', 'ARMY_3', 'ARMY_4', 'ARMY_5', 'ARMY_6'}
                 },
             },
             customprops = {
-                ['ExtraArmies'] = STRING( 'NEUTRAL_CIVILIAN' ),
+                ['ExtraArmies'] = STRING( 'ARMY_9 NEUTRAL_CIVILIAN' ),
             },
         },
     },
