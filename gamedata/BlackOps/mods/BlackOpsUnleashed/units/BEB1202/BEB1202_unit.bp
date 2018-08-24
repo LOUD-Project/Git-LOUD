@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 80,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -31,7 +35,9 @@ UnitBlueprint {
 		'SHOWQUEUE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 113,
@@ -39,7 +45,9 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 1,
     },
+	
     Description = '<LOC beb1202_desc>Improved Hydrocarbon Plant',
+	
     Display = {
 	
 		Abilities = {
@@ -59,26 +67,31 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0011',
         SpawnRandomRotation = true,
         UniformScale = 0.5,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -4,
+		
         BuildCostEnergy = 21000,
         BuildCostMass = 1750,
         BuildTime = 2000,
+		
         BuildRate = 15,
-		BuildableCategory = {
-            'beb1302',
-        },
+		
+		BuildableCategory = {'beb1302'},
+		
         ProductionPerSecondEnergy = 875,
+		
 		StorageEnergy = 200,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
@@ -104,14 +117,18 @@ UnitBlueprint {
         UnitName = '<LOC beb1202_name>HCPP - X2000',
         UnitWeight = 1,
 		UpgradesFrom = 'ueb1102',
+		UpgradesFromBase = 'ueb1102',		
         UpgradesTo = 'beb1302',
     },
+	
     Interface = {
         HelpText = 'Improved Hydrocarbon Power Plant',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -137,14 +154,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.9,
     SelectionSizeZ = 1.9,
     SelectionThickness = 0.36,
+	
     SizeX = 2.5,
     SizeY = 1.3,
     SizeZ = 2.5,
+	
     StrategicIconName = 'icon_structure2_energy',
     StrategicIconSortPriority = 250,
+	
 	Weapon = {
         {
             Damage = 1500,

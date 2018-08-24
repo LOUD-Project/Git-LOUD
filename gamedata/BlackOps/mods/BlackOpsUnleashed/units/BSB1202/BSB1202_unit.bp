@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 80,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -44,7 +48,9 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 2,
     },
+	
     Description = '<LOC bsb1202_desc>Improved Hydrocarbon Plant',
+	
     Display = {
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
         Mesh = {
@@ -58,26 +64,32 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -4,
+		
         BuildCostEnergy = 21000,
         BuildCostMass = 1750,
         BuildTime = 2000,
+		
         BuildRate = 15,
-		BuildableCategory = {
-            'bsb1302',
-        },
+		
+		BuildableCategory = {'bsb1302'},
+		
         ProductionPerSecondEnergy = 875,
+		
 		EnergyStorage = 200,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
@@ -103,14 +115,18 @@ UnitBlueprint {
         UnitName = '<LOC bsb1202_name>Uya-atoh',
         UnitWeight = 1,
 		UpgradesFrom = 'xsb1102',
+		UpgradesFromBase = 'xsb1102',		
         UpgradesTo = 'bsb1302',
     },
+	
     Interface = {
         HelpText = 'Improved Hydrocarbon Plant',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -136,14 +152,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.75,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.3,
+	
     SizeX = 2.5,
     SizeY = 0.5,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure2_energy',
     StrategicIconSortPriority = 250,
+	
 	Weapon = {
         {
             Damage = 1500,

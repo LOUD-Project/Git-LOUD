@@ -5,6 +5,7 @@ UnitBlueprint {
             'Turret',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -22,6 +23,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -31,7 +33,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -55,6 +59,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC brl0307_desc>Hailfire Rocket Assault Bot',
+	
     Display = {
         Abilities = {
             'Stun Weapon',
@@ -150,7 +155,7 @@ UnitBlueprint {
             },
         },
 --]]
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
@@ -186,15 +191,19 @@ UnitBlueprint {
         UnitName = '<LOC brl0307_name>Hailfire',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Rocket Assault Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -217,20 +226,23 @@ UnitBlueprint {
         TurnRadius = 20,
         TurnRate = 90,
     },
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
+	
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.4,
+	
     SizeX = 0.72,
     SizeY = 0.45,
     SizeZ = 1.15,
+	
     StrategicIconName = 'icon_land3_missile',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -238,9 +250,11 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+			
             Audio = {
                 Fire = Sound {
                     Bank = 'URSWeapon',
@@ -248,6 +262,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+			
             Buffs = {
                 {
                     Add = {
@@ -261,6 +276,7 @@ UnitBlueprint {
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,STRUCTURE,SUBCOMMANDER,AIR',
                 },
             },
+			
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -348,6 +364,7 @@ UnitBlueprint {
         },
 
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -362,4 +379,5 @@ UnitBlueprint {
             Water = false,
         },
     },
+	
 }

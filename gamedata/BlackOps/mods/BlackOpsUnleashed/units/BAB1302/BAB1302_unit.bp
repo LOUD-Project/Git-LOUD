@@ -6,7 +6,9 @@ UnitBlueprint {
             'Extension04',
         },
     },
+	
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -19,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -35,7 +39,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 543,
@@ -43,7 +49,9 @@ UnitBlueprint {
         MaxHealth = 10600,
         RegenRate = 2,
     },
+	
     Description = '<LOC bab1302_desc>Advanced Hydrocarbon Plant',
+	
     Display = {
 		Abilities = {
             'Volatile',
@@ -58,22 +66,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
+
         SpawnRandomRotation = true,
         UniformScale = 0.0045,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -5,
+		
         BuildCostEnergy = 64250,
         BuildCostMass = 4250,
         BuildTime = 5400,
+		
         ProductionPerSecondEnergy = 4375,
+		
 		EnergyStorage = 250,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 3,
         Category = 'Economy',
@@ -98,13 +112,17 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
 		UpgradesFrom = 'bab1302',
+		UpgradesFromBase = 'uab1102',		
     },
+	
     Interface = {
         HelpText = 'Advanced Hydrocarbon Plant',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,14 +148,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.36,
+	
     SizeX = 1.75,
     SizeY = 2.5,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 250,
+	
 	Weapon = {
         {
             Damage = 8000,

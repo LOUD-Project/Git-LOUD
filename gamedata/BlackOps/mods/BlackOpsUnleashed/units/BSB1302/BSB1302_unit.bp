@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 80,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -41,7 +45,9 @@ UnitBlueprint {
         MaxHealth = 10600,
         RegenRate = 3,
     },
+	
     Description = '<LOC bsb1302_desc>Advanced Hydrocarbon Power Plant',
+	
     Display = {
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
         Mesh = {
@@ -55,22 +61,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -5,
+		
         BuildCostEnergy = 64250,
         BuildCostMass = 4250,
         BuildTime = 5400,
+		
         ProductionPerSecondEnergy = 4375,
+		
 		EnergyStorage = 250,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+	
     General = {
 		CapCost = 3,
         Category = 'Economy',
@@ -96,13 +108,17 @@ UnitBlueprint {
         UnitName = '<LOC bsb1302_name>Uya-atoh',
         UnitWeight = 1,
 		UpgradesFrom = 'bsb1302',
+		UpgradesFromBase = 'xsb1102',		
     },
+	
     Interface = {
         HelpText = 'Advanced Hydrocarbon Power Plant',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -128,14 +144,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.75,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.3,
+	
     SizeX = 2.5,
     SizeY = 0.5,
     SizeZ = 1.75,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 250,
+	
 	Weapon = {
         {
             Damage = 10600,
