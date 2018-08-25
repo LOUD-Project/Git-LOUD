@@ -348,7 +348,7 @@ UnitBlueprint {
 			
             Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
@@ -464,7 +464,7 @@ UnitBlueprint {
 			
             Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
@@ -484,7 +484,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1,
