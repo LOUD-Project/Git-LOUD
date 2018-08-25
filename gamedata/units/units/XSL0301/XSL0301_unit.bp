@@ -392,7 +392,9 @@ UnitBlueprint {
             PitchBone = 'Left_Arm',
             YawBone = 'Torso',
         },
-		CapCost = -2,
+		
+		CapCost = -3,
+		
         Category = 'Command',
         Classification = 'RULEUC_Commander',
         CommandCaps = {
