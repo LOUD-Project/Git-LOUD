@@ -29,7 +29,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 
     if not whatToBuild then
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
+		LOG("*AI DEBUG AIEXBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
 		
         return false
 		
@@ -89,7 +89,7 @@ end
 
 function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
-    local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate)
+    local whatToBuild = DecideWhatToBuild( aiBrain, builder, buildingType, buildingTemplate)
 
     if whatToBuild then
 	
@@ -103,9 +103,11 @@ function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, r
 			
         end
 		
-    end
+    else
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
+		
+	end
 	
     return false
 	

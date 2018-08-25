@@ -211,11 +211,14 @@ DefaultProjectileWeapon = Class(Weapon) {
             local nrgDrain = self:GetWeaponEnergyDrain(bp)
 			
             if nrgReq > 0 and nrgDrain > 0 then
+			
                 local time = nrgReq / nrgDrain
+				
                 if time < 0.1 then
                     time = 0.1
                 end
-                self.EconDrain = CreateEconomyEvent(self.unit, nrgReq, 0, time)
+				
+                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, self.unit.UpdateTeleportProgress )
                 self.FirstShot = true
             end
         end

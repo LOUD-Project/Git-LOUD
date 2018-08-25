@@ -2234,6 +2234,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 	-- Handler for the economy event that will update the teleporter's progress
 	UpdateTeleportProgress = function(self,	progress)
+	
 		self:SetWorkProgress(progress)
 
 		if self.DestinationGateway then

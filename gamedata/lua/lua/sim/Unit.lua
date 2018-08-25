@@ -4292,7 +4292,7 @@ Unit = Class(moho.unit_methods) {
                 for k, v in EntityCategoryFilterDown( allow, targets ) do
 			
                     if (not disallow) or (not LOUDENTITY( disallow, v)) then
-					
+
                         v:SetStunned(buffTable.Duration or 1)
 						
                     end
