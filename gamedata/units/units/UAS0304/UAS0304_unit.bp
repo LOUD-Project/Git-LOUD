@@ -282,9 +282,7 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-			
-			CannotAttackGround = true,
-			
+
             CollideFriendly = false,
 			
             Damage = 600,
@@ -312,7 +310,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/projectiles/AIFMissileSerpentine03/AIFMissileSerpentine02_proj.bp',
+            ProjectileId = '/projectiles/AIFMissileSerpentine02/AIFMissileSerpentine02_proj.bp',
 			ProjectileLifetime = 50,
 
             RackBones = {
