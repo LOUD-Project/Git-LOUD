@@ -10,6 +10,8 @@ function AddHunker(prevClass)
 		OnStopBeingBuilt = function(self,builder,layer)
 	
 			prevClass.OnStopBeingBuilt(self,builder,layer)
+			
+			LOG("*AI DEBUG Hunker OnStopBeingBuilt")
 	
 			self.HunkerParams = { IsHunkering = false, CanHunker = false, ChargePaused = false, ChargeTime = false, ChargeFraction = false, ChargeProgress = false, }
 		end,
@@ -612,19 +614,22 @@ function AddHunker(prevClass)
 		--ENHANCEMENT
 	
 		CreateEnhancement = function(self, enh)
-	
+		
+			LOG("*AI DEBUG Creating Hunker Enhancement")
+			
 			prevClass.CreateEnhancement(self, enh)
 		
 			local bp = self:GetBlueprint().Enhancements[enh]
 		
 			if not bp then return end
-		
+			
+
 			if enh == 'Hunker' then
 			
 				self:SetHunkerParam('CanHunker', false)
 				self:SetHunkerParam('ChargePaused', false)
 				
-				--self:AddExtraCap('RULEETC_HunkerToggle')
+				self:AddExtraCap('RULEETC_HunkerToggle')
 				self:AddExtraCap('RULEETC_HunkerPauseToggle')
 				
 				self:SetChargingProgress(0)

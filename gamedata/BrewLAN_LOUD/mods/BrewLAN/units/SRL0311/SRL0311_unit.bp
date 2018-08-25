@@ -291,9 +291,8 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	-- every 20 seconds by power drain	- 220 DPS
-            --RenderFireClock = true,
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
