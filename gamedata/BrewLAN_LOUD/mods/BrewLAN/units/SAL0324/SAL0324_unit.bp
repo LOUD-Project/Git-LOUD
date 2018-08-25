@@ -59,6 +59,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYOMNI',
         'OVERLAYRADAR',
+		'SORTINTEL',
     },
 	
     Defense = {

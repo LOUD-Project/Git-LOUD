@@ -130,7 +130,7 @@ UnitBlueprint {
         BuildCostMass = 1829,
         BuildTime = 365,
 		
-        MaintenanceConsumptionPerSecondEnergy = 30,
+        MaintenanceConsumptionPerSecondEnergy = 270,
 		
         RebuildBonusIds = {'ssb5301'},
     },
@@ -174,11 +174,7 @@ UnitBlueprint {
         UnitName = '<LOC ssb5301_name>Athahaas',
         UnitWeight = 1,
     },
-	
-    Intel = {
-        VisionRadius = 0,
-    },
-	
+
     Interface = {
         HelpText = '<LOC ssb5301_desc>Shield Wall Section',
     },
