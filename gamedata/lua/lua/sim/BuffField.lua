@@ -277,8 +277,46 @@ BuffField = Class(Entity) {
 			
             return units
         end
+		
+		local function UnitInBuffFieldThread(unit)
+		
+			--local PreEnterData = self:OnPreUnitEntersField( unit )		
+		
+			for _, buff in bp.Buffs do
+				ApplyBuff( unit, buff )
+			end
+			
+	        --local EnterData = self:OnUnitEntersField( unit, PreEnterData )
+			
+			while (not unit.Dead and not Owner.Dead) and self.Enabled do
+			
+				dist = VDist3( unit:GetPosition(), Owner:GetPosition() )
+			
+				if dist > bp.Radius then
+					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter for very long
+				end
+			
+				WaitSeconds(1.7)
+				
+			end
+			
+	        --local PreLeaveData = self:OnPreUnitLeavesField( unit, PreEnterData, EnterData )
+			
+			for  _, buff in bp.Buffs do
+			
+				if HasBuff( unit, buff ) then
+					RemoveBuff( unit, buff )
+				end
+			
+			end
+			
+	        --self:OnUnitLeavesField( unit, PreEnterData, EnterData, PreLeaveData )
+			
+			unit.HasBuffFieldThreadHandle[bp.Name] = false
+			
+		end
 
-        while self:IsEnabled() and not Owner.Dead do
+        while self.Enabled and not Owner.Dead do
 		
             local units = GetNearbyAffectableUnits()
 			
@@ -295,18 +333,22 @@ BuffField = Class(Entity) {
                         unit.BuffFieldThreadHandle = {}
                     end
 					
-                    unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread(self.UnitBuffFieldThread, Owner, self)
+					--LOG("*AI DEBUG Buff "..repr(bp.Name).." Owner is "..repr(Owner:GetBlueprint().Description).." Unit is "..repr(unit:GetBlueprint().Description).." Self is "..repr(self.Name) )
+					
+                    unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( UnitInBuffFieldThread )
                     unit.HasBuffFieldThreadHandle[bp.Name] = true
                 end
             end
 			
-            self:OnNewUnitsInFieldCheck()
+            --self:OnNewUnitsInFieldCheck()
+			
             WaitSeconds(3.3) -- this should be anything but 5 (of the other wait) to help spread the cpu load
         end
     end,
 
 
     -- this will be run on the units affected by the field so self means the unit that is affected by the field
+--[[	
     UnitBuffFieldThread = function(self, instigator, BuffField)
 	
         local bp = BuffField:GetBlueprint()
@@ -318,7 +360,7 @@ BuffField = Class(Entity) {
 		
         local EnterData = BuffField:OnUnitEntersField(self, PreEnterData)
 		
-        while not self.Dead and not instigator.Dead and BuffField:IsEnabled() do
+        while not self.Dead and not instigator.Dead and BuffField.Enabled do
 			
             dist = VDist3( self:GetPosition(), instigator:GetPosition() )
 			
@@ -341,6 +383,7 @@ BuffField = Class(Entity) {
         BuffField:OnUnitLeavesField(self, PreEnterData, EnterData, PreLeaveData)
         self.HasBuffFieldThreadHandle[bp.Name] = false
     end,
+--]]
 
     -- these 2 are a bit weird. they are supposed to disable the enabled fields when on a transport and re-enable the
     -- fields that were enabled and leave the disabled fields off.
