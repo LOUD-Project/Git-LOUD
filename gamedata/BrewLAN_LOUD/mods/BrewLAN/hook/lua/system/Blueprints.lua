@@ -6,6 +6,7 @@
 do
 
 local OldModBlueprints = ModBlueprints
+
 local BrewLANPath = function()
     for i, mod in __active_mods do
         --UID also hard referenced in /hook/lua/game.lua and mod_info.lua and in paragongame blueprints
@@ -23,21 +24,23 @@ function ModBlueprints(all_blueprints)
     --BrewLANCategoryChanges(all_blueprints.Unit)
 
     BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
+	
     BrewLANGantryBuildList(all_blueprints.Unit)
     BrewLANGantryTechShareCheck(all_blueprints.Unit)
+	
     BrewLANHeavyWallBuildList(all_blueprints.Unit)
 
     --BrewLANNameCalling(all_blueprints.Unit)
 
     UpgradeableToBrewLAN(all_blueprints.Unit)
-    TorpedoBomberWaterLandCat(all_blueprints.Unit)
-    RoundGalacticCollosusHealth(all_blueprints.Unit)
+    --TorpedoBomberWaterLandCat(all_blueprints.Unit)
+    --RoundGalacticCollosusHealth(all_blueprints.Unit)
 
     --BrewLANMatchBalancing(all_blueprints.Unit)
     --BrewLANFAFExclusiveChanges(all_blueprints.Unit)
     --BrewLANNavalShields(all_blueprints.Unit)
 
-    BrewLANBomberDamageType(all_blueprints.Unit)
+    --BrewLANBomberDamageType(all_blueprints.Unit)
     BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
 
     --BrewLANRelativisticLinksUpdate(all_blueprints)
@@ -65,6 +68,7 @@ function BrewLANBuildCatChanges(all_bps)
     -- Get a list of all real categories
     ----------------------------------------------------------------------------
     local real_categories = {}
+	
     for id, bp in all_bps do
         if bp.Categories then
             for i, cat in bp.Categories do
@@ -105,10 +109,10 @@ function BrewLANBuildCatChanges(all_bps)
         zsb9601 = {'BUILTBYLANDTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',},
         ]]
         --Tech 1 Field Engineers
-        sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
-        srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
-        ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
-        sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
+        --sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
+        --srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
+        --ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
+        --sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
         --Tech 2 Field Engineers
         srl0209 = {'BUILTBYTIER2ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
         ssl0219 = {'BUILTBYTIER2ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
