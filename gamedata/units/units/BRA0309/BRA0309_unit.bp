@@ -88,8 +88,6 @@ UnitBlueprint {
         'CANNOTUSEAIRSTAGING',
     },
 
-    CollisionOffsetY = 0,
-
     Defense = {
         AirThreatLevel = 24,
         ArmorType = 'Light',
@@ -156,7 +154,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
@@ -435,7 +433,7 @@ UnitBlueprint {
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
+                'MOBILE',
             },
 
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
@@ -520,7 +518,7 @@ UnitBlueprint {
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'AIR MOBILE',
+				'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',

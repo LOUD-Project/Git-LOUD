@@ -79,7 +79,6 @@ UnitBlueprint {
         'MOBILE',
         'AIR',
         'TECH3',
-        'TELEPORT',
         'TRANSPORTATION',
         'VISIBLETORECON',
         'CANTRANSPORTCOMMANDER',

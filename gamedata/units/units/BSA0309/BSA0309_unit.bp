@@ -72,7 +72,7 @@ UnitBlueprint {
 
     Categories = {
         'SELECTABLE',
-        'TRANSPORTBUILTBYTIER3FACTORY',
+        'BUILTBYTIER3FACTORY',
         'SERAPHIM',
         'MOBILE',
         'AIR',
@@ -134,7 +134,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.059,
     },
@@ -200,8 +200,8 @@ UnitBlueprint {
             LAYER_Water = false,
         },
 		Elevation = 14.0,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+        FuelRechargeRate = 80,
+        FuelUseTime = 880,
         MaxSpeed = 0.5,
         MeshExtentsX = 2.5,
         MeshExtentsY = 0.5,
@@ -299,7 +299,7 @@ UnitBlueprint {
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'ALLUNITS -WALL',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'HIGHALTAIR,WALL,UNTARGETABLE',
 
@@ -348,6 +348,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 
             Label = 'AAGun',
+			
 			LeadTarget = true,
 
             MaxRadius = 38,
@@ -658,7 +659,7 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
-            Damage = 775,
+            Damage = 700,
             DamageFriendly = true,
             DamageRadius = 4,
             DamageType = 'Normal',
@@ -666,13 +667,12 @@ UnitBlueprint {
             DummyWeapon = true,
             FiringTolerance = 2,
             Label = 'DeathImpact',
-            WeaponCategory = 'Death',
         },
     },
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.6,
+        EnergyMult = 0.5,
         HealthMult = 0.7,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
