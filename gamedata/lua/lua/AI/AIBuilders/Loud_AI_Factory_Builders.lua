@@ -94,7 +94,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
@@ -137,7 +137,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
@@ -184,7 +184,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction - Expansions',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.FACTORY }},
         },
@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction - Expansions',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
@@ -259,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction - Expansions',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
@@ -305,7 +305,7 @@ BuilderGroup {BuilderGroupName = 'Naval Factory Builders',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			--{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 			
@@ -355,7 +355,7 @@ BuilderGroup {BuilderGroupName = 'Quantum Gate Construction',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
@@ -408,7 +408,7 @@ BuilderGroup {BuilderGroupName = 'Quantum Gate Construction - Small Base',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			

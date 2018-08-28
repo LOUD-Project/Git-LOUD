@@ -464,13 +464,13 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 4, [1024] = 8, [2048] = 14, [4096] = 18}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 10, [2048] = 16, [4096] = 20}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
 			
         },
 		

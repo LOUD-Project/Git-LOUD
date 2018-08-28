@@ -32,7 +32,7 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
         Priority = 710,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			-- this base must have 7+ T2/T3 factories
@@ -154,7 +154,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -212,7 +212,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -351,7 +351,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
@@ -424,7 +424,7 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
 			
