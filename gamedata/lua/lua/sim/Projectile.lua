@@ -44,6 +44,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     DestroyOnImpact = true,
+	
     FxImpactTrajectoryAligned = true,
 
     FxImpactAirUnit = {},
@@ -243,8 +244,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
 					return false
 				end
 			end
-		end		            
-        
+		end
+
         return true
     end,
 
@@ -428,9 +429,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	
 		-- if this unit category is on the weapon's do-not-collide list, skip!
 		local DNC = firingWeapon:GetBlueprint().DoNotCollideList
-		
-		--LOG("*AI DEBUG Projectile OnCollisionCheckWeapon")
-		
+
 		if DNC then
 		
 			local LOUDENTITY = EntityCategoryContains
@@ -449,6 +448,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	
 		--LOG("*AI DEBUG Projectile OnImpact at "..repr(GetPosition(self)))
 		--LOG("*AI DEBUG OnImpact targetType is "..repr(targetType))
+		--LOG("*AI DEGUG Projectile data is "..repr(self))
 		--LOG("*AI DEBUG OnImpact targetEntity is "..repr(GetBlueprint(targetEntity).Description).." at "..repr(GetPosition(targetEntity)))
 		
 		if targetType == 'Shield' and self.DamageData.DamageRadius > 0 then
@@ -583,21 +583,27 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
         end
 
+		if self.DamageData.DamageType == 'Railgun' then
+
+			self.DestroyOnImpact = false
+			bp.Physics.ImpactTimeout = 0.1
+
+		end
 		
         if bp.Physics.ImpactTimeout and targetType == 'Terrain' then
 		
             ForkTo( self.ImpactTimeoutThread, self, bp.Physics.ImpactTimeout )
 			
         else
-		
-			if self.DestroyOnImpact or not targetEntity or 
-			(not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
-			
+
+			if self.DestroyOnImpact or (not targetEntity) 
+			or ( (not self.DestroyOnImpact and not self.DamageData.DamageType == 'Railgun') and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity))
+			then
+
 				Destroy(self)
 				
 			end 
-			
-			--self:OnImpactDestroy(targetType, targetEntity)
+
         end
 		
     end,
@@ -614,8 +620,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     ImpactTimeoutThread = function(self, seconds)
-	
+
         WaitSeconds(seconds)
+
         Destroy(self)
 		
     end,

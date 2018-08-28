@@ -2961,7 +2961,7 @@ SubUnit = Class(MobileUnit) {
     FxDamage3 = {EffectTemplate.DamageSparks01},
 
     -- DESTRUCTION PARAMS
-    PlayDestructionEffects = true,
+    PlayDestructionEffects = false,
     ShowUnitDestructionDebris = false,
     DeathThreadDestructionWaitTime = 10,
 

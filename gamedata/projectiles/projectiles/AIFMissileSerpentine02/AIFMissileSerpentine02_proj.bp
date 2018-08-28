@@ -16,6 +16,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+	
     Categories = {
         'AEON',
         'PROJECTILE',
@@ -24,33 +25,38 @@ ProjectileBlueprint {
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+	
     Defense = {
         Health = 2,
         MaxHealth = 2,
     },
+	
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
+
         ImpactEffects = {
             Type = 'Medium01',
         },
+		
         MeshBlueprint = '/projectiles/AIFMissileSerpentine01/AIFMissileSerpentine01_mesh.bp',
+		
         StrategicIconSize = 2,
-        UniformScale = 0.035,
+		
+        UniformScale = 0.04,
     },
+	
     General = {
         Category = 'Missile',
         Faction = 'Aeon',
     },
-    Interface = {
-        HelpText = 0,
-    },
+	
     Physics = {
         Acceleration = 3,
         DestroyOnWater = false,
         InitialSpeed = 3,
+		
         LifeTime = 30,
         MaxSpeed = 12,
+		
         MaxZigZag = 5,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,

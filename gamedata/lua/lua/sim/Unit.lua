@@ -139,8 +139,8 @@ Unit = Class(moho.unit_methods) {
     DisallowCollisions = false,
 
     -- Destruction params
-    PlayDestructionEffects = true,
-    ShowUnitDestructionDebris = true,
+    PlayDestructionEffects = false,
+    ShowUnitDestructionDebris = false,
     DestructionPartsHighToss = {},
     DestructionPartsLowToss = {},
     DestructionPartsChassisToss = {},
@@ -1464,6 +1464,14 @@ Unit = Class(moho.unit_methods) {
         if self.CanTakeDamage then
 		
             self:DoOnDamagedCallbacks(instigator)
+			
+			-- from BrewLAN --
+			if EntityCategoryContains(categories.BOMBER, self) and self:GetCurrentLayer() == 'Air' and damageType == 'NormalBomb' then
+
+				amount = amount * 0.05
+				
+			end
+			
             self:DoTakeDamage(instigator, amount, vector, damageType)
 			
         end
@@ -1942,6 +1950,8 @@ Unit = Class(moho.unit_methods) {
 
     OnCollisionCheck = function(self, other, firingWeapon)
 	
+		--LOG("*AI DEBUG UnitOnCollisionCheck")
+	
         if self.DisallowCollisions then
 		
             return false
@@ -1951,9 +1961,10 @@ Unit = Class(moho.unit_methods) {
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDPARSE = ParseEntityCategory
 		
-        if LOUDENTITY(categories.PROJECTILE, other) then
+		local GetArmy = moho.entity_methods.GetArmy		
 		
-			local GetArmy = moho.entity_methods.GetArmy
+        if LOUDENTITY(categories.PROJECTILE, other) then
+
 			local IsAllied = IsAlly
 			local army1 = GetArmy(self)
 			local army2 = GetArmy(other)
@@ -2034,6 +2045,15 @@ Unit = Class(moho.unit_methods) {
             end
 			
         end
+		
+		-- taken from BrewLAN
+		-- essentially the railgun never registers a hit
+		-- the projectile just carries thru to hit additional targets
+		if other.DamageData.DamageType == 'Railgun' then
+		
+			other.LastImpact = GetEntityId(self)
+
+		end
 
         return true
 		
@@ -2833,7 +2853,9 @@ Unit = Class(moho.unit_methods) {
 			self.EXPhaseCharge = 0
 		end
 		
-		self:ForkThread(self.CloakEffectControlThread, bp)		
+		self:ForkThread(self.CloakEffectControlThread, bp)
+
+		return bp	-- so we can reply with the blueprint --
 		
     end,
 
@@ -2991,6 +3013,16 @@ Unit = Class(moho.unit_methods) {
         if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
 
             unitBeingBuilt.DisallowCollisions = true
+			
+			-- from BrewLAN
+			-- UI/control fix so units that don't usually have a stop button can stop upgrading.			
+            if not myBp.General.CommandCaps.RULEUCC_Stop then
+				
+				LOG("*AI DEBUG "..myBp.Description.." has upgrade but no STOP button")
+
+                self:AddCommandCap('RULEUCC_Stop')
+				
+            end
 			
         end
         
