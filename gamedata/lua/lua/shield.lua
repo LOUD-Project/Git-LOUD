@@ -57,7 +57,7 @@ Shield = Class(moho.shield_methods,Entity) {
         self:SetMaxHealth(spec.ShieldMaxHealth)
         self:SetHealth(self, spec.ShieldMaxHealth)
 
-		self.Owner:SetShieldRatio(1)
+		SetShieldRatio( self.Owner, 1 )
 		
         self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
         self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
@@ -108,12 +108,18 @@ Shield = Class(moho.shield_methods,Entity) {
         self.RegenStartTime = time
     end,
 
-    UpdateShieldRatio = function(self, value)        
+    UpdateShieldRatio = function(self, value)
+	
         if value >= 0 then
-            self.Owner:SetShieldRatio(value)
+		
+            SetShieldRatio( self.Owner, value )
+			
         else
-            self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
+		
+            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+			
         end
+		
     end,
 
     GetCachePosition = function(self)
@@ -143,7 +149,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 		local weaponBP = firingWeapon:GetBlueprint()
 		
-		--LOG("*AI DEBUG Shield OnCollisionCheckWeapon")
+		LOG("*AI DEBUG Shield OnCollisionCheckWeapon")
 		
         if not weaponBP.CollideFriendly then
 		
@@ -154,7 +160,7 @@ Shield = Class(moho.shield_methods,Entity) {
             end
         end
 	
-        #-- Check DNC list
+        -- Check DNC list
         if weaponBP.DoNotCollideList then
 			--LOG("*AI DEBUG Processing Shield DNC List "..repr(weaponBP.DoNotCollideList))
 			
@@ -199,26 +205,35 @@ Shield = Class(moho.shield_methods,Entity) {
 		local LOUDMAX = math.max
 		
         --local absorbed = self:OnGetDamageAbsorption(instigator,amount,type) 
+        local absorbed = amount * ( GetArmorMult( self.Owner, type ))
 		
-        local absorbed = amount * (self.Owner:GetArmorMult(type))
         --absorbed = absorbed * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
+		
         absorbed = LOUDMIN( GetHealth(self), absorbed )
-       
-        if self.PassOverkillDamage then
+
+        if self.PassOverkillDamage and (amount-absorbed) > 0 then
+		
             --local overkill = self:GetOverkill(instigator,amount,type) 
 
-			local overkill = amount * (self.Owner:GetArmorMult(type))
-			--overkill = overkill * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
-			overkill = LOUDMAX( overkill - GetHealth(self), 0 )
+			local overkill = (amount-absorbed) * ( GetArmorMult( self.Owner, type ))
 			
-            if self.Owner and IsUnit(self.Owner) and overkill > 0 then
-                self.Owner:DoTakeDamage(instigator, overkill, vector, type)
-            end             
+			--overkill = overkill * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
+			
+			overkill = LOUDMAX( overkill, 0 )
+			
+			if overkill > 0 then
+
+				if self.Owner and IsUnit(self.Owner) then
+				
+					self.Owner:DoTakeDamage(instigator, overkill, vector, type)
+					
+				end
+            end
         end
         
         AdjustHealth( self, instigator, -absorbed) 
 		
-		self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
+		SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
         
         if self.RegenThread then
            KillThread(self.RegenThread)
@@ -261,14 +276,20 @@ Shield = Class(moho.shield_methods,Entity) {
         WaitTicks( 10 + (self.RegenStartTime * 10) )
         
         while not self.Dead and GetHealth(self) < GetMaxHealth(self) do
-			-- wait one second
-            WaitTicks(10)
+
 			-- regen the shield
-			if not self.Dead then
+			if not self.Owner.Dead then
+			
 				AdjustHealth( self, self.Owner, self.RegenRate )
-				self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
+				
+				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+		
+				-- wait one second
+				WaitTicks(10)
+
 			end
         end
+		
     end,
 
     CreateImpactEffect = function(self, vector)
@@ -280,7 +301,9 @@ Shield = Class(moho.shield_methods,Entity) {
 			Warp( ImpactMesh, self:GetPosition())		
 		
 			if self.ImpactMeshBp != '' then
-				ImpactMesh:SetMesh(self.ImpactMeshBp)
+			
+				SetMesh( ImpactMesh, self.ImpactMeshBp )
+				
 				ImpactMesh:SetDrawScale(self.Size)
 				ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
 			end
@@ -298,7 +321,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnDestroy = function(self)
 	
-		self:SetMesh('')
+		SetMesh( self, '')
 		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
@@ -331,7 +354,8 @@ Shield = Class(moho.shield_methods,Entity) {
 	
         self:SetCollisionShape('None')
 
-		self:SetMesh('')
+		SetMesh( self,'')
+		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
 			self.MeshZ = nil
@@ -345,14 +369,18 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
 
-		self:SetMesh(self.MeshBp)
+		SetMesh( self, self.MeshBp )
+		
 		self:SetParentOffset(Vector(0,self.ShieldVerticalOffset,0))
 		self:SetDrawScale(self.Size)
 
 		if self.MeshZ == nil then
 			self.MeshZ = Entity { Owner = self.Owner }
-			self.MeshZ:SetMesh(self.MeshZBp)
+			
+			SetMesh( self.MeshZ, self.MeshZBp )
+			
             Warp( self.MeshZ, self.Owner:GetPosition() )
+			
 			self.MeshZ:SetDrawScale(self.Size)
 			self.MeshZ:AttachBoneTo(-1,self.Owner,-1)
 			self.MeshZ:SetParentOffset(Vector(0,self.ShieldVerticalOffset,0))
@@ -370,7 +398,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	-- The time value is in seconds but the charging up period can be slowed if resources are not available
     ChargingUp = function(self, curProgress, time)
 	
-        self.Owner:OnShieldIsCharging() # added by brute51
+        self.Owner:OnShieldIsCharging()
     
 		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
 		local SetShieldRatio = moho.unit_methods.SetShieldRatio
@@ -380,7 +408,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
             curProgress = curProgress + GetResourceConsumed( self.Owner )
 			
-			self.Owner:SetShieldRatio(curProgress / time)
+			SetShieldRatio( self.Owner, curProgress/time )
 			
             WaitTicks(10)
         end    
@@ -420,7 +448,7 @@ Shield = Class(moho.shield_methods,Entity) {
             -- We are no longer turned off
             self.OffHealth = -1
 			
-            self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
+            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 			
             self.Owner:OnShieldEnabled()
 			self:CreateShieldMesh()
@@ -432,7 +460,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 				WaitTicks(5)
 				
-				self.Owner:SetShieldRatio(GetHealth(self) / GetMaxHealth(self))
+				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 				
                 if GetResourceConsumed( self.Owner ) != 1 and GetEconomyStored(aiBrain, 'ENERGY') < 1 then
 					
@@ -560,7 +588,7 @@ UnitShield = Class(Shield){
 	
   		self:SetCollisionShape( 'Box', self.CollisionCenterX, self.CollisionCenterY, self.CollisionCenterZ, self.CollisionSizeX, self.CollisionSizeY, self.CollisionSizeZ)
 		
-		self.Owner:SetMesh(self.OwnerShieldMesh,true)
+		SetMesh( self.Owner, self.OwnerShieldMesh, true )
 		
         self.Owner:OnShieldIsUp()
 		
@@ -570,7 +598,7 @@ UnitShield = Class(Shield){
 	
         self:SetCollisionShape('None')
 		
-		self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true )
 		
         self.Owner:OnShieldIsDown()
 		
@@ -579,7 +607,9 @@ UnitShield = Class(Shield){
     OnDestroy = function(self)
 	
         if not self.Owner.MyShield or self.Owner.MyShield:GetEntityId() == self:GetEntityId() then
-	        self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		
+	        SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+			
 		end
 		
 		self:UpdateShieldRatio(0)
@@ -633,18 +663,20 @@ AntiArtilleryShield = Class(Shield){
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
 	
-        if other:GetArmy() == -1 then
+		LOG("*AI DEBUG OnCollisionCheck Shield")
+
+        if GetArmy(other) == -1 then
             return false
         end
-
-        if other:GetBlueprint().Physics.CollideFriendlyShield and other.DamageData.ArtilleryShieldBlocks then
-            return true
-        end
-        
+		
         if other.DamageData.ArtilleryShieldBlocks and IsEnemy( GetArmy(self), GetArmy(other) ) then
             return true
         end
-
+		
+        if other:GetBlueprint().Physics.CollideFriendlyShield and other.DamageData.ArtilleryShieldBlocks then
+            return true
+        end
+		
         return false
 		
     end,
@@ -659,7 +691,7 @@ DomeHunkerShield = Class(Shield) {
 	end,
 
 	OnCollisionCheck = function(self,other)
-		if other:GetArmy() == -1 then
+		if GetArmy(other) == -1 then
 			return true
 		end
 
@@ -677,19 +709,26 @@ PersonalHunkerShield = Class(Shield) {
     end,
 
     CreateShieldMesh = function(self)
+	
 		self:SetCollisionShape( 'Box', self.CollisionCenterX, self.CollisionCenterY, self.CollisionCenterZ, self.CollisionSizeX, self.CollisionSizeY, self.CollisionSizeZ)
-		self.Owner:SetMesh(self.OwnerShieldMesh,true)
+		
+		SetMesh( self.Owner, self.OwnerShieldMesh, true )
     end,
 
     RemoveShield = function(self)
+	
         self:SetCollisionShape('None')
-		self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		
+		SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true )
     end,
 
     OnDestroy = function(self)
+	
         if not self.Owner.MyShield or self.Owner.MyShield:GetEntityId() == self:GetEntityId() then
-	        self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+		
+	        SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true)
 		end
+		
 		self:UpdateShieldRatio(0)
         ChangeState(self, self.DeadState)
     end,
