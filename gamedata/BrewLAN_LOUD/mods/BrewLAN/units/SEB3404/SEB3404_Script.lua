@@ -141,11 +141,11 @@ SEB3404 = Class(TStructureUnit) {
 		
         local NewUpkeep = Eco.MaintenanceConsumptionPerSecondEnergy
 		
-		local MinimumPerBuilding = Eco.MinimumPerBuilding or 75
+		local MinimumPerBuilding = Eco.MinimumPerBuilding or 50
 		local MaximumPerBuilding = Eco.MaximumPerBuilding or 500
 		
-		local MinimumPerMobile = Eco.MinimumPerMobile or 50
-		local MaximumPerMobile = Eco.MaximumPerMobile or 600
+		local MinimumPerMobile = Eco.MinimumPerMobile or 35
+		local MaximumPerMobile = Eco.MaximumPerMobile or 350
 		
 		local SpyBlipRadius = self:GetBlueprint().Intel.SpyBlipRadius or 2
 		
@@ -160,7 +160,7 @@ SEB3404 = Class(TStructureUnit) {
             if string.lower(ebp.Physics.MotionType or 'NOPE') == string.lower('RULEUMT_None') then
 			
                 --If building cost
-                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 1000, MinimumPerBuilding), MaximumPerBuilding)
+                cost = math.min( math.max( (ebp.BuildCostEnergy or 10000) / 2000, MinimumPerBuilding), MaximumPerBuilding)
                 LocalUnits[i].cost = cost
 				
             else

@@ -77,8 +77,7 @@ UnitBlueprint {
         'GANTRY',
         'FACTORY',
         'RALLYPOINT',
-        'DRAGBUILD',
-        'SIZE32',
+        'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
@@ -91,8 +90,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2500,
-        Health = 35000,
-        MaxHealth = 35000,
+        Health = 30000,
+        MaxHealth = 30000,
         RegenRate = 12,
     },
 	
@@ -177,10 +176,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 400000,
-        BuildCostMass = 32500,
-        BuildRate = 270,
-        BuildTime = 10500,
+        BuildCostEnergy = 384000+38400,
+        BuildCostMass = 31440+3144,
+        BuildRate = 240,
+        BuildTime = 10000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY SERAPHIM',
@@ -192,8 +191,8 @@ UnitBlueprint {
         InitialRallyX = 0,
         InitialRallyZ = 18,
 		
-        StorageEnergy = 4000,
-        StorageMass = 400,
+        StorageEnergy = 10000,
+        StorageMass = 1200,
     },
 	
     Footprint = {
@@ -214,7 +213,7 @@ UnitBlueprint {
             },
         },
 		
-		CapCost = 16,
+		CapCost = 15,
 		
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -321,9 +320,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
-        HealthMult = 0.2,
-        MassMult = 0.2,
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

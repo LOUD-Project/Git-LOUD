@@ -94,7 +94,7 @@ UnitBlueprint {
         'FACTORY',
         'RALLYPOINT',
         'DRAGBUILD',
-        'SIZE30',
+        'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
@@ -232,7 +232,7 @@ UnitBlueprint {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar20x_01_albedo.dds',
                 DeathLifetime = 300,
-                FadeOut = 150,
+                FadeOut = 900,
                 Length = 12.8,
                 Normal = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar20x_01_normals.dds',
                 Orientations = {
@@ -246,10 +246,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 320000,
-        BuildCostMass = 26200,
+        BuildCostEnergy = 384000,
+        BuildCostMass = 31440,
         BuildRate = 210,
-        BuildTime = 8200,
+        BuildTime = 9000,
 		
         BuildableCategory = {
             'BUILTBYLANDTIER3FACTORY UEF',
@@ -261,8 +261,8 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'seb0401'},
 		
-        StorageEnergy = 4000,
-        StorageMass = 400,
+        StorageEnergy = 8000,
+        StorageMass = 1000,
         InitialRallyZ = 28,
     },
 	
@@ -272,7 +272,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 12,
+		CapCost = 15,
         BuildBones = {
             BuildEffectBones = {
                 'Muzzle001',
@@ -321,7 +321,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 20,
+        VisionRadius = 14,
     },
 	
     Interface = {

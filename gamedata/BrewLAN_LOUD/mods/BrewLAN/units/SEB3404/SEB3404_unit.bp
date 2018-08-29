@@ -11,11 +11,6 @@ UnitBlueprint {
             Cue = 'UEB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        LaunchSat = Sound {
-            Bank = 'XEL_Weapons',
-            Cue = 'XEB2402_Launch',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         MoveArms = Sound {
             Bank = 'XEB',
             Cue = 'XEB2402_Activate',
@@ -38,11 +33,10 @@ UnitBlueprint {
         'OMNI',
         'SELECTABLE',
         'LAND',
-        'SIZE36',
+        'SIZE20',
         'SATELLITEUPLINK',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'DRAGBUILD',
         'OVERLAYRADAR',
         'OVERLAYOMNI',
         'SORTINTEL',
@@ -50,10 +44,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 4500,
-        Health = 17500*.8,
-        MaxHealth = 17500*.8,
-        RegenRate = 2,
+		
+        EconomyThreatLevel = 7500,
+        Health = 19500,
+        MaxHealth = 19500,
+        RegenRate = 4,
     },
 	
     Description = '<LOC seb3404_desc>Experimental Sensor Array',
@@ -78,8 +73,8 @@ UnitBlueprint {
         Tarmacs = {
             {
                 Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar24x_01_albedo.dds',
-                FadeOut = 150,
-                Length = 12.8*2,
+                FadeOut = 900,
+                Length = 19,
                 Normal = '/mods/brewlan/env/common/decals/Tarmacs/Tar24x_01_normals.dds',
                 Orientations = {
                     0,
@@ -88,7 +83,7 @@ UnitBlueprint {
                     270,
                 },
                 RemoveWhenDead = false,
-                Width = 12.8*2,
+                Width = 19,
             },
         },
 		
@@ -96,8 +91,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 990990,
-        BuildCostMass = 82000,
+        BuildCostEnergy = 900000,
+        BuildCostMass = 80000,
         BuildTime = 27000,
 		
         MaintenanceConsumptionPerSecondEnergy = 15000,
@@ -106,10 +101,10 @@ UnitBlueprint {
 		
         ResearchMult = 0.5,
 		
-		MinimumPerBuilding = 75,
+		MinimumPerBuilding = 50,
 		MaximumPerBuilding = 500,
-		MinimumPerMobile = 50,
-		MaximumPerMobile = 650,
+		MinimumPerMobile = 30,
+		MaximumPerMobile = 350,
     },
 	
     Footprint = {
@@ -118,6 +113,7 @@ UnitBlueprint {
     },
 	
     General = {
+		CapCost = 25,
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
         CommandCaps = {
@@ -155,7 +151,7 @@ UnitBlueprint {
 	
     Intel = {
         ShowIntelOnSelect = true,
-        VisionRadius = 2,
+        VisionRadius = 15,
         OmniRadius = 300,
         RadarRadius = 1200 * 5,
         SpyBlipRadius = 2,

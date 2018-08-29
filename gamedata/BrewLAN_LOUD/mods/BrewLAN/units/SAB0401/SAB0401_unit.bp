@@ -95,8 +95,7 @@ UnitBlueprint {
         'GANTRY',
         'FACTORY',
         'RALLYPOINT',
-        'DRAGBUILD',
-        'SIZE60',
+        'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
@@ -225,10 +224,10 @@ UnitBlueprint {
 
     Economy = {
 
-        BuildCostEnergy = 320000,
-        BuildCostMass = 26200,
+        BuildCostEnergy = 384000,
+        BuildCostMass = 31440,
         BuildRate = 210,
-        BuildTime = 8200,
+        BuildTime = 9000,
 
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON',
@@ -239,8 +238,8 @@ UnitBlueprint {
 
         RebuildBonusIds = { 'sab0401' },
 
-        StorageEnergy = 4000,
-        StorageMass = 400,
+        StorageEnergy = 8000,
+        StorageMass = 1000,
         InitialRallyZ = 28,
 
     },
@@ -265,7 +264,7 @@ UnitBlueprint {
             },
         },
 		
-		CapCost = 12,
+		CapCost = 15,
 		
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -294,7 +293,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 14,
     },
 
     Interface = {
@@ -383,9 +382,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
