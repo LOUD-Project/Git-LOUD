@@ -54,22 +54,6 @@ end
 # Flag initial loading of blueprints
 InitialRegistration = true
 
-# setup Buff systems
-LOG("*AI DEBUG     Setup BUFF system structure")
-doscript '/lua/system/BuffBlueprints.lua'
-
-LOG("*AI DEBUG     Loading Adjacency Buff functions")
-# load adjacency buff functions
-import('/lua/sim/adjacencybufffunctions.lua')
-
-LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
-# Load buff definitions
-import( '/lua/sim/buffdefinitions.lua')
-
-LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
-# Load Adjacency Buff definitions 
-import('/lua/sim/adjacencybuffs.lua')
-
 LOG("*AI DEBUG     Setup Platoon Template Structure")
 # Load Platoon Template systems
 doscript '/lua/system/GlobalPlatoonTemplate.lua'
@@ -85,6 +69,14 @@ doscript '/lua/system/GlobalBuilderGroup.lua'
 LOG("*AI DEBUG     Setup BaseBuilder Template Structure")
 # Load Global Base Templates
 doscript '/lua/system/GlobalBaseTemplate.lua'
+--[[
+LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
+# Load buff definitions
+import( '/lua/sim/buffdefinitions.lua')
 
+LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
+# Load Adjacency Buff definitions 
+import('/lua/sim/adjacencybuffs.lua')
+--]]
 
 InitialRegistration = false

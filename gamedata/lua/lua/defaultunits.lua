@@ -858,6 +858,10 @@ StructureUnit = Class(Unit) {
                 self.AdjacencyBeamsBag[k] = nil
 			end
         end
+		
+		if table.empty(self.AdjacencyBeamsBag) then
+			self.AdjacencyBeamsBag = nil
+		end
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
@@ -1400,9 +1404,12 @@ MobileUnit = Class(Unit) {
     end,
 
 	OnStopBeingBuilt = function(self, builder, layer)
-
+	
+		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }
+		self.MovementEffectsBag = {}
+		
 		Unit.OnStopBeingBuilt(self, builder, layer)
-
+		
         if self.CacheLayer == 'Water' then
 
             self:StartRocking()

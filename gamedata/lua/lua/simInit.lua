@@ -26,10 +26,27 @@
 
 --# Do global init and set up common global functions
 doscript '/lua/globalInit.lua'
+
 LOG("*DEBUG Mohodata simInit")
 
 WaitTicks = coroutine.yield
 
+# setup Buff systems
+LOG("*AI DEBUG     Setup BUFF system structure")
+doscript '/lua/system/BuffBlueprints.lua'
+
+LOG("*AI DEBUG     Loading Adjacency Buff functions")
+# load adjacency buff functions
+import('/lua/sim/adjacencybufffunctions.lua')	
+
+LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
+# Load buff definitions
+import( '/lua/sim/buffdefinitions.lua')
+
+LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
+# Load Adjacency Buff definitions 
+import('/lua/sim/adjacencybuffs.lua')
+	
 function WaitSeconds(n)
     WaitTicks(math.max(1, n * 10))
 end

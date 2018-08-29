@@ -2750,7 +2750,7 @@ function GetGuards( aiBrain, Unit)
 	
 	for k,v in engs do
 	
-		if v:GetUnitBeingBuilt() == Unit and v != Unit then
+		if v.UnitBeingBuilt == Unit and v != Unit then
 			count = count + 1
 		end
 		

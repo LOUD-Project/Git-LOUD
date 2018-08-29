@@ -298,7 +298,7 @@ Unit = Class(moho.unit_methods) {
 		
         self.DamageEffectsBag = { {}, {}, {}, }
         
-        self.MovementEffectsBag = {}
+        --self.MovementEffectsBag = {}
         --self.IdleEffectsBag = {}
         --self.BeamExhaustEffectsBag = {}
         --self.TransportBeamEffectsBag = {}
@@ -334,8 +334,8 @@ Unit = Class(moho.unit_methods) {
 		
         --self.ProductionEnabled = true
 		
-        self.EnergyModifier = 0
-        self.MassModifier = 0
+        --self.EnergyModifier = 0
+        --self.MassModifier = 0
 
         self.VeteranLevel = 0
 
@@ -2714,7 +2714,7 @@ Unit = Class(moho.unit_methods) {
 
     OnStopBeingBuilt = function(self, builder, layer)
 	
-		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }	
+		--self.MotionStatus = { old = 'Stopped', new = 'Stopped' }	
 		
 		local bp = GetBlueprint(self)
 
@@ -3013,17 +3013,7 @@ Unit = Class(moho.unit_methods) {
         if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
 
             unitBeingBuilt.DisallowCollisions = true
-			
-			-- from BrewLAN
-			-- UI/control fix so units that don't usually have a stop button can stop upgrading.			
-            if not myBp.General.CommandCaps.RULEUCC_Stop then
-				
-				LOG("*AI DEBUG "..myBp.Description.." has upgrade but no STOP button")
 
-                self:AddCommandCap('RULEUCC_Stop')
-				
-            end
-			
         end
         
         if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
@@ -3402,6 +3392,8 @@ Unit = Class(moho.unit_methods) {
             end 
 			
         end
+		
+		self.IntelThread = nil
 		
     end,
 
