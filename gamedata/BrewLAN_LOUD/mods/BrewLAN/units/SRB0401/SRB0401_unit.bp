@@ -91,7 +91,7 @@ UnitBlueprint {
         'GANTRY',
         'FACTORY',
         'RALLYPOINT',
-        'SIZE20',
+        'SIZE36',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',

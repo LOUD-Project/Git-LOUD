@@ -33,7 +33,7 @@ UnitBlueprint {
         'OMNI',
         'SELECTABLE',
         'LAND',
-        'SIZE20',
+        'SIZE44',
         'SATELLITEUPLINK',
         'VISIBLETORECON',
         'RECLAIMABLE',
