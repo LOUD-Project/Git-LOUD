@@ -27,7 +27,7 @@ EnergyBuildBuffCheck = function(buff, unit)
 
     local bp = GetBlueprint(unit)
 	
-    if bp.Economy.BuildableCategory and LOUDGETN(bp.Economy.BuildableCategory) > 0 then
+    if bp.Economy.BuildableCategory then
 	
         return true
 		
@@ -60,7 +60,7 @@ MassBuildBuffCheck = function(buff, unit)
 
 	local bp = GetBlueprint(unit)
 	
-    if bp.Economy.BuildableCategory and LOUDGETN(bp.Economy.BuildableCategory) > 0 then
+    if bp.Economy.BuildableCategory then
 	
         return true
 		

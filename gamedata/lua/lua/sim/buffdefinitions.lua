@@ -620,7 +620,7 @@ BuffBlueprint { Name = 'CheatIntel',
 
 BuffBlueprint { Name = 'CheatCDROmni',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -638,7 +638,7 @@ BuffBlueprint { Name = 'CheatCDROmni',
 
 BuffBlueprint { Name = 'CheatENG',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = 'ENGINEER',
+	EntityCategory = categories.ENGINEER, --'ENGINEER',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -663,7 +663,7 @@ BuffBlueprint { Name = 'CheatENG',
 
 BuffBlueprint { Name = 'CheatMOBILE',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = 'MOBILE',
+	EntityCategory = categories.MOBILE, --'MOBILE',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -700,7 +700,7 @@ BuffBlueprint { Name = 'CheatALL',
 
 BuffBlueprint { Name = 'CheatAIRSTAGING',
 	BuffType = 'AIRSTAGINGCHEAT',
-	EntityCategory = 'AIR +MOBILE',
+	EntityCategory = categories.AIR * categories.MOBILE, --'AIR +MOBILE',
 	Stacks = 'REPLACE',
 	Duration = 3.4,	-- apply the buff every 3.4 seconds
 	Affects = {
@@ -718,7 +718,7 @@ BuffBlueprint { Name = 'CheatAIRSTAGING',
 -- BO ACU Buffs
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -739,7 +739,7 @@ BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
 
 BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -760,7 +760,7 @@ BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
 
 BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -785,7 +785,7 @@ BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
 
 BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -806,7 +806,7 @@ BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
 
 BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -827,7 +827,7 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
 
 BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = 'COMMAND',
+	EntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {

@@ -1,8 +1,5 @@
 local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 
--- just a note -- I disabled a number of the buffs in here to 
--- eliminate those which have no use or no unit to use them
-
 -- TIER 1 POWER GEN BUFF TABLE
 T1PowerGeneratorAdjacencyBuffs = {
     'T1PowerEnergyBuildBonusSize4',
@@ -10,16 +7,35 @@ T1PowerGeneratorAdjacencyBuffs = {
     'T1PowerEnergyBuildBonusSize12',
     'T1PowerEnergyBuildBonusSize16',
     'T1PowerEnergyBuildBonusSize20',
+
+    'T1PowerEnergyBuildBonusSize24',
+    'T1PowerEnergyBuildBonusSize30',
+    'T1PowerEnergyBuildBonusSize32',
+    'T1PowerEnergyBuildBonusSize36',
+    'T1PowerEnergyBuildBonusSize40',
+    'T1PowerEnergyBuildBonusSize44',
+    'T1PowerEnergyBuildBonusSize48',	
+
     'T1PowerEnergyWeaponBonusSize4',
     'T1PowerEnergyWeaponBonusSize8',
     'T1PowerEnergyWeaponBonusSize12',
     'T1PowerEnergyWeaponBonusSize16',
     'T1PowerEnergyWeaponBonusSize20',
+	
     'T1PowerEnergyMaintenanceBonusSize4',
     'T1PowerEnergyMaintenanceBonusSize8',
     'T1PowerEnergyMaintenanceBonusSize12',
     'T1PowerEnergyMaintenanceBonusSize16',
     'T1PowerEnergyMaintenanceBonusSize20',
+
+    'T1PowerEnergyMaintenanceBonusSize24',
+    'T1PowerEnergyMaintenanceBonusSize30',
+    'T1PowerEnergyMaintenanceBonusSize32',
+    'T1PowerEnergyMaintenanceBonusSize36',
+    'T1PowerEnergyMaintenanceBonusSize40',
+    'T1PowerEnergyMaintenanceBonusSize44',	
+    'T1PowerEnergyMaintenanceBonusSize48',
+
     'T1PowerRateOfFireBonusSize4',
 }
 
@@ -27,7 +43,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize4',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -43,7 +59,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize8',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE8 -categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -59,7 +75,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize12',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE12 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -75,7 +91,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize16',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -91,7 +107,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize20',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -103,11 +119,124 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize20',
     },
 }
 
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize24',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0104,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize30',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.00835,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize32',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0078,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize36',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0069,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize40',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.00625,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize44',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE44 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0057,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize48',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE48 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0052,
+            Mult = 1.0,
+        },
+    },
+}
+
+
 BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize4',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -123,7 +252,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize8',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE8 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -139,7 +268,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize12',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE12 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -155,7 +284,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize16',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -171,7 +300,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize20',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -183,12 +312,124 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize20',
     },
 }
 
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize24',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0104,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize30',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.00835,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize32',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0078,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize36',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0069,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize40',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.00625,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize44',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE44 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0057,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize48',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE48 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0052,
+            Mult = 1.0,
+        },
+    },
+}
+
 -- ENERGY WEAPON BONUS - TIER 1 POWER GENS
 BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize4',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4 * categories.DEFENSE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -204,7 +445,7 @@ BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize8',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
+    EntityCategory = categories.STRUCTURE * categories.SIZE8 * categories.DEFENSE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -220,7 +461,7 @@ BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize12',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
+    EntityCategory = categories.STRUCTURE * categories.SIZE12 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -236,7 +477,7 @@ BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize16',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -252,7 +493,7 @@ BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize20',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -270,7 +511,7 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4 * categories.DEFENSE,
     BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
     OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
@@ -289,82 +530,66 @@ HydrocarbonAdjacencyBuffs = {
     'T2PowerEnergyBuildBonusSize12',
     'T2PowerEnergyBuildBonusSize16',
     'T2PowerEnergyBuildBonusSize20',
+	
     'T2PowerEnergyWeaponBonusSize4',
     'T2PowerEnergyWeaponBonusSize8',
     'T2PowerEnergyWeaponBonusSize12',
     'T2PowerEnergyWeaponBonusSize16',
     'T2PowerEnergyWeaponBonusSize20',
+	
     'T2PowerEnergyMaintenanceBonusSize4',
     'T2PowerEnergyMaintenanceBonusSize8',
     'T2PowerEnergyMaintenanceBonusSize12',
     'T2PowerEnergyMaintenanceBonusSize16',
     'T2PowerEnergyMaintenanceBonusSize20',
+	
     'T2PowerRateOfFireBonusSize4',
 }
 
 T2PowerGeneratorAdjacencyBuffs = {
-    'T2PowerEnergyBuildBonusSize4',
-    'T2PowerEnergyBuildBonusSize8',
-    'T2PowerEnergyBuildBonusSize12',
+    'T2PowerEnergyBuildBonusSize4to12',
     'T2PowerEnergyBuildBonusSize16',
     'T2PowerEnergyBuildBonusSize20',
-    'T2PowerEnergyWeaponBonusSize4',
-    'T2PowerEnergyWeaponBonusSize8',
-    'T2PowerEnergyWeaponBonusSize12',
+	
+    'T2PowerEnergyBuildBonusSize24',
+    'T2PowerEnergyBuildBonusSize30',
+    'T2PowerEnergyBuildBonusSize32',
+    'T2PowerEnergyBuildBonusSize36',
+    'T2PowerEnergyBuildBonusSize40',
+    'T2PowerEnergyBuildBonusSize44',	
+    'T2PowerEnergyBuildBonusSize48',
+	
+    'T2PowerEnergyWeaponBonusSize4to12',
     'T2PowerEnergyWeaponBonusSize16',
     'T2PowerEnergyWeaponBonusSize20',
-    'T2PowerEnergyMaintenanceBonusSize4',
-    'T2PowerEnergyMaintenanceBonusSize8',
-    'T2PowerEnergyMaintenanceBonusSize12',
+	
+    'T2PowerEnergyMaintenanceBonusSize4to12',
     'T2PowerEnergyMaintenanceBonusSize16',
     'T2PowerEnergyMaintenanceBonusSize20',
+
+    'T2PowerEnergyMaintenanceBonusSize24',
+    'T2PowerEnergyMaintenanceBonusSize30',
+    'T2PowerEnergyMaintenanceBonusSize32',
+    'T2PowerEnergyMaintenanceBonusSize36',
+    'T2PowerEnergyMaintenanceBonusSize40',
+    'T2PowerEnergyMaintenanceBonusSize44',
+    'T2PowerEnergyMaintenanceBonusSize48',
+	
     'T2PowerRateOfFireBonusSize4',
 }
 
 -- ENERGY BUILD BONUS - TIER 2 POWER GENS
-BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize4',
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize4to12',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = (categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12)) - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.125,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize8',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Add = -0.125,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize12',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Add = -0.125,
+            Add = -0.10,
             Mult = 1.0,
         },
     },
@@ -374,13 +599,13 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize16',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.125,
+            Add = -0.075,
             Mult = 1.0,
         },
     },
@@ -390,62 +615,143 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize20',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0125,
+            Add = -0.06,
             Mult = 1.0,
         },
     },
 }
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize24',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.05,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize30',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.04,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize32',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0375,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize36',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.0335,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize40',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.03,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize44',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE44 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.027,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize48',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE48 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.025,
+            Mult = 1.0,
+        },
+    },
+}
+
 
 -- ENERGY MAINTENANCE BONUS - TIER 2 POWER GENS
-BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize4',
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize4to12',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = (categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12)) - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.125,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize8',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Add = -0.125,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize12',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Add = -0.125,
+            Add = -0.1,
             Mult = 1.0,
         },
     },
@@ -455,13 +761,13 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize16',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.125,
+            Add = -0.075,
             Mult = 1.0,
         },
     },
@@ -471,56 +777,137 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize20',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.125,
+            Add = -0.06,
             Mult = 1.0,
         },
     },
 }
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize24',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.05,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize30',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.04,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize32',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0375,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize36',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.0335,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize40',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.03,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize44',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE44 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.027,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize48',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE48 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.025,
+            Mult = 1.0,
+        },
+    },
+}
+
 
 -- ENERGY WEAPON BONUS - TIER 2 POWER GENS
-BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize4',
+BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize4to12',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.05,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize8',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.05,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize12',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
+    EntityCategory = (categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12)) * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -536,13 +923,13 @@ BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize16',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SIZE16 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
     Affects = {
         EnergyWeapon = {
-            Add = -0.05,
+            Add = -0.0375,
             Mult = 1.0,
         },
     },
@@ -552,13 +939,13 @@ BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize20',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
     Affects = {
         EnergyWeapon = {
-            Add = -0.05,
+            Add = -0.03,
             Mult = 1.0,
         },
     },
@@ -569,7 +956,7 @@ BuffBlueprint { Name = 'T2PowerRateOfFireBonusSize4',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4 * categories.DEFENSE - categories.NUKE,
     BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
     OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
@@ -583,84 +970,45 @@ BuffBlueprint { Name = 'T2PowerRateOfFireBonusSize4',
 
 -- TIER 3 POWER GEN BUFF TABLE
 T3PowerGeneratorAdjacencyBuffs = {
-    'T3PowerEnergyBuildBonusSize4',
-    'T3PowerEnergyBuildBonusSize8',
-    'T3PowerEnergyBuildBonusSize12',
-    'T3PowerEnergyBuildBonusSize16',
-    'T3PowerEnergyBuildBonusSize20',
-    'T3PowerEnergyWeaponBonusSize4',
-    'T3PowerEnergyWeaponBonusSize8',
-    'T3PowerEnergyWeaponBonusSize12',
-    'T3PowerEnergyWeaponBonusSize16',
-    'T3PowerEnergyWeaponBonusSize20',
-    'T3PowerEnergyMaintenanceBonusSize4',
-    'T3PowerEnergyMaintenanceBonusSize8',
-    'T3PowerEnergyMaintenanceBonusSize12',
-    'T3PowerEnergyMaintenanceBonusSize16',
-    'T3PowerEnergyMaintenanceBonusSize20',
+    'T3PowerEnergyBuildBonusSize4to16',
+    'T3PowerEnergyBuildBonusSize20',	
+	
+    'T3PowerEnergyBuildBonusSize24',
+    'T3PowerEnergyBuildBonusSize30',
+    'T3PowerEnergyBuildBonusSize32',
+    'T3PowerEnergyBuildBonusSize36',
+    'T3PowerEnergyBuildBonusSize40',
+    'T3PowerEnergyBuildBonusSize44',
+    'T3PowerEnergyBuildBonusSize48',	
+
+    'T3PowerEnergyMaintenanceBonusSize4to16',
+    'T3PowerEnergyMaintenanceBonusSize20',	
+
+    'T3PowerEnergyMaintenanceBonusSize24',
+    'T3PowerEnergyMaintenanceBonusSize30',
+    'T3PowerEnergyMaintenanceBonusSize32',
+    'T3PowerEnergyMaintenanceBonusSize36',
+    'T3PowerEnergyMaintenanceBonusSize40',
+    'T3PowerEnergyMaintenanceBonusSize44',
+    'T3PowerEnergyMaintenanceBonusSize48',	
+
+    'T3PowerEnergyWeaponBonusSize4to16',	
+	
     'T3PowerRateOfFireBonusSize4',
 }
 
 -- ENERGY BUILD BONUS - TIER 3 POWER GENS
-BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize4',
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize4to16',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = (categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16)) - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.1875,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize8',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Add = -0.1875,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize12',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Add = -0.1875,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize16',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Add = -0.1875,
+            Add = -0.16,
             Mult = 1.0,
         },
     },
@@ -670,78 +1018,143 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize20',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.1875,
+            Add = -0.128,
             Mult = 1.0,
         },
     },
 }
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize24',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.106,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize30',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.085,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize32',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.08,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize36',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.071,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize40',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.064,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize44',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE44 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.058,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize48',
+    BuffType = 'ENERGYBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE48 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    Affects = {
+        EnergyActive = {
+            Add = -0.053,
+            Mult = 1.0,
+        },
+    },
+}
+
 
 -- ENERGY MAINTENANCE BONUS - TIER 3 POWER GENS
-BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize4',
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize4to16',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4 -ENERGYPRODUCTION',
+    EntityCategory = (categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16)) - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.15,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize8',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Add = -0.15,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize12',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Add = -0.15,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize16',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16 -ENERGYPRODUCTION',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Add = -0.15,
+            Add = -0.16,
             Mult = 1.0,
         },
     },
@@ -751,24 +1164,137 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize20',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20 -ENERGYPRODUCTION',
+    EntityCategory = categories.STRUCTURE * categories.SIZE20 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.15,
+            Add = -0.128,
             Mult = 1.0,
         },
     },
 }
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize24',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE24 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.1335,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize30',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE30 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.107,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize32',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE32 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.080,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize36',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE36 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.071,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize40',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.064,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize44',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.058,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize48',
+    BuffType = 'ENERGYMAINTENANCEBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = categories.STRUCTURE * categories.SIZE40 - categories.NUKE - categories.ENERGYPRODUCTION,
+    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+    Affects = {
+        EnergyMaintenance = {
+            Add = -0.053,
+            Mult = 1.0,
+        },
+    },
+}
+
 
 -- ENERGY WEAPON BONUS - TIER 3 POWER GENS
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize4',
+BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize4to20',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16 + categories.SIZE20),
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -780,75 +1306,12 @@ BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize8',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.08,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize12',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.08,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize16',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.08,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize20',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Add = -0.08,
-            Mult = 1.0,
-        },
-    },
-}
 
 BuffBlueprint { Name = 'T3PowerRateOfFireBonusSize4',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
     OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
@@ -862,19 +1325,15 @@ BuffBlueprint { Name = 'T3PowerRateOfFireBonusSize4',
 
 -- TIER 1 MASS EXTRACTOR BUFF TABLE
 T1MassExtractorAdjacencyBuffs = {
-    'T1MEXMassBuildBonusSize4',
-    'T1MEXMassBuildBonusSize8',
-    'T1MEXMassBuildBonusSize12',
-    'T1MEXMassBuildBonusSize16',
-    'T1MEXMassBuildBonusSize20',
+    'T1MEXMassBuildBonus',
 }
 
 -- MASS BUILD BONUS - TIER 1 MASS EXTRACTOR
-BuffBlueprint { Name = 'T1MEXMassBuildBonusSize4',
+BuffBlueprint { Name = 'T1MEXMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
@@ -886,85 +1345,17 @@ BuffBlueprint { Name = 'T1MEXMassBuildBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'T1MEXMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.05,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1MEXMassBuildBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.033333,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1MEXMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.025,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1MEXMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.02,
-            Mult = 1.0,
-        },
-    },
-}
-
 -- TIER 2 MASS EXTRACTOR BUFF TABLE
 T2MassExtractorAdjacencyBuffs = {
-    'T2MEXMassBuildBonusSize4',
-    'T2MEXMassBuildBonusSize8',
-    'T2MEXMassBuildBonusSize12',
-    'T2MEXMassBuildBonusSize16',
-    'T2MEXMassBuildBonusSize20',
+    'T2MEXMassBuildBonus',
 }
 
 -- MASS BUILD BONUS - TIER 2 MASS EXTRACTOR
-BuffBlueprint { Name = 'T2MEXMassBuildBonusSize4',
+BuffBlueprint { Name = 'T2MEXMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
@@ -976,85 +1367,17 @@ BuffBlueprint { Name = 'T2MEXMassBuildBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'T2MEXMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.075,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2MEXMassBuildBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.05,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2MEXMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.0375,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T2MEXMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.03,
-            Mult = 1.0,
-        },
-    },
-}
-
 -- TIER 3 MASS EXTRACTOR BUFF TABLE
 T3MassExtractorAdjacencyBuffs = {
-    'T3MEXMassBuildBonusSize4',
-    'T3MEXMassBuildBonusSize8',
-    'T3MEXMassBuildBonusSize12',
-    'T3MEXMassBuildBonusSize16',
-    'T3MEXMassBuildBonusSize20',
+    'T3MEXMassBuildBonus',
 }
 
 -- MASS BUILD BONUS - TIER 3 MASS EXTRACTOR
-BuffBlueprint { Name = 'T3MEXMassBuildBonusSize4',
+BuffBlueprint { Name = 'T3MEXMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
@@ -1066,43 +1389,16 @@ BuffBlueprint { Name = 'T3MEXMassBuildBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'T3MEXMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.1,
-            Mult = 1.0,
-        },
-    },
+-- TIER 1 MASS FABRICATOR BUFF TABLE
+T1MassFabricatorAdjacencyBuffs = {
+    'T1FabricatorMassBuildBonus',
 }
 
-BuffBlueprint { Name = 'T3MEXMassBuildBonusSize12',
+BuffBlueprint { Name = 'T1FabricatorMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.066667,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3MEXMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
@@ -1114,196 +1410,23 @@ BuffBlueprint { Name = 'T3MEXMassBuildBonusSize16',
     },
 }
 
-BuffBlueprint { Name = 'T3MEXMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.04,
-            Mult = 1.0,
-        },
-    },
-}
-
--- TIER 1 MASS FABRICATOR BUFF TABLE
-T1MassFabricatorAdjacencyBuffs = {
-    'T1FabricatorMassBuildBonusSize4',
-    'T1FabricatorMassBuildBonusSize8',
-    'T1FabricatorMassBuildBonusSize12',
-    'T1FabricatorMassBuildBonusSize16',
-    'T1FabricatorMassBuildBonusSize20',
-}
-
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonusSize4',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.025,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.0125,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.008333,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.00625,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.005,
-            Mult = 1.0,
-        },
-    },
-}
-
 -- TIER 3 MASS FABRICATOR BUFF TABLE
 T3MassFabricatorAdjacencyBuffs = {
-    'T3FabricatorMassBuildBonusSize4',
-    'T3FabricatorMassBuildBonusSize8',
-    'T3FabricatorMassBuildBonusSize12',
-    'T3FabricatorMassBuildBonusSize16',
-    'T3FabricatorMassBuildBonusSize20',
+    'T3FabricatorMassBuildBonus',
 }
 
 -- MASS BUILD BONUS - TIER 3 MASS FABRICATOR
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize4',
+BuffBlueprint { Name = 'T3FabricatorMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
     Affects = {
         MassActive = {
-            Add = -0.075,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.075,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12 -NUKE',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.075,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.075,
-            Mult = 1.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Add = -0.075,
+            Add = -0.15,
             Mult = 1.0,
         },
     },
@@ -1315,21 +1438,24 @@ T1EnergyStorageAdjacencyBuffs = {
     'T1EnergyStorageEnergyProductionBonusSize12',
     'T1EnergyStorageEnergyProductionBonusSize16',
     'T1EnergyStorageEnergyProductionBonusSize20',
+	
 	'T1EnergyStorageShieldRegenBonusSize4',
 	'T1EnergyStorageShieldRegenBonusSize12',
 	'T1EnergyStorageShieldRegenBonusSize16',
+	
 	'T1EnergyStorageShieldSizeBonusSize4',
 	'T1EnergyStorageShieldSizeBonusSize12',
+	
 	'T1EnergyStorageShieldHealthBonusSize4',
 	'T1EnergyStorageShieldHealthBonusSize12',
 	'T1EnergyStorageShieldHealthBonusSize16',
 }
 
 BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize4',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1342,10 +1468,10 @@ BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize4',
 }
 
 BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1358,10 +1484,10 @@ BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize12',
 }
 
 BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1374,10 +1500,10 @@ BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize16',
 }
 
 BuffBlueprint { Name = 'T1EnergyStorageEnergyProductionBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE20,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1393,7 +1519,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldRegenBonusSize4',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1409,7 +1535,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldRegenBonusSize12',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1425,7 +1551,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldRegenBonusSize16',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1441,7 +1567,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldSizeBonusSize4',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1457,7 +1583,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldSizeBonusSize12',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1473,7 +1599,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldHealthBonusSize4',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1489,7 +1615,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldHealthBonusSize12',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1505,7 +1631,7 @@ BuffBlueprint { Name = 'T1EnergyStorageShieldHealthBonusSize16',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1557,7 +1683,7 @@ BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize4',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1573,7 +1699,7 @@ BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize12',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1589,7 +1715,7 @@ BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize16',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1605,7 +1731,7 @@ BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize20',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE20,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1621,7 +1747,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldRegenBonusSize4',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1637,7 +1763,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldRegenBonusSize12',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1653,7 +1779,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldRegenBonusSize16',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1669,7 +1795,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldSizeBonusSize4',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1685,7 +1811,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldSizeBonusSize12',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1701,7 +1827,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldHealthBonusSize4',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1717,7 +1843,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldHealthBonusSize12',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1733,7 +1859,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldHealthBonusSize16',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1762,10 +1888,10 @@ T3EnergyStorageAdjacencyBuffs = {
 }
 
 BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize4',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1778,10 +1904,10 @@ BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize4',
 }
 
 BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1794,10 +1920,10 @@ BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize12',
 }
 
 BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1810,10 +1936,10 @@ BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize16',
 }
 
 BuffBlueprint { Name = 'T3EnergyStorageEnergyProductionBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
+    BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.SIZE20,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -1829,7 +1955,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldRegenBonusSize4',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1845,7 +1971,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldRegenBonusSize12',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1861,7 +1987,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldRegenBonusSize16',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
@@ -1877,7 +2003,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldSizeBonusSize4',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1893,7 +2019,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldSizeBonusSize12',
     BuffType = 'SHIELDSIZEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldSizeBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldSizeBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldSizeBuffRemove,
@@ -1909,7 +2035,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldHealthBonusSize4',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1925,7 +2051,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldHealthBonusSize12',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1941,7 +2067,7 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldHealthBonusSize16',
     BuffType = 'SHIELDHEALTHBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD * categories.SIZE16,
     BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldHealthBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldHealthBuffRemove,
@@ -1964,7 +2090,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize4',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -1980,7 +2106,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize12',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -1996,7 +2122,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize20',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE20,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2018,7 +2144,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize4',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2034,7 +2160,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize12',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2050,7 +2176,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize20',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2072,7 +2198,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize4',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2088,7 +2214,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize12',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE12',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE12,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2104,7 +2230,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE20',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION * categories.SIZE20,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2116,59 +2242,25 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     },
 }
 
-##################################################################
+########################
 ## Experimental STORAGE
-##################################################################
+########################
 ExperimentalStorageAdjacencyBuff = {
-    'ExperimentalMassStorageProductionBonusSize4',
-    'ExperimentalMassStorageProductionBonusSize12',
-    'ExperimentalMassStorageProductionBonusSize20',
-	
-    'ExperimentalEnergyStorageProductionBonusSize4',
-    'ExperimentalEnergyStorageProductionBonusSize12',
-    'ExperimentalEnergyStorageProductionBonusSize16',
-    'ExperimentalEnergyStorageProductionBonusSize20',
-	
-    'ExperimentalPowerEnergyBuildBonusSize4',
-    'ExperimentalPowerEnergyBuildBonusSize8',
-    'ExperimentalPowerEnergyBuildBonusSize12',
-    'ExperimentalPowerEnergyBuildBonusSize16',
-    'ExperimentalPowerEnergyBuildBonusSize20',
-	
-    'ExperimentalPowerEnergyWeaponBonusSize4',
-    'ExperimentalPowerEnergyWeaponBonusSize8',
-    'ExperimentalPowerEnergyWeaponBonusSize12',
-    'ExperimentalPowerEnergyWeaponBonusSize16',
-    'ExperimentalPowerEnergyWeaponBonusSize20',
-	
-    'ExperimentalPowerEnergyMaintenanceBonusSize4',
-    'ExperimentalPowerEnergyMaintenanceBonusSize8',
-    'ExperimentalPowerEnergyMaintenanceBonusSize12',
-    'ExperimentalPowerEnergyMaintenanceBonusSize16',
-    'ExperimentalPowerEnergyMaintenanceBonusSize20',
-	
-    'ExperimentalPowerRateOfFireBonusSize4',
-    'ExperimentalPowerRateOfFireBonusSize8',
-    'ExperimentalPowerRateOfFireBonusSize12',
-    'ExperimentalPowerRateOfFireBonusSize16',
-    'ExperimentalPowerRateOfFireBonusSize20',
-	
-    'ExperimentalFabricatorMassBuildBonusSize4',
-    'ExperimentalFabricatorMassBuildBonusSize8',
-    'ExperimentalFabricatorMassBuildBonusSize12',
-    'ExperimentalFabricatorMassBuildBonusSize16',
-    'ExperimentalFabricatorMassBuildBonusSize20',
-	
-	'ExperimentalEnergyStorageShieldRegenBonusSize4',
-	'ExperimentalEnergyStorageShieldRegenBonusSize12',
-	'ExperimentalEnergyStorageShieldRegenBonusSize16',
+    'ExperimentalMassStorageProductionBonus',
+    'ExperimentalEnergyStorageProductionBonus',
+    'ExperimentalPowerEnergyBuildBonus',
+    'ExperimentalPowerEnergyMaintenanceBonus',
+    'ExperimentalPowerEnergyWeaponBonus',
+    'ExperimentalPowerRateOfFireBonus',
+    'ExperimentalFabricatorMassBuildBonus',
+	'ExperimentalEnergyStorageShieldRegenBonus',
 }
 
-BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonusSize4',
+BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.MASSPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
@@ -2180,44 +2272,11 @@ BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonusSize12',
+BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
-    Affects = {
-        MassProduction = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE MASSPRODUCTION SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
-    Affects = {
-        MassProduction = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonusSize4',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
@@ -2229,60 +2288,11 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
-    Affects = {
-        EnergyProduction = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
-    Affects = {
-        EnergyProduction = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE ENERGYPRODUCTION SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
-    Affects = {
-        EnergyProduction = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonusSize4',
+BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonus',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
@@ -2294,76 +2304,11 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonusSize8',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonusSize12',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonusSize16',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint {Name = 'ExperimentalPowerEnergyBuildBonusSize20',
-    BuffType = 'ENERGYBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
-    Affects = {
-        EnergyActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize4',
+BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonus',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
@@ -2375,76 +2320,11 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize8',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize12',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize16',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonusSize20',
-    BuffType = 'ENERGYMAINTENANCEBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
-    Affects = {
-        EnergyMaintenance = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize4',
+BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonus',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
@@ -2456,76 +2336,11 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize8',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize12',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize16',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonusSize20',
-    BuffType = 'ENERGYWEAPONBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
-    Affects = {
-        EnergyWeapon = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize4',
+BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonus',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE4',
+    EntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
     OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
@@ -2537,76 +2352,11 @@ BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize8',
-    BuffType = 'RATEOFFIREADJACENCY',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
-    Affects = {
-        RateOfFire = {
-            Add = 0.0,
-            Mult = 0.9,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize12',
-    BuffType = 'RATEOFFIREADJACENCY',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
-    Affects = {
-        RateOfFire = {
-            Add = 0.0,
-            Mult = 0.9,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize16',
-    BuffType = 'RATEOFFIREADJACENCY',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
-    Affects = {
-        RateOfFire = {
-            Add = 0.0,
-            Mult = 0.9,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonusSize20',
-    BuffType = 'RATEOFFIREADJACENCY',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
-    Affects = {
-        RateOfFire = {
-            Add = 0.0,
-            Mult = 0.9,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize4',
+BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonus',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE MASSFABRICATION SIZE4',
+    EntityCategory = categories.STRUCTURE * categories.MASSFABRICATION,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
@@ -2618,108 +2368,11 @@ BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize4',
     },
 }
 
-BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize8',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE MASSFABRICATION SIZE8',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize12',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE MASSFABRICATION SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize16',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE MASSFABRICATION SIZE16',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonusSize20',
-    BuffType = 'MASSBUILDBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE MASSFABRICATION SIZE20',
-    BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
-    Affects = {
-        MassActive = {
-            Mult = 0.9,
-            Add = 0.0,
-        },
-    },
-}
-
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonusSize4',
+BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonus',
     BuffType = 'SHIELDREGENBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE4',
-    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
-    Affects = {
-        ShieldRegeneration = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonusSize12',
-    BuffType = 'SHIELDREGENBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE12',
-    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
-    Affects = {
-        ShieldRegeneration = {
-            Mult = 1.2,
-            Add = 0.0,
-        },
-    },
-}
-
-BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonusSize16',
-    BuffType = 'SHIELDREGENBONUS',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    EntityCategory = 'STRUCTURE SHIELD SIZE16',
+    EntityCategory = categories.STRUCTURE * categories.SHIELD,
     BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
     OnBuffAffect = AdjBuffFuncs.ShieldRegenBuffAffect,
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,

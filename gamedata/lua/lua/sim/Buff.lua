@@ -2,6 +2,8 @@
 #**  Copyright © 2008 Gas Powered Games, Inc.  All rights reserved.
 
 local WaitTicks = coroutine.yield
+local LOUDENTITY = EntityCategoryContains
+local LOUDPARSE = ParseEntityCategory
 
 # The Unit's BuffTable for applied buffs looks like this:
 #
@@ -40,9 +42,21 @@ function ApplyBuff(unit, buffName, instigator)
     end
     
     if def.EntityCategory then
-        if not EntityCategoryContains(ParseEntityCategory(def.EntityCategory), unit) then
-            return
+	
+		if type(def.EntityCategory) == 'string' then
+		
+			if not LOUDENTITY( LOUDPARSE(def.EntityCategory), unit) then
+				return
+			end
+			
+		else
+		
+			if not LOUDENTITY( def.EntityCategory, unit ) then
+				return
+			end
+
         end
+		
     end
     
     if def.BuffCheckFunction then
@@ -51,7 +65,7 @@ function ApplyBuff(unit, buffName, instigator)
         end
     end
     
-    local ubt = unit.Buffs.BuffTable
+    local ubt = unit.Buffs.BuffTable 
 
     if def.Stacks == 'REPLACE' and ubt[def.BuffType] then
         for key, bufftbl in unit.Buffs.BuffTable[def.BuffType] do
@@ -60,7 +74,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
     
-    -- If add this buff to the list of buffs the unit has be careful of stacking buffs.
+    -- If add this buff to the list of buffs the unit has -- be careful of stacking buffs.
     if not ubt[def.BuffType] then
         ubt[def.BuffType] = {}
     end
@@ -126,7 +140,7 @@ function ApplyBuff(unit, buffName, instigator)
         data.Trash:Add(thread)
 	
 	-- otherwise just apply the buff once
-	-- just to note that buffs that only fire once are left here
+	-- just note that buffs that only fire once are left here
     else
     
 		ubt[def.BuffType][buffName] = data
@@ -134,13 +148,10 @@ function ApplyBuff(unit, buffName, instigator)
 		if def.OnApplyBuff then
 			def:OnApplyBuff(unit, instigator)
 		end
-    
-		--LOG('*DEBUG: Applying buff '..repr(buffName)..' to unit '..repr(unit:GetUnitId()))
-		--LOG('Buff = '..repr(ubt[def.BuffType][buffName]))
-		--LOG('Affects = '..repr(uaffects))
 	
 		BuffAffectUnit(unit, buffName, instigator, false)
 	end
+
 end
 
 -- Function to do work on the buff.  Apply the buff every second
@@ -584,53 +595,70 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
     
     local def = Buffs[buffName]
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
-    
-    for atype,_ in def.Affects do
 	
-        local list = unit.Buffs.Affects[atype]
-		
-        if list and list[buffName] then
-		
-            -- If we're removing all buffs of this name, only remove as 
-            -- many affects as there are buffs since other buffs may have
-            -- added these same affects.
-            if removeAllCounts then
-                list[buffName].Count = list[buffName].Count - unitBuff.Count
-            else
-                list[buffName].Count = list[buffName].Count - 1
-            end
-            
-            if list[buffName].Count <= 0 then
-                list[buffName] = nil
-            end
-        end
-    end
+	if unitBuff then
     
-    if unitBuff.Count then
-        unitBuff.Count = unitBuff.Count - 1
-    end
+		for atype,_ in def.Affects do
+	
+			local list = unit.Buffs.Affects[atype]
+		
+			if list and list[buffName] then
+		
+				-- If we're removing all buffs of this name, only remove as 
+				-- many affects as there are buffs since other buffs may have
+				-- added these same affects.
+				if removeAllCounts then
+					list[buffName].Count = list[buffName].Count - unitBuff.Count
+				else
+					list[buffName].Count = list[buffName].Count - 1
+				end
+            
+				if list[buffName].Count <= 0 then
+					list[buffName] = nil
+				end
+				
+				if table.empty(unit.Buffs.Affects[atype]) then
+					unit.Buffs.Affects[atype] = nil
+				end
+				
+			end
 
-    if removeAllCounts or unitBuff.Count <= 0 then
-        -- unit:PlayEffect('RemoveBuff', buffName)
-        unitBuff.Trash:Destroy()
-        unit.Buffs.BuffTable[def.BuffType][buffName] = nil
-    end
+		end
+    
+		if unitBuff.Count then
+			unitBuff.Count = unitBuff.Count - 1
+		end
 
-    if def.OnBuffRemove then
-        def:OnBuffRemove(unit, instigator)
-    end
+		if removeAllCounts or unitBuff.Count <= 0 then
+			-- unit:PlayEffect('RemoveBuff', buffName)
 
-    -- FIXME: This doesn't work because the magic sync table doesn't detect
-    -- the change. Need to give all child tables magic meta tables too.
-    if def.Icon then
-        -- If the user layer was displaying an icon, remove it from the sync table
-        local newTable = unit.Sync.Buffs
-        table.removeByValue(newTable,buffName)
-        unit.Sync.Buffs = table.copy(newTable)
-    end
+			unitBuff.Trash:Destroy()
+			unit.Buffs.BuffTable[def.BuffType][buffName] = nil
+			
+			if table.empty(unit.Buffs.BuffTable[def.BuffType]) then
+				unit.Buffs.BuffTable[def.BuffType] = nil
+			end
+
+		end
+
+		if def.OnBuffRemove then
+			def:OnBuffRemove(unit, instigator)
+		end
+
+		-- FIXME: This doesn't work because the magic sync table doesn't detect
+		-- the change. Need to give all child tables magic meta tables too.
+		if def.Icon then
+			-- If the user layer was displaying an icon, remove it from the sync table
+			local newTable = unit.Sync.Buffs
+			table.removeByValue(newTable,buffName)
+			unit.Sync.Buffs = table.copy(newTable)
+		end
+		
+	end
 
     BuffAffectUnit(unit, buffName, unit, true)
-    
+	
+	--LOG("*AI DEBUG Removing "..buffName.." unit data is "..repr(unit))    
 end
 
 function HasBuff(unit, buffName)

@@ -13,6 +13,7 @@ local EntityCategoryContains = EntityCategoryContains
 local ForkThread = ForkThread
 local ForkTo = ForkThread
 
+local IsEnemy = IsEnemy
 local KillThread = KillThread
 
 local CreateEmitterAtBone = CreateEmitterAtBone
@@ -147,10 +148,16 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
 	
+		local GetArmy = moho.entity_methods.GetArmy
+	
+		if IsAlly( GetArmy(self), GetArmy(firingWeapon.unit) ) then
+		
+			return false
+			
+		end
+	
 		local weaponBP = firingWeapon:GetBlueprint()
-		
-		LOG("*AI DEBUG Shield OnCollisionCheckWeapon")
-		
+--[[
         if not weaponBP.CollideFriendly then
 		
 			local GetArmy = moho.entity_methods.GetArmy
@@ -159,7 +166,7 @@ Shield = Class(moho.shield_methods,Entity) {
                 return false
             end
         end
-	
+--]]	
         -- Check DNC list
         if weaponBP.DoNotCollideList then
 			--LOG("*AI DEBUG Processing Shield DNC List "..repr(weaponBP.DoNotCollideList))
