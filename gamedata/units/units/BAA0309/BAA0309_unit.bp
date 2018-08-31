@@ -23,17 +23,17 @@ UnitBlueprint {
         KMove = 1.0,
         KMoveDamping = 2.5,
 
-        KRoll = 0.5,
+        KRoll = 0.6,
         KRollDamping = 0.95,
 
-        KTurn = 0.5,
+        KTurn = 0.6,
         KTurnDamping = 1.0,
 
         LiftFactor = 9,
 
         MaxAirspeed = 14.5,
 
-        StartTurnDistance = 15,
+        StartTurnDistance = 5,
 
         TransportHoverHeight = 4.5,
 

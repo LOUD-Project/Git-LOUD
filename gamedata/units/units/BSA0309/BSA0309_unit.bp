@@ -5,7 +5,7 @@ UnitBlueprint {
     },
 
     Air = {
-        AutoLandTime = 1.8,
+        AutoLandTime = 1.5,
         BankFactor = 0.2,
         BankForward = false,
         CanFly = true,
@@ -20,20 +20,20 @@ UnitBlueprint {
         KLift = 1.85,
         KLiftDamping = 1.85,
 
-        KMove = 0.72,
-        KMoveDamping = 0.9,
+        KMove = 1.0,
+        KMoveDamping = 2.5,
 
         KRoll = 0.6,
-        KRollDamping = 0.95,
+        KRollDamping = 0.98,
 
         KTurn = 0.45,
-        KTurnDamping = 0.95,
+        KTurnDamping = 1.0,
 
         LiftFactor = 10,
 
         MaxAirspeed = 14,
 
-        StartTurnDistance = 14,
+        StartTurnDistance = 5,
 
         TransportHoverHeight = 4.5,
     },

@@ -22,6 +22,23 @@ PlatoonTemplate { Name = 'T1AirScout',
     }
 }
 
+PlatoonTemplate { Name = 'T2AirScout',
+    FactionSquads = {
+        UEF = {
+            { 'uea0101', 1, 4, 'scout', 'none' }
+        },
+        Aeon = {
+            { 'uaa0101', 1, 4, 'scout', 'none' }
+        },
+        Cybran = {
+            { 'ura0101', 1, 4, 'scout', 'none' }
+        },
+        Seraphim = {
+            { 'xsa0101', 1, 4, 'scout', 'none' }
+        },
+    }
+}
+
 PlatoonTemplate { Name = 'T3AirScout',
     FactionSquads = {
         UEF = {
@@ -205,16 +222,16 @@ PlatoonTemplate { Name = 'T2TorpedoBomber',
 PlatoonTemplate { Name = 'T3TorpedoBomber',
     FactionSquads = {
         UEF = {
-            { 'uea0204', 1, 1, 'Attack', 'none' }	-- T2
+            { 'uea0204', 1, 1, 'Attack', 'none' }
         },
         Aeon = {
             { 'xaa0306', 1, 1, 'Attack', 'none' }
         },
         Cybran = {
-            { 'ura0204', 1, 1, 'Attack', 'none' }   -- T2
+            { 'ura0204', 1, 1, 'Attack', 'none' }
         },
         Seraphim = {
-            { 'xsa0204', 1, 1, 'Attack', 'none' }   -- T2
+            { 'xsa0204', 1, 1, 'Attack', 'none' }
         },
     }
 }
@@ -261,13 +278,13 @@ PlatoonTemplate { Name = 'T3AirTransport',
             { 'xea0306', 1, 1, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0104', 1, 1, 'scout', 'none' }  -- T2
+            { 'baa0309', 1, 1, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0104', 1, 1, 'scout', 'none' }  -- T2
+            { 'bra0309', 1, 1, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0104', 1, 1, 'scout', 'none' }  -- T2
+            { 'bsa0309', 1, 1, 'scout', 'none' }
         },
     }
 }

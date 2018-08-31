@@ -383,19 +383,16 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
     Builder {BuilderName = 'Air Transport T2',
 	
         PlatoonTemplate = 'T2AirTransport',
-		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
-		
+
         Priority = 600,
 		
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			
-            { UCBC, 'ArmyNeedsTransports', { true } },			
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 3, [1024] = 6, [2048] = 10, [4096] = 12}, categories.TRANSPORTFOCUS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 3, [1024] = 5, [2048] = 8, [4096] = 10 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
 		
@@ -449,28 +446,31 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
 		
     },
 
-	-- you'll notice no rule here regarding 'armyneedstransports' - this is to insure that we are always trying to keep --
-	-- the base number of T3 transports available no matter the conditions -- DEPRECATED --
-	-- also notice that the check is based on Transports that are NOT Tech1 - this accounts for the situation when
-	-- some factions don't have real T3 transports (like when BO Unleashed is not installed)
+
     Builder {BuilderName = 'Air Transport T3',
 	
         PlatoonTemplate = 'T3AirTransport',
-		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
-		
+
         Priority = 600,
 		
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+			
+			-- I can understand why I put this here -- but it's counterproductive in many cases --
+            --{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+			
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
+			-- this tends to prevent overbuilding of transports when they're not really needed --
+			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
+			-- someone else is building a transport --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 10, [2048] = 16, [4096] = 20}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			
+			-- note -- this condition counts ALL T2, T3 and T4 transports --
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
 			
         },
 		
