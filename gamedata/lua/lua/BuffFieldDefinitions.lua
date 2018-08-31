@@ -12,6 +12,7 @@ local BuffFieldBlueprint = import('/lua/sim/BuffField.lua').BuffFieldBlueprint
 -- this unique field is intended to be used only by the AI airpads
 -- designed to overcome the flaw where airpads claim to be full when they are
 -- actually empty thus allowing aircraft to recharge and repair anyways without landing
+
 BuffFieldBlueprint { Name = 'AirStagingBuffField',
     AffectsUnitCategories = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
     AffectsAllies = true,
@@ -28,7 +29,7 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField',
-    AffectsUnitCategories = 'ALLUNITS',
+    AffectsUnitCategories = categories.ALLUNITS,
     AffectsAllies = false,
     AffectsVisibleEnemies = true,
     AffectsOwnUnits = false,
@@ -43,7 +44,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField',
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField2',
-    AffectsUnitCategories = 'ALLUNITS',
+    AffectsUnitCategories = categories.ALLUNITS,
     AffectsAllies = false,
     AffectsVisibleEnemies = true,
     AffectsOwnUnits = false,
@@ -58,7 +59,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField2',
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField3',
-    AffectsUnitCategories = 'ALLUNITS',
+    AffectsUnitCategories = categories.ALLUNITS,
     AffectsAllies = false,
     AffectsVisibleEnemies = true,
     AffectsOwnUnits = false,
@@ -88,7 +89,7 @@ BuffFieldBlueprint { Name = 'CybranOpticalDisruptionBuffField',
 }
 
 BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
-    AffectsUnitCategories = 'ALLUNITS',
+    AffectsUnitCategories = categories.ALLUNITS,
     AffectsAllies = false,
     AffectsVisibleEnemies = false,
     AffectsOwnUnits = true,
@@ -103,7 +104,7 @@ BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
 }
 
 BuffFieldBlueprint { Name = 'SeraphimAdvancedACURegenBuffField',
-    AffectsUnitCategories = 'ALLUNITS',
+    AffectsUnitCategories = categories.ALLUNITS,
     AffectsAllies = false,
     AffectsVisibleEnemies = false,
     AffectsOwnUnits = true,

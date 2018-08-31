@@ -43,26 +43,18 @@ function ApplyBuff(unit, buffName, instigator)
     
     if def.EntityCategory then
 	
-		if type(def.EntityCategory) == 'string' then
-		
-			if not LOUDENTITY( LOUDPARSE(def.EntityCategory), unit) then
-				return
-			end
-			
-		else
-		
-			if not LOUDENTITY( def.EntityCategory, unit ) then
-				return
-			end
-
+		if not LOUDENTITY( def.EntityCategory, unit ) then
+			return
         end
 		
     end
     
     if def.BuffCheckFunction then
+	
         if not def:BuffCheckFunction(unit) then
             return
         end
+		
     end
     
     local ubt = unit.Buffs.BuffTable 
@@ -72,7 +64,6 @@ function ApplyBuff(unit, buffName, instigator)
             RemoveBuff(unit, key, true)
         end
     end
-
     
     -- If add this buff to the list of buffs the unit has -- be careful of stacking buffs.
     if not ubt[def.BuffType] then
@@ -87,17 +78,16 @@ function ApplyBuff(unit, buffName, instigator)
     local instigator = instigator or unit
 	
     if not data then
+	
         -- This is a new buff (as opposed to an additional one being stacked)
-        data = {
-            Count = 1,
-            Trash = TrashBag(),
-            BuffName = buffName,
-        }
+        data = { BuffName = buffName, Count = 1, Trash = TrashBag() }
         ubt[def.BuffType][buffName] = data
+		
     else
         -- This buff is already on the unit so stack another by incrementing the
         -- counts. data.Count is how many times the buff has been applied
         data.Count = data.Count + 1
+		
     end
     
     local uaffects = unit.Buffs.Affects
@@ -164,8 +154,9 @@ function BuffWorkThread(unit, buffName, instigator)
    
     --while pulse < buffTable.Duration and not unit.Dead do
 	while not unit.Dead do
-	
-        BuffAffectUnit(unit, buffName, instigator, false)    
+
+        BuffAffectUnit(unit, buffName, instigator, false)
+		
         WaitTicks(10)
         pulse = pulse + 10
     end

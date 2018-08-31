@@ -620,7 +620,7 @@ BuffBlueprint { Name = 'CheatIntel',
 
 BuffBlueprint { Name = 'CheatCDROmni',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	EntityCategory = categories.COMMAND,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -638,7 +638,7 @@ BuffBlueprint { Name = 'CheatCDROmni',
 
 BuffBlueprint { Name = 'CheatENG',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = categories.ENGINEER, --'ENGINEER',
+	EntityCategory = categories.ENGINEER,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -663,7 +663,7 @@ BuffBlueprint { Name = 'CheatENG',
 
 BuffBlueprint { Name = 'CheatMOBILE',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = categories.MOBILE, --'MOBILE',
+	EntityCategory = categories.MOBILE,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -700,16 +700,16 @@ BuffBlueprint { Name = 'CheatALL',
 
 BuffBlueprint { Name = 'CheatAIRSTAGING',
 	BuffType = 'AIRSTAGINGCHEAT',
-	EntityCategory = categories.AIR * categories.MOBILE, --'AIR +MOBILE',
+	EntityCategory = categories.AIR * categories.MOBILE,
 	Stacks = 'REPLACE',
-	Duration = 3.4,	-- apply the buff every 3.4 seconds
+	Duration = 1,
 	Affects = {
 		Health = {
 			Add = 0,
-			Mult = 1.10,
+			Mult = 1.02,
 		},
 		FuelRatio = {
-			Add = 0.1,
+			Add = 0.035,
 			Mult = 1.0,
 		}
 	},
@@ -718,7 +718,7 @@ BuffBlueprint { Name = 'CheatAIRSTAGING',
 -- BO ACU Buffs
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	EntityCategory = categories.COMMAND,
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {

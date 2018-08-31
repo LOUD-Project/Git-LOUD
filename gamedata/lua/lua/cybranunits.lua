@@ -91,26 +91,42 @@ CConcreteStructureUnit = Class(ConcreteStructureUnit) {}
 CConstructionUnit = Class(ConstructionUnit){
 
     OnStopBeingBuilt = function(self,builder,layer)
+	
         ConstructionUnit.OnStopBeingBuilt(self,builder,layer)
 
         if(self:GetCurrentLayer() == 'Water') then
+		
             self.TerrainLayerTransitionThread = self:ForkThread(self.TransformThread, true)
+			
         end
+		
     end,
 
     OnLayerChange = function(self, new, old)
+	
         ConstructionUnit.OnLayerChange(self, new, old)
+		
         if self:GetBlueprint().Display.AnimationWater then
+		
             if self.TerrainLayerTransitionThread then
+			
                 self.TerrainLayerTransitionThread:Destroy()
                 self.TerrainLayerTransitionThread = nil
+				
             end
+			
             if (new == 'Land') and (old != 'None') then
+			
                 self.TerrainLayerTransitionThread = self:ForkThread(self.TransformThread, false)
+				
             elseif (new == 'Water') then
+			
                 self.TerrainLayerTransitionThread = self:ForkThread(self.TransformThread, true)
+				
             end
+			
         end
+		
     end,
 
     TransformThread = function(self, water)
@@ -127,16 +143,20 @@ CConstructionUnit = Class(ConstructionUnit){
         else
             self.TransformManipulator:SetRate(-1)
             self.TransformManipulator:SetPrecedence(0)
-			--LOG("*AI DEBUG WAITFOR self.TransformManipulator")
+
             WaitFor(self.TransformManipulator)
-			--LOG("*AI DEBUG WAITFOR self.TransformManipulator Ends")
+
             self.TransformManipulator:Destroy()
             self.TransformManipulator = nil
         end
+		
+		self.TerrainLayerTransitionThread = nil
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+	
         local buildbots = SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
+		
         CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
     end,
 }

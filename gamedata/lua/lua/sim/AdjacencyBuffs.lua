@@ -525,23 +525,33 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
 
 -- HYDROCARBON POWER GEN BUFF TABLE
 HydrocarbonAdjacencyBuffs = {
-    'T2PowerEnergyBuildBonusSize4',
-    'T2PowerEnergyBuildBonusSize8',
-    'T2PowerEnergyBuildBonusSize12',
+    'T2PowerEnergyBuildBonusSize4to12',
     'T2PowerEnergyBuildBonusSize16',
     'T2PowerEnergyBuildBonusSize20',
 	
-    'T2PowerEnergyWeaponBonusSize4',
-    'T2PowerEnergyWeaponBonusSize8',
-    'T2PowerEnergyWeaponBonusSize12',
+    'T2PowerEnergyBuildBonusSize24',
+    'T2PowerEnergyBuildBonusSize30',
+    'T2PowerEnergyBuildBonusSize32',
+    'T2PowerEnergyBuildBonusSize36',
+    'T2PowerEnergyBuildBonusSize40',
+    'T2PowerEnergyBuildBonusSize44',	
+    'T2PowerEnergyBuildBonusSize48',
+	
+    'T2PowerEnergyWeaponBonusSize4to12',
     'T2PowerEnergyWeaponBonusSize16',
     'T2PowerEnergyWeaponBonusSize20',
 	
-    'T2PowerEnergyMaintenanceBonusSize4',
-    'T2PowerEnergyMaintenanceBonusSize8',
-    'T2PowerEnergyMaintenanceBonusSize12',
+    'T2PowerEnergyMaintenanceBonusSize4to12',
     'T2PowerEnergyMaintenanceBonusSize16',
     'T2PowerEnergyMaintenanceBonusSize20',
+
+    'T2PowerEnergyMaintenanceBonusSize24',
+    'T2PowerEnergyMaintenanceBonusSize30',
+    'T2PowerEnergyMaintenanceBonusSize32',
+    'T2PowerEnergyMaintenanceBonusSize36',
+    'T2PowerEnergyMaintenanceBonusSize40',
+    'T2PowerEnergyMaintenanceBonusSize44',
+    'T2PowerEnergyMaintenanceBonusSize48',
 	
     'T2PowerRateOfFireBonusSize4',
 }
@@ -1290,11 +1300,11 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize48',
 
 
 -- ENERGY WEAPON BONUS - TIER 3 POWER GENS
-BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize4to20',
+BuffBlueprint { Name = 'T3PowerEnergyWeaponBonusSize4to16',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    EntityCategory = categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16 + categories.SIZE20),
+    EntityCategory = categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16),
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,

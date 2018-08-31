@@ -1452,8 +1452,8 @@ end
 -- however - I have noticed that transports will continue to report 'loading' even when all the units to be loaded are dead 
 function WatchUnitLoading( transport, units, aiBrain )
 	
-	local unitsdead = false
-	local loading = true
+	local unitsdead = true
+	local loading = false
 	
 	local reloads = 0
 	local reissue = 0
@@ -1464,13 +1464,19 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 	IssueClearCommands( {transport} )
 	
-	-- move the transport towards the units
-	--IssueMove( {transport}, units[1]:GetPosition())	
+	for _,u in newunits do
 	
-	--WaitTicks(5)
-
-	-- here is where we issue the Load command to the transport --
-	safecall("Unable to IssueTransportLoad", IssueTransportLoad, units, transport )
+		if not u.Dead then
+		
+			unitsdead = false
+			loading = true
+		
+			-- here is where we issue the Load command to the transport --
+			safecall("Unable to IssueTransportLoad units are "..repr(units), IssueTransportLoad, units, transport )
+			
+			break
+		end
+	end
 
 	-- loop here while the transport is alive and loading is underway
 	-- there is another trigger (watchcount) which will force loading

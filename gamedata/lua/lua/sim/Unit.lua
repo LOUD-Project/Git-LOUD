@@ -1712,6 +1712,12 @@ Unit = Class(moho.unit_methods) {
 		    self:DestroyBeamExhaust()
 			
 		end
+		
+		if self.BuildEffectsBag then
+		
+			self.BuildEffectsBag:Destroy()
+			self.BuildEffectsBag = nil
+		end
 
         if self.UnitBeingTeleported and not self.UnitBeingTeleported.Dead then
 		
