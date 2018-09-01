@@ -257,10 +257,13 @@ BuffField = Class(Entity) {
 		
 		local aiBrain = Owner:GetAIBrain()
         local bp = self:GetBlueprint()
+		
+		local units = {}
 
         local function GetNearbyAffectableUnits()
 		
-            local units = {}
+            units = {}
+			
             local pos = Owner:GetPosition()
 			
             if bp.AffectsOwnUnits then
@@ -280,106 +283,15 @@ BuffField = Class(Entity) {
 
         while self:IsEnabled() and not Owner.Dead do
 		
-            local units = GetNearbyAffectableUnits()
+			units = GetNearbyAffectableUnits()
 			
+			if table.getn(units) > 0  then
+				LOG("*AI DEBUG Processing "..table.getn(units).." units")
+			end
+		
             for k, unit in units do
 			
-                if unit == Owner and not bp.AffectsSelf then
-                   continue
-                end
-				
-                if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
-				
-                    if type(unit.HasBuffFieldThreadHandle) != 'table' then
-                        unit.HasBuffFieldThreadHandle = {}
-                        unit.BuffFieldThreadHandle = {}
-                    end
-					
-                    unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread(self.UnitBuffFieldThread, Owner, self)
-                    unit.HasBuffFieldThreadHandle[bp.Name] = true
-                end
-            end
-			
-            self:OnNewUnitsInFieldCheck()
-            WaitSeconds(3.3) -- this should be anything but 5 (of the other wait) to help spread the cpu load
-        end
-    end,
-
-
-    -- this will be run on the units affected by the field so self means the unit that is affected by the field
-    UnitBuffFieldThread = function(self, instigator, BuffField)
-	
-        local bp = BuffField:GetBlueprint()
-        local PreEnterData = BuffField:OnPreUnitEntersField(self)
-		
-        for _, buff in bp.Buffs do
-            ApplyBuff(self, buff)
-        end
-		
-        local EnterData = BuffField:OnUnitEntersField(self, PreEnterData)
-		
-        while not self.Dead and not instigator.Dead and BuffField:IsEnabled() do
-			
-            dist = VDist3( self:GetPosition(), instigator:GetPosition() )
-			
-            if dist > bp.Radius then
-                break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
-            end
-			
-            WaitSeconds(5)
-        end
-		
-        local PreLeaveData = BuffField:OnPreUnitLeavesField(self, PreEnterData, EnterData)
-		
-        for _, buff in bp.Buffs do
-		
-            if HasBuff(self, buff) then
-                RemoveBuff( self, buff)
-            end
-        end
-		
-        BuffField:OnUnitLeavesField(self, PreEnterData, EnterData, PreLeaveData)
-        self.HasBuffFieldThreadHandle[bp.Name] = false
-    end,
-
-	
---[[	
-    FieldThread = function(Owner, self)
-		
-		local aiBrain = Owner:GetAIBrain()
-        local bp = self:GetBlueprint()
-		local units = {}
-		local pos
-
-        local function GetNearbyAffectableUnits()
-		
-            units = {}
-            pos = Owner:GetPosition()
-			
-            if bp.AffectsOwnUnits then
-                units = table.merged(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
-            end
-			
-            if bp.AffectsAllies then
-                units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Ally' ))
-            end
-			
-            if bp.AffectsVisibleEnemies then
-                units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
-            end
-			
-            return units
-        end
-
-        while self.Enabled and not Owner.Dead do
-		
-            units = GetNearbyAffectableUnits()
-			
-			local count = 0
-			
-            for k, unit in units do
-			
-                if unit == Owner and not bp.AffectsSelf then
+                if unit.Dead or (unit == Owner and not bp.AffectsSelf) then
                    continue
                 end
 				
@@ -389,65 +301,47 @@ BuffField = Class(Entity) {
                         unit.HasBuffFieldThreadHandle = {}
                         unit.BuffFieldThreadHandle = {}
                     end
-
+					
                     unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( self.UnitBuffFieldThread, Owner, self, bp )
                     unit.HasBuffFieldThreadHandle[bp.Name] = true
-					
-					count = count + 1
                 end
-				
-				if count > 10 then
-					WaitTicks(1)
-					count = 0
-				end
             end
 			
-            --self:OnNewUnitsInFieldCheck()
-			
-            WaitSeconds(3.3) -- this should be anything but 5 (of the other wait) to help spread the cpu load
+            WaitTicks(33) -- this should be anything but 5 (of the other wait) to help spread the cpu load
         end
     end,
 
 
     -- this will be run on the units affected by the field so self means the unit that is affected by the field
+    UnitBuffFieldThread = function( self, Owner, Field, bp )
 	
-    UnitBuffFieldThread = function(self, instigator, BuffField, bp)
-	
-        --local bp = BuffField:GetBlueprint()
-		
-        --local PreEnterData = BuffField:OnPreUnitEntersField(self)
-		
         for _, buff in bp.Buffs do
-            ApplyBuff(self, buff)
+            ApplyBuff( self, buff )
         end
 		
-        --local EnterData = BuffField:OnUnitEntersField(self, PreEnterData)
-		
-        while (not self.Dead) and (not instigator.Dead) and BuffField:IsEnabled() do
+        while (not self.Dead) and (not Owner.Dead) and Field:IsEnabled() do
 			
-            dist = VDist3( self:GetPosition(), instigator:GetPosition() )
+            dist = VDist3( self:GetPosition(), Owner:GetPosition() )
 			
             if dist > bp.Radius then
                 break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
             end
 			
-            WaitSeconds(4)
+            WaitTicks(40)
         end
-		
-        --local PreLeaveData = BuffField:OnPreUnitLeavesField(self, PreEnterData, EnterData)
 		
         for _, buff in bp.Buffs do
 		
             if HasBuff(self, buff) then
-                RemoveBuff( self, buff)
+                RemoveBuff( self, buff )
             end
         end
 		
-        --BuffField:OnUnitLeavesField(self, PreEnterData, EnterData, PreLeaveData)
+		self.BuffFieldThreadHandle[bp.Name] = nil
+        self.HasBuffFieldThreadHandle[bp.Name] = false
 		
-        self.HasBuffFieldThreadHandle[bp.Name] = nil
     end,
---]]
+
     -- these 2 are a bit weird. they are supposed to disable the enabled fields when on a transport and re-enable the
     -- fields that were enabled and leave the disabled fields off.
     DisableInTransport = function(Owner, Transport)

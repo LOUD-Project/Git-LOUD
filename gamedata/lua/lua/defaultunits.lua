@@ -2516,8 +2516,6 @@ QuantumGateUnit = Class(FactoryUnit) {
 	end,
 }
 
-
-
 AirStagingPlatformUnit = Class(StructureUnit) {
 
 	OnCreate = function(self)
@@ -2531,13 +2529,30 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
 	end,
 
+	-- issued by the platform as a unit loads on
     OnTransportAttach = function(self, attachBone, unit)
-		StructureUnit.OnTransportAttach( self, attachBone, unit)
+
+		if not self.UnitStored then
+		
+			self.UnitStored = {}
+			
+		end
+		
+		self.UnitStored[unit.Sync.id] = true
+
+		StructureUnit.OnTransportAttach(self, attachBone, unit)	
+		
     end,
 
+	-- issued by the platform as units detach
     OnTransportDetach = function(self, attachBone, unit)
-		StructureUnit.OnTransportDetach( self, attachBone, unit)
+
+		self.UnitStored[unit.Sync.id] = nil
+	
+		StructureUnit.OnTransportDetach(self, attachBone, unit)
+		
     end,
+
 }
 
 ConcreteStructureUnit = Class(StructureUnit) {

@@ -706,10 +706,10 @@ BuffBlueprint { Name = 'CheatAIRSTAGING',
 	Affects = {
 		Health = {
 			Add = 0,
-			Mult = 1.02,
+			Mult = 1.05,
 		},
 		FuelRatio = {
-			Add = 0.035,
+			Add = 0.075,
 			Mult = 1.0,
 		}
 	},

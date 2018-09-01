@@ -1570,13 +1570,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
-			
-			--waitcount = waitcount + 1.0
-			
-			if VDist3( GetPosition(unit), GetPosition(airstage) ) < 16 then
-				import('/lua/sim/buff.lua').ApplyBuff( unit, 'CheatAIRSTAGING')
-			end
-			
+
 		else
 		
 			break
@@ -1610,8 +1604,16 @@ function AirStagingThread( unit, airstage, aiBrain )
 			end
 			
 			if ready and unit:IsUnitState('Attached') and (not unit.Dead) and (not airstage.Dead) then
-
-				unit:DetachFrom()
+			
+				if airstage.UnitStored[unit.Sync.id] then
+				
+					airstage.UnitStored[unit.Sync.id] = nil
+				
+					--unit:DetachFrom()
+					
+					--LOG("*AI DEBUG Airpad says "..repr(airstage.UnitStored))
+					
+				end
 				
 				unit:SetCanTakeDamage(true)
 				unit:SetDoNotTarget(false)
