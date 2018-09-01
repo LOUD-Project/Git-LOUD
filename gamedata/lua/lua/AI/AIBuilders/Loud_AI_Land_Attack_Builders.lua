@@ -56,7 +56,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
         BuilderConditions = {
 		
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -96,7 +96,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 69, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -276,7 +276,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			-- enemy mass points within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSEXTRACTION, 1250 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -421,7 +421,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -530,7 +530,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			-- enemy mass points within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSEXTRACTION, 1250 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
