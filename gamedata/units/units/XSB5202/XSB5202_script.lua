@@ -34,7 +34,10 @@ XSB5202 = Class(SAirStagingPlatformUnit) {
         end        
 
         SAirStagingPlatformUnit.OnStopBeingBuilt(self, builder, layer)
+		
+		self:GetBuffFieldByName('AirStagingBuffField'):Enable()				
     end,
+
 }
 
 TypeClass = XSB5202

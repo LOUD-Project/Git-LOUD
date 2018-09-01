@@ -15,6 +15,16 @@ UAB5202 = Class(AAirStagingPlatformUnit) {
 			end,
 		},
 	},
+	
+
+    OnStopBeingBuilt = function(self)
+ 
+        AAirStagingPlatformUnit.OnStopBeingBuilt(self)
+		
+		self:GetBuffFieldByName('AirStagingBuffField'):Enable()		
+
+    end,
+	
 }
 
 TypeClass = UAB5202

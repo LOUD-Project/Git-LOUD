@@ -14,6 +14,15 @@ URB5202 = Class(CAirStagingPlatformUnit) {
 			end,
 		},
 	},
+
+    OnStopBeingBuilt = function(self)
+ 
+        CAirStagingPlatformUnit.OnStopBeingBuilt(self)
+		
+		self:GetBuffFieldByName('AirStagingBuffField'):Enable()		
+
+    end,
+
 }
 
 TypeClass = URB5202

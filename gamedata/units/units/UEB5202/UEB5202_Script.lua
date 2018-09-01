@@ -14,6 +14,15 @@ UEB5202 = Class(TAirStagingPlatformUnit) {
 			end,
 		},
 	},
+
+    OnStopBeingBuilt = function(self)
+ 
+        TAirStagingPlatformUnit.OnStopBeingBuilt(self)
+		
+		self:GetBuffFieldByName('AirStagingBuffField'):Enable()		
+
+    end,
+		
 }
 
 TypeClass = UEB5202
