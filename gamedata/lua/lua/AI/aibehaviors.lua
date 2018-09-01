@@ -2160,7 +2160,7 @@ function AirForceAILOUD( self, aiBrain )
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
     local mythreat = 0
     local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3.5 }				-- this multiplies the range of the platoon when searching for targets
+    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
 	local difficulty = { .7, 1, 1.25 }		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
