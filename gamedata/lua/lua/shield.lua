@@ -42,6 +42,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
         self.Trash = TrashBag()	-- so the shield itself has a trashbag -- why not use the Owners ?
         self.Owner = spec.Owner
+		self.Army = GetArmy(self)
 
         self.MeshBp = spec.Mesh
         self.MeshZBp = spec.MeshZ
@@ -58,7 +59,7 @@ Shield = Class(moho.shield_methods,Entity) {
         self:SetMaxHealth(spec.ShieldMaxHealth)
         self:SetHealth(self, spec.ShieldMaxHealth)
 
-		SetShieldRatio( self.Owner, 1 )
+		self.Owner:SetShieldRatio( 1 )
 		
         self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
         self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
@@ -113,11 +114,11 @@ Shield = Class(moho.shield_methods,Entity) {
 	
         if value >= 0 then
 		
-            SetShieldRatio( self.Owner, value )
+            self.Owner:SetShieldRatio( value )
 			
         else
 		
-            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+            self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
 			
         end
 		
@@ -150,7 +151,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 		local GetArmy = moho.entity_methods.GetArmy
 	
-		if IsAlly( GetArmy(self), GetArmy(firingWeapon.unit) ) then
+		if IsAlly( self.Army, GetArmy(firingWeapon.unit) ) then
 		
 			return false
 			
@@ -240,7 +241,7 @@ Shield = Class(moho.shield_methods,Entity) {
         
         AdjustHealth( self, instigator, -absorbed) 
 		
-		SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+		self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
         
         if self.RegenThread then
            KillThread(self.RegenThread)
@@ -289,7 +290,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 				AdjustHealth( self, self.Owner, self.RegenRate )
 				
-				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+				self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
 		
 				-- wait one second
 				WaitTicks(10)
@@ -317,7 +318,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		
 			if not self.Dead then
 				for k, v in self.ImpactEffects do
-					CreateEmitterAtBone( ImpactMesh, -1, GetArmy(self), v ):OffsetEmitter(0, 0, GetVectorLength(vector) )
+					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, GetVectorLength(vector) )
 				end
 			end
 			
@@ -342,7 +343,7 @@ Shield = Class(moho.shield_methods,Entity) {
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
 		local GetArmy = moho.entity_methods.GetArmy
-        return IsEnemy( GetArmy(self), GetArmy(other) )
+        return IsEnemy( self.Army, GetArmy(other) )
     end,
 
     TurnOn = function(self)
@@ -670,13 +671,13 @@ AntiArtilleryShield = Class(Shield){
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
 	
-		LOG("*AI DEBUG OnCollisionCheck Shield")
-
-        if GetArmy(other) == -1 then
+		local otherArmy = GetArmy(other)
+	
+        if otherArmy == -1 then
             return false
         end
 		
-        if other.DamageData.ArtilleryShieldBlocks and IsEnemy( GetArmy(self), GetArmy(other) ) then
+        if other.DamageData.ArtilleryShieldBlocks and IsEnemy( self.Army, OtherArmy ) then
             return true
         end
 		
