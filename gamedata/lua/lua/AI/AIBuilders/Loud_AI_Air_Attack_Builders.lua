@@ -114,7 +114,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         BuilderConditions = {
 		
@@ -132,11 +132,11 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			
             MergeLimit = 12,
 			
-            MissionTime = 150,
+            MissionTime = 90,
 			
             PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.ENGINEER, categories.STRUCTURE},
 			
-			SearchRadius = 150,	
+			SearchRadius = 80,	
 			
             UseFormation = 'AttackFormation',
 			
@@ -156,7 +156,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		PlatoonAIPlan = 'AttackForceAI',		
 
         Priority = 700,
-        InstanceCount = 4,
+        InstanceCount = 3,
 
         BuilderConditions = {
 		
@@ -169,11 +169,17 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			DistressRange = 200,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
+			
 			LocationType = 'LocationType',
+			
             MergeLimit = 24,
-            MissionTime = 150,
+			
+            MissionTime = 100,
+			
             PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.INTELLIGENCE - categories.AIR, categories.ENGINEER},
-			SearchRadius = 125,
+			
+			SearchRadius = 80,
+			
             UseFormation = 'AttackFormation',
 			
         },
@@ -218,7 +224,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
-			SearchRadius = 200,
+			SearchRadius = 120,
 			
             UseFormation = 'AttackFormation',
 			
@@ -252,11 +258,17 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			DistressRange = 300,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
+			
 			LocationType = 'LocationType',
+			
             MergeLimit = 64,
+			
             MissionTime = 180,
+			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
-			SearchRadius = 200,
+			
+			SearchRadius = 120,
+			
             UseFormation = 'AttackFormation',
 			
         },
@@ -304,7 +316,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
             MergeLimit = 64,
             MissionTime = 420,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 375,
+			SearchRadius = 250,
             UseFormation = 'AttackFormation',
 			
         },
@@ -325,25 +337,24 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 
         BuilderConditions = {
 		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },  
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.AIR * categories.GROUNDATTACK }},
 			
         },
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 250,
 			DistressTypes = 'Land',
-			DistressThreshold = 15,
+			DistressThreshold = 10,
 			LocationType = 'LocationType',
             MergeLimit = 64,
             MissionTime = 480,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 350,
+			SearchRadius = 175,
             UseFormation = 'AttackFormation',
 			
         },
