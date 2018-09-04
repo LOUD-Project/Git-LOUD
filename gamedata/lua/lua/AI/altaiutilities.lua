@@ -1464,6 +1464,10 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 	IssueClearCommands( {transport} )
 	
+	IssueMove( {transport}, units[1]:GetPosition() )
+	
+	WaitTicks(5)
+	
 	for _,u in newunits do
 	
 		if not u.Dead then
@@ -1472,19 +1476,22 @@ function WatchUnitLoading( transport, units, aiBrain )
 			loading = true
 		
 			-- here is where we issue the Load command to the transport --
-			safecall("Unable to IssueTransportLoad units are "..repr(units), IssueTransportLoad, units, transport )
+			safecall("Unable to IssueTransportLoad units are "..repr(units), IssueTransportLoad, newunits, transport )
 			
 			break
 		end
 	end
 
+	local tempunits = {}
+	local counter = 0
+	
 	-- loop here while the transport is alive and loading is underway
 	-- there is another trigger (watchcount) which will force loading
 	-- to false after 150 seconds
 	while (not unitsdead) and loading do
 	
 		watchcount = watchcount + 3.0
-		
+
 		if watchcount > 150 then
 		
 			loading = false
@@ -1494,8 +1501,8 @@ function WatchUnitLoading( transport, units, aiBrain )
 		
 		WaitTicks(30)
 		
-		local tempunits = {}
-		local counter = 0
+		tempunits = {}
+		counter = 0
 
 		if not transport.Dead and ( not IsUnitState(transport,'Moving') or IsUnitState(transport,'TransportLoading') ) then
 		
@@ -1543,10 +1550,12 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 		-- issue reloads to unloaded units if transport is not moving and not loading units
 		if not (transport.Dead or BeenDestroyed(transport)) and (loading and not (IsUnitState( transport, 'Moving') or IsUnitState( transport, 'TransportLoading'))) then
+		
+			LOG("*AI DEBUG Reloading..")
 
 			reloads = reloads + 1
 			reissue = reissue + 1
-			tempunits = {}
+			newunits = {}
 			counter = 0
 			
 			for k,u in tempunits do
@@ -1565,20 +1574,20 @@ function WatchUnitLoading( transport, units, aiBrain )
 							
 						end
 						
-						tempunits[counter + 1] = u
+						newunits[counter + 1] = u
 						counter = counter + 1
 					
 					-- if the unit is not attached and the transport does NOT have space for it - turn off loading flag and clear the tempunits list
 					elseif (not transport.Dead) and (not transport:TransportHasSpaceFor(u)) and (not EntityCategoryContains(categories.uea0203,transport)) then
 
 						loading = false
-						tempunits = nil
+						newunits = nil
 						break
 			
 					elseif (not transport.Dead) and EntityCategoryContains(categories.uea0203,transport) then
 
 						loading = false
-						tempunits = nil
+						newunits = nil
 						break
 						
 					end	
@@ -1589,17 +1598,21 @@ function WatchUnitLoading( transport, units, aiBrain )
 			
 			if counter > 0 then
 			
-				IssueStop( tempunits )
+				LOG("*AI DEBUG Reloading "..counter.." units ")
+			
+				IssueStop( newunits )
 				
 				IssueClearCommands( {transport} )
 				
-				local goload = safecall("Unable to IssueTransportLoad", IssueTransportLoad, tempunits, transport )
+				local goload = safecall("Unable to IssueTransportLoad", IssueTransportLoad, newunits, transport )
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." goload is "..repr(goload).." for "..transport:GetBlueprint().Description)
+				if goload then
 				
-				ForkTo( AISendPing, transport:GetPosition(),'alert', aiBrain.ArmyIndex )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." goload is "..repr(goload).." for "..transport:GetBlueprint().Description)
+					
+					ForkTo( AISendPing, transport:GetPosition(),'alert', aiBrain.ArmyIndex )
 				
-				newunits = table.copy(tempunits)
+				end
 				
 			else
 			
@@ -1610,7 +1623,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 		end
 		
 	end
-	
+
 	IssueClearCommands( {transport} )
 	
 	-- have the transport guard his loading spot until everyone else has loaded up
@@ -2753,7 +2766,7 @@ function GetGuards( aiBrain, Unit)
 	local engs = GetUnitsAroundPoint( aiBrain, categories.ENGINEER, Unit:GetPosition(), 20, 'Ally' )
 	local count = 0
 	local UpgradesFrom = Unit:GetBlueprint().General.UpgradesFrom
-	
+
 	for k,v in engs do
 	
 		if v.UnitBeingBuilt == Unit and v != Unit then

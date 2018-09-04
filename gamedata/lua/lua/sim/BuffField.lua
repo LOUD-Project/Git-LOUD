@@ -281,18 +281,14 @@ BuffField = Class(Entity) {
             return units
         end
 
-        while self:IsEnabled() and not Owner.Dead do
+        while self.Enabled and not Owner.Dead do
 		
 			units = GetNearbyAffectableUnits()
-			
-			if table.getn(units) > 0  then
-				LOG("*AI DEBUG Processing "..table.getn(units).." units")
-			end
-		
+
             for k, unit in units do
 			
                 if unit.Dead or (unit == Owner and not bp.AffectsSelf) then
-                   continue
+					continue
                 end
 				
                 if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
@@ -301,8 +297,9 @@ BuffField = Class(Entity) {
                         unit.HasBuffFieldThreadHandle = {}
                         unit.BuffFieldThreadHandle = {}
                     end
+
+                    unit.BuffFieldThreadHandle[bp.Name] = ForkThread( self.UnitBuffFieldThread, Owner, self, bp )
 					
-                    unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( self.UnitBuffFieldThread, Owner, self, bp )
                     unit.HasBuffFieldThreadHandle[bp.Name] = true
                 end
             end
@@ -313,15 +310,18 @@ BuffField = Class(Entity) {
 
 
     -- this will be run on the units affected by the field so self means the unit that is affected by the field
-    UnitBuffFieldThread = function( self, Owner, Field, bp )
+    UnitBuffFieldThread = function( unit, Owner, Field, bp )
 	
         for _, buff in bp.Buffs do
-            ApplyBuff( self, buff )
+            ApplyBuff( unit, buff )
         end
 		
-        while (not self.Dead) and (not Owner.Dead) and Field:IsEnabled() do
+		local GetPosition = moho.entity_methods.GetPosition
+		local VDist3 = VDist3
+		
+        while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
 			
-            dist = VDist3( self:GetPosition(), Owner:GetPosition() )
+            dist = VDist3( GetPosition(unit), Owner:GetPosition() )
 			
             if dist > bp.Radius then
                 break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
@@ -332,13 +332,13 @@ BuffField = Class(Entity) {
 		
         for _, buff in bp.Buffs do
 		
-            if HasBuff(self, buff) then
-                RemoveBuff( self, buff )
+            if HasBuff( unit, buff ) then
+                RemoveBuff( unit, buff )
             end
         end
 		
-		self.BuffFieldThreadHandle[bp.Name] = nil
-        self.HasBuffFieldThreadHandle[bp.Name] = false
+		unit.BuffFieldThreadHandle[bp.Name] = nil
+        unit.HasBuffFieldThreadHandle[bp.Name] = false
 		
     end,
 

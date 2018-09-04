@@ -96,7 +96,7 @@ function ApplyBuff(unit, buffName, instigator)
         for k,v in def.Affects do
 		
             -- Don't save off 'instant' type affects like health and energy
-            if k != 'Health' and k != 'Energy' then
+            if k != 'Health' and k != 'Energy' and k != 'FuelRatio' then
 			
                 if not uaffects[k] then
                     uaffects[k] = {}
@@ -160,8 +160,10 @@ function BuffWorkThread(unit, buffName, instigator)
         WaitTicks(10)
         pulse = pulse + 10
     end
-	
-    RemoveBuff(unit, buffName)
+
+	if HasBuff( unit, buffName ) then
+		RemoveBuff(unit, buffName)
+	end
 end
 
 -- Functions to affect the unit.  Everytime you want to affect a new part of unit, add it in here.

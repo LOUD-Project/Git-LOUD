@@ -24,7 +24,7 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
     MaintenanceConsumptionPerSecondEnergy = 0,
     Radius = 15,
     Buffs = {
-        'CheatAIRSTAGING',
+        'AIRSTAGING',
     },
 }
 

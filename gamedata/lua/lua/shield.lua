@@ -213,7 +213,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		local LOUDMAX = math.max
 		
         --local absorbed = self:OnGetDamageAbsorption(instigator,amount,type) 
-        local absorbed = amount * ( GetArmorMult( self.Owner, type ))
+        local absorbed = amount * ( self.Owner:GetArmorMult( type ))
 		
         --absorbed = absorbed * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
 		
@@ -223,7 +223,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		
             --local overkill = self:GetOverkill(instigator,amount,type) 
 
-			local overkill = (amount-absorbed) * ( GetArmorMult( self.Owner, type ))
+			local overkill = (amount-absorbed) * ( self.Owner:GetArmorMult( type ))
 			
 			--overkill = overkill * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
 			
@@ -286,7 +286,7 @@ Shield = Class(moho.shield_methods,Entity) {
         while not self.Dead and GetHealth(self) < GetMaxHealth(self) do
 
 			-- regen the shield
-			if not self.Owner.Dead then
+			if not self.Dead then
 			
 				AdjustHealth( self, self.Owner, self.RegenRate )
 				

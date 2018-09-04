@@ -107,8 +107,8 @@ BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
 -- These are LOUD specific buffs
 BuffBlueprint { Name = 'CybranOpticalDisruptionField',
     DisplayName = 'CybranOpticalDisruptionField',
-    BuffType = 'DAMAGEAURA',
-    Stacks = 'ALWAYS',
+    BuffType = 'COUNTERINTELAURA',
+    Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
 		VisionRadius = {
@@ -121,7 +121,7 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 		},
 		OmniRadius = {
 			Add = 0,
-			Mult = 0.5,
+			Mult = 0.6,
 		},
     },
 	Effects = {
@@ -133,10 +133,18 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 
 BuffBlueprint { Name = 'DarknessOmniNerf',
     DisplayName = 'DarknessOmniNerf',
-    BuffType = 'OmniRadius',
+    BuffType = 'COUNTERINTELAURA',
     Stacks = 'REPLACE',
     Duration = 20.1,
     Affects = {
+		VisionRadius = {
+			Add = 0,
+			Mult = 0.75,
+		},
+		RadarRadius = {
+			Add = 0,
+			Mult = 0.65,
+		},
         OmniRadius = {
             Add = 0,
             Mult = 0.6,
@@ -146,7 +154,7 @@ BuffBlueprint { Name = 'DarknessOmniNerf',
 		'/effects/emitters/jammer_ambient_01_emit.bp',
 		'/effects/emitters/jammer_ambient_02_emit.bp',
 	},
-	EffectsScale = 0.65,	
+	EffectsScale = 0.35,	
 }
 
 -- This buff is for Aeon Maelstrom Field from BAL0402
@@ -698,18 +706,19 @@ BuffBlueprint { Name = 'CheatALL',
     },
 }
 
-BuffBlueprint { Name = 'CheatAIRSTAGING',
-	BuffType = 'AIRSTAGINGCHEAT',
-	EntityCategory = categories.AIR * categories.MOBILE,
+BuffBlueprint { Name = 'AIRSTAGING',
+	BuffType = 'AIRSTAGING',
+	-- not needed since the bufffield already checks this
+	--EntityCategory = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
 	Stacks = 'REPLACE',
 	Duration = 1,
 	Affects = {
 		Health = {
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1.075,
 		},
 		FuelRatio = {
-			Add = 0.075,
+			Add = 0.085,
 			Mult = 1.0,
 		}
 	},

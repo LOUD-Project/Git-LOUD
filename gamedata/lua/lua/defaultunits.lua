@@ -1540,7 +1540,10 @@ MobileUnit = Class(Unit) {
             -- local wep = GetWeapon(self,i)
             -- wep:OnMotionHorzEventChange(new, old)
         -- end
-
+		if not self.MotionStatus then
+			self.MotionStatus = { old = "Stopped", new = "Stopped" }
+		end
+		
 		if ( old == 'Cruise' ) then
 			self.MotionStatus.old = 'Cruise'
 		elseif ( old == 'TopSpeed' ) then
