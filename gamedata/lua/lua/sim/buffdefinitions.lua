@@ -1,5 +1,6 @@
 --   /lua/sim/buffdefinition.lua
 
+local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 
 -- These first two buffs are from the standard Sera ACU
 BuffBlueprint { Name = 'SeraphimACURegenAura',
@@ -105,19 +106,37 @@ BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
 }
 
 -- These are LOUD specific buffs
+BuffBlueprint { Name = 'AIRSTAGING',
+	BuffType = 'AIRSTAGING',
+	-- not needed since the bufffield should already filter this
+	--EntityCategory = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
+	Stacks = 'REPLACE',
+	Duration = 1,
+	Affects = {
+		Health = {
+			Add = 0,
+			Mult = 1.075,
+		},
+		FuelRatio = {
+			Add = 0.085,
+			Mult = 1.0,
+		}
+	},
+}
+
 BuffBlueprint { Name = 'CybranOpticalDisruptionField',
     DisplayName = 'CybranOpticalDisruptionField',
-    BuffType = 'COUNTERINTELAURA',
+    BuffType = 'COUNTERINTEL',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
 		VisionRadius = {
 			Add = 0,
-			Mult = 0.75,
+			Mult = 0.8,
 		},
 		RadarRadius = {
 			Add = 0,
-			Mult = 0.65,
+			Mult = 0.7,
 		},
 		OmniRadius = {
 			Add = 0,
@@ -133,7 +152,7 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 
 BuffBlueprint { Name = 'DarknessOmniNerf',
     DisplayName = 'DarknessOmniNerf',
-    BuffType = 'COUNTERINTELAURA',
+    BuffType = 'COUNTERINTEL',
     Stacks = 'REPLACE',
     Duration = 20.1,
     Affects = {
@@ -559,23 +578,27 @@ BuffBlueprint { Name = 'VeterancyVisionRadius5',
 -- so they can take variable settings from the lobby
 -- consider these to be just placeholders
 BuffBlueprint { Name = 'CheatBuildRate',
-    BuffType = 'CHEATBUILDRATE',
+    BuffType = 'BUILDRATECHEAT',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
-        BuildRate = {
+	    BuildRate = {
+			BuffCheckFunction = AdjBuffFuncs.BuildRateBuffCheck,
             Add = 0,
             Mult = 1.05,
         },
 		EnergyMaintenance = {
+		    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
 			Add = -0.20,
 			Mult = 1.0,
 		},
 		EnergyActive = {
+		    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
 			Add = -0.20,
 			Mult = 1.0,
 		},
 		MassActive = {
+		    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
 			Add = -0.20,
 			Mult = 1.0,
 		}
@@ -583,15 +606,17 @@ BuffBlueprint { Name = 'CheatBuildRate',
 }
 
 BuffBlueprint { Name = 'CheatIncome',
-    BuffType = 'CHEATINCOME',
+    BuffType = 'INCOMECHEAT',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
         EnergyProduction = {
+		    BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
             Add = 0,
             Mult = 1.05,
         },
         MassProduction = {
+		    BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
             Add = 0,
             Mult = 1.05,
         }
@@ -599,7 +624,7 @@ BuffBlueprint { Name = 'CheatIncome',
 }
 
 BuffBlueprint { Name = 'CheatIntel',
-	BuffType = 'CHEATINTEL',
+	BuffType = 'INTELCHEAT',
 	Stacks = 'ALWAYS',
 	Duration = -1,
 	Affects = {
@@ -608,18 +633,22 @@ BuffBlueprint { Name = 'CheatIntel',
 			Mult = 1.05,
 		},
 		WaterVisionRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,		
 			Add = 0,
 			Mult = 1.05,
 		},
 		RadarRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,		
 			Add = 0,
 			Mult = 1.05,
 		},
 		SonarRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.SonarRadiusBuffCheck,		
 			Add = 0,
 			Mult = 1.05,
 		},
 		OmniRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,		
 			Add = 0,
 			Mult = 1.05,
 		}
@@ -645,7 +674,7 @@ BuffBlueprint { Name = 'CheatCDROmni',
 }
 
 BuffBlueprint { Name = 'CheatENG',
-    BuffType = 'COMMANDERCHEAT',
+    BuffType = 'ENGINEERCHEAT',
 	EntityCategory = categories.ENGINEER,
     Stacks = 'ALWAYS',
     Duration = -1,
@@ -670,7 +699,7 @@ BuffBlueprint { Name = 'CheatENG',
 }
 
 BuffBlueprint { Name = 'CheatMOBILE',
-    BuffType = 'COMMANDERCHEAT',
+    BuffType = 'MOVEMENTCHEAT',
 	EntityCategory = categories.MOBILE,
     Stacks = 'ALWAYS',
     Duration = -1,
@@ -683,7 +712,7 @@ BuffBlueprint { Name = 'CheatMOBILE',
 }
 
 BuffBlueprint { Name = 'CheatALL',
-	BuffType = 'COMMANDERCHEAT',
+	BuffType = 'OVERALLCHEAT',
 	Stacks = 'ALWAYS',
 	Duration = -1,
 	Affects = {
@@ -696,32 +725,16 @@ BuffBlueprint { Name = 'CheatALL',
 			Mult = 1.05,
 		},
 		ShieldRegeneration = {
+		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
 		ShieldHealth = {
+			BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,		
 			Add = 0,
 			Mult = 1.05,
 		}
     },
-}
-
-BuffBlueprint { Name = 'AIRSTAGING',
-	BuffType = 'AIRSTAGING',
-	-- not needed since the bufffield already checks this
-	--EntityCategory = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
-	Stacks = 'REPLACE',
-	Duration = 1,
-	Affects = {
-		Health = {
-			Add = 0,
-			Mult = 1.075,
-		},
-		FuelRatio = {
-			Add = 0.085,
-			Mult = 1.0,
-		}
-	},
 }
 
 -- BO ACU Buffs

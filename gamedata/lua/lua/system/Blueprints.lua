@@ -594,7 +594,7 @@ function ModBlueprints(all_blueprints)
 								
 							end
 							
-							if bp.Intel.WaterVisionRadius then
+							if bp.Intel.WaterVisionRadius > 0 then
 							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
 								
@@ -617,7 +617,7 @@ function ModBlueprints(all_blueprints)
 								
 							end
 						
-							if bp.Intel.WaterVisionRadius then
+							if bp.Intel.WaterVisionRadius > 0 then
 							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
 								
@@ -690,7 +690,7 @@ function ModBlueprints(all_blueprints)
 								
 							end
 							
-							if bp.Intel.WaterVisionRadius then
+							if bp.Intel.WaterVisionRadius > 0 then
 							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
 								

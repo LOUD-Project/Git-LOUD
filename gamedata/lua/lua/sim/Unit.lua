@@ -54,6 +54,7 @@ local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local SetMesh = moho.entity_methods.SetMesh
 
 local PlaySound = moho.entity_methods.PlaySound
+local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 
 local LOUDSTATE = ChangeState
 local ForkThread = ForkThread
@@ -834,7 +835,7 @@ Unit = Class(moho.unit_methods) {
 			end
 		end
 		
-		self:RequestRefreshUI()
+		RequestRefreshUI(self)
 	end,
 	
 	RemoveExtraCap = function(self, Cap)
@@ -846,7 +847,7 @@ Unit = Class(moho.unit_methods) {
 			end
 		end
 		
-		self:RequestRefreshUI()
+		RequestRefreshUI(self)
 	end,
 	
 	GetExtraBit = function(self, Cap)
@@ -882,7 +883,7 @@ Unit = Class(moho.unit_methods) {
 					self:OnExtraToggleClear(Cap)
 				end
 				
-				self:RequestRefreshUI()
+				RequestRefreshUI(self)
 			end
 		else
 			LOG('DMod --> Invalid Toggle Cap specified for SetExtraBit ' .. Cap)
@@ -3539,7 +3540,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        self:RequestRefreshUI()
+        RequestRefreshUI(self)
 		
     end,
 
@@ -5017,7 +5018,7 @@ Unit = Class(moho.unit_methods) {
 		
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
 		
-            self:RequestRefreshUI()
+            RequestRefreshUI(self)
 			
         end
 		
@@ -5046,7 +5047,7 @@ Unit = Class(moho.unit_methods) {
 
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
 		
-            self:RequestRefreshUI()
+            RequestRefreshUI(self)
 			
         end
 		

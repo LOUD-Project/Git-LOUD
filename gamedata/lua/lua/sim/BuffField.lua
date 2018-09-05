@@ -113,12 +113,12 @@ BuffField = Class(Entity) {
 
     Enable = function(self)
 		
-        if not self:IsEnabled() then
+        if not self.Enabled then
 			
             local Owner = self:GetOwner()
             local bp = self:GetBlueprint()
 
-            self.ThreadHandle = self.Owner:ForkThread(self.FieldThread, self)
+            self.ThreadHandle = Owner:ForkThread( self.FieldThread, self, bp)
 			
 			if bp.MaintenanceConsumptionPerSecondEnergy then
 			
@@ -201,6 +201,7 @@ BuffField = Class(Entity) {
 			end
 			
             KillThread(self.ThreadHandle)
+			self.ThreadHandle = nil
 			
             self.Enabled = false
 			
@@ -253,92 +254,98 @@ BuffField = Class(Entity) {
     -- applies the buff to any unit in range each 3.3 seconds
     -- Owner is the unit that carries the field. This is a bit weird to have it like this but its the result of
     -- of the forkthread in the enable function.
-    FieldThread = function(Owner, self)
+    FieldThread = function( Owner, Field, bp )
 		
 		local aiBrain = Owner:GetAIBrain()
-        local bp = self:GetBlueprint()
 		
 		local units = {}
 
-        local function GetNearbyAffectableUnits()
+		local function GetNearbyAffectableUnits()
 		
-            units = {}
+			units = {}
 			
-            local pos = Owner:GetPosition()
+			local pos = Owner:GetPosition()
 			
-            if bp.AffectsOwnUnits then
-                units = table.merged(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
-            end
+			if bp.AffectsOwnUnits then
+				units = table.merged(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+			end
 			
-            if bp.AffectsAllies then
-                units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Ally' ))
-            end
+			if bp.AffectsAllies then
+				units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Ally' ))
+			end
 			
-            if bp.AffectsVisibleEnemies then
-                units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
-            end
+			if bp.AffectsVisibleEnemies then
+				units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+			end
 			
-            return units
-        end
+			return units
+		end
 
-        while self.Enabled and not Owner.Dead do
+		while Field.Enabled and not Owner.Dead do
 		
 			units = GetNearbyAffectableUnits()
 
-            for k, unit in units do
+			for k, unit in units do
 			
-                if unit.Dead or (unit == Owner and not bp.AffectsSelf) then
+				if unit.Dead or (unit == Owner and not bp.AffectsSelf) then
 					continue
-                end
+				end
 				
-                if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
+				if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
 				
-                    if not unit.HasBuffFieldThreadHandle then
-                        unit.HasBuffFieldThreadHandle = {}
-                        unit.BuffFieldThreadHandle = {}
-                    end
+					if not unit.HasBuffFieldThreadHandle then
+						unit.HasBuffFieldThreadHandle = {}
+						unit.BuffFieldThreadHandle = {}
+					end
 
-                    unit.BuffFieldThreadHandle[bp.Name] = ForkThread( self.UnitBuffFieldThread, Owner, self, bp )
-					
-                    unit.HasBuffFieldThreadHandle[bp.Name] = true
-                end
-            end
+					unit.BuffFieldThreadHandle[bp.Name] = ForkThread( Field.UnitBuffFieldThread, unit, Owner, Field, bp )
+
+				end
+			end
 			
-            WaitTicks(33) -- this should be anything but 5 (of the other wait) to help spread the cpu load
-        end
+			WaitTicks(33) -- this should be anything but 5 (of the other wait) to help spread the cpu load
+		end
     end,
 
 
     -- this will be run on the units affected by the field so self means the unit that is affected by the field
     UnitBuffFieldThread = function( unit, Owner, Field, bp )
+
+		if bp.Buffs != nil then
+
+			unit.HasBuffFieldThreadHandle[bp.Name] = true
 	
-        for _, buff in bp.Buffs do
-            ApplyBuff( unit, buff )
-        end
+			for _, buff in bp.Buffs do
+				ApplyBuff( unit, buff )
+			end
 		
-		local GetPosition = moho.entity_methods.GetPosition
-		local VDist3 = VDist3
+			local GetPosition = moho.entity_methods.GetPosition
+			local VDist3 = VDist3
 		
-        while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
+			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
 			
-            dist = VDist3( GetPosition(unit), Owner:GetPosition() )
+				dist = VDist3( GetPosition(unit), Owner:GetPosition() )
 			
-            if dist > bp.Radius then
-                break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
-            end
+				if dist > bp.Radius then
+					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
+				end
 			
-            WaitTicks(40)
-        end
+				WaitTicks(40)
+			end
 		
-        for _, buff in bp.Buffs do
+			for _, buff in bp.Buffs do
 		
-            if HasBuff( unit, buff ) then
-                RemoveBuff( unit, buff )
-            end
-        end
+				if HasBuff( unit, buff ) then
+					RemoveBuff( unit, buff )
+				end
+			end
 		
-		unit.BuffFieldThreadHandle[bp.Name] = nil
-        unit.HasBuffFieldThreadHandle[bp.Name] = false
+			unit.BuffFieldThreadHandle[bp.Name] = nil
+			unit.HasBuffFieldThreadHandle[bp.Name] = false
+			
+		else
+			LOG("*AI DEBUG No buffs for "..repr(unit).." bp is "..repr(bp))
+		end
 		
     end,
 

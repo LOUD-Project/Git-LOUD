@@ -70,6 +70,8 @@ local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 
+local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
+
 
 DummyUnit = Class(Unit) {
 
@@ -802,8 +804,8 @@ StructureUnit = Class(Unit) {
             ApplyBuff(adjacentUnit, v, self)
         end
 
-        self:RequestRefreshUI()
-        adjacentUnit:RequestRefreshUI()
+        RequestRefreshUI(self)
+        RequestRefreshUI(adjacentUnit)
     end,
 
     -- When we're not adjacent, try to remove all the possible bonuses.
@@ -821,8 +823,8 @@ StructureUnit = Class(Unit) {
 
         self:DestroyAdjacentEffects()
 
-        self:RequestRefreshUI()
-        adjacentUnit:RequestRefreshUI()
+        RequestRefreshUI(self)
+        RequestRefreshUI(adjacentUnit)
     end,
 
     CreateAdjacentEffect = function(self, adjacentUnit)

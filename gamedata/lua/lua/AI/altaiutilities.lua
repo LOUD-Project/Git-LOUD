@@ -1550,8 +1550,6 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 		-- issue reloads to unloaded units if transport is not moving and not loading units
 		if not (transport.Dead or BeenDestroyed(transport)) and (loading and not (IsUnitState( transport, 'Moving') or IsUnitState( transport, 'TransportLoading'))) then
-		
-			LOG("*AI DEBUG Reloading..")
 
 			reloads = reloads + 1
 			reissue = reissue + 1
@@ -1598,7 +1596,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 			
 			if counter > 0 then
 			
-				LOG("*AI DEBUG Reloading "..counter.." units ")
+				LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
 			
 				IssueStop( newunits )
 				

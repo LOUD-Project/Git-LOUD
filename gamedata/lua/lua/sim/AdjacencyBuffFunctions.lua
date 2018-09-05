@@ -21,13 +21,79 @@ DefaultBuffAffect = function(buff, unit, instigator)
 	
 end
 
--- Energy Build Bonus - Energy Active Consumption
--- for factories - reduces energy consumption when active
-EnergyBuildBuffCheck = function(buff, unit)
+WaterVisionBuffCheck = function( buff, unit )
 
-    local bp = GetBlueprint(unit)
+	local bp = GetBlueprint(unit).Intel
 	
-    if bp.Economy.BuildableCategory then
+	if bp.WaterVisionRadius > 1 then
+	
+		return true
+		
+	end
+	
+	return false
+end
+
+RadarRadiusBuffCheck = function( buff, unit )
+
+	local bp = GetBlueprint(unit).Intel
+	
+	if bp.RadarRadius > 1 then
+	
+		return true
+		
+	end
+	
+	return false
+end
+
+SonarRadiusBuffCheck = function( buff, unit )
+
+	local bp = GetBlueprint(unit).Intel
+	
+	if bp.SonarRadius > 1 then
+	
+		return true
+		
+	end
+	
+	return false
+end
+
+OmniRadiusBuffCheck = function( buff, unit )
+
+	local bp = GetBlueprint(unit).Intel
+	
+	if bp.OmniRadius > 1 then
+	
+		return true
+		
+	end
+	
+	return false
+end
+
+BuildRateBuffCheck = function( buff, unit )
+
+	local bp = GetBlueprint(unit).Economy
+
+	-- while not technically true - the engine gives ALL units a buildrate of 1, even if not specified
+	if bp.BuildRate and bp.BuildRate > 1 then
+	
+		return true
+		
+	end
+	
+	return false
+end
+
+-- for factories - reduces mass and energy consumption when active
+BuildBuffCheck = function(buff, unit)
+
+    local bp = GetBlueprint(unit).Economy
+	
+	-- we have to test this since the engine gives ALL units an empty BuildableCategory table
+    if not table.empty(bp.BuildableCategory) then
 	
         return true
 		
@@ -39,53 +105,20 @@ EnergyBuildBuffCheck = function(buff, unit)
     --end
 	
     return false
-	
 end
 
-EnergyBuildBuffRemove = function(buff, unit, instigator)
+BuildBuffRemove = function(buff, unit, instigator)
 
 	unit:DestroyAdjacentEffects( instigator)
 	
 end
 
-EnergyBuildBuffAffect = function(buff, unit, instigator)
+BuildBuffAffect = function(buff, unit, instigator)
 
     unit:CreateAdjacentEffect( instigator)
 	
 end
 
--- Mass Build Bonus - Mass Active Consumption
--- for factories - reduces mass consumption when active
-MassBuildBuffCheck = function(buff, unit)
-
-	local bp = GetBlueprint(unit)
-	
-    if bp.Economy.BuildableCategory then
-	
-        return true
-		
-    end
-	
-	-- Silos no longer get this bonus
-    --if LOUDENTITY(categories.SILO, unit) and LOUDENTITY(categories.STRUCTURE, unit) then
-        --return true
-    --end
-	
-    return false
-	
-end
-
-MassBuildBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-	
-end
-
-MassBuildBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
-	
-end
 
 -- Energy Maintenance Bonus
 -- usually shields, radar and other structures which constantly consume energy
