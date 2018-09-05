@@ -17,25 +17,29 @@ URL0307 = Class(CLandUnit) {
 	},
 	
     OnStopBeingBuilt = function(self,builder,layer)
+	
         CLandUnit.OnStopBeingBuilt(self,builder,layer)
+		
         self:SetMaintenanceConsumptionActive()
+		
     end,
     
     IntelEffects = {
 		{
-			Bones = { 'AttachPoint'	},
-			Offset = { 0, 0.25, 0 },
-			Scale = 0.05,
-			Type = 'Jammer01',
-		},
+			Bones = { 'AttachPoint'	}, Offset = { 0, 0.25, 0 },	Scale = 0.05, Type = 'Jammer01' },
     },
     
     OnIntelEnabled = function(self)
+	
         CLandUnit.OnIntelEnabled(self)
 		
-        if self.IntelEffects then
+        if self.IntelEffects and not self.IntelFxOn then 
+		
 			self.IntelEffectsBag = {}
+			
 			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
+			
+			self.IntelFxOn = true
 		end
 		
 		self:GetBuffFieldByName('CybranOpticalDisruptionBuffField'):Enable()
@@ -46,6 +50,8 @@ URL0307 = Class(CLandUnit) {
         CLandUnit.OnIntelDisabled(self)
 		
         EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
+		
+		self.IntelFxOn = false
 		
 		self:GetBuffFieldByName('CybranOpticalDisruptionBuffField'):Disable()
     end,    
