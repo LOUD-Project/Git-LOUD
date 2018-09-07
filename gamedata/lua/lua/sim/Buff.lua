@@ -84,11 +84,14 @@ function ApplyBuff(unit, buffName, instigator)
 		
     end
     
-    local ubt = unit.Buffs.BuffTable 
+    local ubt = unit.Buffs.BuffTable
 
     if def.Stacks == 'REPLACE' and ubt[def.BuffType] then
+
         for key, bufftbl in unit.Buffs.BuffTable[def.BuffType] do
+
             RemoveBuff(unit, key, true)
+			
         end
     end
 
@@ -102,13 +105,10 @@ function ApplyBuff(unit, buffName, instigator)
     if not data then
 	
         -- This is a new buff (as opposed to an additional one being stacked)
-        data = { BuffName = buffName, Count = 0, Trash = TrashBag() }
-		
-    else
-        -- This buff is already on the unit so stack another by incrementing the
-        -- counts. data.Count is how many times the buff has been applied
-        data.Count = data.Count + 1
-		
+		-- The 0.01 insures we create a BUFFTABLE entry even for buffs that don't leave a lasting affect
+		-- thus allowing us to have FX that can be removed
+        data = { Count = 0.01, Trash = TrashBag() }
+
     end
     
     local uaffects = unit.Buffs.Affects
@@ -130,24 +130,27 @@ function ApplyBuff(unit, buffName, instigator)
 				if not v:BuffCheckFunction(unit) then
 				
 					buffcheck = false
+					
+					continue
 
 				end
 
 			end
 		
+			-- create the unit BuffTable entry			
+			if not ubt[def.BuffType] then
+				ubt[def.BuffType] = {}
+			end
+
+			if not ubt[def.BuffType][buffName] then
+				ubt[def.BuffType][buffName] = data
+			end
+
             -- Don't save off 'instant' type affects like health and energy or those that fail a buff check function
             if buffcheck and k != 'Health' and k != 'Energy' and k != 'FuelRatio' then
-			
+
 				data.Count = data.Count + 1
-				
-				if not ubt[def.BuffType] then
-					ubt[def.BuffType] = {}
-				end
-				
-				if not ubt[def.BuffType][buffName] then
-					ubt[def.BuffType][buffName] = data
-				end
-			
+
                 if not uaffects[k] then
                     uaffects[k] = {}
                 end
@@ -155,7 +158,7 @@ function ApplyBuff(unit, buffName, instigator)
                 if not uaffects[k][buffName] then
 				
                     -- This is a new affect.
-                    local affectdata = { BuffName = buffName, Count = 1, }
+                    local affectdata = {  Count = 1, }
 					
                     for buffkey, buffval in v do
 					
@@ -178,8 +181,23 @@ function ApplyBuff(unit, buffName, instigator)
 		
     end
 	
-	PlayBuffEffect(unit, buffName, data)
-    
+    if Buffs[buffName].Effects then
+	
+		for k, fx in Buffs[buffName].Effects do
+	
+			local bufffx = CreateAttachedEmitter(unit, 0, unit:GetArmy(), fx)
+		
+			if Buffs[buffName].EffectsScale then
+				bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
+			end
+		
+			data.Trash:Add(bufffx)
+			unit.Trash:Add(bufffx)
+			
+		end	
+
+    end
+
 	-- for buffs with a duration -- 
     if def.Duration and def.Duration > 0 then
 	
@@ -191,9 +209,9 @@ function ApplyBuff(unit, buffName, instigator)
 	-- otherwise just apply the buff once
 	-- just note that buffs that only fire once are left here
     else
-	
-		if data.Count > 0 then
-    
+
+		if data.Count > 0 and ubt[def.BuffType] then
+
 			ubt[def.BuffType][buffName] = data
 
 			if def.OnApplyBuff then
@@ -206,7 +224,7 @@ function ApplyBuff(unit, buffName, instigator)
 		
 	end
 	
-	LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
+	--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
 
 end
 
@@ -219,18 +237,20 @@ function BuffWorkThread(unit, buffName, instigator)
 	local BeenDestroyed = moho.entity_methods.BeenDestroyed
 
     local pulse = 0
-   
-    --while pulse < buffTable.Duration and not unit.Dead do
-	while not BeenDestroyed(unit) do
 
-        BuffAffectUnit(unit, buffName, instigator, false)
-		
+	while not BeenDestroyed(unit) and pulse < buffTable.Duration do
+
+		BuffAffectUnit( unit, buffName, instigator, false )
+
         WaitTicks(10)
-        pulse = pulse + 10
+        pulse = pulse + 1
+		
     end
 
 	if HasBuff( unit, buffName ) then
+
 		RemoveBuff(unit, buffName)
+		
 	end
 end
 
@@ -247,7 +267,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     if buffDef.OnBuffAffect and not afterRemove then
         buffDef:OnBuffAffect(unit, instigator)
     end
-    
+
     for atype, vals in buffAffects do
 
         if atype == 'Health' then
@@ -363,6 +383,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'RadarRadius', GetBlueprint(unit).Intel.RadarRadius or 0)
 			
 			if val > 0 then
+			
 				if not unit:IsIntelEnabled('Radar') then
 				
 					unit:InitIntel(unit:GetArmy(),'Radar', val)
@@ -385,6 +406,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'SonarRadius', GetBlueprint(unit).Intel.SonarRadius or 0)
 			
 			if val > 0 then
+			
 				if not unit:IsIntelEnabled('Sonar') then
 				
 					unit:InitIntel(unit:GetArmy(),'Sonar', val)
@@ -406,6 +428,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'OmniRadius', GetBlueprint(unit).Intel.OmniRadius or 0)
 			
 			if val > 0 then
+			
 				if not unit:IsIntelEnabled('Omni') then
 				
 					unit:InitIntel(unit:GetArmy(),'Omni', val)
@@ -650,9 +673,13 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
         end
         
         if v.Mult and v.Mult != 0 then
-            for i=1,v.Count do
+
+            for i = 1, v.Count do
+			
                 mults = mults * v.Mult
+				
             end
+			
         end
         
         if not v.Bool then
@@ -690,31 +717,36 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 	
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
 	
+	--LOG("*AI DEBUG Removing Buff "..repr(unitBuff))
+	
 	if unitBuff then
     
 		for atype,_ in def.Affects do
-	
-			local list = unit.Buffs.Affects[atype]
+
+			--local list = unit.Buffs.Affects[atype]
 		
-			if list and list[buffName] then
+			if unit.Buffs.Affects[atype] and unit.Buffs.Affects[atype][buffName] then
+			
+				--LOG("*AI DEBUG Removing Buff "..buffName.." for type "..repr(atype))
+				--LOG("*AI DEBUG Data for "..repr(atype).." is "..repr(unit.Buffs.Affects[atype]))
 		
 				-- If we're removing all buffs of this name, only remove as 
 				-- many affects as there are buffs since other buffs may have
 				-- added these same affects.
 				if removeAllCounts then
 				
-					list[buffName].Count = list[buffName].Count - unitBuff.Count
-					unitBuff.Count = 0
+					unitBuff.Count = unitBuff.Count - unit.Buffs.Affects[atype][buffName].Count
+					unit.Buffs.Affects[atype][buffName].Count = 0
 					
 				else
 				
-					list[buffName].Count = list[buffName].Count - 1
+					unit.Buffs.Affects[atype][buffName].Count = unit.Buffs.Affects[atype][buffName].Count - 1
 					unitBuff.Count = unitBuff.Count - 1
 					
 				end
-            
-				if list[buffName].Count <= 0 then
-					list[buffName] = nil
+
+				if unit.Buffs.Affects[atype][buffName].Count <= 0 then
+					unit.Buffs.Affects[atype][buffName] = nil
 				end
 				
 				if table.empty(unit.Buffs.Affects[atype]) then
@@ -725,10 +757,11 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 		end
 
-		if removeAllCounts or unitBuff.Count <= 0 then
+		if removeAllCounts or unitBuff.Count < 1 then
 			-- unit:PlayEffect('RemoveBuff', buffName)
 
 			unitBuff.Trash:Destroy()
+			
 			unit.Buffs.BuffTable[def.BuffType][buffName] = nil
 			
 			if table.empty(unit.Buffs.BuffTable[def.BuffType]) then
@@ -754,7 +787,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
     BuffAffectUnit(unit, buffName, unit, true)
 	
-	LOG("*AI DEBUG Removing "..buffName.." unit data is "..repr(unit.Buffs) )    
+	--LOG("*AI DEBUG after Removing "..buffName.." unit data is "..repr(unit.Buffs) )    
 end
 
 function HasBuff(unit, buffName)

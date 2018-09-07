@@ -55,7 +55,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -133,7 +133,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -155,14 +155,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointMin = 200,
 			PointMax = 2000,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
-			StrRadius = 64,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 8,
+			StrMax = 12,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 64,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 20,
@@ -226,14 +226,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointMin = 100,
 			PointMax = 1000,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
-			StrRadius = 64,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 8,
+			StrMax = 12,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 64,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 20,
@@ -297,14 +297,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointMin = 200,
 			PointMax = 2000,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
-			StrRadius = 64,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 15,
+			StrMax = 18,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 64,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 36,
@@ -365,17 +365,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointMin = 100,
 			PointMax = 1250,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
 			StrRadius = 50,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 5,
+			StrMax = 4,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 50,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 8,
+			UntMax = 6,
 			
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
@@ -420,7 +420,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.15 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -458,7 +458,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.15 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -480,17 +480,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointMin = 100,
 			PointMax = 1500,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
-			StrRadius = 64,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 8,
+			StrMax = 4,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 64,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 15,
+			UntMax = 6,
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
@@ -619,17 +619,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointMin = 100,
 			PointMax = 1250,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
 			StrRadius = 50,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 5,
+			StrMax = 4,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 50,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 8,
+			UntMax = 6,
 			
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
@@ -814,14 +814,14 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 			PointMin = 100,
 			PointMax = 750,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
-			StrRadius = 64,
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 6,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 64,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 12,
@@ -1177,7 +1177,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },	-- was 3
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },	-- was 3
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			-- a DP marker with less than 8 defense structures with 45 of it -- and no more than 75 enemy threat
@@ -1204,14 +1204,14 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			PointMin = 200,
 			PointMax = 999999,
 			
-			StrCategory = categories.DEFENSE * categories.STRUCTURE,
-			StrRadius = 45,
+			StrCategory = categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,				-- structure parameters trigger an end to guardtimer
 			StrMin = 0,
 			StrMax = 8,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
-			UntRadius = 45,
+			UntRadius = 60,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
 			UntMax = 15,
@@ -1252,7 +1252,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },	-- was 3
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },	-- was 3
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			-- a DP marker with less than 8 defense structures within 45 of it -- and no more than 200 enemy threat
@@ -1278,14 +1278,14 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			PointMin = 200,
 			PointMax = 999999,
 			
-			StrCategory = categories.DEFENSE * categories.STRUCTURE,
-			StrRadius = 45,
+			StrCategory = categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE,
+			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 8,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
-			UntRadius = 45,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 15,
@@ -1326,11 +1326,13 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			-- a starting point within 10km that has <= 4 economic structures within 75 and no more than 300 threat
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1024, 'STRUCTURE -ECONOMIC', 75, 4, -9999, 250, 0, 'AntiSurface' }},
+			
+			-- a starting point within 10km that has <= 6 non-economic structures within 75 and no more than 250 threat
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1024, 'STRUCTURE -ECONOMIC', 75, 6, -9999, 250, 0, 'AntiSurface' }},
+			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -1356,13 +1358,13 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			StrRadius = 75,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 4,
+			StrMax = 6,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
-			UntRadius = 50,
+			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 24,
 			
             AssistRange = 2,
 			
@@ -1401,11 +1403,11 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1024, 'STRUCTURE -ECONOMIC', 75, 4, -9999, 75, 0, 'AntiSurface' }},
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1024, 'STRUCTURE -ECONOMIC', 75, 6, -9999, 75, 0, 'AntiSurface' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -1430,13 +1432,13 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			StrRadius = 75,
 			StrTrigger = true,					-- structure parameters trigger end to guardtimer
 			StrMin = 0,
-			StrMax = 4,
+			StrMax = 6,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
-			UntRadius = 50,
+			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 24,
 			
             AssistRange = 2,
 			
@@ -1476,11 +1478,11 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 70, 4, -999999, 200, 0, 'AntiSurface' }},
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 75, 6, -999999, 200, 0, 'AntiSurface' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -1503,16 +1505,16 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			PointMax = 1500,
 			
 			StrCategory = categories.STRUCTURE - categories.ECONOMIC,		-- filter points based upon units/strucutres at point
-			StrRadius = 70,
+			StrRadius = 75,
 			StrTrigger = true,					-- structure parameters trigger end to guardtimer
 			StrMin = 0,
-			StrMax = 4,
+			StrMax = 6,
 			
 			UntCategory = categories.LAND * categories.MOBILE * categories.DIRECTFIRE,		-- secondary filter on presence of units/structures at point
-			UntRadius = 25,
+			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger an early end to guardtimer
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 24,
 			
             AssistRange = 2,
 			
@@ -1552,11 +1554,11 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.2 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 70, 4, -999999, 100, 0, 'AntiSurface' }},
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 75, 6, -999999, 200, 0, 'AntiSurface' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
@@ -1578,16 +1580,16 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			PointMax = 1000,
 			
 			StrCategory = categories.STRUCTURE - categories.ECONOMIC,		-- filter points upon presence of units/strucutres at point
-			StrRadius = 70,
+			StrRadius = 75,
 			StrTrigger = true,					-- structure parameters trigger an end to guardtimer
 			StrMin = 0,
-			StrMax = 4,
+			StrMax = 6,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),		-- secondary filter on units/structures at point
-			UntRadius = 25,
+			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 24,
 			
             AssistRange = 2,
 			
@@ -1633,7 +1635,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			{ MIBC, 'MapLessThan', { 1028 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE) - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
 			
         },
 		
@@ -1641,13 +1643,13 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			DistressRange = 175,
 			DistressTypes = 'Land',
-			DistressThreshold = 6,
+			DistressThreshold = 4,
 			
 			BasePerimeterOrientation = '',
 			
 			Radius = 76,
 			
-			PatrolTime = 300,
+			PatrolTime = 210,
 			PatrolType = true,
 			
         },
@@ -1674,8 +1676,8 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE) - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 40, 'Land' }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
 			
         },
 		
@@ -1683,13 +1685,13 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			DistressRange = 175,
 			DistressTypes = 'Land',
-			DistressThreshold = 6,
+			DistressThreshold = 4,
 			
 			BasePerimeterOrientation = '',
 			
 			Radius = 76,
 			
-			PatrolTime = 300,
+			PatrolTime = 240,
 			PatrolType = true,
 
         },
@@ -1721,13 +1723,13 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			DistressRange = 140,
 			DistressTypes = 'Air',
-			DistressThreshold = 10,
+			DistressThreshold = 6,
 			
 			BasePerimeterOrientation = '',
 			
 			Radius = 75,
 			
-			PatrolTime = 300,
+			PatrolTime = 240,
 			PatrolType = true,
 
         },
@@ -1759,13 +1761,13 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			DistressRange = 140,
 			DistressTypes = 'Air',
-			DistressThreshold = 10,
+			DistressThreshold = 6,
 			
 			BasePerimeterOrientation = '',
 			
 			Radius = 75,
 			
-			PatrolTime = 240,
+			PatrolTime = 210,
 			PatrolType = true,
 			
         },

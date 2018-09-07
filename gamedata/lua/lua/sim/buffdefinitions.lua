@@ -7,11 +7,11 @@ BuffBlueprint { Name = 'SeraphimACURegenAura',
     DisplayName = 'SeraphimACURegenAura',
     BuffType = 'REGENAURA',
     Stacks = 'REPLACE',
-    Duration = -1,
+    Duration = 3,
     Affects = {
         RegenPercent = {
             Add = 0,
-            Mult = 1.2,
+            Mult = 1.25,
             Ceil = 75,
 			Floor = 1,
 		},
@@ -26,21 +26,22 @@ BuffBlueprint { Name = 'SeraphimAdvancedACURegenAura',
     DisplayName = 'SeraphimAdvancedACURegenAura',
     BuffType = 'REGENAURA',
     Stacks = 'REPLACE',
-    Duration = -1,
+    Duration = 3,
     Affects = {
         RegenPercent = {
             Add = 0,
-            Mult = 1.4,
+            Mult = 1.5,
             Ceil = 150,
-            Floor = 2,
+            Floor = 3,
 		},
 		ShieldRegeneration = {
+		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
-			Mult = 1.1,
+			Mult = 1.125,
 		},
 		VisionRadius = {
 			Add = 0,
-			Mult = 1.1,
+			Mult = 1.125,
 		},
 	},
 	Effects = {
@@ -48,6 +49,165 @@ BuffBlueprint { Name = 'SeraphimAdvancedACURegenAura',
 	},
 	EffectsScale = 0.5,
 }
+
+-- This buff is for the BO Restoration Field building
+BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
+    DisplayName = 'SeraphimRegenFieldMoo',
+    BuffType = 'REGENAURA',
+    Stacks = 'REPLACE',
+    Duration = 3,
+    Affects = {
+        RegenPercent = {
+            Add = 0,
+            Mult = 1.5,
+            Ceil = 150,
+            Floor = 3,
+        },
+		ShieldRegeneration = {
+		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,		
+			Add = 0,
+			Mult = 1.125,
+		},
+		VisionRadius = {
+			Add = 0,
+			Mult = 1.125,
+		},
+    },
+	Effects = {
+		'/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
+	},
+	EffectsScale = 0.5,
+}
+
+-- These are LOUD specific buffs
+BuffBlueprint { Name = 'AIRSTAGING',
+	BuffType = 'AIRSTAGING',
+	Stacks = 'REPLACE',
+	Duration = 3,
+	Affects = {
+		Health = {
+			Add = 0,
+			Mult = 1.065,
+		},
+		FuelRatio = {
+			Add = 0.08,
+			Mult = 1.0,
+		}
+	},
+}
+
+BuffBlueprint { Name = 'CybranOpticalDisruptionField',
+    DisplayName = 'CybranOpticalDisruptionField',
+    BuffType = 'COUNTERINTEL',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		VisionRadius = {
+			Add = 0,
+			Mult = 0.8,
+		},
+		RadarRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,		
+			Add = 0,
+			Mult = 0.7,
+		},
+		OmniRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,		
+			Add = 0,
+			Mult = 0.6,
+		},
+    },
+	Effects = {
+		'/effects/emitters/jammer_ambient_01_emit.bp',
+		'/effects/emitters/jammer_ambient_02_emit.bp',
+	},
+	EffectsScale = 0.25,
+}
+
+BuffBlueprint { Name = 'DarknessOmniNerf',
+    DisplayName = 'DarknessOmniNerf',
+    BuffType = 'COUNTERINTEL',
+    Stacks = 'ALWAYS',
+    Duration = 20.1,
+    Affects = {
+		VisionRadius = {
+			Add = 0,
+			Mult = 0.85,
+		},
+		RadarRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,				
+			Add = 0,
+			Mult = 0.75,
+		},
+        OmniRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,				
+            Add = 0,
+            Mult = 0.65,
+        },
+    },
+	Effects = {
+		'/effects/emitters/jammer_ambient_01_emit.bp',
+		'/effects/emitters/jammer_ambient_02_emit.bp',
+	},
+	EffectsScale = 0.35,	
+}
+
+-- This buff is for Aeon Maelstrom Field from BAL0402
+-- and the Aeon BO ACU
+BuffBlueprint { Name = 'AeonMaelstromField',
+    DisplayName = 'AeonMaelstromField',
+    BuffType = 'DAMAGEAURA',
+    Stacks = 'REPLACE',
+    Duration = 3,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
+    Affects = {
+        Health = {
+			-- damage enemy units every second
+            Add = -40,
+            Mult = 1.0,
+        },
+    },
+	Effects = {
+		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
+	},
+	EffectsScale = 0.4,
+}
+
+BuffBlueprint { Name = 'AeonMaelstromField2',
+    DisplayName = 'AeonMaelstromField2',
+    BuffType = 'DAMAGEAURA',
+    Stacks = 'REPLACE',
+    Duration = 3,	-- this is unique in that it has a duration -- the buff will be applied every second while in the field
+    Affects = {
+        Health = {
+			-- damage enemy units every second
+            Add = -80,
+            Mult = 1.0,
+        },
+    },
+	Effects = {
+		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
+	},
+	EffectsScale = 0.65,
+}
+
+BuffBlueprint { Name = 'AeonMaelstromField3',
+    DisplayName = 'AeonMaelstromField3',
+    BuffType = 'DAMAGEAURA',
+    Stacks = 'REPLACE',
+    Duration = 3,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
+    Affects = {
+        Health = {
+			-- damage enemy units every second
+            Add = -120,
+            Mult = 1.0,
+        },
+    },
+	Effects = {
+		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
+	},
+	EffectsScale = 0.90,
+}
+
 
 BuffBlueprint { Name = 'RegenPackage1',
     BuffType = 'REGENUPGRADE',
@@ -75,161 +235,6 @@ BuffBlueprint { Name = 'RegenPackage2',
 			Floor = 25,
         }
     },
-}
-
--- This buff is for the BO Restoration Field building
-BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
-    DisplayName = 'SeraphimRegenFieldMoo',
-    BuffType = 'REGENAURA',
-    Stacks = 'ALWAYS',
-    Duration = -1,
-    Affects = {
-        RegenPercent = {
-            Add = 0,
-            Mult = 1.5,
-            Ceil = 150,
-            Floor = 3,
-        },
-		ShieldRegeneration = {
-			Add = 0,
-			Mult = 1.1,
-		},
-		VisionRadius = {
-			Add = 0,
-			Mult = 1.1,
-		},
-    },
-	Effects = {
-		'/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
-	},
-	EffectsScale = 0.5,
-}
-
--- These are LOUD specific buffs
-BuffBlueprint { Name = 'AIRSTAGING',
-	BuffType = 'AIRSTAGING',
-	-- not needed since the bufffield should already filter this
-	--EntityCategory = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
-	Stacks = 'REPLACE',
-	Duration = 1,
-	Affects = {
-		Health = {
-			Add = 0,
-			Mult = 1.075,
-		},
-		FuelRatio = {
-			Add = 0.085,
-			Mult = 1.0,
-		}
-	},
-}
-
-BuffBlueprint { Name = 'CybranOpticalDisruptionField',
-    DisplayName = 'CybranOpticalDisruptionField',
-    BuffType = 'COUNTERINTEL',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-		VisionRadius = {
-			Add = 0,
-			Mult = 0.8,
-		},
-		RadarRadius = {
-			Add = 0,
-			Mult = 0.7,
-		},
-		OmniRadius = {
-			Add = 0,
-			Mult = 0.6,
-		},
-    },
-	Effects = {
-		'/effects/emitters/jammer_ambient_01_emit.bp',
-		'/effects/emitters/jammer_ambient_02_emit.bp',
-	},
-	EffectsScale = 0.25,
-}
-
-BuffBlueprint { Name = 'DarknessOmniNerf',
-    DisplayName = 'DarknessOmniNerf',
-    BuffType = 'COUNTERINTEL',
-    Stacks = 'REPLACE',
-    Duration = 20.1,
-    Affects = {
-		VisionRadius = {
-			Add = 0,
-			Mult = 0.75,
-		},
-		RadarRadius = {
-			Add = 0,
-			Mult = 0.65,
-		},
-        OmniRadius = {
-            Add = 0,
-            Mult = 0.6,
-        },
-    },
-	Effects = {
-		'/effects/emitters/jammer_ambient_01_emit.bp',
-		'/effects/emitters/jammer_ambient_02_emit.bp',
-	},
-	EffectsScale = 0.35,	
-}
-
--- This buff is for Aeon Maelstrom Field from BAL0402
--- and the Aeon BO ACU
-BuffBlueprint { Name = 'AeonMaelstromField',
-    DisplayName = 'AeonMaelstromField',
-    BuffType = 'DAMAGEAURA',
-    Stacks = 'REPLACE',
-    Duration = 1,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
-    Affects = {
-        Health = {
-			-- damage enemy units every second
-            Add = -40,
-            Mult = 1.0,
-        },
-    },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.4,
-}
-
-BuffBlueprint { Name = 'AeonMaelstromField2',
-    DisplayName = 'AeonMaelstromField2',
-    BuffType = 'DAMAGEAURA',
-    Stacks = 'REPLACE',
-    Duration = 1,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
-    Affects = {
-        Health = {
-			-- damage enemy units every second
-            Add = -80,
-            Mult = 1.0,
-        },
-    },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.65,
-}
-
-BuffBlueprint { Name = 'AeonMaelstromField3',
-    DisplayName = 'AeonMaelstromField3',
-    BuffType = 'DAMAGEAURA',
-    Stacks = 'REPLACE',
-    Duration = 1,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
-    Affects = {
-        Health = {
-			-- damage enemy units every second
-            Add = -120,
-            Mult = 1.0,
-        },
-    },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.90,
 }
 
 

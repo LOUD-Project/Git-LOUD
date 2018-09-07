@@ -193,7 +193,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			
 			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 8, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			
         },
@@ -255,7 +255,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 8, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			
         },

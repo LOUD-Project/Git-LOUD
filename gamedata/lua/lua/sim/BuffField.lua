@@ -303,7 +303,7 @@ BuffField = Class(Entity) {
 				end
 			end
 			
-			WaitTicks(33) -- this should be anything but 5 (of the other wait) to help spread the cpu load
+			WaitTicks(38) -- this should be anything but 5 (of the other wait) to help spread the cpu load
 		end
     end,
 
@@ -314,11 +314,7 @@ BuffField = Class(Entity) {
 		if bp.Buffs != nil then
 
 			unit.HasBuffFieldThreadHandle[bp.Name] = true
-	
-			for _, buff in bp.Buffs do
-				ApplyBuff( unit, buff )
-			end
-		
+
 			local GetPosition = moho.entity_methods.GetPosition
 			local VDist3 = VDist3
 		
@@ -329,13 +325,18 @@ BuffField = Class(Entity) {
 				if dist > bp.Radius then
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
 				end
-			
-				WaitTicks(40)
+
+				for _, buff in bp.Buffs do
+					ApplyBuff( unit, buff )
+				end
+	
+				WaitTicks(38)
 			end
-		
+
 			for _, buff in bp.Buffs do
 		
 				if HasBuff( unit, buff ) then
+				
 					RemoveBuff( unit, buff )
 				end
 			end

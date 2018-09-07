@@ -784,9 +784,9 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
     },
 	
-	Builder {BuilderName = 'Exp Land Group',
+	Builder {BuilderName = 'Exp Group Amphibious',
 	
-        PlatoonTemplate = 'T4ExperimentalLandGroup',
+        PlatoonTemplate = 'T4ExperimentalGroupAmphibious',
 		
         PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
 		
@@ -794,11 +794,14 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
         Priority = 700,
 		
-		-- this function alters the builder 
 		PriorityFunction = function(self, aiBrain, manager)
 			
+			-- effectively - if this is a primary base - and the attack plan requires amphbious attack --
 			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 800, true
+			
+				if aiBrain.AttackPlan.Method == 'Amphibious' then
+					return 800, true
+				end
 			end
 			
 			return 10, true
@@ -812,15 +815,15 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 20, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
-			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},			
+		
 		},
 		
         BuilderData = {
 		
 			DistressRange = 200,
 			DistressTypes = 'Land',
-			DistressThreshold = 15,
+			DistressThreshold = 10,
 			
             PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
@@ -835,9 +838,9 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
         },
     },
 	
-	Builder {BuilderName = 'Exp Land Group - Forced',
+	Builder {BuilderName = 'Exp Group Amphibious - Forced',
 	
-        PlatoonTemplate = 'T4ExperimentalLandGroup',
+        PlatoonTemplate = 'T4ExperimentalGroupAmphibious',
 		
         PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
 		
@@ -845,11 +848,14 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
         Priority = 800,
 		
-		-- this function alters the builder 
 		PriorityFunction = function(self, aiBrain, manager)
-			
+		
+			-- effectively - if this is a primary base - and the attack plan requires amphbious attack --			
 			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 802, true
+			
+				if aiBrain.AttackPlan.Method == 'Amphibious' then
+					return 802, true
+				end
 			end
 			
 			return 10, true
@@ -862,7 +868,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		BuilderConditions = {
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
-			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},			
 		},
 		
         BuilderData = {
@@ -879,7 +885,112 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 			
         },
     },	
+	
+	Builder {BuilderName = 'Exp Group',
+	
+        PlatoonTemplate = 'T4ExperimentalGroup',
+		
+        PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
+		
+        Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+			
+			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+			
+				if aiBrain.AttackPlan.Method != 'Amphibious' then
+					return 800, true
+				end
+			end
+			
+			return 10, true
+		end,
+		
+        InstanceCount = 2,
+		
+        BuilderType = 'Any',
+		
+		BuilderConditions = {
+		
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+		
+		},
+		
+        BuilderData = {
+		
+			DistressRange = 200,
+			DistressTypes = 'Land',
+			DistressThreshold = 10,
+			
+            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+			
+			MaxAttackRange = 2000,			-- only process hi-priority targets within 17.5 km
+			
+			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
+			
+			AggressiveMove = true,
+			
+			UseFormation = 'AttackFormation',
+			
+        },
+    },
+	
+	Builder {BuilderName = 'Exp Group - Forced',
+	
+        PlatoonTemplate = 'T4ExperimentalGroup',
+		
+        PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 800,
+		
+		-- this function alters the builder 
+		PriorityFunction = function(self, aiBrain, manager)
+			
+			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+			
+				if aiBrain.AttackPlan.Method != 'Amphibious' then
+					return 802, true
+				end
+			end
+			
+			return 10, true
+		end,
+		
+        InstanceCount = 2,
+		
+        BuilderType = 'Any',
+		
+		BuilderConditions = {
+		
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},			
+		},
+		
+        BuilderData = {
 
+            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+			
+			MaxAttackRange = 4000,			-- all targets
+			
+			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
+			
+			AggressiveMove = true,
+			
+			UseFormation = 'AttackFormation',
+			
+        },
+    },	
+		
 	Builder {BuilderName = 'Reinforce Primary - Land Experimental',
 	
 		PlatoonTemplate = 'ReinforceLandExperimental',
