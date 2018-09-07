@@ -5,7 +5,9 @@
 local CRadarJammerUnit = import('/lua/cybranunits.lua').CRadarJammerUnit
 local BareBonesWeapon = import('/lua/sim/defaultweapons.lua').BareBonesWeapon
 local Utilities = import('/lua/utilities.lua')
+
 local Buff = import('/lua/sim/Buff.lua')
+
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
 SRB4402 = Class(CRadarJammerUnit) {
@@ -65,26 +67,9 @@ SRB4402 = Class(CRadarJammerUnit) {
                 CreateAttachedEmitter(self.unit, 0, army, epathQ .. '03_emit.bp')
                 CreateAttachedEmitter(self.unit, 0, army, epathQ .. '04_emit.bp')
 				
-                if not Buffs['DarknessOmniNerf'] then
-                    BuffBlueprint {
-                        Name = 'DarknessOmniNerf',
-                        DisplayName = 'DarknessOmniNerf',
-                        BuffType = 'OmniRadius',
-                        Stacks = 'ALWAYS',
-                        Duration = 20.1,
-                        Affects = {
-                            OmniRadius = {
-                                Add = 0,
-                                Mult = 0.6,
-                            },
-                        },
-                    }
-                end
-				
                 for k, v in LocalUnits do
 				
-                    if v:IsIntelEnabled('Omni') and
-                    not EntityCategoryContains(categories.COMMAND + categories.ual0401 + categories.sab2306, v)
+                    if v:IsIntelEnabled('Omni') and not EntityCategoryContains(categories.COMMAND + categories.ual0401 + categories.sab2306, v)
                     then
 					
                         Buff.ApplyBuff(v, 'DarknessOmniNerf')
