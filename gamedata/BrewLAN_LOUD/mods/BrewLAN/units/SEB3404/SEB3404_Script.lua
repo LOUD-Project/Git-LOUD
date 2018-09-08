@@ -113,7 +113,7 @@ SEB3404 = Class(TStructureUnit) {
         local maxrange = self:GetIntelRadius('radar') or self:GetBlueprint().Intel.RadarRadius or 6000
 		
         -- Find visible things to attach vis entities to
-        local LocalUnits = FindAllUnits( aiBrain, categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, maxrange, true)
+        local LocalUnits = FindAllUnits( aiBrain, categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.ANTITELEPORT - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE - categories.BENIGN, maxrange, true)
 		
         ------------------------------------------------------------------------
         -- IF self.ActiveConsumptionRestriction Sort the table by distance

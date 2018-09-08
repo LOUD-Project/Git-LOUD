@@ -46,9 +46,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        Health = 20000,
-        MaxHealth = 20000,
-        RegenRate = 1,
+        Health = 9000,
+        MaxHealth = 9000,
+        RegenRate = 0.2,
     },
 	
     Description = 'Medium Wall Segment', 
@@ -90,31 +90,6 @@ UnitBlueprint {
                     conflict = nil,
                     beamtype = '/effects/emitters/microwave_laser_beam_02_emit.bp',
                 },
-                --[[Tower = {
-                    visibility = 'show',  
-                    bonetype = 'Tower',
-                    conflict = nil,
-                },
-                North_TB = {
-                    visibility = 'show',
-                    bonetype = 'Tower',
-                    conflict = 'North',
-                },
-                South_TB = {
-                    visibility = 'show', 
-                    bonetype = 'Tower',
-                    conflict = 'South',
-                }, 
-                East_TB = {
-                    visibility = 'show', 
-                    bonetype = 'Tower',
-                    conflict = 'East',
-                }, 
-                West_TB = {
-                    visibility = 'show', 
-                    bonetype = 'Tower',
-                    conflict = 'West',
-                },--]]    
             },
         },                       
         DamageEffects = {
@@ -137,10 +112,6 @@ UnitBlueprint {
                 {
                     LODCutoff = 250,
                     ShaderName = 'Insect',
-                    --MeshName = '/mods/BrewLAN/units/srb5312/srb5312_lod0.scm',
-                    --AlbedoName = '/units/XRC8001/XRC8001_albedo.dds',
-                    --NormalsName = '/units/XRC8001/XRC8001_normalsts.dds',
-                    --SpecularName = '/units/XRC8001/XRC8001_specteam.dds',
                 },
             },
         },
@@ -150,16 +121,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1000,
-        BuildCostMass = 300,
-        BuildTime = 15,
+        BuildCostEnergy = 800,
+        BuildCostMass = 240,
+        BuildTime = 200,
 		
-        RebuildBonusIds = {
-            'sab5210',
-            'seb5210',
-            'srb5210',
-            'ssb5210',
-        },
+        RebuildBonusIds = { 'srb5210' },
     },
 	
     Footprint = {
@@ -168,7 +134,7 @@ UnitBlueprint {
     },
 	
     General = {      
-        CapCost = 0.5,
+        CapCost = 0.4,
         Category = 'Defense',
         Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
@@ -236,7 +202,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2,
-    SizeY = 2,
+    SizeY = 1.75,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure_wall',
@@ -253,7 +219,7 @@ UnitBlueprint {
             Land = true,
             Seabed = false,
             Sub = false,
-            Water = true,
+            Water = false,
         },
     },
 }
