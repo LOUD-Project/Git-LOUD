@@ -5,18 +5,10 @@ UnitBlueprint {
             Cue = 'URB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB5101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
+	
     BuildIconSortPriority = 290,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -33,12 +25,15 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 6000,
         MaxHealth = 6000,
     },
+	
     Description = '<LOC urb5101_desc>Wall Section',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -55,20 +50,21 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.17,
     },
+	
     Economy = {
         BuildCostEnergy = 100,
         BuildCostMass = 20,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'urm0004',
-        },
+		
+        RebuildBonusIds = {'urm0004'},
+		
     },
     General = {
-        CapCost = 0.1,
+        CapCost = 0.2,
         Category = 'Defense',
         Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
@@ -91,15 +87,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 0,
     },
+	
     Interface = {
         HelpText = 'Wall Section',
     },
+	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0.5,
-    LifeBarSize = 0.8,
+    LifeBarOffset = 0,
+    LifeBarSize = 0.075,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -121,14 +121,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.66,
+	
     SizeX = 1,
-    SizeY = 1.2,
+    SizeY = 1.1,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 210,
+	
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
