@@ -47,7 +47,20 @@ function GetConstructEconomyModel(builder, targetData)
     local mass_mod = builder.MassModifier or 0
     mass = mass * (100 + mass_mod)*.01
     if mass<0 then mass = 0 end
-
+	
+	-- from BrewLAN - accounting for discounted upgrade costs
+	-- this allows marking a blueprint so that you pay normal costs if directly built
+	-- or discounted costs if the building is being upgraded from something else
+    if builder_bp.BlueprintId == targetData.HalfPriceUpgradeFromID
+    or builder_bp.General.UpgradesTo == targetData.HalfPriceUpgradeFromID
+    or builder_bp.Economy.BuilderDiscountMult then
+	
+        local discount = targetData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 0.5
+		
+		energy = energy * discount, mass = mass * discount
+	
+	end
+	
     return time/rate, energy, mass
 end
 
