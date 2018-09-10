@@ -21,7 +21,7 @@ UnitBlueprint {
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 25,
+        MaxAirspeed = 24,
         MinAirspeed = 8,
 		
         StartTurnDistance = 5,
@@ -33,34 +33,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'UEADestroy',
             Cue = 'UEA_Destroy_Med',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UEA',
             Cue = 'UEA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Thruster',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -70,7 +50,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 25,
+    BuildIconSortPriority = 15,
 	
     Categories = {
         'SELECTABLE',
@@ -91,7 +71,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        EconomyThreatLevel = 250,
+		AirThreatLevel = 1,
+        EconomyThreatLevel = 200,
         Health = 1150,
         MaxHealth = 1150,
         RegenRate = 2,
@@ -172,8 +153,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 9000,
-        BuildCostMass = 200,
+        BuildCostEnergy = 14000,
+        BuildCostMass = 225,
         BuildTime = 250,
 		
         MaintenanceConsumptionPerSecondEnergy = 25,
@@ -215,12 +196,12 @@ UnitBlueprint {
 	
     Intel = {
         JamRadius = {
-            Max = 60,
-            Min = 10,
+            Max = 50,
+            Min = 8,
         },
-        JammerBlips = 12,
+        JammerBlips = 10,
 
-        VisionRadius = 32,
+        VisionRadius = 44,
     },
 	
     Interface = {

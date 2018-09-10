@@ -21,7 +21,7 @@ UnitBlueprint {
 		
         LiftFactor = 10,
 		
-        MaxAirspeed = 25,
+        MaxAirspeed = 24,
         MinAirspeed = 21,
 		
         StartTurnDistance = 5,
@@ -53,7 +53,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 21,
+    BuildIconSortPriority = 14,
 	
     Categories = {
         'SELECTABLE',
@@ -75,7 +75,7 @@ UnitBlueprint {
     CollisionOffsetY = 0.07,
 	
     Defense = {
-        AirThreatLevel = 0.3,
+        AirThreatLevel = 1,
         ArmorType = 'Light',
         Health = 595,
         MaxHealth = 595,
@@ -146,9 +146,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2275,
-        BuildCostMass = 120,
-        BuildTime = 650,
+        BuildCostEnergy = 8000,
+        BuildCostMass = 160,
+        BuildTime = 200,
     },
 	
     Footprint = {
@@ -187,7 +187,7 @@ UnitBlueprint {
 		FreeIntel = true,
         RadarRadius = 64,
         SonarRadius = 30,		
-        VisionRadius = 45,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -223,7 +223,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.4,
     SelectionThickness = 0.36,
 	
-    SizeSphere = 2.4,
+    SizeSphere = 2.2,
 	
     SizeX = 2,
     SizeY = 0.25,

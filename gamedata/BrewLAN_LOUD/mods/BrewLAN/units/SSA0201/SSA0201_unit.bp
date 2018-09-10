@@ -21,22 +21,18 @@ UnitBlueprint {
 		
         LiftFactor = 10,
 		
-        MaxAirspeed = 25,
+        MaxAirspeed = 24,
         MinAirspeed = 21,
 		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.1,
         TurnSpeed = 0.8,
+		
         Winged = true,
     },
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
             Bank = 'XSA_Destroy',
             Cue = 'XSA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
@@ -72,7 +68,7 @@ UnitBlueprint {
         'OVERLAYSONAR',
     },
     Defense = {
-        AirThreatLevel = 0.3,
+        AirThreatLevel = 1,
         ArmorType = 'Light',
         Health = 595,
         MaxHealth = 595,
@@ -83,7 +79,6 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            --'<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
@@ -143,9 +138,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2275,
-        BuildCostMass = 120,
-        BuildTime = 650,
+        BuildCostEnergy = 9000,
+        BuildCostMass = 160,
+        BuildTime = 200,
     },
 	
     Footprint = {
@@ -184,7 +179,7 @@ UnitBlueprint {
 		FreeIntel = true,
         SonarRadius = 30,
         RadarRadius = 64,
-        VisionRadius = 45,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -220,7 +215,7 @@ UnitBlueprint {
     SelectionSizeZ = 1.1*0.6,
     SelectionThickness = 0.6,
 	
-    SizeSphere = 2.4,
+    SizeSphere = 2.2,
 	
     SizeX = 0.8*0.7,
     SizeY = 0.25,

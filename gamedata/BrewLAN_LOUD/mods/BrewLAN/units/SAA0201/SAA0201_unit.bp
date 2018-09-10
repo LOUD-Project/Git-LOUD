@@ -19,47 +19,27 @@ UnitBlueprint {
         KTurn = 1.5,
         KTurnDamping = 2.3,
 		
-        LiftFactor = 7,
+        LiftFactor = 9,
 		
-        MaxAirspeed = 25,
+        MaxAirspeed = 22,
         MinAirspeed = 8,
 		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.02,
-        TurnSpeed = 1.9,
+        TurnSpeed = 1.6,
 		
         Winged = true,
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'UAADestroy',
             Cue = 'UAA_Destroy_Air',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UAA',
             Cue = 'UAA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Thruster',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -89,13 +69,14 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        EconomyThreatLevel = 250,
+		AirThreatLevel = 1,
+		EconomyThreatLevel = 200,
         Health = 1050,
         MaxHealth = 1050,
 		Regen = 1,
     },
 	
-    Description = '<LOC sair0201>Decoy Plane',
+    Description = '<LOC saa0201>Decoy Plane',
 	
     Display = {
         Abilities = {
@@ -156,8 +137,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 9000,
-        BuildCostMass = 200,
-        BuildTime = 250,
+        BuildCostMass = 180,
+        BuildTime = 220,
 		
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
@@ -205,15 +186,15 @@ UnitBlueprint {
 	
     Intel = {
         JamRadius = {
-            Max = 60,
-            Min = 10,
+            Max = 50,
+            Min = 8,
         },
         JammerBlips = 10,
-        VisionRadius = 32,
+        VisionRadius = 44,
     },
 	
     Interface = {
-        HelpText = '<LOC sair0201>Decoy Plane',
+        HelpText = '<LOC saa0201>Decoy Plane',
     },
 	
     LifeBarHeight = 0.075,
@@ -245,7 +226,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.42,
 	
-    SizeSphere = 2.4,
+    SizeSphere = 2.2,
 	
     SizeX = 0.8,
     SizeY = 0.25,
