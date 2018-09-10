@@ -17,6 +17,14 @@ _UnitRestricted_cache = {}
 
 doscript('/lua/BuffFieldDefinitions.lua')
 
+BrewLANPath = function()
+    for i, mod in __active_mods do
+        if mod.uid == "25D57D85-7D84-27HT-A501-BR3WL4N000079" then
+            return mod.location
+        end
+    end 
+end
+
 -- Return the total time (in seconds), energy, and mass it will take for the given
 -- builder to create a unit of type target_bp.
 --
@@ -51,13 +59,12 @@ function GetConstructEconomyModel(builder, targetData)
 	-- from BrewLAN - accounting for discounted upgrade costs
 	-- this allows marking a blueprint so that you pay normal costs if directly built
 	-- or discounted costs if the building is being upgraded from something else
-    if builder_bp.BlueprintId == targetData.HalfPriceUpgradeFromID
-    or builder_bp.General.UpgradesTo == targetData.HalfPriceUpgradeFromID
-    or builder_bp.Economy.BuilderDiscountMult then
+    if builder_bp.BlueprintId == targetData.HalfPriceUpgradeFromID or builder_bp.General.UpgradesTo == targetData.HalfPriceUpgradeFromID or builder_bp.Economy.BuilderDiscountMult then
 	
         local discount = targetData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 0.5
 		
-		energy = energy * discount, mass = mass * discount
+		energy = energy * discount
+		mass = mass * discount
 	
 	end
 	
