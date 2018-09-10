@@ -124,7 +124,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 150,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -166,7 +166,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -212,7 +212,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
         BuilderData = {
 		
-			DistressRange = 350,
+			DistressRange = 250,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -255,7 +255,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
         BuilderData = {
 		
-			DistressRange = 300,
+			DistressRange = 200,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -309,7 +309,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
         BuilderData = {
 		
-			DistressRange = 450,
+			DistressRange = 350,
 			DistressTypes = 'Land',
 			DistressThreshold = 20,
 			LocationType = 'LocationType',
@@ -534,7 +534,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 360,
+			DistressRange = 250,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			
@@ -602,7 +602,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 250,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			
@@ -669,7 +669,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
             LocationType = 'LocationType',
@@ -729,7 +729,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 1250,
+			DistressRange = 400,
 			DistressTypes = 'Air',
 			DistressThreshold = 5,
 			
@@ -802,7 +802,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 1024,
+			DistressRange = 300,
 			DistressTypes = 'Air',
 			DistressThreshold = 10,
 			
@@ -872,7 +872,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Air',
 			DistressThreshold = 8,
 			
@@ -942,7 +942,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 600,
+			DistressRange = 300,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -1010,7 +1010,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 600,
+			DistressRange = 300,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -1112,7 +1112,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 500,
+			DistressRange = 250,
 			DistressTypes = 'Air',
 			DistressThreshold = 15,
 			
@@ -1180,7 +1180,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderData = {
 		
             LocationType = 'LocationType',
-			DistressRange = 300,
+			DistressRange = 175,
 			PointType = 'Unit',
 			PointCategory = categories.CARRIER,
 			PointSourceSelf = false,
@@ -1235,7 +1235,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 250,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
             LocationType = 'LocationType',
@@ -1294,7 +1294,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 150,
 			DistressTypes = 'Naval',
 			DistressThreshold = 4,
 			LocationType = 'LocationType',

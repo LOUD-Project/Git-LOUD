@@ -205,9 +205,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 200,
 			DistressTypes = 'Naval',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
 			
@@ -255,9 +255,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 200,
 			DistressTypes = 'Naval',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
 			
@@ -305,9 +305,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 200,
 			DistressTypes = 'Naval',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
 			
@@ -354,9 +354,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 200,
 			DistressTypes = 'Naval',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 8 minute mission
 			
@@ -403,7 +403,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -451,7 +451,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -499,7 +499,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -546,7 +546,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -598,7 +598,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -649,7 +649,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -700,7 +700,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -749,7 +749,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -822,7 +822,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -861,7 +861,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			

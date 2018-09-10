@@ -821,7 +821,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -924,7 +924,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
 		
         BuilderData = {
 		
-			DistressRange = 200,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1070,7 +1070,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
@@ -1116,7 +1116,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
@@ -1164,9 +1164,9 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Formations',
 		
         BuilderData = {
 		
-			DistressRange = 400,
+			DistressRange = 200,
 			DistressTypes = 'Land',
-			DistressThreshold = 40,
+			DistressThreshold = 25,
 
             PrioritizedCategories = { 'ANTIAIR STRUCTURE', 'COMMAND', 'ANTIAIR', 'EXPERIMENTAL', 'ENERGYPRODUCTION', 'FACTORY', 'STRUCTURE' }, -- list in order
 			
