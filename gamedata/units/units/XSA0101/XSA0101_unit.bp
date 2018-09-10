@@ -72,9 +72,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 0.1,
         ArmorType = 'Light',
-        Health = 82,
-        MaxHealth = 82,
-        RegenRate = 1,
+        Health = 80,
+        MaxHealth = 80,
+        RegenRate = 0.1,
     },
 	
     Description = '<LOC xsa0101_desc>Air Scout',
@@ -102,9 +102,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2100,
-        BuildCostMass = 40,
-        BuildTime = 400,
+        BuildCostEnergy = 1950,
+        BuildCostMass = 30,
+        BuildTime = 125,
     },
 	
     Footprint = {
@@ -141,8 +141,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        IntelDurationOnDeath = 20,
-		RadarRadius = 50,
+        IntelDurationOnDeath = 15,
+		RadarRadius = 55,
         VisionRadius = 42,
         VisionRadiusOnDeath = 36,
     },
@@ -186,7 +186,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.83,
 	
-    SizeSphere = 1.7,
+    SizeSphere = 1.8,
 	
     SizeX = 0.4,
     SizeY = 0.15,

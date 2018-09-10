@@ -1,8 +1,4 @@
 UnitBlueprint {
-    AI = {
-        GuardReturnRadius = 120,
-        GuardScanRadius = 90,
-    },
 	
     Air = {
         AutoLandTime = 1,
@@ -78,7 +74,7 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 80,
         MaxHealth = 80,
-        RegenRate = 0,
+        RegenRate = 0.1,
     },
 	
     Description = '<LOC uaa0101_desc>Air Scout',

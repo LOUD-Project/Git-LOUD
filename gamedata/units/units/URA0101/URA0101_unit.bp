@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -25,6 +26,7 @@ UnitBlueprint {
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.1,
         TurnSpeed = 1,
+		
         Winged = true,
     },
 	
@@ -68,8 +70,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 0.1,
         ArmorType = 'Light',
-        Health = 72,
-        MaxHealth = 72,
+        Health = 76,
+        MaxHealth = 76,
         RegenRate = 1,
     },
 	
@@ -99,7 +101,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1950,
         BuildCostMass = 30,
-        BuildTime = 300,
+        BuildTime = 125,
     },
 	
     Footprint = {
