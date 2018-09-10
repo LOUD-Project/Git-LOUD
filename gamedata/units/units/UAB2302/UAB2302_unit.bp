@@ -236,12 +236,12 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 6000,
+            Damage = 5000,
             DamageFriendly = true,
 			
             DamageRadius = 4,
 			
-            DamageType = 'ShieldMult1.1',
+            DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
 			

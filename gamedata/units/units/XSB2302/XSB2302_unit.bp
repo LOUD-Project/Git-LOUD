@@ -247,10 +247,10 @@ UnitBlueprint {
 
             CollideFriendly = false,
 
-            Damage = 5000,
+            Damage = 4250,
             DamageFriendly = true,
             DamageRadius = 6,
-            DamageType = 'ShieldMult1.3',
+            DamageType = 'Normal',
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 

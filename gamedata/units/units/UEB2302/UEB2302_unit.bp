@@ -225,10 +225,10 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 5500,
+            Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 5,
-            DamageType = 'ShieldMult1.1',
+            DamageType = 'Normal',
 			
             DisplayName = 'Anti Matter Artillery',
 			
