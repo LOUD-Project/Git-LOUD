@@ -1956,14 +1956,24 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCollisionCheck = function(self, other, firingWeapon)
-	
-		--LOG("*AI DEBUG UnitOnCollisionCheck")
-	
+
         if self.DisallowCollisions then
 		
             return false
 			
-        end		
+        end
+		
+		-- for rail guns from 4DC credit Resin_Smoker
+		if other.LastImpact then
+		
+			-- if hit same unit twice
+			if other.LastImpact == GetEntityId(self) then
+
+				return false
+				
+			end
+			
+		end
 		
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDPARSE = ParseEntityCategory
@@ -2022,18 +2032,6 @@ Unit = Class(moho.unit_methods) {
 			end
 			
 		end	
-		
-		-- for rail guns from 4DC credit Resin_Smoker
-		if other.LastImpact then
-		
-			-- if hit same unit twice
-			if other.LastImpact == GetEntityId(self) then
-			
-				return false
-				
-			end
-			
-		end
 
         if not self.Dead and self.EXPhaseEnabled == true then
 		
@@ -2067,7 +2065,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
-	
+
         if self.DisallowCollisions then
 		
 			return false
