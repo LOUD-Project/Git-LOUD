@@ -68,8 +68,8 @@ end
 BuilderGroup {BuilderGroupName = 'Air Factory Builders',
     BuildersType = 'FactoryBuilder',
 	
-	-- stop making when you have TECH3 air plants
-    Builder {BuilderName = 'Air Scout',
+	-- stop making when you have TECH2 air plants
+    Builder {BuilderName = 'T1 Air Scout',
 	
         PlatoonTemplate = 'T1AirScout',
         Priority = 600,
@@ -82,15 +82,37 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 10, [2048] = 12, [4096] = 12}, categories.AIR * categories.SCOUT}},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.AIR * categories.SCOUT } },			
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR - categories.TECH3 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH1 }},
 			
         },
 		
-        BuilderType =  {'AirT1','AirT2'},
+        BuilderType =  {'AirT1'},
 		
     },
 	
-    Builder {BuilderName = 'Spy Plane T3',
+	-- stop making when you have TECH3 air plants
+    Builder {BuilderName = 'T2 Air Scout',
+	
+        PlatoonTemplate = 'T2AirScout',
+        Priority = 601,
+
+        BuilderConditions = {
+		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 12, [512] = 24, [1024] = 36, [2048] = 48, [4096] = 56}, categories.AIR * categories.SCOUT}},
+			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.AIR * categories.SCOUT } },			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH2 }},
+			
+        },
+		
+        BuilderType =  {'AirT2'},
+		
+    },
+
+    Builder {BuilderName = 'T3 Air Scout',
 	
         PlatoonTemplate = 'T3AirScout',
         Priority = 601,

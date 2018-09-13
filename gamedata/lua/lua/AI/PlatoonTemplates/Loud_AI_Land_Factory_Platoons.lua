@@ -445,6 +445,11 @@ PlatoonTemplate { Name = 'T3ShieldDisruptor',
 	}
 }
 
+PlatoonTemplate { Name = 'T3MobileAntiNuke',
+	FactionSquads = {
+	}
+}
+
 
 PlatoonTemplate { Name = 'T3LandSubCommander',
     FactionSquads = {
