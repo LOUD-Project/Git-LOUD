@@ -480,7 +480,7 @@ SAAHotheFlareProjectile = Class(EmitterProjectile) {
     FxNoneHitScale = 0.4,
     FxImpactLand = {},
     FxImpactUnderWater = {},
-    DestroyOnImpact = false,
+    --DestroyOnImpact = false,
 
     -- We only destroy when we hit the ground/water.
     OnImpact = function(self, TargetType, targetEntity)

@@ -359,7 +359,7 @@ CIFMolecularResonanceShell = Class(SinglePolyTrailProjectile) {
     FxImpactProp = EffectTemplate.CMolecularResonanceHitUnit01,
     FxImpactLand = EffectTemplate.CMolecularResonanceHitUnit01,
     FxImpactUnderWater = {},
-    DestroyOnImpact = false,
+    --DestroyOnImpact = false,
 
     OnCreate = function(self)
         SinglePolyTrailProjectile.OnCreate(self)

@@ -148,7 +148,7 @@ Shield = Class(moho.shield_methods,Entity) {
     end,
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
-	
+
 		local GetArmy = moho.entity_methods.GetArmy
 	
 		if IsAlly( self.Army, GetArmy(firingWeapon.unit) ) then
@@ -342,6 +342,20 @@ Shield = Class(moho.shield_methods,Entity) {
 
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
+
+		-- for rail guns from 4DC credit Resin_Smoker
+		if other.LastImpact then
+		
+			-- if hit same unit twice
+			if other.LastImpact == self.Owner.MyShield:GetEntityId() then
+				return false
+			end
+		end
+		
+		if other.DamageData.DamageType == 'Railgun' then
+			other.LastImpact = self.Owner.MyShield:GetEntityId()
+		end
+		
 		local GetArmy = moho.entity_methods.GetArmy
         return IsEnemy( self.Army, GetArmy(other) )
     end,
@@ -633,7 +647,7 @@ AntiArtilleryShield = Class(Shield){
 
         local bp = firingWeapon:GetBlueprint()
 		
-        if bp.CollideFriendly == false then
+        if not bp.CollideFriendly then
 		
             if self.Sync.army == firingWeapon.unit.Sync.army then
 			

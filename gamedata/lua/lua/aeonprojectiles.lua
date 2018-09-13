@@ -192,7 +192,7 @@ AIMFlareProjectile = Class(EmitterProjectile) {
     FxNoneHitScale = 0.4,
     FxImpactLand = {},
     FxImpactUnderWater = {},
-    DestroyOnImpact = false,
+    --DestroyOnImpact = false,
 
     OnImpact = function(self, TargetType, targetEntity)
 	

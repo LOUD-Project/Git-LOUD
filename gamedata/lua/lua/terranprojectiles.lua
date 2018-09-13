@@ -331,7 +331,7 @@ TAntiNukeInterceptorProjectile = Class(SingleBeamProjectile) {
 }
 
 TMissileCruiseProjectile = Class(SingleBeamProjectile) {
-    DestroyOnImpact = false,
+    --DestroyOnImpact = false,
     FxTrails = EffectTemplate.TMissileExhaust02,
     FxTrailOffset = -1,
     BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',
@@ -360,7 +360,7 @@ TMissileCruiseProjectile = Class(SingleBeamProjectile) {
 
 TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
 	FxImpactTrajectoryAligned = false,
-    DestroyOnImpact = false,
+    --DestroyOnImpact = false,
     FxTrails = EffectTemplate.TMissileExhaust02,
     FxTrailOffset = -1,
     BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',

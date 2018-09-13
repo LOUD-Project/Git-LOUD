@@ -30,7 +30,11 @@ local GetArmy = moho.entity_methods.GetArmy
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetHealth = moho.entity_methods.GetHealth
 local GetLauncher = moho.projectile_methods.GetLauncher
+local GetMaxHealth = moho.entity_methods.GetMaxHealth
 local GetPosition = moho.entity_methods.GetPosition
+
+local SetHealth = moho.entity_methods.SetHealth
+local SetMaxHealth = moho.entity_methods.SetMaxHealth
 
 local PlaySound = moho.entity_methods.PlaySound
 
@@ -75,10 +79,14 @@ Projectile = Class(moho.projectile_methods, Entity) {
     FxImpactLandScorchScale = 1.0,
 
     ForkThread = function(self, fn, ...)
-	
-		--LOG("*AI DEBUG Projectile Forkthread")
-		
+
         local thread = ForkThread(fn, self, unpack(arg))
+		
+		if not self.Trash then
+		
+			self.Trash = TrashBag()
+			
+		end
 		
         self.Trash:Add(thread)
 		
@@ -90,21 +98,28 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	
         local thread = ForkThread(fn, self, opt1, opt2, opt3)
 		
+		if not self.Trash then
+			
+			self.Trash = TrashBag()
+			
+		end
+		
         self.Trash:Add(thread)
 		
     end,
 
     OnCreate = function(self, inWater)
 	
-        self.DamageData = { DamageRadius = nil, DamageAmount = nil, DamageType = nil, DamageFriendly = false, }
+        self.DamageData = { DamageAmount = nil, DamageType = nil }
 		
-        self.Trash = TrashBag()
+		-- we'll only create a trashbag if we need one --
+        --self.Trash = TrashBag()
 		
 		local bp = GetBlueprint(self)
 		
-        self:SetMaxHealth(bp.Defense.MaxHealth or 1)
+        SetMaxHealth( self, bp.Defense.MaxHealth or 1)
 		
-        self:SetHealth(self, self:GetMaxHealth())
+        SetHealth( self, self, GetMaxHealth(self) )
 	
         if bp.Audio.ExistLoop then
 		
@@ -212,7 +227,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 	
     OnCollisionCheck = function(self,other)
-        
+
         if (LOUDENTITY(categories.TORPEDO, self) and ( LOUDENTITY(categories.TORPEDO, other) or LOUDENTITY(categories.DIRECTFIRE, other))) or 
            (LOUDENTITY(categories.MISSILE, self) and ( LOUDENTITY(categories.MISSILE, other) or LOUDENTITY(categories.DIRECTFIRE, other))) or 
            (LOUDENTITY(categories.DIRECTFIRE, self) and LOUDENTITY(categories.MISSILE, other)) or 
@@ -304,7 +319,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
             else
                 local excessDamageRatio = 0.0
 				
-                #-- Calculate the excess damage amount
+                -- Calculate the excess damage amount
                 local excess = health - amount
                 local maxHealth = GetBlueprint(self).Defense.MaxHealth or 10
 				
@@ -335,25 +350,25 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
             if radius > 0 then
 
-                if damageData.DoTTime <= 0 then
+                if not damageData.DoTTime then
 
-                    DamageArea( instigator, GetPosition(self), radius, damage, damageData.DamageType, damageData.DamageFriendly, damageData.DamageSelf or false)
+                    DamageArea( instigator, GetPosition(self), radius, damage, damageData.DamageType, damageData.DamageFriendly or false, damageData.DamageSelf or false)
 					
                 else
 				
-                    ForkTo( AreaDoTThread, instigator, GetPosition(self), damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly)
+                    ForkTo( AreaDoTThread, instigator, GetPosition(self), damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly or false)
 					
                 end
 				
             elseif damageData.DamageAmount and targetEntity then
 			
-                if damageData.DoTTime <= 0 then
+                if not damageData.DoTTime then
 				
                     Damage( instigator, GetPosition(self), targetEntity, damageData.DamageAmount, damageData.DamageType)
 					
                 else
 				
-                    ForkTo( UnitDoTThread, instigator, targetEntity, damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), damage, damageData.DamageType, damageData.DamageFriendly)
+                    ForkTo( UnitDoTThread, instigator, targetEntity, damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), damage, damageData.DamageType, damageData.DamageFriendly or false)
 					
                 end
             end
@@ -426,7 +441,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
-	
+
 		-- if this unit category is on the weapon's do-not-collide list, skip!
 		local DNC = firingWeapon:GetBlueprint().DoNotCollideList
 
@@ -446,13 +461,12 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnImpact = function(self, targetType, targetEntity)
 	
-		--LOG("*AI DEBUG Projectile OnImpact at "..repr(GetPosition(self)))
 		--LOG("*AI DEBUG OnImpact targetType is "..repr(targetType))
 		--LOG("*AI DEGUG Projectile data is "..repr(self))
-		--LOG("*AI DEBUG OnImpact targetEntity is "..repr(GetBlueprint(targetEntity).Description).." at "..repr(GetPosition(targetEntity)))
+		--LOG("*AI DEBUG Target entity is "..repr(targetEntity))
 		
-		if targetType == 'Shield' and self.DamageData.DamageRadius > 0 then
-			self.DamageData.DamageRadius = 0
+		if targetType == 'Shield' and self.DamageData.DamageRadius then
+			self.DamageData.DamageRadius = nil
 		end
 		
 		if self.DamageData.Buffs then
@@ -585,22 +599,22 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
 		if self.DamageData.DamageType == 'Railgun' then
 
-			self.DestroyOnImpact = false
+			--self.DestroyOnImpact = false
+			self.DamageData.DamageAmount = self.DamageData.DamageAmount * 0.8
+			
 			bp.Physics.ImpactTimeout = 0.1
 
 		end
-		
-        if bp.Physics.ImpactTimeout and targetType == 'Terrain' then
+
+        if bp.Physics.ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
 		
             ForkTo( self.ImpactTimeoutThread, self, bp.Physics.ImpactTimeout )
 			
         else
 
-			if self.DestroyOnImpact or (not targetEntity) 
-			or ( (not self.DestroyOnImpact and not self.DamageData.DamageType == 'Railgun') and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity))
-			then
+			if self.DamageData.DamageType != 'Railgun' then
 
-				Destroy(self)
+				self:OnImpactDestroy( targetType, targetEntity)
 				
 			end 
 
@@ -609,10 +623,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
     
     OnImpactDestroy = function( self, targetType, targetEntity )
-	
+
         if self.DestroyOnImpact or not targetEntity or 		
             (not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
-			
+
             Destroy(self)
 			
         end 
@@ -658,22 +672,26 @@ Projectile = Class(moho.projectile_methods, Entity) {
         self.Data = data
     end,
 
+	-- modified to carry only active data so any fields which are
+	-- empty won't be created
     PassDamageData = function(self, damageData)
 		
-        self.DamageData.DamageRadius = damageData.DamageRadius or 0
+        self.DamageData.DamageRadius = damageData.DamageRadius
         self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
         self.DamageData.DamageType = damageData.DamageType
 		
-        self.DamageData.DamageFriendly = damageData.DamageFriendly or false
+        self.DamageData.DamageFriendly = damageData.DamageFriendly
 		
-        self.DamageData.CollideFriendly = damageData.CollideFriendly or false
+		if damageData.CollideFriendly then
+			self.DamageData.CollideFriendly = damageData.CollideFriendly
+		end
 		
-        self.DamageData.DoTTime = damageData.DoTTime or 0
+        self.DamageData.DoTTime = damageData.DoTTime
         self.DamageData.DoTPulses = damageData.DoTPulses
 		
 		self.DamageData.advancedTracking = damageData.advancedTracking
 
-        self.DamageData.Buffs = damageData.Buffs or false
+        self.DamageData.Buffs = damageData.Buffs
         self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
     end,
     
@@ -703,6 +721,12 @@ Projectile = Class(moho.projectile_methods, Entity) {
         if not tbl.Radius then return end
 		
         self.MyFlare = Flare { Owner = self, Radius = tbl.Radius or 5 }
+		
+		if not self.Trash then
+		
+			self.Trash = TrashBag()
+			
+		end
 		
         self.Trash:Add(self.MyFlare)
 		
