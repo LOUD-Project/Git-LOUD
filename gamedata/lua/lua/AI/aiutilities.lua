@@ -906,26 +906,43 @@ function GetNumTransportSlots(unit, aiBrain)
 			bones.Medium = 8
 			bones.Small = 16
 		
-		#-- these next entries are for the BO T3 Transports and Cybran T4 Gargantua
+		-- BO Aeon transport
 		elseif bones.Small == 0 and (categories.baa0309 and EntityCategoryContains( categories.baa0309, unit)) then
 			bones.Large = 6
 			bones.Medium = 10
 			bones.Small = 16
-			
+		
+		-- BO Cybran transport
 		elseif bones.Small == 0 and (categories.bra0309 and EntityCategoryContains( categories.bra0309, unit)) then
 			bones.Large = 3
 			bones.Medium = 12
 			bones.Small = 14
 			
+		-- BrewLan Cybran transport
+		elseif bones.Small == 0 and (categories.sra0306 and EntityCategoryContains( categories.sra0306, unit)) then
+			bones.Large = 4
+			bones.Medium = 8
+			bones.Small = 16
+		
+		-- Gargantua
 		elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
 			bones.Large = 20
 			bones.Medium = 0
 			bones.Small = 0
-			
+		
+		-- BO Sera transport
 		elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
 			bones.Large = 8
 			bones.Medium = 12
 			bones.Small = 28
+
+		-- BrewLAN Seraphim transport
+		elseif bones.Small == 0 and (categories.ssa0306 and EntityCategoryContains( categories.ssa0306, unit)) then
+			bones.Large = 7
+			bones.Medium = 15
+			bones.Small = 32
+			
+			
 			
 		end
 		
