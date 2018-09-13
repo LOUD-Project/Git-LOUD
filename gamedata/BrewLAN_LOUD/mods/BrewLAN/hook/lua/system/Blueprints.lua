@@ -19,6 +19,7 @@ end
 function ModBlueprints(all_blueprints)
 
     OldModBlueprints(all_blueprints)
+	
     BrewLANBuildCatChanges(all_blueprints.Unit)
 
     --BrewLANCategoryChanges(all_blueprints.Unit)
@@ -33,12 +34,6 @@ function ModBlueprints(all_blueprints)
     --BrewLANNameCalling(all_blueprints.Unit)
 
     UpgradeableToBrewLAN(all_blueprints.Unit)
-    --TorpedoBomberWaterLandCat(all_blueprints.Unit)
-    --RoundGalacticCollosusHealth(all_blueprints.Unit)
-
-    --BrewLANMatchBalancing(all_blueprints.Unit)
-    --BrewLANFAFExclusiveChanges(all_blueprints.Unit)
-    --BrewLANNavalShields(all_blueprints.Unit)
 
     --BrewLANBomberDamageType(all_blueprints.Unit)
     BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
@@ -56,13 +51,6 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANBuildCatChanges(all_bps)
-    --[[local bb = function(data)
-        return 'BUILTBY' .. (data[1] or '') .. 'TIER' .. (data[t] or '')
-    end
-    local T1LF = 'BUILTBYLANDTIER1FACTORY '
-    local T2LF = 'BUILTBYLANDTIER2FACTORY '
-    local T3LF = 'BUILTBYLANDTIER3FACTORY '
-    ]]--
 
     ----------------------------------------------------------------------------
     -- Get a list of all real categories
@@ -97,22 +85,7 @@ function BrewLANBuildCatChanges(all_bps)
         srb0101 = {'BUILTBYLANDTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',},
         sab0101 = {'BUILTBYLANDTIER1FACTORY AEON MOBILE CONSTRUCTION',},
         ssb0101 = {'BUILTBYLANDTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-        --FAF support factories
-        --[[
-        zab9501 = {'BUILTBYLANDTIER2FACTORY AEON MOBILE CONSTRUCTION',},
-        zab9601 = {'BUILTBYLANDTIER3FACTORY AEON MOBILE CONSTRUCTION',},
-        zeb9501 = {'BUILTBYLANDTIER2FACTORY UEF MOBILE CONSTRUCTION',},
-        zeb9601 = {'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',},
-        zrb9501 = {'BUILTBYLANDTIER2FACTORY CYBRAN MOBILE CONSTRUCTION',},
-        zrb9601 = {'BUILTBYLANDTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',},
-        zsb9501 = {'BUILTBYLANDTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-        zsb9601 = {'BUILTBYLANDTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-        ]]
-        --Tech 1 Field Engineers
-        --sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
-        --srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
-        --ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
-        --sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
+
         --Tech 2 Field Engineers
         srl0209 = {'BUILTBYTIER2ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
         ssl0219 = {'BUILTBYTIER2ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
@@ -325,7 +298,9 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANGantryBuildList(all_bps)
+
     local Gantries = {}
+	
     for id, bp in all_bps do
         if bp.AI.Experimentals then
             Gantries[id] = {
@@ -334,9 +309,12 @@ function BrewLANGantryBuildList(all_bps)
             }
         end
     end
+	
     for id, bp in all_bps do
+	
         --Check it has a category table first
         for gantryId, info in Gantries do
+		
             if bp.Categories then
                 --Check the Gantry can't already build it, and that its a mobile experimental
                 if table.find(bp.Categories, info.Cat) and table.find(bp.Categories, 'EXPERIMENTAL') then
@@ -420,9 +398,12 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANHeavyWallBuildList(all_bps)
+
     for id, bp in all_bps do
+	
         --Check its not hard coded to be buildable, then check it meets the standard requirements.
         if bp.Categories then
+		
             if not table.find(bp.Categories, 'BUILTBYHEAVYWALL')
             and not table.find(bp.Categories, 'WALL')
             and not table.find(bp.Categories, 'HEAVYWALL')
@@ -430,6 +411,7 @@ function BrewLANHeavyWallBuildList(all_bps)
             and not table.find(bp.Categories, 'MINE')
             and table.find(bp.Categories, 'STRUCTURE')
             then
+			
                 if table.find(bp.Categories, 'BUILTBYTIER1ENGINEER')
                 or table.find(bp.Categories, 'BUILTBYTIER2ENGINEER')
                 or table.find(bp.Categories, 'BUILTBYTIER3ENGINEER')
@@ -437,6 +419,7 @@ function BrewLANHeavyWallBuildList(all_bps)
                 or table.find(bp.Categories, 'BUILTBYTIER2FIELD')
                 or table.find(bp.Categories, 'BUILTBYTIER3FIELD')
                 then
+				
                     if table.find(bp.Categories, 'DEFENSE') or table.find(bp.Categories, 'INDIRECTFIRE') then
                         --Check it wouldn't overlap badly with the wall
                         local fits = { X = false, Z = false,}
@@ -487,32 +470,17 @@ end
 --------------------------------------------------------------------------------
 
 function UpgradeableToBrewLAN(all_bps)
+
     local VanillasToUpgrade = {
-        uab4202 = 'uab4301',--FromAeon T2 shield
+
         xsb3202 = 'sss0305',--From Seraphim T2 sonar
-        --urb2301 = 'srb0306',--From Cybran T2 PD Cerberus to Hades. A little OP.
-        --[[
-        urb1301 = 'srb1311',--To Cloakable Generator
-        urb1302 = 'srb1312',--To Cloakable Extractor
-        urb1303 = 'srb1313',--To Cloakable Fabricator
-        urb4203 = 'srb4313',--To Cloakable stealth gen
-        ueb1301 = 'seb1311',--To engineering Generator
-        ueb1302 = 'seb1312',--To engineering Extractor
-        ueb1303 = 'seb1313',--To engineering Fabricator
-        uab1301 = 'sab1311',--To shielded Generator
-        uab1302 = 'sab1312',--To shielded Extractor
-        uab1303 = 'sab1313',--To shielded Fabricator
-        sab4102 = 'uab4202',--From Aeon T1 Shield
-        seb4102 = 'ueb4202',--From UEF T1 Shield
-        ssb4102 = 'xsb4202',--From Seraphim T1 Shield
-        xsb1301 = 'ssb1311',--To Armored Generator
-        xsb1302 = 'ssb1312',--To Armored Extractor
-        xsb1303 = 'ssb1313',--To Armored Fabricator
-        ]]
-        --srb5310 = 'srb5311',--Cybran wall into cybran gate. Caused issues.
+
     }
+	
     for unitid, upgradeid in VanillasToUpgrade do
+	
         if all_bps[unitid] and all_bps[upgradeid] then
+		
             table.insert(all_bps[unitid].Categories, 'SHOWQUEUE')
 
             if not all_bps[unitid].Display.Abilities then all_bps[unitid].Display.Abilities = {} end
@@ -532,23 +500,23 @@ function UpgradeableToBrewLAN(all_bps)
 
             all_bps[unitid].General.CommandCaps.RULEUCC_Pause = true
         end
+		
     end
-    local UpgradesFromBase = {
-        -- Base        Max
-        --[[
-        urb1103 = 'srb1312',--To Cloakable Extractor
-        ueb1103 = 'seb1312',--To engineering Extractor
-        uab1103 = 'sab1312',--To shielded Extractor
-        xsb1103 = 'ssb1312',--To Armored Extractor
-        ]]
-    }
+	
+    local UpgradesFromBase = {}
+	
     --This could potentially loop forever if someone broke the upgrade chain elsewhere
     for unitid, upgradeid in UpgradesFromBase do
+	
         if all_bps[upgradeid] then
+		
             local nextID = upgradeid
+			
             while true do
                 if nextID == unitid then break end
+				
                 all_bps[nextID].General.UpgradesFromBase = unitid
+				
                 --LOG(all_bps[nextID].Description, unitid )
                 if all_bps[nextID].General.UpgradesFrom then
                     nextID = all_bps[nextID].General.UpgradesFrom
@@ -576,17 +544,15 @@ function TorpedoBomberWaterLandCat(all_bps)
         all_bps['uea0204'], --T2 UEF
         all_bps['xsa0204'], --T2 Seraphim
         all_bps['uaa0204'], --T2 Aeon
-
-        all_bps['sra0106'], --T1 Cybran
-        all_bps['sea0106'], --T1 UEF
-        all_bps['ssa0106'], --T1 Seraphim
-        all_bps['saa0106'], --T1 Aeon
     }
+	
     for arrayIndex, bp in TorpedoBombers do
+	
         --Check they exist, and have all their things.
         if bp and bp.Categories and bp.Weapon then
+		
             table.insert(bp.Categories, 'TRANSPORTATION') --transportation category allows aircraft to land on water.
-            --table.insert(bp.Categories, 'HOVER') --hover category stops torpedos from being fired upon them while landed.
+
             for i, v in bp.Weapon do
                 if v.WeaponCategory == "Anti Navy" and v.FireTargetLayerCapsTable then
                     v.FireTargetLayerCapsTable.Seabed = 'Seabed|Sub|Water'
@@ -594,297 +560,6 @@ function TorpedoBomberWaterLandCat(all_bps)
                     v.FireTargetLayerCapsTable.Water = 'Seabed|Sub|Water'
                 end
             end
-        end
-    end
-end
-
---------------------------------------------------------------------------------
--- My OCD GC health change change
---------------------------------------------------------------------------------
-
-function RoundGalacticCollosusHealth(all_bps)
-    for i, v in {'Health','MaxHealth'} do
-        if all_bps['ual0401'].Defense[v] == 99999 then all_bps['ual0401'].Defense[v] = 100000 end
-    end
-end
-
---------------------------------------------------------------------------------
--- Balance matching for between FAF, Steam, and retail versions balancing
---------------------------------------------------------------------------------
-
-function MathRoundTo(val, round)
-    if type(round) == 'number' and type(val) == 'number' and round >= 1 then
-        return math.floor((val / round) + 0.5) * round
-    else
-        return val
-    end
-end
-
-function MathRoundAppropriately(val)
-    if val <= 25 then
-        return val
-    elseif val <= 1000 then
-        return MathRoundTo(val, 5)
-    else
-        return MathRoundTo(val, 25)
-    end
-end
-
-function BrewLANMatchBalancing(all_bps)
-    local UnitsList = {
-------- T1 gunships
-        saa0105 = {TargetID = 'xra0105', Affects = {'Veteran'}},
-        sea0105 = {TargetID = 'xra0105', Affects = {'Veteran'}},
-        sra0105 = {TargetID = 'xra0105', Affects = {'Veteran'}},
-------- T3 torpedo bombers to match Solace
-        sra0307 = {TargetID = 'xaa0306', Affects = {'Transport', 'Economy'}},
-        sea0307 = {TargetID = 'xaa0306', Affects = {'Transport', 'Economy'}},
-        ssa0307 = {TargetID = 'xaa0306', Affects = {'Transport', 'Economy'}},
-------- Sera T3 gunship to match Broadsword
-        ssa0305 = 'uea0305',
-------- Air transports to be based
-        ssa0306 = {
-            TargetID ='xea0306',
-            Affects = {
-                'Economy',
-                'Veteran',
-            },
-        },
-        sra0306 = {
-            TargetID = 'xea0306',
-            BaseMult = 0.95,
-            Affects = {
-                'Economy',
-                'Veteran',
-            },
-            Mults = {
-                Economy = {
-                    MaintenanceConsumptionPerSecondEnergy = 0.4,
-                },
-                Veteran = 1,
-            },
-        },
-        saa0306 = {
-            TargetID = 'xea0306',
-            BaseMult = 2.75,
-            Affects = {
-                'Economy',
-                'Veteran',
-            },
-            Mults = {
-                Economy = {
-                    MaintenanceConsumptionPerSecondEnergy = 2,
-                },
-                Veteran = 1,
-            },
-        },
-        -- Mobile shield generators
-        sal0322 = {
-            TargetID = 'ual0307',
-            Affects = {'Shield', 'Economy'},
-            Mults = {
-                Shield = {
-                    ShieldMaxHealth = 1.1,
-                    ShieldRegenRate = 3,
-                    ShieldSize = 1.25,
-                    ShieldVerticalOffset = 1.25,
-                },
-                Economy = {
-                    BuildCostEnergy = 5,
-                    BuildCostMass = 5,
-                    BuildTime = 5,
-                    MaintenanceConsumptionPerSecondEnergy = 2,
-                },
-            },
-        },
-        sel0322 = {
-            TargetID = 'uel0307',
-            Affects = {'Shield', 'Economy'},
-            Mults = {
-                Shield = {
-                    ShieldMaxHealth = 2.2,
-                    ShieldRechargeTime = 2,
-                    ShieldRegenRate = 2,
-                    ShieldSize = 1.25,
-                    ShieldVerticalOffset = 1.25,
-                },
-                Economy = {
-                    BuildCostEnergy = 5,
-                    BuildCostMass = 5,
-                    BuildTime = 5,
-                    MaintenanceConsumptionPerSecondEnergy = 2,
-                },
-            },
-        },
-        ssl0222 = {
-            TargetID = 'xsl0307',
-            Affects = {'Shield', 'Economy'},
-            Mults = {
-                Shield = {
-                    ShieldMaxHealth = 0.45,
-                    ShieldRechargeTime = 0.5,
-                    ShieldRegenRate = 0.5,
-                    ShieldSize = 0.8,
-                    ShieldVerticalOffset = 0.8,
-                },
-                Economy = {
-                    BuildCostEnergy = 0.2,
-                    BuildCostMass = 0.2,
-                    BuildTime = 0.2,
-                    MaintenanceConsumptionPerSecondEnergy = 0.5,
-                },
-            },
-        },
-------- Average between two other units
-        --T2 recon/decoy/stealths
-        sea0201 = {TargetID = {'uea0101', 'uea0302'}, Affects = {'Economy', 'Intel', 'Transport'}},
-        ssa0201 = {TargetID = {'xsa0101', 'xsa0302'}, Affects = {'Economy', 'Intel', 'Transport'}},
-        sra0201 = {TargetID = {'ura0101', 'ura0302'}, Affects = {'Economy', 'Intel', 'Transport'}},
-        saa0201 = {TargetID = {'uaa0101', 'uaa0302'}, Affects = {'Transport'}},
-        saa0201 = {TargetID = 'uaa0303', Affects = {'Air'}}, --It's imporant that it moves like an ASF
-
-------- ED5 built by field engineer balancing
-        urb4206 = {
-            TargetID = 'urb4206',
-            BaseMult = 1,
-            Mults = {
-                Economy = {
-                    BuildRate = 2.25
-                },
-            },
-        },
-        urb4207 = {
-            TargetID = 'urb4207',
-            BaseMult = 1,
-            Mults = {
-                Economy = {
-                    BuildCostEnergy = 1.5,
-                    BuildCostMass = 1.5,
-                    BuildTime = 2.25,
-                },
-            },
-        },
-    }
-
-    for unitid, data in UnitsList do
-        if type(data) == 'string' then
-            if all_bps[unitid] and all_bps[data] then
-                for key, val in  all_bps[unitid].Economy do
-                    if type(val) == 'number' then
-                        all_bps[unitid].Economy[key] = all_bps[data].Economy[key]
-                    end
-                end
-            end
-        elseif type(data) == 'table' then
-            local tid = data.TargetID
-            local Affects = data.Affects or {'Economy'}
-            if all_bps[unitid] and (all_bps[tid[1]] and all_bps[tid[2]] or all_bps[tid]) then
-                LOG("Syncronising balance for " .. unitid)
-                for i, tablename in Affects do
-                    if tablename != 'Shield' then
-                        for key, val in  all_bps[unitid][tablename] do
-                            if type(val) == 'number' and (type(all_bps[tid[1]][tablename][key]) == 'number' and type(all_bps[tid[2]][tablename][key]) == 'number' or type(all_bps[tid][tablename][key]) == 'number') then
-                                local mult, rawnumber
-                                if type(data.Mults[tablename]) == 'number' then
-                                    --If the mults table is actually a number, use that
-                                    mult = data.Mults[tablename]
-                                else
-                                    --else run through in order, key, base, or 1
-                                    --key only exists if its a table, else we go elsewhere
-                                    mult = data.Mults[tablename][key] or data.BaseMult or 1
-                                end
-                                if type(all_bps[tid][tablename][key]) == 'number' then
-                                    rawnumber = all_bps[tid][tablename][key]
-                                else
-                                    rawnumber = (all_bps[tid[1]][tablename][key] + all_bps[tid[2]][tablename][key]) * 0.5
-                                end
-                                all_bps[unitid][tablename][key] = MathRoundAppropriately(rawnumber * mult)
-                            end
-                        end
-                    else
-                        for key, val in  all_bps[unitid].Defense[tablename] do
-                            if type(val) == 'number' and (type(all_bps[tid[1]].Defense[tablename][key]) == 'number' and type(all_bps[tid[2]].Defense[tablename][key]) == 'number' or type(all_bps[tid].Defense[tablename][key]) == 'number') then
-                                local mult, rawnumber
-                                if type(data.Mults[tablename]) == 'number' then
-                                    --If the mults table is actually a number, use that
-                                    mult = data.Mults[tablename]
-                                else
-                                    --else run through in order, key, base, or 1
-                                    --key only exists if its a table, else we go elsewhere
-                                    mult = data.Mults[tablename][key] or data.BaseMult or 1
-                                end
-                                if type(all_bps[tid].Defense[tablename][key]) == 'number' then
-                                    rawnumber = all_bps[tid].Defense[tablename][key]
-                                else
-                                    rawnumber = (all_bps[tid[1]].Defense[tablename][key] + all_bps[tid[2]].Defense[tablename][key]) * 0.5
-                                end
-                                all_bps[unitid].Defense[tablename][key] = MathRoundAppropriately(rawnumber * mult)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
-function BrewLANFAFExclusiveChanges(all_bps)
-    if string.sub(GetVersion(),1,3) == '1.5' and tonumber(string.sub(GetVersion(),5)) > 3603 then
-        for id, bp in all_bps do
-            if bp.Categories then
-                if
-                  table.find(bp.Categories, 'PRODUCTBREWLAN')
-                and
-                  (bp.Physics.MotionType == 'RULEUMT_Air' or bp.Physics.MotionType == 'RULEUMT_Hover')
-                and
-                  bp.Wreckage.WreckageLayers
-                then
-                    bp.Wreckage.WreckageLayers.Seabed = true
-                    bp.Wreckage.WreckageLayers.Sub = true
-                    bp.Wreckage.WreckageLayers.Water = true
-                end
-            end
-            --T3 torps anti-naval damage * 0.76
-        end
-    end
-end
-
---------------------------------------------------------------------------------
--- Shield changes
---------------------------------------------------------------------------------
-
-function BrewLANNavalShields(all_bps)
-    local Units = {
-        --Cybran Shields
-        urb4202 = {},
-        urb4204 = {},
-        urb4205 = {},
-        urb4206 = {},
-        urb4207 = {},
-        --UEF Shields
-        seb4102 = {},
-        ueb4202 = {},
-        ueb4301 = {},
-        --Aeon Shields
-        sab4102 = {},
-        uab4202 = {},
-        uab4301 = {},
-        --Seraphim Shields
-        ssb4102 = {},
-        xsb4202 = {},
-        xsb4301 = {},
-    }
-    for k, v in Units do
-        if all_bps[k] then
-            all_bps[k].General.Icon = 'amph'
-            all_bps[k].Physics.BuildOnLayerCaps.LAYER_Water = true
-            all_bps[k].Wreckage.WreckageLayers.Water = true
-            if not all_bps[k].Display.Abilities then all_bps[k].Display.Abilities = {} end
-            if not table.find(all_bps[k].Display.Abilities, '<LOC ability_aquatic>Aquatic') then
-                table.insert(all_bps[k].Display.Abilities, 1, '<LOC ability_aquatic>Aquatic')
-            end
-            --Waterlag visual compatability
-            table.insert(all_bps[k].Categories, 'GIVEMELEGS')
         end
     end
 end
@@ -906,52 +581,6 @@ function BrewLANBomberDamageType(all_bps)
                     end
                 end
             end
-        end
-    end
-end
-
---------------------------------------------------------------------------------
--- The bit that makes BrewLAN blueprints not care where BrewLAN is installed
---------------------------------------------------------------------------------
-
-function BrewLANRelativisticLinksUpdate(all_bps)
-    if string.lower(BrewLANPath() ) != "/mods/brewlan" then
-        all_bps.Unit.zzz0001.Desync = {
-            "BrewLAN reports you installed it",
-            "wrong; it should be at:",
-            "/mods/brewlan",
-            "but it's at:",
-            string.lower(BrewLANPath()),
-            "Everything should still work though.",
-        }
-        for id, bp in all_bps.Unit do
-            if bp.Categories and table.find(bp.Categories, 'PRODUCTBREWLAN' ) then
-                PathTrawler(bp, "/mods/brewlan/", BrewLANPath() .. "/" )
-            end
-        end
-        for id, bp in all_bps.Beam do
-            if bp.Categories and table.find(bp.Categories, 'PRODUCTBREWLAN' ) then
-                PathTrawler(bp, "/mods/brewlan/", BrewLANPath() .. "/" )
-            end
-        end
-        --INFO: TrailEmitter
-        --INFO: Beam
-        --INFO: Emitter
-        --INFO: Projectile
-        --INFO: Prop
-        --INFO: Mesh
-        --INFO: Unit
-    end
-end
-
-function PathTrawler(tbl, sfind, srepl)
-    for k, v in tbl do
-        if type(v) == "string" then
-            if string.find(string.lower(v), sfind) then
-                tbl[k] = string.gsub(string.lower(v), sfind, srepl)
-            end
-        elseif type(v) == "table" then
-            PathTrawler(tbl[k], sfind, srepl)
         end
     end
 end

@@ -1,4 +1,65 @@
 UnitList = {
+
+T2AirScout = {
+	UEF = {'sea0201', 100},
+	Cybran = {'sra0201',100},
+	Seraphim = {'ssa0201',100},
+},
+
+T2Bomber = {
+	Aeon = {'saa0211', 100},
+},
+
+T3Gunship = {
+    Seraphim = {'ssa0305', 50},
+},
+
+
+T3AirTransport = {
+    Cybran = {'sra0306', 50},
+    Seraphim = {'ssa0306', 50},
+},
+
+T3TorpedoBomber = {
+    Cybran = {'sra0307', 100},
+    UEF = {'sea0307', 100},
+    Seraphim = {'ssa0307', 100},
+},
+
+T3LandAA = {
+	UEF = {'sel0324', 30},
+	Cybran = {'srl0316', 50},
+},
+
+T3Amphibious = {
+	Aeon = {'sal0311', 40},		-- Moldavite
+},
+
+T3AmphibiousAA = {
+	Aeon = {'sal0320', 100},
+	Seraphim = {'ssl0320', 100},
+},
+
+T3LandBot = {
+	Seraphim = {'ssl0311', 80},
+},
+
+T3MobileMissile = {
+	Cybran = {'srl0311', 100},	-- Hexatron
+},
+
+T3MobileShields = {
+	Cybran = {'srl0316', 40},	-- Amphib CounterIntel
+},
+
+T3MobileAntiNuke = {
+	Aeon = {'sal0321', 100},
+	UEF = {'sel0321', 100},
+	Cybran = {'srl0321', 100},
+	Seraphim = {'ssl0321', 100},
+},
+
+--[[
 --------------------------------------------------------------------------------
 -- Field Engineers
 --------------------------------------------------------------------------------
@@ -17,7 +78,6 @@ T3BuildEngineer = {
     --Seraphim = {'ssl0319', 15},
 },
 
---[[
 --------------------------------------------------------------------------------
 -- Salvation/Scathis 2
 --------------------------------------------------------------------------------
@@ -47,33 +107,27 @@ T4SeaExperimental1 =  {
 -- Centurion
 --------------------------------------------------------------------------------
 T4AirExperimental1 = {UEF = {'sea0401', 1},},
+--]]
 --------------------------------------------------------------------------------
--- T3 Aircraft
+-- Aircraft
 --------------------------------------------------------------------------------
-T3AirTransport = {
-    Aeon = {'saa0306', 100},
-    Cyrban = {'sra0306', 100},
-    Seraphim = {'ssa0306', 100},
-},
-T3AirGunship = {
-    Seraphim = {'ssa0305', 100},
-},
+
+--[[
+
 T3AirBomber = {
     Seraphim = {'ssa0305', 20},
 },
-T3TorpedoBomber = {
-    Cybran = {'sra0307', 100},
-    UEF = {'sea0307', 100},
-    Seraphim = {'ssa0307', 100},
-},
+
 T2TorpedoBomber = {
     Cybran = {'sra0307', 33},
     UEF = {'sea0307', 33},
     Seraphim = {'ssa0307', 33},
 },
+
 T3AirScout ={
     Aeon = {'saa0201', 10},
 },
+
 T3AirFighter ={
     Aeon = {'saa0201', 10},
 },
@@ -112,23 +166,7 @@ T2MobileShields = {
 T3LandAA = {
     Aeon = {'sal0320', 100},
 },
---------------------------------------------------------------------------------
--- Aeon T2 Bomber
---------------------------------------------------------------------------------
-T1AirBomber =     {Aeon = {'saa0211', 40},},
-T2FighterBomber = {Aeon = {'saa0211', 20},},
-T3AirBomber =     {Aeon = {'saa0211', 20},},
---------------------------------------------------------------------------------
--- T1 Aircraft
---------------------------------------------------------------------------------
-T1Gunship = {
-    Aeon = {'saa0105', 100},
-    Seraphim = {'ssa0105', 100},
-    UEF = {'sea0105', 100},
-},
-T1AirTransport = {
-    UEF = {'sea0105', 25},
-},
+
 --------------------------------------------------------------------------------
 -- Buildings from the other because overlap fucks it up
 --------------------------------------------------------------------------------
