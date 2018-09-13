@@ -342,6 +342,10 @@ Shield = Class(moho.shield_methods,Entity) {
 
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
+	
+		if EntityCategoryContains('SHIELDPIERCING',other) then
+			return false
+		end
 
 		-- for rail guns from 4DC credit Resin_Smoker
 		if other.LastImpact then
