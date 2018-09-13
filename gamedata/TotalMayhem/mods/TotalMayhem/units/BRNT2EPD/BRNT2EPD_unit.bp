@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -56,10 +57,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 5900,
-        MaxHealth = 5900,
+        Health = 4800,
+        MaxHealth = 4800,
         RegenRate = 2,
-        SurfaceThreatLevel = 28,
+        SurfaceThreatLevel = 24,
     },
 	
     Description = '<LOC brnt2epd_desc>Plasma Cannon',
@@ -74,7 +75,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0006',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -100,9 +101,8 @@ UnitBlueprint {
         BuildCostEnergy = 16500,
         BuildCostMass = 1800,
         BuildTime = 1800,
-        RebuildBonusIds = {
-            'BRNT2EPD',
-        },
+		
+        RebuildBonusIds = {'BRNT2EPD'},
     },
 
     General = {
@@ -172,11 +172,14 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.5,
+	
     SizeX = 0.9,
     SizeY = 1.05,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 15,
@@ -184,6 +187,7 @@ UnitBlueprint {
         Level4 = 25,
         Level5 = 30,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -205,7 +209,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.0,
-                    Radius = 1,
+                    Radius = 2,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
                     TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
@@ -213,7 +217,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 560,
+            Damage = 480,
             DamageRadius = 2,
             DamageType = 'Normal',
 			

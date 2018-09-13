@@ -30,6 +30,13 @@ UnitBlueprint {
             Level4 = 40,
             Level5 = 50,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
 	
     BuildIconSortPriority = 70,
@@ -52,17 +59,17 @@ UnitBlueprint {
 		dontOKControl = true,
         ArmorType = 'Structure',
         EconomyThreatLevel = 250,
-        Health = 14500,
-        MaxHealth = 14500,
-        RegenRate = 5,
-        SurfaceThreatLevel = 160,
+        Health = 16500,
+        MaxHealth = 16500,
+        RegenRate = 15,
+        SurfaceThreatLevel = 120,
     },
 	
     Description = '<LOC bsb0405_desc>Lambda Generator Advanced Point Defense',
 	
     Display = {
         Abilities = {
-			'Create Lambda Defensive Fields',
+			'Lambda Defensive Fields',
 			'Consumes Lots of Energy',
 			'Fires Unstable Phasons',
             'Volatile',
@@ -91,8 +98,9 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 552500,
-        BuildCostMass = 68750,
-        BuildTime = 51400,
+        BuildCostMass = 42500,
+        BuildTime = 38000,
+		
         MaintenanceConsumptionPerSecondEnergy = 2500,
     },
 	
@@ -161,10 +169,13 @@ UnitBlueprint {
         MeshExtentsZ = 3.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
+		
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
+		
         TurnRate = 0,
     },
 	
@@ -207,7 +218,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.5,
-                    Radius = 3,
+                    Radius = 2.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'COMMAND,EXPERIMENTAL,WALL',
                 },
@@ -215,15 +226,15 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 800,
+            Damage = 1200,
             DoTTime = 5,
             DoTPulses = 5,
 			
 			DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 4.5,
             DamageType = 'Normal',
 			
-            EnergyDrainPerSecond = 5000,
+            EnergyDrainPerSecond = 2000,
             EnergyRequired = 10000,
 			
             DisplayName = 'Phason Beam',
@@ -234,19 +245,21 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'Eye01',
+            Label = 'Eye',
 			
-            MaxRadius = 80,
+            MaxRadius = 90,
             MinRadius = 18,
 			
             MuzzleChargeDelay = 2.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 15,
+            MuzzleVelocity = 16,
 			
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/EyeBlast01/EyeBlast01_proj.bp',
+			ProjectileLifetime = 6,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -254,6 +267,12 @@ UnitBlueprint {
                     },
                     RackBone = 'Eye01',
                 },
+                {
+                    MuzzleBones = {
+                        'Eye02',
+                    },
+                    RackBone = 'Eye02',
+                },				
             },
             RackFireTogether = false,
             
@@ -265,7 +284,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.2,	-- 4000K every 5 seconds = 800 DPS
+            RateOfFire = 10,	-- RoF by energy required -- 6000K every 5 seconds = 1200 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -294,126 +313,10 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		
-        {   
-            AboveWaterTargetsOnly = true,
-            AimsStraightOnDisable = true,
-			
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-
-            BallisticArc = 'RULEUBA_None',
-			
-            Buffs = {
-                {
-                    Add = {
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 1.5,
-                    Radius = 3,
-                    TargetAllow = 'LAND,NAVAL',
-                    TargetDisallow = 'COMMAND,EXPERIMENTAL,WALL',
-                },
-            },
-            CollideFriendly = false,
-			
-            Damage = 800,
-			
-            DoTTime = 5,
-            DoTPulses = 5,
-			
-			DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'Normal',
-			
-            EnergyDrainPerSecond = 5000,
-            EnergyRequired = 10000,
-			
-            DisplayName = 'Phason Beam',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-            },
-			
-            FiringTolerance = 2,
-			
-            Label = 'Eye02',
-			
-            MaxRadius = 80,
-            MinRadius = 18,
-			
-            MuzzleChargeDelay = 2.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 15,
-			
-            NotExclusive = true,
-			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/EyeBlast01/EyeBlast01_proj.bp',
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Eye02',
-                    },
-                    RackBone = 'Eye02',
-                },
-            },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.2,	-- another 4000K over 5 seconds - 800 DPS
-			
-            TargetCheckInterval = 2,
-            TargetPriorities = {
-                'EXPERIMENTAL',
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
-            TrackingRadius = 1.15,
-            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, TECH2',
-			
-            TurretBoneMuzzle = 'Eye02',
-            TurretBonePitch = 'Eye02',
-            TurretBoneYaw = 'Eye02',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 0,
-            TurretPitchRange = 50,
-            TurretPitchSpeed = 50,
-			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 20,
-			
-            Turreted = true,
-        },
         {
-            Damage = 5000,
+            Damage = 4800,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 10,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

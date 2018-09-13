@@ -71,7 +71,6 @@ UnitBlueprint {
                     ShaderName = 'Insect',
                     AlbedoName = '/units/url0304/url0304_albedo.dds',
                     NormalsName = '/units/url0304/url0304_normalsTS.dds',
-                    --SpecularName = '/units/url0304/url0304_specteam.dds',
                 },
                 {
                     LODCutoff = 215,
@@ -169,9 +168,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
-        MaxBrake = 2.9,
-        MaxSpeed = 2.9,
+        MaxAcceleration = 0.7,
+        MaxBrake = 1.4,
+        MaxSpeed = 2.8,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -231,7 +230,7 @@ UnitBlueprint {
             DisplayName = 'Loa Tactical Missile Barrage',
 			
 			EnergyDrainPerSecond = 80,
-			EnergyRequired = 1600,
+			EnergyRequired = 1760,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -246,15 +245,12 @@ UnitBlueprint {
             MinRadius = 12,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 21,
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_proj.bp',
             ProjectileLifetime = 20,
-			
-            --ProjectileId = '/mods/brewlan/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',
-            --ProjectileLifetimeUsesMultiplier = 1.5,
 
             RackBones = {
                 {
@@ -290,7 +286,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- every 20 seconds by power drain	- 220 DPS
+            RateOfFire = 1,	-- every 22 seconds by power drain	- 200 DPS
 			
             TargetCheckInterval = 5,
 			
@@ -309,12 +305,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 40,
-            TurretPitchRange = 15,
+            TurretPitchRange = 35,
             TurretPitchSpeed = 15,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
         },

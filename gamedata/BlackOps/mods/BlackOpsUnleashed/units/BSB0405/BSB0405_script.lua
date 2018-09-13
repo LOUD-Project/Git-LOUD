@@ -25,8 +25,7 @@ BSB0405 = Class(SShieldStructureUnit) {
     },
 	
     Weapons = {
-        Eye01 = Class(LambdaWeapon) {},
-        Eye02 = Class(LambdaWeapon) {},
+        Eye = Class(LambdaWeapon) {},
     },
     
     OnStopBeingBuilt = function(self, builder, layer)
@@ -109,6 +108,7 @@ BSB0405 = Class(SShieldStructureUnit) {
 	LambdaEmitter = function(self)
 
 		if not self.Dead then
+		
 			WaitTicks(5)
 			
 			if not self.Dead then

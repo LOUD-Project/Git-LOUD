@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -21,14 +22,16 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
+		
     },
 	
     BuildIconSortPriority = 71,
@@ -52,9 +55,9 @@ UnitBlueprint {
     Defense = {
 		AirThreatLevel = 85,
         ArmorType = 'Structure',
-        Health = 14000,
-        MaxHealth = 14000,
-        RegenRate = 12,
+        Health = 18500,
+        MaxHealth = 18500,
+        RegenRate = 15,
         SurfaceThreatLevel = 85,
     },
 	
@@ -64,7 +67,6 @@ UnitBlueprint {
         Abilities = {
             'Ground Defense & Anti-Air',
 			'Slow Rate of Fire',
-			'Can target Satellites',
 			'Volatile',
         },
         Mesh = {
@@ -81,7 +83,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+		
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -106,14 +108,13 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 105000,
         BuildCostMass = 8500,
-        BuildTime = 8500,
-        RebuildBonusIds = {
-            'BRPT2EXPD',
-        },
+        BuildTime = 7750,
+		
+        RebuildBonusIds = {'BRPT2EXPD'},
     },
 
     General = {
-		CapCost = 6,
+		CapCost = 4,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -236,11 +237,11 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed|Air',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 0.3,
 			
             Label = 'MainWeapon',
 			
-            MaxRadius = 72,
+            MaxRadius = 77,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -264,7 +265,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 0.25,		-- 3400 damage every 4 seconds -- 850 DPS
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -287,11 +288,11 @@ UnitBlueprint {
 			
             TurretPitch = 10,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 40,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 33,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },

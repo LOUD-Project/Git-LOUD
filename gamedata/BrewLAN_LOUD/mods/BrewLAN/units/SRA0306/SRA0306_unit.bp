@@ -91,7 +91,7 @@ UnitBlueprint {
         'CANNOTUSEAIRSTAGING',
     },
 	
-    CollisionOffsetY = -0.4,
+    CollisionOffsetY = 0,
 	
     Defense = {
         AirThreatLevel = 24,
@@ -107,10 +107,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',		
             '<LOC ability_aa>Anti-Air',
-            '<LOC ability_stun>EMP Weapon',
+			'Transports upto 4 T3 Units',
             '<LOC ability_stealthfield>Stealth Field',
-            '<LOC ability_transport>Transport',
         },
 		
         AnimationIdle = '/units/ura0104/ura0104_Aidle.sca',
@@ -193,7 +193,7 @@ UnitBlueprint {
         BuildCostMass = 1400,
         BuildTime = 700,
 		
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 75,
     },
 	
     Footprint = {
@@ -222,12 +222,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
-        },
+
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
@@ -240,10 +235,12 @@ UnitBlueprint {
     Intel = {
 		RadarStealth = true,
         RadarStealthFieldRadius = 12,
+		
 		SonarStealth = true,
         SonarStealthFieldRadius = 12,
+		
         VisionRadius = 38,
-		WaterVisionRadius = 0,
+		WaterVisionRadius = 10,
     },
 	
     Interface = {

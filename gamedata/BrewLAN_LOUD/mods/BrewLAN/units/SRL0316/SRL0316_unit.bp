@@ -75,13 +75,7 @@ UnitBlueprint {
                 },
             },
         },
---[[		
-        MovementEffects = {
-            Land = {
-                Effects = { { Bones = { 0 }, Type = 'GroundKickup01' } },
-            },
-        },
---]]
+
         SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
@@ -137,6 +131,7 @@ UnitBlueprint {
 		
         RadarStealth = true,
         RadarStealthField = true,
+		
 		SonarStealth = true,
 		SonarStealthField = true,
 		
@@ -148,7 +143,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC url0306_help>Mobile Stealth Field System',
+        HelpText = '<LOC url0306_help>Mobile Amphibious Stealth Field System',
     },
 	
     LifeBarHeight = 0.075,
@@ -161,7 +156,7 @@ UnitBlueprint {
             LAYER_Air = false,
             LAYER_Land = true,
             LAYER_Orbit = false,
-            LAYER_Seabed = false,
+            LAYER_Seabed = true,
             LAYER_Sub = false,
             LAYER_Water = false,
         },
@@ -173,8 +168,10 @@ UnitBlueprint {
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
+		
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
+		
         TurnRadius = 0,
         TurnRate = 120,
     },

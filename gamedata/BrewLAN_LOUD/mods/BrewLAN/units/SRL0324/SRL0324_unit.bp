@@ -91,22 +91,7 @@ UnitBlueprint {
         },
 		
         AnimationOpen = '/mods/brewlan/units/SRL0324/SRL0324_AOpen.sca',
-		
-        BlinkingLights = {
-            {
-                BLBone = 'AttachPoint',
-                BLOffsetX = 0,
-                BLOffsetY = 0,
-                BLOffsetZ = 0,
-                BLScale = 1,
-            },
-        },
-		
-        BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_blinking_02_emit.bp',
-        },
-		
+
         IdleEffects = {
             Land = {
                 Effects = {
@@ -138,35 +123,7 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'DustPickup001',
-                            'DustPickup002',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-                Treads = {
-                    ScrollTreads = true,
-                    TreadMarks = {
-                        {
-                            TreadMarks = 'tank_treads06_albedo',
-                            TreadMarksInterval = 0.2,
-                            TreadMarksSizeX = 1.32,
-                            TreadMarksSizeZ = 3,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -1,
-                            },
-                        },
-                    },
-                },
-            },
-        },
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
@@ -176,7 +133,7 @@ UnitBlueprint {
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 2750,
+        MaintenanceConsumptionPerSecondEnergy = 2600,
     },
 	
     General = {

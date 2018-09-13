@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -42,15 +45,19 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
-        Health = 12000,
-        MaxHealth = 12000,
-        RegenRate = 3,
-        SurfaceThreatLevel = 51,
+        Health = 10500,
+        MaxHealth = 10500,
+        RegenRate = 5,
+        SurfaceThreatLevel = 43,
     },
+	
     Description = '<LOC brmt3pd_desc>Heavy Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 200,
@@ -67,19 +74,21 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.13,
     },
+	
     Economy = {
         BuildCostEnergy = 56000,
         BuildCostMass = 3750,
-        BuildTime = 3750,
-        RebuildBonusIds = {
-            'BRMT3PD',
-        },
+        BuildTime = 3400,
+		
+        RebuildBonusIds = {'BRMT3PD'},
     },
+	
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -103,15 +112,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt3pd_name>Tripple Threat',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Heavy Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,20 +143,27 @@ UnitBlueprint {
         MeshExtentsZ = 1.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
+		
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
+		
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+	
     SizeX = 0.7,
     SizeY = 0.9,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -151,6 +171,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -179,7 +200,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 540,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -233,7 +254,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.8,	-- 480 DPS
+            RateOfFire = 0.8,	-- 440 DPS
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {

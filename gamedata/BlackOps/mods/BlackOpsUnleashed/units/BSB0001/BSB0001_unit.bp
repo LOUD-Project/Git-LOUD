@@ -6,8 +6,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 130,
+	
     CollisionOffsetY = -1,
+	
     Categories = {
 		'UNTARGETABLE',
         'DRONE',
@@ -19,6 +22,7 @@ UnitBlueprint {
         'TECH3',
         'VISIBLETORECON',
     },
+	
     Defense = {
         AirThreatLevel = 0,
 		
@@ -53,13 +57,9 @@ UnitBlueprint {
         },
 		
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
         Health = 1,
         MaxHealth = 1,
         RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
-        ThreatLevel = 0,
     },
 	
     Description = '<LOC bsb0001_desc>Lambda Emitter',
@@ -75,7 +75,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.01,
     },

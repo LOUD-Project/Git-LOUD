@@ -58,8 +58,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 7000,
-        MaxHealth = 7000,
+        Health = 6000,
+        MaxHealth = 6000,
         RegenRate = 3,
         SurfaceThreatLevel = 37,
     },
@@ -94,7 +94,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 18500,
-        BuildCostMass = 1800,
+        BuildCostMass = 2000,
         BuildTime = 1800,
 		
         RebuildBonusIds = {'srb2306'},
@@ -106,6 +106,7 @@ UnitBlueprint {
     },
 	
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {

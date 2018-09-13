@@ -48,8 +48,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 8850,
-        MaxHealth = 8850,
+        Health = 7500,
+        MaxHealth = 7500,
         RegenRate = 3,
         SurfaceThreatLevel = 38,
     },
@@ -79,7 +79,7 @@ UnitBlueprint {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
                 DeathLifetime = 300,
-                FadeOut = 150,
+                FadeOut = 500,
                 Length = 8,
                 Normal = 'Tarmacs/Tar6x_01_normals',
                 Orientations = {
@@ -92,8 +92,7 @@ UnitBlueprint {
                 Width = 8,
             },
         },
-        PlaceholderMeshName = 'UXB0003',
-        SpawnRandomRotation = true,
+
         SpawnRandomRotation = true,
         UniformScale = 0.022,
     },
@@ -105,12 +104,11 @@ UnitBlueprint {
 	
 	
     Economy = {
-        BuildCostEnergy = 26500,
-        BuildCostMass = 2300,
-        BuildTime = 2200,
-        RebuildBonusIds = {
-            'ueb2306',
-        },
+        BuildCostEnergy = 22000,
+        BuildCostMass = 2400,
+        BuildTime = 2000,
+		
+        RebuildBonusIds = {'ueb2306'},
     },
 
     General = {
@@ -132,7 +130,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb2306_name>Brimstone',
@@ -146,9 +144,11 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Brimstone',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.0,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -173,17 +173,22 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetx = 0,
     SelectionCenterOffsety = 0,  
     SelectionCenterOffsetZ = -0.25,     
+	
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.45,
+	
     SizeX = 1.2,
     SizeY = 1.65,
     SizeZ = 1.2,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -204,7 +209,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 760,
+            Damage = 720,
             DamageFriendly = false,
 			DamageRadius = 3,
             DamageType = 'Normal',
@@ -212,7 +217,7 @@ UnitBlueprint {
             DisplayName = 'Dread Cannon',
 			
             EnergyDrainPerSecond = 300,
-            EnergyRequired = 450,
+            EnergyRequired = 600,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -257,7 +262,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		#-- every 2 seconds = 380 DPS
+            RateOfFire = 10,		#-- every 2 seconds = 360 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

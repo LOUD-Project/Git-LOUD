@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 110,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -41,14 +45,17 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = -0.3,
+	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6350,
-        MaxHealth = 6350,
-        RegenRate = 2,
-        SurfaceThreatLevel = 30,
+        Health = 5800,
+        MaxHealth = 5800,
+        RegenRate = 3,
+        SurfaceThreatLevel = 27,
     },
+	
     Description = '<LOC bsb2306_desc>Heavy Point Defense',
 	
     Display = {
@@ -57,7 +64,6 @@ UnitBlueprint {
 			'Aquatic',
 			'Causes damage to upto 4 other units nearby',
 			'Requires Energy',
-			'Volatile',
 		},
 		
         Mesh = {
@@ -71,18 +77,16 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0003',
         SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	
     Economy = {
         BuildCostEnergy = 16500,
-        BuildCostMass = 1650,
-        BuildTime = 1650,
-        RebuildBonusIds = {
-            'bsb2306',
-        },
+        BuildCostMass = 1750,
+        BuildTime = 1590,
+		
+        RebuildBonusIds = {'bsb2306'},
     },
 	
 	Footprint = {
@@ -115,15 +119,19 @@ UnitBlueprint {
         UnitName = '<LOC bsb2306_name>Uttauthuum',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 36,
     },
+	
     Interface = {
         HelpText = 'Heavy Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.7,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -148,14 +156,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.42,
+	
     SizeX = 1.1,
     SizeY = 1.2,
     SizeZ = 1.1,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 15,
         Level2 = 30,
@@ -186,12 +198,12 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 540,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
-            EnergyDrainPerSecond = 600,
-            EnergyRequired = 1200,
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 800,
 			
             DisplayName = 'Heavy Quarnon Cannon',
 			
@@ -264,7 +276,7 @@ UnitBlueprint {
             Turreted = true,
         },
         {
-    		Damage = 750,
+    		Damage = 500,
     		DamageFriendly = true,
     		DamageRadius = 3,
     		DamageType = 'Normal',

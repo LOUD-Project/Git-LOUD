@@ -25,6 +25,13 @@ UnitBlueprint {
             Level4 = 48,
             Level5 = 60,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
 	
     BuildIconSortPriority = 112,
@@ -73,9 +80,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        PlaceholderMeshName = 'UXB0003',
-		
+
         SpawnRandomRotation = true,
 		
         Tarmacs = {
@@ -94,14 +99,16 @@ UnitBlueprint {
         },
         UniformScale = 0.09,
     },
+	
     Economy = {
-        BuildCostEnergy = 490000,
-        BuildCostMass = 41000,
+        BuildCostEnergy = 82000,
+        BuildCostMass = 10000,
+		
 		BuildRate = 20,		-- for enhancements
-        BuildTime = 22500,
-        RebuildBonusIds = {
-            'BROT3SHPD',
-        },
+		
+        BuildTime = 8600,
+		
+        RebuildBonusIds = {'BROT3SHPD'},
     },
 	
 	Enhancements = {
@@ -206,7 +213,7 @@ UnitBlueprint {
     },	
 
     General = {
-		CapCost = 3,
+		CapCost = 4,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -271,11 +278,14 @@ UnitBlueprint {
     SelectionSizeX = 2.1,
     SelectionSizeZ = 2.1,
     SelectionThickness = 0.5,
+	
     SizeX = 2.7,
     SizeY = 2.1,
     SizeZ = 2.7,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -283,8 +293,9 @@ UnitBlueprint {
         Level4 = 80,
         Level5 = 100,
     },
+	
     Weapon = {
-	{
+		{
             AboveWaterTargetsOnly = true,
             Audio = {
                 BarrelLoop = Sound {
@@ -311,14 +322,14 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 3000,
+            Damage = 2800,
             DamageRadius = 3,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
 			
-            EnergyDrainPerSecond = 750,
-            EnergyRequired = 1400,
+            EnergyDrainPerSecond = 800,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -335,10 +346,10 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 43,
+            MuzzleVelocity = 30,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/HvyClawproj/HvyClawproj_proj.bp',
-            ProjectileLifetime = 2.5,
+            ProjectileLifetime = 3.5,
 
             RackBones = {
                 {
@@ -366,8 +377,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,		-- 2400 dps
-			RenderFireClock = true,
+            RateOfFire = 10,		-- RoF by energy drain = 6000 damage every 2.5 seconds
 			
             TargetCheckInterval = 1,
 			
@@ -457,35 +467,40 @@ UnitBlueprint {
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.0,	-- 660dps AA
+            RateOfFire = 0.8,	-- 528dps AA
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
+			
             TrackingRadius = 1.5,
+			
             TurretBoneMuzzle = 'aa00',
             TurretBonePitch = 'aa00',
             TurretBoneYaw = 'aa00',
             TurretDualManipulators = false,
+			
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 120,
             Turreted = true,
         },
         {
-            Damage = 2500,
+            Damage = 2400,
             DamageFriendly = true,
             DamageRadius = 8,
             DamageType = 'Normal',

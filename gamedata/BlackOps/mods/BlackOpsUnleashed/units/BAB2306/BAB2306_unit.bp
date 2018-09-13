@@ -43,10 +43,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6350,
-        MaxHealth = 6350,
+        Health = 5500,
+        MaxHealth = 5500,
         RegenRate = 2,
-        SurfaceThreatLevel = 35,
+        SurfaceThreatLevel = 27,
     },
 	
     Description = '<LOC bab2306_desc>Heavy Point Defense',
@@ -75,8 +75,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 16500,
-        BuildCostMass = 1500,
-        BuildTime = 1725,
+        BuildCostMass = 1650,
+        BuildTime = 1500,
 		
         RebuildBonusIds = { 'bab2306' },
     },
@@ -194,7 +194,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 30,		#-- 300 Damage per second
+            Damage = 27,		#-- 270 Damage per second
 			DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',
@@ -267,6 +267,14 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        {
+    		Damage = 500,
+    		DamageFriendly = true,
+    		DamageRadius = 3,
+    		DamageType = 'Normal',
+    		DummyWeapon = true,
+    		Label = 'DeathWeapon',
+    	}, 		
     },
 	
     Wreckage = {

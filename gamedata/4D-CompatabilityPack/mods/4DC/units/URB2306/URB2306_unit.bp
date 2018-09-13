@@ -63,10 +63,10 @@ UnitBlueprint {
 	
     Defense = {       
         ArmorType = 'Normal',
-        Health = 7800,
-        MaxHealth = 7800,
-		RegenRate = 3,
-        SurfaceThreatLevel = 38,
+        Health = 6500,
+        MaxHealth = 6500,
+		RegenRate = 5,
+        SurfaceThreatLevel = 36,
     },
 	
     Description = '<LOC urb2306_desc>Heavy Microwave Tower',
@@ -100,8 +100,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 22000,
-        BuildCostMass = 2200,
-        BuildTime = 2200,
+        BuildCostMass = 2250,
+        BuildTime = 2040,
     },
 
 	Footprint = {
@@ -231,7 +231,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 
-            Damage = 80,
+            Damage = 70,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -246,7 +246,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 62,
+            MaxRadius = 65,
 			MinRadius = 6,
 			
             MuzzleSalvoDelay = 0,
@@ -269,7 +269,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 10,		#--- 1600 every 4 seconds -  400 DPS
+            RateOfFire = 10,		#--- 1400 every 4 seconds -  350 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

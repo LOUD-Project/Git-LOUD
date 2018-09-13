@@ -63,12 +63,12 @@ UnitBlueprint {
     CollisionOffsetY = -0.1,
 	
     Defense = {
-        AirThreatLevel = 20, -- Half surface threat because it can hit low altitude air.
+        AirThreatLevel = 18, -- Half surface threat because it can hit low altitude air.
         ArmorType = 'Structure',
-        Health = 7250,
-        MaxHealth = 7250,
-        RegenRate = 2,
-        SurfaceThreatLevel = 41,
+        Health = 6000,
+        MaxHealth = 6000,
+        RegenRate = 3,
+        SurfaceThreatLevel = 36,
     },
 	
     Description = '<LOC xeb2306_desc>Heavy Point Defence',
@@ -124,7 +124,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 22000,
-        BuildCostMass = 1900,
+        BuildCostMass = 2100,
         BuildTime = 1900,
 
         RebuildBonusIds = { 'sab2306' },
@@ -246,15 +246,15 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 100,	#-- 2000 Damage per onfire
+            Damage = 80,	#-- 1600 Damage per onfire
             DamageRadius = 0,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
             DisplayName = 'Phason Laser',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,		#-- 5 second charge
+            EnergyDrainPerSecond = 300,
+            EnergyRequired = 1500,		#-- 5 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
@@ -291,7 +291,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		--  once every 5 seconds = 400 DPS
+            RateOfFire = 1,		--  once every 5 seconds = 360 DPS
 			
             TargetCheckInterval = 1,
 			

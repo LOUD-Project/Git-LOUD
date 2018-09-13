@@ -42,12 +42,12 @@ UnitBlueprint {
     CollisionOffsetY = -0.4,
 	
     Defense = {
-        AirThreatLevel = 27,
+        AirThreatLevel = 24,
         ArmorType = 'Structure',
-        Health = 5500,
-        MaxHealth = 5500,
+        Health = 4800,
+        MaxHealth = 4800,
         RegenRate = 3,
-        SurfaceThreatLevel = 27,
+        SurfaceThreatLevel = 24,
     },
 	
     Description = '<LOC brpt2pd_desc>Multirole Improved Point Defense',
@@ -72,8 +72,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
 
         UniformScale = 0.01,
@@ -84,9 +83,7 @@ UnitBlueprint {
         BuildCostMass = 1800,
         BuildTime = 1800,
 		
-        RebuildBonusIds = {
-            'BRPT2PD',
-        },
+        RebuildBonusIds = {'BRPT2PD'},
     },
 	
     General = {
@@ -182,7 +179,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 30,
+            Damage = 40,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -204,7 +201,7 @@ UnitBlueprint {
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 3,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
@@ -228,7 +225,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,		-- 270 DPS surface/air
+            RateOfFire = 3,		-- 240 DPS surface/air
 			
             TargetCheckInterval = 0.66,
 			

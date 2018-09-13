@@ -55,10 +55,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 7800,
-        MaxHealth = 7800,
+        Health = 6250,
+        MaxHealth = 6250,
         RegenRate = 2,
-        SurfaceThreatLevel = 38,
+        SurfaceThreatLevel = 33,
     },
 	
     Description = '<LOC uab2306_desc>Anachronon',
@@ -66,7 +66,6 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Aquatic',
-			'Slow Rate of Fire',
             'Shield Piercing Weapon',
 			'Requires Energy to fire',
         },
@@ -90,8 +89,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 22000,
-        BuildCostMass = 1980,
-        BuildTime = 2200,
+        BuildCostMass = 2080,
+        BuildTime = 1890,
 		
         RebuildBonusIds = {'uab2306'},
     },
@@ -212,41 +211,32 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 2100,
+            Damage = 1800,
             DamageFriendly = false,
             DamageRadius = 2.0, -- Sets the BFG projectiles "Arc" beam range
             DamageType = 'Normal',
-            
-    -- Added flags to support BulletMagnet's Ultimate OKC     
-            
-            dontOKCheck = true,  
-            dontOKSum = true, 
-            dontTerrainCheck = false, 
-            dontCacheTargets	= true,
-            
-    -- End of OKC flags          
-    
-            EnergyDrainPerSecond = 500,
-            EnergyRequired = 1500,
+
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 2200,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
 				Water = 'Land|Water',
             },
 			
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.2,
 			
             Label = 'BFG',
 			
             LeadTarget = true, 
 			
-            MaxRadius = 62,
+            MaxRadius = 65,
             MinRadius = 10,
 			
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 18,
+            MuzzleVelocity = 16,
 			
             NeedPrep = true,   -- Forces OnGotTarget to run for each new target
 			
@@ -273,15 +263,12 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,  -- R.O.F of 0.1 = 10 seconds, 0.2 = 5 seconds ect
-                               -- Overall rate of fire is combination of (EnergyRequired / EnergyDrainPerSecond) + RateOfFire
-                               -- In this case:  (1500 / 500) + MuzzleChargeDelay + (0.5 or 2 seconds) = 5.5 second firing cycle
-							   
-            RenderFireClock = true,
-			
-            TargetCheckInterval = 5,
+            RateOfFire = 10,   -- true ROF controlled by energy required = 1800/5.5
+
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
+				'MOBILE SHIELD',
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
@@ -297,12 +284,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 10,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 16,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 20,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 24,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
         },

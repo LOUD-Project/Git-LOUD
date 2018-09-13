@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -11,6 +12,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -41,10 +43,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 7000,
-        MaxHealth = 7000,
+        Health = 6000,
+        MaxHealth = 6000,
         RegenRate = 2,
-        SurfaceThreatLevel = 30,
+        SurfaceThreatLevel = 27,
     },
 	
     Description = '<LOC xeb2306_desc>Heavy Point Defense',
@@ -70,7 +72,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0003',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -93,12 +95,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16800,
-        BuildCostMass = 2100,
-        BuildTime = 2100,
-        RebuildBonusIds = {
-            'xeb2306',
-        },
+        BuildCostEnergy = 16500,
+        BuildCostMass = 1815,
+        BuildTime = 1500,
+		
+        RebuildBonusIds = {'xeb2306'},
     },
 	
 	Footprint = {
@@ -143,6 +144,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -167,14 +169,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 0.85,
     SelectionThickness = 0.48,
+	
     SizeX = 1.3,
     SizeY = 1.3,
     SizeZ = 1.3,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 205,
+	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -182,6 +188,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -199,7 +206,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 90,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -274,7 +281,16 @@ UnitBlueprint {
             WeaponRepackTimeout = 3,
             WeaponUnpacks = true,
         },
+        {
+    		Damage = 500,
+    		DamageFriendly = true,
+    		DamageRadius = 3,
+    		DamageType = 'Normal',
+    		DummyWeapon = true,
+    		Label = 'DeathWeapon',
+    	}, 		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

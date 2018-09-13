@@ -25,12 +25,19 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
     },
 	
     BuildIconSortPriority = 110,
@@ -56,10 +63,10 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 817,
-        Health = 23075,
-        MaxHealth = 23075,
+        Health = 18500,
+        MaxHealth = 18500,
         RegenRate = 15,
-        SurfaceThreatLevel = 67,
+        SurfaceThreatLevel = 62,
     },
 	
     Description = '<LOC seb2401_desc>Experimental Point Defence',
@@ -149,7 +156,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 28,
+        VisionRadius = 30,
     },
 	
     Interface = {
@@ -220,7 +227,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_LowArc',
 
             CameraShakeDuration = 0.1,
@@ -257,12 +264,12 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 100,
+            MuzzleVelocity = 90,
 			
             NeedPrep = true,
 			
             ProjectileId = '/mods/brewlan/projectiles/TDFRailGun/TDFRailGun_proj.bp',
-			ProjectileLifetime = 1.5,
+			ProjectileLifetime = 2,
 			
             RackBones = {
                 {
@@ -303,20 +310,20 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 8,
+            TurretPitchSpeed = 11,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 8,
+            TurretYawSpeed = 9,
 			
             Turreted = true,
 
         },
 		
         {
-            Damage = 4000,
+            Damage = 2400,
             DamageFriendly = true,
-            DamageRadius = 6.5,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

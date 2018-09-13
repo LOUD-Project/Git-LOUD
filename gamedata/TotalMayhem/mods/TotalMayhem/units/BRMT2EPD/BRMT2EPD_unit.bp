@@ -59,10 +59,10 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 27,
+        AirThreatLevel = 24,
         ArmorType = 'Structure',
-        Health = 3500,
-        MaxHealth = 3500,
+        Health = 2400,
+        MaxHealth = 2400,
         RegenRate = 3,
 		
         Shield = {
@@ -72,16 +72,16 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             PassOverkillDamage = true,
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 3,
+            ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 2000,
-            ShieldRechargeTime = 20,
+            ShieldRechargeTime = 15,
             ShieldRegenRate = 100,
             ShieldRegenStartTime = 1,
             ShieldSize = 2.8,
             ShieldVerticalOffset = -0.3,
         },
 		
-        SurfaceThreatLevel = 27,
+        SurfaceThreatLevel = 24,
     },
 	
     Description = '<LOC brmt2epd_desc>Adv. Shielded PD/AA',
@@ -243,7 +243,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 180,
+            Damage = 160,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -258,7 +258,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
 			LeadTarget = true,
-            MaxRadius = 52,
+            MaxRadius = 50,
             MinRadius = 3,
 			
             MuzzleSalvoDelay = 0,
