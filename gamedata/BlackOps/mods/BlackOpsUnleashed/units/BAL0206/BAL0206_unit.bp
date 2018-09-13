@@ -54,7 +54,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
@@ -117,22 +117,23 @@ UnitBlueprint {
         MaxSpeed = 3,
         MaxSpeedReverse = 2,
 		
-        MaxSteerForce = 10,
+        MaxSteerForce = 100,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1,
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = true,
-        RotateOnSpotThreshold = 0.1,
 		
-        TurnRadius = 0,
-        TurnRate = 65,
+        RotateOnSpot = false,
+		
+        TurnRadius = 1,
+        TurnRate = 90,
     },
 	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.67,

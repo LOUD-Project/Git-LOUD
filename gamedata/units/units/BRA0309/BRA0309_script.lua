@@ -45,8 +45,7 @@ BRA0309 = Class(CAirUnit) {
 		
         self:SetMaintenanceConsumptionInactive()
 		
-        self:SetScriptBit('RULEUTC_StealthToggle', true)	#-- turn OFF stealth field
-		self:SetScriptBit('RULEUTC_IntelToggle', true)		#-- turn OFF cloak field
+		self:SetScriptBit('RULEUTC_CloakToggle', true)		-- turn OFF cloak field
 		
         self:RequestRefreshUI()
 		

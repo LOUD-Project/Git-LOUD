@@ -136,7 +136,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 9000,
+        BuildCostEnergy = 5500,
         BuildCostMass = 180,
         BuildTime = 220,
 		
@@ -210,10 +210,10 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 25,
+        Elevation = 28,
         FuelRechargeRate = 15,
         FuelUseTime = 700,
-        GroundCollisionOffset = 1.6,
+        GroundCollisionOffset = 2.2,
         MaxSpeed = 10,
         MeshExtentsX = 1.5 * 0.5,
         MeshExtentsY = 0.25 * 0.8,

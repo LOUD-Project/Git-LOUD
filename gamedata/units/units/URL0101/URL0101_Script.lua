@@ -20,7 +20,7 @@ URL0101 = Class(CWalkingLandUnit) {
         --antena spinner
         #CreateRotator(self, 'Spinner', 'y', nil, 90, 5, 90)
 		
-        -- enable cloaking economy
+        -- disable the cloak at first
         self:SetMaintenanceConsumptionInactive()
 		
         self:SetScriptBit('RULEUTC_CloakToggle', true)

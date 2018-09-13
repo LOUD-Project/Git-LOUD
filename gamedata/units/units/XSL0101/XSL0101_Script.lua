@@ -34,14 +34,12 @@ XSL0101 = Class(SWalkingLandUnit) {
 		self:DisableUnitIntel('Cloak')
 		self.Cloaked = false
 		
-        ChangeState( self, self.InvisState ) # If spawned in we want the unit to be invis, normally the unit will immediately start moving
+        ChangeState( self, self.InvisState ) -- If spawned in we want the unit to be invis, normally the unit will immediately start moving
     end,
     
     InvisState = State() {
 	
         Main = function(self)
-		
-            self.Cloaked = false
 			
             local bp = self:GetBlueprint()
 			
@@ -49,7 +47,12 @@ XSL0101 = Class(SWalkingLandUnit) {
                 WaitSeconds( bp.Intel.StealthWaitTime )
             end
 			
-			self:EnableUnitIntel('Cloak')
+			self:EnableUnitIntel('Cloak')			
+			
+			self:AddToggleCap('RULEUTC_CloakToggle')
+			
+			self:SetScriptBit('RULEUTC_CloakToggle', false)	-- turn on cloaking --
+
 			self.Cloaked = true
 			
 			self:SetMesh(bp.Display.CloakMeshBlueprint, true)
@@ -69,9 +72,15 @@ XSL0101 = Class(SWalkingLandUnit) {
 	
         Main = function(self)
 
+			self:SetScriptBit('RULEUTC_CloakToggle', true) -- turn on cloaking --
+		
 		    self:DisableUnitIntel('Cloak')
 			
+			self:RemoveToggleCap('RULEUTC_CloakToggle')
+			
 			self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
+			
+			self.Cloaked = false
         end,
         
         OnMotionHorzEventChange = function(self, new, old)

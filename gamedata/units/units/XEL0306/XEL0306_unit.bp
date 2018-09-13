@@ -1,9 +1,5 @@
 UnitBlueprint {
-    AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
-        InitialAutoMode = true,
-    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -35,6 +31,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -47,6 +44,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1700,
@@ -74,7 +72,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.03,
     },
@@ -109,12 +107,15 @@ UnitBlueprint {
         UnitName = '<LOC xel0306_name>Spearhead',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Mobile Missile Platform',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1.2,
@@ -147,6 +148,7 @@ UnitBlueprint {
 	
     SelectionCenterOffsetX = 0.01,
     SelectionCenterOffsetZ = 0.1,
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.37,
@@ -163,6 +165,7 @@ UnitBlueprint {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -170,6 +173,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

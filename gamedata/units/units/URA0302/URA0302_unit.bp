@@ -69,7 +69,7 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 0.1,
+        AirThreatLevel = 1,
         ArmorType = 'Light',
         Health = 1190,
         MaxHealth = 1190,
@@ -98,7 +98,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = true,
         UniformScale = 0.35,
     },

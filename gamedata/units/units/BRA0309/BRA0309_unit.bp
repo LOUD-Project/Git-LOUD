@@ -5,7 +5,7 @@ UnitBlueprint {
     },
 
     Air = {
-        AutoLandTime = 1.5,
+        AutoLandTime = 1.2,
         BankFactor = 0.25,
         BankForward = false,
         CanFly = true,
@@ -18,16 +18,16 @@ UnitBlueprint {
         CirclingTurnMult = 1,
 
         KLift = 2.5,
-        KLiftDamping = 2.5,
+        KLiftDamping = 3.5,
 
         KMove = 1.0,
         KMoveDamping = 2.5,
 
         KRoll = 0.6,
-        KRollDamping = 0.95,
+        KRollDamping = 1.05,
 
         KTurn = 0.6,
-        KTurnDamping = 1.0,
+        KTurnDamping = 1.05,
 
         LiftFactor = 10,
 
@@ -194,15 +194,12 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'Toggle Cloak and Stealth',
-            },
-        },
+
         ToggleCaps = {
-			RULEUTC_IntelToggle = true,
+			RULEUTC_CloakToggle = true,
+			--RULEUTC_StealthToggle = false,
         },
+		
         UnitName = '<LOC bra0309_name>Vanisher',
         UnitWeight = 1,
     },
@@ -210,10 +207,13 @@ UnitBlueprint {
     Intel = {
 		Cloak = true,
 		CloakFieldRadius = 10,
+		
 		RadarStealth = true,
 		RadarStealthFieldRadius = 12,
+		
 		SonarStealth = true,
 		SonarStealthFieldRadius = 12,
+		
         VisionRadius = 38,
 		WaterVisionRadius = 0,
     },
