@@ -113,7 +113,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders',
         Priority = 900,
 
         BuilderConditions = {
-			{ EBC, 'LessThanEnergyTrend', { 2800 }},
+			{ EBC, 'LessThanEnergyTrend', { 2000 }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
@@ -174,7 +174,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
 			
-			{ EBC, 'LessThanEnergyTrend', { 2800 }},
+			{ EBC, 'LessThanEnergyTrend', { 2000 }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
 			
 			-- must have much of the inner core power systems complete
@@ -257,7 +257,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders Naval',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-			{ EBC, 'LessThanEnergyTrend', { 2800 }},
+			{ EBC, 'LessThanEnergyTrend', { 2000 }},
         },
         BuilderData = {
 			DesiresAssist = true,
@@ -317,7 +317,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders - Expansions',
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEnergyTrend', { 2800 }},
+			{ EBC, 'LessThanEnergyTrend', { 2000 }},
 			-- don't build T3 power if one is already being built somewhere else
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
