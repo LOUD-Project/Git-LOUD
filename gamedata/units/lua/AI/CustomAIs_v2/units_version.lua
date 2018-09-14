@@ -1,4 +1,4 @@
 AI = {
 	Name = "Units",
-	Version = "LOUD 5.0h",
+	Version = "5.1 LOUD",
 }
