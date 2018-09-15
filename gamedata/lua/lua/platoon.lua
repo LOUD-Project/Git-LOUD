@@ -2348,7 +2348,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
 							marker = false
 							
@@ -2398,10 +2398,10 @@ Platoon = Class(moho.platoon_methods) {
 					end
 
 				else
-
-					
 					
 					if PlatoonExists(aiBrain,self) then
+					
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." starts move to "..repr(marker))
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
 						
@@ -2432,6 +2432,9 @@ Platoon = Class(moho.platoon_methods) {
 
 			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
 			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." moving to "..repr(marker))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." distance is "..distance.." Radius "..UntRadius)
+				
 				position = GetPlatoonPosition(self) or false
 
 				if position then
@@ -2441,6 +2444,9 @@ Platoon = Class(moho.platoon_methods) {
 						if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
 						
 							marker = false
+							
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." structure check break")
+							
 							break
 							
 						end
@@ -2452,6 +2458,9 @@ Platoon = Class(moho.platoon_methods) {
 						if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
 						
 							marker = false
+							
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." unit check break")
+							
 							break
 							
 						end
@@ -2472,6 +2481,9 @@ Platoon = Class(moho.platoon_methods) {
 							else
 						
 								marker = false
+								
+								LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." stuck break")
+								
 								break
 								
 							end
@@ -2497,8 +2509,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if marker and PlatoonExists( aiBrain, self ) then
 					
-						-- travel uses up guardtime
-						guardtime = guardtime + 8
+						-- travel uses up a little guardtime --
+						guardtime = guardtime + 0.5
 
 						distance = VDist3( GetPlatoonPosition(self), marker )
 
@@ -2532,6 +2544,8 @@ Platoon = Class(moho.platoon_methods) {
 		
 			else
 			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker).." guardtime is "..repr(guardtime).." "..repr(guardTimer))
+			
 				continue
 				
 			end
@@ -2543,6 +2557,8 @@ Platoon = Class(moho.platoon_methods) {
 			guardtime = 0
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
+			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." in guard behavior")
 			
 				-- seek a target around the point --
 				target = false
@@ -2597,6 +2613,8 @@ Platoon = Class(moho.platoon_methods) {
 					
 					-- Engage target until dead or target is outside guard radius
 					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
+					
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." engaging target")
 
 						WaitTicks(90)
 						guardtime = guardtime + 9
@@ -3747,7 +3765,7 @@ Platoon = Class(moho.platoon_methods) {
 					if marker and PlatoonExists( aiBrain, self ) then
 					
 						-- travel uses up guardtime
-						guardtime = guardtime + 8
+						guardtime = guardtime + 0.5
 
 						distance = VDist3( GetPlatoonPosition(self), marker )
 
@@ -4485,7 +4503,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- Find a distress location within the platoons range
             if self.DistressResponseAIRunning and (platoonPos and (not self.DistressCall) and (not self.UsingTransport)) and (aiBrain.CDRDistress or aiBrain.PlatoonDistress.AlertSounded or aiBrain.BaseAlertSounded) and (not self.RespondingToDistress)  then
 			
-				--LOG("*AI DEBUG Platoon Detecting distress calls")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Platoon Detecting distress calls")
 				
 				-- these 3 global triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
 				-- since they are quick to look up we run this thread pretty hot to make the platoon responsive
@@ -4554,9 +4572,11 @@ Platoon = Class(moho.platoon_methods) {
 							-- move directly to distress
 							if not inWater then
 
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation).." via Land")
+								LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation) )
 							
-								cmd = self:AggressiveMoveToLocation( distressLocation )
+								cmd = IssueFormAggressiveMove(self:GetPlatoonUnits(), distressLocation, 'AttackFormation', 0)	--self:AggressiveMoveToLocation( distressLocation )
+								
+								--LOG("*AI DEBUG cmd is "..repr(cmd))
 								
 							else
 							
@@ -4603,7 +4623,7 @@ Platoon = Class(moho.platoon_methods) {
 									
 										else
 								
-											prevpos = poscheck
+											prevpos = table.copy(poscheck)
 											poscounter = 0
 									
 										end
@@ -4620,6 +4640,7 @@ Platoon = Class(moho.platoon_methods) {
 								
 							until (not self:IsCommandsActive(cmd)) or breakResponse or ((threatatPos + artyThreatatPos) - myThreatatPos) <= threatThreshold or (not self.DistressResponseAIRunning)
 							
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seems to be at distress location")
  						
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
 							
@@ -4628,6 +4649,14 @@ Platoon = Class(moho.platoon_methods) {
 								if platoonPos then
 								
 									distressLocation, distressType, distressplatoon = self:PlatoonMonitorDistressLocations( aiBrain, platoonPos, distressRange, distressTypes, threatThreshold)
+									
+									--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets distressLocation of "..repr(distressLocation).." versus "..repr(moveLocation))
+									
+									if distressLocation then
+									
+										--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." distress location and move location are equal is "..repr(table.equal(distressLocation,moveLocation)))
+										
+									end
 									
 								else
 								
@@ -4641,7 +4670,7 @@ Platoon = Class(moho.platoon_methods) {
 								
 							end
 
-						until (not self.DistressResponseAIRunning) or (not distressLocation) or ( distressLocation[1] == moveLocation[1] and distressLocation[3] == moveLocation[3] ) or (not PlatoonExists(aiBrain, self))
+						until (not self.DistressResponseAIRunning) or (not distressLocation) or table.equal(distressLocation,moveLocation) or (not PlatoonExists(aiBrain, self))
 
 						
 						if PlatoonExists(aiBrain, self) and not distressLocation then
@@ -4665,7 +4694,7 @@ Platoon = Class(moho.platoon_methods) {
 						end
 
 					end
-					
+		
                 end
 				
             end

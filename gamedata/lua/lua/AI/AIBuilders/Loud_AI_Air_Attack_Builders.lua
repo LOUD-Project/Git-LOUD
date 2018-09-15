@@ -563,7 +563,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 			
             PrioritizedCategories = {'AIR MOBILE -INTELLIGENCE'},
 			
-			GuardRadius = 400,
+			GuardRadius = 300,
 			GuardTimer = 120,
 			
 			MissionTime = 180,
@@ -692,7 +692,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 			UntMin = 0,
 			UntMax = 0,
             PrioritizedCategories = {'GROUNDATTACK, LAND MOBILE, MASSEXTRACTION, STRUCTURE -WALL, AIR MOBILE -HIGHALTAIR, NAVAL MOBILE', },
-			GuardRadius = 280,
+			GuardRadius = 200,
 			GuardTimer = 150,
 			MissionTime = 210,
 			MergeLimit = 60,
@@ -758,7 +758,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
 			
             PrioritizedCategories = {'AIR EXPERIMENTAL', 'TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
 			
-			GuardRadius = 375,
+			GuardRadius = 300,
 			GuardTimer = 600,
 			
 			MergeLimit = 50,
@@ -971,7 +971,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             PrioritizedCategories = {'NAVAL MOBILE, NAVAL STRUCTURE'},
 			
-			GuardRadius = 700,				-- controls the range at which platoon will engage targets
+			GuardRadius = 300,				-- controls the range at which platoon will engage targets
 			GuardTimer = 180,				-- controls period that platoon will guard the point before looking for another
 			
 			MergeLimit = 36,				-- controls trigger level at which merging is prohibited - nil = original platoon size
@@ -1041,7 +1041,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             PrioritizedCategories = {'NAVAL MOBILE, NAVAL STRUCTURE'},
 			
-			GuardRadius = 550,
+			GuardRadius = 300,
 			GuardTimer = 240,
 			MergeLimit = 48,
 			

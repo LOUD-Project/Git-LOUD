@@ -169,7 +169,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 90,
+			GuardRadius = 75,
 			GuardTimer = 30,
 			
 			MergeLimit = 60,
@@ -240,7 +240,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			
             PrioritizedCategories = { 'ECONOMIC','DIRECTFIRE','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 100,
+			GuardRadius = 75,
 			GuardTimer = 30,
 			
 			MergeLimit = 60,
@@ -311,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 90,
+			GuardRadius = 75,
 			GuardTimer = 20,
 			
 			MergeLimit = 100,
@@ -494,7 +494,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 90,
+			GuardRadius = 75,
 			GuardTimer = 30,
 			
 			MergeLimit = 32,
@@ -565,7 +565,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 90,
+			GuardRadius = 75,
 			GuardTimer = 30,
 			
 			MergeLimit = 60,
@@ -828,7 +828,7 @@ BuilderGroup {BuilderGroupName = 'Amphibious Formations',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 90,
+			GuardRadius = 75,
 			GuardTimer = 20,
 			
 			MergeLimit = 32,
@@ -1065,7 +1065,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
 			AssistRange = 3,
 			
-			GuardRadius = 100,				-- range at which platoon will engage targets
+			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 120,				-- platoon will guard 2 minutes
 			
 			MissionTime = 900,				-- platoon will operate 15 minutes
@@ -1220,7 +1220,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
 			
-			GuardRadius = 100,
+			GuardRadius = 75,
 			GuardTimer = 480,
 			
 			MergeLimit = 30,
@@ -1294,7 +1294,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
 			
-			GuardRadius = 100,
+			GuardRadius = 75,
 			GuardTimer = 480,
 			
 			MergeLimit = 10,
@@ -1370,7 +1370,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE','ENGINEER'},
 			
-			GuardRadius = 100,
+			GuardRadius = 75,
 			GuardTimer = 600,
 			
 			MergeLimit = 50,
@@ -1444,7 +1444,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
 			
-			GuardRadius = 100,
+			GuardRadius = 75,
 			GuardTimer = 900,
 			
 			MergeLimit = 50,
@@ -1520,7 +1520,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- controls target selection
 			
-			GuardRadius = 100,					-- range at which platoon will engage targets
+			GuardRadius = 75,					-- range at which platoon will engage targets
 			GuardTimer = 1500,					-- period that platoon will guard the point 
 			
 			MergeLimit = 50,					-- limit to which unit merging is allowed - nil = original platoon size
@@ -1595,7 +1595,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
 			
-			GuardRadius = 100,				-- range at which platoon will engage targets
+			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 600,				-- period that platoon will guard the point 
 			
 			MergeLimit = 50,				-- trigger level to which merging is allowed - nil = original platoon size

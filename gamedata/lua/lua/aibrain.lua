@@ -5,7 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD options")
 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
 	ScenarioInfo.DisplayAttackPlans = false
@@ -26,7 +26,7 @@
 	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
 	ScenarioInfo.DisplayPlatoonMembership = false
