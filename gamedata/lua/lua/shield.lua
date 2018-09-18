@@ -343,7 +343,7 @@ Shield = Class(moho.shield_methods,Entity) {
     -- Return true to process this collision, false to ignore it.
     OnCollisionCheck = function(self,other)
 	
-		if EntityCategoryContains( categories.SHIELDPIERCING, other ) then
+		if categories.SHIELDPIERCING then
 			return false
 		end
 
