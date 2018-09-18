@@ -1553,7 +1553,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 			reloads = reloads + 1
 			reissue = reissue + 1
-			newunits = {}
+			newunits = false
 			counter = 0
 			
 			for k,u in tempunits do
@@ -1572,6 +1572,10 @@ function WatchUnitLoading( transport, units, aiBrain )
 							
 						end
 						
+						if not newunits then
+							newunits = {}
+						end
+						
 						newunits[counter + 1] = u
 						counter = counter + 1
 					
@@ -1579,13 +1583,13 @@ function WatchUnitLoading( transport, units, aiBrain )
 					elseif (not transport.Dead) and (not transport:TransportHasSpaceFor(u)) and (not EntityCategoryContains(categories.uea0203,transport)) then
 
 						loading = false
-						newunits = nil
+						newunits = false
 						break
 			
 					elseif (not transport.Dead) and EntityCategoryContains(categories.uea0203,transport) then
 
 						loading = false
-						newunits = nil
+						newunits = false
 						break
 						
 					end	
@@ -1594,9 +1598,13 @@ function WatchUnitLoading( transport, units, aiBrain )
 				
 			end
 			
-			if counter > 0 then
+			if newunits and counter > 0 then
 			
-				LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
+				if reloads > 1 then
+			
+					LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
+					
+				end
 			
 				IssueStop( newunits )
 				

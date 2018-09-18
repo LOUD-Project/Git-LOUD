@@ -708,7 +708,7 @@ function ModBlueprints(all_blueprints)
 				if cat == 'LAND' then
 			
 					econScale = 0
-					speedScale = -0.1	# -- move slower
+					speedScale = -0.05	# -- move slower
 					viewScale = 0.00
 		
 					for j, catj in bp.Categories do
@@ -731,6 +731,10 @@ function ModBlueprints(all_blueprints)
 							
 							if bp.Physics.MaxSpeedReverse then
 								bp.Physics.MaxSpeedReverse = bp.Physics.MaxSpeedReverse + (bp.Physics.MaxSpeedReverse * speedScale)
+							end
+							
+							if bp.Physics.RotateOnSpot then
+								bp.Physics.RotateOnSpot = false
 							end
 							
 							if bp.Intel.VisionRadius then

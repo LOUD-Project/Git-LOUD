@@ -191,7 +191,7 @@ function GetPathGraphs()
 		-- get all the marker data for the 4 layers --
 		local markerGroups = {
 			Land = AIGetMarkerLocationsEx( nil,'Land Path Node') or {},
-			Water = AIGetMarkerLocationsEx(nil,'Water Path Node') or {},
+			Water = AIGetMarkerLocationsEx( nil,'Water Path Node') or {},
 			Air = AIGetMarkerLocationsEx( nil, 'Air Path Node') or {},
 			Amphibious = AIGetMarkerLocationsEx( nil,'Amphibious Path Node') or {},
 		}
@@ -221,7 +221,9 @@ function GetPathGraphs()
 				
 				-- sort the adjacent nodes by name
 				table.sort(newadj)
-
+				
+				--LOG("*AI DEBUG Writing "..repr(marker.name).." "..repr(marker.position))
+				
 				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj) }
 				
 				table.insert(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
@@ -265,17 +267,24 @@ function GetPathGraphs()
 					
 					for k, adj in mdata.adjacent do
 					
-						if badpoint then
+						if ScenarioInfo.PathGraphs[gk][adj] then
+					
+							if badpoint then
 						
-							badpoint = false
+								badpoint = false
 							
-						end
+							end
 						
-						counter = counter + 1
+							counter = counter + 1
+						
 
-						local DComp = math.floor( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
+							local DComp = math.floor( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
 						
-						ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
+							ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
+							
+						else
+							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position")
+						end
 						
 					end
 

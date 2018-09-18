@@ -140,7 +140,7 @@ Unit = Class(moho.unit_methods) {
     DisallowCollisions = false,
 
     -- Destruction params
-    PlayDestructionEffects = false,
+    PlayDestructionEffects = true,
     ShowUnitDestructionDebris = false,
     DestructionPartsHighToss = {},
     DestructionPartsLowToss = {},
