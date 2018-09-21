@@ -51,9 +51,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        Health = 36000,
-        MaxHealth = 36000,
-        RegenRate = 2,
+        Health = 15000,
+        MaxHealth = 15000,
+        RegenRate = 5,
     },
 	
     Description = '<LOC srb5310_desc>Armored Wall Segment', 
@@ -170,10 +170,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2000,
-        BuildCostMass = 3300,       
+        BuildCostEnergy = 6500,
+        BuildCostMass = 1200,       
         BuildRate = 1,
-        BuildTime = 350,
+        BuildTime = 300,
 		
         BuildableCategory = {'BUILTBYHEAVYWALL CYBRAN'},
 		
@@ -274,7 +274,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 3,
-    SizeY = 3,
+    SizeY = 2.1,
     SizeZ = 3,
 	
     StrategicIconName = 'icon_structure_generic',

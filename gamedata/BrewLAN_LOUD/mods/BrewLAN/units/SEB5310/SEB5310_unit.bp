@@ -51,9 +51,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        Health = 40000,
-        MaxHealth = 40000,
-        RegenRate = 1,
+        Health = 16500,
+        MaxHealth = 16500,
+        RegenRate = 4,
     },
 	
     Description = '<LOC srb5310_desc>Armored Wall Segment',
@@ -125,22 +125,15 @@ UnitBlueprint {
             },
         },
         Mesh = {
+		
             IconFadeInZoom = 130,
+			
             LODs = {
                 {
                     LODCutoff = 400,
                     ShaderName = 'Unit',
-                    --AlbedoName = '/units/XEC8001/XEC8001_albedo.dds',
                     NormalsName = '/units/XEC8001/XEC8001_normalsts.dds',
-                    --SpecularName = '/units/XEC8001/XEC8001_specteam.dds',
                 },
-                --{
-                --    LODCutoff = 400,
-                --    ShaderName = 'Unit',
-                --    AlbedoName = '/units/XEC8001/XEC8001_lod1_albedo.dds',
-                --    NormalsName = '/units/XEC8001/XEC8001_lod1_normalsts.dds',
-                --    SpecularName = '/units/XEC8001/XEC8001_lod1_specteam.dds',
-                --},
             },
         },
 
@@ -150,10 +143,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2000,
-        BuildCostMass = 3300,
+        BuildCostEnergy = 6500,
+        BuildCostMass = 1200,
         BuildRate = 1,
-        BuildTime = 350,
+        BuildTime = 300,
 		
         BuildableCategory = {'BUILTBYHEAVYWALL UEF' },
 		
@@ -254,7 +247,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 3,
-    SizeY = 3,
+    SizeY = 2.2,
     SizeZ = 3,
 	
     StrategicIconName = 'icon_structure_generic',

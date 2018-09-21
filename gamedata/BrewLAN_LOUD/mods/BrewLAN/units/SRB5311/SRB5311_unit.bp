@@ -49,9 +49,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        Health = 40000,
-        MaxHealth = 40000,
-        RegenRate = 1,
+        Health = 13500,
+        MaxHealth = 13500,
+        RegenRate = 5,
     },
 	
     Description = '<LOC srb5311_desc>Armored Gate Segment',
@@ -130,7 +130,6 @@ UnitBlueprint {
                 {
                     LODCutoff = 200,
                     ShaderName = 'Insect',
-                    --MeshName = '/mods/BrewLAN/units/XRC8104/XRC8104_lod0.scm',
                     AlbedoName = '/units/XRC8104/XRC8104_albedo.dds',
                     NormalsName = '/units/XRC8104/XRC8104_normalsts.dds',
                     SpecularName = '/units/XRC8104/XRC8104_specteam.dds',
@@ -151,7 +150,7 @@ UnitBlueprint {
             {
                 Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_albedo.dds',
                 DeathLifetime = 300,
-                FadeOut = 150,
+                FadeOut = 300,
                 Length = 12.8,
                 Width = 12.8,
                 Normal = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar7x_cybran_01_normals.dds',
@@ -168,11 +167,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2250,
-        BuildCostMass = 3800,
-        BuildTime = 50,
+        BuildCostEnergy = 6500,
+        BuildCostMass = 1200,
+        BuildTime = 300,
 		
-        RebuildBonusIds = {'seb5311'},
+        RebuildBonusIds = {'srb5311'},
     },
 	
     Footprint = {
@@ -199,20 +198,16 @@ UnitBlueprint {
             RULEUCC_Transport = false,
             --RULEUCC_Dive = true,
         },
+		
         FactionName = 'Cybran',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
+		
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'dive',
                 helpText = 'toggle_gate',
             },
-            --[[
-            RULEUCC_Dive = {
-                bitmapId = 'dive',
-                helpText = 'toggle_gate',
-            },
-            --]]
         },
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
@@ -270,7 +265,7 @@ UnitBlueprint {
     SelectionThickness = 0.31,
 	
     SizeX = 3,
-    SizeY = 3,
+    SizeY = 2.1,
     SizeZ = 3,
 	
     StrategicIconName = 'icon_structure_generic',

@@ -46,9 +46,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 40000,
-        MaxHealth = 40000,
-        RegenRate = 1,
+        Health = 13500,
+        MaxHealth = 13500,
+        RegenRate = 5,
     },
 	
     Description = '<LOC srb5310_desc>Armored Wall Segment',
@@ -183,9 +183,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2250,
-        BuildCostMass = 3800,
-        BuildTime = 50,
+        BuildCostEnergy = 6500,
+        BuildCostMass = 1200,
+        BuildTime = 300,
     },
 	
     Footprint = {
@@ -257,10 +257,13 @@ UnitBlueprint {
         MeshExtentsZ = 3.2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+		
         SkirtOffsetX = -1,
         SkirtOffsetZ = -1,
+		
         SkirtSizeX = 3,
         SkirtSizeZ = 3,
+		
         TurnRate = 0,
     },
 	
@@ -269,7 +272,7 @@ UnitBlueprint {
     SelectionThickness = 0.31,
 	
     SizeX = 3,
-    SizeY = 3,
+    SizeY = 2.1,
     SizeZ = 3,
 	
     StrategicIconName = 'icon_structure_generic',

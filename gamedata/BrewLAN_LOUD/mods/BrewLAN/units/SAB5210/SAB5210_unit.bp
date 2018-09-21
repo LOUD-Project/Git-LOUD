@@ -224,7 +224,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2,
-    SizeY = 1.75,
+    SizeY = 1.6,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure_wall',

@@ -59,6 +59,10 @@ T3MobileAntiNuke = {
 	Seraphim = {'ssl0321', 100},
 },
 
+T4LandExperimental2 = {
+	Aeon = {'sal0401', 60},
+},
+
 --[[
 --------------------------------------------------------------------------------
 -- Field Engineers
