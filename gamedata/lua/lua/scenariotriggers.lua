@@ -555,6 +555,7 @@ end
 function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, name )
 
 	local aiBrain = platoon:GetBrain()
+	local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 	local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 	local GetPosition = moho.entity_methods.GetPosition
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists
@@ -571,15 +572,15 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 	
 	WaitTicks(10)
 	
-    while true do
+    while PlatoonExists( aiBrain, platoon) do
 	
-        if not PlatoonExists( aiBrain, platoon) or not marker then
+        if not marker or not platoon.MovingToWaypoint then
 		
             return
 			
         else
 		
-            local position = platoon:GetPlatoonPosition()
+            local position = GetPlatoonPosition(platoon) or false
 			
 			if not position then
 			
@@ -633,6 +634,8 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 					end
 					
 				end
+				
+				count = 0
 				
 			end
 			

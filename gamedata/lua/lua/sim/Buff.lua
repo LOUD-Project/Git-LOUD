@@ -12,6 +12,7 @@ local GetHealth = moho.unit_methods.GetHealth
 local GetMaxHealth = moho.entity_methods.GetMaxHealth
 local SetHealth = moho.entity_methods.SetHealth
 local SetMaxHealth = moho.entity_methods.SetMaxHealth
+local SetShieldRatio = moho.unit_methods.SetShieldRatio
 
 local GetFuelRatio = moho.unit_methods.GetFuelRatio
 local SetFuelRatio = moho.unit_methods.SetFuelRatio
@@ -551,7 +552,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			
 				SetMaxHealth( shield, val * shieldhealth)
 				
-				shield.Owner:SetShieldRatio( GetHealth(shield) / GetMaxHealth(shield) )
+				--LOG("*AI DEBUG shield is "..repr(shield) )				
+				
+				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 
 				if unit.Sync.id then
 					ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) ).." Size is "..math.floor(shield.Size).."  Regen is "..math.floor(shield.RegenRate))

@@ -115,6 +115,7 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
 }
 
 ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
+
     FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
     TrailDelay = 0,
@@ -142,13 +143,18 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     end,
 
     AddDepthCharge = function(self, tbl)
+	
         if not tbl then return end
         if not tbl.Radius then return end
 		
-        self.MyDepthCharge = DepthCharge {
-            Owner = self,
-            Radius = tbl.Radius or 10,
-        }
+        self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10 }
+		
+		if not self.Trash then
+		
+			self.Trash = Trashbag()
+			
+		end
+
         self.Trash:Add(self.MyDepthCharge)
     end,
 }

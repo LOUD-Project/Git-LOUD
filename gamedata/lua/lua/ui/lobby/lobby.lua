@@ -1317,6 +1317,8 @@ function UpdateAvailableSlots( numAvailStartSpots )
             end
         end
     end
+	
+	
 end
 
 local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCheck)
@@ -1749,19 +1751,24 @@ local function UpdateGame()
 		scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
 		CreateBigPreview(GUI.mapPanel)
 	end
+	
 	gameInfo.GameOptions.PlayerCount = GetPlayerCount()
-    
-    lobbyComm:UpdateSteamLobby(  
-		{            
-			Options = gameInfo.GameOptions,
-            HostedBy = localPlayerName,
-            PlayerCount = GetPlayerCount(),
-            GameName = gameName,
-            ProductCode = import('/lua/productcode.lua').productCode,
-        } )
-    
 	
+	if string.sub(GetVersion(),1,3) == '1.6' then
 	
+		lobbyComm:UpdateSteamLobby(  
+			{            
+				Options = gameInfo.GameOptions,
+				HostedBy = localPlayerName,
+				PlayerCount = GetPlayerCount(),
+				GameName = gameName,
+				ProductCode = import('/lua/productcode.lua').productCode,
+			} )
+    
+	else
+	
+	end
+
     LOG("HERE IT IS"..repr({ Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
 	
 end
@@ -3668,7 +3675,9 @@ end
 
 -- LobbyComm Callbacks
 function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, natTraversalProvider, useSteam)
+
     lobbyComm = LobbyComm.CreateLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, natTraversalProvider)
+	
     if not lobbyComm then
         error('Failed to create lobby using port ' .. tostring(localPort))
     end

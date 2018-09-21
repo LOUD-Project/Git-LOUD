@@ -239,7 +239,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if self.MoveThread then
 
-					--LOG("*AI DEBUG "..self.BuilderName.." is moving to "..repr(waypointPath))
+					--LOG("*AI DEBUG "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." is moving to "..repr(waypointPath))
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, 30)
 			
@@ -2311,7 +2311,7 @@ Platoon = Class(moho.platoon_methods) {
 			position = GetPlatoonPosition(self) or false
 			
 			-- FIRST TASK -- FIND A POINT WE CAN GET TO --
-			-- new feature to insure the same point is not picked repeatedly
+			-- insure the same point is not picked repeatedly
 			
 			marker = false
 			
@@ -2348,7 +2348,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." trying to select same point "..repr(marker))
 						
 							marker = false
 							
@@ -2356,7 +2356,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." marker select is "..repr(marker))
 
 					guardtime = 0
 					guarding = false
@@ -2401,7 +2401,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 					if PlatoonExists(aiBrain,self) then
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." starts move to "..repr(marker))
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." starts move to "..repr(marker))
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
 						
@@ -2432,7 +2432,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
 			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." moving to "..repr(marker))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." moving to "..repr(marker))
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." distance is "..distance.." Radius "..UntRadius)
 				
 				position = GetPlatoonPosition(self) or false
@@ -2539,8 +2539,6 @@ Platoon = Class(moho.platoon_methods) {
 					self:KillMoveThread()
 				
 				end
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." at marker ")
 		
 			else
 			
@@ -2558,7 +2556,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
 			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." in guard behavior")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." in guard behavior")
 			
 				-- seek a target around the point --
 				target = false
@@ -2569,6 +2567,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 				-- if there is a target prosecute it
 				if target then
+				
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." has attackposition at "..repr(targetposition) )
 					
 					-- issue attack orders on target --
 					if target.Sync.id and not target.Dead then
@@ -2614,7 +2614,7 @@ Platoon = Class(moho.platoon_methods) {
 					-- Engage target until dead or target is outside guard radius
 					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." engaging target")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." engaging target")
 
 						WaitTicks(90)
 						guardtime = guardtime + 9
@@ -2753,6 +2753,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
 					
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." Unit trigger")
+					
 						guardtime = guardTimer
 						
 					end
@@ -2778,7 +2780,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 						if self:MergeWithNearbyPlatoons( aiBrain, 'GuardPoint', 60, false, MergeLimit) then
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." completing MergeWith")
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." completing MergeWith - MoveThread is "..repr(self.MoveThread) )
 				
 							units = GetPlatoonUnits(self)
 						
@@ -2817,6 +2819,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					self:MergeIntoNearbyPlatoons( aiBrain, 'GuardPoint', 60, false)
 					
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." completing MergeInto - MoveThread is "..repr(self.MoveThread) )
+					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					
 				end
@@ -2829,7 +2833,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if MissionTimer == 'Abort' then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." Abort Platoon")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." Abort Platoon")
 					
 					-- assign them to the structure pool so they dont interfere with normal unit pools
 					AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
@@ -2842,6 +2846,8 @@ Platoon = Class(moho.platoon_methods) {
 				guardtime = guardtime + 8
 				
 			end
+			
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." guard completed - MoveThread is "..repr(self.MoveThread) )
 			
 			marker = false
 			
@@ -4572,7 +4578,7 @@ Platoon = Class(moho.platoon_methods) {
 							-- move directly to distress
 							if not inWater then
 
-								LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation) )
+								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation) )
 							
 								cmd = IssueFormAggressiveMove(self:GetPlatoonUnits(), distressLocation, 'AttackFormation', 0)	--self:AggressiveMoveToLocation( distressLocation )
 								
@@ -8185,7 +8191,7 @@ Platoon = Class(moho.platoon_methods) {
             if counter > 0 then
 			
 				-- complete the merge by assigning the units
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..repr(self.BuilderName).." into "..repr(aPlat.BuilderName))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..self.BuilderName.." into "..repr(aPlat.BuilderName))
 
 				AssignUnitsToPlatoon( aiBrain, aPlat, validUnits, 'Attack', 'GrowthFormation' )
 

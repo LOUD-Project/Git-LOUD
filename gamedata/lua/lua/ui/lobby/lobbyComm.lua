@@ -88,9 +88,7 @@ DiscoveryService = Class(moho.discovery_service_methods) {
 function CreateDiscoveryService()
 
     local service = InternalCreateDiscoveryService(DiscoveryService)
-	
-    LOG('*** DISC CREATE: ', service)
-	
+
     return service
 	
 end
@@ -116,8 +114,10 @@ SteamDiscoveryService = Class(moho.steam_discovery_service_methods) {
 function CreateSteamDiscoveryService()
 
     local service = InternalCreateSteamDiscoveryService(SteamDiscoveryService)
+
+	LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
 	
-    LOG('*** DISC CREATE: ', service)
+	LOG("*AI DEBUG All methods "..repr(moho))
 	
     return service
 	
@@ -136,6 +136,8 @@ LobbyComm = Class(moho.lobby_methods) {
     GameConfigRequested = function(self) end,
     PeerDisconnected = function(self,peerName,uid) end,
     LaunchFailed = function(self,reasonKey) end,
+	
+	LOG("*AI DEBUG Lobby Methods are "..repr(moho.lobby_methods))
 
     # native void SendData(self, targetID, data)
     # native void BroadcastData(self,data)

@@ -51,12 +51,18 @@ DepthCharge = Class(Entity) {
 		
     end,
 
-    -- We only divert projectiles. The flare-projectile itself will be responsible for
+    -- We only divert projectiles. The Owner will be responsible for
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
 	
         if LOUDENTITY(categories.TORPEDO, other) and GetArmy(self) != GetArmy(other) then
-            other:SetNewTarget(self.Owner)
+		
+			if not self.Owner.Dead then
+				
+				-- send enemy torpedoes at the projectile
+				other:SetNewTarget(self.Owner)
+				
+			end
         end
 		
         return false
@@ -128,30 +134,35 @@ MissileRedirect = Class(Entity) {
 
                 -- check if we can touch the projectile  [161]
                 local match = false
+				
                 for k, cat in self.ProjectileCategories do
+				
                     if EntityCategoryContains(cat, other) then
                         match = true
                         break
                     end
+					
                 end
 				
                 if not match then
                     return false
                 end
 
-                # ok we can touch the projectile
-
+                -- ok we can touch the projectile
                 self.Enemy = other:GetLauncher()
                 self.EnemyProj = other
 				
                 if self.Enemy then
+				
                     other:SetNewTarget(self.Enemy)
                     other:TrackTarget(true)
                     other:SetTurnRate(720)
+					
                 end
 				
                 ChangeState(self, self.RedirectingState)
             end
+			
             return false
         end,
     },
@@ -187,17 +198,23 @@ MissileRedirect = Class(Entity) {
                 if not self.EnemyProj:BeenDestroyed() then
                     self.EnemyProj:TrackTarget(false)
                 end
+				
             else
+			
                 WaitTicks( (1/self.RedirectRateOfFire) * 10)
+				
                 local vectordam = {}
                 vectordam.x = 0
                 vectordam.y = 1
                 vectordam.z = 0
+				
                 self.EnemyProj:DoTakeDamage(self.Owner, 30, vectordam,'Fire')
             end
+			
             for _, v in beams do
                 v:Destroy()
             end
+			
             LOUDSTATE(self, self.WaitingState)
         end,
 

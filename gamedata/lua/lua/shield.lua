@@ -404,7 +404,8 @@ Shield = Class(moho.shield_methods,Entity) {
 		self:SetDrawScale(self.Size)
 
 		if self.MeshZ == nil then
-			self.MeshZ = Entity { Owner = self.Owner }
+		
+			self.MeshZ = Entity { }		--Owner = self.Owner }
 			
 			SetMesh( self.MeshZ, self.MeshZBp )
 			

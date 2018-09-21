@@ -1890,7 +1890,7 @@ function NukeAI( self, aiBrain )
 
 				-- the +0.75 is to insure the calculation is not divided by zero
 				-- AND it makes a target with NO ANTIS a little more valuable
-				antinukes = antinukes + 0.75
+				antinukes = antinukes + 0.15
 
 				-- value of target is divided by number of anti-nukes in area
 				value = (allthreat/antinukes)
@@ -1904,10 +1904,10 @@ function NukeAI( self, aiBrain )
 					-- if its not the same as our last shot
 					if target.Position != lasttarget then
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.9).." Last Scouted "..repr(target.LastScouted))
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.85).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.75
+						targetantis = antinukes - 0.85
 						nukePos = target.Position
 
 					-- if same as our last target and we've scouted it since then it's ok to fire again
@@ -1917,7 +1917,7 @@ function NukeAI( self, aiBrain )
 						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.75
+						targetantis = antinukes - 0.85
 						nukePos = target.Position
 						
 					end

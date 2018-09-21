@@ -199,6 +199,12 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 		
         self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10,}
 		
+		if not self.Trash then
+		
+			self.Trash = Trashbag()
+			
+		end
+
         self.Trash:Add(self.MyDepthCharge)
     end,
 }

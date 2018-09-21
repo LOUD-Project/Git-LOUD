@@ -129,13 +129,19 @@ CDFHeavyElectronBolterWeapon = Class(DefaultProjectileWeapon) {
 }
 
 CIFSmartCharge = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = {},
+	
     CreateProjectileAtMuzzle = function(self, muzzle)
+	
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
+		
         if not proj or proj:BeenDestroyed() then
             return proj
         end
+		
         local tbl = self:GetBlueprint().DepthCharge
+		
         proj:AddDepthCharge(tbl)
     end,
 }

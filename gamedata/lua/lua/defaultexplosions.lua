@@ -76,17 +76,21 @@ end
 function CreateScalableUnitExplosion( unit, overKillRatio )
 
 	if not BeenDestroyed(unit) then
+	
 		if IsUnit(unit) then 
 			ForkThread( _CreateScalableUnitExplosion, CreateUnitExplosionEntity( unit, overKillRatio, unit.Sync.army, unit:GetPosition() ))
 		end
+		
     end
 end
 
 function CreateDefaultHitExplosion( obj, scale )
 
     if obj and not BeenDestroyed(obj) then
+	
         CreateFlash( obj, -1, scale * 0.5, GetArmy(obj) )
         CreateEffects( obj, GetArmy(obj), EffectTemplate.FireCloudMed01 )
+		
     end
 end
 
