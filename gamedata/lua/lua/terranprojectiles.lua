@@ -201,7 +201,7 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 		
 		if not self.Trash then
 		
-			self.Trash = Trashbag()
+			self.Trash = TrashBag()
 			
 		end
 

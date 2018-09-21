@@ -5593,7 +5593,7 @@ function GetThreatOfUnits(platoon)
 		
         if not u.Dead then 
 		
-	        bp = GetBlueprint(u).Defense
+	        bp = __blueprints[u.BlueprintID].Defense
 			
             if layer == 'Land' then
                 bpThreat = bp.SurfaceThreatLevel
@@ -6223,7 +6223,7 @@ function GetHighestThreatClusterLocation( aiBrain, experimental )
 		
 		for _, target in targets do
 			if not target.Dead then
-                local bp = GetBlueprint(target).Defense
+                local bp = __blueprints[target.BlueprintID].Defense
 				airthreat = airthreat + bp.AirThreatLevel
 				ecothreat = ecothreat + bp.EconomyThreatLevel
 				subthreat = subthreat + bp.SubThreatLevel

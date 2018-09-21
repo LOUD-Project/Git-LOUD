@@ -2873,7 +2873,7 @@ function GetHiPriTargetList(aiBrain, location)
 			
 				if not target.Dead then
 				
-					local bp = GetBlueprint(target).Defense
+					local bp = __blueprints[target.BlueprintID].Defense
 					
 					airthreat = airthreat + bp.AirThreatLevel
 					ecothreat = ecothreat + bp.EconomyThreatLevel

@@ -644,8 +644,16 @@ EngineerManager = Class(BuilderManager) {
 
 			AssignUnitsToPlatoon( aiBrain, StructurePool, {finishedUnit}, 'Support', 'none' )
 
-			finishedUnit:LaunchUpgradeThread( aiBrain )
+			-- confirm that unit is upgradeable
+			local upgradeID = __blueprints[finishedUnit.BlueprintID].General.UpgradesTo or false
 
+			if upgradeID and __blueprints[upgradeID] then
+	
+				-- if upgradeID available then launch upgrade thread
+				finishedUnit:LaunchUpgradeThread( aiBrain )
+
+			end
+			
 			-- massfabricators --
 			if LOUDENTITY( categories.MASSFABRICATION - categories.EXPERIMENTAL, finishedUnit ) then
 			
@@ -1136,7 +1144,7 @@ EngineerManager = Class(BuilderManager) {
 					
 						count = count + 1
 					
-						bp = GetBlueprint(nearunit).Defense
+						bp = __blueprints[nearunit.BlueprintID].Defense
 
 						if threattype == 'Land' then
 						
@@ -1250,7 +1258,7 @@ EngineerManager = Class(BuilderManager) {
 			
 					if not u.Dead then
 				
-						totalThreat = totalThreat + (GetBlueprint(u).Defense.SurfaceThreatLevel or 0)
+						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0)
 					
 					end
 				
@@ -1266,7 +1274,7 @@ EngineerManager = Class(BuilderManager) {
 			
 					if not u.Dead then
 				
-						totalThreat = totalThreat + (GetBlueprint(u).Defense.SurfaceThreatLevel or 0) + (GetBlueprint(u).Defense.SubThreatLevel or 0)
+						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0) + (__blueprints[u.BlueprintID].Defense.SubThreatLevel or 0)
 					
 					end
 				
@@ -1282,7 +1290,7 @@ EngineerManager = Class(BuilderManager) {
 			
 					if not u.Dead then
 				
-						totalThreat = totalThreat + (GetBlueprint(u).Defense.AirThreatLevel or 0)
+						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.AirThreatLevel or 0)
 					
 					end
 				

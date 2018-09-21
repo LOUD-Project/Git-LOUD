@@ -473,7 +473,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 						if not u.Dead then
 					
-							local bp = GetBlueprint(u).Defense
+							local bp = __blueprints[u.BlueprintID].Defense
 						
 							a = a + bp.AirThreatLevel
 							s = s + bp.SurfaceThreatLevel

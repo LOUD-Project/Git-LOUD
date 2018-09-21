@@ -3396,6 +3396,8 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
 	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, newpos, newthreat, newtime, myunits, myvalue, bp
+	
+	local ALLBPS = __blueprints
 
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only LAND, AIR and NAVAL will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
@@ -3683,7 +3685,7 @@ function ParseIntelThread( aiBrain )
 		-- calculate my present airvalue			
 		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE, myunits ) do
 		
-			bp = GetBlueprint(v).Defense
+			bp = ALLBPS[v.BlueprintID].Defense
 
 			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
 
@@ -3714,7 +3716,7 @@ function ParseIntelThread( aiBrain )
 		-- calculate my present land value
 		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
 		
-			bp = GetBlueprint(v).Defense
+			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
 			
@@ -3745,7 +3747,7 @@ function ParseIntelThread( aiBrain )
 		-- calculate my present naval value
 		for _,v in EntityCategoryFilterDown( (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), myunits ) do
 		
-			bp = GetBlueprint(v).Defense
+			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
 			

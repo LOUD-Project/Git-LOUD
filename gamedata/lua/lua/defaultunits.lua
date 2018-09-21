@@ -102,7 +102,7 @@ StructureUnit = Class(Unit) {
             self:PlayUnitSound('UpgradeStart')
             self:DisableDefaultToggleCaps()
 
-            local bp = GetBlueprint(self).Display
+            local bp = __blueprints[self.BlueprintID].Display
 
             if bp.AnimationUpgrade then
 
@@ -190,7 +190,7 @@ StructureUnit = Class(Unit) {
 
         if self.CacheLayer == 'Land' then
 
-			local bp = GetBlueprint(self)
+			local bp = __blueprints[self.BlueprintID]
 
 			if bp.Physics.FlattenSkirt then
 
@@ -230,7 +230,7 @@ StructureUnit = Class(Unit) {
 
     CreateEnhancement = function(self, enh)
 
-        local bp = GetBlueprint(self)
+        local bp = __blueprints[self.BlueprintID]
 		local bpE = bp.Enhancements[enh]
 
         if not bpE then return end
@@ -409,7 +409,7 @@ StructureUnit = Class(Unit) {
         if self.CacheLayer != 'Land' then return end
 
         local tarmac
-        local bp = GetBlueprint(self).Display.Tarmacs
+        local bp = __blueprints[self.BlueprintID].Display.Tarmacs
 
 		local LOUDGETN = table.getn
 		local Random = Random
@@ -698,7 +698,7 @@ StructureUnit = Class(Unit) {
         end
 
 		-- pick up any structure that has an upgrade not covered by above
-		if finishedUnit:GetBlueprint().General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
+		if __blueprints[finishedUnit.BlueprintID].General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
 
 			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.03, 9999, 9999, 36, 360, false )
 
@@ -723,7 +723,7 @@ StructureUnit = Class(Unit) {
 
 		Unit.StartBeingBuiltEffects(self, builder, layer)
 
-		local bp = GetBlueprint(self).General
+		local bp = __blueprints[self.BlueprintID].General
 
 		if bp.FactionName == 'UEF' then
 
@@ -750,7 +750,7 @@ StructureUnit = Class(Unit) {
 
     StopBeingBuiltEffects = function(self, builder, layer)
 
-        local FactionName = GetBlueprint(self).General.FactionName
+        local FactionName = __blueprints[self.BlueprintID].General.FactionName
 
         if FactionName == 'Aeon' then
             WaitTicks(18)
@@ -794,7 +794,7 @@ StructureUnit = Class(Unit) {
 			return
 		end
 
-        local adjBuffs = GetBlueprint(self).Adjacency
+        local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if not adjBuffs then
 			return
@@ -811,7 +811,7 @@ StructureUnit = Class(Unit) {
     -- When we're not adjacent, try to remove all the possible bonuses.
     OnNotAdjacentTo = function(self, adjacentUnit)
 
-        local adjBuffs = GetBlueprint(self).Adjacency
+        local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
             for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
@@ -1011,7 +1011,7 @@ MobileUnit = Class(Unit) {
 
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
 
-        local bpMTable = GetBlueprint(self).Display.MovementEffects
+        local bpMTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
         if( old == 'TopSpeed' ) then
             self:DestroyTopSpeedEffects()
@@ -1142,7 +1142,7 @@ MobileUnit = Class(Unit) {
 
     CreateMovementEffects = function( self, EffectsBag, TypeSuffix, TerrainType )
 
-        local bpTable = GetBlueprint(self).Display.MovementEffects
+        local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
 		if bpTable then
 
@@ -1192,7 +1192,7 @@ MobileUnit = Class(Unit) {
     OnAnimCollision = function(self, bone, x, y, z)
 
 		-- see if it even has Movement Effects -- many dont --
-        local bpTable = GetBlueprint(self).Display.MovementEffects
+        local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
         if bpTable then
 
@@ -1270,7 +1270,7 @@ MobileUnit = Class(Unit) {
 
     CreateMotionChangeEffects = function( self, new, old )
 
-		local bptable = GetBlueprint(self).Display.MotionChangeEffects
+		local bptable = __blueprints[self.BlueprintID].Display.MotionChangeEffects
 
 		if bptable then
 
@@ -1284,7 +1284,7 @@ MobileUnit = Class(Unit) {
 
     DestroyMovementEffects = function( self )
 
-        local bpTable = GetBlueprint(self).Display.MovementEffects
+        local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
         CleanupEffectBag(self,'MovementEffectsBag')
 
@@ -1439,7 +1439,7 @@ MobileUnit = Class(Unit) {
 
         if new == 'Land' then
 
-			local Intel = GetBlueprint(self).Intel
+			local Intel = __blueprints[self.BlueprintID].Intel
 
 			self:EnableIntel('Vision')
 			self:DisableIntel('WaterVision')
@@ -1452,7 +1452,7 @@ MobileUnit = Class(Unit) {
 		-- or to cover Sonar carrying aircraft (ie. Torpedo Bombers)
         elseif (old == 'Land' or old == 'Air' or old == 'None') and new == 'Seabed' then
 
-			local Intel = GetBlueprint(self).Intel
+			local Intel = __blueprints[self.BlueprintID].Intel
 
 			self:EnableIntel('WaterVision')
 			self:DisableIntel('Vision')
@@ -2996,7 +2996,7 @@ SubUnit = Class(MobileUnit) {
 
         self:DestroyIdleEffects()
 
-        if GetBlueprint(self).Display.AnimationDeath then
+        if __blueprints[self.BlueprintID].Display.AnimationDeath then
 
 			if (self.CacheLayer == 'Water' or self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub') then
 
@@ -3013,7 +3013,8 @@ SubUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 
-        local bp = GetBlueprint(self)
+        local bp = __blueprints[self.BlueprintID]
+		
         local army = GetArmy(self)
         local pos = GetPosition(self)
         local seafloor = GetTerrainHeight(pos[1], pos[3])

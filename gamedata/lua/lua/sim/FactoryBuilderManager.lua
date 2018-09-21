@@ -490,7 +490,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1, 1.01, 9999, 9999, 16, 240, false )
 				
-				if not finishedUnit.EnhanceThread and finishedUnit:GetBlueprint().Enhancements.Sequence then
+				if not finishedUnit.EnhanceThread and __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence then
 				
 					finishedUnit.EnhanceThread = finishedUnit:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
 					
@@ -527,7 +527,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				if not factory.EnhancementsComplete then
 				
-					if not factory.EnhanceThread and factory:GetBlueprint().Enhancements.Sequence then
+					if not factory.EnhanceThread and __blueprints[factory.BlueprintID].Enhancements.Sequence then
 					
 						factory.EnhanceThread = factory:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
 						

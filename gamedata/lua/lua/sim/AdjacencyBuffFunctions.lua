@@ -23,9 +23,7 @@ end
 
 WaterVisionBuffCheck = function( buff, unit )
 
-	local bp = GetBlueprint(unit).Intel
-	
-	if bp.WaterVisionRadius > 1 then
+	if __blueprints[unit.BlueprintID].Intel.WaterVisionRadius > 1 then
 	
 		return true
 		
@@ -36,9 +34,7 @@ end
 
 RadarRadiusBuffCheck = function( buff, unit )
 
-	local bp = GetBlueprint(unit).Intel
-	
-	if bp.RadarRadius > 1 then
+	if __blueprints[unit.BlueprintID].Intel.RadarRadius > 1 then
 	
 		return true
 		
@@ -49,9 +45,7 @@ end
 
 SonarRadiusBuffCheck = function( buff, unit )
 
-	local bp = GetBlueprint(unit).Intel
-	
-	if bp.SonarRadius > 1 then
+	if __blueprints[unit.BlueprintID].Intel.SonarRadius > 1 then
 	
 		return true
 		
@@ -62,9 +56,7 @@ end
 
 OmniRadiusBuffCheck = function( buff, unit )
 
-	local bp = GetBlueprint(unit).Intel
-	
-	if bp.OmniRadius > 1 then
+	if __blueprints[unit.BlueprintID].Intel.OmniRadius > 1 then
 	
 		return true
 		
@@ -75,7 +67,7 @@ end
 
 BuildRateBuffCheck = function( buff, unit )
 
-	local bp = GetBlueprint(unit).Economy
+	local bp = __blueprints[unit.BlueprintID].Economy
 
 	-- while not technically true - the engine gives ALL units a buildrate of 1, even if not specified
 	if bp.BuildRate and bp.BuildRate > 1 then
@@ -90,10 +82,8 @@ end
 -- for factories - reduces mass and energy consumption when active
 BuildBuffCheck = function(buff, unit)
 
-    local bp = GetBlueprint(unit).Economy
-	
 	-- we have to test this since the engine gives ALL units an empty BuildableCategory table
-    if not table.empty(bp.BuildableCategory) then
+    if not table.empty(__blueprints[unit.BlueprintID].Economy.BuildableCategory) then
 	
         return true
 		
@@ -124,7 +114,7 @@ end
 -- usually shields, radar and other structures which constantly consume energy
 EnergyMaintenanceBuffCheck = function(buff, unit)
 
-    if GetBlueprint(unit).Economy.MaintenanceConsumptionPerSecondEnergy or unit.EnergyMaintenanceConsumptionOverride then
+    if __blueprints[unit.BlueprintID].Economy.MaintenanceConsumptionPerSecondEnergy or unit.EnergyMaintenanceConsumptionOverride then
 	
         return true
 		
@@ -199,7 +189,7 @@ end
 -- Shield Regeneration -- this is new with LOUDAI
 ShieldRegenBuffCheck = function(buff, unit)
 
-	return GetBlueprint(unit).Defense.Shield.ShieldRegenRate > 0
+	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldRegenRate > 0
 	
 end
 
@@ -218,7 +208,7 @@ end
 -- Shield Size -- also new with LOUDAI
 ShieldSizeBuffCheck = function(buff, unit)
 
-	return GetBlueprint(unit).Defense.Shield.ShieldSize > 0
+	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldSize > 0
 	
 end
 
@@ -237,7 +227,7 @@ end
 -- Shield Health -- also new with LOUDAI
 ShieldHealthBuffCheck = function(buff, unit)
 
-	return GetBlueprint(unit).Defense.Shield.ShieldMaxHealth > 0
+	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldMaxHealth > 0
 end
 
 ShieldHealthBuffRemove = function(buff, unit, instigator)
@@ -255,7 +245,7 @@ end
 -- Energy Production -- for any energy producing structure
 EnergyProductionBuffCheck = function(buff, unit)
 
-	return GetBlueprint(unit).Economy.ProductionPerSecondEnergy > 0
+	return __blueprints[unit.BlueprintID].Economy.ProductionPerSecondEnergy > 0
 	
 end
 
@@ -274,7 +264,7 @@ end
 -- Mass Production - any mass producing structure
 MassProductionBuffCheck = function(buff, unit)
 
-	return GetBlueprint(unit).Economy.ProductionPerSecondMass > 0
+	return __blueprints[unit.BlueprintID].Economy.ProductionPerSecondMass > 0
 	
 end
 

@@ -273,6 +273,8 @@ Unit = Class(moho.unit_methods) {
 		
 		local bp = GetBlueprint(self)
 		
+		self.BlueprintID = bp.BlueprintId
+		
         local vol = bp.SizeX * bp.SizeY * bp.SizeZ
 		
         local damageamounts = 1
@@ -642,7 +644,7 @@ Unit = Class(moho.unit_methods) {
 
     GetFootPrintSize = function(self)
 	
-        local fp = GetBlueprint(self).Footprint
+        local fp = __blueprints[self.BlueprintID].Footprint
 		
         if fp.SizeX > fp.SizeZ then
 		
@@ -1298,7 +1300,7 @@ Unit = Class(moho.unit_methods) {
 	
 			local GetBuildRate = moho.unit_methods.GetBuildRate
 		
-			local myBlueprint = GetBlueprint(self)
+			local myBlueprint = __blueprints[self.BlueprintID]
 
 			if self.ActiveConsumption then
 
@@ -1404,7 +1406,7 @@ Unit = Class(moho.unit_methods) {
 	
 		if GetBlueprint(self).Economy then
 	
-			local bpEcon = GetBlueprint(self).Economy
+			local bpEcon = __blueprints[self.BlueprintID].Economy
 		
 			self:SetProductionPerSecondEnergy((bpEcon.ProductionPerSecondEnergy or 0) * (self.EnergyProdAdjMod or 1))
 			self:SetProductionPerSecondMass((bpEcon.ProductionPerSecondMass or 0) * (self.MassProdAdjMod or 1))
@@ -1616,7 +1618,8 @@ Unit = Class(moho.unit_methods) {
 		
         local totalBones = self:GetBoneCount()
         local bone = Random(1, totalBones) - 1
-        local bpDE = GetBlueprint(self).Display.DamageEffects
+		
+        local bpDE = __blueprints[self.BlueprintID].Display.DamageEffects
 		
 		local fx, bpFx
 		

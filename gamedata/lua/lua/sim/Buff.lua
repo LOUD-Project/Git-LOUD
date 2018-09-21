@@ -299,7 +299,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 		
         elseif atype == 'MaxHealth' then
         
-            local unitbphealth = GetBlueprint(unit).Defense.MaxHealth or 1
+            local unitbphealth = __blueprints[unit.BlueprintID].Defense.MaxHealth or 1
             local val = BuffCalculate(unit, buffName, 'MaxHealth', unitbphealth)
         
             local oldmax = GetMaxHealth( unit )
@@ -322,7 +322,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
         elseif atype == 'Regen' then
             
-            local bpregn = GetBlueprint(unit).Defense.RegenRate or 0
+            local bpregn = __blueprints[unit.BlueprintID].Defense.RegenRate or 0
             local val = BuffCalculate(unit, buffName, 'Regen', bpregn)
         
             SetRegenRate( unit, val )
@@ -333,7 +333,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         elseif atype == 'RegenPercent' then
 		
 			-- get the standard regen
-			local bpregn = GetBlueprint(unit).Defense.RegenRate or 0
+			local bpregn = __blueprints[unit.BlueprintID].Defense.RegenRate or 0
 			
 			-- get the total current regen subtract the standard regen to get extra regen
 			local vetregn = BuffCalculate(unit, nil, 'Regen', bpregn) - bpregn
@@ -522,7 +522,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			if unit.MyShield then
 			
 				local val = BuffCalculate(unit, buffName, 'ShieldRegeneration', 1)
-				local regenrate = GetBlueprint(unit).Defense.Shield.ShieldRegenRate or 1
+				local regenrate = __blueprints[unit.BlueprintID].Defense.Shield.ShieldRegenRate or 1
 		
 				unit.MyShield:SetShieldRegenRate(val * regenrate)
 			end
@@ -533,7 +533,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			if unit.MyShield then
 
 				local val = BuffCalculate(unit, buffName, 'ShieldSize', 1)
-				local shieldsize = GetBlueprint(unit).Defense.Shield.ShieldSize or 1
+				local shieldsize = __blueprints[unit.BlueprintID].Defense.Shield.ShieldSize or 1
 			
 				unit.MyShield:SetSize(val * shieldsize)
 
@@ -546,7 +546,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			if unit.MyShield then
 			
 				local val = BuffCalculate(unit, buffName, 'ShieldHealth', 1)
-				local shieldhealth = GetBlueprint(unit).Defense.Shield.ShieldMaxHealth or 1
+				local shieldhealth = __blueprints[unit.BlueprintID].Defense.Shield.ShieldMaxHealth or 1
 
 				local shield = unit.MyShield
 			
