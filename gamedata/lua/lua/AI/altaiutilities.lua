@@ -9,6 +9,7 @@ local LOUDENTITY = EntityCategoryContains
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 
+local LOUDCONCAT = table.cat
 local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
@@ -24,7 +25,7 @@ local WaitTicks = coroutine.yield
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local IsUnitState = moho.unit_methods.IsUnitState
-local GetUnitId = moho.unit_methods.GetUnitId
+--local GetUnitId = moho.unit_methods.GetUnitId
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -72,9 +73,9 @@ function AssistBody(self, eng, aiBrain)
 		
 			local list = {}
 	
-			list = table.cat( list, aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
+			list = LOUDCONCAT( list, aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
 		
-			list = table.cat( list, aiBrain.BuilderManagers[locationType].EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
+			list = LOUDCONCAT( list, aiBrain.BuilderManagers[locationType].EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
 
 			return list
 		
@@ -223,12 +224,12 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 	end
 	
 	if Position then
-	
+
 		local positions = {}
 
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
 	
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 	
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], aiBrain.BuilderManagers[locationType].Position[1],aiBrain.BuilderManagers[locationType].Position[3]) < VDist2Sq(b.Position[1],b.Position[3], aiBrain.BuilderManagers[locationType].Position[1],aiBrain.BuilderManagers[locationType].Position[3] ) end )
 	
@@ -311,9 +312,9 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	
 		local positions = {}
 	
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
 	
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
@@ -390,9 +391,9 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
 		local positions = {}
 	
-		positions = table.cat( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
 	
-		positions = table.cat( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the positions by distance from Position --
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
@@ -469,7 +470,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 
 		local positions = {}
 	
-		local positions = table.cat(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the possible positions by distance -- 
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
@@ -554,10 +555,10 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 	end
 	
     if Position then
-
+		
 		local positions = {}
 	
-		local positions = table.cat(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
+		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the possible positions by distance -- 
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
@@ -636,9 +637,9 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
 		local positions = {}
 	
 		-- both Start and Large Expansion Areas --
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
 		
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))	
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))	
 
 		-- sort by distance from Position
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1], Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1], Position[3] ) end )
@@ -670,9 +671,9 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
 		local positions = {}
 	
 		-- both DPs and 'small' Expansion Areas --
-		positions = table.cat( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
 		
-		positions = table.cat( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
     
 		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
 
@@ -701,7 +702,7 @@ function AIFindExpansionPointNeedsStructure( aiBrain, locationType, radius, cate
 	
 		local positions = {}
 	
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )	
 	
@@ -730,7 +731,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
     if Position and  ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
-	
+		
 		local test_range = false
 		
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
@@ -749,7 +750,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		
 		local positions = {}
 
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
     
 		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
     
@@ -771,20 +772,23 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 			
 				local reject = false
 		
-				-- check proximity to our existing bases --
+				-- check proximity to OUR existing bases --
 				for basename, base in aiBrain.BuilderManagers do
+				
+					if base.EngineerManager.Active then
 	
-					-- if too close to ANY of our other existing bases or further than our current primary sea attack base --
-					if VDist3( base.Position, v.Position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, v.Position ) > test_range then
+						-- if too close to ANY of our other existing bases or further than our current primary sea attack base --
+						if VDist2( base.Position[1],base.Position[3], v.Position[1],v.Position[3] ) < minimum_baserange or VDist2( aiBrain.AttackPlan.Goal[1],aiBrain.AttackPlan.Goal[3], v.Position[1],v.Position[3] ) > test_range then
 						
-						reject = true
+							reject = true
+							
+							break
 						
-						break
-						
+						end
+					
 					end
 					
 				end
-				
 				
 				if not reject then
 				
@@ -811,7 +815,7 @@ function AIFindStartPointNeedsStructure( aiBrain, locationType, radius, category
 	
 		local positions = {}
 	
-		positions = table.cat(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
     
 		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
 	
@@ -968,9 +972,9 @@ end
 -- Takes a list of units & returns the number & size of the transport slots required to move it
 function GetNumTransports(units)
 
-	--LOG("*AI DEBUG Getting Number of transports required")
+	LOG("*AI DEBUG Getting Number of transports required")
 	
-	local GetBlueprint = moho.entity_methods.GetBlueprint
+	--local GetBlueprint = moho.entity_methods.GetBlueprint
 	local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
     local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, }
 	
@@ -1014,6 +1018,46 @@ end
 -- Will now also limit transport selection to those within 16 km
 function GetTransports( platoon, aiBrain)
 
+	local function GetNumTransports(units)
+
+		local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
+		local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, }
+	
+		for _, v in units do
+	
+			if v and not v.Dead then
+			
+				if v.TransportClass == 1 then
+					transportsNeeded = true
+					transportslotsNeeded.Small = transportslotsNeeded.Small + 1.0
+				
+				elseif v.TransportClass == 2 then
+					transportsNeeded = true
+					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.34
+					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 1.0
+				
+				elseif v.TransportClass == 3 then
+					transportsNeeded = true
+					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.5
+					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 0.25
+					transportslotsNeeded.Large = transportslotsNeeded.Large + 1.0
+				
+				else
+			
+					LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
+					return false, nil
+				
+				end
+
+			end	
+		
+		end
+	
+		return transportsNeeded, transportslotsNeeded
+	
+	end
+
+	local LOUDCOPY = table.copy
 	local LOUDENTITY = EntityCategoryContains
 	local LOUDGETN = table.getn
 	local WaitTicks = coroutine.yield
@@ -1143,7 +1187,7 @@ function GetTransports( platoon, aiBrain)
 		end
 
 		if counter > 0 then
-			location = table.copy(GetPlatoonPosition(platoon))
+			location = LOUDCOPY(GetPlatoonPosition(platoon))
 		end
 	end	
 	
@@ -1189,7 +1233,128 @@ function GetTransports( platoon, aiBrain)
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 	local GetPosition = moho.entity_methods.GetPosition
+	
 	local out_of_range = false
+	
+	-- Returns the number of slots the transport has available
+	-- Originally, this function just counted the number of attachpoint bones of each size on the model
+	-- however, this does not seem to work correctly - ie. UEF T3 Transport
+	-- says it has 12 Large Attachpoints but will only carry 6 large units
+	-- so I replaced that with some hardcoded values to improve performance, as each new transport
+	-- unit comes into play, I'll cache those values on the brain so I never have to look them up again
+	-- setup global table to contain Transport values- in this way we always have a reference to them
+	-- without having to reread the bones or do all the EntityCategory checks from below
+	local function GetNumTransportSlots( unit )
+	
+		if not aiBrain.TransportSlotTable then
+			aiBrain.TransportSlotTable = {}
+		end
+	
+		local id = unit.BlueprintID
+	
+		if aiBrain.TransportSlotTable[id] then
+	
+			return aiBrain.TransportSlotTable[id]
+		
+		else
+	
+			local EntityCategoryContains = EntityCategoryContains
+	
+			local bones = { Large = 0, Medium = 0, Small = 0,}
+	
+			if EntityCategoryContains( categories.xea0306, unit) then
+				bones.Large = 6
+				bones.Medium = 10
+				bones.Small = 24
+
+			elseif EntityCategoryContains( categories.uea0203, unit) then
+				bones.Large = 0
+				bones.Medium = 1
+				bones.Small = 1
+			
+			elseif EntityCategoryContains( categories.uea0104, unit) then
+				bones.Large = 3
+				bones.Medium = 6
+				bones.Small = 14
+			
+			elseif EntityCategoryContains( categories.uea0107, unit) then
+				bones.Large = 1
+				bones.Medium = 2
+				bones.Small = 6
+			
+			elseif EntityCategoryContains( categories.uaa0107, unit) then
+				bones.Large = 1
+				bones.Medium = 3
+				bones.Small = 6
+
+			elseif EntityCategoryContains( categories.uaa0104, unit) then
+				bones.Large = 3
+				bones.Medium = 6
+				bones.Small = 12
+		
+			elseif EntityCategoryContains( categories.ura0107, unit) then
+				bones.Large = 1
+				bones.Medium = 2
+				bones.Small = 6
+
+			elseif EntityCategoryContains( categories.ura0104, unit) then
+				bones.Large = 2
+				bones.Medium = 4
+				bones.Small = 10
+		
+			elseif EntityCategoryContains( categories.xsa0107, unit) then
+				bones.Large = 1
+				bones.Medium = 4
+				bones.Small = 8
+
+			elseif EntityCategoryContains( categories.xsa0104, unit) then
+				bones.Large = 4
+				bones.Medium = 8
+				bones.Small = 16
+		
+			-- BO Aeon transport
+			elseif bones.Small == 0 and (categories.baa0309 and EntityCategoryContains( categories.baa0309, unit)) then
+				bones.Large = 6
+				bones.Medium = 10
+				bones.Small = 16
+		
+			-- BO Cybran transport
+			elseif bones.Small == 0 and (categories.bra0309 and EntityCategoryContains( categories.bra0309, unit)) then
+				bones.Large = 3
+				bones.Medium = 12
+				bones.Small = 14
+			
+			-- BrewLan Cybran transport
+			elseif bones.Small == 0 and (categories.sra0306 and EntityCategoryContains( categories.sra0306, unit)) then
+				bones.Large = 4
+				bones.Medium = 8
+				bones.Small = 16
+		
+			-- Gargantua
+			elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
+				bones.Large = 20
+				bones.Medium = 0
+				bones.Small = 0
+		
+			-- BO Sera transport
+			elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
+				bones.Large = 8
+				bones.Medium = 12
+				bones.Small = 28
+
+			-- BrewLAN Seraphim transport
+			elseif bones.Small == 0 and (categories.ssa0306 and EntityCategoryContains( categories.ssa0306, unit)) then
+				bones.Large = 7
+				bones.Medium = 15
+				bones.Small = 32
+				
+			end
+		
+			aiBrain.TransportSlotTable[id] = bones
+
+			return bones
+		end
+	end
 
 	-- now we filter out those that dont pass muster
 	for k,transport in AvailableTransports do
@@ -1217,13 +1382,13 @@ function GetTransports( platoon, aiBrain)
 						-- as loading has a 120 second time limit --
 						if range < 1800 then
 			
-							local id = GetUnitId(transport)
+							local id = transport.BlueprintID
 				
 							if not aiBrain.TransportSlotTable[id] then
-								AIUtils.GetNumTransportSlots(transport, aiBrain)
+								GetNumTransportSlots( transport )
 							end
 
-							transports[counter+1] = { Unit = transport, Distance = range, Slots = table.copy(aiBrain.TransportSlotTable[id]) }
+							transports[counter+1] = { Unit = transport, Distance = range, Slots = LOUDCOPY(aiBrain.TransportSlotTable[id]) }
 							counter = counter + 1
 
 							Collected.Large = Collected.Large + transports[counter].Slots.Large
@@ -1387,7 +1552,7 @@ function GetTransports( platoon, aiBrain)
 			end
 			
 			if counter > 0 then
-				location = table.copy(GetPlatoonPosition(platoon))
+				location = LOUDCOPY(GetPlatoonPosition(platoon))
 			end
 			
 		end
@@ -1417,10 +1582,7 @@ function GetTransports( platoon, aiBrain)
     if not CanUseTransports or counter < 1 then
 
 		if transportplatoon then
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." Returned To Pool ")
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Still needed "..neededTable.Large.." Lrg "..neededTable.Medium.." Med "..neededTable.Small.." Small slots")
-			
+
 			ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true )
 			
 		end
@@ -1841,6 +2003,7 @@ end
 -- This was one of the first tasks I tackled and years later I still find myself coming back to it again and again - argh
 function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 
+	local LOUDCOPY = table.copy
 	local LOUDENTITY = EntityCategoryContains
 	local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
@@ -1873,7 +2036,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					v:SetScriptBit('RULEUTC_IntelToggle', false)
 				end
 			
-				local slots = table.copy( aiBrain.TransportSlotTable[ GetUnitId(v) ] )
+				local slots = LOUDCOPY( aiBrain.TransportSlotTable[v.BlueprintID] )
 		
 				transportTable[counter + 1] = {	Transport = v, LargeSlots = slots.Large, MediumSlots = slots.Medium, SmallSlots = slots.Small, Units = { ["Small"] = {}, ["Medium"] = {}, ["Large"] = {} } }
 				counter = counter + 1
@@ -2821,28 +2984,30 @@ end
 --			LastScouted - gametime when position was last scouted
 function GetHiPriTargetList(aiBrain, location)
 
-    local threatlist = table.copy(aiBrain.IL.HiPri)
+	local VDist2 = VDist2Sq
+	local LOUDCOPY = table.copy
+	local LOUDEQUAL = table.equal
+	local WaitTicks = coroutine.yield
 
-	LOUDSORT( threatlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )	
+    local threatlist = LOUDCOPY(aiBrain.IL.HiPri)
 
+	LOUDSORT( threatlist, function(a,b) return VDist2(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )	
+	
 	local intelresolution = ScenarioInfo.IntelResolution
-
 	intelresolution = math.min( 64, intelresolution )
 	
 	local targetlist = {}
 	local counter = 0
-	
-	local GetBlueprint = moho.entity_methods.GetBlueprint
-	local VDist2 = VDist2Sq
-
 	local checkspertick = 2
 	local checks = 0
 	
 	local prev_position = {}
 	
+	local ALLBPS = __blueprints
+
     for _,threat in threatlist do
 	
-		if table.equal( threat.Position, prev_position ) then
+		if LOUDEQUAL( threat.Position, prev_position ) then
 		
 			continue
 			
@@ -2854,9 +3019,7 @@ function GetHiPriTargetList(aiBrain, location)
 			checks = 1
 			
 		else
-		
 			checks = checks + 1
-			
 		end
 	
 		local targets = GetUnitsAroundPoint(aiBrain, categories.ALLUNITS - categories.WALL, threat.Position, intelresolution, 'Enemy')
@@ -2873,7 +3036,7 @@ function GetHiPriTargetList(aiBrain, location)
 			
 				if not target.Dead then
 				
-					local bp = __blueprints[target.BlueprintID].Defense
+					local bp = ALLBPS[target.BlueprintID].Defense
 					
 					airthreat = airthreat + bp.AirThreatLevel
 					ecothreat = ecothreat + bp.EconomyThreatLevel
@@ -2894,7 +3057,7 @@ function GetHiPriTargetList(aiBrain, location)
 			
 			counter = counter + 1
 			
-			prev_position = table.copy(threat.Position)
+			prev_position = LOUDCOPY(threat.Position)
 			
 		end
 		

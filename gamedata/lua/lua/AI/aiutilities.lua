@@ -841,7 +841,7 @@ function GetNumTransportSlots(unit, aiBrain)
 		
 	end
 	
-	local id = unit:GetUnitId()
+	local id = unit.BlueprintID
 	
 	if aiBrain.TransportSlotTable[id] then
 	

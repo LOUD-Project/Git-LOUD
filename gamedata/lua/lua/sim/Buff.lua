@@ -56,7 +56,7 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
 
-    if unit.Dead then 
+    if unit.Dead or not unit.Buffs.BuffTable then 
         return 
     end
 
@@ -140,6 +140,7 @@ function ApplyBuff(unit, buffName, instigator)
 		
 			-- create the unit BuffTable entry			
 			if not ubt[def.BuffType] then
+
 				ubt[def.BuffType] = {}
 			end
 

@@ -26,7 +26,7 @@
 	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
 	ScenarioInfo.DisplayPlatoonMembership = false
