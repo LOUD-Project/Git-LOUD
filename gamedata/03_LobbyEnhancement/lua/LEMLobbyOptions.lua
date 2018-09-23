@@ -41,7 +41,7 @@ GPGrestrictedUnits = {
     },
 	
     AIRSCOUTS = {
-        categories = {"uaa0101","uaa0302","uea0101","uea0302","ura0101","ura0302","xsa0101","xsa0302" },
+        categories = {"uaa0101","uaa0302","uea0101","uea0302","ura0101","ura0302","xsa0101","xsa0302","sea0201","sra0201","ssa0201","saa0201" },
         name = "No Air Scouts",
         tooltip = "restricted_units_air_scouts",
     },
