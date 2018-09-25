@@ -1,9 +1,9 @@
 version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
-    name = "4 double island v2",
-    description = "<LOC 4 double island v2_Description>",
+    name = "4 Double-Island",
+    description = "A classic 4 corner water-based map with some very nasty civilians in the middle, the best resource positions in their possession.",
     preview = '',
-    map_version = '2.0',
+    map_version = '2',
     type = 'skirmish',
     starts = true,
     size = {2048, 2048},
