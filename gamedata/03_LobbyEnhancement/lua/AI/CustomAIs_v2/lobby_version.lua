@@ -1,4 +1,4 @@
 AI = {
-	Name = "03_lobbyenhancement.scd",
+	Name = "Enhanced Lobby",
 	Version = "LOUD 1.6e",
 }
