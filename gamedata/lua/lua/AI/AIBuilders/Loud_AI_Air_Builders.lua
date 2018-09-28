@@ -94,7 +94,7 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
     Builder {BuilderName = 'T2 Air Scout',
 	
         PlatoonTemplate = 'T2AirScout',
-        Priority = 601,
+        Priority = 600,
 
         BuilderConditions = {
 		
@@ -115,7 +115,7 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
     Builder {BuilderName = 'T3 Air Scout',
 	
         PlatoonTemplate = 'T3AirScout',
-        Priority = 601,
+        Priority = 600,
 
         BuilderConditions = {
 		

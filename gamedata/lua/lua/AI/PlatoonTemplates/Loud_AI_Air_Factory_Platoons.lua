@@ -113,19 +113,15 @@ PlatoonTemplate { Name = 'T1Fighter',
     FactionSquads = {
         UEF = {
             { 'uea0102', 1, 5, 'Attack', 'none' },
-            { 'uea0101', 1, 1, 'scout', 'none' }
         },
         Aeon = {
             { 'uaa0102', 1, 5, 'Attack', 'none' },
-            { 'uaa0101', 1, 1, 'scout', 'none' }
         },
         Cybran = {
             { 'ura0102', 1, 5, 'Attack', 'none' },
-            { 'ura0101', 1, 1, 'scout', 'none' }
         },
         Seraphim = {
             { 'xsa0102', 1, 5, 'Attack', 'none' },
-            { 'xsa0101', 1, 1, 'scout', 'none' }
         },
     }
 }

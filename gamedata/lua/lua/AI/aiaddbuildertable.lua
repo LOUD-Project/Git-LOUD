@@ -19,6 +19,43 @@
 -- This will also a good way to filter out faction specific platoons as well
 -- since we already know the faction index of the brain
 function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
+
+	local function AddGlobalBuilderGroup(builderGroupName)
+
+		if BuilderGroups[builderGroupName] then
+
+			local tableType 
+
+			if BuilderGroups[builderGroupName].BuildersType == 'PlatoonFormBuilder' then
+		
+				tableType = 'PlatoonFormManager'
+		
+			elseif BuilderGroups[builderGroupName].BuildersType == 'EngineerBuilder' then
+	
+				tableType = 'EngineerManager'
+		
+			elseif BuilderGroups[builderGroupName].BuildersType == 'FactoryBuilder' then
+	
+				tableType = 'FactoryManager'
+		
+			end
+	
+			for k,v in BuilderGroups[builderGroupName] do
+	
+				-- filter out the Group Headers 
+				if k != 'BuildersType' and k != 'BuilderGroupName' then
+		
+					aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
+			
+				end
+		
+			end	
+	
+			--AddBuilderTable( aiBrain, locationType, BuilderGroups[builderGroupName])
+		
+		end
+	
+	end
 	
 	-- test the map for naval markers or naval defensive points --
 	local navalMarker = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation(aiBrain, 'Naval Area', 0, 0)
@@ -32,7 +69,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	-- load the primary base templates
     for k,v in BaseBuilderTemplates[baseBuilderName].Builders do
 	
-        AddGlobalBuilderGroup(aiBrain, locationType, v)
+        AddGlobalBuilderGroup( v )
 		
     end
 	
@@ -44,7 +81,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 		
 			for k,v in BaseBuilderTemplates[baseBuilderName].BOACUCommanderUpgrades do
 			
-				AddGlobalBuilderGroup(aiBrain, locationType, v)
+				AddGlobalBuilderGroup( v )
 				
 			end	
 			
@@ -52,7 +89,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 		
 			for k,v in BaseBuilderTemplates[baseBuilderName].StandardCommanderUpgrades do
 			
-				AddGlobalBuilderGroup(aiBrain, locationType, v)
+				AddGlobalBuilderGroup( v )
 				
 			end	
 
@@ -68,7 +105,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 
 		for k,v in BaseBuilderTemplates[baseBuilderName].WaterMapBuilders do
 		
-			AddGlobalBuilderGroup(aiBrain, locationType, v)
+			AddGlobalBuilderGroup( v )
 			
 		end
 		
@@ -76,7 +113,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	
 		for k,v in BaseBuilderTemplates[baseBuilderName].LandOnlyBuilders do
 		
-			AddGlobalBuilderGroup(aiBrain, locationType, v)
+			AddGlobalBuilderGroup( v )
 			
 		end
 		
@@ -88,7 +125,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	
         for k,v in BaseBuilderTemplates[baseBuilderName].NonCheatBuilders do
 		
-            AddGlobalBuilderGroup(aiBrain, locationType, v)
+            AddGlobalBuilderGroup( v )
 			
         end
 		
@@ -99,7 +136,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 
 		for k,v in BaseBuilderTemplates[baseBuilderName].LOUD_IS_Installed_Builders do
 		
-			AddGlobalBuilderGroup(aiBrain, locationType, v)
+			AddGlobalBuilderGroup( v )
 			
 		end	
 
@@ -107,7 +144,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 
 		for k,v in BaseBuilderTemplates[baseBuilderName].LOUD_IS_Not_Installed_Builders do
 		
-			AddGlobalBuilderGroup(aiBrain, locationType, v)
+			AddGlobalBuilderGroup( v )
 			
 		end
 
@@ -122,11 +159,40 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	
 end
 
+--[[
+
 function AddGlobalBuilderGroup(aiBrain, locationType, builderGroupName)
 
     if BuilderGroups[builderGroupName] then
+
+		local tableType 
+
+		if BuilderGroups[builderGroupName].BuildersType == 'PlatoonFormBuilder' then
+		
+			tableType = 'PlatoonFormManager'
+		
+		elseif BuilderGroups[builderGroupName].BuildersType == 'EngineerBuilder' then
 	
-        AddBuilderTable( aiBrain, locationType, BuilderGroups[builderGroupName])
+			tableType = 'EngineerManager'
+		
+		elseif BuilderGroups[builderGroupName].BuildersType == 'FactoryBuilder' then
+	
+			tableType = 'FactoryManager'
+		
+		end
+	
+		for k,v in BuilderGroups[builderGroupName] do
+	
+			-- filter out the Group Headers 
+			if k != 'BuildersType' and k != 'BuilderGroupName' then
+		
+				aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
+			
+			end
+		
+		end	
+	
+        --AddBuilderTable( aiBrain, locationType, BuilderGroups[builderGroupName])
 		
 	end
 	
@@ -166,3 +232,4 @@ function AddBuilderTable(aiBrain, locationType, builderTable)
 		
     end
 end
+--]]

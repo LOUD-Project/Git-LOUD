@@ -80,7 +80,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	end,
 
 	-- modified this process so we can specify multiple factory types (vs. All) to add builders for
-	-- the necessitated changing all the BuilderType entries into tables in the unit builder specs
+	-- necessitated changing all the BuilderType entries into tables in the unit builder specs
 	-- now we can avoid adding unworkable builders to the factories and make Gates more useful while
 	-- avoiding adding land units to an air or naval factory for example
 	AddBuilder = function(self, brain, builderData, locationType, builderType)
@@ -701,52 +701,72 @@ FactoryBuilderManager = Class(BuilderManager) {
 			local builder = self:GetHighestBuilder( factory, aiBrain )
 		
 			if builder then
+			
+				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
+			
+				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
 		
-                factory.addplan = false
-				factory.addbehavior = false
+					factory.addplan = false
+					factory.addbehavior = false
 				
-				factory.failedbuilds = 0
+					factory.failedbuilds = 0
 
-				local buildplatoonsqty = 1
+					local buildplatoonsqty = 1
 
-				if Builders[builder.BuilderName].PlatoonAddPlans then
+					if Builders[builder.BuilderName].PlatoonAddPlans then
 				
-					for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
 					
-						factory.addplan = papv
+							factory.addplan = papv
 						
+						end
+					
+					end
+
+					if Builders[builder.BuilderName].PlatoonAddBehaviors then
+				
+						for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+					
+							factory.addbehavior = papv
+						
+						end
+					
+					end
+				
+					if ScenarioInfo.DisplayFactoryBuilds then
+				
+						factory:SetCustomName(repr(builder.BuilderName))
+					
+						FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
+				
+					end
+
+					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
+
+					if Builders[builder.BuilderName].PlatoonAddFunctions then
+				
+						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
+					
+							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
+						
+						end
+					
 					end
 					
-				end
-
-				if Builders[builder.BuilderName].PlatoonAddBehaviors then
+				else
 				
-					for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+					-- was originally going to set the priority to zero and have the job totally disabled but
+					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
+					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
+					-- priority will return to normal on the next priority sort
+					LOG("*AI DEBUG FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
 					
-						factory.addbehavior = papv
-						
-					end
+					builder:SetPriority( 10, true)
 					
-				end
+					self.BuilderData[factory.BuilderType].NeedSort = true
+					
+					ForkThread( self.DelayBuildOrder, self, factory )
 				
-				if ScenarioInfo.DisplayFactoryBuilds then
-				
-					factory:SetCustomName(repr(builder.BuilderName))
-					
-					FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
-				
-				end
-
-                aiBrain:BuildPlatoon( self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName ), {factory}, buildplatoonsqty )
-
-				if Builders[builder.BuilderName].PlatoonAddFunctions then
-				
-					for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
-					
-                        ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
-						
-					end
-					
 				end
 				
 			else

@@ -1718,13 +1718,13 @@ function AddCustomUnitSupport( aiBrain )
 	--Loop through active mods
 	for i, m in __active_mods do
 	
-		if m.name == 'BlackOps Adv Command Units' then
+		if m.name == 'BlackOps Adv Command Units for LOUD' then
 			LOG("*AI DEBUG BOACU installed")
 			ScenarioInfo.BOACU_Checked = true
 			ScenarioInfo.BOACU_Installed = true
 		end
 
-		if m.name == 'BlackOps Unleashed' then
+		if m.name == 'BlackOps Unleashed Units for LOUD' then
 			LOG("*AI DEBUG BOU installed")
 			ScenarioInfo.BOU_Checked = true
 			ScenarioInfo.BOU_Installed = true

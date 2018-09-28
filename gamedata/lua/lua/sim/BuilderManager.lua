@@ -238,13 +238,13 @@ BuilderManager = Class {
 
         for k,task in TaskList do
 		
-            if task.Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
+			if task.Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
                 if (not found) or task.Priority >= found then
-					
+
                     if GetBuilderStatus( task ) then
-					
+
                         if BuilderParamCheck(self, task, unit) then
 						
                             found = task.Priority

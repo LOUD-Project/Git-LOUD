@@ -79,6 +79,7 @@ function CreateUI()
 			color = menuFontColorAlt,
 		},
 	}
+	
 	local menuTop = {
 		title = '<LOC main_menu_0000>Forged Alliance',
 		{

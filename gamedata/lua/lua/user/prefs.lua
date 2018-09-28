@@ -58,7 +58,7 @@ function CreateProfile(name)
     else
         return false
     end
-        
+
     SetPreference("profile.profiles", profiles)
 
     -- set default video options in to new profile, but don't actually cause any functions to get set

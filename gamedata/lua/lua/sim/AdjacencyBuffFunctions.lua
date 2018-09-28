@@ -1,9 +1,8 @@
 ---  /lua/sim/AdjacencyBuffFunctions.lua
 
 local LOUDENTITY = EntityCategoryContains
+local LOUDEMPTY = table.empty
 local LOUDGETN = table.getn
-
-local GetBlueprint = moho.entity_methods.GetBlueprint
 
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
@@ -23,78 +22,41 @@ end
 
 WaterVisionBuffCheck = function( buff, unit )
 
-	if __blueprints[unit.BlueprintID].Intel.WaterVisionRadius > 1 then
-	
-		return true
-		
-	end
-	
-	return false
+	return __blueprints[unit.BlueprintID].Intel.WaterVisionRadius > 1
+
 end
 
 RadarRadiusBuffCheck = function( buff, unit )
 
-	if __blueprints[unit.BlueprintID].Intel.RadarRadius > 1 then
-	
-		return true
-		
-	end
-	
-	return false
+	return __blueprints[unit.BlueprintID].Intel.RadarRadius > 1
+
 end
 
 SonarRadiusBuffCheck = function( buff, unit )
 
-	if __blueprints[unit.BlueprintID].Intel.SonarRadius > 1 then
-	
-		return true
-		
-	end
-	
-	return false
+	return __blueprints[unit.BlueprintID].Intel.SonarRadius > 1
+
 end
 
 OmniRadiusBuffCheck = function( buff, unit )
 
-	if __blueprints[unit.BlueprintID].Intel.OmniRadius > 1 then
-	
-		return true
-		
-	end
-	
-	return false
+	return __blueprints[unit.BlueprintID].Intel.OmniRadius > 1
+
 end
 
 BuildRateBuffCheck = function( buff, unit )
 
-	local bp = __blueprints[unit.BlueprintID].Economy
-
 	-- while not technically true - the engine gives ALL units a buildrate of 1, even if not specified
-	if bp.BuildRate and bp.BuildRate > 1 then
-	
-		return true
-		
-	end
-	
-	return false
+	return __blueprints[unit.BlueprintID].Economy.BuildRate > 1
+
 end
 
 -- for factories - reduces mass and energy consumption when active
 BuildBuffCheck = function(buff, unit)
 
 	-- we have to test this since the engine gives ALL units an empty BuildableCategory table
-    if not table.empty(__blueprints[unit.BlueprintID].Economy.BuildableCategory) then
+    return not LOUDEMPTY(__blueprints[unit.BlueprintID].Economy.BuildableCategory)
 	
-        return true
-		
-    end
-	
-	-- Silos no longer get this bonus
-    --if LOUDENTITY(categories.SILO, unit) and LOUDENTITY(categories.STRUCTURE, unit) then
-        --return true
-    --end
-	
-    return false
 end
 
 BuildBuffRemove = function(buff, unit, instigator)

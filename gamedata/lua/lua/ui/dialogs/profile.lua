@@ -18,7 +18,9 @@ local Tooltip = import('/lua/ui/game/tooltip.lua')
 local Prefs = import('/lua/user/prefs.lua')
 
 function CreateDialog(exitBehavior)
+
     local function AnyProfilesDefined(parent)
+	
         if not Prefs.ProfilesExist() then
             UIUtil.ShowInfoDialog(parent, "<LOC PROFILE_0008>You must create at least one profile", "<LOC PROFILE_0009>OK")
             return false
@@ -26,10 +28,12 @@ function CreateDialog(exitBehavior)
         
         return true
     end
+	
     local tempProfileCurrent = GetPreference("profile.current")
     local tempProfileTable = GetPreference("profile.profiles")
 
     local panel = Bitmap(GetFrame(0), UIUtil.UIFile('/scx_menu/profile/panel_bmp.dds'))
+	
     LayoutHelpers.AtCenterIn(panel, GetFrame(0))
     panel.Depth:Set(100000)
     
@@ -38,6 +42,7 @@ function CreateDialog(exitBehavior)
     --local worldCover = UIUtil.CreateWorldCover(panel)
 
     local titleText = UIUtil.CreateText(panel, "<LOC PROFILE_0001>Profile Manager", 24)
+	
     LayoutHelpers.AtTopIn(titleText, panel, 21)
     LayoutHelpers.AtHorizontalCenterIn(titleText, panel)
     
@@ -46,6 +51,7 @@ function CreateDialog(exitBehavior)
     
     local optionsButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC PROFILE_0012>Options", 16, 2)
     Tooltip.AddButtonTooltip(optionsButton, "mainmenu_options")
+	
     optionsButton.OnClick = function(self, modifiers)
         if not AnyProfilesDefined(panel) then return end
         panel:Hide()
@@ -59,12 +65,12 @@ function CreateDialog(exitBehavior)
     LayoutHelpers.AtHorizontalCenterIn(optionsButton, panel)
     LayoutHelpers.LeftOf(deleteButton, optionsButton, -15)
     LayoutHelpers.RightOf(createButton, optionsButton, -15)
-        
+
     local cancelButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC PROFILE_0005>Cancel", 16, 2)
     LayoutHelpers.AtTopIn(cancelButton, panel, 365)
     cancelButton.Left:Set(function() return ((panel.Width() / 2) + 10) + panel.Left() end)
     Tooltip.AddButtonTooltip(cancelButton, "Profile_cancel")
-        
+
     local okButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC PROFILE_0007>OK", 16, 2)
     LayoutHelpers.AtTopIn(okButton, panel, 365)
     okButton.Right:Set(function() return ((panel.Width() / 2) - 10) + panel.Left() end)
@@ -121,7 +127,9 @@ function CreateDialog(exitBehavior)
             UIUtil.ShowInfoDialog(panel, "<LOC PROFILE_0008>You must create at least one profile", "<LOC PROFILE_0009>OK")
             return
         end
+		
         if not AnyProfilesDefined(panel) then return end
+		
         SetPreference("profile.current", tempProfileCurrent)
         SetPreference("profile.profiles", tempProfileTable)
         panel:Destroy()
@@ -159,6 +167,7 @@ function CreateDialog(exitBehavior)
     end
 
     okButton.OnClick = function(self)
+	
         if not AnyProfilesDefined(panel) then return end
 
         local OptionsLogic = import('/lua/options/optionsLogic.lua')

@@ -513,9 +513,9 @@ function InitializeArmies()
 			-- if this is an AI (but not civilian)
             if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
 			
-                InitializeSkirmishSystems( GetArmyBrain(strArmy) )
-				
 				import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+			
+                InitializeSkirmishSystems( GetArmyBrain(strArmy) )
 				
             end
 

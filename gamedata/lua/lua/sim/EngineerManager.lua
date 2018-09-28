@@ -216,8 +216,6 @@ EngineerManager = Class(BuilderManager) {
 			return
 			
 		end
-    	
-   		--LOG("*AI DEBUG "..aiBrain.Nickname.." eng "..unit.Sync.id.." Assigning task")
 
 		local builder = self:GetHighestBuilder( unit, aiBrain )
 		
@@ -230,8 +228,6 @@ EngineerManager = Class(BuilderManager) {
 		unit.AssigningTask = true
 		
         if builder and (not unit.Dead) and (not unit.Fighting) then
-
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." about to make a platoon with "..repr(PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate]))
 			
             local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate].Plan or 'none' )
 
@@ -241,8 +237,6 @@ EngineerManager = Class(BuilderManager) {
             hndl.PlanName = PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate].Plan
             hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
 			hndl.RTBLocation = builder.RTBLocation or self.LocationType
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." takes "..repr(builder.BuilderName))	--.." eng data is "..repr(unit))	--.." hndl is "..repr(hndl))
 
 			IssueClearCommands( {unit} )
 			IssueStop ( {unit} )

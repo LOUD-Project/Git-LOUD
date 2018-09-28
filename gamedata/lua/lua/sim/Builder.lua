@@ -12,6 +12,8 @@
 --        BuilderConditions = list of functions that return true/false, list of args,  { < function>, {<args>}}
 -- }
 
+local LOUDINSERT = table.insert
+
 function CreateBuilder(brain, data, locationType, builderType)
 
     local builder = Builder()
@@ -122,6 +124,8 @@ Builder = Class {
     ResetPriority = function(self, manager)
 		
 		if self.PriorityAltered and self.Priority != self.OldPriority then
+		
+			LOG("*AI DEBUG Resetting "..self.BuilderName.." to "..self.OldPriority)
 
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)
 			
@@ -299,7 +303,7 @@ PlatoonBuilder = Class(Builder) {
 		
 			while num <= ( data.InstanceCount or 1 ) do
 			
-				table.insert( builder.InstanceCount, { Status = 'Available', PlatoonHandle = false } )
+				LOUDINSERT( builder.InstanceCount, { Status = 'Available', PlatoonHandle = false } )
 				num = num + 1
 				builder.InstancesAvailable = builder.InstancesAvailable + 1
 				
@@ -373,7 +377,7 @@ PlatoonBuilder = Class(Builder) {
 					
                 end
 				
-				table.insert(platoon.EventCallbacks.OnDestroyed, destroyedCallback)
+				LOUDINSERT(platoon.EventCallbacks.OnDestroyed, destroyedCallback)
 
 				builder.InstancesAvailable = builder.InstancesAvailable - 1
 

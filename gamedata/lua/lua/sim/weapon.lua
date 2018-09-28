@@ -91,11 +91,14 @@ Weapon = Class(moho.weapon_methods) {
 	
         WaitTicks(2)
 		
-        if nuke then
-            self.unit:GiveNukeSiloAmmo(amount)
-        else
-            self.unit:GiveTacticalSiloAmmo(amount)
-        end
+		if not self.unit.Dead then
+		
+			if nuke then
+				self.unit:GiveNukeSiloAmmo(amount)
+			else
+				self.unit:GiveTacticalSiloAmmo(amount)
+			end
+		end
     end,
 
     SetupTurret = function(self, bp)
