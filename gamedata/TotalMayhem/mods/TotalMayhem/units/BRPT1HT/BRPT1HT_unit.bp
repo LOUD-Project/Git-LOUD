@@ -1,7 +1,5 @@
 UnitBlueprint {
-    AI = { 
-        GuardScanRadius = 30, 
-    },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -164,7 +162,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 525,
         BuildCostMass = 75,
-        BuildTime = 93,
+        BuildTime = 185,
     },
 	
     General = {

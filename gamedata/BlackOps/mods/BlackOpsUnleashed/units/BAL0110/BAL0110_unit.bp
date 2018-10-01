@@ -2,6 +2,7 @@ UnitBlueprint {
 	AI = {
         NeedUnpack = true,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -24,6 +25,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 35,
@@ -42,6 +44,7 @@ UnitBlueprint {
         'RECLAIMABLE',
 		'SNIPER',
         'BOT',
+		'OVERLAYRADAR',
     },
 	
     Defense = {
@@ -56,8 +59,11 @@ UnitBlueprint {
 	
     Display = {
     	Abilities = {
+			'Radar',
+			'RadarStealth',
             'Deploys to fire',
         },
+		
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BAL0110/BAL0110_Adeath01.sca',
@@ -66,8 +72,10 @@ UnitBlueprint {
                 Weight = 10,
             },
         },
+		
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0110/BAL0110_Awalk01.sca',
         AnimationWalkRate = 4,
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -78,14 +86,17 @@ UnitBlueprint {
                 },
             },
         },
+		
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 650,
         BuildCostMass = 72,
-        BuildTime = 90,
+        BuildTime = 180,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -109,15 +120,22 @@ UnitBlueprint {
         UnitName = '<LOC bal0110_name>Requiem',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 20,
+		FreeIntel = true,
+		RadarRadius = 50,
+		RadarStealth = true,
+        VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Light Sniper Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.1,
     LifeBarSize = 0.45,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -129,9 +147,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
+        MaxAcceleration = 3.5,
+        MaxBrake = 3.5,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 7,
         MeshExtentsX = 0.35,
@@ -145,19 +163,24 @@ UnitBlueprint {
         TurnRadius = 1,
         TurnRate = 45,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+	
     SizeX = 0.6,
     SizeY = 0.6,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
     },
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -165,6 +188,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

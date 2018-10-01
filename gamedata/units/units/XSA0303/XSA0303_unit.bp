@@ -240,7 +240,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
-			ProjectileLifetime = 0.65,
+			ProjectileLifetime = 1,
 			
             RackBones = {
                 {
@@ -294,7 +294,7 @@ UnitBlueprint {
 			AboveWaterTargetsOnly = true,
             Damage = 250,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

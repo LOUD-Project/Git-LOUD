@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -44,7 +45,7 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 450,
         MaxHealth = 450,
-        RegenRate = 0,
+        RegenRate = 0.2,
         SurfaceThreatLevel = 4.4, 
     },
 	
@@ -110,7 +111,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 600,
         BuildCostMass = 130,
-        BuildTime = 162,
+        BuildTime = 325,
     },
 	
     General = {

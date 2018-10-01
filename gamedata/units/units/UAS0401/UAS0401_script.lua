@@ -279,7 +279,7 @@ UAS0401 = Class(ASubUnit) {
 		ChangeState(self, self.DeadState)
 		
 		--Immediately kill existing drones
-		if next(self.DroneTable) then
+		if self.DroneTable then
 		
 			for name, drone in self.DroneTable do
 			

@@ -1,8 +1,5 @@
 UnitBlueprint {
-    AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
-    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -20,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -29,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,9 +42,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-	
-    CollisionOffsetZ = 0,
-	
+
     Defense = {
         ArmorType = 'Normal',
         Health = 1650,
@@ -96,7 +94,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2150,
         BuildCostMass = 400,
-        BuildTime = 285,
+        BuildTime = 570,
     },
 	
     General = {
@@ -122,15 +120,19 @@ UnitBlueprint {
         UnitName = '<LOC xsl0202_name>Ilshavoh',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 22,
     },
+	
     Interface = {
         HelpText = 'Assault Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.95,
+	
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0,
@@ -157,17 +159,22 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 45,
     },
+	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
+	
     SizeX = 1,
     SizeY = 1.1,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -175,6 +182,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -266,6 +274,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

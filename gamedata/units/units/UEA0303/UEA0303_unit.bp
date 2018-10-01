@@ -238,7 +238,7 @@ UnitBlueprint {
             MuzzleVelocity = 95,
 			
             ProjectileId = '/projectiles/TDFGinsu01/TDFGinsu01_proj.bp',
-			ProjectileLifetime = 0.6,
+			ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -293,7 +293,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Damage = 250,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

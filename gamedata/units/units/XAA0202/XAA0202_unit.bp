@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 175,
-        GuardReturnRadius = 200,
-        GuardScanRadius = 175,
+		GuardRadius = 125,
+        GuardReturnRadius = 150,
+        GuardScanRadius = 150,
     },
 	
     Air = {
@@ -230,7 +230,7 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_None',
 			

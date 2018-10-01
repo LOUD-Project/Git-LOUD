@@ -1,5 +1,5 @@
 local CAirUnit = import('/lua/cybranunits.lua').CAirUnit
-local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
+local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 URA0303 = Class(CAirUnit) {
 

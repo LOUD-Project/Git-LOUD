@@ -1,7 +1,5 @@
 UnitBlueprint {
-    AI = { 
-        GuardScanRadius = 35, 
-    }, 
+
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -29,6 +27,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -38,7 +37,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 90,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -54,6 +55,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 485,
@@ -61,7 +63,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 7,
     },
+	
     Description = '<LOC brot1exm1_desc>Assault Bot',
+	
     Display = {
         AnimationDeath = {
             {
@@ -80,15 +84,16 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = true,
         UniformScale = 0.24,
     },
+	
     Economy = {
         BuildCostEnergy = 1300,
         BuildCostMass = 170,
-        BuildTime = 212,
+        BuildTime = 425,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -112,15 +117,19 @@ UnitBlueprint {
         UnitName = '<LOC brot1exm1_name>Medusa',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 23,
     },
+	
     Interface = {
         HelpText = 'Assault Bot',
     },
+	
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.6,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -146,26 +155,32 @@ UnitBlueprint {
         TurnRadius = 3,
         TurnRate = 45,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.3,
+	
     SizeX = 0.75,
     SizeY = 1,
     SizeZ = 0.75,
+	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 115,
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
         Level3 = 9,
         Level4 = 12,
         Level5 = 15,
-   },
+	},
+	
     Transport = {
         TransportClass = 1,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

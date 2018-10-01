@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Close = Sound {
             Bank = 'UAB',
@@ -141,7 +142,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 3500,
         BuildCostMass = 320,
-        BuildTime = 440,
+        BuildTime = 660,
     },
 	
     Footprint = {

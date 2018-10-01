@@ -240,14 +240,14 @@ UnitBlueprint {
 			
             Label = 'Missiles1',
 			
-            MaxRadius = 40,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,	-- was 80
 			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
-			ProjectileLifetime = 2.5,	-- was defaulted to projectile lifetime which is 3 --
+			ProjectileLifetime = 2.2,	-- was defaulted to projectile lifetime which is 3 --
 
             RackBones = {
                 {
@@ -278,7 +278,7 @@ UnitBlueprint {
             RateOfFire = 1,
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 40,
 			
             TargetCheckInterval = 0.5,
 			
@@ -311,7 +311,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Damage = 250,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

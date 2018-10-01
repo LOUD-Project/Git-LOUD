@@ -1,7 +1,5 @@
 UnitBlueprint {
-    AI = { 
-        GuardScanRadius = 50, 
-    }, 
+
     Audio = {
         Killed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -19,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -28,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 23,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -45,6 +46,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'OVERLAYRADAR',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1850,
@@ -52,7 +54,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
+	
     Description = '<LOC brot2asb_desc>Amphib Assault Bot',
+	
     Display = {
         Abilities = {
             'Amphibious',
@@ -108,11 +112,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 4000,
         BuildCostMass = 720,
-        BuildTime = 515,
+        BuildTime = 1030,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -184,21 +190,26 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.5,
+	
     SizeX = 0.8,
     SizeY = 1.4,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 115,
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
         Level3 = 15,
         Level4 = 20,
         Level5 = 25,
-   },
+	},
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,

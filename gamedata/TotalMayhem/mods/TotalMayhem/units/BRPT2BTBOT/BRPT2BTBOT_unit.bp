@@ -142,7 +142,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -162,7 +161,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 3200,
         BuildCostMass = 750,
-        BuildTime = 535,
+        BuildTime = 1070,
     },
 	
     General = {
