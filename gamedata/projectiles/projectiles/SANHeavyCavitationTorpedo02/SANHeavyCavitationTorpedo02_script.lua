@@ -41,7 +41,7 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
 			
         end	
 		
-        self.AirTrails:Destroy()
+        --self.AirTrails:Destroy()
 		
         CreateEmitterOnEntity(self,army,EffectTemplate.SHeavyCavitationTorpedoFxTrails)
 		
