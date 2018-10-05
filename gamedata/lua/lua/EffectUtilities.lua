@@ -1066,8 +1066,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
 	local info = { Unit = adjacentUnit:GetEntityId(), Trash = TrashBag(), }
     
-    local uBp = unit:GetBlueprint()
-    local aBp = adjacentUnit:GetBlueprint()
+    local uBp =  __blueprints[unit.BlueprintID]
+    local aBp =  __blueprints[adjacentUnit.BlueprintID]
     local army = unit.Sync.army
     local faction = uBp.General.FactionName
 

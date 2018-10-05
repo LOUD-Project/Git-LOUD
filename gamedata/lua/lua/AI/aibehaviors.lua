@@ -1823,6 +1823,12 @@ function NukeAI( self, aiBrain )
 					table.insert( AvailableLaunches, u )
 					nukesavailable = nukesavailable + 1
 					
+					if  EntityCategoryContains( categories.xsb2401, u ) then
+					
+						nukesavailable = nukesavailable + 1
+						
+					end
+					
 				end
 				
 				-- insure that launcher is set to build missiles
@@ -1836,7 +1842,7 @@ function NukeAI( self, aiBrain )
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..table.getn(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
 			
-			local minimumvalue = 550
+			local minimumvalue = 500
 			
 			local lasttarget = nil
 			local lasttargettime = nil
@@ -1857,8 +1863,8 @@ function NukeAI( self, aiBrain )
 			-- evaluate the targetlist
 			for _, target in targetlist do
 			
-				-- check threat levels (used to calculate value of target) - land/naval units worth 35% more - air worth only 45%
-				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.45)
+				-- check threat levels (used to calculate value of target) - land/naval units worth 35% more - air worth only 50%
+				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.5)
 				
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value of target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
 				
@@ -1890,10 +1896,10 @@ function NukeAI( self, aiBrain )
 
 				-- the +0.75 is to insure the calculation is not divided by zero
 				-- AND it makes a target with NO ANTIS a little more valuable
-				antinukes = antinukes + 0.15
+				antinukes = antinukes
 
 				-- value of target is divided by number of anti-nukes in area
-				value = (allthreat/antinukes)
+				value = ( allthreat/ math.max(antinukes,1) )
 
 				--LOG("*AI DEBUG NukeAI says there are "..repr(antinukes - 0.9).." AntiNukes within range of target")
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI modified value is "..repr(value))
@@ -1902,22 +1908,22 @@ function NukeAI( self, aiBrain )
 				if value > targetvalue then
 					
 					-- if its not the same as our last shot
-					if target.Position != lasttarget then
+					if not table.equal(target.Position,lasttarget) then
 					
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.85).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.85
+						targetantis = antinukes
 						nukePos = target.Position
 
 					-- if same as our last target and we've scouted it since then it's ok to fire again
 					-- otherwise don't fire nukes at same target twice without scouting it
-					elseif target.Position == lasttarget and target.LastScouted > lasttargettime then
+					elseif table.equal(target.Position,lasttarget) and target.LastScouted > lasttargettime then
 						
 						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
-						targetantis = antinukes - 0.85
+						targetantis = antinukes
 						nukePos = target.Position
 						
 					end
@@ -1954,21 +1960,27 @@ function NukeAI( self, aiBrain )
 
 						launches = launches + 1
 						
+						if EntityCategoryContains( categories.xsb2401, u ) then
+						
+							launches = launches + 1
+							
+						end
+						
 					end
 					
 				end
 
-				LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
-
 				-- if we have enough launches to overcome expected antinukes
-				if launches > antinukes then
+				if launches > targetantis then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
 					
 					-- store the target and time
 					lasttarget = nukePos
 					lasttargettime = LOUDTIME()
 
 					-- if nuking same location randomize the target
-					if nukePos == lasttarget then
+					if table.equal( nukePos, lasttarget ) then
 						
 						nukePos = { nukePos[1] + Random( -20, 20), nukePos[2], nukePos[3] + Random( -20, 20) }
 						lasttarget = nukePos
@@ -1982,7 +1994,6 @@ function NukeAI( self, aiBrain )
 					local firednukes = 0
 					
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says longest flighttime is "..repr( lastflighttime))
-					
 
 					-- fire them with appropriate delays and only as many as needed
 					for _,u in launchers do
@@ -2001,6 +2012,14 @@ function NukeAI( self, aiBrain )
 						
 							lastflighttime = u.flighttime
 							firednukes = firednukes + 1
+							
+							if EntityCategoryContains( categories.xsb2401, u) then
+							
+								firednukes = firednukes + 1
+								
+								nukesavailable = nukesavailable - 1
+								
+							end
 							
 							nukesavailable = nukesavailable - 1
 							
@@ -2038,7 +2057,7 @@ function NukeAI( self, aiBrain )
 			
 		end
 
-		WaitTicks(400)	-- every 40 seconds -- HMM -- this would best be synced right after the brain has completed a new HiPri list ? or would it ?
+		WaitTicks(360)	-- every 36 seconds -- HMM -- this would best be synced right after the brain has completed a new HiPri list ? or would it ?
 		
 	end
 	

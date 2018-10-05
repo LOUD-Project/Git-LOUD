@@ -602,7 +602,7 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetAIBrain = moho.unit_methods.GetAIBrain
-	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
 	local counter = 0
@@ -613,7 +613,37 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if not v.Dead and not IsBeingBuilt(v) and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+			if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+		
+				mlist[counter+1] = v
+				counter = counter + 1
+
+			end
+		
+		end
+		
+	end
+	
+    return mlist
+	
+end
+
+function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
+	
+	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	local GetAIBrain = moho.unit_methods.GetAIBrain
+	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+
+    local mlist = {}
+	local counter = 0
+	
+	if category and location and radius then
+	
+		local units = GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) or {}
+	
+		for k,v in units do
+	
+			if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex != aiBrain.ArmyIndex then
 		
 				mlist[counter+1] = v
 				counter = counter + 1
@@ -633,14 +663,14 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 	local GetAIBrain = moho.unit_methods.GetAIBrain
-	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-
+	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	
     local mlist = {}
 	local counter = 0
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
-        if not v.Dead and not IsBeingBuilt(v) and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+        if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
 
 			if tmin and tmax then
 			
@@ -672,7 +702,7 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetAIBrain = moho.unit_methods.GetAIBrain
-	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
 	local counter = 0
 	
@@ -680,7 +710,7 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
         if not v.Dead then
 		
-			if not IsBeingBuilt(v) and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+			if GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
 			
 				counter = counter + 1
 				
@@ -1091,7 +1121,12 @@ function SetupAICheat(aiBrain)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.CheatMult)
 	buffAffects.SonarRadius.Mult = tonumber(ScenarioInfo.Options.CheatMult)
 	
-	
+	-- storage cheat -- increases storage by the cheat buff 
+	buffDef = Buffs['CheatStorage']
+	buffAffects = buffDef.Affects
+	buffAffects.EnergyStorage.Mult = tonumber(ScenarioInfo.Options.CheatMult)
+	buffAffects.MassStorage.Mult = tonumber(ScenarioInfo.Options.CheatMult)
+
 	-- overall cheat buff -- applied at 50% of the resource cheat multiplier
 	-- alter unit health and shield health and regen rates
 	-- and the delay period between upgrades
@@ -1137,6 +1172,7 @@ function ApplyCheatBuffs(unit)
 		ApplyBuff(unit, 'CheatBuildRate')		
 		ApplyBuff(unit, 'CheatIncome')
 		ApplyBuff(unit, 'CheatIntel')
+		--ApplyBuff(unit, 'CheatStorage')	-- work in progress --
 		ApplyBuff(unit, 'CheatMOBILE')
 		ApplyBuff(unit, 'CheatALL')
 		

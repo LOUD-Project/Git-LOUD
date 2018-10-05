@@ -699,7 +699,7 @@ AntiArtilleryShield = Class(Shield){
             return false
         end
 		
-        if other.DamageData.ArtilleryShieldBlocks and IsEnemy( self.Army, OtherArmy ) then
+        if other.DamageData.ArtilleryShieldBlocks and IsEnemy( self.Army, otherArmy ) then
             return true
         end
 		
