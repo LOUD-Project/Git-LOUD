@@ -1,4 +1,4 @@
 AI = {
 	Name = "Projectiles.scd",
-	Version = "LOUD 1.6",
+	Version = "LOUD 1.7",
 }
