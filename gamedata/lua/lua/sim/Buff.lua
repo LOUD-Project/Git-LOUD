@@ -113,7 +113,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
     
     local uaffects = unit.Buffs.Affects
-	
+
     if def.Affects then
 	
         for k,v in def.Affects do
@@ -203,7 +203,33 @@ function ApplyBuff(unit, buffName, instigator)
 	-- for buffs with a duration -- 
     if def.Duration and def.Duration > 0 then
 	
-        local thread = ForkThread( BuffWorkThread, unit, buffName, instigator )
+		-- Function to do work on the buff.  Apply the buff every second
+		-- Then remove the buff so it can be applied again
+		local function BuffWorkThread()
+    
+			local buffTable = Buffs[buffName]
+	
+			local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
+			local pulse = 0
+
+			while not BeenDestroyed(unit) and pulse < buffTable.Duration do
+
+				BuffAffectUnit( unit, buffName, instigator, false )
+
+				WaitTicks(10)
+				pulse = pulse + 1
+		
+			end
+
+			if unit.Buffs.BuffTable[Buffs[buffName].BuffType][buffName] then
+
+				RemoveBuff(unit, buffName)
+		
+			end
+		end
+	
+        local thread = ForkThread( BuffWorkThread )
 		
         safecall("Unable to use Unit Trash on unit "..repr(unit), TrashBag().Add, unit.Trash, thread)
         data.Trash:Add(thread)
@@ -230,31 +256,6 @@ function ApplyBuff(unit, buffName, instigator)
 
 end
 
--- Function to do work on the buff.  Apply the buff every second
--- Then remove the buff so it can be applied again
-function BuffWorkThread(unit, buffName, instigator)
-    
-    local buffTable = Buffs[buffName]
-	
-	local BeenDestroyed = moho.entity_methods.BeenDestroyed
-
-    local pulse = 0
-
-	while not BeenDestroyed(unit) and pulse < buffTable.Duration do
-
-		BuffAffectUnit( unit, buffName, instigator, false )
-
-        WaitTicks(10)
-        pulse = pulse + 1
-		
-    end
-
-	if HasBuff( unit, buffName ) then
-
-		RemoveBuff(unit, buffName)
-		
-	end
-end
 
 -- Functions to affect the unit.  Everytime you want to affect a new part of unit, add it in here.
 -- afterRemove is a bool that defines if this buff is affecting after the removal of a buff.  
@@ -361,7 +362,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
         elseif atype == 'VisionRadius' then
 		
-            local val = BuffCalculate(unit, buffName, 'VisionRadius', GetBlueprint(unit).Intel.VisionRadius or 0)
+            local val = BuffCalculate(unit, buffName, 'VisionRadius', __blueprints[unit.BlueprintID].Intel.VisionRadius or 0)
 			
 			if val > 0 then
 			
@@ -371,7 +372,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			
 		elseif atype == 'WaterVisionRadius' then
 		
-			local val = BuffCalculate(unit, buffName, 'WaterVisionRadius', GetBlueprint(unit).Intel.WaterVisionRadius or 0)
+			local val = BuffCalculate(unit, buffName, 'WaterVisionRadius', __blueprints[unit.BlueprintID].Intel.WaterVisionRadius or 0)
 			
 			if val > 0 then
 			
@@ -382,7 +383,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
         elseif atype == 'RadarRadius' then
 		
-            local val = BuffCalculate(unit, buffName, 'RadarRadius', GetBlueprint(unit).Intel.RadarRadius or 0)
+            local val = BuffCalculate(unit, buffName, 'RadarRadius', __blueprints[unit.BlueprintID].Intel.RadarRadius or 0)
 			
 			if val > 0 then
 			
@@ -405,7 +406,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			
         elseif atype == 'SonarRadius' then
 		
-            local val = BuffCalculate(unit, buffName, 'SonarRadius', GetBlueprint(unit).Intel.SonarRadius or 0)
+            local val = BuffCalculate(unit, buffName, 'SonarRadius', __blueprints[unit.BlueprintID].Intel.SonarRadius or 0)
 			
 			if val > 0 then
 			
@@ -427,7 +428,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
         elseif atype == 'OmniRadius' then
 		
-            local val = BuffCalculate(unit, buffName, 'OmniRadius', GetBlueprint(unit).Intel.OmniRadius or 0)
+            local val = BuffCalculate(unit, buffName, 'OmniRadius', __blueprints[unit.BlueprintID].Intel.OmniRadius or 0)
 			
 			if val > 0 then
 			
@@ -448,10 +449,27 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             end            
             
         elseif atype == 'BuildRate' then
-            local val = BuffCalculate(unit, buffName, 'BuildRate', GetBlueprint(unit).Economy.BuildRate or 1)
+            local val = BuffCalculate(unit, buffName, 'BuildRate', __blueprints[unit.BlueprintID].Economy.BuildRate or 1)
 			
             SetBuildRate( unit, val )
 			
+		elseif atype == 'EnergyStorage' then
+			local val = BuffCalculate(unit, buffName, 'EnergyStorage', GetBlueprint(unit).Economy.StorageEnergy or 1)
+			
+			LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
+
+			-- the trick here is to know just how much storage there already is - and add to it - can't seem to find that
+			unit:GetAIBrain():GiveStorage('ENERGY',val)			
+		
+		elseif atype == 'MassStorage' then
+			local val = BuffCalculate(unit, buffName, 'MassStorage', GetBlueprint(unit).Economy.StorageMass or 1)
+			
+			LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
+			
+			unit:GetAIBrain():GiveStorage('MASS',val)
+			
+			
+
         --- ADJACENCY EFFECTS ---
         elseif atype == 'EnergyActive' then
             local val = BuffCalculate(unit, buffName, 'EnergyActive', 1)

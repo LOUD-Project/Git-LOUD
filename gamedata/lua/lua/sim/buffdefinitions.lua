@@ -660,6 +660,25 @@ BuffBlueprint { Name = 'CheatIntel',
 	},
 }
 
+BuffBlueprint { Name = 'CheatStorage',
+	BuffType = 'INTELSTORAGE',
+	Stacks = 'REPLACE',
+	Duration = -1,
+	Affects = {
+		EnergyStorage = {
+		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,				
+			Add = 0,
+			Mult = 1.05,
+		},
+		MassStorage = {
+		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,		
+			Add = 0,
+			Mult = 1.05,
+		},
+	},
+}
+
+
 BuffBlueprint { Name = 'CheatCDROmni',
     BuffType = 'COMMANDERCHEAT',
 	EntityCategory = categories.COMMAND,

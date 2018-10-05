@@ -454,7 +454,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     -- General State-less event handling
     OnLostTarget = function(self)
-	
+
         Weapon.OnLostTarget(self)
 		
         local bp = self:GetBlueprint()
@@ -584,7 +584,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnGotTarget = function(self)
 
             local bp = GetBlueprint(self)
-			
+	
             if (bp.WeaponUnpackLocksMotion != true or (bp.WeaponUnpackLocksMotion == true and not self.unit:IsUnitState('Moving'))) then
 			
                 if bp.CountedProjectile == true and not self:CanWeaponFire() then
@@ -646,6 +646,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 
     WeaponUnpackingState = State {
+	
+		--LOG("*AI DEBUG Unpacking State")
 
         WeaponWantEnabled = false,
         WeaponAimWantEnabled = false,
@@ -684,6 +686,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 
     RackSalvoChargeState = State {
+	
+		--LOG("*AI DEBUG RackSalvoChargeState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
@@ -724,6 +728,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     },
 
     RackSalvoFireReadyState = State {
+	
+		--LOG("*AI DEBUG RackSalvoFireReadyState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
@@ -778,6 +784,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     },
 
     RackSalvoFiringState = State {
+	
+		--LOG("*AI DEBUG RackSalvoFiringState")
 	
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
@@ -1009,6 +1017,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     },
 
     RackSalvoReloadState = State {
+	
+		--LOG("*AI DEBUG RackSalvoReloadState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
@@ -1063,6 +1073,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     },
 
     WeaponPackingState = State {
+	
+		--LOG("*AI DEBUG WeaponPackingState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,

@@ -2,11 +2,7 @@
 --  Author(s):  Brute51
 --  Summary  :  Low level buff field class (version 3)
 --  READ DOCUMENTATION BEFORE USING THIS!!
-
-local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
-
 local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-local HasBuff = import('/lua/sim/buff.lua').HasBuff
 local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
 local Entity = import('/lua/sim/Entity.lua').Entity
@@ -251,14 +247,21 @@ BuffField = Class(Entity) {
         -- data returned by the other events.
     end,
 
-    -- applies the buff to any unit in range each 3.3 seconds
+    -- applies the buff to any unit in range each 3.8 seconds
     -- Owner is the unit that carries the field. This is a bit weird to have it like this but its the result of
     -- of the forkthread in the enable function.
     FieldThread = function( Owner, Field, bp )
+	
+		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+		local GetAlliedUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetAlliedUnitsAroundPoint
+		local ForkThread = ForkThread
+		local LOUDMERGE = table.merged
 		
 		local aiBrain = Owner:GetAIBrain()
 		
 		local units = {}
+		local count = 0
+		local mastercount = 0
 
 		local function GetNearbyAffectableUnits()
 		
@@ -267,47 +270,107 @@ BuffField = Class(Entity) {
 			local pos = Owner:GetPosition()
 			
 			if bp.AffectsOwnUnits then
-				units = table.merged(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+				units = LOUDMERGE(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
 			end
 			
 			if bp.AffectsAllies then
-				units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Ally' ))
+				units = LOUDMERGE(units, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
 			end
 			
 			if bp.AffectsVisibleEnemies then
-				units = table.merged(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+				units = LOUDMERGE(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
 			end
-			
+
 			return units
+		end
+		
+		-- this will be run on the units affected by the field so self means the unit that is affected by the field
+		local UnitBuffFieldThread = function( unit )
+
+			if bp.Buffs != nil then
+
+				unit.HasBuffFieldThreadHandle[bp.Name] = true
+
+				local GetPosition = moho.entity_methods.GetPosition
+				local VDist3 = VDist3
+		
+				while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
+			
+					dist = VDist3( GetPosition(unit), Owner:GetPosition() )
+			
+					if dist > bp.Radius then
+						break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
+					end
+
+					for _, buff in bp.Buffs do
+						ApplyBuff( unit, buff )
+					end
+	
+					WaitTicks(38)
+				end
+
+				if not unit.Dead and bp.Buffs then
+				
+					for _, buff in bp.Buffs do
+		
+						if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
+							RemoveBuff( unit, buff )
+						end
+					end
+					
+					unit.BuffFieldThreadHandle[bp.Name] = nil
+					unit.HasBuffFieldThreadHandle[bp.Name] = false
+				end
+			end
+		
 		end
 
 		while Field.Enabled and not Owner.Dead do
 		
 			units = GetNearbyAffectableUnits()
+			
+			count = 0
+			mastercount = 0
 
 			for k, unit in units do
-			
-				if unit.Dead or (unit == Owner and not bp.AffectsSelf) then
-					continue
-				end
-				
-				if not unit.Dead and not unit.HasBuffFieldThreadHandle[bp.Name] then
+
+				if (not unit.Dead) then
 				
 					if not unit.HasBuffFieldThreadHandle then
 						unit.HasBuffFieldThreadHandle = {}
 						unit.BuffFieldThreadHandle = {}
 					end
+					
+					if not unit.HasBuffFieldThreadHandle[bp.Name] then
+					
+						-- all bufffields (atm) don't affect themselves
+						if unit != Owner then
 
-					unit.BuffFieldThreadHandle[bp.Name] = ForkThread( Field.UnitBuffFieldThread, unit, Owner, Field, bp )
-
+							unit.BuffFieldThreadHandle[bp.Name] = ForkThread( UnitBuffFieldThread, unit )
+							
+							count = count + 1
+							mastercount = mastercount + 1
+							
+							if count == 5 then
+							
+								WaitTicks(1)
+								count = 0
+								
+							end
+						end
+					end
 				end
 			end
 			
-			WaitTicks(38) -- this should be anything but 5 (of the other wait) to help spread the cpu load
+			--if mastercount > 0 then
+				--LOG("*AI DEBUG Field "..bp.Name.." processed "..mastercount)
+			--end
+			
+			WaitTicks( 38 ) -- this should be anything but 5 (of the other wait) to help spread the cpu load
 		end
     end,
 
-
+--[[
     -- this will be run on the units affected by the field so self means the unit that is affected by the field
     UnitBuffFieldThread = function( unit, Owner, Field, bp )
 
@@ -335,8 +398,7 @@ BuffField = Class(Entity) {
 
 			for _, buff in bp.Buffs do
 		
-				if HasBuff( unit, buff ) then
-				
+				if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
 					RemoveBuff( unit, buff )
 				end
 			end
@@ -349,7 +411,7 @@ BuffField = Class(Entity) {
 		end
 		
     end,
-
+--]]
     -- these 2 are a bit weird. they are supposed to disable the enabled fields when on a transport and re-enable the
     -- fields that were enabled and leave the disabled fields off.
     DisableInTransport = function(Owner, Transport)

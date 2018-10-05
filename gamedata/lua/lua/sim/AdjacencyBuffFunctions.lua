@@ -98,6 +98,18 @@ EnergyMaintenanceBuffAffect = function(buff, unit, instigator)
 	
 end
 
+EnergyStorageBuffCheck = function(buff, unit)
+
+    if __blueprints[unit.BlueprintID].Economy.StorageEnergy > 0 then
+	
+        return true
+		
+    end
+	
+	return false
+	
+end
+
 -- Energy Weapon Bonus
 -- intended for energy consuming weapons
 -- weapon must have EnergyRequired parameter
@@ -239,5 +251,17 @@ end
 MassProductionBuffAffect = function(buff, unit, instigator)
 
     unit:CreateAdjacentEffect(instigator)
+	
+end
+
+MassStorageBuffCheck = function(buff, unit)
+
+    if __blueprints[unit.BlueprintID].Economy.StorageMass > 0 then
+
+        return true
+		
+    end
+
+	return false
 	
 end

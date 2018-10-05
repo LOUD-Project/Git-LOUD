@@ -22,7 +22,7 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 0,
-    Radius = 15,
+    Radius = 19,
     Buffs = {
         'AIRSTAGING',
     },

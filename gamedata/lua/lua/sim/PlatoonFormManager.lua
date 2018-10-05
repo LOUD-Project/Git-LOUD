@@ -230,9 +230,9 @@ PlatoonFormManager = Class(BuilderManager) {
 					end
 				end
 
-			--else
+			else
 			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
 			
 			end
 			
