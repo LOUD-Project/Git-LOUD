@@ -139,7 +139,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders Active DP',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 45, 0, 'AntiSurface', 1 }},
 			
         },
 		

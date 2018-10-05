@@ -53,7 +53,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
 			
 			-- Greater than 50 economy threat closer than 18km
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 25, 'Economy' }},
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
@@ -69,7 +69,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			
 				Radius = 36,
                 NearBasePerimeterPoints = true,
-				ThreatMax = 30,
+				ThreatMax = 50,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,	-- pick a random point from the 9 FRONT rotations
@@ -96,11 +96,11 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 24, categories.STRUCTURE * categories.DIRECTFIRE, 14, 38 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 28, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 38 }},
 			
         },
 		
-        BuilderType = {'T2'},
+        BuilderType = {'T2','T3'},
 		
         BuilderData = {
 		
@@ -160,18 +160,18 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 745,
+        Priority = 750,
 		
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 38 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 6, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 38 }},
 			
         },
 		
-        BuilderType = {'T2'},
+        BuilderType = {'T2','T3'},
 		
         BuilderData = {
 		
@@ -229,7 +229,44 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         }
 		
     },
+
+    Builder {BuilderName = 'T2 Artillery - Base Template',
 	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE, 10, 40 }},			
+			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2Artillery'},
+				
+            }
+			
+        }
+		
+    },	
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -243,7 +280,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
 			
         },
 		
@@ -320,7 +357,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
         BuilderConditions = {
 		
-			--{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		    { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},
 			
         },
@@ -479,13 +516,13 @@ BuilderGroup {BuilderGroupName = 'Base Defenses - Expansions',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 48 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 48 }},
 			
         },
 		
@@ -496,7 +533,6 @@ BuilderGroup {BuilderGroupName = 'Base Defenses - Expansions',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
-				
 				ThreatMax = 50,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -669,9 +705,8 @@ BuilderGroup {BuilderGroupName = 'Base Defenses - Expansions',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.TECH3 * categories.DIRECTFIRE, 15, 48 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.TECH3 * categories.DIRECTFIRE, 15, 48 }},
 			
         },
 		
@@ -710,8 +745,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses - Expansions',
         BuilderConditions = {
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},
 			
         },

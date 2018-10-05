@@ -875,7 +875,6 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 			-- empty mass point within 15km with less than 45 threat 
 			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
-			
         },
 		
         BuilderData = {
@@ -1030,8 +1029,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 
 			-- we have a mass extractor within 2-15km with less than 4 defense structures 
             { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 100, 750, 4 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
-			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},			
         },
 		
         BuilderData = {

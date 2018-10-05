@@ -15,7 +15,7 @@ BuilderGroup {BuilderGroupName = 'Shields',
 		
 		InstanceCount = 1,
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
@@ -114,8 +114,9 @@ BuilderGroup {BuilderGroupName = 'Shields - LOUD_IS',
         Priority = 800,
 		
 		InstanceCount = 1,
+		
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
@@ -146,6 +147,7 @@ BuilderGroup {BuilderGroupName = 'Shields - LOUD_IS',
         Priority = 800,
 		
 		InstanceCount = 1,
+		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
@@ -351,7 +353,7 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental',
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			-- must have at least 1 Experimental level defense ?
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
@@ -397,7 +399,7 @@ BuilderGroup {BuilderGroupName = 'Shields - Experimental - Expansions',
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			-- must have at least 1 Experimental level defense ?
 			--{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},

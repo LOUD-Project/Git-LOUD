@@ -525,7 +525,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Aux',
         PlatoonAIPlan = 'EngineerAssistShield',
 		
         Priority = 750,
-		InstanceCount = 4,
+		InstanceCount = 3,
 		
 		BuilderType = { 'Commander','T2','T3','SubCommander' },
 
@@ -751,7 +751,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = false,		-- build and RTB
 				ThreatMin = -9999,
-				ThreatMax = 60,
+				ThreatMax = 45,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = { 'T3Resource' }
@@ -773,7 +773,7 @@ BuilderGroup {BuilderGroupName = 'Extractor Builders',
         Priority = 810,
         InstanceCount = 1,
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3' },
 		
         BuilderConditions = {
 		
@@ -1349,8 +1349,8 @@ BuilderGroup {BuilderGroupName = 'Engineering Support Builder',
  			{ MIBC, 'FactionIndex', { 1, 3 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.ENGINEERSTATION}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.ENERGYPRODUCTION * categories.TECH3}},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
 			
         },
@@ -1387,8 +1387,8 @@ BuilderGroup {BuilderGroupName = 'Engineering Support Builder',
  			{ MIBC, 'FactionIndex', { 2, 4 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ENGINEERSTATION}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.ENERGYPRODUCTION * categories.TECH3}},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
 			
         },

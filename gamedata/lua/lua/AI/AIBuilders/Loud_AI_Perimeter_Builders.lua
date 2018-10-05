@@ -795,7 +795,7 @@ BuilderGroup {BuilderGroupName = 'T3 Perimeter Defenses',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.EXPERIMENTAL * categories.DIRECTFIRE, 50, 88 }},
