@@ -208,7 +208,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -241,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXImprovedContainmentBottle') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -274,7 +274,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXActiveShielding') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -311,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -344,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXImprovedCoolingSystem') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -377,7 +377,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXActiveShielding') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -414,7 +414,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -447,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXImprovedCoolingSystem') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -480,7 +480,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXStructuralIntegrity') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -517,7 +517,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -550,7 +550,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXImprovedContainmentBottle') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true
@@ -582,7 +582,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
 				if unit:HasEnhancement('EXL2Lambda') then
-					return 850, true
+					return 850, false
 				end
 			end
 			return self.Priority,true

@@ -353,10 +353,7 @@ Platoon = Class(moho.platoon_methods) {
 								
 								v.failedbuilds = (v.failedbuilds + 1) or 1
 								
-								-- set the task priority to zero so it doesn't get selected again right away - using true for the temporary field
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." disband same tick - time out for mission")
-								
-								ForkTo( EM.AssignTimeout, EM, self.BuilderName, true )
+								EM:ForkThread( EM.AssignTimeout, self.BuilderName, 300 )
 								
 							end
 						end

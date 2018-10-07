@@ -264,7 +264,7 @@ PlatoonTemplate { Name = 'SeaAttack Reinforcement',
         { categories.DESTROYER, 1, 6, 'Attack', 'none' },													# Destroyers
         { categories.CRUISER, 1, 5, 'Attack', 'none' },														# Cruisers
         { categories.FRIGATE, 4, 8, 'Attack', 'none' },														# Frigates
-        { categories.SUBMARINE, 5, 16, 'Attack', 'none' },													# Submarines		
+        { categories.SUBMARINE, 0, 16, 'Attack', 'none' },													# Submarines		
         { categories.DEFENSIVEBOAT, 0, 12, 'Guard', 'none' },												# Shield CounterIntel AA
         { categories.LIGHTBOAT, 0, 12, 'Guard', 'none' },													# UEF Torp Boat
 		

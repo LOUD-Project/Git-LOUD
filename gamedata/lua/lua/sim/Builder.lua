@@ -1,6 +1,6 @@
 --   /lua/sim/Builder.lua
---	Defines the BUILDER class which is the basic data class
---  in particular, units built by factories, combat and engineer platoons
+--	Defines the BUILDER class which is a basic data class
+--  think of builders as 'jobs to be done' - in particular, units built by factories, platoons for combat and jobs for engineers
 
 -- Root builder class - common to all types of builders
 -- Builder Spec
@@ -102,14 +102,16 @@ Builder = Class {
 	
         if temporary then
 			
-			if builder.Priority != 0 then
+			if builder.Priority != 0 and builder.OldPriority != val then
 			
 				builder.OldPriority = builder.Priority
+				builder.PriorityAltered = true
+				
+				--LOG("*AI DEBUG OldPriority on "..builder.BuilderName.." set to "..builder.OldPriority)
 				
 			end
 
 			builder.Priority = val
-			builder.PriorityAltered = true
 			
 		else
 		
@@ -125,11 +127,13 @@ Builder = Class {
 		
 		if self.PriorityAltered and self.Priority != self.OldPriority then
 		
-			LOG("*AI DEBUG Resetting "..self.BuilderName.." to "..self.OldPriority)
+			LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Resetting to "..self.OldPriority)
 
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)
 			
 			self.PriorityAltered = false
+			
+			--LOG("*AI DEBUG Builder is now "..repr(self) )
 			
 		end
 		

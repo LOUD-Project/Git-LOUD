@@ -148,7 +148,7 @@ BuilderManager = Class {
 					
 						builder:SetPriority(priority, temporary)
 						
-						--LOG("*AI DEBUG "..repr(builderName).." set to "..priority )
+						LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..repr(builderName).." set to "..priority )
 					
 						if priority == 0 and not temporary then
 							
@@ -172,6 +172,26 @@ BuilderManager = Class {
 		
     end,
 
+    AssignTimeout = function( self, builderName, timeoutticks )
+    
+		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
+
+        local builder = self:SetBuilderPriority( builderName, 10, true ) -- set the builder to priority 10 temporarily
+
+		local priority = self:GetBuilderPriority(builderName)
+		
+		if builder and priority then
+
+			WaitTicks(timeoutticks)	
+
+			builder:ResetPriority(self)
+		
+			--LOG("*AI DEBUG timeout for "..self.ManagerType.." "..self.LocationType.." "..repr(builderName).." ends - builder is "..repr(builder) )
+
+		end
+
+    end,
+	
     AddBuilderType = function(self, buildertype)
 	
         self.BuilderData[buildertype] = { Builders = {}, NeedSort = true }
@@ -287,10 +307,10 @@ BuilderManager = Class {
 				--end
 		
 				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
+				
+					--LOG("*AI DEBUG "..self.ManagerType.." "..self.LocationType.." "..TaskList[k].BuilderName.." set to "..newPri )
 
-					--LOG("*AI DEBUG Priority Function on "..TaskList[k].BuilderName.." to "..newPri)
-					
-					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority(newPri, temporary)
+					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )
 					
 					self.BuilderData[unit.BuilderType].NeedSort = true
 					

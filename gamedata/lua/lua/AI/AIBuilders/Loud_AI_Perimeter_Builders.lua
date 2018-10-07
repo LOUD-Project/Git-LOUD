@@ -272,7 +272,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 			
 			-- turn on after 8 minutes
 			if aiBrain.CycleTime > 480 then
-				return 800, true
+				return 800, false
 			end
 			
 			return self.Priority

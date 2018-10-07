@@ -1021,7 +1021,7 @@ BuilderGroup {BuilderGroupName = 'Land Experimental Formations',
         BuilderConditions = {
 		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.LAND } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 } },
 			
         },
 		
@@ -1064,7 +1064,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Formations',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },        
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.EXPERIMENTAL * categories.BOMBER } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.AIR * categories.EXPERIMENTAL * categories.BOMBER } },
 			
         },
 		

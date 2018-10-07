@@ -566,38 +566,6 @@ EngineerManager = Class(BuilderManager) {
 
     end,
     
-	-- fired whenever a engineer platoon disbands on the same tick it was created
-	-- often caused when one of the build conditions is not an instant condition
-	-- and it is reported as true even though the real condition is false (until the next condition cycle)
-	-- we set that job to be unavailable so that its not picked again
-	-- we'll reset it back to normal later
-    AssignTimeout = function( self, builderName, temporary )
-    
-		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
-
-		local priority = self:GetBuilderPriority(builderName)
-		
-        local builder = self:SetBuilderPriority(builderName, 10, true)
-
-		local priority = self:GetBuilderPriority(builderName)
-		
-		if builder and priority then
-		
-			-- this is (at most) half of the conditions monitor cycle
-			-- ideally we would tie it to the brain condition monitor cycle --	self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
-	
-			--LOG("*AI DEBUG Current Thread Duration is "..repr(self.BuilderCheckInterval))	-- = brain.ConditionsMonitor.ThreadWaitDuration
-			
-			WaitTicks(300)	
-
-			builder:ResetPriority(self)
-		
-			--LOG("*AI DEBUG EM timeout for "..repr(builderName).." ends - builder is "..repr(builder) )
-
-		end
-
-    end,
-
     UnitConstructionStarted = function( self, unit, unitBeingBuilt )
     end,
 

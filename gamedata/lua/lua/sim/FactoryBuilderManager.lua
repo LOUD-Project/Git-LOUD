@@ -113,6 +113,291 @@ FactoryBuilderManager = Class(BuilderManager) {
 		return newBuilder
 		
 	end,
+
+	AddFactory = function( self, factory )
+	
+        while (not factory.Dead) and factory:GetFractionComplete() < 1 do
+		
+            WaitTicks(100)
+			
+        end
+
+		local LOUDENTITY = EntityCategoryContains
+
+		if not factory.Dead and not factory.SetupComplete then
+			
+			factory.SetupComplete = true
+			
+			factory.failedbuilds = 0
+			
+			if LOUDENTITY( categories.LAND * categories.TECH1, factory ) then
+			
+				factory.BuilderType = 'LandT1'
+				factory.BuildLevel = 1
+				
+			elseif LOUDENTITY( categories.LAND * categories.TECH2, factory ) then
+			
+				factory.BuilderType = 'LandT2'
+				factory.BuildLevel = 2
+				
+			elseif LOUDENTITY( categories.LAND * categories.TECH3, factory ) then
+			
+				factory.BuilderType = 'LandT3'
+				factory.BuildLevel = 3
+				
+			elseif LOUDENTITY( categories.AIR * categories.TECH1, factory ) then
+			
+				factory.BuilderType = 'AirT1'
+				factory.BuildLevel = 1
+				
+			elseif LOUDENTITY( categories.AIR * categories.TECH2, factory ) then
+			
+				factory.BuilderType = 'AirT2'
+				factory.BuildLevel = 2
+				
+			elseif LOUDENTITY( categories.AIR * categories.TECH3, factory ) then
+			
+				factory.BuilderType = 'AirT3'
+				factory.BuildLevel = 3
+				
+			elseif LOUDENTITY( categories.NAVAL * categories.TECH1, factory ) then
+			
+				factory.BuilderType = 'SeaT1'
+				factory.BuildLevel = 1
+				
+			elseif LOUDENTITY( categories.NAVAL * categories.TECH2, factory ) then
+			
+				factory.BuilderType = 'SeaT2'
+				factory.BuildLevel = 2
+				
+			elseif LOUDENTITY( categories.NAVAL * categories.TECH3, factory ) then
+			
+				factory.BuilderType = 'SeaT3'
+				factory.BuildLevel = 3
+
+			elseif LOUDENTITY( categories.GATE, factory ) then
+			
+				factory.BuilderType = 'Gate'
+				factory.BuildLevel = 3
+				
+			end
+			
+			-- fired off when the factory completes an item (single or multiple units)
+			local factoryWorkFinish = function( factory, finishedUnit, aiBrain )
+			
+				self:FactoryFinishBuilding(factory, finishedUnit)
+				
+			end
+			
+			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
+			
+			-- this section applies only to static factories - mobile factories dont need any of this
+			if not LOUDENTITY( categories.MOBILE, factory) then
+			
+				factory.DesiresAssist = true		-- default factory to desire assist
+				factory.NumAssistees = 4			-- default factory to 4 assistees			
+			
+				-- handles removal of the factory from the factory manager on death
+				local factoryDestroyed = function( factory )
+				
+					self:FactoryDestroyed( factory )
+					
+				end
+
+				factory:AddUnitCallback( factoryDestroyed, 'OnReclaimed')
+				factory:AddUnitCallback( factoryDestroyed, 'OnCaptured')
+				factory:AddUnitCallback( factoryDestroyed,'OnKilled')				
+				
+				ForkThread( self.SetRallyPoint, self, factory )
+			
+				LOUDINSERT(self.FactoryList, factory)
+			
+				ForkThread( self.DelayBuildOrder, self, factory )
+
+				self.FactoryList = self:RebuildTable( self.FactoryList )
+				
+			end
+			
+		end
+		
+	end,
+    
+    FactoryDestroyed = function(self, factory)
+        
+		if self then
+		
+			for k,v in self.FactoryList do
+			
+				if (not v.Sync.id) or v.Dead then
+				
+					self.FactoryList[k] = nil
+					break
+					
+				end
+				
+			end
+		
+			self.FactoryList = self:RebuildTable( self.FactoryList )
+			
+		end
+		
+    end,
+    
+    -- this is the function which actually finds and builds something
+    -- a factory can pass a plan/behavior to a unit when its finished or
+    -- run a function when the factory finishes its build queue
+	-- as a result only one plan or behavior gets executed
+    AssignBuildOrder = function( self, factory, aiBrain )
+	
+		if factory.Sync.id and not factory.Upgrading then
+		
+			self.BuilderData[factory.BuilderType].NeedSort = true
+			
+			local builder = self:GetHighestBuilder( factory, aiBrain )
+		
+			if builder then
+			
+				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
+			
+				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
+		
+					factory.addplan = false
+					factory.addbehavior = false
+				
+					factory.failedbuilds = 0
+
+					local buildplatoonsqty = 1
+
+					if Builders[builder.BuilderName].PlatoonAddPlans then
+				
+						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+					
+							factory.addplan = papv
+						
+						end
+					
+					end
+
+					if Builders[builder.BuilderName].PlatoonAddBehaviors then
+				
+						for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+					
+							factory.addbehavior = papv
+						
+						end
+					
+					end
+				
+					if ScenarioInfo.DisplayFactoryBuilds then
+				
+						factory:SetCustomName(repr(builder.BuilderName))
+					
+						FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
+				
+					end
+
+					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
+
+					if Builders[builder.BuilderName].PlatoonAddFunctions then
+				
+						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
+					
+							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
+						
+						end
+					
+					end
+					
+				else
+				
+					-- was originally going to set the priority to zero and have the job totally disabled but
+					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
+					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
+					-- priority will return to normal on the next priority sort
+					LOG("*AI DEBUG "..aiBrain.Nickname.." FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
+					
+					self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
+					
+					self.BuilderData[factory.BuilderType].NeedSort = true
+					
+					ForkThread( self.DelayBuildOrder, self, factory )
+				
+				end
+				
+			else
+			
+				if ScenarioInfo.DisplayFactoryBuilds then
+					ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
+				end
+				
+				factory.failedbuilds = factory.failedbuilds + 1
+
+                ForkThread( self.DelayBuildOrder, self, factory )
+				
+			end
+			
+		end
+		
+	end,
+    
+	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
+	-- also waits for factory to be NOT busy (some units cause factory to pause after building)
+	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
+    DelayBuildOrder = function( self, factory )
+
+		if factory:BeenDestroyed() then
+		
+			return
+			
+		end
+	
+		local WaitTicks = coroutine.yield
+		local IsIdleState = moho.unit_methods.IsIdleState
+		local IsUnitState = moho.unit_methods.IsUnitState
+		
+		local aiBrain = factory:GetAIBrain()		
+		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+	
+		WaitTicks( 6 - (factory.BuildLevel * 2) + (factory.failedbuilds * 10) + 1 )
+
+		if self.EnhanceThread then
+		
+			WaitTicks(10)
+			
+		end
+
+		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+		
+			WaitTicks(23 - (factory.BuildLevel * 3))
+			
+		end
+		
+		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
+		
+			while (not factory.Dead) and (not IsIdleState(factory)) do
+			
+				if not IsUnitState(factory,'Upgrading') and not factory.Upgrading then
+				
+					WaitTicks(10)
+					
+				else
+				
+					break
+					
+				end
+				
+			end
+			
+		
+			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not factory.Upgrading) then
+			
+				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
+				
+			end
+			
+		end
+		
+    end,
     
 	-- I learned something interesting here - when a factory gets upgraded, it is NOT removed from 
 	-- the factory list by default - it simply has its Sync.id removed
@@ -262,135 +547,6 @@ FactoryBuilderManager = Class(BuilderManager) {
         
        return units
 	   
-    end,
-
-	AddFactory = function( self, factory )
-	
-        while (not factory.Dead) and factory:GetFractionComplete() < 1 do
-		
-            WaitTicks(100)
-			
-        end
-
-		local LOUDENTITY = EntityCategoryContains
-
-		if not factory.Dead and not factory.SetupComplete then
-			
-			factory.SetupComplete = true
-			
-			factory.failedbuilds = 0
-			
-			if LOUDENTITY( categories.LAND * categories.TECH1, factory ) then
-			
-				factory.BuilderType = 'LandT1'
-				factory.BuildLevel = 1
-				
-			elseif LOUDENTITY( categories.LAND * categories.TECH2, factory ) then
-			
-				factory.BuilderType = 'LandT2'
-				factory.BuildLevel = 2
-				
-			elseif LOUDENTITY( categories.LAND * categories.TECH3, factory ) then
-			
-				factory.BuilderType = 'LandT3'
-				factory.BuildLevel = 3
-				
-			elseif LOUDENTITY( categories.AIR * categories.TECH1, factory ) then
-			
-				factory.BuilderType = 'AirT1'
-				factory.BuildLevel = 1
-				
-			elseif LOUDENTITY( categories.AIR * categories.TECH2, factory ) then
-			
-				factory.BuilderType = 'AirT2'
-				factory.BuildLevel = 2
-				
-			elseif LOUDENTITY( categories.AIR * categories.TECH3, factory ) then
-			
-				factory.BuilderType = 'AirT3'
-				factory.BuildLevel = 3
-				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH1, factory ) then
-			
-				factory.BuilderType = 'SeaT1'
-				factory.BuildLevel = 1
-				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH2, factory ) then
-			
-				factory.BuilderType = 'SeaT2'
-				factory.BuildLevel = 2
-				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH3, factory ) then
-			
-				factory.BuilderType = 'SeaT3'
-				factory.BuildLevel = 3
-
-			elseif LOUDENTITY( categories.GATE, factory ) then
-			
-				factory.BuilderType = 'Gate'
-				factory.BuildLevel = 3
-				
-			end
-			
-			-- fired off when the factory completes an item (single or multiple units)
-			local factoryWorkFinish = function( factory, finishedUnit, aiBrain )
-			
-				self:FactoryFinishBuilding(factory, finishedUnit)
-				
-			end
-			
-			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
-			
-			-- this section applies only to static factories - mobile factories dont need any of this
-			if not LOUDENTITY( categories.MOBILE, factory) then
-			
-				factory.DesiresAssist = true		-- default factory to desire assist
-				factory.NumAssistees = 4			-- default factory to 4 assistees			
-			
-				-- handles removal of the factory from the factory manager on death
-				local factoryDestroyed = function( factory )
-				
-					self:FactoryDestroyed( factory )
-					
-				end
-
-				factory:AddUnitCallback( factoryDestroyed, 'OnReclaimed')
-				factory:AddUnitCallback( factoryDestroyed, 'OnCaptured')
-				factory:AddUnitCallback( factoryDestroyed,'OnKilled')				
-				
-				ForkThread( self.SetRallyPoint, self, factory )
-			
-				LOUDINSERT(self.FactoryList, factory)
-			
-				ForkThread( self.DelayBuildOrder, self, factory )
-
-				self.FactoryList = self:RebuildTable( self.FactoryList )
-				
-			end
-			
-		end
-		
-	end,
-    
-    FactoryDestroyed = function(self, factory)
-        
-		if self then
-		
-			for k,v in self.FactoryList do
-			
-				if (not v.Sync.id) or v.Dead then
-				
-					self.FactoryList[k] = nil
-					break
-					
-				end
-				
-			end
-		
-			self.FactoryList = self:RebuildTable( self.FactoryList )
-			
-		end
-		
     end,
 	
 	-- this is fired when a factory completes a build order
@@ -630,160 +786,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		return template
 		
 	end,
-    
-	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
-	-- also waits for factory to be NOT busy (some units cause factory to pause after building)
-	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
-    DelayBuildOrder = function( self, factory )
-
-		if factory:BeenDestroyed() then
-		
-			return
-			
-		end
-	
-		local WaitTicks = coroutine.yield
-		local IsIdleState = moho.unit_methods.IsIdleState
-		local IsUnitState = moho.unit_methods.IsUnitState
-		
-		local aiBrain = factory:GetAIBrain()		
-		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-	
-		WaitTicks( 6 - (factory.BuildLevel * 2) + (factory.failedbuilds * 10) + 1 )
-
-		if self.EnhanceThread then
-		
-			WaitTicks(10)
-			
-		end
-
-		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
-		
-			WaitTicks(23 - (factory.BuildLevel * 3))
-			
-		end
-		
-		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
-		
-			while (not factory.Dead) and (not IsIdleState(factory)) do
-			
-				if not IsUnitState(factory,'Upgrading') and not factory.Upgrading then
-				
-					WaitTicks(10)
-					
-				else
-				
-					break
-					
-				end
-				
-			end
-			
-		
-			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not factory.Upgrading) then
-			
-				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
-				
-			end
-			
-		end
-		
-    end,
-    
-    -- this is the function which actually finds and builds something
-    -- a factory can pass a plan/behavior to a unit when its finished or
-    -- run a function when the factory finishes its build queue
-	-- as a result only one plan or behavior gets executed
-    AssignBuildOrder = function( self, factory, aiBrain )
-	
-		if factory.Sync.id and not factory.Upgrading then
-			
-			local builder = self:GetHighestBuilder( factory, aiBrain )
-		
-			if builder then
-			
-				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
-			
-				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
-		
-					factory.addplan = false
-					factory.addbehavior = false
-				
-					factory.failedbuilds = 0
-
-					local buildplatoonsqty = 1
-
-					if Builders[builder.BuilderName].PlatoonAddPlans then
-				
-						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
-					
-							factory.addplan = papv
-						
-						end
-					
-					end
-
-					if Builders[builder.BuilderName].PlatoonAddBehaviors then
-				
-						for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
-					
-							factory.addbehavior = papv
-						
-						end
-					
-					end
-				
-					if ScenarioInfo.DisplayFactoryBuilds then
-				
-						factory:SetCustomName(repr(builder.BuilderName))
-					
-						FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
-				
-					end
-
-					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
-
-					if Builders[builder.BuilderName].PlatoonAddFunctions then
-				
-						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
-					
-							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
-						
-						end
-					
-					end
-					
-				else
-				
-					-- was originally going to set the priority to zero and have the job totally disabled but
-					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
-					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
-					-- priority will return to normal on the next priority sort
-					LOG("*AI DEBUG "..aiBrain.Nickname.." FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
-					
-					builder:SetPriority( 10, true)
-					
-					self.BuilderData[factory.BuilderType].NeedSort = true
-					
-					ForkThread( self.DelayBuildOrder, self, factory )
-				
-				end
-				
-			else
-			
-				if ScenarioInfo.DisplayFactoryBuilds then
-					ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
-				end
-				
-				factory.failedbuilds = factory.failedbuilds + 1
-
-                ForkThread( self.DelayBuildOrder, self, factory )
-				
-			end
-			
-		end
-		
-	end,
 	
 	-- as with the BuilderParamCheck in the EM, we no longer need most of these checks
 	-- since we control the jobs presented to the factories in advance 
@@ -910,4 +912,5 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
 		
 	end,
+	
 }
