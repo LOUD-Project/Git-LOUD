@@ -62,7 +62,7 @@ UnitList = {
     T1LandDFBot = {
         Aeon = {'BROT1EXM1', 25},
         Cybran = {'BRMT1EXM1', 40},	-- Proton
-		Seraphim = {'BRPTEXM1', 50},	-- Othazyne
+		Seraphim = {'BRPT1EXM1', 50},	-- Othazyne
     },
     
     T1LandArtillery = {
