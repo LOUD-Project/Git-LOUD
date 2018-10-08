@@ -200,9 +200,9 @@ SRB2306 = Class(CStructureUnit) {
             self.deathdamage = self.deathdamage - (GetGameTimeSeconds() - (self.StopFireTime or GetGameTimeSeconds()))*30
         end
 		
-        local radius = 3 * self.deathdamage/1000
+        local radius = 3 * (self.deathdamage or 10)/1000
 		
-        DamageArea(self, self:GetPosition(), radius, self.deathdamage, 'Default', true, true)
+        DamageArea(self, self:GetPosition(), radius, (self.deathdamage or 10), 'Default', true, true)
 		
         explosion.CreateDefaultHitExplosionAtBone( self, 0, radius )
         explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
