@@ -56,6 +56,8 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
 
+	--LOG("*AI DEBUG Applying Buff "..buffName)
+
     if unit.Dead or not unit.Buffs.BuffTable then 
         return 
     end
@@ -745,8 +747,6 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
     
 		for atype,_ in def.Affects do
 
-			--local list = unit.Buffs.Affects[atype]
-		
 			if unit.Buffs.Affects[atype] and unit.Buffs.Affects[atype][buffName] then
 			
 				--LOG("*AI DEBUG Removing Buff "..buffName.." for type "..repr(atype))
@@ -806,6 +806,8 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 		end
 		
 	end
+	
+	LOG("*AI DEBUG Buff "..buffName.." removed")
 
     BuffAffectUnit(unit, buffName, unit, true)
 	

@@ -110,7 +110,7 @@ Platoon = Class(moho.platoon_methods) {
     SetPlatoonData = function( self, dataTable)
 	
         self.PlatoonData = dataTable
-		
+
     end,
 
     ForkThread = function( self, fn, ...)
@@ -186,12 +186,6 @@ Platoon = Class(moho.platoon_methods) {
         end
 		
     end,
-	
-    SetPlatoonData = function( self, dataTable)
-	
-        self.PlatoonData = dataTable
-		
-    end,
 
     AddDestroyCallback = function( self, callbackFunction)
 	
@@ -214,8 +208,20 @@ Platoon = Class(moho.platoon_methods) {
     end,
 
     OnDestroy = function( self)
+	
+		LOG("*AI DEBUG Platoon "..self.BuilderName.."OnDestroy ")
+	
+        for k, cb in self.EventCallbacks.OnDestroyed do
+		
+	        if cb then
+			
+                cb( GetBrain(self), self )
+				
+            end
+			
+        end		
 
-		self:DoDestroyCallbacks()
+		--self:DoDestroyCallbacks()
 		
         if self.Trash then
 		
@@ -353,7 +359,7 @@ Platoon = Class(moho.platoon_methods) {
 								
 								v.failedbuilds = (v.failedbuilds + 1) or 1
 								
-								EM:ForkThread( EM.AssignTimeout, self.BuilderName, 300 )
+								ForkTo( EM.AssignTimeout, EM, self.BuilderName, 300 )
 								
 							end
 						end
@@ -5847,7 +5853,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
 	
 						aiBrain.BaseExpansionUnderway = true
 	
@@ -5857,7 +5863,8 @@ Platoon = Class(moho.platoon_methods) {
 						local deathFunction = function() aiBrain.BaseExpansionUnderway = false end
 	
 						-- it will get called if the platoon is destroyed
-						self:AddDestroyCallback(deathFunction)
+						LOUDINSERT( self.EventCallbacks.OnDestroyed, callbackFunction)
+						--self:AddDestroyCallback(deathFunction)
 	
 						-- loop here until the engineer signals that he's ready to start building
 						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
@@ -5890,7 +5897,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			else
 			
-				--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
+				WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
 				
 				eng.EngineerBuildQueue = {}
 				eng.failedbuilds = eng.failedbuilds + 1

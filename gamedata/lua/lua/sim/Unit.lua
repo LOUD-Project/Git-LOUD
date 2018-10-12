@@ -9,7 +9,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
-local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
+--local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
 
 local Game = import('/lua/game.lua')
 
@@ -328,7 +328,7 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display.AnimationDeath and LOUDGETN(bp.Display.AnimationDeath) > 0 then
 		
-			self.PlayDeathAnimation = true
+			--self.PlayDeathAnimation = true
 			
         end
         
@@ -372,7 +372,11 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCreated = function(self)
+	
+		LOG("*AI DEBUG OnCreated for "..self:GetBlueprint().Description)
+		
         self:DoUnitCallbacks('OnCreated')
+		
     end,
 
     ForkThread = function(self, fn, ...)
@@ -632,7 +636,7 @@ Unit = Class(moho.unit_methods) {
 	
 	CreateUnitDestructionDebris = function( self, high, low, chassis )
 	
-		self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
+		--self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
 		
 	end,
 
@@ -1365,7 +1369,7 @@ Unit = Class(moho.unit_methods) {
 			-- LOUD -- add in the specific -- but possibly seperate -- active costs (ie. - for moving)
 			if myBlueprint.Economy.ActiveConsumptionPerSecondEnergy or myBlueprint.Economy.ActiveConsumptionPerSecondMass then
 			
-				LOG("*AI DEBUG Specified Active Consumption")
+				--LOG("*AI DEBUG Specified Active Consumption")
 				
 				energy_rate = energy_rate + (myBlueprint.Economy.ActiveConsumptionPerSecondEnergy or 0)
 				mass_rate = mass_rate + (myBlueprint.Economy.ActiveConsumptionPerSecondMass or 0)
@@ -1677,7 +1681,14 @@ Unit = Class(moho.unit_methods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, type, overkillRatio)
 	
-		--LOG("*AI DEBUG "..self:GetBlueprint().Description.." killed by "..instigator:GetAIBrain().Nickname.." "..instigator:GetBlueprint().Description.." "..repr(instigator))
+		--LOG("*AI DEBUG "..self:GetBlueprint().Description.." killed")
+		
+		--if instigator then
+		
+			--LOG("*AI DEBUG by "..repr(instigator:GetAIBrain().Nickname).." "..instigator:GetBlueprint().Description)	--.." "..repr(instigator))
+			
+		--end
+
         
 		self:PlayUnitSound('Killed')
 
@@ -1763,6 +1774,8 @@ Unit = Class(moho.unit_methods) {
 
         self:ForkThread(self.DeathThread, overkillRatio, instigator)
 		
+		--LOG("*AI DEBUG OnKilled complete")
+		
     end,
 	
     PlayAnimationThread = function(self, anim, rate)
@@ -1790,13 +1803,13 @@ Unit = Class(moho.unit_methods) {
 					
                 end
 				
-                self.DeathAnimManip = CreateAnimator(self):PlayAnim(animBlock.Animation):SetRate(rate)
+                --self.DeathAnimManip = CreateAnimator(self):PlayAnim(animBlock.Animation):SetRate(rate)
 
-                self.Trash:Add(self.DeathAnimManip)
+                --self.Trash:Add(self.DeathAnimManip)
 				
-                WaitFor(self.DeathAnimManip)
+                --WaitFor(self.DeathAnimManip)
 				
-				self.DeathAnimManip = nil
+				--self.DeathAnimManip = nil
             end
 			
         end
@@ -1804,10 +1817,16 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
+	
+		--LOG("*AI DEBUG Death Thread for "..self:GetBlueprint().Description)
 
         if self.DeathAnimManip then
 		
+			--LOG("*AI DEBUG DeathAnim for "..self:GetBlueprint().Description)
+		
 			WaitFor(self.DeathAnimManip)
+			
+			--LOG("*AI DEBUG DeathAnim complete")
 			
 		end
 		
@@ -1817,6 +1836,8 @@ Unit = Class(moho.unit_methods) {
 
         if self.PlayDestructionEffects then
 		
+			--LOG("*AI DEBUG DestructionEffects")
+		
 			self:CreateDestructionEffects( self, overkillRatio )
 			
 		end
@@ -1824,6 +1845,8 @@ Unit = Class(moho.unit_methods) {
 		self:PlayUnitSound('Destroyed')
 		
 		if overkillRatio <= 0.15 then
+		
+			--LOG("*AI DEBUG Creating Wreck")
 		
 			self:CreateWreckage( overkillRatio )
 			
@@ -1844,6 +1867,8 @@ Unit = Class(moho.unit_methods) {
         end
 
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.2) * 10)
+		
+		--LOG("*AI DEBUG Death Thread complete")		
 		
         self:Destroy()
 		self = nil
@@ -2265,9 +2290,11 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnDestroy = function(self)
-
+	
 		self.PlatoonHandle = nil
-        
+
+		LOG("*AI DEBUG OnDestroy for "..self:GetBlueprint().Description)
+		
 		local ID = GetEntityId(self)
 
 		-- Don't allow anyone to stuff anything else in the table

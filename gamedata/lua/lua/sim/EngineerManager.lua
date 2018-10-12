@@ -112,6 +112,8 @@ EngineerManager = Class(BuilderManager) {
 
         table.insert( self.EngineerList, unit )
 		
+		--LOG("*AI DEBUG Adding Engineer "..repr(unit))
+		
         self.EngineerList.Count = self.EngineerList.Count + 1
 
 		unit.failedbuilds = 0

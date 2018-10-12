@@ -267,24 +267,31 @@ BuffField = Class(Entity) {
 		
 			units = {}
 			
-			local pos = Owner:GetPosition()
+			LOG("*AI DEBUG "..aiBrain.Nickname.." geting nearby affectables for "..Owner:GetBlueprint().Description)
 			
-			if bp.AffectsOwnUnits then
-				units = LOUDMERGE(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
-			end
+			local pos = Owner:GetPosition() or false
 			
-			if bp.AffectsAllies then
-				units = LOUDMERGE(units, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
-			end
+			if pos then
 			
-			if bp.AffectsVisibleEnemies then
-				units = LOUDMERGE(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+				if bp.AffectsOwnUnits then
+					units = LOUDMERGE(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+				end
+			
+				if bp.AffectsAllies then
+					units = LOUDMERGE(units, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+				end
+			
+				if bp.AffectsVisibleEnemies then
+					units = LOUDMERGE(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+				end
+				
 			end
 
 			return units
+			
 		end
 		
-		-- this will be run on the units affected by the field so self means the unit that is affected by the field
+		-- this will be run on the units affected by the field
 		local UnitBuffFieldThread = function( unit )
 
 			if bp.Buffs != nil then
@@ -345,16 +352,18 @@ BuffField = Class(Entity) {
 					
 						-- all bufffields (atm) don't affect themselves
 						if unit != Owner then
+						
+							LOG("*AI DEBUG unit getting bufffield")
 
-							unit.BuffFieldThreadHandle[bp.Name] = ForkThread( UnitBuffFieldThread, unit )
+							unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( UnitBuffFieldThread )
 							
 							count = count + 1
-							mastercount = mastercount + 1
 							
 							if count == 5 then
 							
 								WaitTicks(1)
 								count = 0
+								mastercount = mastercount + 1
 								
 							end
 						end
@@ -366,7 +375,7 @@ BuffField = Class(Entity) {
 				--LOG("*AI DEBUG Field "..bp.Name.." processed "..mastercount)
 			--end
 			
-			WaitTicks( 38 ) -- this should be anything but 5 (of the other wait) to help spread the cpu load
+			WaitTicks( 38 - mastercount ) -- this should be anything but 5 (of the other wait) to help spread the cpu load
 		end
     end,
 

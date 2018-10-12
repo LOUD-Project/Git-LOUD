@@ -173,6 +173,8 @@ BuilderManager = Class {
     end,
 
     AssignTimeout = function( self, builderName, timeoutticks )
+	
+		--LOG("*AI DEBUG Assigning timeout to "..repr(builderName))
     
 		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
 
@@ -186,7 +188,7 @@ BuilderManager = Class {
 
 			builder:ResetPriority(self)
 		
-			--LOG("*AI DEBUG timeout for "..self.ManagerType.." "..self.LocationType.." "..repr(builderName).." ends - builder is "..repr(builder) )
+			LOG("*AI DEBUG timeout for "..self.ManagerType.." "..self.LocationType.." "..repr(builderName).." ends - builder is "..repr(builder) )
 
 		end
 
