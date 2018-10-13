@@ -141,15 +141,11 @@ BuilderManager = Class {
             for k2,builder in bType.Builders do
 			
                 if builder.BuilderName == builderName then
-				
-					--LOG("*AI DEBUG SetBuilderPriority found builder "..repr(builderName).." at "..builder.Priority)
-					
+
 					if builder.Priority != priority then
 					
 						builder:SetPriority(priority, temporary)
-						
-						LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..repr(builderName).." set to "..priority )
-					
+
 						if priority == 0 and not temporary then
 							
 							table.remove( manager.BuilderData[k1].Builders, k2 )
@@ -180,15 +176,13 @@ BuilderManager = Class {
 
         local builder = self:SetBuilderPriority( builderName, 10, true ) -- set the builder to priority 10 temporarily
 
-		local priority = self:GetBuilderPriority(builderName)
+		local priority = self:GetBuilderPriority(builderName) -- retrieve that priority to make sure that it actually took since it's possible the builder may no longer exist
 		
 		if builder and priority then
 
 			WaitTicks(timeoutticks)	
 
 			builder:ResetPriority(self)
-		
-			LOG("*AI DEBUG timeout for "..self.ManagerType.." "..self.LocationType.." "..repr(builderName).." ends - builder is "..repr(builder) )
 
 		end
 
@@ -287,7 +281,12 @@ BuilderManager = Class {
 
 				if task.OldPriority and task.OldPriority == 0 then
 				
-					--LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
+						
+					if ScenarioInfo.PriorityDialog then
+		
+						LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
+						
+					end
 					
 					LOUDREMOVE(self.BuilderData[unit.BuilderType].Builders,k)
 
@@ -303,14 +302,8 @@ BuilderManager = Class {
 				local temporary = true
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
-				
-				--if self.ManagerType == 'FBM' then
-					--LOG("*AI DEBUG Reviewing "..TaskList[k].BuilderName.." is "..task.Priority.." new is "..newPri.." temporary is "..repr(temporary).." Previous Priority is "..repr(task.OldPriority))
-				--end
-		
+
 				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
-				
-					--LOG("*AI DEBUG "..self.ManagerType.." "..self.LocationType.." "..TaskList[k].BuilderName.." set to "..newPri )
 
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )
 					

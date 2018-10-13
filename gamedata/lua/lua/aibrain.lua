@@ -34,6 +34,9 @@
 
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
+	
+	ScenarioInfo.PriorityDialog = false
+	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
 local import = import
 

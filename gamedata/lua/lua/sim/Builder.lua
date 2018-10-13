@@ -106,9 +106,7 @@ Builder = Class {
 			
 				builder.OldPriority = builder.Priority
 				builder.PriorityAltered = true
-				
-				--LOG("*AI DEBUG OldPriority on "..builder.BuilderName.." set to "..builder.OldPriority)
-				
+
 			end
 
 			builder.Priority = val
@@ -121,20 +119,24 @@ Builder = Class {
 			
 		end
 		
+		if ScenarioInfo.PriorityDialog then
+			LOG("*AI DEBUG "..builder.ManagerType.." "..builder.LocationType.." "..builder.BuilderName.." set to "..val.." Temporary is "..repr(temporary))
+		end
+		
     end,
     
     ResetPriority = function(self, manager)
 		
 		if self.PriorityAltered and self.Priority != self.OldPriority then
 		
-			LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Resetting to "..self.OldPriority)
+			if ScenarioInfo.PriorityDialog then
+				LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Reset to "..self.OldPriority)
+			end
 
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)
 			
 			self.PriorityAltered = false
-			
-			--LOG("*AI DEBUG Builder is now "..repr(self) )
-			
+
 		end
 		
     end,

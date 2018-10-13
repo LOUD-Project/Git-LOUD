@@ -16,7 +16,7 @@ Description = {
 	['uel0001-red'] = "Adds a second Engineering Drone. Requires an initial Engineering Drone.",
 
 	--Support Commanders 
-	['uel0301'] = "A multi-purpose construction, repair, capture and reclamation unit. Equivalent to a Tech 3 Engineer. ",
+	['uel0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['uel0301-ed'] = "Engineering Drone acts as a secondary Engineer. Assists the SACU where applicable.",
 	['uel0301-psg'] = "Creates a protective shield around the SACU. Requires Energy to run.",
 	['uel0301-sgf'] = "Expands the radius of the SACU's personal shield. Requires Energy to run.",
@@ -146,7 +146,7 @@ Description = {
 	['url0001-ntt'] = "Equips the ACU with a standard Cybran Nanite torpedo tube and sonar.",
 
     --Support Commanders 
-	['url0301'] = "A multi-purpose construction, repair, capture and reclamation unit. Equivalent to a Tech 3 Engineer.",
+	['url0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['url0301-cfs'] = "Cloaks the SACU from optical sensors. Can be detected by Omni Sensors. Requires Energy to run.",
 	['url0301-emp'] = "EMP burst effectively disables enemy units for a few seconds.",
 	['url0301-fc'] = "Greatly enhances the pulse laser's cohesion, almost doubling its damage output.",
@@ -282,7 +282,7 @@ Description = {
 	['ual0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
 
 	-- Support Commanders 
-	['ual0301'] = "A multi-purpose construction, repair, capture and reclamation unit. Equivalent to a Tech 3 Engineer.",
+	['ual0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['ual0301-efm'] = "Speeds up all engineering-related functions.",
 	['ual0301-ras'] = "Increases SACU's resource generation.",
 	['ual0301-sp'] = "SACU is sacrificed and its Mass is added to a structure. This destroys the SACU.",
@@ -410,7 +410,7 @@ Description = {
 	['xsl0001-hsa'] = "Increases main cannon's rate of fire and range. Also increases range of Overcharge.",
 	['xsl0001-tml'] = "Mounts a tactical cruise missile launcher onto the back of the ACU.",
 	
-	['xsl0301'] = "A multi-purpose construction, repair, capture and reclamation unit. Equivalent to a Tech 3 Engineer.",
+	['xsl0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
     ['xsl0301-tmu'] = "Mounts a tactical cruise missile launcher onto the back of the SACU.",
     ['xsl0301-dss'] = "Increases the speed at which the SACU repairs itself. Also increases hit points.",
 	['xsl0301-sre'] = "Greatly expands the range of the standard onboard SACU sensor systems, including Omni.",
