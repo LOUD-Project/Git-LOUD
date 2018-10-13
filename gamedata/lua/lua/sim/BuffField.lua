@@ -267,7 +267,7 @@ BuffField = Class(Entity) {
 		
 			units = {}
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." geting nearby affectables for "..Owner:GetBlueprint().Description)
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." geting nearby affectables for "..Owner:GetBlueprint().Description)
 			
 			local pos = Owner:GetPosition() or false
 			
@@ -289,47 +289,6 @@ BuffField = Class(Entity) {
 
 			return units
 			
-		end
-		
-		-- this will be run on the units affected by the field
-		local UnitBuffFieldThread = function( unit )
-
-			if bp.Buffs != nil then
-
-				unit.HasBuffFieldThreadHandle[bp.Name] = true
-
-				local GetPosition = moho.entity_methods.GetPosition
-				local VDist3 = VDist3
-		
-				while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
-			
-					dist = VDist3( GetPosition(unit), Owner:GetPosition() )
-			
-					if dist > bp.Radius then
-						break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
-					end
-
-					for _, buff in bp.Buffs do
-						ApplyBuff( unit, buff )
-					end
-	
-					WaitTicks(38)
-				end
-
-				if not unit.Dead and bp.Buffs then
-				
-					for _, buff in bp.Buffs do
-		
-						if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
-							RemoveBuff( unit, buff )
-						end
-					end
-					
-					unit.BuffFieldThreadHandle[bp.Name] = nil
-					unit.HasBuffFieldThreadHandle[bp.Name] = false
-				end
-			end
-		
 		end
 
 		while Field.Enabled and not Owner.Dead do
@@ -353,9 +312,9 @@ BuffField = Class(Entity) {
 						-- all bufffields (atm) don't affect themselves
 						if unit != Owner then
 						
-							LOG("*AI DEBUG unit getting bufffield")
+							--LOG("*AI DEBUG unit getting bufffield")
 
-							unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( UnitBuffFieldThread )
+							unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
 							
 							count = count + 1
 							
@@ -378,6 +337,47 @@ BuffField = Class(Entity) {
 			WaitTicks( 38 - mastercount ) -- this should be anything but 5 (of the other wait) to help spread the cpu load
 		end
     end,
+
+	-- this will be run on the units affected by the field
+	UnitBuffFieldThread = function( unit, Owner, Field, bp )
+
+		if bp.Buffs != nil then
+
+			unit.HasBuffFieldThreadHandle[bp.Name] = true
+
+			local GetPosition = moho.entity_methods.GetPosition
+			local VDist3 = VDist3
+	
+			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
+			
+				dist = VDist3( GetPosition(unit), Owner:GetPosition() )
+			
+				if dist > bp.Radius then
+					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
+				end
+
+				for _, buff in bp.Buffs do
+					ApplyBuff( unit, buff )
+				end
+	
+				WaitTicks(38)
+			end
+
+			if not unit.Dead and bp.Buffs then
+				
+				for _, buff in bp.Buffs do
+		
+					if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
+						RemoveBuff( unit, buff )
+					end
+				end
+
+				unit.BuffFieldThreadHandle[bp.Name] = nil
+				unit.HasBuffFieldThreadHandle[bp.Name] = false
+			end
+		end
+		
+	end,
 
 --[[
     -- this will be run on the units affected by the field so self means the unit that is affected by the field

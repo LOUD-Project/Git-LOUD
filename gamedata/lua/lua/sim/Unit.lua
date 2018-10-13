@@ -373,7 +373,7 @@ Unit = Class(moho.unit_methods) {
 
     OnCreated = function(self)
 	
-		LOG("*AI DEBUG OnCreated for "..self:GetBlueprint().Description)
+		--LOG("*AI DEBUG OnCreated for "..self:GetBlueprint().Description)
 		
         self:DoUnitCallbacks('OnCreated')
 		
@@ -2293,7 +2293,7 @@ Unit = Class(moho.unit_methods) {
 	
 		self.PlatoonHandle = nil
 
-		LOG("*AI DEBUG OnDestroy for "..self:GetBlueprint().Description)
+		--LOG("*AI DEBUG OnDestroy for "..self:GetBlueprint().Description)
 		
 		local ID = GetEntityId(self)
 

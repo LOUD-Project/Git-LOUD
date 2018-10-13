@@ -209,7 +209,7 @@ Platoon = Class(moho.platoon_methods) {
 
     OnDestroy = function( self)
 	
-		LOG("*AI DEBUG Platoon "..self.BuilderName.."OnDestroy ")
+		--LOG("*AI DEBUG Platoon "..self.BuilderName.."OnDestroy ")
 	
         for k, cb in self.EventCallbacks.OnDestroyed do
 		
@@ -5863,7 +5863,7 @@ Platoon = Class(moho.platoon_methods) {
 						local deathFunction = function() aiBrain.BaseExpansionUnderway = false end
 	
 						-- it will get called if the platoon is destroyed
-						LOUDINSERT( self.EventCallbacks.OnDestroyed, callbackFunction)
+						LOUDINSERT( self.EventCallbacks.OnDestroyed, deathFunction )
 						--self:AddDestroyCallback(deathFunction)
 	
 						-- loop here until the engineer signals that he's ready to start building

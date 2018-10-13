@@ -807,7 +807,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 		
 	end
 	
-	LOG("*AI DEBUG Buff "..buffName.." removed")
+	--LOG("*AI DEBUG Buff "..buffName.." removed")
 
     BuffAffectUnit(unit, buffName, unit, true)
 	
