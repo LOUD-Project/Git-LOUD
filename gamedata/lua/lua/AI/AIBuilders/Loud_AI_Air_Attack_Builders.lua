@@ -224,7 +224,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
-			SearchRadius = 120,
+			SearchRadius = 100,
 			
             UseFormation = 'AttackFormation',
 			
@@ -267,7 +267,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
 			
-			SearchRadius = 120,
+			SearchRadius = 100,
 			
             UseFormation = 'AttackFormation',
 			
@@ -316,7 +316,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
             MergeLimit = 64,
             MissionTime = 420,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 250,
+			SearchRadius = 200,
             UseFormation = 'AttackFormation',
 			
         },
@@ -354,7 +354,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
             MergeLimit = 64,
             MissionTime = 480,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 175,
+			SearchRadius = 160,
             UseFormation = 'AttackFormation',
 			
         },

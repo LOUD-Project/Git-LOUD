@@ -2209,14 +2209,14 @@ function AirForceAILOUD( self, aiBrain )
 			
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
                 threatcompare = 'AntiSurface'
-				strikerange = 125
+				strikerange = 100
 				
             else
 			
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
                 threatcompare = 'AntiAir'
-				strikerange = 250
+				strikerange = 200
 				
             end
 
@@ -2425,9 +2425,9 @@ function AirForceAILOUD( self, aiBrain )
 		-- or we couldn't get to the target
 		if loiter then
 		
-			WaitTicks(75)
+			WaitTicks(55)
 			
-            attacktimer = attacktimer + 7.5
+            attacktimer = attacktimer + 5.5
 			
 		end
 		
