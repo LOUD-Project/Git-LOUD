@@ -16,17 +16,17 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.5,
         CirclingTurnMult = 1,
 		
-        KLift = 2,
-        KLiftDamping = 2,
+        KLift = 4,
+        KLiftDamping = 6.5,
 		
-        KMove = 1.2,
-        KMoveDamping = 1.1,
+        KMove = 1,
+        KMoveDamping = 1.4,
 		
         KRoll = 0.8,
-        KRollDamping = 1.0,
+        KRollDamping = 2.0,
 		
-        KTurn = 0.38,
-        KTurnDamping = 0.98,
+        KTurn = 1.5,
+        KTurnDamping = 3.0,
 		
         LiftFactor = 8,
 		
@@ -35,6 +35,8 @@ UnitBlueprint {
         StartTurnDistance = 14,
 		
         TransportHoverHeight = 4,
+
+		TurnSpeed = 1.3,		
     },
 	
     Audio = {

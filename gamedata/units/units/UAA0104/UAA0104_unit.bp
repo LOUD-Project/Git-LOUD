@@ -17,17 +17,17 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.65,
         CirclingTurnMult = 1,
 		
-        KLift = 2,
-        KLiftDamping = 2,
+        KLift = 4,
+        KLiftDamping = 6.5,
 		
-        KMove = 1.2,
-        KMoveDamping = 1.1,
+        KMove = 1,
+        KMoveDamping = 1.4,
 		
         KRoll = 0.5,
-        KRollDamping = 0.95,
+        KRollDamping = 2.0,
 		
-        KTurn = 0.35,
-        KTurnDamping = 0.95,
+        KTurn = 1.9,
+        KTurnDamping = 3.0,
 		
         LiftFactor = 9,
 		

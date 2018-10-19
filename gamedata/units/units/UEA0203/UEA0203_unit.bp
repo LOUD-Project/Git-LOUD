@@ -20,13 +20,13 @@ UnitBlueprint {
         CirclingTurnMult = 3,
 		
         KLift = 3,
-        KLiftDamping = 2.5,
+        KLiftDamping = 3.5,
 		
-        KMove = 0.7,
-        KMoveDamping = 1.2,
+        KMove = 0.9,
+        KMoveDamping = 1.3,
 		
         KTurn = 0.8,
-        KTurnDamping = 1.1,
+        KTurnDamping = 1.8,
 		
         LiftFactor = 6,
 		
@@ -36,6 +36,8 @@ UnitBlueprint {
         StartTurnDistance = 5,
 		
         TransportHoverHeight = 3,
+
+		TurnSpeed = 1.3,		
 		
     },
 	

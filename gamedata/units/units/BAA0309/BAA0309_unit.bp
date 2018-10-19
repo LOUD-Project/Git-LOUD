@@ -5,7 +5,7 @@ UnitBlueprint {
     },
 
     Air = {
-        AutoLandTime = 1.5,
+        AutoLandTime = 1.2,
         BankFactor = 0.4,
         BankForward = false,
         CanFly = true,
@@ -17,17 +17,17 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingTurnMult = 1,
 
-        KLift = 2.5,
-        KLiftDamping = 2.5,
+        KLift = 4,
+        KLiftDamping = 6.5,
 
         KMove = 1.0,
-        KMoveDamping = 2.5,
+        KMoveDamping = 1.4,
 
         KRoll = 0.6,
-        KRollDamping = 0.95,
+        KRollDamping = 2.0,
 
-        KTurn = 0.6,
-        KTurnDamping = 1.0,
+        KTurn = 1.8,
+        KTurnDamping = 3.0,
 
         LiftFactor = 9,
 
