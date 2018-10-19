@@ -3109,7 +3109,7 @@ Unit = Class(moho.unit_methods) {
 	-- this will set all intel types to OFF except for vision
     SetupIntel = function(self,bp)
 	
-        local bp = bp.Intel or GetBlueprint(self).Intel
+        local bp = bp.Intel or __blueprints[self.BlueprintID].Intel
 		
         if bp then
 		
@@ -3194,7 +3194,6 @@ Unit = Class(moho.unit_methods) {
 		if not self.Dead then
 		
 			local EnableIntel = moho.entity_methods.EnableIntel
-		
 
 			local intEnabled = false
 			
@@ -3212,6 +3211,9 @@ Unit = Class(moho.unit_methods) {
 			
 			-- if an intel type and the intel table is ready
 			-- since this will fire before intel table is setup
+			
+			--LOG("*AI DEBUG Self.IntelDisables are "..repr(self.IntelDisables))
+			
 			if self.IntelDisables then
 			
 				-- used to enable a specific intel
@@ -3225,9 +3227,9 @@ Unit = Class(moho.unit_methods) {
 						
 						intEnabled = true
 						
+						self.IntelDisables[intel] = 0						
+						
 					end
-				
-					self.IntelDisables[intel] = self.IntelDisables[intel] - 1
 				
 				else
 				
@@ -3235,6 +3237,8 @@ Unit = Class(moho.unit_methods) {
 					for k, v in self.IntelDisables do
 				
 						if v == 1 then
+						
+							--LOG("*AI DEBUG Trying to enable "..repr(k))
 		
 							EnableIntel(self,k)
 
@@ -3244,11 +3248,11 @@ Unit = Class(moho.unit_methods) {
 								
 								intEnabled = true
 								
+								self.IntelDisables[k] = 0
+								
 							end
 							
 						end
-					
-						self.IntelDisables[k] = v - 1
 						
 					end
 					
@@ -3256,7 +3260,7 @@ Unit = Class(moho.unit_methods) {
 				
 			end
 			
-			if not GetBlueprint(self).Intel.FreeIntel then
+			if not __blueprints[self.BlueprintID].Intel.FreeIntel then
 			
 				if self.IntelThread then
 				

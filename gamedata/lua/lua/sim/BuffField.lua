@@ -310,11 +310,11 @@ BuffField = Class(Entity) {
 					if not unit.HasBuffFieldThreadHandle[bp.Name] then
 					
 						-- all bufffields (atm) don't affect themselves
-						if unit != Owner then
+						if Owner and IsUnit(unit) and Field and bp and unit != Owner then
 						
 							--LOG("*AI DEBUG unit getting bufffield")
 
-							unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
+							unit.BuffFieldThreadHandle[bp.Name] = ForkThread( Field.UnitBuffFieldThread, unit, Owner, Field, bp )
 							
 							count = count + 1
 							

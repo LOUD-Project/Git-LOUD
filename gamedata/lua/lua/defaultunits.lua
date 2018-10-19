@@ -3408,21 +3408,40 @@ AirUnit = Class(MobileUnit) {
 
 		MobileUnit.OnLayerChange( self, new, old )
 
-		local vis = (GetBlueprint(self).Intel.VisionRadius or 2)
+		local vis = __blueprints[self.BlueprintID].Intel.VisionRadius or 2
 
 		if new == 'Land' then
 
-			self:SetIntelRadius('Vision', vis * 0.5)
+			-- if current vision is mostly normal then
+			-- turn it down to 40% of current vision
+			if self:GetIntelRadius('Vision') > (vis * 0.75) then
+			
+				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 0.4)
+				
+			end
 
-			self:DisableUnitIntel('Sonar')
+			self:DisableIntel('Sonar')
+			self:DisableIntel('Radar')
+			self:DisableIntel('Omni')
 		end
 
 		if new == 'Air' then
+		
+			-- if current vision radius is less than standard blueprint value
+			-- then it must have been turned down by this previously - turn it back up
+			if self:GetIntelRadius('Vision') <= (vis * 0.75) then
 
-			self:SetIntelRadius('Vision', vis)
+				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 2.5)
+				
+			end
 
-			self:EnableUnitIntel('Sonar')
+			self:EnableIntel('Sonar')
+			self:EnableIntel('Radar')
+			self:EnableIntel('Omni')
 		end
+		
+		
+		
 	end,
 
     OnMotionVertEventChange = function( self, new, old )

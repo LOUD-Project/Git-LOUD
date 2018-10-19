@@ -596,7 +596,7 @@ function SpawnWaveThread( aiBrain )
 			end
 			
 		else
-			LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave delayed")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave delayed")
 		end
 		
 	end
