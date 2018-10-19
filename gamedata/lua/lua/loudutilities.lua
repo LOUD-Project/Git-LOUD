@@ -505,6 +505,7 @@ end
 -- 	Essentially every spawndelay period, the AI will receive a few 'free' air units (based upon AIx cheat bonus.
 --  The number gradually grows with each iteration over the course of the game and the period between
 --  iterations gradually shrinks making the AIx an ever increasing threat.  Growth is capped at 10 iterations
+--  The AIx unit cap (if not unlimited) is increased by the total number of units in the spawnwave
 function SpawnWaveThread( aiBrain )
 
 	local initialUnits = false
@@ -515,7 +516,7 @@ function SpawnWaveThread( aiBrain )
 	local startx, startz = aiBrain:GetArmyStartPos()
 	local wave = 1
 	
-	local spawndelay = 1320 * (1 / tonumber(ScenarioInfo.Options.BuildMult))	-- every 22 minutes but reduced cheat build multiplier
+	local spawndelay = 1200 * (1 / tonumber(ScenarioInfo.Options.BuildMult))	-- every 20 minutes but reduced by cheat build multiplier
 	
 	local hold_wave = true
     
@@ -568,10 +569,12 @@ function SpawnWaveThread( aiBrain )
 		LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
 		
 	end
+	
+	local initialdelay = true
 
 	-- IF there is an initial units list then
 	-- spawnwave will begin once the first T3 Air Factory is online - check every 60 seconds until it does
-	while initialUnits do
+	while initialdelay do
 	
 		WaitSeconds(60)
 	
@@ -584,12 +587,16 @@ function SpawnWaveThread( aiBrain )
 				-- the factory must be fully built --
 				if v:GetFractionComplete() == 1 then
 
+					LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave timer launched")
+					initialdelay = false
 					break
 					
 				end
 				
 			end
 			
+		else
+			LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave delayed")
 		end
 		
 	end
@@ -600,6 +607,11 @@ function SpawnWaveThread( aiBrain )
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
 		local units = math.floor((wave * 2) * tonumber(ScenarioInfo.Options.BuildMult) )
+		
+		-- increase the unit cap by the number of units * 5 - accounting for the multiple types
+		SetArmyUnitCap( aiBrain.ArmyIndex, GetArmyUnitCap( aiBrain.ArmyIndex) + (units * 5) )
+		
+		LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units)
 		
 		-- the unit we'll create
 		local unit
@@ -657,6 +669,8 @@ function SpawnWaveThread( aiBrain )
 		WaitTicks(spawndelay * 10)
 		
 	end
+	
+	LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave disabled")
 	
 	aiBrain.WaveThread = nil
 	
