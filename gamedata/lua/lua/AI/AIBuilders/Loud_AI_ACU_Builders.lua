@@ -500,7 +500,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
 
 			{ EBC, 'LessThanEnergyTrend', { 2000 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 29, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering', true }},
+			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
         },
 	
@@ -545,7 +545,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},			
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering', true }},			
+			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},			
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
 			-- there has to be advanced power at this location
@@ -590,7 +590,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},			
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering', true }},
+			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
 			-- there has to be advanced power at this location

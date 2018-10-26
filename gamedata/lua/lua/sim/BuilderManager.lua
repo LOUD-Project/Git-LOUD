@@ -207,6 +207,10 @@ BuilderManager = Class {
 		local GetBuilderStatus = function( task )
 		
 			for _,value in task.BuilderConditions do
+			
+				--if unit.BuilderType == 'Commander' then
+					--LOG("*AI DEBUG "..aiBrain.Nickname.."         checking condition "..repr(value).." "..repr(aiBrain.ConditionsMonitor.ResultTable[value].FunctionName) )
+				--end
 
 				if not aiBrain.ConditionsMonitor.ResultTable[value].Instant then
 				
@@ -258,6 +262,10 @@ BuilderManager = Class {
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
                 if (not found) or task.Priority >= found then
+				
+					--if unit.BuilderType == 'Commander' then
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." checking task "..task.BuilderName)
+					--end
 
                     if GetBuilderStatus( task ) then
 
@@ -280,12 +288,9 @@ BuilderManager = Class {
             else
 
 				if task.OldPriority and task.OldPriority == 0 then
-				
-						
+
 					if ScenarioInfo.PriorityDialog then
-		
 						LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
-						
 					end
 					
 					LOUDREMOVE(self.BuilderData[unit.BuilderType].Builders,k)

@@ -697,7 +697,7 @@ function CDREnhance( self, aiBrain )
 	local finalenhancement = self.PlatoonData.Enhancement[LOUDGETN(self.PlatoonData.Enhancement)]
 	
 	local unit
-	
+
     for _,v in units do
 	
 		if not v.Dead and LOUDENTITY(categories.COMMAND, v) then
@@ -732,6 +732,8 @@ function CDREnhance( self, aiBrain )
 			if not unit.Dead and not unit:HasEnhancement(v) then
 			
 				if not unit:HasEnhancement(v) then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." in CDREnhance for "..repr(v))
 				
 					repeat
 					

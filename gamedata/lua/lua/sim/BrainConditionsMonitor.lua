@@ -33,6 +33,8 @@ BrainConditionsMonitor = Class {
     Create = function(self, brain)
 	
         self:PreCreate()
+		
+		self.Brain = brain
 
 		-- start the Condition Monitor Thread
 		self.Trash:Add(ForkThread( self.ConditionMonitorThread, self, brain))
@@ -69,12 +71,10 @@ BrainConditionsMonitor = Class {
         end
         
         -- No match, so add the data to the table and return the key
-        local newCondition
+        local newCondition = ImportCondition()
         
         if cFilename == '/lua/editor/UnitCountBuildConditions.lua' or cFilename == '/lua/editor/EconomyBuildConditions.lua' then
             newCondition = InstantImportCondition()
-        else
-            newCondition = ImportCondition()
         end
 
 		newCondition:Create( self.Brain, self.ResultTableCounter + 1, cFilename, cFunctionName, cData)
@@ -82,6 +82,8 @@ BrainConditionsMonitor = Class {
 		-- add it to the Result Table
 		self.ResultTableCounter = self.ResultTableCounter + 1
         self.ResultTable[self.ResultTableCounter] = newCondition
+		
+		--LOG("*AI DEBUG "..repr(self.Brain.Nickname).." added Condition "..repr(self.ResultTableCounter).." "..repr(newCondition))
 
 		LOUDINSERT( self.ConditionData[cFilename][cFunctionName], { Key = newCondition.Key } )
 		
@@ -115,16 +117,21 @@ BrainConditionsMonitor = Class {
 		-- LocationType entries MUST ALWAYS be the first element so if it isnt we just
 		-- return true since it must be a global condition		
 		local function TestLocation( v )
+		
+			-- all location based conditions will always have more than 1 data element
+			if v.FunctionDataElements > 1 then
 
-			if type(v.FunctionData[1]) == 'string' then 
+				if type(v.FunctionData[1]) == 'string' then 
 				
-				if aiBrain.BuilderManagers[v.FunctionData[1]] then
-					v.Status = true
-					return true
-				else
-					v.Status = false
-					return false
+					if aiBrain.BuilderManagers[v.FunctionData[1]].EngineerManager.Active then
+						--v.Status = true
+						return true
+					else
+						--v.Status = false
+						return false
+					end
 				end
+			
 			end
 
 			return true
@@ -176,6 +183,8 @@ BrainConditionsMonitor = Class {
 					else
 						ResultTable[k].Active = false
 						
+						--LOG("*AI DEBUG Key "..k.." "..v.FunctionName.." "..repr(v.FunctionData[1].." is no longer active " ))
+						
 						for a,b in self.ConditionData[v.Filename][v.FunctionName] do
 						
 							if k == b.Key then
@@ -223,7 +232,7 @@ Condition = Class {
         self.FunctionName = funcName
         self.FunctionData = funcData
 		self.FunctionDataElements = table.getn(funcData)
-		
+	
     end,
 
 	SetStatus = function(self,brain)
@@ -248,6 +257,8 @@ Condition = Class {
 		else
 			self.Status = import(self.Filename)[self.FunctionName](brain, unpack(self.FunctionData))
 		end
+		
+		--LOG("*AI DEBUG "..brain.Nickname.."                         "..repr(self.FunctionName).." "..repr(self.FunctionData[1]).." is "..repr(self.Status))
 	end,
 }
 
@@ -261,8 +272,8 @@ ImportCondition = Class(Condition) {
         Condition.Create( self, brain, key, filename, funcName, funcData )
     end,
 
-    CheckCondition = function(self,aiBrain)
-		Condition.SetStatus(self,aiBrain)
+    CheckCondition = function( self,aiBrain )
+		Condition.SetStatus( self, aiBrain)
         return self.Status
     end,
 	
@@ -286,8 +297,8 @@ InstantImportCondition = Class(Condition) {
     end,
 
     -- This class always performs the check when getting status (basically for stat checks)
-    GetStatus = function( self, aiBrain)
-		Condition.SetStatus( self, aiBrain)
+    GetStatus = function( self, aiBrain )
+		Condition.SetStatus( self, aiBrain )
 		return self.Status
     end,
 }

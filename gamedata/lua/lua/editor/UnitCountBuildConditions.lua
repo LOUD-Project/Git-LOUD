@@ -694,34 +694,28 @@ end
 
 
 function ACUNeedsUpgrade(aiBrain, upgrade)
-
-	local needsUpgrade = false
 	
     for k,v in GetListOfUnits(aiBrain, categories.COMMAND, false ) do
-	
-        if v:IsUnitState('Upgrading') then
-            return false
-        end
-		
+
         if not v:HasEnhancement( upgrade ) then
             return true
         end
+		
     end
+	
     return false
 end
 
-function ACUHasUpgrade(aiBrain, upgrade, has)
+function ACUHasUpgrade(aiBrain, upgrade)
 
     for k,v in GetListOfUnits(aiBrain, categories.COMMAND, false ) do
 	
-        if v:HasEnhancement( upgrade ) and has then
+        if v:HasEnhancement( upgrade ) then
             return true
 		end
-        if not v:HasEnhancement( upgrade ) and not has then
-            return true
-        end
-		
+
     end
+	
     return false
 end
 

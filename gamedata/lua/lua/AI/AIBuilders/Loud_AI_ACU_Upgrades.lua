@@ -35,8 +35,8 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering'}},
 			{ UCBC, 'ACUNeedsUpgrade', { 'AdvancedEngineering' }},
         },
 		
@@ -59,9 +59,9 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		FactionIndex = 2,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering'}},
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'EnhancedSensors' }},
         },
 		
@@ -84,9 +84,9 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		FactionIndex = 3,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering'}},
 			{ UCBC, 'ACUNeedsUpgrade', { 'MicrowaveLaserGenerator' }},
         },
 		
@@ -109,9 +109,9 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		FactionIndex = 4,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering'}},
 			{ UCBC, 'ACUNeedsUpgrade', { 'RegenAura' }},
         },
 		
@@ -133,14 +133,23 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		PlatoonAddFunctions = { {SAI, 'BuildOnce'}, },
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uel0001 + categories.ual0001 + categories.url0001 + categories.xsl0001 }},
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'ACUHasUpgrade', { 'AdvancedEngineering', true }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering' }},
         },
 		
-        Priority = 845,
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('AdvancedEngineering') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,		
 		
         BuilderType = { 'Commander' },
 		
