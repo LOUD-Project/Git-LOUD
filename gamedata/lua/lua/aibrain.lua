@@ -65,6 +65,7 @@ local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 
 local IsPlaying = false
+local CurrentVOPlaying = false
 
 local factions = {'UEF', 'Aeon', 'Cybran', 'Seraphim'}
 
@@ -75,7 +76,6 @@ local VOReplayTime = {
     OnUnitCapLimitReached = 60,
     --OnFailedUnitTransfer = 10,
     --OnPlayNoStagingPlatformsVO = 5,
-
     OnCommanderUnderAttackVO = 20,
     ExperimentalDetected = 75,
     --ExperimentalUnitDestroyed = 5,
@@ -909,45 +909,54 @@ AIBrain = Class(moho.aibrain_methods) {
 		--play only for my army
 		if GetFocusArmy() == self.ArmyIndex then
 		
-			-- wait for the previous VO to finish
-			while IsPlaying do
+			if CurrentVOPlaying != string then
+		
+				-- wait for the previous VO to finish
+				while IsPlaying do
 			
-				WaitTicks(8)
+					WaitTicks(8)
 				
+				end
+
+				-- extract sound and send to UI
+				local cue,bank = GetCueBank(sound)
+
+				if not Sync.UnitData.VOs then
+			
+					Sync.UnitData.VOs = {}
+				
+				end
+
+				LOUDINSERT(Sync.UnitData.VOs, {Cue=cue, Bank=bank, Text=string, Marker=marker})
+
+				-- wait for end of delay
+				local time = VOReplayTime[string] or 30
+
+				IsPlaying = true
+				CurrentVOPlaying = string
+			
+				WaitTicks(60)
+				IsPlaying = false
+				CurrentVOPlaying = false
+
+				if time - 6 < 1 then
+			
+					time = 7
+				
+				end
+
+				WaitTicks((time - 6)*10)
+			
+				if self.VOTable[string] then
+			
+					self.VOTable[string] = nil
+				
+				end
+			
+			else
+				LOG("*AI DEBUG VO "..repr(string).." is already playing")			
 			end
 
-			-- extract sound and send to UI
-			local cue,bank = GetCueBank(sound)
-
-			if not Sync.UnitData.VOs then
-			
-				Sync.UnitData.VOs = {}
-				
-			end
-
-			LOUDINSERT(Sync.UnitData.VOs, {Cue=cue, Bank=bank, Text=string, Marker=marker})
-
-			-- wait for end of delay
-			local time = VOReplayTime[string] or 30
-
-			IsPlaying = true
-			WaitTicks(60)
-			IsPlaying = false
-
-			if time - 6 < 1 then
-			
-				time = 7
-				
-			end
-
-			WaitTicks((time - 6)*10)
-			
-			if self.VOTable[string] then
-			
-				self.VOTable[string] = nil
-				
-			end
-			
 		end
 		
 	end,
