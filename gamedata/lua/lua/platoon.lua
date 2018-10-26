@@ -5853,14 +5853,14 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway "..repr(refName) )
 	
 						aiBrain.BaseExpansionUnderway = true
 	
 						eng.NeedsBaseData = nil
 	
 						-- this callback removes the ExpansionUnderway flag from the brain
-						local deathFunction = function() aiBrain.BaseExpansionUnderway = false end
+						local deathFunction = function() LOG("*AI DEBUG "..aiBrain.Nickname.." Expansion engineer dies") aiBrain.BaseExpansionUnderway = false end
 	
 						-- it will get called if the platoon is destroyed
 						LOUDINSERT( self.EventCallbacks.OnDestroyed, deathFunction )
@@ -6215,6 +6215,10 @@ Platoon = Class(moho.platoon_methods) {
 	-- which will remove the previous item from the queue
 	-- when the queue is empty the engy will either RTB or repeat his plan (loopbuilders)
     ProcessBuildCommand = function( eng, removeLastBuild )
+	
+		if not eng.Sync.id then return end
+		
+		--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC")
 
 		local platoon = eng.PlatoonHandle or false
 		
@@ -6270,7 +6274,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
 			local function WatchForNotBuilding()
-
+				
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
+		
 				local GetPosition = moho.entity_methods.GetPosition
 				local GetWorkProgress = moho.unit_methods.GetWorkProgress
 
@@ -6281,9 +6287,7 @@ Platoon = Class(moho.platoon_methods) {
 				local engPos = GetPosition(eng) or false
 				local engLastPos = false
 				local stuckCount = 0
-				
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
-		
+
 				WaitTicks(4)
 		
 				while eng and (not eng.Dead) and (not eng:IsIdleState()) and not eng.Fighting do	
@@ -6303,8 +6307,10 @@ Platoon = Class(moho.platoon_methods) {
 							if stuckCount > 10 and not eng.Dead then
 						
 								LOG("*AI DEBUG Eng "..eng.Sync.id.." "..eng.PlatoonHandle.BuilderName.." Stuck in WatchForNotBuilding")
+								
+								eng:ForkThread(platoon.ProcessBuildCommand, false)
 							
-								return platoon:ProcessBuildCommand(eng, false)
+								return
 							
 							else
 						
@@ -6331,15 +6337,19 @@ Platoon = Class(moho.platoon_methods) {
 						
 						--LOG("*AI DEBUG Eng "..eng.Sync.id.." exits WFNB from capture/reclaim")
 						
-						return platoon.ProcessBuildCommand(eng, false)
+						eng:ForkThread( platoon.ProcessBuildCommand, false )
+						
+						return
 				
 					-- we had issued a build/repair order -- remove it and then PBC --
 					elseif eng.IssuedBuildCommand then
 
 						--LOG("*AI DEBUG Eng "..eng.Sync.id.." exits WFNB from build/repair")
 						
-						return platoon.ProcessBuildCommand(eng, true)
-					
+						eng:ForkThread( platoon.ProcessBuildCommand, true )
+						
+						return
+
 					end
 					
 				end
@@ -6765,8 +6775,11 @@ Platoon = Class(moho.platoon_methods) {
 									
 									-- clear all queue items
 									eng.EngineerBuildQueue = {}
+									
+									eng:ForkThread( platoon.ProcessBuildCommand, false )
 
-									return platoon.ProcessBuildCommand(eng, false )
+									return
+									
 								end
 
 							else
@@ -6785,8 +6798,10 @@ Platoon = Class(moho.platoon_methods) {
 									eng.NewExpansion = nil
 									-- clear all queue items
 									eng.EngineerBuildQueue = {}
+									
+									eng:ForkThread( platoon.ProcessBuildCommand, false )
 
-									return platoon.ProcessBuildCommand(eng, false )
+									return
 									
 								end
 								
@@ -6822,8 +6837,10 @@ Platoon = Class(moho.platoon_methods) {
 						
 										-- cancel a looping builder --
 										platoon.PlatoonData.Construction.LoopBuild = false
+										
+										eng:ForkThread( platoon.ProcessBuildCommand, true )
 							
-										return platoon.ProcessBuildCommand(eng, true )
+										return
 										
 									end
 									
@@ -6849,7 +6866,10 @@ Platoon = Class(moho.platoon_methods) {
 					if eng.failedmoves < 10 then
 
 						-- move onto next item to build
-						return platoon.ProcessBuildCommand(eng, true )
+						
+						eng:ForkThread( platoon.ProcessBuildCommand, true )
+						
+						return
 
 					else
 					

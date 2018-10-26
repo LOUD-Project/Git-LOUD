@@ -2349,6 +2349,8 @@ function DeadBaseMonitor( aiBrain )
 
 				-- if base has no engineers AND has had no factories for about 200 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k))
 					
 					-- handle the MAIN base
 					if k == 'MAIN' then
