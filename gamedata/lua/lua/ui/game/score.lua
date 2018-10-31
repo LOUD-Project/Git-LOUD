@@ -313,7 +313,7 @@ function _OnBeat()
                 if line.armyID == index then
 				
                     if line.OOG then break end
-                    line.score:SetText(scoreData.general.score)
+                    	line.score:SetText(GetScoreText(scoreData))
                     if GetFocusArmy() == index then
                         line.name:SetColor('ffff7f00')
                         line.score:SetColor('ffff7f00')
@@ -374,6 +374,10 @@ function _OnBeat()
 		
 	end
 
+end
+
+function GetScoreText(scoreData)
+	return scoreData.general.score
 end
 
 function SetUnitText(current, cap)
