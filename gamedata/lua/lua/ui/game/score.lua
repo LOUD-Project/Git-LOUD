@@ -313,28 +313,39 @@ function _OnBeat()
                 if line.armyID == index then
 				
                     if line.OOG then break end
-                    line.score:SetText(scoreData.general.score)
+					
+                    line.score:SetText(GetScoreText(scoreData))
+					
                     if GetFocusArmy() == index then
+					
                         line.name:SetColor('ffff7f00')
                         line.score:SetColor('ffff7f00')
                         line.name:SetFont('Arial Bold', 14)
                         line.score:SetFont('Arial Bold', 14)
+						
                         if scoreData.general.currentcap.count > 0 then
                             SetUnitText(scoreData.general.currentunits.count, scoreData.general.currentcap.count)
                         end
+						
                     else
+					
                         line.name:SetColor('ffffffff')
                         line.score:SetColor('ffffffff')
                         line.name:SetFont(UIUtil.bodyFont, 14)
                         line.score:SetFont(UIUtil.bodyFont, 14)
+						
                     end
+					
                     if armiesInfo[index].outOfGame then
+					
                         line.OOG = true
                         line.faction:SetTexture(UIUtil.UIFile('/game/unit-over/icon-skull_bmp.dds'))
                         line.color:SetSolidColor('ff000000')
                         line.name:SetColor('ffa0a0a0')
                         line.score:SetColor('ffa0a0a0')
+						
                     end
+					
                     break
                 end
             end
@@ -348,13 +359,19 @@ function _OnBeat()
 
 	
 		if observerLine then
+		
 			if GetFocusArmy() == -1 then
+			
 				observerLine.name:SetColor('ffff7f00')
 				observerLine.name:SetFont('Arial Bold', 14)
+				
 			else
+			
 				observerLine.name:SetColor('ffffffff')
 				observerLine.name:SetFont(UIUtil.bodyFont, 14)
+				
 			end
+			
 		end
 	
 		table.sort(controls.armyLines, function(a,b)
@@ -375,6 +392,11 @@ function _OnBeat()
 	end
 
 end
+
+function GetScoreText(scoreData)
+	return scoreData.general.score
+end
+
 
 function SetUnitText(current, cap)
 
