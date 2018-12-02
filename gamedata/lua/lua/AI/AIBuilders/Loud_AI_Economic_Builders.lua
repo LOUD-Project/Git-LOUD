@@ -79,7 +79,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
         BuilderConditions = {
 		
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', }},
-			{ EBC, 'LessEconEnergyStorageCurrent', { 6000 }},
+			{ EBC, 'LessEconEnergyStorageCurrent', { 5900 }},
 			
         },
 		

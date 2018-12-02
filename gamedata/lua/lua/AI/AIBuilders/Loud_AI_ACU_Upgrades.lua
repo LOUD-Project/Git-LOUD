@@ -22,6 +22,7 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local SAI = '/lua/scenarioplatoonai.lua'
 
+
 -- VANILLA COMMANDER UPGRADES --
 BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
     BuildersType = 'EngineerBuilder',
@@ -34,9 +35,8 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		FactionIndex = 1,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},			
 			{ UCBC, 'ACUNeedsUpgrade', { 'AdvancedEngineering' }},
         },
 		
@@ -60,8 +60,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'EnhancedSensors' }},
         },
 		
@@ -85,8 +84,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'MicrowaveLaserGenerator' }},
         },
 		
@@ -110,8 +108,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'RegenAura' }},
         },
 		
@@ -134,8 +131,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering' }},
         },
 		
