@@ -266,9 +266,7 @@ BuffField = Class(Entity) {
 		local function GetNearbyAffectableUnits()
 		
 			units = {}
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." geting nearby affectables for "..Owner:GetBlueprint().Description)
-			
+
 			local pos = Owner:GetPosition() or false
 			
 			if pos then
@@ -311,8 +309,6 @@ BuffField = Class(Entity) {
 					
 						-- all bufffields (atm) don't affect themselves
 						if Owner and IsUnit(unit) and Field and bp and unit != Owner then
-						
-							--LOG("*AI DEBUG unit getting bufffield")
 
 							unit.BuffFieldThreadHandle[bp.Name] = ForkThread( Field.UnitBuffFieldThread, unit, Owner, Field, bp )
 							
@@ -342,22 +338,28 @@ BuffField = Class(Entity) {
 	UnitBuffFieldThread = function( unit, Owner, Field, bp )
 
 		if bp.Buffs != nil then
+		
+			--LOG("*AI DEBUG Bufffield bp is "..repr(bp))
 
 			unit.HasBuffFieldThreadHandle[bp.Name] = true
 
 			local GetPosition = moho.entity_methods.GetPosition
 			local VDist3 = VDist3
-	
+
 			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
-			
-				dist = VDist3( GetPosition(unit), Owner:GetPosition() )
-			
-				if dist > bp.Radius then
+
+				if VDist3( GetPosition(unit), Owner:GetPosition() ) > bp.Radius then
+					--LOG("*AI DEBUG Out of field range")
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
 				end
 
 				for _, buff in bp.Buffs do
-					ApplyBuff( unit, buff )
+					
+					-- if the buff is no longer applied - reapply --
+					if not unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then					
+						ApplyBuff( unit, buff )
+					end
+
 				end
 	
 				WaitTicks(38)
@@ -373,54 +375,12 @@ BuffField = Class(Entity) {
 				end
 
 				unit.BuffFieldThreadHandle[bp.Name] = nil
-				unit.HasBuffFieldThreadHandle[bp.Name] = false
+				unit.HasBuffFieldThreadHandle[bp.Name] = nil
 			end
 		end
 		
 	end,
 
---[[
-    -- this will be run on the units affected by the field so self means the unit that is affected by the field
-    UnitBuffFieldThread = function( unit, Owner, Field, bp )
-
-		if bp.Buffs != nil then
-
-			unit.HasBuffFieldThreadHandle[bp.Name] = true
-
-			local GetPosition = moho.entity_methods.GetPosition
-			local VDist3 = VDist3
-		
-			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
-			
-				dist = VDist3( GetPosition(unit), Owner:GetPosition() )
-			
-				if dist > bp.Radius then
-					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
-				end
-
-				for _, buff in bp.Buffs do
-					ApplyBuff( unit, buff )
-				end
-	
-				WaitTicks(38)
-			end
-
-			for _, buff in bp.Buffs do
-		
-				if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
-					RemoveBuff( unit, buff )
-				end
-			end
-		
-			unit.BuffFieldThreadHandle[bp.Name] = nil
-			unit.HasBuffFieldThreadHandle[bp.Name] = false
-			
-		else
-			LOG("*AI DEBUG No buffs for "..repr(unit).." bp is "..repr(bp))
-		end
-		
-    end,
---]]
     -- these 2 are a bit weird. they are supposed to disable the enabled fields when on a transport and re-enable the
     -- fields that were enabled and leave the disabled fields off.
     DisableInTransport = function(Owner, Transport)

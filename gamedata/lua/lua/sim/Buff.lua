@@ -56,8 +56,6 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
 
-	--LOG("*AI DEBUG Applying Buff "..buffName)
-
     if unit.Dead or not unit.Buffs.BuffTable then 
         return 
     end
@@ -98,6 +96,7 @@ function ApplyBuff(unit, buffName, instigator)
         end
     end
 
+	-- if the unit already has this bufftype then ignore it
     if def.Stacks == 'IGNORE' and ubt[def.BuffType] and table.getsize(ubt[def.BuffType]) > 0 then
         return
     end
@@ -115,6 +114,8 @@ function ApplyBuff(unit, buffName, instigator)
     end
     
     local uaffects = unit.Buffs.Affects
+	
+	--LOG("*AI DEBUG Applying "..buffName)
 
     if def.Affects then
 	
@@ -142,7 +143,6 @@ function ApplyBuff(unit, buffName, instigator)
 		
 			-- create the unit BuffTable entry			
 			if not ubt[def.BuffType] then
-
 				ubt[def.BuffType] = {}
 			end
 
@@ -272,6 +272,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     if buffDef.OnBuffAffect and not afterRemove then
         buffDef:OnBuffAffect(unit, instigator)
     end
+	
+	--LOG("*AI DEBUG Affecting unit with Buff "..buffName)
 
     for atype, vals in buffAffects do
 
@@ -740,10 +742,10 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
     local def = Buffs[buffName]
 	
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
-	
-	--LOG("*AI DEBUG Removing Buff "..repr(unitBuff))
-	
+
 	if unitBuff then
+		
+		--LOG("*AI DEBUG Removing "..buffName)
     
 		for atype,_ in def.Affects do
 
