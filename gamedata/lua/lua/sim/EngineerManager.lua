@@ -112,7 +112,7 @@ EngineerManager = Class(BuilderManager) {
 
         table.insert( self.EngineerList, unit )
 		
-		--LOG("*AI DEBUG Adding Engineer "..repr(unit))
+		--LOG("*AI DEBUG Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
 
@@ -227,6 +227,8 @@ EngineerManager = Class(BuilderManager) {
 			
 		end
 		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." seeking task")
+		
 		unit.AssigningTask = true
 		
         if builder and (not unit.Dead) and (not unit.Fighting) then
@@ -265,6 +267,8 @@ EngineerManager = Class(BuilderManager) {
 				
 				return
 				
+			--else
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." takes "..repr(hndl.BuilderName))
 			end
 
 			unit.PlatoonHandle = hndl
@@ -764,8 +768,10 @@ EngineerManager = Class(BuilderManager) {
 	-- it determines if any threatening targets have entered the alert range of the base and issues an alert
 	-- This base, and various platoons, use these alerts to send response teams
 	BaseMonitorSetup = function( self, aiBrain)
-
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." setting up Base Monitor")
+	
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR setting up")
+		end
 	
 		self.BaseMonitor = {
 	
@@ -842,8 +848,10 @@ EngineerManager = Class(BuilderManager) {
 
 		-- This function is used by the AI to put markers on a map so that Allied Humans can see them
 		local function SetBaseMarker()
-
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." adding Base Marker for "..self.LocationType)
+		
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." adding Marker")
+			end
 	
 			if aiBrain.BuilderManagers[self.LocationType] then
 	
@@ -894,9 +902,9 @@ EngineerManager = Class(BuilderManager) {
 		
 					for _,LoopType in LoopTypes do
 					
-						--LOG("*AI DEBUG Processing "..repr(LoopType))
-			
-						highThreat = false
+						local alertraised = false
+
+						highThreat = self.BaseMonitor.AlertLevel	-- this sets the threat required to trigger an alert
 						highThreatPos = false
 						highThreatType = false
 	
@@ -910,12 +918,17 @@ EngineerManager = Class(BuilderManager) {
 							
 									-- match for threat type we are currently checking
 									if threat.Type == LoopType then
+						
+										-- filter out any threat less than the current highthreat value
+										if threat.Threat > highThreat then
+
+											if ScenarioInfo.BaseMonitorDialog then
+												LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Found "..repr(LoopType).." threat of "..threat.Threat)
+											end
 									
-										--LOG("*AI DEBUG Found "..repr(LoopType).." threat of "..threat.Threat)
-								
-										-- find highest threat and filter out tiny threats
-										if (not highThreat or threat.Threat > highThreat) and threat.Threat >= self.BaseMonitor.AlertLevel then
-									
+											-- signal that an alert has been raised 
+											alertraised = true
+											
 											highThreat = threat.Threat
 											highThreatPos = {threat.Position[1], threat.Position[2], threat.Position[3]}
 							
@@ -943,6 +956,8 @@ EngineerManager = Class(BuilderManager) {
 												highThreatType = threat.Type
 											
 											end
+											
+											break	-- we raised an alert - we dont check any more of this looptype
 										
 										end
 									
@@ -950,7 +965,7 @@ EngineerManager = Class(BuilderManager) {
 								
 								else
 							
-									break
+									break	-- no alert within radius - we dont check any more of this looptype
 								
 								end
 							
@@ -958,12 +973,13 @@ EngineerManager = Class(BuilderManager) {
 						
 						end
 
-						-- if we have a high threat condition -- and don't already have one of this type --
-						if highThreat and not self.BaseMonitor.AlertsTable[highThreatType] then
+						-- if we raised a threat -- and don't already have one of this type --
+						if alertraised and not self.BaseMonitor.AlertsTable[highThreatType] then
 			
-							-- update the BaseMonitor data
+							-- update the BaseMonitors total active alerts
 							self.BaseMonitor.ActiveAlerts = self.BaseMonitor.ActiveAlerts + 1
 						
+							-- record the time of the alert
 							self.BaseMonitor.LastAlertTime = LOUDFLOOR(GetGameTimeSeconds())
 					
 							-- put an entry into the alert table for this threat type
@@ -971,31 +987,37 @@ EngineerManager = Class(BuilderManager) {
 						
 							-- notify the brain there is an alert at a base
 							aiBrain.BaseAlertSounded = true
-					
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." raises "..highThreatType.." alert of "..highThreat)
+							
+							if ScenarioInfo.BaseMonitorDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..highThreat)
+							end
 							
 							-- accurately check the threat, launch the response thread, and monitor the threat until its gone
 							self:ForkThread( self.BaseMonitorAlertTimeoutLOUD, aiBrain, highThreatPos, self.Location, highThreatType)
 						
 						end
 					
-						WaitTicks(1)
+						WaitTicks(2)
 					
 					end
 				
 				end
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." threat check complete")
-			
+	
 			end
 		
 		end
 	
 		local delay = 0
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." starts")
+		
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
+		end
 	
 		while self.Active do
+		
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Thread waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )
+			end
 	
 			-- at present, this starts at about 7 seconds per cycle
 			WaitTicks(( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )        
@@ -1019,7 +1041,11 @@ EngineerManager = Class(BuilderManager) {
 				end
 			
 				BaseMonitorThreatCheck()
-			
+				
+				if ScenarioInfo.BaseMonitorDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check complete")
+				end
+
 			end
 		
 			delay = (GetGameTimeSeconds()) - self.BaseMonitor.LastAlertTime
@@ -1166,7 +1192,13 @@ EngineerManager = Class(BuilderManager) {
 					end
 				
 				end
-        
+			
+				if ScenarioInfo.BaseMonitorDialog then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." threat is "..threat.." - level is "..self.BaseMonitor.AlertLevel.." threat distance is "..VDist2(pos[1],pos[3], baseposition[1],baseposition[3]) )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." alert timeout waiting "..self.BaseMonitor.AlertTimeout * 10 )
+				end
+
 				WaitTicks( self.BaseMonitor.AlertTimeout * 10 ) -- before checking this threat again --
 
 			end
@@ -1176,19 +1208,21 @@ EngineerManager = Class(BuilderManager) {
 		self.BaseMonitor.AlertsTable[threattype] = nil
 
 		self.BaseMonitor.ActiveAlerts = self.BaseMonitor.ActiveAlerts - 1
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." deactivates "..threattype.." alert")
+		
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR deactivates "..threattype.." alert")
+		end
 
 		-- if no more alerts reset the alert table
 		if self.BaseMonitor.ActiveAlerts == 0 then
-	
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." has NO alerts")
-	
+
 			self.BaseMonitor.AlertsTable = {}
 
 			aiBrain.BaseAlertSounded = false
 		
 		else
+		
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR has no active alerts")
 	
 			aiBrain.BaseAlertSounded = true
 		
@@ -1294,8 +1328,10 @@ EngineerManager = Class(BuilderManager) {
 		
 		local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
 		local GetFreeUnitsAroundPoint = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Base Monitor Distress Response Thread Launched")
+		
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Distress Response Thread Launched")
+		end
 	
 		-- this loop runs as long as there is distress underway and the base exists and has active alerts
 		-- repeating every AlertResponseTime period
@@ -1323,9 +1359,11 @@ EngineerManager = Class(BuilderManager) {
 						grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER, baseposition, radius )
 					
 						if grouplndcount > 4 then
-
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
-
+						
+							if ScenarioInfo.BaseMonitorDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
+							end
+							
 							-- only send response if we can muster 33% of enemy threat
 							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/3) then
 					
@@ -1350,8 +1388,10 @@ EngineerManager = Class(BuilderManager) {
 						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER, baseposition, radius )
 					
 						if groupseacount > 0 then
-					
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..threatamount)
+						
+							if ScenarioInfo.BaseMonitorDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..threatamount)
+							end
 				
 							if GetThreatOfGroup(groupsea,'Naval') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/2) then
 					
@@ -1378,7 +1418,9 @@ EngineerManager = Class(BuilderManager) {
 					
 						if groupaircount > 2 then
 
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..threatamount)
+							if ScenarioInfo.BaseMonitorDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..threatamount)
+							end
 						
 							-- Move the gunship/bomber group to the distress location and issue guard there 
 							IssueClearCommands( groupair )
@@ -1390,8 +1432,10 @@ EngineerManager = Class(BuilderManager) {
 						end
 				
 						if groupftrcount > 2 then 
-					
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." trying to respond to "..distressType.." value "..threatamount)
+						
+							if ScenarioInfo.BaseMonitorDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..threatamount)
+							end
 						
 							if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/2) then
 					
@@ -1412,6 +1456,10 @@ EngineerManager = Class(BuilderManager) {
 
 				WaitTicks(2) -- delay between distress type checks
 			
+			end
+			
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR DistressResponseThread waiting "..self.BaseMonitor.AlertResponseTime + distressrepeats * 10)
 			end
 
 			WaitTicks( (self.BaseMonitor.AlertResponseTime + distressrepeats) * 10)
