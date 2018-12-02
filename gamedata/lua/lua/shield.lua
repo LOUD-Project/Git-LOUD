@@ -1,5 +1,5 @@
----  /lua/shield.lua
---- Added support for hunker shields
+--  /lua/shield.lua
+-- Added support for hunker shields
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -43,6 +43,7 @@ Shield = Class(moho.shield_methods,Entity) {
         self.Trash = TrashBag()	-- so the shield itself has a trashbag -- why not use the Owners ?
         self.Owner = spec.Owner
 		self.Army = GetArmy(self)
+		self.Dead = false
 
         self.MeshBp = spec.Mesh
         self.MeshZBp = spec.MeshZ
@@ -260,7 +261,7 @@ Shield = Class(moho.shield_methods,Entity) {
 				
                 if self.RegenRate > 0 then
 				
-                    self.RegenThread = ForkTo( self.RegenStartThread, self )
+                    self.RegenThread = self:ForkThread(self.RegenStartThread)
 
                 end
 				
@@ -337,6 +338,9 @@ Shield = Class(moho.shield_methods,Entity) {
 		end
 		
 		self:UpdateShieldRatio(0)
+		
+		self.Trash:Destroy()
+
         ChangeState(self, self.DeadState)
     end,
 
@@ -438,7 +442,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
             curProgress = curProgress + GetResourceConsumed( self.Owner )
 			
-			SetShieldRatio( self.Owner, curProgress/time )
+			self.Owner:SetShieldRatio( curProgress/time )
 			
             WaitTicks(10)
         end    
@@ -469,7 +473,7 @@ Shield = Class(moho.shield_methods,Entity) {
 				
                     self.RegenThread = self:ForkThread(self.RegenStartThread )
 					
-                    self.Owner.Trash:Add(self.RegenThread)
+                    self.Trash:Add(self.RegenThread)
 					
                 end
 				
@@ -478,7 +482,7 @@ Shield = Class(moho.shield_methods,Entity) {
             -- We are no longer turned off
             self.OffHealth = -1
 			
-            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+            self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
 			
             self.Owner:OnShieldEnabled()
 			self:CreateShieldMesh()
@@ -490,7 +494,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 				WaitTicks(5)
 				
-				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
+				self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
 				
                 if GetResourceConsumed( self.Owner ) != 1 and GetEconomyStored(aiBrain, 'ENERGY') < 1 then
 					
@@ -586,6 +590,7 @@ Shield = Class(moho.shield_methods,Entity) {
     DeadState = State {
 	
         Main = function(self)
+			self.Dead = true
         end,
 		
     },
