@@ -314,7 +314,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
-					LOG("*AI DEBUG "..aiBrain.Nickname.." FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
+					if ScenarioInfo.PriorityDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
+					end
 					
 					self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
 					

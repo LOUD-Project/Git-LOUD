@@ -56,7 +56,7 @@ BuilderManager = Class {
         if enable then
 
 			self.Active = true		
-			ForkTo(self.ManagerThread, self, brain)
+			self:ForkThread( self.ManagerThread, brain)
 
         elseif not enable then
 
@@ -204,7 +204,11 @@ BuilderManager = Class {
 	-- and randomly return one of the possible jobs
     GetHighestBuilder = function( self, unit, aiBrain )
 
+		-- function that checks all the conditions of a builder
+		-- only returns true if all conditions pass 
 		local GetBuilderStatus = function( task )
+			
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." testing Builder "..task.BuilderName.." at "..task.Priority)
 		
 			for _,value in task.BuilderConditions do
 			
@@ -290,7 +294,7 @@ BuilderManager = Class {
 				if task.OldPriority and task.OldPriority == 0 then
 
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )
 					end
 					
 					LOUDREMOVE(self.BuilderData[unit.BuilderType].Builders,k)
@@ -302,13 +306,18 @@ BuilderManager = Class {
 			end
 			
 			if Builders[TaskList[k].BuilderName].PriorityFunction then
-		
+
 				local newPri = false
 				local temporary = true
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 
+				-- if the priority function reports a different priority than current priority
 				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
+				
+					if ScenarioInfo.PriorityDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." reports "..newPri.." versus "..task.Priority )
+					end
 
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )
 					

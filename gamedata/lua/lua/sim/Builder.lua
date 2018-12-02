@@ -120,7 +120,7 @@ Builder = Class {
 		end
 		
 		if ScenarioInfo.PriorityDialog then
-			LOG("*AI DEBUG "..builder.ManagerType.." "..builder.LocationType.." "..builder.BuilderName.." set to "..val.." Temporary is "..repr(temporary))
+			LOG("*AI DEBUG "..repr(builder.ManagerType).." "..repr(builder.Location).." "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
 		end
 		
     end,
@@ -371,7 +371,9 @@ PlatoonBuilder = Class(Builder) {
 								b.InstanceCount[platoon.BuilderInstance].PlatoonHandle = false
 								b.InstanceCount[platoon.BuilderInstance].Status = 'Available'
 								
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstancesAvailable)
+								if ScenarioInfo.PriorityDialog then
+									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstancesAvailable)
+								end
 								
 								break
 								
