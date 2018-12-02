@@ -207,6 +207,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         if not self.EconDrain and bp.EnergyRequired and bp.EnergyDrainPerSecond then
 		
+			local function ChargeProgress( self, progress)
+				moho.unit_methods.SetWorkProgress( self, progress )
+			end
+		
             local nrgReq = self:GetWeaponEnergyRequired(bp)
             local nrgDrain = self:GetWeaponEnergyDrain(bp)
 			
@@ -218,7 +222,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     time = 0.1
                 end
 				
-                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, self.unit.UpdateTeleportProgress )
+                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
                 self.FirstShot = true
             end
         end

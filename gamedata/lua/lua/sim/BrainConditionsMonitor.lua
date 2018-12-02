@@ -237,6 +237,7 @@ Condition = Class {
 
 	SetStatus = function(self,brain)
 	
+		--LOG("*AI DEBUG "..brain.Nickname.." "..self.FunctionName.." set status")
 		
 		if self.FunctionDataElements == 1 then
 			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1])

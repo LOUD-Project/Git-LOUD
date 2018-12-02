@@ -42,7 +42,7 @@ local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
-local WaitTicks = WaitTicks
+local WaitTicks = coroutine.yield
 
 local GetArmy = moho.entity_methods.GetArmy
 local GetBlueprint = moho.entity_methods.GetBlueprint

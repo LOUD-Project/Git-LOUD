@@ -647,8 +647,9 @@ function CDRHideBehavior( aiBrain, cdr )
 		
         local plat = MakePlatoon( aiBrain, 'CDRWander', 'none' )
 		
-        AssignUnitsToPlatoon( aiBrain, plat, {cdr}, 'Support', 'None' )
 		plat.BuilderName = 'CDRWander'
+		
+        AssignUnitsToPlatoon( aiBrain, plat, {cdr}, 'Support', 'None' )
 		
 		IssueClearCommands( {cdr} )		
 		

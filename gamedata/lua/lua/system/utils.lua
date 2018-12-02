@@ -280,7 +280,7 @@ function table.map(fn, t)
     return r
 end
 
--- table.empty(t) returns true iff t has no keys/values.
+-- table.empty(t) returns true if t has no keys/values.
 function table.empty(t)
     for k,v in t do
         return false
