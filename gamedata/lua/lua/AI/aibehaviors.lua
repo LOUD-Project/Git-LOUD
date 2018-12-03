@@ -734,15 +734,15 @@ function CDREnhance( self, aiBrain )
 			
 				if not unit:HasEnhancement(v) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." in CDREnhance for "..repr(v))
-				
 					repeat
 					
 						WaitTicks(10)
 						
-					until IsIdleState(unit)
+					until IsIdleState(unit) or unit.Dead
 					
-					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = v} )
+					if not unit.Dead then
+						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = v} )
+					end
 					
 				end
 				
@@ -751,14 +751,18 @@ function CDREnhance( self, aiBrain )
 				repeat
 				
 					WaitTicks(10)
-					--LOG("*AI DEBUG Wait to begin enhancement for " .. unit.Sync.id)
+					
+					LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
+					
 					stallcount = stallcount + 1
 					
 				until unit.Dead or IsUnitState(unit,'Enhancing') or stallcount > 10
 				
+				LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v) )
+				
 				repeat
 				
-					WaitTicks(150)
+					WaitTicks(100)
 					
 				until not IsUnitState(unit,'Enhancing') or unit.Dead 
 				

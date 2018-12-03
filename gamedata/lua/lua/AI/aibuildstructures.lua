@@ -7,27 +7,22 @@ local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
 local LOUDINSERT = table.insert
 
-local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
-local FindPlaceToBuild = moho.aibrain_methods.FindPlaceToBuild
 
 function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)
-   
     LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, buildLocation } )
 end
 
 function IsResource(buildingType)
-
     return buildingType == 'Resource' or buildingType == 'T1HydroCarbon' or buildingType == 'T1Resource' or buildingType == 'T2Resource' or buildingType == 'T3Resource'
-	
 end
 
 -- This function is usually used for building items in no particular location but still contained within a base template
 -- The FindPlaceToBuild function usually returns the location closest to the reference point (relativeTo) that is open
 function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
-    local whatToBuild = DecideWhatToBuild( aiBrain, engineer, buildingType, buildingTemplate)
+    local whatToBuild = aiBrain:DecideWhatToBuild( engineer, buildingType, buildingTemplate)
 
-    if not whatToBuild then
+    if not whatToBuild or engineer.Dead then
 	
 		LOG("*AI DEBUG AIEXBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
 		
@@ -53,21 +48,21 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- Most certainly it won't be related to any threat check we do elsewhere in our code - as far as I can tell.
 		-- The biggest result - ENGINEERS GO WANDERING INTO HARMS WAY FREQUENTLY -- I'm going to try various values
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
-        location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', relativeTo[1], relativeTo[3], engineer.PlatoonHandle.PlatoonData.Construction.ThreatMax or 7.5)	
+        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', relativeTo[1], relativeTo[3], engineer.PlatoonHandle.PlatoonData.Construction.ThreatMax or 7.5)	
 		
 		if not location then
 		
-			engineer.PlatoonHandle:ReturnToBaseAI(aiBrain)
+			engineer.PlatoonHandle:SetAIPlan('ReturnToBaseAI', aiBrain)
 			
 		end
 		
     else
 	
-        location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, baseTemplate, relative, engineer, nil, relativeTo[1], relativeTo[3])
+        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, nil, relativeTo[1], relativeTo[3])
 		
     end
 	
-    if location then
+    if location and not engineer.Dead then
 	
         local relativeLoc = { location[1], 0, location[2] }
 		
@@ -89,9 +84,9 @@ end
 
 function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
-    local whatToBuild = DecideWhatToBuild( aiBrain, builder, buildingType, buildingTemplate)
+    local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate)
 
-    if whatToBuild then
+    if whatToBuild and not builder.Dead then
 	
         for _,bType in baseTemplate do
 		
@@ -120,8 +115,8 @@ end
 function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( eng, buildingType, buildingTemplate)
-	
-    if whatToBuild then
+
+    if whatToBuild and not eng.Dead then
 
         if IsResource(buildingType) then
 		
@@ -162,8 +157,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType , closeToBuilder
 
 							if n > 1 then
 							
-								if aiBrain:CanBuildStructureAt( whatToBuild, { position[1], 0, position[2] } ) or EngineerTryRepair( { position[1],0,position[2] } ) then
-									--or EngineerTryRepair(aiBrain, eng, whatToBuild, { position[1], 0, position[2] } ) then
+								if not eng.Dead and aiBrain:CanBuildStructureAt( whatToBuild, { position[1], 0, position[2] } ) or EngineerTryRepair( { position[1],0,position[2] } ) then
 									
 									AddToBuildQueue( aiBrain, eng, whatToBuild, position )
 									
@@ -237,7 +231,7 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
 
     local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate )
 
-    if whatToBuild then
+    if whatToBuild and not builder.Dead then
 	
         local upperString = ParseEntityCategory( string.upper(whatToBuild) )
         local unitSize = aiBrain:GetUnitBlueprint( whatToBuild ).Physics
