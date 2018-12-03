@@ -121,6 +121,8 @@ FactoryBuilderManager = Class(BuilderManager) {
             WaitTicks(100)
 			
         end
+		
+		--LOG("*AI DEBUG Adding Factory "..factory.Sync.id.." to "..self.ManagerType.." "..self.LocationType)
 
 		local LOUDENTITY = EntityCategoryContains
 
@@ -260,6 +262,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
+				
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.Sync.id.." takes "..builder.BuilderName)
 		
 					factory.addplan = false
 					factory.addbehavior = false
@@ -360,7 +364,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local aiBrain = factory:GetAIBrain()		
 		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 	
-		WaitTicks( 6 - (factory.BuildLevel * 2) + (factory.failedbuilds * 10) + 1 )
+		WaitTicks( (6 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) + 1 )
 
 		if self.EnhanceThread then
 		
@@ -572,7 +576,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
 
-            ForkThread( EM.AddEngineerUnit, EM, finishedUnit )
+            EM:ForkThread( EM.AddEngineerUnit, finishedUnit )
 			
 		end
 		
@@ -836,7 +840,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 			IssueFactoryRallyPoint({factory}, rally)
 		
-			TrafficControl = factory:ForkThread(self.TrafficControlThread, position, rally)
+			factory:ForkThread(self.TrafficControlThread, position, rally)
 			
 		end
 		
@@ -893,7 +897,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				for _,unit in units do
 				
-					if (not unit.PlatoonHandle) and unit:IsIdleState() then
+					if (unit.PlatoonHandle == aiBrain.ArmyPool) and unit:IsIdleState() then
 
 						table.insert( unitlist, unit )
 						
@@ -902,6 +906,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 				
 				if table.getn(unitlist) > 10 then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." TraffMgt of "..table.getn(unitlist).." at "..repr(rallypoint))
 
 					IssueClearCommands( unitlist )
 
