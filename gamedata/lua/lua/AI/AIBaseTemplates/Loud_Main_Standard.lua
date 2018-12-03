@@ -143,8 +143,8 @@ BaseBuilderTemplate {
     BaseSettings = {
 		-- This controls the upper limit on the engineers at this base
         EngineerCount = {
-            Tech1 = 6,
-            Tech2 = 8,
+            Tech1 = 7,
+            Tech2 = 9,
             Tech3 = 8,
             SCU = 10,
         },

@@ -53,10 +53,10 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
 			
 			-- Greater than 50 economy threat closer than 18km
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 25, 'Economy' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 25, 'Economy' }},
 			
 			-- dont build if we have built any advanced power -- obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
 			
         },
@@ -89,6 +89,8 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 2,
 		
         Priority = 751,
 		
@@ -154,6 +156,41 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         }
 		
     },
+
+    Builder {BuilderName = 'T2 Artillery - Base Template',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 40 }},			
+			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2Artillery'},
+				
+            }
+			
+        }
+		
+    },		
 	
     Builder {BuilderName = 'T2 Base TMD - Base Template',
 	
@@ -189,8 +226,8 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			
         }
 		
-    },	
-
+    },
+--[[
     Builder {BuilderName = 'T2 TML - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -229,44 +266,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         }
 		
     },
-
-    Builder {BuilderName = 'T2 Artillery - Base Template',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE, 10, 40 }},			
-			
-        },
-		
-        BuilderType = {'T2','T3'},
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				ThreatMax = 45,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T2Artillery'},
-				
-            }
-			
-        }
-		
-    },	
+--]]
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',

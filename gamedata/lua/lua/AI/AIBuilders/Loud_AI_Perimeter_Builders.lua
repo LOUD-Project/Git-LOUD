@@ -50,9 +50,9 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
         BuilderConditions = {
 		
 			{ EBC, 'GreaterThanEnergyIncome', { 400 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			-- dont have any advanced power built -- makes this gun obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
 			-- the 12 accounts for the 12 T1 Base PD that may get built in this ring
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 50, 75}},
 			
@@ -167,7 +167,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
         BuilderConditions = {
 		
 			{ EBC, 'GreaterThanEnergyIncome', { 400 }},			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE}},
