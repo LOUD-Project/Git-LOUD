@@ -1337,7 +1337,9 @@ EngineerManager = Class(BuilderManager) {
 		-- repeating every AlertResponseTime period
 		while distressunderway and self.Active and self.BaseMonitor.ActiveAlerts > 0 do
 	
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." BASEMONITOR "..self.LocationType.." distress response underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR distress response underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
+			end
     
 			-- Delay between Distress check cycles
 			-- add extra delay based upon LastAlert at this base
@@ -1458,7 +1460,7 @@ EngineerManager = Class(BuilderManager) {
 			
 			end
 			
-			if ScenarioInfo.BaseMonitorDialog then
+			if not response and ScenarioInfo.BaseMonitorDialog then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR DistressResponseThread waiting "..self.BaseMonitor.AlertResponseTime + distressrepeats * 10)
 			end
 
