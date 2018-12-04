@@ -28,7 +28,7 @@ local LOUDENTITY = EntityCategoryContains
 
 local VDist2Sq = VDist2Sq
 
-local ForkThread = ForkThread
+--local ForkThread = ForkThread
 
 local WaitTicks = coroutine.yield
 
@@ -997,7 +997,7 @@ EngineerManager = Class(BuilderManager) {
 						
 						end
 					
-						WaitTicks(2)
+						--WaitTicks(2)
 					
 					end
 				
@@ -1007,7 +1007,7 @@ EngineerManager = Class(BuilderManager) {
 		
 		end
 	
-		local delay = 0
+		local delay = self.BaseMonitor.BaseMonitorInterval or 0
 		
 		if ScenarioInfo.BaseMonitorDialog then
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
@@ -1015,11 +1015,8 @@ EngineerManager = Class(BuilderManager) {
 	
 		while self.Active do
 		
-			if ScenarioInfo.BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Thread waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )
-			end
-	
-			-- at present, this starts at about 7 seconds per cycle
+			-- at present, this starts at about 16 seconds per cycle since
+			-- we add the normal interval to itself to begin
 			WaitTicks(( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )        
 		
 			if self.Active then
@@ -1027,32 +1024,27 @@ EngineerManager = Class(BuilderManager) {
 				if ScenarioInfo.DisplayBaseNames then
 			
 					if not aiBrain.BuilderManagers[self.LocationType].MarkerID then
-				
 						ForkThread( SetBaseMarker )
-					
 					end
-				
 				end
 
 				if ScenarioInfo.DisplayBaseMonitors then
-			
 					ForkThread( DrawBaseMonitorRadius )
-				
 				end
 			
-				BaseMonitorThreatCheck()
-				
-				if ScenarioInfo.BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check complete")
-				end
+				ForkThread( BaseMonitorThreatCheck )
 
 			end
 		
 			delay = (GetGameTimeSeconds()) - self.BaseMonitor.LastAlertTime
 		
-			delay = LOUDFLOOR(delay/120)	-- delay is increased by 1 second for every 2 minutes since last alert
+			delay = LOUDFLOOR(delay/60)	-- delay is increased by 1 second for every minutes since last alert
 			delay = LOUDMIN(delay, 20)	-- delay is capped at 20 additional seconds
-		
+			
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check - waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )
+			end
+			
 		end
 	
 	end,
@@ -1219,11 +1211,13 @@ EngineerManager = Class(BuilderManager) {
 			self.BaseMonitor.AlertsTable = {}
 
 			aiBrain.BaseAlertSounded = false
+			
+			if ScenarioInfo.BaseMonitorDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR has no active alerts")
+			end
 		
 		else
-		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR has no active alerts")
-	
+
 			aiBrain.BaseAlertSounded = true
 		
 		end

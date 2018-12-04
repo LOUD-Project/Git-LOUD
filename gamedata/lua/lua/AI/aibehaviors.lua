@@ -748,23 +748,30 @@ function CDREnhance( self, aiBrain )
 				
 				local stallcount = 0
 				
+				if ScenarioInfo.ACUEnhanceDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
+				end
+				
 				repeat
 				
 					WaitTicks(10)
-					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
-					
+
 					stallcount = stallcount + 1
 					
 				until unit.Dead or IsUnitState(unit,'Enhancing') or stallcount > 10
+
+				if IsUnitState(unit,'Enhancing') then
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v) )
+					if ScenarioInfo.ACUEnhanceDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v) )
+					end
 				
-				repeat
+					repeat
 				
-					WaitTicks(100)
+						WaitTicks(100)
 					
-				until not IsUnitState(unit,'Enhancing') or unit.Dead 
+					until not IsUnitState(unit,'Enhancing') or unit.Dead 
+				end
 				
 				break
 				
@@ -4790,23 +4797,24 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 	local count
     
     while not unit.Dead and not unit.EnhancementsComplete do
-	
+
         CurrentEnhancement = EnhanceList[1]
-		
+
 		if HasEnhancement( unit, CurrentEnhancement) then
 
 			table.remove(EnhanceList, 1)
 
 		end
-		
-        BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
-        BuildCostM = EBP[CurrentEnhancement].BuildCostMass
-        BuildCostT = EBP[CurrentEnhancement].BuildTime
-		
+
         -- if unit is idle and not currently in a platoon
         if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
+		
+			BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
+			BuildCostM = EBP[CurrentEnhancement].BuildCostMass
+			BuildCostT = EBP[CurrentEnhancement].BuildTime
             
             EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
+			
             RateNeededE = BuildCostE / EffTime
             RateNeededM = BuildCostM / EffTime
             
@@ -4823,14 +4831,16 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 					IssueClearCommands({unit})
 			
 					if ScenarioInfo.NameEngineers then
-				
 						unit:SetCustomName("SCU "..unit.Sync.id.." "..CurrentEnhancement)
-					
 					end
 				
 					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
 				
 					count = 0
+					
+					if ScenarioInfo.SCUEnhanceDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." waiting to start "..repr(CurrentEnhancement))
+					end
 
 					-- sometimes SCU has a problem getting started so count was necessary
 					repeat
@@ -4840,23 +4850,33 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 					
 					until unit.Dead or IsUnitState(unit,'Enhancing') or count > 10
 
-					-- prevent any other orders while enhancing
-					SetBlockCommandQueue( unit, true)                
-				
-					while not unit.Dead and IsUnitState(unit,'Enhancing') do
-				
-						WaitTicks(80)
+					if IsUnitState(unit,'Enhancing') then
 					
-					end    
+						-- prevent any other orders while enhancing
+						SetBlockCommandQueue( unit, true)
+						
+						if ScenarioInfo.SCUEnhanceDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." starting "..repr(CurrentEnhancement))
+						end
+				
+						while not unit.Dead and IsUnitState(unit,'Enhancing') do
+				
+							WaitTicks(80)
+					
+						end
+						
+					end
                 
 					if HasEnhancement( unit, CurrentEnhancement) then
 				
 						table.remove(EnhanceList, 1)
+						
+						if ScenarioInfo.SCUEnhanceDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." completed "..repr(CurrentEnhancement))
+						end
 					
 					else
-				
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Failed to Add Enhancement "..CurrentEnhancement.." to "..unit.Sync.id)
-					
+						LOG("*AI DEBUG "..aiBrain.Nickname.." SCU "..unit.Sync.id.." Failed Enhancement "..repr(CurrentEnhancement))
 					end
 				
 					-- allow other orders when no longer enhancing
@@ -4888,7 +4908,12 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
         
         if HasEnhancement( unit, final) then
 		
+			if ScenarioInfo.SCUEnhanceDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." all enhancements completed")
+			end		
+		
 			unit.EnhancementsComplete = true
+			
             break
 			
         end

@@ -907,7 +907,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				if table.getn(unitlist) > 10 then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." TraffMgt of "..table.getn(unitlist).." at "..repr(rallypoint))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." TraffMgt of "..table.getn(unitlist).." at "..repr(rallypoint))
 
 					IssueClearCommands( unitlist )
 

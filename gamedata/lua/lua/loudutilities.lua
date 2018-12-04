@@ -3402,7 +3402,6 @@ function ParseIntelThread( aiBrain )
 	local LOUDMAX = math.max
 	local LOUDMIN = math.min
 	local LOUDMOD = math.mod
-	local LOUDREMOVE = table.remove
 
     local EnemyData = aiBrain.EnemyData
     local EnemyDataCount = EnemyData.Count
