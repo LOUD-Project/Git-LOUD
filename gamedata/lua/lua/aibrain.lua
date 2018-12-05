@@ -41,11 +41,18 @@
 	ScenarioInfo.BaseMonitorDialog = false
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
-	ScenarioInfo.ACUEnhanceDialog = true
+	ScenarioInfo.ACUEnhanceDialog = false
 	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
 	
-	ScenarioInfo.SCUEnhanceDialog = true
+	ScenarioInfo.SCUEnhanceDialog = false
 	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
+
+	ScenarioInfo.FactoryEnhanceDialog = false
+	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
+
+	ScenarioInfo.StructureUpgradeDialog = false
+	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
+	
 
 local import = import
 
