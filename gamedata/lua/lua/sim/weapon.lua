@@ -24,18 +24,17 @@ Weapon = Class(moho.weapon_methods) {
 
     ForkThread = function(self, fn, ...)
         local thread = ForkThread(fn, self, unpack(arg))
-        self.unit.Trash:Add(thread)
+		self.Trash:Add(thread)
         return thread
     end,
 
     OnCreate = function(self)
-	
-        if not self.unit.Trash then
-            self.unit.Trash = TrashBag()
-        end
+
+		-- use the trash on the parent unit
+		self.Trash = self.unit.Trash
 		
-        local bp = GetBlueprint(self)		
-		
+        local bp = GetBlueprint(self)
+
         self:SetValidTargetsForCurrentLayer( self.unit:GetCurrentLayer(), bp)
 		
         if bp.Turreted == true then
@@ -64,7 +63,8 @@ Weapon = Class(moho.weapon_methods) {
         self:SetWeaponPriorities()
         self.Disabledbf = {}
         self.DamageMod = 0
-        self.DamageRadiusMod = 0
+		
+        --self.DamageRadiusMod = 0
 		
         local initStore = tonumber(ScenarioInfo.Options.MissileOption) or bp.InitialProjectileStorage or 0
 		
@@ -84,14 +84,26 @@ Weapon = Class(moho.weapon_methods) {
         end
 		
 		self:SetDamageTable(bp)
-		
+
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id )
+		end
+
+    end,
+
+    OnDestroy = function(self)
+		-- this only triggers when the unit itself is destroyed
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnDestroy")
+		end
+
     end,
 
     AmmoThread = function(self, nuke, amount)
 	
-        WaitTicks(2)
-		
 		if not self.unit.Dead then
+			
+			WaitTicks(2)
 		
 			if nuke then
 				self.unit:GiveNukeSiloAmmo(amount)
@@ -134,9 +146,9 @@ Weapon = Class(moho.weapon_methods) {
                 end
 				
                 self:SetFireControl('Right')
-                self.unit.Trash:Add(self.AimControl)
-                self.unit.Trash:Add(self.AimRight)
-                self.unit.Trash:Add(self.AimLeft)
+                self.Trash:Add(self.AimControl)
+                self.Trash:Add(self.AimRight)
+                self.Trash:Add(self.AimLeft)
 				
             else
                 self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
@@ -153,7 +165,7 @@ Weapon = Class(moho.weapon_methods) {
                         if v.RackBone != pitchBone then
                             local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
                             slaver:SetPrecedence(precedence-1)
-                            self.unit.Trash:Add(slaver)
+                            self.Trash:Add(slaver)
                         end
                     end
                 end
@@ -273,6 +285,9 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnFire = function(self)
+	
+		LOG("*AI DEBUG Weapon OnFire")
+		
         local bp = GetBlueprint(self)
         
 		if bp.Buffs then
@@ -281,15 +296,23 @@ Weapon = Class(moho.weapon_methods) {
     end,
 	
 	OnWeaponFired = function(self, target)
+
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description) )
+		end
 		-- I put this here just to see if it could be trapped (and it is) with the intention
 		-- of discovering if it would be possible to turn cloaking off when a weapon on a
 		-- cloaked unit fires
+		-- just a note - this triggers only ONCE per firing cycle - not when each muzzle fires
+		-- so you'll only get one event no matter how many muzzles and projectiles are created
 	end,
 
     OnEnableWeapon = function(self)
     end,
 
     OnGotTarget = function(self)
+	
+		--LOG("*AI DEBUG Weapon OnGotTarget")
 	
         if self.DisabledFiringBones and self.unit.Animator then
 		
@@ -304,6 +327,8 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
+	
+		--LOG("*AI DEBUG Weapon OnLostTarget")
 	
         if self.DisabledFiringBones and self.unit.Animator then
 		
@@ -352,13 +377,13 @@ Weapon = Class(moho.weapon_methods) {
 
         local damageTable = {
 		
-			DamageRadius = weaponBlueprint.DamageRadius + (self.DamageRadiusMod or 0),
+			DamageRadius = weaponBlueprint.DamageRadius or nil,	-- + (self.DamageRadiusMod or 0),
 			DamageAmount = weaponBlueprint.Damage + (self.DamageMod or 0),
 			DamageType = weaponBlueprint.DamageType,
 			
-			DamageFriendly = weaponBlueprint.DamageFriendly,
+			DamageFriendly = weaponBlueprint.DamageFriendly or nil,
 
-			CollideFriendly = weaponBlueprint.CollideFriendly,
+			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
 			
 			DoTTime = weaponBlueprint.DoTTime,
 			DoTPulses = weaponBlueprint.DoTPulses,
@@ -412,14 +437,14 @@ Weapon = Class(moho.weapon_methods) {
 
         self.damageTable = {
 		
-			DamageRadius = weaponBlueprint.DamageRadius + (self.DamageRadiusMod),
+			DamageRadius = weaponBlueprint.DamageRadius or nil,	--+ (self.DamageRadiusMod),
 			DamageAmount = weaponBlueprint.Damage + (self.DamageMod),
 			
 			DamageType = weaponBlueprint.DamageType,
 			
-			DamageFriendly = weaponBlueprint.DamageFriendly,
+			DamageFriendly = weaponBlueprint.DamageFriendly or nil,
 
-			CollideFriendly = weaponBlueprint.CollideFriendly,
+			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
 			
 			DoTTime = weaponBlueprint.DoTTime,
 			DoTPulses = weaponBlueprint.DoTPulses,
@@ -465,6 +490,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     CreateProjectileForWeapon = function(self, bone)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon CreateProjectileForWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description))
+		end
 
         local proj = moho.weapon_methods.CreateProjectile( self, bone )
 		
@@ -515,9 +544,6 @@ Weapon = Class(moho.weapon_methods) {
 				
             end
         end
-    end,
-
-    OnDestroy = function(self)
     end,
 
     SetWeaponPriorities = function(self, priTable)
@@ -600,10 +626,12 @@ Weapon = Class(moho.weapon_methods) {
     AddDamageMod = function(self, dmgMod)
         self.DamageMod = self.DamageMod + (dmgMod or 0)
     end,
-    
+
+--[[    
     AddDamageRadiusMod = function(self, dmgRadMod)
         self.DamageRadiusMod = self.DamageRadiusMod + (dmgRadMod or 0)
     end,
+--]]
     
     -- rewritten to have buff data passed in to save the GetBlueprint function call
     DoOnFireBuffs = function(self, buffs)

@@ -52,7 +52,10 @@
 
 	ScenarioInfo.StructureUpgradeDialog = false
 	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
-	
+
+	ScenarioInfo.WeaponDialog = false
+	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
+
 
 local import = import
 

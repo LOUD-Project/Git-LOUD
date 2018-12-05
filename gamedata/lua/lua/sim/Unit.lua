@@ -167,6 +167,10 @@ Unit = Class(moho.unit_methods) {
         if not self.Trash then
             self.Trash = TrashBag()
         end
+		
+		local bp = GetBlueprint(self)
+		
+		self.BlueprintID = bp.BlueprintId
         
         self.EventCallbacks = {
 		
@@ -246,6 +250,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCreate = function(self)
+		
+		local bp = GetBlueprint(self)
 
         Entity.OnCreate(self)
 		
@@ -270,11 +276,7 @@ Unit = Class(moho.unit_methods) {
         end
 		
 		self.WeaponCount = GetWeaponCount(self)
-		
-		local bp = GetBlueprint(self)
-		
-		self.BlueprintID = bp.BlueprintId
-		
+
         local vol = bp.SizeX * bp.SizeY * bp.SizeZ
 		
         local damageamounts = 1
@@ -1773,9 +1775,7 @@ Unit = Class(moho.unit_methods) {
         self:DisableUnitIntel()
 
         self:ForkThread(self.DeathThread, overkillRatio, instigator)
-		
-		--LOG("*AI DEBUG OnKilled complete")
-		
+
     end,
 	
     PlayAnimationThread = function(self, anim, rate)
