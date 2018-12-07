@@ -1,12 +1,3 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/SIFSuthanusArtilleryShell02/SIFSuthanusArtilleryShell02_script.lua
-#**  Author(s):  Gordon Duclos, Aaron Lundquist
-#**
-#**  Summary  :  Suthanus Artillery Shell Projectile script, XSB2302
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
 
 local SSuthanusArtilleryShell = import('/lua/seraphimprojectiles.lua').SSuthanusArtilleryShell
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
@@ -23,8 +14,8 @@ SIFSuthanusArtilleryShell02 = Class(SSuthanusArtilleryShell) {
 			
 			local rotation = RandomFloat(0,2*LOUDPI)
 	        
-			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_normals', '', 'Alpha Normals', 10, 10, 150, 0, self:GetArmy())
-			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_albedo', '', 'Albedo', 12, 12, 150, 0, self:GetArmy())
+			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_normals', '', 'Alpha Normals', 6, 6, 30, 45, self:GetArmy())
+			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_albedo', '', 'Albedo', 8, 8, 30, 45, self:GetArmy())
 		end
 	end,
 }

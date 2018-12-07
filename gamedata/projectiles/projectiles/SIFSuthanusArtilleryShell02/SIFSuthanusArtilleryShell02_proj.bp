@@ -26,7 +26,7 @@ ProjectileBlueprint {
         ImpactEffects = {
             Type = 'Small01',
         },
-        StrategicIconSize = 3,
+        StrategicIconSize = 2,
     },
     General = {
         Category = 'Artillery',
