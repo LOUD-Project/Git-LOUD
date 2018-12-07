@@ -551,6 +551,8 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
+			LeadTarget = false,
+			
             MaxRadius = 31,
             MinRadius = 5,
 			

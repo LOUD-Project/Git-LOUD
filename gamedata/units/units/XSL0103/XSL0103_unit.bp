@@ -43,12 +43,14 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 180,
-        MaxHealth = 180,
+        Health = 100,
+        MaxHealth = 100,
         RegenRate = 0,
-        SurfaceThreatLevel = 1.5,
+        SurfaceThreatLevel = 2.8,
     },
+	
     Description = '<LOC xsl0103_desc>Light Artillery Hovertank',
+	
     Display = {
         IdleEffects = {
             Water = {
@@ -101,8 +103,9 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.075,
     },
+	
     Economy = {
-        BuildCostEnergy = 460,
+        BuildCostEnergy = 425,
         BuildCostMass = 36,
         BuildTime = 90,
     },
@@ -142,6 +145,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.6,
+	
     Physics = {
 		BackUpDistance = 3,
         BankingSlope = 0,
@@ -171,17 +175,22 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.75,
+	
     SizeX = 0.55,
     SizeY = 0.35,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_land1_artillery',
     StrategicIconSortPriority = 135,
+	
     Transport = {
 		TransportClass = 1,
     },
+	
     Veteran = {
         Level1 = 2,
         Level2 = 4,
@@ -189,6 +198,7 @@ UnitBlueprint {
         Level4 = 8,
         Level5 = 10,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -203,9 +213,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 225,
+            Damage = 150,
             DamageFriendly = false,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Cannon',
@@ -228,7 +238,9 @@ UnitBlueprint {
             MuzzleVelocity = 14,
             MuzzleVelocityReduceDistance = 28,
 			
+			-- this is a splitting projectile that will create 5 sub-munitions - so damage is divided by the number of projectiles
             ProjectileId = '/projectiles/SIFThunthoArtilleryShell01/SIFThunthoArtilleryShell01_proj.bp',
+			ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -256,8 +268,9 @@ UnitBlueprint {
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
-                'ALLUNITS',
+				'ARTILLERY',
+                'STRUCTURE DEFENSE',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -272,22 +285,8 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 60,
             Turreted = true,
-        },
-    },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.6,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

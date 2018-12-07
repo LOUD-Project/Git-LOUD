@@ -198,6 +198,8 @@ UnitBlueprint {
             FiringTolerance = 0,
 
             Label = 'MainGun',
+			
+			LeadTarget = false,
 
             MaxRadius = 44,
 
