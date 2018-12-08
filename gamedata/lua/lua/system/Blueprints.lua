@@ -492,7 +492,17 @@ function ModBlueprints(all_blueprints)
 				end
 
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
-					--LOG("*AI DEBUG "..id.." "..bp.Description.." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
+					LOG("*AI DEBUG "..id.." "..bp.Description.." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
+					
+				end
+				
+				if wep.ProjectileLifetime == 0 then
+				
+					if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
+					
+						wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocit) * 1.15
+						
+					end
 				end
 
 				if wep.TargetCheckInterval then

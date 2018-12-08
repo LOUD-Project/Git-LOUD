@@ -286,7 +286,7 @@ Weapon = Class(moho.weapon_methods) {
 
     OnFire = function(self)
 	
-		LOG("*AI DEBUG Weapon OnFire")
+		--LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
 		
         local bp = GetBlueprint(self)
         

@@ -252,6 +252,8 @@ Unit = Class(moho.unit_methods) {
     OnCreate = function(self)
 		
 		local bp = GetBlueprint(self)
+		
+		--LOG("*AI DEBUG OnCreate for "..repr(self:GetBlueprint().Description))
 
         Entity.OnCreate(self)
 		
@@ -330,7 +332,7 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display.AnimationDeath and LOUDGETN(bp.Display.AnimationDeath) > 0 then
 		
-			--self.PlayDeathAnimation = true
+			self.PlayDeathAnimation = true
 			
         end
         
@@ -374,9 +376,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCreated = function(self)
-	
-		--LOG("*AI DEBUG OnCreated for "..self:GetBlueprint().Description)
-		
+
         self:DoUnitCallbacks('OnCreated')
 		
     end,
@@ -393,7 +393,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- set the current layer whenever it changes
 	OnLayerChange = function (self, new, old)
-	
+
 		self.CacheLayer = new		
 		
 	end,
@@ -596,6 +596,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetDead = function(self)
+	
+		--LOG("*AI DEBUG SetDead for "..repr(self:GetBlueprint().Description))
 
 		self.Dead = true
 		
@@ -1830,15 +1832,18 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 		
-		WaitTicks(3)
+		--WaitTicks(3)
 		
-		self:DestroyAllDamageEffects()
+		if self.DamageEffectsBag then
+			self:DestroyAllDamageEffects()
+		end
 
         if self.PlayDestructionEffects then
 		
-			--LOG("*AI DEBUG DestructionEffects")
+			--LOG("*AI DEBUG DestructionEffects for "..item.." Overkill is "..overkillRatio)
 		
-			self:CreateDestructionEffects( self, overkillRatio )
+			--CreateScalableUnitExplosion( self,overkillRatio )	
+			self:CreateDestructionEffects( overkillRatio )
 			
 		end
 		
@@ -1856,11 +1861,11 @@ Unit = Class(moho.unit_methods) {
 		
             if overkillRatio <= 0.25 then
 			
-                self:ForkThread(CreateUnitDestructionDebris, self, true, true, false )
+                self:ForkThread( CreateUnitDestructionDebris, true, true, false )
 				
             else
 			
-                self:ForkThread(CreateUnitDestructionDebris, self, false, true, true )
+                self:ForkThread( CreateUnitDestructionDebris, false, true, true )
 				
             end
 			
@@ -2312,8 +2317,6 @@ Unit = Class(moho.unit_methods) {
 			end
 			
 		end
-        
-		self.Trash:Destroy()
 
 		if self.IntelThread then
 		
@@ -2371,6 +2374,8 @@ Unit = Class(moho.unit_methods) {
 		end
         
 		RemoveAllUnitEnhancements(self)
+        
+		self.Trash:Destroy()
 		
 		LOUDSTATE(self, self.DeadState)
 		
@@ -4315,6 +4320,8 @@ Unit = Class(moho.unit_methods) {
     AddBuff = function(self, buffTable, PosEntity)
 	
         local bt = buffTable.BuffType
+		
+		--LOG("*AI DEBUG Buff "..repr(bt).." applied")
 
         local allow = categories.ALLUNITS
 		
@@ -4398,7 +4405,7 @@ Unit = Class(moho.unit_methods) {
             self:SetRegenRate(buffTable.Value or 0)
 			
         end
-		
+
     end,
 
     AddWeaponBuff = function(self, buffTable, weapon)

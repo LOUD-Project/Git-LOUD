@@ -6288,7 +6288,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
 			local function WatchForNotBuilding()
 				
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
+				LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
 		
 				local GetPosition = moho.entity_methods.GetPosition
 				local GetWorkProgress = moho.unit_methods.GetWorkProgress
@@ -6475,7 +6475,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." issued reclaims")
+					LOG("*AI DEBUG Eng "..eng.Sync.id.." issued reclaims")
 					
 					-- if we actually issued the reclaim then we'll terminate
 					-- WFNB will relaunch the PBC for us
@@ -6499,7 +6499,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 						IssueRepair( {eng}, v )
 						
-						--LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
+						LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
 						
 						eng.IssuedBuildCommand = true
 						eng.IssuedReclaimCommand = false
@@ -6520,6 +6520,8 @@ Platoon = Class(moho.platoon_methods) {
 
 			-- this is a bit different than the MovePlatoon function 
 			local function MoveEngineer( platoon, path )
+			
+				LOG("*AI DEBUG MoveEngineer")
 		
 				local prevpoint
 			
@@ -6536,6 +6538,8 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local function EngineerMoveWithSafePath( buildlocation )
+			
+				LOG("*AI DEBUG EngMoveWithSafePath")
 
 				local pos = LOUDCOPY( eng:GetPosition())
 				local distance = VDist2( pos[1],pos[3],buildlocation[1],buildlocation[3] )
@@ -6608,6 +6612,8 @@ Platoon = Class(moho.platoon_methods) {
 			-- handles getting the engy safely to his build location and
 			-- checking if the site is valid and safe along the way
 			local function EngineerMoving( buildlocation, builditem )
+			
+				LOG("*AI DEBUG Eng Moving")
 
 				if EngineerThreatened( buildlocation ) then
 				
@@ -6708,6 +6714,8 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- get the engineer moved to the goal --
 			if EngineerMoving( buildLocation, buildItem ) then
+			
+				LOG("*AI DEBUG Eng Moved")
 			
 				if aiBrain:PlatoonExists( platoon ) and not eng.Dead then
 					platoon:Stop()
@@ -6838,7 +6846,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								if CanBuildStructureAt( aiBrain, buildItem, buildLocation ) then
 								
-									--LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
+									LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
 
 									eng.IssuedBuildCommand = true
 									eng.IssuedReclaimCommand = false
