@@ -222,15 +222,15 @@ function GetUnitEnvironmentalExplosionEffects( layer, scale )
 end
 
 function CreateFlash( obj, bone, scale, army )
-    LOUDPARTICLE( obj, bone, army, GetRandomFloat(6,10) * scale, GetRandomFloat(10.5, 14.5), 'glow_03', 'ramp_flare_02' )
+    LOUDPARTICLE( obj, bone, army, GetRandomFloat(6,10) * scale, GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
 end
 
 function CreateScorchMarkSplat( obj, scale, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale * 4, scale * 4, GetRandomFloat(200,350), GetRandomFloat(100,250), army )
+    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale * 4, scale * 4, GetRandomFloat(60,180), GetRandomFloat(60,180), army )
 end
 
 function CreateScorchMarkDecal( obj, scale, army )
-    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, LOUDGETN(ScorchDecalTextures)) ], '', 'Albedo', scale * 3, scale * 3, GetRandomFloat(200,350), GetRandomFloat(100,250), army)
+    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, LOUDGETN(ScorchDecalTextures)) ], '', 'Albedo', scale * 3, scale * 3, GetRandomFloat(60,180), GetRandomFloat(60,180), army)
 end
 
 function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
@@ -281,7 +281,7 @@ function CreateWreckageEffects( obj, prop )
 
 		-- random lifetime and scale
 		for _, v in Emitters do
-			v:SetEmitterParam( 'LIFETIME', GetRandomFloat( 100, 600 ) )
+			v:SetEmitterParam( 'LIFETIME', GetRandomFloat( 60, 240 ) )
 			v:ScaleEmitter(GetRandomFloat(0.25,1))
 		end
 		
@@ -353,7 +353,7 @@ function CreateFirePlume( object, scale )
 		
         local emitter = CreateEmitterOnEntity( proj, army,'/effects/emitters/destruction_explosion_fire_plume_02_emit.bp')
 
-        local lifetime = GetRandomFloat( 12, 22 )
+        local lifetime = GetRandomFloat( 10, 20 )
         emitter:SetEmitterParam('REPEATTIME',lifetime)
         emitter:SetEmitterParam('LIFETIME', lifetime)
     end
