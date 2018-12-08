@@ -186,6 +186,10 @@ PlatoonFormManager = Class(BuilderManager) {
 			local template = self.GetPlatoonTemplate( self, builder:GetPlatoonTemplate(), aiBrain )
 			
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
+			
+				if ScenarioInfo.PlatoonDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(template[1]))
+				end
 				
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
 				

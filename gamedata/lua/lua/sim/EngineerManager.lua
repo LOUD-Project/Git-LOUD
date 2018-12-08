@@ -232,6 +232,10 @@ EngineerManager = Class(BuilderManager) {
 		unit.AssigningTask = true
 		
         if builder and (not unit.Dead) and (not unit.Fighting) then
+
+			if ScenarioInfo.PlatoonDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
+			end
 			
             local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate].Plan or 'none' )
 

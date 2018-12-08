@@ -140,6 +140,10 @@ Platoon = Class(moho.platoon_methods) {
 		
 		if self[plan] then
 		
+			if ScenarioInfo.PlatoonDialog then
+				LOG("*AI DEBUG Platoon SetAIPlan for "..repr(self.BuilderName).." to "..repr(plan))
+			end
+		
 			self:ForkAIThread(self[plan], aiBrain)
 			
 		else
@@ -152,7 +156,7 @@ Platoon = Class(moho.platoon_methods) {
 
     StopAI = function( self )
 	
-        if self.AIThread ~= nil then
+        if self.AIThread != nil then
 		
             self.AIThread:Destroy()
 			self.AIThread = nil
@@ -209,7 +213,9 @@ Platoon = Class(moho.platoon_methods) {
 
     OnDestroy = function( self)
 	
-		--LOG("*AI DEBUG Platoon "..self.BuilderName.."OnDestroy ")
+		if ScenarioInfo.PlatoonDialog then
+			LOG("*AI DEBUG Platoon OnDestroy for "..repr(self.BuilderName) )
+		end
 	
         for k, cb in self.EventCallbacks.OnDestroyed do
 		
@@ -222,12 +228,8 @@ Platoon = Class(moho.platoon_methods) {
         end		
 
 		--self:DoDestroyCallbacks()
-		
-        if self.Trash then
-		
-            self.Trash:Destroy()
 
-        end
+        self.Trash:Destroy()
 		
     end,
 
@@ -331,6 +333,10 @@ Platoon = Class(moho.platoon_methods) {
     PlatoonDisband = function( self, aiBrain)
 	
 		if PlatoonExists(aiBrain,self) then
+		
+			if ScenarioInfo.PlatoonDialog then
+				LOG("*AI DEBUG Platoon Disband for "..repr(self.BuilderName))
+			end
 		
 			if self.MoveThread then
 
@@ -1314,7 +1320,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 		end
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
+		if ScenarioInfo.PlatoonDialog then
+			LOG("*AI DEBUG Platoon "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
+		end
 		
        	IssueClearCommands( GetPlatoonUnits(self) )
         
@@ -4311,9 +4319,6 @@ Platoon = Class(moho.platoon_methods) {
     PlatoonCallForHelpAI = function( self, aiBrain )
 		
 		self.CallForHelpAI = true
-		--self.DistressCall = false
-		--self.RespondingToDistress = false
-		--self.UnderAttack = false
 		
 		local LOUDGETN = LOUDGETN
 
@@ -4469,8 +4474,10 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 			end
-
-			WaitTicks(checkinterval)
+			
+			if pos then
+				WaitTicks(checkinterval)
+			end
 
         end
 		
@@ -5392,7 +5399,9 @@ Platoon = Class(moho.platoon_methods) {
                 end
             end
         end
-	
+		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." begins EBAI")
+		
         local cons = self.PlatoonData.Construction
 
         if not eng or eng.Dead or not cons.BuildStructures then
@@ -5413,8 +5422,6 @@ Platoon = Class(moho.platoon_methods) {
 			
 			end
         end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." begins EBAI")
 
         local factionIndex = cons.FactionIndex or aiBrain.FactionIndex
 		
@@ -5850,44 +5857,9 @@ Platoon = Class(moho.platoon_methods) {
 			if did_a_build then
 			
 				if cons.ExpansionBase then
-				
-					local function MonitorNewBaseThread( self, refName, refposition, cons)
-					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway "..repr(refName) )
-	
-						aiBrain.BaseExpansionUnderway = true
-	
-						eng.NeedsBaseData = nil
-	
-						-- this callback removes the ExpansionUnderway flag from the brain
-						local deathFunction = function() LOG("*AI DEBUG "..aiBrain.Nickname.." Expansion engineer dies") aiBrain.BaseExpansionUnderway = false end
-	
-						-- it will get called if the platoon is destroyed
-						LOUDINSERT( self.EventCallbacks.OnDestroyed, deathFunction )
-						--self:AddDestroyCallback(deathFunction)
-	
-						-- loop here until the engineer signals that he's ready to start building
-						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
-	
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." waiting for NeedBaseData for "..repr(refposition))
-							
-							WaitTicks(40)
-		
-						end
-
-						if not eng.Dead then
-	
-							if PlatoonExists( aiBrain, self ) then
-								eng.NewExpansion = { refName, refposition, cons }
-							end
-		
-							eng.NewBaseThread = nil
-						end				
-					
-					end
 
 					-- we fork a thread (on the platoon) to carry the new base information and pass along when called for
-					eng.NewBaseThread = self:ForkThread( MonitorNewBaseThread, refName, LOUDCOPY(reference[1]), cons )
+					eng.NewBaseThread = self:ForkThread( self.MonitorNewBaseThread, aiBrain, eng, refName, LOUDCOPY(reference[1]), cons )
 			
 					eng.NewExpansion = { refName, {reference[1][1],reference[1][2],reference[1][3]}, cons}
 
@@ -5913,6 +5885,45 @@ Platoon = Class(moho.platoon_methods) {
         end
 
     end,
+
+	MonitorNewBaseThread = function( self, aiBrain, eng, refName, refposition, cons )
+					
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway "..repr(refName) )
+	
+						aiBrain.BaseExpansionUnderway = true
+	
+						eng.NeedsBaseData = nil
+	
+						-- this callback removes the ExpansionUnderway flag from the brain
+						local deathFunction = function() LOG("*AI DEBUG "..aiBrain.Nickname.." Expansion engineer "..repr(eng.Sync.id).." for "..repr(refName).." dies/disbands") aiBrain.BaseExpansionUnderway = false end
+	
+						-- it will get called when the platoon is destroyed/disbanded
+						LOUDINSERT( self.EventCallbacks.OnDestroyed, deathFunction )
+
+						-- loop here until the engineer signals that he's ready to start building
+						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
+	
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." waiting for NeedBaseData for "..repr(refName) )
+							
+							WaitTicks(40)
+		
+						end
+
+						if not BeenDestroyed(eng) then
+	
+							if PlatoonExists( aiBrain, self ) then
+								eng.NewExpansion = { refName, refposition, cons }
+							end
+		
+							eng.NewBaseThread = nil
+							
+						else
+						
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(refName).." dies")
+							
+						end
+					
+	end,
 	
     EngineerBuildMassDefenseAdjacencyAI = function( self, aiBrain )
         
@@ -6216,9 +6227,9 @@ Platoon = Class(moho.platoon_methods) {
 	-- when the queue is empty the engy will either RTB or repeat his plan (loopbuilders)
     ProcessBuildCommand = function( eng, removeLastBuild )
 	
-		if not eng.Sync.id then return end
+		if BeenDestroyed(eng) then return end
 		
-		--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC")
+		--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC with "..repr(removeLastBuild) )
 
 		local platoon = eng.PlatoonHandle or false
 		
@@ -6229,7 +6240,9 @@ Platoon = Class(moho.platoon_methods) {
         end
 
 		-- remove first item from the build queue
-        if removeLastBuild and eng.EngineerBuildQueue then
+        if removeLastBuild and eng.EngineerBuildQueue[1] then
+		
+			--LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue is "..repr(eng.EngineerBuildQueue))
 		
             LOUDREMOVE(eng.EngineerBuildQueue, 1)
 			
@@ -6290,11 +6303,11 @@ Platoon = Class(moho.platoon_methods) {
 
 				WaitTicks(4)
 		
-				while eng and (not eng.Dead) and (not eng:IsIdleState()) and not eng.Fighting do	
+				while (not eng.Dead) and (not eng:IsIdleState()) and not eng.Fighting do	
 		
 					WaitTicks(20)
 			
-					if eng and (not eng.Dead) and engLastPos then
+					if (not BeenDestroyed(eng)) and (not eng.Dead) and engLastPos then
 					
 						if (not eng:IsUnitState("Capturing")) and (not eng:IsUnitState("Reclaiming"))
 							and (not eng:IsUnitState("Repairing")) and (not eng:IsUnitState("Moving"))
@@ -6330,7 +6343,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 				end
 				
-				if (not eng.Dead) and ( eng:IsIdleState() or eng.Fighting ) then
+				if (not BeenDestroyed(eng)) and (not eng.Dead) and ( eng:IsIdleState() or eng.Fighting ) then
 					
 					-- we didn't issue a build or we did a reclaim then just run PBC as is --
 					if eng.IssuedReclaimCommand then
@@ -6354,7 +6367,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 				end
 				
-				if not eng.Dead then
+				if (not BeenDestroyed(eng)) and not eng.Dead then
 				
 					WARN("*AI DEBUG Eng "..repr(eng.Sync.id).." exits WFNB from ????? - dead is "..repr(eng.Dead))
 					
@@ -6696,15 +6709,19 @@ Platoon = Class(moho.platoon_methods) {
 			-- get the engineer moved to the goal --
 			if EngineerMoving( buildLocation, buildItem ) then
 			
-				if aiBrain:PlatoonExists( platoon ) then
+				if aiBrain:PlatoonExists( platoon ) and not eng.Dead then
 					platoon:Stop()
 				end
 
                 -- try to capture/reclaim -- if we do - we exit here
-				EngineerTryReclaimCaptureArea( buildLocation, false )
+				if  not eng.Dead then
+					EngineerTryReclaimCaptureArea( buildLocation, false )
+				end
 
                 -- try to repair - if we do exit here
-				EngineerTryRepair( buildLocation )
+				if not eng.Dead then
+					EngineerTryRepair( buildLocation )
+				end
 
 				-- build the structure -- STD callbacks will relaunch PBC
                 if buildItem then
@@ -6719,6 +6736,8 @@ Platoon = Class(moho.platoon_methods) {
 							-- signal the NewBaseThread that we need the data now
 							eng.NeedsBaseData = true
 
+							LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." requesting newbase data ")
+							
 							-- at this point the engineer will get the NewExpansion data back from the NewBaseThread
 							-- in the form of eng.NewExpansion[1] = basename, [2] = 3D position, [3] = the construction data
 							repeat 
@@ -6728,6 +6747,8 @@ Platoon = Class(moho.platoon_methods) {
 							until eng.Dead or not eng.NewBaseThread
 
 							if not eng.Dead then
+							
+								LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." gets newbase data ")
 
 								-- loop thru brains to see if it's been taken by another
 								for _,brain in ArmyBrains do
