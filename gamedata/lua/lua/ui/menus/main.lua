@@ -51,46 +51,46 @@ function CreateUI()
 		},
 		{
 			name = '<LOC OPTIONS_0086>EULA',
-			tooltip = 'options_eula',    
+			tooltip = 'options_eula',
 			action = function() ButtonEULA() end,
 			color = menuFontColorAlt,
 		},
 		{
             name = '<LOC _Mod_Manager>',
-            tooltip = 'mainmenu_mod',    
+            tooltip = 'mainmenu_mod',
             action = function() ButtonMod() end,
             color = menuFontColorAlt,
         },
 		{
 			name = '',
 			color = menuFontColorAlt,
-		}, 
+		},
 		{
 			name = '',
 			color = menuFontColorAlt,
-		}, 
+		},
 		{
 			name = '',
 			color = menuFontColorAlt,
-		}, 
+		},
 		{
 			name = '<LOC _Back>',
 			action = function() ButtonBack() end,
 			color = menuFontColorAlt,
 		},
 	}
-	
+
 	local menuTop = {
 		title = '<LOC main_menu_0000>Forged Alliance',
 		{
 			name = '<LOC _Skirmish>',
-			tooltip = 'mainmenu_skirmish',    
+			tooltip = 'mainmenu_skirmish',
 			action = function() ButtonSkirmish() end,
 		},
 		{
 			name = 'Direct IP',
-			tooltip = 'mainmenu_mp',    
-			action = function() ButtonLAN() end, 
+			tooltip = 'mainmenu_mp',
+			action = function() ButtonLAN() end,
 		},
 		{
 			name = '<LOC MAINMENU_STEAM_0001>Matchmaking',
@@ -99,25 +99,25 @@ function CreateUI()
 		},
 		{
 			name = 'Replay',
-			tooltip = 'mainmenu_replay',    
+			tooltip = 'mainmenu_replay',
 			action = function() ButtonReplay() end,
 			color = menuFontColorAlt,
 		},
 		{
 			name = '<LOC _Options>Options',
-			tooltip = 'mainmenu_options',    
+			tooltip = 'mainmenu_options',
 			action = function() ButtonOptions() end,
 			color = menuFontColorAlt,
 		},
 		{
 			name = '<LOC tooltipui0355>Extras',
-			tooltip = 'mainmenu_extras',    
+			tooltip = 'mainmenu_extras',
 			action = function() ButtonExtras() end,
 			color = menuFontColorAlt,
 		},
 		{
 			name = '<LOC _Exit>',
-			tooltip = 'mainmenu_exit',    
+			tooltip = 'mainmenu_exit',
 			action = function() ButtonExit() end,
 		},
 	}
@@ -128,16 +128,21 @@ function CreateUI()
 	-- BACKGROUND
 	local parent = UIUtil.CreateScreenGroup(GetFrame(0), "Main Menu ScreenGroup")
 
+    local backImage = Bitmap(parent, UIUtil.UIFile('/scx_menu/main-menu/background-ACUs-blue-black.dds.dds'))
+    LayoutHelpers.AtHorizontalCenterIn(backImage, parent)
+    LayoutHelpers.AtTopIn(backImage, parent)
+    backImage.Depth:Set(10)
+
     local darker = Bitmap(parent)
     LayoutHelpers.FillParent(darker, parent)
     darker:SetSolidColor('200000')
     darker:SetAlpha(.5)
     darker:Hide()
-    
+
     -- BORDER, LOGO and TEXT
     local border = Group(parent, "border")
     LayoutHelpers.FillParent(border, parent)
-    
+
     -- SupCom logo resizes to current resolution
     local logo = Bitmap(border, UIUtil.UIFile('/scx_menu/logo/logo.dds'))
     LayoutHelpers.AtHorizontalCenterIn(logo, border)
@@ -148,38 +153,38 @@ function CreateUI()
     local versionText = UIUtil.CreateText(border, GetVersion(), 14, UIUtil.bodyFont)
     versionText:SetColor('677983')
     LayoutHelpers.AtRightTopIn(versionText, border, 0, 0)
-    
+
     local versionTextBG = Bitmap(versionText)
     versionTextBG:SetSolidColor('ff000000')
     LayoutHelpers.FillParent(versionTextBG, versionText)
     versionTextBG.Depth:Set(function() return versionText.Depth() - 1 end)
-    
+
     -- Borders
     local topBorder = Bitmap(logo, UIUtil.UIFile('/scx_menu/main-menu/border-console-top_bmp.dds'))
     LayoutHelpers.AtHorizontalCenterIn(topBorder, border)
     LayoutHelpers.AtTopIn(topBorder, border)
     topBorder.Depth:Set(function() return logo.Depth() - 1 end)
-    
+
     local botBorderLeft = Bitmap(logo, UIUtil.UIFile('/scx_menu/main-menu/border-bot-left.dds'))
     LayoutHelpers.AtLeftIn(botBorderLeft, border)
     LayoutHelpers.AtBottomIn(botBorderLeft, border)
-    
+
     local botBorderRight = Bitmap(logo, UIUtil.UIFile('/scx_menu/main-menu/border-bot-right.dds'))
     LayoutHelpers.AtRightIn(botBorderRight, border)
     LayoutHelpers.AtBottomIn(botBorderRight, border)
-    
+
     local botBorderMiddle = Bitmap(logo, UIUtil.UIFile('/scx_menu/main-menu/border-bot-mid.dds'))
     LayoutHelpers.AtBottomIn(botBorderMiddle, border)
     botBorderMiddle.Left:Set(botBorderLeft.Right)
     botBorderMiddle.Right:Set(botBorderRight.Left)
-    
+
     local scrollingBG = Bitmap(botBorderLeft)
     scrollingBG:SetSolidColor('ff000000')
     scrollingBG.Left:Set(function() return botBorderLeft.Right() - 30 end)
     scrollingBG.Right:Set(function() return botBorderRight.Left() + 30 end)
     scrollingBG.Height:Set(20)
     LayoutHelpers.AtBottomIn(scrollingBG, border)
-    
+
     -- legal text
     local legalText = UIUtil.CreateText(botBorderLeft, import('/lua/ui/help/eula.lua').LEGAL_TEXT, 9, UIUtil.bodyFont)
     legalText:SetColor('ffa5a5a5')
@@ -196,7 +201,7 @@ function CreateUI()
         end
         self.Left:Set(newLeft)
     end
-    
+
     parent.OnDestroy = function()
     end
 
@@ -205,7 +210,7 @@ function CreateUI()
     LayoutHelpers.FillParent(topLevelGroup, border)
     topLevelGroup.Depth:Set(100)
 
-    -- MAIN MENU  
+    -- MAIN MENU
     local mainMenuGroup = Group(topLevelGroup, "mainMenuGroup")
     mainMenuGroup.Width:Set(0)
     mainMenuGroup.Height:Set(0)
@@ -351,24 +356,24 @@ function CreateUI()
         LayoutHelpers.AtTopIn(mainMenu.profile.leftBracket, mainMenu.profile, -52)
         mainMenu.profile.leftBracket.Depth:Set(function() return menuBracketLeft.Depth() - 1 end)
         mainMenu.profile.leftBracket:SetAlpha(0)
-        
+
         mainMenu.profile.rightBracket = Bitmap(mainMenu.profile, UIUtil.UIFile('/scx_menu/profile-brackets/bracket-lg_bmp_right.dds'))
         mainMenu.profile.rightBracket.Left:Set(function() return menuBracketRight.Left() + 15 end)
         LayoutHelpers.AtTopIn(mainMenu.profile.rightBracket, mainMenu.profile, -52)
         mainMenu.profile.rightBracket.Depth:Set(function() return menuBracketRight.Depth() - 1 end)
         mainMenu.profile.rightBracket:SetAlpha(0)
-        
+
         mainMenu.profile.SetItemAlpha = function(self, alpha)
             self:SetAlpha(alpha)
             self.label:SetAlpha(alpha)
             mainMenu.titleBack:SetAlpha(alpha)
             mainMenu.titleTxt:SetAlpha(alpha)
         end
-        
+
         mainMenu.profile:SetItemAlpha(0)
-        
+
         mainMenu.profile.FadeIn = function(control)
-            if control.clickfunc then 
+            if control.clickfunc then
                 control:Enable()
             end
             control:DisableHitTest(true)
@@ -458,9 +463,9 @@ function CreateUI()
                 end
             end
         end
-    
+
         SetNameToCurrentProfile()
-    
+
         mainMenu.profile.OnClick = function(self)
             MenuHide(function()
                 if not profileDlg then
@@ -472,7 +477,7 @@ function CreateUI()
                 end
             end)
         end
-        
+
         -- menu buttons
         local buttonHeight = nil
         for k, v in menuTable do
@@ -481,7 +486,7 @@ function CreateUI()
                 if v.name then
                     mainMenu[k].btn = UIUtil.CreateButtonStd(mainMenuGroup, '/scx_menu/large-no-bracket-btn/large', v.name, 22, 2, 0, "UI_Menu_MouseDown", "UI_Menu_Rollover")
                 elseif v.image then
-                    mainMenu[k].btn = Button(mainMenuGroup, 
+                    mainMenu[k].btn = Button(mainMenuGroup,
                         UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_up.dds'),
                         UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_down.dds'),
                         UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_over.dds'),
@@ -501,13 +506,13 @@ function CreateUI()
                 else
                     local lastBtn = k - 1
                     LayoutHelpers.CenteredBelow(mainMenu[k].btn, mainMenu[lastBtn].btn, -5)
-                end                
+                end
                 if v.action then
                     mainMenu[k].btn.glow = Bitmap(mainMenu[k].btn, UIUtil.UIFile('/scx_menu/large-btn/large_btn_glow.dds'))
                     LayoutHelpers.AtCenterIn(mainMenu[k].btn.glow, mainMenu[k].btn)
                     mainMenu[k].btn.glow:SetAlpha(0)
                     mainMenu[k].btn.glow:DisableHitTest()
-                    mainMenu[k].btn.rofunc = function(self, event) 
+                    mainMenu[k].btn.rofunc = function(self, event)
                         if animation_active then
                             return true
                         end
@@ -534,17 +539,17 @@ function CreateUI()
                     LOG('DISABLING MAIN MENU BUTTON')
                     mainMenu[k].btn:Disable()
                 end
-                
+
                 mainMenu[k].btn.leftBracket = Bitmap(mainMenu[k].btn, UIUtil.UIFile('/scx_menu/main-menu/bracket_bmp_left.dds'))
                 mainMenu[k].btn.leftBracket.Right:Set(function() return menuBracketLeft.Right() - 15 end)
                 LayoutHelpers.AtTopIn(mainMenu[k].btn.leftBracket, mainMenu[k].btn, -6)
                 mainMenu[k].btn.leftBracket.Depth:Set(function() return menuBracketLeft.Depth() - 1 end)
-                
+
                 mainMenu[k].btn.rightBracket = Bitmap(mainMenu[k].btn, UIUtil.UIFile('/scx_menu/main-menu/bracket_bmp_right.dds'))
                 mainMenu[k].btn.rightBracket.Left:Set(function() return menuBracketRight.Left() + 15 end)
                 LayoutHelpers.AtTopIn(mainMenu[k].btn.rightBracket, mainMenu[k].btn, -6)
                 mainMenu[k].btn.rightBracket.Depth:Set(function() return menuBracketRight.Depth() - 1 end)
-                
+
                 mainMenu[k].btn:Disable()
                 mainMenu[k].btn:SetAlpha(0, true)
                 mainMenu[k].btn.SetItemAlpha = function(control, alpha)
@@ -556,7 +561,7 @@ function CreateUI()
                     end
                 end
                 mainMenu[k].btn.FadeIn = function(control)
-                    if control.clickfunc then 
+                    if control.clickfunc then
                         control:Enable()
                         if control.label then
                             control.label:SetColor(menuFontColor)
@@ -668,10 +673,10 @@ function CreateUI()
                 end
             end
         end
-        
-        local numButtons = table.getn(mainMenu)        
+
+        local numButtons = table.getn(mainMenu)
         local lastBtn = mainMenu[numButtons].btn
-        
+
         if initial then
             ForkThread(function()
                 MenuAnimation(true)
@@ -680,8 +685,8 @@ function CreateUI()
         else
             MenuAnimation(true)
         end
-        
-        -- set ESC key functionality depending on menu layer        
+
+        -- set ESC key functionality depending on menu layer
         if menuTable == 'home' or menuTable == menuTop then
             SetEscapeHandle(ButtonExit)
         else
@@ -692,7 +697,7 @@ function CreateUI()
         mainMenuGroup.Height:Set(function() return (mainMenuSize * buttonHeight) + mainMenu.titleBack.Height() end)
         mainMenuGroup.Width:Set(mainMenu.titleBack.Width)
         LayoutHelpers.AtHorizontalCenterIn(mainMenuGroup, border)
-        
+
         mainMenuGroup.Top:Set(function()
             return math.floor(logo.Bottom() - 18)
         end)
@@ -700,7 +705,7 @@ function CreateUI()
 
 
     -- Animate the menu
-    
+
     function MenuAnimation(fadeIn, callback, skipSlide)
 		skipSlide = true
         animation_active = true
@@ -748,6 +753,7 @@ function CreateUI()
 			EffectHelpers.FadeIn(darker, .1, 0, .4)
 			mainMenuGroup:Hide()
 			logo:Hide()
+            backImage:Hide()
 			mainMenuGroup.Depth:Set(50)        -- setting depth below topLayerGroup (100) to avoid the button glow persisting when overlays are up
 			if callback then callback() end
 		end)
@@ -757,6 +763,7 @@ function CreateUI()
 		mainMenuGroup.Depth:Set(101)
 		mainMenuGroup:Show()
 		logo:Show()
+        backImage:Show()
 		legalText:Show()
 		EffectHelpers.FadeOut(darker, .1, .4, 0)
 		MenuAnimation(true)
@@ -788,12 +795,12 @@ function CreateUI()
 
 		if not IsSignedInToSteam() then
 
-			UIUtil.ShowInfoDialog(parent, "<LOC SteamNotSignedIn>You must first sign into Steam to use Matchmaking", "<LOC _OK>")	
+			UIUtil.ShowInfoDialog(parent, "<LOC SteamNotSignedIn>You must first sign into Steam to use Matchmaking", "<LOC _OK>")
 
 		else
 
 			MenuHide(function()
-				import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, true)			
+				import('/lua/ui/lobby/gameselect.lua').CreateUI(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end, true)
 			end)
 		end
     end
@@ -830,7 +837,7 @@ function CreateUI()
 
 	function ButtonOptions()
 		MenuHide(function()
-			import('/lua/ui/dialogs/options.lua').CreateDialog(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end)    
+			import('/lua/ui/dialogs/options.lua').CreateDialog(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonExit) end)
 		end)
 	end
 
