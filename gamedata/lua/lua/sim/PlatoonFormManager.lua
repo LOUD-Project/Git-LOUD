@@ -215,22 +215,42 @@ PlatoonFormManager = Class(BuilderManager) {
 				if Builders[builder.BuilderName].PlatoonAddPlans then
 				
 					for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+					
+						if ScenarioInfo.PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
+						end
+					
 						hndl:ForkThread( hndl[papv], aiBrain )
+						
 					end
+					
 				end
 
 				if Builders[builder.BuilderName].PlatoonAddFunctions then
+				
 					for _, papv in Builders[builder.BuilderName].PlatoonAddFunctions do
+					
 						-- this will run a non critical function -- Wait ?  What do you think that means ? 
 						-- these forks are NOT put into the platoons TRASH -- so they save on processing and storage - BUT 
 						-- they must terminate themselves -- ideally independent of the platoon entirely
+						if ScenarioInfo.PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(papv[2]))
+						end
+						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
 					end
 				end
 
 				if Builders[builder.BuilderName].PlatoonAddBehaviors then
+				
 					for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+
+						if ScenarioInfo.PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
+						end
+					
 						hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[papv], aiBrain )
+						
 					end
 				end
 

@@ -40,7 +40,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnCreate = function( self, spec )
 
-        self.Trash = TrashBag()	-- so the shield itself has a trashbag -- why not use the Owners ?
+        --self.Trash = self.Owner.Trash	-- so the shield itself has a trashbag -- why not use the Owners ?
         self.Owner = spec.Owner
 		self.Army = GetArmy(self)
 		self.Dead = false
@@ -80,13 +80,17 @@ Shield = Class(moho.shield_methods,Entity) {
 		self.OffHealth = -1
 		
 		self.PassOverkillDamage = spec.PassOverkillDamage
+		
+		if ScenarioInfo.ShieldDialog then
+			LOG("*AI DEBUG Shield created on "..__blueprints[self.Owner.BlueprintID].Description) 
+		end
 
         ChangeState(self, self.EnergyDrainRechargeState)
     end,
 	
     ForkThread = function(self, fn, ...)
         local thread = ForkThread(fn, self, unpack(arg))
-        self.Trash:Add(thread)
+        self.Owner.Trash:Add(thread)
 		return thread
     end,
 	
@@ -219,6 +223,10 @@ Shield = Class(moho.shield_methods,Entity) {
         --absorbed = absorbed * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
 		
         absorbed = LOUDMIN( GetHealth(self), absorbed )
+		
+		if ScenarioInfo.ShieldDialog then
+			LOG("*AI DEBUG Shield on "..__blueprints[self.Owner.BlueprintID].Description.." absorbs "..absorbed.." damage")
+		end
 
         if self.PassOverkillDamage and (amount-absorbed) > 0 then
 		
@@ -233,6 +241,10 @@ Shield = Class(moho.shield_methods,Entity) {
 			if overkill > 0 then
 
 				if self.Owner and IsUnit(self.Owner) then
+				
+					if ScenarioInfo.ShieldDialog then
+						LOG("*AI DEBUG Shield Owner "..__blueprints[self.Owner.BlueprintID].Description.." takes "..overkill.." damage")
+					end
 				
 					self.Owner:DoTakeDamage(instigator, overkill, vector, type)
 					
@@ -280,6 +292,14 @@ Shield = Class(moho.shield_methods,Entity) {
 		local GetMaxHealth = moho.entity_methods.GetMaxHealth
 		local SetShieldRatio = moho.unit_methods.SetShieldRatio
 		local WaitTicks = coroutine.yield
+		
+		if ScenarioInfo.ShieldDialog then
+			LOG("*AI DEBUG Shield Starts Regen Thread on "..repr(self.Owner.BlueprintID).." "..repr(__blueprints[self.Owner.BlueprintID].Description).." - start delay is "..repr(self.RegenStartTime) )
+			
+			if not self.Owner.BlueprintID then
+				LOG("*AI DEBUG "..repr(self))
+			end
+		end
 		
 		-- shield takes a delay before regen starts
         WaitTicks( 10 + (self.RegenStartTime * 10) )
@@ -330,18 +350,28 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnDestroy = function(self)
 	
+		if ScenarioInfo.ShieldDialog then
+			LOG("*AI DEBUG Shield OnDestroy for "..__blueprints[self.Owner.BlueprintID].Description )
+		end
+	
 		SetMesh( self, '')
 		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
 			self.MeshZ = nil
 		end
+        
+        if self.RegenThread then
+           KillThread(self.RegenThread)
+           self.RegenThread = nil
+        end
 		
 		self:UpdateShieldRatio(0)
 		
-		self.Trash:Destroy()
-
+		self.Dead = true
+		
         ChangeState(self, self.DeadState)
+		
     end,
 
     -- Return true to process this collision, false to ignore it.
@@ -393,7 +423,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			self.MeshZ:Destroy()
 			self.MeshZ = nil
 		end
-		
+
         self.Owner:OnShieldIsDown() # added by brute51
 		
     end,
@@ -471,10 +501,8 @@ Shield = Class(moho.shield_methods,Entity) {
                 -- If the shield has less than full health, allow the shield to begin regening
                 if GetHealth(self) < GetMaxHealth(self) and self.RegenRate > 0 then
 				
-                    self.RegenThread = self:ForkThread(self.RegenStartThread )
-					
-                    self.Trash:Add(self.RegenThread)
-					
+                    self.RegenThread = self:ForkThread(self.RegenStartThread)
+
                 end
 				
             end
@@ -521,12 +549,12 @@ Shield = Class(moho.shield_methods,Entity) {
     OffState = State {
 
         Main = function(self)
-
-            -- No regen during off state
-            if self.RegenThread then
-                KillThread(self.RegenThread)
-                self.RegenThread = nil
-            end
+		
+			-- No regen during off state
+			if self.RegenThread then
+				KillThread(self.RegenThread)
+				self.RegenThread = nil
+			end
 
             -- Set the offhealth - this is used basically to let the unit know the unit was manually turned off
       		self.OffHealth = GetHealth(self)
@@ -535,6 +563,7 @@ Shield = Class(moho.shield_methods,Entity) {
             self:UpdateShieldRatio(0)
 
             self:RemoveShield()
+			
     		self.Owner:OnShieldDisabled()
 
             WaitTicks(10)
@@ -547,7 +576,13 @@ Shield = Class(moho.shield_methods,Entity) {
     DamageRechargeState = State {
 	
         Main = function(self)
-		
+
+			-- No regen during off state
+			if self.RegenThread then
+				KillThread(self.RegenThread)
+				self.RegenThread = nil
+			end
+			
             self:RemoveShield()
             
             -- make the unit charge up before gettings its shield back
@@ -566,6 +601,12 @@ Shield = Class(moho.shield_methods,Entity) {
     EnergyDrainRechargeState = State {
 	
         Main = function(self)
+
+			-- No regen during off state
+			if self.RegenThread then
+				KillThread(self.RegenThread)
+				self.RegenThread = nil
+			end
 			
             self:RemoveShield()
             
