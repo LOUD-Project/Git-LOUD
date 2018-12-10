@@ -128,9 +128,9 @@ function CreateUI()
 	-- BACKGROUND
 	local parent = UIUtil.CreateScreenGroup(GetFrame(0), "Main Menu ScreenGroup")
 
-    local backImage = Bitmap(parent, UIUtil.UIFile('/scx_menu/main-menu/background-ACUs-blue-black.dds.dds'))
-    LayoutHelpers.AtHorizontalCenterIn(backImage, parent)
-    LayoutHelpers.AtTopIn(backImage, parent)
+    local backImage = Bitmap(parent, UIUtil.UIFile('/scx_menu/main-menu/background-ACUs-blue-black.dds'))
+    LayoutHelpers.FillParent(backImage, parent)
+    backImage.Bottom:Set(function() return parent.Width() * 0.5625 end)
     backImage.Depth:Set(10)
 
     local darker = Bitmap(parent)
