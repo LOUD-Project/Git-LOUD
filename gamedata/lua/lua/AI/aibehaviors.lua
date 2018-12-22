@@ -5248,7 +5248,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 						end
 						
                         if unit.Dead or waitcount > 15 then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unitunit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
                             upgradeIssued = false
                         end
 

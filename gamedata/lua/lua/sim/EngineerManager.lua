@@ -28,7 +28,7 @@ local LOUDENTITY = EntityCategoryContains
 
 local VDist2Sq = VDist2Sq
 
---local ForkThread = ForkThread
+local ForkThread = ForkThread
 
 local WaitTicks = coroutine.yield
 

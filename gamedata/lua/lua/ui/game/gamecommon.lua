@@ -72,7 +72,6 @@ end
 -- Now also prefetches the icons and keeps them in the cache
 function InitializeUnitIconBitmaps(prefetchTable)
 
-	LOG("*DEBUG Initialize Unit Icon Bitmaps")
 
     local alreadyFound = {}
 	
