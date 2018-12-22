@@ -112,12 +112,17 @@ teamOptions =
 }
 
 globalOpts = {
-	{   default = 4,
+	{   default = 5,
         label = "AIx Cheat Multiplier",
         help = "Set the resource multiplier for the cheating AIs.",
         key = 'CheatMult',
         pref = 'Lobby_Cheat_Mult',
         values = {
+            {
+                text = "0.8",
+                help = "Resources -20% - slower",
+                key = '0.8',
+            },
             {
                 text = "0.9",
                 help = "Resources -10% - slow",
@@ -205,12 +210,17 @@ globalOpts = {
 
         },
 	},
-	{   default = 4,
+	{   default = 5,
         label = "AIx Build Multiplier",
         help = "Set the build rate multiplier for the cheating AIs.",
         key = 'BuildMult',
         pref = 'Lobby_Build_Mult',
         values = {
+            {
+                text = "0.8",
+                help = "AIx Build Rate -20%",
+                key = '0.8',
+            },
             {
                 text = "0.9",
                 help = "AIx Build Rate -10%",
