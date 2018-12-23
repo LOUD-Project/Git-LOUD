@@ -70,7 +70,6 @@ local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 
-local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 
 
 DummyUnit = Class(Unit) {
@@ -804,8 +803,8 @@ StructureUnit = Class(Unit) {
             ApplyBuff(adjacentUnit, v, self)
         end
 
-        RequestRefreshUI(self)
-        RequestRefreshUI(adjacentUnit)
+        self:RequestRefreshUI()
+        adjacentUnit:RequestRefreshUI()
     end,
 
     -- When we're not adjacent, try to remove all the possible bonuses.
@@ -823,8 +822,8 @@ StructureUnit = Class(Unit) {
 
         self:DestroyAdjacentEffects()
 
-        RequestRefreshUI(self)
-        RequestRefreshUI(adjacentUnit)
+        self:RequestRefreshUI()
+        adjacentUnit:RequestRefreshUI()
     end,
 
     CreateAdjacentEffect = function(self, adjacentUnit)
@@ -861,9 +860,6 @@ StructureUnit = Class(Unit) {
 			end
         end
 		
-		if table.empty(self.AdjacencyBeamsBag) then
-			self.AdjacencyBeamsBag = nil
-		end
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
@@ -1065,7 +1061,6 @@ MobileUnit = Class(Unit) {
 
 			end
 	
-			--LOG("*AI DEBUG UpdateMovementEffects for "..repr(__blueprints[self.BlueprintID].Description).." from "..repr(old).." to "..repr(new) )
 		
 		end
 		
@@ -1310,7 +1305,6 @@ MobileUnit = Class(Unit) {
 
         if self.TreadThreads then
 		
-			--LOG("*AI DEBUG DestroyMovementEffect Treads")
 			
             for k, v in self.TreadThreads do
                 KillThread(v)
@@ -1320,7 +1314,6 @@ MobileUnit = Class(Unit) {
 
         if bpTable[self.CacheLayer].Treads.ScrollTreads then
 		
-			--LOG("*AI DEBUG DestroyMovementEffect Scrolling Treads")
 			
             self:RemoveScroller()
         end
@@ -1420,8 +1413,6 @@ MobileUnit = Class(Unit) {
 
 	OnStopBeingBuilt = function(self, builder, layer)
 	
-		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }
-		self.MovementEffectsBag = {}
 		
 		Unit.OnStopBeingBuilt(self, builder, layer)
 		
@@ -1517,7 +1508,6 @@ MobileUnit = Class(Unit) {
             return
         end
 		
-		--LOG("*AI DEBUG OnMotionHorz change is "..repr(new))
 
         if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
 
@@ -1558,18 +1548,12 @@ MobileUnit = Class(Unit) {
             -- wep:OnMotionHorzEventChange(new, old)
         -- end
 		
-		if not self.MotionStatus then
-			self.MotionStatus = { old = "Stopped", new = "Stopped" }
-		end
 		
-		self.MotionStatus.old = old
-		self.MotionStatus.new = new
 
     end,
 
     OnMotionVertEventChange = function( self, new, old )
 	
-		--LOG("*AI DEBUG OnMotionVert change is "..repr(new))
 
         if new == 'Bottom' then
             self:UpdateBeamExhaust('Landed')
@@ -2989,7 +2973,7 @@ SubUnit = Class(MobileUnit) {
     FxDamage3 = {EffectTemplate.DamageSparks01},
 
     -- DESTRUCTION PARAMS
-    PlayDestructionEffects = false,
+    PlayDestructionEffects = true,
     ShowUnitDestructionDebris = false,
     DeathThreadDestructionWaitTime = 10,
 

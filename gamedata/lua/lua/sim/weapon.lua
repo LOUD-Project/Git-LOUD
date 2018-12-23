@@ -64,7 +64,7 @@ Weapon = Class(moho.weapon_methods) {
         self.Disabledbf = {}
         self.DamageMod = 0
 		
-        --self.DamageRadiusMod = 0
+        self.DamageRadiusMod = 0
 		
         local initStore = tonumber(ScenarioInfo.Options.MissileOption) or bp.InitialProjectileStorage or 0
 		
@@ -385,12 +385,12 @@ Weapon = Class(moho.weapon_methods) {
 
 			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
 			
-			DoTTime = weaponBlueprint.DoTTime,
-			DoTPulses = weaponBlueprint.DoTPulses,
+			DoTTime = weaponBlueprint.DoTTime or nil,
+			DoTPulses = weaponBlueprint.DoTPulses or nil,
 		
-			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks,
+			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or nil,
 		
-			advancedTracking = weaponBlueprint.advancedTracking,
+			advancedTracking = weaponBlueprint.advancedTracking or nil,
 
 			ProjectileLifetime = self.ProjectileLifetime,
 			TrackingRadius = self.TrackingRadius,
@@ -446,12 +446,12 @@ Weapon = Class(moho.weapon_methods) {
 
 			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
 			
-			DoTTime = weaponBlueprint.DoTTime,
-			DoTPulses = weaponBlueprint.DoTPulses,
+			DoTTime = weaponBlueprint.DoTTime or nil,
+			DoTPulses = weaponBlueprint.DoTPulses or nil,
 		
-			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks,
+			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or nil,
 		
-			advancedTracking = weaponBlueprint.advancedTracking,
+			advancedTracking = weaponBlueprint.advancedTracking or nil,
 
 			ProjectileLifetime = self.ProjectileLifetime,
 			TrackingRadius = self.TrackingRadius,
@@ -627,11 +627,9 @@ Weapon = Class(moho.weapon_methods) {
         self.DamageMod = self.DamageMod + (dmgMod or 0)
     end,
 
---[[    
     AddDamageRadiusMod = function(self, dmgRadMod)
         self.DamageRadiusMod = self.DamageRadiusMod + (dmgRadMod or 0)
     end,
---]]
     
     -- rewritten to have buff data passed in to save the GetBlueprint function call
     DoOnFireBuffs = function(self, buffs)

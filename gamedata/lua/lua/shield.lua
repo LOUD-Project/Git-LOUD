@@ -216,26 +216,19 @@ Shield = Class(moho.shield_methods,Entity) {
 		local GetMaxHealth = moho.entity_methods.GetMaxHealth
 		local LOUDMIN = math.min
 		local LOUDMAX = math.max
-		
-        --local absorbed = self:OnGetDamageAbsorption(instigator,amount,type) 
+
         local absorbed = amount * ( self.Owner:GetArmorMult( type ))
-		
-        --absorbed = absorbed * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
-		
+
         absorbed = LOUDMIN( GetHealth(self), absorbed )
 		
 		if ScenarioInfo.ShieldDialog then
-			LOG("*AI DEBUG Shield on "..__blueprints[self.Owner.BlueprintID].Description.." absorbs "..absorbed.." damage")
+			LOG("*AI DEBUG Shield on "..repr(__blueprints[self.Owner.BlueprintID].Description).." absorbs "..absorbed.." damage")
 		end
 
         if self.PassOverkillDamage and (amount-absorbed) > 0 then
-		
-            --local overkill = self:GetOverkill(instigator,amount,type) 
 
 			local overkill = (amount-absorbed) * ( self.Owner:GetArmorMult( type ))
-			
-			--overkill = overkill * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
-			
+
 			overkill = LOUDMAX( overkill, 0 )
 			
 			if overkill > 0 then
@@ -243,7 +236,7 @@ Shield = Class(moho.shield_methods,Entity) {
 				if self.Owner and IsUnit(self.Owner) then
 				
 					if ScenarioInfo.ShieldDialog then
-						LOG("*AI DEBUG Shield Owner "..__blueprints[self.Owner.BlueprintID].Description.." takes "..overkill.." damage")
+						LOG("*AI DEBUG Shield Owner "..repr(__blueprints[self.Owner.BlueprintID].Description).." takes "..overkill.." damage")
 					end
 				
 					self.Owner:DoTakeDamage(instigator, overkill, vector, type)
@@ -331,7 +324,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		
 			if self.ImpactMeshBp != '' then
 			
-				SetMesh( ImpactMesh, self.ImpactMeshBp )
+				ImpactMesh:SetMesh(self.ImpactMeshBp)
 				
 				ImpactMesh:SetDrawScale(self.Size)
 				ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
@@ -354,7 +347,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			LOG("*AI DEBUG Shield OnDestroy for "..__blueprints[self.Owner.BlueprintID].Description )
 		end
 	
-		SetMesh( self, '')
+		self:SetMesh('')
 		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
@@ -417,7 +410,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
         self:SetCollisionShape('None')
 
-		SetMesh( self,'')
+		self:SetMesh('')
 		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()
@@ -432,7 +425,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
 
-		SetMesh( self, self.MeshBp )
+		self:SetMesh(self.MeshBp)
 		
 		self:SetParentOffset(Vector(0,self.ShieldVerticalOffset,0))
 		self:SetDrawScale(self.Size)
@@ -441,7 +434,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		
 			self.MeshZ = Entity { }		--Owner = self.Owner }
 			
-			SetMesh( self.MeshZ, self.MeshZBp )
+			self.MeshZ:SetMesh(self.MeshZBp)
 			
             Warp( self.MeshZ, self.Owner:GetPosition() )
 			
@@ -643,6 +636,9 @@ UnitShield = Class(Shield){
 
     OnCreate = function(self,spec)
 
+        self.Trash = TrashBag()
+        self.Owner = spec.Owner
+        self.ImpactEffects = EffectTemplate[spec.ImpactEffects]        
         self.CollisionSizeX = spec.CollisionSizeX or 1
 		self.CollisionSizeY = spec.CollisionSizeY or 1
 		self.CollisionSizeZ = spec.CollisionSizeZ or 1
@@ -664,7 +660,7 @@ UnitShield = Class(Shield){
 	
   		self:SetCollisionShape( 'Box', self.CollisionCenterX, self.CollisionCenterY, self.CollisionCenterZ, self.CollisionSizeX, self.CollisionSizeY, self.CollisionSizeZ)
 		
-		SetMesh( self.Owner, self.OwnerShieldMesh, true )
+		self.Owner:SetMesh(self.OwnerShieldMesh,true)
 		
         self.Owner:OnShieldIsUp()
 		
@@ -674,7 +670,7 @@ UnitShield = Class(Shield){
 	
         self:SetCollisionShape('None')
 		
-		SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true )
+		self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
 		
         self.Owner:OnShieldIsDown()
 		
@@ -684,7 +680,7 @@ UnitShield = Class(Shield){
 	
         if not self.Owner.MyShield or self.Owner.MyShield:GetEntityId() == self:GetEntityId() then
 		
-	        SetMesh( self.Owner, self.Owner:GetBlueprint().Display.MeshBlueprint, true)
+	        self.Owner:SetMesh(self.Owner:GetBlueprint().Display.MeshBlueprint, true)
 			
 		end
 		

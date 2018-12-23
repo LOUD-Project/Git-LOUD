@@ -35,34 +35,34 @@
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 	
-	ScenarioInfo.PriorityDialog = true
+	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 	
-	ScenarioInfo.BaseMonitorDialog = true
+	ScenarioInfo.BaseMonitorDialog = false
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
 	ScenarioInfo.DisplayBaseMonitors = false
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
 	
-	ScenarioInfo.ACUEnhanceDialog = true
+	ScenarioInfo.ACUEnhanceDialog = false
 	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
 	
-	ScenarioInfo.SCUEnhanceDialog = true
+	ScenarioInfo.SCUEnhanceDialog = false
 	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
 
-	ScenarioInfo.FactoryEnhanceDialog = true
+	ScenarioInfo.FactoryEnhanceDialog = false
 	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
 
-	ScenarioInfo.StructureUpgradeDialog = true
+	ScenarioInfo.StructureUpgradeDialog = false
 	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
 
-	ScenarioInfo.ProjectileDialog = true
+	ScenarioInfo.ProjectileDialog = false
 	LOG("*AI DEBUG		Report  Projectile Dialog to Log is "..repr(ScenarioInfo.ProjectileDialog))
 	
-	ScenarioInfo.ShieldDialog = true
+	ScenarioInfo.ShieldDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
 	
-	ScenarioInfo.WeaponDialog = true
+	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
 
 

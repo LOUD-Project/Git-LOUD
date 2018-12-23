@@ -241,13 +241,11 @@ Platoon = Class(moho.platoon_methods) {
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
 
-			--LOG("*AI DEBUG "..self.BuilderName.." has path of "..repr(path))			
 			
 			for wpidx, waypointPath in path do
 			
 				if self.MoveThread then
 
-					--LOG("*AI DEBUG "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." is moving to "..repr(waypointPath))
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, 30)
 			
@@ -562,7 +560,6 @@ Platoon = Class(moho.platoon_methods) {
 					
 				end
 
-				WaitTicks(2)
 				
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe drop for "..repr(destination).." using "..layer)
 				
@@ -640,7 +637,6 @@ Platoon = Class(moho.platoon_methods) {
 				-- we'll look for a drop zone at least half as close as we already are
 				local markerrange = VDist3( self:GetPlatoonPosition(), destination ) * .5
 				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
 			
 				transportLocation = false
 
@@ -668,7 +664,6 @@ Platoon = Class(moho.platoon_methods) {
 					
 				end
 				
-				WaitTicks(2)
 				
 				return false
 				
@@ -702,7 +697,6 @@ Platoon = Class(moho.platoon_methods) {
 					
 				end
 				
-				WaitTicks(2)
 				
 				return false
 				
@@ -750,7 +744,7 @@ Platoon = Class(moho.platoon_methods) {
 					-- if no path then fail otherwise use it
 					if not path and destination != nil then
 
-						WaitTicks(2)
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." transport failed and/or no path to destination ")
 						
 						return false
 				
@@ -5857,9 +5851,43 @@ Platoon = Class(moho.platoon_methods) {
 			if did_a_build then
 			
 				if cons.ExpansionBase then
+				
+					local function MonitorNewBaseThread( self, refName, refposition, cons)
+					
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+	
+						aiBrain.BaseExpansionUnderway = true
+	
+						eng.NeedsBaseData = nil
+	
+						-- this callback removes the ExpansionUnderway flag from the brain
+						local deathFunction = function() aiBrain.BaseExpansionUnderway = false end
+	
+						-- it will get called if the platoon is destroyed
+						self:AddDestroyCallback(deathFunction)
+	
+						-- loop here until the engineer signals that he's ready to start building
+						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
+	
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." waiting for NeedBaseData for "..repr(refposition))
+							
+							WaitTicks(40)
+		
+						end
+
+						if not eng.Dead then
+	
+							if PlatoonExists( aiBrain, self ) then
+								eng.NewExpansion = { refName, refposition, cons }
+							end
+		
+							eng.NewBaseThread = nil
+						end				
+					
+					end
 
 					-- we fork a thread (on the platoon) to carry the new base information and pass along when called for
-					eng.NewBaseThread = self:ForkThread( self.MonitorNewBaseThread, aiBrain, eng, refName, LOUDCOPY(reference[1]), cons )
+					eng.NewBaseThread = self:ForkThread( MonitorNewBaseThread, refName, LOUDCOPY(reference[1]), cons )
 			
 					eng.NewExpansion = { refName, {reference[1][1],reference[1][2],reference[1][3]}, cons}
 
@@ -5884,44 +5912,6 @@ Platoon = Class(moho.platoon_methods) {
 
         end
 
-    end,
-
-	MonitorNewBaseThread = function( self, aiBrain, eng, refName, refposition, cons )
-					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway "..repr(refName) )
-	
-						aiBrain.BaseExpansionUnderway = true
-	
-						eng.NeedsBaseData = nil
-	
-						-- this callback removes the ExpansionUnderway flag from the brain
-						local deathFunction = function() LOG("*AI DEBUG "..aiBrain.Nickname.." Expansion engineer "..repr(eng.Sync.id).." for "..repr(refName).." dies/disbands") aiBrain.BaseExpansionUnderway = false end
-	
-						-- it will get called when the platoon is destroyed/disbanded
-						LOUDINSERT( self.EventCallbacks.OnDestroyed, deathFunction )
-
-						-- loop here until the engineer signals that he's ready to start building
-						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
-	
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." waiting for NeedBaseData for "..repr(refName) )
-							
-							WaitTicks(40)
-		
-						end
-
-						if not BeenDestroyed(eng) then
-	
-							if PlatoonExists( aiBrain, self ) then
-								eng.NewExpansion = { refName, refposition, cons }
-							end
-		
-							eng.NewBaseThread = nil
-							
-						else
-						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(refName).." dies")
-							
-						end
 					
 	end,
 	
@@ -6288,7 +6278,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
 			local function WatchForNotBuilding()
 				
-				LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
 		
 				local GetPosition = moho.entity_methods.GetPosition
 				local GetWorkProgress = moho.unit_methods.GetWorkProgress
@@ -6475,7 +6465,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 
-					LOG("*AI DEBUG Eng "..eng.Sync.id.." issued reclaims")
+					--LOG("*AI DEBUG Eng "..eng.Sync.id.." issued reclaims")
 					
 					-- if we actually issued the reclaim then we'll terminate
 					-- WFNB will relaunch the PBC for us
@@ -6499,7 +6489,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 						IssueRepair( {eng}, v )
 						
-						LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
+						--LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
 						
 						eng.IssuedBuildCommand = true
 						eng.IssuedReclaimCommand = false
@@ -6521,7 +6511,6 @@ Platoon = Class(moho.platoon_methods) {
 			-- this is a bit different than the MovePlatoon function 
 			local function MoveEngineer( platoon, path )
 			
-				LOG("*AI DEBUG MoveEngineer")
 		
 				local prevpoint
 			
@@ -6539,7 +6528,6 @@ Platoon = Class(moho.platoon_methods) {
 
 			local function EngineerMoveWithSafePath( buildlocation )
 			
-				LOG("*AI DEBUG EngMoveWithSafePath")
 
 				local pos = LOUDCOPY( eng:GetPosition())
 				local distance = VDist2( pos[1],pos[3],buildlocation[1],buildlocation[3] )
@@ -6613,7 +6601,6 @@ Platoon = Class(moho.platoon_methods) {
 			-- checking if the site is valid and safe along the way
 			local function EngineerMoving( buildlocation, builditem )
 			
-				LOG("*AI DEBUG Eng Moving")
 
 				if EngineerThreatened( buildlocation ) then
 				
@@ -6715,7 +6702,6 @@ Platoon = Class(moho.platoon_methods) {
 			-- get the engineer moved to the goal --
 			if EngineerMoving( buildLocation, buildItem ) then
 			
-				LOG("*AI DEBUG Eng Moved")
 			
 				if aiBrain:PlatoonExists( platoon ) and not eng.Dead then
 					platoon:Stop()
@@ -6846,7 +6832,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								if CanBuildStructureAt( aiBrain, buildItem, buildLocation ) then
 								
-									LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
+									--LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
 
 									eng.IssuedBuildCommand = true
 									eng.IssuedReclaimCommand = false
