@@ -1,0 +1,309 @@
+UnitBlueprint {
+
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'URB',
+            Cue = 'URB2301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},		
+    },
+	
+    BuildIconSortPriority = 109,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH3',
+        'DIRECTFIRE',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 6000,
+        MaxHealth = 6000,
+        RegenRate = 3,
+        SurfaceThreatLevel = 37,
+    },
+	
+    Description = '<LOC xeb2306_desc>Heavy Point Defense',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 120,
+                    ShaderName = 'Insect',
+                    AlbedoName = '/units/urb2301/urb2301_albedo.dds',
+                    SpecularName = '/units/urb2301/urb2301_specteam.dds',
+                },
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = 'urb2301_lod1_specteam.dds',
+                    AlbedoName = '/units/urb2301/urb2301_lod1_albedo.dds',
+                    NormalsName = '/units/urb2301/urb2301_lod1_normalsTS.dds',
+                    SpecularName = '/units/urb2301/urb2301_lod1_specteam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+
+        UniformScale = 0.08,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 18500,
+        BuildCostMass = 2000,
+        BuildTime = 1800,
+		
+        RebuildBonusIds = {'srb2306'},
+    },
+	
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+		CapCost = 2,
+        Category = 'Defense',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = '<LOC srb2306_name>Hades',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 32,
+    },
+	
+    Interface = {
+        HelpText = '<LOC xeb2306_help>Heavy Point Defense',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.45,
+    LifeBarSize = 1.1,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+		
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+		
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 0.8,
+    SelectionSizeZ = 0.8,
+    SelectionThickness = 0.4,
+	
+    SizeX = 0.69,
+    SizeY = 2.0,
+    SizeZ = 0.95,
+	
+    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconSortPriority = 205,
+	
+    Veteran = {
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
+			
+            CollideFriendly = false,
+            ContinuousBeam = true,
+			
+            Damage = 75,
+			
+            DamageFriendly = false,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Microwave Laser',
+			
+            EnergyCumulativeUpkeepCost = 10,
+            EnergyConsumptionPerSecondMin = 100,
+            EnergyConsumptionPerSecondMax = 600,
+            EnergyDissipationPerSecond = 30,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 52,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle01',
+                    },
+                    RackBone = 'Turret_B02',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,
+			
+            ReTargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'Turret_Muzzle01',
+            TurretBonePitch = 'Turret_B02',
+            TurretBoneYaw = 'Turret_B01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 38,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 34,
+			
+            Turreted = true,
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

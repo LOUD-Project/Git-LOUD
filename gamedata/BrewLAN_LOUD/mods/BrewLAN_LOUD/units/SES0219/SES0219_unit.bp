@@ -1,0 +1,396 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Front_Turret',
+            'Back_Turret',
+        },
+    },
+	
+    Audio = {
+        AmbientMove = Sound {
+            Bank = 'UES',
+            Cue = 'UES0103_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'UESDestroy',
+            Cue = 'UES0103_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UES',
+            Cue = 'UES0103_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 16,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'FIELDENGINEER',
+        'CAPTURE',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'UEF',
+        'MOBILE',
+        'NAVAL',
+        'TECH2',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetY = -0.4,
+	
+    Defense = {
+        AirThreatLevel = 7.2,
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 121,
+        Health = 3025,
+        MaxHealth = 3025,
+        RegenRate = 4,
+    },
+	
+    Description = '<LOC ss0319_desc>Field Engineering Ship',
+	
+    Display = {
+	
+        Abilities = {
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_engineeringsuite>Engineering Suite',
+            '<LOC ability_jamming>Jamming',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/ses0219/ses0219_ADeath01.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/ses0219/ses0219_ADeath02.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/ses0219/ses0219_ADeath03.sca',
+                Weight = 100,
+            },
+        },
+		
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'UES0103',
+                        },
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 140,
+                    ShaderName = 'Unit',
+                },
+                {
+                    LODCutoff = 250,
+                    ShaderName = 'Unit',
+                    MeshName = '/units/ues0103/ues0103_lod1.scm',
+                    AlbedoName = '/units/ues0103/ues0103_lod1_albedo.dds',
+                    NormalsName = '/units/ues0103/ues0103_lod1_normalsTS.dds',
+                    SpecularName = '/units/ues0103/ues0103_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Front_Left_Wake',
+                        },
+                        Scale = 1.25,
+                        Type = 'LeftFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Front_Right_Wake',
+                        },
+                        Scale = 1.25,
+                        Type = 'RightFrontWake',
+                    },
+                    {
+                        Bones = {
+                            'Back_Wake',
+                        },
+                        Scale = 1.25,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = false,
+        UniformScale = 0.089,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 4250,
+        BuildCostMass = 1000,
+        BuildTime = 1975,
+        BuildRate = 18,
+		
+        BuildableCategory = {
+            'BUILTBYTIER2ENGINEER NAVAL UEF',
+            'BUILTBYTIER2ENGINEER ANTINAVY UEF',
+            'BUILTBYTIER2ENGINEER ANTIAIR UEF',
+            'BUILTBYTIER2ENGINEER ANTIMISSILE UEF',
+            'BUILTBYTIER2ENGINEER SHIELD UEF',
+            'BUILTBYTIER2ENGINEER MINE UEF',
+            'BUILTBYTIER2FIELD NAVAL UEF',
+            'BUILTBYTIER2FIELD ANTINAVY UEF',
+            'BUILTBYTIER2FIELD ANTIAIR UEF',
+            'BUILTBYTIER2FIELD ANTIMISSILE UEF',
+            'BUILTBYTIER2FIELD SHIELD UEF',
+            'BUILTBYTIER2FIELD MINE UEF',
+        },
+		
+		MaxBuildDistance = 16,
+		
+        StorageEnergy = 250,
+        StorageMass = 25,
+    },
+	
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 8,
+    },
+	
+    General = {
+        BuildBones = {
+            AimBone = 0,
+            BuildEffectBones = {
+                'Turret_Muzzle_01',
+                'Turret_Muzzle_02',
+            },
+            PitchBone = 'Turret_Barrel',
+            YawBone = 'Turret',
+        },
+        Category = 'Ship',
+        Classification = 'RULEUC_MilitaryShip',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'sea',
+        SelectionPriority = 2,
+        TechLevel = 'RULEUTL_Basic',
+        ToggleCaps = {
+            RULEUTC_JammingToggle = true,
+        },
+        UnitName = '<LOC ses0219_name>Fixxie Class',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        JamRadius = {
+            Max = 55,
+            Min = 35,
+        },
+        JammerBlips = 4,
+        RadarRadius = 90,
+        SonarRadius = 45,
+        VisionRadius = 36,
+        WaterVisionRadius = 18,
+		ShowIntelOnSelect = true,
+    },
+	
+    Interface = {
+        HelpText = '<LOC ss0319_desc>Field Engineering Ship',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.7*1.35,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BackUpDistance = 6,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 2,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
+        MaxSteerForce = 5,
+        MeshExtentsX = 1,
+        MeshExtentsY = 1.1,
+        MeshExtentsZ = 4.1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 20,
+        TurnRate = 45,
+    },
+	
+    SelectionSizeX = 0.8,
+    SelectionSizeZ = 3.4,
+    SelectionThickness = 0.2,
+	
+    SizeX = 1,
+    SizeY = 1.1,
+    SizeZ = 4.1,
+	
+    StrategicIconName = 'icon_ship2_engineer',
+    StrategicIconSortPriority = 165,
+	
+    Veteran = {
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 32,
+        Level5 = 40,
+    },
+	
+    Weapon = {
+
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UESWeapon',
+                    Cue = 'UEB2104_Railgun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 18,
+			DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Linked Railgun',
+
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.1,
+            FiringTolerance = 0.1,
+			
+            Label = 'AAGun',
+			
+            MaxRadius = 44,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 66,
+			
+            ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 0.8,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Back_Turret_Muzzle01',
+                    },
+                    RackBone = 'Back_Turret_Barrel01',
+                },
+                {
+                    MuzzleBones = {
+                        'Back_Turret_Muzzle02',
+                    },
+                    RackBone = 'Back_Turret_Barrel02',
+                },
+            },
+            RackFireTogether = true,
+			
+            RackRecoilDistance = -0.5,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,		-- 72 DPS Air
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
+            TrackingRadius = 1.4,
+			
+            TurretBoneMuzzle = 'Back_Turret_Muzzle01',
+            TurretBonePitch = 'Back_Turret_Barrel01',
+            TurretBoneYaw = 'Back_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 45,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 180,
+			
+            Turreted = true,
+        },
+    },
+}

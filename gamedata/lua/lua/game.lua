@@ -1,6 +1,6 @@
 ---  File     :  /lua/game.lua
 ---  Summary  : Script full of overall game functions
----  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+---  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 VeteranDefault = {
     Level1 = 25,
@@ -17,7 +17,7 @@ _UnitRestricted_cache = {}
 
 doscript('/lua/BuffFieldDefinitions.lua')
 
-BrewLANPath = function()
+BrewLANLOUDPath = function()
     for i, mod in __active_mods do
         if mod.uid == "25D57D85-7D84-27HT-A501-BR3WL4N000079" then
             return mod.location

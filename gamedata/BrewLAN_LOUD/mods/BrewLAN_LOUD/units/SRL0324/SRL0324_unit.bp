@@ -1,0 +1,234 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Sensor_B001',
+            'Sensor_B002',
+            'Sensor_B003',
+            'SRB0324',
+            'Tower_001',
+        },
+    },
+    Audio = {
+        Activate = Sound {
+            Bank = 'URL',
+            Cue = 'URL0304_Move_Extend',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0304_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0304_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Radar',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Cloak = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL0402_Death',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        Decloak = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0402_Spawn',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 12,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'INTELLIGENCE',
+        'TECH3',
+        'OMNI',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYOMNI',
+        'OVERLAYRADAR',
+    },
+	
+    Defense = {
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 65,
+        Health = 250,
+        MaxHealth = 250,
+        RegenRate = 1,
+    },
+	
+    Description = '<LOC srl0324_desc>Mobile Sensor Array',
+	
+    Display = {
+	
+        Abilities = {
+            '<LOC ability_cloak>Cloaking',
+            '<LOC ability_deploys>Deploys',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+        },
+		
+        AnimationOpen = '/mods/BrewLAN_LOUD/units/SRL0324/SRL0324_AOpen.sca',
+
+        IdleEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'AttachPoint',
+                        },
+                        Type = 'Radar01',
+                    },
+                },
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                },
+                {
+                    LODCutoff = 400,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                    AlbedoName = '/units/urb3104/urb3104_lod1_albedo.dds',
+                    NormalsName = '/units/urb3104/urb3104_lod1_normalsts.dds',
+                    SpecularName = '/units/urb3104/urb3104_lod1_specteam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.05,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 30000*0.9,
+        BuildCostMass = 2400*0.5,
+        BuildTime = 5000,
+		
+        MaintenanceConsumptionPerSecondEnergy = 2600,
+    },
+	
+    General = {
+        Category = 'Intelligence',
+        Classification = 'RULEUC_Sensor',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+		
+        OrderOverrides = {
+            RULEUTC_IntelToggle = {
+                bitmapId = 'omni',
+                helpText = 'toggle_omni',
+            },
+        },
+		
+        FactionName = 'Cybran',
+        Icon = 'land',
+		
+        ToggleCaps = {
+            RULEUTC_IntelToggle = true,
+        },
+		
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC srl0324_name>Citron',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        OmniRadius = 125,
+        RadarRadius = 290,
+        ShowIntelOnSelect = true,
+        VisionRadius = 40,
+		
+        RadarStealth = true,
+		StealthWaitTime = 2,
+        Cloak = true,
+    },
+	
+    Interface = {
+        HelpText = '<LOC srl0324_desc>Mobile Sensor Array',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.7,
+    LifeBarSize = 1.75,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 2,
+        MaxBrake = 3.3,
+        MaxSpeed = 3.3,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        RotateOnSpot = false,
+        RotateOnSpotThreshold = 1,
+        TurnRadius = 0,
+        TurnRate = 75,
+    },
+
+    SelectionSizeX = 0.8,
+    SelectionSizeZ = 0.8,
+    SelectionThickness = 0.4,
+	
+    SizeX = 1.25,
+    SizeY = 1.7,
+    SizeZ = 1.25,
+	
+    StrategicIconName = 'icon_land3_intel',
+    StrategicIconSortPriority = 115,
+	
+    Transport = {
+        TransportClass = 3,
+    },
+	
+}

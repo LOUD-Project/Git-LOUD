@@ -1,0 +1,247 @@
+UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'AttackTarget001',
+            'AttackTarget002',
+            'AttackTarget003',
+            'AttackTarget004',
+        },
+    },
+	
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 150,
+	
+    Categories = {
+        'BUILTBYTIER2FIELD',
+        'BUILTBYTIER3FIELD',
+        'SELECTABLE',
+        'AEON',
+        'STRUCTURE',
+        'WALL',
+        'DRAGBUILD',
+        'BENIGN',
+        'TECH2',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+		'MEDIUMWALL',
+    },
+
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 9000,
+        MaxHealth = 9000,
+    },
+	
+    Description = 'Medium Wall Segment',
+	
+    Display = {
+        AdjacencyConnection = 'MEDIUMWALL',
+        AdjacencyConnectionInfo = {
+            Bones = {
+                North = {
+                    visibility = 'hide',
+                    bonetype = 'North',
+                    conflict = nil,
+                },
+                South = {
+                    visibility = 'hide',
+                    bonetype = 'South',
+                    conflict = nil,
+                },
+                East = {
+                    visibility = 'hide',
+                    bonetype = 'East',
+                    conflict = nil,
+                },
+                West = {
+                    visibility = 'hide',
+                    bonetype = 'West',
+                    conflict = nil,
+                },
+                NW = {
+                    visibility = 'show',
+                    bonetype = 'Tower',
+                    conflict = {'North','West'},
+                },
+                NE = {
+                    visibility = 'show',
+                    bonetype = 'Tower',
+                    conflict = {'North','East'},
+                },
+                SW = {
+                    visibility = 'show',
+                    bonetype = 'Tower',
+                    conflict = {'South','West'},
+                },
+                SE = {
+                    visibility = 'show',
+                    bonetype = 'Tower',
+                    conflict = {'South','East'},
+                },
+            },
+        },
+		
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 1,
+                OffsetY = 2.5,
+                OffsetZ = 0.25,
+            },
+            {
+                Bone = 0,
+                OffsetX = -1,
+                OffsetY = 2.5,
+                OffsetZ = 0.25,
+            },
+        },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 250,
+                    ShaderName = 'Aeon',
+                    Scrolling = true,
+                    AlbedoName = '/units/UAC1301/UAC1301_albedo.dds',
+                    NormalsName = '/units/UAC1301/UAC1301_normalsts.dds',
+                    SpecularName = '/units/UAC1301/UAC1301_specteam.dds',
+                },
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'Aeon',
+                    Scrolling = true,
+                    AlbedoName = '/units/UAC1301/UAC1301_albedo.dds',
+                    NormalsName = '/units/UAC1301/UAC1301_normalsts.dds',
+                    SpecularName = '/units/UAC1301/UAC1301_specteam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.0769230769230769230769230,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 800,
+        BuildCostMass = 240,
+        BuildTime = 200,
+		
+        RebuildBonusIds = { 'sab5210'},
+    },
+	
+    Footprint = {
+        SizeX = 2,
+        SizeZ = 2,
+    },
+	
+    General = {
+        CapCost = 0.4,
+        Category = 'Defense',
+        Classification = 'RULEUC_MiscSupport',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = false,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Aeon',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Basic',
+        --UnitName = '<LOC sab5210_name>Bulkhead',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 0,
+    },
+	
+    Interface = {
+        HelpText = '<LOC sbui5210>Medium Wall Segment',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0,
+    LifeBarSize = 0.075,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxGroundVariation = 2,
+        FlattenSkirt = false,
+        MaxSteerForce = 0,
+        MeshExtentsX = 3.2,
+        MeshExtentsY = 2.2,
+        MeshExtentsZ = 3.2,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 0,
+        SkirtSizeZ = 0,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = .8,
+    SelectionSizeZ = .8,
+    SelectionThickness = 0.3,
+	
+    SizeX = 2,
+    SizeY = 1.6,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_structure_wall',
+    StrategicIconSortPriority = 208,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}
