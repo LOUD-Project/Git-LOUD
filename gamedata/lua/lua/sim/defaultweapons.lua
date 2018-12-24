@@ -68,9 +68,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             if bp.RackBones[1].TelescopeRecoilDistance then
 			
                 local tpDist = bp.RackBones[1].TelescopeRecoilDistance or 0
-				
-				--LOG("*AI DEBUG TelescopeRecoilDistance = "..repr(bp.RackBones[1].TelescopeRecoilDistance))
-				
+
                 if LOUDABS(tpDist) > LOUDABS(dist) then
 				
                     dist = tpDist
@@ -82,21 +80,26 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or LOUDABS( dist / (( 1 / bp.RateOfFire ) - (bp.MuzzleChargeDelay or 0))) * 1.25
         end
 		
-        self.NumMuzzles = 0
+        local NumMuzzles = 0
 		
         for _, rv in bp.RackBones do
-            self.NumMuzzles = self.NumMuzzles + LOUDGETN(rv.MuzzleBones or 0)
+            NumMuzzles = NumMuzzles + LOUDGETN(rv.MuzzleBones or 0)
         end
 		
-        self.NumMuzzles = self.NumMuzzles / LOUDGETN(bp.RackBones)
+        NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones)
 		
-        local totalMuzzleFiringTime = (self.NumMuzzles - 1) * bp.MuzzleSalvoDelay
+		if bp.MuzzleSalvoDelay then
 		
-        if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
-            local strg = '*ERROR: The total time to fire ('..totalMuzzleFiringTime..') '..self.NumMuzzles..' muzzles is longer than the RateOfFire '..bp.RateOfFire..' allows, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit:GetUnitId()
-            error(strg, 2)
-            return false
-        end
+			local totalMuzzleFiringTime = (NumMuzzles - 1) * bp.MuzzleSalvoDelay
+		
+			if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
+			
+				local strg = '*ERROR: The total time to fire ('..totalMuzzleFiringTime..') '..NumMuzzles..' muzzles is longer than the RateOfFire '..bp.RateOfFire..' allows, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit:GetUnitId()
+				error(strg, 2)
+				return false
+				
+			end
+		end
 		
         if bp.EnergyChargeForFirstShot == false then
             self.FirstShot = true
@@ -536,14 +539,14 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- WEAPON STATES:
 
     -- A Weapon is idle state when it has no target and is done with animations or unpacking
+	-- also note that a weapon is created BEFORE the actual unit is completed - so you'll see
+	-- any first shot charging take place before the unit is finished - that's ok.
     IdleState = State {
 	
 		WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
-		
-			--LOG("*AI DEBUG Idle State")
 
             if self.unit.Dead then return end
             

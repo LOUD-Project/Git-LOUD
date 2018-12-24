@@ -43,27 +43,31 @@ Weapon = Class(moho.weapon_methods) {
 
 		-- next 3 conditions are for adv missile track and retarget
         if bp.advancedTracking then
+		
         	self.advancedTracking = bp.advancedTracking
-        end
+ 		
+			-- calc a lifetime if one is not provided
+			if bp.ProjectileLifetime then
+				self.ProjectileLifetime = bp.ProjectileLifetime
+			else
+				self.ProjectileLifetime = (bp.MaxRadius / bp.MuzzleVelocity) * 1.15
+			end
 		
-		-- calc a lifetime if one is not provided
-        if bp.ProjectileLifetime then
-        	self.ProjectileLifetime = bp.ProjectileLifetime
-        else
-			self.ProjectileLifetime = (bp.MaxRadius / bp.MuzzleVelocity) * 1.15
-		end
+			-- calc tracking radius if not provided
+
+			if bp.TrackingRadius then
+				self.TrackingRadius = bp.TrackingRadius
+			else
+				self.TrackingRadius = bp.MaxRadius * 1.1
+			end
 		
-		-- calc tracking radius if not provided
-        if bp.TrackingRadius then
-        	self.TrackingRadius = bp.TrackingRadius
-        else
-			self.TrackingRadius = bp.MaxRadius * 1.1
 		end
 		
         self:SetWeaponPriorities()
-        self.Disabledbf = {}
-        self.DamageMod = 0
 		
+        self.Disabledbf = {}
+		
+        self.DamageMod = 0
         self.DamageRadiusMod = 0
 		
         local initStore = tonumber(ScenarioInfo.Options.MissileOption) or bp.InitialProjectileStorage or 0
@@ -286,7 +290,9 @@ Weapon = Class(moho.weapon_methods) {
 
     OnFire = function(self)
 	
-		--LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
+		end
 		
         local bp = GetBlueprint(self)
         
@@ -305,6 +311,7 @@ Weapon = Class(moho.weapon_methods) {
 		-- cloaked unit fires
 		-- just a note - this triggers only ONCE per firing cycle - not when each muzzle fires
 		-- so you'll only get one event no matter how many muzzles and projectiles are created
+		-- it also appears that the event is created AFTER the projectile is created
 	end,
 
     OnEnableWeapon = function(self)
@@ -391,9 +398,8 @@ Weapon = Class(moho.weapon_methods) {
 			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or nil,
 		
 			advancedTracking = weaponBlueprint.advancedTracking or nil,
-
-			ProjectileLifetime = self.ProjectileLifetime,
-			TrackingRadius = self.TrackingRadius,
+			ProjectileLifetime = self.ProjectileLifetime or nil,
+			TrackingRadius = self.TrackingRadius or nil,
 		}
 
         if weaponBlueprint.Buffs != nil then
@@ -434,28 +440,49 @@ Weapon = Class(moho.weapon_methods) {
 	-- lets create it once, store it, and eliminate all the function calls
 	-- to GetDamageTable -- imagine that
     SetDamageTable = function(self, weaponBlueprint)
-
+	
+		-- at minimum the weapons damage table will have 
+			--	Damage Amount
+			--	Damage Type	(used for armor type calculations - usually 'Normal')
+			
+			--	Damage Radius (only for AOE weapons)
+			--	Collide & Damage Friendly (for those weapons which do that)
+			--	Damage Over Time & Pulses (for those weapons which do that)
+			--	Artillery Shield Blocks
+			--	advancedTracking	(used by SAM missiles)
+			--		also add ProjectileLifetime and TrackingRadius
+			
         self.damageTable = {
-		
-			DamageRadius = weaponBlueprint.DamageRadius or nil,	--+ (self.DamageRadiusMod),
-			DamageAmount = weaponBlueprint.Damage + (self.DamageMod),
-			
+			DamageAmount = weaponBlueprint.Damage + (self.DamageMod or 0),
 			DamageType = weaponBlueprint.DamageType,
-			
-			DamageFriendly = weaponBlueprint.DamageFriendly or nil,
-
-			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
-			
-			DoTTime = weaponBlueprint.DoTTime or nil,
-			DoTPulses = weaponBlueprint.DoTPulses or nil,
-		
-			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or nil,
-		
-			advancedTracking = weaponBlueprint.advancedTracking or nil,
-
-			ProjectileLifetime = self.ProjectileLifetime,
-			TrackingRadius = self.TrackingRadius,
 		}
+		
+		if weaponBlueprint.CollideFriendly then
+			self.damageTable.CollideFriendly = weaponBlueprint.CollideFriendly
+		end
+		
+		if weaponBlueprint.DamageFriendly then
+			self.damageTable.DamageFriendly = weaponBlueprint.DamageFriendly
+		end
+		
+		if weaponBlueprint.DamageRadius > 0 then
+			self.damageTable.DamageRadius = weaponBlueprint.DamageRadius + (self.DamageRadiusMod or 0)
+		end
+		
+		if weaponBlueprint.advancedTracking then
+			self.damageTable.advancedTracking = weaponBlueprint.advancedTracking
+			self.damageTable.ProjectileLifetime = self.ProjectileLifetime
+			self.damageTable.TrackingRadius = self.TrackingRadius
+		end
+		
+		if weaponBlueprint.ArtilleryShieldBlocks then
+			self.damageTable.ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks
+		end
+		
+		if weaponBlueprint.DoTTime then
+			self.damageTable.DoTTime = weaponBlueprint.DoTTime
+			self.damageTable.DoTPulses = weaponBlueprint.DoTPulses or nil
+		end
 
         if weaponBlueprint.Buffs != nil then
 		
@@ -485,10 +512,15 @@ Weapon = Class(moho.weapon_methods) {
 				
             end 
 			
-        end  
+        end 
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon SetDamageTable for "..repr(__blueprints[self.unit.BlueprintID].Description).." is "..repr(self.damageTable))
+		end
 
     end,
 
+	-- this event is triggered at the moment that a weapon fires a shell
     CreateProjectileForWeapon = function(self, bone)
 	
 		if ScenarioInfo.WeaponDialog then

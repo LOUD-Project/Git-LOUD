@@ -698,11 +698,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
         self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
         self.DamageData.DamageType = damageData.DamageType
 
-		if damageData.DamageRadius > 0 then
+		if damageData.DamageRadius then
 			self.DamageData.DamageRadius = damageData.DamageRadius
 		end
 	
-        self.DamageData.DamageFriendly = damageData.DamageFriendly or nil
+		if damageData.DamageFriendly then
+			self.DamageData.DamageFriendly = damageData.DamageFriendly
+		end
 		
 		if damageData.CollideFriendly then
 			self.DamageData.CollideFriendly = damageData.CollideFriendly

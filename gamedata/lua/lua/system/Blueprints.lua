@@ -520,7 +520,7 @@ function ModBlueprints(all_blueprints)
 				if wep.DisplayName then
 					wep.DisplayName = nil
 				end
-				
+
 				if wep.RangeCategory == 'UWRC_AntiAir' then
 				
 					if not wep.AntiSat == true then
