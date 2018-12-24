@@ -1,10 +1,10 @@
 name = "Experimental Icons Overhaul"
 uid = "2529ea71-93ef-41a6-b552-EXPERICON00005"
 version = 0.6
-copyright = "© 2015 Sean Wheeldon"
+copyright = "ï¿½ 2015 Sean Wheeldon"
 description = "An experimental icons overhaul - from BrewLAN."
 author = "Sean Wheeldon"
-icon = "/mods/BrewLAN/documentation/BrewLAN-LOUD-full.png"
+icon = "/mods/BrewLAN_LOUD/documentation/BrewLAN-LOUD-full.png"
 selectable = true
 enabled = true
 exclusive = false

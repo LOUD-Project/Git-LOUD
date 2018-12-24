@@ -64,7 +64,7 @@ BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
             Floor = 3,
         },
 		ShieldRegeneration = {
-		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
 			Mult = 1.125,
 		},
@@ -107,12 +107,12 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 			Mult = 0.8,
 		},
 		RadarRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,
 			Add = 0,
 			Mult = 0.7,
 		},
 		OmniRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
 			Add = 0,
 			Mult = 0.6,
 		},
@@ -135,12 +135,12 @@ BuffBlueprint { Name = 'DarknessOmniNerf',
 			Mult = 0.85,
 		},
 		RadarRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,				
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,
 			Add = 0,
 			Mult = 0.75,
 		},
         OmniRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,				
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
             Add = 0,
             Mult = 0.65,
         },
@@ -149,7 +149,7 @@ BuffBlueprint { Name = 'DarknessOmniNerf',
 		'/effects/emitters/jammer_ambient_01_emit.bp',
 		'/effects/emitters/jammer_ambient_02_emit.bp',
 	},
-	EffectsScale = 0.35,	
+	EffectsScale = 0.35,
 }
 
 -- This buff is for Aeon Maelstrom Field from BAL0402
@@ -262,7 +262,7 @@ BuffBlueprint { Name = 'FACTORY_60_BuildRate',
             Mult = 1.6,
         },
     },
-}	
+}
 
 -- Production Buffs - Materiel Efficiency
 -- please note -- I'm stacking these effects -- not replacing
@@ -300,7 +300,7 @@ BuffBlueprint { Name = 'FACTORY_20_Materiel',
 			Mult = 1.0,
 		},
     },
-}	
+}
 
 BuffBlueprint { Name = 'FACTORY_25_Materiel',
     BuffType = 'FACTORYRESOURCEUSAGE',
@@ -320,7 +320,7 @@ BuffBlueprint { Name = 'FACTORY_25_Materiel',
 			Mult = 1.0,
 		},
     },
-}	
+}
 
 
 -- Intelligence Buffs
@@ -334,7 +334,7 @@ BuffBlueprint { Name = 'INSTALL_T2_Radar',
 			Mult = 1.0,
 		},
     },
-}	
+}
 
 BuffBlueprint { Name = 'INSTALL_T3_Radar',
     BuffType = 'STRUCTUREINTELLIGENCE',
@@ -351,7 +351,7 @@ BuffBlueprint { Name = 'INSTALL_T3_Radar',
 		},
     },
 }
-	
+
 BuffBlueprint { Name = 'INSTALL_T2_Sonar',
     BuffType = 'STRUCTUREINTELLIGENCE',
     Stacks = 'REPLACE',
@@ -362,7 +362,7 @@ BuffBlueprint { Name = 'INSTALL_T2_Sonar',
 			Mult = 1.0,
 		},
     },
-}	
+}
 
 BuffBlueprint { Name = 'INSTALL_T3_Sonar',
     BuffType = 'STRUCTUREINTELLIGENCE',
@@ -378,7 +378,7 @@ BuffBlueprint { Name = 'INSTALL_T3_Sonar',
 			Mult = 1.0,
 		},
     },
-}	
+}
 
 
 
@@ -448,7 +448,7 @@ BuffBlueprint { Name = 'VeterancyHealth5',
 
 -- VETERANCY BUFFS - UNIT REGEN
 -- same as above -- why are they not stacking them ?
--- since 'replace' will override any enhancements 
+-- since 'replace' will override any enhancements
 -- this needs to be demonstrated before I consider change
 -- from the way I read it -- it will REPLACE the existing value
 -- with the new value -- which has been added to the existing value
@@ -638,22 +638,22 @@ BuffBlueprint { Name = 'CheatIntel',
 			Mult = 1.05,
 		},
 		WaterVisionRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
 		RadarRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
 		SonarRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.SonarRadiusBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.SonarRadiusBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
 		OmniRadius = {
-		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		}
@@ -666,12 +666,12 @@ BuffBlueprint { Name = 'CheatStorage',
 	Duration = -1,
 	Affects = {
 		EnergyStorage = {
-		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,				
+		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
 		MassStorage = {
-		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,		
+		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		},
@@ -681,7 +681,7 @@ BuffBlueprint { Name = 'CheatStorage',
 
 BuffBlueprint { Name = 'CheatCDROmni',
     BuffType = 'COMMANDERCHEAT',
-	EntityCategory = categories.COMMAND,
+	ParsedEntityCategory = categories.COMMAND,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -699,7 +699,7 @@ BuffBlueprint { Name = 'CheatCDROmni',
 
 BuffBlueprint { Name = 'CheatENG',
     BuffType = 'ENGINEERCHEAT',
-	EntityCategory = categories.ENGINEER,
+	ParsedEntityCategory = categories.ENGINEER,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -724,7 +724,7 @@ BuffBlueprint { Name = 'CheatENG',
 
 BuffBlueprint { Name = 'CheatMOBILE',
     BuffType = 'MOVEMENTCHEAT',
-	EntityCategory = categories.MOBILE,
+	ParsedEntityCategory = categories.MOBILE,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
@@ -754,7 +754,7 @@ BuffBlueprint { Name = 'CheatALL',
 			Mult = 1.05,
 		},
 		ShieldHealth = {
-			BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,		
+			BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
 			Add = 0,
 			Mult = 1.05,
 		}
@@ -764,7 +764,7 @@ BuffBlueprint { Name = 'CheatALL',
 -- BO ACU Buffs
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND,
+	ParsedEntityCategory = categories.COMMAND,
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -785,7 +785,7 @@ BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
 
 BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	ParsedEntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -806,7 +806,7 @@ BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
 
 BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	ParsedEntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -831,7 +831,7 @@ BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
 
 BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	ParsedEntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -852,7 +852,7 @@ BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
 
 BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	ParsedEntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -873,7 +873,7 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
 
 BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	EntityCategory = categories.COMMAND, --'COMMAND',
+	ParsedParsedEntityCategory = categories.COMMAND, --'COMMAND',
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -892,7 +892,7 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
 		MoveMult = {
 			Add = 0,
 			Mult = 1.1,
-		},		
+		},
     },
 }
 
