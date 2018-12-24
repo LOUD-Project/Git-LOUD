@@ -70,7 +70,6 @@ local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 
-local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 
 
 DummyUnit = Class(Unit) {
@@ -804,8 +803,8 @@ StructureUnit = Class(Unit) {
             ApplyBuff(adjacentUnit, v, self)
         end
 
-        RequestRefreshUI(self)
-        RequestRefreshUI(adjacentUnit)
+        self:RequestRefreshUI()
+        adjacentUnit:RequestRefreshUI()
     end,
 
     -- When we're not adjacent, try to remove all the possible bonuses.
@@ -823,8 +822,8 @@ StructureUnit = Class(Unit) {
 
         self:DestroyAdjacentEffects()
 
-        RequestRefreshUI(self)
-        RequestRefreshUI(adjacentUnit)
+        self:RequestRefreshUI()
+        adjacentUnit:RequestRefreshUI()
     end,
 
     CreateAdjacentEffect = function(self, adjacentUnit)
@@ -861,9 +860,6 @@ StructureUnit = Class(Unit) {
 			end
         end
 		
-		if table.empty(self.AdjacencyBeamsBag) then
-			self.AdjacencyBeamsBag = nil
-		end
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
@@ -1010,58 +1006,64 @@ MobileUnit = Class(Unit) {
     end,
 
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
+	
+		if ( old == 'Stopped' or old == 'Stopping' or (old == 'TopSpeed' and self.TopSpeedEffectsBag) ) or ( (new == 'TopSpeed' and self.HasFuel)  or  new == 'Stopped' ) then
 
-        local bpMTable = __blueprints[self.BlueprintID].Display.MovementEffects
+			local bpMTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
-        if( old == 'TopSpeed' ) then
-            self:DestroyTopSpeedEffects()
-        end
+			if (old == 'TopSpeed') and self.TopSpeedEffectsBag then
+				self:DestroyTopSpeedEffects()
+			end
 
-        if new == 'TopSpeed' and self.HasFuel then
+			-- this should catch only air units
+			if new == 'TopSpeed' and self.HasFuel then
 
-            if bpMTable[self.CacheLayer].Contrails and self.ContrailEffects then
-                self:CreateContrails( bpMTable[self.CacheLayer].Contrails )
-            end
+				if bpMTable[self.CacheLayer].Contrails and self.ContrailEffects then
+					self:CreateContrails( bpMTable[self.CacheLayer].Contrails )
+				end
 
-            if bpMTable[self.CacheLayer].TopSpeedFX then
-                self:CreateMovementEffects( self.TopSpeedEffectsBag, 'TopSpeed' )
-            end
+				if bpMTable[self.CacheLayer].TopSpeedFX then
+					self:CreateMovementEffects( self.TopSpeedEffectsBag, 'TopSpeed' )
+				end
 
-        end
+			end
 
-        if (old == 'Stopped' and new != 'Stopping') or
-           (old == 'Stopping' and new != 'Stopped') then
+			if (old == 'Stopped' and new != 'Stopping') or (old == 'Stopping' and new != 'Stopped') then
 
-            self:DestroyIdleEffects()
-            self:DestroyMovementEffects()
+				self:DestroyIdleEffects()
+				self:DestroyMovementEffects()
 
-            self:CreateMovementEffects( self.MovementEffectsBag, nil )
+				self:CreateMovementEffects( self.MovementEffectsBag, nil )
 
-            if bpMTable.BeamExhaust then
-                self:UpdateBeamExhaust( 'Cruise' )
-            end
+				if bpMTable.BeamExhaust then
+					self:UpdateBeamExhaust( 'Cruise' )
+				end
 
-            if self.Detector then
-                self.Detector:Enable()
-            end
+				if self.Detector then
+					self.Detector:Enable()
+				end
 
-        end
+			end
 
-        if new == 'Stopped' then
+			if new == 'Stopped' then
 
-            self:DestroyMovementEffects()
-            self:DestroyIdleEffects()
-            self:CreateIdleEffects()
+				self:DestroyMovementEffects()
+				self:DestroyIdleEffects()
+				self:CreateIdleEffects()
 
-            if bpMTable.BeamExhaust then
-                self:UpdateBeamExhaust( 'Idle' )
-            end
+				if bpMTable.BeamExhaust then
+					self:UpdateBeamExhaust( 'Idle' )
+				end
 
-            if self.Detector then
-                self.Detector:Disable()
-            end
+				if self.Detector then
+					self.Detector:Disable()
+				end
 
-        end
+			end
+	
+		
+		end
+		
     end,
 
     GetTTTreadType = function( self, pos )
@@ -1302,6 +1304,8 @@ MobileUnit = Class(Unit) {
         end
 
         if self.TreadThreads then
+		
+			
             for k, v in self.TreadThreads do
                 KillThread(v)
             end
@@ -1309,12 +1313,14 @@ MobileUnit = Class(Unit) {
         end
 
         if bpTable[self.CacheLayer].Treads.ScrollTreads then
+		
+			
             self:RemoveScroller()
         end
     end,
 
     DestroyTopSpeedEffects = function( self )
-		--CleanupEffectBag(self,'TopSpeedEffectsBag')
+		CleanupEffectBag(self,'TopSpeedEffectsBag')
     end,
 
 	-- issued by the unit when it attaches to transport
@@ -1407,8 +1413,6 @@ MobileUnit = Class(Unit) {
 
 	OnStopBeingBuilt = function(self, builder, layer)
 	
-		self.MotionStatus = { old = 'Stopped', new = 'Stopped' }
-		self.MovementEffectsBag = {}
 		
 		Unit.OnStopBeingBuilt(self, builder, layer)
 		
@@ -1503,6 +1507,7 @@ MobileUnit = Class(Unit) {
         if self.Dead then
             return
         end
+		
 
         if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
 
@@ -1542,33 +1547,13 @@ MobileUnit = Class(Unit) {
             -- local wep = GetWeapon(self,i)
             -- wep:OnMotionHorzEventChange(new, old)
         -- end
-		if not self.MotionStatus then
-			self.MotionStatus = { old = "Stopped", new = "Stopped" }
-		end
 		
-		if ( old == 'Cruise' ) then
-			self.MotionStatus.old = 'Cruise'
-		elseif ( old == 'TopSpeed' ) then
-			self.MotionStatus.old = 'TopSpeed'
-		elseif ( old == 'Stopping' ) then
-			self.MotionStatus.old = 'Stopping'
-		elseif ( old == 'Stopped' ) then
-			self.MotionStatus.old = 'Stopped'
-		end
-
-		if ( new == 'Cruise' ) then
-			self.MotionStatus.new = 'Cruise'
-		elseif ( new == 'TopSpeed' ) then
-			self.MotionStatus.new = 'TopSpeed'
-		elseif ( new == 'Stopping' ) then
-			self.MotionStatus.new = 'Stopping'
-		elseif ( new == 'Stopped' ) then
-			self.MotionStatus.new = 'Stopped'
-		end
+		
 
     end,
 
     OnMotionVertEventChange = function( self, new, old )
+	
 
         if new == 'Bottom' then
             self:UpdateBeamExhaust('Landed')
@@ -2988,7 +2973,7 @@ SubUnit = Class(MobileUnit) {
     FxDamage3 = {EffectTemplate.DamageSparks01},
 
     -- DESTRUCTION PARAMS
-    PlayDestructionEffects = false,
+    PlayDestructionEffects = true,
     ShowUnitDestructionDebris = false,
     DeathThreadDestructionWaitTime = 10,
 

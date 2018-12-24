@@ -9,7 +9,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
---local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
+local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
 
 local Game = import('/lua/game.lua')
 
@@ -252,6 +252,8 @@ Unit = Class(moho.unit_methods) {
     OnCreate = function(self)
 		
 		local bp = GetBlueprint(self)
+		
+		--LOG("*AI DEBUG OnCreate for "..repr(self:GetBlueprint().Description))
 
         Entity.OnCreate(self)
 		
@@ -330,7 +332,7 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display.AnimationDeath and LOUDGETN(bp.Display.AnimationDeath) > 0 then
 		
-			--self.PlayDeathAnimation = true
+			self.PlayDeathAnimation = true
 			
         end
         
@@ -374,9 +376,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCreated = function(self)
-	
-		--LOG("*AI DEBUG OnCreated for "..self:GetBlueprint().Description)
-		
+
         self:DoUnitCallbacks('OnCreated')
 		
     end,
@@ -393,7 +393,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- set the current layer whenever it changes
 	OnLayerChange = function (self, new, old)
-	
+
 		self.CacheLayer = new		
 		
 	end,
@@ -596,6 +596,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetDead = function(self)
+	
+		--LOG("*AI DEBUG SetDead for "..repr(self:GetBlueprint().Description))
 
 		self.Dead = true
 		
@@ -638,7 +640,7 @@ Unit = Class(moho.unit_methods) {
 	
 	CreateUnitDestructionDebris = function( self, high, low, chassis )
 	
-		--self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
+		self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
 		
 	end,
 
@@ -1683,7 +1685,6 @@ Unit = Class(moho.unit_methods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, type, overkillRatio)
 	
-		--LOG("*AI DEBUG "..self:GetBlueprint().Description.." killed")
 		
 		--if instigator then
 		
@@ -1803,13 +1804,13 @@ Unit = Class(moho.unit_methods) {
 					
                 end
 				
-                --self.DeathAnimManip = CreateAnimator(self):PlayAnim(animBlock.Animation):SetRate(rate)
+                self.DeathAnimManip = CreateAnimator(self):PlayAnim(animBlock.Animation):SetRate(rate)
 
-                --self.Trash:Add(self.DeathAnimManip)
+                self.Trash:Add(self.DeathAnimManip)
 				
-                --WaitFor(self.DeathAnimManip)
+                WaitFor(self.DeathAnimManip)
 				
-				--self.DeathAnimManip = nil
+				self.DeathAnimManip = nil
             end
 			
         end
@@ -1818,27 +1819,26 @@ Unit = Class(moho.unit_methods) {
 
     DeathThread = function( self, overkillRatio, instigator)
 	
-		--LOG("*AI DEBUG Death Thread for "..self:GetBlueprint().Description)
 
         if self.DeathAnimManip then
 		
-			--LOG("*AI DEBUG DeathAnim for "..self:GetBlueprint().Description)
 		
 			WaitFor(self.DeathAnimManip)
 			
-			--LOG("*AI DEBUG DeathAnim complete")
 			
 		end
 		
 		WaitTicks(3)
 		
-		self:DestroyAllDamageEffects()
+		if self.DamageEffectsBag then
+			self:DestroyAllDamageEffects()
+		end
 
         if self.PlayDestructionEffects then
 		
-			--LOG("*AI DEBUG DestructionEffects")
 		
-			self:CreateDestructionEffects( self, overkillRatio )
+			--CreateScalableUnitExplosion( self,overkillRatio )	
+			self:CreateDestructionEffects( overkillRatio )
 			
 		end
 		
@@ -1846,7 +1846,6 @@ Unit = Class(moho.unit_methods) {
 		
 		if overkillRatio <= 0.15 then
 		
-			--LOG("*AI DEBUG Creating Wreck")
 		
 			self:CreateWreckage( overkillRatio )
 			
@@ -1856,11 +1855,11 @@ Unit = Class(moho.unit_methods) {
 		
             if overkillRatio <= 0.25 then
 			
-                self:ForkThread(CreateUnitDestructionDebris, self, true, true, false )
+                self:ForkThread( CreateUnitDestructionDebris, true, true, false )
 				
             else
 			
-                self:ForkThread(CreateUnitDestructionDebris, self, false, true, true )
+                self:ForkThread( CreateUnitDestructionDebris, false, true, true )
 				
             end
 			
@@ -1868,7 +1867,6 @@ Unit = Class(moho.unit_methods) {
 
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.2) * 10)
 		
-		--LOG("*AI DEBUG Death Thread complete")		
 		
         self:Destroy()
 		self = nil
@@ -2060,6 +2058,13 @@ Unit = Class(moho.unit_methods) {
 			end
 			
 		end	
+		-- for rail guns from 4DC credit Resin_Smoker
+		if other.LastImpact then
+			-- if hit same unit twice
+			if other.LastImpact == GetEntityId(self) then
+				return false
+			end
+		end
 
         if not self.Dead and self.EXPhaseEnabled == true then
 		
@@ -2312,8 +2317,6 @@ Unit = Class(moho.unit_methods) {
 			end
 			
 		end
-        
-		self.Trash:Destroy()
 
 		if self.IntelThread then
 		
@@ -2371,6 +2374,8 @@ Unit = Class(moho.unit_methods) {
 		end
         
 		RemoveAllUnitEnhancements(self)
+        
+		self.Trash:Destroy()
 		
 		LOUDSTATE(self, self.DeadState)
 		
@@ -2749,7 +2754,6 @@ Unit = Class(moho.unit_methods) {
 
     OnStopBeingBuilt = function(self, builder, layer)
 	
-		--self.MotionStatus = { old = 'Stopped', new = 'Stopped' }	
 		
 		local bp = GetBlueprint(self)
 
@@ -3212,7 +3216,6 @@ Unit = Class(moho.unit_methods) {
 			-- if an intel type and the intel table is ready
 			-- since this will fire before intel table is setup
 			
-			--LOG("*AI DEBUG Self.IntelDisables are "..repr(self.IntelDisables))
 			
 			if self.IntelDisables then
 			
@@ -3231,6 +3234,7 @@ Unit = Class(moho.unit_methods) {
 						
 					end
 				
+					self.IntelDisables[intel] = self.IntelDisables[intel] - 1
 				else
 				
 					-- loop thru all intel types and try to turn them on
@@ -3238,7 +3242,6 @@ Unit = Class(moho.unit_methods) {
 				
 						if v == 1 then
 						
-							--LOG("*AI DEBUG Trying to enable "..repr(k))
 		
 							EnableIntel(self,k)
 
@@ -3572,7 +3575,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        RequestRefreshUI(self)
+        self:RequestRefreshUI()
 		
     end,
 
@@ -4315,6 +4318,7 @@ Unit = Class(moho.unit_methods) {
     AddBuff = function(self, buffTable, PosEntity)
 	
         local bt = buffTable.BuffType
+		
 
         local allow = categories.ALLUNITS
 		
@@ -4398,7 +4402,7 @@ Unit = Class(moho.unit_methods) {
             self:SetRegenRate(buffTable.Value or 0)
 			
         end
-		
+
     end,
 
     AddWeaponBuff = function(self, buffTable, weapon)
@@ -5050,7 +5054,7 @@ Unit = Class(moho.unit_methods) {
 		
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
 		
-            RequestRefreshUI(self)
+            self:RequestRefreshUI()
 			
         end
 		
@@ -5079,7 +5083,7 @@ Unit = Class(moho.unit_methods) {
 
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
 		
-            RequestRefreshUI(self)
+            self:RequestRefreshUI()
 			
         end
 		
@@ -5465,7 +5469,7 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
-	--  Copyright ï¿½ 2010 4DC  All rights reserved.
+	--  Copyright © 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
         if not self.Dead then    

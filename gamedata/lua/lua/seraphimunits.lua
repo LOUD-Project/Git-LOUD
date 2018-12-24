@@ -100,8 +100,6 @@ SAirFactoryUnit = Class(FactoryUnit) {
 		
             local spin, x, y, z = self:CalculateRollOffPoint()
             local units = { self.UnitBeingBuilt }
-			--LOG("*AI DEBUG Warp")
-			--Warp( self.UnitBeingBuilt, Vector(x,y,z) )
 			
             self.MoveCommand = IssueMove(units, Vector(x, y, z))
         end

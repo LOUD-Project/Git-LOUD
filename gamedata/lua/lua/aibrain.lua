@@ -59,6 +59,9 @@
 	ScenarioInfo.ProjectileDialog = false
 	LOG("*AI DEBUG		Report  Projectile Dialog to Log is "..repr(ScenarioInfo.ProjectileDialog))
 	
+	ScenarioInfo.ShieldDialog = false
+	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
+	
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
 

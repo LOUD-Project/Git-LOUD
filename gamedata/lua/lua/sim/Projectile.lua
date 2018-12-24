@@ -30,11 +30,8 @@ local GetArmy = moho.entity_methods.GetArmy
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetHealth = moho.entity_methods.GetHealth
 local GetLauncher = moho.projectile_methods.GetLauncher
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
 local GetPosition = moho.entity_methods.GetPosition
 
-local SetHealth = moho.entity_methods.SetHealth
-local SetMaxHealth = moho.entity_methods.SetMaxHealth
 
 local PlaySound = moho.entity_methods.PlaySound
 
@@ -108,9 +105,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(bp.BlueprintId))
 		end
 		
-        SetMaxHealth( self, bp.Defense.MaxHealth or 1)
+        self:SetMaxHealth(bp.Defense.MaxHealth or 1)
 		
-        SetHealth( self, self, GetMaxHealth(self) )
+        self:SetHealth(self, self:GetMaxHealth())
 	
         if bp.Audio.ExistLoop then
 		
@@ -131,7 +128,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		-- THIS REALLY NEEDS TO BE RELOCATED TO THE PASSDAMAGEDATA FUNCTION
 		if self.DamageData.advancedTracking then
 		
-			self:ForkThread( self.Tracking )
+			ForkTo( self.Tracking, self )
 			
 		end
 		
@@ -329,9 +326,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
             else
                 local excessDamageRatio = 0.0
 				
-                -- Calculate the excess damage amount
-                --local excess = health - amount
-				
+                -- Calculate the excess damage ratio
                 local maxHealth = GetBlueprint(self).Defense.MaxHealth or 10
 				
                 if (health - amount < 0 and maxHealth > 0) then
@@ -354,9 +349,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     DoDamage = function(self, instigator, damageData, targetEntity)
 	
-        local damage = damageData.DamageAmount or false
+        local damage = damageData.DamageAmount or 0
 		
-        if damage then
+        if damage > 0 then
 		
 			if ScenarioInfo.ProjectileDialog then
 				LOG("*AI DEBUG Projectile OnDamage for "..damage)
@@ -371,7 +366,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
                     DamageArea( instigator, GetPosition(self), radius, damage, damageData.DamageType, damageData.DamageFriendly or false, damageData.DamageSelf or false)
 					
                 else
-				
+					
                     ForkTo( AreaDoTThread, instigator, GetPosition(self), damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly or false)
 					
                 end
@@ -394,24 +389,20 @@ Projectile = Class(moho.projectile_methods, Entity) {
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
 
         for _,v in EffectTable do
-		
-			local emit = nil
+
+			if ScenarioInfo.ProjectileDialog then
+				LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(v).." Scale "..repr(EffectScale or 1) )
+			end	
 			
 			if self.FxImpactTrajectoryAligned then
 			
-				emit = LOUDEMITATBONE(self,-2,army,v)
+				LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale or 1)
 				
 			else
 			
-				emit = LOUDEMITATENTITY(self,army,v)
+				LOUDEMITATENTITY( self, army, v ):ScaleEmitter(EffectScale or 1)
 				
 			end 
-			
-            if emit and EffectScale != 1 then
-			
-                emit:ScaleEmitter(EffectScale or 1)
-				
-            end
 			
         end
 		
@@ -422,13 +413,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
         for k, v in EffectTable do
 		
 			if not self:BeenDestroyed() then
-		
-				local emit = LOUDEMITATBONE(self,-2,army,v)
-			
-				if emit and EffectScale != 1 then
-					emit:ScaleEmitter(EffectScale or 1)
+				
+				if ScenarioInfo.ProjectileDialog then
+					LOG("*AI DEBUG Projectile CreateTerrainEffects for impact on "..repr(targetType).." terrain "..repr(v) )
 				end
-			
+		
+				LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale or 1)
+
 			end
 			
         end
@@ -481,27 +472,25 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnImpact = function(self, targetType, targetEntity)
 	
-		if table.empty(self.DamageData) then
-			Destroy(self)
-			return
+		if targetType == 'Shield' and self.DamageData.DamageRadius > 0 then
+			self.DamageData.DamageRadius = nil
 		end
 	
 		if ScenarioInfo.ProjectileDialog then
+		
 			LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
 			LOG("*AI DEGUG Projectile OnImpact data is "..repr(self))
-			LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
+			
+			if targetEntity then
+				LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
+			end
 		end
-		
-		-- shields nullify ALL AOE damage effects --
-		if targetType == 'Shield' and self.DamageData.DamageRadius then
-			self.DamageData.DamageRadius = nil
-		end
-		
+
 		if self.DamageData.Buffs then
 			self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
 		end		
 		
-		if self.DamageData.DamageAmount > 0 then
+		if self.DamageData.DamageAmount and self.DamageData.DamageAmount > 0 then
 			self:DoDamage( GetLauncher(self) or self, self.DamageData, targetEntity)
 		end
 
@@ -595,18 +584,16 @@ Projectile = Class(moho.projectile_methods, Entity) {
         end
 
 		if targetType != 'Shield' then
-			
 			if ScenarioInfo.ProjectileDialog then
 				LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
 			end
-		
 			self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
 			
 		end
 
         if bp.Display.ImpactEffects.Type then
 		
-			local pos = GetPosition(self)
+			--local pos = GetPosition(self)
             local TerrainType = DefaultTerrainType
 			
             if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
@@ -619,12 +606,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
 			if TerrainEffect then
 			
-				if not self:BeenDestroyed() then
-				
-					if ScenarioInfo.ProjectileDialog then
-						LOG("*AI DEBUG Projectile CreateTerrainEffects for impact on "..repr(targetType).." terrain "..repr(TerrainEffect))
-					end
-			
+				if (not table.empty(TerrainEffect)) and (not self:BeenDestroyed()) then
+
 					ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
 			
 				end
@@ -712,26 +695,38 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	-- empty won't be created
     PassDamageData = function(self, damageData)
 		
+        self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
+        self.DamageData.DamageType = damageData.DamageType
+
 		if damageData.DamageRadius > 0 then
 			self.DamageData.DamageRadius = damageData.DamageRadius
 		end
-		
-        self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
-        self.DamageData.DamageType = damageData.DamageType
-		
+	
         self.DamageData.DamageFriendly = damageData.DamageFriendly or nil
 		
 		if damageData.CollideFriendly then
 			self.DamageData.CollideFriendly = damageData.CollideFriendly
 		end
 		
-        self.DamageData.DoTTime = damageData.DoTTime
-        self.DamageData.DoTPulses = damageData.DoTPulses
+		if damageData.DoTTime then
+			self.DamageData.DoTTime = damageData.DoTTime
+		end
 		
-		self.DamageData.advancedTracking = damageData.advancedTracking
+		if damageData.DoTPulses then
+			self.DamageData.DoTPulses = damageData.DoTPulses
+		end
 
-        self.DamageData.Buffs = damageData.Buffs
-        self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
+		if damageData.advancedTracking then
+			self.DamageData.advancedTracking = damageData.advancedTracking
+		end
+		
+		if damageData.Buffs then
+			self.DamageData.Buffs = damageData.Buffs
+		end
+		
+		if damageData.ArtilleryShieldBlocks then
+			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
+		end
 		
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG Projectile PassDamageData is "..repr(self))

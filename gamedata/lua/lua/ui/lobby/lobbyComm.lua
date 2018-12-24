@@ -137,7 +137,6 @@ LobbyComm = Class(moho.lobby_methods) {
     PeerDisconnected = function(self,peerName,uid) end,
     LaunchFailed = function(self,reasonKey) end,
 	
-	LOG("*AI DEBUG Lobby Methods are "..repr(moho.lobby_methods))
 
     # native void SendData(self, targetID, data)
     # native void BroadcastData(self,data)
