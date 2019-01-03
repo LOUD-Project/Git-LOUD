@@ -24,11 +24,16 @@ do
 		--- Here is where we will try and equalize BUILD POWER for engineers building STRUCTURES 
 		-- using the current mass and energy costs, we calc a new buildtime using the max mass and energy
 		-- we'll use the buildtime that is the longest which means we cap mass or energy at the max rate
-		
+
         --loop through the blueprints and adjust as desired.
         for id,bp in all_bps.Unit do
 		
+		
+		
 			if bp.Categories then
+			
+				local max_mass, max_energy
+				local alt_mass, alt_energy
 		
 				for i, cat in bp.Categories do
 			
@@ -38,65 +43,65 @@ do
 					
 							if catj == 'TECH1' then
 						
-								local max_mass = 5
-								local max_energy = 50
+								max_mass = 5
+								max_energy = 50
 				
 								if bp.Economy.BuildTime then
 
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass * 5
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy * 5
+									alt_mass =  bp.Economy.BuildCostMass/max_mass * 5
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 5
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 								
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = math.ceil(best_adjust)
 								end
 							end
 					
 							if catj == 'TECH2' then
 						
-								local max_mass = 10
-								local max_energy = 100
+								max_mass = 10
+								max_energy = 100
 							
 								if bp.Economy.BuildTime then
 
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass * 10
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10									
+									alt_mass =  bp.Economy.BuildCostMass/max_mass * 10
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10									
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-									bp.Economy.BuildTime = math.floor(best_adjust)						
+									bp.Economy.BuildTime = math.ceil(best_adjust)						
 								end
 							end
 						
 							if catj == 'TECH3' then
 						
-								local max_mass = 15
-								local max_energy = 150
+								max_mass = 15
+								max_energy = 150
 							
 								if bp.Economy.BuildTime then
 
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass * 15
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy * 15
+									alt_mass =  bp.Economy.BuildCostMass/max_mass * 15
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 15
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = math.ceil(best_adjust)
 								end
 							end
 
 							if catj == 'EXPERIMENTAL' then
 						
-								local max_mass = 60
-								local max_energy = 600
+								max_mass = 60
+								max_energy = 600
 
 								if bp.Economy.BuildTime then
 								
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass * 60
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy * 60
+									alt_mass =  bp.Economy.BuildCostMass/max_mass * 60
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 60
 
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = math.ceil(best_adjust)
 								end
 							end
 						end
@@ -125,70 +130,75 @@ do
 							end
 						end
 					end
-					
-					
-					
 
 					if cat == 'MOBILE' then		-- ok lets handle all the factory built units and mobile experimentals
 					
-						-- You'll notice that I allow factory built units to build with higher energy limits (scales up thru tiers - 20,28,36)
+						-- You'll notice that I allow factory built units to build with higher energy limits (scales up thru tiers - 20,28,38)
 						-- this compensates somewhat for the division of their buildpower (in particular for the energy heavy air factories)
 						for j, catj in bp.Categories do
 					
 							if catj == 'TECH1' then
 								
 								local buildpower = 20	-- default T1 factory buildpower
-								local max_mass = buildpower / factory_buildpower_ratio
-								local max_energy = (buildpower * 20) / factory_buildpower_ratio
+								
+								max_mass = buildpower / factory_buildpower_ratio
+								max_energy = (buildpower * 20) / factory_buildpower_ratio
 				
 								if bp.Economy.BuildTime then
 
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy
-								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									alt_mass =  bp.Economy.BuildCostMass/max_mass		-- about 8 mass/second
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy	-- about 160 energy/second
 
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									-- regardless of the mass & energy, a minimum build time of 1 second is required
+									-- or else you get very wierd economy results when building the unit
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 									
-									bp.Economy.BuildTime = bp.Economy.BuildTime * buildpower * buildratemod
+									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower * buildratemod))
+
+									bp.Economy.BuildTime = best_adjust
+									
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+
 								end
 							end
 					
 							if catj == 'TECH2' then
 								
 								local buildpower = 35	-- default T2 factory buildpower
-								local max_mass = buildpower / factory_buildpower_ratio
-								local max_energy = (buildpower * 28) / factory_buildpower_ratio
+								
+								max_mass = buildpower / factory_buildpower_ratio
+								max_energy = (buildpower * 28) / factory_buildpower_ratio
 							
 								if bp.Economy.BuildTime then
 									
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy
+									alt_mass =  bp.Economy.BuildCostMass/max_mass
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 									
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = best_adjust
 									
-									bp.Economy.BuildTime = bp.Economy.BuildTime * buildpower * buildratemod
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
 								end
 							end
 						
 							if catj == 'TECH3' then
 								
 								local buildpower = 50	-- default T3 factory buildpower
-								local max_mass = buildpower / factory_buildpower_ratio
-								local max_energy = (buildpower * 36) / factory_buildpower_ratio
+								
+								max_mass = buildpower / factory_buildpower_ratio
+								max_energy = (buildpower * 38) / factory_buildpower_ratio
 							
 								if bp.Economy.BuildTime then
 
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy
+									alt_mass =  bp.Economy.BuildCostMass/max_mass
+									alt_energy = bp.Economy.BuildCostEnergy/max_energy
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 								
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = best_adjust
 									
-									bp.Economy.BuildTime = bp.Economy.BuildTime * buildpower * buildratemod
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
 								end
 							end
 							
@@ -198,23 +208,39 @@ do
 							-- 48 and 600 - so I do
 							if catj == 'EXPERIMENTAL' then
 						
-								local max_mass = 60
-								local max_energy = 600
+								max_mass = 60
+								max_energy = 600
 
 								if bp.Economy.BuildTime then
 									
 									-- experimental units are not factory built so no buildratemod is applied (we just use the default SUBCOM build power (60)
-									local alt_mass =  bp.Economy.BuildCostMass/max_mass * 60
-									local alt_energy = bp.Economy.BuildCostEnergy/max_energy * 60									
+									alt_mass =  (bp.Economy.BuildCostMass/max_mass) * 60
+									alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60									
 								
-									local best_adjust = math.max(alt_mass, alt_energy)
+									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-									bp.Economy.BuildTime = math.floor(best_adjust)
+									bp.Economy.BuildTime = math.ceil(best_adjust)
 								end
 							end
+							
+							if max_mass then
+
+								LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
+								
+								break
+								
+							end
+							
 						end
+						
+						if max_mass then
+							break
+						end
+						
 					end
+					
 				end
+				
 			end
         end
 	end
