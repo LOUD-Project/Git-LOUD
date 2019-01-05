@@ -225,7 +225,7 @@ do
 							
 							if max_mass then
 
-								LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
+								--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
 								
 								break
 								
