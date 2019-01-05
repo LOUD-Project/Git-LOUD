@@ -31,7 +31,7 @@ UnitBlueprint {
 
         LiftFactor = 10,
 
-        MaxAirspeed = 14,
+        MaxAirspeed = 13,
 
         StartTurnDistance = 5,
 
@@ -204,8 +204,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
 		Elevation = 14.0,
-        FuelRechargeRate = 80,
-        FuelUseTime = 880,
+		
+        FuelRechargeRate = 30,
+        FuelUseTime = 800,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 2.5,
         MeshExtentsY = 0.5,

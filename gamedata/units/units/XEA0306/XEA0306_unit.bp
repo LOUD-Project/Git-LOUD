@@ -31,7 +31,7 @@ UnitBlueprint {
 		
         LiftFactor = 7.5,
 		
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 12.5,
 		
         StartTurnDistance = 14,
 		
@@ -148,7 +148,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
@@ -228,8 +227,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 14,
-        FuelRechargeRate = 70,
-        FuelUseTime = 950,
+		
+        FuelRechargeRate = 30,
+        FuelUseTime = 800,
+		
         MaxSpeed = 0.5,
         MeshExtentsX = 2,
         MeshExtentsY = 1,

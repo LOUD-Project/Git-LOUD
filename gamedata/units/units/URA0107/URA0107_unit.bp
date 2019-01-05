@@ -28,7 +28,7 @@ UnitBlueprint {
         KTurnDamping = 1.5,
 		
         LiftFactor = 8,
-        MaxAirspeed = 13,
+        MaxAirspeed = 12,
         StartTurnDistance = 4,
         TransportHoverHeight = 3.5,
     },
@@ -105,14 +105,14 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
 	
     Economy = {
-        BuildCostEnergy = 3600,
-        BuildCostMass = 80,
+        BuildCostEnergy = 3780,
+        BuildCostMass = 84,
         BuildTime = 800,
     },
 	
@@ -171,8 +171,8 @@ UnitBlueprint {
         },
         Elevation = 10,
 		
-        FuelRechargeRate = 60,
-        FuelUseTime = 270,
+        FuelRechargeRate = 11,
+        FuelUseTime = 240,
 		
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
