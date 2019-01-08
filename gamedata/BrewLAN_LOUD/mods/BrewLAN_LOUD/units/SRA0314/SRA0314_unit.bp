@@ -1,0 +1,609 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 2.5,
+        BankForward = false,
+		
+        BreakOffDistance = 80,
+		
+        BreakOffIfNearNewTarget = true,
+		
+        BreakOffTrigger = 35,
+		
+        CanFly = true,
+		
+        CombatTurnSpeed = 0.9,
+		
+        EngageDistance = 50,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 1,
+        KMoveDamping = 2,
+		
+        KRoll = 2,
+        KRollDamping = 2,
+		
+        KTurn = 0.8,
+        KTurnDamping = 1,
+		
+        LiftFactor = 7,
+		
+        MaxAirspeed = 20,
+        MinAirspeed = 15,
+		
+        PredictAheadForBombDrop = 3,
+		
+        StartTurnDistance = 5,
+		
+        TightTurnMultiplier = 0,
+		
+        TurnSpeed = 0.9,
+        Winged = true,
+    },
+	
+    Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMove = Sound {
+            Bank = 'URA',
+            Cue = 'URA0304_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'URADestroy',
+            Cue = 'URA_Destroy_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'URADestroy',
+            Cue = 'URA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Landing = Sound {
+            Bank = 'URA',
+            Cue = 'URA0304_Move_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Refueling = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA_Repair_Refuel',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URA',
+            Cue = 'URA0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URA',
+            Cue = 'URA0304_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Thruster = Sound {
+            Bank = 'URA',
+            Cue = 'URA0304_Move_Thruster',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Unload = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0104_Unit_Unload',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 12,
+            Level2 = 18,
+            Level3 = 24,
+            Level4 = 30,
+            Level5 = 36,
+        },
+    },
+	
+    BuildIconSortPriority = 42,
+	
+    Categories = {
+        'PRODUCTBREWLANRND',
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH3',
+        'BOMBER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+        'OVERLAYRADAR',
+        'RESEARCHLOCKED',
+    },
+	
+    CollisionOffsetY = 0,
+	
+    Defense = {
+
+        MissileDetector = { AttachBone = 'MissileDetector' },
+		
+        ArmorType = 'Light',
+        EconomyThreatLevel = 10,
+        Health = 7100,
+        MaxHealth = 7100,
+        RegenRate = 14,
+        SubThreatLevel = 30,
+        SurfaceThreatLevel = 152,
+    },
+	
+    Description = '<LOC sa0314_desc>Penetrator Bomber',
+	
+    Display = {
+        Abilities = {
+            '<LOC ability_missiledef>Missile Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_tactical>Tactical Missiles',
+            '<LOC ability_torpedo>Torpedoes',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {Bones = {0}, Type = 'Landing01'},
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {Bones = {0}, Type = 'TakeOff01'},
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {LODCutoff = 130, ShaderName = 'Insect'},
+                {LODCutoff = 260, ShaderName = 'Insect'},
+                {LODCutoff = 520, ShaderName = 'Insect'},
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Contrail_L',
+                        'Contrail_M',
+                        'Contrail_R',
+                    },
+                },
+                Effects = {
+                    {
+                        Bones = {'Exhaust_M'},
+                        Type = 'AirMoveExhaust',
+                    },
+                },
+            },
+            BeamExhaust = {
+                Bones = {
+                    'Exhaust_L',
+                    'Exhaust_M',
+                    'Exhaust_R',
+                },
+                Cruise = true,
+                Idle = false,
+            },
+        },
+        PlaceholderMeshName = 'UXA0002',
+        SpawnRandomRotation = true,
+        UniformScale = 0.045,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 210000,
+        BuildCostMass = 5250,
+        BuildTime = 2915,
+		
+        ResearchMultEnergy = 0.2,
+        MaintenanceConsumptionPerSecondEnergy = 120,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 2,
+        SizeZ = 2,
+	},
+	
+    General = {
+        Category = 'Bomber',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'air',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-personal',
+                helpText = 'toggle_stealth_personal',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+        UnitName = '<LOC sra0314_name>Sanguine Tyrant',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        RadarRadius = 65,
+        RadarStealth = true,
+        VisionRadius = 38,
+    },
+	
+    Interface = {
+        HelpText = '<LOC sa0314_desc>Penetrator Bomber',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.25,
+    LifeBarSize = 2.5,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 30,
+		
+        FuelRechargeRate = 20,
+        FuelUseTime = 950,
+		
+        GroundCollisionOffset = 2,
+        MaxSpeed = 0.5,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 1.6,
+    SelectionSizeZ = 1.8,
+    SelectionThickness = 0.4,
+	
+    SizeSphere = 1.9,
+	
+    SizeX = 2.7,
+    SizeY = 0.9,
+    SizeZ = 2.7,
+	
+    StrategicIconName = 'icon_bomber3_directfire',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+	
+    Veteran = {
+        Level1 = 12,
+        Level2 = 24,
+        Level3 = 36,
+        Level4 = 48,
+        Level5 = 60,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URAWeapon',
+                    Cue = 'URA0304_Strategic_Bomb',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+            BombDropThreshold = 3.5,			
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1,
+					Radius = 2.5,
+                    TargetAllow = 'ALLUNITS',
+                    TargetDisallow = 'AIR,COMMAND,WALL,EXPERIMENTAL',
+                },
+            },
+
+            CollideFriendly = false,
+			
+            Damage = 2750,
+            DamageFriendly = true,
+            DamageRadius = 4.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Neutron Bomb',
+			
+            EffectiveRadius = 25,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 1,
+            FiringTolerance = 5,
+			
+            Label = 'Bomb',
+			
+            NotExclusive = true,
+            MaxRadius = 90,
+			
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 0,
+            NeedToComputeBombDrop = true,
+			
+            ProjectileId = '/projectiles/CIFProtonBomb01/CIFProtonBomb01_proj.bp',
+			ProjectileLifetime = 10,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Bomb_001',
+                        'Bomb_002',
+                        'Bomb_003',
+                    },
+                    RackBone = 'Bomb_001',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.2,
+            TargetCheckInterval = 2.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE,-WALL',
+                'ENGINEER',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URAWeapon',
+                    Cue = 'URA0401_Rock_Pack',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 900,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Iridium-Tyrant Standoff ASM Barrage',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 30,
+			
+            Label = 'Missile',
+            NotExclusive = true,
+			
+            MaxRadius = 150,
+            MinRadius = 50,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 35,
+			
+            PrefersPrimaryWeaponTarget = true,
+            ProjectileId = '/projectiles/CPM_Tyrant_AGM/CPM_Tyrant_AGM_proj.bp',
+            ProjectileLifetime = 20,
+			
+            ProjectileLifetimeUsesMultiplier = 1.15,
+			
+            RackBones = {
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'AGM_001', 'AGM_002'},
+                    RackBone = 'AGM_001',
+                },
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'AGM_003', 'AGM_004'},
+                    RackBone = 'AGM_003',
+                },
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'AGM_005', 'AGM_006'},
+                    RackBone = 'AGM_005',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 37.5,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 1/12.5,
+			
+            SlavedToBody = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'EXPERIMENTAL',
+                'ANTIAIR',
+                'ENERGYPRODUCTION',
+                'MASSFABRICATION',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 0.6,
+			
+            TurretBoneMuzzle = 'AGM_001',
+            TurretBonePitch = 'AGM_001',
+            TurretBoneYaw = 'AGM_001',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 0,
+            TurretPitchSpeed = 0,
+			
+            TurretYaw = 0,
+            TurretYawRange = 0,
+            TurretYawSpeed = 0,
+			
+            Turreted = true,
+            WeaponCategory = 'Missile',
+        },
+        {   --Torpedoes
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URAWeapon',
+                    Cue = 'URA0204_Torpedo_Nanite',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 150,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+            DisplayName = 'Nanite Torpedo',
+			
+            DoTPulses = 5,
+            DoTTime = 1,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+                Land = 'Seabed|Sub|Water',
+            },
+            FiringRandomness = 3,
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 30,
+			
+            Label = 'Torpedo',
+			
+            NotExclusive = true,
+			
+            MaxRadius = 42,
+            MinRadius = 4,
+			
+            MuzzleSalvoDelay = 1.8,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 14,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
+            ProjectileLifetime = 20,
+
+            RackBones = {
+                {
+                    MuzzleBones = {'Bomb_Rear'},
+                    RackBone = 'Bomb_Rear',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.08,
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.15,
+            Turreted = false,
+            WeaponCategory = 'Anti Navy',
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 400,
+            DamageFriendly = true,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.5,
+        HealthMult = 0.9,
+        MassMult = 0.5,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

@@ -1,0 +1,617 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+	
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 2.5,
+        BankForward = false,
+		
+        BreakOffDistance = 80,
+		
+        BreakOffIfNearNewTarget = true,
+		
+        BreakOffTrigger = 35,
+		
+        CanFly = true,
+		
+        CombatTurnSpeed = 0.9,
+		
+        EngageDistance = 50,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 0.96,
+        KMoveDamping = 2,
+		
+        KRoll = 2,
+        KRollDamping = 2,
+		
+        KTurn = 0.8,
+        KTurnDamping = 1,
+		
+        LiftFactor = 6.5,
+		
+        MaxAirspeed = 20,
+        MinAirspeed = 15,
+		
+        PredictAheadForBombDrop = 3,
+		
+        StartTurnDistance = 5,
+		
+        TightTurnMultiplier = 0,
+		
+        TurnSpeed = 0.9,
+        Winged = true,
+    },
+	
+    Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMove = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0304_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Med',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'UEADestroy',
+            Cue = 'UEA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Landing = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0304_Move_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Refueling = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA_Repair_Refuel',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0304_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Thruster = Sound {
+            Bank = 'UEA',
+            Cue = 'UEA0304_Move_Thruster',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 10,
+            Level2 = 15,
+            Level3 = 20,
+            Level4 = 25,
+            Level5 = 30,
+        },
+    },
+	
+    BuildIconSortPriority = 42,
+	
+    Categories = {
+        'PRODUCTBREWLANRND',
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'UEF',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH3',
+        'BOMBER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+        'OVERLAYRADAR',
+        'RESEARCHLOCKED',
+    },
+	
+    Defense = {
+	
+        MissileDetector = { AttachBone = 'MissileDetector' },
+		
+        ArmorType = 'Light',
+        EconomyThreatLevel = 10,
+        Health = 7450,
+        MaxHealth = 7450,
+        RegenRate = 8,
+        SubThreatLevel = 30,
+        SurfaceThreatLevel = 152,
+    },
+	
+    Description = '<LOC sa0314_desc>Penetrator Bomber',
+	
+    Display = {
+        Abilities = {
+            '<LOC ability_missiledef>Missile Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_tactical>Tactical Missiles',
+            '<LOC ability_torpedo>Torpedoes',
+        },
+        ForcedBuildSpin = 90,
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {Bones = {0}, Type = 'Landing01'},
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {Bones = {0}, Type = 'TakeOff01'},
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {LODCutoff = 65, ShaderName = 'Unit'}, --Landing gear
+                {LODCutoff = 130, ShaderName = 'Unit'},--No landing gear
+                {LODCutoff = 260, ShaderName = 'Unit'},--40% vert count
+                {LODCutoff = 520, ShaderName = 'Unit'},--20% very count
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Contrail_Left',
+                        'Contrail_Right',
+                    },
+                    ZOffset = 0,
+                },
+                Effects = {
+                    {
+                        Bones = {
+                            'Engine_Left',
+                            'Engine_Right',
+                        },
+                        Type = 'AirExhaust01',
+                    },
+                },
+            },
+            BeamExhaust = {
+                Bones = {
+                    'Engine_Left_002',
+                    'Engine_Right_002',
+                    'Engine_Left_001',
+                    'Engine_Right_001',
+                },
+                Cruise = true,
+                Idle = false,
+            },
+        },
+
+        SpawnRandomRotation = false,
+        UniformScale = 0.053,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 210000,
+        BuildCostMass = 5250,
+        BuildTime = 2915,
+		
+        ResearchMultEnergy = 0.2,
+        MaintenanceConsumptionPerSecondEnergy = 120,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 2,
+        SizeZ = 2,
+    },
+	
+    General = {
+        Category = 'Bomber',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'UEF',
+        Icon = 'air',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-personal',
+                helpText = 'toggle_stealth_personal',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+        UnitName = '<LOC sea0314_name>Lancer',
+        UnitWeight = 1,
+    },
+    Intel = {
+        RadarRadius = 65,
+        RadarStealth = true,
+        VisionRadius = 38,
+    },
+	
+    Interface = {
+        HelpText = '<LOC sa0314_desc>Penetrator Bomber',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.25,
+    LifeBarSize = 1.5,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 30,
+		
+        FuelRechargeRate = 20,
+        FuelUseTime = 950,
+		
+        GroundCollisionOffset = 2,
+		
+        MaxSpeed = 0.5,
+        MeshExtentsX = 1.2,
+        MeshExtentsY = 0.8,
+        MeshExtentsZ = 3,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 1,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.28,
+	
+    SizeSphere = 1.9,
+	
+    SizeX = 1,
+    SizeY = 0.65,
+    SizeZ = 2.4,
+	
+    StrategicIconName = 'icon_bomber3_directfire',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+	
+    Veteran = {
+        Level1 = 12,
+        Level2 = 24,
+        Level3 = 36,
+        Level4 = 48,
+        Level5 = 60,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UEAWeapon',
+                    Cue = 'UEA0304_Nuke_Bomb',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.5,
+					Radius = 2.5,
+                    TargetAllow = 'ALLUNITS',
+                    TargetDisallow = 'AIR,COMMAND,WALL,TECH3,EXPERIMENTAL',
+                },
+            },
+
+            BombDropThreshold = 3.5,
+			
+            CollideFriendly = false,
+			
+            Damage = 3000,
+            DamageFriendly = true,
+            DamageRadius = 4,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Small Yield Nuclear Bomb',
+			
+            EffectiveRadius = 25,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringTolerance = 6,
+			
+            Label = 'Bomb',
+			
+            MaxRadius = 90,
+			
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 0,
+			
+            NeedToComputeBombDrop = true,
+			
+            ProjectileId = '/projectiles/TIFSmallYieldNuclearBomb01/TIFSmallYieldNuclearBomb01_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Bomb_001',
+                        'Bomb_003',
+                        'Bomb_005',
+                        'Bomb_002',
+                        'Bomb_004',
+                        'Bomb_006',
+                    },
+                    RackBone = 'Bomb_001',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.2,
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'EXPERIMENTAL',
+                'ANTIAIR',
+                'ENERGYPRODUCTION',
+                'MASSFABRICATION',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+            TurretDualManipulators = false,
+            Turreted = false,
+            WeaponCategory = 'Bomb',
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB2304_Missile_Flayer',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 900,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Lancer Standoff ASM Barrage',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 30,
+			
+            Label = 'Missile',
+			
+            NotExclusive = true,
+			
+            MaxRadius = 150,
+            MinRadius = 50,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 25,
+			
+            PrefersPrimaryWeaponTarget = true,
+			
+            ProjectileId = '/projectiles/TPM_Lancer_AGM/TPM_Lancer_AGM_proj.bp',
+            ProjectileLifetime = 20,
+            ProjectileLifetimeUsesMultiplier = 1.15,
+			
+            RackBones = {
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'Bomb_001', 'Bomb_002'},
+                    RackBone = 'Bomb_001',
+                },
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'Bomb_003', 'Bomb_004'},
+                    RackBone = 'Bomb_003',
+                },
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = {'Bomb_005', 'Bomb_006'},
+                    RackBone = 'Bomb_005',
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 37.5,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 1/12.5,
+			
+            SlavedToBody = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'EXPERIMENTAL',
+                'ANTIAIR',
+                'ENERGYPRODUCTION',
+                'MASSFABRICATION',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 0.6,
+			
+            TurretBoneMuzzle = 'Bomb_001',
+            TurretBonePitch = 'Bomb_001',
+            TurretBoneYaw = 'Bomb_001',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 0,
+            TurretPitchSpeed = 0,
+			
+            TurretYaw = 0,
+            TurretYawRange = 0,
+            TurretYawSpeed = 0,
+			
+            Turreted = true,
+            WeaponCategory = 'Missile',
+        },
+		
+        {   --Torpedoes
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UEAWeapon',
+                    Cue = 'UEA0204_Torpedo',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+            Damage = 750,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+            DisplayName = 'Angler Torpedo',
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+                Land = 'Seabed|Sub|Water',
+            },
+            FiringRandomness = 3,
+            FiringTolerance = 2,
+            HeadingArcCenter = 0,
+            HeadingArcRange = 30,
+            Label = 'Torpedo',
+            NotExclusive = true,
+            MaxRadius = 42,
+            MinRadius = 4,
+            MuzzleSalvoDelay = 1.8,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 14,
+            ProjectileId = '/projectiles/TANAnglerTorpedo06/TANAnglerTorpedo06_proj.bp',
+            ProjectileLifetime = 20,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Bomb_001',
+                        'Bomb_003',
+                        'Bomb_005',
+                        'Bomb_002',
+                        'Bomb_004',
+                        'Bomb_006',
+                    },
+                    RackBone = 'Bomb_001',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RateOfFire = 0.08,
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.15,
+            Turreted = false,
+            WeaponCategory = 'Anti Navy',
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 400,
+            DamageFriendly = true,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = true,
+        },
+    },
+}
