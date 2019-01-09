@@ -168,18 +168,11 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-		
-        OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
-        },
-		
+
         TechLevel = 'RULEUTL_Secret',
 		
         ToggleCaps = {
-            RULEUTC_StealthToggle = true,
+            RULEUTC_CloakToggle = true,
         },
 
         UnitName = '<LOC srl0320_name>Slink',
@@ -284,7 +277,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 55,
+            MaxRadius = 53,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,

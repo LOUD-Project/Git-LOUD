@@ -6,7 +6,7 @@ SRL0320 = Class(CLandUnit) {
 
     IntelEffects = {
 	
-		{ Bones = { 0 }, Offset = { 0, 1, 0 }, Scale = 0.2, Type = 'Jammer01' },
+--		{ Bones = { 0 }, Offset = { 0, 1, 0 }, Scale = 0.2, Type = 'Jammer01' },
 		
     },
 	
@@ -17,12 +17,17 @@ SRL0320 = Class(CLandUnit) {
             CreateProjectileAtMuzzle = function(self, muzzle)
 			
                 if self.unit:IsIntelEnabled('Cloak') then
-                    self.unit:SetMaintenanceConsumptionInactive()
-                    self.unit:SetScriptBit('RULEUTC_CloakToggle', true)
+				
+                    --self.unit:SetMaintenanceConsumptionInactive()
+                    --self.unit:SetScriptBit('RULEUTC_IntelToggle', true)
+					
                     self.unit:DisableUnitIntel('Cloak')
+					
                     self.unit:RequestRefreshUI()			
                     self.unit.IntelWasOn = true
+					
                 end
+				
                 CAAMissileNaniteWeapon.CreateProjectileAtMuzzle(self, muzzle)   
             end,
 
@@ -30,9 +35,11 @@ SRL0320 = Class(CLandUnit) {
 			
                 if self.unit.IntelWasOn then
 				
-                    self.unit:SetMaintenanceConsumptionActive()
-                    self.unit:SetScriptBit('RULEUTC_CloakToggle', false)
+                    --self.unit:SetMaintenanceConsumptionActive()
+                    --self.unit:SetScriptBit('RULEUTC_IntelToggle', false)
+					
                     self.unit:EnableUnitIntel('Cloak')
+					
                     self.unit:RequestRefreshUI()			
                     self.unit.IntelWasOn = false
 					
@@ -84,7 +91,9 @@ SRL0320 = Class(CLandUnit) {
     OnIntelDisabled = function(self)
 	
         self:PlaySound(self:GetBlueprint().Audio.Decloak)
+		
         CLandUnit.OnIntelDisabled(self)
+		
         EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
         self.IntelFxOn = false
     end,
@@ -96,20 +105,27 @@ SRL0320 = Class(CLandUnit) {
 		
             self.Cloaked = false
 			
-            local bp = self:GetBlueprint()
+			if self.CacheLayer == 'Land' then
 			
-            if bp.Intel.StealthWaitTime then
-                WaitSeconds( bp.Intel.StealthWaitTime )
-            end
+				local bp = self:GetBlueprint()
+			
+				if bp.Intel.StealthWaitTime then
+					WaitSeconds( bp.Intel.StealthWaitTime )
+				end
 
-			self:EnableUnitIntel('Cloak')
-			self.Cloaked = true
+				self:EnableUnitIntel('Cloak')
+				self.Cloaked = true
+			
+			end
+			
         end,
         
         OnMotionHorzEventChange = function(self, new, old)
+		
             if new != 'Stopped' then
                 ChangeState( self, self.VisibleState )
             end
+			
             CLandUnit.OnMotionHorzEventChange(self, new, old)
         end,
     },
@@ -126,7 +142,7 @@ SRL0320 = Class(CLandUnit) {
         
         OnMotionHorzEventChange = function(self, new, old)
 		
-            if new == 'Stopped' then
+            if new == 'Stopped' and self.CacheLayer == 'Land' then
                 ChangeState( self, self.InvisState )
             end
 			
