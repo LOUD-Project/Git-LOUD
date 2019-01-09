@@ -262,29 +262,34 @@ function CreateUI(isReplay)
 		
 			if UnitData.VOs then
 			
---				if LOUDGETN(UnitData.VOs) > 0 then
+				local last_vo = false			
 				
-					for _,vo in pairs(UnitData.VOs) do
-					
-						if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
+				for _,vo in pairs(UnitData.VOs) do
+			
+					-- we always show the visual ping if it's turned on and fog of war is turned on -- 
+					if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
 						
-							if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
-								Ping(vo.Marker.type, vo.Marker.position)
-								LastAlertPos = vo.Marker.position
-							end
-							
-							if GetOption('vo_'..vo.Text) != false then
-								PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
-							end
+						if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
+							Ping(vo.Marker.type, vo.Marker.position)
+							LastAlertPos = vo.Marker.position
+						end
+						
+						-- if this is a new audio cue --
+						if GetOption('vo_'..vo.Text) != false and last_vo != vo.Cue then
+						
+							PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
+
+							-- note which cue we are playing
+							last_vo = vo.Cue
 							
 						end
 						
 					end
 					
-					UnitData.VOs = {}
-					
---				end
+				end
 				
+				UnitData.VOs = {}
+
 			end
 			
 			WaitTicks(15)

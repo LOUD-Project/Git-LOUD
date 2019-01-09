@@ -89,7 +89,9 @@ local selectedwhatIfBuilder = nil
 local selectedwhatIfBlueprintID = nil
 
 function CreateTab(parent, id, onCheckFunc)
+
     local btn = Checkbox(parent)
+	
     btn.Depth:Set(function() return parent.Depth() + 10 end)
     
     btn.disabledGroup = Group(parent)
@@ -126,6 +128,7 @@ function CreateTab(parent, id, onCheckFunc)
 end
 
 function CreateUI()
+
     controls.constructionGroup = Group(controlClusterGroup)
     controls.minBG = Bitmap(controls.constructionGroup)
     controls.maxBG = Bitmap(controls.constructionGroup)
@@ -166,40 +169,60 @@ function CreateUI()
     controls.extraBtn1.icon = Bitmap(controls.extraBtn1)
     controls.extraBtn1.icon.OnTexture = UIUtil.UIFile('/game/construct-sm_btn/pause_on.dds')
     controls.extraBtn1.icon.OffTexture = UIUtil.UIFile('/game/construct-sm_btn/pause_off.dds')
+	
     LayoutHelpers.AtCenterIn(controls.extraBtn1.icon, controls.extraBtn1)
+	
     controls.extraBtn1.icon:DisableHitTest()
+	
     controls.extraBtn1.OnDisable = function(self)
+	
         if controls.extraBtn1.icon then
             controls.extraBtn1.icon:SetTexture(controls.extraBtn1.icon.OffTexture)
         end
+		
         Checkbox.OnDisable(self)
     end
+	
     controls.extraBtn1.OnEnable = function(self)
+	
         controls.extraBtn1.icon:Show()
+		
         if controls.extraBtn1.icon then
             controls.extraBtn1.icon:SetTexture(controls.extraBtn1.icon.OnTexture)
         end
+		
         Checkbox.OnEnable(self)
     end
+	
     controls.extraBtn1:UseAlphaHitTest(true)
     controls.extraBtn2 = Checkbox(controls.minBG)
     controls.extraBtn2.icon = Bitmap(controls.extraBtn2)
     controls.extraBtn2.icon.OnTexture = UIUtil.UIFile('/game/construct-sm_btn/pause_on.dds')
     controls.extraBtn2.icon.OffTexture = UIUtil.UIFile('/game/construct-sm_btn/pause_off.dds')
+	
     LayoutHelpers.AtCenterIn(controls.extraBtn2.icon, controls.extraBtn2)
+	
     controls.extraBtn2.icon:DisableHitTest()
+	
     controls.extraBtn2.OnDisable = function(self)
+	
         if controls.extraBtn2.icon then
             controls.extraBtn2.icon:SetTexture(controls.extraBtn2.icon.OffTexture)
         end
+		
         Checkbox.OnDisable(self)
     end
+	
     controls.extraBtn2.OnEnable = function(self)
+	
         controls.extraBtn2.icon:Show()
         controls.extraBtn2.icon:SetTexture(controls.extraBtn2.icon.OnTexture)
         Checkbox.OnEnable(self)
+		
     end
+	
     controls.extraBtn2:UseAlphaHitTest(true)
+	
     controls.secondaryProgress = StatusBar(controls.secondaryChoices, 0, 1, false, false, 
         UIUtil.UIFile('/game/unit-over/health-bars-back-1_bmp.dds'), 
         UIUtil.UIFile('/game/unit-over/bar01_bmp.dds'), 
@@ -208,48 +231,68 @@ function CreateUI()
     controls.constructionTab = CreateTab(controls.constructionGroup, nil, OnTabCheck)
     controls.constructionTab.ID = 'construction'
     Tooltip.AddCheckboxTooltip(controls.constructionTab, 'construction_tab_construction')
+	
     controls.selectionTab = CreateTab(controls.constructionGroup, nil, OnTabCheck)
     controls.selectionTab.ID = 'selection'
     Tooltip.AddCheckboxTooltip(controls.selectionTab, 'construction_tab_attached')
+	
     controls.enhancementTab = CreateTab(controls.constructionGroup, nil, OnTabCheck)
     controls.enhancementTab.ID = 'enhancement'
     Tooltip.AddCheckboxTooltip(controls.enhancementTab, 'construction_tab_enhancement')
 end
 
 function OnTabCheck(self, checked)
+
     if self.ID == 'construction' then
+	
         controls.selectionTab:SetCheck(false, true)
         controls.enhancementTab:SetCheck(false, true)
+		
         SetSecondaryDisplay('buildQueue')
+		
     elseif self.ID == 'selection' then
+	
         controls.constructionTab:SetCheck(false, true)
         controls.enhancementTab:SetCheck(false, true)
         controls.choices:Refresh(FormatData(sortedOptions.selection, 'selection'))
+		
         SetSecondaryDisplay('attached')
+		
     elseif self.ID == 'enhancement' then
+	
         controls.selectionTab:SetCheck(false, true)
         controls.constructionTab:SetCheck(false, true)
+		
         SetSecondaryDisplay('buildQueue')
     end
+	
     CreateTabs(self.ID)
 end
 
 function OnNestedTabCheck(self, checked)
+
     activeTab = self
+	
     for _, tab in controls.tabs do
+	
         if tab != self then
             tab:SetCheck(false, true)
         end
+		
     end
+	
     controls.choices:Refresh(FormatData(sortedOptions[self.ID], nestedTabKey[self.ID] or self.ID))
+	
     SetSecondaryDisplay('buildQueue')
 end
 
 function CreateTabs(type)
+
     local defaultTabOrder = {}
     local desiredTabs = 0
 	
     if type == 'construction' then
+	
         for index, tab in constructionTabs do
             local i = index
             if not controls.tabs[i] then
@@ -261,11 +304,11 @@ function CreateTabs(type)
             Tooltip.AddControlTooltip(controls.tabs[i], 'construction_tab_'..tab)
             Tooltip.AddControlTooltip(controls.tabs[i].disabledGroup, 'construction_tab_'..tab..'_dis')
         end
+		
         desiredTabs = table.getsize(constructionTabs)
         defaultTabOrder = { t4=1, t3=2, t2=3, t1=4 }
 		
     elseif type == 'enhancement' then
-	
 
         local selection = sortedOptions.selection
         local enhancements = selection[1]:GetBlueprint().Enhancements 
@@ -284,22 +327,33 @@ function CreateTabs(type)
                 end
 				
                 controls.tabs[tabIndex].tooltipKey = enhancementTooltips[slotName]
+				
                 controls.tabs[tabIndex].OnRolloverEvent = function(self, event)
+				
                     if event == 'enter' then
+					
                         local existing = enhCommon.GetEnhancements(selection[1]:GetEntityId())
+						
                         if existing[slotName] then
+						
                             local enhancement = enhancements[existing[slotName]]
                             local icon = enhancements[existing[slotName]].Icon
                             local bpID = selection[1]:GetBlueprint().BlueprintId
                             local enhName = existing[slotName]
+							
                             local texture = "/textures/ui/common"..GetEnhancementPrefix(bpID, enhancementPrefixes[slotName]..icon)
+							
                             UnitViewDetail.ShowEnhancement(enhancement, bpID, icon, texture, sortedOptions.selection[1])
                         end
+						
                     elseif event == 'exit' then
+					
                         if existing[slotName] then
                             UnitViewDetail.Hide()
                         end
+						
                     end
+					
                 end
 				
                 Tooltip.AddControlTooltip(controls.tabs[tabIndex], enhancementTooltips[slotName])
@@ -335,33 +389,48 @@ function CreateTabs(type)
     local numActive = 0
 	
     for _, tab in controls.tabs do
+	
         if sortedOptions[tab.ID] and LOUDGETN(sortedOptions[tab.ID]) > 0 then
+		
             tab:Enable()
+			
             numActive = numActive + 1
+			
             if defaultTabOrder[tab.ID] then
+			
                 if not defaultTab or defaultTabOrder[tab.ID] < defaultTabOrder[defaultTab.ID] then
                     defaultTab = tab
                 end
+				
             end
+			
         else
             tab:Disable()
         end
     end
 	
     if previousTabSet != type or previousTabSize != numActive then
+	
         if defaultTab then
             defaultTab:SetCheck(true)
         end
+		
         previousTabSet = type
         previousTabSize = numActive
+		
     elseif activeTab then
+	
         activeTab:SetCheck(true)
+		
     end
+	
 end
 
 function GetBackgroundTextures(unitID)
+
     local bp = __blueprints[unitID]
     local validIcons = {land = true, air = true, sea = true, amph = true}
+	
     if validIcons[bp.General.Icon] then
         return UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_up.dds'),
             UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_down.dds'),
@@ -2441,7 +2510,7 @@ function RefreshUI()
 	
 end
 
-function OnSelection(buildableCategories, selection, isOldSelection)
+function OnSelection( buildableCategories, selection, isOldSelection)
 
     if table.getsize(selection) > 0 then
 	

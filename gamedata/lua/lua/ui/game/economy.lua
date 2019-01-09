@@ -81,32 +81,47 @@ function CreateUI()
         group.warningBG.cycles = 0
         group.warningBG.flashMod = 1
         group.warningBG.warningBitmap = warningBitmap
+		
         group.warningBG.SetToState = function(self, state)
+		
             if self.State != state then
+			
                 if state == 'red' then
+				
                     self:SetTexture(UIUtil.UIFile('/game/resource-panel/alert-'..self.warningBitmap..'-panel_bmp.dds'))
                     self.flashMod = 1.6
+					
                 elseif state == 'yellow' then
+				
                     self:SetTexture(UIUtil.UIFile('/game/resource-panel/caution-'..self.warningBitmap..'-panel_bmp.dds'))
                     self.flashMod = 1.25
+					
                 end
+				
                 self.cycles = 0
                 self.State = state
+				
                 self:SetNeedsFrameUpdate(true)
             end
         end
         
         group.warningBG.OnFrame = function(self, deltaTime)
+		
             if self.State == 'hide' then
+			
                 local newAlpha = self:GetAlpha() - deltaTime
+				
                 if newAlpha < 0 then
                     self:SetAlpha(0)
                     self:SetNeedsFrameUpdate(false)
                 else
                     self:SetAlpha(newAlpha)
                 end
+				
             else
+			
                 local newAlpha = self:GetAlpha() + ((deltaTime * self.flashMod) * self.ascending)
+				
                 if newAlpha > .5 then
                     newAlpha = .5
                     self.cycles = self.cycles + 1
@@ -115,7 +130,9 @@ function CreateUI()
                     newAlpha = 0
                     self.ascending = 1
                 end
+				
                 self:SetAlpha(newAlpha)
+				
                 if self.cycles == 5 then
                     self:SetNeedsFrameUpdate(false)
                 end
@@ -125,12 +142,12 @@ function CreateUI()
         group.icon = Bitmap(group)
         group.rate = UIUtil.CreateText(group, '', 18, UIUtil.bodyFont)
         group.rate:SetDropShadow(true)
-        group.storageBar = StatusBar(group, 0, 100, false, false, 
-            UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar-back_bmp.dds'), 
-            UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar_bmp.dds'), false)
-            
+		
+        group.storageBar = StatusBar(group, 0, 100, false, false, UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar-back_bmp.dds'), UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar_bmp.dds'), false)
+
         group.curStorage = UIUtil.CreateText(group, '', 10, UIUtil.bodyFont)
         group.curStorage:SetDropShadow(true)
+		
         group.maxStorage = UIUtil.CreateText(group, '', 10, UIUtil.bodyFont)
         group.maxStorage:SetDropShadow(true)
         
@@ -139,6 +156,7 @@ function CreateUI()
         
         group.income = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
         group.income:SetDropShadow(true)
+		
         group.expense = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
         group.expense:SetDropShadow(true)
         
@@ -160,8 +178,11 @@ function CreateUI()
 end
 
 function CommonLogic()
+
     local function AddGroupLogic(group, prefix)
+	
         group.warningBG.OnHide = function(self, hidden)
+		
             if hidden then
                 group.income:SetHidden(true)
                 group.expense:SetHidden(true)
@@ -169,32 +190,46 @@ function CommonLogic()
                 group.income:SetHidden(not States[prefix.."Detail"])
                 group.expense:SetHidden(not States[prefix.."Detail"])
             end
+			
             return true
         end
         
         group.hideTarget.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 if States[prefix.."Detail"] == false then
                     group.income:Show()
                     group.expense:Show()
                 end
+				
                 Tooltip.CreateMouseoverDisplay(self, prefix .. "_extended_display", nil, true)
+				
                 local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Rollover'})
+				
                 PlaySound(sound)
+				
             elseif event.Type == 'MouseExit' then
+			
                 Tooltip.DestroyMouseoverDisplay()
+				
                 if States[prefix.."Detail"] == false then
                     group.income:Hide()
                     group.expense:Hide()
                 end
+				
             elseif event.Type == 'ButtonPress' then
+			
                 local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Click'})
+				
                 PlaySound(sound)
+				
                 States[prefix.."Detail"] = not States[prefix.."Detail"]
                 group.income:SetHidden(not States[prefix.."Detail"])
                 group.expense:SetHidden(not States[prefix.."Detail"])
                 Prefs.SetToCurrentProfile(prefix.."DetailedView", States[prefix.."Detail"])
             end
+			
             return true
         end
         
@@ -202,36 +237,54 @@ function CommonLogic()
 --        Tooltip.AddControlTooltip(group.icon, prefix..'_button')
         
         group.storageTooltipGroup.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 Tooltip.CreateMouseoverDisplay(self, prefix .. "_storage", nil, true)
+				
             elseif event.Type == 'MouseExit' then
+			
                 Tooltip.DestroyMouseoverDisplay()
+				
             end
+			
             return true
         end
         
         group.rate.HandleEvent = function(self, event)
+		
             if event.Type == 'MouseEnter' then
+			
                 Tooltip.CreateMouseoverDisplay(self, prefix .. "_rate", nil, true)
+				
             elseif event.Type == 'MouseExit' then
+			
                 Tooltip.DestroyMouseoverDisplay()
+				
             elseif event.Type == 'ButtonPress' then
+			
                 States[prefix..'ViewState'] = States[prefix..'ViewState'] + 1
+				
                 if States[prefix..'ViewState'] > 2 then
                     States[prefix..'ViewState'] = 1
                 end
+				
                 Prefs.SetToCurrentProfile(prefix..'RateView', States[prefix..'ViewState'])
+				
                 local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Click'})
+				
                 PlaySound(sound)
             end
+			
             return true
         end
     end
     
     AddGroupLogic(GUI.mass, 'mass')
     AddGroupLogic(GUI.energy, 'energy')
-        
+
     GameMain.AddBeatFunction(_BeatFunction)
+	
     GUI.bg.OnDestroy = function(self)
         GameMain.RemoveBeatFunction(_BeatFunction)
     end
@@ -244,8 +297,10 @@ function CommonLogic()
 end
 
 function _BeatFunction()
+
     local econData = GetEconomyTotals()
     local simFrequency = GetSimTicksPerSecond()
+	
 	local LOUDMIN = math.min
 	local LOUDMAX = math.max
 	local LOUDCEIL = math.ceil
@@ -287,6 +342,7 @@ function _BeatFunction()
         controls.maxStorage:SetText(LOUDCEIL(maxStorageVal))
         
         controls.income:SetText(LOUDFORMAT("+%d", LOUDCEIL(incomeAvg)))
+		
         if storedVal > 0.5 then
             controls.expense:SetText(LOUDFORMAT("-%d", LOUDCEIL(actualAvg)))
         else
@@ -294,6 +350,7 @@ function _BeatFunction()
         end
     
         local rateVal = 0
+		
         if storedVal > 0.5 then
             rateVal = LOUDCEIL(incomeAvg - actualAvg)
         else
@@ -301,14 +358,17 @@ function _BeatFunction()
         end
         
         local rateStr, effVal = FormatRateString(rateVal, storedVal, incomeAvg, actualAvg, requestedAvg)
-    -- CHOOSE RATE or EFFICIENCY STRING
+		
+		-- CHOOSE RATE or EFFICIENCY STRING
         if States[viewPref] == 2 then
             controls.rate:SetText(LOUDFORMAT("%d%%", LOUDMIN(effVal, 200)))   
         else
             controls.rate:SetText(LOUDFORMAT("%+s", rateStr))
         end
-    -- SET RATE/EFFICIENCY COLOR
+		
+		-- SET RATE/EFFICIENCY COLOR
         local rateColor
+		
         if rateVal < 0 then
             if storedVal > 0 then
                 rateColor = 'yellow'
@@ -318,9 +378,10 @@ function _BeatFunction()
         else
             rateColor = 'ffb7e75f'
         end
+		
         controls.rate:SetColor(rateColor)
         
-    -- ECONOMY WARNINGS        
+		-- ECONOMY WARNINGS        
         if Prefs.GetOption('econ_warnings') and UIState then
             if storedVal / maxStorageVal < .2 then
                 if effVal < 25 then

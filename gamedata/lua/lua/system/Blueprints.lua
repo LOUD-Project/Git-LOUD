@@ -126,7 +126,7 @@ local function SetLongId(bp)
     if not bp.BlueprintId then
         local id = lower(bp.Source)
         id = gsub(id, "%.bp$", "")                          # strip trailing .bp
-        #id = gsub(id, "/([^/]+)/%1_([a-z]+)$", "/%1_%2")    # strip redundant directory name
+        --id = gsub(id, "/([^/]+)/%1_([a-z]+)$", "/%1_%2")    # strip redundant directory name
         bp.BlueprintId = id
     end
 end
@@ -492,7 +492,7 @@ function ModBlueprints(all_blueprints)
 				end
 
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
-					LOG("*AI DEBUG "..id.." "..bp.Description.." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
+					LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
 					
 				end
 				
@@ -729,6 +729,10 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
+							end
+							
+							if bp.SizeY and not bp.Physics.LayerChangeOffsetHeight then
+								bp.Physics.LayerChangeOffsetHeight = bp.SizeY/2 * -1
 							end
 			
 							if bp.Physics.MaxSpeed then

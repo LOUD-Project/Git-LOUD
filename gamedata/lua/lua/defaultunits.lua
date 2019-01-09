@@ -1433,7 +1433,7 @@ MobileUnit = Class(Unit) {
 
     OnLayerChange = function(self, new, old)
 
-		Unit.OnLayerChange( self, new, old)
+		Unit.OnLayerChange( self, new, old) 
 
 		self.WeaponCount = GetWeaponCount(self)
 
@@ -1444,7 +1444,16 @@ MobileUnit = Class(Unit) {
         if new == 'Land' then
 
 			local Intel = __blueprints[self.BlueprintID].Intel
+			local vis = Intel.VisionRadius or 2
+			
+			-- if current vision radius is less than standard blueprint value
+			-- then it must have been turned down previously - turn it back up
+			if old == 'Seabed' and self:GetIntelRadius('Vision') <= (vis * 0.75) then
 
+				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 2.5)
+				
+			end
+			
 			self:EnableIntel('Vision')
 			self:DisableIntel('WaterVision')
 
@@ -1455,11 +1464,24 @@ MobileUnit = Class(Unit) {
 		-- all these inclusions are to cover Amphib units being dropped into, or constructed on the seabed
 		-- or to cover Sonar carrying aircraft (ie. Torpedo Bombers)
         elseif (old == 'Land' or old == 'Air' or old == 'None') and new == 'Seabed' then
+		
+			--LOG("*AI DEBUG OnLayerChange "..repr(old).." "..repr(new))
 
 			local Intel = __blueprints[self.BlueprintID].Intel
+			local vis = Intel.VisionRadius or 2
+			
+			-- if current vision is mostly normal then
+			-- turn it down to 40% of current vision
+			if self:GetIntelRadius('Vision') > (vis * 0.75) then
+			
+				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 0.4)
+				
+			end
 
 			self:EnableIntel('WaterVision')
+			
 			self:DisableIntel('Vision')
+			
 
 			self:DisableUnitIntel('Radar')
 

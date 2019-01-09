@@ -961,7 +961,7 @@ Unit = Class(moho.unit_methods) {
             self:EnableSpecialToggle()
 			
         elseif bit == 8 then 		-- cloak toggle
-		
+
             --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Cloak')
@@ -1345,6 +1345,7 @@ Unit = Class(moho.unit_methods) {
 				elseif focus then
 					
 					--GPG: bonuses are already factored in by GetBuildCosts
+
 					time, energy, mass = self:GetBuildCosts(focus:GetBlueprint())
 					
 				end
@@ -3145,17 +3146,23 @@ Unit = Class(moho.unit_methods) {
 
     DisableUnitIntel = function(self, intel)
 	
-		local DisableIntel = moho.entity_methods.DisableIntel
-		
 		local intDisabled = false
+
 		
         if self.Dead or not self.IntelDisables then return end
 		
-        if intel then
+
+		local DisableIntel = moho.entity_methods.DisableIntel
 		
-            self.IntelDisables[intel] = self.IntelDisables[intel] + 1
+		-- just some notes in here - the conditions for the intel flags are simple
+		-- 0 means the intel is ON
+		-- 1 means the intel is OFF
+		
+        if intel then
+
+            if self.IntelDisables[intel] == 0 then
 			
-            if self.IntelDisables[intel] == 1 then
+				self.IntelDisables[intel] = 1
 			
 				--LOG("*AI DEBUG UNIT DisableUnitIntel for "..repr(intel))
 				
@@ -3169,9 +3176,11 @@ Unit = Class(moho.unit_methods) {
 		
             for k, v in self.IntelDisables do
 			
-                self.IntelDisables[k] = v + 1
+                self.IntelDisables[k] =  1
 				
-                if self.IntelDisables[k] == 1 then
+                if self.IntelDisables[k] == 0 then
+				
+					self.IntelDisables[k] = 1
 				
 					--LOG("*AI DEBUG basic Intel "..repr(k).." set off")
 					
@@ -3215,8 +3224,6 @@ Unit = Class(moho.unit_methods) {
 			
 			-- if an intel type and the intel table is ready
 			-- since this will fire before intel table is setup
-			
-			
 			if self.IntelDisables then
 			
 				-- used to enable a specific intel
@@ -3233,15 +3240,13 @@ Unit = Class(moho.unit_methods) {
 						self.IntelDisables[intel] = 0						
 						
 					end
-				
-					self.IntelDisables[intel] = self.IntelDisables[intel] - 1
+
 				else
 				
 					-- loop thru all intel types and try to turn them on
 					for k, v in self.IntelDisables do
 				
 						if v == 1 then
-						
 		
 							EnableIntel(self,k)
 
@@ -3849,7 +3854,7 @@ Unit = Class(moho.unit_methods) {
 
     -- Return the total time in seconds, cost in energy, and cost in mass to build the given target type.
     GetBuildCosts = function(self, target_bp)
-	
+
         return Game.GetConstructEconomyModel(self, target_bp.Economy)
 		
     end,
