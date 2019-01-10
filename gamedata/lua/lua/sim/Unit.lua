@@ -5172,7 +5172,7 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 	
-	-- issued when a unit gets teleported
+	-- issued when a unit tries to start a teleport
     OnTeleportUnit = function(self, teleporter, location, orientation)
 	
 		local id = GetEntityId(self)
@@ -5224,7 +5224,7 @@ Unit = Class(moho.unit_methods) {
 				-- if start point is within a jammer radius --
 				elseif noTeleDistance and noTeleDistance >= sourcecheck then
 				
-					FloatingEntityText(id,'Teleport Generator Scrambled')
+					FloatingEntityText(id,'Teleport Source Scrambled')
 					return
 					
 				end
@@ -5407,23 +5407,25 @@ Unit = Class(moho.unit_methods) {
 		
         local bp = GetBlueprint(self).Economy
 		
-        local energyCost, time
+        local teleportvalue, time
 		
         if bp then
 		
-            local mass = bp.BuildCostMass * math.min(.1, bp.TeleportMassMod or 0.01)
-            local energy = bp.BuildCostEnergy * math.min(.01, bp.TeleportEnergyMod or 0.001)
+			-- calc a resource cost value based on both mass and energy
+            local mass = bp.BuildCostMass * math.min(.1, bp.TeleportMassMod or 0.1)
+            local energy = bp.BuildCostEnergy * math.min(.01, bp.TeleportEnergyMod or 0.01)
 			
-            energyCost = mass + energy
+            teleportvalue = mass + energy
 			
-			-- teleport never takes more than 10 seconds --
-            time = math.min(10, energyCost * math.max(.02, bp.TeleportTimeMod or 0.0001))
+			-- teleport never takes more than 15 seconds --
+			-- but according to this comes in at around 1.5% of the resource cost value
+            time = math.min(15, teleportvalue * math.max(.015, bp.TeleportTimeMod or 0.015))
 			
-			--LOG('*UNIT DEBUG: TELEPORTING, bp values Mass '..repr(mass)..'  Energy '..repr(energy)..'  Combined Cost '..repr(energyCost)..' time = '..repr(time) )
+			LOG('*AI DEBUG Telporting value '..repr(teleportvalue)..' time = '..repr(time) )
 			
         end
 
-        self.TeleportDrain = CreateEconomyEvent(self, energyCost or 100, 0, time or 5, self.UpdateTeleportProgress)
+        self.TeleportDrain = CreateEconomyEvent(self, teleportvalue * 10 or 1000, 0, time or 15, self.UpdateTeleportProgress)
 
         -- teleport charge effect
         EffectUtilities.PlayTeleportChargeEffects(self)
