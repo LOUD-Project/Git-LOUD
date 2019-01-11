@@ -6,8 +6,8 @@ ProjectileBlueprint {
             LodCutoff = 'DefaultLodCutoff',
         },
         ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
+            Bank = 'XSL',
+            Cue = 'XSL0402_Spawn',
             LodCutoff = 'Weapon_LodCutoff',
         },
         ImpactWater = Sound {
@@ -16,8 +16,8 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
         NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
+            Bank = 'XSL',
+            Cue = 'XSL0402_Spawn',
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
@@ -34,11 +34,11 @@ ProjectileBlueprint {
         MaxHealth = 3,
     },
     Economy = {
-        BuildCostEnergy = 54000,
-        BuildCostMass = 675,
-        BuildTime = 48600,
+        BuildCostEnergy = 6000,
+        BuildCostMass = 5,
+        BuildTime = 300,
     },
-    Description = 'CYBRAN Nuclear Missile',
+    Description = 'CYBRAN EMP Missile',
     DesiredShooterCap = 1,
     Display = {
         CameraFollowTimeout = 5,
@@ -66,14 +66,14 @@ ProjectileBlueprint {
         Faction = 'Cybran',
     },
     Interface = {
-        HelpText = 'CYBRAN Nuclear Missile',
+        HelpText = 'CYBRAN EMP Missile',
     },
     Physics = {
         Acceleration = 5,
         CollideEntity = false,
         CollideSurface = true,
         DestroyOnWater = true,
-        InitialSpeed = 30,
+        InitialSpeed = 5,
         Lifetime = 600,
         MaxSpeed = 60,
         MaxZigZag = 5,

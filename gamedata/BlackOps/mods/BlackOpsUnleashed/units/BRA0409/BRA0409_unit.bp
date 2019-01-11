@@ -14,10 +14,10 @@ UnitBlueprint {
         CanFly = true,
 		
         CirclingDirChange = true,
-        CirclingElevationChangeRatio = 0.25,
+        CirclingElevationChangeRatio = 0.45,
         CirclingFlightChangeFrequency = 15,
-        CirclingRadiusChangeMaxRatio = 0.5,
-        CirclingRadiusChangeMinRatio = 0.45,
+        CirclingRadiusChangeMaxRatio = 0.8,
+        CirclingRadiusChangeMinRatio = 0.35,
         CirclingTurnMult = 1,
 		
         KLift = 2.5,
@@ -27,14 +27,14 @@ UnitBlueprint {
         KMoveDamping = 2,
 		
         KRoll = 0.5,
-        KRollDamping = 0.75,
+        KRollDamping = 0.85,
 		
         KTurn = 1,
         KTurnDamping = 2.4,
 		
         LiftFactor = 8,
 		
-        MaxAirspeed = 14.5,
+        MaxAirspeed = 13.5,
 		
         StartTurnDistance = 10,
 		
@@ -89,9 +89,9 @@ UnitBlueprint {
         'BUILTBYTIER4COMMANDER',
         'VISIBLETORECON',
 		'NEEDMOBILEBUILD',
-        'SILO',
         'RECLAIMABLE',
         'TRANSPORTFOCUS',
+		'SHOWATTACKRETICLE',
         'OVERLAYCOUNTERINTEL',
 		'OVERLAYRADAR',
         'CANNOTUSEAIRSTAGING',
@@ -104,8 +104,8 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 44500,
         MaxHealth = 44500,
-        RegenRate = 20,
-        SurfaceThreatLevel = 88,
+        RegenRate = 28,
+        SurfaceThreatLevel = 120,
     },
 	
     Description = '<LOC bra0409_desc>Assault Transport',
@@ -113,12 +113,16 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '6 x AA Lasers',
-			'4 x Rocket Packs',
+			'4 x Heavy Plasma Autocannon',
 			'Hi-Yield EMP Area Stun Missile',
             'Transports 20',
         },
+		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRA0409/BRA0409_AOpen.sca',
         AnimationClose = '/mods/BlackOpsUnleashed/units/BRA0409/BRA0409_AClose.sca',
+		
+		AttackReticleSize = 24,
+		
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
@@ -162,7 +166,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.243,
     },
@@ -172,10 +176,6 @@ UnitBlueprint {
         BuildCostEnergy = 605000,
         BuildCostMass = 28500,
         BuildTime = 9750,
-		
-        MaintenanceConsumptionPerSecondEnergy = 100,
-		
-        BuildRate = 200,
 		
     },
 	
@@ -200,8 +200,6 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Reclaim = false,
             RULEUCC_Repair = false,
-            RULEUCC_SiloBuildNuke = false,
-			RULEUCC_SiloBuildTactical = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
 			RULEUCC_Tactical = true,
@@ -211,21 +209,6 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
-        OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
---[[			
-            RULEUCC_Nuke = {
-                bitmapId = 'nuke',
-                helpText = 'emp_nuke',
-            },
---]]
-        },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
 
         UnitName = '<LOC bra0409_name>Gargantuan',
         UnitWeight = 1,
@@ -233,11 +216,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        VisionRadius = 38,
+        VisionRadius = 39,
 		RadarRadius = 128,
 		RadarStealth = true,
-        RadarStealthFieldRadius = 25,
-        ReactivateTime = 5,
+        RadarStealthFieldRadius = 20,
     },
 	
     Interface = {
@@ -257,7 +239,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 12,
+        Elevation = 15,
 		SkirtOffsetX = 0,
         SkirtOffsetZ = -6,
         SkirtSizeX = 5,
@@ -324,7 +306,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 3,
+                    Duration = 1,
                     Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'WALL,COMMAND,AIR,EXPERIMENTAL',
@@ -333,7 +315,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 55,
+            Damage = 150,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -343,7 +325,7 @@ UnitBlueprint {
             	Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1,
+            FiringRandomness = 0.6,
             FiringTolerance = 2,
 			
             Label = 'RocketPod',
@@ -352,7 +334,7 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 			
             MuzzleVelocity = 30,
@@ -383,7 +365,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 220 DPS
+            RateOfFire = 0.5,		-- 300 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -394,7 +376,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
             TrackingRadius = 1.15,
 			
@@ -402,13 +384,14 @@ UnitBlueprint {
             TurretBonePitch = 'R_Barrel_01',
             TurretBoneYaw = 'R_Turret_01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 70,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 45,
             Turreted = true,
         },
 		
@@ -439,14 +422,15 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 3,
+                    Duration = 1,
                     Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'WALL,COMMAND,AIR,EXPERIMENTAL',
                 },
             },
             CollideFriendly = false,
-            Damage = 55,
+			
+            Damage = 150,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -456,7 +440,7 @@ UnitBlueprint {
             	Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1,
+            FiringRandomness = 0.6,
             FiringTolerance = 2,
 			
             Label = 'RocketPod',
@@ -465,7 +449,7 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
 			
@@ -490,9 +474,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- about 220DPS
+            RateOfFire = 0.5,	-- about 300DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -501,8 +484,9 @@ UnitBlueprint {
                 'STRUCTURE DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'L_Muzzle_01',
             TurretBonePitch = 'L_Barrel_01',
             TurretBoneYaw = 'L_Turret_01',
@@ -510,11 +494,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
             TurretYawRange = 70,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 45,
             Turreted = true,
         },
 		
@@ -545,7 +529,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1,
                     Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'WALL,COMMAND,AIR,EXPERIMENTAL',
@@ -553,16 +537,17 @@ UnitBlueprint {
             },
             CollideFriendly = false,
 			
-            Damage = 55,
+            Damage = 150,
             DamageRadius = 1.5,
             DamageType = 'Normal',
+			
             DisplayName = 'Iridium Rocket Pack',
 			
             FireTargetLayerCapsTable = {
             	Air = 'Land|Water',
             },
 			
-            FiringRandomness = 1,
+            FiringRandomness = 0.6,
             FiringTolerance = 2,
 			
             Label = 'RocketPod',
@@ -571,7 +556,7 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 			
             MuzzleVelocity = 50,
@@ -597,9 +582,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -608,18 +592,20 @@ UnitBlueprint {
                 'STRUCTURE DEFENSE',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'R_Back_Muzzle_01',
             TurretBonePitch = 'R_Back_Barrel_01',
             TurretBoneYaw = 'R_Back_Turret_01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 45,
             TurretYaw = 0,
             TurretYawRange = 70,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 45,
             Turreted = true,
         },
 		
@@ -650,14 +636,15 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1,
                     Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'WALL,COMMAND,AIR,EXPERIMENTAL',
                 },
             },
             CollideFriendly = false,
-            Damage = 55,
+			
+            Damage = 150,
             DamageRadius = 1.5,
 			
             DamageType = 'Normal',
@@ -666,15 +653,16 @@ UnitBlueprint {
             	Air = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 0.65,
             FiringTolerance = 2,
 			
             Label = 'RocketPod',
+			
             LeadTarget = false,
             MaxRadius = 45,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
 			
@@ -699,9 +687,11 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 1,
+
+            RateOfFire = 0.5,
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -710,16 +700,18 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'L_Back_Muzzle_01',
             TurretBonePitch = 'L_Back_Barrel_01',
             TurretBoneYaw = 'L_Back_Turret_01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 45,
             TurretYaw = 0,
             TurretYawRange = 70,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 45,
             Turreted = true,
         },
 		
@@ -766,6 +758,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -864,6 +857,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -886,7 +880,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
@@ -958,6 +951,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -980,7 +974,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
@@ -1051,6 +1044,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -1073,8 +1067,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
@@ -1144,6 +1136,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -1167,9 +1160,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RangeCategory = 'UWRC_AntiAir',
-			
-            RateOfFire = 1,		-- 200 DPS Air
+			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
@@ -1236,6 +1227,7 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'AA',
+			LeadTarget = false,
 			
             MaxRadius = 55,
 			
@@ -1259,8 +1251,6 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RangeCategory = 'UWRC_AntiAir',
-			
             RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
 			
@@ -1273,16 +1263,20 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.25,
+			
             TurretBoneMuzzle = 'R_B_AA_Muzzle_01',
             TurretBonePitch = 'R_B_AA_Muzzle_01',
             TurretBoneYaw = 'R_B_AA_Muzzle_01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 130,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 130,
             TurretYawSpeed = 180,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -1323,7 +1317,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 5,
+                    Duration = 4,
                     Radius = 24,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'TECH3,AIR,STRUCTURE,COMMAND,EXPERIMENTAL',
@@ -1335,7 +1329,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 12,
+                    Duration = 8,
                     Radius = 12,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'AIR,COMMAND,EXPERIMENTAL',
@@ -1347,20 +1341,21 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 18,
+                    Duration = 12,
                     Radius = 6,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'AIR,COMMAND,WALL',
                 },			
             },
 			
-            Damage = 100,
+            Damage = 150,
             DamageRadius = 24,
             DamageType = 'Normal',
 			
             DisplayName = 'Head weapon',
-			
-            CountedProjectile = true,
+
+			EnergyRequired = 4500,
+			EnergyDrainPerSecond = 150,
 
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -1370,23 +1365,17 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'MainGun',
-			
-            ForceSingleFire = true,
-			
-            InitialProjectileStorage = 0,
-			
-			ManualFire = 1,
-			
-            MaxProjectileStorage = 2,
-			
+
+			--ManualFire = 1,	-- while this weapon will autofire you can give specific target
+
             LeadTarget = false,
 			
-            MaxRadius = 120,
+            MaxRadius = 125,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 5,
 			
             NukeInnerRingDamage = 100,
             NukeInnerRingRadius = 6,
@@ -1402,7 +1391,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/GargEMPWarhead01/GargEMPWarhead01_proj.bp',
-			ProjectileLifetime = 5,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {
@@ -1421,18 +1410,19 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_InDirectFire',
 			
-            RateOfFire = 0.08,
+            RateOfFire = 0.033,	-- controlled by energy - basically every 30 seconds
             RenderFireClock = false,
 			
-            TargetCheckInterval = 3.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetCheckInterval = 5,
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+				'STRUCTURE RADAR',
                 'MOBILE',
                 'STRUCTURE DEFENSE',
                 'ALLUNITS',
             },
-            TrackingRadius = 1.11,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Main_Gun_Muzzle',
             TurretBonePitch = 'Main_Gun_Barrel',
@@ -1441,11 +1431,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -1464,16 +1454,16 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.3,
-        MassMult = 0.3,
+        EnergyMult = 0.1,
+        HealthMult = 0.35,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
             Land = true,
             Seabed = true,
             Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 }
