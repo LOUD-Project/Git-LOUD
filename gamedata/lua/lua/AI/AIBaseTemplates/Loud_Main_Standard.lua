@@ -180,7 +180,7 @@ BaseBuilderTemplate {
 
         local mapSizeX, mapSizeZ = GetMapSize()
 		
-		LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
+		--LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
 
         -- If we're playing on a 5k or 10k map
         if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then

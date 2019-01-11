@@ -489,10 +489,16 @@ function ModBlueprints(all_blueprints)
 				
 				if wep.RateOfFire then
 					wep.RateOfFire = wep.RateOfFire * ROFadjust
+					
+					if wep.MuzzleSalvoDelay == nil then
+						LOG("*AI DEBUG "..id.." has nil for "..repr(wep.Label).." MuzzleSalvoDelay")
+						wep.MuzzleSalvoDelay = 0
+					end
+
 				end
 
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
-					LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
+					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
 					
 				end
 				

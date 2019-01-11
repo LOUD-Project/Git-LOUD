@@ -4,8 +4,6 @@ function CheckVictory(ScenarioInfo)
     local categoryCheck = false
 	local victoryTime = false
 	
-	LOG("*AI DEBUG Launching CheckVictory for "..repr(ScenarioInfo.Options.Victory))
-	
     if ScenarioInfo.Options.Victory == 'demoralization' then
         -- Assassination - dead commander
         categoryCheck = categories.COMMAND
@@ -39,6 +37,8 @@ function CheckVictory(ScenarioInfo)
 	else
 	
 		ScenarioInfo.VictoryTime = false
+		
+		LOG("*AI DEBUG Launching CheckVictory for "..repr(ScenarioInfo.Options.Victory))
 
 	end
 	
@@ -163,8 +163,6 @@ function CheckVictory(ScenarioInfo)
 			end
         end
     end
-	
-	LOG("*AI DEBUG Exiting CheckVictory for sandbox")
 	
 end
 

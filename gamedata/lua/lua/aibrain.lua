@@ -3,7 +3,7 @@
 ######################
 
 	-- Enable LOUD debugging options
-	LOG("*AI DEBUG Setting LOUD options")
+	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
 	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))

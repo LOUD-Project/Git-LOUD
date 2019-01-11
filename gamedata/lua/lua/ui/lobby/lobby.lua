@@ -714,15 +714,15 @@ function HostGame(desiredGameName, scenarioFileName, inSinglePlayer, friendsOnly
     singlePlayer = inSinglePlayer
     gameName = lobbyComm:MakeValidGameName(desiredGameName)
     lobbyComm.desiredScenario = scenarioFileName
-	
-	LOG("*AI DEBUG Game Version is "..repr(GetVersion()))
-	
+
 	if string.sub(GetVersion(),1,3) != '1.6' then
 	
+		-- not Steam
 		lobbyComm:HostGame()
 		
 	else
 	
+		-- Steam version
 		lobbyComm:HostGame(friendsOnly)
 		
 	end
@@ -1477,10 +1477,13 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     local function LaunchGame()
 	
         SetFrontEndData('NextOpBriefing', nil)
+		
         -- assign random factions just as game is launched
         AssignRandomFactions(gameInfo)
         AssignRandomStartSpots(gameInfo)
         AssignAINames(gameInfo)
+		
+		LOG("HERE WE GO "..repr( { Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
     
         -- Tell everyone else to launch and then launch ourselves.
         lobbyComm:BroadcastData( { Type = 'Launch', GameInfo = gameInfo } )
@@ -1769,8 +1772,6 @@ local function UpdateGame()
 	
 	end
 
-    LOG("HERE IT IS"..repr({ Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
-	
 end
 
 -- Update our local gameInfo.GameMods from selected map name and selected mods, then

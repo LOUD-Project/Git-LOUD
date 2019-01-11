@@ -6730,7 +6730,7 @@ Platoon = Class(moho.platoon_methods) {
 							-- signal the NewBaseThread that we need the data now
 							eng.NeedsBaseData = true
 
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." requesting newbase data ")
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." requesting newbase data ")
 							
 							-- at this point the engineer will get the NewExpansion data back from the NewBaseThread
 							-- in the form of eng.NewExpansion[1] = basename, [2] = 3D position, [3] = the construction data
@@ -6742,7 +6742,7 @@ Platoon = Class(moho.platoon_methods) {
 
 							if not eng.Dead then
 							
-								LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." gets newbase data ")
+								--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." gets newbase data ")
 
 								-- loop thru brains to see if it's been taken by another
 								for _,brain in ArmyBrains do

@@ -1775,16 +1775,16 @@ function AddCustomUnitSupport( aiBrain )
 						end
 				
 						if ScenarioInfo.CustomUnits[plat] and ScenarioInfo.CustomUnits[plat][fac] then
-							LOG('*AI DEBUG: Adding to EXISTING template and EXISTING faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
+							--LOG('*AI DEBUG: Adding to EXISTING template and EXISTING faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
 						
 						elseif ScenarioInfo.CustomUnits[plat] then
-							LOG('*AI DEBUG: Adding to EXISTING template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )                    
+							--LOG('*AI DEBUG: Adding to EXISTING template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )                    
 							ScenarioInfo.CustomUnits[plat][fac] = {}
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
 						
 						else
-							LOG('*AI DEBUG: Adding to NEW template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
+							--LOG('*AI DEBUG: Adding to NEW template and NEW faction: '..plat..' faction = '..fac..' new ID = '..entry[1]..' chance = '..entry[2] )
 							ScenarioInfo.CustomUnits[plat] = {}
 							ScenarioInfo.CustomUnits[plat][fac] = {}
 							LOUDINSERT(ScenarioInfo.CustomUnits[plat][fac], { entry[1], entry[2] } )
@@ -2475,7 +2475,7 @@ function PathGeneratorThread( aiBrain )
 	-- the maximum possible distance you can travel on a map - corner to corner
 	if not aiBrain.dist_comp then
 		aiBrain.dist_comp = ( math.pow(ScenarioInfo.size[1],2) + math.pow(ScenarioInfo.size[2],2) )
-		LOG("*AI DEBUG Setting Maximum distance value for this map to "..aiBrain.dist_comp)
+		--LOG("*AI DEBUG Setting Maximum distance value for this map to "..aiBrain.dist_comp)
 	end
 
 	WaitSeconds(20)

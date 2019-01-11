@@ -88,7 +88,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones)
 		
-		if bp.MuzzleSalvoDelay then
+		if bp.MuzzleSalvoDelay != nil then
 		
 			local totalMuzzleFiringTime = (NumMuzzles - 1) * bp.MuzzleSalvoDelay
 		
@@ -99,6 +99,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 				return false
 				
 			end
+		else
+			LOG("*AI DEBUG value is "..repr(bp.MuzzleSalvoDelay).." for "..repr(bp).." on unit "..self.BlurprintID)
 		end
 		
         if bp.EnergyChargeForFirstShot == false then
