@@ -364,23 +364,26 @@ BassieCannonWeapon01 = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlashScale = 0.5,
 	FxChargeMuzzleFlashScale = 1,
 }
+
 #T3 PD stun weapon Cybran
 StunZapperWeapon = Class(DefaultBeamWeapon) {
     BeamType = BlackOpsCollisionBeamFile.EMCHPRFDisruptorBeam,
     FxMuzzleFlash = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp',},
     FxMuzzleFlashScale = 2,
 }
+
 ZCannonWeapon = Class(DefaultProjectileWeapon) {
 	FxChargeMuzzleFlash = BlackOpsEffectTemplate.ZCannonChargeMuzzleFlash,
-    --FxMuzzleFlash = EffectTemplate.TIFArtilleryMuzzleFlash,
     FxMuzzleFlash = BlackOpsEffectTemplate.ZCannonMuzzleFlash,
-	FxMuzzleFlashScale = 2.5,
+	FxMuzzleFlashScale = 1.2,
 }
+
 YCannonWeapon = Class(DefaultProjectileWeapon) {
 	FxChargeMuzzleFlash = BlackOpsEffectTemplate.YCannonMuzzleChargeFlash,
     FxMuzzleFlash = BlackOpsEffectTemplate.YCannonMuzzleFlash,
-	FxMuzzleFlashScale = 2,#FxMuzzleFlash = EXEffectTemplate.ACUAntiMatterMuzzle,
+	FxMuzzleFlashScale = 2,
 }
+
 ScorpDisintegratorWeapon = Class(DefaultProjectileWeapon) {
     FxChargeMuzzleFlash = {},
     FxMuzzleFlash = {

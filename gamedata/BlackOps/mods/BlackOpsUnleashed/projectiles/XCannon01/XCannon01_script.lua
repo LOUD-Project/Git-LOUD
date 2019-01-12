@@ -2,6 +2,7 @@
 local XCannonProjectile = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').XCannonProjectile
 
 XCannon01 = Class(XCannonProjectile) {
+--[[
 	OnImpact = function(self, TargetType, TargetEntity) 
 		self:ShakeCamera( 15, 0.25, 0, 0.2 )
 		XCannonProjectile.OnImpact (self, TargetType, TargetEntity)
@@ -27,5 +28,6 @@ XCannon01 = Class(XCannonProjectile) {
         self.lastimpact = targetEntity:GetEntityId() #remember what was hit last
     end
 end,
+--]]
 }
 TypeClass = XCannon01

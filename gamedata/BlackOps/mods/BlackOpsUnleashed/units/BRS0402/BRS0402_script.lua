@@ -5,7 +5,6 @@ local CybranWeaponsFile2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.l
 
 local XCannonWeapon01 = CybranWeaponsFile2.XCannonWeapon01
 local MGAALaserWeapon = CybranWeaponsFile2.MGAALaserWeapon
---local HailfireLauncherWeapon = CybranWeaponsFile2.HailfireLauncherWeapon
 
 local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon
 local CANNaniteTorpedoWeapon = CybranWeaponsFile.CANNaniteTorpedoWeapon
@@ -255,8 +254,6 @@ BRS0402= Class(CSeaUnit) {
         AALaser = Class(MGAALaserWeapon) {},
 		
         CruiseMissile = Class(CIFMissileLoaWeapon){},		
-
-        --HailfireRocket = Class(HailfireLauncherWeapon) {},
 		
     },
 	

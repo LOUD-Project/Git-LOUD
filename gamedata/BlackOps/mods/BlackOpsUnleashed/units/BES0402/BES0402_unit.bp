@@ -69,19 +69,19 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 120,
         ArmorType = 'Normal',
-        Health = 80000,
-        MaxHealth = 80000,
-        RegenRate = 25,
-        SurfaceThreatLevel = 430,
+        Health = 82500,
+        MaxHealth = 82500,
+        RegenRate = 45,
+        SurfaceThreatLevel = 360,
     },
 	
     Description = '<LOC bes0402_desc>Conquest Dreadnaught',
 	
     Display = {
         Abilities = {
-			'3 Primary Weapons - 2700 DPS',
-			'8 Secondary Weapons - 1600 DPS',
-            '8 x Anti-Air Flak - 2400 DPS',
+			'3 Primary Z Cannons',
+			'8 Secondary Gauss Weapons',
+            '8 x Anti-Air Flak',
             'Radar',
         },
 		
@@ -152,14 +152,13 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXS0005',
         SpawnRandomRotation = false,
         UniformScale = 0.075,
     },
 	
     Economy = {
         BuildCostEnergy = 655000,
-        BuildCostMass = 41000,
+        BuildCostMass = 42000,
         BuildTime = 32800,
     },
 	
@@ -194,9 +193,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 128,
+        RadarRadius = 165,
         VisionRadius = 40,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -218,10 +217,10 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = true,
         },
-        CatchUpAcc = 10,
+        CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.1,
-        MaxBrake = 1.1,
+        MaxAcceleration = 0.85,
+        MaxBrake = 1.6,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 2.5,
         MaxSteerForce = 7,
@@ -291,8 +290,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 4500,
-            DamageRadius = 3,
+            Damage = 3000,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -305,14 +304,14 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon01',
 			
-            MaxRadius = 150,
-            MinRadius = 30,
+            MaxRadius = 165,
+            MinRadius = 25,
 			
-            MuzzleChargeDelay = 0,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 38,
-			MuzzleVelocityReduceDistance = 150,
+            MuzzleVelocity = 29,
+			MuzzleVelocityReduceDistance = 120,
 			
             NotExclusive = true,
 			
@@ -339,7 +338,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,		#-- 900 DPS
+            RateOfFire = 0.2,		#-- 600 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -397,7 +396,6 @@ UnitBlueprint {
                     Cue = 'UEB2302_Artillery_AM',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-
                 MuzzleChargeStart = Sound {
                     Bank = 'UALWeapon',
                     Cue = 'UAB2302_Artillery_Son_Charge',
@@ -407,8 +405,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 4500,
-            DamageRadius = 3,
+            Damage = 3000,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -422,14 +420,14 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon02',
 			
-            MaxRadius = 150,
-            MinRadius = 30,
+            MaxRadius = 165,
+            MinRadius = 25,
 			
-            MuzzleChargeDelay = 0,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 34,
-			MuzzleVelocityReduceDistance = 150,
+            MuzzleVelocity = 29,
+			MuzzleVelocityReduceDistance = 120,
 			
             NotExclusive = true,
 			
@@ -455,10 +453,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 5,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 0.2,		#-- 900 dps
+
+            RateOfFire = 0.2,		#-- 600 dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -523,8 +519,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 4500,
-            DamageRadius = 3,
+            Damage = 3000,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -538,14 +534,14 @@ UnitBlueprint {
 			
             Label = 'BackAMCCannon',
 			
-            MaxRadius = 150,
-            MinRadius = 30,
+            MaxRadius = 165,
+            MinRadius = 25,
 			
-            MuzzleChargeDelay = 0,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-			MuzzleVelocityReduceDistance = 150,
+            MuzzleVelocity = 29,
+			MuzzleVelocityReduceDistance = 120,
 			
             NotExclusive = true,
 			
@@ -571,10 +567,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 5,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 0.2,		#-- another 900 DPS
+
+            RateOfFire = 0.2,		#-- another 600 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -636,7 +630,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -651,14 +645,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -693,9 +687,10 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	-- 400/2 = 200 DPS
+            RateOfFire = 0.5,	-- 300/2 = 150 DPS
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -710,16 +705,19 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Front_Deckgun_Muzzle01',
             TurretBonePitch = 'Front_Deckgun_Barrel01',
             TurretBoneYaw = 'Front_Deckgun_Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 240,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
             Turreted = true,
         },
         {
@@ -749,7 +747,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -764,14 +762,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -805,9 +803,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- another 200 DPS
+            RateOfFire = 0.5,		-- another 150 DPS
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -822,16 +819,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle01',
             TurretBonePitch = 'Left_Deckgun_Barrel01',
             TurretBoneYaw = 'Left_Deckgun_Turret01',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
+			
             Turreted = true,
         },
         {
@@ -861,7 +862,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -876,14 +877,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -917,10 +918,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.5,		-- another 200 DPS
+
+            RateOfFire = 0.5,		-- another 150 DPS
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
@@ -935,16 +934,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle03',
             TurretBonePitch = 'Left_Deckgun_Barrel03',
             TurretBoneYaw = 'Left_Deckgun_Turret02',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
+			
             Turreted = true,
         },
         {
@@ -974,7 +977,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -989,14 +992,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -1030,10 +1033,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.5,	 -- another 200 DPS
+
+            RateOfFire = 0.5,	 -- another 150 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -1048,16 +1049,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle05',
             TurretBonePitch = 'Left_Deckgun_Barrel05',
             TurretBoneYaw = 'Left_Deckgun_Turret03',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
+			
             Turreted = true,
         },
         {
@@ -1087,7 +1092,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -1102,14 +1107,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -1136,16 +1141,15 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = true,
+            RackFireTogether = false,
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,	-- another 200 DPS
+            RateOfFire = 0.5,	-- another 150 DPS
 			
             TargetCheckInterval = 2.0,
             TargetPriorities = {
@@ -1160,16 +1164,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Back_Deckgun_Muzzle01',
             TurretBonePitch = 'Back_Deckgun_Barrel01',
             TurretBoneYaw = 'Back_Deckgun_Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
+			
             Turreted = true,
         },
         {
@@ -1199,7 +1207,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -1214,14 +1222,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -1248,16 +1256,15 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = true,
+            RackFireTogether = false,
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.25,		-- another 200 DPS
+
+            RateOfFire = 0.5,		-- another 150 DPS
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
@@ -1272,16 +1279,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Right_Deckgun_Muzzle01',
             TurretBonePitch = 'Right_Deckgun_Barrel01',
             TurretBoneYaw = 'Right_Deckgun_Turret01',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
+			
             Turreted = true,
         },
         {
@@ -1311,7 +1322,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -1326,14 +1337,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -1360,17 +1371,15 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = true,
+            RackFireTogether = false,
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.25,		-- another 200 DPS
+
+            RateOfFire = 0.5,		-- another 150 DPS
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
@@ -1397,7 +1406,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
         },
@@ -1428,7 +1437,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -1443,14 +1452,14 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 120,
+            MaxRadius = 110,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
             NoPause = true,
@@ -1477,16 +1486,15 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = true,
+            RackFireTogether = false,
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,		-- another 200 DPS
+            RateOfFire = 0.5,		-- another 150 DPS
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
@@ -1513,7 +1521,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
         },
@@ -1581,6 +1589,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,		-- 150 DPS Air
@@ -1669,7 +1678,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 1.5,		-- 150 DPS Air
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1757,7 +1766,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,		-- 150 DPS Air
             TargetCheckInterval = 0.3,
@@ -1845,7 +1853,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 1.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1931,7 +1939,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
             TargetCheckInterval = 0.3,
@@ -2019,7 +2026,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
             TargetCheckInterval = 0.3,
@@ -2109,7 +2115,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
             TargetCheckInterval = 0.3,
@@ -2197,7 +2202,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
             TargetCheckInterval = 0.6,

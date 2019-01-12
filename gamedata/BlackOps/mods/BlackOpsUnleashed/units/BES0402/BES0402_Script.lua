@@ -28,9 +28,7 @@ BES0402 = Class(TSeaUnit) {
 					else
 						fxname = 'AMC1Steam' .. i
 					end
-					
-					local CreateAttachedEmitter = CreateAttachedEmitter
-					
+
 					for k, v in self.unit.SteamEffects do
 					
 						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
@@ -57,9 +55,7 @@ BES0402 = Class(TSeaUnit) {
 					else
 						fxname = 'AMC2Steam' .. i
 					end
-					
-					local CreateAttachedEmitter = CreateAttachedEmitter
-					
+
 					for k, v in self.unit.SteamEffects do
 						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
 					end
@@ -84,9 +80,7 @@ BES0402 = Class(TSeaUnit) {
 					else
 						fxname = 'AMC3Steam' .. i
 					end
-					
-					local CreateAttachedEmitter = CreateAttachedEmitter
-					
+
 					for k, v in self.unit.SteamEffects do
 						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
 					end

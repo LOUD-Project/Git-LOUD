@@ -1,12 +1,7 @@
-#****************************************************************************
-#**
 #**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
 #**  Author(s): Lt_Hawkeye
-#**
-#**  Summary  :
-#**
 #**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+
 #----------------------------------
 #  Lt_hawkeye's Custom Projectiles
 #----------------------------------
@@ -301,14 +296,15 @@ SeaDragonShell = Class(SinglePolyTrailProjectile) {
 
     PolyTrail = '/effects/emitters/default_polytrail_01_emit.bp',
 
-    # Hit Effects
+    -- Hit Effects
     FxImpactUnit = EffectTemplate.CMolecularResonanceHitUnit01,
-    FxUnitHitScale = 2,
+    FxUnitHitScale = 1.4,
     FxImpactProp = EffectTemplate.CMolecularResonanceHitUnit01,
-    FxPropHitScale = 2,    
+    FxPropHitScale = 1.4,    
     FxImpactLand = EffectTemplate.CMolecularResonanceHitUnit01,
-    FxLandHitScale = 2,
+    FxLandHitScale = 1.4,
     FxImpactUnderWater = {},
+	
     DestroyOnImpact = false,
 
     OnCreate = function(self)
@@ -323,8 +319,11 @@ SeaDragonShell = Class(SinglePolyTrailProjectile) {
     end,
 
     OnImpact = function(self, TargetType, TargetEntity)
+	
         if self.Impacted == false then
+		
             self.Impacted = true
+			
             if TargetType == 'Terrain' then
                 SinglePolyTrailProjectile.OnImpact(self, TargetType, TargetEntity)
                 self:ForkThread( self.DelayedDestroyThread )
@@ -335,6 +334,7 @@ SeaDragonShell = Class(SinglePolyTrailProjectile) {
         end
     end,
 }
+
 XCannonProjectile = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
         BlackOpsEffectTemplate.XCannonPolyTrail,
@@ -343,14 +343,7 @@ XCannonProjectile = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0}, 
 
     FxTrails = BlackOpsEffectTemplate.XCannonFXTrail01,
-    --PolyTrail = EffectTemplate.CHvyProtonCannonPolyTrail,   --old impact effects
-    --FxImpactUnit = BlackOpsEffectTemplate.XCannonHitUnit,
-    --FxImpactProp = BlackOpsEffectTemplate.XCannonHitUnit,
-    --FxImpactLand = EffectTemplate.CHvyProtonCannonHitLand,
-    --FxImpactUnderWater = EffectTemplate.CHvyProtonCannonHit01,
-    --FxImpactWater = EffectTemplate.CHvyProtonCannonHit01,
-    --FxTrailOffset = 0,
-    
+
     FxImpactUnit = EffectTemplate.CMobileKamikazeBombExplosion,
     FxImpactProp = EffectTemplate.CMobileKamikazeBombExplosion,
     FxImpactLand = EffectTemplate.CMobileKamikazeBombExplosion,

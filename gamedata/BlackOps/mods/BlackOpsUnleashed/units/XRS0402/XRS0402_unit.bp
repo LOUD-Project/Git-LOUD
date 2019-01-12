@@ -30,11 +30,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 8,
-            Level2 = 16,
-            Level3 = 24,
-            Level4 = 32,
-            Level5 = 40,
+            Level1 = 40,
+            Level2 = 80,
+            Level3 = 120,
+            Level4 = 160,
+            Level5 = 200,
         },
     },
 	
@@ -48,7 +48,6 @@ UnitBlueprint {
         'NAVAL',
         'EXPERIMENTAL',
         'DIRECTFIRE',
-		'INDIRECTFIRE',
         'DRAGBUILD',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
@@ -62,9 +61,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 64,
         ArmorType = 'Normal',
-        Health = 70000,
-        MaxHealth = 70000,
-        RegenRate = 30,
+        Health = 68500,
+        MaxHealth = 68500,
+        RegenRate = 40,
 		SubThreatLevel = 18,
         SurfaceThreatLevel = 287,
     },
@@ -73,11 +72,13 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-			'Bombardment',
-            'Radar & Sonar',
-            'Tactical Missile Defense',
-            'Torpedo Barrage',
+			'SeaDragon Bombardment Cannon',
+			'2 Primary X-Proton Cannon',
+			'4 Secondary Proton Cannon',
+            '2 Quad Electro-Flas Anti-Air',
+            'Extended Range Nanite Torpedo Barrage',			
+            'Radar & Sonar & Tactical Missile Defense',
+
         },
 		
         AnimationDeath = {
@@ -200,7 +201,7 @@ UnitBlueprint {
         RadarRadius = 120,
 		SonarRadius = 70,
         VisionRadius = 44,
-        WaterVisionRadius = 30,
+        WaterVisionRadius = 32,
     },
 	
     Interface = {
@@ -224,7 +225,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.2,
+        MaxAcceleration = 1,
         MaxBrake = 2.4,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
@@ -283,9 +284,53 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
+			-- so this is neat -- the EMP effect has 3 rings
+			
+			-- outer ring affects least number of units
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 6,
+                    TargetAllow = 'LAND',
+                    TargetDisallow = 'TECH3,STRUCTURE,COMMAND,EXPERIMENTAL',
+                },
+				
+			-- middle ring lasts longer and affects T3
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1,
+                    Radius = 4,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'AIR,COMMAND,EXPERIMENTAL',
+                },
+			-- inner ring affects EXPERIMENTALS too
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'COMMAND,WALL',
+                },			
+            },
+						
             CollideFriendly = false,
-            Damage = 2000,
-            DamageRadius = 1,
+			
+            Damage = 1400,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
@@ -295,7 +340,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.3,
-            FiringTolerance = 2,
+            FiringTolerance = 1,
 			
             Label = 'MainCannon',
 			
@@ -306,10 +351,12 @@ UnitBlueprint {
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 40,
+			
+			NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp',
-			ProjectileLifetime = 2.8,
+			ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -329,12 +376,12 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,		-- 800 DPS
+            RateOfFire = 0.5,		-- 700 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 1.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL EXPERIMENTAL',
@@ -348,7 +395,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Main_Turret_Muzzle',
             TurretBonePitch = 'Front_Main_Turret_Barrel',
@@ -357,11 +404,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 10,
+            TurretPitchSpeed = 12,
 			
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -390,10 +437,53 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
+			-- so this is neat -- the EMP effect has 3 rings
+			
+			-- outer ring affects least number of units
+            Buffs = {
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 6,
+                    TargetAllow = 'LAND',
+                    TargetDisallow = 'TECH3,STRUCTURE,COMMAND,EXPERIMENTAL',
+                },
+				
+			-- middle ring lasts longer and affects T3
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1,
+                    Radius = 4,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'AIR,COMMAND,EXPERIMENTAL',
+                },
+			-- inner ring affects EXPERIMENTALS too
+                {
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'COMMAND,WALL',
+                },			
+            },
+
             CollideFriendly = false,
 			
-            Damage = 2000,
-            DamageRadius = 1,
+            Damage = 1400,
+            DamageRadius = 4,
             DamageType = 'Normal',
             DisplayName = 'Proton Cannon',
 			
@@ -413,12 +503,14 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 40,
+			
+			NotExclusive = true,
 			
             PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp',
-			ProjectileLifetime = 2.8,
+			ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -438,7 +530,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,		-- another 800 DPS
+            RateOfFire = 0.5,		-- another 700 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -502,17 +594,17 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 450,
-            DamageRadius = 7,
+            Damage = 280,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
-            DisplayName = 'Proton Cannon',
+            DisplayName = 'SeaDragon Bombardment Cannon',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.3,
             FiringTolerance = 2,
 			
             Label = 'BackCannon',
@@ -557,7 +649,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,		-- 675 DPS
+            RateOfFire = 1,		-- 840 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -616,11 +708,11 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
 			
-            Damage = 75,
+            Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -635,14 +727,14 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 85,
+            MaxRadius = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 43,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
-			ProjectileLifetime = 2.5,
+			ProjectileLifetime = 5,
 			
             RackBones = {
                 {
@@ -668,7 +760,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		-- 150 DPS
+            RateOfFire = 1.6,		-- 160 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -700,7 +792,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 85,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -724,11 +816,11 @@ UnitBlueprint {
                 },
             },
 			
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
 			
-            Damage = 75,
+            Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -743,14 +835,14 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 85,
+            MaxRadius = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
-			ProjectileLifetime = 2.5,
+			ProjectileLifetime = 5,
 			
             RackBones = {
                 {
@@ -776,7 +868,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 1.6,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -808,7 +900,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 85,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -831,11 +923,11 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
 			
-            Damage = 75,
+            Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -850,14 +942,14 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 85,
+            MaxRadius = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
-			ProjectileLifetime = 2.5,
+			ProjectileLifetime = 5,
 			
             RackBones = {
                 {
@@ -883,7 +975,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 1.6,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -914,7 +1006,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 85,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -943,7 +1035,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 75,
+            Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -958,14 +1050,14 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 85,
+            MaxRadius = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
-			ProjectileLifetime = 2.5,
+			ProjectileLifetime = 5,
 			
             RackBones = {
                 {
@@ -991,7 +1083,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 1.6,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -1023,7 +1115,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 85,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -1217,24 +1309,25 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 100,
             DamageType = 'Normal',
 			
-            DisplayName = 'Nanite Torpedo',
+            DisplayName = 'LR Medium Nanite Torpedo',
 
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 75,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 45,
+            MaxRadius = 55,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 12,
             MuzzleVelocity = 3,
+			MuzzleVelocityRandom = 1,
 			
 			NotExclusive = true,
 			
@@ -1270,7 +1363,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,		-- 180 DPS Sub
+            RateOfFire = 0.2,		-- 240 DPS Sub
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
