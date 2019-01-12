@@ -8,6 +8,7 @@ UnitBlueprint {
         AutoLandTime = 1,
         BankFactor = 0.1,
         BankForward = false,
+		
         CanFly = true,
         CirclingDirChangeFrequencySec = 1,
         CirclingElevationChangeRatio = 0.25,
@@ -15,18 +16,18 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.2,
         CirclingTurnMult = 3,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 4,
+        KLiftDamping = 4,
 		
-        KMove = 2,
-        KMoveDamping = 2,
+        KMove = 3,
+        KMoveDamping = 3,
 		
-        KTurn = 2,
-        KTurnDamping = 1.5,
+        KTurn = 6,
+        KTurnDamping = 4.5,
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 10,
+        MaxAirspeed = 8,
         MinAirspeed = 2,
 		
         StartTurnDistance = 5,
@@ -53,12 +54,12 @@ UnitBlueprint {
     CollisionOffsetZ = -0.07,
 	
     Defense = {
-		AirThreatLevel = 29,
+		AirThreatLevel = 30,
         ArmorType = 'Light',
-        EconomyThreatLevel = 1,
-        Health = 2100,
-        MaxHealth = 2100,
-        RegenRate = 0,
+
+        Health = 2600,
+        MaxHealth = 2600,
+        RegenRate = 5,
     },
 	
     Description = '<LOC bea0006_desc>Goliath II AA Drone',
@@ -103,9 +104,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 180,
-        BuildTime = 120,
+        BuildCostEnergy = 1450,
+        BuildCostMass = 160,
+        BuildTime = 90,
     },
 
     General = {
@@ -154,7 +155,8 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 8,
+        Elevation = 9.5,
+		
         GroundCollisionOffset = 0.2,
         MaxAcceleration = 10,
         MaxSpeed = 10,
@@ -196,10 +198,11 @@ UnitBlueprint {
                 },
             },
             AutoInitiateAttackCommand = true,
+			
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 145,
+            Damage = 150,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -219,7 +222,7 @@ UnitBlueprint {
 			MuzzleVelocity = 36,
 			
 			ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-			ProjectileLifetime = 3.5,
+			ProjectileLifetime = 3.2,
 			
             RackBones = {
                 {
@@ -246,7 +249,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,		-- 290 DPS
+            RateOfFire = 0.5,		-- 300 DPS
 			
             TargetCheckInterval = 0.5,
 			
