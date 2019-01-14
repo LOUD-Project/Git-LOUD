@@ -67,9 +67,12 @@ function GetConstructEconomyModel(builder, targetData)
 	-- from BrewLAN - accounting for discounted upgrade costs
 	-- this allows marking a blueprint so that you pay normal costs if directly built
 	-- or discounted costs if the building is being upgraded from something else
+	
+	-- JAN 2019 - while this code affects the visual costs of the upgrade - it does NOT impact the actual costs from what I can see.
+	-- originally - even in the absence of the trigger variables - it was calculating a 50% discount - I made that no discout
     if builder_bp.BlueprintId == targetData.HalfPriceUpgradeFromID or builder_bp.General.UpgradesTo == targetData.HalfPriceUpgradeFromID or builder_bp.Economy.BuilderDiscountMult then
 	
-        local discount = targetData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 0.5
+        local discount = targetData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 1.0	-- if the discount is not specified then no discount is applied
 		
 		energy = energy * discount
 		mass = mass * discount
