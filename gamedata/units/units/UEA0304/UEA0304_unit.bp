@@ -234,7 +234,9 @@ UnitBlueprint {
             },
 			
             BombDropThreshold = 3.5,
+			
             CollideFriendly = false,
+			
             Damage = 3000,
             DamageFriendly = true,
             DamageRadius = 4,
@@ -250,13 +252,19 @@ UnitBlueprint {
             },
             FiringRandomness = 0.2,
             FiringTolerance = 6,
+			
 			FixBombTrajectory = true,
+			
             Label = 'Bomb',
+			
             MaxRadius = 90,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
+			
             NeedToComputeBombDrop = true,
+			
             ProjectileId = '/projectiles/TIFSmallYieldNuclearBomb01/TIFSmallYieldNuclearBomb01_proj.bp',
 
             RackBones = {
