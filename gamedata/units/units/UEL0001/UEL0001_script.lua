@@ -398,21 +398,25 @@ UEL0001 = Class(TWalkingLandUnit) {
         elseif enh == 'Teleporter' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Teleport')
+			
         elseif enh == 'TeleporterRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:RemoveCommandCap('RULEUCC_Teleport')
+			
         elseif enh == 'Shield' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddToggleCap('RULEUTC_ShieldToggle')
             self:CreatePersonalShield(bp)
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
+			
         elseif enh == 'ShieldRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             RemoveUnitEnhancement(self, 'ShieldRemove')
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+			
         elseif enh == 'ShieldGeneratorField' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
@@ -422,15 +426,18 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
                 self:SetMaintenanceConsumptionActive()
             end)
+			
         elseif enh == 'ShieldGeneratorFieldRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+			
         elseif enh =='AdvancedEngineering' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
+			
             if not Buffs['UEFACUT2BuildRate'] then
                 BuffBlueprint {
                     Name = 'UEFACUT2BuildRate',
@@ -513,6 +520,7 @@ UEL0001 = Class(TWalkingLandUnit) {
             wep:ChangeMaxRadius(bp.NewMaxRadius or 44)
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius(bp.NewMaxRadius or 44)
+			
         elseif enh =='HeavyAntiMatterCannonRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             local bp = self:GetBlueprint().Enhancements['HeavyAntiMatterCannon']
@@ -524,14 +532,16 @@ UEL0001 = Class(TWalkingLandUnit) {
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius(bpDisrupt or 22)            
 			
-        #ResourceAllocation              
+        --ResourceAllocation              
         elseif enh == 'ResourceAllocation' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             local bp = self:GetBlueprint().Enhancements[enh]
             local bpEcon = self:GetBlueprint().Economy
             if not bp then return end
+			
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+			
         elseif enh == 'ResourceAllocationRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             local bpEcon = self:GetBlueprint().Economy
