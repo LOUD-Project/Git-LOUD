@@ -2541,9 +2541,15 @@ Unit = Class(moho.unit_methods) {
         if not enable then
 		
             wep:OnLostTarget()
-			
-        end
 		
+			--LOG("*AI DEBUG Weapon "..repr(label).." disabled")
+
+        else
+		
+			--LOG("*AI DEBUG Weapon "..repr(label).." enabled")
+			
+		end
+
         wep:SetWeaponEnabled(enable)
         wep:AimManipulatorSetEnabled(enable)
 		
@@ -2565,7 +2571,9 @@ Unit = Class(moho.unit_methods) {
 		
             wep = GetWeapon(self,i)
 			
-            if (wep:GetBlueprint().Label == label) then
+            if (wep:GetBlueprint().Label == label) then 
+			
+				--LOG("*AI DEBUG Got Weapon "..repr(label))
 			
                 return wep
 				
@@ -5247,22 +5255,20 @@ Unit = Class(moho.unit_methods) {
 			if storedenergy >= telecost then
 			
 				mybrain:TakeResource('ENERGY', telecost)
-				self.TeleportCostPaid = true
 				
 			else
 			
 				FloatingEntityText(id,'Insufficient Energy For Teleportation')
-				return
+				return	-- abort teleportation
 				
 			end
 			
 		end
 		
-		#-- original code
+		-- stop any existing teleportation
         if self.TeleportDrain then
 		
             RemoveEconomyEvent( self, self.TeleportDrain)
-			
             self.TeleportDrain = nil
 			
         end
@@ -5270,13 +5276,13 @@ Unit = Class(moho.unit_methods) {
         if self.TeleportThread then
 		
             KillThread(self.TeleportThread)
-			
             self.TeleportThread = nil
 			
         end
 		
         EffectUtilities.CleanupTeleportChargeEffects(self)
-		
+
+		-- start teleportation sequence --
         self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, location, orientation)
 		
     end,
@@ -5412,20 +5418,20 @@ Unit = Class(moho.unit_methods) {
         if bp then
 		
 			-- calc a resource cost value based on both mass and energy
-            local mass = bp.BuildCostMass * math.min(.1, bp.TeleportMassMod or 0.1)
-            local energy = bp.BuildCostEnergy * math.min(.01, bp.TeleportEnergyMod or 0.01)
+            local mass = bp.BuildCostMass * math.min(.15, bp.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
+            local energy = bp.BuildCostEnergy * math.min(.012, bp.TeleportEnergyMod or 0.12)		-- ei. 5m Energy becomes 60,000
 			
             teleportvalue = mass + energy
 			
 			-- teleport never takes more than 15 seconds --
 			-- but according to this comes in at around 1.5% of the resource cost value
-            time = math.min(15, teleportvalue * math.max(.015, bp.TeleportTimeMod or 0.015))
+            time = math.min(15, teleportvalue * math.max(.001, bp.TeleportTimeMod or 0.015))
 			
-			LOG('*AI DEBUG Telporting value '..repr(teleportvalue)..' time = '..repr(time) )
+			LOG('*AI DEBUG Telporting value '..repr(teleportvalue)..' time = '..repr(time).." "..repr(teleportvalue/time).."E per second" )
 			
         end
 
-        self.TeleportDrain = CreateEconomyEvent(self, teleportvalue * 10 or 1000, 0, time or 15, self.UpdateTeleportProgress)
+        self.TeleportDrain = CreateEconomyEvent(self, teleportvalue or 5000, 0, time or 15, self.UpdateTeleportProgress)
 
         -- teleport charge effect
         EffectUtilities.PlayTeleportChargeEffects(self)

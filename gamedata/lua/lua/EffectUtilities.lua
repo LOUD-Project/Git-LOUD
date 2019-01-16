@@ -1541,7 +1541,7 @@ function PlayTeleportChargeEffects(self)
 
 	-- from BO:U
     if not self.Dead and not self.EXPhaseEnabled == true then
-		EXTeleportChargeEffects(self)
+		--EXTeleportChargeEffects(self)
     end		
 end
 
@@ -1569,9 +1569,7 @@ function PlayTeleportOutEffects(self)
 end	
 
 function CleanupTeleportChargeEffects(self)
-	
-	self.TeleportCostPaid = false
-	
+
     if self.TeleportChargeBag then
         for keys,values in self.TeleportChargeBag do
             values:Destroy()

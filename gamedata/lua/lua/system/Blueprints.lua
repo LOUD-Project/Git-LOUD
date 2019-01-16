@@ -420,20 +420,28 @@ end
 function ExtractAllMeshBlueprints()
 
     for id,bp in original_blueprints.Unit do
+	
         ExtractMeshBlueprint(bp)
         ExtractWreckageBlueprint(bp)
         ExtractBuildMeshBlueprint(bp)
 		ExtractCloakMeshBlueprint(bp)
-		ExtractPhaseMeshBlueprint(bp)
+		
+		-- this is really a Black Ops thing with little function
+		-- disabling saves about 8MB of RAM
+		--ExtractPhaseMeshBlueprint(bp)
     end
 
     for id,bp in original_blueprints.Prop do
+	
         ExtractMeshBlueprint(bp)
         ExtractWreckageBlueprint(bp)
+		
     end
 
     for id,bp in original_blueprints.Projectile do
+	
         ExtractMeshBlueprint(bp)
+		
     end
 end
 
