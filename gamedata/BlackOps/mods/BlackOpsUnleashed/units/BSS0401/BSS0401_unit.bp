@@ -393,7 +393,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 1,		-- again, damage is specified by the projectile
+            Damage = 1,		-- again, damage is specified by the projectile - see BSL0404
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -443,7 +443,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 0.4,	-- 600 DPS
+            RateOfFire = 0.4,	-- 600 DPS since BSL0404 does 1500 damage over it's lifetime
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,

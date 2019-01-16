@@ -25,7 +25,7 @@ ProjectileBlueprint {
         ImpactEffects = {
             Type = 'Large01',
         },
-        StrategicIconSize = 3,
+        StrategicIconSize = 2,
     },
     General = {
         Category = 'Direct Fire',
