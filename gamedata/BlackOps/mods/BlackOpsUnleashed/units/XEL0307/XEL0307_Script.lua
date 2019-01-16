@@ -16,11 +16,22 @@ local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01
 local LOUDROT = CreateRotator
 
 XEL0307 = Class(TLandUnit) {
-
+    
+    AmbientExhaustBones = {
+		'Smoke_01',
+		'Smoke_02',
+    },	
+    
+    AmbientLandExhaustEffects = {
+		'/effects/emitters/dirty_exhaust_smoke_02_emit.bp',
+		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
+	},
+	
 	ShieldEffects = {
         '/effects/emitters/terran_shield_generator_t2_01_emit.bp',
         '/effects/emitters/terran_shield_generator_t2_02_emit.bp',
     },
+	
     Weapons = {
 	
         MainTurret = Class(RailGunWeapon01) {},
@@ -112,70 +123,38 @@ XEL0307 = Class(TLandUnit) {
 	
         TLandUnit.OnStopBeingBuilt(self,builder,layer)
 
-        local layer = self:GetCurrentLayer()
-        
-        #-- If created with F2 on land, then play the transform anim.
-        if(layer == 'Land') then
-            self:CreateUnitAmbientEffect(layer)
-        elseif (layer == 'Seabed') then
-            self:CreateUnitAmbientEffect(layer)
-        end
-        
-        self.WeaponsEnabled = true
     end,
 
 	OnLayerChange = function(self, new, old)
 	
 		TLandUnit.OnLayerChange(self, new, old)
-		
-		if self.WeaponsEnabled then
-			if( new == 'Land' ) then
-			    self:CreateUnitAmbientEffect(new)
-			elseif ( new == 'Seabed' ) then
-			    self:CreateUnitAmbientEffect(new)
-			end
-		end
+
+	    self:CreateUnitAmbientEffect(new)
+
 	end,
-    
-    AmbientExhaustBones = {
-		'Smoke_01',
-		'Smoke_02',
-    },	
-    
-    AmbientLandExhaustEffects = {
-		'/effects/emitters/dirty_exhaust_smoke_02_emit.bp',
-		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
-	},
-	
-    AmbientSeabedExhaustEffects = {
-		'/effects/emitters/underwater_vent_bubbles_02_emit.bp',			
-	},	
-	
+
 	CreateUnitAmbientEffect = function(self, layer)
+	
 	    if( self.AmbientEffectThread != nil ) then
 	       self.AmbientEffectThread:Destroy()
-        end	 
+        end
+		
         if self.AmbientExhaustEffectsBag then
             CleanupEffectBag(self,'AmbientExhaustEffectsBag')
         end        
         
         self.AmbientEffectThread = nil
-        self.AmbientExhaustEffectsBag = {} 
+        self.AmbientExhaustEffectsBag = {}
+		
 	    if layer == 'Land' then
+		
 	        self.AmbientEffectThread = self:ForkThread(self.UnitLandAmbientEffectThread)
-            
-	    elseif layer == 'Seabed' then
-            local army = self:GetArmy()
-            
-			for _, vE in self.AmbientSeabedExhaustEffects do
-				for _, vB in self.AmbientExhaustBones do
-					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(1) )
-				end
-			end	        
+
 	    end          
-	end, 
-	
+	end,
+
 	UnitLandAmbientEffectThread = function(self)
+	
         local army = self:GetArmy()			
         local exeff = self.AmbientLandExhaustEffects
         local ambones = self.AmbientExhaustBones
