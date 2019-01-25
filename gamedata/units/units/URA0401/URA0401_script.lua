@@ -33,36 +33,48 @@ URA0401 = Class(CAirUnit) {
     DestroyNoFallRandomChance = 7.5,
 
     OnStopBeingBuilt = function(self,builder,layer)
+	
         CAirUnit.OnStopBeingBuilt(self,builder,layer)
+		
         self.AnimManip = CreateAnimator(self)
-        self.Trash:Add(self.AnimManip)
+        self.Trash:Add(self.AnimManip) 
+
     end,
     
     OnMotionHorzEventChange = function(self, new, old )
+	
 		CAirUnit.OnMotionHorzEventChange(self, new, old)
 	
-		if self.ThrustExhaustTT1 == nil then 
+		if self.ThrustExhaustTT1 == nil then
+		
 			if self.MovementAmbientExhaustEffectsBag then
 				CleanupEffectBag(self,'MovementAmbientExhaustEffectsBag')
 			else
 				self.MovementAmbientExhaustEffectsBag = {}
 			end
+			
 			self.ThrustExhaustTT1 = self:ForkThread(self.MovementAmbientExhaustThread)
 		end
 		
         if new == 'Stopped' and self.ThrustExhaustTT1 != nil then
+		
 			KillThread(self.ThrustExhaustTT1)
+			
 			CleanupEffectBag(self,'MovementAmbientExhaustEffectsBag')
+			
 			self.ThrustExhaustTT1 = nil
         end		 
     end,
     
     MovementAmbientExhaustThread = function(self)
+	
 		while not self.Dead do
+		
 			local ExhaustEffects = {
 				'/effects/emitters/dirty_exhaust_smoke_01_emit.bp',
 				'/effects/emitters/dirty_exhaust_sparks_01_emit.bp',			
 			}
+			
 			local ExhaustBeam = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
             
 			local army = self:GetArmy()	
@@ -89,11 +101,17 @@ URA0401 = Class(CAirUnit) {
 		CAirUnit.OnMotionVertEventChange(self, new, old)
 		
 		if ((new == 'Top' or new == 'Up') and old == 'Down') then
+		
 			self.AnimManip:SetRate(-1)
+			
 		elseif (new == 'Down') then
+		
 			self.AnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand, false):SetRate(1.5)
+			
 		elseif (new == 'Up') then
+		
 			self.AnimManip:PlayAnim(self:GetBlueprint().Display.AnimationTakeOff, false):SetRate(1)
+			
 		end
 
     end,

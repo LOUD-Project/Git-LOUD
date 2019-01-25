@@ -1,23 +1,30 @@
 
 local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 
+local Buff = import('/lua/sim/Buff.lua')
+
 local AWeapons = import('/lua/aeonweapons.lua')
+
+local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
 local ADFDisruptorCannonWeapon = AWeapons.ADFDisruptorCannonWeapon
+local ADFChronoDampener = AWeapons.ADFChronoDampener
 local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
-local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
-local ADFChronoDampener = AWeapons.ADFChronoDampener
-local Buff = import('/lua/sim/Buff.lua')
 
 UAL0001 = Class(AWalkingLandUnit) {
 
     DeathThreadDestructionWaitTime = 2,
 
     Weapons = {
+	
         DeathWeapon = Class(AIFCommanderDeathWeapon) {},
+		
         RightDisruptor = Class(ADFDisruptorCannonWeapon) {},
+		
         ChronoDampener = Class(ADFChronoDampener) {},
+		
         OverCharge = Class(ADFOverchargeWeapon) {
 
             OnCreate = function(self)

@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 175,
-        GuardReturnRadius = 200,
-        GuardScanRadius = 175,
+		GuardRadius = 100,
+        GuardReturnRadius = 120,
+        GuardScanRadius = 100,
+		
         TargetBones = {
             'URA0401',
             'Exhaust_Left01',
@@ -15,14 +16,14 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.5,
-        BankFactor = 0.1,
+        AutoLandTime = 6.9,
+        BankFactor = 0.5,
         BankForward = false,
         CanFly = true,
 		
-        CirclingDirChangeFrequencySec = 4,
-        CirclingElevationChangeRatio = 0.5,
-        CirclingRadiusChangeMaxRatio = 0.92,
+        CirclingDirChangeFrequencySec = 5,
+        CirclingElevationChangeRatio = 0.65,
+        CirclingRadiusChangeMaxRatio = 0.85,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 2.5,
@@ -46,6 +47,11 @@ UnitBlueprint {
     },
 	
     Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },	
 		EnemyUnitDetectedAeon = Sound {
 			Bank = 'XGG',
 			Cue = 'XGG_HQ_GD1_04183',
@@ -74,16 +80,14 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
-	
+
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 72,
+            Level1 = 24,
+            Level2 = 48,
+            Level3 = 72,
+            Level4 = 82,
+            Level5 = 92,
         },
     },
 	
@@ -111,9 +115,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 80,
         ArmorType = 'Light',
-        Health = 55000,
-        MaxHealth = 55000,
-        RegenRate = 23,
+        Health = 53500,
+        MaxHealth = 53500,
+        RegenRate = 30,
         SurfaceThreatLevel = 149,
     },
 	
@@ -174,7 +178,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0009',
+
         SpawnRandomRotation = true,
         UniformScale = 0.18,
     },
@@ -186,7 +190,7 @@ UnitBlueprint {
     },
 
     General = {
-		CapCost = 6,
+		CapCost = 5,
         Category = 'Gunship',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -213,7 +217,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 75,
-        VisionRadius = 38,
+        VisionRadius = 42,
     },
 	
     Interface = {
@@ -297,17 +301,20 @@ UnitBlueprint {
 			
             FiringRandomness = 0.4,
 			
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.65,
 			
             Label = 'Missile',
 			
             LeadTarget = true,
 			
-            MaxRadius = 39,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 22,
+			MuzzleVelocityRandom = 2,
+			
+			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp',
 			ProjectileLifetime = 2.5,
@@ -386,17 +393,20 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.4,
-            FiringTolerance = 1,
+            FiringTolerance = 0.65,
 			
             Label = 'Missile',
 			
             LeadTarget = true,
 			
-            MaxRadius = 39,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 22,
+			MuzzleVelocityRandom = 2,
+			
+			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp',
 			ProjectileLifetime = 2.5,
@@ -416,17 +426,15 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 0.5,	--  345 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'ANTIAIR,-AIR',
+				'ANTIAIR -AIR',
                 'MOBILE',
-                'ALLUNITS,-WALL',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -486,6 +494,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
 			
+			NotExclusive = true,
+			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
             ProjectileLifetime = 6,
 
@@ -513,7 +523,7 @@ UnitBlueprint {
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR,-INTELLIGENCE',
+                'AIR -INTELLIGENCE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
@@ -568,6 +578,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
+			
+			NotExclusive = true,
 
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
             ProjectileLifetime = 6,
@@ -587,30 +599,32 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 1,		-- 400 DPS Air
 			
             SlavedToBody = false,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR,-INTELLIGENCE',
+                'AIR -INTELLIGENCE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
+			
             TurretBoneMuzzle = 'RightBack_Nanite_Turret_Muzzle04',
             TurretBonePitch = 'RightBack_Nanite_Turret_Barrel01',
             TurretBoneYaw = 'RightBack_Nanite_Turret01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 180,
+			
             Turreted = true,
         },
 		
@@ -667,9 +681,11 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 30,
+			
+			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFBolter03/CDFBolter03_proj.bp',
             ProjectileLifetime = 1.5,
@@ -698,11 +714,11 @@ UnitBlueprint {
             TargetCheckInterval = 0.4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'ANTIAIR,-AIR',
+				'ANTIAIR -AIR',
                 'MOBILE',
-                'STRUCTURE,-WALL',
+                'STRUCTURE -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL',
             TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
@@ -716,7 +732,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },
@@ -769,9 +785,11 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 30,
+			
+			NotExclusive = true,
 
             ProjectileId = '/projectiles/CDFBolter03/CDFBolter03_proj.bp',
             ProjectileLifetime = 1.5,
@@ -792,42 +810,43 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,	-- 400 DPS
 			
             TargetCheckInterval = 0.4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'ANTIAIR,-AIR',
+				'ANTIAIR -AIR',
                 'MOBILE',
-                'STRUCTURE,-WALL',
+                'STRUCTURE -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL',
             TrackingRadius = 1.3,
+			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
             TurretBoneYaw = 'Back_Turret_Barrel01',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 100,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
+			
             Turreted = true,
         },
 		
         {
             AboveWaterTargetsOnly = true,
-            Damage = 5500,
+            Damage = 4000,
             DamageFriendly = true,
-            DamageRadius = 9,
+            DamageRadius = 7,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,
-            FiringTolerance = 2,
             Label = 'DeathImpact',
             WeaponCategory = 'Death',
         },
@@ -835,16 +854,16 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.4,
-        HealthMult = 0.65,
-        MassMult = 0.65,
+        EnergyMult = 0.1,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 }

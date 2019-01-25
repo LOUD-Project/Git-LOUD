@@ -913,8 +913,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.75,
-        MassMult = 0.75,
+        HealthMult = 0.65,
+        MassMult = 0.65,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

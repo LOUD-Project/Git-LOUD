@@ -21,9 +21,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -36,7 +38,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = -0.1,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 750,
@@ -44,7 +48,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
+	
     Description = '<LOC xsl0111_desc>Mobile Missile Launcher',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -68,6 +74,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.057,
     },
+	
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 200,
@@ -97,15 +104,19 @@ UnitBlueprint {
         UnitName = '<LOC xsl0111_name>Ythisah',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 21,
     },
+	
     Interface = {
         HelpText = 'Mobile Missile Launcher',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 0.95,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -128,22 +139,26 @@ UnitBlueprint {
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
-        TurnRadius = 0,
+
+        TurnRadius = 0.5,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.45,
+	
     SizeX = 1,
     SizeY = 0.45,
     SizeZ = 1.6,
+	
     StrategicIconName = 'icon_land2_missile',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -151,6 +166,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

@@ -45,7 +45,7 @@ UnitBlueprint {
 		
         PredictAheadForBombDrop = 6,
 		
-        StartTurnDistance = 10,
+        StartTurnDistance = 18,
 		
         TightTurnMultiplier = 1.2,
 		
@@ -325,13 +325,13 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 2.4,
-            FiringTolerance = 0.34,
+            FiringRandomness = 2.3,
+            FiringTolerance = 0.31,
 			
 			FixBombTrajectory = true,
 			
 			HeadingArcCenter = 0,
-			HeadingArcRange = 50,
+			HeadingArcRange = 45,
 			
             Label = 'Bomb',
 			
@@ -372,7 +372,7 @@ UnitBlueprint {
 				'ENGINEER',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
         },
 		
@@ -431,6 +431,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		#-- 400 DPS Air
@@ -518,7 +519,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		#-- 400 DPS Air
 			
@@ -601,7 +601,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,	-- 400 DPS Air
             TargetCheckInterval = 0.5,
@@ -684,7 +683,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 400 DPS Air
 			
@@ -726,14 +724,14 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
-        HealthMult = 0.3,
+        EnergyMult = 0.1,
+        HealthMult = 0.6,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = true,
         },

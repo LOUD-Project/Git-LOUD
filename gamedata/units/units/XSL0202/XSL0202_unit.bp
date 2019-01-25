@@ -74,7 +74,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -94,7 +94,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2150,
         BuildCostMass = 400,
-        BuildTime = 570,
+        BuildTime = 285,
     },
 	
     General = {
@@ -156,7 +156,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        TurnRadius = 2,
+		StandUpright = true,
+        TurnRadius = 0.5,
         TurnRate = 45,
     },
 	
@@ -209,7 +210,8 @@ UnitBlueprint {
             FiringTolerance = 1,
 			
             Label = 'MainGun',
-            MaxRadius = 26,
+			
+            MaxRadius = 28,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.4,
@@ -217,6 +219,7 @@ UnitBlueprint {
             MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
+			ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -240,9 +243,10 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,		-- 90 DPS
 			
             TargetCheckInterval = 0.5,
 			

@@ -108,7 +108,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -128,7 +128,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 8900,
         BuildCostMass = 500,
-        BuildTime = 3200,
+        BuildTime = 250,
     },
 	
     General = {
@@ -154,15 +154,19 @@ UnitBlueprint {
         UnitName = '<LOC xsl0304_name>Suthanus',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Mobile Heavy Artillery',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.3,
+	
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0,
@@ -186,9 +190,10 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 2,
+        TurnRadius = 0.5,
         TurnRate = 75,
     },
+	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.43,

@@ -1,5 +1,5 @@
-
 local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 XEA0002 = Class(TAirUnit) {

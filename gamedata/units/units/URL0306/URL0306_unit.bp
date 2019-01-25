@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -20,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 60,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -34,6 +37,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 450,
@@ -41,7 +45,9 @@ UnitBlueprint {
         RegenRate = 2,
         SurfaceThreatLevel = .1,
     },
+	
     Description = '<LOC url0306_desc>Mobile Stealth Field System',
+	
     Display = {
         Abilities = {
             'Stealth Field',
@@ -62,7 +68,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0008',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
@@ -107,6 +113,7 @@ UnitBlueprint {
         UnitName = '<LOC url0306_name>Deceiver',
         UnitWeight = 1,
     },
+	
     Intel = {
         RadarStealth = true,
         RadarStealthField = true,
@@ -114,12 +121,15 @@ UnitBlueprint {
         SonarStealthFieldRadius = 21,
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Mobile Stealth Field',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -143,19 +153,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.83,
+	
     SizeX = 0.6,
     SizeY = 0.2,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_land2_counterintel',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
