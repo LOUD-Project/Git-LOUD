@@ -5302,7 +5302,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		
 			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
 			
-		else
+		elseif (not unitbeingbuilt.Dead) then
 			
 			-- otherwise assign them to the structure pool
             AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {unitbeingbuilt}, 'Support', 'none' )

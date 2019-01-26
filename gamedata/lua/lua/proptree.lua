@@ -23,24 +23,38 @@ Tree = Class(Prop) {
     end,
 
     OnDamage = function(self, instigator, armormod, direction, type)
+	
         Prop.OnDamage(self, instigator, armormod, direction, type)
+		
         if type == 'Force' then
             self.Motor = self.Motor or self:FallDown()
             self.Motor:Whack(direction[1], direction[2], direction[3], 1, true)
+			
             local bp = self:GetBlueprint()
-            self:SetMesh(bp.Display.MeshBlueprintWrecked)
+			
+			if bp.Wreckage then
+				self:SetMesh(bp.Display.MeshBlueprintWrecked)
+			end
+			
             ChangeState(self, self.FallingState)
+			
         elseif type == 'Nuke' then
+		
             if Random(1, 250) < 5 then
                 ChangeState(self, self.BurningState)
                 self.BurnFromNuke = true
             end
+			
         elseif type == 'Disintegrate' then
+		
             self:Destroy()
+			
         else
+		
             if Random(1, 8) <= 1 then
                 ChangeState(self, self.BurningState)
             end
+			
         end
     end,
 
@@ -99,7 +113,10 @@ Tree = Class(Prop) {
             self:PlayPropAmbientSound('BurnLoop')
 
             WaitSeconds(0.5)
-            self:SetMesh(bp.Display.MeshBlueprintWrecked)
+			
+			if bp.Wreckage then
+				self:SetMesh(bp.Display.MeshBlueprintWrecked)
+			end
 			
             for i = 5, 1, -1 do
                 for k, v in effects do

@@ -90,7 +90,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 		if bp.MuzzleSalvoDelay != nil then
 		
-			local totalMuzzleFiringTime = (NumMuzzles - 1) * bp.MuzzleSalvoDelay
+			local totalMuzzleFiringTime = ((NumMuzzles - 1) * bp.MuzzleSalvoDelay) + bp.RackSalvoReloadTime
 		
 			if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
 			
@@ -826,6 +826,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
                 local muzzleIndex = 1
 				
+				-- fire all the muzzles --
                 for i = 1, numMuzzlesFiring do
 				
                     if self.HaltFireOrdered then
@@ -888,7 +889,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                     end
 					
                     muzzleIndex = muzzleIndex + 1
-					
+
+					-- reset the muzzle index if fired all muzzles
                     if muzzleIndex > LOUDGETN(rackInfo.MuzzleBones) then
                         muzzleIndex = 1
                     end
@@ -942,10 +944,14 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self.HaltFireOrdered = false
 
+			-- if all the racks have fired --
             if self.CurrentRackSalvoNumber > LOUDGETN(bp.RackBones) then
 			
+				-- reset the rack count
                 self.CurrentRackSalvoNumber = 1
 				
+				-- OK so this is revealing - neither one of these is often used but its clear
+				-- that ChargeTime here
                 if bp.RackSalvoReloadTime > 0 then
 				
                     LOUDSTATE(self, self.RackSalvoReloadState)
@@ -1026,8 +1032,6 @@ DefaultProjectileWeapon = Class(Weapon) {
     },
 
     RackSalvoReloadState = State {
-	
-		--LOG("*AI DEBUG RackSalvoReloadState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,

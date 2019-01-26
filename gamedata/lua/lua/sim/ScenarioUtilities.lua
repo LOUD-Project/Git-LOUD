@@ -418,7 +418,7 @@ function InitializeArmies()
 		
         -- create Persistent Pool platoons -- and store the handle on the brain
         -- for isolating transports
-        local transportplatoon = self:MakePlatoon('test','none')
+        local transportplatoon = self:MakePlatoon('TransportPool','none')
 		
         transportplatoon:UniquelyNamePlatoon('TransportPool') 
 		transportplatoon.BuilderName = 'Transport Pool'
@@ -426,7 +426,7 @@ function InitializeArmies()
 		self.TransportPool = transportplatoon
         
         -- for isolating structures (used by LOUD AI)
-        local structurepool = self:MakePlatoon('test','none')
+        local structurepool = self:MakePlatoon('StructurePool','none')
 		
         structurepool:UniquelyNamePlatoon('StructurePool')
 		structurepool.BuilderName = 'Structure Pool'
@@ -434,7 +434,7 @@ function InitializeArmies()
 		self.StructurePool = structurepool
         
         -- for isolating aircraft low on fuel (used by LOUD AI)
-        local refuelpool = self:MakePlatoon('test','none')
+        local refuelpool = self:MakePlatoon('RefuelPool','none')
 		
         refuelpool:UniquelyNamePlatoon('RefuelPool')
 		refuelpool.BuilderName = 'Refuel Pool'

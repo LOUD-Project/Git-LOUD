@@ -1552,7 +1552,6 @@ TNapalmHvyCarpetBombHitUnit01 = {
 TNapalmHvyCarpetBombHitLand01 = {
     '/effects/emitters/napalm_hvy_flash_emit.bp',
     '/effects/emitters/napalm_hvy_thick_smoke_emit.bp',
-    #'/effects/emitters/napalm_hvy_fire_emit.bp',
     '/effects/emitters/napalm_hvy_thin_smoke_emit.bp',
     '/effects/emitters/napalm_hvy_01_emit.bp',
     '/effects/emitters/napalm_hvy_02_emit.bp',
