@@ -1,7 +1,8 @@
-
 local SHoverLandUnit = import('/lua/seraphimunits.lua').SHoverLandUnit
+
 local WeaponsFile = import ('/lua/seraphimweapons.lua')
 local WeaponsFile2 = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
+
 local YenzothaExperimentalLaser = WeaponsFile2.YenzothaExperimentalLaser
 local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
 
@@ -29,9 +30,13 @@ BSL0401 = Class(SHoverLandUnit) {
     },
 	
     Weapons = {
+	
         EyeWeapon01 = Class(YenzothaExperimentalLaser) {
+		
 			OnWeaponFired = function(self)
+			
             	YenzothaExperimentalLaser.OnWeaponFired(self)
+				
 				if self.unit.ChargeEffects01Bag then		--First set of Charge and Beam effects
             		for k, v in self.unit.ChargeEffects01Bag do
                 		v:Destroy()
@@ -46,19 +51,21 @@ BSL0401 = Class(SHoverLandUnit) {
 				end
                 
                 local army = self.unit:GetArmy()
-                
-				--WaitSeconds(1)
+
 				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter01', self.unit, 'Focus_Beam01_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
         		for k, v in self.unit.ChargeEffects01 do
             		table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(1)
+
 				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter02', self.unit, 'Focus_Beam01_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(1)
+
 				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter03', self.unit, 'Beam_Point_Focus01', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter03', army, v ):ScaleEmitter(0.5))
 					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus01', army, v ):ScaleEmitter(0.5))
@@ -66,28 +73,31 @@ BSL0401 = Class(SHoverLandUnit) {
 			end,
 			
 			PlayFxWeaponPackSequence = function(self)
-				--self:ChangeDamage(300)
-				--self.DamageThread:Destroy()
-				--self.BeamThread:Destroy()
-				--self.ChargeEffectThread:Destroy()
+
                 if self.unit.BeamChargeEffects1 then
 					for k, v in self.unit.BeamChargeEffects1 do
 						v:Destroy()
 					end
 					self.unit.BeamChargeEffects1 = {}
 				end
+				
 				if self.unit.ChargeEffects01Bag then
             		for k, v in self.unit.ChargeEffects01Bag do
                 		v:Destroy()
             		end
 		    		self.unit.ChargeEffects01Bag = {}
 				end
+				
                 YenzothaExperimentalLaser.PlayFxWeaponPackSequence(self)
             end,
 		},
+		
 		EyeWeapon02 = Class(YenzothaExperimentalLaser) {
+		
 			OnWeaponFired = function(self)
+			
             	YenzothaExperimentalLaser.OnWeaponFired(self)
+				
 				if self.unit.ChargeEffects02Bag then		
             		for k, v in self.unit.ChargeEffects02Bag do
                 		v:Destroy()
@@ -102,19 +112,21 @@ BSL0401 = Class(SHoverLandUnit) {
 				end
                 
                 local army = self.unit:GetArmy()
-                
-				--WaitSeconds(2)
+
 				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter01', self.unit, 'Focus_Beam02_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
         		for k, v in self.unit.ChargeEffects01 do
             		table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(2)
+
 				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter02', self.unit, 'Focus_Beam02_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(2)
+
 				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter03', self.unit, 'Beam_Point_Focus02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter03', army, v ):ScaleEmitter(0.5))
 					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus02', army, v ):ScaleEmitter(0.5))
@@ -122,34 +134,39 @@ BSL0401 = Class(SHoverLandUnit) {
 			end,
 			
 			PlayFxWeaponPackSequence = function(self)
-				--self:ChangeDamage(300)
-				--self.DamageThread:Destroy()
-				--self.BeamThread:Destroy()
-				--self.ChargeEffectThread:Destroy()
+
 				if self.unit.BeamChargeEffects2 then
 					for k, v in self.unit.BeamChargeEffects2 do
 						v:Destroy()
 					end
 					self.unit.BeamChargeEffects2 = {}
 				end
+				
 				if self.unit.ChargeEffects02Bag then
             		for k, v in self.unit.ChargeEffects02Bag do
                 		v:Destroy()
             		end
 		    		self.unit.ChargeEffects02Bag = {}
 				end
+				
                 YenzothaExperimentalLaser.PlayFxWeaponPackSequence(self)
+				
             end,
 		},
+		
 		EyeWeapon03 = Class(YenzothaExperimentalLaser) {
+		
 			OnWeaponFired = function(self)
+			
             	YenzothaExperimentalLaser.OnWeaponFired(self)
+				
 				if self.unit.ChargeEffects03Bag then		
             		for k, v in self.unit.ChargeEffects03Bag do
                 		v:Destroy()
             		end
 		    		self.unit.ChargeEffects03Bag = {}
 				end
+				
 				if self.unit.BeamChargeEffects3 then
 					for k, v in self.unit.BeamChargeEffects3 do
 						v:Destroy()
@@ -158,19 +175,21 @@ BSL0401 = Class(SHoverLandUnit) {
 				end
                 
                 local army = self.unit:GetArmy()
-                
-				--WaitSeconds(3)
+
 				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter01', self.unit, 'Focus_Beam03_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
         		for k, v in self.unit.ChargeEffects01 do
             		table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(3)
+
 				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter02', self.unit, 'Focus_Beam03_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
-				--WaitSeconds(3)
+
 				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter03', self.unit, 'Beam_Point_Focus03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				
 				for k, v in self.unit.ChargeEffects01 do
 					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter03', army, v ):ScaleEmitter(0.5))
 					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus03', army, v ):ScaleEmitter(0.5))
@@ -178,28 +197,28 @@ BSL0401 = Class(SHoverLandUnit) {
 			end,
 			
 			PlayFxWeaponPackSequence = function(self)
-				--self:ChangeDamage(300)
-				--self.DamageThread:Destroy()
-				--self.BeamThread:Destroy()
-				--self.ChargeEffectThread:Destroy()
+
 				if self.unit.BeamChargeEffects3 then
+				
 					for k, v in self.unit.BeamChargeEffects3 do
 						v:Destroy()
 					end
 					self.unit.BeamChargeEffects3 = {}
 				end
+				
 				if self.unit.ChargeEffects03Bag then
+				
             		for k, v in self.unit.ChargeEffects03Bag do
                 		v:Destroy()
             		end
 		    		self.unit.ChargeEffects03Bag = {}
 				end
+				
                 YenzothaExperimentalLaser.PlayFxWeaponPackSequence(self)
             end,
 		},
         
-        LeftAA = Class(SAAOlarisCannonWeapon) {},
-        RightAA = Class(SAAOlarisCannonWeapon) {},
+        AA = Class(SAAOlarisCannonWeapon) {},
     },
 	
     StartBeingBuiltEffects = function(self, builder, layer)
@@ -208,9 +227,10 @@ BSL0401 = Class(SHoverLandUnit) {
     end,  
 	
 	--+ Unit Callbacks +--
-		
 	OnStopBeingBuilt = function(self,builder,layer)
+	
 		SHoverLandUnit.OnStopBeingBuilt(self,builder,layer)		
+		
 		self.BeamChargeEffects1 = {}
 		self.ChargeEffects01Bag = {}
 		self.BeamChargeEffects2 = {}
@@ -257,7 +277,8 @@ BSL0401 = Class(SHoverLandUnit) {
 		else
 			SHoverLandUnit.OnScriptBitSet(self, bit)
 		end
-	end,	
+	end,
+	
 	OnScriptBitClear = function(self, bit)
 		--Drone assist toggle, off
 		if bit == 1 then

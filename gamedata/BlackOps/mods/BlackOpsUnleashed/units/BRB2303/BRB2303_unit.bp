@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -11,6 +12,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -20,7 +22,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 140,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -51,7 +55,9 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 17,
     },
+	
     Description = '<LOC brb2303_desc>Light Rocket Artillery',
+	
     Display = {
 		Abilities = {
 			'Rapid Fire Rocket Barrage',
@@ -68,17 +74,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.048,
     },
+	
     Economy = {
         BuildCostEnergy = 20000,
         BuildCostMass = 2200,
         BuildTime = 2200,
-        RebuildBonusIds = {
-            'brb2303',
-        },
+		
+        RebuildBonusIds = {'brb2303'},
     },
 
     General = {
@@ -139,14 +145,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.45,
+	
     SizeX = 1,
     SizeY = 1.2,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -154,6 +164,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

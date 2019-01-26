@@ -1,5 +1,5 @@
-
 local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
+
 local SIFSuthanusArtilleryCannon = import('/lua/seraphimweapons.lua').SIFSuthanusMobileArtilleryCannon
 
 local ForkThread = ForkThread
@@ -34,6 +34,7 @@ BSL0007 = Class(SWalkingLandUnit) {
     ResourceThread = function(self) 
 
     	if not self.Dead then
+		
         	local energy = self.Brain:GetEconomyStored('Energy')
 
         	if  energy <= 10 then 
@@ -45,8 +46,11 @@ BSL0007 = Class(SWalkingLandUnit) {
 	end,
 
 	EconomyWaitUnit = function(self)
+	
     	if not self.Dead then
+		
 			WaitTicks(50)
+			
         	if not self.Dead then
             	self:ForkThread(self.ResourceThread)
         	end
@@ -56,7 +60,6 @@ BSL0007 = Class(SWalkingLandUnit) {
 	KillFactory = function(self)
     	self:Kill()
 	end,
- 
 }
 
 TypeClass = BSL0007

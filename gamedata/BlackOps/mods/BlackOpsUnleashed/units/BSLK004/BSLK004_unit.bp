@@ -21,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -30,7 +31,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 35,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -112,17 +115,21 @@ UnitBlueprint {
         UnitName = '<LOC bslk004_name>Uyanah',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 75,
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Unstable Lightning Tank',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.58,
     LifeBarSize = 0.8,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -147,21 +154,25 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Land',
 		RotateOnSpot = false,
 		StandUpright = true,
-        TurnRadius = 2,
+        TurnRadius = 0.5,
         TurnRate = 75,
     },
+	
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.3,
+	
     SizeX = 1,
     SizeY = 0.5,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 115,
+	
     Transport = {
-        CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -169,6 +180,7 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
+	
     Weapon = {
         {
 			AlwaysRecheckTarget = true,
@@ -204,9 +216,9 @@ UnitBlueprint {
             },
 			
 			FiringRandomness = 0,
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.1,
 			
-            Label = 'PhasonBeam1',
+            Label = 'PhasonBeam',
 			LeadTarget = false,
 			
             MaxRadius = 44,
@@ -214,6 +226,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -232,19 +245,19 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 300 DPS Air/2 for repack = 187 DPS Air
+            RateOfFire = 1,		-- 300 DPS Air/2 for repack = 150 DPS Air
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE HIGHPRIAIR',
-                'MOBILE BOMBER',
-                'MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'MOBILE',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'LAND,NAVAL,UNTARGETABLE,SATELLITE',
 			
             TrackingRadius = 1.2,
 			
@@ -299,10 +312,10 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land',
             },
-			
             FiringTolerance = 0,
-            Label = 'PhasonBeam2',
 			
+            Label = 'PhasonBeam',
+	
 			LeadTarget = false,
 			
             MaxRadius = 32,
@@ -337,25 +350,27 @@ UnitBlueprint {
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS -WALL',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,AIR,WALL',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'muzzle02',
             TurretBonePitch = 'muzzle02',
             TurretBoneYaw = 'muzzle02',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 360,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 360,
+			
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
         },
 		{
             AboveWaterTargetsOnly = true,
@@ -364,22 +379,29 @@ UnitBlueprint {
             BeamLifetime = 0.2,
             CollideFriendly = false,
             ContinuousBeam = false,
+			
             Damage = 0,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Dummy range checker',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Air',
             },
             FiringTolerance = 0,
+			
             Label = 'Dummy',
 			LeadTarget = false,
+			
             MaxRadius = 1,
             MinRadius = 0,
+			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -397,7 +419,9 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RateOfFire = 0.1,
             RequireTime = 0,
+			
             SlavedToBody = false,
+			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'ALLUNITS',

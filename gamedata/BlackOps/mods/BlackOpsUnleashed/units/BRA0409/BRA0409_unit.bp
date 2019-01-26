@@ -63,9 +63,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
-	
+
     Buffs = {
         Regen = {
             Level1 = 24,

@@ -19,6 +19,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -28,7 +29,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -44,7 +47,9 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
 		'BOMBARDMENT',
     },
+	
     CollisionOffsetY = -0.4,
+	
     Defense = {
         AirThreatLevel = 7,
         ArmorType = 'Normal',
@@ -53,7 +58,9 @@ UnitBlueprint {
         RegenRate = 5,
         SurfaceThreatLevel = 65,
     },
+	
     Description = '<LOC bss0206_desc>Bombardment Ship',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -110,11 +117,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.03,
     },
+	
     Economy = {
         BuildCostEnergy = 14500,
         BuildCostMass = 1250,
         BuildTime = 5000,
     },
+	
     General = {
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
@@ -138,15 +147,18 @@ UnitBlueprint {
         UnitName = '<LOC bss0206_name>Zthuzene',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 90,
         VisionRadius = 32,
         WaterVisionRadius = 16,
     },
+	
     Interface = {
         HelpText = 'Bombardment Ship',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.9,
     LifeBarSize = 1.75,
@@ -185,8 +197,10 @@ UnitBlueprint {
     SizeX = 1.0,
     SizeY = 1.0,
     SizeZ = 3.2,
+	
     StrategicIconName = 'icon_ship2_directfire',
     StrategicIconSortPriority = 155,
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -194,6 +208,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -255,26 +270,29 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.4,		-- 220 DPS
-            RenderFireClock = false,
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,AIR',
+			
             TurretBoneMuzzle = 'Front_Turret01_Muzzle',
             TurretBonePitch = 'Front_Turret01_Barrel',
             TurretBoneYaw = 'Front_Turret01',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 15,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+			
             Turreted = true,
         },
         {
@@ -334,7 +352,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.4,		-- 220 DPS
             RenderFireClock = false,
@@ -346,17 +363,21 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,AIR',
+			
             TurretBoneMuzzle = 'Front_Turret02_Muzzle',
             TurretBonePitch = 'Front_Turret02_Barrel',
             TurretBoneYaw = 'Front_Turret02',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 15,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+			
             Turreted = true,
         },
         {
@@ -413,6 +434,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 3,		-- 120 DPS Air
@@ -421,11 +443,11 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',

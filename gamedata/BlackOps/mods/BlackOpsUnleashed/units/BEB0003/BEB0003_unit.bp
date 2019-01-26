@@ -1,20 +1,27 @@
 UnitBlueprint {
+
     Audio = {},
+	
     BuildIconSortPriority = 130,
+	
     CollisionOffsetY = -2,
+	
     Categories = {
 		'UNTARGETABLE',
         'UEF',
         'INSIGNIFICANTUNIT',
         'ANTITELEPORT',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 1,
         MaxHealth = 1,
     	NoTeleDistance = 100,
     },
-    Description = '<LOC beb0003_desc>Anti-Teleport Emitter',
+	
+    Description = 'Advanced Anti-Teleport Emitter',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -25,15 +32,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.001,
     },
+	
     Economy = {
         BuildCostEnergy = 1000,
         BuildCostMass = 175,
         BuildTime = 60,
     },
+	
     General = {
     	CapCost = 0,
         Category = 'Defense',
@@ -58,10 +67,13 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+	
     Interface = {
-        HelpText = 'Anti-Teleport Emitter',
+        HelpText = 'Advanced Anti-Teleport Emitter',
     },
+	
     LifeBarRender = false,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -81,11 +93,14 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.1,
     SelectionSizeZ = 0.1,
     SelectionThickness = 0.1,
+	
     SizeX = 0.1,
     SizeY = 0.1,
     SizeZ = 0.1,
+	
     StrategicIconSortPriority = 210,
 }

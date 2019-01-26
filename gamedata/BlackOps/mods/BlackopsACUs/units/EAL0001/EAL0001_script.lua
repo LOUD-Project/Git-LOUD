@@ -1,38 +1,30 @@
-#****************************************************************************
-#**
-#**  Author(s):  Exavier Macbeth
-#**
-#**  Summary  :  BlackOps: Adv Command Unit - Aeon ACU
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-
 local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
 local Buff = import('/lua/sim/Buff.lua')
 
 local AWeapons = import('/lua/aeonweapons.lua')
-local ADFDisruptorCannonWeapon = AWeapons.ADFDisruptorCannonWeapon
+
 local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
+local ADFDisruptorCannonWeapon = AWeapons.ADFDisruptorCannonWeapon
+local ADFChronoDampener = AWeapons.ADFChronoDampener
+local AANChronoTorpedoWeapon = AWeapons.AANChronoTorpedoWeapon
+local AIFArtilleryMiasmaShellWeapon = AWeapons.AIFArtilleryMiasmaShellWeapon
+local AeonACUPhasonLaser = AWeapons.ADFPhasonLaser
+local AIFQuasarAntiTorpedoWeapon = AWeapons.AIFQuasarAntiTorpedoWeapon
+local AAMWillOWisp = AWeapons.AAMWillOWisp
+local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
+
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
-local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
-local ADFChronoDampener = AWeapons.ADFChronoDampener
 
 local CSoothSayerAmbient = import('/lua/EffectTemplates.lua').CSoothSayerAmbient
-local AIFArtilleryMiasmaShellWeapon = import('/lua/aeonweapons.lua').AIFArtilleryMiasmaShellWeapon
-local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
 
-local AeonACUPhasonLaser = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MiniPhasonLaser
-
-local AIFQuasarAntiTorpedoWeapon = AWeapons.AIFQuasarAntiTorpedoWeapon
 local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01 
-local AAMWillOWisp = import('/lua/aeonweapons.lua').AAMWillOWisp
+
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
-
-
 
 EAL0001 = Class(AWalkingLandUnit) {
 
@@ -66,114 +58,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 	
         DeathWeapon = Class(AIFCommanderDeathWeapon) {},
 		
-        EXTargetPainter = Class(EXCEMPArrayBeam01) {
-		
-            OnWeaponFired = function(self)
-			
-				EXCEMPArrayBeam01.OnWeaponFired(self)
-				self.mypos = self.unit:GetPosition()
-				self.targetpos = self:GetCurrentTargetPos()
-				
-				if self.targetpos then
-				
-					self.targetdistance = VDist3(self.mypos,self.targetpos)
-					
-					if self.unit.wcArtillery01 then
-					
-						if (self.targetdistance >= 25) then
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', true)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						else
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						end
-						
-					elseif self.unit.wcArtillery02 then
-					
-						if (self.targetdistance >= 25) then
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', true)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						else
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						end
-						
-					elseif self.unit.wcArtillery03 then
-					
-						if (self.targetdistance >= 25) then
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', true)
-						else
-							self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-							self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						end
-						
-					elseif self.unit.wcBeam01 then
-					
-						self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam01', true)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam02', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam03', false)
-						
-					elseif self.unit.wcBeam02 then
-					
-						self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam01', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam02', true)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam03', false)
-						
-					elseif self.unit.wcBeam03 then
-						self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam01', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam02', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam03', true)
-						
-					elseif not self.unit.wcArtillery01 and not self.unit.wcArtillery02 and not self.unit.wcArtillery03 and not self.unit.wcBeam01 and not self.unit.wcBeam02 and not self.unit.wcBeam03 then
-					
-						self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
-						self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
-						self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
-						self.unit:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam01', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam02', false)
-						self.unit:SetWeaponEnabledByLabel('EXPhasonBeam03', false)
-					end
-				end
-            end,	
-		},
+        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
 		
         RightDisruptor = Class(ADFDisruptorCannonWeapon) {},
-		
-        EXChronoDampener01 = Class(ADFChronoDampener) {},
-        EXChronoDampener02 = Class(ADFChronoDampener) {},
-		
-        EXTorpedoLauncher01 = Class(AANChronoTorpedoWeapon) {},
-        EXTorpedoLauncher02 = Class(AANChronoTorpedoWeapon) {},
-        EXTorpedoLauncher03 = Class(AANChronoTorpedoWeapon) {},
-		
-        EXMiasmaArtillery01 = Class(AIFArtilleryMiasmaShellWeapon) {},
-        EXMiasmaArtillery02 = Class(AIFArtilleryMiasmaShellWeapon) {},
-        EXMiasmaArtillery03 = Class(AIFArtilleryMiasmaShellWeapon) {},
-		
-        EXPhasonBeam01 = Class(AeonACUPhasonLaser) {},
-        EXPhasonBeam02 = Class(AeonACUPhasonLaser) {},
-        EXPhasonBeam03 = Class(AeonACUPhasonLaser) {},
-
-        EXAntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
-		
-        EXAntiMissile = Class(AAMWillOWisp) {},
 		
         OverCharge = Class(ADFOverchargeWeapon) {
 
@@ -252,13 +139,36 @@ EAL0001 = Class(AWalkingLandUnit) {
                 end,
             },              
         },
+		
+        EXChronoDampener01 = Class(ADFChronoDampener) {},
+        EXChronoDampener02 = Class(ADFChronoDampener) {},
+		
+        EXTorpedoLauncher01 = Class(AANChronoTorpedoWeapon) {},
+        EXTorpedoLauncher02 = Class(AANChronoTorpedoWeapon) {},
+        EXTorpedoLauncher03 = Class(AANChronoTorpedoWeapon) {},
+		
+        EXMiasmaArtillery01 = Class(AIFArtilleryMiasmaShellWeapon) {},
+        EXMiasmaArtillery02 = Class(AIFArtilleryMiasmaShellWeapon) {},
+        EXMiasmaArtillery03 = Class(AIFArtilleryMiasmaShellWeapon) {},
+		
+        EXPhasonBeam01 = Class(AeonACUPhasonLaser) {},
+        EXPhasonBeam02 = Class(AeonACUPhasonLaser) {},
+        EXPhasonBeam03 = Class(AeonACUPhasonLaser) {},
+
+        EXAntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+		
+        EXAntiMissile = Class(AAMWillOWisp) {},
+		
     },
 
     OnCreate = function(self)
+	
         AWalkingLandUnit.OnCreate(self)
+		
         self:SetCapturable(false)
         self:SetupBuildBones()
-        # Restrict what enhancements will enable later
+		
+        -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER4COMMANDER) )
             self.RemoteViewingData = {}
@@ -308,11 +218,14 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+	
         AWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+		
         self:DisableUnitIntel('RadarStealth')
         self:DisableUnitIntel('SonarStealth')
         self:DisableUnitIntel('Cloak')
         self:DisableUnitIntel('CloakField')
+		
 		self:HideBone('Engineering', true)
 		self:HideBone('Combat_Engineering', true)
 		self:HideBone('Left_Turret_Plates', true)
@@ -341,7 +254,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 		self:HideBone('Artillery_Barrel_Left', true)
 		self:HideBone('Artillery_Barrel_Right', true)
 		self:HideBone('Artillery_Pitch', true)
+		
 		self:SetWeaponEnabledByLabel('EXAntiMissile', false)
+		
 		self.ccShield = false
 		self.ccArtillery = false
 		self.wcBuildMode = false
@@ -360,28 +275,39 @@ EAL0001 = Class(AWalkingLandUnit) {
 		self.wcMaelstrom01 = false
 		self.wcMaelstrom02 = false
 		self.wcMaelstrom03 = false
+		
 		local wepPainter = self:GetWeaponByLabel('EXTargetPainter')
-		wepPainter:ChangeMaxRadius(22)
+		wepPainter:ChangeMaxRadius(100)
+		
 		self:ForkThread(self.WeaponConfigCheck)
 		self:ForkThread(self.WeaponRangeReset)
+		
 		self.MaelstromEffects01 = {}
+		
         self:ForkThread(self.GiveInitialResources)
+		
         self.ShieldEffectsBag = {}
+		
 		self.RBImpEngineering = false
 		self.RBAdvEngineering = false
 		self.RBExpEngineering = false
+		
 		self.RBComEngineering = false
 		self.RBAssEngineering = false
 		self.RBApoEngineering = false
+		
 		self.RBDefTier1 = false
 		self.RBDefTier2 = false
 		self.RBDefTier3 = false
+		
 		self.RBComTier1 = false
 		self.RBComTier2 = false
 		self.RBComTier3 = false
+		
 		self.RBIntTier1 = false
 		self.RBIntTier2 = false
 		self.RBIntTier3 = false
+		
 		self.ScryActive = false
 		self.regenamount = 0
 		
@@ -422,16 +348,20 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnTargetLocation = function(self, location)
-        # Initial energy drain here - we drain resources instantly when an eye is relocated (including initial move)
+	
+        -- Initial energy drain here - we drain resources instantly when an eye is relocated (including initial move)
         local aiBrain = self:GetAIBrain()
         local bp = self:GetBlueprint()
         local have = aiBrain:GetEconomyStored('ENERGY')
         local need = bp.Economy.InitialRemoteViewingEnergyDrain
+		
         if not ( have > need ) then
             return
         end
+		
 		local selfpos = self:GetPosition()
 		local destRange = VDist2(location[1], location[3], selfpos[1], selfpos[3])
+		
 		if destRange <= 300 then
 			aiBrain:TakeResource( 'ENERGY', bp.Economy.InitialRemoteViewingEnergyDrain )
 
@@ -440,9 +370,11 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self.ScryActive = true
 			self:ForkThread(self.EXRemoteCheck)
 		end
+		
     end,
 
     CreateVisibleEntity = function(self)
+	
         # Only give a visible area if we have a location and intel button enabled
         if not self.RemoteViewingData.VisibleLocation then
             return
@@ -476,8 +408,10 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     DisableVisibleEntity = function(self)
+	
         # visible entity already off
 		WaitSeconds(5)
+		
         if self.RemoteViewingData.DisableCounter > 1 then return end
 		
         # disable vis entity and monitor resources
@@ -584,6 +518,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     WeaponRangeReset = function(self)
+	
 		if not self.wcChrono01 then
 			local wepFlamer01 = self:GetWeaponByLabel('EXChronoDampener01')
 			wepFlamer01:ChangeMaxRadius(1)
@@ -632,7 +567,9 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 	
     WeaponConfigCheck = function(self)
+	
 		if self.wcBuildMode then
+		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightDisruptor', false)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
@@ -650,6 +587,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 		end
 		
 		if self.wcOCMode then
+		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightDisruptor', false)
 			self:SetWeaponEnabledByLabel('EXChronoDampener01', false)
@@ -666,8 +604,10 @@ EAL0001 = Class(AWalkingLandUnit) {
 		end
 		
 		if not self.wcBuildMode and not self.wcOCMode then
+		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
-			self:SetWeaponEnabledByLabel('RightDisruptor', false)
+			self:SetWeaponEnabledByLabel('RightDisruptor', true)
+			
 			self:SetWeaponEnabledByLabel('EXMiasmaArtillery01', false)
 			self:SetWeaponEnabledByLabel('EXMiasmaArtillery02', false)
 			self:SetWeaponEnabledByLabel('EXMiasmaArtillery03', false)
@@ -677,15 +617,20 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 			
 			if self.wcChrono01 then
+			
 				self:SetWeaponEnabledByLabel('EXChronoDampener01', true)
+				
 				local wepFlamer01 = self:GetWeaponByLabel('EXChronoDampener01')
 				wepFlamer01:ChangeMaxRadius(22)
 			else
 				self:SetWeaponEnabledByLabel('EXChronoDampener01', false)
 			end
 			
+			
 			if self.wcChrono02 then
+			
 				self:SetWeaponEnabledByLabel('EXChronoDampener02', true)
+				
 				local wepFlamer02 = self:GetWeaponByLabel('EXChronoDampener02')
 				wepFlamer02:ChangeMaxRadius(30)
 			else
@@ -693,8 +638,10 @@ EAL0001 = Class(AWalkingLandUnit) {
 			end
 			
 			if self.wcTorp01 then
+			
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
 				self:SetWeaponEnabledByLabel('EXAntiTorpedo', true)
+				
 				local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
 				wepTorpedo01:ChangeMaxRadius(60)
 			else
@@ -703,8 +650,10 @@ EAL0001 = Class(AWalkingLandUnit) {
 			end
 			
 			if self.wcTorp02 then
+			
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
 				self:SetWeaponEnabledByLabel('EXAntiTorpedo', true)
+				
 				local wepTorpedo02 = self:GetWeaponByLabel('EXTorpedoLauncher02')
 				wepTorpedo02:ChangeMaxRadius(60)
 			else
@@ -713,8 +662,10 @@ EAL0001 = Class(AWalkingLandUnit) {
 			end
 			
 			if self.wcTorp03 then
+			
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
 				self:SetWeaponEnabledByLabel('EXAntiTorpedo', true)
+				
 				local wepTorpedo03 = self:GetWeaponByLabel('EXTorpedoLauncher03')
 				wepTorpedo03:ChangeMaxRadius(60)
 			else
@@ -723,31 +674,49 @@ EAL0001 = Class(AWalkingLandUnit) {
 			end
 			
 			if self.wcArtillery01 then
+			
+				self:SetWeaponEnabledByLabel('EXMiasmaArtillery01', true)
+				
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXMiasmaArtillery01')
 				wepAntiMatter01:ChangeMaxRadius(100)
 			end
 			
 			if self.wcArtillery02 then
+			
+				self:SetWeaponEnabledByLabel('EXMiasmaArtillery02', true)
+				
 				local wepAntiMatter02 = self:GetWeaponByLabel('EXMiasmaArtillery02')
 				wepAntiMatter02:ChangeMaxRadius(100)
 			end
 			
 			if self.wcArtillery03 then
+			
+				self:SetWeaponEnabledByLabel('EXMiasmaArtillery03', true)
+				
 				local wepAntiMatter03 = self:GetWeaponByLabel('EXMiasmaArtillery03')
 				wepAntiMatter03:ChangeMaxRadius(100)
 			end
 			
 			if self.wcBeam01 then
+			
+				self:SetWeaponEnabledByLabel('EXPhasonBeam01', true)
+			
 				local wepGattling01 = self:GetWeaponByLabel('EXPhasonBeam01')
 				wepGattling01:ChangeMaxRadius(35)
 			end
 			
 			if self.wcBeam02 then
+			
+				self:SetWeaponEnabledByLabel('EXPhasonBeam02', true)
+			
 				local wepGattling02 = self:GetWeaponByLabel('EXPhasonBeam02')
 				wepGattling02:ChangeMaxRadius(48)
 			end
 			
 			if self.wcBeam03 then
+			
+				self:SetWeaponEnabledByLabel('EXPhasonBeam03', true)
+			
 				local wepGattling03 = self:GetWeaponByLabel('EXPhasonBeam03')
 				wepGattling03:ChangeMaxRadius(48)
 			end
@@ -773,7 +742,9 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 	
     ArtyShieldCheck = function(self)
+	
 		if self.ccArtillery and not self.ccShield then
+		
 			self:HideBone('ShieldPack_Normal', true)
 			self:HideBone('Shoulder_Normal_L', true)
 			self:HideBone('Shoulder_Normal_R', true)
@@ -786,7 +757,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:HideBone('ShieldPack_Arty_RArm', true)
 			self:HideBone('ShieldPack_Artillery', true)
 			self:ShowBone('Artillery_Pitch', true)
+			
 		elseif self.ccShield and not self.ccArtillery then
+		
 			self:ShowBone('ShieldPack_Normal', true)
 			self:ShowBone('Shoulder_Normal_L', true)
 			self:ShowBone('Shoulder_Normal_R', true)
@@ -799,7 +772,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:HideBone('ShieldPack_Arty_RArm', true)
 			self:HideBone('ShieldPack_Artillery', true)
 			self:HideBone('Artillery_Pitch', true)
+			
 		elseif self.ccArtillery and self.ccShield then
+		
 			self:HideBone('ShieldPack_Normal', true)
 			self:HideBone('Shoulder_Normal_L', true)
 			self:HideBone('Shoulder_Normal_R', true)
@@ -812,7 +787,9 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:ShowBone('ShieldPack_Arty_RArm', true)
 			self:ShowBone('ShieldPack_Artillery', true)
 			self:ShowBone('Artillery_Pitch', true)
+			
 		elseif not self.ccArtillery and not self.ccShield then
+		
 			self:HideBone('ShieldPack_Normal', true)
 			self:ShowBone('Shoulder_Normal_L', true)
 			self:ShowBone('Shoulder_Normal_R', true)

@@ -52,19 +52,23 @@ UnitBlueprint {
     },
 	
     Defense = {
+		AirThreatLevel = 15,
         ArmorType = 'Normal',
-        Health = 4950,
-        MaxHealth = 4950,
+        Health = 5150,
+        MaxHealth = 5150,
         RegenRate = 4,
-        SurfaceThreatLevel = 49,
+        SurfaceThreatLevel = 55,
 	},
 	
-    Description = '<LOC bel0307_desc>Helltank',
+    Description = 'Helltank',
 	
     Display = {
         Abilities = {
             'Amphibious',
-			'Multiple Weapon Systems',
+			'Railgun - hits multiple targets',
+			'Gatling Close Defense system',
+			'2 x Riot Lasers',
+			'Rocket Barrage',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -76,7 +80,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
@@ -108,8 +112,8 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC bel0307_name>Mercury (Helltank)',
-        UnitWeight = 1,
+        UnitName = 'Helltank',
+        UnitWeight = 4,
     },
 	
     Intel = {
@@ -137,11 +141,11 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
+        MaxAcceleration = 1.45,
 		LayerChangeOffsetHeight = -0.75,
-        MaxBrake = 2.5,
-        MaxSpeed = 2.5,
-        MaxSpeedReverse = 2.5,
+        MaxBrake = 2.9,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 2.9,
         MaxSteerForce = 1000,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.45,
@@ -152,7 +156,7 @@ UnitBlueprint {
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.5,
         TurnRadius = 0,
-        TurnRate = 45,
+        TurnRate = 48,
 		WaterSpeedMultiplier = 1.2,
     },
 	
@@ -181,8 +185,7 @@ UnitBlueprint {
 	
     Weapon = {
 	
-		-- Primary Turret Weapon -- 
-		
+		-- Railgun -- 
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -211,9 +214,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            DamageType = 'Normal',
+            DamageType = 'Railgun',
             Damage = 750,
-            DamageRadius = 1,
+            DamageRadius = 0,
 			
             DisplayName = 'RailGun Turret',
 			
@@ -221,7 +224,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringTolerance = 1,
+            FiringTolerance = 0.5,
 			
             LeadTarget = true,
 			
@@ -229,7 +232,7 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
@@ -237,7 +240,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RailGun01/RailGun01_proj.bp',
-			ProjectileLifetime = 0.8,
+			ProjectileLifetime = 0.9,
 			
             RackBones = {
                 {
@@ -267,7 +270,7 @@ UnitBlueprint {
                 'STRUCTURE -WALL',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Railgun_Muzzle',
@@ -281,12 +284,12 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 35,
 			
             Turreted = true,
         },
 		
-		-- Forward Mounted Mini-Ravager Gun -- 
+		-- Ravager -- 
 		
         {
             AboveWaterFireOnly = true,
@@ -309,25 +312,23 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Plasma Cannon',
-			
-            EnergyDrainPerSecond = 40,
-            EnergyRequired = 40,
-			
+
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Air',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.3,
             FiringTolerance = 0.5,
 			
-            Label = 'GattlerTurret', 
+            Label = 'GattlerTurret',
 			
             MaxRadius = 35,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 20,	#-- takes 4 seconds to fire the salvo
-            MuzzleVelocity = 36,
+            MuzzleVelocity = 50,
+			MuzzleVelocityRandom = 3,
 			
 			NotExclusive = true,
             NoPause = true,
@@ -352,16 +353,16 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RangeCategory = 'UWRC_DirectFire',
+            RateOfFire = 4,		#-- 20 * 50 every 7 seconds = 142 dps
 			
-            RateOfFire = 1,		#-- 20 * 50 every 7 seconds = 142 dps
+            TargetCheckInterval = 0.3,
 			
-            TargetCheckInterval = 1,
             TargetPriorities = {
-                'MOBILE',
+                'MOBILE -AIR',
                 'STRUCTURE,-WALL',
+				'GROUNDATTACK',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Gat_align_muzzle',
@@ -370,12 +371,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 45,
+            TurretPitchRange = 50,
             TurretPitchSpeed = 50,
 			
             TurretYaw = 0,
-            TurretYawRange = 130,
-            TurretYawSpeed = 36,
+            TurretYawRange = 150,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -383,6 +384,9 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
+		
+		-- Riot Beams --
+		
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -456,9 +460,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		#-- 60 DPS
 			
             TargetCheckInterval = 0.5,
@@ -559,9 +561,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,			#-- 60dps
 			
             TargetCheckInterval = 0.5,
@@ -590,6 +590,8 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
 		
+		-- Rocket Rack --
+		
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -606,7 +608,7 @@ UnitBlueprint {
             DamageRadius = 1,
             DamageType = 'Normal',
 			
-            DisplayName = 'Missile Packs',
+            DisplayName = 'Rocket Racks',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -666,18 +668,19 @@ UnitBlueprint {
 			
             RateOfFire = 0.1,	# 66 dps
 			
-            TargetCheckInterval = 6,
+            TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE -WALL',
                 'MOBILE -AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.1,
 			
             Turreted = false,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

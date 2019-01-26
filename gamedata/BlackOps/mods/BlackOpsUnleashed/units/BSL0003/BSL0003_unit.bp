@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         StartMove = Sound {
             Bank = 'XSL',
@@ -11,16 +12,19 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
 		'BUILTBYRIFTGATE',
@@ -33,40 +37,25 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BOT',
     },
-    CollisionOffsetZ = 0,
+
     Defense = {
         ArmorType = 'Normal',
-        Health = 2700,
-        MaxHealth = 2700,
-        RegenRate = 3,
-        SurfaceThreatLevel = 15,
+        Health = 1650,
+        MaxHealth = 1650,
+        RegenRate = 1,
+        SurfaceThreatLevel = 9,
     },
+	
     Description = '<LOC bsl0003_desc>Elite Assault Bot',
+	
     Display = {
 		Abilities = {
 			'Quantum Power - dies if runs out of power',
         },
-        AnimationDeath = {
-            {
-                Animation = '/units/XSL0202/XSL0202_ADeath.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.5,
-                Weight = 100,
-            },
-            {
-                Animation = '/units/XSL0202/XSL0202_ADeath02.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.5,
-                Weight = 100,
-            },
-            {
-                Animation = '/units/XSL0202/XSL0202_ADeath03.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.5,
-                Weight = 100,
-            },
-        },
+
         AnimationWalk = '/units/xsl0202/xsl0202_Awalk.sca',
+		AnimationWlkRate = 1.5,
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -78,7 +67,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -94,16 +83,17 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 1250,
+        BuildCostEnergy = 2150,
         BuildCostMass = 5,
-        BuildTime = 5400,
+        BuildTime = 215,
+		
         MaintenanceConsumptionPerSecondEnergy = 50,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
+	
     General = {
+		CapCost = 0.5,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -123,22 +113,25 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = false,
-        },
+
         UnitName = '<LOC bsl0003_name>Hala Ilshavoh',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 27,
+        VisionRadius = 22,
     },
+	
     Interface = {
         HelpText = 'Elite Assault Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.95,
+	
     Physics = {
+		BackUpDistance = 4,	
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -149,10 +142,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.9,
-        MaxBrake = 3.1,
-        MaxSpeed = 3.1,
-        MaxSpeedReverse = 0,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2.7,
+        MaxSpeed = 2.7,
+        MaxSpeedReverse = 2.7,
         MaxSteerForce = 3,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
@@ -160,27 +153,34 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        TurnRadius = 2,
+		StandUpright = true,
+        TurnRadius = 0.5,
         TurnRate = 45,
     },
+	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
+	
     SizeX = 1,
     SizeY = 1.1,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
-        Level1 = 9,
-        Level2 = 18,
-        Level3 = 27,
-        Level4 = 35,
-        Level5 = 42,
+        Level1 = 0.1,
+        Level2 = 0.2,
+        Level3 = 0.3,
+        Level4 = 0.4,
+        Level5 = 1,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -193,23 +193,30 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 50,
+			
+            Damage = 45,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Aire-au Bolter',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
+			
             FiringTolerance = 1,
+			
             Label = 'MainGun',
+			
             MaxRadius = 28,
+			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 33,
+			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.1,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -232,33 +239,37 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 3,
-            TargetCheckInterval = 0.3,
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'ALLUNITS',
+                'DEFENSE',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.3,
+			
             TurretBoneDualMuzzle = 'Left_Muzzle',
             TurretBoneDualPitch = 'Left_Arm',
             TurretBoneMuzzle = 'Right_Muzzle',
             TurretBonePitch = 'Right_Arm',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = true,
+			
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+			
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
     },
 }

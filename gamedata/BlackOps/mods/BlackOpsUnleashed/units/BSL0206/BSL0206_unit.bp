@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -41,6 +44,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1500,
@@ -83,15 +87,16 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
+	
     Economy = {
         BuildCostEnergy = 2200,
         BuildCostMass = 350,
         BuildTime = 900,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -115,15 +120,19 @@ UnitBlueprint {
         UnitName = '<LOC bsl0206_name>Ula Ilhaas',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 22,
     },
+	
     Interface = {
         HelpText = 'Improved Protector bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.7,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -151,17 +160,22 @@ UnitBlueprint {
         TurnRate = 90,
 		WaterSpeedMultiplier = 1.1,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.83,
+	
     SizeX = 1.1,
     SizeY = 0.8,
     SizeZ = 1.1,
+	
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -169,6 +183,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -229,22 +244,26 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'ALLUNITS',
+                'ALLUNITS -WALL',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Muzzle',
             TurretBoneYaw = 'Turret_Barrel',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 85,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },

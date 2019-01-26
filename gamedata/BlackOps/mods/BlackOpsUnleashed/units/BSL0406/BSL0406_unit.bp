@@ -118,7 +118,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 2,
+		CapCost = 3,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {

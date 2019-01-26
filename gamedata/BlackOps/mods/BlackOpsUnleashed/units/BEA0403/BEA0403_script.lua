@@ -22,8 +22,8 @@ BEA0403 = Class(TAirUnit) {
 
         AAAFlak = Class(TAAFlakArtilleryCannon) {},
 
-        GatlingAACannon01 = Class(TDFPlasmaCannonWeapon) 
-        {
+        GatlingAACannon01 = Class(TDFPlasmaCannonWeapon){
+		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
@@ -45,8 +45,8 @@ BEA0403 = Class(TAirUnit) {
             end,
         },
 
-        GatlingAACannon02 = Class(TDFPlasmaCannonWeapon) 
-        {
+        GatlingAACannon02 = Class(TDFPlasmaCannonWeapon){
+		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
@@ -68,8 +68,8 @@ BEA0403 = Class(TAirUnit) {
             end,
         },
 
-        GatlingAACannon03 = Class(TDFPlasmaCannonWeapon) 
-        {
+        GatlingAACannon03 = Class(TDFPlasmaCannonWeapon){
+		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
@@ -91,8 +91,8 @@ BEA0403 = Class(TAirUnit) {
             end,
         },
 
-        GatlingAACannon04 = Class(TDFPlasmaCannonWeapon) 
-        {
+        GatlingAACannon04 = Class(TDFPlasmaCannonWeapon){
+		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)

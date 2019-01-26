@@ -1,5 +1,7 @@
 local SShieldStructureUnit = import('/lua/seraphimunits.lua').SShieldStructureUnit
+
 local WeaponsFile = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
+
 local LambdaWeapon = WeaponsFile.LambdaWeapon
 local SSeraphimSubCommanderGateway01 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway01
 local SSeraphimSubCommanderGateway02 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway02
@@ -53,10 +55,13 @@ BSB0405 = Class(SShieldStructureUnit) {
         self.Rotator1 = CreateRotator(self, 'Spinner', 'y', nil, 10, 5, 0)
 		
         self.Trash:Add(self.Rotator1)
+		
         self.lambdaEmitterTable = {}
         self.LambdaEffectsBag = {}
 		
+		-- turn on Lambda emitter --
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
+		
         self:ForkThread(self.ResourceThread)
     end,
     
@@ -112,10 +117,9 @@ BSB0405 = Class(SShieldStructureUnit) {
 			WaitTicks(5)
 			
 			if not self.Dead then
-				-- Get the platforms current orientation
+
 				local platOrient = self:GetOrientation()
             
-				-- Get the position of the platform
 				local location = self:GetPosition('Spinner')
 
 				-- Creates lambdaEmitter over the platform with a ranomly generated Orientation
@@ -133,6 +137,19 @@ BSB0405 = Class(SShieldStructureUnit) {
 			end
 		end 
 	end,
+	
+	KillLambdaEmitter = function(self, instigator, type, overkillRatio)
+	
+		-- Small bit of table manipulation to sort thru all of the avalible rebulder bots and remove them after the platform is dead
+		if table.getn({self.lambdaEmitterTable}) > 0 then
+		
+			for k, v in self.lambdaEmitterTable do 
+				IssueClearCommands({self.lambdaEmitterTable[k]}) 
+				IssueKillSelf({self.lambdaEmitterTable[k]})
+			end
+			
+		end
+	end,
     
     DeathThread = function( self, overkillRatio , instigator)
 	
@@ -141,11 +158,8 @@ BSB0405 = Class(SShieldStructureUnit) {
 		end
 
         local bigExplosionBones = {'Spinner', 'Eye01', 'Eye02'}
-        local explosionBones = {'XSB0405', 'Light01',
-                                'Light02', 'Light03',
-                                'Light04', 'Light05', 'Light06',
-                                }
-                                        
+        local explosionBones = {'XSB0405', 'Light01', 'Light02', 'Light03', 'Light04', 'Light05', 'Light06' }
+
         explosion.CreateDefaultHitExplosionAtBone( self, bigExplosionBones[Random(1,3)], 4.0 )
         explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()}) 
 		
@@ -178,13 +192,8 @@ BSB0405 = Class(SShieldStructureUnit) {
 
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
-
-        # CURRENTLY DISABLED UNTIL DESTRUCTION
-        # Create destruction debris out of the mesh, currently these projectiles look like crap,
-        # since projectile rotation and terrain collision doesn't work that great. These are left in
-        # hopes that this will look better in the future.. =)
 		
-        if( self.ShowUnitDestructionDebris and overkillRatio ) then
+        if ( self.ShowUnitDestructionDebris and overkillRatio ) then
 		
             if overkillRatio <= 1.5 then
                 self.CreateUnitDestructionDebris( self, true, true, false )
@@ -199,6 +208,7 @@ BSB0405 = Class(SShieldStructureUnit) {
     end,
 	
     OnDamage = function(self, instigator, amount, vector, damagetype) 
+	
     	if self.Dead == false then
         	#-- Base script for this script function was developed by Gilbot_x
         	#-- sets the damage resistance of the rebuilder bot to 30%
@@ -206,17 +216,6 @@ BSB0405 = Class(SShieldStructureUnit) {
         	amount = math.ceil(amount*lambdaEmitter_DLS)
     	end
     	SShieldStructureUnit.OnDamage(self, instigator, amount, vector, damagetype) 
-	end,
-	
-	KillLambdaEmitter = function(self, instigator, type, overkillRatio)
-	
-		-- Small bit of table manipulation to sort thru all of the avalible rebulder bots and remove them after the platform is dead
-		if table.getn({self.lambdaEmitterTable}) > 0 then
-			for k, v in self.lambdaEmitterTable do 
-				IssueClearCommands({self.lambdaEmitterTable[k]}) 
-				IssueKillSelf({self.lambdaEmitterTable[k]})
-			end
-		end
 	end,
 
 	-- standard maintenance energy

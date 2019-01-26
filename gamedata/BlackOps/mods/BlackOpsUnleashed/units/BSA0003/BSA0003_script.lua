@@ -1,4 +1,3 @@
-
 local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
 local SDFPhasicAutoGunWeapon = import('/lua/seraphimweapons.lua').SDFPhasicAutoGunWeapon
 
@@ -7,8 +6,7 @@ local WaitTicks = coroutine.yield
 
 BSA0003 = Class(SAirUnit) {
     Weapons = {
-        TurretLeft = Class(SDFPhasicAutoGunWeapon) {},
-        TurretRight = Class(SDFPhasicAutoGunWeapon) {},
+        Turret = Class(SDFPhasicAutoGunWeapon) {},
     },
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -21,6 +19,7 @@ BSA0003 = Class(SAirUnit) {
             self:SetVeterancy(5)
 			self.Brain = self:GetAIBrain()
         end
+		
     end,
     
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -43,7 +42,8 @@ BSA0003 = Class(SAirUnit) {
 			else
             	self:ForkThread(self.EconomyWaitUnit)
         	end
-    	end    
+    	end
+		
 	end,
 
 	EconomyWaitUnit = function(self)

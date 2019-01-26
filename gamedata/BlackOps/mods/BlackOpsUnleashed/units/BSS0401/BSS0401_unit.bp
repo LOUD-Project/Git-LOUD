@@ -447,6 +447,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
+			
             TargetCheckInterval = 5.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -651,6 +652,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
+			
             TargetCheckInterval = 2.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -852,6 +854,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -905,22 +908,27 @@ UnitBlueprint {
             DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Ultrachromatic Beam Generator',
-            DoNotCollideList = {
-                'TORPEDO',
-				'MISSILE',
-            },
+			
+            DoNotCollideList = {'MISSILE'},
+			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             HeadingArcCenter = -75,
             HeadingArcRange = 125,
+			
             Label = 'DeckGun',
+			
             MaxRadius = 80,
+			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             NeedPrep = true,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -942,25 +950,30 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'NAVAL MOBILE',
+                'NAVAL',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.125,
+			
             TurretBoneMuzzle = 'Right_Deck_Turret01_Muzzle',
             TurretBonePitch = 'Right_Deck_Turret01_Barrel',
             TurretBoneYaw = 'Right_Deck_Turret01',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 50,
+			
             Turreted = true,
         },
         {
@@ -985,27 +998,34 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
             CollideFriendly = false,
+			
             Damage = 50,
             DamageRadius = 1,
             DamageType = 'Normal',
+			
             DisplayName = 'Ultrachromatic Beam Generator',
-            DoNotCollideList = {
-                'TORPEDO',
-				'MISSILE',
-            },
+			
+            DoNotCollideList = {'MISSILE'},
+			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             Label = 'DeckGun',
+			
             MaxRadius = 80,
+			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             NeedPrep = true,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1027,6 +1047,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1036,16 +1057,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.125,
+			
             TurretBoneMuzzle = 'Left_Deck_Turret02_Muzzle',
             TurretBonePitch = 'Left_Deck_Turret02_Barrel',
             TurretBoneYaw = 'Left_Deck_Turret02',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 50,
+			
             Turreted = true,
         },
         {
@@ -1070,27 +1095,35 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
             CollideFriendly = false,
+			
             Damage = 50,
             DamageRadius = 1,
             DamageType = 'Normal',
+			
             DisplayName = 'Ultrachromatic Beam Generator',
-            DoNotCollideList = {
-                'TORPEDO',
-				'MISSILE',
-            },
+			
+            DoNotCollideList = {'MISSILE'},
+			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
+			
             FiringTolerance = 2,
+			
             Label = 'DeckGun',
+			
             MaxRadius = 80,
+			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+			
             NeedPrep = true,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1106,12 +1139,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,	-- 125 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1125,12 +1158,15 @@ UnitBlueprint {
             TurretBonePitch = 'Right_Deck_Turret02_Barrel',
             TurretBoneYaw = 'Right_Deck_Turret02',
             TurretDualManipulators = false,
+			
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 90,
+			
             Turreted = true,
         },
 
@@ -1290,10 +1326,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
@@ -1383,10 +1419,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
@@ -1475,10 +1511,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
@@ -1567,10 +1603,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
@@ -1672,7 +1708,7 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
-            Damage = 7000,
+            Damage = 6500,
             DamageFriendly = true,
             DamageRadius = 10,
             DamageType = 'Normal',

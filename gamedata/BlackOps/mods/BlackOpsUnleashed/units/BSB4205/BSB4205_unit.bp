@@ -177,19 +177,20 @@ UnitBlueprint {
         TurnRate = 0,
     },
 	
-
-	
     SelectionSizeX = 1.65,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.41,
+	
     SizeX = 2,
     SizeY = 2.25,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure2_intel',
     StrategicIconSortPriority = 245,
+	
     Weapon = {
         {
-            Damage = 5000,
+            Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 10,
             DamageType = 'Normal',

@@ -97,7 +97,7 @@ UnitBlueprint {
                 },
             },
         },
---[[
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -154,7 +154,6 @@ UnitBlueprint {
                 },
             },
         },
---]]
 
         SpawnRandomRotation = true,
         UniformScale = 0.05,

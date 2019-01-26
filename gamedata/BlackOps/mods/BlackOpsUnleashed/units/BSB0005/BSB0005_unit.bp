@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         UISelection = Sound {
             Bank = 'Interface',
@@ -6,7 +7,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 130,
+	
     Categories = {
 		'UNTARGETABLE',
         'DRONE',
@@ -17,8 +20,9 @@ UnitBlueprint {
         'TECH3',
         'VISIBLETORECON',
     },
+	
     Defense = {
-        AirThreatLevel = 0,
+
         SeraLambdaFieldRedirector01 = {
             AttachBone = 'XSB0001',
             Radius = 4,
@@ -34,7 +38,9 @@ UnitBlueprint {
         MaxHealth = 1,
         RegenRate = 0,
     },
+	
     Description = '<LOC bsb0005_desc>Lambda Emitter',
+	
     Display = {
         AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BSB0005/BSB0005_Activate.sca',
         Mesh = {
@@ -46,15 +52,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.001,
     },
+	
     Economy = {
         BuildCostEnergy = 1000,
         BuildCostMass = 175,
         BuildTime = 60,
     },
+	
     General = {
     	CapCost = 0,
         Category = 'Defense',
@@ -79,10 +87,13 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Lamdba Emitter',
     },
+	
     LifeBarRender = false,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -102,11 +113,14 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.1,
     SelectionSizeZ = 0.1,
     SelectionThickness = 0.1,
+	
     SizeX = 0.1,
     SizeY = 0.1,
     SizeZ = 0.1,
+	
     StrategicIconSortPriority = 210,
 }

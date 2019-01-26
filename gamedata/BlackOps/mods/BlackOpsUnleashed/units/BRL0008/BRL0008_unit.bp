@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -30,6 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+	
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -40,7 +44,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC brl0008_desc>Crab Egg (Deceiver)',
+	
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0008/BRL0008_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -53,20 +59,24 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 800,
         BuildCostMass = 80,
         BuildTime = 400,
+		
         BuildUnit = 'url0306',
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',

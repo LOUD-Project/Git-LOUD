@@ -29,8 +29,8 @@ ProjectileBlueprint {
         },
         MeshBlueprint = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_mesh.bp',
         StrategicIconName = '/textures/ui/common/game/strategicicons/icon_strategic_artillery.dds',
-        StrategicIconSize = 3,
-        UniformScale = 0.8,
+        StrategicIconSize = 2,
+        UniformScale = 0.65,
     },
     General = {
         Category = 'Artillery',

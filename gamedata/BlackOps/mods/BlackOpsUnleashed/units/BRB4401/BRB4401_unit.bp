@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 200,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -27,7 +30,9 @@ UnitBlueprint {
         'SORTINTEL',
 		'OVERLAYCOUNTERINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 595,
@@ -35,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 2250,
         RegenRate = 3,
     },
+	
     Description = '<LOC brb4401_desc>Cloak Field Generator',
+	
     Display = {
         Abilities = {
             'Cloak Field',
@@ -51,22 +58,26 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0016',
+
         SpawnRandomRotation = true,
         UniformScale = 0.3,
     },
+	
     Economy = {
         BuildCostEnergy = 144000,
         BuildCostMass = 11000,
         BuildTime = 13500,
+		
         MaintenanceConsumptionPerSecondEnergy = 3500,
     },
+	
 	Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
-		CapCost = 7,
+		CapCost = 10,
         Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -94,12 +105,13 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+		
         UnitName = '<LOC brb4401_name>Shadow',
         UnitWeight = 1,
     },
+	
     Intel = {
         CloakFieldRadius = 29,
 		RadarStealth = true,
@@ -110,12 +122,15 @@ UnitBlueprint {
         VisionRadius = 20,
         ShowIntelOnSelect = true,
     },
+	
     Interface = {
         HelpText = 'Cloak Field Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.15,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -137,13 +152,16 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetZ = 0.075,
     SelectionSizeX = 2.1,
     SelectionSizeZ = 2.1,
     SelectionThickness = 0.38,
+	
     SizeX = 4,
     SizeY = 5.1,
     SizeZ = 4,
+	
     StrategicIconName = 'icon_structure3_counterintel',
     StrategicIconSortPriority = 200,
 }

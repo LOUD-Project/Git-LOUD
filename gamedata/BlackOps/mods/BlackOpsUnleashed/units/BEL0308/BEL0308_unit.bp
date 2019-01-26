@@ -24,6 +24,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -58,9 +59,12 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+		
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Awalk.sca',
         AnimationWalkRate = 3,
-        AttackReticuleSize = 3,
+		
+        AttackReticuleSize = 2.5,
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -70,8 +74,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
+		
         TransportAnimation = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Afold.sca',
@@ -120,12 +125,15 @@ UnitBlueprint {
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Artillery Support Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -137,9 +145,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.7,
-        MaxBrake = 2.7,
-        MaxSpeed = 2.7,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -153,11 +161,14 @@ UnitBlueprint {
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
+	
     SizeX = 0.8,
     SizeY = 1.2,
     SizeZ = 0.8,
+	
     StrategicIconName = 'icon_bot3_directfire',
     StrategicIconSortPriority = 115,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
@@ -186,8 +197,10 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 60,
+			
 			DoTPulses = 5,
             DoTTime = 2.5,
+			
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -198,7 +211,7 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.2,
 			FiringRandomnessWhileMoving = 2.5,
 			
             FiringTolerance = 2,
@@ -211,7 +224,8 @@ UnitBlueprint {
 			MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 20,
+            MuzzleVelocity = 18,
+			MuzzleVelocityReduceRange = 65,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RapierNapalmShell01/RapierNapalmShell01_proj.bp',
 			ProjectileLifetime = 6,
@@ -242,6 +256,9 @@ UnitBlueprint {
 			
             RateOfFire = 0.25,		# 300 Damage every 4 seconds = 75dps
 			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 60,
+			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -251,9 +268,10 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+			
             TurretBoneMuzzle = 'Cannon_Left_Muzzle',
             TurretBonePitch = 'Cannon_Pitch',
-            TurretBoneYaw = 'Cannon_Turret',
+            TurretBoneYaw = 'Cannon_Pitch',
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
@@ -263,8 +281,10 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+			
             Turreted = true,
         },
+		
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -297,6 +317,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
+			NotExclusive = true,
+			
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
 			ProjectileLifetime = 1,
 			
@@ -315,6 +337,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
+			
             RackRecoilDistance = -0.2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -325,6 +348,9 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,		#-- about 75 DPS
+			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 180,
 			
             TargetCheckInterval = 0.50,
             TargetPriorities = {
@@ -340,7 +366,7 @@ UnitBlueprint {
             TurretBoneDualPitch = 'Guns_Right_Barrel',
             TurretBoneMuzzle = 'Guns_Left_Recoil',
             TurretBonePitch = 'Guns_Left_Barrel',
-            TurretBoneYaw = 'Cannon_Turret',
+            TurretBoneYaw = 'Guns_Pitch',
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

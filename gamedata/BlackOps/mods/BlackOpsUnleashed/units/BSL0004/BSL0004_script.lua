@@ -77,7 +77,9 @@ BSL0004 = Class(SLandUnit) {
 	end,
 
 	EconomyWaitUnit = function(self)
+	
     	if not self.Dead then
+		
 			WaitTicks(50)
 
         	if not self.Dead then

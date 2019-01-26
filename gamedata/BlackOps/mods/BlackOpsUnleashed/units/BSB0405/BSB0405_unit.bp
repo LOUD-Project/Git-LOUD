@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -55,13 +56,18 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
+	-- unit script will create BSB0001 emitter for Lambda defense --
+	
     Defense = {
 		dontOKControl = true,
+		
         ArmorType = 'Structure',
         EconomyThreatLevel = 250,
         Health = 16500,
         MaxHealth = 16500,
+		
         RegenRate = 15,
+		
         SurfaceThreatLevel = 120,
     },
 	
@@ -124,9 +130,9 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-personal',

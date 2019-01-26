@@ -1,12 +1,22 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 30,
-        NeedUnpack = true,
+        GuardScanRadius = 35,
     },
+	
     Audio = {
+        Close = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0304_Legs',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
             Cue = 'XSL_Destroy_Land_Lrg',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Open = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0304_Legs',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -20,16 +30,19 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYRIFTGATE',
@@ -41,19 +54,20 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
-        'OVERLAYINDIRECTFIRE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
-        Health = 1050,
-        MaxHealth = 1050,
-        RegenRate = 3,
-        SurfaceThreatLevel = 21,
+        Health = 875,
+        MaxHealth = 875,
+        RegenRate = 1,
+        SurfaceThreatLevel = 10,
     },
-    Description = '<LOC bsl0007_desc>Elite Mobile Heavy Artillery',
+	
+    Description = '<LOC bsl0007_desc>Elite Mobile Artillery',
+	
     Display = {
         Abilities = {
-            'Deploys',
 			'Quantum Powered - dies if run out of power',
         },
         AnimationDeath = {
@@ -89,7 +103,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -105,16 +119,17 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 1250,
+        BuildCostEnergy = 8900,
         BuildCostMass = 5,
-        BuildTime = 5400,
+        BuildTime = 890,
+		
         MaintenanceConsumptionPerSecondEnergy = 50,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
+	
     General = {
+		CapCost = 1,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -137,16 +152,21 @@ UnitBlueprint {
         UnitName = '<LOC bsl0007_name>Hala Suthanus',
         UnitWeight = 1,
     },
+	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Elite Mobile Heavy Artillery',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.3,
+	
     Physics = {
+		BackUpDistance = 4,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -157,10 +177,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.7,
-        MaxBrake = 2.7,
-        MaxSpeed = 2.7,
-        MaxSpeedReverse = 0,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 2.5,
         MaxSteerForce = 10,
         MeshExtentsX = 1,
         MeshExtentsY = 1.25,
@@ -168,28 +188,33 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 2,
+        TurnRadius = 0.5,
         TurnRate = 75,
     },
+	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.43,
+	
     SizeX = 0.7,
     SizeY = 0.8,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 115,
+	
     Transport = {
-        CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
-        Level1 = 9,
-        Level2 = 18,
-        Level3 = 27,
-        Level4 = 36,
-        Level5 = 45,
+        Level1 = 0.1,
+        Level2 = 0.2,
+        Level3 = 0.3,
+        Level4 = 0.4,
+        Level5 = 1,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -203,25 +228,35 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
-            Damage = 850,
+			
+            Damage = 400,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',
-            DisplayName = 'Suthanus Heavy Artillery Cannon',
+			
+            DisplayName = 'Suthanus Artillery',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.75,
+			
+            FiringRandomness = 1.2,
             FiringTolerance = 2,
+			
             Label = 'MainGun',
-            MaxRadius = 100,
-            MinRadius = 0,
+			
+            MaxRadius = 92,
+            MinRadius = 8,
+			
             MuzzleChargeDelay = 0.25,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 22,
+			
             MuzzleVelocityReduceDistance = 85,
+			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
+			ProjectileLifetime = 20,
 
             RackBones = {
                 {
@@ -238,30 +273,37 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.25,
+			
+            RateOfFire = 0.2,
             RenderFireClock = true,
+			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Turret_Barrel_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 30,
             TurretPitchRange = 40,
             TurretPitchSpeed = 20,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+			
             Turreted = true,
-            WeaponCategory = 'Artillery',
-            WeaponRepackTimeout = 0,
+
+            WeaponRepackTimeout = 0.1,
             WeaponUnpackAnimation = '/units/XSL0304/XSL0304_attack01.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,

@@ -1,14 +1,5 @@
-#****************************************************************************
-#**
-#**  File     :  /cdimage/units/XEA0002/XEA0002_script.lua
-#**  Author(s):  Drew Staltman, Gordon Duclos
-#**
-#**  Summary  :  UEF Defense Satelite Script
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
 local TAirUnit = import('/lua/terranunits.lua').TAirUnit
-local TOrbitalDeathLaserBeamWeapon = import('/lua/terranweapons.lua').TOrbitalDeathLaserBeamWeapon
+
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 local explosion = import('/lua/defaultexplosions.lua')
@@ -17,6 +8,11 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local BlackOpsEffectTemplate = import('/mods/BlackOpsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
 EEA0002 = Class(TAirUnit) {
+
+    DestroyNoFallRandomChance = 1.1,
+    
+    HideBones = { 'Shell01', 'Shell02', 'Shell03', 'Shell04', },
+    
     Parent = nil,
 
     SetParent = function(self, parent, podName)
@@ -25,69 +21,58 @@ EEA0002 = Class(TAirUnit) {
     end,
 
 	OnStopBeingBuilt = function(self,builder,layer)
+	
 		TAirUnit.OnStopBeingBuilt(self)
-		self.ProjTable = {}
+
 	end,
 	
     OnKilled = function(self, instigator, type, overkillRatio)
+	
         if self.IsDying then 
             return 
         end
+		
 		local army = self:GetArmy()
-		--self.Trash:Add(CreateAttachedEmitter(self,'Turret_Barrel_Muzzle',army, '/effects/emitters/nuke_munition_launch_trail_05_emit.bp'))
-		--self.Trash:Add(CreateAttachedEmitter(self,'Turret_Barrel_Muzzle',army, '/effects/emitters/nuke_munition_launch_trail_04_emit.bp'))
-		--self.Trash:Add(CreateAttachedEmitter(self,'Turret_Barrel_Muzzle',army, '/effects/emitters/nuke_munition_launch_trail_03_emit.bp'))
-		--self.Trash:Add(CreateAttachedEmitter(self,'Turret_Barrel_Muzzle',army, '/effects/emitters/nuke_munition_launch_trail_03_emit.bp'))
+
         self.IsDying = true
+		
         self.Parent:NotifyOfPodDeath(self.Pod)
+		
         self.Parent = nil
+		
 		self:ForkThread(self.DeathEffectsThread)
+		
         TAirUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
-    DestroyNoFallRandomChance = 1.1,
-    
-    HideBones = { 'Shell01', 'Shell02', 'Shell03', 'Shell04', },
-    
-    Weapons = {
-    },
-    
-    
     Open = function(self)
+	
+		WaitTicks(10)
+	
         ChangeState( self, self.OpenState )
     end,
     
     OpenState = State() {
+	
         Main = function(self)
+		
             self.OpenAnim = CreateAnimator(self)
             self.OpenAnim:PlayAnim( '/mods/BlackopsACUs/units/EEA0002/eea0002_aopen01.sca' )
+			
             self.Trash:Add( self.OpenAnim )
-            WaitFor( self.OpenAnim )
-            
-            self.OpenAnim:PlayAnim( '/mods/BlackopsACUs/units/EEA0002/eea0002_aopen02.sca' )
+
+			WaitTicks(50)
             
             for k,v in self.HideBones do
                 self:HideBone( v, true )
             end
-			--self:ForkThread(self.ProjSpawn)
+            
+            self.OpenAnim:PlayAnim( '/mods/BlackopsACUs/units/EEA0002/eea0002_aopen02.sca' )
+			
+			LOG("*AI DEBUG Sat Launch complete")
+
         end,
 
-		ProjSpawn = function(self)
-			if not self:IsDead() then
-				if self.ProjTable then
-					for k, v in self.ProjTable do
-						v:Destroy()
-					end
-					self.ProjTable = {}
-				end
-				local loc = self:GetPosition('XEA0002')               				
-				proj = self:CreateProjectile('/mods/BlackopsACUs/projectiles/SpysatSMDBait/SpysatSMDBait_proj.bp', loc[1], loc[2], loc[3], nil, nil, nil):SetCollision(false)
-				Warp(proj, loc)
-				table.insert (self.ProjTable, proj)
-				proj:SetParent(self, 'eea0002')   
-				self.Trash:Add(proj)
-			end
-		end,
     },
 
 	CreateDamageEffects = function(self, bone, army )

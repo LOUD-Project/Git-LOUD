@@ -46,7 +46,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 55,
+        EconomyThreatLevel = 155,
         Health = 1800,
         MaxHealth = 1800,
         RegenRate = 1,
@@ -79,9 +79,12 @@ UnitBlueprint {
         BuildCostMass = 700,
         BuildTime = 1050,
 		
+        BuildRate = 15,
+		BuildableCategory = {'bab4309'},		
+		
         MaintenanceConsumptionPerSecondEnergy = 350,
 		
-        RebuildBonusIds = {'bab4209'},
+        RebuildBonusIds = {'bab4209','bab4309'},
     },
 	
     Footprint = {
@@ -110,9 +113,9 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -122,11 +125,13 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bab4209_name>Quantum Wake Generator',
         UnitWeight = 1,
+
+        UpgradesTo = 'bab4309',		
     },
 	
     Intel = {
     	FreeIntel = true,
-        CloakFieldRadius = 65,
+        CloakFieldRadius = 55,
     },
 	
     Interface = {

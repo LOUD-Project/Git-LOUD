@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 160,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -32,15 +35,19 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 100,
         Health = 5500,
         MaxHealth = 5500,
-        RegenRate = 1,
+        RegenRate = 3,
     },
+	
     Description = '<LOC brb4309_desc>Advanced Anti-Teleport Tower',
+	
     Display = {
         Abilities = {
 			'Anti-Teleport Field:Prevents Teleportation',
@@ -56,24 +63,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 39600,
         BuildCostMass = 2520,
         BuildTime = 3150,
-        MaintenanceConsumptionPerSecondEnergy = 1500,
-        RebuildBonusIds = {
-            'brb4309',
-        },
+		
+        MaintenanceConsumptionPerSecondEnergy = 1400,
+		
+        RebuildBonusIds = {'brb4309'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -92,31 +103,40 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
+		
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
+		
         UnitName = '<LOC brb4309_name>Shroud',
         UnitWeight = 1,
+		
+		UpgradesFrom = 'brb4209',
+		UpgradesFromBase = 'brb4209',		
     },
+	
     Intel = {
     	FreeIntel = true,
         CloakFieldRadius = 100,
     },
+	
     Interface = {
         HelpText = 'Advanced Anti-Teleport Tower',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.25,
     LifeBarSize = 3.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -138,17 +158,21 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.32,
+	
     SizeX = 1,
     SizeY = 3.5,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+	
     Weapon = {
         {
-            Damage = 2500,
+            Damage = 2400,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',
@@ -158,4 +182,19 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },	
 }

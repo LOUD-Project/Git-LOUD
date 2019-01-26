@@ -72,7 +72,6 @@ UnitBlueprint {
     },
 	
     Economy = {
-        AdjacentStructureEnergyMod = -4,
 		
         BuildCostEnergy = 21000,
         BuildCostMass = 1750,

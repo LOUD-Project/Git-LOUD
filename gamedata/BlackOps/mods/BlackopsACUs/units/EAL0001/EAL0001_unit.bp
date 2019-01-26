@@ -1,10 +1,12 @@
 UnitBlueprint {
+
     Abilities = {
         EXScryTarget = {
             bitmapId = 'skry-target',
             helpText = 'EXScryTarget',
         },
     },
+	
     AI = {
         GuardRadius = 10,
         TargetBones = {
@@ -16,6 +18,7 @@ UnitBlueprint {
             'Right_Leg_B01',
         },
     },
+	
     Audio = {
         CommanderArrival = Sound {
             Bank = 'UAL',
@@ -52,11 +55,6 @@ UnitBlueprint {
             Cue = 'UAL0001_Reclaim_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Aeon_Select_Commander',
@@ -66,11 +64,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,	#3
-            Level2 = 20,	#6
-            Level3 = 30,	#9
-            Level4 = 40,	#12
-            Level5 = 50,	#15
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 	
@@ -103,12 +101,15 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Commander',
+		
         EconomyThreatLevel = 5,
+		
         Health = 40500,
         MaxHealth = 40500,
         RegenRate = 10,
         SurfaceThreatLevel = 75,
-		NoTeleDistance = 55,	#40
+		
+		NoTeleDistance = 55,
 		MaxTeleRange = 500,
     },
 	
@@ -121,45 +122,19 @@ UnitBlueprint {
             'Omni Sensor',
             'Volatile',
         },
+		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
         AnimationWalkRate = 2.5,
-        IdleEffects = {
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Right_Turret_Barrel',
-                            'Left_Turret_Muzzle',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 175,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 175, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
+		
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Foot_B01',
-                            'Right_Foot_B01',
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
-                },
                 Footfall = {
                     Bones = {
                         {
@@ -170,11 +145,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = { 0.15, 0, 0.5 },
                             },
                             Type = 'FootFall02',
                         },
@@ -186,67 +157,51 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    -0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = { -0.15, 0, 0.5 },
                             },
                             Type = 'FootFall02',
                         },
                     },
                 },
             },
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Torso',
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Right_Turret_Barrel',
-                            'Left_Turret_Muzzle',
-                            'Left_Foot_B01',
-                            'Right_Foot_B01',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         TransportAnimation = {
-            {
-                Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_afold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_afold.sca', Weight = 100 },
         },
+		
         TransportDropAnimation = {
-            {
-                Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_aunfold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_aunfold.sca', Weight = 100 },
         },
+		
         UniformScale = 0.018,
     },
+	
     Economy = {
         BuildCostEnergy = 5000000,
         BuildCostMass = 18000,
         BuildRate = 10,
+		
         BuildTime = 60000,
+		
         BuildableCategory = {
             'BUILTBYCOMMANDER AEON',
             'BUILTBYTIER2COMMANDER AEON',
             'BUILTBYTIER3COMMANDER AEON',
             'BUILTBYTIER4COMMANDER AEON',
         },
+		
         MaxBuildDistance = 15,
+		
         NaturalProducer = true,
+		
         NeedToFaceTargetToBuild = false,
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 2,
-        StorageEnergy = 5000,
+        ProductionPerSecondMass = 1,
+		
+        StorageEnergy = 4000,
         StorageMass = 650,
 		
         TeleportEnergyMod = 0.05978,
@@ -254,9 +209,7 @@ UnitBlueprint {
         TeleportTimeMod = 0.0001,
 		
 		TeleportBurstEnergyCost = 7000,
-		
-		xpBaseValue = 16000,
-		BuildxpLevelpSecond = 0,
+
         InitialRemoteViewingEnergyDrain = 2500,
     },
 	
@@ -287,22 +240,14 @@ UnitBlueprint {
             BuildTime = 1950,
 			
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
-			
             Icon = 'exles1',
 			
             Name = 'Tech 2 Improved Engineering (T1)',
 			
             ShowBones = { 'Engineering' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = { 'Left_Turret','Left_Turret_Muzzle' },
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
         },
 		
         EXImprovedEngineeringRemove = {
@@ -312,18 +257,12 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
-			
             Icon = 'exles1',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXImprovedEngineering',
-			
-            RemoveEnhancements = {
-                'EXImprovedEngineering',
-                'EXImprovedEngineeringRemove',
-            },
-			
+            RemoveEnhancements = { 'EXImprovedEngineering','EXImprovedEngineeringRemove'},
             Slot = 'LCH',
         },
 		
@@ -334,24 +273,15 @@ UnitBlueprint {
             BuildTime = 12500,
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
-			
             Icon = 'exles2',
 			
             Name = 'Tech 3 Advanced Engineering (T2)',
 			
             Prerequisite = 'EXImprovedEngineering',
-			
             ShowBones = { 'Engineering' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
         },
 		
         EXAdvancedEngineeringRemove = {
@@ -361,20 +291,13 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
-			
             Icon = 'exles2',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXAdvancedEngineering',
-			
-            RemoveEnhancements = {
-                'EXAdvancedEngineering',
-                'EXAdvancedEngineeringRemove',
-            },
-			
+            RemoveEnhancements = {'EXAdvancedEngineering','EXAdvancedEngineeringRemove'},
             Slot = 'LCH',
-			
         },
 		
         EXExperimentalEngineering = {
@@ -384,24 +307,15 @@ UnitBlueprint {
             BuildTime = 37500,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
-			
             Icon = 'exles3',
 			
             Name = 'Tech 4 Experimental Engineering (T3)',
 			
             Prerequisite = 'EXAdvancedEngineering',
-			
             ShowBones = { 'Engineering' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-			    'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
         },
 		
         EXExperimentalEngineeringRemove = {
@@ -411,20 +325,13 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
-			
             Icon = 'exles3',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXExperimentalEngineering',
-			
-            RemoveEnhancements = {
-                'EXExperimentalEngineering',
-                'EXExperimentalEngineeringRemove',
-            },
-			
+            RemoveEnhancements = {'EXExperimentalEngineering','EXExperimentalEngineeringRemove'},
             Slot = 'LCH',
-			
         },
 		
         EXCombatEngineering = {
@@ -434,26 +341,17 @@ UnitBlueprint {
             BuildTime = 1800,
 
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
-			
             Icon = 'exlce1',
 			
             Name = 'Tech 2 Combat Engineering (T1)',
 			
             ShowBones = { 'Combat_Engineering' },
-			
             HideBones = { 'Left_Turret_Plates' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
 			NewRegenRate = 15,		-- just here so interface can show the value
-			
         },
 		
         EXCombatEngineeringRemove = {
@@ -463,22 +361,14 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             ShowBones = { 'Left_Turret_Plates' },
-			
             HideBones = { 'Combat_Engineering' },
-			
             Icon = 'exlce1',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXCombatEngineering',
-			
-            RemoveEnhancements = {
-                'EXCombatEngineering',
-                'EXCombatEngineeringRemove',
-            },
-			
+            RemoveEnhancements = {'EXCombatEngineering','EXCombatEngineeringRemove'},
             Slot = 'LCH',
-			
         },
 		
         EXAssaultEngineering = {
@@ -488,28 +378,18 @@ UnitBlueprint {
             BuildTime = 7200,			#5400
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
-			
             Icon = 'exlce2',
 			
             Name = 'Tech 3 Assault Engineering (T2)',
 			
 			Prerequisite = 'EXCombatEngineering',
-			
             ShowBones = { 'Combat_Engineering' },
-			
             HideBones = { 'Left_Turret_Plates' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
 			NewRegenRate = 50,		-- just here so interface can show the value
-			
         },
 		
         EXAssaultEngineeringRemove = {
@@ -519,22 +399,14 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             ShowBones = { 'Left_Turret_Plates' },
-			
             HideBones = { 'Combat_Engineering' },
-			
             Icon = 'exlce2',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXAssaultEngineering',
-			
 			FlamerDamageMod = 2,
-			
-            RemoveEnhancements = {
-                'EXAssaultEngineering',
-                'EXAssaultEngineeringRemove',
-            },
-			
+            RemoveEnhancements = {'EXAssaultEngineering','EXAssaultEngineeringRemove'},
             Slot = 'LCH',
 			
         },
@@ -546,28 +418,18 @@ UnitBlueprint {
             BuildTime = 16200,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
-			
             Icon = 'exlce3',
 			
             Name = 'Tech 4 Apocolyptic Engineering (T3)',
 			
 			Prerequisite = 'EXAssaultEngineering',
-			
             ShowBones = { 'Combat_Engineering' },
-			
             HideBones = { 'Left_Turret_Plates' },
-			
             Slot = 'LCH',
-			
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Left_Turret_Muzzle',
-            },
-			
+            UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
 			NewRegenRate = 90,		-- versus 60 of other engineering
-			
         },
 		
         EXApocolypticEngineeringRemove = {
@@ -577,24 +439,15 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             ShowBones = { 'Left_Turret_Plates' },
-			
             HideBones = { 'Combat_Engineering' },
-			
             Icon = 'exlce3',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXApocolypticEngineering',
-			
 			FlamerDamageMod = 2,
-			
-            RemoveEnhancements = {
-                'EXApocolypticEngineering',
-                'EXApocolypticEngineeringRemove',
-            },
-			
+            RemoveEnhancements = {'EXApocolypticEngineering','EXApocolypticEngineeringRemove'},
             Slot = 'LCH',
-			
         },
 		
         EXDisruptorrBooster = {
@@ -1557,36 +1410,43 @@ UnitBlueprint {
         Level3 = 105,
         Level4 = 140,
         Level5 = 175,
-		XPBaseValue = 85321,
     },
 	
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
-            Audio = {
-            },
+            Audio = {},
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
+			
             CollideFriendly = false,
+			
             Damage = 0.1,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Target Designator',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringTolerance = 2,
+            FiringTolerance = 360,
+			
             HeadingArcCenter = 0,
             HeadingArcRange = 180,
+			
             Label = 'EXTargetPainter',
+			
             MaxRadius = 100,
+			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1601,10 +1461,12 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 4,
+            RackSlavedToTurret = true,
+
+            RateOfFire = 2,
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -1613,23 +1475,14 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TurretBoneMuzzle = 'Right_Turret_Muzzle',
-            TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
-            Turreted = true,
+
+            Turreted = false,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+			
             Audio = {
                 Fire = Sound {
                     Bank = 'UALWeapon',
@@ -1656,17 +1509,16 @@ UnitBlueprint {
 
             Label = 'RightDisruptor',
 			
-            MaxRadius = 25,		#22
+            MaxRadius = 25,
             MinRadius = 1,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
-			
-			PrefersPrimaryWeaponTarget = true,
-			
+            MuzzleVelocity = 40,
+
             ProjectileId = '/projectiles/ADFQuantumDisruptor01/ADFQuantumDisruptor01_proj.bp',
+			ProjectileLifetime = 2,
 
             RackBones = {
                 {
@@ -1689,6 +1541,9 @@ UnitBlueprint {
 			
             RateOfFire = 4,
 			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 80,
+			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -1703,20 +1558,21 @@ UnitBlueprint {
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
+            TurretBoneYaw = 'Right_Arm_B02',
+
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYaw = -35,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
 			
-            UseFiringSolutionInsteadOfAimBone = true,
+            UseFiringSolutionInsteadOfAimBone = false,
         },
         {
             AboveWaterFireOnly = true,
@@ -1731,7 +1587,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100000,			#12000
+            Damage = 100000,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Overcharge',
@@ -1740,8 +1596,8 @@ UnitBlueprint {
 			
             EnergyChargeForFirstShot = false,
 			
-            EnergyDrainPerSecond = 25000,	#3000
-            EnergyRequired = 30000,		#3000
+            EnergyDrainPerSecond = 25000,
+            EnergyRequired = 30000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
@@ -1755,7 +1611,7 @@ UnitBlueprint {
 			
             ManualFire = true,
 			
-            MaxRadius = 30,			#22
+            MaxRadius = 30,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1787,7 +1643,8 @@ UnitBlueprint {
 			
             RateOfFire = 0.1,
 			
-            SlavedToBody = false,
+            SlavedToBody = true,
+			SlavedToBodyArcRange = 80,
 			
             TargetCheckInterval = 0.2,
 			
@@ -1795,30 +1652,40 @@ UnitBlueprint {
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
+            TurretBoneYaw = 'Right_Arm_B02',
+
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+			
+            TurretYaw = -35,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+			
             Damage = 0,
             DamageFriendly = true,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Death Nuke',
+			
             FireOnDeath = true,
+			
             FiringTolerance = 2,
+			
             Label = 'DeathWeapon',
+			
             MaxRadius = 1,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
@@ -1846,13 +1713,17 @@ UnitBlueprint {
             RateOfFire = 1,
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             Turreted = false,
+			
             WeaponCategory = 'Death',
         },
+		
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             BallisticArc = 'RULEUBA_None',
+			
             Buffs = {
                 {
                     Add = {
@@ -1865,27 +1736,40 @@ UnitBlueprint {
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
                 },
             },
+			
             CanFireFromTransport = true,
+			
             CollideFriendly = false,
+			
             Damage = 1,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Chrono Dampener',
+			
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 1000,
+			
+            EnergyDrainPerSecond = 150,
+            EnergyRequired = 750,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+			
             FiringTolerance = 360,
+			
             Label = 'EXChronoDampener01',
+			
             MaxRadius = 22,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+			
             ProjectileLifetimeUsesMultiplier = 1.15,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1901,62 +1785,69 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 0.2,
             TargetCheckInterval = 5,
+			
             TargetPriorities = {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
+			
             Turreted = false,
-            WeaponCategory = 'Direct Fire',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             BallisticArc = 'RULEUBA_None',
+			
             Buffs = {
                 {
                     Add = {
                         OnFire = true,
                     },
                     BuffType = 'STUN',
-                    Duration = 3,
+                    Duration = 2.5,
                     Radius = 30,
                     TargetAllow = 'MOBILE -AIR',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
                 },
             },
+			
             CanFireFromTransport = true,
+			
             CollideFriendly = false,
+			
             Damage = 1,
             DamageRadius = 0,
             DamageType = 'Normal',
+			
             DisplayName = 'Chrono Dampener',
+			
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 5000,
-            EnergyRequired = 5000,
+			
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 1600,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 360,
+			
             Label = 'EXChronoDampener02',
+			
             MaxRadius = 30,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+			
             ProjectileLifetimeUsesMultiplier = 1.15,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1972,24 +1863,17 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 0.25,
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
+
             Turreted = false,
-            WeaponCategory = 'Direct Fire',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             Audio = {
@@ -2000,20 +1884,29 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
             CollideFriendly = false,
+			
             Damage = 380,
             DamageType = 'Normal',
+			
             DisplayName = 'Chrono Torpedo',
+			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
             FiringTolerance = 2,
+			
             Label = 'EXTorpedoLauncher01',
+			
             MaxRadius = 60,
+			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
+			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2030,9 +1923,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiNavy',
+			
             RateOfFire = 0.2,
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2041,16 +1937,10 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
             TrackingRadius = 1.15,
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
+
             Turreted = false,
-            WeaponCategory = 'Anti Navy',
         },
         {
             Audio = {
@@ -2062,19 +1952,27 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             Damage = 500,
             DamageType = 'Normal',
+			
             DisplayName = 'Chrono Torpedo',
+			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
             FiringTolerance = 2,
+			
             Label = 'EXTorpedoLauncher02',
+			
             MaxRadius = 60,
+			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
+			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2091,8 +1989,11 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiNavy',
+			
             RateOfFire = 0.25,
+			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -2103,15 +2004,8 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
+
             Turreted = false,
-            WeaponCategory = 'Anti Navy',
         },
         {
             Audio = {
@@ -2122,21 +2016,29 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
             CollideFriendly = false,
+			
             Damage = 1500,
             DamageType = 'Normal',
+			
             DisplayName = 'Chrono Torpedo',
+			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
             FiringTolerance = 2,
+			
             Label = 'EXTorpedoLauncher03',
+			
             MaxRadius = 60,
+			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
+			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectilesPerOnFire = 2,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2153,9 +2055,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiNavy',
+			
             RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2165,20 +2070,15 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
+
             Turreted = false,
-            WeaponCategory = 'Anti Navy',
         },
+		
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+			
             Audio = {
                 Fire = Sound {
                     Bank = 'UALWeapon',
@@ -2186,31 +2086,47 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
+			
             CollideFriendly = false,
+			
             Damage = 100,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
+			
             DisplayName = 'Miasma Artillery',
+			
             DoTPulses = 5,
-            DoTTime = 1,
+            DoTTime = 2,
+			
+            EnergyChargeForFirstShot = false,			
+			EnergyDrainPerSecond = 50,
+			EnergyRequired = 400,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.5,
+			
+            FiringRandomness = 0.8,
             FiringTolerance = 1,
+			
             Label = 'EXMiasmaArtillery01',
+			
             MaxRadius = 100,
             MinRadius = 20,
+			
             MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 26,
-			PrefersPrimaryWeaponTarget = true,
+            MuzzleVelocity = 23,
+			MuzzleVelocityReduceDistance = 75,
+			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+			ProjectileLifetime = 6,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2226,15 +2142,20 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -5,
+			
+            RackRecoilDistance = -2,
             RackReloadTimeout = 5,
             RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+            RackSalvoFiresAfterCharge = true,
+			RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+			
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.14286,
+			
+            RateOfFire = 1,	-- controlled by energy -- every 8 seconds
+			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -2244,24 +2165,31 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             TurretBoneMuzzle = 'Artillery_Muzzle_Right',
-            TurretBonePitch = 'Artillery_Pitch',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 45,
+			TurretBoneDualMuzzle = 'Artillery_Muzzle_Left',
+            TurretBonePitch = 'Artillery_Barrel_Right',
+			TurretBoneDualPitch = 'Artillery_Barrel_Left',
+            TurretBoneYaw = 'Artillery_Pitch',
+			
+            TurretDualManipulators = true,
+			
+            TurretPitch = 10,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Indirect Fire',
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+			
             Audio = {
                 Fire = Sound {
                     Bank = 'UALWeapon',
@@ -2269,31 +2197,45 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
+			
             Damage = 400,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+			
             DisplayName = 'Miasma Artillery',
+			
             DoTPulses = 5,
-            DoTTime = 1,
+            DoTTime = 2,
+			
+            EnergyChargeForFirstShot = false,			
+			EnergyDrainPerSecond = 100,
+			EnergyRequired = 800,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.5,
+            FiringRandomness = 0.9,
             FiringTolerance = 1,
+			
             Label = 'EXMiasmaArtillery02',
+			
             MaxRadius = 100,
             MinRadius = 20,
+			
             MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 26,
-			PrefersPrimaryWeaponTarget = true,
+            MuzzleVelocity = 23,
+			MuzzleVelocityReduceDistance = 75,
+			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+			ProjectileLifetime = 6,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2309,16 +2251,20 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -5,
+            RackRecoilDistance = -3,
             RackReloadTimeout = 5,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+			
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.14286,
+			
+            RateOfFire = 1,
             TargetCheckInterval = 1,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2327,19 +2273,25 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             TurretBoneMuzzle = 'Artillery_Muzzle_Right',
-            TurretBonePitch = 'Artillery_Pitch',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 45,
+			TurretBoneDualMuzzle = 'Artillery_Muzzle_Left',
+            TurretBonePitch = 'Artillery_Barrel_Right',
+			TurretBoneDualPitch = 'Artillery_Barrel_Left',
+            TurretBoneYaw = 'Artillery_Pitch',
+			
+            TurretDualManipulators = true,
+
+            TurretPitch = 10,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Indirect Fire',
         },
         {
             AboveWaterFireOnly = true,
@@ -2352,32 +2304,45 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
-            Damage = 1050,
+			
+            Damage = 600,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+			
             DisplayName = 'Miasma Artillery',
+			
             DoTPulses = 5,
-            DoTTime = 1,
+            DoTTime = 2,
+			
+            EnergyChargeForFirstShot = false,			
+			EnergyDrainPerSecond = 150,
+			EnergyRequired = 1050,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.1,
             FiringTolerance = 1,
+			
             Label = 'EXMiasmaArtillery03',
+			
             MaxRadius = 100,
             MinRadius = 20,
+			
             MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 26,
-			PrefersPrimaryWeaponTarget = true,
+            MuzzleVelocity = 23,
+			MuzzleVelocityReduceDistance = 75,
+
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectilesPerOnFire = 1,
+            ProjectileLifetime = 6,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2393,16 +2358,20 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -5,
+            RackRecoilDistance = -4,
             RackReloadTimeout = 5,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+			
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.2,
+			
+            RateOfFire = 1,	-- controlled by energy - every 7 seconds
             TargetCheckInterval = 1,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2411,20 +2380,27 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             TurretBoneMuzzle = 'Artillery_Muzzle_Right',
-            TurretBonePitch = 'Artillery_Pitch',
-            TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 45,
+			TurretBoneDualMuzzle = 'Artillery_Muzzle_Left',
+            TurretBonePitch = 'Artillery_Barrel_Right',
+			TurretBoneDualPitch = 'Artillery_Barrel_Left',
+            TurretBoneYaw = 'Artillery_Pitch',
+			
+            TurretDualManipulators = true,
+
+            TurretPitch = 10,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Indirect Fire',
         },
+		
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -2452,13 +2428,14 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0,
+			
             CollideFriendly = false,
+            ContinuousBeam = true,
 			
-            ContinuousBeam = false,
-			
-            Damage = 40,	-- 200 DPS due to 1/2 second beam lifetime
+            Damage = 20,	-- 200 DPS 
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -2466,20 +2443,21 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
+				Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
+				
             },
 			
-            FiringTolerance = 1,
-			FiringRandomness = 0.1,
+            FiringTolerance = 2,
 			
             Label = 'EXPhasonBeam01',
+			LeadTarget = false,
 			
             MaxRadius = 35,
 
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
-			PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2489,7 +2467,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+			
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -2497,8 +2475,14 @@ UnitBlueprint {
             RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 1,		-- 200 DPS
+			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 80,
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'TECH3 MOBILE',
@@ -2510,16 +2494,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TurretBoneMuzzle = 'Laser_Cannon_Muzzle',
+            TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
+            TurretBoneYaw = 'Right_Arm_B02',
+			
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = -35,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -2549,8 +2537,10 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+			
             CollideFriendly = false,
 			
             ContinuousBeam = true,
@@ -2570,6 +2560,7 @@ UnitBlueprint {
             FiringTolerance = 1,
 			
             Label = 'EXPhasonBeam02',
+			LeadTarget = false,
 			
             MaxRadius = 48,
 
@@ -2577,7 +2568,6 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
-			PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2593,8 +2583,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 1,
+			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 80,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -2606,16 +2602,21 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             TurretBoneMuzzle = 'Laser_Cannon_Muzzle',
             TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
+            TurretBoneYaw = 'Right_Arm_B02',
+			
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+			
+            TurretYaw = -35,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -2645,8 +2646,10 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+			
             CollideFriendly = false,
 			
             ContinuousBeam = true,
@@ -2663,7 +2666,9 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             Label = 'EXPhasonBeam03',
+			LeadTarget = false,
 			
             MaxRadius = 48,
             MinRadius = 1,
@@ -2671,7 +2676,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			PrefersPrimaryWeaponTarget = true,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2687,9 +2692,16 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 1,
+			
+			SlavedToBody = true,
+			SlavedToBodyArcRange = 80,
+
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'TECH3 MOBILE',
@@ -2700,16 +2712,21 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			
             TurretBoneMuzzle = 'Laser_Cannon_Muzzle',
             TurretBonePitch = 'Right_Turret',
-            TurretBoneYaw = 'Torso',
+            TurretBoneYaw = 'Right_Arm_B02',
+
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+			
+            TurretYaw = -35,
+            TurretYawRange = 120,
+            TurretYawSpeed = 45,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -2717,21 +2734,29 @@ UnitBlueprint {
         {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             Damage = 2,
             DamageType = 'Normal',
+			
             DisplayName = 'Anti Torpedo',
+			
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
-            FiringTolerance = 2,
+            FiringTolerance = 180,
+			
             Label = 'EXAntiTorpedo',
+			
             MaxRadius = 45,
             MinRadius = 15,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 80,
+            MuzzleVelocity = 50,
+			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3.5,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -2747,24 +2772,18 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_Countermeasure',
+			
             RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
+			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.5,
-            TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 360,
+			
             Turreted = false,
-            WeaponCategory = 'Defense',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
 
         {

@@ -1,5 +1,5 @@
--- Citadel Mk. 2 Air Staging Platform
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 300,
         RefuelingMultiplier = 10,
@@ -9,6 +9,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = false,
         StagingPlatformScanRadius = 300,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UELDestroy',
@@ -26,7 +27,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 210,
+	
     Categories = {
         'UNSELECTABLE',
 		'UNTARGETABLE',
@@ -38,7 +41,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'OVERLAYMISC',
     },
+	
     CollisionOffsetY = -0.2,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -46,7 +51,9 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
-    Description = '<LOC beb0001_desc>Air Staging Facility',
+	
+    Description = '<LOC beb0001_desc>Citadel II Airpad',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -61,11 +68,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.40,
     },
+	
     Economy = {
         BuildCostEnergy = 1,
         BuildCostMass = 1,
         BuildTime = 1,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Strategic',
@@ -96,14 +105,17 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Air Staging Facility',
     },
+	
 	Intel = {
 		RadarStealth = true,
-		--Cloaking = true,
 	},
+	
     LifeBarRender = false,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +135,18 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.1,
     SelectionSizeZ = 0.1,
     SelectionThickness = 0.1,
+	
     SizeX = 0.1,
     SizeY = 0.1,
     SizeZ = 0.1,
+	
     StrategicIconName = 'icon_structure2_air',
     StrategicIconSortPriority = 175,
+	
     Transport = {
         Class2AttachSize = 2,
         Class3AttachSize = 4,

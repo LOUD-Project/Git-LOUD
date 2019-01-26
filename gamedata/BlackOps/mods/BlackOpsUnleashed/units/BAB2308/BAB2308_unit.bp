@@ -1,7 +1,9 @@
 UnitBlueprint {
+
     AI = {
         InitialAutoMode = true,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -19,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -28,7 +31,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 150,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -75,7 +80,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0026',
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
@@ -91,10 +95,12 @@ UnitBlueprint {
             'bab2308',
         },
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 4,
         Category = 'Strategic',
@@ -160,18 +166,23 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.65,
     SelectionSizeZ = 1.65,
     SelectionThickness = 0.5,
+	
     SizeX = 3,
     SizeY = 1,
     SizeZ = 3,
+	
     SplitDamage = {
         DamageAmount = 2000,
         DamageRadius = 4,
     },
+	
     StrategicIconName = 'icon_structure2_missile',
     StrategicIconSortPriority = 180,
+	
     Veteran = {
         Level1 = 18,
         Level2 = 32,
@@ -179,6 +190,7 @@ UnitBlueprint {
         Level4 = 72,
         Level5 = 90,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

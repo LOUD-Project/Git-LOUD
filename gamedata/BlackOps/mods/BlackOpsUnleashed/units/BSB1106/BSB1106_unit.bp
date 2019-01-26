@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassEnergyStorageAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 95,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -37,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 7200,
         RegenRate = 3,
     },
+	
     Description = '<LOC bsb1106_desc>Mass & Energy Storage',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -49,26 +55,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0012',
+
         SpawnRandomRotation = true,
         UniformScale = 0.041,
     },
+	
     Economy = {
-        AdjacentMassProductionMod = 0.25,
-		AdjacentEnergyProductionMod = 2,
+
         BuildCostEnergy = 14400,
         BuildCostMass = 2400,
         BuildTime = 3000,
-        RebuildBonusIds = {
-            'bsb1106',
-        },
+		
+        RebuildBonusIds = {'bsb1106'},
+		
         StorageMass = 750,
 		StorageEnergy = 7500,
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
 		CapCost = 0.33,
         Category = 'Economy',
@@ -93,12 +101,15 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Mass & Energy Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +134,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.6,
+	
     SizeX = 1.0,
     SizeY = 0.6,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 250,
+	
     Weapon = {
         {
             Damage = 1500,
@@ -143,6 +158,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

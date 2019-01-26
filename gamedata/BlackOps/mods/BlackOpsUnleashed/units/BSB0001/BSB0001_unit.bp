@@ -57,12 +57,14 @@ UnitBlueprint {
         },
 		
         ArmorType = 'Structure',
+		
         Health = 1,
         MaxHealth = 1,
+		
         RegenRate = 0,
     },
 	
-    Description = '<LOC bsb0001_desc>Lambda Emitter',
+    Description = '<LOC bsb0001_desc>Advanced Lambda Emitter',
 	
     Display = {
         AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BSB0001/BSB0001_Activate.sca',
@@ -140,8 +142,10 @@ UnitBlueprint {
     SelectionSizeX = 0.1,
     SelectionSizeZ = 0.1,
     SelectionThickness = 0.1,
+	
     SizeX = 0.1,
     SizeY = 0.1,
     SizeZ = 0.1,
+	
     StrategicIconSortPriority = 210,
 }

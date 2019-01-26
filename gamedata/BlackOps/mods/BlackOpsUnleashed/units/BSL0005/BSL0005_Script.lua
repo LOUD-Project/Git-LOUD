@@ -1,6 +1,7 @@
-
 local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+
 local WeaponsFile = import('/lua/seraphimweapons.lua')
+
 local SDFThauCannon = WeaponsFile.SDFThauCannon
 local SDFAireauBolter = WeaponsFile.SDFAireauBolterWeapon
 local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
@@ -8,6 +9,7 @@ local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
 local ForkThread = ForkThread
 
 BSL0005 = Class(SLandUnit) {
+
     Weapons = {
         MainTurret = Class(SDFThauCannon) {},
         Torpedo01 = Class(SANUallCavitationTorpedo) {},

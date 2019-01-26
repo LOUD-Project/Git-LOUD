@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         EggOpen = Sound {
             Bank = 'XRL_Stream',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -25,13 +28,16 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 10,
         MaxHealth = 10,
         RegenRate = 0,
     },
+	
     Description = '<LOC brl0006_desc>Crab Egg (Loyalist)',
+	
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0006/BRL0006_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -44,20 +50,25 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
-        BuildCostEnergy = 5400,
-        BuildCostMass = 480,
+        BuildCostEnergy = 6600,
+        BuildCostMass = 600,
+		
         BuildTime = 2400,
+		
         BuildUnit = 'url0303',
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -81,15 +92,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 5,
     },
+	
     Interface = {
         HelpText = 'Crab Egg (Loyalist)',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -109,12 +124,15 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+	
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 220,
 }

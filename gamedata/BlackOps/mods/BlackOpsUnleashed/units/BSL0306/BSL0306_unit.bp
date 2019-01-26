@@ -84,7 +84,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
@@ -96,6 +96,7 @@ UnitBlueprint {
     },
 	
     General = {
+		CapCost = 2,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -242,7 +243,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'ALLUNITS,-WALL',
+                'ALLUNITS -WALL',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',

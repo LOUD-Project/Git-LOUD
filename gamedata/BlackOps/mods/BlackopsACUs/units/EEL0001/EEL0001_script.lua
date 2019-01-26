@@ -1,45 +1,50 @@
-#****************************************************************************
-#**
-#**  Author(s):  Exavier Macbeth
-#**
-#**  Summary  :  BlackOps: Adv Command Unit - UEF ACU
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-local Shield = import('/lua/shield.lua').Shield
-
 local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+
 local TerranWeaponFile = import('/lua/terranweapons.lua')
+
+local TANTorpedoAngler = TerranWeaponFile.TANTorpedoAngler
 local TDFZephyrCannonWeapon = TerranWeaponFile.TDFZephyrCannonWeapon
 local TIFCommanderDeathWeapon = TerranWeaponFile.TIFCommanderDeathWeapon
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local TIFCruiseMissileLauncher = TerranWeaponFile.TIFCruiseMissileLauncher
 local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local UEFACUHeavyPlasmaGatlingCannonWeapon = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').UEFACUHeavyPlasmaGatlingCannonWeapon
+
 local Weapons2 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua')
+
 local EXFlameCannonWeapon = Weapons2.HawkGaussCannonWeapon
 local UEFACUAntiMatterWeapon = Weapons2.UEFACUAntiMatterWeapon
-local PDLaserGrid = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').PDLaserGrid2 
+local UEFACUHeavyPlasmaGatlingCannonWeapon = Weapons2.UEFACUHeavyPlasmaGatlingCannonWeapon
+local PDLaserGrid = Weapons2.PDLaserGrid2
+
+local Buff = import('/lua/sim/Buff.lua')
+local Shield = import('/lua/shield.lua').Shield
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectUtil = import('/lua/EffectUtilities.lua')
 local EffectUtils = import('/lua/effectutilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
-local TANTorpedoAngler = import('/lua/terranweapons.lua').TANTorpedoAngler
 
-EEL0001 = Class(TWalkingLandUnit) {    
+
+EEL0001 = Class(TWalkingLandUnit) {
+
     DeathThreadDestructionWaitTime = 2,
 
     Weapons = {
+	
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
+		
         RightZephyr = Class(TDFZephyrCannonWeapon) {},
+		
         EXFlameCannon01 = Class(EXFlameCannonWeapon) {},
         EXFlameCannon02 = Class(EXFlameCannonWeapon) {},
+		
         EXTorpedoLauncher01 = Class(TANTorpedoAngler) {},
         EXTorpedoLauncher02 = Class(TANTorpedoAngler) {},
         EXTorpedoLauncher03 = Class(TANTorpedoAngler) {},
+		
         EXAntiMatterCannon01 = Class(UEFACUAntiMatterWeapon) {},
         EXAntiMatterCannon02 = Class(UEFACUAntiMatterWeapon) {},
         EXAntiMatterCannon03 = Class(UEFACUAntiMatterWeapon) {},
+		
         EXGattlingEnergyCannon01 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
             OnCreate = function(self)
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
@@ -65,6 +70,7 @@ EEL0001 = Class(TWalkingLandUnit) {
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,    
 		},
+		
         EXGattlingEnergyCannon02 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
             OnCreate = function(self)
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
@@ -90,6 +96,7 @@ EEL0001 = Class(TWalkingLandUnit) {
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,    
 		},
+		
         EXGattlingEnergyCannon03 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
             OnCreate = function(self)
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
@@ -115,16 +122,16 @@ EEL0001 = Class(TWalkingLandUnit) {
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,    
 		},
+		
         EXClusterMissles01 = Class(TIFCruiseMissileLauncher) {},
         EXClusterMissles02 = Class(TIFCruiseMissileLauncher) {},
         EXClusterMissles03 = Class(TIFCruiseMissileLauncher) {},
-        EXEnergyLance01 = Class(PDLaserGrid) { 
-            PlayOnlyOneSoundCue = true, 
-        }, 
-        EXEnergyLance02 = Class(PDLaserGrid) { 
-            PlayOnlyOneSoundCue = true, 
-        }, 
+		
+        EXEnergyLance01 = Class(PDLaserGrid) { PlayOnlyOneSoundCue = true }, 
+        EXEnergyLance02 = Class(PDLaserGrid) { PlayOnlyOneSoundCue = true }, 
+		
         OverCharge = Class(TDFOverchargeWeapon) {
+		
             OnCreate = function(self)
                 TDFOverchargeWeapon.OnCreate(self)
                 self:SetWeaponEnabled(false)
@@ -431,23 +438,33 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+	
         TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+		
         if self:BeenDestroyed() then return end
+		
         if (self.IdleAnim and not self:IsDead()) then
             self.Animator:PlayAnim(self.IdleAnim, true)
         end
+		
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
+		
         self.wcBuildMode = false
+		
 		self:ForkThread(self.WeaponConfigCheck)
+		
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+		
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
         self.BuildingUnit = false          
     end,
 
     NotifyOfPodDeath = function(self, pod)
+
         if pod == 'LeftPod' then
+		
             if self.HasRightPod then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove') # cant use CreateEnhancement function
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod') #makes the correct upgrade icon light up
@@ -457,8 +474,11 @@ EEL0001 = Class(TWalkingLandUnit) {
             else
                 self:CreateEnhancement('LeftPodRemove')
             end
+			
             self.HasLeftPod = false
+			
         elseif pod == 'RightPod' then   #basically the same as above but we can use the CreateEnhancement function this time
+		
             if self.HasLeftPod then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove') # cant use CreateEnhancement function
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod') #makes the correct upgrade icon light up
@@ -468,44 +488,42 @@ EEL0001 = Class(TWalkingLandUnit) {
             else
                 self:CreateEnhancement('LeftPodRemove')
             end
+			
             self.HasRightPod = false
 
-        elseif pod == 'SpySat' and self.SpysatEnabled then 
-			self.Satellite = nil
-			self:ForkThread(self.EXSatRespawn)
+        elseif pod == 'SpySat' and self.SpysatEnabled then
+
+			self:ForkThread(self.EXSatSpawn)
         end
+		
         self:RequestRefreshUI()
     end,
 
     EXSatSpawn = function(self)
-        if not self.Satellite and self.SpysatEnabled then
-			local location = self:GetPosition('Torso')
-			self.Satellite = CreateUnitHPR('EEA0002', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
+
+        if self.SpysatEnabled then
+		
+			-- for respawns --
+			if self.Satellite then
+				WaitTicks(300)
+			end
+		
+			local location = self:GetPosition('Back_IntelPack')
+			
+			self.Satellite = CreateUnitHPR('EEA0002', self:GetArmy(), location[1], location[2], location[3], 0,0,0 )
+
 			self.Satellite:AttachTo(self, 'Back_IntelPack')
+			
 			self.Trash:Add(self.Satellite)
+			
 			self.Satellite.Parent = self
 			self.Satellite:SetParent(self, 'SpySat')
+			
 			self:PlayUnitSound('LaunchSat')
+			
 			self.Satellite:DetachFrom()
 			self.Satellite:Open()
         end
-    end,
-
-    EXSatRespawn = function(self)
-        if self.SpysatEnabled then
-			WaitSeconds(300)
-			if self.SpysatEnabled and not self.Satellite then
-				local location = self:GetPosition('Torso')
-				self.Satellite = CreateUnitHPR('EEA0002', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
-				self.Satellite:AttachTo(self, 'Back_IntelPack')
-				self.Trash:Add(self.Satellite)
-				self.Satellite.Parent = self
-				self.Satellite:SetParent(self, 'SpySat')
-				self:PlayUnitSound('LaunchSat')
-				self.Satellite:DetachFrom()
-				self.Satellite:Open()
-			end
-		end
     end,
 
     OnScriptBitClear = function(self, bit)
@@ -678,9 +696,12 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
 			self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
 		end
+		
 		if not self.wcBuildMode and not self.wcOCMode then
+		
 			self:SetWeaponEnabledByLabel('RightZephyr', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
+			
 			if self.wcFlamer01 then
 				self:SetWeaponEnabledByLabel('EXFlameCannon01', true)
 				local wepFlamer01 = self:GetWeaponByLabel('EXFlameCannon01')
@@ -688,6 +709,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
 			end
+			
 			if self.wcFlamer02 then
 				self:SetWeaponEnabledByLabel('EXFlameCannon02', true)
 				local wepFlamer02 = self:GetWeaponByLabel('EXFlameCannon02')
@@ -695,6 +717,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
 			end
+			
 			if self.wcTorp01 then
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
 				local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
@@ -702,6 +725,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
 			end
+			
 			if self.wcTorp02 then
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
 				local wepTorpedo02 = self:GetWeaponByLabel('EXTorpedoLauncher02')
@@ -709,6 +733,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
 			end
+			
 			if self.wcTorp03 then
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
 				local wepTorpedo03 = self:GetWeaponByLabel('EXTorpedoLauncher03')
@@ -716,6 +741,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
 			end
+			
 			if self.wcAMC01 then
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXAntiMatterCannon01')
@@ -737,6 +763,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
 			end
+			
 			if self.wcGatling01 then
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
 				local wepGattling01 = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
@@ -758,6 +785,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
 			end
+			
 			if self.wcLance01 then
 				self:SetWeaponEnabledByLabel('EXEnergyLance01', true)
 				local wepLance01 = self:GetWeaponByLabel('EXEnergyLance01')
@@ -772,11 +800,14 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
 			end
+			
 			if self.wcCMissiles01 then
+				LOG("*AI DEBUG Missiles enabled")
 				self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
 				local wepClusterMiss01 = self:GetWeaponByLabel('EXClusterMissles01')
 				wepClusterMiss01:ChangeMaxRadius(90)
 			else
+				LOG("*AI DEBUG Missiles disabled")
 				self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
 			end
 			if self.wcCMissiles02 then
@@ -793,6 +824,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			else
 				self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
 			end
+			
 			if self.wcTMissiles01 then
 				self:SetWeaponEnabledByLabel('TacMissile', true)
 				local wepTacMiss = self:GetWeaponByLabel('TacMissile')
@@ -1278,12 +1310,17 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh == 'EXElectronicCountermeasures' then
+		
 			self.SpysatEnabled = true
+			self.Satellite = false
+			
 			self:ForkThread(self.EXSatSpawn)
+			
             if self.IntelEffectsBag then
                 EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
                 self.IntelEffectsBag = nil
             end
+			
             self.CloakEnh = false        
             self.StealthEnh = true
 
@@ -1296,11 +1333,15 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXElectronicCountermeasuresRemove' then
+		
 			self.SpysatEnabled = false
+			
 			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
 				self.Satellite:Kill()
 			end
+			
 			self.Satellite = nil
+			
 			self.StealthEnh = false
             self.CloakEnh = false 
             self.StealthFieldEffects = false

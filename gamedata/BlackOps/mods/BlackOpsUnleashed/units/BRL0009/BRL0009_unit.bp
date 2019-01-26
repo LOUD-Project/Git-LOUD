@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -30,13 +33,16 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 10,
         MaxHealth = 10,
         RegenRate = 0,
     },
+	
     Description = '<LOC brl0009_desc>Crab Egg (Firebeetle)',
+	
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRL0009/BRL0009_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -49,20 +55,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 1800,
         BuildCostMass = 300,
         BuildTime = 1200,
         BuildUnit = 'xrl0302',
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -86,15 +95,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 1,
     },
+	
     Interface = {
         HelpText = 'Crab Egg (Firebeetle)',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -114,12 +127,15 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+	
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 220,
 }

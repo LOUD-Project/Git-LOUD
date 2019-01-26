@@ -21,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -30,6 +31,7 @@ UnitBlueprint {
             Level5 = 12,
         },
     },
+	
     BuildIconSortPriority = 30,
 	
     Categories = {
@@ -46,6 +48,8 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
     },
 	
+	-- unit script will create BSB0005 emitter for Lambda defense --
+	
     Defense = {
         ArmorType = 'Normal',
         dontOKControl = true,
@@ -61,6 +65,7 @@ UnitBlueprint {
 	
     	Abilities = {
             'Lambda Destruction Field',
+			'Tactical Missile Defense',
         },
 		
         AnimationDeath = {
@@ -86,7 +91,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.065,
     },
@@ -94,7 +99,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 20000,
         BuildCostMass = 1650,
-        BuildTime = 6600,
+        BuildTime = 825,
 		
         MaintenanceConsumptionPerSecondEnergy = 30,
     },
@@ -134,16 +139,21 @@ UnitBlueprint {
         UnitName = '<LOC bsl0310_name>Ilthysathuum',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'Lambda Equipped Assault Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 0.95,
+	
     Physics = {
+		BackUpDistance = 2,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -165,21 +175,25 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        TurnRadius = 10,
+        TurnRadius = 1,
         TurnRate = 100,
     },
+	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
+	
     SizeX = 1,
     SizeY = 1.4,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_bot3_directfire',
     StrategicIconSortPriority = 125,
+	
     Transport = {
-        CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -187,6 +201,7 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -222,7 +237,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.1,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -357,6 +372,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

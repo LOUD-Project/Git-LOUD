@@ -1,9 +1,11 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Turret01',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -21,6 +23,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -30,7 +33,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 25,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -83,8 +88,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -133,9 +137,9 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-		ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+		
+		ToggleCaps = { RULEUTC_WeaponToggle = true },
+		
         UnitName = '<LOC brlk001_name>Bouncer',
         UnitWeight = 1,
     },
@@ -143,12 +147,15 @@ UnitBlueprint {
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Mobile Missile Anti-Air',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -170,20 +177,25 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 120,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.79,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.62,
+	
     SizeX = 1.2,
     SizeY = 0.6,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_bot3_antiair',
     StrategicIconSortPriority = 155,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -191,6 +203,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
 		{
 			advancedTracking = true,
@@ -246,7 +259,6 @@ UnitBlueprint {
             },
 			
             RackFireTogether = false,
-			
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,

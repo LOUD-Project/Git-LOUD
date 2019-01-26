@@ -1281,19 +1281,24 @@ CybranHailfire03Projectile = Class(SinglePolyTrailProjectile) {
 }
 
 RapierNapalmShellProjectile = Class(SinglePolyTrailProjectile) {
+
 	PolyTrail = '/effects/emitters/default_polytrail_07_emit.bp',
 
-    # Hit Effects
     FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactLand = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
     FxImpactUnderWater = {},
+    FxLandHitScale = 0.8,
+    FxUnitHitScale = 0.8,
+    FxPropHitScale = 0.8,
+    FxWaterHitScale = 0.8,	
 }
 
 GoliathTMDProjectile = Class(MultiPolyTrailProjectile) {
+
     PolyTrails = BlackOpsEffectTemplate.GoliathTMD01,
-    --PolyTrailOffset = EffectTemplate.TPhalanxGunPolyTrailsOffsets,
+
     FxImpactUnit = EffectTemplate.TRiotGunHitUnit01,
     FxImpactProp = EffectTemplate.TRiotGunHitUnit01,
     FxImpactNone = EffectTemplate.FireCloudSml01,

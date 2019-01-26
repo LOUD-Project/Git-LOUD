@@ -28,7 +28,7 @@ UnitBlueprint {
 		
         LiftFactor = 5,
 		
-        MaxAirspeed = 10,
+        MaxAirspeed = 13,
         MinAirspeed = 2,
 		
 		TurnRate = 1,
@@ -76,15 +76,15 @@ UnitBlueprint {
     CollisionOffsetZ = -0.07,
 	
     Defense = {
-		AirThreatLevel = 8,
+		AirThreatLevel = 5,
         ArmorType = 'Light',
-        Health = 1200,
-        MaxHealth = 1200,
-        RegenRate = 0,
-		SurfaceThreatLevel = 8,
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 5,
+		SurfaceThreatLevel = 5,
     },
 	
-    Description = '<LOC bsa0004_desc>Heavy Defense Drone',
+    Description = '<LOC bsa0004_desc>Heavy Attack Drone',
 	
     Display = {
         Mesh = {
@@ -103,7 +103,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 1500,
-        BuildCostMass = 180,
+        BuildCostMass = 140,
         BuildTime = 210,
     },
 	
@@ -189,7 +189,8 @@ UnitBlueprint {
         Level3 = 15,
         Level4 = 20,
         Level5 = 25,
-    }, 
+    },
+	
     Weapon = {
         {
             Audio = {
@@ -200,9 +201,12 @@ UnitBlueprint {
                 },
             },
             AutoInitiateAttackCommand = true,
+			
             BallisticArc = 'RULEUBA_None',
+			
             BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
+			
             CollideFriendly = false,
 			
             Damage = 25,
@@ -220,7 +224,7 @@ UnitBlueprint {
 			
             Label = 'EyeWeapon01',
 			
-            MaxRadius = 28,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -245,7 +249,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,		-- 75 DPS Air
+            RateOfFire = 0.5,		-- 50 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
@@ -256,7 +260,7 @@ UnitBlueprint {
                 'AIR MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Beam_Muzzle01',

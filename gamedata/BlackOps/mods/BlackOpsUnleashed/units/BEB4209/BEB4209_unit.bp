@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 190,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -28,19 +31,25 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 6,
+        EconomyThreatLevel = 155,
         Health = 1800,
         MaxHealth = 1800,
+		RegenRate = 1,
     },
+	
     Description = '<LOC beb4209_desc>Anti-Teleport Field Tower',
+	
     Display = {
         Abilities = {
         	'Anti-Teleport Field:Prevents Teleportation',
 			'Aquatic: Can be built underwater',
             'Volatile',
+			'Upgradeable',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -51,23 +60,30 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0016',
+
         SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
+	
     Economy = {
         BuildCostEnergy = 13125,
         BuildCostMass = 700,
         BuildTime = 1050,
+		
+		BuildRate = 15,
+		
+		BuildableCategory = {'beb4309'},
+
         MaintenanceConsumptionPerSecondEnergy = 350,
-        RebuildBonusIds = {
-            'beb4309',
-        },
+		
+        RebuildBonusIds = {'beb4209','beb4309'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',
@@ -87,31 +103,38 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
+		
         UnitName = '<LOC beb4209_name>ATF-205 Preventer',
         UnitWeight = 1,
+		UpgradesFromBase = 'beb4209',		
+        UpgradesTo = 'beb4309',		
     },
+	
     Intel = {
     	FreeIntel = true,
         CloakFieldRadius = 55,
     },
+	
     Interface = {
         HelpText = 'Anti-Teleport Field Tower',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -136,19 +159,23 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 1,
     SizeY = 4,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+	
     Weapon = {
         {
-            Damage = 800,
+            Damage = 750,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -156,4 +183,19 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.3,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },	
 }

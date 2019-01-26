@@ -118,7 +118,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.032,
     },
@@ -382,8 +382,6 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RangeCategory = 'UWRC_DirectFire',
-			
             RateOfFire = 0.9,		-- 135 DPS
 			
             SlavedToBody = true,
@@ -478,9 +476,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.9,		-- 135 DPS
 			
             SlavedToBody = true,
@@ -581,9 +577,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,	-- 500/4 = 125 DPS
 			
             SlavedToBody = true,
@@ -683,9 +677,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,	-- 125 DPS Surface
 			
             SlavedToBody = true,
@@ -781,11 +773,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
@@ -860,17 +851,15 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 1,		#-- 150 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -928,7 +917,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
 			
-            #MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
             ProjectileLifetime = 10,
@@ -1124,9 +1113,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 150 DPS Surface
 
             SlavedToBody = false,

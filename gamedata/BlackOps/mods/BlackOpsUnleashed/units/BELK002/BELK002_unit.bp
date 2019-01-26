@@ -1,9 +1,9 @@
 UnitBlueprint {
+
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { 'Turret' },
     },
+	
     Audio = {
         StartMove = Sound {
             Bank = 'UEL',
@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
 	Buffs = {
 		Regen = {
 			Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 45,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -45,7 +48,9 @@ UnitBlueprint {
         MaxHealth = 2750,
         RegenRate = 2,
     },
+	
     Description = '<LOC belk002_desc>Mobile Rapid-fire AA Cannon',
+	
     Display = {
         Abilities = {
             'Anti-Air',
@@ -60,7 +65,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
 		TransportAnimation = {
             {
@@ -76,11 +81,13 @@ UnitBlueprint {
         },
         UniformScale = 0.11,
     },
+	
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
         BuildTime = 3200,
     },
+	
     General = {
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -104,15 +111,19 @@ UnitBlueprint {
         UnitName = '<LOC belk002_name>Cougar',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 32,
     },
+	
     Interface = {
         HelpText = 'Mobile AA Cannon',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -140,19 +151,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 100,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.64,
+	
     SizeX = 1.0,
     SizeY = 0.5,
     SizeZ = 1.1,
+	
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 85,
+	
     Transport = {
         TransportClass = 3,
     },
+	
 	Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -160,6 +176,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -171,10 +188,10 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-			CannotAttackGround = true,
+			CannotAttackGround = false,
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 40,
 			DamageRadius = 1,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
@@ -194,8 +211,8 @@ UnitBlueprint {
             MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 10,		-- 1 seconds of fire
-            MuzzleVelocity = 88,
+            MuzzleSalvoSize = 8,
+            MuzzleVelocity = 74,
 			
             NoPause = true,		-- umm...what does this really do?
 			
@@ -212,11 +229,10 @@ UnitBlueprint {
                 },
 			},
             RackFireTogether = true,
-			
             
             RackReloadTimeout = 0,
 			
-            RackSalvoChargeTime = 1,
+            RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 1,
 			
             RackSalvoSize = 5,
@@ -225,7 +241,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.7,	-- 1.4 second cycle = 315 DPS Air
+            RateOfFire = 1,		-- 320 DPS Air
 			
 			ReTargetOnMiss = true,
 			
@@ -253,12 +269,12 @@ UnitBlueprint {
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 125,
+            TurretYawSpeed = 100,
 			
             Turreted = true,
 			
@@ -268,6 +284,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
 	},
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

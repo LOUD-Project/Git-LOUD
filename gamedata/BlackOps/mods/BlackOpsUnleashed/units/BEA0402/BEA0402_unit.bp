@@ -425,9 +425,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,					-- 450 DPS Ground
 			
             TargetCheckInterval = 1.0,
@@ -608,9 +606,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.4,					-- 576 DPS Air
             TargetCheckInterval = 1.0,
 			
@@ -700,9 +696,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.4,					-- 576 DPS Air
             TargetCheckInterval = 1.0,
 			
@@ -791,9 +785,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.4,						-- 576 DPS Air
             TargetCheckInterval = 1.0,
 			
@@ -989,9 +981,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 2,						-- 160 DPS Air
 			
             TargetCheckInterval = 0.3,
@@ -1086,9 +1076,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 2,							-- 160 DPS Air
 			
             TargetCheckInterval = 0.3,
@@ -1097,7 +1085,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',			
             TrackingRadius = 1.25,
 			
@@ -1184,9 +1172,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 2,						-- 160 DPS Air
 			
             TargetCheckInterval = 0.3,
@@ -1273,6 +1259,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 1,	-- 260 DPS Air
@@ -1369,7 +1356,6 @@ UnitBlueprint {
 			
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 1,	-- 260 DPS Air
 			ReTargetOnMiss = true,

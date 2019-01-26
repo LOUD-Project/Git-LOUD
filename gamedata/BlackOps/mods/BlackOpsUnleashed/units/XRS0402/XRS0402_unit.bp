@@ -156,7 +156,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0005',
+
         SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
@@ -326,7 +326,7 @@ UnitBlueprint {
                     TargetDisallow = 'COMMAND,WALL',
                 },			
             },
-						
+
             CollideFriendly = false,
 			
             Damage = 1400,
@@ -527,9 +527,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,		-- another 700 DPS
 			
             SlavedToBody = true,
@@ -757,9 +755,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.6,		-- 160 DPS
 			
             SlavedToBody = true,
@@ -865,9 +861,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.6,
 			
             SlavedToBody = true,
@@ -972,9 +966,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.6,
 			
             SlavedToBody = true,
@@ -1080,9 +1072,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.6,
 			
             SlavedToBody = true,
@@ -1180,29 +1170,36 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+			
             RangeCategory = 'UWRC_AntiAir',
+			
             RateOfFire = 2,					-- 320 DPS Air
+			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE TORPEDOBOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'TORPEDOBOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
+			
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
             TurretBoneYaw = 'Front_Turret_AA',
             TurretDualManipulators = false,
+			
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+			
             Turreted = true,
         },
         {
@@ -1263,19 +1260,17 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,			-- another 320 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE TORPEDOBOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'TORPEDOBOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
@@ -1511,9 +1506,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
-			
+
             RateOfFire = 0.6,
             TargetCheckInterval = 0.5,
 			

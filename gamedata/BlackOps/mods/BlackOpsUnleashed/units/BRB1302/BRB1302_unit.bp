@@ -64,8 +64,6 @@ UnitBlueprint {
     },
 	
     Economy = {
-        AdjacentStructureEnergyMod = -5,
-		
         BuildCostEnergy = 64250,
         BuildCostMass = 4250,
         BuildTime = 5400,

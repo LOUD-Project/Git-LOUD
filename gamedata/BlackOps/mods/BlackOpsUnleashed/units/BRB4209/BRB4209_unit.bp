@@ -41,10 +41,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 55,
+        EconomyThreatLevel = 155,
         Health = 1800,
         MaxHealth = 1800,
-        RegenRate = 1,
+        RegenRate = 2,
     },
 	
     Description = '<LOC brb4209_desc>Anti-Teleport Tower',
@@ -74,9 +74,12 @@ UnitBlueprint {
         BuildCostMass = 700,
         BuildTime = 1050,
 		
+		BuildRate = 15,
+		BuildableCategory = {'brb4309'},
+		
         MaintenanceConsumptionPerSecondEnergy = 350,
 		
-        RebuildBonusIds = {'brb4209'},
+        RebuildBonusIds = {'brb4209','brb4309'},
     },
 	
     Footprint = {
@@ -85,6 +88,7 @@ UnitBlueprint {
     },
 	
     General = {
+		CapCost = 1,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -106,9 +110,9 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -117,6 +121,7 @@ UnitBlueprint {
         },
         UnitName = '<LOC brb4209_name>Mist',
         UnitWeight = 1,
+		
         UpgradesTo = 'brb4309',
     },
 	
