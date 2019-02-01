@@ -683,36 +683,22 @@ UnitBlueprint {
 			Prerequisite = 'EXGattlingEnergyCannon',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 40,
-            ShowBones = {
-                'Gatling_Cannon',
-            },
+            ShowBones = {'Gatling_Cannon'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+			UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'UEL0001'},			
         },
+		
         EXImprovedCoolingSystemRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Gatling_Cannon',
-            },
+            HideBones = {'Gatling_Cannon'},
             Icon = 'exrgec2',
             Name = 'Remove Automatic Barrel Stabalizers',
             Prerequisite = 'EXImprovedCoolingSystem',
 			ZephyrDamageMod = 100,
-            RemoveEnhancements = {
-                'EXGattlingEnergyCannon',
-                'EXImprovedCoolingSystem',
-                'EXImprovedCoolingSystemRemove',
-            },
+            RemoveEnhancements = {'EXGattlingEnergyCannon','EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
             Slot = 'RCH',
         },
 		
@@ -725,20 +711,12 @@ UnitBlueprint {
 			Prerequisite = 'EXImprovedCoolingSystem',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 45,
-            ShowBones = {
-                'Gatling_Cannon',
-            },
+            ShowBones = {'Gatling_Cannon'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Upgrade_Muzzle',
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+			UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXEnergyShellHardenerRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -750,12 +728,7 @@ UnitBlueprint {
             Name = 'Remove Enhanced Power Subsystems',
             Prerequisite = 'EXEnergyShellHardener',
 			ZephyrDamageMod = 100,
-            RemoveEnhancements = {
-                'EXGattlingEnergyCannon',
-                'EXImprovedCoolingSystem',
-                'EXEnergyShellHardener',
-                'EXEnergyShellHardenerRemove',
-            },
+            RemoveEnhancements = {'EXGattlingEnergyCannon','EXImprovedCoolingSystem','EXEnergyShellHardener','EXEnergyShellHardenerRemove'},
             Slot = 'RCH',
         },
 		
@@ -777,31 +750,21 @@ UnitBlueprint {
             ShieldRegenStartTime = 0,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
-            ShowBones = {
-                'Back_ShieldPack',
-            },
+            ShowBones = {'Back_ShieldPack'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXShieldBatteryRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_ShieldPack',
-            },
+            HideBones = {'Back_ShieldPack'},
             Icon = 'exbsh1',
             Name = 'Remove Shield Battery',
             Prerequisite = 'EXShieldBattery',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXShieldBatteryRemove',
-            },
+            RemoveEnhancements = {'EXShieldBattery','EXShieldBatteryRemove'},
             Slot = 'Back',
         },
 		
@@ -824,18 +787,12 @@ UnitBlueprint {
             ShieldRegenStartTime = 0,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
-            ShowBones = {
-                'Back_ShieldPack',
-                'Right_Lance_Turret',
-            },
+            ShowBones = {'Back_ShieldPack','Right_Lance_Turret'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+			UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXActiveShieldingRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -847,11 +804,7 @@ UnitBlueprint {
             Icon = 'exbsh2',
             Name = 'Remove Improved Shield Battery',
             Prerequisite = 'EXActiveShielding',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXActiveShielding',
-                'EXActiveShieldingRemove',
-            },
+            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXActiveShieldingRemove'},
             Slot = 'Back',
         },
 		
@@ -874,18 +827,12 @@ UnitBlueprint {
             ShieldRegenStartTime = 0,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
-            ShowBones = {
-                'Back_ShieldPack',
-                'Right_Lance_Turret',
-            },
+            ShowBones = {'Back_ShieldPack','Right_Lance_Turret'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+			UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXImprovedShieldBatteryRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -897,12 +844,7 @@ UnitBlueprint {
             Icon = 'exbsh3',
             Name = 'Remove Advanced Shield Battery',
             Prerequisite = 'EXImprovedShieldBattery',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXActiveShielding',
-                'EXImprovedShieldBattery',
-                'EXImprovedShieldBatteryRemove',
-            },
+            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXImprovedShieldBattery','EXImprovedShieldBatteryRemove' },
             Slot = 'Back',
         },
 		
@@ -927,14 +869,10 @@ UnitBlueprint {
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_ShieldPack',
-                'Right_Lance_Turret',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_ShieldPack','Right_Lance_Turret'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXShieldExpanderRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -964,34 +902,23 @@ UnitBlueprint {
             Name = 'Electronic Enhancment (T2)',
 			NewVisionRadius = 50,
 			NewOmniRadius = 50,
-            ShowBones = {
-                'Back_IntelPack',
-                'Right_Lance_Turret',
-            },
+            ShowBones = {'Back_IntelPack','Right_Lance_Turret'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
+			
 			NewRegenRate = 0,
         },
+		
         EXElectronicsEnhancmentRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_IntelPack',
-                'Right_Lance_Turret',
-            },
+			HideBones = {'Back_IntelPack','Right_Lance_Turret'},
             Icon = 'exbint1',
             Name = 'Remove Electronic Enhancment',
             Prerequisite = 'EXElectronicsEnhancment',
-            RemoveEnhancements = {
-                'EXElectronicsEnhancment',
-                'EXElectronicsEnhancmentRemove',
-            },
+            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicsEnhancmentRemove'},
             Slot = 'Back',
         },
 		
@@ -1003,19 +930,12 @@ UnitBlueprint {
             Name = 'Spysat Control Systems (T3)',
 			Prerequisite = 'EXElectronicsEnhancment',
 			MaintenanceConsumptionPerSecondEnergy = 1,
-            ShowBones = {
-                'Back_IntelPack',
-                'Right_Lance_Turret',
-                'Left_Lance_Turret',
-            },
+            ShowBones = {'Back_IntelPack','Right_Lance_Turret','Left_Lance_Turret'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
+		
         EXElectronicCountermeasuresRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -1162,12 +1082,8 @@ UnitBlueprint {
                 'Back_MissilePack_B01',
             },
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
         EXTacticalNukeSubstitutionRemove = {
             BuildCostEnergy = 1,
@@ -1195,22 +1111,16 @@ UnitBlueprint {
             BuildTime = 400,
             Icon = 'led',
             Name = 'C-D1 Shoulder Drone (T1)',
-            ShowBones = {
-            },
+            ShowBones = {},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'AttachSpecial01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'AttachSpecial01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
         LeftPodRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-            },
+            HideBones = {},
             Icon = 'led',
             Name = 'Remove C-D1 Shoulder Drone',
             Prerequisite = 'LeftPod',
@@ -1229,19 +1139,14 @@ UnitBlueprint {
             Name = 'C-D2 Shoulder Drone (T1)',
             Prerequisite = 'LeftPod',
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'AttachSpecial02',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'AttachSpecial02'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
         RightPodRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-            },
+            HideBones = {},
             Icon = 'red',
             Name = 'Remove C-D2 Shoulder Drone',
             Prerequisite = 'RightPod',
@@ -1650,8 +1555,6 @@ UnitBlueprint {
             RackFireTogether = false,
             RackSalvoSize = 1,
 
-            RangeCategory = 'UWRC_Misc',
-			
             RateOfFire = 3,	-- 120 DPS -- 3 * 10 pulses of 4 dmg
 
             TargetCheckInterval = 0.5,
@@ -1740,9 +1643,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_Misc',
-			
+
             RateOfFire = 3,		-- 240 DPS
 			
             TargetCheckInterval = 0.5,
