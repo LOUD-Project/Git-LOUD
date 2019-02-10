@@ -802,12 +802,10 @@ EEL0001 = Class(TWalkingLandUnit) {
 			end
 			
 			if self.wcCMissiles01 then
-				LOG("*AI DEBUG Missiles enabled")
 				self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
 				local wepClusterMiss01 = self:GetWeaponByLabel('EXClusterMissles01')
 				wepClusterMiss01:ChangeMaxRadius(90)
 			else
-				LOG("*AI DEBUG Missiles disabled")
 				self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
 			end
 			if self.wcCMissiles02 then
