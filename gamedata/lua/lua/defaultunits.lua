@@ -3673,7 +3673,7 @@ ConstructionUnit = Class(MobileUnit) {
 						if not unit.NotBuildingThread then
 
 							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
+								unit.PlatoonHandle:ProcessBuildCommand( unit, true)
 							end
 
 						end
@@ -3689,7 +3689,7 @@ ConstructionUnit = Class(MobileUnit) {
 				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
 
 					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
+						unit.PlatoonHandle:ProcessBuildCommand( unit, false)
 					end
 
 				end
@@ -3702,7 +3702,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 
-						unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, false)
+						unit.PlatoonHandle:ProcessBuildCommand( unit, false )
 
 					end
 
@@ -3719,7 +3719,7 @@ ConstructionUnit = Class(MobileUnit) {
 						if unit.IssuedBuildCommand then
 
 							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
-								unit:ForkThread(unit.PlatoonHandle.ProcessBuildCommand, true)
+								unit.PlatoonHandle:ProcessBuildCommand( unit, true)
 							end
 
 						end

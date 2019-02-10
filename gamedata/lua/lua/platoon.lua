@@ -5908,11 +5908,10 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 			
-			eng:ForkThread( self.ProcessBuildCommand, false )
+			self:ProcessBuildCommand(eng,false)
 
         end
 
-					
 	end,
 	
     EngineerBuildMassDefenseAdjacencyAI = function( self, aiBrain )
@@ -6079,7 +6078,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				if not eng.Dead and builtsomething then
 			
-					eng:ForkThread(self.ProcessBuildCommand, false)
+					self:ProcessBuildCommand(eng,false)
 				
 					return
 				
@@ -6202,7 +6201,7 @@ Platoon = Class(moho.platoon_methods) {
             end
 
             if not eng.Dead and builtsomething then
-                eng:ForkThread(self.ProcessBuildCommand, false )
+                self:ProcessBuildCommand( eng, false )
 				return
             end
 			
@@ -6215,7 +6214,7 @@ Platoon = Class(moho.platoon_methods) {
 	-- Processes the first entry in the queue and the runs this again using the removeLastBuild flag
 	-- which will remove the previous item from the queue
 	-- when the queue is empty the engy will either RTB or repeat his plan (loopbuilders)
-    ProcessBuildCommand = function( eng, removeLastBuild )
+    ProcessBuildCommand = function( self, eng, removeLastBuild )
 	
 		if BeenDestroyed(eng) then return end
 		
@@ -6311,7 +6310,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 								LOG("*AI DEBUG Eng "..eng.Sync.id.." "..eng.PlatoonHandle.BuilderName.." Stuck in WatchForNotBuilding")
 								
-								eng:ForkThread(platoon.ProcessBuildCommand, false)
+								self:ProcessBuildCommand(eng,false)
 							
 								return
 							
@@ -6340,7 +6339,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 						--LOG("*AI DEBUG Eng "..eng.Sync.id.." exits WFNB from capture/reclaim")
 						
-						eng:ForkThread( platoon.ProcessBuildCommand, false )
+						self:ProcessBuildCommand( eng,false )
 						
 						return
 				
@@ -6349,7 +6348,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						--LOG("*AI DEBUG Eng "..eng.Sync.id.." exits WFNB from build/repair")
 						
-						eng:ForkThread( platoon.ProcessBuildCommand, true )
+						self:ProcessBuildCommand( eng,true )
 						
 						return
 
@@ -6791,7 +6790,9 @@ Platoon = Class(moho.platoon_methods) {
 									-- clear all queue items
 									eng.EngineerBuildQueue = {}
 									
-									eng:ForkThread( platoon.ProcessBuildCommand, false )
+									--LOG("*AI DEBUG basetaken")
+									
+									self:ProcessBuildCommand( eng,false )
 
 									return
 									
@@ -6814,7 +6815,7 @@ Platoon = Class(moho.platoon_methods) {
 									-- clear all queue items
 									eng.EngineerBuildQueue = {}
 									
-									eng:ForkThread( platoon.ProcessBuildCommand, false )
+									self:ProcessBuildCommand( eng, false )
 
 									return
 									
@@ -6853,7 +6854,7 @@ Platoon = Class(moho.platoon_methods) {
 										-- cancel a looping builder --
 										platoon.PlatoonData.Construction.LoopBuild = false
 										
-										eng:ForkThread( platoon.ProcessBuildCommand, true )
+										self:ProcessBuildCommand( eng,true )
 							
 										return
 										
@@ -6882,7 +6883,9 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- move onto next item to build
 						
-						eng:ForkThread( platoon.ProcessBuildCommand, true )
+						--LOG("*AI DEBUG Failed to build")
+						
+						self:ProcessBuildCommand( eng,true )
 						
 						return
 
