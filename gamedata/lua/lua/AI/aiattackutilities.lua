@@ -283,7 +283,10 @@ function GetPathGraphs()
 							ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
 							
 						else
-							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position")
+						
+							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
+							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
+							
 						end
 						
 					end
