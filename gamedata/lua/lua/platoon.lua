@@ -4584,7 +4584,7 @@ Platoon = Class(moho.platoon_methods) {
 
 								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation) )
 							
-								cmd = IssueFormAggressiveMove(self:GetPlatoonUnits(), distressLocation, 'AttackFormation', 0)	--self:AggressiveMoveToLocation( distressLocation )
+								cmd = self:AggressiveMoveToLocation( distressLocation )
 								
 								--LOG("*AI DEBUG cmd is "..repr(cmd))
 								
