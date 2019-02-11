@@ -270,7 +270,7 @@ end
 
 -- modded this function so that the score portion only updates when there is new current score data
 function _OnBeat()
-	
+
 	-- if there is a score table update the scores - see AIBrain.lua for Collect Current Scores
     if scoreData.current then	--currentScores then
 	

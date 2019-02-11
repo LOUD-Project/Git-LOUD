@@ -180,7 +180,9 @@ BuilderManager = Class {
 		
 		if builder and priority then
 
-			WaitTicks(timeoutticks)	
+			if timeoutticks then
+				WaitTicks(timeoutticks)
+			end
 
 			builder:ResetPriority(self)
 

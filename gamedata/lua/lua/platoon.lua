@@ -241,11 +241,13 @@ Platoon = Class(moho.platoon_methods) {
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
 
+			--LOG("*AI DEBUG "..self.BuilderName.." has path of "..repr(path))			
 			
 			for wpidx, waypointPath in path do
 			
 				if self.MoveThread then
 
+					--LOG("*AI DEBUG "..self.BuilderName.." is moving to "..repr(waypointPath))
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, 30)
 			
@@ -637,6 +639,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- we'll look for a drop zone at least half as close as we already are
 				local markerrange = VDist3( self:GetPlatoonPosition(), destination ) * .5
 				
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
 			
 				transportLocation = false
 
@@ -2316,7 +2319,7 @@ Platoon = Class(moho.platoon_methods) {
 			position = GetPlatoonPosition(self) or false
 			
 			-- FIRST TASK -- FIND A POINT WE CAN GET TO --
-			-- insure the same point is not picked repeatedly
+			-- new feature to insure the same point is not picked repeatedly
 			
 			marker = false
 			
@@ -2353,7 +2356,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
 							marker = false
 							
@@ -2361,7 +2364,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." marker select is "..repr(marker))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker))
 
 					guardtime = 0
 					guarding = false
@@ -2838,7 +2841,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if MissionTimer == 'Abort' then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." Abort Platoon")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." Abort Platoon")
 					
 					-- assign them to the structure pool so they dont interfere with normal unit pools
 					AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
@@ -4448,7 +4451,7 @@ Platoon = Class(moho.platoon_methods) {
 								-- mark the platoon as having a distress call
 								self.DistressCall = true
 								
-								if ScenarioInfo.DispalyPingAlerts then
+								if ScenarioInfo.DisplayPingAlerts then
 								
 									-- send a visual ping to the interface -- 
 									AISendPing( LOUDCOPY(pos), 'attack', aiBrain.ArmyIndex )
@@ -4508,7 +4511,15 @@ Platoon = Class(moho.platoon_methods) {
 		
 			WaitTicks(55)
 			
-            platoonPos = GetPlatoonPosition(self) or false
+			if PlatoonExists(aiBrain,self) then
+			
+				platoonPos = GetPlatoonPosition(self) or false
+				
+			else
+			
+				platoonPos = false
+				
+			end
 			
 			-- Find a distress location within the platoons range
             if self.DistressResponseAIRunning and (platoonPos and (not self.DistressCall) and (not self.UsingTransport)) and (aiBrain.CDRDistress or aiBrain.PlatoonDistress.AlertSounded or aiBrain.BaseAlertSounded) and (not self.RespondingToDistress)  then
@@ -5416,6 +5427,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			end
         end
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." begins EBAI")
 
         local factionIndex = cons.FactionIndex or aiBrain.FactionIndex
 		
@@ -5897,7 +5909,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			else
 			
-				WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
+				--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
 				
 				eng.EngineerBuildQueue = {}
 				eng.failedbuilds = eng.failedbuilds + 1
@@ -6291,8 +6303,10 @@ Platoon = Class(moho.platoon_methods) {
 				local stuckCount = 0
 
 				WaitTicks(4)
+				
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." starts WFNB")
 		
-				while (not eng.Dead) and (not eng:IsIdleState()) and not eng.Fighting do	
+				while eng and (not eng.Dead) and (not eng:IsIdleState()) and not eng.Fighting do	
 		
 					WaitTicks(20)
 			
@@ -6331,6 +6345,8 @@ Platoon = Class(moho.platoon_methods) {
 					engLastPos = table.copy(engPos)
 					
 				end
+				
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." exitting WFNB")
 				
 				if (not BeenDestroyed(eng)) and (not eng.Dead) and ( eng:IsIdleState() or eng.Fighting ) then
 					
@@ -6526,7 +6542,6 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local function EngineerMoveWithSafePath( buildlocation )
-			
 
 				local pos = LOUDCOPY( eng:GetPosition())
 				local distance = VDist2( pos[1],pos[3],buildlocation[1],buildlocation[3] )
@@ -6600,6 +6615,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- checking if the site is valid and safe along the way
 			local function EngineerMoving( buildlocation, builditem )
 			
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." moving")
 
 				if EngineerThreatened( buildlocation ) then
 				
@@ -6697,10 +6713,10 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end			
 
+			--LOG("*AI DEBUG buildLocation is "..repr(buildLocation))
 			
 			-- get the engineer moved to the goal --
 			if EngineerMoving( buildLocation, buildItem ) then
-			
 			
 				if aiBrain:PlatoonExists( platoon ) and not eng.Dead then
 					platoon:Stop()
@@ -8233,7 +8249,7 @@ Platoon = Class(moho.platoon_methods) {
             if counter > 0 then
 			
 				-- complete the merge by assigning the units
-				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..self.BuilderName.." into "..repr(aPlat.BuilderName))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..repr(self.BuilderName).." into "..repr(aPlat.BuilderName))
 
 				AssignUnitsToPlatoon( aiBrain, aPlat, validUnits, 'Attack', 'GrowthFormation' )
 

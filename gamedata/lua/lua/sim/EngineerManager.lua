@@ -265,6 +265,10 @@ EngineerManager = Class(BuilderManager) {
 					unit.PlatoonHandle = false
 					unit.failedbuilds = unit.failedbuilds + 1
 					
+					if unit.failedbuilds > 20 then
+						unit.failedbuilds = 20
+					end
+					
 					return self:DelayAssignEngineerTask( unit, aiBrain )
 					
 				end
@@ -772,22 +776,18 @@ EngineerManager = Class(BuilderManager) {
 	-- it determines if any threatening targets have entered the alert range of the base and issues an alert
 	-- This base, and various platoons, use these alerts to send response teams
 	BaseMonitorSetup = function( self, aiBrain)
-	
-		if ScenarioInfo.BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR setting up")
-		end
-	
+
 		self.BaseMonitor = {
 	
-			BaseMonitorInterval = 8, 					-- how often the base monitor will do threat checks to raise alerts
+			BaseMonitorInterval = 8, 					-- how often the base monitor will do threat checks to raise alerts in seconds
 
 			ActiveAlerts = 0,							-- number of active alerts at this base
 			AlertLevel = 6,								-- threat must be this size to trigger an alert
-			AlertTimeout = 16,							-- time it takes for a created alert to expire
+			AlertTimeout = 16,							-- time it takes for a created alert to expire in seconds
 		
 			AlertRange = math.min( math.floor(self.Radius * 2), 175 ),		-- radius at which base will consider targets for an alert
 		
-			AlertResponseTime = 16,						-- time it allows to pass before sending more responses to an active alert
+			AlertResponseTime = 16,						-- time it allows to pass before sending more responses to an active alert in seconds
 		
 			AlertsTable = {},							-- stores the data for each threat (position, amount of threat, type of threat)
         
@@ -795,6 +795,10 @@ EngineerManager = Class(BuilderManager) {
 			
 		}
 	
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR setting up - radius is "..self.BaseMonitor.AlertRange)
+		end
+		
 		self:ForkThread( self.BaseMonitorThreadLOUD, aiBrain)
     
 		return
@@ -1046,7 +1050,7 @@ EngineerManager = Class(BuilderManager) {
 			delay = LOUDMIN(delay, 20)	-- delay is capped at 20 additional seconds
 			
 			if ScenarioInfo.BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check - waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check - waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 .." ticks" )
 			end
 			
 		end
@@ -1419,7 +1423,7 @@ EngineerManager = Class(BuilderManager) {
 						if groupaircount > 2 then
 
 							if ScenarioInfo.BaseMonitorDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..threatamount)
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
 							end
 						
 							-- Move the gunship/bomber group to the distress location and issue guard there 

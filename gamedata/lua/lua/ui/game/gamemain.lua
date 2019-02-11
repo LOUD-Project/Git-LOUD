@@ -134,15 +134,21 @@ function OnFirstUpdate()
 			-- this is interesting -- I had to put this code here so that no desync would occur
 			-- since if I put it inline a desync would occur on replays - since it's here it gets
 			-- delayed for about 3 seconds once the sim in actually running
-			LOG("*AI DEBUG Pathfinding Setup")
-
 			ConExecute('path_armybudget = 6500')
 			ConExecute('path_backgroundbudget = 3000')
 			ConExecute('path_maxinstantworkunits = 1250')
-			ConExecute('fog_DistanceFog')
 			
 			--ConExecute('path_UnreachableTimeoutSearchSteps = 750')
 			
+			ConExecute('ren_ShadowCoeff 2')
+			ConExecute('ren_ShadowSize 2048')
+			ConExecute('ren_ShadowBias 0.0010')
+			ConExecute('ren_BloomGlowCopyScale 2.5')
+			ConExecute('ren_BloomBlurKernelScale 1.1')
+			ConExecute('ren_BloomBlurCount 0')
+			
+			ConExecute('fog_DistanceFog')
+
         end
     )
     

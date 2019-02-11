@@ -5483,7 +5483,7 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
-	--  Copyright ï¿½ 2010 4DC  All rights reserved.
+	--  Copyright © 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
         if not self.Dead then    

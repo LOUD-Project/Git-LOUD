@@ -95,7 +95,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnCreate = function(self, inWater)
 	
-        self.DamageData = { DamageAmount = nil, DamageType = nil }
+        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
 
         self.Trash = TrashBag()
 		
@@ -605,20 +605,22 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				--local pos = GetPosition(self)
 				local TerrainType = DefaultTerrainType
 			
-            if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
+				if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
 			
-			    TerrainType = DefaultTerrainType
+					TerrainType = DefaultTerrainType
 				
-		    end
+				end
 			
-			local TerrainEffect = TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] or false
+				local TerrainEffect = TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] or false
 			
-			if TerrainEffect then
+				if TerrainEffect then
 			
-				if (not table.empty(TerrainEffect)) and (not self:BeenDestroyed()) then
+					if (not table.empty(TerrainEffect)) and (not self:BeenDestroyed()) then
 
-					ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
+						ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
 			
+					end
+				
 				end
 				
 			end
@@ -627,7 +629,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
 		if self.DamageData.DamageType == 'Railgun' then
 
-			--self.DestroyOnImpact = false
 			self.DamageData.DamageAmount = self.DamageData.DamageAmount * 0.8
 			
 			bp.Physics.ImpactTimeout = 0.1
@@ -703,6 +704,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	-- modified to carry only active data so any fields which are
 	-- empty won't be created
     PassDamageData = function(self, damageData)
+		
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG Projectile PassDamageData"..repr(self))
+		end
 		
         self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
         self.DamageData.DamageType = damageData.DamageType
