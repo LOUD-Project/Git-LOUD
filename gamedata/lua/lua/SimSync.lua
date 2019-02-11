@@ -8,7 +8,11 @@ Sync = {}
 -- focus army we can resync the data.
 UnitData = {}
 
+local SimData = { SimSpeed = 0 }
+
+
 function ResetSyncTable()
+
     Sync = {
 
         CameraRequests = {},
@@ -21,7 +25,7 @@ function ResetSyncTable()
 		
 		-- track scores
 		Score = {},
-
+		
         -- Player to player queries that can affect the Sim
         PlayerQueries = {},
         QueryResults = {},
@@ -32,7 +36,52 @@ function ResetSyncTable()
         UnitData = {},
         ReleaseIds = {},
     }
+
+	Sync.SimData = SimData
+
 end
+
+-- this function updates the SimSpeed field of SimData
+function UpdateSimSpeed(data)
+
+	LOG("*AI DEBUG SimSync UpdateSimSpeed "..repr(data))
+
+	if data then
+		SimData.SimSpeed = data
+	end
+end
+
+-- this function will set a specific SimData field
+function SetSimData(name, param)
+
+	LOG("*AI DEBUG Sim SIMSYNC SetSimSpeed "..repr(name).." "..repr(param))
+	
+	SimData[name] = param
+	
+	SendSimData()
+end
+
+-- this function can be called to get a specific SimData field
+function GetSimData(name)
+
+	LOG("*AI DEBUG Sim GetSimData "..repr(name))
+	
+	if SimData[name] then
+		return SimData[name]
+	else
+		return nil
+	end
+end
+
+-- this puts the SimData into the Sync table
+function SendSimData()
+
+	LOG("*AI DEBUG Sim SIMSYNC SendSimData "..repr(SimData) )
+	
+	Sync.SimData = SimData
+end
+
+
 
 -- I brought all this in from the SCHOOK version of SimSync
 -- and eliminated the schook version
@@ -204,4 +253,8 @@ end
 
 function CreateDialogue(text, buttonText, position)
     return import('/lua/simdialogue.lua').Create(text, buttonText, position)
+end
+
+function TogglePerformance()
+	LOG("*AI DEBUG Sim Toggle in SimSync")
 end

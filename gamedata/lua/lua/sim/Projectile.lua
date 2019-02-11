@@ -584,17 +584,26 @@ Projectile = Class(moho.projectile_methods, Entity) {
         end
 
 		if targetType != 'Shield' then
+
 			if ScenarioInfo.ProjectileDialog then
 				LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
 			end
-			self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
+			
+			-- when simspeed drops too low turn off impact effects
+			if Sync.SimData.SimSpeed > -2 then
+				self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
+			else
+				LOG("*AI DEBUG Sim speed is "..repr(Sync.SimData.SimSpeed))
+			end
 			
 		end
 
         if bp.Display.ImpactEffects.Type then
 		
-			--local pos = GetPosition(self)
-            local TerrainType = DefaultTerrainType
+			if Sync.SimData.SimSpeed > -2 then
+			
+				--local pos = GetPosition(self)
+				local TerrainType = DefaultTerrainType
 			
             if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
 			

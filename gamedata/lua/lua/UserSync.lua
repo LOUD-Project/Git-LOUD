@@ -15,12 +15,16 @@ scoreData = { ['current'] = {} }
 
 local tmerge = table.merged
 local tempty = table.empty
+
 local IsHeadPlaying = import('/lua/ui/game/missiontext.lua').IsHeadPlaying
 local Dialogue = import('/lua/ui/game/simdialogue.lua')
 local GameMain = import('/lua/ui/game/gamemain.lua')
 local Ping = import('/lua/ui/game/ping.lua')
+local Prefs = import('/lua/user/prefs.lua')
 
 local PlaySound = moho.entity_methods.PlaySound
+
+local CurrentSimSpeed = 0	-- record the current sim speed rate and use this to detect a change
 
 -- Here's an opportunity for user side script to examine the Sync table for the new tick
 function OnSync()
@@ -28,8 +32,25 @@ function OnSync()
     if Sync.RequestingExit then
         ExitGame()
     end
+	
+	if Sync.SimData then
+	
+		-- if the sim rate has changed 
+		if GetSimRate() != CurrentSimSpeed then
+		
+			local newspeed = GetSimRate()
+			
+			-- this creates a callback to the SIM
+			SendSimSpeed(newspeed)
+			
+			CurrentSimSpeed = newspeed
+			
+		end
+		
+	end
 
 	-- this is only for voice overs not unit sounds
+--[[	
 	if Sync.Sounds then
 		for _,v in Sync.Sounds do
 			LOG("*AI DEBUG Sync Sound "..repr(v.Cue))
@@ -37,7 +58,7 @@ function OnSync()
 		end
 		Sync.Sounds = nil
 	end
-
+--]]
     if Sync.ToggleGamePanels then
         ConExecute('UI_ToggleGamePanels')
     end
@@ -172,7 +193,7 @@ function OnSync()
 	
     if Sync.Cheaters then
 	
-		if GetGameTimeSeconds() > 10 then
+		if GetGameTimeSeconds() > 15 then
 		
 			local names = ''
 			local isare = LOC('<LOC cheating_fragment_0000>is')
@@ -288,4 +309,38 @@ function OnSync()
     if Sync.ChangeCameraZoom != nil then
         GameMain.SimChangeCameraZoom(Sync.ChangeCameraZoom)
     end
+end
+
+function UpdateSimSpeed(data)
+
+	LOG("*AI DEBUG UserSync UpdateSimSpeed "..repr(data))
+	
+	Prefs.SetToCurrentProfile('SimSpeed', data)
+end
+
+function SaveSimSpeed(name, params)
+
+	local current = Prefs.GetFromCurrentProfile('SimSpeed') or { }
+	current.name = params
+
+	LOG("*AI DEBUG UserSync SaveSimSpeed "..repr(current))
+	
+	Prefs.SetToCurrentProfile('SimSpeed', current)
+end
+
+function SendSimSpeed()
+
+	LOG("*AI DEBUG UserSync NoteSimSpeedChange")
+
+	SimCallback( { Func = 'NoteSimSpeedChange', Args = GetSimRate() }, true )
+end
+
+function SetSimSpeed(name, param)
+	
+	LOG("*AI DEBUG UserSync SetSimSpeed "..repr(name).." "..repr(param))
+	
+	if name and param then
+		SaveSimSpeed(name, param)
+		SendSimSpeed()
+	end
 end

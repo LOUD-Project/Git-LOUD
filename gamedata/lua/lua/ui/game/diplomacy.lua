@@ -275,60 +275,71 @@ function BuildPlayerLines()
     end
     
     i = 1
+	
     if table.getn(allyControls) > 0 then
+	
         parent.Items[i] = UIUtil.CreateText(parent, LOC('<LOC diplomacy_0002>Allies'), 18, UIUtil.bodyFont)
         parent.Items[i]:SetColor('ff00ff72')
         parent.Items[i]:SetDropShadow(true)
         parent.Items[i].Depth:Set(function() return parent.Depth() + 10 end)
+		
         LayoutHelpers.AtLeftTopIn(parent.Items[i], parent, 8, 10)
         
         parent.Items[i].srCheck = UIUtil.CreateCheckboxStd(parent.Items[i], '/game/toggle_btn/toggle')
         parent.Items[i].srCheck.label = Bitmap(parent.Items[i].srCheck, UIUtil.UIFile('/game/toggle_btn/icon-shared-resources_bmp.dds'))
         parent.Items[i].srCheck.label:DisableHitTest()
+		
         LayoutHelpers.AtCenterIn(parent.Items[i].srCheck.label, parent.Items[i].srCheck)
+		
         parent.Items[i].srCheck:SetCheck(shareResources, true)
         parent.Items[i].srCheck.OnCheck = function(self, checked)
             shareResources = checked
-            SimCallback( {  Func = "SetResourceSharing",
-                            Args = { Army = GetFocusArmy(),
-                                     Value = checked,
-                                   }
-                         }
-                       )
+            SimCallback( { Func = "SetResourceSharing", Args = { Army = GetFocusArmy(), Value = checked } } )
         end
+		
         Tooltip.AddCheckboxTooltip(parent.Items[i].srCheck, 'dip_share_resources')
         
         parent.Items[i].avCheck = UIUtil.CreateCheckboxStd(parent.Items[i], '/game/toggle_btn/toggle')
         parent.Items[i].avCheck.label = Bitmap(parent.Items[i].avCheck, UIUtil.UIFile('/game/toggle_btn/icon-allied-victory_bmp.dds'))
         parent.Items[i].avCheck.label:DisableHitTest()
+		
         LayoutHelpers.AtCenterIn(parent.Items[i].avCheck.label, parent.Items[i].avCheck)
+		
         parent.Items[i].avCheck:SetCheck(alliedVictory, true)
         parent.Items[i].avCheck.OnCheck = function(self, checked)
             alliedVictory = checked
-            SimCallback( {  Func = "RequestAlliedVictory",
-                            Args = { Army = GetFocusArmy(),
-                                     Value = checked,
-                                   }
-                         }
-                       )
+            SimCallback( {  Func = "RequestAlliedVictory", Args = { Army = GetFocusArmy(), Value = checked } } )
         end
+		
         Tooltip.AddCheckboxTooltip(parent.Items[i].avCheck, 'dip_allied_victory')
         
         LayoutHelpers.AtRightTopIn(parent.Items[i].srCheck, parent, 2, 6)
         LayoutHelpers.LeftOf(parent.Items[i].avCheck, parent.Items[i].srCheck)
         
         i = i + 1
+		
         local lastAllyControl = false
+		
         for index, info in allyControls do
+		
             parent.Items[i] = CreateEntry(info, true)
+			
             LayoutHelpers.Below(parent.Items[i], parent.Items[i-1], 12)
+			
             if table.getsize(allyControls) != index then
+			
                 parent.Items[i].Seperator = Bitmap(parent.Items[i], UIUtil.UIFile('/game/options-diplomacy-panel/line-allies_bmp.dds'))
+				
                 local curI = i
+				
                 parent.Items[i].Seperator.Top:Set(function() return parent.Items[curI].Bottom() + 12 end)
+				
                 LayoutHelpers.AtHorizontalCenterIn(parent.Items[i].Seperator, parent.Items[i], 2)
+				
             end
+			
             lastAllyControl = parent.Items[i]
+			
             i = i + 1
         end
         
@@ -357,44 +368,57 @@ function BuildPlayerLines()
     local lastEnemyControl = false
     
     if SessionGetScenarioInfo().Options.Ranked then
+	
         parent.Items[i].odCheck = UIUtil.CreateCheckboxStd(parent.Items[i], '/dialogs/toggle_btn/toggle')
         parent.Items[i].odCheck.label = UIUtil.CreateText(parent.Items[i].odCheck, LOC('<LOC _Draw>Draw'), 12, UIUtil.bodyFont)
+		
         LayoutHelpers.AtCenterIn(parent.Items[i].odCheck.label, parent.Items[i].odCheck)
+		
         Tooltip.AddCheckboxTooltip(parent.Items[i].odCheck, 'dip_offer_draw')
+		
         parent.Items[i].odCheck:SetCheck(drawOffered, true)
         parent.Items[i].odCheck.OnCheck = function(self, checked)
+		
             drawOffered = checked
-            SimCallback( {  Func = "SetOfferDraw",
-                            Args = { Army = GetFocusArmy(),
-                                     Value = checked,
-                                   }
-                         }
-                       )
+			
+            SimCallback( {  Func = "SetOfferDraw", Args = { Army = GetFocusArmy(), Value = checked } } )
+			
             local msg = '<LOC diplomacy_0000>has offered a draw.'
+			
             if not checked then
                 msg = '<LOC diplomacy_0001>has rescinded their draw offer.'
             end
+			
             SessionSendChatMessage({to = 'all', ConsoleOutput = msg})
         end
     end
     
     if i == 1 then
+	
         LayoutHelpers.AtLeftTopIn(parent.Items[i], parent, 6, 10)
+		
         if parent.Items[i].odCheck then
             LayoutHelpers.AtRightTopIn(parent.Items[i].odCheck, parent, 6, 8)
         end
     else
         LayoutHelpers.Below(parent.Items[i], parent.Items[i-1], 40)
+		
         if parent.Items[i].odCheck then
             LayoutHelpers.AtTopIn(parent.Items[i].odCheck, parent.Items[i])
             LayoutHelpers.AtRightIn(parent.Items[i].odCheck, parent)
         end
     end
+	
     i = i + 1
+	
     for index, info in enemyControls do
+	
         parent.Items[i] = CreateEntry(info)
+		
         LayoutHelpers.Below(parent.Items[i], parent.Items[i-1], 2)
+		
         lastEnemyControl = parent.Items[i]
+		
         if table.getsize(enemyControls) != index then
             parent.Items[i].Seperator = Bitmap(parent.Items[i], UIUtil.UIFile('/game/options-diplomacy-panel/line-enemies_bmp.dds'))
             parent.Items[i].Seperator.Top:Set(parent.Items[i].Bottom)
@@ -414,12 +438,13 @@ function BuildPlayerLines()
     parent.enemyBG.middleBG.Top:Set(parent.enemyBG.Bottom)
     parent.enemyBG.middleBG.Left:Set(parent.enemyBG.Left)
     parent.enemyBG.middleBG.Bottom:Set(parent.enemyBG.bottomBG.Top)
+	
     if lastEnemyControl then
         parent.enemyBG.bottomBG.Top:Set(function() return lastEnemyControl.Bottom() end)
     else
         parent.enemyBG.bottomBG.Top:Set(function() return enemyTitle.Bottom() end)
     end
-        
+
     parent.Height:Set(function() 
             local height = 0
             for i, item in parent.Items do

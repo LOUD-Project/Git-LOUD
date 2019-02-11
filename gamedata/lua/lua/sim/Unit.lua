@@ -3035,6 +3035,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
+	
+		--LOG("*AI DEBUG Unit OnStartBuild "..self.Sync.id.." "..repr(unitBeingBuilt:GetBlueprint().Description).." order "..repr(order))
 
         self:UpdateConsumptionValues()
 	
@@ -3701,14 +3703,15 @@ Unit = Class(moho.unit_methods) {
 			TerrainType = GetTerrainType( -1, -1 )
 			
 		end
-
-        --LOG( 'GetTerrainTypeEffects for '..repr(TerrainType.Name)..' '..repr(TerrainType.Description)..' on '..repr(layer)..' '..repr(type))
 		
         return TerrainType[FxType][layer][type] or {}
 		
     end,
 
     CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
+	
+		-- if simspeed drops too low suspend terrain effects --
+		if Sync.SimData.SimSpeed < -1 then return end
 
         for _, vTypeGroup in effectTypeGroups do
 		
@@ -3755,7 +3758,10 @@ Unit = Class(moho.unit_methods) {
     end,
 
     CreateIdleEffects = function( self )
-
+	
+		-- if simspeed drops too low suspend idle effects --
+		if Sync.SimData.SimSpeed < -1 then return end
+		
         local bpTable = GetBlueprint(self).Display.IdleEffects
 		
 		-- if there are idle effects -- many dont have them
@@ -3784,6 +3790,9 @@ Unit = Class(moho.unit_methods) {
     end,
 
     UpdateBeamExhaust = function( self, motionState )
+	
+		-- if simspeed drops too low suspend beamexhaust effects --
+		if Sync.SimData.SimSpeed < -1 then return end
 
         local bpTable = GetBlueprint(self).Display.MovementEffects.BeamExhaust
 		
@@ -3801,7 +3810,7 @@ Unit = Class(moho.unit_methods) {
 				
             end
 			
-            if self.BeamExhaustIdle and (bpTable.Idle != false) then	-- (LOUDGETN(self.BeamExhaustEffectsBag) == 0) and
+            if self.BeamExhaustIdle and (bpTable.Idle != false) then
 			
                 self:CreateBeamExhaust( bpTable, self.BeamExhaustIdle )
 				
@@ -3828,10 +3837,34 @@ Unit = Class(moho.unit_methods) {
                 self:DestroyBeamExhaust()
 				
             end
+        end
+    end,
+
+    CreateBeamExhaust = function( self, bpTable, beamBP )
+	
+        local effectBones = bpTable.Bones
+
+        local army = GetArmy(self)
+		
+        for kb, vb in effectBones do
+		
+			if not self.BeamExhaustEffectsBag then
 			
+				self.BeamExhaustEffectsBag = {}
+				
+			end
+		
+            LOUDINSERT( self.BeamExhaustEffectsBag, CreateBeamEmitterOnEntity(self, vb, army, beamBP ))
         end
 		
     end,
+
+    DestroyBeamExhaust = function( self )
+	
+        CleanupEffectBag(self,'BeamExhaustEffectsBag')
+		
+    end,
+	
 
     MovementCameraShakeThread = function( self, camShake )
 	
@@ -4677,38 +4710,6 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 
-    CreateBeamExhaust = function( self, bpTable, beamBP )
-	
-        local effectBones = bpTable.Bones
-		
-        -- if not effectBones or (effectBones and (LOUDGETN(effectBones) == 0)) then
-            -- LOG('*WARNING: No beam exhaust effect bones defined for unit ',repr(self:GetUnitId()),', Effect Bones must be defined to play beam exhaust effects. Add these to the Display.MovementEffects.BeamExhaust.Bones table in unit blueprint.' )
-            -- return false
-        -- end
-		
-        local army = GetArmy(self)
-		
-		
-        for kb, vb in effectBones do
-		
-			if not self.BeamExhaustEffectsBag then
-			
-				self.BeamExhaustEffectsBag = {}
-				
-			end
-		
-            LOUDINSERT( self.BeamExhaustEffectsBag, CreateBeamEmitterOnEntity(self, vb, army, beamBP ))
-			
-        end
-		
-    end,
-
-    DestroyBeamExhaust = function( self )
-	
-        CleanupEffectBag(self,'BeamExhaustEffectsBag')
-		
-    end,
-
     CreateShield = function(self, shieldSpec)
 	
         local bp = GetBlueprint(self)
@@ -5482,7 +5483,7 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
-	--  Copyright © 2010 4DC  All rights reserved.
+	--  Copyright ï¿½ 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
         if not self.Dead then    

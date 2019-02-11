@@ -16,7 +16,6 @@ function DoCallback(name, data, units)
     end
 end
 
-
 Callbacks.BreakAlliance = import('/lua/simutils.lua').BreakAlliance
 Callbacks.GiveOrders = import('/lua/spreadattack.lua').GiveOrders
 Callbacks.GiveUnitsToPlayer = import('/lua/simutils.lua').GiveUnitsToPlayer
@@ -41,6 +40,9 @@ Callbacks.OnPlayerQuery = import('/lua/simplayerquery.lua').OnPlayerQuery
 Callbacks.OnPlayerQueryResult = import('/lua/simplayerquery.lua').OnPlayerQueryResult
 Callbacks.PingGroupClick = import('/lua/simpinggroup.lua').OnClickCallback
 
+Callbacks.NoteSimSpeedChange = function(data)
+	UpdateSimSpeed(data)
+end
 
 function Callbacks.OnMovieFinished(name)
     ScenarioInfo.DialogueFinished[name] = true
@@ -80,6 +82,9 @@ Callbacks.OnControlGroupAssign = function(units)
 end
 
 Callbacks.OnControlGroupApply = function(units)
+
 end
+
+
 
 

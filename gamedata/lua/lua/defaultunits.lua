@@ -1143,6 +1143,9 @@ MobileUnit = Class(Unit) {
     end,
 
     CreateMovementEffects = function( self, EffectsBag, TypeSuffix, TerrainType )
+	
+		-- If SimSpeed drops too low -- curtail movement effects
+		if Sync.SimData.SimSpeed < -1 then return end
 
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
