@@ -60,7 +60,7 @@ BuildingTemplates = {
 	-- Naval Defense
         { 'T1NavalDefense', 'ueb2109'},
         { 'T2NavalDefense', 'ueb2205'},
-        --{ 'T3NavalDefense', 'ueb2205'},
+        { 'T3NavalDefense',		},
     -- Shields
         { 'T2ShieldDefense', 'ueb4202'    },
         { 'T3ShieldDefense', 'ueb4301'    },
@@ -81,6 +81,7 @@ BuildingTemplates = {
         { 'T2Sonar', 'ueb3202'      },
         { 'T3Sonar', 'ues0305'      },
     -- Artillery Structures
+		{ 'T1Artillery',	},
         { 'T2Artillery', 'ueb2303'  },
         { 'T3Artillery', 'ueb2302'  },
         { 'T4Artillery', 'ueb2401'  },
@@ -160,7 +161,7 @@ BuildingTemplates = {
     -- Naval Defense
         { 'T1NavalDefense', 'uab2109'   },
         { 'T2NavalDefense', 'uab2205'   },
-        --{ 'T3NavalDefense', 'uab2205'   },
+        { 'T3NavalDefense',				},
 	-- AA Defense
         { 'T1AADefense', 'uab2104'   },
         { 'T2AADefense', 'uab2204'   },
@@ -188,6 +189,7 @@ BuildingTemplates = {
         { 'T2Sonar', 'uab3202'      },
         { 'T3Sonar', 'uas0305'      },
 	-- Artillery
+		{ 'T1Artillery',	},
         { 'T2Artillery', 'uab2303'		},
         { 'T3Artillery', 'uab2302'      },
         { 'T3RapidArtillery', 'xab2307' },		
@@ -293,6 +295,7 @@ BuildingTemplates = {
         { 'T2Sonar', 'urb3202'	},
         { 'T3Sonar', 'urs0305'	},
 	-- Artillery
+		{ 'T1Artillery',	},
         { 'T2Artillery', 'urb2303'	},
         { 'T3Artillery', 'urb2302'	},
         { 'T4Artillery', 'url0401'	},	-- Scathis
@@ -367,7 +370,7 @@ BuildingTemplates = {
 	-- Naval Defense
         { 'T1NavalDefense', 'xsb2109'  },
         { 'T2NavalDefense', 'xsb2205'  },
-        --{ 'T3NavalDefense', 'xsb2205'  },
+        { 'T3NavalDefense',			},
 	-- AA Defense
 		{ 'T1AADefense', 'xsb2104'     },
         { 'T2AADefense', 'xsb2204'     },
@@ -394,6 +397,7 @@ BuildingTemplates = {
         { 'T2Sonar', 'xsb3202'	},
         { 'T3Sonar', 'xrs0305'  },
 	-- Artillery
+		{ 'T1Artillery',	},
         { 'T2Artillery', 'xsb2303'	},
         { 'T3Artillery', 'xsb2302'  },
         { 'T4Artillery', 'xsb2401'	},	-- Ylona Oss Nuke Launcher
@@ -419,7 +423,7 @@ BuildingTemplates = {
         {'T4AirExperimental3', 'xsa0402'	},
 	-- Naval
 		{ 'T4SeaExperimental1',	'tcss0403'	},
-		{ 'T4SeaExperimental2',	},	--Vergra Cruiser
+		{ 'T4SeaExperimental2',	},				--Vergra Cruiser
 	-- Economic
         {'T4EconExperimental', 'xab1401'	},
     }

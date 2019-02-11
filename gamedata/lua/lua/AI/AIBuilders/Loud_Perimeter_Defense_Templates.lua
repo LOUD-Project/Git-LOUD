@@ -18,6 +18,10 @@ PerimeterDefenseTemplates = {
             {'T1GroundDefense'},
             { 2, 2 },
         },
+		{
+			{'T1Artillery'},
+			{ 0, -2},
+		},
         {
             {'T1MassCreation'},
             { 5, 3 },
@@ -186,6 +190,10 @@ PerimeterDefenseTemplates = {
             {'T1GroundDefense'},
             { 2, 2 },
         },
+		{
+			{'T1Artillery'},
+			{ 0, -2},
+		},		
         {
             {'T1MassCreation'},
             { 5, 3 },
@@ -354,6 +362,10 @@ PerimeterDefenseTemplates = {
             {'T1GroundDefense'},
             { 2, 2 },
         },
+		{
+			{'T1Artillery'},
+			{ 0, -2},
+		},		
         {
             {'T1MassCreation'},
             { 5, 3 },
@@ -522,6 +534,10 @@ PerimeterDefenseTemplates = {
             {'T1GroundDefense'},
             { 2, 2 },
         },
+		{
+			{'T1Artillery'},
+			{ 0, -2},
+		},		
         {
             {'T1MassCreation'},
             { 5, 3 },
