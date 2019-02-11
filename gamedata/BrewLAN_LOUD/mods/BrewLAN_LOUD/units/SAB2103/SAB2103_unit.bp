@@ -26,6 +26,7 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'AEON',
         'STRUCTURE',
+		'DEFENSE',
         'TECH1',
         'INDIRECTFIRE',
         'ARTILLERY',

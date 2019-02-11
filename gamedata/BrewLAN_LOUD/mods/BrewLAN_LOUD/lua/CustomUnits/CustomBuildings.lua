@@ -1,5 +1,12 @@
 UnitList = {
 
+T1Artillery = {
+	UEF = {'seb2103', 100},
+	Aeon = {'sab2103', 100},
+	Cybran = {'srb2103', 100},
+	Seraphim = {'ssb2103', 100},
+},
+
 T3GroundDefense = { 
 	Aeon = {'sab2306', 40 },
 	Cybran = {'srb2306', 25 },

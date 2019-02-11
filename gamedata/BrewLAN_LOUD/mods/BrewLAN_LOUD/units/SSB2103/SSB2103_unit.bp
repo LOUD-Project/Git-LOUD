@@ -30,6 +30,7 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'SERAPHIM',
         'STRUCTURE',
+		'DEFENSE',
         'TECH1',
         'INDIRECTFIRE',
         'ARTILLERY',
