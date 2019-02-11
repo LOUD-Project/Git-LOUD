@@ -4,7 +4,7 @@
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
+--local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 -- this function will turn a builder off if the enemy is not active in the water
@@ -24,7 +24,7 @@ end
 BuilderGroup {BuilderGroupName = 'Base Defenses',
     BuildersType = 'EngineerBuilder',
 
-    Builder {BuilderName = 'T1 Base PD',
+    Builder {BuilderName = 'T1 Base Defense',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -52,9 +52,6 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
 			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
 			
-			-- Greater than 50 economy threat closer than 18km
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 25, 'Economy' }},
-			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
@@ -65,6 +62,9 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
         BuilderData = {
 		
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
             Construction = {
 			
 				Radius = 36,
@@ -77,7 +77,11 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
-                BuildStructures = {'T1GroundDefense'},
+                BuildStructures = {
+					'T1GroundDefense',
+					'T1AADefense',
+					'T1Artillery',
+				},
 				
             }
 			
@@ -227,46 +231,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         }
 		
     },
---[[
-    Builder {BuilderName = 'T2 TML - Base Template',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 745,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },			
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 10, 40 }},			
-			
-        },
-		
-        BuilderType = {'T2'},
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				ThreatMax = 45,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T2StrategicMissile'},
-				
-            }
-			
-        }
-		
-    },
---]]
+
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -1562,3 +1527,43 @@ BuilderGroup {BuilderGroupName = 'Mass Adjacency Defenses - LOUD_IS',
     },
 	
 }
+--[[
+    Builder {BuilderName = 'T2 TML - Base Template',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 745,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },			
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 10, 40 }},			
+			
+        },
+		
+        BuilderType = {'T2'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2StrategicMissile'},
+				
+            }
+			
+        }
+		
+    },
+--]]

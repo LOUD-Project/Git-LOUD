@@ -5,6 +5,8 @@
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
+--local TBC = '/lua/editor/ThreatBuildConditions.lua'
+
 local LUTL = '/lua/loudutilities.lua'
 local BHVR = '/lua/ai/aibehaviors.lua'
 
@@ -481,6 +483,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Aux',
 			{ LUTL, 'UnitCapCheckGreater', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 550, 'Land', 100 }},			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE }},
 			
         },

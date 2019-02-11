@@ -18,7 +18,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
     BuildersType = 'EngineerBuilder',
 	
 
-    Builder {BuilderName = 'T1 Perimeter PD - Small Map',
+    Builder {BuilderName = 'T1 Perimeter - Small Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -73,7 +73,11 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
-                BuildStructures = {'T1GroundDefense'},
+                BuildStructures = {
+					'T1GroundDefense',
+					'T1AADefense',
+					'T1Artillery',
+				},
 				
             }
 			
@@ -81,62 +85,7 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 		
     },
 
-    Builder {BuilderName = 'T1 Perimeter AA - Small Map',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-		PriorityFunction = function(self, aiBrain)
-			
-			if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
-				return 0, false
-			end
-			
-			-- remove after 30 minutes
-			if aiBrain.CycleTime > 1800 then
-				return 0, false
-			end
-			
-			return self.Priority
-			
-		end,
-		
-        BuilderConditions = {
-		
-			{ EBC, 'GreaterThanEnergyIncome', { 400 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			-- dont have any advanced units
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.ANTIAIR, 45, 75}},
-			
-        },
-		
-        BuilderType = { 'T1' },
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				Radius = 51,
-                NearBasePerimeterPoints = true,
-				
-				BasePerimeterOrientation = 'FRONT',
-				BasePerimeterSelection = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'PerimeterDefenseTemplates',
-				
-                BuildStructures = {'T1AADefense'},
-				
-            }
-			
-        }
-		
-    },
-
-    Builder {BuilderName = 'T1 Perimeter PD - Large Map',
+    Builder {BuilderName = 'T1 Perimeter - Large Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -189,64 +138,10 @@ BuilderGroup {BuilderGroupName = 'T1 Perimeter Defenses',
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
-                BuildStructures = {'T1GroundDefense'},
-				
-            }
-			
-        }
-		
-    },
-
-    Builder {BuilderName = 'T1 Perimeter AA - Large Map',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		InstanceCount = 1,
-		
-        Priority = 700,
-
-		PriorityFunction = function(self, aiBrain)
-			
-			if (ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028) then
-				return 0, false
-			end
-			
-			-- remove after 30 minutes
-			if aiBrain.CycleTime > 1800 then
-				return 0, false
-			end
-			
-			return self.Priority
-			
-		end,
-		
-        BuilderConditions = {
-		
-			{ EBC, 'GreaterThanEnergyIncome', { 400 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
-			-- dont have any advanced units
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.ANTIAIR, 45, 75}},
-			
-        },
-		
-        BuilderType = { 'T1' },
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				Radius = 51,
-                NearBasePerimeterPoints = true,
-				
-				BasePerimeterOrientation = 'FRONT',
-				BasePerimeterSelection = true,
-
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'PerimeterDefenseTemplates',
-				
-                BuildStructures = {'T1AADefense'},
+                BuildStructures = {
+					'T1GroundDefense',
+					'T1AADefense',
+				},
 				
             }
 			
