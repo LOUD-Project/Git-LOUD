@@ -67,11 +67,6 @@ BFGShellWeapon = Class(DefaultProjectileWeapon) {
 -- Seraphem Files --
 
 -- UEF Files --
-BalrogMagmaCannonWeapon = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = Custom_4D_EffectTemplate.TMagmaCannonMuzzleFlash,
-	FxMuzzleFlashScale = 1.25,
-}
-
 Over_ChargeProjectile = Class(DefaultProjectileWeapon) {}
 
 Rapid_PlasmaProjectile = Class(DefaultProjectileWeapon) {}

@@ -30,30 +30,9 @@ EmtBpPath = '/effects/emitters/'
 MOD_BpPath = '/mods/4DC/effects/emitters/'
 Custom_4D_EffectTemplate = import('/mods/4DC/lua/4D_EffectTemplates.lua')
 
--------------------------------------------------------------------------
---  Ebola Soup's Magma Cannon Projectile. For use on UEF Balrog Experimental Quadruped Bot
--------------------------------------------------------------------------
-TBalrogMagmaCannon = Class(MultiPolyTrailProjectile) {
-    FxImpactWater = Custom_4D_EffectTemplate.TMagmaCannonHit,
-    FxImpactLand = Custom_4D_EffectTemplate.TMagmaCannonHit,
-    FxImpactNone = Custom_4D_EffectTemplate.TMagmaCannonHit,
-    FxImpactProp = Custom_4D_EffectTemplate.TMagmaCannonUnitHit,    
-    FxImpactUnit = Custom_4D_EffectTemplate.TMagmaCannonUnitHit,    
-    FxTrails = Custom_4D_EffectTemplate.TMagmaCannonFxTrails,
-
-    --Using MultPolyTrail:
-	PolyTrails = Custom_4D_EffectTemplate.TMagmaCannonPolyTrails,
-    PolyTrailOffset = {0,-1.55}, 
-    FxImpactProjectile = {},
-    FxImpactUnderWater = {},
-	
-    -- Adjusting scale for testing...remove and fix projectile if sizing desired
-    FxTrailScale = 1.25,
-}
-
--------------------------------------------------------------------------
---  Rapage Rapid Plasma 
--------------------------------------------------------------------------
+------------------------
+--  Rampage Rapid Plasma 
+------------------------
 Rapid_PlasmaProjectile = Class(EmitterProjectile) {
     FxUnitHitScale = 1.0,
     FxLandHitScale = 1.0,
@@ -72,9 +51,9 @@ Rapid_PlasmaProjectile = Class(EmitterProjectile) {
     FxImpactUnderWater = {},
 }
 
--------------------------------------------------------------------------
+----------------------------------------------------
 --  Naplam Missile (4th Dimension Custom Projectile)
--------------------------------------------------------------------------
+----------------------------------------------------
 NapalmMissileProjectile = Class(SingleCompositeEmitterProjectile) {
     -- Emitter Values
     FxInitial = {},
@@ -100,9 +79,9 @@ NapalmMissileProjectile = Class(SingleCompositeEmitterProjectile) {
     FxImpactUnderWater = EffectTemplate.WaterSplash01,
 }
 
--------------------------------------------------------------------------
+--------------------------
 --  Rampage EMP Overcharge
--------------------------------------------------------------------------
+--------------------------
 Over_ChargeProjectile = Class(MultiPolyTrailProjectile) {
     FxUnitHitScale = 1,
     FxLandHitScale = 1,
@@ -121,9 +100,9 @@ Over_ChargeProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 }
 
--------------------------------------------------------------------------
+--------------------------------------------------------------------
 --  AEON ARROW MISSILE PROJECTILES (4th Dimension Custom Projectile)
--------------------------------------------------------------------------
+--------------------------------------------------------------------
 ArrowMissileProjectile = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = '/effects/emitters/serpentine_missile_trail_emit.bp',
     BeamName = '/effects/emitters/serpentine_missle_exhaust_beam_01_emit.bp',
@@ -145,9 +124,9 @@ ArrowMissileProjectile = Class(SingleCompositeEmitterProjectile) {
     end,
 }
 
--------------------------------------------------------------------------
+--------------------------------------------------------------------
 --  AEON LASER PHALANX PROJECTILES (4th Dimension Custom Projectile)
--------------------------------------------------------------------------
+--------------------------------------------------------------------
 LaserPhalanxProjectile = Class(MultiPolyTrailProjectile) {
 
 	PolyTrails = {
@@ -168,9 +147,9 @@ LaserPhalanxProjectile = Class(MultiPolyTrailProjectile) {
     FxProjectileHitScale = 0.5,
 }
 
--------------------------------------------------------------------------
+-----------------------------------------------------
 --  BFG PROJECTILES (4th Dimension Custom Projectile)
--------------------------------------------------------------------------
+-----------------------------------------------------
 
 BFGProjectile = Class(EmitterProjectile) { 
     FxTrails = EffectTemplate.SDFExperimentalPhasonProjFXTrails01,
