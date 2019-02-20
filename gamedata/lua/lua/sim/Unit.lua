@@ -1918,19 +1918,19 @@ Unit = Class(moho.unit_methods) {
     	        prop:SetMesh(bp.Display.MeshBlueprintWrecked)
 				
             end
-			
-			if bp.Wreckage.LifeTime then
-			
-				ForkTo( self.LifeTimeThread, prop, bp.Wreckage.LifeTime)
-				
-			end
+
+			-- all wreckage now has a lifetime max of 900 seconds --
+			ForkTo( self.LifeTimeThread, prop, bp.Wreckage.LifeTime or 900)
 
             TryCopyPose(self,prop,false)
 
             prop.AssociatedBP = GetBlueprint(self).BlueprintId
 			prop.IsWreckage = true
 			
-			--CreateWreckageEffects(self,prop)
+			-- when simspeed drops too low turn off visual effects
+			if Sync.SimData.SimSpeed > -2 then
+				CreateWreckageEffects(self,prop)
+			end
 			
 			return prop
 			
@@ -5483,7 +5483,7 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
-	--  Copyright © 2010 4DC  All rights reserved.
+	--  Copyright ï¿½ 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
         if not self.Dead then    
