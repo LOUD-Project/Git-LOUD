@@ -330,7 +330,7 @@ end
 
 function SendSimSpeed()
 
-	LOG("*AI DEBUG UserSync NoteSimSpeedChange")
+	--LOG("*AI DEBUG UserSync NoteSimSpeedChange")
 
 	SimCallback( { Func = 'NoteSimSpeedChange', Args = GetSimRate() }, true )
 end

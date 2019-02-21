@@ -44,7 +44,7 @@ end
 -- this function updates the SimSpeed field of SimData
 function UpdateSimSpeed(data)
 
-	LOG("*AI DEBUG SimSync UpdateSimSpeed "..repr(data))
+	--LOG("*AI DEBUG SimSync UpdateSimSpeed "..repr(data))
 
 	if data then
 		SimData.SimSpeed = data

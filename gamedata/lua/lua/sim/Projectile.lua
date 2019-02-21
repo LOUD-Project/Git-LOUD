@@ -470,6 +470,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
         return true
     end,
 
+    -- Possible 'targetType' values are:
+    --  'Unit'
+    --  'Terrain'
+    --  'Water'
+    --  'Air'
+    --  'Prop'
+    --  'Shield'
+    --  'UnitAir'
+    --  'UnderWater'
+    --  'UnitUnderwater'
+    --  'Projectile'
+    --  'ProjectileUnderWater'
     OnImpact = function(self, targetType, targetEntity)
 	
 		if targetType == 'Shield' and self.DamageData.DamageRadius > 0 then
@@ -494,24 +506,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			self:DoDamage( GetLauncher(self) or self, self.DamageData, targetEntity)
 		end
 
-        # Possible 'target' values are:
-        #  'Unit'
-        #  'Terrain'
-        #  'Water'
-        #  'Air'
-        #  'Prop'
-        #  'Shield'
-        #  'UnitAir'
-        #  'UnderWater'
-        #  'UnitUnderwater'
-        #  'Projectile'
-        #  'ProjectileUnderWater'
-
-        local ImpactEffects = {}
-        local ImpactEffectScale = 1
-		
-        local army = GetArmy(self)
-		
         local bp = GetBlueprint(self)
 		
         if bp.Audio['Impact'..targetType] then
@@ -523,9 +517,17 @@ Projectile = Class(moho.projectile_methods, Entity) {
             PlaySound( self, bp.Audio.Impact)
 			
         end
+		
+		-- when simspeed drops too low turn off visual impact effects
+		if Sync.SimData.SimSpeed > -2 then
 
-        --ImpactEffects
-        if targetType == 'Water' then
+			local ImpactEffects = {}
+			local ImpactEffectScale = 1
+	
+			local army = GetArmy(self)
+	
+			--ImpactEffects
+			if targetType == 'Water' then
 		
             ImpactEffects = self.FxImpactWater
             ImpactEffectScale = self.FxWaterHitScale
@@ -586,23 +588,15 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if targetType != 'Shield' then
 
 			if ScenarioInfo.ProjectileDialog then
-				LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
-			end
-			
-			-- when simspeed drops too low turn off impact effects
-			if Sync.SimData.SimSpeed > -2 then
-				self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
-			else
-				LOG("*AI DEBUG Sim speed is "..repr(Sync.SimData.SimSpeed))
-			end
-			
-		end
+					LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
+				end
 
-        if bp.Display.ImpactEffects.Type then
-		
-			if Sync.SimData.SimSpeed > -2 then
+				self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
 			
-				--local pos = GetPosition(self)
+			end
+
+			if bp.Display.ImpactEffects.Type then
+
 				local TerrainType = DefaultTerrainType
 			
 				if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then

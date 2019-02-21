@@ -1114,22 +1114,30 @@ MobileUnit = Class(Unit) {
         end
     end,
 
+	
     CreateFootFallManipulators = function( self, footfall )
 
         self.Detector = CreateCollisionDetector(self)
         self.Trash:Add(self.Detector)
 
         for k, v in footfall.Bones do
+		
             self.Detector:WatchBone(v.FootBone)
+			
             if v.FootBone and v.KneeBone and v.HipBone then
                 CreateFootPlantController(self, v.FootBone, v.KneeBone, v.HipBone, v.StraightLegs or true, v.MaxFootFall or 0):SetPrecedence(10)
             end
+			
         end
+		
         return true
     end,
 
     CreateContrails = function(self, tableData )
---[[
+	
+		-- If SimSpeed drops too low -- curtail movement effects
+		if Sync.SimData.SimSpeed < -1 then return end
+
         local effectBones = tableData.Bones
         local army = GetArmy(self)
         local ZOffset = tableData.ZOffset or 0.0
@@ -1274,15 +1282,16 @@ MobileUnit = Class(Unit) {
     end,
 
     CreateMotionChangeEffects = function( self, new, old )
+	
+		-- If SimSpeed drops too low -- curtail movement effects
+		if Sync.SimData.SimSpeed < -1 then return end
 
-		local bptable = __blueprints[self.BlueprintID].Display.MotionChangeEffects
+		if __blueprints[self.BlueprintID].Display.MotionChangeEffects then
 
-		if bptable then
+			local bptable = __blueprints[self.BlueprintID].Display.MotionChangeEffects[self.CacheLayer..old..new] or false
 
-			local key = self.CacheLayer..old..new
-
-			if bpTable[key] then
-				self:CreateTerrainTypeEffects( bpTable[key].Effects, 'FXMotionChange', key )
+			if bpTable then
+				self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMotionChange', key )
 			end
 		end
     end,
