@@ -420,20 +420,25 @@ EMCHPRFDisruptorBeam = Class(HawkCollisionBeam)
 TDFGoliathCollisionBeam = Class(HawkCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
-    TerrainImpactScale = 1,
+	
+    TerrainImpactScale = 0.4,
+	
+    FxBeam = {'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_beam_01_emit.bp'},
+	
+    FxBeamEndPointScale = 0.4,	
     FxBeamEndPoint = {
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_end_01_emit.bp',			# big glow
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_end_02_emit.bp',			# random bright blueish dots
-		'/effects/emitters/uef_orbital_death_laser_end_03_emit.bp',			# darkening lines
-		'/effects/emitters/uef_orbital_death_laser_end_04_emit.bp',			# molecular, small details
-		'/effects/emitters/uef_orbital_death_laser_end_05_emit.bp',			# rings
+		'/effects/emitters/uef_orbital_death_laser_end_03_emit.bp',								# darkening lines
+		'/effects/emitters/uef_orbital_death_laser_end_04_emit.bp',								# molecular, small details
+		'/effects/emitters/uef_orbital_death_laser_end_05_emit.bp',								# rings
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_end_06_emit.bp',			# upward sparks
-		'/effects/emitters/uef_orbital_death_laser_end_07_emit.bp',			# outward line streaks
+		'/effects/emitters/uef_orbital_death_laser_end_07_emit.bp',								# outward line streaks
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_end_08_emit.bp',			# center glow
-		'/effects/emitters/uef_orbital_death_laser_end_distort_emit.bp',	# screen distortion
+		'/effects/emitters/uef_orbital_death_laser_end_distort_emit.bp',						# screen distortion
 	},
-    FxBeamStartPointScale = 1,
-    FxBeam = {'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_beam_01_emit.bp'},
+	
+    FxBeamStartPointScale = 0.4,
     FxBeamStartPoint = {
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_muzzle_01_emit.bp',	# random bright blueish dots
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_muzzle_02_emit.bp',	# molecular, small details
@@ -441,9 +446,10 @@ TDFGoliathCollisionBeam = Class(HawkCollisionBeam) {
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_muzzle_04_emit.bp',	# small downward sparks
 		'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_muzzle_05_emit.bp',	# big glow
     },
-    FxBeamEndPointScale = 1,
+
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+	
+    ScorchSplatDropTime = 1,
 
     OnImpact = function(self, impactType, targetEntity)
         if impactType == 'Terrain' then
@@ -465,21 +471,21 @@ TDFGoliathCollisionBeam = Class(HawkCollisionBeam) {
 
     ScorchThread = function(self)
         local army = self:GetArmy()
-        local size = 0.75 + (Random() * 0.75) 
+        local size = 0.6 + (Random() * 0.6) 
         local CurrentPosition = self:GetPosition(1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
         while true do
             if Util.GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, Util.GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 100, army )
+                LOUDSPLAT( CurrentPosition, Util.GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 40, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
-                
+
             WaitSeconds( self.ScorchSplatDropTime )
-            size = 1.2 + (Random() * 1.5)
+            size = 1 + (Random() * 0.5)
             CurrentPosition = self:GetPosition(1)
         end
     end,
