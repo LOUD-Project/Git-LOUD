@@ -105,9 +105,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 425,
-        BuildCostMass = 36,
-        BuildTime = 90,
+        BuildCostEnergy = 480,
+        BuildCostMass = 40,
+        BuildTime = 50,
     },
 	
     General = {
@@ -225,8 +225,8 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1,
-            FiringTolerance = 0,
+            FiringRandomness = 1.2,
+            FiringTolerance = 0.3,
 			
             Label = 'MainGun',
 			
@@ -269,11 +269,12 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'ARTILLERY',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
@@ -285,7 +286,8 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 30,
+			
             Turreted = true,
         },
     },

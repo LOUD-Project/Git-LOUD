@@ -72,8 +72,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 400,
-        BuildCostMass = 36,
+        BuildCostEnergy = 480,
+        BuildCostMass = 40,
         BuildTime = 180,
     },
 	
@@ -192,8 +192,8 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
-            FiringRandomness = 0.95,
-            FiringTolerance = 2,
+            FiringRandomness = 1.1,
+			FiringTolerance = 2,
 			
             Label = 'MainGun',
 			
@@ -251,7 +251,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
         },
