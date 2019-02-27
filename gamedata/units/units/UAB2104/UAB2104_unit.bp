@@ -45,7 +45,7 @@ UnitBlueprint {
     CollisionOffsetY = -0.45,
 	
     Defense = {
-        AirThreatLevel = 7.2,
+        AirThreatLevel = 8.4,
         ArmorType = 'Structure',
         Health = 1400,
         MaxHealth = 1400,
@@ -81,7 +81,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0002',
+
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
@@ -90,14 +90,11 @@ UnitBlueprint {
         BuildCostEnergy = 1800,
         BuildCostMass = 180,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'uab2104',
-        },
+		
+        RebuildBonusIds = {'uab2104'},
     },
 	
-    Footprint = {
-        MinWaterDepth = 1,
-    },
+    Footprint = { MinWaterDepth = 1 },
 	
     General = {
         Category = 'Defense',
@@ -125,7 +122,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 29,
     },
 	
     Interface = {
@@ -193,7 +190,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 24,
+            Damage = 42,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonic Pulse Battery',
@@ -234,7 +231,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,		-- 72 DPS Air
+            RateOfFire = 2,		-- 84 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

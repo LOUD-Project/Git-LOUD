@@ -50,7 +50,7 @@ UnitBlueprint {
     CollisionOffsetY = -0.55,
 	
     Defense = {
-        AirThreatLevel = 7.2,
+        AirThreatLevel = 8.4,
         ArmorType = 'Structure',
         EconomyThreatLevel = 3,
         Health = 1400,
@@ -84,7 +84,7 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXB0002',
+
         SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
@@ -93,14 +93,11 @@ UnitBlueprint {
         BuildCostEnergy = 2000,
         BuildCostMass = 200,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'urb2104',
-        },
+		
+        RebuildBonusIds = {'urb2104'},
     },
 	
-    Footprint = {
-        MinWaterDepth = 1,
-    },
+    Footprint = { MinWaterDepth = 1 },
 	
     General = {
         Category = 'Defense',
@@ -128,7 +125,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 29,
     },
 	
     Interface = {
@@ -193,7 +190,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 36,
+            Damage = 42,
             DamageType = 'Normal',
 			
             DisplayName = 'Electron Autocannon',
@@ -243,7 +240,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 72 DPS Air
+            RateOfFire = 2,		-- 84 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

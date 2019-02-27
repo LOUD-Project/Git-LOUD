@@ -19,15 +19,15 @@ UnitBlueprint {
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 0.8,
+        KMove = 0.75,
         KMoveDamping = 2,
 		
-        KTurn = 0.8,
+        KTurn = 0.75,
         KTurnDamping = 1.5,
 		
-        LiftFactor = 7,
+        LiftFactor = 5,
 		
-        MaxAirspeed = 12,
+        MaxAirspeed = 10,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
@@ -85,11 +85,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        EconomyThreatLevel = 0,
-        Health = 525,
-        MaxHealth = 525,
+        Health = 420,
+        MaxHealth = 420,
         RegenRate = 2,
-        SurfaceThreatLevel = 2,
+        SurfaceThreatLevel = 3.9,
     },
 	
     Description = '<LOC xra0105_desc>Light Gunship',
@@ -110,14 +109,14 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0009',
+
         SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
     Economy = {
-        BuildCostEnergy = 5000,
-        BuildCostMass = 200,
+        BuildCostEnergy = 4400,
+        BuildCostMass = 110,
         BuildTime = 1000,
     },
 	
@@ -153,7 +152,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -165,17 +164,13 @@ UnitBlueprint {
     LifeBarSize = 1,
 	
     Physics = {
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
-        },
+        BuildOnLayerCaps = { LAYER_Air = true },
+		
         Elevation = 13,
+		
         FuelRechargeRate = 8,
-        FuelUseTime = 480,
+        FuelUseTime = 200,
+		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
@@ -185,7 +180,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.46,
 	
-    SizeSphere = 1.1,
+    SizeSphere = 1,
 	
     SizeX = 1,
     SizeY = 0.5,
@@ -221,10 +216,10 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 16,
+            Damage = 20,
             DamageType = 'Normal',
 			
-            DisplayName = 'Heavy Laser Autogun',
+            DisplayName = 'Laser Autogun',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
@@ -262,7 +257,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,
+            RateOfFire = 2,
 			
             TargetCheckInterval = 0.3,
 			
@@ -280,42 +275,15 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 360,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawRange = 60,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
         },
-        {
-            AboveWaterTargetsOnly = true,
-            Damage = 100,
-            DamageFriendly = true,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-            DisplayName = 'Air Crash',
-            DummyWeapon = true,
-            FiringTolerance = 2,
-            Label = 'DeathImpact',
-            MaxRadius = 1,
-            WeaponCategory = 'Death',
-        },
-		
-    },
 	
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
     },
+
 }

@@ -47,7 +47,7 @@ UnitBlueprint {
     CollisionOffsetY = -0.6,
 	
     Defense = {
-        AirThreatLevel = 7.2,
+        AirThreatLevel = 8.4,
         ArmorType = 'Structure',
         Health = 1540,
         MaxHealth = 1540,
@@ -77,7 +77,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0002',
+
         SpawnRandomRotation = true,
         UniformScale = 0.155,
     },
@@ -86,14 +86,11 @@ UnitBlueprint {
         BuildCostEnergy = 2000,
         BuildCostMass = 200,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'ueb2104',
-        },
+		
+        RebuildBonusIds = {'ueb2104'},
     },
 	
-    Footprint = {
-        MinWaterDepth = 1,
-    },
+    Footprint = { MinWaterDepth = 1 },
 	
     General = {
         Category = 'Defense',
@@ -121,7 +118,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 29,
     },
 	
     Interface = {
@@ -190,7 +187,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 18,
+            Damage = 21,
             DamageType = 'Normal',
 			
             DisplayName = 'Linked Railgun',
@@ -233,7 +230,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 72 DPS Air
+            RateOfFire = 2,		-- 84 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
