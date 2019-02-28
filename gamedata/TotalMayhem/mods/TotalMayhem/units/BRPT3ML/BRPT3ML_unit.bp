@@ -1,7 +1,5 @@
 UnitBlueprint {
-    AI = { 
-        GuardScanRadius = 30, 
-    }, 
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -37,18 +35,17 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
     BuildIconSortPriority = 50,
 	
     Categories = {
-
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'SERAPHIM',
@@ -75,7 +72,7 @@ UnitBlueprint {
     Display = {
 		Abilities = {
 			'Volley Fires 4 shells',
-			'Inaccurate, Low Damage but large AOE',
+			'Inaccurate, Low Damage but AOE',
 			'Damages Friendly units',
 		},
 		
@@ -109,29 +106,24 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'Left_Ankle01',
-                            'Right_Ankle01',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
+                        Bones = {'Left_Ankle01','Right_Ankle01'},
+                        Offset = { 0, 0, 0 },
                         Type = 'GroundKickup01',
                     },
                 },
             },
-       },
-        PlaceholderMeshName = 'UXL0004',
+		},
+
         SpawnRandomRotation = true,
         UniformScale = 0.015,
     },
+	
     Economy = {
         BuildCostEnergy = 9900,
         BuildCostMass = 700,
-        BuildTime = 250,
+        BuildTime = 350,
     },
+	
     General = {
 		CapCost = 2,
         Category = 'Direct Fire',
@@ -156,12 +148,15 @@ UnitBlueprint {
         UnitName = '<LOC brpt3ml_name>Heth-Zthuha',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Thau Battery',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.96,
     LifeBarSize = 1.45,
@@ -177,18 +172,19 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.3,
-        MaxBrake = 2.6,
-        MaxSpeed = 2.6,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 0.9,
+        MaxBrake = 2.7,
+        MaxSpeed = 2.7,
+        MaxSpeedReverse = 2.7,
         MaxSteerForce = 10,
+		
         MeshExtentsX = 1.75,
         MeshExtentsY = 0.55,
         MeshExtentsZ = 2.75,
+		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 5,
         TurnRate = 35,
     },
@@ -198,11 +194,14 @@ UnitBlueprint {
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.96,
     SelectionThickness = 0.35,
+	
     SizeX = 0.6,
     SizeY = 1.35,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 125,
+	
     Veteran = {
         Level1 = 8,
         Level2 = 16,
@@ -210,9 +209,11 @@ UnitBlueprint {
         Level4 = 30,
         Level5 = 36,
     },
+	
     Transport = {
         TransportClass = 3,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -236,8 +237,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 100,
-            DamageRadius = 2.8,
+            Damage = 125,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
             DamageFriendly = true,
 			
@@ -248,48 +249,45 @@ UnitBlueprint {
             },
 			
 			FiringRandomnessWhileMoving = 3,
-            FiringRandomness = 2.2,
-            FiringTolerance = 1,
+            FiringRandomness = 1.5,
+            FiringTolerance = 2,
 			
             Label = 'FrontTurret',
 			
-            MaxRadius = 95,
-            MinRadius = 28,
+            MaxRadius = 90,
+            MinRadius = 25,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 23,
+			MuzzleVelocityRandom = 1,
 			MuzzleVelocityReduceDistance = 90,
 
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
-			
-            ProjectileLifetimeUsesMultiplier = 5,
+            ProjectileLifetime = 8,
 
             RackBones = {
                 {
                     MuzzleBones = {
                         'muzzle01',
-                        'muzzle02',
                         'muzzle03',
                         'muzzle04',
+                        'muzzle02',
                     },
                     RackBone = 'Left_Arm_B01',
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 10,
+
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackSalvoReloadTime = 2.5,	-- 2.5 second reload after firing salvo 
             RackSalvoSize = 1,
-			
-            RenderFireClock = true,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 0.3,
 			
             TargetCheckInterval = 2,
 			
@@ -317,8 +315,11 @@ UnitBlueprint {
             TurretYawSpeed = 28,
 			
             Turreted = true,
+			
+			UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
