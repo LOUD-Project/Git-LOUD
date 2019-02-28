@@ -40,8 +40,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 1000,
-        MaxHealth = 1000,
+        Health = 900,
+        MaxHealth = 900,
         RegenRate = 1,
         SurfaceThreatLevel = 7,
     },
@@ -73,9 +73,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5400,
-        BuildCostMass = 550,
-        BuildTime = 550,
+        BuildCostEnergy = 4900,
+        BuildCostMass = 500,
+        BuildTime = 600,
 		
         RebuildBonusIds = { 'sab2103' },
     },
@@ -194,7 +194,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.1,
+            FiringRandomness = 1,
             FiringTolerance = 0.7,
 			
             Label = 'MainGun',
@@ -249,7 +249,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 18,
+            TurretYawSpeed = 20,
 			
             Turreted = true,
         },
