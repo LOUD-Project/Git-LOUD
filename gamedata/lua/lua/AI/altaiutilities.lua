@@ -1866,7 +1866,7 @@ function WatchTransportTravel( transport, destination, aiBrain )
 			
 				if VDist2(transport.LastPosition[1], transport.LastPosition[3], GetPosition(transport)[1],GetPosition(transport)[3]) < 6 then
 				
-					transport.StuckCount = transport.StuckCount + 1
+					transport.StuckCount = transport.StuckCount + 0.5
 					
 				else
 				
@@ -1879,6 +1879,8 @@ function WatchTransportTravel( transport, destination, aiBrain )
 			if (transport:IsIdleState() or transport.StuckCount > 8) then
 		
 				if transport.StuckCount > 8 then
+				
+					LOG("*AI DEBUG "..aiBrain.Nickname.." StuckCount in WatchTransportTravel to "..repr(destination) )
 				
 					transport.StuckCount = 0
 					
@@ -2500,20 +2502,28 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		local platpos = GetPlatoonPosition(transports) or false
 		
 		if platpos then
+
+			local airthreatMax = counter * 8
+			
+			airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
 	
 			-- I use the number of transports as a multiplier so that large transport groups will accept larger threat levels
 			-- essentially giving each transport an air threat level of 14
-			local safePath, reason = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, counter * 13, 240)
+			local safePath, reason = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 240)
 		
 			if not safePath then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." USETRANSPORTS finds no safe path to "..repr(location).." using threat of "..counter * 13)
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." USETRANSPORTS finds no safe path to "..repr(location).." using threat of "..airthreatMax)
+			else
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." has path to "..repr(location))
 			end
 		
 			if PlatoonExists( aiBrain, transports) then
 		
 				IssueClearCommands( GetPlatoonUnits(transports) )
+				
+				IssueMove( GetPlatoonUnits(transports), GetPlatoonPosition(transports))
 
-				if safePath and aiBrain.CycleTime > 720 then 
+				if safePath then 
 			
 					local prevposition = GetPlatoonPosition(transports) or false
 		
@@ -2532,6 +2542,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					end
 				
 				else
+					
+					LOG("*AI DEBUG "..aiBrain.Nickname.." goes direct to "..repr(location))
 			
 					-- go direct ?? -- what ?
 					IssueFormMove( GetPlatoonUnits(transports), location, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location )) 

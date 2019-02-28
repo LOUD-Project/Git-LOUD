@@ -615,10 +615,16 @@ Platoon = Class(moho.platoon_methods) {
 			-- ===================================
 			-- FIND A DROP ZONE FOR THE TRANSPORTS
 			-- ===================================
-			-- this is based upon the threat at the destination and the threat sensitivity of the self and the transports
+			-- this is based upon the threat at the destination and the threat sensitivity of the land units and the transports
 			
 			-- a threat value for the transports based upon the number of transports
-			local airthreatMax = (LOUDGETN( GetPlatoonUnits(transportplatoon)) * 14 )
+			local transportcount = LOUDGETN( GetPlatoonUnits(transportplatoon))
+			
+			local airthreatMax = transportcount * 8
+			
+			airthreatMax = airthreatMax + ( airthreatMax * math.log10(transportcount))
+			
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." airthreatMax for "..transportcount.." unit transport platoon is "..repr(airthreatMax).." calc is "..math.log10(transportcount) )
 			
 			-- this is the desired drop location
 			local transportLocation = LOUDCOPY(destination)
@@ -652,6 +658,14 @@ Platoon = Class(moho.platoon_methods) {
 				
 					transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
 					
+				end
+				
+				if transportLocation then
+				
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds alternate landing position at "..repr(transportLocation))
+					
+					ForkTo( AISendPing, transportLocation, 'alert', aiBrain.ArmyIndex )
+				
 				end
 			
 			end

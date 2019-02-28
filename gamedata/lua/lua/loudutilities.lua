@@ -2588,7 +2588,8 @@ function PathGeneratorAir( aiBrain )
 
 			fork.cost = queueitem.cost + threat + 10
 
-			fork.goaldist = VDist2( data.Dest[1], data.Dest[3], testposition[1], testposition[3] )
+			-- as we accrue more steps in a path - the value of being closer to the goal diminishes quickly in favor of being safe --
+			fork.goaldist = VDist2( data.Dest[1], data.Dest[3], testposition[1], testposition[3] ) * ( math.log10(queueitem.pathcount + 1))
 
 			fork.length = queueitem.length + adjacentNode[2]
 
