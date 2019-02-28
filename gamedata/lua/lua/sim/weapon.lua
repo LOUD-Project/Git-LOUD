@@ -138,9 +138,15 @@ Weapon = Class(moho.weapon_methods) {
 		
             if bp.TurretDualManipulators then
 			
-                self.AimControl = CreateAimController(self, 'Torso', yawBone)
+				if not bp.TurretBoneAimYaw then
+					self.AimControl = CreateAimController(self, 'Torso', yawBone)
+				else
+					self.AimControl = CreateAimController(self, 'Torso', bp.TurretBoneAimYaw)
+				end
+				
                 self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
                 self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
+				
                 self.AimControl:SetPrecedence(precedence)
                 self.AimRight:SetPrecedence(precedence)
                 self.AimLeft:SetPrecedence(precedence)
@@ -155,7 +161,11 @@ Weapon = Class(moho.weapon_methods) {
                 self.Trash:Add(self.AimLeft)
 				
             else
-                self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
+				if not bp.TurretBoneAimYaw then
+					self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
+				else
+					self.AimControl = CreateAimController(self, 'Default', bp.TurretBoneAimYaw, pitchBone, muzzleBone)
+				end
 				
                 if LOUDENTITY(categories.STRUCTURE, self.unit) then
                     self.AimControl:SetResetPoseTime(9999999)

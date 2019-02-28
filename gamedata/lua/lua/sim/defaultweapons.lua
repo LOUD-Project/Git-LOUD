@@ -90,7 +90,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 		if bp.MuzzleSalvoDelay != nil then
 		
-			local totalMuzzleFiringTime = ((NumMuzzles - 1) * bp.MuzzleSalvoDelay) + bp.RackSalvoReloadTime
+			local totalMuzzleFiringTime = ((NumMuzzles - 1) * bp.MuzzleSalvoDelay)
 		
 			if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
 			

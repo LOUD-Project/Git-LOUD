@@ -5873,7 +5873,7 @@ function FindNavalExperimentalTargetLOUD( self )
 		end
 	
 		local distance = LOUDV3( myPos, base.Position )
-		local RangeModifier = math.log( mapsize/distance)
+		local RangeModifier = math.log10( mapsize/distance)
 		
 		local numUnitsAtBase = 0
 		

@@ -586,10 +586,8 @@ EngineerManager = Class(BuilderManager) {
 	-- When an engineer finishes construction of something it will pass thru here making it a natural place to assign unit-specific routines
     UnitConstructionFinished = function( self, unit, finishedUnit )
 	
-		if finishedUnit:GetFractionComplete() < 1 then
-		
+		if finishedUnit:GetFractionComplete() < 1 or BeenDestroyed(finishedUnit) then
 			return
-			
 		end
 	
 		local LOUDENTITY = EntityCategoryContains

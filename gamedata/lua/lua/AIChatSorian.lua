@@ -113,7 +113,7 @@ end
 --		-- target at will	-- returns enemy selection back over to the AI if it was being overridden
 --		-- target X			-- makes the AI select that player as his enemy 
 --		-- focus
---		-- give an engineer	-- The AI will donate an available engineer - if he has any
+--		-- give me an engineer	-- The AI will donate an available engineer - if he has any
 --		-- current focus	-- The AI will reply with who his current enemy is
 --		-- current plan		-- The AI will begin drawing his current plan on the map
 --		-- current status	-- The AI will begin reporting his current military ratio evaluations

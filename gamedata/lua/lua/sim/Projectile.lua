@@ -529,65 +529,65 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			--ImpactEffects
 			if targetType == 'Water' then
 		
-            ImpactEffects = self.FxImpactWater
-            ImpactEffectScale = self.FxWaterHitScale
+				ImpactEffects = self.FxImpactWater
+				ImpactEffectScale = self.FxWaterHitScale
 			
-        elseif targetType == 'Underwater' or targetType == 'UnitUnderwater' then
+			elseif targetType == 'Underwater' or targetType == 'UnitUnderwater' then
 		
-            ImpactEffects = self.FxImpactUnderWater
-            ImpactEffectScale = self.FxUnderWaterHitScale
+				ImpactEffects = self.FxImpactUnderWater
+				ImpactEffectScale = self.FxUnderWaterHitScale
 			
-        elseif targetType == 'Unit' then
+			elseif targetType == 'Unit' then
 		
-            ImpactEffects = self.FxImpactUnit
-            ImpactEffectScale = self.FxUnitHitScale
+				ImpactEffects = self.FxImpactUnit
+				ImpactEffectScale = self.FxUnitHitScale
 			
-        elseif targetType == 'UnitAir' then
+			elseif targetType == 'UnitAir' then
 		
-            ImpactEffects = self.FxImpactAirUnit
-            ImpactEffectScale = self.FxAirUnitHitScale
+				ImpactEffects = self.FxImpactAirUnit
+				ImpactEffectScale = self.FxAirUnitHitScale
 			
-        elseif targetType == 'Terrain' then
+			elseif targetType == 'Terrain' then
 		
-            ImpactEffects = self.FxImpactLand
-            ImpactEffectScale = self.FxLandHitScale
+				ImpactEffects = self.FxImpactLand
+				ImpactEffectScale = self.FxLandHitScale
 			
-            if (self.FxImpactLandScorch) then
+				if (self.FxImpactLandScorch) then
 			
-                CreateRandomScorchSplatAtObject(self, self.FxImpactLandScorchScale, 110, 20, army)
+					CreateRandomScorchSplatAtObject(self, self.FxImpactLandScorchScale, 110, 20, army)
 				
-            end
+				end
 			
-        elseif targetType == 'Air' then
+			elseif targetType == 'Air' then
 		
-            ImpactEffects = self.FxImpactNone
-            ImpactEffectScale = self.FxNoneHitScale
+				ImpactEffects = self.FxImpactNone
+				ImpactEffectScale = self.FxNoneHitScale
 			
-        elseif targetType == 'Projectile' then
+			elseif targetType == 'Projectile' then
 		
-            ImpactEffects = self.FxImpactProjectile
-            ImpactEffectScale = self.FxProjectileHitScale
+				ImpactEffects = self.FxImpactProjectile
+				ImpactEffectScale = self.FxProjectileHitScale
 			
-        elseif targetType == 'ProjectileUnderwater' then
+			elseif targetType == 'ProjectileUnderwater' then
 		
-            ImpactEffects = self.FxImpactProjectileUnderWater
-            ImpactEffectScale = self.FxProjectileUnderWaterHitScale			
+				ImpactEffects = self.FxImpactProjectileUnderWater
+				ImpactEffectScale = self.FxProjectileUnderWaterHitScale			
 			
-        elseif targetType == 'Prop' then
+			elseif targetType == 'Prop' then
 		
-            ImpactEffects = self.FxImpactProp
-            ImpactEffectScale = self.FxPropHitScale
+				ImpactEffects = self.FxImpactProp
+				ImpactEffectScale = self.FxPropHitScale
 			
-        elseif targetType == 'Shield' then
+			elseif targetType == 'Shield' then
 		
-            ImpactEffects = self.FxImpactShield
-            ImpactEffectScale = self.FxShieldHitScale
+				ImpactEffects = self.FxImpactShield
+				ImpactEffectScale = self.FxShieldHitScale
 			
-        end
+			end
 
-		if targetType != 'Shield' then
+			if targetType != 'Shield' then
 
-			if ScenarioInfo.ProjectileDialog then
+				if ScenarioInfo.ProjectileDialog then
 					LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
 				end
 
@@ -616,10 +616,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
 					end
 				
 				end
-				
-			end
 
-        end
+			end
+			
+		end
 
 		if self.DamageData.DamageType == 'Railgun' then
 
