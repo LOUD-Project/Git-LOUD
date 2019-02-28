@@ -43,6 +43,10 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
                     CreateAttachedEmitter(self.unit, 'gun_muzzle02', army, v):ScaleEmitter(1.2)
                     CreateAttachedEmitter(self.unit, 'gun_muzzle03', army, v):ScaleEmitter(1.2)
                     CreateAttachedEmitter(self.unit, 'gun_muzzle04', army, v):ScaleEmitter(1.2)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle05', army, v):ScaleEmitter(1.2)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle06', army, v):ScaleEmitter(1.2)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle07', army, v):ScaleEmitter(1.2)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle08', army, v):ScaleEmitter(1.2)					
                 end
 				
   	            for k, v in self.FxVentEffect2 do
@@ -50,10 +54,14 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
                     CreateAttachedEmitter(self.unit, 'gun_muzzle02', army, v):ScaleEmitter(0.5)
                     CreateAttachedEmitter(self.unit, 'gun_muzzle03', army, v):ScaleEmitter(0.5)
                     CreateAttachedEmitter(self.unit, 'gun_muzzle04', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle05', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle06', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle07', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'gun_muzzle08', army, v):ScaleEmitter(0.5)
                 end
             end, 
 		},
-
+		
         rocketweapon = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1.1 },
 		
         Torpedoes = Class(TANTorpedoLandWeapon) {},		

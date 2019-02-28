@@ -1,9 +1,7 @@
-
 local Projectile = import('/lua/sim/projectile.lua').Projectile
 local DefaultProjectileFile = import('/lua/sim/defaultprojectiles.lua')
 local EmitterProjectile = DefaultProjectileFile.EmitterProjectile
 
---local OnWaterEntryEmitterProjectile = DefaultProjectileFile.OnWaterEntryEmitterProjectile
 local SingleBeamProjectile = DefaultProjectileFile.SingleBeamProjectile
 local SinglePolyTrailProjectile = DefaultProjectileFile.SinglePolyTrailProjectile
 local MultiPolyTrailProjectile = DefaultProjectileFile.MultiPolyTrailProjectile
@@ -15,9 +13,6 @@ local NullShell = DefaultProjectileFile.NullShell
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local DefaultExplosion = import('/lua/defaultexplosions.lua')
---local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
-
---local util = import('/lua/utilities.lua')
 
 
 local TMEffectTemplate = import('/mods/TotalMayhem/lua/TMEffectTemplates.lua')
@@ -1214,14 +1209,14 @@ UefBRNT3WKproj = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0,0},
     PolyTrails = EffectTemplate.TPlasmaCannonHeavyPolyTrails,
     FxImpactUnit = TMEffectTemplate.UEFHeavyMechHit01,
-    FxUnitHitScale = 1.0,
+    FxUnitHitScale = 0.7,
     FxImpactProp = TMEffectTemplate.UEFHeavyMechHit01,
-    FxPropHitScale = 1.0,
+    FxPropHitScale = 0.7,
     FxImpactLand = TMEffectTemplate.UEFHeavyMechHit01,
-    FxLandHitScale = 1.0,
+    FxLandHitScale = 0.6,
     FxImpactUnderWater = TMEffectTemplate.UEFHeavyMechHit01,
     FxImpactWater = TMEffectTemplate.UEFHeavyMechHit01,
-    FxWaterHitScale = 1.0,
+    FxWaterHitScale = 0.5,
 }
 
 #----------------
@@ -1233,11 +1228,11 @@ UefBRNT3WKRLproj = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
     FxTrailOffset = -0.5,
     FxImpactUnit = EffectTemplate.TShipGaussCannonHit02,
-    FxUnitHitScale = 1,
+    FxUnitHitScale = 0.8,
     FxImpactProp = EffectTemplate.TShipGaussCannonHit02,
-    FxPropHitScale = 1,
+    FxPropHitScale = 0.7,
     FxImpactLand = EffectTemplate.TShipGaussCannonHit02,
-    FxLandHitScale = 1,
+    FxLandHitScale = 0.7,
     FxImpactUnderWater = EffectTemplate.TShipGaussCannonHit02,
     FxImpactWater = EffectTemplate.TShipGaussCannonHit02,
 }
