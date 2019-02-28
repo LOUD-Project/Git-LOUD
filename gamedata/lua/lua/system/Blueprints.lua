@@ -908,8 +908,8 @@ function ModBlueprints(all_blueprints)
 						Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
 						EnergyMult = 0.3,
 						HealthMult = 0.9,
-						LifeTime = 600,	-- give naval wreckage a lifetime value of 10 minutes
-						MassMult = 0.9,
+						LifeTime = 720,	-- give naval wreckage a lifetime value of 12 minutes
+						MassMult = 0.8,
 						ReclaimTimeMultiplier = 1,
 						
 						WreckageLayers = {
@@ -925,7 +925,7 @@ function ModBlueprints(all_blueprints)
 					wl.Seabed = true
 					wl.Sub = true
 					wl.Water = true
-					bp.Wreckage.LifeTime = 600
+					bp.Wreckage.LifeTime = 720
 				end
 			end
 		end
@@ -1015,7 +1015,7 @@ end
 function LoadBlueprints()
 
     LOG('Loading blueprints...')
-	
+
     InitOriginalBlueprints()
 	
 	local count = 0

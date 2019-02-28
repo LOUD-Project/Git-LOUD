@@ -885,6 +885,7 @@ MobileUnit = Class(Unit) {
 		self.TransportClass = GetBlueprint(self).Transport.TransportClass or false
 	end,
 
+	
 	-- when you start capturing a unit
     OnStartCapture = function(self, target)
         self:DoUnitCallbacks( 'OnStartCapture', target )
@@ -922,21 +923,23 @@ MobileUnit = Class(Unit) {
     StopCaptureEffects = function( self, target )
 		self.CaptureEffectsBag:Destroy()
     end,
-
+	
     -- Return the total time in seconds, cost in energy, and cost in mass to capture the given target.
     GetCaptureCosts = function(self, target_entity)
 
         local target_bp = target_entity:GetBlueprint().Economy
 
-        local time = ((target_bp.BuildTime or 10) / self:GetBuildRate()) / 2
+        local time = ( (target_bp.BuildTime or 10) / self:GetBuildRate() ) / 2
         local energy = target_bp.BuildCostEnergy or 100
         time = time * (self.CaptureTimeMultiplier or 1)
 
         return time, energy, 0
     end,
 
+	
 	-- when you start reclaiming
     OnStartReclaim = function(self, target)
+	
         --self:DoUnitCallbacks('OnStartReclaim', target)
         --self:StartReclaimEffects(target)
 
@@ -947,6 +950,18 @@ MobileUnit = Class(Unit) {
 		self.ReclaimEffectsBag:Add( self:ForkThread( self.CreateReclaimEffects, target ) )
 
         --self:PlayUnitSound('StartReclaim')
+		
+		if IsUnit(target) and not target.BeingReclaimed then
+		
+			target.BeingReclaimed = true
+			
+			target:SetRegenRate(0)
+			
+			-- no point in refreshing UI since it doesn't show the actual regen rate
+			-- but only the blueprint value
+			--target:RequestRefreshUI()
+			
+		end
 
 		-- if IsUnit(target) and target:IsUnitState('Upgrading') then
 			-- LOG("*AI DEBUG Target is "..target:GetBlueprint().Description)
@@ -954,14 +969,6 @@ MobileUnit = Class(Unit) {
 		-- end
 
         --self:PlayUnitAmbientSound('ReclaimLoop')
-    end,
-
-    CreateReclaimEffects = function( self, target )
-        EffectUtilities.PlayReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
-    end,
-
-    CreateReclaimEndEffects = function( self, target )
-        PlayReclaimEndEffects( self, target )
     end,
 
 	-- when you stop reclaiming
@@ -973,9 +980,24 @@ MobileUnit = Class(Unit) {
 		if self.ReclaimEffectsBag then
 			self.ReclaimEffectsBag:Destroy()
 		end
+		
+		if target and not target:BeenDestroyed() and target.BeingReclaimed then
+		
+			target:RevertRegenRate()
+			target.BeingReclaimed = false
+			
+		end
 
 		--self:StopUnitAmbientSound('ReclaimLoop')
 		--self:PlayUnitSound('StopReclaim')
+    end,
+	
+    CreateReclaimEffects = function( self, target )
+        EffectUtilities.PlayReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    end,
+
+    CreateReclaimEndEffects = function( self, target )
+        PlayReclaimEndEffects( self, target )
     end,
 
     StartReclaimEffects = function( self, target )
@@ -995,6 +1017,7 @@ MobileUnit = Class(Unit) {
         self.ReclaimTimeMultiplier = time_mult
     end,
 
+	
     OnStartSacrifice = function(self, target_unit)
 		EffectUtilities.PlaySacrificingEffects(self,target_unit)
     end,
@@ -1005,6 +1028,7 @@ MobileUnit = Class(Unit) {
         self:Destroy()
     end,
 
+	
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
 	
 		if ( old == 'Stopped' or old == 'Stopping' or (old == 'TopSpeed' and self.TopSpeedEffectsBag) ) or ( (new == 'TopSpeed' and self.HasFuel)  or  new == 'Stopped' ) then
@@ -1066,6 +1090,7 @@ MobileUnit = Class(Unit) {
 		
     end,
 
+	
     GetTTTreadType = function( self, pos )
         local TerrainType = GetTerrainType( pos.x,pos.z )
         return TerrainType.Treads or 'None'
@@ -1143,11 +1168,17 @@ MobileUnit = Class(Unit) {
         local ZOffset = tableData.ZOffset or 0.0
 
         for ke, ve in self.ContrailEffects do
+		
             for kb, vb in effectBones do
+			
+				if not self.TopSpeedEffectsBag then
+					self.TopSpeedEffectsBag = {}
+				end
+				
                 LOUDINSERT(self.TopSpeedEffectsBag, CreateTrail(self,vb,army,ve):SetEmitterParam('POSITION_Z', ZOffset))
             end
         end
---]]
+		
     end,
 
     CreateMovementEffects = function( self, EffectsBag, TypeSuffix, TerrainType )
@@ -1204,13 +1235,11 @@ MobileUnit = Class(Unit) {
 	-- damage, shake, groundeffects, treads and audio cues
     OnAnimCollision = function(self, bone, x, y, z)
 
-		-- see if it even has Movement Effects -- many dont --
-        local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
-
-        if bpTable then
+		-- if it even has Movement Effects -- many dont --
+        if __blueprints[self.BlueprintID].Display.MovementEffects[self.CacheLayer] then
 
 			-- then see if it has footfall entries for this layer
-            bpTable = bpTable[self.CacheLayer].Footfall
+            local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects[self.CacheLayer].Footfall
 
             if bpTable then
 
@@ -1247,7 +1276,7 @@ MobileUnit = Class(Unit) {
 
                     if boneTable.Tread and self:GetTTTreadType(self:GetPosition(bone)) != 'None' then
 
-                        CreateSplatOnBone(self, boneTable.Tread.TreadOffset, 0, boneTable.Tread.TreadMarks, boneTable.Tread.TreadMarksSizeX, boneTable.Tread.TreadMarksSizeZ, 100, boneTable.Tread.TreadLifeTime or 15, army )
+                        CreateSplatOnBone(self, boneTable.Tread.TreadOffset, 0, boneTable.Tread.TreadMarks, boneTable.Tread.TreadMarksSizeX, boneTable.Tread.TreadMarksSizeZ, 100, boneTable.Tread.TreadLifeTime or 10, army )
 
                         local treadOffsetX = boneTable.Tread.TreadOffset[1]
 
@@ -1316,16 +1345,15 @@ MobileUnit = Class(Unit) {
         end
 
         if self.TreadThreads then
-		
 			
             for k, v in self.TreadThreads do
                 KillThread(v)
             end
+			
             self.TreadThreads = {}
         end
 
         if bpTable[self.CacheLayer].Treads.ScrollTreads then
-		
 			
             self:RemoveScroller()
         end
@@ -1385,15 +1413,14 @@ MobileUnit = Class(Unit) {
 
     TransportAnimationThread = function(self,rate)
 
-        local bp = GetBlueprint(self).Display.TransportAnimation
-
-        if bp then
+        if __blueprints[self.BlueprintID].Display.TransportAnimation then
 
 			WaitTicks(1)
 
-            local animBlock = self:ChooseAnimBlock( bp )
+            local animBlock = self:ChooseAnimBlock( __blueprints[self.BlueprintID].Display.TransportAnimation )
 
             if animBlock.Animation then
+			
                 if not self.TransAnimation then
                     self.TransAnimation = CreateAnimator(self)
                     self.Trash:Add(self.TransAnimation)
@@ -1514,11 +1541,11 @@ MobileUnit = Class(Unit) {
             --self:PlayUnitAmbientSound('AmbientMoveSub')
         end
 --]]
-		local bp = GetBlueprint(self).Display
-        local bpTable = bp.MovementEffects
+		local bp = __blueprints[self.BlueprintID].Display
 
-        if not self.Footfalls and bpTable[new].Footfall then
-            self.Footfalls = self:CreateFootFallManipulators( bpTable[new].Footfall )
+		-- if unit has footfalls and they are described for new layer then use them
+        if self.Footfalls and bp.MovementEffects[new].Footfall then
+            self.Footfalls = self:CreateFootFallManipulators( bp.MovementEffects[new].Footfall )
         end
 
 		if bp.LayerChangeEffects then

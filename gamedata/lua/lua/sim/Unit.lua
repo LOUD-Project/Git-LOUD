@@ -1819,55 +1819,47 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
-	
 
         if self.DeathAnimManip then
 		
-		
 			WaitFor(self.DeathAnimManip)
-			
 			
 		end
 		
-		WaitTicks(3)
+		self:PlayUnitSound('Destroyed')		
+		
+		WaitTicks(2)
 		
 		if self.DamageEffectsBag then
 			self:DestroyAllDamageEffects()
 		end
 
-        if self.PlayDestructionEffects then
+		-- if simspeed too low suppress destruction effects --
+		if Sync.SimData.SimSpeed > -2 then
 		
+			if self.PlayDestructionEffects then
 		
-			--CreateScalableUnitExplosion( self,overkillRatio )	
-			self:CreateDestructionEffects( overkillRatio )
+				--CreateScalableUnitExplosion( self,overkillRatio )	
+				self:CreateDestructionEffects( overkillRatio )
 			
-		end
+			end
+        
+			if ( self.ShowUnitDestructionDebris and overkillRatio ) then
 		
-		self:PlayUnitSound('Destroyed')
+				if overkillRatio <= 0.25 then
+					self:ForkThread( CreateUnitDestructionDebris, true, true, false )
+				else
+					self:ForkThread( CreateUnitDestructionDebris, false, true, true )
+				end
+			
+			end		
+		end
 		
 		if overkillRatio <= 0.15 then
-		
-		
 			self:CreateWreckage( overkillRatio )
-			
 		end
-        
-        if ( self.ShowUnitDestructionDebris and overkillRatio ) then
-		
-            if overkillRatio <= 0.25 then
-			
-                self:ForkThread( CreateUnitDestructionDebris, true, true, false )
-				
-            else
-			
-                self:ForkThread( CreateUnitDestructionDebris, false, true, true )
-				
-            end
-			
-        end
 
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.2) * 10)
-		
 		
         self:Destroy()
 		self = nil
@@ -1892,6 +1884,7 @@ Unit = Class(moho.unit_methods) {
 		if wreck then
 			
 			local pos = self:GetPosition()
+			
 			local mass = bp.Economy.BuildCostMass * (bp.Wreckage.MassMult or 0)
 			local energy = bp.Economy.BuildCostEnergy * (bp.Wreckage.EnergyMult or 0)
 			local time = (bp.Wreckage.ReclaimTimeMultiplier or 1)
@@ -1903,13 +1896,13 @@ Unit = Class(moho.unit_methods) {
 			prop:SetScale(bp.Display.UniformScale)
 			prop:SetOrientation(self:GetOrientation(), true)
 			prop:SetPropCollision('Box', bp.CollisionOffsetX, bp.CollisionOffsetY, bp.CollisionOffsetZ, bp.SizeX* 0.5, bp.SizeY* 0.5, bp.SizeZ * 0.5)
+			
 			prop:SetMaxReclaimValues(time, time, mass, energy)
-
 			mass = (mass - (mass * (overkillRatio or 1))) * self:GetFractionComplete()
 			energy = (energy - (energy * (overkillRatio or 1))) * self:GetFractionComplete()
 			time = time - (time * (overkillRatio or 1))
-
 			prop:SetReclaimValues(time, time, mass, energy)
+			
 			prop:SetMaxHealth(bp.Defense.Health)
 			prop:SetHealth(self, bp.Defense.Health * (bp.Wreckage.HealthMult or 1))
 
@@ -2058,7 +2051,8 @@ Unit = Class(moho.unit_methods) {
 				
 			end
 			
-		end	
+		end
+		
 		-- for rail guns from 4DC credit Resin_Smoker
 		if other.LastImpact then
 			-- if hit same unit twice

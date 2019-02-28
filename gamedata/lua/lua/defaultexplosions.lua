@@ -226,11 +226,11 @@ function CreateFlash( obj, bone, scale, army )
 end
 
 function CreateScorchMarkSplat( obj, scale, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale * 4, scale * 4, GetRandomFloat(60,180), GetRandomFloat(60,180), army )
+    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale * 4, scale * 4, 110, GetRandomFloat(45,150), army )
 end
 
 function CreateScorchMarkDecal( obj, scale, army )
-    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, LOUDGETN(ScorchDecalTextures)) ], '', 'Albedo', scale * 3, scale * 3, GetRandomFloat(60,180), GetRandomFloat(60,180), army)
+    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, LOUDGETN(ScorchDecalTextures)) ], '', 'Albedo', scale * 3, scale * 3, 110, GetRandomFloat(45,150), army)
 end
 
 function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
@@ -266,27 +266,33 @@ function CreateWreckageEffects( obj, prop )
     if IsUnit(obj) then
 	
         local army = GetArmy(obj)
+		
         local scale = GetAverageBoundingXYZRadius( obj )
-        local emitters = {}
+		
+        local Emitters = {}
+		
         local layer = obj:GetCurrentLayer()
 
         if scale < 0.5 then
-            emitters = CreateRandomEffects( prop, army, EffectTemplate.DefaultWreckageEffectsSml01, 1 )
+		
+            Emitters = CreateRandomEffects( prop, army, EffectTemplate.DefaultWreckageEffectsSml01, 1 )
+			
         elseif scale > 1.5 then
+		
             local x,y,z = GetUnitSizes(obj)
-            emitters = CreateEffectsWithRandomOffset( prop, army, EffectTemplate.DefaultWreckageEffectsLrg01, x, 0, z )
+			
+            Emitters = CreateEffectsWithRandomOffset( prop, army, EffectTemplate.DefaultWreckageEffectsLrg01, x, 0, z )
+			
         else
-            emitters = CreateRandomEffects( prop, army, EffectTemplate.DefaultWreckageEffectsMed01, 2 )
+            Emitters = CreateRandomEffects( prop, army, EffectTemplate.DefaultWreckageEffectsMed01, 2 )
         end
 
 		-- random lifetime and scale
 		for _, v in Emitters do
-			v:SetEmitterParam( 'LIFETIME', GetRandomFloat( 60, 240 ) )
+			v:SetEmitterParam( 'LIFETIME', GetRandomFloat( 30, 120 ) )
 			v:ScaleEmitter(GetRandomFloat(0.25,1))
 		end
-		
-        -- Give the emitters created some random lifetimes
-        --ScaleEmittersParam( emitters, 'LIFETIME', 100, 600 )
+
     end
 end
 
@@ -447,6 +453,6 @@ function OldCreateWreckageEffects( object )
     local Effects = {'/effects/emitters/destruction_explosion_smoke_08_emit.bp'}
 
     for k, v in Effects do
-        CreateEmitterAtEntity( object, GetArmy(object), v):SetEmitterParam('LIFETIME', GetRandomFloat( 100, 1000 ))
+        CreateEmitterAtEntity( object, GetArmy(object), v):SetEmitterParam('LIFETIME', GetRandomFloat( 60, 150 ))
     end
 end
