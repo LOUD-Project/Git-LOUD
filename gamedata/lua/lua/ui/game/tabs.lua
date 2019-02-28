@@ -185,6 +185,7 @@ local actions = {
         else
             saveType = "SaveGame"
         end
+
         import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), nil, saveType)
     end,
 	
@@ -497,16 +498,22 @@ function BuildContent(contentID)
         CollapseWindow(function() BuildContent(contentID) end)
         return
     end
+	
     import('/lua/ui/game/multifunction.lua').CloseMapDialog()
     import('/lua/ui/game/chat.lua').CloseChatConfig()
+	
     activeTab = contentID
+	
     for _, tab in controls.tabs do
         if tab.Data.content == contentID then
             tab:SetCheck(true, true)
         end
     end
+	
     local contentGroup = false
+	
     if menus[contentID] then
+	
         contentGroup = Group(controls.parent)
         
         local function BuildButton(button)
@@ -520,33 +527,49 @@ function BuildContent(contentID)
         end
         
         local tableID = 'singlePlayer'
+		
         if HasCommandLineArg('/gpgnet') then
+		
             tableID = 'gpgnet'
+			
         elseif SessionIsMultiplayer() then
+		
             tableID = 'lan'
+			
         elseif GameMain.GetReplayState() then
+		
             tableID = 'replay'
         end
         
         contentGroup.Buttons = {}
         
         for index, buttonData in menus[contentID][tableID] do
+		
             local i = index
+			
             contentGroup.Buttons[i] = BuildButton(buttonData)
+			
             if gameOver and buttonData.disableOnGameOver then
                 contentGroup.Buttons[i]:Disable()
             end
+			
             if i == 1 then
+			
                 LayoutHelpers.AtTopIn(contentGroup.Buttons[i], contentGroup)
                 LayoutHelpers.AtHorizontalCenterIn(contentGroup.Buttons[i], contentGroup)
+				
             else
+			
                 LayoutHelpers.Below(contentGroup.Buttons[i], contentGroup.Buttons[i-1])
+				
             end
+			
         end
         
         controls.bgTop.widthOffset = 4
         contentGroup.Width:Set(contentGroup.Buttons[1].Width)
         contentGroup.Height:Set(function() return contentGroup.Buttons[1].Height() * table.getsize(contentGroup.Buttons) end)
+		
     else
         controls.bgTop.widthOffset = 30
         contentGroup = import('/lua/ui/game/'..contentID..'.lua').CreateContent(controls.parent)
@@ -557,6 +580,7 @@ function BuildContent(contentID)
     contentGroup.Top:Set(function() return controls.bgTop.Bottom() + 20 end)
     LayoutHelpers.AtHorizontalCenterIn(contentGroup, controls.bgTop)
     contentGroup:SetAlpha(0, true)
+	
     contentGroup.OnFrame = function(self, delta)
         local newAlpha = self:GetAlpha() + (4 * delta)
         if newAlpha > 1 then
@@ -569,8 +593,10 @@ function BuildContent(contentID)
     controls.contentGroup = contentGroup
     
     CreateStretchBG()
+	
     controls.bgTop:SetNeedsFrameUpdate(true)
     controls.bgTop.Time = 0
+	
     controls.bgTop.OnFrame = function(self, delta)
         self.Time = self.Time + delta
         local newWidth = self.Width() + (delta * 500)
@@ -581,7 +607,9 @@ function BuildContent(contentID)
         end
         self.Width:Set(newWidth)
     end
+	
     controls.bgBottom.Time = 0
+	
     controls.bgBottom.OnFrame = function(self, delta)
         self.Time = self.Time + delta
         local newTop = self.Top() + (delta * 1200)

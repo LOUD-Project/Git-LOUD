@@ -875,7 +875,7 @@ function CreateIdleFactoryList(parent, units)
 		
             table[1] = EntityCategoryFilterDown(categories.TECH1 * categories[type], unitData)
             table[2] = EntityCategoryFilterDown(categories.TECH2 * categories[type], unitData)
-            table[3] = EntityCategoryFilterDown(categories.TECH3 * categories[type], unitData)
+            table[3] = EntityCategoryFilterDown(categories.TECH3 * categories[type] - categories.SIZE4, unitData)
 			
         end
 		
@@ -1001,7 +1001,7 @@ function AvatarUpdate()
     end
     
 	-- there were several reference to - categories.GATE that I removed here so that idle gates will show up as idle factories
-    if factories and table.getn(EntityCategoryFilterDown(categories.ALLUNITS, factories)) > 0 then
+    if factories and table.getn(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories)) > 0 then
 	
         if controls.idleFactories then
 		

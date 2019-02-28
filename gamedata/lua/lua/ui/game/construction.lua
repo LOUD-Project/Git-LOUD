@@ -280,7 +280,7 @@ function OnNestedTabCheck(self, checked)
         end
 		
     end
-	
+
     controls.choices:Refresh(FormatData(sortedOptions[self.ID], nestedTabKey[self.ID] or self.ID))
 	
     SetSecondaryDisplay('buildQueue')
@@ -1948,7 +1948,7 @@ function DisablePauseToggle()
 end
 
 function ToggleUnitPause()
-
+	
     if controls.selectionTab:IsChecked() or controls.constructionTab:IsChecked() then
 	
         controls.extraBtn2:ToggleCheck()
@@ -1961,26 +1961,15 @@ function ToggleUnitPause()
 	
 end
 
+-- modified to allow upgradeable structures to be included in a template
+-- previously -- anything construction would not have a template button appear
+-- but would instead have the infinite build button if it was a factory
+-- this now only occurs if the selection list is purely FACTORY structures
+-- otherwise it must be a mixed selection and thus suitable for a template
 function CreateExtraControls(controlType)
 
     if controlType == 'construction' or controlType == 'templates' then
-	
-        Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'construction_infinite')
-		
-        controls.extraBtn1.OnClick = function(self, modifiers)
-            return Checkbox.OnClick(self, modifiers)
-        end
-		
-        controls.extraBtn1.OnCheck = function(self, checked)
-            for i,v in sortedOptions.selection do
-                if checked then
-                    v:ProcessInfo('SetRepeatQueue', 'true')
-                else
-                    v:ProcessInfo('SetRepeatQueue', 'false')
-                end
-            end
-        end
-		
+
         local allFactories = true
         local currentInfiniteQueueCheckStatus = false
 		
@@ -1993,11 +1982,80 @@ function CreateExtraControls(controlType)
             end
         end
 		
+		-- if everything selected is a factory show the construction repeat button
         if allFactories then
+	
+			Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'construction_infinite')
+		
+			controls.extraBtn1.OnClick = function(self, modifiers)
+				return Checkbox.OnClick(self, modifiers)
+			end
+		
+			controls.extraBtn1.OnCheck = function(self, checked)
+				for i,v in sortedOptions.selection do
+					if checked then
+						v:ProcessInfo('SetRepeatQueue', 'true')
+					else
+						v:ProcessInfo('SetRepeatQueue', 'false')
+					end
+				end
+			end
+
             controls.extraBtn1:SetCheck(currentInfiniteQueueCheckStatus, true)
             controls.extraBtn1:Enable()
+
+		-- otherwise show the save template button
         else
-            controls.extraBtn1:Disable()
+		
+	        Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'save_template')
+		
+			local validForTemplate = true
+			local faction = false
+		
+			for i,v in sortedOptions.selection do
+		
+				if not v:IsInCategory('STRUCTURE') then
+					validForTemplate = false
+					break
+				end
+			
+				if i == 1 then
+			
+					local factions = import('/lua/factions.lua').Factions
+				
+					for _, factionData in factions do
+				
+						if v:IsInCategory(factionData.Category) then
+					
+							faction = factionData.Category
+							break
+						
+						end
+					
+					end
+				
+				elseif not v:IsInCategory(faction) then
+			
+					validForTemplate = false
+					break
+				
+				end
+			
+			end
+		
+			if validForTemplate then
+		
+				controls.extraBtn1:Enable()
+				controls.extraBtn1.OnClick = function(self, modifiers)
+					Templates.CreateBuildTemplate()
+				end
+			
+			else
+		
+				controls.extraBtn1:Disable()
+			
+			end
+
         end
         
         Tooltip.AddCheckboxTooltip(controls.extraBtn2, 'construction_pause')
@@ -2007,11 +2065,8 @@ function CreateExtraControls(controlType)
         end
 		
         if pauseEnabled then
-		
             controls.extraBtn2:Enable()
-			
         else
-		
             controls.extraBtn2:Disable()
         end
 		
@@ -2198,7 +2253,7 @@ function FormatData(unitData, type)
 				if not idleConsUnits[id] then 
 					idleConsUnits[id] = {}
 				end
-					
+
 				LOUDINSERT(idleConsUnits[id], unit)
 				
             else
@@ -2234,17 +2289,17 @@ function FormatData(unitData, type)
 			for i, v in sortedUnits do
 				
 				LOUDINSERT(retData, {type = 'unitstack', id = i, units = v})
-					
+
 			end
-				
+
 		end
-			
+
 		for i, v in lowFuelUnits do
 			
 			LOUDINSERT(retData, {type = 'unitstack', id = i, units = v, lowFuel = true})
-				
+
 		end
-			
+
 		for i, v in idleConsUnits do
 			
 			LOUDINSERT(retData, {type = 'unitstack', id = i, units = v, idleCon = true})
