@@ -32,7 +32,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
     Builder {BuilderName = 'Land Scout', 
 	
         PlatoonTemplate = 'T1LandScout',
-        Priority = 550,
+        Priority = 600,
 
         BuilderConditions = {
 		
