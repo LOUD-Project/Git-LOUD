@@ -375,9 +375,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
 
 		else
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." base pick is "..repr(pick))
-			
+
 			-- this function would level the area around a new base
 			--import('/lua/loudutilities.lua').LevelStartBaseArea( position, rallypointradius )
 			

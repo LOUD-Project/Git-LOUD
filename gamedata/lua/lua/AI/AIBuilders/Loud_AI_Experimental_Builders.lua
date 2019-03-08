@@ -1269,7 +1269,7 @@ BuilderGroup {BuilderGroupName = 'Satellite Builders',
 		-- PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         -- Priority = 0, 
         -- BuilderConditions = {
-			-- { MIBC, 'FactionIndex', { 1, 2} },
+
             -- { LUTL, 'UnitCapCheckLess', { .95 } },
 			-- { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 160 }},
             -- { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.15 }},

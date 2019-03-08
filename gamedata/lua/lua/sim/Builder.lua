@@ -277,6 +277,12 @@ function CreateFactoryBuilder(brain, data, locationType)
 
     local builder = FactoryBuilder()
 	
+	if not builder then
+	
+		return false
+		
+	end
+	
     if builder:Create(brain, data, locationType) then
 	
         return builder
@@ -443,6 +449,90 @@ EngineerBuilder = Class(PlatoonBuilder) {
 function CreateEngineerBuilder( manager, brain, data, locationType)
 
     local builder = EngineerBuilder()
+	
+	if not builder then
+
+		return false
+		
+	end
+	
+	local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
+	local Game = import('/lua/game.lua')
+	
+	if data.BuilderData.Construction.BuildStructures then
+		
+		local fulltemplate = {}
+		local datatemplate = {}
+		
+		--LOG("*AI DEBUG data is "..repr(data.BuilderData.Construction.BuildStructures))
+
+		for k,v in data.BuilderData.Construction.BuildStructures do
+
+	        local buildingTmpl = import('/lua/buildingtemplates.lua').BuildingTemplates[brain.FactionIndex]
+			
+			local template = {}
+
+			for _, id in buildingTmpl do
+			
+				if id[1] == v then
+				
+					local fog = id[2]
+					
+					if fog != nil and not Game.UnitRestricted( false, fog) then
+
+						LOUDINSERT( template, fog )
+					
+					end
+					
+				end
+
+			end
+			
+			local replacement = false
+			
+			if ScenarioInfo.CustomUnits[v][brain.FactionName] then
+			
+				replacement = GetTemplateReplacement( v, brain.FactionName, ScenarioInfo.CustomUnits[v][brain.FactionName] )
+				
+				if replacement then
+				
+					local fog = replacement[1][2]
+					
+					if not Game.UnitRestricted( false, fog) then
+				
+						LOUDINSERT( template, fog )
+						
+					end
+					
+				end
+				
+			end
+
+			if table.empty(template) then
+				LOG("*AI DEBUG id for "..repr(v).." in "..data.BuilderName.." is empty ")
+			else
+				LOUDINSERT( fulltemplate, template )
+				LOUDINSERT( datatemplate, v )
+			end
+		
+		end
+		
+		if table.empty(fulltemplate) then
+		
+			LOG("*AI DEBUG Builder "..repr(data.BuilderName).." is empty")
+			
+			return false
+			
+		else
+		
+			--LOG("*AI DEBUG IDs for "..repr(data.BuilderName).." are "..repr(fulltemplate) )
+			--LOG("*AI DEBUG Data template will be "..repr(datatemplate))
+
+		end	
+
+		data.BuilderData.Construction.BuildStructures = table.copy(datatemplate)
+
+	end
 	
     if builder:Create( manager, brain, data, locationType) then
 	

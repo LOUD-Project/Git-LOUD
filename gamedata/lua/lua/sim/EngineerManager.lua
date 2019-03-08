@@ -73,7 +73,13 @@ EngineerManager = Class(BuilderManager) {
 
     AddBuilder = function( self, brain, builderData, locationType, builderType )
 	
-        local newBuilder = CreateEngineerBuilder( self, brain, builderData, locationType)
+		local newBuilder = false
+		
+		if not builderData.FactionIndex or builderData.FactionIndex == brain.FactionIndex then
+	
+			newBuilder = CreateEngineerBuilder( self, brain, builderData, locationType)
+			
+		end
 		
 		if newBuilder then
 		
