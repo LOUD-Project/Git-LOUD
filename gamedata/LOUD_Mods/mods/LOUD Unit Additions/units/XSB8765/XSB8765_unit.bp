@@ -103,7 +103,7 @@ UnitBlueprint {
         BuildCostMass = 35000,
         BuildTime = 36500,
 
-        StorageMass = 320000,
+        StorageMass = 32000,
         StorageEnergy = 500000,
     },
 	

@@ -10,7 +10,7 @@ WSL0405 = Class(SHoverLandUnit) {
     Weapons = {
 	
         MainTurret = Class(SDFThauCannon) {},
-        MainTurret2 = Class(SDFThauCannon) {},
+        --MainTurret2 = Class(SDFThauCannon) {},
 		
         LeftTurret = Class(SDFAireauBolter) {},
         RightTurret = Class(SDFAireauBolter) {},

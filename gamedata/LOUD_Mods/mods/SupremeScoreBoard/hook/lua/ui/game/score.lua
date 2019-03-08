@@ -136,9 +136,9 @@ local switchInterval = 10 -- in seconds
 
 -- initializes Stats to store info about players' armies and aggregated armies (teams)
 function InitializeStats()
-      
+
     log.Trace('InitializeStats()... '  )
-     
+
     Stats.units  = GetArmyTableUnits() 
     Stats.armies = {} --GetArmiesTable().armiesTable
     Stats.teams  = {}
@@ -150,7 +150,7 @@ function InitializeStats()
     Stats.ai  = GetAiData(sessionInfo)
     
     local allArmies = GetArmiesTable().armiesTable
-      
+
     log.Table(sessionInfo, 'sessionInfo') 
     --log.Table(__active_mods, 'active_mods')
     --log.Table(allArmies, 'armies') 
@@ -166,7 +166,7 @@ function InitializeStats()
         --    army.type = "ai"  
         --    Stats.ai.active = true            
         end
-               
+
         log.Trace('InitializeStats()... info armyID='..armyID..', type='..army.type..', name='..army.nickname)
         --if army.civilian or not army.showScore then continue end
         if not army.civilian and army.showScore then 
