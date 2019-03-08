@@ -2293,7 +2293,7 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonus',
     Affects = {
         EnergyProduction = {
             Mult = 1.0,
-            Add = 0.8,
+            Add = 0.5,
         },
     },
 }
@@ -2302,13 +2302,13 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonus',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Mult = 0.5,
+            Mult = 0.4,
             Add = 0.0,
         },
     },
@@ -2318,13 +2318,13 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonus',
     BuffType = 'ENERGYMAINTENANCEBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Mult = 0.5,
+            Mult = 0.4,
             Add = 0.0,
         },
     },
@@ -2334,14 +2334,14 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonus',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE * categories.DEFENSE,
     BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
     OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
     Affects = {
         EnergyWeapon = {
-            Mult = 0.5,
-            Add = 0.0,
+            Mult = 1.0,
+            Add = -0.1,
         },
     },
 }
@@ -2350,14 +2350,14 @@ BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonus',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE * categories.DEFENSE,
     BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
     OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = 0.0,
-            Mult = 0.5,
+            Add = -0.10,
+            Mult = 1.0,
         },
     },
 }
@@ -2372,8 +2372,8 @@ BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonus',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         MassActive = {
-            Mult = 0.5,
-            Add = 0.0,
+            Mult = 1.0,
+            Add = -0.15,
         },
     },
 }
@@ -2388,8 +2388,8 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonus',
     OnBuffRemove = AdjBuffFuncs.ShieldRegenBuffRemove,
     Affects = {
         ShieldRegeneration = {
-            Mult = 1.2,
-            Add = 0.0,
+            Mult = 1.0,
+            Add = 0.15,
         },
     },
 }
