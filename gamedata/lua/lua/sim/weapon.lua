@@ -74,6 +74,7 @@ Weapon = Class(moho.weapon_methods) {
 		
         if initStore > 0 then
 		
+			-- if the weapon cant hold that amount - set it to its max amount
             if bp.MaxProjectileStorage and bp.MaxProjectileStorage < initStore then
                 initStore = bp.MaxProjectileStorage
             end
@@ -84,7 +85,7 @@ Weapon = Class(moho.weapon_methods) {
                 nuke = true
             end
 			
-            ForkTo(self.AmmoThread, self, nuke, initStore)
+            ForkTo(self.AmmoThread, self, nuke, math.floor(initStore))
         end
 		
 		self:SetDamageTable(bp)

@@ -195,6 +195,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 	-- passed in the bp data to avoid the call
     CheckCountedMissileLaunch = function(self, bp)
+	
+		--LOG("*AI DEBUG CheckCountedMissileLaunch ")
 		
         if bp.NukeWeapon then
             self.unit:OnCountedMissileLaunch('nuke')
@@ -464,6 +466,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- General State-less event handling
     OnLostTarget = function(self)
 
+		--LOG("*AI DEBUG OnLostTarget")
+		
         Weapon.OnLostTarget(self)
 		
         local bp = self:GetBlueprint()
@@ -540,7 +544,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     -- WEAPON STATES:
 
-    -- A Weapon is idle state when it has no target and is done with animations or unpacking
+    -- A Weapon is idle state when it has no target
 	-- also note that a weapon is created BEFORE the actual unit is completed - so you'll see
 	-- any first shot charging take place before the unit is finished - that's ok.
     IdleState = State {
@@ -549,6 +553,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         WeaponAimWantEnabled = true,
 
         Main = function(self)
+		
+			--LOG("*AI DEBUG Weapon Idle State")
 
             if self.unit.Dead then return end
             
@@ -577,7 +583,12 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
 			end
             
+			-- if the weapon has fired prior to coming back to Idle, execute the reload timeout
+			-- and reset the rack salvo number back to 1
+			-- NOTE: This is setup so that it only works if there is more than 1 rack
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
+			
+				--LOG("*AI DEBUG Weapon IdleState RackReload")
             
                 WaitSeconds(bp.RackReloadTimeout)
                 
@@ -591,6 +602,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnGotTarget = function(self)
+		
+			--LOG("*AI DEBUG Weapon IdleState OnGotTarget")
 
             local bp = GetBlueprint(self)
 	
@@ -625,6 +638,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon IdleState OnFire")
 	
             local bp = GetBlueprint(self)
 			
@@ -655,13 +670,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 
     WeaponUnpackingState = State {
-	
-		--LOG("*AI DEBUG Unpacking State")
 
         WeaponWantEnabled = false,
         WeaponAimWantEnabled = false,
 
         Main = function(self)
+		
+			--LOG("*AI DEBUG Weapon Unpacking State")
 		
             self.unit:SetBusy(true)
 
@@ -689,20 +704,22 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon Unpacking State OnFire")
 
         end,
     },
 	
 
     RackSalvoChargeState = State {
-	
-		--LOG("*AI DEBUG RackSalvoChargeState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
-
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Charge State")
+			
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
@@ -732,19 +749,21 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Charge OnFire")
 
         end,
     },
 
     RackSalvoFireReadyState = State {
-	
-		--LOG("*AI DEBUG RackSalvoFireReadyState")
 
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
 
+			--LOG("*AI DEBUG Weapon RackSalvo FireReady State")
+			
             local bp = GetBlueprint(self)
 			
             if (bp.CountedProjectile == true and bp.WeaponUnpacks == true) then
@@ -760,6 +779,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.WeaponCanFire = false
 			
             if self.EconDrain then
+			
+				--LOG("*AI DEBUG Weapon RackSalvo FireReady - waiting for eco drain")
 
                 WaitFor(self.EconDrain)
 				
@@ -785,6 +806,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 		-- then the weapon will Never do an OnFire() event unless the unit is set to IMMOBILE
         OnFire = function(self)
 
+			--LOG("*AI DEBUG Weapon RackSalvo FireReady OnFire")
+			
             if self.WeaponCanFire then
                 LOUDSTATE(self, self.RackSalvoFiringState)
             end
@@ -794,40 +817,47 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     RackSalvoFiringState = State {
 	
-		--LOG("*AI DEBUG RackSalvoFiringState")
-	
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
 
+			--LOG("*AI DEBUG Weapon RackSalvo Firing State")
+			
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
 			
-            self:DestroyRecoilManips()
+			if self.RecoilManipulators then
+				self:DestroyRecoilManips()
+			end
 			
             local numRackFiring = self.CurrentRackSalvoNumber
+		
+			local RacksToBeFired = LOUDGETN(bp.RackBones)
 			
             if bp.RackFireTogether == true then
-                numRackFiring = table.getsize(bp.RackBones)
-            end
+                numRackFiring = RacksToBeFired
+            end			
 
             -- Most of the time this will only run once, the only time it doesn't is when racks fire together.
             while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
 			
-                local rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]
+                local rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]			
 				
+				local MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
                 local numMuzzlesFiring = bp.MuzzleSalvoSize
-				
+
                 if bp.MuzzleSalvoDelay == 0 then
-                    numMuzzlesFiring = LOUDGETN(rackInfo.MuzzleBones)
+                    numMuzzlesFiring = MuzzlesToBeFired
                 end
 				
                 local muzzleIndex = 1
-				
+	
 				-- fire all the muzzles --
                 for i = 1, numMuzzlesFiring do
+				
+					--LOG("*AI DEBUG Weapon RackSalvo Firing State Rack "..repr(self.CurrentRackSalvoNumber).." firing muzzle "..repr(i).." of "..repr(numMuzzlesFiring) )
 				
                     if self.HaltFireOrdered then
                         continue
@@ -891,7 +921,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     muzzleIndex = muzzleIndex + 1
 
 					-- reset the muzzle index if fired all muzzles
-                    if muzzleIndex > LOUDGETN(rackInfo.MuzzleBones) then
+                    if muzzleIndex > MuzzlesToBeFired then
                         muzzleIndex = 1
                     end
 					
@@ -917,7 +947,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 				
 				-- advance the rack number --
-                if self.CurrentRackSalvoNumber <= LOUDGETN(bp.RackBones) then
+                if self.CurrentRackSalvoNumber <= RacksToBeFired then
                     self.CurrentRackSalvoNumber = self.CurrentRackSalvoNumber + 1
                 end
 				
@@ -945,13 +975,14 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.HaltFireOrdered = false
 
 			-- if all the racks have fired --
-            if self.CurrentRackSalvoNumber > LOUDGETN(bp.RackBones) then
+            if self.CurrentRackSalvoNumber > RacksToBeFired then
 			
 				-- reset the rack count
                 self.CurrentRackSalvoNumber = 1
 				
 				-- OK so this is revealing - neither one of these is often used but its clear
 				-- that ChargeTime here
+				
                 if bp.RackSalvoReloadTime > 0 then
 				
                     LOUDSTATE(self, self.RackSalvoReloadState)
@@ -995,10 +1026,14 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 		
 		OnFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Firing State OnFire")
 
 		end,
 
         OnLostTarget = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Firing State OnLostTarget")		
 		
             Weapon.OnLostTarget(self)
 			
@@ -1012,6 +1047,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         -- Set a bool so we won't fire if the target reticle is moved
         OnHaltFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Firing State OnHaltFire")
+			
             self.HaltFireOrdered = true
         end,
 		
@@ -1037,6 +1075,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         WeaponAimWantEnabled = true,
 
         Main = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Reload State")		
 
             self.unit:SetBusy(true)
 			
@@ -1066,7 +1106,23 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
             elseif self:WeaponHasTarget() and self:CanWeaponFire() then
 			
-                LOUDSTATE(self, self.RackSalvoFireReadyState)
+				if not bp.ManualFire then
+			
+					LOUDSTATE(self, self.RackSalvoFireReadyState)
+					
+				else
+				
+					if bp.WeaponUnpacks == true then
+						
+						LOUDSTATE(self, self.WeaponPackingState)
+
+					else
+					
+						LOUDSTATE(self, self.IdleState)
+						
+					end
+				
+				end
 				
             elseif not self:WeaponHasTarget() and bp.WeaponUnpacks == true and bp.WeaponUnpackLocksMotion != true then
 			
@@ -1081,19 +1137,21 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+		
+			--LOG("*AI DEBUG Weapon RackSalvo Reload State OnFire")		
 
         end,
     },
 
     WeaponPackingState = State {
 	
-		--LOG("*AI DEBUG WeaponPackingState")
-
         WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
 
+			--LOG("*AI DEBUG Weapon WeaponPacking State")
+			
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
@@ -1116,6 +1174,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         OnGotTarget = function(self)
 		
+			--LOG("*AI DEBUG Weapon WeaponPacking State OnGotTarget")		
+		
             if not GetBlueprint(self).ForceSingleFire then
 			
                 LOUDSTATE(self, self.WeaponUnpackingState)
@@ -1129,6 +1189,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnFire = function(self)
 		
             local bp = GetBlueprint(self)
+			
+			--LOG("*AI DEBUG Weapon WeaponPacking State OnFire")			
 			
             if bp.CountedProjectile == true and not bp.ForceSingleFire then
 			

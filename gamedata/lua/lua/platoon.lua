@@ -680,8 +680,7 @@ Platoon = Class(moho.platoon_methods) {
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 					
 				end
-				
-				
+
 				return false
 				
 			end
@@ -4521,7 +4520,7 @@ Platoon = Class(moho.platoon_methods) {
 		-- mark the platoon as running the AI
 		self.DistressResponseAIRunning = true
 		
-		while self.DistressResponseAIRunning do
+		while PlatoonExists(aiBrain,self) and self.DistressResponseAIRunning do
 		
 			WaitTicks(55)
 			
