@@ -50,11 +50,11 @@ UnitBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
-	
+
     Buffs = {},
-	
+
     BuildIconSortPriority = 12,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -69,7 +69,7 @@ UnitBlueprint {
         'OVERLAYOMNI',
         'OVERLAYRADAR',
     },
-	
+
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 65,
@@ -77,11 +77,11 @@ UnitBlueprint {
         MaxHealth = 250,
         RegenRate = 1,
     },
-	
+
     Description = '<LOC srl0324_desc>Mobile Sensor Array',
-	
+
     Display = {
-	
+
         Abilities = {
             '<LOC ability_cloak>Cloaking',
             '<LOC ability_deploys>Deploys',
@@ -89,7 +89,7 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
         },
-		
+
         AnimationOpen = '/mods/BrewLAN_LOUD/units/SRL0324/SRL0324_AOpen.sca',
 
         IdleEffects = {
@@ -104,7 +104,7 @@ UnitBlueprint {
                 },
             },
         },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -127,15 +127,15 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
-	
+
     Economy = {
         BuildCostEnergy = 30000*0.9,
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
-		
+
         MaintenanceConsumptionPerSecondEnergy = 2600,
     },
-	
+
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
@@ -153,45 +153,45 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-		
+
         OrderOverrides = {
             RULEUTC_IntelToggle = {
                 bitmapId = 'omni',
                 helpText = 'toggle_omni',
             },
         },
-		
+
         FactionName = 'Cybran',
         Icon = 'land',
-		
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-		
+
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC srl0324_name>Citron',
+        UnitName = '<LOC srl0324_name>Adramelech',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         OmniRadius = 125,
         RadarRadius = 290,
         ShowIntelOnSelect = true,
         VisionRadius = 40,
-		
+
         RadarStealth = true,
 		StealthWaitTime = 2,
         Cloak = true,
     },
-	
+
     Interface = {
         HelpText = '<LOC srl0324_desc>Mobile Sensor Array',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.75,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -219,16 +219,16 @@ UnitBlueprint {
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.4,
-	
+
     SizeX = 1.25,
     SizeY = 1.7,
     SizeZ = 1.25,
-	
+
     StrategicIconName = 'icon_land3_intel',
     StrategicIconSortPriority = 115,
-	
+
     Transport = {
         TransportClass = 3,
     },
-	
+
 }

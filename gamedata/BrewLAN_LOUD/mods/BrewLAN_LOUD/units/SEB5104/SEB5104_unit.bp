@@ -25,9 +25,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     BuildIconSortPriority = 210,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -46,9 +46,9 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
-	
+
     CollisionOffsetY = -0.2,
-	
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 5,
@@ -56,9 +56,9 @@ UnitBlueprint {
         MaxHealth = 200,
         RegenRate = 0.2,
     },
-	
-    Description = '<LOC sbui5104>Air Staging Facility',
-	
+
+    Description = '<LOC sbui5104>Light Air Staging Facility',
+
     Display = {
         Abilities = {
             '<LOC ability_airstaging>Air Staging',
@@ -81,7 +81,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-		
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -99,18 +99,18 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
-		
+
         UniformScale = 0.1875,
     },
-	
+
     Economy = {
         BuildCostEnergy = 1050,
         BuildCostMass = 90,
         BuildTime = 175,
-		
+
         RebuildBonusIds = {'seb5104'},
     },
-	
+
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_MiscSupport',
@@ -141,15 +141,15 @@ UnitBlueprint {
         UnitName = '<LOC seb5104_name>Resupply',
         UnitWeight = 1,
     },
-	
+
     Interface = {
-        HelpText = '<LOC sbui5104>Air Staging Facility',
+        HelpText = '<LOC sbui5104>Light Air Staging Facility',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = .8,
     LifeBarSize = 1,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -174,18 +174,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
-	
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 1,
-	
+
     SizeX = 1,
     SizeY = 2,
     SizeZ = 1,
-	
+
     StrategicIconName = 'icon_structure1_air',
     StrategicIconSortPriority = 175,
-	
+
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
@@ -193,7 +193,7 @@ UnitBlueprint {
         RepairRate = 0.1,
         StorageSlots = 0,
     },
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

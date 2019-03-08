@@ -27,7 +27,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -37,9 +37,9 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
-	
+
     BuildIconSortPriority = 140,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4ENGINEER',
@@ -58,10 +58,10 @@ UnitBlueprint {
         'OVERLAYINDIRECTFIRE',
         'SORTSTRATEGIC',
     },
-	
+
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -1.5,
-	
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1667,
@@ -70,9 +70,9 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 0,
     },
-	
+
     Description = 'Experimental Rapid-Fire Artillery',
-	
+
     Display = {
 
         Mesh = {
@@ -114,22 +114,22 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
-	
+
     Economy = {
         BuildCostEnergy = 5994000*1.1,
         BuildCostMass = 299700*1.1,
         BuildTime = 99900,
-		
+
         RebuildBonusIds = { 'ssb2404' },
-		
+
         ResearchMult = 0.1,
     },
-	
+
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
-	
+
     General = {
         Category = 'Strategic',
         Classification = 'RULEUC_Weapon',
@@ -151,22 +151,22 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ssb2404_name>Gaah',
+        UnitName = '<LOC ssb2404_name>Suthanus',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 28,
     },
-	
+
     Interface = {
         HelpText = '<LOC srb2401_desc>Experimental Artillery Installation',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.9,
     LifeBarSize = 4.4,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -191,19 +191,19 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
-	
+
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 2.9,
     SelectionSizeZ = 2.9,
     SelectionThickness = 0.39,
-	
+
     SizeX = 3.5,
     SizeY = 4,
     SizeZ = 3.5,
-	
+
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 175,
-	
+
     Veteran = {
         Level1 = 50,
         Level2 = 100,
@@ -211,12 +211,12 @@ UnitBlueprint {
         Level4 = 200,
         Level5 = 250,
     },
-	
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
-			
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XSB_Weapon',
@@ -239,37 +239,37 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
-			
+
             Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'ShieldMult1.2',
-			
+
             DisplayName = 'Suthanus Heavy Artillery Cannon',
-			
+
             EnergyDrainPerSecond = 1200,
             EnergyRequired = 6000,
-			
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
             FiringRandomness = 0.35,
             FiringTolerance = 0.1,
-			
+
             Label = 'MainGun',
-			
+
             MaxRadius = 2000,
             MinRadius = 150,
-			
+
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 112,
             MuzzleVelocityReduceDistance = 2000,
-			
+
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell02/SIFSuthanusArtilleryShell02_proj.bp',
             ProjectileLifetime = 60,
 
@@ -289,13 +289,13 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 0.2,	-- controlled by energy cycle
-			
+
             ShieldDamage = 6000,
-			
+
             TargetCheckInterval = 8,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -304,20 +304,20 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-			
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Pitch_Bone',--'Turret_B01',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 5.5,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 6.5,
-			
+
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
         },

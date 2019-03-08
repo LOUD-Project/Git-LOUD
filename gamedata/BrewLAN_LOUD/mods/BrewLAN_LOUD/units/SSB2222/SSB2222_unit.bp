@@ -4,7 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 40,
         StagingPlatformScanRadius = 40,
     },
-	
+
     Audio = {
         Killed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,9 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     BuildIconSortPriority = 150,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
@@ -33,7 +33,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-	
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 500,
@@ -42,11 +42,11 @@ UnitBlueprint {
         RegenRate = 0.1,
         SurfaceThreatLevel = 1000,
     },
-	
-    Description = '<LOC sbui2222>Nuke Mine',
-	
+
+    Description = '<LOC sbui2222>Nuclear Mine',
+
     Display = {
-	
+
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_cloak>Cloaking',
@@ -56,7 +56,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
             '<LOC ability_deathaoe>Volatile',
         },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -84,22 +84,22 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
-	
+
     DoNotCollideList = {
         'ALLUNITS',
     },
-	
+
     Economy = {
         BuildCostEnergy = 135000*3,
         BuildCostMass = 1200*1.5,
         BuildTime = 600*2,
     },
-	
+
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
-	
+
     General = {
         CapCost = 2.5,
         Category = 'Defense',
@@ -137,7 +137,7 @@ UnitBlueprint {
         UnitName = '<LOC ssb2222_name>Inaino',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         Cloak = true,
         RadarStealth = true,
@@ -146,15 +146,15 @@ UnitBlueprint {
         RadarRadius = 29,
         SonarRadius = 29,
     },
-	
+
     Interface = {
         HelpText = '<LOC sbui2222>Nuke Mine',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.10,
     LifeBarSize = 0.6,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -180,18 +180,18 @@ UnitBlueprint {
         SlopeToTerrain = true,
         TurnRate = 0,
     },
-	
+
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 1,
-	
+
     SizeX = .5,
     SizeY = 0.2,
     SizeZ = .5,
-	
+
     StrategicIconName = 'icon_structure3_bomb',
     StrategicIconSortPriority = 210,
-	
+
     Weapon = {
         {
             CollideFriendly = false,

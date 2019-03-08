@@ -8,7 +8,7 @@ UnitBlueprint {
             'AttackTarget004',
         },
     },
-	
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -26,9 +26,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     BuildIconSortPriority = 150,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
@@ -55,9 +55,9 @@ UnitBlueprint {
         MaxHealth = 16500,
         RegenRate = 4,
     },
-	
+
     Description = '<LOC srb5310_desc>Armored Wall Segment',
-	
+
     Display = {
         AdjacencyConnection = 'HEAVYWALL',
         AdjacencyConnectionInfo = {
@@ -125,9 +125,9 @@ UnitBlueprint {
             },
         },
         Mesh = {
-		
+
             IconFadeInZoom = 130,
-			
+
             LODs = {
                 {
                     LODCutoff = 400,
@@ -141,32 +141,32 @@ UnitBlueprint {
 
         UniformScale = 0.05,
     },
-	
+
     Economy = {
         BuildCostEnergy = 6500,
         BuildCostMass = 1200,
         BuildRate = 1,
         BuildTime = 300,
-		
+
         BuildableCategory = {'BUILTBYHEAVYWALL UEF' },
-		
+
         RebuildBonusIds = {'seb5310'},
     },
-	
+
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
-	
+
     General = {
         BuildBones = {
             BuildEffectBones = {
                 0,
             },
         },
-		
+
         CapCost = 1,
-		
+
         Category = 'Defense',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
@@ -197,22 +197,22 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC seb5310_name>Cidadel',
+        UnitName = '<LOC seb5310_name>Citadel',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         VisionRadius = 0,
     },
-	
+
     Interface = {
         HelpText = '<LOC srb5310_desc>Armored Wall Segment',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
     LifeBarSize = 0.075,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -232,27 +232,27 @@ UnitBlueprint {
         MeshExtentsZ = 3.2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-		
+
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
-		
+
         SkirtSizeX = 0,
         SkirtSizeZ = 0,
-		
+
         TurnRate = 0,
     },
-	
+
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.3,
-	
+
     SizeX = 3,
     SizeY = 2.2,
     SizeZ = 3,
-	
+
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 207,
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

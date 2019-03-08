@@ -135,11 +135,11 @@ UnitBlueprint {
         },
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC srb5104_name>',
+        UnitName = '<LOC srb5104_name>Ravitailler',
         UnitWeight = 1,
     },
     Interface = {
-        HelpText = '<LOC sbui5104>Air Staging Facility',
+        HelpText = '<LOC sbui5104>Light Air Staging Facility',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.7*.5,
