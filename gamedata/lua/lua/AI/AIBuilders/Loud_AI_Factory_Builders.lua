@@ -359,8 +359,8 @@ BuilderGroup {BuilderGroupName = 'Quantum Gate Construction',
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.GATE }},
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.GATE }},
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
 			
         },
 		
@@ -412,8 +412,8 @@ BuilderGroup {BuilderGroupName = 'Quantum Gate Construction - Small Base',
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.GATE }},
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.GATE }},
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
 			
         },
 		

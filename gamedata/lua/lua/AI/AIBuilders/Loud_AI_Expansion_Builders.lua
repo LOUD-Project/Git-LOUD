@@ -42,7 +42,7 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
 			-- all other 'counted' bases must have at least 4 T2/T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
 			-- there must be an start/expansion area with no engineers
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 8000, -9999, 40, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 8000, -9999, 50, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -68,8 +68,8 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
 				BaseTemplate = 'ExpansionLayout_II',
 				-- these parameters control point selection
                 ThreatMin = -9999,
-                ThreatMax = 40,
-                ThreatRings = 0,
+                ThreatMax = 50,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
@@ -107,7 +107,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 30, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
 			
         },
 		
@@ -127,8 +127,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 				LocationRadius = 2000,
 				
                 ThreatMin = -999999,
-                ThreatMax = 35,
-                ThreatRings = 0,
+                ThreatMax = 50,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -161,7 +161,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 		
-			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 35, 0, 'AntiSurface' } },
+			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' } },
 			
         },
 		
@@ -180,8 +180,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
                 NearMarkerType = 'Expansion Area',
 
                 ThreatMin = -999999,
-                ThreatMax = 35,
-                ThreatRings = 0,
+                ThreatMax = 50,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 30, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
 			
         },
 		
@@ -239,8 +239,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 				LocationRadius = 2000,
 				
                 ThreatMin = -999999,
-                ThreatMax = 30,
-                ThreatRings = 0,
+                ThreatMax = 50,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -292,7 +292,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 500, 'Economy', 300 }},
 			
 			-- find a safe, unused, naval marker within 850 units of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 850, -250, 25, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 850, -250, 50, 2, 'AntiSurface' } },
 			
         },
 		
@@ -311,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders',
                 LocationRadius = 850,
 				
                 ThreatMin = -250,
-                ThreatMax = 25,
+                ThreatMax = 50,
                 ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
@@ -362,7 +362,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
 			
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 25, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
 			
 			-- all other 'counted' bases must have at least 4 T2/T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
@@ -384,7 +384,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
                 LocationRadius = 1250,
 
                 ThreatMin = -250,
-                ThreatMax = 25,
+                ThreatMax = 50,
                 ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
@@ -430,7 +430,7 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 			
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
-			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1500, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 30, 1, 'AntiSurface' }},
+			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1500, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 50, 1, 'AntiSurface' }},
 			
         },
 		
@@ -454,7 +454,7 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
                 MarkerUnitCount = 0,
 				
                 ThreatMin = -999999,
-                ThreatMax = 30,
+                ThreatMax = 50,
                 ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
