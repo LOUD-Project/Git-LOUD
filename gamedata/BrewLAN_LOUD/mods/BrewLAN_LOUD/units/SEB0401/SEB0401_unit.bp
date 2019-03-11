@@ -87,7 +87,6 @@ UnitBlueprint {
         'BUILTBYTIER4COMMANDER',
         'UEF',
         'STRUCTURE',
-        'LAND',
         'EXPERIMENTAL',
         'CONSTRUCTION',
         'GANTRY',

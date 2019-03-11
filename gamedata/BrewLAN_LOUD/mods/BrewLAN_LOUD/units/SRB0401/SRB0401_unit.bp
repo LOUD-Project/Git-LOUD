@@ -85,7 +85,6 @@ UnitBlueprint {
         'BUILTBYTIER4COMMANDER',
         'CYBRAN',
         'STRUCTURE',
-        'LAND',
         'EXPERIMENTAL',
         'CONSTRUCTION',
         'GANTRY',

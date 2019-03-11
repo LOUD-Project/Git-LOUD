@@ -89,7 +89,6 @@ UnitBlueprint {
         'BUILTBYTIER4COMMANDER',
         'AEON',
         'STRUCTURE',
-        'LAND',
         'EXPERIMENTAL',
         'CONSTRUCTION',
         'GANTRY',

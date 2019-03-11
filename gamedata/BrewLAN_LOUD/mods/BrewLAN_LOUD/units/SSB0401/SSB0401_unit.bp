@@ -71,7 +71,6 @@ UnitBlueprint {
         'BUILTBYTIER4COMMANDER',
         'SERAPHIM',
         'STRUCTURE',
-        'NAVAL',
         'EXPERIMENTAL',
         'CONSTRUCTION',
         'GANTRY',
