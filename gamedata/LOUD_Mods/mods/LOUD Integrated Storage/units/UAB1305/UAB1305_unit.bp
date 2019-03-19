@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -25,7 +29,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 530,	# 1000% MassOutput + 5% Health
@@ -33,7 +39,9 @@ UnitBlueprint {
         MaxHealth = 6930,
         RegenRate = 4,
     },
+	
     Description = '<LOC uab1305_desc>Advanced Mass Fabricator & Storage',
+	
     Display = {
         Abilities = {
             'Volatile',
@@ -126,21 +134,16 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 61000,
-        BuildCostMass = 8000,
+        BuildCostEnergy = 55500,
+        BuildCostMass = 7500,
 		BuildRate = 20,
         BuildTime = 10800,
 		
         MaintenanceConsumptionPerSecondEnergy = 3600,
         ProductionPerSecondMass = 18,
-		
-        RebuildBonusIds = {
-            'uab1305',
-        },
-		
+
         StorageMass = 5000,
     },
-	
 	
 	Enhancements = {
 	
@@ -229,12 +232,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'uab1303',
     },
+	
     Interface = {
         HelpText = 'Adv. Mass Fabricator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -246,7 +252,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MaxSteerForce = 0,
         MeshExtentsX = 3,
         MeshExtentsY = 3,
@@ -259,14 +265,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 1.9,
     SizeY = 2,
     SizeZ = 1.9,
+	
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5000,

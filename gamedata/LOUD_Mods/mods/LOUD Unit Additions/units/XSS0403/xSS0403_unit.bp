@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 59000,
         MaxHealth = 59000,
         RegenRate = 20,
-        SurfaceThreatLevel = 105,
+        SurfaceThreatLevel = 55,
     },
 	
     Description = '<LOC xss0403_desc>Experimental AA Cruiser',
@@ -174,7 +174,7 @@ UnitBlueprint {
         RadarRadius = 165,
         SonarRadius = 75,
         VisionRadius = 44,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 18,
     },
 	
     Interface = {
@@ -244,7 +244,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 700,
+            Damage = 400,
             DamageRadius = 2.25,
             DamageType = 'Normal',
 			
@@ -285,7 +285,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.5,		-- 1050 DPS
+            RateOfFire = 1.5,		-- 600 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

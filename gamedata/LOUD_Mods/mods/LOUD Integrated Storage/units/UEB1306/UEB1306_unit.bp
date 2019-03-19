@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Target01',
@@ -7,7 +8,9 @@ UnitBlueprint {
             'Target04',
         },
     },
+	
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UELDestroy',
@@ -25,7 +28,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -41,9 +46,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 670,	# 10% Energy + 2% Health
-        Health = 13750,
-        MaxHealth = 13750,
-        RegenRate = 3,
+        Health = 13000,
+        MaxHealth = 13000,
+        RegenRate = 4,
     },
 	
     Description = '<LOC ueb1306_desc>Advanced Power Generator & Storage',
@@ -126,7 +131,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0023',
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -150,16 +154,16 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 78000,
-        BuildCostMass = 13000,
+		
+        BuildCostEnergy = 72000,
+        BuildCostMass = 12000,
 		BuildRate = 25,
         BuildTime = 9500,
 		
         ProductionPerSecondEnergy = 3900,
 		
-        RebuildBonusIds = {
-            'ueb1301',
-        },
+        RebuildBonusIds = {'ueb1301'},
+		
         StorageEnergy = 25000,
     },
 	
@@ -257,6 +261,7 @@ UnitBlueprint {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Economy',
@@ -282,12 +287,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'ueb1301',
     },
+	
     Interface = {
         HelpText = 'Adv. Power Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.2,
     LifeBarSize = 5,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -298,21 +306,25 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MotionType = 'RULEUMT_None',
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
     },
+	
     SelectionSizeX = 3.1,
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.35,
+	
     SizeX = 4,
     SizeY = 3,
     SizeZ = 4,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5900,
@@ -325,6 +337,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

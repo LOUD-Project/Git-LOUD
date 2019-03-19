@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -22,7 +24,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -141,18 +145,18 @@ UnitBlueprint {
         },
         UniformScale = 0.12,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 78000,
-        BuildCostMass = 13000,
+		
+        BuildCostEnergy = 72000,
+        BuildCostMass = 12000,
 		BuildRate = 25,
         BuildTime = 9500,
 		
-        ProductionPerSecondEnergy = 4050,
+        ProductionPerSecondEnergy = 4100,
 		
-        RebuildBonusIds = {
-            'xsb1301',
-        },
+        RebuildBonusIds = {'xsb1301'},
 		
         StorageEnergy = 25000,
     },
@@ -250,6 +254,7 @@ UnitBlueprint {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Economy',
@@ -275,12 +280,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'xsb1301',
     },
+	
     Interface = {
         HelpText = 'Adv. Power Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -292,7 +300,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MaxSteerForce = 0,
         MeshExtentsX = 5.75,
         MeshExtentsY = 4.25,
@@ -305,14 +313,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3,
     SelectionSizeZ = 3,
     SelectionThickness = 0.36,
+	
     SizeX = 4.8,
     SizeY = 3.25,
     SizeZ = 4.8,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5900,
@@ -325,6 +337,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

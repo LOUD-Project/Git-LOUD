@@ -19,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -144,16 +146,15 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 78000,
-        BuildCostMass = 13000,
+        BuildCostEnergy = 70000,
+        BuildCostMass = 11000,
 		BuildRate = 25,
         BuildTime = 9500,
 		
         ProductionPerSecondEnergy = 3900,
 		
-        RebuildBonusIds = {
-            'uab1306',
-        },
+        RebuildBonusIds = {'uab1301'},
+		
         StorageEnergy = 25000,
     },
 	
@@ -278,12 +279,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'uab1301',
     },
+	
     Interface = {
         HelpText = 'Adv. Power Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.0,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -295,7 +299,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MaxSteerForce = 0,
         MeshExtentsX = 5.0,
         MeshExtentsY = 3.7,
@@ -308,14 +312,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 2.9,
     SelectionSizeZ = 2.9,
     SelectionThickness = 0.39,
+	
     SizeX = 4.6,
     SizeY = 3.4,
     SizeZ = 4.6,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5900,
@@ -328,6 +336,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

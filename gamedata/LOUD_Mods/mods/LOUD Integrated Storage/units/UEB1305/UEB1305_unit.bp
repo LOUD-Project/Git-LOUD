@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 50,
+	
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -25,15 +29,19 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 530,	# 1000% MassOutput + 5% Health
-        Health = 6930,
-        MaxHealth = 6930,
+        Health = 7250,
+        MaxHealth = 7250,
         RegenRate = 4,
     },
+	
     Description = '<LOC ueb1305_desc>Advanced Mass Fabricator & Storage',
+	
     Display = {
         Abilities = {
             'Volatile',
@@ -80,7 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0013',
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -103,18 +110,14 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 61000,
-        BuildCostMass = 8000,
+        BuildCostEnergy = 57000,
+        BuildCostMass = 7600,
 		BuildRate = 20,
         BuildTime = 10800,
 		
         MaintenanceConsumptionPerSecondEnergy = 3600,
         ProductionPerSecondMass = 18,
-		
-        RebuildBonusIds = {
-            'ueb1305',
-        },
-		
+
         StorageMass = 5000,
     },
 	
@@ -206,12 +209,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'ueb1303',
     },
+	
     Interface = {
         HelpText = 'Adv. Mass Fabricator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 2.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -223,7 +229,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MaxSteerForce = 0,
         MeshExtentsX = 3.2,
         MeshExtentsY = 2,
@@ -236,14 +242,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+	
     SizeX = 2,
     SizeY = 2.4,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5000,

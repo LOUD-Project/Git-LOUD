@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
             'Target01',
@@ -8,7 +9,9 @@ UnitBlueprint {
             'URB1306',
         },
     },
+	
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -26,7 +29,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 70,
+	
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -38,20 +43,22 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 605,	# 10% Energy + 2% Health
-        Health = 10750,
-        MaxHealth = 10750,
-        RegenRate = 9,
+        Health = 11500,
+        MaxHealth = 11500,
+        RegenRate = 10,
     },
 	
     Description = '<LOC urb1306_desc>Advanced Power Generator & Storage',
 	
     Display = {
 		Abilities = {
+			'Upgradeable',
 			'Volatile',
 		},
         Mesh = {
@@ -69,7 +76,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0023',
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -90,18 +96,18 @@ UnitBlueprint {
         },
         UniformScale = 0.108,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 78000,
-        BuildCostMass = 13000,
+		
+        BuildCostEnergy = 72000,
+        BuildCostMass = 12000,
 		BuildRate = 25,
         BuildTime = 9500,
 		
         ProductionPerSecondEnergy = 3900,
 		
-        RebuildBonusIds = {
-            'urb1301',
-        },
+        RebuildBonusIds = {'urb1301'},
 		
         StorageEnergy = 25000,
     },
@@ -200,6 +206,7 @@ UnitBlueprint {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
 		CapCost = 0,
         Category = 'Economy',
@@ -225,12 +232,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'urb1301',
     },
+	
     Interface = {
         HelpText = 'Adv. Power Generator & Storage',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.25,
     LifeBarSize = 5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -242,7 +252,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+        FlattenSkirt = false,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
@@ -252,14 +262,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.1,
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.35,
+	
     SizeX = 4.2,
     SizeY = 3.5,
     SizeZ = 4.2,
+	
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
         {
             Damage = 5900,
@@ -272,6 +286,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

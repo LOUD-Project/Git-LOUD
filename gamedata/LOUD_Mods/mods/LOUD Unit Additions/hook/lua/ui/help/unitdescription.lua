@@ -17,16 +17,22 @@ Description['urb0305'] = "A simple idea - Quantum teleports can teleport units t
 Description['xsb0305'] = "A simple idea - Quantum teleports can teleport units to other allied teleporters."
 
 -- T4 Storage
-Description['uab8765'] = "A massive storage facility - also massively explosive. Stores 32K Mass and 500K Energy"
-Description['ueb8765'] = "A massive storage facility - also massively explosive. Stores 32K Mass and 500K Energy"
-Description['urb8765'] = "A massive storage facility - also massively explosive. Stores 32K Mass and 500K Energy"
-Description['xsb8765'] = "A massive storage facility - also massively explosive. Stores 32K Mass and 500K Energy"
+Description['uab8765'] = "A massive storage facility. 32K Mass & 450K Energy Storage.  Massively Volatile"
+Description['ueb8765'] = "A massive storage facility. 32K Mass & 450K Energy Storage.  Massively Volatile"
+Description['urb8765'] = "A massive storage facility. 32K Mass & 450K Energy Storage.  Massively Volatile"
+Description['xsb8765'] = "A massive storage facility. 32K Mass & 450K Energy Storage.  Massively Volatile"
 
 -- Siege Shields
 Description['uabssg01'] = "A base sized artillery shield. Consumes a great deal of energy. Designed to act as an umbrella over your base - but not as a replacement for a proper bubble shield matrix. Upgradeable."
 Description['uebssg01'] = "A base sized artillery shield. Consumes a great deal of energy. Designed to act as an umbrella over your base - but not as a replacement for a proper bubble shield matrix. Upgradeable."
 Description['urbssg01'] = "A base sized artillery shield. Consumes a great deal of energy. Designed to act as an umbrella over your base - but not as a replacement for a proper bubble shield matrix. Upgradeable."
 Description['xsbssg01'] = "A base sized artillery shield. Consumes a great deal of energy. Designed to act as an umbrella over your base - but not as a replacement for a proper bubble shield matrix. Upgradeable."
+
+-- Upgraded Siege Shields
+Description['uabssg02'] = "Augmented with additional heatsinks, reinforced conduits and Quantum capacitors, strength & regen are improved. Adds 20K energy storage. Reduces unit cap cost to 5"
+Description['uebssg02'] = "Augmented with additional heatsinks, reinforced conduits and Quantum capacitors, strength & regen are improved. Adds 20K energy storage. Reduces unit cap cost to 5"
+Description['urbssg02'] = "Augmented with additional heatsinks, reinforced conduits and Quantum capacitors, strength & regen are improved. Adds 20K energy storage. Reduces unit cap cost to 5"
+Description['xsbssg02'] = "Augmented with additional heatsinks, reinforced conduits and Quantum capacitors, strength & regen are improved. Adds 20K energy storage. Reduces unit cap cost to 5"
 
 -- Aeon Guardian
 Description['ualx401'] = "An amphibious mobile base - with anti-nuke, omni radar, anti-teleport and shield"
