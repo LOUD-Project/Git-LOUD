@@ -147,6 +147,7 @@ UnitBlueprint {
         BuildCostMass = 6000,
         BuildRate = 120,
         BuildTime = 12000,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY SERAPHIM MOBILE AIR ANTINAVY',
             'BUILTBYTIER3FACTORY SERAPHIM MOBILE AIR INTELLIGENCE',
@@ -192,7 +193,7 @@ UnitBlueprint {
         RadarRadius = 150,
 		SonarRadius = 50,
         VisionRadius = 44,
-        WaterVisionRadius = 22,
+        WaterVisionRadius = 32,
     },
 	
     Interface = {

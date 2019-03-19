@@ -160,7 +160,7 @@ UnitBlueprint {
         RadarRadius = 128,
 		SonarRadius = 60,
         VisionRadius = 40,
-        WaterVisionRadius = 28,
+        WaterVisionRadius = 32,
     },
 	
     Interface = {

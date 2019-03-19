@@ -128,6 +128,7 @@ UnitBlueprint {
         BuildCostMass = 6000,
         BuildRate = 110,
         BuildTime = 12000,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON MOBILE AIR ANTINAVY',
             'BUILTBYTIER3FACTORY AEON MOBILE AIR INTELLIGENCE',
@@ -172,7 +173,7 @@ UnitBlueprint {
 		FreeIntel = true,
         RadarRadius = 165,
         VisionRadius = 40,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 32,
     },
 	
     Interface = {

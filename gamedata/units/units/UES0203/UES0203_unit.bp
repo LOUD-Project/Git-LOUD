@@ -179,7 +179,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
@@ -214,6 +214,7 @@ UnitBlueprint {
         UnitName = '<LOC ues0203_name>Tigershark',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarStealth = true,
@@ -221,6 +222,7 @@ UnitBlueprint {
         VisionRadius = 24,
         WaterVisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Submarine',
     },

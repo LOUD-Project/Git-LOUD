@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UASDestroy',
@@ -19,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -28,7 +30,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,7 +46,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'CRUISER',
     },
+	
     CollisionOffsetY = -0.4,
+	
     Defense = {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
@@ -51,7 +57,9 @@ UnitBlueprint {
         RegenRate = 4,
         SurfaceThreatLevel = 14,
     },
+	
     Description = '<LOC uas0202_desc>AA Cruiser',
+	
     Display = {
         Abilities = {
             'SAM AA x 2',
@@ -122,18 +130,22 @@ UnitBlueprint {
         UnitName = '<LOC uas0202_name>Infinity Class',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 90,
         VisionRadius = 36,
         WaterVisionRadius = 18,
     },
+	
     Interface = {
         HelpText = 'AA Cruiser',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.6,
     LifeBarSize = 1.5,
+	
     Physics = {
         BackUpDistance = 5,
         BankingSlope = 0,

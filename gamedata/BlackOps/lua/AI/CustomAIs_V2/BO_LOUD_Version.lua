@@ -1,4 +1,4 @@
 AI = {
 	Name = "BlackOps",
-	Version = "5.4a LOUD",
+	Version = "5.5 LOUD",
 }

@@ -307,11 +307,12 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             CountedProjectile = false,
 			
-            Damage = 500,
+            Damage = 600,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Long Range Cruise Missile',
@@ -325,15 +326,15 @@ UnitBlueprint {
 			
             Label = 'CruiseMissiles',
 			
-            MaxRadius = 200,
-            MinRadius = 20,
+            MaxRadius = 240,
+            MinRadius = 15,
 			
             MuzzleSalvoDelay = 1,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/TIFMissileCruise02/TIFMissileCruise02_proj.bp',
-            ProjectileLifetime = 50,
+            ProjectileLifetime = 35,
 			
             RackBones = {
                 {
@@ -375,7 +376,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             
-            RackReloadTimeout = 0,
+            RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -383,9 +384,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1, 	#-- 6 missiles = 3000 dmg every 10 seconds = 300 DPS
-			
-            RenderFireClock = true,
+            RateOfFire = 0.1, 	#-- 6 missiles = 3600 dmg every 10 seconds = 360 DPS
 			
             TargetCheckInterval = 2.5,
 			

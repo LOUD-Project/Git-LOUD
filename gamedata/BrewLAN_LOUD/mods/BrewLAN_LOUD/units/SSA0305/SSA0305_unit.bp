@@ -25,7 +25,7 @@ UnitBlueprint {
 		
         LiftFactor = 4,
 		
-        MaxAirspeed = 8.5,
+        MaxAirspeed = 9,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
@@ -155,9 +155,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 92500,
-        BuildCostMass = 3250,
-        BuildTime = 1284,
+        BuildCostEnergy = 95000,
+        BuildCostMass = 3100,
+        BuildTime = 1315,
     },
 	
     Footprint = {

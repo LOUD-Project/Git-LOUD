@@ -106,7 +106,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
@@ -153,7 +153,6 @@ UnitBlueprint {
 	
     Intel = {
         RadarStealthFieldRadius = 60,
-        SonarRadius = 60,
         SonarStealthFieldRadius = 60,
         VisionRadius = 28,
 		WaterVisionRadius = 18,

@@ -213,9 +213,10 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.37,
+		
         WaterAnimationDeath = {
             {
                 Animation = '/units/urs0201/urs0201_asink03.sca',
@@ -267,7 +268,7 @@ UnitBlueprint {
         RadarRadius = 60,
         SonarRadius = 45,
         VisionRadius = 32,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {

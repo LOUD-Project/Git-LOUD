@@ -146,7 +146,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
@@ -199,7 +199,7 @@ UnitBlueprint {
 		FreeIntel = true,
         RadarRadius = 165,
         VisionRadius = 40,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 32,
     },
 	
     Interface = {

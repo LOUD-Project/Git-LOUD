@@ -89,10 +89,8 @@ UEL0001 = Class(TWalkingLandUnit) {
             },            
             
         },
-        TacMissile = Class(TIFCruiseMissileLauncher) {
-        },
-        TacNukeMissile = Class(TIFCruiseMissileLauncher) {
-        },
+        TacMissile = Class(TIFCruiseMissileLauncher) {},
+        TacNukeMissile = Class(TIFCruiseMissileLauncher) {},
     },
 
     OnCreate = function(self)
@@ -104,7 +102,8 @@ UEL0001 = Class(TWalkingLandUnit) {
         self:SetupBuildBones()
         self.HasLeftPod = false
         self.HasRightPod = false
-        # Restrict what enhancements will enable later
+		
+        -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
     end,
 
@@ -225,8 +224,10 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+	
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        # If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+		
+        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
             EffectUtil.CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
         else
@@ -235,15 +236,21 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+	
         TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+		
         if self:BeenDestroyed() then return end
+		
         if (self.IdleAnim and not self:IsDead()) then
             self.Animator:PlayAnim(self.IdleAnim, true)
         end
+		
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
+		
         self:SetWeaponEnabledByLabel('RightZephyr', true)
         self:SetWeaponEnabledByLabel('OverCharge', false)
+		
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil

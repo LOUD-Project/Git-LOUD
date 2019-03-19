@@ -209,7 +209,7 @@ UnitBlueprint {
         Elevation = 13,
 		
 		FuelRechargeRate = 12,
-		FuelUseTime = 540,
+		FuelUseTime = 500,
 
         GroundCollisionOffset = 1.6,
 		

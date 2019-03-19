@@ -15,7 +15,7 @@ UnitBlueprint {
 		
         CanFly = true,
 		
-        CombatTurnSpeed = 2.3,
+        CombatTurnSpeed = 2.8,
 		
         EngageDistance = 38,
 		
@@ -28,7 +28,7 @@ UnitBlueprint {
         KRoll = 1.5,
         KRollDamping = 1,
 		
-        KTurn = 3.3,
+        KTurn = 3.9,
         KTurnDamping = 4.3,
 		
         LiftFactor = 8.5,
@@ -38,9 +38,9 @@ UnitBlueprint {
 		
         StartTurnDistance = 7.5,
 		
-        TightTurnMultiplier = 1.2,
+        TightTurnMultiplier = 1.25,
 		
-        TurnSpeed = 2.0,
+        TurnSpeed = 2.4,
 		
         Winged = true,
     },
@@ -184,9 +184,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 120000,
-        BuildCostMass = 1475,
-        BuildTime = 1665,
+        BuildCostEnergy = 110000,
+        BuildCostMass = 1400,
+        BuildTime = 1527,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 75,
@@ -236,7 +236,7 @@ UnitBlueprint {
 		FreeIntel = true,
 		RadarRadius = 60,
         RadarStealth = true,
-        VisionRadius = 36,
+        VisionRadius = 38,
 		Cloak = true,
     },
 	
@@ -260,7 +260,7 @@ UnitBlueprint {
         Elevation = 28,
 		
         FuelRechargeRate = 12,
-        FuelUseTime = 720,
+        FuelUseTime = 480,
         GroundCollisionOffset = 3,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',

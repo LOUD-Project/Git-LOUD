@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardRadius = 10,
+		InitialAutoMode = true,
         TargetBones = {
             'Head',
             'Right_Arm_B01',
@@ -173,8 +174,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         TransportAnimation = {
             {
                 Animation = '/units/UEL0001/UEL0001_afold.sca',
@@ -189,6 +191,7 @@ UnitBlueprint {
         },
         UniformScale = 0.105,
     },
+	
     Economy = {
         BuildCostEnergy = 5000000,
         BuildCostMass = 18000,
@@ -575,30 +578,25 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+		
         TacticalMissile = {
             BuildCostEnergy = 50000,
             BuildCostMass = 1000,
             BuildTime = 1000,
             Icon = 'tm',
             Name = '<LOC enhancements_0055>Tactical Missile Launcher',
-            ShowBones = {
-                'Back_Upgrade_B01',
-            },
+			
+            ShowBones = {'Back_Upgrade_B01' },
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+			
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
         TacticalMissileRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade_B01',
-            },
+            HideBones = {'Back_Upgrade_B01'},
             Icon = 'tm',
             Name = '<LOC enhancements_0056>Remove Tactical Missile Launcher',
             Prerequisite = 'TacticalMissile',
@@ -608,31 +606,26 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+		
         TacticalNukeMissile = {
             BuildCostEnergy = 630000,
             BuildCostMass = 10800,
             BuildTime = 3600,
             Icon = 'srtn',
             Name = '<LOC enhancements_0057>The \'Billy\': Advanced Tactical Missile Launcher',
+			
             Prerequisite = 'TacticalMissile',
-            ShowBones = {
-                'Back_Upgrade_B01',
-            },
+			
+            ShowBones = {'Back_Upgrade_B01'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'UEL0001',
-            },
+            UpgradeEffectBones = {'Back_Upgrade_B01'},
+            UpgradeUnitAmbientBones = {'UEL0001'},
         },
         TacticalNukeMissileRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade_B01',
-            },
+            HideBones = {'Back_Upgrade_B01'},
             Icon = 'srtn',
             Name = '<LOC enhancements_0058>Remove Missile Launcher',
             Prerequisite = 'TacticalNukeMissile',
@@ -643,6 +636,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+		
         Teleporter = {
             BuildCostEnergy = 1500000,
             BuildCostMass = 15000,
@@ -724,18 +718,22 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Experimental',
         UnitWeight = 1,
     },
+	
     Intel = {
         FreeIntel = true,
         OmniRadius = 26,
         VisionRadius = 26,
         WaterVisionRadius = 26,
     },
+	
     Interface = {
         HelpText = '<LOC uel0001_help>Armored Command Unit',
     },
+	
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.65,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -758,22 +756,27 @@ UnitBlueprint {
         TurnRadius = 10,
         TurnRate = 90,
     },
+	
     SelectionCenterOffsetX = 0.1,
     SelectionCenterOffsetZ = -0.4,
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.9,
     SelectionYOffset = 0,
+	
     SizeX = 1,
     SizeY = 2,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 0,
+	
     Transport = {
         CanFireFromTransport = false,
         ClassSAttachSize = 0,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -781,6 +784,7 @@ UnitBlueprint {
         Level4 = 80,
         Level5 = 100,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -794,23 +798,31 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+			
             Damage = 100,
             DamageType = 'Normal',
+			
             DisplayName = 'Zephyr Anti Matter Cannon',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             Label = 'RightZephyr',
+			
             MaxRadius = 22,
             MinRadius = 1,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
+			
             ProjectileId = '/projectiles/LaserBotTerran01/LaserBotTerran01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.5,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -820,15 +832,20 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 1,
+			
             SlavedToBody = false,
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -837,16 +854,20 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -867,25 +888,35 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
+			
             DisplayName = 'Overcharge Cannon',
+			
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
+			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+			
             Label = 'OverCharge',
+			
             ManualFire = true,
+			
             MaxRadius = 22,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
+			
             OverChargeWeapon = true,
+			
             ProjectileId = '/projectiles/TDFOverCharge01/TDFOverCharge01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -896,15 +927,20 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_DirectFire',
+			
             RateOfFire = 0.3,
+			
             SlavedToBody = false,
+			
             TargetCheckInterval = 0.16,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -913,21 +949,24 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+			
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
+		
         {
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -939,6 +978,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             CountedProjectile = true,
 			
             Damage = 6000,
@@ -967,18 +1007,18 @@ UnitBlueprint {
             Label = 'TacMissile',
 			
             ManualFire = true,
-            MaxProjectileStorage = 1,
+            MaxProjectileStorage = 3,
 			
-            MaxRadius = 256,
-            MinRadius = 5,
+            MaxRadius = 240,
+            MinRadius = 15,
 			
-            MuzzleChargeDelay = 0,
+            MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 10,
 			
             ProjectileId = '/projectiles/TIFMissileCruiseCDR/TIFMissileCruiseCDR_proj.bp',
-            ProjectileLifetime = 80,
+            ProjectileLifetime = 30,
 			
             RackBones = {
                 {
@@ -990,7 +1030,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -998,9 +1038,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 5,
+            RateOfFire = .2,
 			
-            TargetCheckInterval = 0.1,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -1011,7 +1051,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
 
-            WeaponRepackTimeout = 5,
+            WeaponRepackTimeout = 3,
             WeaponUnpacks = true,
         },
         {
@@ -1025,6 +1065,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+			
             CountedProjectile = true,
 			
             Damage = 0,
@@ -1046,9 +1087,8 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
 			
-            InitialProjectileStorage = 0,
-			
             ForceSingleFire = true,			
+            InitialProjectileStorage = 0,
 			
             Label = 'TacNukeMissile',
 			
@@ -1087,9 +1127,9 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 30,
+            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			

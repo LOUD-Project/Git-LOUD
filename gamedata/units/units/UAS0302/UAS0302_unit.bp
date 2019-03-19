@@ -9,6 +9,7 @@ UnitBlueprint {
             'Exhaust02',
         },
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'UASDestroy',
@@ -26,6 +27,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 5,
@@ -35,7 +37,9 @@ UnitBlueprint {
             Level5 = 25,
         },
     },
+	
     BuildIconSortPriority = 18,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -49,8 +53,10 @@ UnitBlueprint {
         'BATTLESHIP',
 		'BOMBARDMENT',
     },
+	
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0,
+	
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
@@ -59,7 +65,9 @@ UnitBlueprint {
         RegenRate = 16,
         SurfaceThreatLevel = 225,
     },
+	
     Description = '<LOC uas0302_desc>Battleship',
+	
     Display = {
         Abilities = {
             'Radar',
@@ -107,10 +115,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0005',
+
         SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
+	
     Economy = {
         BuildCostEnergy = 54000,
         BuildCostMass = 8550,
@@ -141,11 +150,13 @@ UnitBlueprint {
         UnitName = '<LOC uas0302_name>Omen Class',
         UnitWeight = 1,
     },
+	
     Intel = {
         RadarRadius = 90,
         VisionRadius = 36,
-        WaterVisionRadius = 16,
+        WaterVisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Battleship',
     },

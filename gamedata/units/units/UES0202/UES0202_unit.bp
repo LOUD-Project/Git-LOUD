@@ -141,15 +141,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0002',
+
         SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 13000,
         BuildCostMass = 1200,
         BuildTime = 5400,
     },
+	
     General = {
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
@@ -175,18 +177,22 @@ UnitBlueprint {
         UnitName = '<LOC ues0202_name>Governor Class',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 90,
         VisionRadius = 36,
         WaterVisionRadius = 18,
     },
+	
     Interface = {
         HelpText = 'Cruiser',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.9,
     LifeBarSize = 1.75,
+	
     Physics = {
         BackUpDistance = 6,
         BankingSlope = 0,

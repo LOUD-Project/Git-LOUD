@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
     },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSS_Destroy',
@@ -19,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -28,7 +30,9 @@ UnitBlueprint {
             Level5 = 12,
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,7 +46,9 @@ UnitBlueprint {
         'CRUISER',
         'SHOWATTACKRETICLE',
     },
+	
     CollisionOffsetY = -0.3,
+	
     Defense = {
         AirThreatLevel = 36,
         ArmorType = 'Normal',
@@ -51,7 +57,9 @@ UnitBlueprint {
         RegenRate = 5,
         SurfaceThreatLevel = 24,
     },
+	
     Description = '<LOC xss0202_desc>Light Cruiser',
+	
     Display = {
         Abilities = {
 			'Missile Barrage',
@@ -111,11 +119,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.03,
     },
+	
     Economy = {
         BuildCostEnergy = 11700,
         BuildCostMass = 1200,
         BuildTime = 5400,
     },
+	
     General = {
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
@@ -139,15 +149,18 @@ UnitBlueprint {
         UnitName = '<LOC xss0202_name>Ithalua',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 90,
         VisionRadius = 36,
         WaterVisionRadius = 18,
     },
+	
     Interface = {
         HelpText = 'Light Cruiser',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.8,
     LifeBarSize = 1.5,

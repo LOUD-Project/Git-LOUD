@@ -195,7 +195,7 @@ UnitBlueprint {
 		FreeIntel = true,
         RadarRadius = 165,
         VisionRadius = 40,
-        WaterVisionRadius = 20,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {

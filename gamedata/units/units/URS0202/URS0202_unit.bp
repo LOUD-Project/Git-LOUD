@@ -155,7 +155,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXS0004',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
