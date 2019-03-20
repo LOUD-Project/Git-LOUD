@@ -119,7 +119,7 @@ Description['ssl0320'] = "<LOC Unit_Description_BrewLAN_T3L020>Hovering mobile a
 
 --Tech 3 buildings
 Description['srb2306'] = "<LOC Unit_Description_BrewLAN_T3B001>Heavy defensive tower. Attacks land- and sea-based units with a powerful sweeping laser. Does not engage aircraft or submerged units. Requires cumulative amounts of energy to maintain prolonged fire; will overheat if active for too long."
-Description['seb3303'] = "<LOC Unit_Description_BrewLAN_T3B002>Produces and launches satellites."
+Description['seb3303'] = "<LOC Unit_Description_BrewLAN_T3B002>Produces and launches recon satellites. Can support 2 recon satellites."
 Description['ssb2306'] = "<LOC Unit_Description_BrewLAN_T3B003>Heavy defensive tower. Attacks land- and sea-based units with a gatling plasma cannon. Does not engage aircraft or submerged units."
 Description['sab2306'] = "<LOC Unit_Description_BrewLAN_T3B004>Heavy defensive tower. Attacks land-based units, sea-based units, and low-altitude aircraft with a powerful laser. Does not engage high altitude aircraft, or submerged units."
 Description['seb2311'] = "<LOC Unit_Description_BrewLAN_T3B005>Very heavy defensive tower. Attacks land- and sea-based units with a powerfull battleship-grade gauss cannon."

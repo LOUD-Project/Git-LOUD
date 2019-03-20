@@ -178,7 +178,7 @@ UnitBlueprint {
         VisionRadius = 0,
         OrbitIntelRadius = 45,
         OrbitVision = true,
-        OrbitWaterVision = true,
+        OrbitWaterVision = false,
         OrbitRadar = false,
         OrbitSonar = false,
         OrbitOmni = false,

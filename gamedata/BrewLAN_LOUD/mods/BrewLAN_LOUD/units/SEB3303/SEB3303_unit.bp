@@ -14,7 +14,7 @@ UnitBlueprint {
         'STRUCTURE',
         'LAND',
         'TECH3',
-        'CONSTRUCTION',
+        --'CONSTRUCTION',
         'FACTORY',
         'RALLYPOINT',
         'INTELLIGENCE',
@@ -27,25 +27,22 @@ UnitBlueprint {
         'SORTINTEL',
         'RALLYPOINT',
         'SHOWQUEUE',
-        'GATE',
+        --'GATE',
     },
 	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 210,
         Health = 500,
         MaxHealth = 500,
-        RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+        RegenRate = 1,
     },
 	
-    Description = '<LOC seb3303b_desc>Satellite Launch Complex',
+    Description = '<LOC seb3303b_desc>Satellite Launch Facility',
 	
     Display = {
         Abilities = {
-            '<LOC ability_satellite_uplink>Satellite Uplink',
+            '<LOC ability_satellite_uplink>Satellite Uplink for 2 Satellites',
         },
         BlinkingLights = {
             {
@@ -96,22 +93,14 @@ UnitBlueprint {
                 {
                     LODCutoff = 200,
                     ShaderName = 'Unit',
-                    --MeshName = '/units/xeb2402/xeb2402_lod0.scm',
-                    AlbedoName = '/units/xeb2402/xeb2402_albedo.dds',
-                    NormalsName = '/units/xeb2402/xeb2402_normalsts.dds',
-                    SpecularName = '/units/xeb2402/xeb2402_specteam.dds',
                 },
                 {
                     LODCutoff = 400,
                     ShaderName = 'Unit',
-                    MeshName = '/units/xeb2402/xeb2402_lod1.scm',
-                    AlbedoName = '/units/xeb2402/xeb2402_lod1_albedo.dds',
-                    NormalsName = '/units/xeb2402/xeb2402_lod1_normalsTS.dds',
-                    SpecularName = '/units/xeb2402/xeb2402_lod1_specteam.dds',
                 },
             },
         },
-        PlaceholderMeshName = 'XEB2402',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -126,21 +115,25 @@ UnitBlueprint {
         },
         UniformScale = 0.045,
     },
+	
     Economy = {
         BuildCostEnergy = 64500-8000,
         BuildCostMass = 3700-800,
         BuildTime = 1000,
         BuildRate = 100,
-        BuildableCategory = {
-            'BUILTBYTIER3SPACEPORT UEF SATELLITE',
-        },
+		
+        BuildableCategory = {'BUILTBYTIER3SPACEPORT UEF SATELLITE'},
+		
         MaintenanceConsumptionPerSecondEnergy = 2500,
+		
         RebuildBonusIds = {'seb3303'},
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -167,18 +160,23 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'land',
+		
         SatelliteCapacity = 2,
+		
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC xeb2402_name>Novax Center',
+        UnitName = '<LOC xeb2402_name>Recon Sat Center',
         UnitWeight = 1,
     },
+	
     Interface = {
-        HelpText = '<LOC seb3303_desc>Experimental Satellite System',
+        HelpText = '<LOC seb3303_desc>Recon Satellite System',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.9,
     LifeBarSize = 5.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -203,14 +201,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 3.4,
     SelectionSizeZ = 3.4,
     SelectionThickness = 0.3,
+	
     SizeX = 5,
     SizeY = 3,
     SizeZ = 5,
+	
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

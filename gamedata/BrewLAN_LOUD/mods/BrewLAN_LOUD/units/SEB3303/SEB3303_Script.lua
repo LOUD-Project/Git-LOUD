@@ -6,7 +6,7 @@ SEB3303 = Class(TStructureUnit) {
     OnStopBeingBuilt = function(self, ...)
         TStructureUnit.OnStopBeingBuilt(self, unpack(arg) )
         self.AnimManip = CreateAnimator(self)
-        self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen.sca' )
+        self.AnimManip:PlayAnim( '/mods/BrewLAN_LOUD/units/SEB3303/SEB3303_aopen.sca' )
         self.Trash:Add(self.AnimManip)
         self:PlayUnitSound('MoveArms')
         self:Rebuild()
@@ -35,7 +35,7 @@ SEB3303 = Class(TStructureUnit) {
                     self.Trash:Add(CreateAttachedEmitter(self, 'ConstuctBeam0' .. i ,army, '/effects/emitters/light_red_rotator_01_emit.bp'):ScaleEmitter( 2.00 ))
                 end
                 self.LightsOn = true
-                self.AnimManip:PlayAnim( '/units/XEB2402/XEB2402_aopen01.sca' )
+                self.AnimManip:PlayAnim( '/mods/BrewLAN_LOUD/units/SEB3303/SEB3303_aopen01.sca' )
             end
             for i, v in {0.7, -0.7} do
                 self.Trash:Add(CreateAttachedEmitter(self,'Attachpoint01',army, '/effects/emitters/structure_steam_ambient_0' .. i .. '_emit.bp'):OffsetEmitter(v, -0.85, 0.35))

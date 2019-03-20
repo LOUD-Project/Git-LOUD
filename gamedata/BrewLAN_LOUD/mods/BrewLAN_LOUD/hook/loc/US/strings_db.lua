@@ -265,9 +265,9 @@ Unit_Description_BrewLAN_T3B008="Very heavy defensive tower. Attacks land- and s
 
 seb3303_desc="Observation Satellite Uplink"
 seb3303b_desc="Satellite Launch Complex"
-Unit_Description_BrewLAN_T3B002="Produces and launches satellites"
+Unit_Description_BrewLAN_T3B002="Produces and launches recon satellites"
 
-ability_satellite_uplink="Satellite Uplink"
+ability_satellite_uplink="Satellite Uplink supports 2 satellites"
 
 sea0002_desc="Observation Satellite"
 sea0002_name="Burning Star"
