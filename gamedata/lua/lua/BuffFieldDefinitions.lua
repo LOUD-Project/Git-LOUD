@@ -75,7 +75,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField3',
 }
 
 BuffFieldBlueprint { Name = 'CybranOpticalDisruptionBuffField',
-    AffectsUnitCategories = categories.ALLUNITS - categories.COMMAND - categories.TECH1 - categories.WALL,
+    AffectsUnitCategories = categories.ALLUNITS - categories.COMMAND - categories.SUBCOMMANDER - categories.TECH1 - categories.WALL,
     AffectsAllies = false,
     AffectsVisibleEnemies = true,
     AffectsOwnUnits = false,
