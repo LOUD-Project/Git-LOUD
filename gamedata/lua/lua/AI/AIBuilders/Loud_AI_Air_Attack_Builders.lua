@@ -299,8 +299,8 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			
 			-- none of the SUPER triggers can be true
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, (categories.OPTICS + categories.ORBITALSYSTEM) * categories.STRUCTURE, 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE - categories.TECH2, 'Enemy' }},
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, (categories.OPTICS) * categories.STRUCTURE, 'Enemy' }},
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, 'Enemy' }},
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
@@ -418,7 +418,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, (categories.OPTICS + categories.ORBITALSYSTEM) * categories.STRUCTURE, 'Enemy' }},			
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, (categories.OPTICS) * categories.STRUCTURE, 'Enemy' }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
 			
         },
@@ -428,7 +428,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			LocationType = 'LocationType',
             MergeLimit = false,
             MissionTime = 400,
-            PrioritizedCategories = { (categories.OPTICS + categories.ORBITALSYSTEM) * categories.STRUCTURE},
+            PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE},
 			SearchRadius = 1000,
             UseFormation = 'AttackFormation',
 			
@@ -455,7 +455,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ARTILLERY * categories.STRUCTURE - categories.TECH2, 'Enemy' }},			
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, 'Enemy' }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
 			
         },
@@ -465,7 +465,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			LocationType = 'LocationType',
             MergeLimit = false,
             MissionTime = 400,
-            PrioritizedCategories = {categories.ARTILLERY * categories.STRUCTURE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
+            PrioritizedCategories = {categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
 			SearchRadius = 1000,
             UseFormation = 'AttackFormation',
 			
