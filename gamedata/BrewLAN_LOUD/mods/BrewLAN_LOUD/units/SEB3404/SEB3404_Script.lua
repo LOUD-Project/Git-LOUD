@@ -6,6 +6,8 @@ local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
+local LOUDINSERT = table.insert
+
 local TeleportLocationBlocked = import('/lua/loudutilities.lua').TeleportLocationBlocked
 
 SEB3404 = Class(TStructureUnit) {
@@ -101,7 +103,7 @@ SEB3404 = Class(TStructureUnit) {
 				if cloakcheck and unit:IsIntelEnabled('Cloak') then
 					--LOG("Counterintel guy")
 				else
-					table.insert(Ftable, unit)
+					LOUDINSERT(Ftable, unit)
 				end
 			
 			end

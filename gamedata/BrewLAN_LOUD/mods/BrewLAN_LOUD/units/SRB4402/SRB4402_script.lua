@@ -10,6 +10,8 @@ local Buff = import('/lua/sim/Buff.lua')
 
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
+local LOUDINSERT = table.insert
+
 SRB4402 = Class(CRadarJammerUnit) {
 
     Weapons = {
@@ -24,8 +26,8 @@ SRB4402 = Class(CRadarJammerUnit) {
                 local LocalUnits = {}
 				
                 for index, brain in ArmyBrains do
-                    for i, unit in AIUtils.GetOwnUnitsAroundPoint(brain, categories.ALLUNITS, Mypos, Range) do
-                        table.insert(LocalUnits, unit)
+                    for i, unit in AIUtils.GetOwnUnitsAroundPoint(brain, categories.ALLUNITS - categories.WALL, Mypos, Range) do
+                        LOUDINSERT(LocalUnits, unit)
                     end
                 end
 				
@@ -69,16 +71,18 @@ SRB4402 = Class(CRadarJammerUnit) {
 				
                 for k, v in LocalUnits do
 				
-                    if v:IsIntelEnabled('Omni') and not EntityCategoryContains(categories.COMMAND + categories.ual0401 + categories.sab2306, v)
-                    then
+					-- apply the effect to all units execept ACU, SACU, GC or sab2306(Aeon), and Walls
+                    if not EntityCategoryContains(categories.COMMAND + categories.SUBCOMMANDER + categories.ual0401 + categories.sab2306 + categories.WALL, v) then
 					
                         Buff.ApplyBuff(v, 'DarknessOmniNerf')
 						
                     end
 					
+					-- if the unit has a panopticon entity on it --
+					-- and it's within the core range of the Darkness --
+					-- remove it --
                     if v.PanopticonMarker then
 					
-                        --LOG(VDist2(v:GetPosition()[1], v:GetPosition()[3], self.unit:GetPosition()[1], self.unit:GetPosition()[3] ) .. " sdfgdf " .. self.unit:GetBlueprint().Intel.RadarStealthFieldRadius)
                         local active = false
 						
                         for i, marker in v.PanopticonMarker do

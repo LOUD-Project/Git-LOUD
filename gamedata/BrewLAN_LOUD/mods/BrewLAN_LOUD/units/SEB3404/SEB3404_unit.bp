@@ -91,20 +91,20 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 900000,
-        BuildCostMass = 80000,
+        BuildCostEnergy = 850000,
+        BuildCostMass = 75000,
         BuildTime = 27000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 15000,
+        MaintenanceConsumptionPerSecondEnergy = 14500,
 		
         RebuildBonusIds = {'seb3404'},
 		
         ResearchMult = 0.5,
 		
-		MinimumPerBuilding = 50,
-		MaximumPerBuilding = 500,
-		MinimumPerMobile = 30,
-		MaximumPerMobile = 350,
+		MinimumPerBuilding = 45,
+		MaximumPerBuilding = 450,
+		MinimumPerMobile = 25,
+		MaximumPerMobile = 250,
     },
 	
     Footprint = {
@@ -132,7 +132,9 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
+		
         SatelliteCapacity = 9001,
+		
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
@@ -152,8 +154,8 @@ UnitBlueprint {
     Intel = {
         ShowIntelOnSelect = true,
         VisionRadius = 15,
-        OmniRadius = 300,
-        RadarRadius = 1200 * 5,
+        OmniRadius = 270,
+        RadarRadius = 400 * 5,
         SpyBlipRadius = 2,
         ReactivateTime = 0,
     },
