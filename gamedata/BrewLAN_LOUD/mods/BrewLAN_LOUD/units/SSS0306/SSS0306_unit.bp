@@ -294,8 +294,8 @@ UnitBlueprint {
         RadarStealth = true,
         SonarRadius = 60,
         SonarStealth = true,
-        VisionRadius = 40,
-        WaterVisionRadius = 36,
+        VisionRadius = 36,
+        WaterVisionRadius = 48,
     },
 	
     Interface = {
