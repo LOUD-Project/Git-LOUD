@@ -128,21 +128,21 @@ BuffBlueprint { Name = 'DarknessOmniNerf',
     DisplayName = 'DarknessOmniNerf',
     BuffType = 'COUNTERINTEL',
     Stacks = 'ALWAYS',
-    Duration = -1,
+    Duration = 20.1,
     Affects = {
 		VisionRadius = {
 			Add = 0,
-			Mult = 0.85,
+			Mult = 0.9,
 		},
 		RadarRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,
 			Add = 0,
-			Mult = 0.75,
+			Mult = 0.85,
 		},
         OmniRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
             Add = 0,
-            Mult = 0.65,
+            Mult = 0.75,
         },
     },
 	Effects = {
@@ -758,6 +758,75 @@ BuffBlueprint { Name = 'CheatALL',
 			Add = 0,
 			Mult = 1.05,
 		}
+    },
+}
+
+-- STD ACU Buffs
+BuffBlueprint { Name = 'ACU_T2_Engineering',
+    BuffType = 'ACUBUILDRATE',
+	ParsedEntityCategory = categories.COMMAND,
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        BuildRate = {
+            Add =  20,
+            Mult = 1,
+		},
+        MaxHealth = {
+            Add = 3000,
+            Mult = 1.0,
+        },
+        Regen = {
+            Add = 20,
+            Mult = 1.0,
+        },		
+	},
+	
+}
+
+BuffBlueprint { Name = 'ACU_T3_Engineering',
+    BuffType = 'ACUBUILDRATE',
+	ParsedEntityCategory = categories.COMMAND,
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        BuildRate = {
+            Add =  80,
+            Mult = 1,
+        },
+        MaxHealth = {
+            Add = 6000,
+            Mult = 1.0,
+        },
+        Regen = {
+            Add = 35,
+            Mult = 1.0,
+        },				
+    },
+}
+
+BuffBlueprint { Name = 'ACU_T4_Engineering',
+    BuffType = 'ACUBUILDRATE',
+	ParsedEntityCategory = categories.COMMAND,
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        BuildRate = {
+            Add =  110,
+            Mult = 1,
+        },
+		MoveMult = {
+			Add = 0,
+			Mult = 1.1,
+		},
+        MaxHealth = {
+            Add = 10000,
+            Mult = 1.0,
+        },
+        Regen = {
+            Add = 50,
+            Mult = 1.0,
+        },				
     },
 }
 
