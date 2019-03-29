@@ -81,12 +81,14 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Commander',
         EconomyThreatLevel = 5,
-        Health = 10000,
-        MaxHealth = 10000,
+        Health = 10500,
+        MaxHealth = 10500,
         RegenRate = 15,
         SurfaceThreatLevel = 75,
     },
+	
     Description = '<LOC url0001_desc>Armored Command Unit',
+	
     Display = {
         Abilities = {
             'Amphibious',
@@ -182,172 +184,399 @@ UnitBlueprint {
         },
         UniformScale = 0.16,
     },
+	
     Economy = {
         BuildCostEnergy = 5000000,
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+		
         BuildableCategory = {
             'BUILTBYCOMMANDER CYBRAN',
             'BUILTBYTIER2COMMANDER CYBRAN',
             'BUILTBYTIER3COMMANDER CYBRAN',
+			'BUILTBYTIER4COMMANDER CYBRAN',
             'URL0001UPGRADE',
         },
+		
         MaintenanceConsumptionPerSecondEnergy = 0,
+		
         MaxBuildDistance = 10,
         NaturalProducer = true,
+		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
+		
         StorageEnergy = 4000,
         StorageMass = 650,
+		
         TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0,
+        TeleportMassMod = 0.01,
         TeleportTimeMod = 0.0001,
     },
+	
     Enhancements = {
-        AdvancedEngineering = {
-            BuildCostEnergy = 19800,
-            BuildCostMass = 950,
-            BuildTime = 900,
-            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER CYBRAN',
-            Icon = 'aes',
-            Name = '<LOC enhancements_0077>Tech 2 Engineering Suite',
-            NewBuildRate = 30,
-            NewHealth = 3500,
-            NewRegenRate = 20,
-            ShowBones = {
-                'Right_Upgrade',
+	
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = 0,
+                y = -10,
             },
+            LCH = {
+                name = '<LOC _LCH>',
+                x = 60,
+                y = 2,
+            },
+            RCH = {
+                name = '<LOC _RCH>',
+                x = -16,
+                y = 0,
+            },
+        },	
+		
+        AdvancedEngineering = {
+		
+            BuildCostEnergy = 30000,
+            BuildCostMass = 1500,
+            BuildTime = 1500,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER CYBRAN',
+			
+            Icon = 'aes',
+			
+            Name = '<LOC enhancements_0077>Tech 2 Engineering Suite',
+			
+            NewRegenRate = 20,
+			
+            ShowBones = {'Right_Upgrade'},
+			
             Slot = 'LCH',
+			
+            RemoveEnhancements = { 
+				'CoolingUpgrade',
+                'CoolingUpgradeRemove',
+                'T3Engineering',
+                'T3EngineeringRemove',
+				'T4Engineering',
+				'T4EngineeringRemove',
+            },
+
             UpgradeEffectBones = {
                 'Right_Upgrade',
                 'Right_Turret',
                 'Right_Muzzle_02',
             },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
         },
+		
         AdvancedEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Right_Upgrade',
-            },
+			
+            HideBones = {'Right_Upgrade'},
+			
             Icon = 'aes',
+			
             Name = '<LOC enhancements_0078>Remove Engineering Suite',
+			
             Prerequisite = 'AdvancedEngineering',
+			
             RemoveEnhancements = {
                 'AdvancedEngineering',
                 'AdvancedEngineeringRemove',
             },
+			
             Slot = 'LCH',
         },
+	
+        T3Engineering = {
+		
+            BuildCostEnergy = 120000,
+            BuildCostMass = 6000,
+            BuildTime = 9000,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER CYBRAN',
+			
+            Icon = 'ees',
+			
+            Name = '<LOC enhancements_0103>Tech 3 Engineering Suite',
+			
+            NewRegenRate = 35,
+			
+            Prerequisite = 'AdvancedEngineering',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
+            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
+        },
+		
+        T3EngineeringRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'ees',
+			
+            Name = '<LOC enhancements_0104>Remove Tech 3 Engineering Suite',
+			
+            Prerequisite = 'T3Engineering',
+			
+            RemoveEnhancements = {
+                'AdvancedEngineering',
+                'T3Engineering',
+                'T3EngineeringRemove',
+            },
+			
+            Slot = 'LCH',
+        },	
+
+        T4Engineering = {
+		
+            BuildCostEnergy = 240000,
+            BuildCostMass = 18000,
+            BuildTime = 36000,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER CYBRAN',
+			
+            Icon = 'exles3',
+			
+            Name = 'Tech 4 Engineering Suite',
+			
+            NewRegenRate = 50,
+			
+            Prerequisite = 'T3Engineering',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
+            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
+        },
+		
+        T4EngineeringRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'ees',
+			
+            Name = '<LOC enhancements_0104>Remove Tech 3 Engineering Suite',
+			
+            Prerequisite = 'T4Engineering',
+			
+            RemoveEnhancements = {
+                'AdvancedEngineering',
+                'T3Engineering',
+                'T3EngineeringRemove',
+				'T4Engineering',
+				'T4EngineeringRemove',
+            },
+			
+            Slot = 'LCH',
+        },	
+		
+        CoolingUpgrade = {
+		
+            BuildCostEnergy = 24000,
+            BuildCostMass = 800,
+            BuildTime = 800,
+			
+            Icon = 'acu',
+			
+            Name = '<LOC enhancements_0081>Microwave Accelerator',
+			
+            NewMaxRadius = 30,
+			
+            NewRateOfFire = 2,
+			
+            ShowBones = {'Right_Upgrade'},
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret',
+                'Right_Muzzle_02',
+            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
+        },
+		
+        CoolingUpgradeRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Right_Upgrade'},
+			
+            Icon = 'acu',
+			
+            Name = '<LOC enhancements_0082>Remove Microwave Accelerator',
+			
+            Prerequisite = 'CoolingUpgrade',
+			
+            RemoveEnhancements = {
+                'CoolingUpgrade',
+                'CoolingUpgradeRemove',
+            },
+			
+            Slot = 'LCH',
+        },
+
+        StealthGenerator = {
+		
+            BuildCostEnergy = 5250,
+            BuildCostMass = 350,
+            BuildTime = 350,
+			
+            Icon = 'psg',
+			
+            MaintenanceConsumptionPerSecondEnergy = 50,
+			
+            Name = '<LOC enhancements_0101>Personal Stealth Generator',
+			
+            ShowBones = {'Back_Upgrade'},
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {
+                'Right_Arm_B01',
+                'Left_Arm_B01',
+                'Back_Upgrade',
+            },
+        },
+		
+        StealthGeneratorRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 10,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'psg',
+			
+            Name = '<LOC enhancements_0102>Remove Personal Stealth Generator',
+			
+            Prerequisite = 'StealthGenerator',
+			
+            RemoveEnhancements = {
+                'StealthGenerator',
+                'StealthGeneratorRemove',
+            },
+			
+            Slot = 'Back',
+        },
+		
         CloakingGenerator = {
+		
             BuildCostEnergy = 750000,
             BuildCostMass = 6000,
             BuildTime = 3000,
+			
             Icon = 'pcg',
+			
             MaintenanceConsumptionPerSecondEnergy = 3000,
+			
             Name = '<LOC enhancements_0079>Personal Cloaking Generator',
+			
             NewHealth = 15000,
+			
             Prerequisite = 'StealthGenerator',
+			
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
         },
+		
         CloakingGeneratorRemove = {
+		
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 1,
+			
             Icon = 'pcg',
+			
             Name = '<LOC enhancements_0080>Remove Personal Cloaking Generator',
+			
             Prerequisite = 'CloakingGenerator',
+			
             RemoveEnhancements = {
                 'StealthGenerator',
                 'CloakingGenerator',
                 'CloakingGeneratorRemove',
             },
+			
             Slot = 'Back',
         },
-        CoolingUpgrade = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
-            Icon = 'acu',
-            Name = '<LOC enhancements_0081>Microwave Accelerator',
-            NewMaxRadius = 30,
-            NewRateOfFire = 2,
-            ShowBones = {
-                'Right_Upgrade',
-            },
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret',
-                'Right_Muzzle_02',
-            },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
-        },
-        CoolingUpgradeRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Right_Upgrade',
-            },
-            Icon = 'acu',
-            Name = '<LOC enhancements_0082>Remove Microwave Accelerator',
-            Prerequisite = 'CoolingUpgrade',
-            RemoveEnhancements = {
-                'CoolingUpgrade',
-                'CoolingUpgradeRemove',
-            },
-            Slot = 'LCH',
-        },
+	
         MicrowaveLaserGenerator = {
+		
             BuildCostEnergy = 500000,
             BuildCostMass = 4000,
             BuildTime = 2000,
+			
             HideBones = {
                 'Chest_Right',
                 'Chest_Left',
             },
+			
             Icon = 'mlg',
+			
             Name = '<LOC enhancements_0083>Microwave Laser Generator',
+			
             Slot = 'RCH',
+			
             UpgradeEffectBones = {
                 'Chest_Right',
                 'Chest_Left',
             },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
+			
+            UpgradeUnitAmbientBones = {'URL0001'},
         },
+		
         MicrowaveLaserGeneratorRemove = {
+		
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 10,
-            HideBones = {
-                'Back_Upgrade',
-            },
+			
+            HideBones = {'Back_Upgrade'},
+			
             Icon = 'mlg',
+			
             Name = '<LOC enhancements_0084>Remove Microwave Laser Generator',
+			
             Prerequisite = 'MicrowaveLaserGenerator',
+			
             RemoveEnhancements = {
                 'MicrowaveLaserGenerator',
                 'MicrowaveLaserGeneratorRemove',
             },
+			
             ShowBones = {
                 'Chest_Right',
                 'Chest_Left',
             },
+			
             Slot = 'RCH',
         },
+		
         NaniteTorpedoTube = {
             BuildCostEnergy = 37500,
             BuildCostMass = 1500,
@@ -367,6 +596,7 @@ UnitBlueprint {
                 'URL0001',
             },
         },
+		
         NaniteTorpedoTubeRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -384,6 +614,7 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
+		
         ResourceAllocation = {
             BuildCostEnergy = 150000,
             BuildCostMass = 5000,
@@ -405,6 +636,7 @@ UnitBlueprint {
                 'URL0001',
             },
         },
+		
         ResourceAllocationRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -421,91 +653,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
-        Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 0,
-                y = -10,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 60,
-                y = 2,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 0,
-            },
-        },
-        StealthGenerator = {
-            BuildCostEnergy = 5250,
-            BuildCostMass = 350,
-            BuildTime = 350,
-            Icon = 'psg',
-            MaintenanceConsumptionPerSecondEnergy = 50,
-            Name = '<LOC enhancements_0101>Personal Stealth Generator',
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeEffectBones = {
-                'Right_Arm_B01',
-                'Left_Arm_B01',
-                'Back_Upgrade',
-            },
-        },
-        StealthGeneratorRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 10,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'psg',
-            Name = '<LOC enhancements_0102>Remove Personal Stealth Generator',
-            Prerequisite = 'StealthGenerator',
-            RemoveEnhancements = {
-                'StealthGenerator',
-                'StealthGeneratorRemove',
-            },
-            Slot = 'Back',
-        },
-        T3Engineering = {
-            BuildCostEnergy = 50000,
-            BuildCostMass = 2400,
-            BuildTime = 6000,
-            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER CYBRAN',
-            Icon = 'ees',
-            Name = '<LOC enhancements_0103>Tech 3 Engineering Suite',
-            NewBuildRate = 90,
-            NewHealth = 7000,
-            NewRegenRate = 35,
-            Prerequisite = 'AdvancedEngineering',
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret',
-                'Right_Muzzle_02',
-            },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
-        },
-        T3EngineeringRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            Icon = 'ees',
-            Name = '<LOC enhancements_0104>Remove Tech 3 Engineering Suite',
-            Prerequisite = 'T3Engineering',
-            RemoveEnhancements = {
-                'AdvancedEngineering',
-                'T3Engineering',
-                'T3EngineeringRemove',
-            },
-            Slot = 'LCH',
-        },
+
         Teleporter = {
             BuildCostEnergy = 1500000,
             BuildCostMass = 15000,

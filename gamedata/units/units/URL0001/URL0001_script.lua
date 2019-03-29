@@ -1,16 +1,17 @@
-
 local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
 local CWeapons = import('/lua/cybranweapons.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
 
-#local CAAMissileNaniteWeapon = CWeapons.CAAMissileNaniteWeapon
 local CCannonMolecularWeapon = CWeapons.CCannonMolecularWeapon
 local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CDFHeavyMicrowaveLaserGeneratorCom = CWeapons.CDFHeavyMicrowaveLaserGeneratorCom
 local CDFOverchargeWeapon = CWeapons.CDFOverchargeWeapon
 local CANTorpedoLauncherWeapon = CWeapons.CANTorpedoLauncherWeapon
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectUtil = import('/lua/EffectUtilities.lua')
+
+local Buff = import('/lua/sim/Buff.lua')
+
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 URL0001 = Class(CWalkingLandUnit) {
@@ -18,8 +19,11 @@ URL0001 = Class(CWalkingLandUnit) {
 
     Weapons = {
         DeathWeapon = Class(CIFCommanderDeathWeapon) {},
+		
         RightRipper = Class(CCannonMolecularWeapon) {},
+		
         Torpedo = Class(CANTorpedoLauncherWeapon) {},
+		
         MLG = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
             DisabledFiringBones = {'Turret_Muzzle_03'},
             
@@ -118,8 +122,9 @@ URL0001 = Class(CWalkingLandUnit) {
         if self:GetBlueprint().General.BuildBones then
             self:SetupBuildBones()
         end
-        # Restrict what enhancements will enable later
-        self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+		
+        -- Restrict what enhancements will enable later
+        self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
     end,
 
 
@@ -246,8 +251,6 @@ URL0001 = Class(CWalkingLandUnit) {
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
     
-
-
     OnScriptBitSet = function(self, bit)
         if bit == 8 then # cloak toggle
             --self:StopUnitAmbientSound( 'ActiveLoop' )
@@ -272,24 +275,23 @@ URL0001 = Class(CWalkingLandUnit) {
         end
     end,
 
-    
-
-    # *************
-    # Build/Upgrade
-    # *************
     CreateBuildEffects = function( self, unitBeingBuilt, order )
        --EffectUtil.SpawnBuildBots( self, unitBeingBuilt, 5, self.BuildEffectsBag )
        EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
 
     CreateEnhancement = function(self, enh)
+	
         CWalkingLandUnit.CreateEnhancement(self, enh)
+		
         if enh == 'Teleporter' then
             self:AddCommandCap('RULEUCC_Teleport')
+			
         elseif enh == 'TeleporterRemove' then
             RemoveUnitEnhancement(self, 'Teleporter')
             RemoveUnitEnhancement(self, 'TeleporterRemove')
             self:RemoveCommandCap('RULEUCC_Teleport')
+			
         elseif enh == 'StealthGenerator' then
             self:AddToggleCap('RULEUTC_CloakToggle')
             if self.IntelEffectsBag then
@@ -300,6 +302,7 @@ URL0001 = Class(CWalkingLandUnit) {
             self.StealthEnh = true
             self:EnableUnitIntel('RadarStealth')
             self:EnableUnitIntel('SonarStealth')
+			
         elseif enh == 'StealthGeneratorRemove' then
             self:RemoveToggleCap('RULEUTC_CloakToggle')
             self:DisableUnitIntel('RadarStealth')
@@ -308,6 +311,7 @@ URL0001 = Class(CWalkingLandUnit) {
             self.CloakEnh = false 
             self.StealthFieldEffects = false
             self.CloakingEffects = false     
+			
         elseif enh == 'ResourceAllocation' then
             local bp = self:GetBlueprint().Enhancements[enh]
             local bpEcon = self:GetBlueprint().Economy
@@ -350,82 +354,88 @@ URL0001 = Class(CWalkingLandUnit) {
             if Buff.HasBuff( self, 'CybranACUCloakBonus' ) then
                 Buff.RemoveBuff( self, 'CybranACUCloakBonus' )
             end              
-        #T2 Engineering
+			
+        --T2 Engineering
         elseif enh =='AdvancedEngineering' then
+		
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['CybranACUT2BuildRate'] then
-                BuffBlueprint {
-                    Name = 'CybranACUT2BuildRate',
-                    DisplayName = 'CybranACUT2BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'CybranACUT2BuildRate')
+
+            Buff.ApplyBuff(self, 'ACU_T2_Engineering')
+			
         elseif enh =='AdvancedEngineeringRemove' then
+		
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'CybranACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'CybranACUT2BuildRate' )
+			
+            self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+            if Buff.HasBuff( self, 'ACU_T2_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T2_Engineering' )
             end
-        #T3 Engineering
+			
+        -- T3 Engineering
         elseif enh =='T3Engineering' then
+		
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['CybranACUT3BuildRate'] then
-                BuffBlueprint {
-                    Name = 'CybranACUT3BuildRate',
-                    DisplayName = 'CybranCUT3BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'CybranACUT3BuildRate')
+
+            Buff.ApplyBuff(self, 'ACU_T3_Engineering')
+			
         elseif enh =='T3EngineeringRemove' then
+		
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            if Buff.HasBuff( self, 'CybranACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'CybranACUT3BuildRate' )
+			
+            if Buff.HasBuff( self, 'ACU_T3_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T3_Engineering' )
             end
-            self:AddBuildRestriction( categories.CYBRAN * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+			
+            self:AddBuildRestriction( categories.CYBRAN * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+        -- T4 Engineering
+        elseif enh =='T4Engineering' then
+		
+            local bp = self:GetBlueprint().Enhancements[enh]
+			
+            if not bp then return end
+			
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T4_Engineering')
+			
+        elseif enh =='T4EngineeringRemove' then
+		
+            local bp = self:GetBlueprint().Economy.BuildRate
+			
+            if not bp then return end
+			
+            self:RestoreBuildRestrictions()
+			
+            if Buff.HasBuff( self, 'ACU_T4_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T4_Engineering' )
+            end
+			
+            self:AddBuildRestriction( categories.CYBRAN * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+
         elseif enh =='CoolingUpgrade' then
             local bp = self:GetBlueprint().Enhancements[enh]
             local wep = self:GetWeaponByLabel('RightRipper')

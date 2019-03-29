@@ -78,6 +78,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYOMNI',
     },
+	
     Defense = {
         ArmorType = 'Commander',
         EconomyThreatLevel = 5,
@@ -86,7 +87,9 @@ UnitBlueprint {
         RegenRate = 10,
         SurfaceThreatLevel = 75,
     },
+	
     Description = '<LOC xsl0001_desc>Armored Command Unit',
+	
     Display = {
         Abilities = {
             'Customizable',
@@ -146,8 +149,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
+		
         TransportAnimation = {
             {
                 Animation = '/units/XSL0001/XSL0001_afold.sca',
@@ -162,382 +166,39 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 5000000,
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+		
         BuildableCategory = {
             'BUILTBYCOMMANDER SERAPHIM',
             'BUILTBYTIER2COMMANDER SERAPHIM',
             'BUILTBYTIER3COMMANDER SERAPHIM',
+			'BUILTBYTIER4COMMANDER SERAPHIM',
         },
+		
         InitialRemoteViewingEnergyDrain = 3000,
+		
         MaxBuildDistance = 10,
         NaturalProducer = true,
         NeedToFaceTargetToBuild = false,
+		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
-        StorageEnergy = 4000,
-        StorageMass = 650,
+		
+        StorageEnergy = 4500,
+        StorageMass = 715,
+		
         TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0,
+        TeleportMassMod = 0.01,
         TeleportTimeMod = 0.0001,
     },
+	
     Enhancements = {
-        AdvancedEngineering = {
-            BuildCostEnergy = 19800,
-            BuildCostMass = 950,
-            BuildTime = 900,
-            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER SERAPHIM',
-            Icon = 'aes',
-            Name = '<LOC enhancements_0000>Tech 2 Engineering Suite',
-            NewBuildRate = 30,
-            NewHealth = 3000,
-            NewRegenRate = 20,
-            ShowBones = {
-                'Left_Upgrade',
-            },
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        AdvancedEngineeringRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Left_Upgrade',
-            },
-            Icon = 'aes',
-            Name = '<LOC enhancements_0001>Remove Advanced Engineering Suite',
-            Prerequisite = 'AdvancedEngineering',
-            RemoveEnhancements = {
-                'AdvancedEngineering',
-                'AdvancedEngineeringRemove',
-            },
-            Slot = 'LCH',
-        },
-        AdvancedRegenAura = {
-            BuildCostEnergy = 31250,
-            BuildCostMass = 1500,
-            BuildTime = 1250,
-            Icon = 'anrf',
-            Name = '<LOC enhancements_0127>Rapid Restoration Field',
-            Prerequisite = 'RegenAura',
-            Radius = 25,
-            RegenCeiling = 200,
-            RegenFloor = 0,
-            MaxHealthFactor = 1,
-            RegenPerSecond = 0.01111111111,
-            Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        AdvancedRegenAuraRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            Icon = 'anrf',
-            Name = '<LOC enhancements_0128>Remove Rapid Restoration Field',
-            Prerequisite = 'AdvancedRegenAura',
-            RemoveEnhancements = {
-                'AdvancedRegenAura',
-                'AdvancedRegenAuraRemove',
-            },
-            Slot = 'RCH',
-        },
-        BlastAttack = {
-            AdditionalDamage = 300,
-            BuildCostEnergy = 300000,
-            BuildCostMass = 4500,
-            BuildTime = 3000,
-            Icon = 'cba',
-            Name = '<LOC enhancements_0129>Refracting Chronotron Amplifier',
-            NewDamageRadius = 2,
-            ShowBones = {
-                'Left_Upgrade',
-            },
-            Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Upgrade',
-                'Left_Upgrade_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        BlastAttackRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Left_Upgrade',
-            },
-            Icon = 'cba',
-            Name = '<LOC enhancements_0130>Remove Refracting Chronotron Amplifier',
-            Prerequisite = 'BlastAttack',
-            RemoveEnhancements = {
-                'BlastAttack',
-                'BlastAttackRemove',
-            },
-            Slot = 'LCH',
-        },
-        DamageStabilization = {
-            BuildCostEnergy = 90000,
-            BuildCostMass = 2000,
-            BuildTime = 2000,
-            Icon = 'dss',
-            Name = '<LOC enhancements_0131>Nano-Repair System',
-            NewHealth = 6000,
-            NewRegenRate = 75,
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade',
-                'Left_Arm_B01',
-                'Right_Arm_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        DamageStabilizationAdvanced = {
-            BuildCostEnergy = 450000,
-            BuildCostMass = 4500,
-            BuildTime = 3000,
-            Icon = 'adss',
-            Name = '<LOC enhancements_0133>Enhanced Nano-Repair System',
-            NewHealth = 20000,
-            NewRegenRate = 150,
-            Prerequisite = 'DamageStabilization',
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade',
-                'Left_Arm_B01',
-                'Right_Arm_B01',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        DamageStabilizationAdvancedRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'adss',
-            Name = '<LOC enhancements_0134>Remove Enhanced Nano-Repair System',
-            Prerequisite = 'DamageStabilizationAdvanced',
-            RemoveEnhancements = {
-                'DamageStabilizationAdvanced',
-                'DamageStabilizationAdvancedRemove',
-            },
-            Slot = 'Back',
-        },
-        DamageStabilizationRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'dss',
-            Name = '<LOC enhancements_0132>Remove Nano-Repair System',
-            Prerequisite = 'DamageStabilization',
-            RemoveEnhancements = {
-                'DamageStabilization',
-                'DamageStabilizationRemove',
-            },
-            Slot = 'Back',
-        },
-        Missile = {
-            BuildCostEnergy = 50000,
-            BuildCostMass = 1000,
-            BuildTime = 1000,
-            Icon = 'tml',
-            Name = '<LOC enhancements_0135>Tactical Missile Launcher',
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        MissileRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'tml',
-            Name = '<LOC enhancements_0136>Remove Tactical Missile Launcher',
-            Prerequisite = 'Missile',
-            RemoveEnhancements = {
-                'Missile',
-                'MissileRemove',
-            },
-            Slot = 'Back',
-        },
-        RateOfFire = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
-            Icon = 'hsa',
-            Name = '<LOC enhancements_0137>Chronotron Accelerator',
-            NewMaxRadius = 30,
-            NewRateOfFire = 2,
-            ShowBones = {
-                'Right_Upgrade',
-            },
-            Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        RateOfFireRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Right_Upgrade',
-            },
-            Icon = 'hsa',
-            Name = '<LOC enhancements_0138>Remove Chronotron Accelerator',
-            Prerequisite = 'RateOfFire',
-            RemoveEnhancements = {
-                'RateOfFire',
-                'RateOfFireRemove',
-            },
-            Slot = 'RCH',
-        },
-        RegenAura = {
-            BuildCostEnergy = 4500,
-            BuildCostMass = 600,
-            BuildTime = 600,
-            Icon = 'nrf',
-            Name = '<LOC enhancements_0125>Restoration Field',
-            Radius = 15,
-            RegenCeiling = 75,
-            RegenFloor = 0,
-            RegenPerSecond = 0.0055555555,
-            ShowBones = {
-                'Right_Upgrade',
-            },
-            Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Upgrade',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        RegenAuraRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Right_Upgrade',
-            },
-            Icon = 'nrf',
-            Name = '<LOC enhancements_0126>Remove Restoration Field',
-            Prerequisite = 'RegenAura',
-            RemoveEnhancements = {
-                'RegenAura',
-                'RegenAuraRemove',
-            },
-            Slot = 'RCH',
-        },
-        ResourceAllocation = {
-            BuildCostEnergy = 150000,
-            BuildCostMass = 5000,
-            BuildTime = 1000,
-            Icon = 'ras',
-            Name = '<LOC enhancements_0010>Resource Allocation System',
-            ProductionPerSecondEnergy = 3000,
-            ProductionPerSecondMass = 16,
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        ResourceAllocationAdvanced = {
-            BuildCostEnergy = 150000,
-            BuildCostMass = 5000,
-            BuildTime = 1000,
-            Icon = 'eras',
-            Name = '<LOC enhancements_0011>Advanced Resource Allocation System',
-            Prerequisite = 'ResourceAllocation',
-            ProductionPerSecondEnergy = 6000,
-            ProductionPerSecondMass = 32,
-            ShowBones = {
-                'Back_Upgrade',
-            },
-            Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-        },
-        ResourceAllocationAdvancedRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'eras',
-            Name = '<LOC enhancements_0012>Remove Advanced Allocation System',
-            Prerequisite = 'ResourceAllocationAdvanced',
-            RemoveEnhancements = {
-                'ResourceAllocation',
-                'ResourceAllocationAdvanced',
-                'ResourceAllocationAdvancedRemove',
-            },
-            Slot = 'Back',
-        },
-        ResourceAllocationRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
-            Icon = 'ras',
-            Name = '<LOC enhancements_0013>Remove Resource Allocation System',
-            Prerequisite = 'ResourceAllocation',
-            RemoveEnhancements = {
-                'ResourceAllocation',
-                'ResourceAllocationRemove',
-            },
-            Slot = 'Back',
-        },
+
         Slots = {
             Back = {
                 name = '<LOC _Back>',
@@ -555,39 +216,106 @@ UnitBlueprint {
                 y = -10,
             },
         },
-        T3Engineering = {
-            BuildCostEnergy = 50000,
-            BuildCostMass = 2400,
-            BuildTime = 6000,
-            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER SERAPHIM',
-            Icon = 'ees',
-            Name = '<LOC enhancements_0018>Tech 3 Engineering Suite',
-            NewBuildRate = 90,
-            NewHealth = 7000,
-            NewRegenRate = 35,
-            Prerequisite = 'AdvancedEngineering',
-            ShowBones = {
-                'Left_Upgrade',
+
+        AdvancedEngineering = {
+		
+            BuildCostEnergy = 30000,
+            BuildCostMass = 1500,
+            BuildTime = 1500,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER SERAPHIM',
+			
+            Icon = 'aes',
+			
+            Name = '<LOC enhancements_0000>Tech 2 Engineering Suite',
+			
+            NewRegenRate = 20,
+			
+            ShowBones = {'Left_Upgrade'},
+			
+            RemoveEnhancements = {
+                'BlastAttack',
+                'BlastAttackRemove',
+                'T3Engineering',
+                'T3EngineeringRemove',
+				'T4Engineering',
+				'T4EngineeringRemove',				
             },
+			
             Slot = 'LCH',
+			
             UpgradeEffectBones = {
                 'Left_Upgrade',
                 'Left_Upgrade_Muzzle',
             },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+			
         },
-        T3EngineeringRemove = {
+		
+        AdvancedEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Left_Upgrade',
+			
+            HideBones = {'Left_Upgrade'},
+			
+            Icon = 'aes',
+			
+            Name = '<LOC enhancements_0001>Remove Advanced Engineering Suite',
+			
+            Prerequisite = 'AdvancedEngineering',
+			
+            RemoveEnhancements = {
+                'AdvancedEngineering',
+                'AdvancedEngineeringRemove',
             },
+			
+            Slot = 'LCH',
+        },
+		
+        T3Engineering = {
+		
+            BuildCostEnergy = 120000,
+            BuildCostMass = 6000,
+            BuildTime = 9000,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER SERAPHIM',
+			
             Icon = 'ees',
+			
+            Name = '<LOC enhancements_0018>Tech 3 Engineering Suite',
+			
+            NewRegenRate = 35,
+			
+            Prerequisite = 'AdvancedEngineering',
+			
+            ShowBones = {'Left_Upgrade'},
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {
+                'Left_Upgrade',
+                'Left_Upgrade_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        T3EngineeringRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Left_Upgrade'},
+			
+            Icon = 'ees',
+			
             Name = '<LOC enhancements_0019>Remove Engineering Suites',
+			
             Prerequisite = 'T3Engineering',
+			
             RemoveEnhancements = {
                 'AdvancedEngineering',
                 'T3Engineering',
@@ -595,31 +323,495 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+
+        T4Engineering = {
+		
+            BuildCostEnergy = 240000,
+            BuildCostMass = 18000,
+            BuildTime = 36000,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER SERAPHIM',
+			
+            Icon = 'exles3',
+			
+            Name = 'Tech 4 Engineering Suite',
+
+            NewRegenRate = 50,
+			
+            Prerequisite = 'T3Engineering',
+			
+            Slot = 'LCH',
+			
+            ShowBones = { 'Left_Upgrade' },
+
+            UpgradeEffectBones = {
+                'Left_Upgrade',
+                'Left_Upgrade_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},			
+
+        },
+		
+        T4EngineeringRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'ees',
+			
+            Name = '<LOC enhancements_0019>Remove Engineering Suites',
+			
+            Prerequisite = 'T4Engineering',
+			
+            HideBones = { 'Left_Upgrade' },
+			
+            RemoveEnhancements = {
+                'AdvancedEngineering',
+                'T3Engineering',
+                'T3EngineeringRemove',
+				'T4Engineering',
+				'T4EngineeringRemove',
+            },
+            Slot = 'LCH',
+        },
+		
+        BlastAttack = {
+		
+            AdditionalDamage = 300,
+			
+            BuildCostEnergy = 300000,
+            BuildCostMass = 4500,
+            BuildTime = 3000,
+			
+            Icon = 'cba',
+			
+            Name = '<LOC enhancements_0129>Refracting Chronotron Amplifier',
+			
+            NewDamageRadius = 2,
+			
+            ShowBones = {'Left_Upgrade'},
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {
+                'Left_Upgrade',
+                'Left_Upgrade_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        BlastAttackRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Left_Upgrade'},
+			
+            Icon = 'cba',
+			
+            Name = '<LOC enhancements_0130>Remove Refracting Chronotron Amplifier',
+			
+            Prerequisite = 'BlastAttack',
+			
+            RemoveEnhancements = {
+                'BlastAttack',
+                'BlastAttackRemove',
+            },
+            Slot = 'LCH',
+        },
+		
+        RegenAura = {
+		
+            BuildCostEnergy = 4500,
+            BuildCostMass = 600,
+            BuildTime = 600,
+			
+            Icon = 'nrf',
+			
+            Name = '<LOC enhancements_0125>Restoration Field',
+			
+            Radius = 15,
+            RegenCeiling = 75,
+            RegenFloor = 0,
+            RegenPerSecond = 0.0055555555,
+			
+            ShowBones = {'Right_Upgrade'},
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        RegenAuraRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Right_Upgrade'},
+			
+            Icon = 'nrf',
+			
+            Name = '<LOC enhancements_0126>Remove Restoration Field',
+			
+            Prerequisite = 'RegenAura',
+			
+            RemoveEnhancements = {
+                'RegenAura',
+                'RegenAuraRemove',
+            },
+			
+            Slot = 'RCH',
+        },	
+		
+        AdvancedRegenAura = {
+		
+            BuildCostEnergy = 31250,
+            BuildCostMass = 1500,
+            BuildTime = 1250,
+			
+            Icon = 'anrf',
+			
+            Name = '<LOC enhancements_0127>Rapid Restoration Field',
+			
+            Prerequisite = 'RegenAura',
+			
+            Radius = 25,
+			
+            RegenCeiling = 200,
+            RegenFloor = 0,
+			
+            MaxHealthFactor = 1,
+            RegenPerSecond = 0.01111111111,
+			
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        AdvancedRegenAuraRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'anrf',
+			
+            Name = '<LOC enhancements_0128>Remove Rapid Restoration Field',
+			
+            Prerequisite = 'AdvancedRegenAura',
+			
+            RemoveEnhancements = {
+                'AdvancedRegenAura',
+                'AdvancedRegenAuraRemove',
+            },
+			
+            Slot = 'RCH',
+        },
+
+        DamageStabilization = {
+		
+            BuildCostEnergy = 90000,
+            BuildCostMass = 2000,
+            BuildTime = 2000,
+			
+            Icon = 'dss',
+			
+            Name = '<LOC enhancements_0131>Nano-Repair System',
+			
+            NewHealth = 6000,
+            NewRegenRate = 75,
+			
+            ShowBones = {'Back_Upgrade'},
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {
+                'Back_Upgrade',
+                'Left_Arm_B01',
+                'Right_Arm_B01',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        DamageStabilizationAdvanced = {
+		
+            BuildCostEnergy = 450000,
+            BuildCostMass = 4500,
+            BuildTime = 3000,
+			
+            Icon = 'adss',
+			
+            Name = '<LOC enhancements_0133>Enhanced Nano-Repair System',
+			
+            NewHealth = 20000,
+            NewRegenRate = 150,
+			
+            Prerequisite = 'DamageStabilization',
+			
+            ShowBones = {'Back_Upgrade'},
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {
+                'Back_Upgrade',
+                'Left_Arm_B01',
+                'Right_Arm_B01',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+			
+        },
+		
+        DamageStabilizationAdvancedRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'adss',
+			
+            Name = '<LOC enhancements_0134>Remove Enhanced Nano-Repair System',
+			
+            Prerequisite = 'DamageStabilizationAdvanced',
+			
+            RemoveEnhancements = {
+                'DamageStabilizationAdvanced',
+                'DamageStabilizationAdvancedRemove',
+            },
+            Slot = 'Back',
+        },
+		
+        DamageStabilizationRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'dss',
+			
+            Name = '<LOC enhancements_0132>Remove Nano-Repair System',
+			
+            Prerequisite = 'DamageStabilization',
+			
+            RemoveEnhancements = {
+                'DamageStabilization',
+                'DamageStabilizationRemove',
+            },
+            Slot = 'Back',
+        },
+		
+        Missile = {
+		
+            BuildCostEnergy = 50000,
+            BuildCostMass = 1000,
+            BuildTime = 1000,
+			
+            Icon = 'tml',
+			
+            Name = '<LOC enhancements_0135>Tactical Missile Launcher',
+			
+            ShowBones = {'Back_Upgrade'},
+			
+            Slot = 'Back',
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        MissileRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'tml',
+			
+            Name = '<LOC enhancements_0136>Remove Tactical Missile Launcher',
+			
+            Prerequisite = 'Missile',
+			
+            RemoveEnhancements = {
+                'Missile',
+                'MissileRemove',
+            },
+            Slot = 'Back',
+        },
+		
+        RateOfFire = {
+		
+            BuildCostEnergy = 24000,
+            BuildCostMass = 800,
+            BuildTime = 800,
+			
+            Icon = 'hsa',
+			
+            Name = '<LOC enhancements_0137>Chronotron Accelerator',
+			
+            NewMaxRadius = 30,
+            NewRateOfFire = 2,
+			
+            ShowBones = {'Right_Upgrade'},
+			
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {
+                'Right_Upgrade',
+                'Right_Turret_Muzzle',
+            },
+			
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        RateOfFireRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Right_Upgrade'},
+			
+            Icon = 'hsa',
+			
+            Name = '<LOC enhancements_0138>Remove Chronotron Accelerator',
+			
+            Prerequisite = 'RateOfFire',
+			
+            RemoveEnhancements = {
+                'RateOfFire',
+                'RateOfFireRemove',
+            },
+            Slot = 'RCH',
+        },
+
+        ResourceAllocation = {
+		
+            BuildCostEnergy = 150000,
+            BuildCostMass = 5000,
+            BuildTime = 1000,
+			
+            Icon = 'ras',
+			
+            Name = '<LOC enhancements_0010>Resource Allocation System',
+			
+            ProductionPerSecondEnergy = 3000,
+            ProductionPerSecondMass = 16,
+			
+            ShowBones = {'Back_Upgrade'},
+            Slot = 'Back',
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        ResourceAllocationAdvanced = {
+		
+            BuildCostEnergy = 150000,
+            BuildCostMass = 5000,
+            BuildTime = 1000,
+			
+            Icon = 'eras',
+			
+            Name = '<LOC enhancements_0011>Advanced Resource Allocation System',
+			
+            Prerequisite = 'ResourceAllocation',
+			
+            ProductionPerSecondEnergy = 6000,
+            ProductionPerSecondMass = 32,
+			
+            ShowBones = {'Back_Upgrade'},
+            Slot = 'Back',
+            UpgradeUnitAmbientBones = {'Body'},
+        },
+		
+        ResourceAllocationAdvancedRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'eras',
+			
+            Name = '<LOC enhancements_0012>Remove Advanced Allocation System',
+			
+            Prerequisite = 'ResourceAllocationAdvanced',
+			
+            RemoveEnhancements = {
+                'ResourceAllocation',
+                'ResourceAllocationAdvanced',
+                'ResourceAllocationAdvancedRemove',
+            },
+            Slot = 'Back',
+        },
+		
+        ResourceAllocationRemove = {
+		
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            HideBones = {'Back_Upgrade'},
+			
+            Icon = 'ras',
+			
+            Name = '<LOC enhancements_0013>Remove Resource Allocation System',
+			
+            Prerequisite = 'ResourceAllocation',
+			
+            RemoveEnhancements = {
+                'ResourceAllocation',
+                'ResourceAllocationRemove',
+            },
+            Slot = 'Back',
+        },
+
         Teleporter = {
+		
             BuildCostEnergy = 1500000,
             BuildCostMass = 15000,
             BuildTime = 3000,
+			
             Icon = 'pqt',
+			
             MaintenanceConsumptionPerSecondEnergy = 10000,
+			
             Name = '<LOC enhancements_0020>Personal Teleporter',
-            ShowBones = {
-                'Back_Upgrade',
-            },
+			
+            ShowBones = {'Back_Upgrade'},
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
+            UpgradeUnitAmbientBones = {'Body'},
         },
+		
         TeleporterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
+			
+            HideBones = {'Back_Upgrade'},
+			
             Icon = 'pqt',
+			
             Name = '<LOC enhancements_0021>Remove Personal Teleporter',
+			
             Prerequisite = 'Teleporter',
+			
             RemoveEnhancements = {
                 'Teleporter',
                 'TeleporterRemove',
@@ -627,6 +819,7 @@ UnitBlueprint {
             Slot = 'Back',
         },
     },
+	
     General = {
         BuildBones = {
             AimBone = 'Left_Turret_Muzzle',
@@ -662,6 +855,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Experimental',
         UnitWeight = 1,
     },
+	
     Intel = {
         FreeIntel = true,
         OmniRadius = 26,
@@ -669,12 +863,15 @@ UnitBlueprint {
         VisionRadius = 28,
         WaterVisionRadius = 14,
     },
+	
     Interface = {
         HelpText = 'Armored Command Unit',
     },
+	
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -697,19 +894,24 @@ UnitBlueprint {
         TurnRadius = 10,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.9,
     SelectionYOffset = 0,
+	
     SizeX = 1,
     SizeY = 2.2,
     SizeZ = 0.7,
+	
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 0,
+	
     Transport = {
         ClassSAttachSize = 0,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -717,6 +919,7 @@ UnitBlueprint {
         Level4 = 80,
         Level5 = 100,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,

@@ -140,24 +140,28 @@ UnitBlueprint {
         },
         UniformScale = 0.07,
     },
+	
     Economy = {
-        BuildCostEnergy = 1828125,	#--4400000, #--7625000,
-        BuildCostMass = 145938,	#--110000, #--76250,
-        BuildTime = 150000,	#--109500, #--120000,
-#        MaxEnergy = 50000,
-#        MaxMass = 410,
+        BuildCostEnergy = 1828125,
+        BuildCostMass = 145938,
+        BuildTime = 150000,
+
         NaturalProducer = true,
-        ProductionPerSecondEnergy = 15000,
+		
+        ProductionPerSecondEnergy = 12000,
         ProductionPerSecondMass = 150,
-		StorageEnergy = 15000,	#--10000,
-		StorageMass = 1500,	#--2000,
+		
+		StorageEnergy = 24000,
+		StorageMass = 300,
     },
+	
     Footprint = {
         SizeX = 7,
         SizeZ = 7,
     },
+	
     General = {
-		CapCost = 50,
+		CapCost = 55,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -185,12 +189,15 @@ UnitBlueprint {
         UnitName = '<LOC xab1401_name>Paragon',
         UnitWeight = 1,
     },
+	
     Interface = {
         HelpText = 'Experimental Resource Generator',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.1,
     LifeBarSize = 5.5,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -203,7 +210,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
-		MaxGroundVariation = 10,	-- allows it to be built on fairly uneven ground (ie. - Seabed)
+		MaxGroundVariation = 1.5,	-- allows it to be built on fairly uneven ground (ie. - Seabed)
         MaxSteerForce = 0,
         MeshExtentsX = 3,
         MeshExtentsY = 3,
@@ -216,18 +223,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.09,
     SelectionSizeX = 3.4,
     SelectionSizeZ = 3.4,
     SelectionThickness = 0.3,
+	
     SizeX = 4,
     SizeY = 4,
     SizeZ = 4,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 240,
+	
     Weapon = {
+	
 		{	#-- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
+		
             CollideFriendly = false,
 			
             Damage = 0,
@@ -241,7 +254,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 100,
+            MaxRadius = 120,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_AntiNavy',
@@ -256,6 +269,7 @@ UnitBlueprint {
 		},
 		
 		{	#-- this dummy weapon will give a range ring so players can determine proximity for their own paragons
+		
             CollideFriendly = false,
 			
             Damage = 0,
@@ -269,7 +283,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 164,
+            MaxRadius = 168,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
@@ -281,6 +295,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             WeaponCategory = 'Direct Fire',
 		},
+		
         {
             AboveWaterTargetsOnly = false,
             CollideFriendly = false,
@@ -304,20 +319,19 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 22500,	#--15000
-            NukeInnerRingRadius = 20,		#--20
-            NukeInnerRingTotalTime = 2,
-            NukeOuterRingDamage = 11250,	#-- 7500
-            NukeOuterRingRadius = 48,
-            NukeOuterRingTotalTime = 6,
+            NukeInnerRingDamage = 21000,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTotalTime = 6,
+			
+            NukeOuterRingDamage = 10000,
+            NukeOuterRingRadius = 45,
+            NukeOuterRingTotalTime = 12,
 			
             ProjectileId = '/projectiles/AIFQuantumWarhead02/AIFQuantumWarhead02_proj.bp',
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = { 0 },
                     RackBone = 0,
                 },
             },

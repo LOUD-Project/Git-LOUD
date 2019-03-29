@@ -2,12 +2,15 @@ local Shield = import('/lua/shield.lua').Shield
 
 local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
 local TerranWeaponFile = import('/lua/terranweapons.lua')
+
 local TDFZephyrCannonWeapon = TerranWeaponFile.TDFZephyrCannonWeapon
 local TIFCommanderDeathWeapon = TerranWeaponFile.TIFCommanderDeathWeapon
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local TIFCruiseMissileLauncher = TerranWeaponFile.TIFCruiseMissileLauncher
 local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
+
 local Buff = import('/lua/sim/Buff.lua')
 
 UEL0001 = Class(TWalkingLandUnit) {    
@@ -104,7 +107,7 @@ UEL0001 = Class(TWalkingLandUnit) {
         self.HasRightPod = false
 		
         -- Restrict what enhancements will enable later
-        self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+        self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
     end,
 
     OnPrepareArmToBuild = function(self)
@@ -291,24 +294,6 @@ UEL0001 = Class(TWalkingLandUnit) {
 
 # end Pod Fix 1/2 ---------------------------------------
     end,
-	
-    -- NotifyOfPodDeath = function(self, pod)
-        -- if pod == 'RightPod' and self.HasLeftPod then
-            -- self:CreateEnhancement('RightPodRemove')
-            -- self:CreateEnhancement('LeftPod')
-            -- self.HasRightPod = false
-            -- self:RequestRefreshUI()
-        -- elseif pod == 'RightPod' and not self.HasLeftPod then
-            -- self:CreateEnhancement('RightPodRemove')
-            -- self:CreateEnhancement('LeftPodRemove')
-            -- self.HasRightPod = false
-            -- self:RequestRefreshUI()
-        -- elseif pod == 'LeftPod' then
-            -- self.HasLeftPod = false
-            -- self:CreateEnhancement('LeftPodRemove')
-            -- self:RequestRefreshUI()
-        -- end
-    -- end,
 
     CreateEnhancement = function(self, enh)
         
@@ -440,85 +425,86 @@ UEL0001 = Class(TWalkingLandUnit) {
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
 			
+		-- T2 Engineering 
         elseif enh =='AdvancedEngineering' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
-            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
-            self:RemoveBuildRestriction(cat)
 			
-            if not Buffs['UEFACUT2BuildRate'] then
-                BuffBlueprint {
-                    Name = 'UEFACUT2BuildRate',
-                    DisplayName = 'UEFACUT2BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'UEFACUT2BuildRate')
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T2_Engineering')
 			
         elseif enh =='AdvancedEngineeringRemove' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
-            local bp = self:GetBlueprint().Economy.BuildRate
-            if not bp then return end
-            self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'UEFACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'UEFACUT2BuildRate' )
-            end
 			
-        elseif enh =='T3Engineering' then
-			TWalkingLandUnit.CreateEnhancement(self, enh)
-            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
-            self:RemoveBuildRestriction(cat)
-            if not Buffs['UEFACUT3BuildRate'] then
-                BuffBlueprint {
-                    Name = 'UEFACUT3BuildRate',
-                    DisplayName = 'UEFCUT3BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
+            local bp = self:GetBlueprint().Economy.BuildRate
+			
+            if not bp then return end
+			
+            self:RestoreBuildRestrictions()
+			
+            self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+
+            if Buff.HasBuff( self, 'ACU_T2_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T2_Engineering' )
             end
-            Buff.ApplyBuff(self, 'UEFACUT3BuildRate')
+		
+		-- T3 Engineering 
+        elseif enh =='T3Engineering' then
+		
+			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T3_Engineering')
 			
         elseif enh =='T3EngineeringRemove' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            if Buff.HasBuff( self, 'UEFACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'UEFACUT3BuildRate' )
+			
+            if Buff.HasBuff( self, 'ACU_T3_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T3_Engineering' )
             end
-            self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+			
+            self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+		
+		-- T4 Engineering 
+        elseif enh =='T4Engineering' then
+		
+			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T4_Engineering')
+			
+        elseif enh =='T4EngineeringRemove' then
+		
+			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
+            local bp = self:GetBlueprint().Economy.BuildRate
+			
+            if not bp then return end
+			
+            self:RestoreBuildRestrictions()
+			
+            if Buff.HasBuff( self, 'ACU_T4_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T4_Engineering' )
+            end
+			
+            self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
 
         elseif enh =='HeavyAntiMatterCannon' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
@@ -556,35 +542,52 @@ UEL0001 = Class(TWalkingLandUnit) {
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
 			
         elseif enh =='TacticalMissile' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
             self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
+			
             self:SetWeaponEnabledByLabel('TacMissile', true)
 			
         elseif enh =='TacticalNukeMissile' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+			
             self:AddCommandCap('RULEUCC_Nuke')
             self:AddCommandCap('RULEUCC_SiloBuildNuke')
+			
             self:SetWeaponEnabledByLabel('TacMissile', false)
             self:SetWeaponEnabledByLabel('TacNukeMissile', true)
+			
             local amt = self:GetTacticalSiloAmmoCount()
+			
             self:RemoveTacticalSiloAmmo(amt or 0)
+			
             self:StopSiloBuild()
 			
         elseif enh == 'TacticalMissileRemove' or enh == 'TacticalNukeMissileRemove' then
+		
 			TWalkingLandUnit.CreateEnhancement(self, enh)
+			
             self:RemoveCommandCap('RULEUCC_Nuke')
             self:RemoveCommandCap('RULEUCC_SiloBuildNuke')
+			
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+			
             self:SetWeaponEnabledByLabel('TacMissile', false)
             self:SetWeaponEnabledByLabel('TacNukeMissile', false)
+			
             local amt = self:GetTacticalSiloAmmoCount()
             self:RemoveTacticalSiloAmmo(amt or 0)
+			
             local amt = self:GetNukeSiloAmmoCount()
             self:RemoveNukeSiloAmmo(amt or 0)
+			
             self:StopSiloBuild()
         end
     end,

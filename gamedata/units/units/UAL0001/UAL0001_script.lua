@@ -107,9 +107,10 @@ UAL0001 = Class(AWalkingLandUnit) {
         self:SetupBuildBones()
         self:HideBone('Back_Upgrade', true)
         self:HideBone('Right_Upgrade', true)        
-        self:HideBone('Left_Upgrade', true)            
-        # Restrict what enhancements will enable later
-        self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+        self:HideBone('Left_Upgrade', true)
+		
+        -- Restrict what enhancements will enable later
+        self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
     end,
 
     OnPrepareArmToBuild = function(self)
@@ -231,9 +232,12 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     CreateEnhancement = function(self, enh)
+	
         AWalkingLandUnit.CreateEnhancement(self, enh)
+		
         local bp = self:GetBlueprint().Enhancements[enh]
-        #Resource Allocation
+		
+		-- Resource Allocation
         if enh == 'ResourceAllocation' then
             local bp = self:GetBlueprint().Enhancements[enh]
             local bpEcon = self:GetBlueprint().Economy
@@ -281,83 +285,89 @@ UAL0001 = Class(AWalkingLandUnit) {
             self:SetWeaponEnabledByLabel('ChronoDampener', true)
         elseif enh == 'ChronoDampenerRemove' then
             self:SetWeaponEnabledByLabel('ChronoDampener', false)
-        #T2 Engineering
+			
+        -- T2 Engineering
         elseif enh =='AdvancedEngineering' then
+		
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['AeonACUT2BuildRate'] then
-                BuffBlueprint {
-                    Name = 'AeonACUT2BuildRate',
-                    DisplayName = 'AeonACUT2BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'AeonACUT2BuildRate')
+			
+            Buff.ApplyBuff(self, 'ACU_T2_Engineering')
+			
         elseif enh =='AdvancedEngineeringRemove' then
+		
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'AeonACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'AeonACUT2BuildRate' )
+			
+            self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+            if Buff.HasBuff( self, 'ACU_T2_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T2_Engineering' )
             end
-        #T3 Engineering
+			
+        -- T3 Engineering
         elseif enh =='T3Engineering' then
+		
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['AeonACUT3BuildRate'] then
-                BuffBlueprint {
-                    Name = 'AeonACUT3BuildRate',
-                    DisplayName = 'AeonCUT3BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'AeonACUT3BuildRate')
+			
+            Buff.ApplyBuff(self, 'ACU_T3_Engineering')
+			
         elseif enh =='T3EngineeringRemove' then
+		
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'AeonACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'AeonACUT3BuildRate' )
+			
+            self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+            if Buff.HasBuff( self, 'ACU_T3_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T3_Engineering' )
             end
-        #Crysalis Beam
+
+        -- T4 Engineering
+        elseif enh =='T4Engineering' then
+		
+            local bp = self:GetBlueprint().Enhancements[enh]
+			
+            if not bp then return end
+			
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T4_Engineering')
+			
+        elseif enh =='T3EngineeringRemove' then
+		
+            local bp = self:GetBlueprint().Economy.BuildRate
+			
+            if not bp then return end
+			
+            self:RestoreBuildRestrictions()
+			
+            self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+            if Buff.HasBuff( self, 'ACU_T4_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T4_Engineering' )
+            end
+			
+        -- Crysalis Beam
         elseif enh == 'CrysalisBeam' then
             local wep = self:GetWeaponByLabel('RightDisruptor')
             wep:ChangeMaxRadius(bp.NewMaxRadius or 44)

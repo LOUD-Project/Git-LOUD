@@ -6,13 +6,17 @@ local SWeapons = import('/lua/seraphimweapons.lua')
 local SDFChronotronCannonWeapon = SWeapons.SDFChronotronCannonWeapon
 local SDFChronotronOverChargeCannonWeapon = SWeapons.SDFChronotronCannonOverChargeWeapon
 local SIFCommanderDeathWeapon = SWeapons.SIFCommanderDeathWeapon
+local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLauncher
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
-local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLauncher
+
+
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
-# Setup as RemoteViewing child unit rather than SWalkingLandUnit
+-- Setup as RemoteViewing child unit rather than SWalkingLandUnit
 local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
+
 SWalkingLandUnit = RemoteViewing( SWalkingLandUnit ) 
 
 local SeraphimBuffField = SWeapons.SeraphimBuffField
@@ -113,7 +117,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
         self:HideBone('Right_Upgrade', true)
         self:HideBone('Left_Upgrade', true)
         # Restrict what enhancements will enable later
-        self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+        self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
     end,
 
     OnPrepareArmToBuild = function(self)
@@ -261,7 +265,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             WaitSeconds(5)
         end
     end,
-       
+
     AdvancedRegenBuffThread = function(self)
         while not self:IsDead() do
             #Get friendly units in the area (including self)
@@ -502,86 +506,100 @@ XSL0001 = Class( SWalkingLandUnit ) {
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')        
             self:SetWeaponEnabledByLabel('Missile', false)
-        #T2 Engineering
+			
+        -- T2 Engineering
         elseif enh =='AdvancedEngineering' then
+		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['SeraphimACUT2BuildRate'] then
-                BuffBlueprint {
-                    Name = 'SeraphimACUT2BuildRate',
-                    DisplayName = 'SeraphimACUT2BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'SeraphimACUT2BuildRate')
+
+            Buff.ApplyBuff(self, 'ACU_T2_Engineering')
+			
         elseif enh =='AdvancedEngineeringRemove' then
+		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            if Buff.HasBuff( self, 'SeraphimACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUT2BuildRate' )
+			
+            self:AddBuildRestriction( categories.SERAPHIM * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+            if Buff.HasBuff( self, 'ACU_T2_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T2_Engineering' )
             end
-        #T3 Engineering
+			
+        -- T3 Engineering
         elseif enh =='T3Engineering' then
+		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
             local bp = self:GetBlueprint().Enhancements[enh]
+			
             if not bp then return end
+			
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
             self:RemoveBuildRestriction(cat)
-            if not Buffs['SeraphimACUT3BuildRate'] then
-                BuffBlueprint {
-                    Name = 'SeraphimACUT3BuildRate',
-                    DisplayName = 'SeraphimCUT3BuildRate',
-                    BuffType = 'ACUBUILDRATE',
-                    Stacks = 'REPLACE',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
-                            Mult = 1,
-                        },
-                        MaxHealth = {
-                            Add = bp.NewHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.NewRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'SeraphimACUT3BuildRate')
+
+            Buff.ApplyBuff(self, 'ACU_T3_Engineering')
+			
         elseif enh =='T3EngineeringRemove' then
+		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
             local bp = self:GetBlueprint().Economy.BuildRate
+			
             if not bp then return end
+			
             self:RestoreBuildRestrictions()
-            if Buff.HasBuff( self, 'SeraphimACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'SeraphimACUT3BuildRate' )
+			
+            if Buff.HasBuff( self, 'ACU_T3_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T3_Engineering' )
             end
-            self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+			
+            self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+			
+        -- T4 Engineering
+        elseif enh =='T4Engineering' then
+		
+			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
+            local bp = self:GetBlueprint().Enhancements[enh]
+			
+            if not bp then return end
+			
+            local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
+			
+            self:RemoveBuildRestriction(cat)
+
+            Buff.ApplyBuff(self, 'ACU_T4_Engineering')
+			
+        elseif enh =='T4EngineeringRemove' then
+		
+			SWalkingLandUnit.CreateEnhancement(self, enh)
+			
+            local bp = self:GetBlueprint().Economy.BuildRate
+			
+            if not bp then return end
+			
+            self:RestoreBuildRestrictions()
+			
+            if Buff.HasBuff( self, 'ACU_T4_Engineering' ) then
+                Buff.RemoveBuff( self, 'ACU_T4_Engineering' )
+            end
+			
+            self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
+
         #Blast Attack
         elseif enh == 'BlastAttack' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)

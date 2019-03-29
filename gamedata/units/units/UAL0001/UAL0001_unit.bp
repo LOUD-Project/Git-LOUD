@@ -171,14 +171,18 @@ UnitBlueprint {
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+		
         BuildableCategory = {
             'BUILTBYCOMMANDER AEON',
             'BUILTBYTIER2COMMANDER AEON',
             'BUILTBYTIER3COMMANDER AEON',
+			'BUILTBYTIER4COMMANDER AEON',
         },
+		
         MaxBuildDistance = 10,
         NaturalProducer = true,
         NeedToFaceTargetToBuild = false,
+		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
 		
@@ -186,7 +190,7 @@ UnitBlueprint {
         StorageMass = 650,
 		
         TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0.03,
+        TeleportMassMod = 0.01,
         TeleportTimeMod = 0.0001,
     },
 	
@@ -212,18 +216,16 @@ UnitBlueprint {
 		
         AdvancedEngineering = {
 		
-            BuildCostEnergy = 19800,
-            BuildCostMass = 950,
-            BuildTime = 900,
+            BuildCostEnergy = 30000,
+            BuildCostMass = 1500,
+            BuildTime = 1500,
 			
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
 			
             Icon = 'aes',
 			
             Name = '<LOC enhancements_0000>Tech 2 Engineering Suite',
-			
-            NewBuildRate = 30,
-            NewHealth = 3000,
+
             NewRegenRate = 20,
 			
             ShowBones = { 'Left_Upgrade' },
@@ -259,18 +261,16 @@ UnitBlueprint {
 
         T3Engineering = {
 		
-            BuildCostEnergy = 50000,
-            BuildCostMass = 2400,
-            BuildTime = 6000,
+            BuildCostEnergy = 120000,
+            BuildCostMass = 6000,
+            BuildTime = 9000,
 			
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
 			
             Icon = 'ees',
 			
             Name = '<LOC enhancements_0018>Tech 3 Engineering Suite',
-			
-            NewBuildRate = 90,
-            NewHealth = 6000,
+
             NewRegenRate = 35,
 			
             Prerequisite = 'AdvancedEngineering',
@@ -294,9 +294,7 @@ UnitBlueprint {
             Icon = 'ees',
             Name = '<LOC enhancements_0019>Remove Engineering Suites',
             Prerequisite = 'T3Engineering',
-            HideBones = {
-                'Left_Upgrade',
-            },
+            HideBones = { 'Left_Upgrade' },
             RemoveEnhancements = {
                 'AdvancedEngineering',
                 'T3Engineering',
@@ -304,7 +302,53 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+
+        T4Engineering = {
 		
+            BuildCostEnergy = 240000,
+            BuildCostMass = 18000,
+            BuildTime = 36000,
+			
+            BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
+			
+            Icon = 'exles3',
+			
+            Name = 'Tech 4 Engineering Suite',
+
+            NewRegenRate = 50,
+			
+            Prerequisite = 'T3Engineering',
+			
+            Slot = 'LCH',
+			
+            ShowBones = { 'Left_Upgrade' },
+			
+            UpgradeUnitAmbientBones = { 'UAL0001' },
+			
+            UpgradeEffectBones = {
+                'Left_Turret',
+                'Left_Upgrade',
+            },
+        },
+		
+        T4EngineeringRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            Icon = 'ees',
+            Name = '<LOC enhancements_0019>Remove Engineering Suites',
+            Prerequisite = 'T4Engineering',
+            HideBones = { 'Left_Upgrade' },
+            RemoveEnhancements = {
+                'AdvancedEngineering',
+                'T3Engineering',
+                'T3EngineeringRemove',
+				'T4Engineering',
+				'T4EngineeringRemove',
+            },
+            Slot = 'LCH',
+        },
+
         ChronoDampener = {
             BuildCostEnergy = 125000,
             BuildCostMass = 2500,
