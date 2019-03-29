@@ -32,6 +32,8 @@ UnitBlueprint {
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
+		'HEAVYWALL',
+		'GANTRY',
     },
     CollisionOffsetZ = -1.2,
     Defense = {
