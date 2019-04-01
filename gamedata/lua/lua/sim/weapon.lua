@@ -85,7 +85,7 @@ Weapon = Class(moho.weapon_methods) {
                 nuke = true
             end
 			
-            ForkTo(self.AmmoThread, self, nuke, math.floor(initStore))
+            ForkThread(self.AmmoThread, self, nuke, math.floor(initStore))
         end
 		
 		self:SetDamageTable(bp)
@@ -106,7 +106,7 @@ Weapon = Class(moho.weapon_methods) {
 
     AmmoThread = function(self, nuke, amount)
 	
-		if not self.unit.Dead then
+		if not self.unit:BeenDestroyed() then
 			
 			WaitTicks(2)
 		

@@ -713,7 +713,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     LifeTimeThread = function(self, lifetime)
-	
+
 		WaitTicks(lifetime*10)
 		
 		self:Destroy()
@@ -1913,7 +1913,7 @@ Unit = Class(moho.unit_methods) {
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
-			ForkTo( self.LifeTimeThread, prop, bp.Wreckage.LifeTime or 900)
+			self:ForkThread( self.LifeTimeThread, bp.Wreckage.LifeTime or 900)
 
             TryCopyPose(self,prop,false)
 
@@ -1921,7 +1921,7 @@ Unit = Class(moho.unit_methods) {
 			prop.IsWreckage = true
 			
 			-- when simspeed drops too low turn off visual effects
-			if Sync.SimData.SimSpeed > -2 then
+			if Sync.SimData.SimSpeed > -1 then
 				CreateWreckageEffects(self,prop)
 			end
 			
@@ -2809,7 +2809,7 @@ Unit = Class(moho.unit_methods) {
 		
 		if bp.Defense.LifeTime then
 		
-			ForkTo( self.LifeTimeThread, self, bp.Defense.Lifetime )
+			self:ForkThread( self.LifeTimeThread, bp.Defense.Lifetime )
 			
 		end
 		
