@@ -352,7 +352,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 			
@@ -405,8 +405,9 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1, 0, 28 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -539,7 +540,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'AntiSurface' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
@@ -580,7 +581,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Air' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Air' }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
@@ -622,7 +623,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE, 0, 24 }},
@@ -663,7 +664,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses STD',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Air' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Air' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
@@ -827,7 +828,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses SML',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'AntiSurface' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
@@ -864,7 +865,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses SML',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Air' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Air' }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
@@ -906,7 +907,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses SML',
 		
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE, 0, 24 }},
@@ -946,7 +947,7 @@ BuilderGroup {BuilderGroupName = 'DP Defenses SML',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Air' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Air' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},

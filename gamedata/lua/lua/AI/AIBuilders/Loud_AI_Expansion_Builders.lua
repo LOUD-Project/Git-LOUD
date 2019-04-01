@@ -29,7 +29,7 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 710,
+        Priority = 750,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -95,7 +95,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 		PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-		Priority = 710,
+		Priority = 750,
 		
         BuilderConditions = {
 		
@@ -104,8 +104,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 			
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
 			
@@ -135,8 +135,10 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 				BaseTemplate = 'DefensivePointStandard',
 				
                 BuildStructures = {
-					'T2Radar',
 					'T2AirStagingPlatform',
+					'T2GroundDefense',
+					'T2Radar',
+					'T2AADefense',
 				}
 			}
 		}
@@ -150,16 +152,16 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 710,
+        Priority = 750,
 
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' } },
 			
@@ -188,8 +190,10 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 				BaseTemplate = 'ExpansionLayout_II',
 				
                 BuildStructures = {
-					'T2Radar',
 					'T2AirStagingPlatform',
+					'T2Radar',
+					'T2GroundDefense',
+					'T2AADefense',
                 }
 				
             }
@@ -208,16 +212,16 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		Priority = 710,
+		Priority = 750,
 		
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
 			
@@ -247,8 +251,10 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {
-					'T2Radar',
 					'T2AirStagingPlatform',
+					'T2Radar',
+					'T2GroundDefense',
+					'T2AADefense',
 				}
 			}
 		}
@@ -463,9 +469,9 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 				
                 BuildStructures = {
 				
-					'T2Sonar',
 					'T2AirStagingPlatform',
-
+					'T2Sonar',
+					
 					'T2MissileDefense',
 
 					'T2AADefenseAmphibious',

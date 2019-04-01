@@ -228,7 +228,7 @@ BuilderGroup {BuilderGroupName = 'T2 Perimeter Defenses',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			-- check for less than 18 T2 TMD 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 45, 85 }},
@@ -270,7 +270,7 @@ BuilderGroup {BuilderGroupName = 'T2 Perimeter Defenses',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			-- check for less than 27 Arty structures in perimeter
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 27, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2, 45, 85 }},
@@ -312,7 +312,7 @@ BuilderGroup {BuilderGroupName = 'T2 Perimeter Defenses',
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
 			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			-- check perimeter for less than 36 T2 PD
@@ -925,7 +925,7 @@ BuilderGroup {BuilderGroupName = 'T2 Perimeter Expansions',
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
 			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
 			-- check perimeter for less than 24 T2 PD
@@ -1041,7 +1041,7 @@ BuilderGroup {BuilderGroupName = 'T3 Perimeter Expansions',
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 
@@ -1123,7 +1123,7 @@ BuilderGroup {BuilderGroupName = 'T3 Perimeter Expansions',
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 30, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Land' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 

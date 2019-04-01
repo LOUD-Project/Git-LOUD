@@ -1674,7 +1674,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
 			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 40, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 40, 'Land' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
 			
         },

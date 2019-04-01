@@ -315,7 +315,7 @@ BuilderGroup {BuilderGroupName = 'Energy Builders - Expansions',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ EBC, 'LessThanEnergyTrend', { 2000 }},
 			-- don't build T3 power if one is already being built somewhere else
