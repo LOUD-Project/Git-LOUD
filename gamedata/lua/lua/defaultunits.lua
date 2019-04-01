@@ -3523,10 +3523,8 @@ AirUnit = Class(MobileUnit) {
 
     end,
 
-	-- this fires when the unit fuel falls below the threshold
+	-- this fires when the unit fuel falls below the trigger threshold
     OnRunOutOfFuel = function(self)
-
-		--LOG("*AI DEBUG "..self:GetBlueprint().Description.." Out of Fuel")
 
         self:SetSpeedMult(0.4)
         self:SetAccMult(0.5)
@@ -3540,20 +3538,99 @@ AirUnit = Class(MobileUnit) {
 
         self.HasFuel = false
 
-		--Unit.OnRunOutOfFuel( self )
     end,
 
-	-- this fires when the unit fuel is above the threshold
+	-- this fires when the unit fuel is above the trigger threshold
     OnGotFuel = function(self)
 
-		self.HasFuel = true
+		if not self.HasFuel then
 
-        self:SetSpeedMult(1)
-        self:SetAccMult(1)
-        self:SetTurnMult(1)
+			self:SetSpeedMult(1)
+			self:SetAccMult(1)
+			self:SetTurnMult(1)
+			
+		end
+		
+		self.HasFuel = true
+		
+		LOG("*AI DEBUG OnGotFuel for "..repr(self:GetBlueprint().Description).." is "..repr(self:GetFuelRatio()))
 
     end,
 
+	-- this fires only when the unit attaches to an airpad
+    OnStartRefueling = function(self)
+
+        self:PlayUnitSound('Refueling')
+		
+        self:DoUnitCallbacks('OnStartRefueling')
+		
+    end,
+
+    OnHealthChanged = function(self, new, old)
+
+		if not self.Dead and new > 0 then
+		
+			-- Health values come in at fixed 25% intervals
+			if new < old then
+
+				-- so at 50% damage air performance drops
+				if old == 0.75 then
+				
+					if self.HasFuel then
+				
+						self:SetSpeedMult(0.82)
+						self:SetAccMult(0.82)
+						self:SetTurnMult(0.8)
+						
+					end
+
+				-- and below 25% it drops even more
+				elseif old <= 0.5 then
+				
+					if self.HasFuel then
+					
+						self:SetSpeedMult(0.6)
+						self:SetAccMult(0.6)
+						self:SetTurnRate(0.4)
+					
+					end
+					
+				end
+				
+			else
+
+				-- at 25% move performance back up 
+				if new == 0.25 then
+				
+					if self.HasFuel then
+				
+						self:SetSpeedMult(0.82)
+						self:SetAccMult(0.82)
+						self:SetTurnMult(0.8)
+						
+					end
+					
+				-- at 50% restore full performance
+				elseif new >= 0.5 then
+				
+					if self.HasFuel then
+					
+						self:SetSpeedMult(1)
+						self:SetAccMult(1)
+						self:SetTurnMult(1)					
+					
+					end
+
+				end
+				
+			end
+			
+		end
+		
+		Unit.OnHealthChanged(self, new, old)
+		
+    end,	
+	
     OnImpact = function(self, with, other)
 
         local bp = GetBlueprint(self)
