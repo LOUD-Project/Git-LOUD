@@ -40,7 +40,9 @@ function AIPickEnemyLogic( self, brainbool )
 	local function DrawPlanNodes()
 	
 		local DC = DrawCircle
-		local DLP = DrawLinePop    
+		local DLP = DrawLinePop
+		
+		LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
 		
 		while true do
 		
@@ -48,20 +50,46 @@ function AIPickEnemyLogic( self, brainbool )
 			
 				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
 				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+
+				local lastpoint = self.AttackPlan.StagePoints[0]				
+				local lastdraw = lastpoint
 				
-				local lastpoint = self.AttackPlan.StagePoints[0]
+				if self.AttackPlan.StagePoints[0].Path then
+				
+					-- draw the movement path --
+					for _,v in self.AttackPlan.StagePoints[0].Path do
+					
+						DLP( lastdraw, v, '0303ff' )
+						lastdraw = v
+					
+					end
+					
+				end
 				
 				for i = 1, self.AttackPlan.StageCount do
 				
 					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
+					
 					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
 					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
 					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
+
+					lastdraw = lastpoint
+					
+					for _,v in self.AttackPlan.StagePoints[i].Path do
+					
+						DLP( lastdraw,v, '0303ff' )
+						lastdraw = v
+					
+					end
+
 					lastpoint = self.AttackPlan.StagePoints[i].Position
 					
 				end
 				
 				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
+				
+				lastdraw = lastpoint
 				
 				DC( self.AttackPlan.Goal, 1, 'ff00ff')
 				DC( self.AttackPlan.Goal, 3, '00ff00')
@@ -69,7 +97,7 @@ function AIPickEnemyLogic( self, brainbool )
 				
 			end
 			
-			WaitTicks(15)
+			WaitTicks(6)
 			
 		end
 		

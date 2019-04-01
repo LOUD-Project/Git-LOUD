@@ -463,8 +463,6 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 		
 		local fulltemplate = {}
 		local datatemplate = {}
-		
-		--LOG("*AI DEBUG data is "..repr(data.BuilderData.Construction.BuildStructures))
 
 		for k,v in data.BuilderData.Construction.BuildStructures do
 

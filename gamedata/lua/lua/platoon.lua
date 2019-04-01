@@ -238,18 +238,23 @@ Platoon = Class(moho.platoon_methods) {
 		local prevpoint = GetPlatoonPosition(self) or false
 
 		if prevpoint and path then
+		
+			-- this variable controls what I call the 'path slack'
+			-- essentially - as a platoon moves from point to point
+			-- when it's within this range of it's goal - it considers
+			-- itself there - and moves onto it's next waypoint
+			-- this seems to be most helpful for very large platoons which
+			-- often seem to get 'stuck' right at a waypoint, unable to close
+			-- the distance due to the sheer size of the platoon
+			local pathslack = 16
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
 
-			--LOG("*AI DEBUG "..self.BuilderName.." has path of "..repr(path))			
-			
 			for wpidx, waypointPath in path do
 			
 				if self.MoveThread then
 
-					--LOG("*AI DEBUG "..self.BuilderName.." is moving to "..repr(waypointPath))
-
-					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, 30)
+					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, pathslack )
 			
 					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevpoint, waypointPath )
 
@@ -280,8 +285,6 @@ Platoon = Class(moho.platoon_methods) {
 						self:MoveToLocation( waypointPath, false )
 						
 					end
-					
-					--LOG("*AI DEBUG Status is "..repr(navigator:GetStatus()).." Unit is at "..repr(GetPlatoonUnits(self)[1]:GetPosition() ))
 
 					while self.MovingToWaypoint do
 
@@ -812,7 +815,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		-- step size is used when making DestinationBetweenPoints checks
 		-- the value of 70 is relatively safe to use to avoid intervening terrain issues
-		local stepsize = 70
+		local stepsize = 100
 
 		-- air platoons can look much further off the line since they generally ignore terrain anyway
 		-- this larger step makes looking for destination much less costly in processing
@@ -830,7 +833,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 			elseif platoonLayer == 'Amphibious' then
 			
-				stepsize = 100
+				stepsize = 125
 				
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance
@@ -1034,7 +1037,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- this flag is set but passed into the path generator
 		-- was originally used to allow the path generator to 'cut corners' on final step
-		local testPath = false
+		local testPath = true
 		
 		if platoonLayer == 'Air' or platoonLayer == 'Amphibious' then
 		
@@ -5417,9 +5420,7 @@ Platoon = Class(moho.platoon_methods) {
                 end
             end
         end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." begins EBAI")
-		
+
         local cons = self.PlatoonData.Construction
 
         if not eng or eng.Dead or not cons.BuildStructures then
@@ -5440,7 +5441,6 @@ Platoon = Class(moho.platoon_methods) {
 			
 			end
         end
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." begins EBAI")
 
         local factionIndex = cons.FactionIndex or aiBrain.FactionIndex
 		
@@ -5832,22 +5832,25 @@ Platoon = Class(moho.platoon_methods) {
         if cons.BuildStructures[1] == 'T1Resource' or cons.BuildStructures[1] == 'T2Resource' or cons.BuildStructures[1] == 'T3Resource' then
             relative = true
         end                   
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." setup complete in EBAI")
-		
+
 		-- OK ALL Setup Complete -- lets create a queue of things for the engy to build
 		local did_a_build = false
+		
 		local builditem = buildingTmpl
-
+		
         for _, baseListData in baseTmplList do
 		
             for _,v in cons.BuildStructures do
 				
                 if not eng.Dead then
+				
+					builditem = buildingTmpl	-- standard list --
 
 					local replacement = false
 					
 					if ScenarioInfo.CustomUnits[v][aiBrain.FactionName] then
+					
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." seeking replacement for "..repr(v).." current choice is "..repr(builditem) )
 					
 						replacement = GetTemplateReplacement( v, aiBrain.FactionName, ScenarioInfo.CustomUnits[v][aiBrain.FactionName])
 						
@@ -5858,6 +5861,8 @@ Platoon = Class(moho.platoon_methods) {
 						builditem = replacement
 						
 					end
+					
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." building "..repr(v).." with "..repr(builditem))
 
 					if buildFunction(aiBrain, eng, v, closeToBuilder, relative, builditem, baseListData, reference, cons.NearMarkerType) then
 					
@@ -5879,7 +5884,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
 	
 						aiBrain.BaseExpansionUnderway = true
 	
@@ -8344,8 +8349,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1 = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
-		local AttackBase2 = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
+        local AttackBase1, AttackBase1Position = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
+		local AttackBase2, AttackBase2Position = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
 		
 		local selections = {}
 		local count = 0
@@ -8374,6 +8379,27 @@ Platoon = Class(moho.platoon_methods) {
 			
 		end
 
+		-- the idea here is to give priority to the base which has the most nearby threat
+		-- thus increasing the odds that this is the base which will get reinforced
+		if AttackBase1 and AttackBase2 then
+		
+			local rings = 2
+		
+			if aiBrain:GetThreatAtPosition( AttackBase1Position, rings, true, 'Overall') > aiBrain:GetThreatAtPosition( AttackBase2Position, rings, true, 'Overall') then
+			
+				table.insert( selections, AttackBase1 )
+				
+			end
+
+			if aiBrain:GetThreatAtPosition( AttackBase2Position, rings, true, 'Overall') > aiBrain:GetThreatAtPosition( AttackBase1Position, rings, true, 'Overall') then
+			
+				table.insert( selections, AttackBase2 )
+				
+			end
+
+		end
+		
+		-- if there is more than one choice --
 		if count > 0 then
 		
 			local choice = math.random( 1, table.getn(selections) )
@@ -8391,20 +8417,18 @@ Platoon = Class(moho.platoon_methods) {
 					v.LocationType = AttackBase
 					
 				end
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." reinforcing "..repr(AttackBase))
-				
+
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 			else
 		
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
 				
 			end
 			
 		end
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
+		LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
 
 		return self:PlatoonDisband( aiBrain )
 		
@@ -8558,16 +8582,17 @@ Platoon = Class(moho.platoon_methods) {
 		
     end,
 
-    -- will send reinforcement air platoons to randomly selected primary attack base ( Primary Land or Primary Sea )
+    -- will send reinforcement amphib platoons to a primary attack base ( Primary Land or Primary Sea )
+	-- the one which is closest to the Attack Planner goal
     ReinforceAmphibAI = function( self )
     
         self:Stop()
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1 = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
-		local AttackBase2 = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
-		
+        local AttackBase1, AttackBase1Position = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
+		local AttackBase2, AttackBase2Position = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
+
 		local selections = {}
 		local count = 0
 		
@@ -8595,7 +8620,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 		end
 
-		-- if there is more than one choice select randomly --
+		-- if there is more than one choice select the one closest to the attack plan goal --
 		if count > 0 then 
 
 			-- sort the bases by distance to the attack plan goal
@@ -8659,7 +8684,7 @@ Platoon = Class(moho.platoon_methods) {
 			
         else
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_LAND "..repr(self.BuilderName).." got primary land attack base same as source")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_LAND "..repr(self.BuilderName).." got primary land attack base same as source")
 			
 		end
 		
@@ -8690,7 +8715,7 @@ Platoon = Class(moho.platoon_methods) {
 			
         else
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_NAVAL "..repr(self.BuilderName).." got primary sea attack base same as source")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_NAVAL "..repr(self.BuilderName).." got primary sea attack base same as source")
 			
 		end
 		

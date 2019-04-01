@@ -5889,19 +5889,6 @@ Unit = Class(moho.unit_methods) {
         end
 
     end,
-
-	-- superceded by DefaultUnits --
-    OnRunOutOfFuel = function(self)
-	
-        self.HasFuel = false
-		
-		if self.TopSpeedEffectsBag then
-			self:DestroyTopSpeedEffects()
-		end
-		
-        self:DoUnitCallbacks('OnRunOutOfFuel')
-    end,
-	
 	
 	-- this function tests to see if the intel features of the unit need power to operate
 	-- will return false if no energy required
@@ -5953,17 +5940,6 @@ Unit = Class(moho.unit_methods) {
 	-- triggered  when the transport is no longer loading (success or cancelled)
     OnStopTransportLoading = function(self)
 		LOG("*AI DEBUG OnStopTransportLoading "..self:GetBlueprint().Description)
-    end,
-
-    OnStartRefueling = function(self)
-        self:PlayUnitSound('Refueling')
-        self:DoUnitCallbacks('OnStartRefueling')
-    end,
-
-
-    OnGotFuel = function(self)
-        self.HasFuel = true
-        self:DoUnitCallbacks('OnGotFuel')
     end,
 
     OnMotionTurnEventChange = function(self, newEvent, oldEvent)

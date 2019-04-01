@@ -12,6 +12,8 @@ local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTranspo
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 
+local Game = import('game.lua')
+
 local LOUDENTITY = EntityCategoryContains
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -29,6 +31,7 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+
 
 -- static version of function from EBC
 function GreaterThanEnergyIncome(aiBrain, eIncome)
@@ -618,33 +621,49 @@ function SpawnWaveThread( aiBrain )
 		
 		for spawn = 1, units do
 
+		
 			-- fighters --
-			unit = aiBrain:CreateUnitNearSpot(initialUnits[1],startx,startz)
-			SimulateFactoryBuilt( unit )
+			--if initialUnits[1] and not Game.UnitRestricted( false, initialUnits[1] ) then
+				unit = aiBrain:CreateUnitNearSpot(initialUnits[1],startx,startz)
+				SimulateFactoryBuilt( unit )
+			--end
+			
 			WaitTicks(1)
 
 			-- bombers --
-			unit = aiBrain:CreateUnitNearSpot(initialUnits[2],startx,startz)
-			SimulateFactoryBuilt( unit )
+			--if initialUnits[2] and not Game.UnitRestricted( false, initialUnits[2] ) then
+				unit = aiBrain:CreateUnitNearSpot(initialUnits[2],startx,startz)
+				SimulateFactoryBuilt( unit )
+			--end
+			
 			WaitTicks(1)
 
 			-- gunships --
-			unit = aiBrain:CreateUnitNearSpot(initialUnits[3],startx,startz)
-			SimulateFactoryBuilt( unit )
+			--if initialUnits[3] and not Game.UnitRestricted( false, initialUnits[3] ) then
+				unit = aiBrain:CreateUnitNearSpot(initialUnits[3],startx,startz)
+				SimulateFactoryBuilt( unit )
+			--end
+			
 			WaitTicks(1)
 
 			-- transports  --
 			if spawn < 6 then
-			
-				unit = aiBrain:CreateUnitNearSpot(initialUnits[4],startx,startz)
-				SimulateFactoryBuilt( unit )
-				WaitTicks(1)
+
+				--if initialUnits[4] and not Game.UnitRestricted( false, initialUnits[4] ) then
+					unit = aiBrain:CreateUnitNearSpot(initialUnits[4],startx,startz)
+					SimulateFactoryBuilt( unit )
+				--end
 				
+				WaitTicks(1)
+
 			end
 
 			-- spy planes --
-			unit = aiBrain:CreateUnitNearSpot(initialUnits[5],startx,startz)
-			SimulateFactoryBuilt( unit )			
+			--if initialUnits[5] and  not Game.UnitRestricted( false, initialUnits[5] ) then
+				unit = aiBrain:CreateUnitNearSpot(initialUnits[5],startx,startz)
+				SimulateFactoryBuilt( unit )
+			--end
+			
 			WaitTicks(1)
 			
 		end
@@ -987,15 +1006,11 @@ end
 function GetPrimaryLandAttackBase( aiBrain )
 
 	if aiBrain.PrimaryLandAttackBase then
-	
-		--LOG("*AI DEBUG Returning PLAB "..repr(aiBrain.PrimaryLandAttackBase))
-		
+
 		return aiBrain.PrimaryLandAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimaryLandAttackBase ].Position
 		
 	end
-	
-	--LOG("*AI DEBUG Searching for Primary Land Attack Base")
-   
+
     for k,v in aiBrain.BuilderManagers do
 	
         if v.PrimaryLandAttackBase then
@@ -2550,7 +2565,7 @@ function PathGeneratorAir( aiBrain )
 		end
 
 
-		if queueitem.Node.position == data.EndNode.position then
+		if queueitem.Node.position == data.EndNode.position or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false
 		end
 	
@@ -2716,7 +2731,7 @@ function PathGeneratorAmphibious(self)
 			
 		end
 
-		if queueitem.Node.position == data.EndNode.position then
+		if queueitem.Node.position == data.EndNode.position or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
 		
 			--LOG("*AI DEBUG ASTAR finds endpoint")
 			return queueitem.path, queueitem.length, false
@@ -2869,7 +2884,7 @@ function PathGeneratorLand(self)
 		end
 
 		
-		if queueitem.Node.position == data.EndNode.position then
+		if queueitem.Node.position == data.EndNode.position or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false
 		end
 	
@@ -3017,7 +3032,7 @@ function PathGeneratorWater(self)
 		local position = queueitem.Node.position
 		local adjacentnodes = queueitem.Node.adjacent
 
-		if position == data.EndNode.position then
+		if position == data.EndNode.position or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false
 		end
 		
@@ -3268,27 +3283,29 @@ function ParseIntelThread( aiBrain )
 	local WaitTicks = coroutine.yield
 
     -- set the OgridRadius according to mapsize
+	local maxmapdimension = math.max(ScenarioInfo.size[1],ScenarioInfo.size[2])
+	
     local OgridRadius, IMAPsize, ResolveBlocks, Rings, ThresholdMult
 
-    if ScenarioInfo.size[1] == 256 then
+    if maxmapdimension == 256 then
         OgridRadius = 12.0
         IMAPSize = 16
         ResolveBlocks = 0
 		ThresholdMult = .33
 		Rings = 2
-    elseif ScenarioInfo.size[1] == 512 then
+    elseif maxmapdimension == 512 then
         OgridRadius = 23.0
         IMAPSize = 32
         ResolveBlocks = 0
 		ThresholdMult = .66
 		Rings = 1
-    elseif ScenarioInfo.size[1] == 1024 then
+    elseif maxmapdimension == 1024 then
         OgridRadius = 45.0
         IMAPSize = 64
         ResolveBlocks = 0
 		ThresholdMult = 1
 		Rings = 0
-    elseif ScenarioInfo.size[1] == 2048 then
+    elseif maxmapdimension == 2048 then
         OgridRadius = 91.0
         IMAPSize = 128
         ResolveBlocks = 4
@@ -3310,6 +3327,7 @@ function ParseIntelThread( aiBrain )
 
 	-- save the current resolution globally - it will be used by other routines to follow moving intel targets
 	ScenarioInfo.IntelResolution = resolution
+	ScenarioInfo.MaxMapDimension = maxmapdimension
 
     --LOG("*AI DEBUG IMAP Size is " ..IMAPSize.. " and Parse will examine " ..ResolveBlocks.. " blocks per intel check")
 
@@ -3728,6 +3746,12 @@ function ParseIntelThread( aiBrain )
 		--- LAND UNITS ---
 		------------------
 		myvalue = 0
+		
+		
+		local muzzmod = ( math.log10( GetGameTimeSeconds() ) *.01 )
+
+		if muzzmod > 5 then muzzmod = 5 end
+		if muzzmod < 1 then muzzmod = 1 end
 
 		-- calculate my present land value
 		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
@@ -3742,11 +3766,11 @@ function ParseIntelThread( aiBrain )
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the LANDRATIO at 10
-			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
+			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ) * muzzmod
 
 			if ScenarioInfo.ReportRatios then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." "..muzzmod)
 			
 			end
 
@@ -4048,7 +4072,7 @@ function AttackPlanner(self, enemyPosition)
 	
 end
 
-function CreateAttackPlan(self,enemyPosition)
+function CreateAttackPlan( self, enemyPosition )
     
 	if self.DeliverStatus then
 	
@@ -4056,8 +4080,12 @@ function CreateAttackPlan(self,enemyPosition)
 		
 	end
 
-	local mapsize = ScenarioInfo.size[1]
-	local stagesize = math.floor(math.min(mapsize/2, 400)) #-- should give a range between 128 and 400 for the staging points
+	--local mapsize = ScenarioInfo.MaxMapDimension
+	--local stagesize = math.floor(math.min(mapsize/2, 400)) #-- should give a range between 128 and 400 for the staging points
+	local stagesize = 450
+	
+	local minstagesize = (stagesize/2)*(stagesize/2)
+	local maxstagesize = (stagesize * stagesize)
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
 
@@ -4113,10 +4141,10 @@ function CreateAttackPlan(self,enemyPosition)
                 local Position = {v.position[1], v.position[2], v.position[3]}
 				
 				-- only add markers that are at least 50% a stagesize away
-                if VDist2Sq(Position[1],Position[3], StartPosition[1],StartPosition[3]) > ( (stagesize*0.5)*(stagesize*0.5))
+                if VDist2Sq(Position[1],Position[3], StartPosition[1],StartPosition[3]) > minstagesize
 				
 					-- and at least 50% stagesize from goal
-					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) > ((stagesize*0.5)*(stagesize*0.5))
+					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) > minstagesize
 					
 					-- and closer to the goal than the startposition
 					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) <= VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
@@ -4137,6 +4165,7 @@ function CreateAttackPlan(self,enemyPosition)
 	if table.getn(markerlist) < 1 then
 	
 		WARN("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
+		GoalReached = true
 		
 	end
 
@@ -4167,10 +4196,10 @@ function CreateAttackPlan(self,enemyPosition)
             for _,v in markerlist do
                 
                 -- if the position is at least half the stagesize away 
-                if VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= ( (stagesize*0.5) * (stagesize*0.5) )
+                if VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= minstagesize
 				
 					-- and at least half a stagesize from the goal
-					and VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) >= ( (stagesize*0.5) * (stagesize*0.5) )
+					and VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) >= minstagesize
 					
 					-- and 30% closer to the final goal than the last selected point 
 					and (VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) < (VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) * .70 ))
@@ -4206,8 +4235,8 @@ function CreateAttackPlan(self,enemyPosition)
 
                         for i, waypoint in path do
 						
-                            -- add the length of each step plus 10 for each step
-                            pathvalue = pathvalue + LOUDFLOOR(VDist2Sq(lastnode[1],lastnode[3], waypoint[1],waypoint[3])) + (10*10)
+                            -- add the length of each step plus 25 for each step
+                            pathvalue = pathvalue + LOUDFLOOR(VDist2Sq(lastnode[1],lastnode[3], waypoint[1],waypoint[3])) + (25*25)
                             lastnode = waypoint
 							
                         end
@@ -4216,7 +4245,7 @@ function CreateAttackPlan(self,enemyPosition)
 
                     if pathvalue > (VDist2Sq(CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3]) * 1.2) then
 					
-                        pathvalue = LOUDFLOOR(pathvalue * 1.2)
+                        pathvalue = LOUDFLOOR(pathvalue * 1.25)
 						
                     end
 
@@ -4231,22 +4260,22 @@ function CreateAttackPlan(self,enemyPosition)
 
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
 
-			-- if there are no positions found or the nearest is twice the stagesize
-			-- then we'll have to create one out of a land node or water node (if land fails)
-            if LOUDGETN(positions) < 1 or VDist2Sq(positions[1].Position[1],positions[1].Position[3], CurrentPoint[1],CurrentPoint[3]) > ((stagesize*2)*(stagesize*2)) then
+			-- if there are no positions found or the nearest is more than twice the stagesize
+			-- we'll have to create one out of a land node or water node (if land fails)
+            if LOUDGETN(positions) < 1 or VDist2Sq(positions[1].Position[1],positions[1].Position[3], CurrentPoint[1],CurrentPoint[3]) > (maxstagesize*2) then
                 
                 local a,b
 
                 if LOUDGETN(positions) < 1 then
 				
-                    LOG("*AI DEBUG "..self.Nickname.." - There are no positions")
+                    LOG("*AI DEBUG "..self.Nickname.." could find no marker positions from "..repr(CurrentPoint))
 					
                     a = Goal[1] + CurrentPoint[1]
                     b = Goal[3] + CurrentPoint[3]
 					
                 else
 				
-                    --LOG("*AI DEBUG The nearest testposition is " .. VDist3(positions[1].Position, CurrentPoint) .. " away")
+                    LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint))
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
                     b = CurrentPoint[3] + positions[1].Position[3]
@@ -4259,9 +4288,10 @@ function CreateAttackPlan(self,enemyPosition)
 
                 landposition = AIGetMarkersAroundLocation( self, 'Land Path Node', result, 200)
 
+				-- try and use a land marker when no other can be found
                 if LOUDGETN(landposition) < 1 then
 				
-                    --LOG("*AI DEBUG Could not find Land Node with 200 of resultposition "..repr(result).." using Water at 300")
+                    LOG("*AI DEBUG "..self.Nickname.." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 400)
 					
@@ -4271,10 +4301,11 @@ function CreateAttackPlan(self,enemyPosition)
 					
                 end
 
+				-- if no land marker could be found - try using a Naval marker
                 if fakeposition then
 				
-					--LOG("*AI DEBUG Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
-					--LOG("*AI DEBUG Fakeposition assign - Fakepositions are "..repr(fakeposition))
+					LOG("*AI DEBUG "..self.Nickname.." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
+					LOG("*AI DEBUG "..self.Nickname.." Fakeposition is "..repr(fakeposition))
 					
                     LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = LOUDFLOOR(VDist2Sq(CurrentPoint[1],CurrentPoint[3],fakeposition[1].Position[1],fakeposition[1].Position[3])), Type = 'Naval', Path = false})
 					
@@ -4329,7 +4360,9 @@ function CreateAttackPlan(self,enemyPosition)
 		LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
-    end
+    else
+		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
+	end
 	
 end
 
