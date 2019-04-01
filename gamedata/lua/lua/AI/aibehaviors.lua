@@ -4988,7 +4988,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
-					if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
+					if GetEconomyStored( aiBrain, 'MASS') >= 440 and GetEconomyStored( aiBrain, 'ENERGY') >= 4400 then
 				
 						IssueStop({unit})
 						IssueClearCommands({unit})
