@@ -915,6 +915,11 @@ EngineerManager = Class(BuilderManager) {
 					for _,LoopType in LoopTypes do
 					
 						local alertraised = false
+						local alertrangemod = 0
+						
+						if LoopType = 'Air' then
+							alertrangemod = 100	-- Air threat checks get an additional 100 range
+						end
 
 						highThreat = self.BaseMonitor.AlertLevel	-- this sets the threat required to trigger an alert
 						highThreatPos = false
@@ -926,7 +931,7 @@ EngineerManager = Class(BuilderManager) {
 							for _,threat in threatTable do
 						
 								-- filter by distance from the base and break out if threats are farther away (we presorted by distance)
-								if VDist2Sq(threat.Position[1],threat.Position[3], self.Location[1],self.Location[3]) <= AlertRadius then
+								if VDist2Sq(threat.Position[1],threat.Position[3], self.Location[1],self.Location[3]) <= (AlertRadius + alertrangemod) then
 							
 									-- match for threat type we are currently checking
 									if threat.Type == LoopType then
@@ -1019,7 +1024,7 @@ EngineerManager = Class(BuilderManager) {
 		
 		end
 	
-		local delay = self.BaseMonitor.BaseMonitorInterval or 0
+		local delay = self.BaseMonitor.BaseMonitorInterval or 1
 		
 		if ScenarioInfo.BaseMonitorDialog then
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
