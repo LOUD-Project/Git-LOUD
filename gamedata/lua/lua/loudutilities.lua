@@ -3265,10 +3265,10 @@ end
 -- taking into account how much intel the AI is actually collecting - see the parseinterval value
 -- to adjust the length of data collection period
 
--- KEEP IN MIND - all of this is based upon what the AI is actually seeing (radar, Omni or LOS) and revealed structures
+
 function ParseIntelThread( aiBrain )
 
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Parse Intel Thread Starts")
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." Parse Intel Thread Starts")
 	
 	-- local this global function
 	local GetUnitsInRect = GetUnitsInRect
@@ -3355,41 +3355,40 @@ function ParseIntelThread( aiBrain )
 	--]]
 	
 	local intelChecks = {
-		-- ThreatType	= {max dist to merge points, threat min, timeout (-1 = never), category for exact pos, parse every x iterations}
+		-- ThreatType	= {max dist to merge points, threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations}
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- added in Economy 
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
+
+		Air 			= { resolution, 12 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.SATELLITE, 1},
+
 		
-		Air 			= { resolution, 20 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.TRANSPORTFOCUS - categories.SATELLITE, 1},
-		Land 			= { resolution, 15 * ThresholdMult, 45, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 1 },
-		Naval 			= { resolution, 20 * ThresholdMult, 45, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 1 },
-		
-		--AntiAir			= { resolution, 10, 90, (categories.ANTIAIR), 1},
-		--AntiSub			= { resolution, 10, 90, (categories.NAVAL), 1},
-		--AntiSurface		= { resolution, 10, 90, (categories.ALLUNITS), 1},
-		
-		Artillery 		= { resolution/2, 100, 120, (categories.ARTILLERY * categories.STRUCTURE * categories.TECH3) + (categories.EXPERIMENTAL * categories.ARTILLERY), 2 },
-		Commander 		= { resolution, 20, 120, categories.COMMAND, 2 },
-		Economy			= { resolution/2, 100, 120, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 3 },
-		Experimental 	= { resolution, 50, 30, (categories.EXPERIMENTAL * categories.MOBILE), 2},
-		
-		--Structures		= { resolution, 10, 90, (categories.ALLUNITS), 1},
-		
-		StructuresNotMex = { resolution/2, 30, 120, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 3 },
+		Experimental 	= { resolution, 50, 30, (categories.EXPERIMENTAL * categories.MOBILE), 3},		
+		Land 			= { resolution, 12 * ThresholdMult, 30, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 3 },
+		Naval 			= { resolution, 18 * ThresholdMult, 30, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 3 },
+
+		Commander 		= { resolution, 60, 30, categories.COMMAND, 4 },
+
+		Artillery 		= { resolution, 100, 60, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5 },
+
+		Economy			= { resolution, 100, 60, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 6 },
+
+		StructuresNotMex = { resolution, 30, 60, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 7 },
 	}
 
 	local numchecks = 0
 	local usedticks = 0
-	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up 
-	local parseinterval = 200 	-- the rate of this routine in ticks - essentially every 20 seconds
+	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
+	
+	local parseinterval = 75 	-- the rate of a single iteration in ticks - essentially every 7.5 seconds
+	
     local minimumcheck = 5      -- only check reports above this level
 
     local iterationcount = 0 
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
-	-- and the History value controls how much history is kept -- 60 is about 600 seconds of history
-	aiBrain.EnemyData = { ['Count'] = 0, ['History'] = 60 }		
-	
+	-- and the History value controls how much history is kept -- 100 is about 750 seconds of history
+	aiBrain.EnemyData = { ['History'] = 100 }		
 	
 	-- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
 	if ScenarioInfo.DisplayIntelPoints then
@@ -3400,15 +3399,16 @@ function ParseIntelThread( aiBrain )
 	
 	-- create the record for each type of intel within the array
 	-- and initialize the element which will carry the running total
+	-- and the counter that tracks which element is current for this type
+	-- since not all types are recorded every time
     for threatType, v in intelChecks do
-        aiBrain.EnemyData[threatType] = { ['Total'] = 0}
+        aiBrain.EnemyData[threatType] = { ['Count'] = 0, ['Total'] = 0}
 	end
 
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
 
     -- local the repetitive functions		
-	--local AssignThreatAtPosition = moho.aibrain_methods.AssignThreatAtPosition
 	local EntityCategoryFilterDown = EntityCategoryFilterDown
 	local GETTHREATATPOSITION = moho.aibrain_methods.GetThreatAtPosition
 	local GetBlueprint = moho.entity_methods.GetBlueprint
@@ -3423,10 +3423,13 @@ function ParseIntelThread( aiBrain )
 	local LOUDMOD = math.mod
 
     local EnemyData = aiBrain.EnemyData
-    local EnemyDataCount = EnemyData.Count
+	
+    local EnemyDataCount
+	
     local EnemyDataHistory = EnemyData.History
 
     local NumOpponents = aiBrain.NumOpponents
+	
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
 	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, newpos, newthreat, newtime, myunits, myvalue, bp
@@ -3434,7 +3437,7 @@ function ParseIntelThread( aiBrain )
 	local ALLBPS = __blueprints
 
 	-- in a perfect world we would check all 8 threat types every parseinterval 
-	-- however, only LAND, AIR and NAVAL will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
+	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
     while true do
 
 		numchecks = 0
@@ -3445,7 +3448,7 @@ function ParseIntelThread( aiBrain )
         iterationcount = iterationcount + 1
 
         -- roll the iteration count back to one if it exceeds the maximum number of iterations
-        if iterationcount > 4 then
+        if iterationcount > 8 then
 		
             iterationcount = 1
 
@@ -3477,38 +3480,53 @@ function ParseIntelThread( aiBrain )
 			
         end
 
-        -- advance the sample counter for the EnemyData array
-        EnemyDataCount = EnemyDataCount + 1
-
-		-- roll it back to one when the sample counter exceeds the number of samples we are keeping
-        if EnemyDataCount > EnemyDataHistory then
-            EnemyDataCount = 1
-        end
-
 		-- loop thru each of the threattypes
+		-- but processing only those types marked for this iteration
 		for threatType, vx in intelChecks do
 
-            totalThreat = 0
-			local mergedistance = vx[1]*vx[1]
-
 			if LOUDMOD(iterationcount, vx[5]) == 0 then
+
+				totalThreat = 0
+			
+				local mergedistance = vx[1]*vx[1]
+			
+				-- advance sample count for this type of threat
+				EnemyDataCount = EnemyData[threatType]['Count'] + 1
+			
+				-- roll it back to one when the sample counter exceeds the number of samples we are keeping
+				if EnemyDataCount > EnemyDataHistory then
+					EnemyDataCount = 1
+				end
+			
+				EnemyData[threatType]['Count'] = EnemyDataCount
 
                 -- get all threats of this type from the IMAP -- table format is as follows:  posx, posy, threatamount
 				-- A note here - when you ask for 'Air' threat - you'll get ALL the threats that Air units can create for example
 				-- 12 bombers have zero anti-air threat but they'll still generate threat because they threaten surface targets
 				-- but to be clear 'Land' = Land Mobile units and does not include Land Structures
                 threats = GetThreatsAroundPosition( aiBrain, HomePosition, 32, true, threatType)
+				
                 gametime = LOUDFLOOR(GetGameTimeSeconds())
 
                 -- examine each threat and add those that are high enough to the InterestList if enemy units are found at that location
                 for _,threat in threats do
-					
+--[[				
+					local function DrawRectangle(aiBrain, threat)
+						for x = 1,8 do
+							DrawLine({threat[1]-IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]-IMAPRadius},'0303ff')
+							DrawLine({threat[1]+IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]+IMAPRadius},'0303ff')
+							DrawLine({threat[1]+IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]+IMAPRadius},'0303ff')
+							DrawLine({threat[1]-IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]-IMAPRadius},'0303ff')
+							WaitTicks(1)
+						end
+					end
+--]]					
                     -- add up the threat from each IMAP position - we'll use this as history even if it doesn't result in a InterestList entry
                     totalThreat = totalThreat + threat[3]
 
                     -- only check threats above minimumcheck otherwise break as rest will be below that
-                    if threat[3] >= minimumcheck then
-					
+                    if threat[3] > minimumcheck then
+				
                         -- count the number of checks we've done and insert a wait to keep this routine from hogging the CPU 
                         numchecks = numchecks + 1
 
@@ -3523,12 +3541,16 @@ function ParseIntelThread( aiBrain )
 						-- each quadrant could therefore have a much greater degree of detail than the IMAP itself would describe
 						-- at the moment, the threat values are coming right off of the IMAP position - so they would have to be copied and
 						-- used as two other values that would then be looped to cycle their values
-
+						
+						--if threatType == 'Air' then
+							--aiBrain:ForkThread(DrawRectangle,threat)
+						--end
+						
                         -- collect all the enemy units within that IMAP grid
+						-- just NOTE - this will report all units - even those you don't see
 						units = GetEnemyUnitsInRect( aiBrain, threat[1]-IMAPRadius, threat[2]-IMAPRadius, threat[1]+IMAPRadius, threat[2]+IMAPRadius)
 						
 						counter = 0
-						--local nearunits = {}
 						
 						-- these accumulate the postion values
                         x1 = 0
@@ -3551,7 +3573,7 @@ function ParseIntelThread( aiBrain )
 						-- if there are valid units then calc the average position and get the threat at that position
 						-- either make a new IL entry for it or update an existing entry
 						if counter > 0 then
-						
+
 							dupe = false
 
 							-- divide the position values by the counter to get average position (gives you the heart of the cluster)
@@ -3571,6 +3593,8 @@ function ParseIntelThread( aiBrain )
 							-- get the current threat at this position - can differ from the IMAP value - unfortunately we have to use 'Rings' here
                             newthreat = GETTHREATATPOSITION( aiBrain, newPos, Rings, true, threatType )
 							
+							--LOG("*AI DEBUG "..repr(threatType).." is "..threat[3].." at "..threat[1]..","..threat[2].." newthreat is "..newthreat.." at "..repr(newPos).." count is "..counter)
+
 							newtime = gametime
 
                             -- traverse the existing list until you find an entry within merge distance
@@ -3585,6 +3609,8 @@ function ParseIntelThread( aiBrain )
 									
 										if dupe then
 										
+											--LOG("*AI DEBUG "..aiBrain.Nickname.." Killing Duplicate "..repr(threatType) )
+										
 											aiBrain.IL.HiPri[k] = nil
 											
 											continue
@@ -3594,35 +3620,43 @@ function ParseIntelThread( aiBrain )
 										-- it might be a duplicate
 										dupe = true
 										
-										-- so update the existing entry
-										loc.Threat = newthreat
-										loc.LastUpdate = newtime
-										loc.Position = newPos
-
+										if newthreat > vx[2] then
+										
+											--LOG("*AI DEBUG "..aiBrain.Nickname.." Updating Existing "..repr(threatType))
+										
+											-- so update the existing entry
+											loc.Threat = newthreat
+										
+											if loc.LastUpdate < newtime then
+												loc.LastUpdate = newtime
+											end
+										
+											loc.Position = newPos
+											
+										else
+											-- newthreat is too low 
+											aiBrain.IL.HiPri[k] = nil
+											
+										end
 									end
-									
                                 end
-								
                             end
 						
                             -- if not a duplicate and it passes the threat threshold we'll add it - otherwise we ignore it
-                            if (not dupe) and newthreat >= vx[2] then
+                            if (not dupe) and newthreat > vx[2] then
 							
-								--LOG("*AI DEBUG Inserting new "..repr(threatType).." threat of "..newthreat.." at "..repr(newPos))
-							
-								-- insert this new entry
+								--LOG("*AI DEBUG "..aiBrain.Nickname.." Inserting new "..repr(threatType).." threat of "..newthreat.." at "..repr(newPos))
+
                                 LOUDINSERT(aiBrain.IL.HiPri, { Position = newPos, Type = threatType, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
 								
 							end
-							
-                        end
+						end
 						
                     else
 					
 						break -- rest of the threats will be below minimumcheck level and can be bypassed
 						
 					end
-					
                 end
 				
 				-- Update the EnemyData Array for this threattype -- Array element 'Total' carries a running total
@@ -3650,14 +3684,12 @@ function ParseIntelThread( aiBrain )
 			
 				-- if the lastupdate was more than the timeout period or threat is less than the threshold
 				if (t.LastUpdate + intelChecks[t.Type][3] < timecheck) or (t.Threat <= intelChecks[t.Type][2]) then
-				
+
 					-- clear the item
 					aiBrain.IL.HiPri[s] = nil
 
 				end
-				
 			end
-			
 		end
 		
 		-- rebuild to remove nil entries
@@ -3692,7 +3724,6 @@ function ParseIntelThread( aiBrain )
 					LOG("*AI DEBUG PARSE INTEL lowered CPT to "..checkspertick)
 					
 				end
-				
 			end
 			
 		else
@@ -3700,14 +3731,12 @@ function ParseIntelThread( aiBrain )
 			if checkspertick < 5 then
 			
 				checkspertick = checkspertick + 1
-				
 				LOG("*AI DEBUG PARSE INTEL increased CPT to "..checkspertick)
 				
 			end
-			
 		end
 
-		-- recalc the strength ratios every loop ---
+		-- recalc the strength ratios every iteration ---
 		-- get the full list of units
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
 		myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
@@ -3732,9 +3761,7 @@ function ParseIntelThread( aiBrain )
 			aiBrain.AirRatio = LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
 			
 			if ScenarioInfo.ReportRatios then
-			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio))
-				
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." count is "..EnemyData['Air']['Count'])
 			end
 			
 		else
@@ -3769,9 +3796,7 @@ function ParseIntelThread( aiBrain )
 			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ) * muzzmod
 
 			if ScenarioInfo.ReportRatios then
-			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." "..muzzmod)
-			
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." count is "..EnemyData['Land']['Count'])
 			end
 
 		else
@@ -3800,9 +3825,7 @@ function ParseIntelThread( aiBrain )
 			aiBrain.NavalRatio = LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 )
 
 			if ScenarioInfo.ReportRatios then
-			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Ratio is "..repr(aiBrain.NavalRatio))
-				
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Ratio is "..repr(aiBrain.NavalRatio).." count is "..EnemyData['Naval']['Count'])
 			end
 			
 		else
@@ -3810,17 +3833,7 @@ function ParseIntelThread( aiBrain )
 			aiBrain.NavalRatio = 0.01
 			
 		end
-		
---[[		
-		for threatType, vx in intelChecks do
-			
-			LOG("*AI DEBUG "..threatType.." is "..repr(EnemyData[threatType][EnemyDataCount] ))
-			
-		end
---]]
-		
     end
-	
 end
 
 
@@ -3890,10 +3903,10 @@ function BuildScoutLocations( self )
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
 						
-						-- assign initial threat of 200 at enemy position
+						-- assign initial threat of 300 at enemy position
 						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'StructuresNotMex', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 300, Permanent = false } )
 						
                     else
 					
@@ -3929,7 +3942,7 @@ function BuildScoutLocations( self )
 
                 if army and startPos then
 				
-					-- if position has enemy player put into high priority for 15 minutes with initial 200 threat
+					-- if position has enemy player put into high priority for 15 minutes with initial 300 threat
 					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
 					
                         opponentStarts['ARMY_' .. i] = startPos
@@ -3938,7 +3951,7 @@ function BuildScoutLocations( self )
 						-- assign initial threat of 300 at enemy position
 						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'StructuresNotMex', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
 						
                     else
 					
@@ -4487,15 +4500,15 @@ function DrawIntel( aiBrain )
 	
 	local threatColor = {
 		--ThreatType = { ARGB value }
-		--StructuresNotMex = 'ff00ff00', #--Green
-		--Commander = 'ff00ffff', #--Cyan
-		--Economy = 'ddffffff', #--White
-		--Experimental = 'ffff0000', #--Red
-		--Artillery = 'ffffff00', #--Yellow
+		StructuresNotMex = 'ff00ff00', #--Green
+		Commander = 'ff00ffff', #--Cyan
+		Economy = 'ddffffff', #--White
+		Experimental = 'ffff0000', #--Red
+		Artillery = 'ffff00ff', #--purple
 		Land = 'afff9600', #--Orange
 		Naval = 'af0a0a0a', #--Black
 		Air = 'ffff0096', #--Pink
-		AntiAir = 'ff00ff00', #-- Green
+		--AntiAir = 'ff00ff00', #-- Green
 	}
 	
 	local threatColor2 = {
@@ -4536,7 +4549,7 @@ function DrawIntel( aiBrain )
 		
 		for _,v in threats do
 		
-			if v[3] > 10 then
+			if v[3] > 5 then
 			
 				ForkThread( DrawIntelPoint, {v[1],0,v[2]}, threatColor2[Type] )
 				
@@ -4562,13 +4575,13 @@ function DrawIntel( aiBrain )
 					
 				end
 				
-				WaitTicks(1)
+				--WaitTicks(1)
 				
 		    end
 			
 		end
 		
-		WaitTicks(50)
+		WaitTicks(25)
 		
 	end
 	
