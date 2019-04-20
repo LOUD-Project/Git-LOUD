@@ -4518,39 +4518,162 @@ Platoon = Class(moho.platoon_methods) {
 		local inWater, cmd
 		local poscheck, prevpos, poscounter
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." starting up")
+		WaitTicks(25)
+
+		-- this function returns the location of any distress call within range
+		local function PlatoonMonitorDistressLocations( platoon, aibrain, platoonposition, distressrange, distresstype, threatthreshold )
+	
+			local selfindex = aibrain.ArmyIndex
+		
+			local VDist3 = VDist3
+			local VDist2 = VDist2
+		
+			local index, brain, baseName, base
+		
+			local alertposition = false
+			local alertrange = 9999999
+			local alertplatoon
+		
+			local Brains = ArmyBrains
+		
+			for index,brain in Brains do
+		
+				if index == selfindex or IsAlly( selfindex, brain.ArmyIndex ) and brain.BuilderManagers != nil then
+			
+					-- First check for CDR Distress -- respond at twice the normal distress range
+					-- note that we don't care what kind of distresstype it is -- a commander needs help
+					-- we wont look at other distress calls
+					if brain.CDRDistress then
+					
+						if LOUDGETN( brain:GetUnitsAroundPoint( categories.COMMAND, brain.CDRDistress, 100, 'Ally') ) > 0 then
+					
+							if VDist3( platoonposition, brain.CDRDistress ) < ( distressrange * 2) then
+
+								return brain.CDRDistress, distresstype, 'Commander'
+							
+							end
+						
+						else
+					
+							LOG("*AI DEBUG "..brain.Nickname.." CDR Dead - CDR Distress deactivated")
+						
+							brain.CDRDistress = false
+						
+						end
+					end
+				
+					-- Secondly - look for BASE and PLATOON alerts
+					-- respond to the closest ALERT (Base alerts at double range)
+					-- that exceeds our threat threshold
+					if brain.BaseAlertSounded then
+				
+						-- loop thru bases for this brain
+						for baseName,base in brain.BuilderManagers do
+
+							-- must have an EM and be active
+							if base.EngineerManager.Active then
+
+								-- is EM sounding an alert for my kind of distress response ? --
+								-- remember - each base will only track one alert for each type --
+								-- therefore - we either have an alert or we don't for any given base -- 
+								if base.EngineerManager.BaseMonitor.AlertsTable[distresstype] then
+							
+									local alert = base.EngineerManager.BaseMonitor.AlertsTable[distresstype]
+
+									-- is threat high enough for me to notice ?
+									if alert.Threat >= threatthreshold then
+							
+										local rangetoalert = VDist2( platoonposition[1],platoonposition[3], alert.Position[1], alert.Position[2])
+								
+										if rangetoalert <= (distressrange * 2) then
+                                
+											-- Always capture the CLOSEST ALERT
+											if rangetoalert < alertrange then
+											
+												alertposition = table.copy(alert.Position)
+												alertplatoon = 'BaseAlert'
+												alertrange = rangetoalert
+
+											end
+										end
+									end
+								end
+							end
+						end		-- next base in this brain
+					end
+				
+					-- if platoon alerts see if one of those is closer
+					if brain.PlatoonDistress.AlertSounded then
+
+						local alerts = brain.PlatoonDistress.Platoons
+                    
+						if LOUDGETN(alerts) > 0 then
+                        
+							for _,v in alerts do
+						
+								-- check distress type
+								if v.DistressType == distresstype then
+							
+									-- is calling platoon still alive and it's not ourselves
+									if PlatoonExists(brain, v.Platoon) and v.Platoon != platoon then
+							
+										local rangetoalert = VDist3(platoonposition,v.Position)
+									
+										-- is it within my distress response range 
+										if rangetoalert < distressrange then
+									
+											if rangetoalert < alertrange then
+										
+												alertposition = table.copy(v.Position)
+												alertplatoon = v.Platoon
+												alertrange = rangetoalert
+											
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end		-- next brain --
+	
+			if alertposition then
+				return alertposition, distresstype, alertplatoon
+			else
+				return false, false, false
+			end
+		end	
+		
+		--if ScenarioInfo.DistressResponseDialog then
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE initialized for "..repr(self.BuilderName))
+		--end
 		
 		-- mark the platoon as running the AI
 		self.DistressResponseAIRunning = true
 		
 		while PlatoonExists(aiBrain,self) and self.DistressResponseAIRunning do
-		
-			WaitTicks(55)
-			
+
 			if PlatoonExists(aiBrain,self) then
-			
 				platoonPos = GetPlatoonPosition(self) or false
-				
 			else
-			
 				platoonPos = false
-				
 			end
 			
 			-- Find a distress location within the platoons range
             if self.DistressResponseAIRunning and (platoonPos and (not self.DistressCall) and (not self.UsingTransport)) and (aiBrain.CDRDistress or aiBrain.PlatoonDistress.AlertSounded or aiBrain.BaseAlertSounded) and (not self.RespondingToDistress)  then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Platoon Detecting distress calls")
-				
+
 				-- these 3 global triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
 				-- since they are quick to look up we run this thread pretty hot to make the platoon responsive
 				-- the only drawback is that it is local only to the brain using it -- the only time allied checks will be looked at is when this brain has one of its own
-                distressLocation, distressType, distressplatoon = self:PlatoonMonitorDistressLocations( aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
+                distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
 
                 if distressLocation then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." detects distress calls ")
-				
+			
+					if ScenarioInfo.DistressResponseDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." DISTRESS RESPONSE acknowledged by "..repr(self.BuilderName) )
+					end
+
 					unit = false
 					
 					for _,u in GetPlatoonUnits(self) do
@@ -4561,35 +4684,30 @@ Platoon = Class(moho.platoon_methods) {
 							break
 							
 						end
-						
 					end
 					
 					if unit and unit:CanPathTo(distressLocation) then
 					
 						oldPlan = self.PlanName
-						
-						-- because air units are time sensitive we want them to RTB --
-						if self.MovementLayer == 'Air' then 
-						
-							oldPlan = 'ReturnToBaseAI'
-							
-						end
 
 						if self.AIThread then
 						
-							--LOG("*AI DEBUG Killing existing thread "..oldPlan.." "..repr(self.AIThread))
+							if ScenarioInfo.DistressResponseDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Killing existing thread "..oldPlan.." "..repr(self.AIThread))
+							end
 						
 							self:StopAI()
-							
-						end
-						
-						if self.MoveThread then
-						
-							self:KillMoveThread()
-							
 						end
 
-					
+						-- because air units are time sensitive we want them to RTB --
+						if self.MovementLayer == 'Air' then 
+							oldPlan = 'ReturnToBaseAI'
+						end
+				
+						if self.MoveThread then
+							self:KillMoveThread()
+						end
+				
 						-- This keeps the platoon from issuing a distress ALERT of it's own for 15 seconds
 						-- or responding to another distress call
 						self.RespondingToDistress = true
@@ -4608,25 +4726,25 @@ Platoon = Class(moho.platoon_methods) {
 						
 							-- move directly to distress
 							if not inWater then
+			
+								if ScenarioInfo.DistressResponseDialog then
+									LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE to "..repr(distressLocation).." by "..self.BuilderName )
+								end
 
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation) )
-							
 								cmd = self:AggressiveMoveToLocation( distressLocation )
-								
-								--LOG("*AI DEBUG cmd is "..repr(cmd))
-								
+
 							else
-							
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." moving towards "..repr(distressLocation).." via other")
-							
+			
+								if ScenarioInfo.DistressResponseDialog then
+									LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE to "..repr(distressLocation).." via other by "..self.BuilderName )
+								end
+
 								cmd = self:MoveToLocation( distressLocation, false )
 								
 							end
 						
 							poscheck = GetPlatoonPosition(self) or false
-							
 							prevpos = poscheck
-							
 							poscounter = 0
 							
 							local breakResponse = false
@@ -4645,9 +4763,11 @@ Platoon = Class(moho.platoon_methods) {
 									poscheck = GetPlatoonPosition(self) or false
 							
 									if poscheck then
-								
-										--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..self.BuilderName.." underway to distress position")
-									
+			
+										if ScenarioInfo.DistressResponseDialog then
+											LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE underway by "..self.BuilderName)
+										end
+
 										if VDist2(poscheck[1],poscheck[3], prevpos[1],prevpos[3]) < 15 then
 								
 											poscounter = poscounter + 1
@@ -4676,44 +4796,36 @@ Platoon = Class(moho.platoon_methods) {
 								end
 								
 							until (not self:IsCommandsActive(cmd)) or breakResponse or ((threatatPos + artyThreatatPos) - myThreatatPos) <= threatThreshold or (not self.DistressResponseAIRunning)
-							
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seems to be at distress location")
- 						
+			
+							if ScenarioInfo.DistressResponseDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." DISTRESS RESPONSE seems to be at distress location "..repr(distressLocation) )
+							end
+
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
 							
 								platoonPos = GetPlatoonPosition(self) or false
 								
 								if platoonPos then
 								
-									distressLocation, distressType, distressplatoon = self:PlatoonMonitorDistressLocations( aiBrain, platoonPos, distressRange, distressTypes, threatThreshold)
-									
-									--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets distressLocation of "..repr(distressLocation).." versus "..repr(moveLocation))
-									
-									if distressLocation then
-									
-										--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." distress location and move location are equal is "..repr(table.equal(distressLocation,moveLocation)))
-										
-									end
+									distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold)
 									
 								else
-								
 									distressLocation = false
-									
 								end
 								
 							else
-							
 								distressLocation = false
-								
 							end
 
 						until (not self.DistressResponseAIRunning) or (not distressLocation) or table.equal(distressLocation,moveLocation) or (not PlatoonExists(aiBrain, self))
 
 						
 						if PlatoonExists(aiBrain, self) and not distressLocation then
-						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..repr(self.BuilderName).." completes response to "..repr(moveLocation))
-							
+			
+							if ScenarioInfo.DistressResponseDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." DISTRESS RESPONSE complete" )
+							end
+
 							if (not oldPlan) or (not self.DistressResponseAIRunning) then
 							
 								self:Stop()
@@ -4721,168 +4833,25 @@ Platoon = Class(moho.platoon_methods) {
 							else
 							
 								self:Stop()
-								
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESSRESPONSE "..repr(self.BuilderName).." returning to plan "..repr(oldPlan))
-								
+			
+								if ScenarioInfo.DistressResponseDialog then
+
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." DISTRESS RESPONSE returning to plan "..repr(oldPlan))
+					
+								end
+
 								self:SetAIPlan(oldPlan, aiBrain)
 								
 							end
-							
 						end
-
 					end
-		
                 end
-				
             end
 			
+			WaitTicks(20)
+			
         end
-		
     end,
-	
-	PlatoonMonitorDistressLocations = function( platoon, aibrain, platoonposition, distressrange, distresstype, threatthreshold )
-	
-		local selfindex = aibrain.ArmyIndex
-		
-		local VDist3 = VDist3
-		local VDist2 = VDist2
-		
-        local index, brain, baseName, base
-		
-		local alertposition = false
-		local alertrange = 9999999
-		local alertplatoon
-		
-		local Brains = ArmyBrains
-		
-		for index,brain in Brains do
-		
-			if index == selfindex or IsAlly( selfindex, brain.ArmyIndex ) and brain.BuilderManagers != nil then
-			
-				-- First check for CDR Distress -- respond at twice the normal distress range
-				-- note that we don't care what kind of distresstype it is -- a commander needs help
-				-- we wont look at other distress calls
-				if brain.CDRDistress then
-					
-					if LOUDGETN( brain:GetUnitsAroundPoint( categories.COMMAND, brain.CDRDistress, 100, 'Ally') ) > 0 then
-					
-						if VDist3( platoonposition, brain.CDRDistress ) < ( distressrange * 2) then
-
-							return brain.CDRDistress, distresstype, 'Commander'
-							
-						end
-						
-					else
-					
-						LOG("*AI DEBUG "..brain.Nickname.." CDR Dead - CDR Distress deactivated")
-						
-						brain.CDRDistress = false
-						
-					end
-					
-				end
-				
-				-- Secondly - look for BASE and PLATOON alerts
-				-- respond to the closest ALERT (Base alerts at double range)
-				-- that exceeds our threat threshold
-				if brain.BaseAlertSounded then
-				
-					-- loop thru bases for this brain
-					for baseName,base in brain.BuilderManagers do
-
-						-- must have an EM and be active
-						if base.EngineerManager.Active then
-
-							-- is EM sounding an alert for my kind of distress response ? --
-							-- remember - each base will only track one alert for each type --
-							-- therefore - we either have an alert or we don't for any given base -- 
-							if base.EngineerManager.BaseMonitor.AlertsTable[distresstype] then
-							
-								local alert = base.EngineerManager.BaseMonitor.AlertsTable[distresstype]
-
-								-- is threat high enough for me to notice ?
-								if alert.Threat >= threatthreshold then
-							
-									local rangetoalert = VDist2( platoonposition[1],platoonposition[3], alert.Position[1], alert.Position[2])
-								
-									if rangetoalert <= (distressrange * 2) then
-                                
-										-- Always capture the CLOSEST ALERT
-										if rangetoalert < alertrange then
-											
-											alertposition = table.copy(alert.Position)
-											alertplatoon = 'BaseAlert'
-											alertrange = rangetoalert
-
-										end
-
-									end
-									
-								end
-
-							end
-							
-						end
-						
-					end		-- next base in this brain
-					
-				end
-				
-				-- if platoon alerts see if one of those is closer
-				if brain.PlatoonDistress.AlertSounded then
-
-					local alerts = brain.PlatoonDistress.Platoons
-                    
-                    if LOUDGETN(alerts) > 0 then
-                        
-                        for _,v in alerts do
-						
-							-- check distress type
-                            if v.DistressType == distresstype then
-							
-								-- is calling platoon still alive and it's not ourselves
-								if PlatoonExists(brain, v.Platoon) and v.Platoon != platoon then
-							
-									local rangetoalert = VDist3(platoonposition,v.Position)
-									
-									-- is it within my distress response range 
-									if rangetoalert < distressrange then
-									
-										if rangetoalert < alertrange then
-										
-											alertposition = table.copy(v.Position)
-											alertplatoon = v.Platoon
-											alertrange = rangetoalert
-											
-										end
-										
-									end
-									
-								end
-								
-							end
-							
-                        end
-						
-                    end
-					
-				end
-				
-			end
-			
-		end		-- next brain --
-	
-		if alertposition then
-		
-			return alertposition, distresstype, alertplatoon
-			
-		else
-		
-			return false, false, false
-			
-		end
-		
-	end,	
 
     EngineerAssistShield = function( self, aiBrain )
 	
