@@ -1010,7 +1010,7 @@ function BlockFormation( formationUnits )
 	
         local footPrintSize = u:GetFootPrintSize()
 
-        if footPrintSize > 3  then
+        if footPrintSize > 2.75 then
 		
             largeUnitsList[largeUnits] = { u }
             largeUnits = largeUnits + 1
@@ -1034,25 +1034,27 @@ function BlockFormation( formationUnits )
     -- Put small units (Size 1 through 3) in front of the formation
     for i in smallUnitsList do
 	
-        local offsetX = (( LOUDMOD(i,width)  - LOUDFLOOR(width* 0.5) ) * 2) + 1
-        local offsetY = ( LOUDFLOOR(i/width) - LOUDFLOOR(length* 0.5) ) * 2
-        local delay = 0.1 + (LOUDFLOOR(i/width) * 3)
-		
-        FormationPos[counter+1] = { offsetX, -offsetY, categories.ALLUNITS, delay, rotate }
+		local Y = LOUDFLOOR(i/width)
+	
+        local offsetX = (( LOUDMOD(i,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
+        local offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
+
 		counter = counter + 1
+        FormationPos[counter] = { offsetX, -offsetY, categories.ALLUNITS, Y, rotate }
 		
     end
 
-    -- Put large units (Size >= 4) in the back of the formation
+    -- Put large units (Size >= 2.75) in the back of the formation
     for i in largeUnitsList do
 	
         local adjIndex = smallUnits + i
-        local offsetX = (( LOUDMOD(adjIndex,width)  - LOUDFLOOR(width* 0.5) ) * 2) + 1
-        local offsetY = ( LOUDFLOOR(adjIndex/width) - LOUDFLOOR(length* 0.5) ) * 2
-        local delay = 0.1 + (LOUDFLOOR(adjIndex/width) * 3)
+		local Y = LOUDFLOOR(adjIndex/width)
 		
-        FormationPos[counter+1] = { offsetX, -offsetY, categories.ALLUNITS, delay, rotate }
+        local offsetX = (( LOUDMOD(adjIndex,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
+        local offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
+
 		counter = counter + 1
+        FormationPos[counter] = { offsetX, -offsetY, categories.ALLUNITS, Y, rotate }		
 		
     end
 
@@ -1083,9 +1085,8 @@ function CircleFormation( formationUnits )
         offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
         offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
 		
-        FormationPos[counter+1] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
-		
 		counter = counter + 1
+        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
 		
     end
 
@@ -1137,14 +1138,12 @@ function GuardFormation( formationUnits )
 			
         end
 		
-        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))	-- + LOUDPI / 16 )
-        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))	-- + LOUDPI / 16 )
-		
-        --LOG('*FORMATION DEBUG: X=' .. offsetX .. ', Y=' .. offsetY )
-		
-        FormationPos[counter+1] = { offsetX - 10, offsetY, categories.ALLUNITS, 0, rotate }
-		
+        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
+        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
+
 		counter = counter + 1
+		FormationPos[counter] = { offsetX - 10, offsetY, categories.ALLUNITS, 0, rotate }
+		
         unitCount = unitCount + 1
 		
     end
@@ -1167,11 +1166,13 @@ function DMSCircleFormation( formationUnits )
 
     #-- make circle around center point
     for i in formationUnits do
+	
         offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
         offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
 		
-        FormationPos[counter+1] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
 		counter = counter + 1
+        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
+		
     end
 
     return FormationPos
@@ -1207,8 +1208,9 @@ function LOUDClusterFormation( formationUnits )
         offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ) )
         offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ) )
 		
-        FormationPos[counter+1] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
 		counter = counter + 1
+        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
+		
         unitCount = unitCount + 1
 		
 		if unitCount == ringChange then
@@ -1273,8 +1275,8 @@ function ScatterFormation( formationUnits )
             unitCount = 1
         end
 		
-        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))	-- + LOUDPI / 16 )
-        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))	-- + LOUDPI / 16 )
+        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
+        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
 		
         --LOG('*FORMATION DEBUG: X=' .. offsetX .. ', Y=' .. offsetY )
 		
@@ -1455,7 +1457,9 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 							
                         end
 						
-                        LOUDINSERT( FormationPos, { xPos * spacing, -formationLength * spacing, categoryTable[group], formationLength * 0.55, true} )
+						
+						-- notice the use of whichRow to determine the movement delay between rows --
+                        LOUDINSERT( FormationPos, { xPos * spacing, -formationLength * spacing, categoryTable[group], (whichRow-1), true} )
 						
                         inserted = true
 						
@@ -1476,11 +1480,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 				inserted = false
 				
 				break
-			
-			--else
-		
-				--LOG("*AI DEBUG Failed to insert unit in formation at spot "..currColSpot.." in row "..whichRow)
-			
+
 			end			
 			
         end
@@ -1581,7 +1581,8 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
                             chevronType = type
                         end
 						
-                        LOUDINSERT(FormationPos, {xPos*spacing, yPos*spacing, AirCategories[group], yPos, true})
+                        LOUDINSERT(FormationPos, {xPos*spacing, yPos*spacing, AirCategories[group], 0, true})
+						
                         unitsList[group] = unitsList[group] - 1
                         inserted = true
                         break
@@ -1589,9 +1590,11 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
                 end
             end
         end
+		
         if inserted then
             i = i + 1
         end
+		
         chevronPos = chevronPos + 1
     end
 	
