@@ -3553,7 +3553,7 @@ AirUnit = Class(MobileUnit) {
 		
 		self.HasFuel = true
 		
-		LOG("*AI DEBUG OnGotFuel for "..repr(self:GetBlueprint().Description).." is "..repr(self:GetFuelRatio()))
+		--LOG("*AI DEBUG OnGotFuel for "..repr(self:GetBlueprint().Description).." is "..repr(self:GetFuelRatio()))
 
     end,
 
@@ -3591,7 +3591,7 @@ AirUnit = Class(MobileUnit) {
 					
 						self:SetSpeedMult(0.6)
 						self:SetAccMult(0.6)
-						self:SetTurnRate(0.4)
+						self:SetTurnMult(0.4)
 					
 					end
 					
