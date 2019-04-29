@@ -514,7 +514,7 @@ function ModBlueprints(all_blueprints)
 				
 					if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
 					
-						wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocit) * 1.15
+						wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.15
 						
 					end
 				end
