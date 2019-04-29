@@ -558,11 +558,11 @@ end
 #		firingArc		- Firing Arc
 #		turretPitch		- Turret pitch
 #   Description:
-#       Checks to see if there is terrain blocking a unit from hiting a target.
+#       Checks to see if there is terrain blocking a unit from hitting a target.
 #   Returns:  
 #       true (there is something blocking) or false (there is not something blocking)
 #-----------------------------------------------------
-function CheckBlockingTerrain(pos, targetPos, firingArc, turretPitch)
+function CheckBlockingTerrain(pos, targetPos, firingArc, turretPitch, steps)
 
 	--High firing arc indicates Artillery unit
 	if firingArc == 'high' then
@@ -571,13 +571,13 @@ function CheckBlockingTerrain(pos, targetPos, firingArc, turretPitch)
 		
 	end
 	
-	-- This allows us to break up the distance into 5 points so we can check
-	-- 5 points between the unit and target
-	local step = LOUDCEIL( LOUDSQRT(VDist2Sq(pos[1], pos[3], targetPos[1], targetPos[3])) / 5)
+	-- This allows us to break up the distance into multiple points so we can check
+	local step = LOUDCEIL( LOUDSQRT(VDist2Sq(pos[1], pos[3], targetPos[1], targetPos[3])) / (steps or 5) )
+	
 	local xstep = (pos[1] - targetPos[1]) / step
 	local ystep = (pos[3] - targetPos[3]) / step
 	
-	-- Loop through the 5 points to check for blocking terrain
+	-- Loop through the steps to check for blocking terrain
 	-- Start at zero in case there is only 1 step. if we start at 1 with 1 step it wont check it
 	for i = 0, step do
 	

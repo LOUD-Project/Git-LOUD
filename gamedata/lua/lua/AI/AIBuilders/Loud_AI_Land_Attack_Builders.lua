@@ -1189,7 +1189,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1263,7 +1263,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1339,7 +1339,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1413,7 +1413,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1489,7 +1489,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1564,7 +1564,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1639,7 +1639,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1681,7 +1681,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1719,7 +1719,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 90,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			
@@ -1757,7 +1757,7 @@ BuilderGroup {BuilderGroupName = 'Base Guard Formations',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 90,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			
