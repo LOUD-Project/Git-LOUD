@@ -1350,55 +1350,100 @@ EngineerManager = Class(BuilderManager) {
 		local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
 		local GetFreeUnitsAroundPoint = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
 		
-		if ScenarioInfo.BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Distress Response Thread Launched")
-		end
+		-- the intent of this function is to make sure that we don't try and respond over mountains
+		-- and rivers and other serious terrain blockages
+		local function CheckBlockingTerrain( pos, targetPos )
 	
+			-- This gives us the number of approx. 6 ogrid steps in the distance
+			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			
+			local lastpos = {pos[1], 0, pos[3]}
+	
+			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+			for i = 0, steps do
+	
+				if i > 0 then
+		
+					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+					-- Get height for both points
+					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+					-- if more than 2 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 2 then
+						
+						-- we are obstructed
+						LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE OBSTRUCTED ")
+						return true
+						
+					end
+					
+					lastpos = nextpos
+
+				end
+			end
+	
+			return false
+		end
+		
+		if ScenarioInfo.BaseMonitorDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
+		end
+
 		-- this loop runs as long as there is distress underway and the base exists and has active alerts
 		-- repeating every AlertResponseTime period
 		while distressunderway and self.Active and self.BaseMonitor.ActiveAlerts > 0 do
-	
-			if ScenarioInfo.BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR distress response underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
-			end
-    
-			-- Delay between Distress check cycles
-			-- add extra delay based upon LastAlert at this base
-			-- so that quiet bases will check less often
-			-- local ThreatCheckDelay = BaseMonitorThreatCheckDelay(EM)
-        
+     
 			distressunderway = false
 
 			for _,distresskind in DistressTypes do
-		
-				distressLocation, distressType, threatamount = self:BaseMonitorGetDistressLocation( aiBrain, baseposition, self.BaseMonitor.AlertRange, self.BaseMonitor.AlertLevel, distresskind )
+			
+				local GetDistressDistance = self.BaseMonitor.AlertRange
+				
+				if distresskind == 'Air' then
+					GetDistressDistance = GetDistressDistance + 65
+				end
+
+				distressLocation, distressType, threatamount = self:BaseMonitorGetDistressLocation( aiBrain, baseposition, GetDistressDistance, self.BaseMonitor.AlertLevel, distresskind )
 
 				if distressLocation then
+				
+					if ScenarioInfo.DistressResponseDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE begins for "..repr(distressType).." at "..repr(distressLocation) )
+					end
 		
 					distressunderway = true
 				
+					-- respond with land units
 					if distressType == 'Land' then
 
 						grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER, baseposition, radius )
 					
 						if grouplndcount > 4 then
 						
-							if ScenarioInfo.BaseMonitorDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR trying to respond to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
+							if ScenarioInfo.DistressResponseDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
 							-- only send response if we can muster 33% of enemy threat
 							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/3) then
+							
+								-- must have a clear unobstructed path to location --
+								if not CheckBlockingTerrain( baseposition, distressLocation ) then
 					
-								-- Move the land group to the distress location and then back to the location of the base
-								IssueClearCommands( grouplnd )
+									-- Move the land group to the distress location and then back to the location of the base
+									IssueClearCommands( grouplnd )
 
-								IssueFormAggressiveMove( grouplnd, distressLocation, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( baseposition, distressLocation ))
+									IssueFormAggressiveMove( grouplnd, distressLocation, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( baseposition, distressLocation ))
 					
-								DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
+									DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 
-								response = true
-								distress_land = true
+									response = true
+									distress_land = true
 									
 								end
 							
@@ -1450,10 +1495,7 @@ EngineerManager = Class(BuilderManager) {
 					end
 				
 					if distressType then
-
-						-- locate all anti-air air units not already in platoons
-						groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius )
-					
+		
 						-- ALWAYS respond with gunships and bombers if NOT air distress
 						if distressType != 'Air' then
 						
@@ -1481,37 +1523,41 @@ EngineerManager = Class(BuilderManager) {
 						
 							end
 							
-						end
-						
-						-- if there are more than 2 anti-air units
-						if groupftrcount > 2 then 
-						
-							if ScenarioInfo.DistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
-							end
-						
-							-- and we can match at least half of the threat
-							if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/2) then
-					
-								-- Move the fighter group to the distress location 
-								IssueClearCommands( groupftr )
-								IssueAggressiveMove( groupftr, distressLocation )
-				
-								response = true
-								distress_ftr = true
+						else
 
+							-- locate all anti-air air units not already in platoons
+							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius )
+
+							-- if there are more than 2 anti-air units
+							if groupftrcount > 2 then 
+						
+								if ScenarioInfo.DistressResponseDialog then
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
+								end
+						
+								-- and we can match at least half of the threat
+								if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/2) then
+					
+									-- Move the fighter group to the distress location 
+									IssueClearCommands( groupftr )
+									IssueAggressiveMove( groupftr, distressLocation )
+				
+									response = true
+									distress_ftr = true
+
+								else
+							
+									if ScenarioInfo.DistressResponseDialog then
+										LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters unable to respond to "..distressType.." my threat is only "..GetThreatOfGroup(groupftr,'Air'))
+									end							
+								end
+						
 							else
 							
 								if ScenarioInfo.DistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters unable to respond to "..distressType.." my threat is only "..GetThreatOfGroup(groupftr,'Air'))
-								end							
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters unable to respond to "..distressType.." only have "..groupftrcount)
+								end
 							end
-						
-						else
-							
-							if ScenarioInfo.DistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters unable to respond to "..distressType.." only have "..groupftrcount)
-							end							
 						end
 					end
 				end
@@ -1528,8 +1574,8 @@ EngineerManager = Class(BuilderManager) {
 				-- as a base responds to a continued alert I want to gradually slow the response loop
 				-- this allows a base more time to gather additional units before sending them out 
 				-- this will reduce the effect of 'kiting' the AI out of his base by triggering an alert
-			-- as his responses will get further and further apart
-			-- the inital response period is 20 seconds -- then 40 -- then 60 -- then 80
+				-- as his responses will get further and further apart
+				-- the inital response period is 20 seconds -- then 40 -- then 60 -- then 80
 				-- and can go as high as 120 seconds
 				distressrepeats = distressrepeats + 20
 				
@@ -1658,7 +1704,7 @@ EngineerManager = Class(BuilderManager) {
 	-- We check all 3 - Commanders, Bases then platoons
 	-- function returns a position, a threattype and a threat amount -- false if no distress 
 	BaseMonitorGetDistressLocation = function( self, aiBrain, baseposition, radius, threshold, threattype )
-
+	
 		-- Commander Distress is 1st priority --
 		if aiBrain.CDRDistress then
 	

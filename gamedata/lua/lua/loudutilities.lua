@@ -3387,8 +3387,8 @@ function ParseIntelThread( aiBrain )
     local iterationcount = 0 
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
-	-- and the History value controls how much history is kept -- 100 is about 750 seconds of history
-	aiBrain.EnemyData = { ['History'] = 100 }		
+	-- and the History value controls how much history is kept -- 80 is about 600 seconds of history
+	aiBrain.EnemyData = { ['History'] = 80 }		
 	
 	-- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
 	if ScenarioInfo.DisplayIntelPoints then
