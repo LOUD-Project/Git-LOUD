@@ -2277,7 +2277,7 @@ BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonus',
     Affects = {
         MassProduction = {
             Mult = 1.0,
-            Add = 0.8,
+            Add = 0.28,
         },
     },
 }
@@ -2293,7 +2293,7 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonus',
     Affects = {
         EnergyProduction = {
             Mult = 1.0,
-            Add = 0.5,
+            Add = 0.25,
         },
     },
 }
