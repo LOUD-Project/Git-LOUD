@@ -54,7 +54,7 @@ UnitBlueprint {
         'MOBILE',
         'LAND',
 		'AMPHIBIOUS',
-        'DIRECTFIRE',
+        'INDIRECTFIRE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',

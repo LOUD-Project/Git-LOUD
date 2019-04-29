@@ -64,10 +64,9 @@ UnitBlueprint {
         'MASSIVE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
-        'DIRECTFIRE',
+        'INDIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'BOT',
         'OVERLAYDEFENSE',
     },
 	
