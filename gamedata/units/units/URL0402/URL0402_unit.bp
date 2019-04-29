@@ -74,7 +74,7 @@ UnitBlueprint {
         'LAND',
 		'AMPHIBIOUS',
         'EXPERIMENTAL',
-		'DIRECTFIRE',
+		'INDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -87,9 +87,12 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 16,
         ArmorType = 'Experimental',
+		
         Health = 45000,
         MaxHealth = 45000,
+		
         RegenRate = 25,
+		
         SubThreatLevel = 20,
         SurfaceThreatLevel = 350,
     },
@@ -208,7 +211,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.0725,
     },
@@ -216,7 +219,8 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 475000,
         BuildCostMass = 17500,
-        BuildTime = 10050, 
+        BuildTime = 10050,
+		
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
 	
@@ -300,18 +304,24 @@ UnitBlueprint {
         TurnRate = 25,
 		WaterSpeedMultiplier = 1.1,
     },
+	
     SelectionCenterOffsetZ = -0.5,
     SelectionSizeX = 3.75,
     SelectionSizeZ = 3.75,
+	
     SelectionThickness = 0.28,
+	
     SizeX = 2,
     SizeY = 4,
     SizeZ = 3,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 45,
+	
     Transport = {
         TransportClass = 10,
     },
+	
     Veteran = {
         Level1 = 25,
         Level2 = 50,

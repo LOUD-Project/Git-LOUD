@@ -10,6 +10,7 @@ UnitBlueprint {
             'Right_Leg_B15',
         },
     },
+	
     Audio = {
 		EnemyUnitDetectedAeon = Sound {
 			Bank = 'XGG',
@@ -39,6 +40,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 20,
@@ -48,7 +50,9 @@ UnitBlueprint {
             Level5 = 80,
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
 		'BUILTBYTIER4COMMANDER',
@@ -58,7 +62,7 @@ UnitBlueprint {
 		'AMPHIBIOUS',
 		'SUBMERSIBLE',
         'EXPERIMENTAL',
-		'DIRECTFIRE',
+		'INDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -80,6 +84,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC xsl0401_desc>Experimental Assault Bot',
+	
     Display = {
         Abilities = {
 			'AntiAir',
@@ -116,6 +121,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -177,11 +183,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 460000,
         BuildCostMass = 22500,
         BuildTime = 11500,
     },
+	
     General = {
 		CapCost = 5,
         Category = 'Direct Fire',
@@ -206,6 +214,7 @@ UnitBlueprint {
         UnitName = '<LOC xsl0401_name>Ythotha',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 46,
         WaterVisionradius = 24,
@@ -263,6 +272,7 @@ UnitBlueprint {
     Transport = {
         TransportClass = 10,
     },
+	
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -772,7 +782,9 @@ UnitBlueprint {
             DummyWeapon = true,
             Label = 'CollossusDeath',
         },
+		
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
