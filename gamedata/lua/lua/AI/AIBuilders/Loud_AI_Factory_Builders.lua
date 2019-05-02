@@ -338,6 +338,44 @@ BuilderGroup {BuilderGroupName = 'Naval Factory Builders',
 		
     },
 	
+    Builder {BuilderName = 'Naval Factory Rebuild',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 990,
+		
+        BuilderConditions = {
+		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+			
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.NAVAL }},			
+			
+        },
+		
+        BuilderType = { 'T1','T2','T3','SubCommander' },
+
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+				
+				ThreatMax = 30,
+				
+                BuildStructures = {'T1SeaFactory'},
+				
+            }
+			
+        }
+		
+    },	
+	
 }
 
 

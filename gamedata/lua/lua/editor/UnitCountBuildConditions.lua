@@ -73,12 +73,12 @@ function HaveLessThanUnitsForMapSize(aiBrain, sizetable, testCat, idleReq)
 
 end
 
-function ExistingBasesHaveGreaterThanFactory( aiBrain, numReq, category )
+function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, category )
 
 	for k,v in aiBrain.BuilderManagers do
 	
-		if v.FactoryManager.FactoryList and v.CountedBase then
-			
+		if (basetype == 'All' or basetype == v.BaseType) and v.FactoryManager.FactoryList and v.CountedBase then
+
 			if numReq > EntityCategoryCount( category, v.FactoryManager.FactoryList ) then
 				return false
 			end	
