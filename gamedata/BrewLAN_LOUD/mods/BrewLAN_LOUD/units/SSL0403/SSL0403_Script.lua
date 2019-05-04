@@ -98,6 +98,8 @@ SSL0403 = Class(SConstructionUnit) {
         local TargetId = target.AssociatedBP or target:GetBlueprint().BlueprintId
         if TargetId and not string.find(TargetId, "/") then
             self.ReclaimID = {id = TargetId}
+        elseif target:GetBlueprint().AssociatedBP then
+            self.ReclaimID = {id = target:GetBlueprint().AssociatedBP}
         end
         self:MoveArms()
         SConstructionUnit.OnStartReclaim(self, target)
@@ -147,7 +149,7 @@ SSL0403 = Class(SConstructionUnit) {
 
     CheckBuildRestrictionsAllow = function(self, WorkID)
         local Restrictions = ScenarioInfo.Options.RestrictedCategories
-        if table.getn(Restrictions) == 0 then
+        if table.getn(Restrictions or {}) == 0 then
             return true
         elseif VersionIsFAF then
             return not import('/lua/game.lua').IsRestricted(WorkID)
@@ -164,6 +166,7 @@ SSL0403 = Class(SConstructionUnit) {
         end
         return true
     end,
+
     CreatePod = function(self, WorkID)
         --This first section is for compatibility with R&D.
         if tablefind(__blueprints[WorkID].Categories, 'SELECTABLE') and (tablefind(__blueprints[WorkID].Categories, 'TECH1') or tablefind(__blueprints[WorkID].Categories, 'TECH2') or tablefind(__blueprints[WorkID].Categories, 'TECH3') or tablefind(__blueprints[WorkID].Categories, 'EXPERIMENTAL')) and self:CheckBuildRestrictionsAllow(WorkID) then
