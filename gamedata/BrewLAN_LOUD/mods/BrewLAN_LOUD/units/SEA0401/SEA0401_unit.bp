@@ -4,14 +4,14 @@ UnitBlueprint {
         GuardReturnRadius = 125,
         GuardScanRadius = 100,
     },
-	
+
     Air = {
         AutoLandTime = 2.5,
         BankFactor = 0.2,
         BankForward = false,
         BreakOffIfNearNewTarget = true,
         CanFly = true,
-		
+
         CirclingDirChange = true,
         CirclingDirChangeFrequencySec = '5',
         CirclingElevationChangeRatio = 0.25,
@@ -21,28 +21,28 @@ UnitBlueprint {
         CirclingTurnMult = 2,
 
         EngageDistance = 50,
-		
+
         KLift = 0.9,
         KLiftDamping = 0.8,
-		
+
         KMove = 0.85,
         KMoveDamping = 2,
-		
+
         KRoll = 2,
         KRollDamping = 2,
-		
+
         KTurn = 0.8,
         KTurnDamping = 1.5,
-		
+
         LiftFactor = 2.5,
-		
+
         MaxAirspeed = 11, -- originally 18, then 12, then 15
 
         TransportHoverHeight = 3,
-		
+
         Winged = false,
     },
-	
+
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
@@ -95,7 +95,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -105,9 +105,9 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
-	
+
     BuildIconSortPriority = 224,
-	
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -129,7 +129,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'CANNOTUSEAIRSTAGING',
     },
-	
+
     Defense = {
         AirThreatLevel = 296,
         ArmorType = 'Light',
@@ -139,17 +139,17 @@ UnitBlueprint {
         RegenRate = 18,
         SurfaceThreatLevel = 30,
     },
-	
+
     Description = '<LOC sea0401_desc>Experimental AA Gunship',
-	
+
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_radar>Radar',
         },
-		
+
         AnimationLand = '/mods/BrewLAN_LOUD/units/SEA0401/SEA0401_Afoldup.sca',
-		
+
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
@@ -178,24 +178,28 @@ UnitBlueprint {
                 },
             },
         },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 240,
+                    LODCutoff = 260,
                     ShaderName = 'Unit',
                 },
                 {
-                    LODCutoff = 750,
+                    LODCutoff = 520,
                     ShaderName = 'Unit',
-                    AlbedoName = 'sea0401_lod1_albedo.dds',
-                    SpecularName = 'sea0401_lod1_specteam.dds',
-                    NormalsName = 'sea0401_lod1_normalsts.dds',
+                },
+                {
+                    LODCutoff = 1040,
+                    ShaderName = 'Unit',
+                    AlbedoName = 'sea0401_lod2_albedo.dds',
+                    SpecularName = 'sea0401_lod2_specteam.dds',
+                    NormalsName = 'sea0401_lod2_normalsts.dds',
                 },
             },
         },
-		
+
         MovementEffects = {
             Air = {
                 Contrails = {
@@ -232,19 +236,19 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.057,
     },
-	
+
     Economy = {
         BuildCostEnergy = 702500,
         BuildCostMass = 37500,
         BuildTime = 9750,
     },
-	
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 5,
         SizeZ = 10,
     },
-	
+
     General = {
 		CapCost = 5,
         Category = 'Gunship',
@@ -270,20 +274,20 @@ UnitBlueprint {
         UnitName = '<LOC sea0401_name>Centurion',
         UnitWeight = 1,
     },
-	
+
     Intel = {
         RadarRadius = 75,
         VisionRadius = 44,
     },
-	
+
     Interface = {
         HelpText = '<LOC sea0401_desc>Experimental AA Gunship',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 5.25,
     LifeBarSize = 7.5,
-	
+
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -293,43 +297,43 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-		
+
         Elevation = 23,
-		
+
         GroundCollisionOffset = 10,
         MaxSpeed = 0.5,
-		
+
         MeshExtentsX = 5.5,
         MeshExtentsY = 2.7,
         MeshExtentsZ = 10.8,
-		
+
         MotionType = 'RULEUMT_Air',
-		
+
         SkirtOffsetX = -.5,
         SkirtOffsetZ = -.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 12,
     },
-	
+
     SelectionSizeX = 3.6,
     SelectionSizeZ = 7.2,
     SelectionThickness = 0.2,
-	
+
     --SizeSphere = 6,
-	
+
     SizeX = 4.8,
     SizeY = 2.0,
     SizeZ = 9,
-	
+
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 65,
-	
+
     Transport = {
         AirClass = true,
         ClassGenericUpTo = 2,
         TransportClass = 10,
     },
-	
+
     Veteran = {
         Level1 = 30,
         Level2 = 60,
@@ -337,11 +341,11 @@ UnitBlueprint {
         Level4 = 120,
         Level5 = 150,
     },
-	
+
     Weapon = {
         {
             AlwaysRecheckTarget = true,
-			
+
             Audio = {
                 Fire = Sound {
                     Bank = 'UELWeapon',
@@ -349,44 +353,44 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+
 			AutoInitiateAttackCommand = false,
-			
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 150,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
-			
+
             DetonatesAtTargetHeight = true,
-			
+
             DisplayName = 'Fragmentation Flak',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
 				Land = 'Air|Land',
             },
-			
+
             FiringRandomness = 0.4,
             FiringTolerance = 3,
-			
+
             HeadingArcCenter = 0,
             HeadingArcRange = 50,
 
-            Label = 'AAGun',			
+            Label = 'AAGun',
             LeadTarget = 'true',
-			
+
             MaxRadius = 58,
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
-			
+
 			NotExclusive = true,
-			
+
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
 
@@ -429,22 +433,22 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-			
+
             RackRecoilDistance = -7,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 5,		-- 900 DPS Air
-			
+
 			ReTargetOnMiss = true,
 
             TargetCheckInterval = 0.2,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -452,23 +456,23 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'Head_Turret_Pitch',
             TurretBonePitch = 'Head_Turret_Pitch',
             TurretBoneYaw = 'Head_Turret',
             TurretDualManipulators = false,
-			
+
             TurretPitch = -10,
             TurretPitchRange = 65,
             TurretPitchSpeed = 60,
-			
+
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 90,
-			
+
             Turreted = true,
         },
-		
+
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -481,38 +485,38 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 225,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
-			
+
             DetonatesAtTargetHeight = true,
-			
+
             DisplayName = 'Fragmentation Flak',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
 				Land = 'Air|Land',
             },
-			
+
             FiringRandomness = 0.4,
             FiringTolerance = 30,
-			
-            Label = 'AAGun',			
-			
+
+            Label = 'AAGun',
+
             LeadTarget = 'true',
-			
+
             MaxRadius = 58,
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
-			
+
 			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
-		
+
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
             ProjectileLifetime = 1.25,
 
@@ -543,18 +547,18 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-			
+
             RackRecoilDistance = -7,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
 			RateOfFire = 2,		-- 450 DPS
-			
+
 			ReTargetOnMiss = true,
 
             TargetCheckInterval = 0.2,
@@ -565,23 +569,23 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'Rear_Turret_Pitch',
             TurretBonePitch = 'Rear_Turret_Pitch',
             TurretBoneYaw = 'Rear_Turret001',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 360,
-			
+
             TurretYaw = 0,
             TurretYawRange = 60,
             TurretYawSpeed = 360,
-			
+
             Turreted = true,
         },
-		
+
 		-- 2 X Flayer SAMs on top --
         {
             Audio = {
@@ -594,32 +598,32 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 145,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Flayer',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
 				Land = 'Air',
             },
-			
+
             FiringTolerance = 10,
-			
+
             Label = 'SAM',
-			
+
             MaxRadius = 55,
-			
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
-			
+
 			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
-		
+
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4.5,
 
@@ -637,19 +641,19 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.5,
-			
+
             TargetCheckInterval = 0.3,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -657,20 +661,20 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'SAM_Barrel',
             TurretBonePitch = 'SAM_Barrel',
             TurretBoneYaw = 'SAM_Turret',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
-			
+
             Turreted = true,
         },
         {
@@ -684,32 +688,32 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-			
+
             Damage = 145,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Flayer',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
 				Land = 'Air',
             },
-			
+
             FiringTolerance = 10,
-			
-            Label = 'SAM',			
-			
+
+            Label = 'SAM',
+
             MaxRadius = 55,
-			
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
-			
+
 			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
-		
+
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4.5,
 
@@ -727,19 +731,19 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.5,	-- 440 DPS
-			
+
             TargetCheckInterval = 2,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -747,23 +751,23 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'SAM_Barrel001',
             TurretBonePitch = 'SAM_Barrel001',
             TurretBoneYaw = 'SAM_Turret001',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
-			
+
             Turreted = true,
         },
-		
+
 		-- Rear mounted AA beam --
         {
 
@@ -777,41 +781,41 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
-			
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.2,
-			
+
             CollideFriendly = false,
-			
+
             Damage = 200,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             --HeadingArcCenter = 180,
             --HeadingArcRange = 90,
-			
+
             DisplayName = 'Hiro Plasma Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
             },
-			
+
             FiringRandomness = 0,
             FiringTolerance = 0.3,
-			
-            Label = 'RearASFBeam',			
-			
+
+            Label = 'RearASFBeam',
+
             MaxRadius = 40,
-			
+
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			
+
 			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
-		
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -820,22 +824,22 @@ UnitBlueprint {
                     RackBone = 'Rack_Gun_Barrel01',
                 },
             },
-			
+
             RackFireTogether = false,
-			
+
             RackRecoilDistance = 0,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 1200 DPS Air
-			
+
             TargetCheckInterval = 0.2,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -843,20 +847,20 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
-			
+
             TurretBoneMuzzle = 'Rack_Gun_Muzzle01',
             TurretBonePitch = 'Rack_Gun_Pitch01',
             TurretBoneYaw = 'Rack_Gun_Turret01',
             TurretDualManipulators = false,
-			
+
             TurretPitch = -20,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
-			
+
             TurretYaw = 0,
             TurretYawRange = 90,
             TurretYawSpeed = 180,
-			
+
             Turreted = true,
         },
 
@@ -864,7 +868,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
-			
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XEL_Weapons',
@@ -872,36 +876,36 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-			
+
             Damage = 100,
 			DamageRadius = 0,
             DamageType = 'Normal',
-			
+
             DisplayName = 'Gatling Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
 				Land = 'Land|Water|Seabed',
             },
-			
+
             FiringRandomness = 0.3,
             FiringTolerance = 0.5,
-			
+
             Label = 'GatlingCannon',
-			
+
             MaxRadius = 34,
-			
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 24,
             MuzzleVelocity = 40,
-			
+
 			NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = false,
-			
+
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.1,
 
@@ -914,45 +918,45 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.5,
             RackSalvoReloadTime = 3,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 2400 Damage every 8 seconds = 300 DPS
-			
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-			
+
             TrackingRadius = 1.25,
-			
+
             TurretBoneMuzzle = 'GGun_Barrel_Muzzle',
             TurretBonePitch = 'GGun_Pitch001',
             TurretBoneYaw = 'GGun_Yaw001',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
-			
+
             Turreted = true,
 
             WeaponRepackTimeout = 3,
             WeaponUnpacks = true,
         },
-		
+
         {
             AboveWaterTargetsOnly = true,
             Damage = 5000,
@@ -965,9 +969,9 @@ UnitBlueprint {
             Label = 'DeathImpact',
             WeaponCategory = 'Death',
         },
-		
+
     },
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

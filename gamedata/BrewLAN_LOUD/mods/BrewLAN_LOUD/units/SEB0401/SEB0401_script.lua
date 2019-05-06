@@ -23,6 +23,11 @@ SEB0401 = Class(TLandFactoryUnit) {
     OnCreate = function(self)
         TLandFactoryUnit.OnCreate(self)
         BuildModeChange(self)
+        self.AimBones = {}
+        for i = 1, 8 do
+            local m = math.abs(((math.mod(i-1,4)+1)*2)-5)
+            self.AimBones[i] = CreateRotator(self, 'ArmA_00'..i, 'z', 0, 20 * m, 5 * m)
+        end
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -93,31 +98,7 @@ SEB0401 = Class(TLandFactoryUnit) {
     --This is called by AI control if this exists
     --Which is called on stop build
     AIUnitControl = function(self, uBB, aiBrain)
-        if uBB:GetUnitId() == 'uel0309' then
-            self:ForkThread(
-                function()
-                    IssueClearCommands({uBB})
-                    for i = 1, 40 do
-                        if uBB:CanBuild('xeb0204') then
-                            self.MookBuild(self, aiBrain, uBB, 'xeb0204')
-                        elseif uBB:CanBuild('xeb0104') then
-                            self.MookBuild(self, aiBrain, uBB, 'xeb0104')
-                        else
-                            break
-                        end
-                    end
-                    IssueGuard({uBB}, self)
-                end
-            )
-        elseif uBB:GetUnitId() == 'sel0319' then
-            self:ForkThread(
-                function()
-                    IssueClearCommands({uBB})
-                    self.MookBuild(self, aiBrain, uBB, 'ueb4301')
-                    IssueGuard({uBB}, self)
-                end
-            )
-        elseif uBB:GetUnitId() == self.AcceptedRequests[1][1] then
+        if uBB:GetUnitId() == self.AcceptedRequests[1][1] then
             if not self.AcceptedRequests[1][2]:IsDead() then
                 IssueGuard({uBB}, self.AcceptedRequests[1][2])
             --Something for passing along the requested units here, and/or, for sharing them out.
@@ -130,25 +111,6 @@ SEB0401 = Class(TLandFactoryUnit) {
         end
     end,
 
-    --The AI ignores this bit when it is important. Or rather, cancels the orders.
-    MookBuild = function(self, aiBrain, mook, building)
-        local pos = self:GetPosition()
-        local bp = self:GetBlueprint()
-
-        local x = bp.Physics.SkirtSizeX / 2 + (math.random(1,5)*2)
-        local z = bp.Physics.SkirtSizeZ / 2 + (math.random(1,5)*2)
-        local sign = -1 + 2 * math.random(0, 1)
-        local BuildGoalX = 0
-        local BuildGoalZ = 0
-        if math.random(0, 1) > 0 then
-            BuildGoalX = sign * x
-            BuildGoalZ = math.random(math.ceil(-z/2),math.ceil(z/2))*2
-        else
-            BuildGoalX = math.random(math.ceil(-x/2),math.ceil(x/2))*2
-            BuildGoalZ = sign * z
-        end
-        aiBrain:BuildStructure(mook, building, {pos[1]+BuildGoalX, pos[3]+BuildGoalZ, 0})
-    end,
 --------------------------------------------------------------------------------
 -- Animations
 --------------------------------------------------------------------------------
@@ -163,6 +125,12 @@ SEB0401 = Class(TLandFactoryUnit) {
             self.Trash:Add(self.BuildAnimManip)
         end
         self.BuildAnimManip:SetRate(1)
+
+        local size = math.min(math.max((unitBeingBuilt:GetBlueprint().SizeZ or 1) * 0.5, 1), 10)--0.1666
+        for i, ro in self.AimBones do
+            local m = (((math.mod(i-1,4)+1)*2)-5)
+            ro:SetGoal(-2.5 * m * (5-size) )
+        end
     end,
 
     StopBuildFx = function(self)

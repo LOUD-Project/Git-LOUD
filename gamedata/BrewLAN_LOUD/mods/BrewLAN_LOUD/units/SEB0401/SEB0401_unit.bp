@@ -45,42 +45,15 @@ UnitBlueprint {
             },
         },
     },
-	
     Audio = {
-        Construct = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0301_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0301_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+             Construct = Sound {Bank = 'UEB',        Cue = 'UEB0301_Construct_Start',    LodCutoff = 'UnitMove_LodCutoff'},
+         ConstructLoop = Sound {Bank = 'UEB',        Cue = 'UEB0301_Construct_Loop',     LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+             Destroyed = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge',           LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt = Sound {Bank = 'UEB',        Cue = 'UEB0301_Activate',           LodCutoff = 'UnitMove_LodCutoff'},
+           UISelection = Sound {Bank = 'Interface',  Cue = 'UEF_Select_Factory',         LodCutoff = 'UnitMove_LodCutoff'},
     },
-	
     BuildIconSortPriority = 70,
-	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4ENGINEER',
@@ -93,113 +66,60 @@ UnitBlueprint {
         'FACTORY',
         'RALLYPOINT',
         'DRAGBUILD',
-        'SIZE30',
+        'SIZE36',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'GATE',
     },
-	
     CollisionOffsetY = -2,
-	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2011,
         Health = 40500,
         MaxHealth = 40500,
-		RegenRate = 10,
+        RegenRate = 10,
     },
-	
     Description = '<LOC seb0401>Experimental Factory',
-	
     Display = {
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
         },
-		
         AnimationBuild = '/mods/BrewLAN_LOUD/units/seb0401/SEB0401_abuild.sca',
-		
         BlinkingLights = {
-            {
-                BLBone = 'Base_001',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_002',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_003',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_004',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_005',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_006',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_007',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
-            {
-                BLBone = 'Base_008',
-                BLOffsetX = .03,
-                BLOffsetY = 1.875,
-                BLOffsetZ = .34,
-                BLScale = 3,
-            },
+            {BLBone = 'Base_001', BLScale = 3},
+            {BLBone = 'Base_002', BLScale = 3},
+            {BLBone = 'Base_003', BLScale = 3},
+            {BLBone = 'Base_004', BLScale = 3},
+            {BLBone = 'Base_005', BLScale = 3},
+            {BLBone = 'Base_006', BLScale = 3},
+            {BLBone = 'Base_007', BLScale = 3},
+            {BLBone = 'Base_008', BLScale = 3},
         },
-		
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_03_emit.bp',
             Yellow = '/effects/emitters/light_yellow_02_emit.bp',
         },
-		
         BuildAttachBone = 'Attachpoint',
-		
         IdleEffects = {
             Water = {
                 Effects = {
                     {
                         Bones = {
-                            'Base_001',
-                            'Base_002',
-                            'Base_003',
-                            'Base_004',
-                            'Base_005',
-                            'Base_006',
-                            'Base_007',
-                            'Base_008',
+                            'ArmA_001',
+                            'ArmA_002',
+                            'ArmA_003',
+                            'ArmA_004',
+                            'ArmA_005',
+                            'ArmA_006',
+                            'ArmA_007',
+                            'ArmA_008',
+                            'Base_A',
+                            'Base_B',
+                            'Base_C',
+                            'Base_D',
                         },
                         Scale = 5,
                         Type = 'SeaIdle02',
@@ -207,14 +127,10 @@ UnitBlueprint {
                 },
             },
         },
-		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
+                {LODCutoff = 200, ShaderName = 'Unit'},
                 {
                     LODCutoff = 500,
                     ShaderName = 'Unit',
@@ -224,54 +140,37 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
-		
         Tarmacs = {
             {
-                Albedo = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar20x_01_albedo.dds',
+                Albedo = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar18x_01_albedo.dds',
                 DeathLifetime = 300,
-                FadeOut = 900,
-                Length = 12.8,
-                Normal = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar20x_01_normals.dds',
-                Orientations = {
-                    0,
-                },
+                FadeOut = 150,
+                Length = 25.6,
+                Normal = '/mods/BrewLAN/env/Common/decals/Tarmacs/Tar18x_01_normals.dds',
+                Orientations = {0, 90, 180, 270},
                 RemoveWhenDead = false,
-                Width = 12.8*2,
+                Width = 25.6,
             },
         },
         UniformScale = 0.28,
     },
-	
     Economy = {
         BuildCostEnergy = 384000,
         BuildCostMass = 31440,
         BuildRate = 210,
         BuildTime = 9000,
-		
         BuildableCategory = {
-            'BUILTBYLANDTIER3FACTORY UEF',
-            'BUILTBYTIER3FACTORY UEF',
-            'TRANSPORTBUILTBYTIER3FACTORY UEF',
-            'BUILTBYGANTRY UEF',
-            'BUILTBYGANTRY EXPERIMENTAL',
+            'BUILTBYEXPERIMENTALFACTORY UEF',
+            'BUILTBYGANTRY',
         },
-		
         RebuildBonusIds = {'seb0401'},
-		
         StorageEnergy = 8000,
         StorageMass = 1000,
         InitialRallyZ = 28,
     },
-	
-    Footprint = {
-        SizeX = 15,
-        SizeZ = 9,
-    },
-	
+    Footprint = {SizeX = 15, SizeZ = 15},
     General = {
-		CapCost = 15,
+        CapCost = 15,
         BuildBones = {
             BuildEffectBones = {
                 'Muzzle001',
@@ -305,10 +204,10 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         ToggleCaps = {
-            RULEUTC_WeaponToggle= true,
+            RULEUTC_WeaponToggle = true,
         },
         OrderOverrides = {
-            RULEUTC_WeaponToggle= {
+            RULEUTC_WeaponToggle = {
                 bitmapId = 'airsf',
                 helpText = 'buildair',
             },
@@ -318,21 +217,16 @@ UnitBlueprint {
         UnitName = '<LOC seb0401_name>Gantry',
         UnitWeight = 1,
     },
-	
     Intel = {
-        VisionRadius = 14,
+        VisionRadius = 20,
     },
-	
     Interface = {
         HelpText = '<LOC seb0401>Experimental Factory',
     },
-	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 5,
+    LifeBarOffset = 7.5,
     LifeBarSize = 16,
-	
     Physics = {
-        BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
             LAYER_Land = true,
@@ -343,57 +237,32 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
-        MaxSteerForce = 0,
-        MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         OccupyRects = {
-
             --offsetX offsetZ  sizeX sizeZ, offset from center of unit
-            -6,
-            0,
-            2.5,
-            5.5,
-            6,
-            0,
-            2.5,
-            5.5,
+            -6, 0, 2.5, 8,
+            6, 0, 2.5, 8,
         },
         RollOffPoints = {
-            {
-                UnitSpin = 0,
-                X = 0,
-                Y = 0,
-                Z = 8,
-            },
-            {
-                UnitSpin = 180,
-                X = 0,
-                Y = 0,
-                Z = -8,
-            },
+            {UnitSpin = 0, X = 0, Y = 0, Z = 8},
+            {UnitSpin = 180, X = 0, Y = 0, Z = -8},
         },
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 18,
-        SkirtSizeZ = 12,
-        TurnRate = 0,
+        SkirtSizeZ = 18,
     },
-	
     SelectionMeshScaleX = 0.5,
     SelectionMeshScaleZ = 0.5,
     SelectionMeshUseTopAmount = 0.15,
-	
     SelectionSizeX = 10.5,
-    SelectionSizeZ = 6.5,
-    SelectionThickness = 0.4,
-	
+    SelectionSizeZ = 10.5,
+    SelectionThickness = 0.1,
     SizeX = 16,
     SizeY = 6,
-    SizeZ = 10,
-	
+    SizeZ = 16,
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 210,
-	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

@@ -3,6 +3,8 @@ layout = {
 	['units-select_icon_bmp'] = {left = 8, top = 5, width = 41, height = 22, },
 	['units-attached_icon_bmp_dis'] = {left = 11, top = 10, width = 35, height = 15, },
 	['units-attached_icon_bmp'] = {left = 8, top = 8, width = 41, height = 20, },
+	['enhance-array_icon_bmp_dis'] = {left = 17, top = 8, width = 23, height = 17, },
+	['enhance-array_icon_bmp'] = {left = 15, top = 6, width = 27, height = 21, },
 	['enhance-back_icon_bmp_dis'] = {left = 17, top = 8, width = 23, height = 17, },
 	['enhance-back_icon_bmp'] = {left = 15, top = 6, width = 27, height = 21, },
 	['enhance-l-arm_icon_bmp_dis'] = {left = 15, top = 7, width = 28, height = 17, },

@@ -6,7 +6,6 @@
 do
 
 local OldModBlueprints = ModBlueprints
-
 local BrewLANLOUDPath = function()
     for i, mod in __active_mods do
         --UID also hard referenced in /hook/lua/game.lua and mod_info.lua and in paragongame blueprints
@@ -19,24 +18,23 @@ end
 function ModBlueprints(all_blueprints)
 
     OldModBlueprints(all_blueprints)
-	
     BrewLANBuildCatChanges(all_blueprints.Unit)
 
     --BrewLANCategoryChanges(all_blueprints.Unit)
 
     BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
-	
     BrewLANGantryBuildList(all_blueprints.Unit)
     BrewLANGantryTechShareCheck(all_blueprints.Unit)
-	
     BrewLANHeavyWallBuildList(all_blueprints.Unit)
 
     --BrewLANNameCalling(all_blueprints.Unit)
 
     UpgradeableToBrewLAN(all_blueprints.Unit)
 
+    --TorpedoBomberWaterLandCat(all_blueprints.Unit)
     --BrewLANBomberDamageType(all_blueprints.Unit)
     BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
+    BrewLANCheckRULEUCaseCorrectness(all_blueprints.Unit)
 
     --BrewLANRelativisticLinksUpdate(all_blueprints)
 
@@ -56,7 +54,6 @@ function BrewLANBuildCatChanges(all_bps)
     -- Get a list of all real categories
     ----------------------------------------------------------------------------
     local real_categories = {}
-	
     for id, bp in all_bps do
         if bp.Categories then
             for i, cat in bp.Categories do
@@ -85,7 +82,11 @@ function BrewLANBuildCatChanges(all_bps)
         srb0101 = {'BUILTBYLANDTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',},
         sab0101 = {'BUILTBYLANDTIER1FACTORY AEON MOBILE CONSTRUCTION',},
         ssb0101 = {'BUILTBYLANDTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',},
-
+        --Tech 1 Field Engineers
+        sel0119 = {'BUILTBYTIER1ENGINEER UEF COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER UEF AIRSTAGINGPLATFORM',},
+        srl0119 = {'BUILTBYTIER1ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
+        ssl0119 = {'BUILTBYTIER1ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
+        sal0119 = {'BUILTBYTIER1ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER1ENGINEER AEON AIRSTAGINGPLATFORM',},
         --Tech 2 Field Engineers
         srl0209 = {'BUILTBYTIER2ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
         ssl0219 = {'BUILTBYTIER2ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER2ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
@@ -144,7 +145,6 @@ function CheckBuildCatConsistsOfRealCats(real_categories, buildcat)
     end
 end
 
-
 --------------------------------------------------------------------------------
 -- Fixes for land-built factories being able to build non-land engineers non-specifically.
 --------------------------------------------------------------------------------
@@ -195,7 +195,9 @@ function BrewLANCategoryChanges(all_bps)
         xab3301 = {'SIZE16', r = 'SIZE4', },--Aeon Quantum Optics
         xeb2306 = {'SIZE4', r = 'SIZE12', },---------------Ravager
         xeb0204 = {'BUILTBYTIER3ENGINEER','BUILTBYTIER3COMMANDER', },--Kennel
-        xrb0304 = {'BUILTBYTIER3ENGINEER','BUILTBYTIER3COMMANDER','TECH3', r = 'TECH2' },--Hive
+        xrb0104 = {r = 'ENGINEER'},
+        xrb0204 = {r = 'ENGINEER'},
+        xrb0304 = {'BUILTBYTIER3ENGINEER','BUILTBYTIER3COMMANDER','TECH3', r = {'TECH2', 'ENGINEER'} },--Hive
         --Crab eggs.
         xrl0004 = {'TECH3', r = 'TECH2'},
 
@@ -205,6 +207,7 @@ function BrewLANCategoryChanges(all_bps)
         xab2307 = {'EXPERIMENTAL', r = 'TECH3', },-------------Salvation
         url0401 = {NoBuild = true, }, -------------------------Scathis
         xeb2402 = {NoBuild = true, },--------------------------Noxav Defence Satelite Uplink
+        ual0401 = {'DARKNESSIMMUNE'},--------------------------Colossus flag for preventing Darkness nerf.
     }
     local buildcats = {
         'BUILTBYTIER1ENGINEER',
@@ -233,7 +236,7 @@ function BrewLANCategoryChanges(all_bps)
                             end
                         end
                     end
-                    if i != 'r' then
+                    if i ~= 'r' then
                         table.insert(all_bps[k].Categories, v[i])
                     end
                 end
@@ -251,20 +254,32 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANGlobalCategoryAdditions(all_bps)
-    --This is used by the Iyadesu so it can drag-build factory built units.
     local Cats = {
         'DRAGBUILD',
     }
     for id, bp in all_bps do
         if bp.Categories then
             for i, cat in Cats do
-                if not table.find(bp.Categories, 'STRUCTURE') and not table.find(bp.Categories, 'EXPERIMENTAL') and not table.find(bp.Categories, cat) then
+                if not table.find(bp.Categories, cat) then
                     table.insert(bp.Categories, cat)
                 end
             end
         end
     end
 end
+
+function BrewLANCheckRULEUCaseCorrectness(all_bps)
+    for id, bp in all_bps do
+        --Sanitise the motion type field since it's case sensitive for the engine, but it is if things check it.
+        --This is mostly for the sake of the Panopticon, so it doesn't have to run a string function on thousands of units.
+        if bp.Physics.MotionType and type(bp.Physics.MotionType) == "string" then
+            if string.lower(bp.Physics.MotionType) == 'ruleumt_none' and not bp.Physics.MotionType == 'RULEUMT_None' then
+                bp.Physics.MotionType = 'RULEUMT_None'
+            end
+        end
+    end
+end
+
 
 --------------------------------------------------------------------------------
 -- Satellite uplink
@@ -281,7 +296,7 @@ function BrewLANSatelliteUplinkForVanillaUnits(all_bps)
         sab3301 = 3,
         seb3301 = 3,
         srb3301 = 3,
-        ssb3301 = 3,
+        ssb3302 = 3,
     }
     for id, cap in units do
         if all_bps[id] and all_bps[id].Categories then
@@ -298,9 +313,7 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANGantryBuildList(all_bps)
-
     local Gantries = {}
-	
     for id, bp in all_bps do
         if bp.AI.Experimentals then
             Gantries[id] = {
@@ -309,12 +322,10 @@ function BrewLANGantryBuildList(all_bps)
             }
         end
     end
-	
+    --Gantry experimental build list
     for id, bp in all_bps do
-	
         --Check it has a category table first
         for gantryId, info in Gantries do
-		
             if bp.Categories then
                 --Check the Gantry can't already build it, and that its a mobile experimental
                 if table.find(bp.Categories, info.Cat) and table.find(bp.Categories, 'EXPERIMENTAL') then
@@ -359,6 +370,24 @@ function BrewLANGantryBuildList(all_bps)
             end
         end
     end
+
+    --This section is entirely because, as usual for a FAF function being over zealous, FAF support factories get fucking everywhere.
+    for id, bp in all_bps do
+        for gantryId, info in Gantries do
+            if BrewLANCheckGantryShouldBuild(bp.Categories) and string.upper(bp.Physics.MotionType or 'RULEUMT_NONE') ~= 'RULEUMT_NONE' then
+                table.insert(bp.Categories, 'BUILTBYEXPERIMENTALFACTORY')
+            end
+        end
+    end
+end
+
+function BrewLANCheckGantryShouldBuild(catArray)
+    for i, cat in catArray do
+        if string.find(cat, 'BUILTBY') and string.find(cat, 'FACTORY') then
+            return true
+        end
+    end
+    return false
 end
 
 --------------------------------------------------------------------------------
@@ -398,20 +427,19 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANHeavyWallBuildList(all_bps)
-
     for id, bp in all_bps do
-	
-        --Check its not hard coded to be buildable, then check it meets the standard requirements.
         if bp.Categories then
-		
+            --Check its not hard coded to be buildable.
             if not table.find(bp.Categories, 'BUILTBYHEAVYWALL')
+            --and check it's not something we don't want on a wall.
             and not table.find(bp.Categories, 'WALL')
             and not table.find(bp.Categories, 'HEAVYWALL')
             and not table.find(bp.Categories, 'MEDIUMWALL')
             and not table.find(bp.Categories, 'MINE')
+            --Also make sure it's not going to want to move.
             and table.find(bp.Categories, 'STRUCTURE')
             then
-			
+                --then check it meets the standard requirements
                 if table.find(bp.Categories, 'BUILTBYTIER1ENGINEER')
                 or table.find(bp.Categories, 'BUILTBYTIER2ENGINEER')
                 or table.find(bp.Categories, 'BUILTBYTIER3ENGINEER')
@@ -419,7 +447,6 @@ function BrewLANHeavyWallBuildList(all_bps)
                 or table.find(bp.Categories, 'BUILTBYTIER2FIELD')
                 or table.find(bp.Categories, 'BUILTBYTIER3FIELD')
                 then
-				
                     if table.find(bp.Categories, 'DEFENSE') or table.find(bp.Categories, 'INDIRECTFIRE') then
                         --Check it wouldn't overlap badly with the wall
                         local fits = { X = false, Z = false,}
@@ -470,17 +497,11 @@ end
 --------------------------------------------------------------------------------
 
 function UpgradeableToBrewLAN(all_bps)
-
     local VanillasToUpgrade = {
-
         xsb3202 = 'sss0305',--From Seraphim T2 sonar
-
     }
-	
     for unitid, upgradeid in VanillasToUpgrade do
-	
         if all_bps[unitid] and all_bps[upgradeid] then
-		
             table.insert(all_bps[unitid].Categories, 'SHOWQUEUE')
 
             if not all_bps[unitid].Display.Abilities then all_bps[unitid].Display.Abilities = {} end
@@ -500,23 +521,15 @@ function UpgradeableToBrewLAN(all_bps)
 
             all_bps[unitid].General.CommandCaps.RULEUCC_Pause = true
         end
-		
     end
-	
     local UpgradesFromBase = {}
-	
     --This could potentially loop forever if someone broke the upgrade chain elsewhere
     for unitid, upgradeid in UpgradesFromBase do
-	
         if all_bps[upgradeid] then
-		
             local nextID = upgradeid
-			
             while true do
                 if nextID == unitid then break end
-				
                 all_bps[nextID].General.UpgradesFromBase = unitid
-				
                 --LOG(all_bps[nextID].Description, unitid )
                 if all_bps[nextID].General.UpgradesFrom then
                     nextID = all_bps[nextID].General.UpgradesFrom
@@ -545,14 +558,11 @@ function TorpedoBomberWaterLandCat(all_bps)
         all_bps['xsa0204'], --T2 Seraphim
         all_bps['uaa0204'], --T2 Aeon
     }
-	
     for arrayIndex, bp in TorpedoBombers do
-	
         --Check they exist, and have all their things.
         if bp and bp.Categories and bp.Weapon then
-		
             table.insert(bp.Categories, 'TRANSPORTATION') --transportation category allows aircraft to land on water.
-
+            --table.insert(bp.Categories, 'HOVER') --hover category stops torpedos from being fired upon them while landed.
             for i, v in bp.Weapon do
                 if v.WeaponCategory == "Anti Navy" and v.FireTargetLayerCapsTable then
                     v.FireTargetLayerCapsTable.Seabed = 'Seabed|Sub|Water'

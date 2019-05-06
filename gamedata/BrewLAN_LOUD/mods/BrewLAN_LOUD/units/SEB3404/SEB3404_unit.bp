@@ -1,28 +1,9 @@
 UnitBlueprint {
-
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        MoveArms = Sound {
-            Bank = 'XEB',
-            Cue = 'XEB2402_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
-	
     Categories = {
         'UEF',
         'STRUCTURE',
@@ -33,87 +14,364 @@ UnitBlueprint {
         'OMNI',
         'SELECTABLE',
         'LAND',
-        'SIZE44',
+        'SIZE36',
         'SATELLITEUPLINK',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYRADAR',
         'OVERLAYOMNI',
         'SORTINTEL',
+        'RESEARCHLOCKED',
     },
-	
     Defense = {
         ArmorType = 'Structure',
-		
         EconomyThreatLevel = 7500,
         Health = 19500,
         MaxHealth = 19500,
-        RegenRate = 4,
+        RegenRate = 5,
     },
-	
     Description = '<LOC seb3404_desc>Experimental Sensor Array',
-	
     Display = {
         Abilities = {
+            '<LOC ability_customizable>Customizable',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
             '<LOC ability_satellite_uplink>Satellite Uplink',
         },
-		
+        DishAnimations = {
+            {
+                'Xband_Base',
+                'Xband_Dish',
+                bounds = {-180,180,-90,0},
+                speed = 3,
+                active = false,
+            },
+            {
+                'Tiny_Dish_00',
+                c = 2,
+                cont = true
+            },
+            {
+                'Small_XBand_Stand_00',
+                'Small_XBand_Dish_00',
+                c = 4,
+                bounds = {-180,180,-90,0},
+            },
+            {
+                'Small_Dish_00',
+                'Small_Dish_00',
+                c = 4,
+                bounds = {-180,180,-90,90},
+                speed = 20,
+                active = false,
+            },
+            {
+                'Med_Dish_Stand_00',
+                'Med_Dish_00',
+                c = 4,
+                bounds = {-180,180,-90,90},
+                speed = 6,
+                active = false,
+            },
+            {
+                'Large_Dish_Base',
+                'Large_Dish',
+                bounds = {-180,180,-90,0},
+                speed = 2,
+            },
+        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                { LODCutoff = 200, ShaderName = 'Unit' },
-                { LODCutoff = 1000, ShaderName = 'Unit' },
+                {LODCutoff = 200, ShaderName = 'Unit'},
+                {LODCutoff = 1000, ShaderName = 'Unit'},
+            },
+        },
+        Tarmacs = {
+            {
+                Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar18x_01_albedo.dds',
+                Normal = '/mods/brewlan/env/common/decals/Tarmacs/Tar18x_01_normals.dds',
+                Length = 25.6, Width = 25.6, FadeOut = 150,
+                Orientations = {0, 90, 180, 270},
+                RemoveWhenDead = false,
+            },
+        },
+        UniformScale = 0.05,
+    },
+    Economy = {
+        BuildCostEnergy = 80495,
+        BuildCostMass = 8050,
+        BuildTime = 2533,
+        BuildRate = 60,
+        MaintenanceConsumptionPerSecondEnergy = 6440,
+        MaintenanceConcumptionVision = {
+            --Bear in mind that these numbers are multiplied
+            --by the enhancement maintenance cost increases.
+            BuildingMin = 1,
+            BuildingMax = 100,
+            BuildingFactor = 10000,
+            MobileMin = 10,
+            MobileMax = 1000,
+            MobileFactor = 1000,
+        },
+        RebuildBonusIds = {'seb3404'},
+    },
+    Enhancements = {
+        ------------------------------------------------------------------------
+        -- Upgrades
+        ------------------------------------------------------------------------
+        Small_Dish_001 = {
+            BuildCostEnergy = 105147,
+            BuildCostMass = 10515,
+            BuildTime = 3308,
+            Icon = 'sre',
+            Name = '<LOC brewlan_panopticon_small_001>Activate radar dish',
+            Slot = 'LCH',
+            ShowBones               = {'Small_Dish_001'},
+            UpgradeEffectBones      = {'Small_Dish_001'},
+            UpgradeUnitAmbientBones = {'Small_Dish_001'},
+        },
+        Med_Dish_001 = {
+            BuildCostEnergy = 157720,
+            BuildCostMass = 15772,
+            BuildTime = 4963,
+            Icon = 'sresre',
+            Name = '<LOC brewlan_panopticon_med_001>Activate the \"Chapeau\" omni sensor dish',
+            Slot = 'LCH',
+            Prerequisite = 'Small_Dish_001',
+            ShowBones           = {'Med_Dish_Stand_001', 'Med_Dish_001'},
+            UpgradeEffectBones  = {'Med_Dish_Stand_001', 'Med_Dish_001'},
+            UpgradeUnitAmbientBones                   = {'Med_Dish_001'},
+        },
+        Small_Dish_002 = {
+            BuildCostEnergy = 105147,
+            BuildCostMass = 10515,
+            BuildTime = 3308,
+            Icon = 'sre',
+            Name = '<LOC brewlan_panopticon_small_002>Activate the \"Marcin\" radar dish',
+            Slot = 'LCH',
+            Prerequisite = 'Med_Dish_001',
+            ShowBones               = {'Small_Dish_002'},
+            UpgradeEffectBones      = {'Small_Dish_002'},
+            UpgradeUnitAmbientBones = {'Small_Dish_002'},
+        },
+        Med_Dish_002 = {
+            BuildCostEnergy = 157720,
+            BuildCostMass = 15772,
+            BuildTime = 4963,
+            Icon = 'sresre',
+            Name = '<LOC brewlan_panopticon_med_002>Activate the \"Pankow\" omni sensor dish',
+            Slot = 'LCH',
+            Prerequisite = 'Small_Dish_002',
+            ShowBones           = {'Med_Dish_Stand_002', 'Med_Dish_002'},
+            UpgradeEffectBones  = {'Med_Dish_Stand_002', 'Med_Dish_002'},
+            UpgradeUnitAmbientBones                   = {'Med_Dish_002'},
+        },
+        Small_Dish_003 = {
+            BuildCostEnergy = 105147,
+            BuildCostMass = 10515,
+            BuildTime = 3308,
+            Icon = 'sre',
+            Name = '<LOC brewlan_panopticon_small_003>Activate the \"Gebauer\" radar dish',
+            Slot = 'LCH',
+            Prerequisite = 'Med_Dish_002',
+            ShowBones               = {'Small_Dish_003'},
+            UpgradeEffectBones      = {'Small_Dish_003'},
+            UpgradeUnitAmbientBones = {'Small_Dish_003'},
+        },
+        Med_Dish_003 = {
+            BuildCostEnergy = 157720,
+            BuildCostMass = 15772,
+            BuildTime = 4963,
+            Icon = 'sresre',
+            Name = '<LOC brewlan_panopticon_med_003>Activate the \"Mogwai\" omni sensor dish',
+            Slot = 'LCH',
+            Prerequisite = 'Small_Dish_003',
+            ShowBones           = {'Med_Dish_Stand_003', 'Med_Dish_003'},
+            UpgradeEffectBones  = {'Med_Dish_Stand_003', 'Med_Dish_003'},
+            UpgradeUnitAmbientBones                   = {'Med_Dish_003'},
+        },
+        Small_Dish_004 = {
+            BuildCostEnergy = 105147,
+            BuildCostMass = 10515,
+            BuildTime = 3308,
+            Icon = 'sre',
+            Name = '<LOC brewlan_panopticon_small_004>Activate radar dish',
+            Slot = 'LCH',
+            Prerequisite = 'Med_Dish_003',
+            ShowBones               = {'Small_Dish_004'},
+            UpgradeEffectBones      = {'Small_Dish_004'},
+            UpgradeUnitAmbientBones = {'Small_Dish_004'},
+        },
+        Med_Dish_004 = {
+            BuildCostEnergy = 157720,
+            BuildCostMass = 15772,
+            BuildTime = 4963,
+            Icon = 'sresre',
+            Name = '<LOC brewlan_panopticon_med_004>Activate the \"Neutral\" omni sensor dish',
+            Slot = 'LCH',
+            Prerequisite = 'Small_Dish_004',
+            ShowBones           = {'Med_Dish_Stand_004', 'Med_Dish_004'},
+            UpgradeEffectBones  = {'Med_Dish_Stand_004', 'Med_Dish_004'},
+            UpgradeUnitAmbientBones                   = {'Med_Dish_004'},
+        },
+        Xband_Dish = {
+            BuildCostEnergy = 205036,
+            BuildCostMass = 20504,
+            BuildTime = 6452,
+            Icon = 'xbndl',
+            Name = '<LOC brewlan_panopticon_xbl_001>Activate the \"Saxxon\" dish',
+            Slot = 'LCH',
+            Prerequisite = 'Med_Dish_004',
+            ShowBones           = {'Xband_Base', 'Xband_Dish'},
+            UpgradeEffectBones  = {'Xband_Base', 'Xband_Dish'},
+            UpgradeUnitAmbientBones           = {'Xband_Dish'},
+        },
+
+        ------------------------------------------------------------------------
+        -- Upgrades removes
+        ------------------------------------------------------------------------
+        Small_Dish_001Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sre',           Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_small_001r>Deactivate Dish',
+            Prerequisite = 'Small_Dish_001',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Small_Dish_001Remove',
+            },
+        },
+        Med_Dish_001Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sresre',        Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_med_001r>Deactivate Dish',
+            Prerequisite = 'Med_Dish_001',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Med_Dish_001Remove',
+            },
+        },
+        Small_Dish_002Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sre',           Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_small_002r>Deactivate Dish',
+            Prerequisite = 'Small_Dish_002',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Small_Dish_001Remove',
+            },
+        },
+        Med_Dish_002Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sresre',        Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_med_002r>Deactivate Dish',
+            Prerequisite = 'Med_Dish_002',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Med_Dish_002Remove',
+            },
+        },
+        Small_Dish_003Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sre',           Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_small_003r>Deactivate Dish',
+            Prerequisite = 'Small_Dish_003',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Small_Dish_003',
+                'Small_Dish_003Remove',
+            },
+        },
+        Med_Dish_003Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sresre',        Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_med_003r>Deactivate Dish',
+            Prerequisite = 'Med_Dish_003',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Small_Dish_003',
+                'Med_Dish_003',
+                'Med_Dish_003Remove',
+            },
+        },
+        Small_Dish_004Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sre',           Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_small_004r>Deactivate Dish',
+            Prerequisite = 'Small_Dish_004',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Small_Dish_003',
+                'Med_Dish_003',
+                'Small_Dish_004',
+                'Small_Dish_004Remove',
+            },
+        },
+        Med_Dish_004Remove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'sresre',        Slot = 'LCH',
+            Name = '<LOC brewlan_panopticon_med_004r>Deactivate Dish',
+            Prerequisite = 'Med_Dish_004',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Small_Dish_003',
+                'Med_Dish_003',
+                'Small_Dish_004',
+                'Med_Dish_004',
+                'Med_Dish_004Remove',
+            },
+        },
+        Xband_DishRemove = {
+            BuildCostEnergy = 1,    BuildCostMass = 1,  BuildTime = 0.1,
+            Icon = 'xbndl',         Slot = 'LCH',
+            Name = '<LOC brewlan_enhancement_005r>Remove Radar Blip Vision',
+            Prerequisite = 'Xband_Dish',
+            RemoveEnhancements = {
+                'Small_Dish_001',
+                'Med_Dish_001',
+                'Small_Dish_002',
+                'Med_Dish_002',
+                'Small_Dish_003',
+                'Med_Dish_003',
+                'Small_Dish_004',
+                'Med_Dish_004',
+                'Xband_Dish',
+                'Xband_DishRemove',
             },
         },
 
-        SpawnRandomRotation = true,
-		
-        Tarmacs = {
-            {
-                Albedo = '/mods/BrewLAN_LOUD/env/common/decals/Tarmacs/Tar24x_01_albedo.dds',
-                FadeOut = 900,
-                Length = 19,
-                Normal = '/mods/BrewLAN_LOUD/env/common/decals/Tarmacs/Tar24x_01_normals.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 19,
-            },
+        ------------------------------------------------------------------------
+        -- Slot definitions -- Mostly does nothing
+        ------------------------------------------------------------------------
+        Slots = {
+            LCH = true,
+            --Array = true,
         },
-		
-        UniformScale = 0.05,
     },
-	
-    Economy = {
-        BuildCostEnergy = 850000,
-        BuildCostMass = 75000,
-        BuildTime = 27000,
-		
-        MaintenanceConsumptionPerSecondEnergy = 14500,
-		
-        RebuildBonusIds = {'seb3404'},
-		
-        ResearchMult = 0.5,
-		
-		MinimumPerBuilding = 45,
-		MaximumPerBuilding = 450,
-		MinimumPerMobile = 25,
-		MaximumPerMobile = 250,
-    },
-	
     Footprint = {
         SizeX = 15,
         SizeZ = 15,
     },
-	
     General = {
-		CapCost = 25,
+        CapCost = 25,
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
         CommandCaps = {
@@ -132,14 +390,12 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-		
         SatelliteCapacity = 9001,
-		
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
-            RULEUTC_WeaponToggle = true,
+            RULEUTC_WeaponToggle = false,
         },
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
@@ -150,26 +406,21 @@ UnitBlueprint {
         UnitName = '<LOC seb3404_name>Panopticon',
         UnitWeight = 1,
     },
-	
     Intel = {
         ShowIntelOnSelect = true,
-        VisionRadius = 15,
-        OmniRadius = 270,
-        RadarRadius = 400 * 5,
+        VisionRadius = 2,
+        OmniRadius = 300,
+        RadarRadius = 800,
         SpyBlipRadius = 2,
         ReactivateTime = 0,
     },
-	
     Interface = {
         HelpText = '<LOC seb3404_desc>Experimental Sensor Array',
     },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 7,
     LifeBarSize = 15,
-	
     Physics = {
-        BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
             LAYER_Land = true,
@@ -180,30 +431,23 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
-        MaxSteerForce = 0,
         MeshExtentsX = 15,
         MeshExtentsY = 7,
         MeshExtentsZ = 15,
-        MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 18,
         SkirtSizeZ = 18,
-        TurnRate = 0,
     },
-	
     SelectionSizeX = 10,
     SelectionSizeZ = 10,
     SelectionThickness = 0.1,
-	
     SizeX = 15,
     SizeY = 7,
     SizeZ = 15,
-	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 225,
-	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

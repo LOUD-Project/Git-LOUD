@@ -229,10 +229,8 @@ UnitBlueprint {
         BuildTime = 9000,
 
         BuildableCategory = {
-            'BUILTBYTIER3FACTORY AEON',
-            'TRANSPORTBUILTBYTIER3FACTORY AEON',
-            'BUILTBYIENGINE AEON',
-            'BUILTBYIENGINE EXPERIMENTAL',
+            'BUILTBYEXPERIMENTALFACTORY AEON',
+            'BUILTBYIENGINE'
         },
 
         RebuildBonusIds = { 'sab0401' },
@@ -262,9 +260,9 @@ UnitBlueprint {
                 'BuilderM_008',
             },
         },
-		
+
 		CapCost = 15,
-		
+
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
