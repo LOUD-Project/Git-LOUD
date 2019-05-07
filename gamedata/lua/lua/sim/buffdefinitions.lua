@@ -965,16 +965,46 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     },
 }
 
+-- Just a note here - the relationship between RADAR range and power consumption is calculated
+-- using Pasternaks Radar range calcuator - using a gain of 20db at 10GHZ
+-- and a radar cross-section of 1 square metre with a return strength of 10 versus the power input
+
+-- A detailed explanation of this calcuation can be found at http://www.radartutorial.eu/01.basics/The%20Radar%20Range%20Equation.en.html
+-- The calculator itself can be found online at https://www.pasternack.com/t-calculator-radar-range.aspx
+
+-- by contrast, for the regular T3 radar systems, I use a lower 12db gain.   All smaller radar systems
+-- are NOT aligned with this formula but probably should be for conformity sake
+
+-- as each pair of antenna come online, I move this gain figure up be 1db - eventually reaching
+-- a total of 24db linear gain
+
+-- The PanOpticons additional dishes should be though of as 'focusing' agents - with the effectiveness
+-- of regular radar adhering to Pasternaks formula, but the OMNI focusing becoming increasingly effective
+-- as more are added 
+
+-- The final X-band antenna is a focusing agent for them all (which is why they are a pre-requisite)
+-- but it allows such a resolution of the target that it's effectively 'vision'.
+
+-- Just one final note - the values I used as a basis of these calculations are NOT, in any way, related
+-- to real world values - but only for use in relation to themselves in the context of the game.  In this
+-- regard they work very well for establishing a solid relationship between power consumption and radar range
+-- and could be applied backwards thru the lower tier and mobile systems in the game if need be.
+  
 do
     local array = {
-        Small_Dish_001 = {RadarRadius = 1.518634255, OmniRadius = 1.000000000, EnergyMaintenance = 1.404787711},
-          Med_Dish_001 = {RadarRadius = 1.359997609, OmniRadius = 1.215803347, EnergyMaintenance = 1.378464448},
-        Small_Dish_002 = {RadarRadius = 1.142902929, OmniRadius = 1.000000000, EnergyMaintenance = 1.118957635},
-          Med_Dish_002 = {RadarRadius = 1.162606776, OmniRadius = 1.150430957, EnergyMaintenance = 1.186699167},
-        Small_Dish_003 = {RadarRadius = 1.083256195, OmniRadius = 1.000000000, EnergyMaintenance = 1.069351468},
-          Med_Dish_003 = {RadarRadius = 1.105310570, OmniRadius = 1.115536972, EnergyMaintenance = 1.127037108},
-        Small_Dish_004 = {RadarRadius = 1.058765357, OmniRadius = 1.000000000, EnergyMaintenance = 1.048631459},
-          Med_Dish_004 = {RadarRadius = 1.077910018, OmniRadius = 1.093807366, EnergyMaintenance = 1.097398017},
+	
+        Small_Dish_001 = {RadarRadius = 1.113043478, OmniRadius = 1.050000000, EnergyMaintenance = 1.50 },
+          Med_Dish_001 = {RadarRadius = 1.046875000, OmniRadius = 1.063122923, EnergyMaintenance = 1.05 },
+		  
+        Small_Dish_002 = {RadarRadius = 1.126865671, OmniRadius = 1.050000000, EnergyMaintenance = 1.6267376 },
+          Med_Dish_002 = {RadarRadius = 1.052980132, OmniRadius = 1.091269841, EnergyMaintenance = 1.10 },
+		  
+        Small_Dish_003 = {RadarRadius = 1.132075471, OmniRadius = 1.050000000, EnergyMaintenance = 1.6528925 },
+          Med_Dish_003 = {RadarRadius = 1.055555555, OmniRadius = 1.125541125, EnergyMaintenance = 1.15 },
+		  
+        Small_Dish_004 = {RadarRadius = 1.126315789, OmniRadius = 1.050000000, EnergyMaintenance = 1.5942028 },
+          Med_Dish_004 = {RadarRadius = 1.070093457, OmniRadius = 1.172161172, EnergyMaintenance = 1.20 },
+		  
         Xband_Dish = {RadarRadius = 1, OmniRadius = 1, EnergyMaintenance = 1}
     }
 
