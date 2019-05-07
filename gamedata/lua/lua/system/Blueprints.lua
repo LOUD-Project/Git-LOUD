@@ -565,15 +565,28 @@ function ModBlueprints(all_blueprints)
 			if bp.AI.GuardReturnRadius > 80 then
 				bp.AI.GuardReturnRadius = 80
 			end
+			
+		else
+		
+			if not bp.AI then
+				bp.AI = {}
+			end
+		
+			bp.AI.GuardReturnRadius = 20
+			
 		end
 		
 		if bp.AI.GuardScanRadius then
 		
-			if bp.AI.GuardScanRadius then
+			if bp.AI.GuardScanRadius > 40 then
 			
-				bp.AI.GuardScanRadius = 80
+				bp.AI.GuardScanRadius = 40
 				
 			end
+			
+		else
+		
+			bp.AI.GuardScanRadius = 15
 			
 		end
 		
