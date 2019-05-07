@@ -1,6 +1,8 @@
 local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 
 -- TIER 1 POWER GEN BUFF TABLE
+-- the effectiveness of T1 Pgens drops off beyone Size20
+
 T1PowerGeneratorAdjacencyBuffs = {
     'T1PowerEnergyBuildBonusSize4',
     'T1PowerEnergyBuildBonusSize8',
@@ -59,7 +61,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize8',
     BuffType = 'ENERGYBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE * categories.SIZE8 -categories.NUKE - categories.ENERGYPRODUCTION,
+    ParsedEntityCategory = categories.STRUCTURE * categories.SIZE8 - categories.NUKE - categories.ENERGYPRODUCTION,
     BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
@@ -129,7 +131,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize24',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0104,
+            Add = -0.009,
             Mult = 1.0,
         },
     },
@@ -145,7 +147,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize30',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.00835,
+            Add = -0.007,
             Mult = 1.0,
         },
     },
@@ -161,7 +163,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize32',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0078,
+            Add = -0.0065,
             Mult = 1.0,
         },
     },
@@ -177,7 +179,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize36',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0069,
+            Add = -0.005,
             Mult = 1.0,
         },
     },
@@ -193,7 +195,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize40',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.00625,
+            Add = -0.004,
             Mult = 1.0,
         },
     },
@@ -209,7 +211,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize44',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0057,
+            Add = -0.003,
             Mult = 1.0,
         },
     },
@@ -225,7 +227,7 @@ BuffBlueprint { Name = 'T1PowerEnergyBuildBonusSize48',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0052,
+            Add = -0.0025,
             Mult = 1.0,
         },
     },
@@ -322,7 +324,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize24',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0104,
+            Add = -0.009,
             Mult = 1.0,
         },
     },
@@ -338,7 +340,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize30',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.00835,
+            Add = -0.0065,
             Mult = 1.0,
         },
     },
@@ -354,7 +356,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize32',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0078,
+            Add = -0.006,
             Mult = 1.0,
         },
     },
@@ -370,7 +372,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize36',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0069,
+            Add = -0.005,
             Mult = 1.0,
         },
     },
@@ -386,7 +388,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize40',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.00625,
+            Add = -0.004,
             Mult = 1.0,
         },
     },
@@ -402,7 +404,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize44',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0057,
+            Add = -0.003,
             Mult = 1.0,
         },
     },
@@ -418,7 +420,7 @@ BuffBlueprint { Name = 'T1PowerEnergyMaintenanceBonusSize48',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0052,
+            Add = -0.0025,
             Mult = 1.0,
         },
     },
@@ -524,6 +526,7 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
 }
 
 -- HYDROCARBON POWER GEN BUFF TABLE
+-- T2 Power bonuses drop off beyond Size30
 HydrocarbonAdjacencyBuffs = {
     'T2PowerEnergyBuildBonusSize4to12',
     'T2PowerEnergyBuildBonusSize16',
@@ -679,7 +682,7 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize32',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0375,
+            Add = -0.035,
             Mult = 1.0,
         },
     },
@@ -695,7 +698,7 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize36',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.0335,
+            Add = -0.03,
             Mult = 1.0,
         },
     },
@@ -711,7 +714,7 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize40',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.03,
+            Add = -0.025,
             Mult = 1.0,
         },
     },
@@ -727,7 +730,7 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize44',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.027,
+            Add = -0.02,
             Mult = 1.0,
         },
     },
@@ -743,7 +746,7 @@ BuffBlueprint { Name = 'T2PowerEnergyBuildBonusSize48',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.025,
+            Add = -0.015,
             Mult = 1.0,
         },
     },
@@ -841,7 +844,7 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize32',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0375,
+            Add = -0.035,
             Mult = 1.0,
         },
     },
@@ -857,7 +860,7 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize36',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.0335,
+            Add = -0.03,
             Mult = 1.0,
         },
     },
@@ -873,7 +876,7 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize40',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.03,
+            Add = -0.025,
             Mult = 1.0,
         },
     },
@@ -889,7 +892,7 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize44',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.027,
+            Add = -0.02,
             Mult = 1.0,
         },
     },
@@ -905,7 +908,7 @@ BuffBlueprint { Name = 'T2PowerEnergyMaintenanceBonusSize48',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.025,
+            Add = -0.015,
             Mult = 1.0,
         },
     },
