@@ -12,10 +12,13 @@ local Buff = import(BrewLANPath .. '/lua/legacy/VersionCheck.lua').Buff
 SEB3404 = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self, ...)
+	
         TStructureUnit.OnStopBeingBuilt(self, unpack(arg) )
 
         local bpD = self:GetBlueprint().Display
+		
         self:ForkThread(AnimationThread,bpD.DishAnimations)
+		
         self:SetMaintenanceConsumptionActive()
 
         for i, v in {Panopticon = 'Domes', Large_Dish = 'Dish_Scaffolds'} do
@@ -32,59 +35,78 @@ SEB3404 = Class(TStructureUnit) {
     end,
 
     SetDishActive = function(self, dish, active)
+	
         if not self.Rotators then return end
+		
         for i, v in self.Rotators do
             if v[5] == dish then
                 v[6] = active
                 break
             end
         end
+		
     end,
 
     IntelSearch = function(self, bp, army, aiBrain)
+	
         local FindAllUnits = function(aiBrain, category, range, cloakcheck)
             local tableinsert = table.insert
             local Ftable = {}
+			
             for i, unit in aiBrain:GetUnitsAroundPoint(category, (self.CachePosition or self:GetPosition()), range, 'Enemy' ) do
+			
                 if cloakcheck and unit:IsIntelEnabled('Cloak') then
                     --LOG("Counterintel guy")
                 else
                     tableinsert(Ftable, unit)
                 end
+				
             end
+			
             return Ftable
+			
         end
+		
         -- Find visible things to attach vis entities to
         local LocalUnits = FindAllUnits(aiBrain, categories.SELECTABLE - categories.COMMAND - categories.SUBCOMMANDER - categories.WALL - categories.HEAVYWALL - categories.MEDIUMWALL - categories.MINE, self:GetIntelRadius('radar'), true)
+		
         ------------------------------------------------------------------------
         -- IF self.ActiveConsumptionRestriction Sort the table by distance
         ------------------------------------------------------------------------
         if self.ActiveConsumptionRestriction then
+		
             local DistanceSortedLocalUnits = {}
             local pos = self.CachePosition or self:GetPosition()
             --Local'd for performance.
             local mathfloor = math.floor
             local VDist2Sq = VDist2Sq
+			
             for i, v in LocalUnits do
                 local vpos = v.CachePosition or v:GetPosition()
                 local uniqueDistanceKey = mathfloor(VDist2Sq(vpos[1], vpos[3], pos[1], pos[3]) ) .. "." .. v:GetEntityId()
                 DistanceSortedLocalUnits[uniqueDistanceKey] = v
                 v = nil
             end
+			
             LocalUnits = DistanceSortedLocalUnits
+			
         end
         ------------------------------------------------------------------------
         -- Calculate the overall cost and cut off point for the energy restricted radius
         ------------------------------------------------------------------------
         local NewUpkeep = bp.Economy.MaintenanceConsumptionPerSecondEnergy
+		
         local Eco = bp.Economy.MaintenanceConcumptionVision
+		
         local SpareEnergy = aiBrain:GetEconomyIncome( 'ENERGY' ) - aiBrain:GetEconomyRequested('ENERGY') + self.PanopticonUpkeep
         local SpyBlipRadius = bp.Intel.SpyBlipRadius or 2 --2 is the smallest that works.
+		
         for i, v in LocalUnits do
 
             --Calculate costs per unit as we go
             local ebp = v:GetBlueprint()
             local cost
+			
             if ebp.Physics.MotionType == 'RULEUMT_None' then
                 --If building cost
                 cost = (ebp.Economy.BuildCostEnergy or 10000) / Eco.BuildingFactor
@@ -112,14 +134,20 @@ SEB3404 = Class(TStructureUnit) {
 
             end
         end
+
         self.PanopticonUpkeep = NewUpkeep
+		
         self:SetEnergyMaintenanceConsumptionOverride(self.PanopticonUpkeep)
+		
+		self:UpdateConsumptionValues()
     end,
 
     CreateEnhancement = function(self, enh)
+	
         TStructureUnit.CreateEnhancement(self, enh)
 
         local remove = string.find(enh, 'Remove') or 0
+		
         if remove == 0 then
             --------------------------------------------------------------------
             -- Most of the enhancements happen here
@@ -183,6 +211,7 @@ SEB3404 = Class(TStructureUnit) {
                 local bp = self:GetBlueprint()
                 self.PanopticonUpkeep = bp.Economy.MaintenanceConsumptionPerSecondEnergy
                 self:SetEnergyMaintenanceConsumptionOverride(self.PanopticonUpkeep)
+				self:UpdateConsumptionValues()				
             end
         end
     end,

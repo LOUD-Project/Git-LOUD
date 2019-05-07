@@ -4,6 +4,7 @@ UnitBlueprint {
         Destroyed = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
         UISelection = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
+	
     Categories = {
         'UEF',
         'STRUCTURE',
@@ -23,21 +24,26 @@ UnitBlueprint {
         'SORTINTEL',
         'RESEARCHLOCKED',
     },
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 7500,
-        Health = 19500,
-        MaxHealth = 19500,
+        Health = 9500,
+        MaxHealth = 9500,
         RegenRate = 5,
     },
+	
     Description = '<LOC seb3404_desc>Experimental Sensor Array',
+	
     Display = {
+	
         Abilities = {
             '<LOC ability_customizable>Customizable',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
             '<LOC ability_satellite_uplink>Satellite Uplink',
         },
+		
         DishAnimations = {
             {
                 'Xband_Base',
@@ -80,6 +86,7 @@ UnitBlueprint {
                 speed = 2,
             },
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -87,24 +94,31 @@ UnitBlueprint {
                 {LODCutoff = 1000, ShaderName = 'Unit'},
             },
         },
+
         Tarmacs = {
             {
-                Albedo = '/mods/brewlan/env/common/decals/Tarmacs/Tar18x_01_albedo.dds',
-                Normal = '/mods/brewlan/env/common/decals/Tarmacs/Tar18x_01_normals.dds',
-                Length = 25.6, Width = 25.6, FadeOut = 150,
+                Albedo = '/mods/brewlan_LOUD/env/common/decals/Tarmacs/Tar18x_01_albedo.dds',
+                Normal = '/mods/brewlan_LOUD/env/common/decals/Tarmacs/Tar18x_01_normals.dds',
+                Length = 25.6, Width = 25.6, FadeOut = 180,
                 Orientations = {0, 90, 180, 270},
                 RemoveWhenDead = false,
             },
         },
+
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 80495,
         BuildCostMass = 8050,
         BuildTime = 2533,
+		
         BuildRate = 60,
+		
         MaintenanceConsumptionPerSecondEnergy = 6440,
+		
         MaintenanceConcumptionVision = {
+		
             --Bear in mind that these numbers are multiplied
             --by the enhancement maintenance cost increases.
             BuildingMin = 1,
@@ -114,16 +128,16 @@ UnitBlueprint {
             MobileMax = 1000,
             MobileFactor = 1000,
         },
+		
         RebuildBonusIds = {'seb3404'},
     },
+	
     Enhancements = {
-        ------------------------------------------------------------------------
-        -- Upgrades
-        ------------------------------------------------------------------------
+
         Small_Dish_001 = {
             BuildCostEnergy = 105147,
             BuildCostMass = 10515,
-            BuildTime = 3308,
+            BuildTime = 5257,
             Icon = 'sre',
             Name = '<LOC brewlan_panopticon_small_001>Activate radar dish',
             Slot = 'LCH',
@@ -134,7 +148,7 @@ UnitBlueprint {
         Med_Dish_001 = {
             BuildCostEnergy = 157720,
             BuildCostMass = 15772,
-            BuildTime = 4963,
+            BuildTime = 7886,
             Icon = 'sresre',
             Name = '<LOC brewlan_panopticon_med_001>Activate the \"Chapeau\" omni sensor dish',
             Slot = 'LCH',
@@ -143,10 +157,11 @@ UnitBlueprint {
             UpgradeEffectBones  = {'Med_Dish_Stand_001', 'Med_Dish_001'},
             UpgradeUnitAmbientBones                   = {'Med_Dish_001'},
         },
+		
         Small_Dish_002 = {
             BuildCostEnergy = 105147,
             BuildCostMass = 10515,
-            BuildTime = 3308,
+            BuildTime = 5257,
             Icon = 'sre',
             Name = '<LOC brewlan_panopticon_small_002>Activate the \"Marcin\" radar dish',
             Slot = 'LCH',
@@ -158,7 +173,7 @@ UnitBlueprint {
         Med_Dish_002 = {
             BuildCostEnergy = 157720,
             BuildCostMass = 15772,
-            BuildTime = 4963,
+            BuildTime = 7886,
             Icon = 'sresre',
             Name = '<LOC brewlan_panopticon_med_002>Activate the \"Pankow\" omni sensor dish',
             Slot = 'LCH',
@@ -167,10 +182,11 @@ UnitBlueprint {
             UpgradeEffectBones  = {'Med_Dish_Stand_002', 'Med_Dish_002'},
             UpgradeUnitAmbientBones                   = {'Med_Dish_002'},
         },
+		
         Small_Dish_003 = {
             BuildCostEnergy = 105147,
             BuildCostMass = 10515,
-            BuildTime = 3308,
+            BuildTime = 5257,
             Icon = 'sre',
             Name = '<LOC brewlan_panopticon_small_003>Activate the \"Gebauer\" radar dish',
             Slot = 'LCH',
@@ -182,7 +198,7 @@ UnitBlueprint {
         Med_Dish_003 = {
             BuildCostEnergy = 157720,
             BuildCostMass = 15772,
-            BuildTime = 4963,
+            BuildTime = 7886,
             Icon = 'sresre',
             Name = '<LOC brewlan_panopticon_med_003>Activate the \"Mogwai\" omni sensor dish',
             Slot = 'LCH',
@@ -191,10 +207,11 @@ UnitBlueprint {
             UpgradeEffectBones  = {'Med_Dish_Stand_003', 'Med_Dish_003'},
             UpgradeUnitAmbientBones                   = {'Med_Dish_003'},
         },
+		
         Small_Dish_004 = {
             BuildCostEnergy = 105147,
             BuildCostMass = 10515,
-            BuildTime = 3308,
+            BuildTime = 5257,
             Icon = 'sre',
             Name = '<LOC brewlan_panopticon_small_004>Activate radar dish',
             Slot = 'LCH',
@@ -206,7 +223,7 @@ UnitBlueprint {
         Med_Dish_004 = {
             BuildCostEnergy = 157720,
             BuildCostMass = 15772,
-            BuildTime = 4963,
+            BuildTime = 7886,
             Icon = 'sresre',
             Name = '<LOC brewlan_panopticon_med_004>Activate the \"Neutral\" omni sensor dish',
             Slot = 'LCH',
@@ -215,10 +232,11 @@ UnitBlueprint {
             UpgradeEffectBones  = {'Med_Dish_Stand_004', 'Med_Dish_004'},
             UpgradeUnitAmbientBones                   = {'Med_Dish_004'},
         },
+		
         Xband_Dish = {
             BuildCostEnergy = 205036,
             BuildCostMass = 20504,
-            BuildTime = 6452,
+            BuildTime = 10252,
             Icon = 'xbndl',
             Name = '<LOC brewlan_panopticon_xbl_001>Activate the \"Saxxon\" dish',
             Slot = 'LCH',
@@ -358,18 +376,18 @@ UnitBlueprint {
             },
         },
 
-        ------------------------------------------------------------------------
-        -- Slot definitions -- Mostly does nothing
-        ------------------------------------------------------------------------
+
         Slots = {
             LCH = true,
-            --Array = true,
         },
+		
     },
+	
     Footprint = {
         SizeX = 15,
         SizeZ = 15,
     },
+	
     General = {
         CapCost = 25,
         Category = 'Intelligence',
@@ -406,20 +424,30 @@ UnitBlueprint {
         UnitName = '<LOC seb3404_name>Panopticon',
         UnitWeight = 1,
     },
+	
     Intel = {
         ShowIntelOnSelect = true,
         VisionRadius = 2,
-        OmniRadius = 300,
-        RadarRadius = 800,
+		
+		-- these starting OMNI and RADAR ranges are related to the standard T3 value
+		-- according to formulas describing power consumption and radar range
+		-- see BuffDefinitions.lua for a more detailed description
+		
+        OmniRadius = 215,
+        RadarRadius = 575,
+		
         SpyBlipRadius = 2,
         ReactivateTime = 0,
     },
+	
     Interface = {
         HelpText = '<LOC seb3404_desc>Experimental Sensor Array',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 7,
     LifeBarSize = 15,
+	
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -440,19 +468,23 @@ UnitBlueprint {
         SkirtSizeX = 18,
         SkirtSizeZ = 18,
     },
+	
     SelectionSizeX = 10,
     SelectionSizeZ = 10,
     SelectionThickness = 0.1,
+	
     SizeX = 15,
     SizeY = 7,
     SizeZ = 15,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 225,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
