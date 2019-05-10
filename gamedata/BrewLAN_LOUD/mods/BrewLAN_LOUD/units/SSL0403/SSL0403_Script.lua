@@ -148,14 +148,23 @@ SSL0403 = Class(SConstructionUnit) {
     end,
 
     CheckBuildRestrictionsAllow = function(self, WorkID)
-        local Restrictions = ScenarioInfo.Options.RestrictedCategories
-        if table.getn(Restrictions or {}) == 0 then
+	
+        local Restrictions = ScenarioInfo.Options.RestrictedCategories or false
+		
+        if not Restrictions or (Restrictions and table.getn(Restrictions) == 0) then
+		
             return true
+			
         elseif VersionIsFAF then
+		
             return not import('/lua/game.lua').IsRestricted(WorkID)
+			
         else
+		
             LOG("Checking we aren't being a cheatyface")
+			
             local restrictedData = import('/lua/ui/lobby/restrictedunitsdata.lua').restrictedUnits
+			
             for i, group in Restrictions do
                 for j, cat in restrictedData[group].categories do --
                     if WorkID == cat or tablefind(__blueprints[WorkID].Categories, cat) then
@@ -163,31 +172,43 @@ SSL0403 = Class(SConstructionUnit) {
                     end
                 end
             end
+			
         end
+		
         return true
     end,
-
+	
     CreatePod = function(self, WorkID)
+	
         --This first section is for compatibility with R&D.
         if tablefind(__blueprints[WorkID].Categories, 'SELECTABLE') and (tablefind(__blueprints[WorkID].Categories, 'TECH1') or tablefind(__blueprints[WorkID].Categories, 'TECH2') or tablefind(__blueprints[WorkID].Categories, 'TECH3') or tablefind(__blueprints[WorkID].Categories, 'EXPERIMENTAL')) and self:CheckBuildRestrictionsAllow(WorkID) then
             if true then --[TO DO!!!] MAKE SURE THIS ISN'T AGAINST BUILD RESTRICTIONS!!
                 RemoveBuildRestriction(self:GetArmy(), categories[WorkID] )
             end
         end
+		
         --And now regular stuff
         self:RemoveBuildRestriction(categories[WorkID])
+		
         if self:CanBuild(WorkID) then
+		
             for i, pod in self.Pods do
+			
                 if not pod.Active then
+				
                     local location = self:GetPosition(pod.PodAttachpoint)
+					
                     pod.Entity = CreateUnitHPR(pod.PodUnitID, self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
                     pod.StorageID = WorkID
                     pod.Active = true
                     pod.Entity:SetCustomName(LOC(__blueprints[WorkID].Description))
                     pod.Entity:SetParent(self, i)
                     pod.Entity:SetCreator(self)
+					
                     break
+					
                 end
+				
             end
         end
         self:RefreshBuildRestrictions()

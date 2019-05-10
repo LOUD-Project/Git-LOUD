@@ -1,29 +1,30 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 40,
     },
 	
     Air = {
-        AutoLandTime = 1.6,
-        BankFactor = 4,
+        AutoLandTime = 1.4,
+        BankFactor = 5.5,
         BankForward = false,
 		
-        BreakOffDistance = 30,
+        BreakOffDistance = 9,
 		
-        BreakOffTrigger = 40,
+        BreakOffTrigger = 15,
 		
         CanFly = true,
 		
-        CombatTurnSpeed = 2.8,
+		CombatTurnMult = 2,
+        CombatTurnSpeed = 10,
 		
-        EngageDistance = 38,
+        EngageDistance = 32,
 		
         KLift = 3.5,
         KLiftDamping = 3.5,
 		
         KMove = 1.65,
-        KMoveDamping = 1.2,
+        KMoveDamping = 1.3,
 		
         KRoll = 1.5,
         KRollDamping = 1,
@@ -36,11 +37,11 @@ UnitBlueprint {
         MaxAirspeed = 28,
         MinAirspeed = 12,
 		
-        StartTurnDistance = 7.5,
+        StartTurnDistance = 5,
 		
-        TightTurnMultiplier = 1.25,
+        TightTurnMultiplier = 1.15,
 		
-        TurnSpeed = 2.4,
+        TurnSpeed = 1.6,
 		
         Winged = true,
     },
@@ -186,7 +187,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 110000,
         BuildCostMass = 1400,
-        BuildTime = 1527,
+        BuildTime = 2915,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 75,
@@ -285,12 +286,13 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 20,
-        Level2 = 40,
-        Level3 = 60,
-        Level4 = 80,
-        Level5 = 100,
+        Level1 = 12,
+        Level2 = 24,
+        Level3 = 36,
+        Level4 = 48,
+        Level5 = 60,
     },
+	
     Weapon = {
         {
             Audio = {
@@ -327,7 +329,7 @@ UnitBlueprint {
             LeadTarget = false,
             NotExclusive = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -351,6 +353,10 @@ UnitBlueprint {
             RateOfFire = 2,		-- 2 x 120 = 240 dps
 			
             ReTargetOnMiss = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 36,
+
             TargetCheckInterval = 0.2,
 			
             TargetPriorities = {
@@ -359,9 +365,9 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 
             TurretBoneMuzzle = 'Tip_002',
             TurretBonePitch = 'Tip_002',
@@ -369,17 +375,16 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 25,
-            TurretPitchSpeed = 150,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 108,
 			
             TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 150,
+            TurretYawRange = 36,
+            TurretYawSpeed = 108,
 			
             Turreted = true,
 
-            UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
+            --UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             Audio = {
@@ -417,7 +422,7 @@ UnitBlueprint {
 			
             NotExclusive = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -434,12 +439,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,
 			
             ReTargetOnMiss = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 36,
+
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -448,8 +455,9 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.5,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Tip_003',
             TurretBonePitch = 'Tip_003',
@@ -457,17 +465,16 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 25,
-            TurretPitchSpeed = 150,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 108,
 			
             TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 150,
+            TurretYawRange = 36,
+            TurretYawSpeed = 108,
 			
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
         {
             Audio = {
@@ -486,7 +493,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 42,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -522,13 +529,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,
 			
             ReTargetOnMiss = true,
 			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 36,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -536,8 +544,8 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.5,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Tip_007',
             TurretBonePitch = 'Tip_007',
@@ -545,16 +553,15 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 25,
-            TurretPitchSpeed = 150,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 108,
 			
             TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 150,
+            TurretYawRange = 36,
+            TurretYawSpeed = 108,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
         {
             Audio = {
@@ -572,7 +579,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 42,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -609,11 +616,13 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,
             ReTargetOnMiss = true,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 36,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -621,9 +630,9 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Tip_008',
             TurretBonePitch = 'Tip_008',
@@ -631,17 +640,16 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 25,
-            TurretPitchSpeed = 150,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 108,
 			
             TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 150,
+            TurretYawRange = 36,
+            TurretYawSpeed = 108,
 			
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
         },
 
         {
