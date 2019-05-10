@@ -50,7 +50,7 @@ UnitBlueprint {
         'DEFENSE',
         'EXPERIMENTAL',
 		'DIRECTFIRE',
-        'SIZE8',
+        'SIZE16',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTDEFENSE',
@@ -59,15 +59,11 @@ UnitBlueprint {
 	-- unit script will create BSB0001 emitter for Lambda defense --
 	
     Defense = {
-		dontOKControl = true,
-		
         ArmorType = 'Structure',
-        EconomyThreatLevel = 250,
+        EconomyThreatLevel = 750,
         Health = 16500,
         MaxHealth = 16500,
-		
         RegenRate = 15,
-		
         SurfaceThreatLevel = 120,
     },
 	
@@ -185,15 +181,15 @@ UnitBlueprint {
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 3,
-    SelectionSizeZ = 3,
+    SelectionSizeX = 2.75,
+    SelectionSizeZ = 2.75,
     SelectionThickness = 0.35,
 	
-    SizeX = 3.25,
+    SizeX = 3,
     SizeY = 6.5,
-    SizeZ = 3.25,
+    SizeZ = 3,
 	
-    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 240,
 	
     Weapon = {

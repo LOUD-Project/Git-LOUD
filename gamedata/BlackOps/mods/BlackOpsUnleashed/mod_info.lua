@@ -1,10 +1,10 @@
 name = "BlackOps Unleashed Units for LOUD"
 uid = "9e8ea941-c306-4751-b367-a11000000502"
-version = 5.2
+version = 5.6
 copyright = "Lt_hawkeye"
-description = "BlackOps Unleased Unitpack for LOUD"
+description = "BlackOps Unleashed Unitpack for LOUD v5.6"
 author = "Lt_hawkeye"
-url = "http://forums.gaspowered.com/viewtopic.php?t=31172"
+url = ""
 icon = "/mods/BlackOpsUnleashed/icons/yoda_icon.bmp"
 selectable = true
 enabled = true
