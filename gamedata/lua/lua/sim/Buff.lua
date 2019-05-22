@@ -104,16 +104,18 @@ function ApplyBuff(unit, buffName, instigator)
     if def.Stacks == 'IGNORE' and ubt[def.BuffType] and table.getsize(ubt[def.BuffType]) > 0 then
         return
     end
+	
+	local newbuff = false
 
     local data = ubt[def.BuffType][buffName]
-    local instigator = instigator or unit
+
 
     if not data then
 
         -- This is a new buff (as opposed to an additional one being stacked)
-		-- The 0.01 insures we create a BUFFTABLE entry even for buffs that don't leave a lasting affect
-		-- thus allowing us to have FX that can be removed
-        data = { Count = 0.01, Trash = TrashBag() }
+		data = { Count = 0, Trash = TrashBag() }
+		
+		newbuff = true
 
     end
 
@@ -143,15 +145,6 @@ function ApplyBuff(unit, buffName, instigator)
 
 				end
 
-			end
-
-			-- create the unit BuffTable entry
-			if not ubt[def.BuffType] then
-				ubt[def.BuffType] = {}
-			end
-
-			if not ubt[def.BuffType][buffName] then
-				ubt[def.BuffType][buffName] = data
 			end
 
             -- Don't save off 'instant' type affects like health and energy or those that fail a buff check function
@@ -189,7 +182,9 @@ function ApplyBuff(unit, buffName, instigator)
 
     end
 
-    if Buffs[buffName].Effects then
+	-- visual effects are only applied the first time a buff is added
+	-- this avoids stacking up trash entries which can cause stack overflows
+    if newbuff and Buffs[buffName].Effects then
 
 		for k, fx in Buffs[buffName].Effects do
 
@@ -205,6 +200,8 @@ function ApplyBuff(unit, buffName, instigator)
 		end
 
     end
+	
+    local instigator = instigator or unit
 
 	-- for buffs with a duration --
     if def.Duration and def.Duration > 0 then
@@ -237,14 +234,31 @@ function ApplyBuff(unit, buffName, instigator)
 
         local thread = ForkThread( BuffWorkThread )
 
-        safecall("Unable to use Unit Trash on unit "..repr(unit), TrashBag().Add, unit.Trash, thread)
-        data.Trash:Add(thread)
+		if data.Count > 0 then
 
-	-- otherwise just apply the buff once
+			-- create the unit BuffTable entry
+			if not ubt[def.BuffType] then
+				ubt[def.BuffType] = {}
+			end
+
+			ubt[def.BuffType][buffName] = data
+
+			if def.OnApplyBuff then
+				def:OnApplyBuff(unit, instigator)
+			end
+			
+		end
+
+	-- otherwise apply the buff
 	-- just note that buffs that only fire once are left here
     else
 
-		if data.Count > 0 and ubt[def.BuffType] then
+		if data.Count > 0 then
+
+			-- create the unit BuffTable entry
+			if not ubt[def.BuffType] then
+				ubt[def.BuffType] = {}
+			end
 
 			ubt[def.BuffType][buffName] = data
 
@@ -254,11 +268,11 @@ function ApplyBuff(unit, buffName, instigator)
 
 			BuffAffectUnit(unit, buffName, instigator, false)
 
+			--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
+
 		end
 
 	end
-
-	--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
 
 end
 
@@ -305,7 +319,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			SetFuelRatio( unit, val )
 
-			RequestRefreshUI(unit)
+			--RequestRefreshUI(unit)
 
         elseif atype == 'MaxHealth' then
 
@@ -749,7 +763,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 	if unitBuff then
 
-		--LOG("*AI DEBUG Removing "..buffName)
+		--LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
 
 		for atype,_ in def.Affects do
 
@@ -811,13 +825,10 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 			unit.Sync.Buffs = table.copy(newTable)
 		end
 
+		BuffAffectUnit(unit, buffName, unit, true)
+
 	end
 
-	--LOG("*AI DEBUG Buff "..buffName.." removed")
-
-    BuffAffectUnit(unit, buffName, unit, true)
-
-	--LOG("*AI DEBUG after Removing "..buffName.." unit data is "..repr(unit.Buffs) )
 end
 
 function HasBuff(unit, buffName)
