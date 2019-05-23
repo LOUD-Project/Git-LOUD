@@ -1069,7 +1069,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize30',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.08,
+            Add = -0.075,
             Mult = 1.0,
         },
     },
@@ -1085,7 +1085,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize32',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.075,
+            Add = -0.07,
             Mult = 1.0,
         },
     },
@@ -1101,7 +1101,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize36',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.066,
+            Add = -0.06,
             Mult = 1.0,
         },
     },
@@ -1117,7 +1117,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize40',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.06,
+            Add = -0.04,
             Mult = 1.0,
         },
     },
@@ -1133,7 +1133,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize44',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.055,
+            Add = -0.035,
             Mult = 1.0,
         },
     },
@@ -1149,7 +1149,7 @@ BuffBlueprint { Name = 'T3PowerEnergyBuildBonusSize48',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Add = -0.05,
+            Add = -0.03,
             Mult = 1.0,
         },
     },
@@ -1215,7 +1215,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize30',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.8,
+            Add = -0.075,
             Mult = 1.0,
         },
     },
@@ -1231,7 +1231,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize32',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.075,
+            Add = -0.07,
             Mult = 1.0,
         },
     },
@@ -1247,7 +1247,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize36',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.066,
+            Add = -0.06,
             Mult = 1.0,
         },
     },
@@ -1263,7 +1263,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize40',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.06,
+            Add = -0.04,
             Mult = 1.0,
         },
     },
@@ -1279,7 +1279,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize44',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.055,
+            Add = -0.035,
             Mult = 1.0,
         },
     },
@@ -1295,7 +1295,7 @@ BuffBlueprint { Name = 'T3PowerEnergyMaintenanceBonusSize48',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Add = -0.05,
+            Add = -0.03,
             Mult = 1.0,
         },
     },
