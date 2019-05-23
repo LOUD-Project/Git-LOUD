@@ -76,13 +76,16 @@ function AIPickEnemyLogic( self, brainbool )
 
 					lastdraw = lastpoint
 					
-					for _,v in self.AttackPlan.StagePoints[i].Path do
+					if self.AttackPlan.StagePoints[i].Path then
 					
-						DLP( lastdraw,v, '0303ff' )
-						lastdraw = v
+						for _,v in self.AttackPlan.StagePoints[i].Path do
 					
+							DLP( lastdraw,v, '0303ff' )
+							lastdraw = v
+					
+						end
 					end
-
+					
 					lastpoint = self.AttackPlan.StagePoints[i].Position
 					
 				end

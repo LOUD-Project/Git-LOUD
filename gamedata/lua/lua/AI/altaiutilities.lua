@@ -2994,6 +2994,9 @@ end
 --			Distance	- # of ogrids to the position based upon location
 --			Type		- the class of threat (StructuresNotMex, Experimental, Commander, Air, Land, etc.)
 --			LastScouted - gametime when position was last scouted
+
+-- We are basically re-checking the work that was done to put this data into the HiPri list to get
+-- refreshed position and strength values - May 2019
 function GetHiPriTargetList(aiBrain, location)
 
 	local VDist2 = VDist2Sq
@@ -3002,20 +3005,25 @@ function GetHiPriTargetList(aiBrain, location)
 	local WaitTicks = coroutine.yield
 
     local threatlist = LOUDCOPY(aiBrain.IL.HiPri)
-
-	LOUDSORT( threatlist, function(a,b) return VDist2(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )	
 	
-	local intelresolution = ScenarioInfo.IntelResolution
-	intelresolution = math.min( 64, intelresolution )
+	local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+	
+	-- this defines the 'box' that we'll use around the threat position to find enemy units
+	-- it varies with the map size and is set in the PARSEINTEL thread
+	local IMAPRadius = ScenarioInfo.IMAPRadius
 	
 	local targetlist = {}
 	local counter = 0
-	local checkspertick = 2
+	local checkspertick = 3
 	local checks = 0
 	
 	local prev_position = {}
 	
 	local ALLBPS = __blueprints
+
+	LOUDSORT( threatlist, function(a,b) return VDist2(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )
+	
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." SORTED HIPRI List IMAP is "..repr(IMAPRadius).." from "..repr(location).." list is "..repr(threatlist))
 
     for _,threat in threatlist do
 	
@@ -3033,21 +3041,38 @@ function GetHiPriTargetList(aiBrain, location)
 		else
 			checks = checks + 1
 		end
-	
-		local targets = GetUnitsAroundPoint(aiBrain, categories.ALLUNITS - categories.WALL, threat.Position, intelresolution, 'Enemy')
+		
+		local targets = GetEnemyUnitsInRect( aiBrain, threat.Position[1]-IMAPRadius, threat.Position[3]-IMAPRadius, threat.Position[1]+IMAPRadius, threat.Position[3]+IMAPRadius)
 		
 		local allthreat = 0.0
 		local airthreat = 0.0
 		local ecothreat = 0.0
 		local subthreat = 0.0
 		local surthreat = 0.0
-
+		
+		local unitpos
+		local x1 = 0
+		local x2 = 0
+		local x3 = 0
+		local unitcount = 0
+		local newPos = 0
+		
 		if targets then
 		
 			for _, target in targets do
 			
 				if not target.Dead then
 				
+					unitcount = unitcount + 1
+				
+					unitPos = target:GetCachePosition()
+					
+					if unitPos then
+						x1 = x1 + unitPos[1]
+						x2 = x2 + unitPos[2]
+						x3 = x3 + unitPos[3]
+					end
+					
 					local bp = ALLBPS[target.BlueprintID].Defense
 					
 					airthreat = airthreat + bp.AirThreatLevel
@@ -3059,13 +3084,14 @@ function GetHiPriTargetList(aiBrain, location)
 				
 			end
 			
+			newPos = { x1/unitcount, x2/unitcount, x3/unitcount }
 			allthreat = ecothreat + subthreat + surthreat + airthreat
 			
 		end
 		
-		if threat.Position and allthreat > 0 then
+		if newPos and allthreat > 0 then
 		
-			targetlist[counter+1] = { Position = threat.Position, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], threat.Position[1],threat.Position[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
+			targetlist[counter+1] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], threat.Position[1],threat.Position[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
 			
 			counter = counter + 1
 			

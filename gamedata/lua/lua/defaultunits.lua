@@ -921,7 +921,9 @@ MobileUnit = Class(Unit) {
     end,
 
     StopCaptureEffects = function( self, target )
-		self.CaptureEffectsBag:Destroy()
+		if self.CaptureEffectsBag then
+			self.CaptureEffectsBag:Destroy()
+		end
     end,
 	
     -- Return the total time in seconds, cost in energy, and cost in mass to capture the given target.
@@ -1203,7 +1205,7 @@ MobileUnit = Class(Unit) {
 				if (not bpTable.Effects or (bpTable.Effects and (LOUDGETN(bpTable.Effects) == 0))) then
 
 					if not self.Footfalls and bpTable.Footfall then
-						LOG('*WARNING: No movement effect groups defined for unit ',repr(self:GetUnitId()),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', layer, '.Effects table in unit blueprint. ' )
+						LOG('*WARNING: No movement effect groups defined for unit ',repr(self:GetUnitId()),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
 					end
 					return false
 				end
@@ -3782,7 +3784,9 @@ ConstructionUnit = Class(MobileUnit) {
 					-- we do this to insure that the constructed unit gets acknowledged
 					-- since sometimes the original engineer dies and the unit is completed
 					-- by an engineer in assist mode that didn't issue the original build order
-					EM:UnitConstructionFinished( eng, finishedUnit )
+					if not finishedUnit.ConstructionCompleted then
+						EM:UnitConstructionFinished( eng, finishedUnit )
+					end
 
 					if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
 

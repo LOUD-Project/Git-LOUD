@@ -2144,9 +2144,12 @@ Platoon = Class(moho.platoon_methods) {
 	-- NOTE the use of intelresolution which is set by the ParseIntel thread.  This value changes according to
 	-- map size and should allow this routine to keep up with moving intel targets- at least those within the
 	-- same IMAP block
+	-- It's always a larger value than the IMAPRadius that was used to find targets originally and allows this
+	-- routine to return TRUE on moving HiPri targets
 	RecheckHiPriTarget = function( aiBrain, targetlocation, targetclass, pos)
 
 		local targetlist = GetHiPriTargetList( aiBrain, pos )
+		
 		local intelresolution = ScenarioInfo.IntelResolution * ScenarioInfo.IntelResolution
 	
 		-- sort this list by distance from targetlocation so I can break early
@@ -7079,10 +7082,12 @@ Platoon = Class(moho.platoon_methods) {
 			local targetLocation = false
 			local targetclass = false
 			local targettype = false
+			local targetvalue = 0
 
 			local target = false
 			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
+			
 			target, targetLocation = AIFindTargetInRange( self, aiBrain, 'Attack', 75, { 'LAND MOBILE','STRUCTURE -WALL', } )
 			
 			if target and not target.Dead then
@@ -7105,20 +7110,22 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- if no local target look for a hipri target
 			if (not target) and (not targetLocation) then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking HiPri target")
-                
+
 				targetLocation = false
 				target = false
 				
 				local landattackbase, landattackposition = GetPrimaryLandAttackBase(aiBrain)
-				
+			
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking HiPri target from "..repr(landattackbase))
+
 				-- get a hipri list with distances based upon PRIMARY LAND ATTACK base
 				local targetlist = GetHiPriTargetList( aiBrain, landattackposition )
 
-				local targetvalue = 0
+				targetvalue = 0
                 
 				LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
+				
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI targetlist is "..repr(targetlist))
                 
 				local itemsprocessed = 0
 				
@@ -7256,7 +7263,7 @@ Platoon = Class(moho.platoon_methods) {
 					end					
 					
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Target Position is "..repr(Target.Position))					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Eco: "..ethreat.."  Suf: "..sthreat.."  My: "..mythreat)
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Eco: "..ethreat.."  Sur: "..sthreat.."  My: "..mythreat)
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Milvalue: "..milvalue.."  Ecovalue: "..ecovalue.."  Result: "..value)
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD TravelDist: "..Target.Distance.."  Crow flies "..targetdistance.."  Distfactor: "..distancefactor)
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." Resulting value is "..value * distancefactor)
@@ -7273,7 +7280,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 					
-					WaitTicks(3)
+					WaitTicks(2)
 					
 				end
 				
@@ -7285,7 +7292,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- to about a minute
 			if not targetLocation then
 			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking DP")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking DP")
                 
                 if aiBrain.AttackPlan then
 				
@@ -7312,6 +7319,8 @@ Platoon = Class(moho.platoon_methods) {
 			local targetdistance = VDist3( pos, targetLocation )
             local cmd
             local path, reason
+			
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects "..targettype.." target at "..repr(targetLocation).." with value of "..repr(targetvalue))
 	
 			if targetLocation then 
 			
@@ -7444,6 +7453,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if not targetstillvalid then
 					
+						LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
+					
 						break
 						
 					end
@@ -7538,6 +7549,8 @@ Platoon = Class(moho.platoon_methods) {
 		local usedTransports
 		
 		local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
+		
+		self.PlanName = 'AmphibForceAILOUD'
 
         while PlatoonExists(aiBrain,self) do
 
@@ -8030,6 +8043,7 @@ Platoon = Class(moho.platoon_methods) {
         local radiusSq = radius*radius	-- maximum range to check allied platoons --
 
 		-- we cant be within 1/3 that range to our own base --
+--[[
         for _, base in aiBrain.BuilderManagers do
 		
             if VDist2Sq( platPos[1],platPos[3], base.Position[1],base.Position[3] ) <= ( radiusSq / 3 ) then
@@ -8039,7 +8053,7 @@ Platoon = Class(moho.platoon_methods) {
             end 
 			
         end
-
+--]]
 		-- get a list of all the platoons for this brain
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
@@ -8113,7 +8127,7 @@ Platoon = Class(moho.platoon_methods) {
 					if not IsUnitState(u,'Attached' )then
 				
 						-- if we have space in our platoon --
-						if (counter + platooncount) < mergelimit then
+						if (counter + platooncount) <= mergelimit then
 						
 							validUnits[counter+1] = u
 							counter = counter + 1
@@ -8134,7 +8148,7 @@ Platoon = Class(moho.platoon_methods) {
             end
 
 			-- otherwise we do the merge
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_WITH "..repr(self.BuilderName).." takes "..counter.." units from "..aPlat.BuilderName)
+			LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_WITH "..repr(self.BuilderName).." takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
 			
 			-- unmark the allied platoon
 			aPlat.UsingTransport = false
@@ -8236,7 +8250,7 @@ Platoon = Class(moho.platoon_methods) {
             if counter > 0 then
 			
 				-- complete the merge by assigning the units
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..repr(self.BuilderName).." into "..repr(aPlat.BuilderName))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..repr(self.BuilderName).." into "..repr(aPlat.BuilderName))
 
 				AssignUnitsToPlatoon( aiBrain, aPlat, validUnits, 'Attack', 'GrowthFormation' )
 

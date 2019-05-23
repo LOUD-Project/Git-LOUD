@@ -163,9 +163,13 @@ function CDROverCharge( aiBrain, cdr )
 	if cdr:GetHealthPercent() > .69 and shieldPercent > .49 and not aiBrain.CDRDistress then
 
 		local EM = aiBrain.BuilderManagers.MAIN.EngineerManager
+		
+		if EM.BaseMonitor.ActiveAlerts > 0 then
 	
-		-- checks for a Land distress alert at this base
-		distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
+			-- checks for a Land distress alert at this base
+			distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
+			
+		end
 	
 		-- if there is a LAND distress call 
 		if (distressLoc and distressType == 'Land')  then
@@ -396,10 +400,13 @@ function CDROverCharge( aiBrain, cdr )
 					counter = counter + 1
 					
 				end
-				
-				-- recheck the distress location -- 
-				distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
-				
+
+		
+				if EM.BaseMonitor.ActiveAlerts > 0 then
+					-- rechecks for a Land distress alert at this base
+					distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
+				end
+
 				-- did Bob die ?
 				if cdr.Dead then
 					aiBrain.CDRDistress = false
@@ -1276,10 +1283,8 @@ function LandScoutingAI( self, aiBrain )
 					
                 end
 
-				targetArea = LOUDCOPY(v.Position)
-
-				terrain = GetTerrainHeight(targetArea[1], targetArea[3])
-				surface = GetSurfaceHeight(targetArea[1], targetArea[3])
+				terrain = GetTerrainHeight(v.Position[1], v.Position[3])
+				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
 				
 				-- validate positions for being on the water
 				if terrain < surface - 2 and self.MovementLayer != 'Amphibious' then 
@@ -1287,7 +1292,9 @@ function LandScoutingAI( self, aiBrain )
 					targetArea = false
 					
 				else
-				
+
+					targetArea = LOUDCOPY(v.Position)
+					
 					aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
 					aiBrain.IL.LastScoutHi = true
 					
@@ -1324,10 +1331,8 @@ function LandScoutingAI( self, aiBrain )
 					
                 end
 
-				targetArea = LOUDCOPY(v.Position)
-
-				terrain = GetTerrainHeight(targetArea[1], targetArea[3])
-				surface = GetSurfaceHeight(targetArea[1], targetArea[3])
+				terrain = GetTerrainHeight(v.Position[1], v.Position[3])
+				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
 
 				-- validate positions for being on water
 				if terrain < surface - 1 and self.MovementLayer != 'Amphibious' then
@@ -1335,7 +1340,9 @@ function LandScoutingAI( self, aiBrain )
 					targetArea = false
 					
 				else
-				
+
+					targetArea = LOUDCOPY(v.Position)
+
 					aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
 					
 					ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.LowPri )					
@@ -1354,13 +1361,13 @@ function LandScoutingAI( self, aiBrain )
             
 			usedTransports = false
 
-			distance = VDist3( GetPlatoonPosition(self), targetArea )
-
-			-- with Land Scouting we use an artificial high self-threat so they'll continue scouting later into the game
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 60, 160 )
+			-- with Land Scouting we use an artificial high self-threat (75) so they'll continue scouting later into the game
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 75, 160 )
 
 			if not path and PlatoonExists(aiBrain,self) then
-				
+
+				distance = VDist3( GetPlatoonPosition(self), targetArea )
+
 				-- try 6 transport calls -- 
 				usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetArea, 6, false )
 				
@@ -1379,7 +1386,9 @@ function LandScoutingAI( self, aiBrain )
 			end
 			
 			if path and targetArea and PlatoonExists(aiBrain,self) then
-				
+
+				distance = VDist3( GetPlatoonPosition(self), targetArea )
+
 				-- if the distance is great try to get transports
 				if distance > 1024 then
 				
@@ -2160,7 +2169,7 @@ function AirForceAILOUD( self, aiBrain )
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 	
 	-- force the plan name
-	self.PlanName = 'AttackForceAI'
+	self.PlanName = 'AirForceAILOUD'
 
 	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
@@ -2194,7 +2203,7 @@ function AirForceAILOUD( self, aiBrain )
     local mythreat = 0
     local threatcompare = 'AntiAir'
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.25 }		-- this multiplies the threat of the platoon so that easier targets are selected first
+	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
     local rangemult, threatmult, strikerange
@@ -2230,7 +2239,7 @@ function AirForceAILOUD( self, aiBrain )
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
                 threatcompare = 'AntiAir'
-				strikerange = 200
+				strikerange = 125
 				
             end
 
@@ -4984,7 +4993,8 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 				RateNeededM = BuildCostM / EffTime
 
 				-- if we can meet 95% of the Energy and Mass needs of the enhancement
-				if ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
+				-- also - note - we must actually have that data structure - civilians DO NOT have this 
+				if (aiBrain.EcoData['OverTime']['EnergyTrend']) and ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements

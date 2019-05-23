@@ -592,9 +592,16 @@ EngineerManager = Class(BuilderManager) {
 	-- When an engineer finishes construction of something it will pass thru here making it a natural place to assign unit-specific routines
     UnitConstructionFinished = function( self, unit, finishedUnit )
 	
-		if finishedUnit:GetFractionComplete() < 1 or BeenDestroyed(finishedUnit) then
+		if finishedUnit:GetFractionComplete() < 1 or BeenDestroyed(finishedUnit) or finishedUnit.ConstructionComplete then
+		
+			--if finishedUnit.ConstructionComplete then
+				--LOG("*AI DEBUG Construction Already completed on "..finishedUnit:GetBlueprint().Description)
+			--end
+			
 			return
 		end
+		
+		finishedUnit.ConstructionComplete = true
 	
 		local LOUDENTITY = EntityCategoryContains
 		local ForkThread = ForkThread
@@ -624,7 +631,7 @@ EngineerManager = Class(BuilderManager) {
 
 			AssignUnitsToPlatoon( aiBrain, StructurePool, {finishedUnit}, 'Support', 'none' )
 
-			-- confirm that unit is upgradeable
+			-- confirm that finishedUnit is upgradeable
 			local upgradeID = __blueprints[finishedUnit.BlueprintID].General.UpgradesTo or false
 
 			if upgradeID and __blueprints[upgradeID] then

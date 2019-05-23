@@ -25,6 +25,14 @@ BrewLANLOUDPath = function()
     end 
 end
 
+BrewLANPath = function()
+    for i, mod in __active_mods do
+        if mod.uid == "25D57D85-7D84-27HT-A501-BR3WL4N000079" then
+            return mod.location
+        end
+    end 
+end
+
 -- Return the total time (in seconds), energy, and mass it will take for the given
 -- builder to create a unit of type target_bp.
 --
