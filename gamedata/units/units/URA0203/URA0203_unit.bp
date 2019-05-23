@@ -81,8 +81,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1750,
-        MaxHealth = 1750,
+        Health = 1500,
+        MaxHealth = 1500,
         RegenRate = 6,
         SurfaceThreatLevel = 6.4,
     },
@@ -112,7 +112,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 14000,
-        BuildCostMass = 325,
+        BuildCostMass = 355,
         BuildTime = 1000,
     },
 	
@@ -148,7 +148,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -164,8 +164,10 @@ UnitBlueprint {
             LAYER_Air = true,
         },
         Elevation = 11,
-        FuelRechargeRate = 10,
+		
+        FuelRechargeRate = 6,
         FuelUseTime = 240,
+		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
@@ -211,7 +213,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -229,7 +231,7 @@ UnitBlueprint {
             Label = 'Missile01',
 			
             LeadTarget = true,
-            MaxRadius = 28,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -257,7 +259,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 100 DPS
+            RateOfFire = 1,		-- 80 DPS
 			
             TargetCheckInterval = 0.5,
 			

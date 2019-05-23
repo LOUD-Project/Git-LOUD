@@ -81,8 +81,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1750,
-        MaxHealth = 1750,
+        Health = 1500,
+        MaxHealth = 1500,
         RegenRate = 5,
         SurfaceThreatLevel = 7,
     },
@@ -106,14 +106,14 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0009',
+
         SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
     Economy = {
         BuildCostEnergy = 14000,
-        BuildCostMass = 325,
+        BuildCostMass = 355,
         BuildTime = 1000,
     },
 	
@@ -149,7 +149,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -167,7 +167,7 @@ UnitBlueprint {
 		
         Elevation = 11,
 		
-        FuelRechargeRate = 10,
+        FuelRechargeRate = 7,
         FuelUseTime = 240,
 		
         GroundCollisionOffset = 1.6,
@@ -226,7 +226,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 25,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -241,7 +241,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 28,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -269,7 +269,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		#-- 2 projectiles of 25 = 50 DPS
+            RateOfFire = 1,		#-- 2 projectiles of 20 = 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -306,7 +306,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 25,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -321,7 +321,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 28,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -349,7 +349,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		#-- another 50 DPS
+            RateOfFire = 1,		#-- another 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

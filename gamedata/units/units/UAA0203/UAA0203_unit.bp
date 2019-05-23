@@ -82,8 +82,8 @@ UnitBlueprint {
     Defense = {
 	
         ArmorType = 'Light',
-        Health = 1750,
-        MaxHealth = 1750,
+        Health = 1500,
+        MaxHealth = 1500,
         RegenRate = 4,
         SurfaceThreatLevel = 6,
 
@@ -123,14 +123,14 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0009',
+
         SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
 	
     Economy = {
         BuildCostEnergy = 14000,
-        BuildCostMass = 310,
+        BuildCostMass = 340,
         BuildTime = 1000,
     },
 	
@@ -166,7 +166,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -184,7 +184,7 @@ UnitBlueprint {
 		
         Elevation = 11,
 		
-        FuelRechargeRate = 10,
+        FuelRechargeRate = 6,
         FuelUseTime = 240,
 		
         GroundCollisionOffset = 1.6,
@@ -243,7 +243,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 25,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Light Laser',
@@ -258,7 +258,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 29,
+            MaxRadius = 22,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,

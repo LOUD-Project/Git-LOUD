@@ -84,8 +84,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1600,
-        MaxHealth = 1600,
+        Health = 1400,
+        MaxHealth = 1400,
         RegenRate = 4,
         SurfaceThreatLevel = 6.4,
     },
@@ -162,7 +162,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 14500,
-        BuildCostMass = 325,
+        BuildCostMass = 355,
         BuildTime = 1000,
     },
 	
@@ -199,7 +199,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -215,8 +215,10 @@ UnitBlueprint {
             LAYER_Air = true,
         },
         Elevation = 8.5,
-        FuelRechargeRate = 11,
+		
+        FuelRechargeRate = 8,
         FuelUseTime = 280,	-- 15% more than standard 
+		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MeshExtentsX = 1.25,
@@ -268,7 +270,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 16,
+            Damage = 13,
             DamageType = 'Normal',
 			
             DisplayName = 'Riot Gun',
@@ -283,7 +285,7 @@ UnitBlueprint {
 			
             Label = 'Turret01',
 			
-            MaxRadius = 28,
+            MaxRadius = 22,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
@@ -310,7 +312,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		-- 16 * 3 * 2 = 96 DPS
+            RateOfFire = 2,		-- 13 * 3 * 2 = 78 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

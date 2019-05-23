@@ -1,8 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 135,
-        GuardScanRadius = 125,
-		GuardRadius = 125,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 40,
     },
 	
     Air = {
