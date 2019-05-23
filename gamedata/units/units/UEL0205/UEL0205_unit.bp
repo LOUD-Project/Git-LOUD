@@ -21,7 +21,9 @@ UnitBlueprint {
         },
     },
     Buffs = {},
+	
     BuildIconSortPriority = 90,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -34,14 +36,17 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Normal',
-        Health = 1000,
-        MaxHealth = 1000,
-        RegenRate = 0,
+        Health = 1100,
+        MaxHealth = 1100,
+        RegenRate = 1,
     },
+	
     Description = '<LOC uel0205_desc>Mobile Flak Tank',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -59,15 +64,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0004',
+
         SpawnRandomRotation = false,
         UniformScale = 0.2,
     },
+	
     Economy = {
         BuildCostEnergy = 800,
-        BuildCostMass = 160,
-        BuildTime = 800,
+        BuildCostMass = 200,
+        BuildTime = 115,
     },
+	
     General = {
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -91,15 +98,19 @@ UnitBlueprint {
         UnitName = '<LOC uel0205_name>Sky Boxer',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Mobile AA Flak',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.8,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -126,17 +137,22 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.66,
+	
     SizeX = 0.6,
     SizeY = 0.4,
     SizeZ = 0.85,
+	
     StrategicIconName = 'icon_land2_antiair',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -144,6 +160,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -157,25 +174,33 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
+			
             Damage = 36,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
+			
             DetonatesAtTargetHeight = true,
+			
             DisplayName = 'Fragmentation Flak',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
             },
-            FiringRandomness = 1.5,
+            FiringRandomness = 0.6,
             FiringTolerance = 2,
+			
             Label = 'AAGun',
 			LeadTarget = true,
+			
             MaxRadius = 40,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 32,
+            MuzzleVelocity = 34,
+			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetimeUsesMultiplier = 1.4,
 
             RackBones = {
                 {
@@ -198,31 +223,40 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
+			
             RateOfFire = 2,		#-- 144 DPS Air
+			
             TargetCheckInterval = 0.5,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+			
             TurretBoneMuzzle = 'Turret_Muzzle_Left',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 35,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 120,
+			
             Turreted = true,
         },
     },
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

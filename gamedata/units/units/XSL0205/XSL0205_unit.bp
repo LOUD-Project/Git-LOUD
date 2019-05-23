@@ -43,7 +43,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = 0,
+	
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Normal',
@@ -51,7 +53,9 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 0,
     },
+	
     Description = '<LOC xsl0205_desc>AA Hovertank',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -73,11 +77,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.038,
     },
+	
     Economy = {
         BuildCostEnergy = 800,
-        BuildCostMass = 160,
-        BuildTime = 800,
+        BuildCostMass = 200,
+        BuildTime = 115,
     },
+	
     General = {
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -101,15 +107,19 @@ UnitBlueprint {
         UnitName = '<LOC xsl0205_name>Iashavoh',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'AA Hovertank',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.58,
     LifeBarSize = 0.8,
+	
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0.5,
@@ -123,9 +133,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.6,
-        MaxBrake = 3.6,
-        MaxSpeed = 3.6,
+        MaxAcceleration = 3.3,
+        MaxBrake = 3.3,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
         MaxSteerForce = 1000,
         MeshExtentsX = 1.1,
@@ -143,14 +153,18 @@ UnitBlueprint {
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
+	
     SizeX = 0.9,
     SizeY = 0.7,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land2_antiair',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -158,6 +172,7 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
+	
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -185,7 +200,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.3,
 			FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
 			
@@ -196,7 +211,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery02/SAAOlarisAAArtillery02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.1,
@@ -226,24 +241,28 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'ALLUNITS',
+
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+			
             TurretPitch = 35,
             TurretPitchRange = 60,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 120,
+			
             Turreted = true,
         },
     },

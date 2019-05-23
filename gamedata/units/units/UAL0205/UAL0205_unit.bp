@@ -28,6 +28,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 25,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,7 +43,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = 0.2,
+	
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Normal',
@@ -50,8 +53,9 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 1,
     },
-	
+
     Description = '<LOC ual0205_desc>AA Flak Hovertank',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -71,11 +75,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.125,
     },
+	
     Economy = {
         BuildCostEnergy = 800,
-        BuildCostMass = 160,
-        BuildTime = 800,
+        BuildCostMass = 180,
+        BuildTime = 115,
     },
+	
     General = {
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -99,15 +105,19 @@ UnitBlueprint {
         UnitName = '<LOC ual0205_name>Ascendant',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Mobile Flak Hovertank',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.8,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -120,9 +130,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.6,
-        MaxBrake = 3.6,
-        MaxSpeed = 3.6,
+        MaxAcceleration = 3.3,
+        MaxBrake = 3.3,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 1.1,
@@ -139,19 +149,24 @@ UnitBlueprint {
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.05,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.56,
+	
     SizeX = 0.9,
     SizeY = 0.3,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land2_antiair',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -159,6 +174,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -172,25 +188,35 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
+			
             Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
+			
             DetonatesAtTargetHeight = true,
+			
             DisplayName = 'Fizz Launcher',
+			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringRandomness = 1,
+            FiringRandomness = 0.6,
             FiringTolerance = 2,
+			
             Label = 'AAGun',
+			LeadTarget = true,
+			
             MaxRadius = 40,
+			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 28,
+            MuzzleVelocity = 34,
+			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetimeUsesMultiplier = 1.4,
+			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -207,31 +233,38 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+			
             RangeCategory = 'UWRC_AntiAir',
+			
             RateOfFire = 2,
+			
             SlavedToBody = true,
+			
             TargetCheckInterval = 0.3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.2,
+			
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_R',
             TurretBoneYaw = 'Barrel_R',
             TurretDualManipulators = false,
+			
             TurretPitch = 35,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+			
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 120,
+			
             Turreted = true,
         },
     },
