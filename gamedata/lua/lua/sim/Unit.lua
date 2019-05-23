@@ -2592,8 +2592,9 @@ Unit = Class(moho.unit_methods) {
     OnBeingBuiltProgress = function(self, unit, oldProg, newProg)
     end,
 
+	-- is this issued by the unit being built ? or the builder of the unit ?
     OnStartBeingBuilt = function(self, builder, layer)
-
+		
 		self:CheckUnitRestrictions()
 	
         self:StartBeingBuiltEffects(builder, layer)
@@ -2602,6 +2603,8 @@ Unit = Class(moho.unit_methods) {
 		
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDGETN = table.getn
+		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." OnStartBeingBuilt event for "..repr(self:GetBlueprint().Description).." built by "..repr(builder:GetBlueprint().Description) )
 		
         if aiBrain.UnitBuiltTriggerList and LOUDGETN(aiBrain.UnitBuiltTriggerList) > 0 then
 		
@@ -2755,11 +2758,21 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 
+	-- just a note - this function always reports the builder that originally began construction
+	-- of the unit - even if that unit is not involved at the completion of the build
+	-- if the original builder is dead - then no builder is reported
     OnStopBeingBuilt = function(self, builder, layer)
-	
+
+		local aiBrain = self:GetAIBrain()
 		
 		local bp = GetBlueprint(self)
-
+--[[		
+		if builder then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." OnStopBeingBuilt event for "..repr(bp.Description).." built by "..repr(builder:GetBlueprint().Description) )
+		else
+			LOG("*AI DEBUG "..aiBrain.Nickname.." OnStopBeingBuilt event for "..repr(bp.Description).." built by NIL ")
+		end
+--]]		
 		self:SetupIntel(bp)
 	
 		-- This is here to catch those units EXCEPT Factories and SubCommanders that might have enhancements
@@ -2767,8 +2780,6 @@ Unit = Class(moho.unit_methods) {
 		if bp.Enhancements then
 			
 			if bp.Enhancements.Sequence then
-			
-				local aiBrain = self:GetAIBrain()
 			
 				if aiBrain.BrainType != 'Human' and not ( EntityCategoryContains( categories.FACTORY, self ) or EntityCategoryContains( categories.SUBCOMMANDER, self )) then
 					

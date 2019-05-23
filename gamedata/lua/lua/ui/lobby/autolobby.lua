@@ -295,7 +295,9 @@ function HostGame(gameName, scenarioFileName, singlePlayer)
     CreateUI()
 
     requiredPlayers = 2
+	
     local args = GetCommandLineArg("/players", 1)
+	
     if args then
         requiredPlayers = tonumber(args[1])
         #LOG("requiredPlayers was set to: "..requiredPlayers)
