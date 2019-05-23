@@ -4586,7 +4586,7 @@ Platoon = Class(moho.platoon_methods) {
 									-- is threat high enough for me to notice ?
 									if alert.Threat >= threatthreshold then
 							
-										local rangetoalert = VDist2( platoonposition[1],platoonposition[3], alert.Position[1], alert.Position[2])
+										local rangetoalert = VDist2( platoonposition[1],platoonposition[3], alert.Position[1], alert.Position[3])
 								
 										if rangetoalert <= (distressrange * 2) then
                                 
@@ -4620,7 +4620,7 @@ Platoon = Class(moho.platoon_methods) {
 									-- is calling platoon still alive and it's not ourselves
 									if PlatoonExists(brain, v.Platoon) and v.Platoon != platoon then
 							
-										local rangetoalert = VDist3(platoonposition,v.Position)
+										local rangetoalert = VDist2(platoonposition[1],platoonposition[3],v.Position[1],v.Position[3])
 									
 										-- is it within my distress response range 
 										if rangetoalert < distressrange then
@@ -4674,7 +4674,7 @@ Platoon = Class(moho.platoon_methods) {
                 if distressLocation then
 			
 					if ScenarioInfo.DistressResponseDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." DISTRESS RESPONSE acknowledged by "..repr(self.BuilderName) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
 					end
 
 					unit = false
