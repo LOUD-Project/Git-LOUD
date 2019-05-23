@@ -83,7 +83,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0009',
         SpawnRandomRotation = true,
         UniformScale = 0.65,
     },
