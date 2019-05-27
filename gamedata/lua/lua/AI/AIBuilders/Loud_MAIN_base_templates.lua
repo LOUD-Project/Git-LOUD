@@ -2360,6 +2360,13 @@ ResourceFacility = {
 			{ 0, 0 },  # Resource Gen
         },
 		{
+			{'T4GroundDefense'},
+			{ -11, -11 },
+			{  11,  11 },
+			{ -11,  11 },
+			{  11, -11 },
+		},
+		{
 			{'EnergyStorage','T3Storage'},
 			{ 6, 0 },	-- around the paragon itself
 			{ 6, 2 },
@@ -2443,6 +2450,13 @@ ResourceFacility = {
             },
 			{ 0, 0 },  # Resource Gen
         },
+		{
+			{'T4GroundDefense'},
+			{ -11, -11 },
+			{  11,  11 },
+			{ -11,  11 },
+			{  11, -11 },
+		},		
 		{
 			{
 			'EnergyStorage',
@@ -2533,6 +2547,13 @@ ResourceFacility = {
 			{ 0, 0 },  # Resource Gen
         },
 		{
+			{'T4GroundDefense'},
+			{ -11, -11 },
+			{  11,  11 },
+			{ -11,  11 },
+			{  11, -11 },
+		},
+		{
 			{
 			'EnergyStorage',
 			'T3Storage',
@@ -2621,6 +2642,13 @@ ResourceFacility = {
             },
 			{ 0, 0 },  # Rift Gate
         },
+		{
+			{'T4GroundDefense'},
+			{ -12, -12 },
+			{  12,  12 },
+			{ -12,  12 },
+			{  12, -12 },
+		},		
 		{
 			{
 			'EnergyStorage',

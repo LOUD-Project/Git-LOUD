@@ -1528,6 +1528,9 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Builders',
 					'T3AADefense',
 					'T3AADefense',
 					
+					'T4GroundDefense',
+					'T4GroundDefense',
+
 					'T3ShieldDefense',
 					'T3ShieldDefense',
                 },
@@ -1584,17 +1587,24 @@ BuilderGroup {BuilderGroupName = 'Economic Experimental Defense Builders',
 					'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
+					
 					'T2ShieldDefense',
 					'T2ShieldDefense',
-					'T4AADefense',
+					
 					'T4AADefense',
 					'T3AADefense',
-					'T3AADefense',
+					
 					'T2ShieldDefense',
 					'T2ShieldDefense',
 					
 					'T4EconExperimental',	-- this is here so that engies will assist the experimental build if it's not done already
 					
+					'T4GroundDefense',
+					'T4GroundDefense',
+					
+					'T4AADefense',
+					'T3AADefense',
+
 					'T3Storage',
 					'T3Storage',
 					'T3Storage',
