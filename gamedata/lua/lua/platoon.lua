@@ -2665,7 +2665,7 @@ Platoon = Class(moho.platoon_methods) {
 							-- if platoon is exhausted --
 							if self:CalculatePlatoonThreat('Land', categories.ALLUNITS) <= (OriginalThreat * .40) then
 						
-								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 80, false)
+								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false)
 								
 								-- RTB any leftovers
 								return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -2844,9 +2844,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- check if platoon exhausted -- merge if possible or RTB --
 				if self:CalculatePlatoonThreat('Land', categories.ALLUNITS) <= (OriginalThreat * .40) then
 				
-					self:MergeIntoNearbyPlatoons( aiBrain, 'GuardPoint', 60, false)
-					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." completing MergeInto - MoveThread is "..repr(self.MoveThread) )
+					self:MergeIntoNearbyPlatoons( aiBrain, 'GuardPoint', 100, false)
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					
@@ -3328,7 +3326,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					if myThreat < (OriginalThreat * .4) or numberOfUnitsInPlatoon < (oldNumberOfUnitsInPlatoon * .4) then
 					
-						self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAir', 50, false)
+						self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAir', 100, false)
 						
 						return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 						
@@ -3917,7 +3915,7 @@ Platoon = Class(moho.platoon_methods) {
 							-- if platoon is exhausted --
 							if self:CalculatePlatoonThreat('Land', categories.ALLUNITS) <= (OriginalThreat * .40) then
 						
-								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 80, false)
+								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false)
 								
 								-- RTB any leftovers
 								return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -4094,7 +4092,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- Check SelfThreat for Retreat
 				if self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) <= (OriginalThreat * .40) then
 				
-					self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAmphibious', 50, false)
+					self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAmphibious', 100, false)
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					
@@ -5856,7 +5854,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
 	
 						aiBrain.BaseExpansionUnderway = true
 	
@@ -8148,7 +8146,9 @@ Platoon = Class(moho.platoon_methods) {
             end
 
 			-- otherwise we do the merge
-			LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_WITH "..repr(self.BuilderName).." takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
+			if ScenarioInfo.PlatoonMergeDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_WITH "..repr(self.BuilderName).." takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
+			end
 			
 			-- unmark the allied platoon
 			aPlat.UsingTransport = false
@@ -8249,8 +8249,9 @@ Platoon = Class(moho.platoon_methods) {
 
             if counter > 0 then
 			
-				-- complete the merge by assigning the units
-				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_INTO "..repr(self.BuilderName).." into "..repr(aPlat.BuilderName))
+				if ScenarioInfo.PlatoonMergeDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..counter.." units MERGE_INTO "..repr(aPlat.BuilderName))
+				end			
 
 				AssignUnitsToPlatoon( aiBrain, aPlat, validUnits, 'Attack', 'GrowthFormation' )
 
