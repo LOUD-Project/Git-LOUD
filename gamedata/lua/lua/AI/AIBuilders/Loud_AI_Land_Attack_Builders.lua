@@ -538,7 +538,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
 			
@@ -606,7 +606,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -958,7 +958,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1034,7 +1034,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1189,7 +1189,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1263,7 +1263,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1339,7 +1339,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1413,7 +1413,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -1489,7 +1489,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1564,7 +1564,7 @@ BuilderGroup {BuilderGroupName = 'Point Guard Land Formations',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			

@@ -2623,7 +2623,7 @@ function NavalForceAILOUD( self, aiBrain )
 	local updatedtargetposition
 	
 	-- force the plan name
-	self.PlanName = 'AttackForceAI'
+	self.PlanName = 'NavalForceAILOUD'
 	
 	LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." begins")
 
@@ -3121,7 +3121,7 @@ function NavalForceAILOUD( self, aiBrain )
 			end
 			
 			-- otherwise try and grab other smaller platoons --
-            if self.MergeWithNearbyPlatoons( self, aiBrain, 'AttackForceAI', 100, false, MergeLimit) then
+            if self.MergeWithNearbyPlatoons( self, aiBrain, 'NavalForceAILOUD', 100, false, MergeLimit) then
 
                 platoonUnits = GetPlatoonUnits(self)
 				
@@ -3253,7 +3253,7 @@ function NavalBombardAILOUD( self, aiBrain )
 	local updatedtargetposition
 	
 	-- force the plan name 
-	self.PlanName = 'BombardmentForceAI'	
+	self.PlanName = 'NavalBombardAILOUD'	
 	
 	LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." begins")	
 
@@ -3645,7 +3645,7 @@ function NavalBombardAILOUD( self, aiBrain )
 			end
 			
 			-- otherwise try and grab other smaller platoons --
-            if self.MergeWithNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false, MergeLimit) then
+            if self.MergeWithNearbyPlatoons( self, aiBrain, 'NavalBombardAILOUD', 100, false, MergeLimit) then
 
                 platoonUnits = GetPlatoonUnits(self)
 				
