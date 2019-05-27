@@ -837,7 +837,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			
         },
@@ -876,7 +876,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderConditions = {
 		
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			
         },
