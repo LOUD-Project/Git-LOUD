@@ -5,45 +5,63 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
+	
 
-	ScenarioInfo.DisplayAttackPlans = true
+	-- ATTACK PLANS and Strength Ratios
+	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
 
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
+	
+	-- SHOW AI Bases as Markers on map
 	ScenarioInfo.DisplayBaseNames = false
 	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
+
 	
+	-- Show what FACTORIES and PLATOONS are running and who is in what platoon
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
+	ScenarioInfo.PlatoonDialog = false
+	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
+
+	ScenarioInfo.PlatoonMergeDialog = false
+	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
+	
+	ScenarioInfo.DisplayPlatoonPlans = false
+	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
+	
+	ScenarioInfo.DisplayPlatoonMembership = false
+	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
+
+	
+	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
+	ScenarioInfo.PriorityDialog = false
+	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
+
+	
+	-- INTEL, BASEMONITORS and DISTRESS RESPONSE dialogs
 	ScenarioInfo.DisplayIntelPoints = false
 	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 	
 	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
-	ScenarioInfo.PlatoonDialog = false
-	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
-	
-	ScenarioInfo.DisplayPlatoonPlans = true
-	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
-	
-	ScenarioInfo.DisplayPlatoonMembership = false
-	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
-	
-	ScenarioInfo.PriorityDialog = false
-	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
-	
 	ScenarioInfo.BaseMonitorDialog = false
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
 	ScenarioInfo.DisplayBaseMonitors = false
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
 	
+	ScenarioInfo.DistressResponseDialog = false
+	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
+
+	
+	-- UNIT Upgrades and Enhancement dialogs
 	ScenarioInfo.ACUEnhanceDialog = false
 	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
 	
@@ -56,6 +74,8 @@
 	ScenarioInfo.StructureUpgradeDialog = false
 	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
 
+	
+	-- Projectile, Shield and Weapon dialogs (VERY COSTLY)
 	ScenarioInfo.ProjectileDialog = false
 	LOG("*AI DEBUG		Report  Projectile Dialog to Log is "..repr(ScenarioInfo.ProjectileDialog))
 	
@@ -1582,6 +1602,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		end
 		
     end,
+	
     OnStatsTrigger = function(self, triggerName)
 		LOG("*AI DEBUG "..self.Nickname.." OnStatsTrigger "..repr(triggerName))
 		local LOUDREMOVE = table.remove
