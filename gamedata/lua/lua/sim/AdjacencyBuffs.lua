@@ -1404,14 +1404,16 @@ BuffBlueprint { Name = 'T3MEXMassBuildBonus',
 
 -- TIER 1 MASS FABRICATOR BUFF TABLE
 T1MassFabricatorAdjacencyBuffs = {
-    'T1FabricatorMassBuildBonus',
+    'T1FabricatorMassBuildBonusStandard',
+	'T1FabricatorMassBuildBonusOversize1',
+	'T1FabricatorMassBuildBonusOversize2',
 }
 
-BuffBlueprint { Name = 'T1FabricatorMassBuildBonus',
+BuffBlueprint { Name = 'T1FabricatorMassBuildBonusStandard',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16 + categories.SIZE20),
     BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
@@ -1423,17 +1425,52 @@ BuffBlueprint { Name = 'T1FabricatorMassBuildBonus',
     },
 }
 
--- TIER 3 MASS FABRICATOR BUFF TABLE
-T3MassFabricatorAdjacencyBuffs = {
-    'T3FabricatorMassBuildBonus',
-}
-
--- MASS BUILD BONUS - TIER 3 MASS FABRICATOR
-BuffBlueprint { Name = 'T3FabricatorMassBuildBonus',
+BuffBlueprint { Name = 'T1FabricatorMassBuildBonusOversize1',
     BuffType = 'MASSBUILDBONUS',
     Stacks = 'ALWAYS',
     Duration = -1,
-    ParsedEntityCategory = categories.STRUCTURE,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE24 + categories.SIZE30 + categories.SIZE32 + categories.SIZE36 + categories.SIZE40),
+    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
+    Affects = {
+        MassActive = {
+            Add = -0.012,
+            Mult = 1.0,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'T1FabricatorMassBuildBonusOversize2',
+    BuffType = 'MASSBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE44 + categories.SIZE48),
+    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
+    Affects = {
+        MassActive = {
+            Add = -0.009,
+            Mult = 1.0,
+        },
+    },
+}
+
+-- TIER 3 MASS FABRICATOR BUFF TABLE
+T3MassFabricatorAdjacencyBuffs = {
+    'T3FabricatorMassBuildBonusSize4to20',
+	'T3FabricatorMassBuildBonusSize24to32',
+	'T3FabricatorMassBuildBonusSize36to44',
+	'T3FabricatorMassBuildBonusSize48',
+}
+
+-- MASS BUILD BONUS - TIER 3 MASS FABRICATOR
+BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize4to20',
+    BuffType = 'MASSBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE4 + categories.SIZE8 + categories.SIZE12 + categories.SIZE16 + categories.SIZE20),
     BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
     OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
@@ -1443,6 +1480,54 @@ BuffBlueprint { Name = 'T3FabricatorMassBuildBonus',
             Mult = 1.0,
         },
     },
+}
+	
+BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize24to32',
+    BuffType = 'MASSBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE24 + categories.SIZE30 + categories.SIZE32),
+    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
+    Affects = {
+        MassActive = {
+            Add = -0.06,
+            Mult = 1.0,
+        },
+    },
+}	
+	
+BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize36to44',
+    BuffType = 'MASSBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    ParsedEntityCategory = categories.STRUCTURE * (categories.SIZE36 + categories.SIZE40 + categories.SIZE44),
+    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
+    Affects = {
+        MassActive = {
+            Add = -0.04,
+            Mult = 1.0,
+        },
+    },
+}
+	
+BuffBlueprint { Name = 'T3FabricatorMassBuildBonusSize48',
+    BuffType = 'MASSBUILDBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    ParsedEntityCategory = categories.STRUCTURE * categories.SIZE48,
+    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.BuildBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
+    Affects = {
+        MassActive = {
+            Add = -0.03,
+            Mult = 1.0,
+        },
+    },		
 }
 
 -- TIER 1 ENERGY STORAGE
