@@ -3,7 +3,7 @@ ScenarioInfo = {
     name = "Hellgate - Low Tide",
     description = "<LOC Hellgate_LowTide_Description>Forget the toy boats - roll the heavy metal !",
     preview = '',
-    map_version = '12',
+    map_version = '1.4',
     type = 'skirmish',
     starts = true,
     size = {2048, 2048},
@@ -20,7 +20,7 @@ ScenarioInfo = {
                 },
             },
             customprops = {
-                ['ExtraArmies'] = STRING( 'NEUTRAL_CIVILIAN ARMY_17' )
+                ['ExtraArmies'] = STRING( 'NEUTRAL_CIVILIAN' ),
             },
         },
     },
