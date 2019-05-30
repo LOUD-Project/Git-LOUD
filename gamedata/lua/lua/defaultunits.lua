@@ -809,13 +809,15 @@ StructureUnit = Class(Unit) {
 
     -- When we're not adjacent, try to remove all the possible bonuses.
     OnNotAdjacentTo = function(self, adjacentUnit)
+	
+		LOG("*AI DEBUG "..__blueprints[self.BlueprintID].Description.." no longer adjacent to "..repr(adjacentUnit:GetBlueprint().Description) )
 
         local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
             for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
                 if HasBuff(adjacentUnit, v) then
-                    RemoveBuff(adjacentUnit, v)
+                    RemoveBuff(adjacentUnit, v, false, self)
                 end
             end
         end
@@ -826,22 +828,33 @@ StructureUnit = Class(Unit) {
         adjacentUnit:RequestRefreshUI()
     end,
 
-    CreateAdjacentEffect = function(self, adjacentUnit)
+    CreateAdjacentEffect = function(adjacentUnit, self)
 
         if not self.AdjacencyBeamsBag then
+		
             self.AdjacencyBeamsBag = {}
+			
+		else
+
+			-- see if we already have an adjacency effect to this unit
+			for k,v in self.AdjacencyBeamsBag do
+			
+				--LOG("*AI DEBUG unit is "..repr(v.Unit).." adjacent is "..repr(adjacentUnit:GetEntityId()) )
+			
+				if v.Unit == adjacentUnit:GetEntityId() then
+					return
+				end
+			end
+			
 		end
+		
+		--LOG("*AI DEBUG Creating adjacency from "..repr(self:GetBlueprint().Description).." to "..repr(adjacentUnit:GetBlueprint().Description) )
+		
+		--LOG("*AI DEBUG Current bag is "..repr(self.AdjacencyBeamsBag))
 
-        for k,v in self.AdjacencyBeamsBag do
-            if v.Unit == adjacentUnit:GetEntityId() then
-                return
-            end
-        end
-
-		local info = { Unit = adjacentUnit:GetEntityId(), Trash = TrashBag(), }
-		table.insert( self.AdjacencyBeamsBag, info)
-
-		self:ForkThread( CreateAdjacencyBeams, adjacentUnit, self.AdjacencyBeamsBag )
+		CreateAdjacencyBeams( self, adjacentUnit )
+		
+		--LOG("*AI DEBUG AdjacencyBeamsBag for "..repr(self:GetBlueprint().Description).." is "..repr(self.AdjacencyBeamsBag) )	
     end,
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
@@ -854,11 +867,15 @@ StructureUnit = Class(Unit) {
 
 			local unit = GetEntityById(v.Unit)
 
+			-- adjacency beams persist until either unit has been destroyed
+			-- even if one of them is a production unit that might be turned off
             if unit:BeenDestroyed() or unit.Dead or self:BeenDestroyed() or self.Dead then
                 v.Trash:Destroy()
                 self.AdjacencyBeamsBag[k] = nil
 			end
         end
+		
+		--LOG("*AI DEBUG AFTER DESTROY AdjacencyBeamsBag for "..repr(self:GetBlueprint().Description).." is "..repr(self.AdjacencyBeamsBag) )
 		
     end,
 

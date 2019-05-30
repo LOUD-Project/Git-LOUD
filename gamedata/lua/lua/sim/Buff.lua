@@ -121,7 +121,7 @@ function ApplyBuff(unit, buffName, instigator)
 
     local uaffects = unit.Buffs.Affects
 
-	--LOG("*AI DEBUG Applying "..buffName)
+	--LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description) )
 
     if def.Affects then
 
@@ -184,6 +184,9 @@ function ApplyBuff(unit, buffName, instigator)
 
 	-- visual effects are only applied the first time a buff is added
 	-- this avoids stacking up trash entries which can cause stack overflows
+	-- if no count has taken place (from buffs like health, fuel, etc) BUT
+	-- we have a visual effect - we bump the count to 1 to insure that we
+	-- flush the visual effect when the buff comes off
     if newbuff and Buffs[buffName].Effects then
 
 		for k, fx in Buffs[buffName].Effects do
@@ -193,9 +196,13 @@ function ApplyBuff(unit, buffName, instigator)
 			if Buffs[buffName].EffectsScale then
 				bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
 			end
+			
+			if data.Count < 1 then
+				data.Count = 1
+			end
 
 			data.Trash:Add(bufffx)
-			unit.Trash:Add(bufffx)
+			--unit.Trash:Add(bufffx)
 
 		end
 
@@ -268,11 +275,11 @@ function ApplyBuff(unit, buffName, instigator)
 
 			BuffAffectUnit(unit, buffName, instigator, false)
 
-			--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
-
 		end
 
 	end
+	
+	--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
 
 end
 
@@ -291,7 +298,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         buffDef:OnBuffAffect(unit, instigator)
     end
 
-	--LOG("*AI DEBUG Affecting unit with Buff "..buffName)
+	--LOG("*AI DEBUG Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description) )
+	--LOG("*AI DEBUG Data Prior to Affect is "..repr(unit.Buffs))
 
     for atype, vals in buffAffects do
 
@@ -696,6 +704,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             WARN("*WARNING: Tried to apply a buff with an unknown affect type of " .. atype .. " for buff " .. buffName)
         end
     end
+	
+	--LOG("*AI DEBUG Data AFTER BuffEffect is "..repr(unit.Buffs))
 end
 
 -- Calculates the buff from all the buffs of the same time the unit has.
@@ -705,44 +715,49 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
     local mults = 1.0
     local bool = initialBool or false
 
+	local returnVal = 1
     local highestCeil = false
     local lowestFloor = false
 
-    if not unit.Buffs.Affects[affectType] then return initialVal, bool end
+    if unit.Buffs.Affects[affectType] then	-- return initialVal, bool end
 
-    for k, v in unit.Buffs.Affects[affectType] do
+		for k, v in unit.Buffs.Affects[affectType] do
+	
+			--LOG("*AI DEBUG Affecting "..repr(v))
 
-        if v.Add and v.Add != 0 then
-            adds = adds + (v.Add * v.Count)
-        end
+			if v.Add and v.Add != 0 then
+				adds = adds + (v.Add * v.Count)
+			end
 
-        if v.Mult and v.Mult != 0 then
+			if v.Mult and v.Mult != 0 then
 
-            for i = 1, v.Count do
+				for i = 1, v.Count do
 
-                mults = mults * v.Mult
+					mults = mults * v.Mult
 
-            end
+				end
 
-        end
+			end
 
-        if not v.Bool then
-            bool = false
-        else
-            bool = true
-        end
+			if not v.Bool then
+				bool = false
+			else
+				bool = true
+			end
 
-        if v.Ceil and (not highestCeil or highestCeil < v.Ceil) then
-            highestCeil = v.Ceil
-        end
+			if v.Ceil and (not highestCeil or highestCeil < v.Ceil) then
+				highestCeil = v.Ceil
+			end
 
-        if v.Floor and (not lowestFloor or lowestFloor > v.Floor) then
-            lowestFloor = v.Floor
-        end
-    end
+			if v.Floor and (not lowestFloor or lowestFloor > v.Floor) then
+				lowestFloor = v.Floor
+			end
+		end
+	
+	end
 
     -- Adds are calculated first, then the mults.  May want to expand that later.
-    local returnVal = (initialVal + adds) * mults
+    returnVal = (initialVal + adds) * mults
 
     if lowestFloor and returnVal < lowestFloor then
 		returnVal = lowestFloor
@@ -751,6 +766,8 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
     if highestCeil and returnVal > highestCeil then
 		returnVal = highestCeil
 	end
+	
+	--LOG("*AI DEBUG Returnval is "..repr(returnVal).." bool is "..repr(bool))
 
     return returnVal, bool
 end
@@ -784,7 +801,10 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 					unit.Buffs.Affects[atype][buffName].Count = unit.Buffs.Affects[atype][buffName].Count - 1
 					unitBuff.Count = unitBuff.Count - 1
-
+					
+					--LOG("*AI DEBUG Affects  Count is now "..unit.Buffs.Affects[atype][buffName].Count)
+					
+					--LOG("*AI DEBUG UnitBuff Count is now "..unitBuff.Count)
 				end
 
 				if unit.Buffs.Affects[atype][buffName].Count <= 0 then
@@ -798,8 +818,11 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 			end
 
 		end
+		
+		--LOG("*AI DEBUG After decrement unit data is "..repr(unit.Buffs))
 
-		if removeAllCounts or unitBuff.Count < 1 then
+		if removeAllCounts or unitBuff.Count < 1 or not unit.Buffs.Affects then
+			
 			-- unit:PlayEffect('RemoveBuff', buffName)
 
 			unitBuff.Trash:Destroy()
@@ -825,9 +848,11 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 			unit.Sync.Buffs = table.copy(newTable)
 		end
 
-		BuffAffectUnit(unit, buffName, unit, true)
+		BuffAffectUnit(unit, buffName, instigator, true)
 
 	end
+	
+	--LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
 
 end
 

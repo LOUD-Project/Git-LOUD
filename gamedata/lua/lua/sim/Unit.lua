@@ -23,11 +23,12 @@ local DomeHunkerShield = import('/lua/shield.lua').DomeHunkerShield
 local PersonalHunkerShield = import('/lua/shield.lua').PersonalHunkerShield
 
 local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-
-local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
-local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
-
 local ApplyCheatBuffs = import('/lua/ai/aiutilities.lua').ApplyCheatBuffs
+local HasBuff = import('/lua/sim/buff.lua').HasBuff
+local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff			
+local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
+
+local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
 
 -- from Domino Mod Support
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
@@ -940,7 +941,7 @@ Unit = Class(moho.unit_methods) {
             self:DisableUnitIntel('Radar')
 			
         elseif bit == 4 then 		-- production toggle
-		
+
             self:OnProductionPaused()
 			
         elseif bit == 5 then 		-- stealth toggle
@@ -953,7 +954,7 @@ Unit = Class(moho.unit_methods) {
             self:DisableUnitIntel('SonarStealthField')
 			
         elseif bit == 6 then 		-- generic pause toggle
-		
+
             self:SetPaused(true)
 			
         elseif bit == 7 then 		-- special toggle
@@ -1237,12 +1238,16 @@ Unit = Class(moho.unit_methods) {
 
     SetActiveConsumptionActive = function(self)
 	
+		--LOG("*AI DEBUG ActiveConsumptionActive")
+		
         self.ActiveConsumption = true
         self:UpdateConsumptionValues()
 		
     end,
 
     SetActiveConsumptionInactive = function(self)
+	
+		--LOG("*AI DEBUG ActiveConsumptionInactive")
 	
         self.ActiveConsumption = nil
         self:UpdateConsumptionValues()
@@ -1252,6 +1257,38 @@ Unit = Class(moho.unit_methods) {
     OnProductionPaused = function(self)
 	
         self:SetMaintenanceConsumptionInactive()
+	
+		--LOG("*AI DEBUG Production Paused for "..repr(self:GetBlueprint().Description) )
+		
+		-- check for -- and remove - any buffs we may have on adjacent units --
+		if self.AdjacencyBeamsBag then
+
+			for k,v in self.AdjacencyBeamsBag do
+			
+				local unit = GetEntityById(v.Unit)
+			
+				--LOG("*AI DEBUG Adjacency Unit is "..repr(unit:GetBlueprint().Description) )
+
+				local adjBuffs = __blueprints[self.BlueprintID].Adjacency
+
+				if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
+				
+					for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
+					
+						if HasBuff(unit, v) then
+							RemoveBuff(unit, v, false, self)
+						end
+						
+					end
+					
+				end
+				
+				self:RequestRefreshUI()
+				unit:RequestRefreshUI()				
+
+			end
+			
+		end		
 		
 		--self:SetActiveConsumptionInactive()
 		
@@ -1264,7 +1301,35 @@ Unit = Class(moho.unit_methods) {
     OnProductionUnpaused = function(self)
 	
         self:SetMaintenanceConsumptionActive()
+	
+		--LOG("*AI DEBUG Production Unpaused for "..repr(self:GetBlueprint().Description) )
+
+		-- reapply buffs to adjacent units --
+		if self.AdjacencyBeamsBag then
 		
+			for k,v in self.AdjacencyBeamsBag do
+			
+				local unit = GetEntityById(v.Unit)
+			
+				--LOG("*AI DEBUG Adjacency Unit is "..repr(unit:GetBlueprint().Description) )
+
+				local adjBuffs = __blueprints[self.BlueprintID].Adjacency
+
+				if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
+				
+					for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
+
+						ApplyBuff(unit, v, self)
+
+					end
+				end
+
+				self:RequestRefreshUI()
+				unit:RequestRefreshUI()				
+
+			end
+		end		
+
 		--self:SetActiveConsumptionActive()
 		
         SetProductionActive(self,true)
@@ -5433,7 +5498,7 @@ Unit = Class(moho.unit_methods) {
 			-- but according to this comes in at around 1.5% of the resource cost value
             time = math.min(15, teleportvalue * math.max(.001, bp.TeleportTimeMod or 0.015))
 			
-			LOG('*AI DEBUG Telporting value '..repr(teleportvalue)..' time = '..repr(time).." "..repr(teleportvalue/time).."E per second" )
+			--LOG('*AI DEBUG Teleporting value '..repr(teleportvalue)..' time = '..repr(time).." "..repr(teleportvalue/time).."E per second" )
 			
         end
 

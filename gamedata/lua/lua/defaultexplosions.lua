@@ -88,8 +88,11 @@ function CreateDefaultHitExplosion( obj, scale )
 
     if obj and not BeenDestroyed(obj) then
 	
-        CreateFlash( obj, -1, scale * 0.5, GetArmy(obj) )
-        CreateEffects( obj, GetArmy(obj), EffectTemplate.FireCloudMed01 )
+		local army = GetArmy(obj)
+	
+		LOUDPARTICLE( obj, -1, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+		
+        CreateEffects( obj, army, EffectTemplate.FireCloudMed01 )
 		
     end
 end
@@ -105,7 +108,9 @@ function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 
 	if not BeenDestroyed(obj) then
 		local army = GetArmy(obj)
-		CreateFlash( obj, boneName, scale * 0.5, army )
+		
+		LOUDPARTICLE( obj, boneName, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+
 		CreateBoneEffects( obj, boneName, army, EffectTemplate.FireCloudMed01 )
 	end
 end
@@ -159,7 +164,8 @@ function _CreateScalableUnitExplosion( obj )
     local BaseEffectTable = EffectTemplate.ExplosionEffectsMed01
     local ShakeTimeModifier = 0
     local ShakeMaxMul = 0.15 
-
+	
+	local LOUDEMITATENTITY = CreateEmitterAtEntity
 
 	-- small units
     if scale < 1 then   
@@ -182,10 +188,13 @@ function _CreateScalableUnitExplosion( obj )
 	end
 
     -- Create Generic emitter effects
-    CreateEffects( obj, army, BaseEffectTable )
+    for _, v in BaseEffectTable do
+		LOUDEMITATENTITY( obj, army, v )
+    end	
+	
 
     -- Create Light particle flash
-    CreateFlash( obj, -1, scale, army )
+	LOUDPARTICLE( obj, -1, army, GetRandomFloat(6,10) * scale, GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
 
     -- Create scorch mark on land
     if layer == 'Land' then

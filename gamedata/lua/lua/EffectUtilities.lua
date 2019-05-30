@@ -1056,7 +1056,7 @@ end
 -- At this time, I am considering just how pointless most of this is and that it's really just **BLING**
 -- this detail is SO small that I'm considering replacing it with a simple beam between the two entities for ALL factions
 -- and getting rid of all this complex calculation for position and intermediate nodes
-function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
+function CreateAdjacencyBeams( unit, adjacentUnit )
 
 	local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
@@ -1074,6 +1074,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
     -- Determine which effects we will be using	-- default to Cybran
     local nodeMesh = '/effects/entities/cybranadjacencynode/cybranadjacencynode_mesh'
     local beamEffect = '/effects/emitters/adjacency_cybran_beam_01_emit.bp'
+	
     local emitterNodeEffects = {}  
     local numNodes = 0
     local nodeList = {}
@@ -1280,10 +1281,11 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 				nodeList[i].mesh = true
 			
 				if emitterNodeEffects[i] != nil and LOUDGETN(emitterNodeEffects[i]) != 0 then
+
 					for _, vEmit in emitterNodeEffects[i] do
 						emit = LOUDATTACHEMITTER( nodeList[i].entity, 0, army, vEmit )
 						info.Trash:Add(emit)
-						unit.Trash:Add(emit)
+						--unit.Trash:Add(emit)
 					end
 				end
 			end
@@ -1294,10 +1296,11 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
         LOUDINSERT(nodeList, adjacentHub )
 
         -- WARP everything to its final position
+		-- the +2 accounts for the start and end nodes
         for i = 1, numNodes + 2 do
             LOUDWARP( nodeList[i].entity, nodeList[i].pos )
             info.Trash:Add(nodeList[i].entity)
-            unit.Trash:Add(nodeList[i].entity)
+            --unit.Trash:Add(nodeList[i].entity)
         end
 
         -- Attach beams to the adjacent unit
@@ -1307,14 +1310,16 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
                 nodeList[i].entity:SetOrientation( OrientFromDir( vec ),true)
             end
             if beamEffect then
-                local beam = LOUDATTACHBEAMENTITY( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  )
-                info.Trash:Add(beam)
-                unit.Trash:Add(beam)
+                --local beam = LOUDATTACHBEAMENTITY( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  )
+                info.Trash:Add( LOUDATTACHBEAMENTITY( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  ) )
+                --unit.Trash:Add(beam)
             end
         end
 		
-		table.insert( AdjacencyBeamsBag, info)
+		LOUDINSERT( unit.AdjacencyBeamsBag, info)
     end
+	
+
 end
 
 
