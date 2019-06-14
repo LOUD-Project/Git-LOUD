@@ -3,7 +3,7 @@ ScenarioInfo = {
     name = "Voodoo Bridge",
     description = "<LOC Voodoo Bridge_Description>Voodoo Bridge  Made by Master Lee",
     preview = '',
-    map_version = 1,
+    map_version = '1',
     type = 'skirmish',
     starts = true,
     size = {1024, 1024},
@@ -11,7 +11,6 @@ ScenarioInfo = {
     save = '/maps/Voodoo Bridge/Voodoo Bridge_save.lua',
     script = '/maps/Voodoo Bridge/Voodoo Bridge_script.lua',
     norushradius = 80,
-
     Configurations = {
         ['standard'] = {
             teams = {
