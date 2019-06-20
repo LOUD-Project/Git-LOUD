@@ -469,7 +469,7 @@ BuilderManager = Class {
 				ticksize = LOUDFLOOR( duration / tasks )
 				
 			end
-			
+
             numTicks = 0
 			numTested = 0
 			numPassed = 0

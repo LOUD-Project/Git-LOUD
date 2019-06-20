@@ -1474,3 +1474,4 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end,
     },
 }
+

@@ -28,16 +28,8 @@ TrashBag = Class {
     Destroy = function(self)
 
         for i,v in self do
-		
-			--if self[i] then
-			
-				self[i]:Destroy()
-				
-			--else
-			
-				--LOG("*AI DEBUG Trashbag item missing")
-				
-			--end
+
+			self[i]:Destroy()
 			
         end
 

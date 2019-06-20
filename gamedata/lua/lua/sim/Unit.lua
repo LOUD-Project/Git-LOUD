@@ -593,12 +593,10 @@ Unit = Class(moho.unit_methods) {
 			WaitTicks(58)
 			
 		end
-		
+--]]		
     end,
 
     SetDead = function(self)
-	
-		--LOG("*AI DEBUG SetDead for "..repr(self:GetBlueprint().Description))
 
 		self.Dead = true
 		
@@ -1219,36 +1217,28 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetMaintenanceConsumptionActive = function(self)
-	
-		--LOG("*AI DEBUG Turning ON MaintenanceConsumption for "..repr(self:GetBlueprint().Description))
-		
+
         self.MaintenanceConsumption = true
         self:UpdateConsumptionValues()
 		
     end,
 
     SetMaintenanceConsumptionInactive = function(self)
-	
-		--LOG("*AI DEBUG Turning OFF MaintenanceConsumption")
-		
+
         self.MaintenanceConsumption = nil
         self:UpdateConsumptionValues()
 		
     end,
 
     SetActiveConsumptionActive = function(self)
-	
-		--LOG("*AI DEBUG ActiveConsumptionActive")
-		
+
         self.ActiveConsumption = true
         self:UpdateConsumptionValues()
 		
     end,
 
     SetActiveConsumptionInactive = function(self)
-	
-		--LOG("*AI DEBUG ActiveConsumptionInactive")
-	
+
         self.ActiveConsumption = nil
         self:UpdateConsumptionValues()
 		
@@ -1257,9 +1247,7 @@ Unit = Class(moho.unit_methods) {
     OnProductionPaused = function(self)
 	
         self:SetMaintenanceConsumptionInactive()
-	
-		--LOG("*AI DEBUG Production Paused for "..repr(self:GetBlueprint().Description) )
-		
+
 		-- check for -- and remove - any buffs we may have on adjacent units --
 		if self.AdjacencyBeamsBag then
 
@@ -1301,8 +1289,6 @@ Unit = Class(moho.unit_methods) {
     OnProductionUnpaused = function(self)
 	
         self:SetMaintenanceConsumptionActive()
-	
-		--LOG("*AI DEBUG Production Unpaused for "..repr(self:GetBlueprint().Description) )
 
 		-- reapply buffs to adjacent units --
 		if self.AdjacencyBeamsBag then
@@ -1900,7 +1886,7 @@ Unit = Class(moho.unit_methods) {
 		end
 
 		-- if simspeed too low suppress destruction effects --
-		if Sync.SimData.SimSpeed > -2 then
+		if Sync.SimData.SimSpeed > -1 then
 		
 			if self.PlayDestructionEffects then
 		
@@ -2174,7 +2160,7 @@ Unit = Class(moho.unit_methods) {
 		
 			local GetArmy = moho.entity_methods.GetArmy
 		
-			local army1 = GetArmy(self)
+			local army1 = self.Sync.army
 			local army2 = GetArmy(firingWeapon.unit)
 			
 			if army1 == army2 or IsAllied(army1,army2) then
@@ -2660,16 +2646,16 @@ Unit = Class(moho.unit_methods) {
 	-- is this issued by the unit being built ? or the builder of the unit ?
     OnStartBeingBuilt = function(self, builder, layer)
 		
+        local aiBrain = self:GetAIBrain()
+		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." OnStartBeingBuilt event for "..repr(self:GetBlueprint().Description).." built by "..repr(builder:GetBlueprint().Description) )
+		
 		self:CheckUnitRestrictions()
 	
         self:StartBeingBuiltEffects(builder, layer)
-		
-        local aiBrain = self:GetAIBrain()
-		
+
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDGETN = table.getn
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." OnStartBeingBuilt event for "..repr(self:GetBlueprint().Description).." built by "..repr(builder:GetBlueprint().Description) )
 		
         if aiBrain.UnitBuiltTriggerList and LOUDGETN(aiBrain.UnitBuiltTriggerList) > 0 then
 		
@@ -3147,7 +3133,13 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
-		
+--[[	
+		if unitBeingBuilt then
+			LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
+		else
+			LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
+		end
+--]]		
         self:StopBuildingEffects(unitBeingBuilt)
         self:SetActiveConsumptionInactive()
 		
@@ -3215,13 +3207,8 @@ Unit = Class(moho.unit_methods) {
             }
 			
             self:EnableUnitIntel(nil)
-			
-            return true
-			
+
         end
-		
-        return false
-		
     end,
 
     DisableUnitIntel = function(self, intel)
@@ -3914,7 +3901,7 @@ Unit = Class(moho.unit_methods) {
 	
         local effectBones = bpTable.Bones
 
-        local army = GetArmy(self)
+        local army = self.Sync.army
 		
         for kb, vb in effectBones do
 		
@@ -4434,7 +4421,6 @@ Unit = Class(moho.unit_methods) {
     AddBuff = function(self, buffTable, PosEntity)
 	
         local bt = buffTable.BuffType
-		
 
         local allow = categories.ALLUNITS
 		
@@ -5278,7 +5264,7 @@ Unit = Class(moho.unit_methods) {
 			for i, unit in unitlist do
 			
 				--	if it's an ally, then we skip.
-				if not IsEnemy(self:GetArmy(), unit:GetArmy()) then 
+				if not IsEnemy(self.Sync.army, unit.Sync.army) then 
 				
 					continue
 					
@@ -5385,7 +5371,7 @@ Unit = Class(moho.unit_methods) {
 	-- Like PlayTeleportOutEffects, but scaled based on the size of the unit 
 	PlayScaledTeleportOutEffects = function(self)
 	
-		local army = self:GetArmy()
+		local army = self.Sync.army
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
 		
 		for k, v in EffectTemplate.GenericTeleportOut01 do

@@ -135,7 +135,7 @@ BuffField = Class(Entity) {
     OnEnabled = function(self)
         
 		local Owner = self:GetOwner()
-		local Army = Owner:GetArmy()
+		local Army = Owner.Sync.army
 		
         if self.FieldVisualEmitter and type(self.FieldVisualEmitter) == 'string' and self.FieldVisualEmitter != '' then
 
@@ -323,6 +323,8 @@ BuffField = Class(Entity) {
 							end
 						end
 					end
+				--else
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." unit "..unit.Sync.id.." is dead")
 				end
 			end
 			

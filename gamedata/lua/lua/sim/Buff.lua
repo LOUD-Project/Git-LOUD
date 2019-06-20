@@ -120,8 +120,12 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
     local uaffects = unit.Buffs.Affects
+	
+	if ScenarioInfo.BuffDialog then
 
-	--LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description) )
+		LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description).." "..unit.Sync.id )
+		
+	end
 
     if def.Affects then
 
@@ -184,6 +188,7 @@ function ApplyBuff(unit, buffName, instigator)
 
 	-- visual effects are only applied the first time a buff is added
 	-- this avoids stacking up trash entries which can cause stack overflows
+	
 	-- if no count has taken place (from buffs like health, fuel, etc) BUT
 	-- we have a visual effect - we bump the count to 1 to insure that we
 	-- flush the visual effect when the buff comes off
@@ -191,18 +196,21 @@ function ApplyBuff(unit, buffName, instigator)
 
 		for k, fx in Buffs[buffName].Effects do
 
-			local bufffx = CreateAttachedEmitter(unit, 0, unit:GetArmy(), fx)
+			local bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
 
 			if Buffs[buffName].EffectsScale then
 				bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
 			end
 			
+			-- some of the instant buffs dont increment the count
+			-- but may have effects associated with them - we have
+			-- to bump up the count so we can track the destruction
+			-- of the effect when needed.
 			if data.Count < 1 then
 				data.Count = 1
 			end
 
 			data.Trash:Add(bufffx)
-			--unit.Trash:Add(bufffx)
 
 		end
 
@@ -250,10 +258,10 @@ function ApplyBuff(unit, buffName, instigator)
 
 			ubt[def.BuffType][buffName] = data
 
-			if def.OnApplyBuff then
-				def:OnApplyBuff(unit, instigator)
+				if def.OnApplyBuff then
+					def:OnApplyBuff(unit, instigator)
+				end
 			end
-			
 		end
 
 	-- otherwise apply the buff
@@ -273,15 +281,51 @@ function ApplyBuff(unit, buffName, instigator)
 				def:OnApplyBuff(unit, instigator)
 			end
 
-			BuffAffectUnit(unit, buffName, instigator, false)
-
 		end
 
+		BuffAffectUnit(unit, buffName, instigator, false)
+
 	end
+
+	if ScenarioInfo.BuffDialog then
 	
-	--LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after buffs is "..repr(unit.Buffs))
+		LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit.Buffs))
+		
+	end
 
 end
+
+-- Function to do work on the buff.  Apply the buff every second
+-- Then remove the buff so it can be applied again
+function BuffWorkThread(unit, buffName, instigator)
+
+	--LOG("*AI DEBUG BuffWorkThread launched")
+
+	local buffTable = Buffs[buffName]
+
+	local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
+	local pulse = 0
+
+	while not BeenDestroyed(unit) and pulse < buffTable.Duration do
+
+		BuffAffectUnit( unit, buffName, instigator, false )
+
+		pulse = pulse + 1
+
+		if pulse < buffTable.Duration then
+
+			WaitTicks(10)
+
+		end
+	end
+
+	if unit.Buffs.BuffTable[Buffs[buffName].BuffType][buffName] then
+		RemoveBuff(unit, buffName)
+	end
+
+end
+
 
 
 -- Functions to affect the unit.  Everytime you want to affect a new part of unit, add it in here.
@@ -297,9 +341,14 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     if buffDef.OnBuffAffect and not afterRemove then
         buffDef:OnBuffAffect(unit, instigator)
     end
-
-	--LOG("*AI DEBUG Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description) )
-	--LOG("*AI DEBUG Data Prior to Affect is "..repr(unit.Buffs))
+	
+	if not instigator then
+		instigator = unit
+	end
+	
+	if ScenarioInfo.BuffDialog then
+		LOG("*AI DEBUG Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description) )
+	end
 
     for atype, vals in buffAffects do
 
@@ -419,7 +468,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 				if not unit:IsIntelEnabled('Radar') then
 
-					unit:InitIntel(unit:GetArmy(),'Radar', val)
+					unit:InitIntel(unit.Sync.army,'Radar', val)
 
 					EnableIntel( unit, 'Radar')
 
@@ -442,7 +491,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 				if not unit:IsIntelEnabled('Sonar') then
 
-					unit:InitIntel(unit:GetArmy(),'Sonar', val)
+					unit:InitIntel(unit.Sync.army,'Sonar', val)
 
 					EnableIntel( unit, 'Sonar')
 				else
@@ -464,7 +513,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 				if not unit:IsIntelEnabled('Omni') then
 
-					unit:InitIntel(unit:GetArmy(),'Omni', val)
+					unit:InitIntel(unit.Sync.army,'Omni', val)
 
 					EnableIntel( unit, 'Omni')
 				else
@@ -704,8 +753,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             WARN("*WARNING: Tried to apply a buff with an unknown affect type of " .. atype .. " for buff " .. buffName)
         end
     end
-	
-	--LOG("*AI DEBUG Data AFTER BuffEffect is "..repr(unit.Buffs))
+
 end
 
 -- Calculates the buff from all the buffs of the same time the unit has.
@@ -722,8 +770,10 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
     if unit.Buffs.Affects[affectType] then	-- return initialVal, bool end
 
 		for k, v in unit.Buffs.Affects[affectType] do
-	
-			--LOG("*AI DEBUG Affecting "..repr(v))
+		
+			if ScenarioInfo.BuffDialog then	
+				LOG("*AI DEBUG Affecting "..repr(v))
+			end
 
 			if v.Add and v.Add != 0 then
 				adds = adds + (v.Add * v.Count)
@@ -767,27 +817,32 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 		returnVal = highestCeil
 	end
 	
-	--LOG("*AI DEBUG Returnval is "..repr(returnVal).." bool is "..repr(bool))
+	if ScenarioInfo.BuffDialog then
+		LOG("*AI DEBUG Returnval is "..repr(returnVal).." bool is "..repr(bool))
+	end
 
     return returnVal, bool
 end
 
 function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
+	if ScenarioInfo.BuffDialog then
+		LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
+	end
+	
     local def = Buffs[buffName]
 
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
 
 	if unitBuff then
 
-		--LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
+		if ScenarioInfo.BuffDialog then
+			LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
+		end
 
 		for atype,_ in def.Affects do
 
 			if unit.Buffs.Affects[atype] and unit.Buffs.Affects[atype][buffName] then
-
-				--LOG("*AI DEBUG Removing Buff "..buffName.." for type "..repr(atype))
-				--LOG("*AI DEBUG Data for "..repr(atype).." is "..repr(unit.Buffs.Affects[atype]))
 
 				-- If we're removing all buffs of this name, only remove as
 				-- many affects as there are buffs since other buffs may have
@@ -801,10 +856,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 					unit.Buffs.Affects[atype][buffName].Count = unit.Buffs.Affects[atype][buffName].Count - 1
 					unitBuff.Count = unitBuff.Count - 1
-					
-					--LOG("*AI DEBUG Affects  Count is now "..unit.Buffs.Affects[atype][buffName].Count)
-					
-					--LOG("*AI DEBUG UnitBuff Count is now "..unitBuff.Count)
+
 				end
 
 				if unit.Buffs.Affects[atype][buffName].Count <= 0 then
@@ -818,8 +870,6 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 			end
 
 		end
-		
-		--LOG("*AI DEBUG After decrement unit data is "..repr(unit.Buffs))
 
 		if removeAllCounts or unitBuff.Count < 1 or not unit.Buffs.Affects then
 			
@@ -852,7 +902,9 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 	end
 	
-	--LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
+	if ScenarioInfo.BuffDialog then
+		LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
+	end
 
 end
 
@@ -873,7 +925,7 @@ function PlayBuffEffect(unit, buffName, data)
 
     for k, fx in Buffs[buffName].Effects do
 
-        local bufffx = CreateAttachedEmitter(unit, 0, unit:GetArmy(), fx)
+        local bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
 
         if Buffs[buffName].EffectsScale then
             bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)

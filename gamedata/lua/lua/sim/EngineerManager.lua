@@ -41,9 +41,7 @@ local PlatoonTemplates = PlatoonTemplates
 function CreateEngineerManager( brain, lType, location, radius )
 
     local em = EngineerManager()
-	
-	--LOG("*AI DEBUG "..brain.Nickname.." creating EM for "..lType)
-	
+
     em:Create(brain, lType, location, radius)
 	
     return em
@@ -1102,7 +1100,7 @@ EngineerManager = Class(BuilderManager) {
 		
 		local WaitTicks = coroutine.yield
 	
-		local GetBlueprint = moho.entity_methods.GetBlueprint
+		--local GetBlueprint = moho.entity_methods.GetBlueprint
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 		
 		local threat = 0
@@ -1275,7 +1273,7 @@ EngineerManager = Class(BuilderManager) {
 	
 		local GetThreatOfGroup = function( group, distressType )
 	
-			local GetBlueprint = moho.entity_methods.GetBlueprint
+			--local GetBlueprint = moho.entity_methods.GetBlueprint
 			local totalThreat = 0
 	
 			if distressType == 'Land' then

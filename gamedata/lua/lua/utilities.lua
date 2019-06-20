@@ -30,13 +30,13 @@ function GetEnemyUnitsInSphere(unit, position, radius)
 	
 	local RadEntities = {}
 	local counter = 0
-    local army = GetArmy(unit)
+    local army = unit.Sync.army
 	local checkrange = radius * radius
 	
     for _, v in UnitsinRec do
 		local pos = GetPosition(v)
 		
-		if (army != GetArmy(v)) and ( VDist2Sq(position[1],position[3], pos[1],pos[3] ) <= checkrange) then
+		if (army != v.Sync.army) and ( VDist2Sq(position[1],position[3], pos[1],pos[3] ) <= checkrange) then
 			RadEntities[counter+1] = v
 			counter = counter + 1
 		end

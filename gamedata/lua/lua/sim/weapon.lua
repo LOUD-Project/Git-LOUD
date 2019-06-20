@@ -91,13 +91,18 @@ Weapon = Class(moho.weapon_methods) {
 		self:SetDamageTable(bp)
 
 		if ScenarioInfo.WeaponDialog then
+		
 			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id )
+			
+			--LOG("*AI DEBUG Weapon Blueprint is "..repr( GetBlueprint(self) ))
+			
 		end
 
     end,
 
     OnDestroy = function(self)
 		-- this only triggers when the unit itself is destroyed
+		-- but I don't see it all the time
 		if ScenarioInfo.WeaponDialog then
 			LOG("*AI DEBUG Weapon OnDestroy")
 		end

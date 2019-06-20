@@ -179,7 +179,7 @@ PlatoonFormManager = Class(BuilderManager) {
 		
 		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
 		local FormPlatoon = moho.platoon_methods.FormPlatoon
-		local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+		--local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 		
 		if aiBrain.BuilderManagers[self.LocationType] and builder.InstancesAvailable > 0 then
 		
@@ -194,6 +194,11 @@ PlatoonFormManager = Class(BuilderManager) {
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
+				
+					if ScenarioInfo.PlatoonDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." fails StoreHandle for "..repr(template[1]))
+					end
+					
 					return aiBrain:DisbandPlatoon(hndl)
 				end
 
