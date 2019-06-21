@@ -49,6 +49,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC brot1bt_desc>Assault Gun',
+	
     Display = {
         Abilities = {
             'Hover',
@@ -63,15 +64,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.14,
     },
+	
     Economy = {
         BuildCostEnergy = 550,
         BuildCostMass = 65,
         BuildTime = 260,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -95,9 +98,11 @@ UnitBlueprint {
         UnitName = '<LOC brot1bt_name>Hervour',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Assault Hovercraft',
     },

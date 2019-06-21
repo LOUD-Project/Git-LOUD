@@ -184,6 +184,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
+		MaxGroundVariation = 2,
         MeshExtentsX = 1.5,
         MeshExtentsY = 1.25,
         MeshExtentsZ = 1.5,

@@ -1863,7 +1863,7 @@ function NukeAI( self, aiBrain )
 		-- now we need to find a target
 		while nukesavailable > 0 do
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..table.getn(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..table.getn(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
 			
 			local minimumvalue = 500
 			
@@ -1943,7 +1943,7 @@ function NukeAI( self, aiBrain )
 					-- otherwise don't fire nukes at same target twice without scouting it
 					elseif table.equal(target.Position,lasttarget) and target.LastScouted > lasttargettime then
 						
-						LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
 
 						targetvalue = value
 						targetantis = antinukes
@@ -2029,7 +2029,7 @@ function NukeAI( self, aiBrain )
 								
 							end
 
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos))
 							
 							IssueNuke( {u.unit}, nukePos )
 						
@@ -2066,13 +2066,13 @@ function NukeAI( self, aiBrain )
 			else
 			
 				if not targetunit then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI cant find a unit in the target area")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI cant find a unit in the target area")
 				end
 				
 				lasttarget = nil
 				lasttargettime = nil
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI finds no target to be used on")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI finds no target to be used on")
 				
 				nukesavailable = 0
 				
@@ -2275,6 +2275,8 @@ function AirForceAILOUD( self, aiBrain )
 
 			-- locate a target
             for _,rangemult in mult do
+			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." seeking target")
 				
 				for _,threatmult in difficulty do
 
@@ -2312,6 +2314,8 @@ function AirForceAILOUD( self, aiBrain )
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
 			-- use strikerange to determine point from which to switch into attack mode
 			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+			
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." moving to target")
 				
 				IssueClearCommands( platoonUnits )
 
@@ -2384,12 +2388,17 @@ function AirForceAILOUD( self, aiBrain )
 
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 		
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." prosecuting target")
+		
 			loiter = false
 			
 			WaitTicks(15)
-            attacktimer = attacktimer + 1.5
+			
+			if PlatoonExists(aiBrain, self) then
+			
+				attacktimer = attacktimer + 1.5
 
-			local platooncount = 0
+				local platooncount = 0
             local fuellow = false
 
 			for _,v in platoonUnits do
