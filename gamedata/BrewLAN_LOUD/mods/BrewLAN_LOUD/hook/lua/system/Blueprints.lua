@@ -380,11 +380,13 @@ function BrewLANGantryBuildList(all_bps)
 end
 
 function BrewLANCheckGantryShouldBuild(catArray)
-    for i, cat in catArray do
-        if string.find(cat, 'BUILTBY') and string.find(cat, 'FACTORY') then
-            return true
-        end
-    end
+	if catArray then
+		for i, cat in catArray do
+			if string.find(cat, 'BUILTBY') and string.find(cat, 'FACTORY') then
+				return true
+			end
+		end
+	end
     return false
 end
 

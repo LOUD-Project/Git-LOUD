@@ -236,7 +236,7 @@ UnitBlueprint {
         BuildTime = 2915,
 		
         ResearchMultEnergy = 0.2,
-        MaintenanceConsumptionPerSecondEnergy = 120,
+        MaintenanceConsumptionPerSecondEnergy = 100,
     },
 	
     Footprint = {

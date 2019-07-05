@@ -96,7 +96,7 @@ function RemoteViewing(SuperClass)
 			
 				for i, unit in unitList do
 					--	if it's an ally, then we skip.
-					if not IsEnemy(self:GetArmy(), unit:GetArmy()) then 
+					if not IsEnemy(self.Sync.army, unit.Sync.army) then 
 						continue
 					end
 				
@@ -111,7 +111,7 @@ function RemoteViewing(SuperClass)
 						self.RemoteViewingData.VisibleLocation = false
 						
 						-- play audio warning
-						if GetFocusArmy() == self:GetArmy() then
+						if GetFocusArmy() == self.Sync.army then
 							local Voice = Sound {Bank = 'XGG', Cue = 'XGG_Computer_CV01_04765',}
 							local Brain = self:GetAIBrain()
 

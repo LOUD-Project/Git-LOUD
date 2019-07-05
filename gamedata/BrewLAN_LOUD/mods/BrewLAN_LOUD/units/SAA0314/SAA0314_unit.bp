@@ -206,7 +206,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.0585,
+        UniformScale = 0.05,
     },
 	
     Economy = {
@@ -215,7 +215,7 @@ UnitBlueprint {
         BuildTime = 2775,
 		
         ResearchMultEnergy = 0.2,
-        MaintenanceConsumptionPerSecondEnergy = 120,
+        MaintenanceConsumptionPerSecondEnergy = 100,
     },
 	
     Footprint = {
@@ -270,7 +270,7 @@ UnitBlueprint {
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.45,
-    LifeBarSize = 2.2,
+    LifeBarSize = 2,
 	
     Physics = {
         BuildOnLayerCaps = {
@@ -288,22 +288,22 @@ UnitBlueprint {
 		
         GroundCollisionOffset = 2,
         MaxSpeed = 0.5,
-        MeshExtentsX = 1.1,
-        MeshExtentsY = 0.72,
-        MeshExtentsZ = 2.7,
+        MeshExtentsX = 1,
+        MeshExtentsY = 0.65,
+        MeshExtentsZ = 2.4,
         MotionType = 'RULEUMT_Air',
     },
 	
-    SelectionSizeX = 1.9,
-    SelectionSizeZ = 2.2,
+    SelectionSizeX = 1.7,
+    SelectionSizeZ = 2,
 	
     SelectionThickness = 0.4,
 	
-    SizeSphere = 1.9,
+    SizeSphere = 1.7,
 	
-    SizeX = 2.45,
-    SizeY = 0.65,
-    SizeZ = 2.8,
+    SizeX = 2.2,
+    SizeY = 0.58,
+    SizeZ = 2.4,
 	
     StrategicIconName = 'icon_bomber3_directfire',
     StrategicIconSortPriority = 55,
@@ -332,7 +332,7 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
-			
+--[[			
             Buffs = {
                 {
                     Add = {
@@ -346,7 +346,7 @@ UnitBlueprint {
                     TargetDisallow = 'AIR,COMMAND,WALL,TECH3,EXPERIMENTAL',
                 },
             },
-
+--]]
             BombDropThreshold = 3.5,
             CollideFriendly = false,
 			
@@ -369,7 +369,7 @@ UnitBlueprint {
 			
             NotExclusive = true,
 			
-            MaxRadius = 90,
+            MaxRadius = 75,
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
@@ -575,6 +575,7 @@ UnitBlueprint {
             Turreted = false,
             WeaponCategory = 'Anti Navy',
         },
+
         {
             AboveWaterTargetsOnly = true,
             Damage = 400,

@@ -519,7 +519,7 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = -0.025,
+            Add = -0.05,
             Mult = 1.0,
         },
     },

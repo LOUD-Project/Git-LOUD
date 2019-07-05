@@ -88,7 +88,7 @@ function CreateDefaultHitExplosion( obj, scale )
 
     if obj and not BeenDestroyed(obj) then
 	
-		local army = GetArmy(obj)
+		local army = obj.Sync.army
 	
 		LOUDPARTICLE( obj, -1, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
 		
@@ -100,14 +100,15 @@ end
 function CreateDefaultHitExplosionOffset( obj, scale, xOffset, yOffset, zOffset )
 
     if not BeenDestroyed(obj) then 
-		CreateBoneEffectsOffset( obj, -1, GetArmy(obj), EffectTemplate.DefaultHitExplosion01, xOffset, yOffset, zOffset )
+		CreateBoneEffectsOffset( obj, -1, obj.Sync.army, EffectTemplate.DefaultHitExplosion01, xOffset, yOffset, zOffset )
 	end
 end
 
 function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 
 	if not BeenDestroyed(obj) then
-		local army = GetArmy(obj)
+	
+		local army = obj.Sync.army
 		
 		LOUDPARTICLE( obj, boneName, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
 

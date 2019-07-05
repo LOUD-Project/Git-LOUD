@@ -1,6 +1,5 @@
 local BeamsFile = import('/lua/defaultcollisionbeams.lua')
 local PhasonLaserCollisionBeam = BeamsFile.PhasonLaserCollisionBeam
-local OrbitalDeathLaserCollisionBeam = BeamsFile.OrbitalDeathLaserCollisionBeam
 
 AlchemistPhasonLaserCollisionBeam = Class(PhasonLaserCollisionBeam) {
     TerrainImpactType = 'LargeBeam01',

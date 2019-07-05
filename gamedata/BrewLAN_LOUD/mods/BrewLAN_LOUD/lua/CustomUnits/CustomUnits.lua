@@ -8,10 +8,13 @@ T2AirScout = {
 
 T2Bomber = {
 	Aeon = {'saa0211', 100},
+	UEF = {'sea0211', 100},
+	Cybran = {'sra0211', 100},
+	Seraphim = {'ssa0211', 100},
 },
 
 T3Bomber = {
-	Aeon = {'saa0314', 20},
+	Aeon = {'saa0314', 25},
 	Cybran = {'sra0314', 20},
 	UEF = {'sea0314', 20},
 	Seraphim = {'ssa0314', 20},
@@ -47,7 +50,7 @@ T3Amphibious = {
 },
 
 T3AmphibiousAA = {
-	Aeon = {'sal0320', 100},
+	Aeon = {'sal0320', 100},	-- Armillary
 	Seraphim = {'ssl0320', 100},
 },
 
@@ -77,6 +80,7 @@ T4Artillery = {
 T4LandExperimental2 = {
 	Aeon = {'sal0401', 60},
 },
+
 
 --[[
 --------------------------------------------------------------------------------

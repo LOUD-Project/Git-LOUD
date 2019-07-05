@@ -76,7 +76,7 @@ end
 -- this puts the SimData into the Sync table
 function SendSimData()
 
-	LOG("*AI DEBUG Sim SIMSYNC SendSimData "..repr(SimData) )
+	--LOG("*AI DEBUG Sim SIMSYNC SendSimData "..repr(SimData) )
 	
 	Sync.SimData = SimData
 end
@@ -255,6 +255,3 @@ function CreateDialogue(text, buttonText, position)
     return import('/lua/simdialogue.lua').Create(text, buttonText, position)
 end
 
-function TogglePerformance()
-	LOG("*AI DEBUG Sim Toggle in SimSync")
-end

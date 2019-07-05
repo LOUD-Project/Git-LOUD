@@ -1,0 +1,16 @@
+name = "Bubble Tea"
+uid = "25D57D85-9JA7-D842-BREW-SHIELDS000006"
+version = 0.6
+copyright = "© 2017–2018 Sean Wheeldon"
+description = "Adds experimental shields."
+author = "Balthazar"
+icon = "/mods/BrewLAN_Units/BrewShields/mod_icon.png"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+requires = { }
+requiresNames = { }
+conflicts = { }
+before = { }
+after = { }

@@ -1,0 +1,417 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+	
+    Air = {
+        AutoLandTime = 1.6,
+        BankFactor = 2.5,
+        BankForward = false,
+        BreakOffDistance = 38,
+        BreakOffIfNearNewTarget = true,
+        BreakOffTrigger = 21,
+        CanFly = true,
+        CombatTurnSpeed = 0.9,
+        EngageDistance = 40,
+		
+        KLift = 3.5,
+        KLiftDamping = 2.5,
+		
+        KMove = 1,
+        KMoveDamping = 2,
+		
+        KRoll = 2,
+        KRollDamping = 2.5,
+		
+        KTurn = 1.3,
+        KTurnDamping = 1.7,
+		
+        LiftFactor = 9,
+		
+        MaxAirspeed = 16,
+        MinAirspeed = 10,
+		
+        PredictAheadForBombDrop = 3,
+		
+        StartTurnDistance = 5,
+		
+        TightTurnMultiplier = 0,
+		
+        TurnSpeed = 1.2,
+		
+        Winged = true,
+    },
+	
+    Audio = {
+        AirUnitWaterImpact = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMove = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0304_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSA_Destroy',
+            Cue = 'XSA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSA_Destroy',
+            Cue = 'XSA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Landing = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0304_Move_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Refueling = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB5202_Repair_Refuel',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0304_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0304_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Thruster = Sound {
+            Bank = 'XSA',
+            Cue = 'XSA0304_Move_Thruster',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+	
+    BuildIconSortPriority = 19,
+	
+    Categories = {
+        'PRODUCTBREWLANRND',
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'SERAPHIM',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH2',
+        'BOMBER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+        'OVERLAYRADAR',
+        'RESEARCHLOCKED',
+    },
+	
+    CollisionOffsetZ = 0.2,
+	
+    Defense = {
+        ArmorType = 'Light',
+        Health = 1335,
+        MaxHealth = 1335,
+		RegenRate = 4,
+        SurfaceThreatLevel = 24,
+    },
+	
+    Description = '<LOC ssa0211_desc>Tactical Bomber',
+	
+    Display = {
+        Abilities = {
+            '<LOC ability_radar>Radar',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Scale = 2.15,
+                        Type = 'Landing01',
+                    },
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Scale = 2.15,
+                        Type = 'TakeOff01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                    AlbedoName ='/units/xsa0304/xsa0304_albedo.dds',
+                    SpecularName ='/units/xsa0304/xsa0304_specteam.dds',
+                    NormalsName ='/units/xsa0304/xsa0304_normalsts.dds',
+                },
+                {
+                    LODCutoff = 260,
+                    ShaderName = 'Seraphim',
+                    AlbedoName ='/units/xsa0304/xsa0304_albedo.dds',
+                    SpecularName ='/units/xsa0304/xsa0304_specteam.dds',
+                    NormalsName ='/units/xsa0304/xsa0304_normalsts.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Left_Exhaust',
+                        'Right_Exhaust',
+                    },
+                },
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Projectile',
+                            'Right_Projectile',
+                        },
+                        Type = 'AirMoveExhaust03',
+                    },
+                },
+            },
+            Land = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Type = 'Landing01',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.08*0.9,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 17500,
+        BuildCostMass = 330,
+        BuildTime = 400,
+        ResearchMultTime = 0.5,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+        Category = 'Bomber',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC ssa0211_name>Sinn',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        RadarRadius = 50,
+        VisionRadius = 32,
+    },
+	
+    Interface = {
+        HelpText = '<LOC ssa0211_desc>Tactical Bomber',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.3,
+    LifeBarSize = 2.5,
+	
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 18,
+		
+        FuelRechargeRate = 10,
+        FuelUseTime = 320,
+		
+        GroundCollisionOffset = 2,
+        MaxSpeed = 0.5,
+        MeshExtentsX = 3.25*0.9,
+        MeshExtentsY = 0.5,
+        MeshExtentsZ = 2*0.9,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 2.3*0.9,
+    SelectionSizeZ = 0.6*0.9,
+    SelectionThickness = 0.29,
+	
+    SizeSphere = 1.425,
+	
+    SizeX = 2*0.9,
+    SizeY = 0.5,
+    SizeZ = 1.6*0.9,
+	
+    StrategicIconName = 'icon_bomber2_directfire',
+    StrategicIconSortPriority = 55,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+	
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSA_Weapon',
+                    Cue = 'XSA0304_Zhanasse_Bomb',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+			
+            BombDropThreshold = 5,
+			
+            CollideFriendly = false,
+			
+            Damage = 600,
+			
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = 'Normal',
+			
+            Display = 'Zhanasee Strategic Bomb',
+            DisplayName = 'Zhanasee Strategic Bomb',
+			
+            EffectiveRadius = 25,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringTolerance = 3,
+			
+            Label = 'Bomb',
+			
+            MaxRadius = 55,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 0,
+			
+            NeedToComputeBombDrop = true,
+            ProjectileId = '/projectiles/SBOZhanaseeBomb01/SBOZhanaseeBomb01_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Projectile',
+                        'Right_Projectile',
+                    },
+                    RackBone = 'Left_Projectile',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.2,
+			
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+        },
+        {
+            Damage = 200,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.5,
+        MassMult = 0.5,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Seabed = true,
+            Water = true,
+        },
+    },
+}

@@ -185,9 +185,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 110000,
-        BuildCostMass = 1400,
-        BuildTime = 2915,
+        BuildCostEnergy = 100000,
+        BuildCostMass = 1390,
+        BuildTime = 1425,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 75,
