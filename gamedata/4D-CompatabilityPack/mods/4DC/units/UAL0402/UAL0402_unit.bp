@@ -10,6 +10,7 @@ UnitBlueprint {
             'Right_Leg_B01',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -42,6 +43,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -51,7 +53,9 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'AEON',
         'BUILTBYTIER4COMMANDER',
@@ -158,6 +162,7 @@ UnitBlueprint {
                 },
             },
         },
+		
         SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
@@ -290,19 +295,24 @@ UnitBlueprint {
         TurnRadius = 3,
         TurnRate = 36,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.25,
     SelectionSizeX = 2,
     SelectionSizeZ = 2,
     SelectionThickness = 0.4,
+	
     SizeX = 2.5,
     SizeY = 4.5,
     SizeZ = 1.5,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 115,
+	
     Transport = {
         TransportClass = 4,
     },
+	
     Veteran = {
         Level1 = 50,
         Level2 = 100,

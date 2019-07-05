@@ -129,7 +129,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 16500,
-        BuildCostMass = 325,
+        BuildCostMass = 355,
         BuildTime = 1500,
     },
 	
@@ -165,7 +165,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 26,
     },
 	
     Interface = {
@@ -182,7 +182,7 @@ UnitBlueprint {
         },
         Elevation = 10,
 		
-        FuelRechargeRate = 10,
+        FuelRechargeRate = 6,
         FuelUseTime = 240,
 		
         GroundCollisionOffset = 1.6,

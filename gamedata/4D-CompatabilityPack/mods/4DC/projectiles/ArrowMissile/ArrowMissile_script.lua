@@ -1,17 +1,8 @@
-#****************************************************************************
-#**  File     :  /mods/4DC/projectiles/ArrowMissile/ArrowMissile_script.lua
-#**
-#**  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
-#**
-#**  Summary  :  Aeon Arrow Missile
-#**
-#**  Copyright © 2010 4DC  All rights reserved.
-#****************************************************************************
 local ArrowMissileProjectile = import('/mods/4DC/lua/4D_projectiles.lua').ArrowMissileProjectile
 
 ### defined constants
 local waitTime = 0.1
-local missileMaxSpeed = 40
+local missileMaxSpeed = 45
 
 ArrowMissile = Class(ArrowMissileProjectile) {
 

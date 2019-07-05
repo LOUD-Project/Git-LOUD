@@ -21,7 +21,8 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-   Buffs = {
+	
+	Buffs = {
        Regen = {
            Level1 = 3,
            Level2 = 6,
@@ -29,8 +30,10 @@ UnitBlueprint {
            Level4 = 12,
            Level5 = 15,
        },
-   },
+	},
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'ANTIAIR',
         'BUILTBYTIER3FACTORY',
@@ -45,6 +48,7 @@ UnitBlueprint {
         'VISIBLETORECON',
 		'OVERLAYRADAR',
     },
+	
     Defense = {       
         AirThreatLevel = 36,        
         ArmorType = 'Normal',
@@ -53,7 +57,9 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 7.5,
     },
+	
     Description = '<LOC xel0308_desc>Amphibious SAM Launcher',
+	
     Display = {
 		Abilities = {
 			'Amphibious',
@@ -82,16 +88,17 @@ UnitBlueprint {
                 },             
             },
         },
-		
-        PlaceholderMeshName = 'UXL0004',
+
         SpawnRandomRotation = false,
         UniformScale = 0.01,
     },
+	
     Economy = {
         BuildCostEnergy = 10500,
         BuildCostMass = 1000,
         BuildTime = 4000,
     },
+	
     General = {
 		CapCost = 2,
         Category = 'Anti Air',
@@ -116,17 +123,21 @@ UnitBlueprint {
         UnitName = '<LOC xel0308_name>Hermes',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         VisionRadius = 32,
 		RadarRadius = 75,
     },
+	
     Interface = {
         HelpText = 'Amphibious SAM Launcher',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 0.8,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {

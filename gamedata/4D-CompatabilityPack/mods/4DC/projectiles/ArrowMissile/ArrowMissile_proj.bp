@@ -21,8 +21,6 @@ ProjectileBlueprint {
         'PROJECTILE',
         'ANTIAIR',
         'MISSILE',
-        'TACTICAL',
-        'MISSILE',
     },
     Defense = {
         Health = 1,
@@ -47,8 +45,6 @@ ProjectileBlueprint {
             'PROJECTILE',
             'ANTIAIR',
             'MISSILE',
-            'TACTICAL',
-            'MISSILE',
         },
         Faction = 'Aeon',
     },
@@ -58,7 +54,7 @@ ProjectileBlueprint {
     Physics = {
         TurnRate = 80,
         InitialSpeed = 10,
-        MaxSpeed = 40,
+        MaxSpeed = 45,
         Acceleration = 5,
         OnLostTargetLifetime = 4.0,
         MaxZigZag = 10,

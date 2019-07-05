@@ -21,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -30,7 +31,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 19,
+	
     Categories = {
         'BUILTBYTIER3FACTORY',
         'CYBRAN',
@@ -44,6 +47,7 @@ UnitBlueprint {
         'TECH3',      
         'VISIBLETORECON',
     },
+	
     CollisionOffsetZ = -0.075,
 	
     Defense = {      
@@ -92,7 +96,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/mods/4DC/units/URL0305/URL0305_awalk.sca', 
         AnimationWalkRate = 2.5,
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.01,
     },
@@ -135,9 +139,11 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Basic Amphibious Walker',
     },
+	
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.3,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -160,20 +166,25 @@ UnitBlueprint {
         TurnRate = 70,
 		WaterSpeedMultiplier = 1.1,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.075,
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.6,
+	
     SizeX = 1.0,
     SizeY = 1.0,
     SizeZ = 1.0,
+	
     StrategicIconName = 'icon_bot3_directfire',
     StrategicIconSortPriority = 125,
+	
     Transport = {
     	CanFireFromTransport = false,
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -181,6 +192,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             Audio = {

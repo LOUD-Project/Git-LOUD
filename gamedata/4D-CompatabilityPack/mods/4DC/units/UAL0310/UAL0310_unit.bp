@@ -1,10 +1,10 @@
-
 UnitBlueprint {
     AI = { 
         TargetBones = {
             'Center_hatch_01',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -17,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -116,8 +117,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.022,
     },

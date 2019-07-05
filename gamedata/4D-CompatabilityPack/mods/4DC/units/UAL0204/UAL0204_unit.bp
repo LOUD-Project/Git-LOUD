@@ -99,7 +99,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.007,
     },
@@ -182,7 +182,8 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },                              
-    },       
+    },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -205,18 +206,22 @@ UnitBlueprint {
         UnitName = '<LOC ual0204_name>Predator',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         VisionRadius = 26,
         StealthStartsOn = true,
         RadarStealth = true,               
     },
+	
     Interface = {
     	HelpText = 'Predator',
     },    
+	
     LifeBarHeight = 0.05,
     LifeBarOffset = 0.75,
     LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -241,18 +246,23 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 66,
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.6,
+	
     SizeX = 0.6,
     SizeY = 1.1,
     SizeZ = 0.4,
+	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 115,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -260,6 +270,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
 		-- Sniper Rifle with Shield Piercing Projectile
         {

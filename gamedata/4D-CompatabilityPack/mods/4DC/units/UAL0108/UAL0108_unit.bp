@@ -1,10 +1,10 @@
-
 UnitBlueprint {
     AI = {
         TargetBones = {
             'bodyBase',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -37,6 +37,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 1,
@@ -46,7 +47,9 @@ UnitBlueprint {
             Level5 = 5,
         },
     },
+	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'AEON',
         'BOT',
@@ -61,12 +64,14 @@ UnitBlueprint {
         'TECH1',
         'VISIBLETORECON',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 210,
         MaxHealth = 210,
         SurfaceThreatLevel = 4.4,
     },
+	
     Description = '<LOC ual0108_desc>Light Assault Walker',  
         Display = {
         Abilities = {
@@ -115,10 +120,11 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 550,
         BuildCostMass = 75,
@@ -203,15 +209,19 @@ UnitBlueprint {
         UnitName = '<LOC ual0108_name>Artos',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Light Assault Walker',
     },
+	
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.7,
     LifeBarSize = 0.45,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -237,20 +247,25 @@ UnitBlueprint {
         TurnRadius = 1,
         TurnRate = 60,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.5,
+	
     SizeX = 0.3,
     SizeY = 1.1, 
     SizeZ = 0.44,
+	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
 		TransportClass = 1,
     },
+	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -258,6 +273,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
