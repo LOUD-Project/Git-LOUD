@@ -112,7 +112,7 @@ do
 					
 							for j, catj in bp.Categories do
 						
-								if catj == 'TECH1' then
+								if catj == 'TECH1' or catj == 'EXPERIMENTAL' then
 							
 									if bp.Economy.BuildRate then
 										bp.Economy.BuildRate = bp.Economy.BuildRate * buildratemod
@@ -204,8 +204,6 @@ do
 							
 							-- OK - a small problem here - No factory built experimentals - so why do I allow MOBILE EXPERIMENTALS to be built with
 							-- higher caps than STRUCTURE EXPERIMENTALS ?
-							-- Technically I should be using the SUBCOMMANDER limits from the STRUCTURE section of this mod which would be
-							-- 48 and 600 - so I do
 							if catj == 'EXPERIMENTAL' then
 						
 								max_mass = 60
@@ -215,7 +213,7 @@ do
 									
 									-- experimental units are not factory built so no buildratemod is applied (we just use the default SUBCOM build power (60)
 									alt_mass =  (bp.Economy.BuildCostMass/max_mass) * 60
-									alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60									
+									alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
@@ -225,7 +223,7 @@ do
 							
 							if max_mass then
 
-								--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
+								LOG("*AI DEBUG class is "..cat.." "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
 								
 								break
 								

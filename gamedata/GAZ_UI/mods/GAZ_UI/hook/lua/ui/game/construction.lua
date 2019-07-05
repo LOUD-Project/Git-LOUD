@@ -704,24 +704,33 @@ do
     
     --visible template names -ghaleon
     if options.gui_visible_template_names != 0 then
+	
         local cutA = 0
         local cutB = 0
+		
         if options.gui_template_name_cutoff != nil then
             cutA = options.gui_template_name_cutoff
             cutB = options.gui_template_name_cutoff
         end
+		
         cutA = cutA + 1
         cutB = cutB + 7
 
         local oldCommonLogic = CommonLogic
+		
         function CommonLogic()
+		
             oldCommonLogic()
+			
             local oldSecondary = controls.secondaryChoices.SetControlToType
             local oldPrimary = controls.choices.SetControlToType
             local oldPrimaryCreate = controls.choices.CreateElement
+			
             controls.choices.CreateElement = function()
+			
                 local btn = oldPrimaryCreate()
--- creating the display area
+				
+				-- creating the display area
                 btn.Tmplnm = UIUtil.CreateText(btn.Icon, '', 11, UIUtil.bodyFont)
                 btn.Tmplnm:SetColor('ffffff00')
                 btn.Tmplnm:DisableHitTest()
@@ -731,18 +740,24 @@ do
                 btn.Tmplnm.Depth:Set(function() return btn.Icon.Depth() + 10 end)
                 return btn
             end
+			
             controls.secondaryChoices.SetControlToType = function(control, type)
                 oldSecondary(control, type)
             end
+			
             controls.choices.SetControlToType = function(control, type)
+			
                 oldPrimary(control, type)
--- the text
+				
+				-- the text
                 if type == 'templates' and 'templates' then
                     control.Tmplnm.Width:Set(48)
                     control.Tmplnm:SetText(string.sub(control.Data.template.name, cutA, cutB))
                 end
             end
+			
         end
+		
     end
 
     --Improved unit deselection -ghaleon

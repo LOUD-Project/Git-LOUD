@@ -11,6 +11,7 @@ This mod affects,
 T2 and T3 power structures
 T3 Mass Extraction and T2 and T3 Mass Fabrication
 T3 and Experimental Shield Structures
+Unique models for each faction for The Paragon
 
 
 A secondary upshot of this mod is that you may now get the benefits of storage adjacency AND the benefits of resource adjacency for your
