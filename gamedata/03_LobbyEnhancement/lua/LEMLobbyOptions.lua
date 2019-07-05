@@ -47,7 +47,7 @@ GPGrestrictedUnits = {
     },
 
     AIRFIGHTERS = {
-		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303"},
+		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303","sra0313"},
 		name = "No Air Fighters",
 		tooltip = "restricted_units_air_fighters",
     },
@@ -83,29 +83,23 @@ GPGrestrictedUnits = {
 	},
 	
     NUKE = {
-        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "ues0304", "urs0304", "xss0302" },
-        name = "<LOC restricted_units_data_0011>No Nukes",
+        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "ues0304", "urs0304", "xss0302", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
+        name = "<LOC restricted_units_data_0011>No Nukes, Anti-nukes or Nuke submarines",
         tooltip = "restricted_units_nukes",
     },
 	
 	HEAVYARTILLERY = {
-		categories = { "uab2302","ueb2302","urb2302","xsb2302" },
-		name = "No T3 Artillery",
+		categories = { "uab2302","ueb2302","urb2302","xsb2302", "mguba31", "mgubc31", "mgubu31", "mgubs31" },
+		name = "No T3 Artillery or Barrage Artillery",
 		tooltip = "restricted_units_T3_artillery",
 	},
 	
 	EXPERIMENTALARTILLERY = {
-		categories = { "xab2307", "ueb2401", "url0401" },
+		categories = { "xab2307", "ueb2401", "url0401", "seb2404", "ssb2404" },
 		name = "No Experimental Artillery",
 		tooltip = "restricted_units_exp_artillery",
 	},
-	
-    GAMEENDERS = {
-        categories = { "uas0304", "ues0304", "urs0304", "uab2302", "xss0302", "urb2302", "ueb2302", "xsb2302", },
-        name = "<LOC restricted_units_data_0012>No Game Enders",
-        tooltip = "restricted_units_gameenders",
-    },
-	
+
     SHIELDS = {
         categories = {"uel0307", "ual0307", "xsl0307", "xes0205", "ueb4202", "urb4202", "uab4202", "xsb4202", "ueb4301", "uab4301", "xsb4301", },
         name = "<LOC restricted_units_data_0013>No Shield Units",
@@ -117,25 +111,21 @@ GPGrestrictedUnits = {
         name = "<LOC restricted_units_data_0014>No Intel Structures",
         tooltip = "restricted_units_intel",
     },
-	
-    SUPCOM = {
-        categories = {"SUBCOMMANDER", },
-        name = "<LOC restricted_units_data_0015>No Support Commanders",
-        tooltip = "restricted_units_supcom",
-    },
-	
+
     FABS = {
-        categories = {"ueb1104", "ueb1303", "urb1104", "urb1303", "uab1104", "uab1303", "xsb1104", "xsb1303", },
+        categories = {"ueb1104", "ueb1303", "urb1104", "urb1303", "uab1104", "uab1303", "xsb1104", "xsb1303", "xab1401" },
         name = "<LOC restricted_units_data_0019>No Mass Fabrication",
         tooltip = "restricted_units_massfab",
     },
 	
+-- this is a bizarre and silly restriction as the game can't really function without them in any real sense --
+--[[	
     NOENGINEERS = {
 		categories = {"ual0105", "ual0208", "ual0309", "uel0105", "uel0208", "uel0309", "url0105", "url0208", "url0309", "xsl0105", "xsl0208", "xsl0309", "xel0209", },
 		name = "No T1, T2, T3 Engineers",
 		tooltip = "restricted_units_engineers",
     },
-
+--]]
 }
 
 GPGsortOrder = {
