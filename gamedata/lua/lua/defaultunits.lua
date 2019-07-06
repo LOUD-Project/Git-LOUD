@@ -63,9 +63,8 @@ local VDist2 = VDist2
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
-local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetCurrentLayer = moho.unit_methods.GetCurrentLayer
+--local GetBlueprint = moho.entity_methods.GetBlueprint
+--local GetCurrentLayer = moho.unit_methods.GetCurrentLayer
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
@@ -207,6 +206,10 @@ StructureUnit = Class(Unit) {
 
 		return self.CachePosition
 
+	end,
+	
+	GetCachePosition = function(self)
+		return self.CachePosition
 	end,
 
     OnFailedToBeBuilt = function(self)
@@ -968,25 +971,14 @@ MobileUnit = Class(Unit) {
 			
 			target:SetRegenRate(0)
 			
-			-- no point in refreshing UI since it doesn't show the actual regen rate
-			-- but only the blueprint value
-			--target:RequestRefreshUI()
-			
 		end
 
-		-- if IsUnit(target) and target:IsUnitState('Upgrading') then
-			-- LOG("*AI DEBUG Target is "..target:GetBlueprint().Description)
-			-- target.Unit:OnPaused()
-		-- end
-
-        --self:PlayUnitAmbientSound('ReclaimLoop')
     end,
 
 	-- when you stop reclaiming
     OnStopReclaim = function(self, target)
 
-        --self:DoUnitCallbacks('OnStopReclaim', target)
-		--self:StopReclaimEffects(target)
+        self:DoUnitCallbacks('OnStopReclaim', target)
 
 		if self.ReclaimEffectsBag then
 			self.ReclaimEffectsBag:Destroy()
@@ -1113,30 +1105,37 @@ MobileUnit = Class(Unit) {
             self:AddThreadScroller(1.0, treads.ScrollMultiplier or 0.2)
         end
 
-        self.TreadThreads = {}
-		local counter = 0
-
         if treads.TreadMarks then
 
-            local type = self:GetTTTreadType(GetPosition(self))
+            local terraintype = self:GetTTTreadType(GetPosition(self))
 
-            if type != 'None' then
+            if terraintype != 'None' then
+		
+				self.TreadThreads = {}
+		
+				local counter = 0
+			
                 for k, v in treads.TreadMarks do
-                    self.TreadThreads[counter+1] = self:ForkThread(self.CreateTreadsThread, v, type )
+                    self.TreadThreads[counter+1] = self:ForkThread(self.CreateTreadsThread, v, terraintype )
 					counter = counter + 1
                 end
+				
             end
         end
     end,
 
-    CreateTreadsThread = function(self, treads, type )
+    CreateTreadsThread = function(self, treads, terraintype )
+	
         local sizeX = treads.TreadMarksSizeX
         local sizeZ = treads.TreadMarksSizeZ
-        local interval = treads.TreadMarksInterval * 10 + 1 --WaitTicks(val * 10) is not equal to WaitSeconds(val)
+		
+        local interval = treads.TreadMarksInterval * 10 + 1
+		
         local treadOffset = treads.TreadOffset
         local treadBone = treads.BoneName or 0
         local treadTexture = treads.TreadMarks
         local duration = treads.TreadLifeTime or 10
+		
         local army = self.Sync.army
 
         local CSPLATON = CreateSplatOnBone
@@ -1172,10 +1171,10 @@ MobileUnit = Class(Unit) {
     CreateContrails = function(self, tableData )
 	
 		-- If SimSpeed drops too low -- curtail movement effects
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 
         local effectBones = tableData.Bones
-        local army = GetArmy(self)
+        local army = self.Sync.army
         local ZOffset = tableData.ZOffset or 0.0
 
         for ke, ve in self.ContrailEffects do
@@ -1195,7 +1194,7 @@ MobileUnit = Class(Unit) {
     CreateMovementEffects = function( self, EffectsBag, TypeSuffix, TerrainType )
 	
 		-- If SimSpeed drops too low -- curtail movement effects
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
@@ -1324,7 +1323,7 @@ MobileUnit = Class(Unit) {
     CreateMotionChangeEffects = function( self, new, old )
 	
 		-- If SimSpeed drops too low -- curtail movement effects
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 
 		if __blueprints[self.BlueprintID].Display.MotionChangeEffects then
 
@@ -3739,12 +3738,16 @@ AirUnit = Class(MobileUnit) {
     -- ON KILLED: THIS FUNCTION PLAYS WHEN THE UNIT TAKES A MORTAL HIT.  IT PLAYS ALL THE DEFAULT DEATH EFFECT
     -- IT ALSO SPAWNS THE WRECKAGE BASED UPON HOW MUCH IT WAS OVERKILLED. UNIT WILL SPIN OUT OF CONTROL TOWARDS GROUND
 	-- The OnImpact event will handle the final destruction
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, deathtype, overkillRatio)
+	
+		--LOG("*AI DEBUG AirUnit OnKilled for "..self:GetBlueprint().Description.." "..self.Sync.id.." type is "..repr(deathtype).." OK is "..repr(overkillRatio))
 
-		-- 60% of the time aircraft will just disintegrate, experimentals ALWAYS crash to ground
+		-- 65% of the time aircraft will just disintegrate, experimentals ALWAYS crash to ground
 		-- this is the normal (air crash to ground) path
-		-- NOTE: how we bypass the UNIT.OnKilled and instead let the OnImpact event handle the death
-        if self.CacheLayer == 'Air' and ( Random() < 0.6 or EntityCategoryContains(categories.EXPERIMENTAL, self)) then
+		
+		-- NOTE: how we bypass the UNIT.OnKilled and let the OnImpact event handle the death
+		-- this causes a minor issue where a unit can be Dead but not Destroyed
+        if self.CacheLayer == 'Air' and ( Random() > 0.65 or EntityCategoryContains(categories.EXPERIMENTAL, self)) then
 
             self.CreateUnitAirDestructionEffects( self, 1.0 )
 
@@ -3773,7 +3776,13 @@ AirUnit = Class(MobileUnit) {
         else
 
             self.DeathBounce = 1
-			Unit.OnKilled(self, instigator, type, overkillRatio)
+			
+			--LOG("*AI DEBUG AirUnit OnKilled Disintegrates")
+			
+			self.PlayDeathAnimation = false
+			self.DeathWeaponEnabled = false
+			
+			Unit.OnKilled(self, instigator, deathtype, overkillRatio)
         end
 
     end,

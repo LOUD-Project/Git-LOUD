@@ -211,25 +211,25 @@ Weapon = Class(moho.weapon_methods) {
         local turretpitchmin, turretpitchmax, turretpitchspeed
         
         if bp.TurretYaw and bp.TurretYawRange then
-            turretyawmin, turretyawmax = self:GetTurretYawMinMax()
+            turretyawmin, turretyawmax = self:GetTurretYawMinMax(bp)
         else
             numbersexist = false
         end
         
         if bp.TurretYawSpeed then
-            turretyawspeed = self:GetTurretYawSpeed()
+            turretyawspeed = self:GetTurretYawSpeed(bp)
         else
             numbersexist = false
         end
         
         if bp.TurretPitch and bp.TurretPitchRange then
-            turretpitchmin, turretpitchmax = self:GetTurretPitchMinMax()
+            turretpitchmin, turretpitchmax = self:GetTurretPitchMinMax(bp)
         else
             numbersexist = false
         end
         
         if bp.TurretPitchSpeed then
-            turretpitchspeed = self:GetTurretPitchSpeed()
+            turretpitchspeed = self:GetTurretPitchSpeed(bp)
         else
             numbersexist = false
         end
@@ -286,33 +286,30 @@ Weapon = Class(moho.weapon_methods) {
         end
     end,
 
-    GetTurretYawMinMax = function(self)
+    GetTurretYawMinMax = function(self,blueprint)
 
-		local bp = GetBlueprint(self)
-		
-        local halfrange = bp.TurretYawRange
-        local yaw = bp.TurretYaw
-		
-        return yaw - halfrange, yaw + halfrange
+		local bp = blueprint or GetBlueprint(self)
+
+        return bp.TurretYaw - bp.TurretYawRange, bp.TurretYaw + bp.TurretYawRange
     end,
 
-    GetTurretYawSpeed = function(self)
-		local bp = GetBlueprint(self)
+    GetTurretYawSpeed = function(self,blueprint)
+	
+		local bp = blueprint or GetBlueprint(self)
 		
         return bp.TurretYawSpeed
     end,
 
-    GetTurretPitchMinMax = function(self)
-		local bp = GetBlueprint(self)
-		
-        local halfrange = bp.TurretPitchRange
-        local pitch = bp.TurretPitch
-		
-        return pitch - halfrange, pitch + halfrange
+    GetTurretPitchMinMax = function(self,blueprint)
+	
+		local bp = blueprint or GetBlueprint(self)
+
+        return bp.TurretPitch - bp.TurretPitchRange, bp.TurretPitch + bp.TurretPitchRange
     end,
 
-    GetTurretPitchSpeed = function(self)
-		local bp = GetBlueprint(self)
+    GetTurretPitchSpeed = function(self,blueprint)
+	
+		local bp = blueprint or GetBlueprint(self)
 		
         return bp.TurretPitchSpeed
     end,
@@ -401,71 +398,7 @@ Weapon = Class(moho.weapon_methods) {
         PlaySound( self, bp.Audio[sound] )
 		
     end,
-    
-    GetDamageTable = function(self)
-	
-		if self.damageTable then
-		
-			return self.damageTable
-			
-		end
-	
-        local weaponBlueprint = GetBlueprint(self)
 
-        local damageTable = {
-		
-			DamageRadius = weaponBlueprint.DamageRadius or nil,	-- + (self.DamageRadiusMod or 0),
-			DamageAmount = weaponBlueprint.Damage + (self.DamageMod or 0),
-			DamageType = weaponBlueprint.DamageType,
-			
-			DamageFriendly = weaponBlueprint.DamageFriendly or nil,
-
-			CollideFriendly = weaponBlueprint.CollideFriendly or nil,
-			
-			DoTTime = weaponBlueprint.DoTTime or nil,
-			DoTPulses = weaponBlueprint.DoTPulses or nil,
-		
-			ArtilleryShieldBlocks = weaponBlueprint.ArtilleryShieldBlocks or nil,
-		
-			advancedTracking = weaponBlueprint.advancedTracking or nil,
-			ProjectileLifetime = self.ProjectileLifetime or nil,
-			TrackingRadius = self.TrackingRadius or nil,
-		}
-
-        if weaponBlueprint.Buffs != nil then
-		
-			damageTable.Buffs = {}
-			
-            for k, v in weaponBlueprint.Buffs do
-                damageTable.Buffs[k] = {}
-                damageTable.Buffs[k] = v
-            end   
-			
-        end     
-		
-        #--remove disabled buff
-        if (self.Disabledbf != nil) and (damageTable.Buffs != nil) then
-		
-            for k, v in damageTable.Buffs do
-			
-                for j, w in self.Disabledbf do
-				
-                    if v.BuffType == w then
-                        #--Removing buff
-                        LOUDREMOVE( damageTable.Buffs, k )
-						
-                    end
-					
-                end
-				
-            end 
-			
-        end  
-		
-        return damageTable
-		
-    end,
-    
 	-- as opposed to creating this data every time the weapon is fired
 	-- lets create it once, store it, and eliminate all the function calls
 	-- to GetDamageTable -- imagine that
@@ -563,11 +496,10 @@ Weapon = Class(moho.weapon_methods) {
 
             proj:PassDamageData( self.damageTable )
 			
-            local bp = GetBlueprint(self)
+			if self.NukeWeapon then
+			
+				local bp = GetBlueprint(self)
 
-            if bp.NukeOuterRingDamage and bp.NukeOuterRingRadius and bp.NukeOuterRingTicks and bp.NukeOuterRingTotalTime and
-                bp.NukeInnerRingDamage and bp.NukeInnerRingRadius and bp.NukeInnerRingTicks and bp.NukeInnerRingTotalTime then
-				
                 local data = {
 				
                     NukeInnerRingDamage = bp.NukeInnerRingDamage or 2000,
