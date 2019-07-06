@@ -1064,7 +1064,7 @@ BuilderGroup {BuilderGroupName = 'Air Experimental Formations',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },        
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.AIR * categories.EXPERIMENTAL * categories.BOMBER } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.AIR * categories.EXPERIMENTAL * categories.BOMBER } },
 			
         },
 		

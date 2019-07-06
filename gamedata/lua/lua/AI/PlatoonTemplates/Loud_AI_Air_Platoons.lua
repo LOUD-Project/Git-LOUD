@@ -39,14 +39,14 @@ PlatoonTemplate { Name = 'BomberAttack Large',
 
 PlatoonTemplate { Name = 'BomberAttack Super',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 28, 50, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 28, 64, 'Attack', 'AttackFormation' },
 		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
     }
 }
 
 PlatoonTemplate { Name = 'Experimental Bomber',
     GlobalSquads = {
-        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.BOMBER) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 2, 6, 'Attack', 'none' },
+        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.BOMBER) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Attack', 'none' },
     },
 }
 
@@ -68,7 +68,7 @@ PlatoonTemplate { Name = 'GunshipAttackSmall',
 
 PlatoonTemplate { Name = 'GunshipAttack',
     GlobalSquads = {
-        { (categories.AIR * categories.GROUNDATTACK), 16, 48, 'Attack', 'AttackFormation' },
+        { (categories.AIR * categories.GROUNDATTACK), 16, 64, 'Attack', 'AttackFormation' },
 		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 4, 'guard', 'none' },
     }
@@ -91,7 +91,7 @@ PlatoonTemplate { Name = 'GunshipReinforce',
 
 PlatoonTemplate { Name = 'Experimental Gunship',
     GlobalSquads = {
-        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.GROUNDATTACK) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 2, 6, 'Attack', 'none' },
+        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.GROUNDATTACK) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Attack', 'none' },
 		{ (categories.bea0402), 0, 8, 'guard', 'none' },
     },
 }
