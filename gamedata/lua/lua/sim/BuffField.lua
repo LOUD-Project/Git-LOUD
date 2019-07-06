@@ -265,32 +265,32 @@ BuffField = Class(Entity) {
 
 		local function GetNearbyAffectableUnits()
 		
-			units = {}
+			local unitlist = {}
 
 			local pos = Owner:GetPosition() or false
-			
+
 			if pos then
 			
 				if bp.AffectsOwnUnits then
-					units = LOUDMERGE(units, GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+					unitlist = GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
 				end
 			
 				if bp.AffectsAllies then
-					units = LOUDMERGE(units, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+					unitlist = LOUDMERGE(unitlist, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
 				end
 			
 				if bp.AffectsVisibleEnemies then
-					units = LOUDMERGE(units, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+					unitlist = LOUDMERGE(unitlist, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
 				end
 				
 			end
 
-			return units
+			return unitlist
 			
 		end
 
 		while Field.Enabled and not Owner.Dead do
-		
+
 			units = GetNearbyAffectableUnits()
 			
 			count = 0
@@ -306,20 +306,25 @@ BuffField = Class(Entity) {
 					end
 					
 					if not unit.HasBuffFieldThreadHandle[bp.Name] then
-					
+						
 						-- all bufffields (atm) don't affect themselves
 						if Owner and IsUnit(unit) and Field and bp and unit != Owner then
+						
+							-- this is here just to trap odd situation where a unit
+							-- no longer appears to be a valid unit ?
+							if unit.ForkThread then
 
-							unit.BuffFieldThreadHandle[bp.Name] = ForkThread( Field.UnitBuffFieldThread, unit, Owner, Field, bp )
+								unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
 							
-							count = count + 1
+								count = count + 1
 							
-							if count == 5 then
+								if count == 5 then
 							
-								WaitTicks(1)
-								count = 0
-								mastercount = mastercount + 1
+									WaitTicks(1)
+									count = 0
+									mastercount = mastercount + 1
 								
+								end
 							end
 						end
 					end
@@ -346,11 +351,11 @@ BuffField = Class(Entity) {
 			unit.HasBuffFieldThreadHandle[bp.Name] = true
 
 			local GetPosition = moho.entity_methods.GetPosition
-			local VDist3 = VDist3
+			--local VDist3 = VDist3
 
 			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
 
-				if VDist3( GetPosition(unit), Owner:GetPosition() ) > bp.Radius then
+				if VDist3( GetPosition(unit), GetPosition(Owner) ) > bp.Radius then
 					--LOG("*AI DEBUG Out of field range")
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
 				end
@@ -370,7 +375,7 @@ BuffField = Class(Entity) {
 			if not unit.Dead and bp.Buffs then
 				
 				for _, buff in bp.Buffs do
-		
+				
 					if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
 						RemoveBuff( unit, buff )
 					end

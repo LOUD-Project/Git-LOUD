@@ -34,6 +34,20 @@ Weapon = Class(moho.weapon_methods) {
 		self.Trash = self.unit.Trash
 		
         local bp = GetBlueprint(self)
+		
+		-- store weapon buffs on the weapon itself so 
+		-- we can bypass GetBlueprint every time the weapon fires
+		if bp.Buffs then
+			self.Buffs = table.copy(bp.Buffs)
+		end
+
+		-- if a weapon fires a round with these parameters 
+		-- flag it so we can avoide GetBlueprint when it is NOT
+        if bp.NukeOuterRingDamage and bp.NukeOuterRingRadius and bp.NukeOuterRingTicks and bp.NukeOuterRingTotalTime and
+            bp.NukeInnerRingDamage and bp.NukeInnerRingRadius and bp.NukeInnerRingTicks and bp.NukeInnerRingTotalTime then
+			
+			self.NukeWeapon = true
+		end
 
         self:SetValidTargetsForCurrentLayer( self.unit:GetCurrentLayer(), bp)
 		
@@ -65,10 +79,9 @@ Weapon = Class(moho.weapon_methods) {
 		
         self:SetWeaponPriorities()
 		
-        self.Disabledbf = {}
-		
-        self.DamageMod = 0
-        self.DamageRadiusMod = 0
+        --self.Disabledbf = {}
+        --self.DamageMod = 0
+        --self.DamageRadiusMod = 0
 		
         local initStore = tonumber(ScenarioInfo.Options.MissileOption) or bp.InitialProjectileStorage or 0
 		
@@ -310,10 +323,11 @@ Weapon = Class(moho.weapon_methods) {
 			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
 		end
 		
-        local bp = GetBlueprint(self)
+        --local bp = GetBlueprint(self)
         
-		if bp.Buffs then
-			self:DoOnFireBuffs(bp.Buffs)
+		--if bp.Buffs then
+		if self.Buffs then
+			self:DoOnFireBuffs(self.Buffs)
 		end
     end,
 	
@@ -690,24 +704,38 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     DisableBuff = function(self, buffname)
+	
         if buffname then
+		
+			LOG("*AI DEBUG Weapon DisableBuff "..repr(buffname))
+		
+			if not self.Disabledbf then
+				self.Disabledbf = {}
+			end
+		
             for k, v in self.Disabledbf do
+			
                 if v == buffname then
                     #this buff is already in the table
                     return
                 end
             end
             
-            --Add to disabled list
+            --Add to disabled buff list
             LOUDINSERT(self.Disabledbf, buffname)
         end
     end,
     
     ReEnableBuff = function(self, buffname)
+	
         if buffname then
+		
+			LOG("*AI DEBUG Weapon ReEnableBuff "..repr(buffname))
+			
             for k, v in self.Disabledbf do
+			
                 if v == buffname then
-                    #Remove from disabled list
+                    --Remove from disabled buff list
                     LOUDREMOVE(self.Disabledbf, k)
                 end
             end

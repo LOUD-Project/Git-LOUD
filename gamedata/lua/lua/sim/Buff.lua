@@ -56,7 +56,7 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
 
-    if unit.Dead or not unit.Buffs.BuffTable then
+    if not unit or unit.Dead or not unit.Buffs.BuffTable then
         return
     end
 
@@ -220,43 +220,19 @@ function ApplyBuff(unit, buffName, instigator)
 
 	-- for buffs with a duration --
     if def.Duration and def.Duration > 0 then
+	
+		if unit then
 
-		-- Function to do work on the buff.  Apply the buff every second
-		-- Then remove the buff so it can be applied again
-		local function BuffWorkThread()
+			unit:ForkThread( BuffWorkThread, buffName, instigator )
 
-			local buffTable = Buffs[buffName]
+			if data.Count > 0 then
 
-			local BeenDestroyed = moho.entity_methods.BeenDestroyed
+				-- create the unit BuffTable entry
+				if not ubt[def.BuffType] then
+					ubt[def.BuffType] = {}
+				end
 
-			local pulse = 0
-
-			while not BeenDestroyed(unit) and pulse < buffTable.Duration do
-
-				BuffAffectUnit( unit, buffName, instigator, false )
-
-				WaitTicks(10)
-				pulse = pulse + 1
-
-			end
-
-			if unit.Buffs.BuffTable[Buffs[buffName].BuffType][buffName] then
-
-				RemoveBuff(unit, buffName)
-
-			end
-		end
-
-        local thread = ForkThread( BuffWorkThread )
-
-		if data.Count > 0 then
-
-			-- create the unit BuffTable entry
-			if not ubt[def.BuffType] then
-				ubt[def.BuffType] = {}
-			end
-
-			ubt[def.BuffType][buffName] = data
+				ubt[def.BuffType][buffName] = data
 
 				if def.OnApplyBuff then
 					def:OnApplyBuff(unit, instigator)
@@ -361,7 +337,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local healthadj = val - health
 
             if healthadj < 0 then
-                unit:DoTakeDamage( instigator, -1 * healthadj, VDiff(instigator:GetPosition(), unit:GetPosition()), 'Normal')
+                unit:DoTakeDamage( instigator, -1 * healthadj, false, 'Normal')	--VDiff(instigator:GetPosition(), unit:GetPosition())
             else
                 AdjustHealth( unit, instigator, healthadj )
             end
@@ -376,7 +352,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			SetFuelRatio( unit, val )
 
-			--RequestRefreshUI(unit)
+			RequestRefreshUI(unit)
 
         elseif atype == 'MaxHealth' then
 
