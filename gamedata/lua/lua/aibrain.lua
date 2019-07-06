@@ -9,7 +9,7 @@
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 	
 
-	-- ATTACK PLANS and Strength Ratios
+	-- ATTACK PLANS and AI Strength Ratios
 	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
 
@@ -42,6 +42,10 @@
 	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
+	
+	-- UNIT BUFF dialog - show units being buffed and de-buffed
+	ScenarioInfo.BuffDialog = false
+	LOG("*AI DEBUG		Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
 
 	
 	-- INTEL, BASEMONITORS and DISTRESS RESPONSE dialogs

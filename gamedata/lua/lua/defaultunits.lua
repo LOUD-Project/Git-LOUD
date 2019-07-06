@@ -866,12 +866,12 @@ StructureUnit = Class(Unit) {
 
 			for k, v in self.AdjacencyBeamsBag do
 
-			local unit = GetEntityById(v.Unit)
+				local unit = GetEntityById(v.Unit)
 
-			-- adjacency beams persist until either unit has been destroyed
-			-- even if one of them is a production unit that might be turned off
-            if unit:BeenDestroyed() or unit.Dead or self:BeenDestroyed() or self.Dead then
-                v.Trash:Destroy()
+				-- adjacency beams persist until either unit has been destroyed
+				-- even if one of them is a production unit that might be turned off
+				if unit:BeenDestroyed() or unit.Dead or self:BeenDestroyed() or self.Dead then
+					v.Trash:Destroy()
 					self.AdjacencyBeamsBag[k] = nil
 				end
 			end

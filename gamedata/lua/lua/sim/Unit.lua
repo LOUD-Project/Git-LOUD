@@ -384,7 +384,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     ForkThread = function(self, fn, ...)
-	
+
         local thread = ForkThread(fn, self, unpack(arg))
 		
         self.Trash:Add(thread)
@@ -508,7 +508,7 @@ Unit = Class(moho.unit_methods) {
 			for _,faction in {'UEF', 'Aeon', 'Cybran', 'Seraphim'} do
 
                 if bp.Audio['EnemyUnitDetected'..faction] then
-                
+
                     self.SeenEver = {}
                     self.SeenEverDelay = {}
 		
@@ -641,13 +641,13 @@ Unit = Class(moho.unit_methods) {
     end,
 	
 	CreateUnitDestructionDebris = function( self, high, low, chassis )
-	
+
 		self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
 		
 	end,
 
     GetCachePosition = function(self)
-	
+
         return self:GetPosition()
 		
     end,
@@ -718,13 +718,13 @@ Unit = Class(moho.unit_methods) {
     LifeTimeThread = function(self, lifetime)
 
 		WaitTicks(lifetime*10)
-		
+
 		self:Destroy()
 		
     end,
 
     SetTargetPriorities = function(self, priTable)
-	
+
         for i = 1, self.WeaponCount do
 		
             local wep = GetWeapon(self,i)
@@ -736,7 +736,7 @@ Unit = Class(moho.unit_methods) {
     end,
     
     SetLandTargetPriorities = function(self, priTable)
-	
+
         for i = 1, self.WeaponCount do
 		
             local wep = GetWeapon(self,i)
@@ -912,7 +912,7 @@ Unit = Class(moho.unit_methods) {
 	
 	-- standard script bits --
     OnScriptBitSet = function(self, bit)
-	
+
         if bit == 0 then			-- shield toggle
 		
             --self:PlayUnitAmbientSound( 'ActiveLoop' )
@@ -973,7 +973,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnScriptBitClear = function(self, bit)
-	
+
         if bit == 0 then
 		
             --self:StopUnitAmbientSound( 'ActiveLoop' )
@@ -1355,7 +1355,7 @@ Unit = Class(moho.unit_methods) {
     -- Called when we start building a unit, turn on/off, get/lose bonuses, or on
     -- any other change that might affect our build rate or resource use.
     UpdateConsumptionValues = function(self)
-	
+
         local energy_rate = 0
         local mass_rate = 0
 		
@@ -1546,7 +1546,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
-		
+
 		local GetHealth = moho.entity_methods.GetHealth
 	
         local preAdjHealth = GetHealth(self)
@@ -1666,7 +1666,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     PlayDamageEffect = function(self, fxTable, fxBag)
-
+	
         local effects = fxTable[Random(1,LOUDGETN(fxTable))]
 		
         if not effects then
@@ -1739,8 +1739,9 @@ Unit = Class(moho.unit_methods) {
     end,
 
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, deathtype, overkillRatio)
 	
+		--LOG("*AI DEBUG OnKilled for "..repr(self:GetBlueprint().Description).." "..self.Sync.id)
 		
 		--if instigator then
 		
@@ -1876,7 +1877,7 @@ Unit = Class(moho.unit_methods) {
     DeathThread = function( self, overkillRatio, instigator)
 
         if self.DeathAnimManip then
-		
+
 			WaitFor(self.DeathAnimManip)
 			
 		end
@@ -1901,30 +1902,29 @@ Unit = Class(moho.unit_methods) {
         
 			if ( self.ShowUnitDestructionDebris and overkillRatio ) then
 		
-				if overkillRatio <= 0.25 then
+				if overkillRatio <= 0.10 then
 					self:ForkThread( CreateUnitDestructionDebris, true, true, false )
 				else
 					self:ForkThread( CreateUnitDestructionDebris, false, true, true )
 				end
 			
-			end		
+			end
 		end
 		
-		if overkillRatio <= 0.15 then
+		if overkillRatio <= 0.10 then
 			self:CreateWreckage( overkillRatio )
 		end
 
-        WaitTicks((self.DeathThreadDestructionWaitTime or 0.2) * 10)
-		
+        WaitTicks((self.DeathThreadDestructionWaitTime or 0.1) * 10)
+
         self:Destroy()
-		self = nil
 		
     end,
 
     CreateWreckage = function( self, overkillRatio )
 
-        if GetBlueprint(self).Wreckage.WreckageLayers[self.CacheLayer] then
-		
+        if ALLBPS[self.BlueprintID].Wreckage.WreckageLayers[self.CacheLayer] then
+
 			self:CreateWreckageProp(overkillRatio)
 			
         end
@@ -1989,7 +1989,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- when you kill a unit
     OnKilledUnit = function(self, unitKilled)
-		
+
 		if not self.Dead then
 		
 			self:CheckVeteranLevel()
@@ -2031,6 +2031,14 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 
+    DeathWeaponDamageThread = function( self , damageRadius, damage, damageType, damageFriendly)
+	
+        WaitTicks(1)
+		
+        DamageArea(self, self:GetPosition(), damageRadius or 1, damage or 1, damageType or 'Normal', damageFriendly or false)
+		
+    end,
+	
     OnCollisionCheck = function(self, other, firingWeapon)
 
         if self.DisallowCollisions then
@@ -2053,8 +2061,8 @@ Unit = Class(moho.unit_methods) {
 		
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDPARSE = ParseEntityCategory
-		
-		local GetArmy = moho.entity_methods.GetArmy		
+
+		local GetArmy = moho.entity_methods.GetArmy
 		
         if LOUDENTITY(categories.PROJECTILE, other) then
 
@@ -2319,14 +2327,6 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 
-    DeathWeaponDamageThread = function( self , damageRadius, damage, damageType, damageFriendly)
-	
-        WaitTicks(1)
-		
-        DamageArea(self, self:GetPosition(), damageRadius or 1, damage or 1, damageType or 'Normal', damageFriendly or false)
-		
-    end,
-	
     DoDestroyCallbacks = function(self)
 	
         if self.EventCallbacks.OnDestroyed then
@@ -3138,18 +3138,19 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
---[[	
-		if unitBeingBuilt then
-			LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
-		else
-			LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
-		end
---]]		
-        self:StopBuildingEffects(unitBeingBuilt)
-        self:SetActiveConsumptionInactive()
+	
+		--if unitBeingBuilt then
+			--LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
+		--else
+			--LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
+		--end
 		
         self:DoOnUnitBuiltCallbacks(unitBeingBuilt)
+
+        self:StopBuildingEffects(unitBeingBuilt)
 		
+        self:SetActiveConsumptionInactive()
+	
         --self:StopUnitAmbientSound('ConstructLoop')
         self:PlayUnitSound('ConstructStop')
 		
@@ -5146,7 +5147,7 @@ Unit = Class(moho.unit_methods) {
     
 	-- issued by the Transport as a unit loads on
     OnTransportAttach = function(self, attachBone, unit)
-	
+
         --self:PlayUnitSound('Load')
 		
         self:MarkWeaponsOnTransport(unit, true)
@@ -5175,7 +5176,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- issued by the Transport as units are detached
     OnTransportDetach = function(self, attachBone, unit)
-	
+
         --self:PlayUnitSound('Unload')
 		
         self:MarkWeaponsOnTransport(unit, false)
@@ -5242,7 +5243,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnRemoveFromStorage = function(self, unit)
-		
+
         if LOUDENTITY(categories.CARRIER, unit) then
 		
             self:SetCanTakeDamage(true)

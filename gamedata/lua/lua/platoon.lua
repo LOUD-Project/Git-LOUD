@@ -3422,6 +3422,8 @@ Platoon = Class(moho.platoon_methods) {
 			-- then simply disband the platoon (left doing whatever forever)
 			if marker and MissionTimer == 'Abort' then
 			
+				LOG("*AI DEBUG Structure Pool 4")
+			
 				-- assign them to the structure pool so they dont interfere with normal unit pools
 				AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
 
@@ -7558,6 +7560,8 @@ Platoon = Class(moho.platoon_methods) {
 		self.PlanName = 'AmphibForceAILOUD'
 
         while PlatoonExists(aiBrain,self) do
+		
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI cycles")
 
             pos = GetPlatoonPosition(self) or false
             
@@ -8080,7 +8084,9 @@ Platoon = Class(moho.platoon_methods) {
             if aPlat == self then
                 continue
             end
-			
+		
+			count = count + 1
+
 			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
             if aPlat.UsingTransport then
 			
@@ -8618,10 +8624,10 @@ Platoon = Class(moho.platoon_methods) {
 		end
 
 		-- if there is more than one choice select the one closest to the attack plan goal --
-		if count > 0 then 
+		if count > 0 and aiBrain.AttackPlan.Goal then
 
 			-- sort the bases by distance to the attack plan goal
-			LOUDSORT( selections, function(a,b) return VDist3Sq( aiBrain.BuilderManagers[a].Position, aiBrain.AttackPlan.Goal ) < VDist3Sq( aiBrain.BuilderManagers[ b ].Position, aiBrain.AttackPlan.Goal ) end )
+			LOUDSORT( selections, function(a,b) return VDist3Sq( aiBrain.BuilderManagers[a].Position, aiBrain.AttackPlan.Goal ) < VDist3Sq( aiBrain.BuilderManagers[b].Position, aiBrain.AttackPlan.Goal ) end )
 			
 			local AttackBase = selections[1]
 
