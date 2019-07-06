@@ -3329,6 +3329,24 @@ function ParseIntelThread( aiBrain )
 	ScenarioInfo.IMAPRadius = IMAPRadius
 	ScenarioInfo.IntelResolution = resolution
 	ScenarioInfo.MaxMapDimension = maxmapdimension
+	
+
+	local function DrawRectangle(aiBrain, threat, color)
+		for x = 1,15 do
+			DrawLine({threat[1]-IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]-IMAPRadius}, color)
+			DrawLine({threat[1]+IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]+IMAPRadius}, color)
+			DrawLine({threat[1]+IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]+IMAPRadius}, color)
+			DrawLine({threat[1]-IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]-IMAPRadius}, color)
+			WaitTicks(1)
+		end
+	end
+	
+	local function DrawCirc(aiBrain, position, range, color)
+		for x = 1,15 do
+			DrawCircle( position, range, color)
+			WaitTicks(1)
+		end
+	end	
 
     --LOG("*AI DEBUG IMAP Size is " ..IMAPSize.. " and Parse will examine " ..ResolveBlocks.. " blocks per intel check")
 
@@ -3360,19 +3378,19 @@ function ParseIntelThread( aiBrain )
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- added in Economy 
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { resolution, 12 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.SATELLITE, 1},
+		Air 			= { resolution, 12 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.SATELLITE, 1,'ffff0096'},
 		
-		Land 			= { resolution, 12 * ThresholdMult, 30, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 2 },
+		Land 			= { resolution, 12 * ThresholdMult, 30, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 2,'afff9600' },
 		
-		Experimental 	= { resolution, 50, 35, (categories.EXPERIMENTAL * categories.MOBILE), 3},
-		Naval 			= { resolution, 18 * ThresholdMult, 35, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 3 },
+		Experimental 	= { resolution, 50, 35, (categories.EXPERIMENTAL * categories.MOBILE), 3,'ffff0000'},
+		Naval 			= { resolution, 18 * ThresholdMult, 35, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 3,'af0a0a0a' },
 		
-		Commander 		= { resolution, 60, 40, categories.COMMAND, 4 },
+		Commander 		= { resolution, 60, 40, categories.COMMAND, 4,'ff00ffff' },
 
-		Artillery 		= { resolution, 100, 70, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5 },
+		Artillery 		= { resolution, 100, 70, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffff00ff' },
 
-		Economy			= { resolution, 100, 70, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 7 },
-		StructuresNotMex = { resolution, 30, 70, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 7 },
+		Economy			= { resolution, 100, 70, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 7,'ddffffff' },
+		StructuresNotMex = { resolution, 30, 70, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 7, 'ff00ff00' },
 	}
 
 	local numchecks = 0
@@ -4016,9 +4034,9 @@ function BuildScoutLocations( self )
                         numOpponents = numOpponents + 1
 						
 						-- assign initial threat of 300 at enemy position
-						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
+						self:AssignThreatAtPosition( startPos, 350, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 300, Permanent = false } )
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 350, Permanent = false } )
 						
                     else
 					
