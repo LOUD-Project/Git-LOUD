@@ -9,6 +9,7 @@ local CreateRandomScorchSplatAtObject = import('/lua/defaultexplosions.lua').Cre
 local AreaDoTThread = import('/lua/sim/defaultdamage.lua').AreaDoTThread
 local UnitDoTThread = import('/lua/sim/defaultdamage.lua').UnitDoTThread
 
+local AAFlare = import('/lua/defaultantiprojectile.lua').AAFlare
 local Flare = import('/lua/defaultantiprojectile.lua').Flare
 
 local LOUDENTITY = EntityCategoryContains
@@ -283,7 +284,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     OnDestroy = function(self)
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnDestroy")
+			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) )
 		end
 	
 		if self.DamageData and not table.empty(self.DamageData) then
@@ -780,7 +781,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         self.Trash:Add(self.MyFlare)
 		
     end,
-    
+
     OnLostTarget = function(self)
 	
         local bp = GetBlueprint(self).Physics

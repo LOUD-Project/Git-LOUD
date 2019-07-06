@@ -21,6 +21,7 @@ local UnitShield = import('/lua/shield.lua').UnitShield
 local AntiArtilleryShield = import('/lua/shield.lua').AntiArtilleryShield
 local DomeHunkerShield = import('/lua/shield.lua').DomeHunkerShield
 local PersonalHunkerShield = import('/lua/shield.lua').PersonalHunkerShield
+local ProjectedShield = import('/lua/shield.lua').ProjectedShield
 
 local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
 local ApplyCheatBuffs = import('/lua/ai/aiutilities.lua').ApplyCheatBuffs
@@ -4977,6 +4978,41 @@ Unit = Class(moho.unit_methods) {
 		
     end,
 
+	-- all credit to BrewLAN
+    CreateProjectedShield = function(self, shieldSpec)
+	
+        local bp = ALLBPS[self.BlueprintID]
+		
+        local bpShield = shieldSpec or bp.Defense.Shield
+
+        if bpShield then
+		
+            self:DestroyShield()
+			
+            self.MyShield = ProjectedShield {
+                Owner = self,
+                Mesh = bpShield.Mesh or '',
+                MeshZ = bpShield.MeshZ or '',
+                ImpactMesh = bpShield.ImpactMesh or '',
+                ImpactEffects = bpShield.ImpactEffects or '',
+                Size = bpShield.ShieldSize or 10,
+                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
+                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 10,
+                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
+                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
+                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
+                PassOverkillDamage = bpShield.PassOverkillDamage or false,
+            }
+			
+			self.MyShieldType = 'Shield'
+			
+            self:SetFocusEntity(self.MyShield)
+            self:EnableShield()
+            self.Trash:Add(self.MyShield)
+        end
+    end,	
+
     OnShieldEnabled = function(self)
 	
         --self:PlayUnitSound('ShieldOn')
@@ -5835,7 +5871,7 @@ Unit = Class(moho.unit_methods) {
 									
 								end
 							
-								unit.InCloakFieldThread = unit:ForkThread(unit.InCloakFieldWatchThread, unit:GetBlueprint())
+								unit.InCloakFieldThread = unit:ForkThread(unit.InCloakFieldWatchThread, ALLBPS[unit.BlueprintID])
 								
 							end
 							
@@ -5878,7 +5914,7 @@ Unit = Class(moho.unit_methods) {
 	
 		if not self.Dead then
 		
-			local bp = bp or self:GetBlueprint()
+			local bp = bp or ALLBPS[self.BlueprintID]
 			local bpDisplay = bp.Display
 			
 			if not bp.Intel.CustomCloak then

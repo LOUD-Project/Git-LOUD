@@ -16,7 +16,7 @@ local WaitTicks = coroutine.yield
 Flare = Class(Entity) {
 
     OnCreate = function(self, spec)
-	
+
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 5
         self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
@@ -37,6 +37,45 @@ Flare = Class(Entity) {
         return false
 		
     end,
+}
+
+AAFlare = Class(Entity) {
+
+	OnCreate = function(self, spec)
+	
+		LOG("*AI DEBUG AAFlare Created")
+
+        self.Owner = spec.Owner
+        self.Radius = spec.Radius or 3
+        self.Army = spec.Owner.Sync.army		
+
+        self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
+        self:SetDrawScale(self.Radius)
+		
+		self.RedirectCat = categories.MISSILE * categories.ANTIAIR
+
+	end,
+	
+	OnCollisionCheck = function(self,other)
+	
+		LOG("*AI DEBUG FlareCollision")
+		
+        if LOUDENTITY(self.RedirectCat, other) and self.Army ~= other:GetArmy() and not other.Deflected then
+
+			LOG("*AI DEBUG AAFlare Collision - New target")
+			other:SetNewTarget(self.Owner)
+
+			LOG("*AI DEBUG AAFlare Collision - New Turn")
+			other:SetTurnRate(540)
+
+			LOG("*AI DEBUG AAFlare Collision - deflected")
+			other.Deflected = true
+
+        end
+
+		return false
+	
+	end,
 }
 
 DepthCharge = Class(Entity) {
@@ -68,6 +107,135 @@ DepthCharge = Class(Entity) {
         return false
     end,
 }
+
+MissileDetector = Class(Entity) {
+
+    RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
+    EndPointEffects = {'/effects/emitters/particle_cannon_end_01_emit.bp',},
+
+    OnCreate = function(self, spec)
+
+		Entity.OnCreate(self, spec)
+
+        self.Army = spec.Owner.Sync.army
+		self.AttachBone = spec.AttachBone
+        self.Owner = spec.Owner
+		self.Radius = spec.Radius
+		
+		self.RateOfFire = 1	-- ticks
+		
+        self:SetCollisionShape('Sphere', 0, 0, 0, spec.Radius)
+        self:SetDrawScale(spec.Radius)
+		
+        self:AttachTo(spec.Owner, spec.AttachBone)
+		
+		LOUDSTATE(self, self.WaitingState)
+
+    end,
+
+    OnDestroy = function(self)
+        Entity.OnDestroy(self)
+        LOUDSTATE(self, self.DeadState)
+    end,
+
+    DeadState = State {
+        Main = function(self)
+        end,
+    },
+
+    WaitingState = State{
+
+	    -- Return true to process this collision, false to ignore it.
+		OnCollisionCheck = function(self, other)
+
+            if other != self.EnemyProj and IsEnemy( self.Army, other:GetArmy() ) then
+
+                if EntityCategoryContains( categories.MISSILE * categories.ANTIAIR, other) then
+					
+					other:SetVelocity(1)
+					
+					-- ok we can touch the projectile
+					self.Enemy = other:GetLauncher()
+					self.EnemyProj = other
+				
+					if self.Enemy then
+
+						other:SetNewTarget(self.Enemy)
+						other:TrackTarget(true)
+						other:SetTurnRate(540)
+
+						ChangeState(self, self.RedirectingState)
+					end
+				end
+            end
+			
+            return false
+        end,
+    },
+
+    RedirectingState = State{
+
+        Main = function(self)
+
+            if not self or self:BeenDestroyed() 
+				or not self.EnemyProj or self.EnemyProj:BeenDestroyed() 
+				or not self.Owner or self.Owner:IsDead() then
+				
+                return
+            end
+
+            local beams = {}
+            local army = self.Army
+            
+            for _, v in self.RedirectBeams do               
+                LOUDINSERT(beams, AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v))
+            end
+            
+            if self.Enemy then
+                -- Set collision to friends active so that when the missile reaches its source it can deal damage. 
+			    self.EnemyProj.DamageData.CollideFriendly = true         
+			    self.EnemyProj.DamageData.DamageFriendly = true 
+			    self.EnemyProj.DamageData.DamageSelf = true 
+			end
+			
+            if self.Enemy and not self.Enemy:BeenDestroyed() then
+
+                WaitTicks( self.RateOfFire )
+				
+                if not self.EnemyProj:BeenDestroyed() then
+                    self.EnemyProj:TrackTarget(false)
+                end
+				
+            else
+				
+                local vectordam = {}
+                vectordam.x = 0
+                vectordam.y = 1
+                vectordam.z = 0
+				
+				--LOG("*AI DEBUG Missile Destroy")
+				
+                self.EnemyProj:Destroy()	--DoTakeDamage(self.Owner, 30, vectordam,'Fire')
+
+                WaitTicks( self.RateOfFire )
+
+            end
+			
+            for _, v in beams do
+                v:Destroy()
+            end
+			
+            LOUDSTATE(self, self.WaitingState)
+        end,
+
+        OnCollisionCheck = function(self, other)
+
+            return false
+        end,
+    },
+	
+}
+
 
 MissileRedirect = Class(Entity) {
 
