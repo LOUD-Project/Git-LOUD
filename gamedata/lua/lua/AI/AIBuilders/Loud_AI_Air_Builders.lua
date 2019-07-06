@@ -183,9 +183,7 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         BuilderConditions = {
 
 			-- stop making them if we have more than 3 T3 air plants -- anywhere
-			--{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			-- stop making them if enemy has T3 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR * categories.TECH3, 'Enemy' }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
 			
         },
 		

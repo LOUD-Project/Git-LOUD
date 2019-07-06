@@ -297,10 +297,10 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },  
 			
-			-- none of the SUPER triggers can be true
+			-- none of the major SUPER triggers can be true
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, (categories.OPTICS) * categories.STRUCTURE, 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, 'Enemy' }},
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
@@ -337,7 +337,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 
         BuilderConditions = {
 		
@@ -354,7 +354,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
             MergeLimit = 64,
             MissionTime = 480,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 140,
+			SearchRadius = 160,
             UseFormation = 'AttackFormation',
 			
         },
@@ -365,6 +365,115 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 	-- ALL SUPER groups are specifically targeted and come into play when the selected targets are available
 	-- the DO NOT respond to distress calls	-- they'll search for targets upto 30km away
 	-- they all have short mission timers so they go - fight - and go home
+    Builder {BuilderName = 'Hunt Bombers - AntiAir',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+		
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+		
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ANTIAIR * categories.STRUCTURE * categories.EXPERIMENTAL, 'Enemy' }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			
+        },
+		
+        BuilderData = {
+		
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 400,
+            PrioritizedCategories = {categories.ANTIAIR * categories.STRUCTURE * categories.EXPERIMENTAL},
+			SearchRadius = 850,
+            UseFormation = 'AttackFormation',
+			
+        },
+		
+    },
+	
+    Builder {BuilderName = 'Hunt Bombers - Artillery',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+		
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+		
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			
+        },
+		
+        BuilderData = {
+		
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 400,
+            PrioritizedCategories = {categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3)},
+			SearchRadius = 850,
+            UseFormation = 'AttackFormation',
+			
+        },
+		
+    },
+
+    Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+		
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			
+        },
+		
+        BuilderData = {
+		
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 400,
+            PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL},
+			SearchRadius = 850,
+            UseFormation = 'AttackFormation',
+			
+        },
+    },
+	
     Builder {BuilderName = 'Hunt Bombers - Nuke Antinuke',
 	
         PlatoonTemplate = 'BomberAttack Super',
@@ -393,7 +502,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
 			LocationType = 'LocationType',
             MergeLimit = false,
             MissionTime = 400,
-            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
+            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2},
 			SearchRadius = 850,
             UseFormation = 'AttackFormation',
 			
@@ -435,79 +544,7 @@ BuilderGroup {BuilderGroupName = 'Air Hunt Formations',
         },
 		
     },
-	
-    Builder {BuilderName = 'Hunt Bombers - Artillery',
-	
-        PlatoonTemplate = 'BomberAttack Super',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI',		
-		
-        Priority = 710,
-		
-		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
-			
-        },
-		
-        BuilderData = {
-		
-			LocationType = 'LocationType',
-            MergeLimit = false,
-            MissionTime = 400,
-            PrioritizedCategories = {categories.ARTILLERY * categories.STRUCTURE * categories.TECH3, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
-			SearchRadius = 850,
-            UseFormation = 'AttackFormation',
-			
-        },
-		
-    },
-	
-    Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
-	
-        PlatoonTemplate = 'BomberAttack Super',
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI',		
-		
-        Priority = 710,
-		
-		PriorityFunction = IsPrimaryBase,
-
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
-			
-        },
-		
-        BuilderData = {
-		
-			LocationType = 'LocationType',
-            MergeLimit = false,
-            MissionTime = 400,
-            PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL, categories.MASSFABRICATION},
-			SearchRadius = 850,
-            UseFormation = 'AttackFormation',
-			
-        },
-    },
-	
 }
 
 BuilderGroup {BuilderGroupName = 'Point Guard Air Formations',
