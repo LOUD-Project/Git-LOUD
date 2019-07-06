@@ -1,6 +1,6 @@
 ---  /lua/defaultprojectiles.lua
 ---  Script for default projectiles
-
+--local Entity = import('/lua/sim/Entity.lua').Entity
 local Projectile = import('/lua/sim/Projectile.lua').Projectile
 
 local LOUDEMITONENTITY = CreateEmitterOnEntity

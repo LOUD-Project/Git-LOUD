@@ -120,6 +120,8 @@ local SetProductionActive = moho.unit_methods.SetProductionActive
 local IsAllied = IsAlly
 local IsValidBone = moho.entity_methods.IsValidBone
 
+local ALLBPS = __blueprints
+
 Unit = Class(moho.unit_methods) {
 
     BuffTypes = {
@@ -252,9 +254,7 @@ Unit = Class(moho.unit_methods) {
 
     OnCreate = function(self)
 		
-		local bp = GetBlueprint(self)
-		
-		--LOG("*AI DEBUG OnCreate for "..repr(self:GetBlueprint().Description))
+		local bp = ALLBPS[self.BlueprintID]
 
         Entity.OnCreate(self)
 		
@@ -544,7 +544,7 @@ Unit = Class(moho.unit_methods) {
         
         local enemy_index = {}
         local enemy_count = 1
-        
+--[[
         for _, brain in ArmyBrains do
             if brain.BrainType == 'Human' and IsEnemy( brain.ArmyIndex, mybrain.ArmyIndex) then
                 enemy_index[enemy_count] = brain.ArmyIndex
@@ -597,10 +597,12 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetDead = function(self)
+	
+		--LOG("*AI DEBUG SetDead for "..repr(self:GetBlueprint().Description))
 
 		self.Dead = true
 		
-		self.Brain = nil
+		--self.Brain = nil
 	
 		self.Weapons = nil
 
@@ -650,8 +652,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     GetFootPrintSize = function(self)
-	
-        local fp = __blueprints[self.BlueprintID].Footprint
+
+        local fp = ALLBPS[self.BlueprintID].Footprint
 		
         if fp.SizeX > fp.SizeZ then
 		
@@ -679,10 +681,10 @@ Unit = Class(moho.unit_methods) {
     end,
 
     GetUnitSizes = function(self)
-	
-        local bp = GetBlueprint(self)
+
+        local bp = ALLBPS[self.BlueprintID]
 		
-        return bp.SizeX, bp.SizeY, bp.SizeZ
+        return bp.SizeX or 0.5, bp.SizeY or 0.5, bp.SizeZ or 0.5
 		
     end,
 
@@ -702,11 +704,12 @@ Unit = Class(moho.unit_methods) {
         sz = sz * scalar
 		
         local rx = RD * sx - (sx * 0.5)
-        local y  = RD * sy + (GetBlueprint(self).CollisionOffsetY or 0)
+        local y  = RD * sy + (ALLBPS[self.BlueprintID].CollisionOffsetY or 0)
         local rz = RD * sz - (sz * 0.5)
         local x = LC*rx - LS*rz
         local z = LS*rx - LC*rz
-		
+
+
         return x,y,z
 		
     end,
@@ -1257,7 +1260,7 @@ Unit = Class(moho.unit_methods) {
 			
 				--LOG("*AI DEBUG Adjacency Unit is "..repr(unit:GetBlueprint().Description) )
 
-				local adjBuffs = __blueprints[self.BlueprintID].Adjacency
+				local adjBuffs = ALLBPS[self.BlueprintID].Adjacency
 
 				if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
 				
@@ -1299,7 +1302,7 @@ Unit = Class(moho.unit_methods) {
 			
 				--LOG("*AI DEBUG Adjacency Unit is "..repr(unit:GetBlueprint().Description) )
 
-				local adjBuffs = __blueprints[self.BlueprintID].Adjacency
+				local adjBuffs = ALLBPS[self.BlueprintID].Adjacency
 
 				if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
 				
@@ -1359,7 +1362,7 @@ Unit = Class(moho.unit_methods) {
 	
 			local GetBuildRate = moho.unit_methods.GetBuildRate
 		
-			local myBlueprint = __blueprints[self.BlueprintID]
+			local myBlueprint = ALLBPS[self.BlueprintID]
 
 			if self.ActiveConsumption then
 
@@ -1464,9 +1467,9 @@ Unit = Class(moho.unit_methods) {
 
     UpdateProductionValues = function(self)
 	
-		if GetBlueprint(self).Economy then
+		if ALLBPS[self.BlueprintID].Economy then
 	
-			local bpEcon = __blueprints[self.BlueprintID].Economy
+			local bpEcon = ALLBPS[self.BlueprintID].Economy
 		
 			self:SetProductionPerSecondEnergy((bpEcon.ProductionPerSecondEnergy or 0) * (self.EnergyProdAdjMod or 1))
 			self:SetProductionPerSecondMass((bpEcon.ProductionPerSecondMass or 0) * (self.MassProdAdjMod or 1))
@@ -1679,7 +1682,7 @@ Unit = Class(moho.unit_methods) {
         local totalBones = self:GetBoneCount()
         local bone = Random(1, totalBones) - 1
 		
-        local bpDE = __blueprints[self.BlueprintID].Display.DamageEffects
+        local bpDE = ALLBPS[self.BlueprintID].Display.DamageEffects
 		
 		local fx, bpFx
 		
@@ -1832,8 +1835,8 @@ Unit = Class(moho.unit_methods) {
     end,
 	
     PlayAnimationThread = function(self, anim, rate)
-	
-        local bp = GetBlueprint(self)
+
+        local bp = ALLBPS[self.BlueprintID]
 		
         if bp.Display[anim] then
         
@@ -1928,8 +1931,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     CreateWreckageProp = function( self, overkillRatio )
-	
-		local bp = GetBlueprint(self)
+
+		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
 		
 		if wreck then
@@ -1949,18 +1952,19 @@ Unit = Class(moho.unit_methods) {
 			prop:SetPropCollision('Box', bp.CollisionOffsetX, bp.CollisionOffsetY, bp.CollisionOffsetZ, bp.SizeX* 0.5, bp.SizeY* 0.5, bp.SizeZ * 0.5)
 			
 			prop:SetMaxReclaimValues(time, time, mass, energy)
+			
 			mass = (mass - (mass * (overkillRatio or 1))) * self:GetFractionComplete()
 			energy = (energy - (energy * (overkillRatio or 1))) * self:GetFractionComplete()
 			time = time - (time * (overkillRatio or 1))
+			
 			prop:SetReclaimValues(time, time, mass, energy)
 			
-			prop:SetMaxHealth(bp.Defense.Health)
-			prop:SetHealth(self, bp.Defense.Health * (bp.Wreckage.HealthMult or 1))
+			prop:SetMaxHealth( bp.Defense.Health )
+			
+			prop:SetHealth( self, bp.Defense.Health * (bp.Wreckage.HealthMult or 1))
 
             if not bp.Wreckage.UseCustomMesh then
-			
     	        prop:SetMesh(bp.Display.MeshBlueprintWrecked)
-				
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
@@ -1968,7 +1972,7 @@ Unit = Class(moho.unit_methods) {
 
             TryCopyPose(self,prop,false)
 
-            prop.AssociatedBP = GetBlueprint(self).BlueprintId
+            prop.AssociatedBP = self.BlueprintID
 			prop.IsWreckage = true
 			
 			-- when simspeed drops too low turn off visual effects
@@ -2001,12 +2005,12 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 		
-        local weapons = GetBlueprint(self).Weapon or {}
+        local weapons = ALLBPS[self.BlueprintID].Weapon or {}
 		
         for _, v in weapons do
 		
-            if(v.Label == 'DeathWeapon') then
-				
+            if (v.Label == 'DeathWeapon') then
+
                 if v.FireOnDeath == true then
 				
                     self:SetWeaponEnabledByLabel('DeathWeapon', true)
@@ -2500,8 +2504,8 @@ Unit = Class(moho.unit_methods) {
 
     OnDamageBy = function(self,index)
 	
-        local bp = GetBlueprint(self).Audio
-		
+        local bp = ALLBPS[self.BlueprintID].Audio
+
         if bp then
 			
 			local mybrain = self:GetAIBrain()
@@ -2671,7 +2675,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        local builderUpgradesTo = builder:GetBlueprint().General.UpgradesTo or false
+        local builderUpgradesTo = ALLBPS[builder.BlueprintID].General.UpgradesTo or false
 		
         if not builderUpgradesTo or self:GetUnitId() != builderUpgradesTo then
 
@@ -2816,7 +2820,7 @@ Unit = Class(moho.unit_methods) {
 
 		local aiBrain = self:GetAIBrain()
 		
-		local bp = GetBlueprint(self)
+		local bp = ALLBPS[self.BlueprintID]
 --[[		
 		if builder then
 			LOG("*AI DEBUG "..aiBrain.Nickname.." OnStopBeingBuilt event for "..repr(bp.Description).." built by "..repr(builder:GetBlueprint().Description) )
@@ -2965,7 +2969,7 @@ Unit = Class(moho.unit_methods) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	
-		local BuildMeshBp = GetBlueprint(self).Display.BuildMeshBlueprint
+		local BuildMeshBp = ALLBPS[self.BlueprintID].Display.BuildMeshBlueprint
 		
 		if BuildMeshBp then
 		
@@ -2977,7 +2981,7 @@ Unit = Class(moho.unit_methods) {
 
     StopBeingBuiltEffects = function(self, builder, layer)
 	
-        local bp = GetBlueprint(self).Display
+        local bp = ALLBPS[self.BlueprintID].Display
 		
         local useTerrainType = false
 		
@@ -3045,7 +3049,7 @@ Unit = Class(moho.unit_methods) {
 
     SetupBuildBones = function(self)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         if not bp.General.BuildBones or
            not bp.General.BuildBones.YawBone or
@@ -3102,7 +3106,7 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 		
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         if order != 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
 		
@@ -3122,7 +3126,7 @@ Unit = Class(moho.unit_methods) {
 
         end
         
-        if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
+        if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
 			
             unitBeingBuilt:CreateTarmac(true, true, true, false, false)
 
@@ -3185,8 +3189,8 @@ Unit = Class(moho.unit_methods) {
     -- Setup the initial intel of the unit.  Return true if it can, false if it can't.
 	-- this will set all intel types to OFF except for vision
     SetupIntel = function(self,bp)
-	
-        local bp = bp.Intel or __blueprints[self.BlueprintID].Intel
+
+        local bp = bp.Intel or ALLBPS[self.BlueprintID].Intel
 		
         if bp then
 		
@@ -3335,7 +3339,7 @@ Unit = Class(moho.unit_methods) {
 				
 			end
 			
-			if not __blueprints[self.BlueprintID].Intel.FreeIntel then
+			if not ALLBPS[self.BlueprintID].Intel.FreeIntel then
 			
 				if self.IntelThread then
 				
@@ -3388,7 +3392,7 @@ Unit = Class(moho.unit_methods) {
 	
 		local aiBrain = self:GetAIBrain()
 		
-        local bp = self:GetBlueprint()
+        local bp = ALLBPS[self.BlueprintID]
 	
 		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 		local GetScriptBit = moho.unit_methods.GetScriptBit
@@ -3532,7 +3536,7 @@ Unit = Class(moho.unit_methods) {
     OnWorkBegin = function(self, work)
 	
         local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(GetEntityId(self))
-        local tempEnhanceBp = GetBlueprint(self).Enhancements[work]
+        local tempEnhanceBp = ALLBPS[self.BlueprintID].Enhancements[work]
 
         if tempEnhanceBp.Prerequisite then
 		
@@ -3597,8 +3601,10 @@ Unit = Class(moho.unit_methods) {
     end,
 
     CreateEnhancement = function(self, enh)
+	
+		--LOG("*AI DEBUG CreateEnhancment for "..self:GetBlueprint().Description.." "..repr(enh))
 		
-        local bp = GetBlueprint(self).Enhancements[enh]
+        local bp = ALLBPS[self.BlueprintID].Enhancements[enh]
 		
         if not bp then
 		
@@ -3653,7 +3659,7 @@ Unit = Class(moho.unit_methods) {
 
     CreateEnhancementEffects = function( self, enhancement )
     
-        local bp = GetBlueprint(self).Enhancements[enhancement]
+        local bp = ALLBPS[self.BlueprintID].Enhancements[enhancement]
         
         if bp.UpgradeEffectBones then
         
@@ -3817,9 +3823,9 @@ Unit = Class(moho.unit_methods) {
     CreateIdleEffects = function( self )
 	
 		-- if simspeed drops too low suspend idle effects --
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 		
-        local bpTable = GetBlueprint(self).Display.IdleEffects
+        local bpTable = ALLBPS[self.BlueprintID].Display.IdleEffects
 		
 		-- if there are idle effects -- many dont have them
 		if bpTable then
@@ -3849,9 +3855,9 @@ Unit = Class(moho.unit_methods) {
     UpdateBeamExhaust = function( self, motionState )
 	
 		-- if simspeed drops too low suspend beamexhaust effects --
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 
-        local bpTable = GetBlueprint(self).Display.MovementEffects.BeamExhaust
+        local bpTable = ALLBPS[self.BlueprintID].Display.MovementEffects.BeamExhaust
 		
         if not bpTable then
 		
@@ -3961,7 +3967,7 @@ Unit = Class(moho.unit_methods) {
     -- The energy and mass costs will normally be negative, to indicate that you gain mass/energy back.
     GetReclaimCosts = function(self, target_entity)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
         local target_bp = target_entity:GetBlueprint()
 		
         if IsUnit(target_entity) then
@@ -4006,7 +4012,7 @@ Unit = Class(moho.unit_methods) {
 
     GetHealthPercent = function(self)
 	
-        return GetHealth(self) / GetBlueprint(self).Defense.MaxHealth
+        return GetHealth(self) / ALLBPS[self.BlueprintID].Defense.MaxHealth
 		
     end,
 
@@ -4038,17 +4044,14 @@ Unit = Class(moho.unit_methods) {
 
     PlayUnitSound = function(self, sound)
 		
-        local bp = GetBlueprint(self).Audio
+        local bp = ALLBPS[self.BlueprintID].Audio
 		
         if bp and bp[sound] then
-		
+
             PlaySound( self, bp[sound])
-            return true
 			
         end
-		
-        return false
-		
+
     end,
 
     PlayUnitAmbientSound = function(self, sound)
@@ -4558,7 +4561,7 @@ Unit = Class(moho.unit_methods) {
 		
         self:SetStat('KILLS', unitKills)
         
-        local vet = GetBlueprint(self).Veteran or Game.VeteranDefault
+        local vet = ALLBPS[self.BlueprintID].Veteran or Game.VeteranDefault
         
         local vetLevels = table.getsize(vet)
 		
@@ -4594,7 +4597,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         if bp.Veteran['Level'..veteranLevel] then
 		
@@ -4647,7 +4650,7 @@ Unit = Class(moho.unit_methods) {
         self.VeteranLevel = level
 		
         -- Get the units override buffs if they exist
-        local bp = GetBlueprint(self).Buffs
+        local bp = ALLBPS[self.BlueprintID].Buffs
 		
         -- the default veterancy buffs
         local buffTypes = { 'Regen', 'Health', 'VisionRadius' }
@@ -4762,13 +4765,13 @@ Unit = Class(moho.unit_methods) {
 
     PlayVeteranFx = function(self, newLvl)
 	
-        LOUDATTACHEMITTER(self, 0, GetArmy(self), 'destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(1)
+        LOUDATTACHEMITTER(self, 0, self.Sync.army, 'destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(1)
 		
     end,
 
     CreateShield = function(self, shieldSpec)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 		
@@ -4806,7 +4809,7 @@ Unit = Class(moho.unit_methods) {
 
     CreatePersonalShield = function(self, shieldSpec)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 		
@@ -4854,7 +4857,7 @@ Unit = Class(moho.unit_methods) {
 
     CreateAntiArtilleryShield = function(self, shieldSpec)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 	
@@ -4892,7 +4895,7 @@ Unit = Class(moho.unit_methods) {
 
 	CreateDomeHunkerShield = function(self, shieldSpec)
 	
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 
@@ -4930,7 +4933,7 @@ Unit = Class(moho.unit_methods) {
 
 	CreatePersonalHunkerShield = function(self, shieldSpec)
 	
-        local bp = self:GetBlueprint()
+        local bp = ALLBPS[self.BlueprintID]
 		
         local bpShield = shieldSpec or bp.Defense.Shield
 		
@@ -5240,11 +5243,13 @@ Unit = Class(moho.unit_methods) {
 	-- issued when a unit tries to start a teleport
     OnTeleportUnit = function(self, teleporter, location, orientation)
 	
+		LOG("*AI DEBUG OnTeleportUnit")
+	
 		local id = GetEntityId(self)
 		
 		-- Teleport Cooldown Charge
 		-- Range Check to location
-		local maxRange = self:GetBlueprint().Defense.MaxTeleRange
+		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange
 		local myposition = self:GetPosition()
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
 		
@@ -5299,7 +5304,7 @@ Unit = Class(moho.unit_methods) {
 		end
 		
         -- Economy Check and Drain
-		local bp = self:GetBlueprint()
+		local bp = ALLBPS[self.BlueprintID]
 		
 		local telecost = bp.Economy.TeleportBurstEnergyCost or 1500
 		
@@ -5348,8 +5353,8 @@ Unit = Class(moho.unit_methods) {
 	-- After calling this, you should still call CleanupTeleportChargeEffects
 	PlayScaledTeleportChargeEffects = function(self)
 	
-		local army = self:GetArmy()
-		local bp = self:GetBlueprint()
+		local army = self.Sync.army
+		local bp = ALLBPS[self.BlueprintID]
 
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
 		local yOffset = (bp.Physics.MeshExtentsY or bp.SizeY or 1) / 2
@@ -5385,8 +5390,8 @@ Unit = Class(moho.unit_methods) {
 	-- Like PlayTeleportInEffects, but scaled based on the size of the unit
 	PlayScaledTeleportInEffects = function(self)
 	
-		local army = self:GetArmy()
-		local bp = self:GetBlueprint()
+		local army = self.Sync.army
+		local bp = ALLBPS[self.BlueprintID]
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
 		
 		local yOffset = (bp.Physics.MeshExtentsY or bp.SizeY or 1) / 2
@@ -5437,7 +5442,7 @@ Unit = Class(moho.unit_methods) {
 			self.EXPhaseCharge = 0
 			self.EXPhaseShieldPercentage = 0
 			
-			local bp = self:GetBlueprint()
+			local bp = ALLBPS[self.BlueprintID]
 			local bpDisplay = bp.Display
 			
 			if self.EXPhaseCharge == 0 then
@@ -5461,14 +5466,14 @@ Unit = Class(moho.unit_methods) {
         self:OnTeleportCharging(location)
 	
         local tbp = teleporter:GetBlueprint()
-        local ubp = GetBlueprint(self)
+        local ubp = ALLBPS[self.BlueprintID]
 		
         self.UnitBeingTeleported = self
         self:SetImmobile(true)
         self:PlayUnitSound('TeleportStart')
         --self:PlayUnitAmbientSound('TeleportLoop')
 		
-        local bp = GetBlueprint(self).Economy
+        local bp = ALLBPS[self.BlueprintID].Economy
 		
         local teleportvalue, time
 		
@@ -5542,10 +5547,12 @@ Unit = Class(moho.unit_methods) {
 	--  Copyright � 2010 4DC  All rights reserved.
     SpawnDomeShield = function(self) 
 	
+		LOG("*AI DEBUG SpawnDomeShield")
+	
         if not self.Dead then    
 		
             -- Get units bp 
-            local bp = self:GetBlueprint() 
+            local bp = ALLBPS[self.BlueprintID]
             
             -- Initialize variables 
             local sldArea, offSet, sldHealth            
@@ -5657,7 +5664,7 @@ Unit = Class(moho.unit_methods) {
         if not self.Dead then 
 
             -- Get units bp and Initialize variables
-            local bp = self:GetBlueprint() 
+            local bp = ALLBPS[self.BlueprintID]
             local bpDisplay = bp.Display
 			local maxhealth = self:GetMaxHealth()
             local sldHealth, rChgTime, eCost, impactFx, regenstart                         
@@ -5763,7 +5770,7 @@ Unit = Class(moho.unit_methods) {
 	-- This task hogs a buttload of CPU - original wait period was 2 ticks - now 80 
 	CloakEffectControlThread = function(self,blueprint)
 	
-		local bp = blueprint or self:GetBlueprint()
+		local bp = blueprint or ALLBPS[self.BlueprintID]
 		local brain = self:GetAIBrain()
 		
 		-- local a bunch of repetitive functions

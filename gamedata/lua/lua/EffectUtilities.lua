@@ -44,7 +44,7 @@ local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
 local WaitTicks = coroutine.yield
 
-local GetArmy = moho.entity_methods.GetArmy
+--local GetArmy = moho.entity_methods.GetArmy
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
@@ -510,7 +510,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     if BuildEffectBones then
 	
 		WaitTicks(2)    -- this delay seems to be necessary so that the position of the unit is correct
-    
+		
 		local BeamBuildEmtBp = '/effects/emitters/build_beam_02_emit.bp'
 
 		local pos = unitBeingBuilt:GetPosition()
@@ -645,7 +645,7 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
 end
 
 function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
-
+	
     local BuildEffects = { '/effects/emitters/sparks_03_emit.bp', '/effects/emitters/flashes_01_emit.bp', }
     local UnitBuildEffects = { '/effects/emitters/build_cybran_spark_flash_04_emit.bp', '/effects/emitters/build_sparks_blue_02_emit.bp', }
 	
@@ -738,10 +738,19 @@ function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectB
     --:ScaleEmitter( (sx + sz) * 0.3 )    
 
     for _, vBone in BuildEffectBones do
-		EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
-		for _, vBeam in AeonBuildBeams02 do
-			local beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
-			EffectsBag:Add(beamEffect)
+		
+		if EffectsBag then
+		
+			EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
+		
+			for _, vBeam in AeonBuildBeams02 do
+			
+				local beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
+				
+				EffectsBag:Add(beamEffect)
+				
+			end
+			
 		end
 	end
 
@@ -1058,51 +1067,51 @@ end
 -- and getting rid of all this complex calculation for position and intermediate nodes
 function CreateAdjacencyBeams( unit, adjacentUnit )
 
-	local LOUDGETN = table.getn
+	--local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
-	local LOUDWARP = Warp
+	--local LOUDWARP = Warp
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
-	local GetRandomFloat = GetRandomFloat
 
 	local info = { Unit = adjacentUnit:GetEntityId(), Trash = TrashBag(), }
     
-    local uBp =  __blueprints[unit.BlueprintID]
-    local aBp =  __blueprints[adjacentUnit.BlueprintID]
+    --local uBp =  __blueprints[unit.BlueprintID]
+    --local aBp =  __blueprints[adjacentUnit.BlueprintID]
     local army = unit.Sync.army
-    local faction = uBp.General.FactionName
+    local faction = __blueprints[unit.BlueprintID].General.FactionName
 
     -- Determine which effects we will be using	-- default to Cybran
-    local nodeMesh = '/effects/entities/cybranadjacencynode/cybranadjacencynode_mesh'
+    --local nodeMesh = '/effects/entities/cybranadjacencynode/cybranadjacencynode_mesh'
     local beamEffect = '/effects/emitters/adjacency_cybran_beam_01_emit.bp'
 	
-    local emitterNodeEffects = {}  
-    local numNodes = 0
-    local nodeList = {}
-    local validAdjacency = true
+    --local emitterNodeEffects = {}  
+    --local numNodes = 0
+    --local nodeList = {}
+    --local validAdjacency = true
 
 	-- Create hub start/end and all midpoint nodes -- NOTE: since adjacency can only
 	-- happen between structures I make direct use of the CachePosition value and save
 	-- calling the GetPosition function -- I use a table.copy since we dont want the
 	-- code to start playing with the CachePosition directly -- which is was doing 
 	-- until I put this in place
-    local unitHub = { entity = Entity{}, pos = table.copy(unit.CachePosition) }
-	local adjacentHub = { entity = Entity{}, pos = table.copy(adjacentUnit.CachePosition) }
+    --local unitHub = { entity = Entity{}, pos = table.copy(unit.CachePosition) }
+	--local adjacentHub = { entity = Entity{}, pos = table.copy(adjacentUnit.CachePosition) }
 	
-    local spec = { Owner = unit }
+    --local unitHub = { entity = unit, pos = table.copy(unit.CachePosition) }
+	--local adjacentHub = { entity = adjacentUnit, pos = table.copy(adjacentUnit.CachePosition) }
+
+    --local spec = { Owner = unit }
    
     if faction == 'Aeon' then
-        nodeMesh = '/effects/entities/aeonadjacencynode/aeonadjacencynode_mesh'
-        beamEffect = '/effects/emitters/adjacency_aeon_beam_0' .. GetRandomInt(1,3) .. '_emit.bp'
-        numNodes = 0
+        --nodeMesh = '/effects/entities/aeonadjacencynode/aeonadjacencynode_mesh'
+        beamEffect = '/effects/emitters/adjacency_aeon_beam_01_emit.bp'
 		
     elseif faction == 'UEF' then
-        nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
+        --nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
         beamEffect = '/effects/emitters/adjacency_uef_beam_01_emit.bp'	
-		numNodes = 0
 		
-    elseif faction == 'Seraphim' then
-        nodeMesh = '/effects/entities/seraphimadjacencynode/seraphimadjacencynode_mesh'
-		
+    --elseif faction == 'Seraphim' then
+        --nodeMesh = '/effects/entities/seraphimadjacencynode/seraphimadjacencynode_mesh'
+--[[		
         LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient01 )
 		
         if  VDist2( unitHub.pos[1],unitHub.pos[3], adjacentHub.pos[1], adjacentHub.pos[3] ) < 2.5 then
@@ -1112,8 +1121,9 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
             LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient02 )
             LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient03 )
         end
+--]]
     end    
-
+--[[
 	if numNodes > 0 then
 		for i = 1, numNodes do
 			local node = { entity = Entity(spec), pos = {0,0,0}, mesh = nil,}
@@ -1122,9 +1132,9 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 			LOUDINSERT( nodeList, node )
 		end
 	end
-
-	local verticalOffset = 0.05
-
+--]]
+	--local verticalOffset = 0.05
+--[[
 	-- Move Unit Pos towards adjacent unit by bounding box size
 	local uBpSizeX = uBp.SizeX * 0.5
 	local uBpSizeZ = uBp.SizeZ * 0.5
@@ -1231,8 +1241,10 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 			adjacentHub.pos[3] = (adjacentHub.pos[3] - aBpSizeZ) + (zoffset * aGridUnitSize) + (aGridUnitSize * 0.5) # Now offset the position of adjacent point
         end				
     end
+--]]
 
 	-- Setup our midpoint positions
+--[[
 	if  faction == 'Seraphim' then 
 		local DirectionVec = util.GetDifferenceVector( unitHub.pos, adjacentHub.pos )
 		local Dist = VDist3( unitHub.pos, adjacentHub.pos )
@@ -1264,8 +1276,11 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 			}
 		end
     end
+--]]	
 
-    if validAdjacency then
+
+    --if validAdjacency then
+--[[
         -- Offset beam positions above the ground at current positions terrain height
         for _, v in nodeList do
             v.pos[2] = GetTerrainHeight(v.pos[1], v.pos[3]) + verticalOffset
@@ -1290,11 +1305,11 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 				end
 			end
 		end
-
+--]]
         -- Insert start and end points into our list
-        LOUDINSERT(nodeList, 1, unitHub )
-        LOUDINSERT(nodeList, adjacentHub )
-
+        --LOUDINSERT(nodeList, 1, unitHub )
+        --LOUDINSERT(nodeList, adjacentHub )
+--[[
         -- WARP everything to its final position
 		-- the +2 accounts for the start and end nodes
         for i = 1, numNodes + 2 do
@@ -1302,22 +1317,24 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
             info.Trash:Add(nodeList[i].entity)
             --unit.Trash:Add(nodeList[i].entity)
         end
-
+--]]
         -- Attach beams to the adjacent unit
-        for i = 1, numNodes + 1 do
+        --for i = 1, numNodes + 1 do
+--[[		
             if nodeList[i].mesh != nil then
                 local vec = util.GetDirectionVector(Vector(nodeList[i].pos[1], nodeList[i].pos[2], nodeList[i].pos[3]), Vector(nodeList[i+1].pos[1], nodeList[i+1].pos[2], nodeList[i+1].pos[3]))
                 nodeList[i].entity:SetOrientation( OrientFromDir( vec ),true)
             end
+--]]			
             if beamEffect then
-                --local beam = LOUDATTACHBEAMENTITY( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  )
-                info.Trash:Add( LOUDATTACHBEAMENTITY( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  ) )
-                --unit.Trash:Add(beam)
+                local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
+                info.Trash:Add(beam)
+                unit.Trash:Add(beam)
             end
-        end
+        --end
 		
 		LOUDINSERT( unit.AdjacencyBeamsBag, info)
-    end
+    --end
 	
 
 end

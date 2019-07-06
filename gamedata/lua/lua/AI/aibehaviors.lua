@@ -961,7 +961,7 @@ function AirScoutingAI( self, aiBrain )
 
 	-- this basically limits all air scout platoons to about 15 minutes of work -- rather should use MISSIONTIMER from platoondata
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 900) and (not aiBrain:IsDefeated()) do
-		
+
 		for _,v in GetPlatoonUnits(self) do
 		
 			if not v.Dead then
@@ -1244,7 +1244,7 @@ function LandScoutingAI( self, aiBrain )
 	local distance, path, reason, lastpos		
 
     while PlatoonExists(aiBrain, self) do
-	
+
 		scout = false
 		
 		units = GetPlatoonUnits(self)
@@ -1520,6 +1520,8 @@ function LandScoutingAI( self, aiBrain )
 					for _,v in GetPlatoonUnits(self) do
 				
 						if not v:BeenDestroyed() then
+						
+							--LOG("*AI DEBUG Structure Pool 1")
 						
 							AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, v, 'Guard', 'none' )
 							
@@ -2399,48 +2401,50 @@ function AirForceAILOUD( self, aiBrain )
 				attacktimer = attacktimer + 1.5
 
 				local platooncount = 0
-            local fuellow = false
+				local fuellow = false
 
-			for _,v in platoonUnits do
+				for _,v in platoonUnits do
 				
-				if not v.Dead then
+					if not v.Dead then
 
-					platooncount = platooncount + 1
+						platooncount = platooncount + 1
 					
-					local bp = GetBlueprint(v).Physics
+						local bp = __blueprints[v.BlueprintID].Physics
 
-					if bp.FuelUseTime > 0 then
+						if bp.FuelUseTime > 0 then
                        
-						if GetFuelRatio(v) < .25 then
+							if GetFuelRatio(v) < .25 then
 						
-							fuellow = true
-							break
+								fuellow = true
+								break
 							
-						end
+							end
 						
-					end
+						end
 					
+					end
+				
 				end
-				
-			end
 
-			if platooncount < oldNumberOfUnitsInPlatoon * .35 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
+				if platooncount < oldNumberOfUnitsInPlatoon * .35 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
 				
-				IssueClearCommands( platoonUnits )
+					IssueClearCommands( platoonUnits )
 				
-                target = false
+					target = false
 
-				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
-            end
+				end
 
-			if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
+				if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
 
-				IssueClearCommands( platoonUnits )
+					IssueClearCommands( platoonUnits )
 				
-				target = false
+					target = false
 
-				self:MoveToLocation( self.anchorposition, false )
+					self:MoveToLocation( self.anchorposition, false )
+				
+				end
 				
 			end
 			
@@ -5235,8 +5239,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 			-- we could lighten these restrictions a little bit to allow more aggressive upgrading
 			-- currently -5 mass and gaining 50 energy
-				
-                
             if ( (econ.MassTrend >= (masslowtrigger) and econ.EnergyTrend >= (10 * energylowtrigger)) and (EnergyMaintenance < ( econ.EnergyTrend * 10 )) )
 				or ( MassStorage >= (MassNeeded > .8) and EnergyStorage > ( EnergyNeeded * .3 ) )  then
 
@@ -5251,7 +5253,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 						
 						if not unit.Dead then
 					
-							ForkThread(SelfUpgradeDelay, aiBrain) 	-- tell brain that we issued an upgrade
+							-- if upgrade issued and not completely full --
+							if GetEconomyStoredRatio(aiBrain, 'MASS') < .95 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < .95 then
+							
+								ForkThread(SelfUpgradeDelay, aiBrain) 	-- tell brain that we issued an upgrade
+								
+							end
 
 							upgradeIssued = true
 
@@ -5261,12 +5268,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 						
 							repeat
 								WaitTicks(20)
-								waitcount = waitcount + 1
-							until unit.Dead or unit.UnitBeingBuilt or waitcount > 15
+								--waitcount = waitcount + 1
+							until unit.Dead or (unit.UnitBeingBuilt.BlueprintID == upgradeID)
 						
 						end
 						
-                        if unit.Dead or waitcount > 15 then
+                        if unit.Dead or waitcount > 25 then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
                             upgradeIssued = false
                         end
@@ -5324,6 +5331,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		elseif (not unitbeingbuilt.Dead) then
 			
 			-- otherwise assign them to the structure pool
+			
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." Structure Pool 2 for "..repr(unitbeingbuilt:GetBlueprint().Description) )
+			
             AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {unitbeingbuilt}, 'Support', 'none' )
 			
 		end
@@ -6105,7 +6115,7 @@ CzarBehaviorSorian = function(self, aiBrain)
         return
     end
 	
-	LOG("*AI DEBUG CzarSorian starts")
+	LOG("*AI DEBUG "..aiBrain.Nickname.." CzarSorian starts")
 
 	local platoonUnits = GetPlatoonUnits(self)
 	

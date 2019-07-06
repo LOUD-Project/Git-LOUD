@@ -214,7 +214,10 @@ Platoon = Class(moho.platoon_methods) {
     OnDestroy = function( self)
 	
 		if ScenarioInfo.PlatoonDialog then
-			LOG("*AI DEBUG Platoon OnDestroy for "..repr(self.BuilderName) )
+		
+			local aiBrain = GetBrain(self)
+			
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon OnDestroy for "..repr(self.BuilderName).." from "..repr(self.LocationType) )
 		end
 	
         for k, cb in self.EventCallbacks.OnDestroyed do
@@ -338,7 +341,7 @@ Platoon = Class(moho.platoon_methods) {
 		if PlatoonExists(aiBrain,self) then
 		
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG Platoon Disband for "..repr(self.BuilderName))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Disband for "..repr(self.BuilderName))
 			end
 		
 			if self.MoveThread then
@@ -4357,7 +4360,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         local pos = GetPlatoonPosition(self) or false
 
-		while pos do
+		while pos and PlatoonExists(aiBrain,self) do
 		
 			if self.UnderAttack and (not self.DistressCall) and (not self.RespondingToDistress) then
 			
@@ -6609,6 +6612,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					eng.failedmoves = 10	-- clear all orders --
 					
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." threatened")
+					
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
 					return false
@@ -7018,6 +7023,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         while PlatoonExists(aiBrain, self) do
 
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." LANDForceAILoud cycles")
+			
 			if self.MoveThread then
 			
 				self:KillMoveThread()
@@ -7084,7 +7091,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			local target = false
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
 			
 			target, targetLocation = AIFindTargetInRange( self, aiBrain, 'Attack', 75, { 'LAND MOBILE','STRUCTURE -WALL', } )
 			
@@ -7114,7 +7121,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				local landattackbase, landattackposition = GetPrimaryLandAttackBase(aiBrain)
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking HiPri target from "..repr(landattackbase))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking HiPri target from "..repr(landattackbase))
 
 				-- get a hipri list with distances based upon PRIMARY LAND ATTACK base
 				local targetlist = GetHiPriTargetList( aiBrain, landattackposition )
@@ -7290,7 +7297,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- to about a minute
 			if not targetLocation then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking DP")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking DP")
                 
                 if aiBrain.AttackPlan then
 				
@@ -8052,6 +8059,7 @@ Platoon = Class(moho.platoon_methods) {
 			
         end
 --]]
+
 		-- get a list of all the platoons for this brain
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
@@ -8061,9 +8069,13 @@ Platoon = Class(moho.platoon_methods) {
 		local mergedunits = false
 		local allyPlatoonSize, validUnits, counter = 0
 		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)))
+		
+		local count = 0
+		
 		-- loop thru all the platoons in the list
         for _,aPlat in AlliedPlatoons do
-			
+	
 			-- ignore yourself
             if aPlat == self then
                 continue
@@ -8164,6 +8176,7 @@ Platoon = Class(moho.platoon_methods) {
 			
         end
 
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checked "..count.." platoons")
 		return mergedunits
 		
     end,

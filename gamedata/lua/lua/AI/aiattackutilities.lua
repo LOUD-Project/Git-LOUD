@@ -701,7 +701,7 @@ end
 -- any shields within a targets vicinity increase it's threat --
 -- This function can use a great deal of CPU so be careful
 function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, atkPri, threatself, threattype, threatradius)
-	
+
 	-- if position not supplied use platoon position or exit
     if not position then
 	
@@ -773,13 +773,17 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		retUnit = false
 		retPosition = false
 		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory "..repr(category).." for "..platoon.BuilderName)
+		
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
-		-- sort them by distance -- 
-		LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
+		if targetUnits and LOUDGETN(targetUnits) > 0 then		
 		
-		if targetUnits and LOUDGETN(targetUnits) > 0 then
+			-- sort them by distance -- 
+			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
+
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory testing "..table.getn(targetUnits))
 		
 			local unitchecks, checkspertick, unitposition
 			local enemythreat, enemyshields, totalshieldvalueattarget
@@ -799,9 +803,9 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 				
 					-- if can attack this type of target
 					if CanAttackTarget( platoon,'Attack',u ) then
-						
+					
 						enemythreat = AIGetThreatLevelsAroundPoint(unitposition)
-						
+
 						-- if threat is less than threatself
 						if enemythreat <= threatself then						
 

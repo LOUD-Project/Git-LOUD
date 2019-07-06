@@ -519,7 +519,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         end
 		
 		-- when simspeed drops too low turn off visual impact effects
-		if Sync.SimData.SimSpeed > -2 then
+		if Sync.SimData.SimSpeed > -1 then
 
 			local ImpactEffects = {}
 			local ImpactEffectScale = 1

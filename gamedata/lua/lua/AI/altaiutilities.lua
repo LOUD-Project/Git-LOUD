@@ -447,7 +447,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		
 		end
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
 	
 	end
 
@@ -1764,7 +1764,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 			
 				if reloads > 1 then
 			
-					LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
+					--LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
 					
 				end
 			

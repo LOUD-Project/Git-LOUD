@@ -572,6 +572,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.Sync.id.." finishes building "..finishedUnit:GetBlueprint().Description)
 		
+		--aiBrain:AssignUnitsToPlatoon( aiBrain.ArmyPool, {finishedUnit}, 'Unassigned', '' )
+		
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager

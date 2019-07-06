@@ -585,7 +585,7 @@ StructureUnit = Class(Unit) {
 
 		if order == 'Upgrade' then
 
-			if unitBeingBuilt:GetUnitId() == self:GetBlueprint().General.UpgradesTo then
+			if unitBeingBuilt:GetUnitId() == __blueprints[self.BlueprintID].General.UpgradesTo then
 				ChangeState(self, self.UpgradingState)
 			end
 		end
@@ -795,37 +795,39 @@ StructureUnit = Class(Unit) {
 
         local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
-        if not adjBuffs then
-			return
+        if adjBuffs then
+
+			for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
+				ApplyBuff(adjacentUnit, v, self)
+			end
+
+			self:RequestRefreshUI()
+			adjacentUnit:RequestRefreshUI()
 		end
-
-        for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
-            ApplyBuff(adjacentUnit, v, self)
-        end
-
-        self:RequestRefreshUI()
-        adjacentUnit:RequestRefreshUI()
     end,
 
     -- When we're not adjacent, try to remove all the possible bonuses.
     OnNotAdjacentTo = function(self, adjacentUnit)
-	
-		LOG("*AI DEBUG "..__blueprints[self.BlueprintID].Description.." no longer adjacent to "..repr(adjacentUnit:GetBlueprint().Description) )
 
         local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
+		
+			--LOG("*AI DEBUG "..__blueprints[self.BlueprintID].Description.." no longer adjacent to "..repr(adjacentUnit:GetBlueprint().Description) )
+
             for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
+			
                 if HasBuff(adjacentUnit, v) then
                     RemoveBuff(adjacentUnit, v, false, self)
                 end
+				
             end
-        end
 
-        self:DestroyAdjacentEffects()
+			self:DestroyAdjacentEffects()
 
-        self:RequestRefreshUI()
-        adjacentUnit:RequestRefreshUI()
+			self:RequestRefreshUI()
+			adjacentUnit:RequestRefreshUI()
+		end
     end,
 
     CreateAdjacentEffect = function(adjacentUnit, self)
@@ -849,8 +851,6 @@ StructureUnit = Class(Unit) {
 		end
 		
 		--LOG("*AI DEBUG Creating adjacency from "..repr(self:GetBlueprint().Description).." to "..repr(adjacentUnit:GetBlueprint().Description) )
-		
-		--LOG("*AI DEBUG Current bag is "..repr(self.AdjacencyBeamsBag))
 
 		CreateAdjacencyBeams( self, adjacentUnit )
 		
@@ -859,11 +859,9 @@ StructureUnit = Class(Unit) {
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
 
-        if not self.AdjacencyBeamsBag then
-			return
-		end
+        if self.AdjacencyBeamsBag then
 
-        for k, v in self.AdjacencyBeamsBag do
+			for k, v in self.AdjacencyBeamsBag do
 
 			local unit = GetEntityById(v.Unit)
 
@@ -871,12 +869,10 @@ StructureUnit = Class(Unit) {
 			-- even if one of them is a production unit that might be turned off
             if unit:BeenDestroyed() or unit.Dead or self:BeenDestroyed() or self.Dead then
                 v.Trash:Destroy()
-                self.AdjacencyBeamsBag[k] = nil
+					self.AdjacencyBeamsBag[k] = nil
+				end
 			end
-        end
-		
-		--LOG("*AI DEBUG AFTER DESTROY AdjacencyBeamsBag for "..repr(self:GetBlueprint().Description).." is "..repr(self.AdjacencyBeamsBag) )
-		
+		end
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
@@ -894,12 +890,7 @@ MobileUnit = Class(Unit) {
 
 		Unit.OnPreCreate(self)
 
-		--self.EventCallbacks.OnTransportAttach = {}
-		--self.EventCallbacks.OnTransportDetach = {}
-		--self.EventCallbacks.OnAttachedToTransport = {}
-		--self.EventCallbacks.OnDetachedToTransport = {}
-
-		self.TransportClass = GetBlueprint(self).Transport.TransportClass or false
+		self.TransportClass = __blueprints[self.BlueprintID].Transport.TransportClass or false
 	end,
 
 	
@@ -934,7 +925,7 @@ MobileUnit = Class(Unit) {
     end,
 
     CreateCaptureEffects = function( self, target )
-        EffectUtilities.PlayCaptureEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
+        EffectUtilities.PlayCaptureEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
     end,
 
     StopCaptureEffects = function( self, target )
@@ -946,7 +937,7 @@ MobileUnit = Class(Unit) {
     -- Return the total time in seconds, cost in energy, and cost in mass to capture the given target.
     GetCaptureCosts = function(self, target_entity)
 
-        local target_bp = target_entity:GetBlueprint().Economy
+        local target_bp = __blueprints[target_entity.BlueprintID].Economy
 
         local time = ( (target_bp.BuildTime or 10) / self:GetBuildRate() ) / 2
         local energy = target_bp.BuildCostEnergy or 100
@@ -959,8 +950,9 @@ MobileUnit = Class(Unit) {
 	-- when you start reclaiming
     OnStartReclaim = function(self, target)
 	
-        --self:DoUnitCallbacks('OnStartReclaim', target)
-        --self:StartReclaimEffects(target)
+        self:DoUnitCallbacks('OnStartReclaim', target)
+		
+        self:StartReclaimEffects(target)
 
         if not self.ReclaimEffectsBag then
             self.ReclaimEffectsBag = TrashBag()
@@ -1012,7 +1004,7 @@ MobileUnit = Class(Unit) {
     end,
 	
     CreateReclaimEffects = function( self, target )
-        EffectUtilities.PlayReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+        EffectUtilities.PlayReclaimEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
 
     CreateReclaimEndEffects = function( self, target )
@@ -1277,7 +1269,7 @@ MobileUnit = Class(Unit) {
                     local effects = {}
                     local scale = 1
                     local offset = nil
-                    local army = GetArmy(self)
+                    local army = self.Sync.army
                     local boneTable = nil
 
                     for k, v in bpTable.Bones do
@@ -1382,19 +1374,23 @@ MobileUnit = Class(Unit) {
 		CleanupEffectBag(self,'TopSpeedEffectsBag')
     end,
 
-	-- issued by the unit when it attaches to transport
+	-- issued by a unit when it attaches to transport
     OnAttachedToTransport = function(self, transport)
+	
 		self:SetDoNotTarget(true)
         self:DoUnitCallbacks( 'OnAttachedToTransport', transport )
+		
     end,
 
-	-- issued by the unit when it detaches from a transport
+	-- issued by a unit when it detaches from a transport
     OnDetachedToTransport = function(self, transport)
+	
 		self:SetDoNotTarget(false)
         self:DoUnitCallbacks( 'OnDetachedToTransport', transport )
+		
     end,
 
-	-- issued by the unit as it gets attached to a transport
+	-- issued by a unit as it gets attached to a transport
     OnStartTransportBeamUp = function(self, transport, bone)
 
         self:DestroyIdleEffects()
@@ -1470,7 +1466,6 @@ MobileUnit = Class(Unit) {
     end,
 
 	OnStopBeingBuilt = function(self, builder, layer)
-	
 		
 		Unit.OnStopBeingBuilt(self, builder, layer)
 		
@@ -1478,11 +1473,12 @@ MobileUnit = Class(Unit) {
 
             self:StartRocking()
 
-            local surfaceAnim = GetBlueprint(self).Display.AnimationSurface
+            local surfaceAnim = __blueprints[self.BlueprintID].Display.AnimationSurface
 
             if not self.SurfaceAnimator and surfaceAnim then
                 self.SurfaceAnimator = CreateAnimator(self)
             end
+			
             if surfaceAnim and self.SurfaceAnimator then
                 self.SurfaceAnimator:PlayAnim(surfaceAnim):SetRate(1)
             end
@@ -1543,7 +1539,7 @@ MobileUnit = Class(Unit) {
 
 			self:DisableUnitIntel('Radar')
 
-			local WaterSpeedMultiplier = GetBlueprint(self).Physics.WaterSpeedMultiplier or false
+			local WaterSpeedMultiplier = __blueprints[self.BlueprintID].Physics.WaterSpeedMultiplier or false
 
 			if WaterSpeedMultiplier then
 				self:SetSpeedMult(WaterSpeedMultiplier)
@@ -1588,6 +1584,8 @@ MobileUnit = Class(Unit) {
             return
         end
 		
+		--LOG("*AI DEBUG OnMotionHorzEventChange for "..__blueprints[self.BlueprintID].Description )
+		
 
         if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
 
@@ -1623,17 +1621,11 @@ MobileUnit = Class(Unit) {
             self:UpdateMovementEffectsOnMotionEventChange( new, old )
         end
 
-        -- for i = 1, self.WeaponCount do
-            -- local wep = GetWeapon(self,i)
-            -- wep:OnMotionHorzEventChange(new, old)
-        -- end
-		
-		
-
     end,
 
     OnMotionVertEventChange = function( self, new, old )
 	
+		--LOG("*AI DEBUG OnMotionVertEventChange for "..__blueprints[self.BlueprintID].Description)
 
         if new == 'Bottom' then
             self:UpdateBeamExhaust('Landed')
@@ -1643,6 +1635,7 @@ MobileUnit = Class(Unit) {
 
         -- Surfacing and sinking, landing and take off idle effects
         if (new == 'Up' and old == 'Bottom') or (new == 'Down' and old == 'Top') then
+		
             self:DestroyIdleEffects()
 
 			local layer = self.CacheLayer
@@ -1661,9 +1654,8 @@ MobileUnit = Class(Unit) {
         end
 
         if (new == 'Top' and old == 'Up') or (new == 'Bottom' and old == 'Down') then
-            --self:CreateIdleEffects()
 
-			local layer = self.CacheLayer		--GetCurrentLayer(self)
+			local layer = self.CacheLayer
 
             if new == 'Bottom' and layer == 'Sub' then
                 self:PlayUnitSound('SubmergeEnd')
@@ -1671,7 +1663,7 @@ MobileUnit = Class(Unit) {
 
             if new == 'Top' and layer == 'Water' then
                 self:PlayUnitSound('SurfaceEnd')
-                local surfaceAnim = GetBlueprint(self).Display.AnimationSurface
+                local surfaceAnim = __blueprints[self.BlueprintID].Display.AnimationSurface
 
                 if not self.SurfaceAnimator and surfaceAnim then
                     self.SurfaceAnimator = CreateAnimator(self)
@@ -1682,6 +1674,7 @@ MobileUnit = Class(Unit) {
                 end
             end
         end
+		
         --self:CreateMotionChangeEffects( new, old )
     end,
 
@@ -1719,9 +1712,10 @@ MobileUnit = Class(Unit) {
 
         Unit.StartBeingBuiltEffects(self, builder, layer)
 
-        if GetBlueprint(self).General.FactionName == 'UEF' then
+        if __blueprints[self.BlueprintID].General.FactionName == 'UEF' then
             CreateUEFUnitBeingBuiltEffects( self, builder, self.OnBeingBuiltEffectsBag )
         end
+		
     end,
 
     StartRocking = function(self)
@@ -1813,7 +1807,7 @@ FactoryUnit = Class(StructureUnit) {
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
 
-        local bp = GetBlueprint(self)
+        local bp = __blueprints[self.BlueprintID]
         local bpAnim = bp.Display.AnimationFinishBuildLand
 
         if bpAnim and EntityCategoryContains(categories.LAND, unitBeingBuilt) then
@@ -1875,7 +1869,7 @@ FactoryUnit = Class(StructureUnit) {
 	-- roll-off point which is nearest to the rally point of the factory - neat - but very few factories have the roll-off point specified
     CalculateRollOffPoint = function(self)
 
-        local bp = GetBlueprint(self).Physics.RollOffPoints
+        local bp = __blueprints[self.BlueprintID].Physics.RollOffPoints
 
 		local pos = table.copy(self.CachePosition)
 
@@ -1904,7 +1898,8 @@ FactoryUnit = Class(StructureUnit) {
 
         local fx, fy, fz, spin
         local bpP = bp[bpKey]
-        local unitBP = GetBlueprint(self.UnitBeingBuilt).Display.ForcedBuildSpin
+		
+        local unitBP = __blueprints[self.UnitBeingBuilt.BlueprintID].Display.ForcedBuildSpin
 
         if unitBP then
 
@@ -1961,12 +1956,14 @@ FactoryUnit = Class(StructureUnit) {
 	DestroyBlinkingLights = function(self,item)
 	end,
 
-    CreateBuildRotator = function(self)
+    CreateBuildRotator = function(self, bone)
 
         if not self.BuildBoneRotator then
+		
             local spin = self:CalculateRollOffPoint()
-            local bp = GetBlueprint(self).Display
-            self.BuildBoneRotator = CreateRotator(self, bp.BuildAttachBone or 0, 'y', spin, 10000)
+
+            self.BuildBoneRotator = CreateRotator(self, bone, 'y', spin, 10000)
+			
             self.Trash:Add(self.BuildBoneRotator)
         end
     end,
@@ -2024,14 +2021,15 @@ FactoryUnit = Class(StructureUnit) {
         Main = function(self)
 
             local unitBuilding = self.UnitBeingBuilt
-            local bp = GetBlueprint(self)
-            local bone = bp.Display.BuildAttachBone or 0
+
+            local bone = __blueprints[self.BlueprintID].Display.BuildAttachBone or 0
 
             self:DetachAll(bone)
 
             unitBuilding:AttachBoneTo(-2, self, bone)
 
-            self:CreateBuildRotator()
+            self:CreateBuildRotator(bone)
+			
             self:StartBuildFx(unitBuilding)
 
         end,
@@ -2076,7 +2074,7 @@ function FactoryFixes( FactoryClass )
 
         OnStopBuild = function(self, unitBeingBuilt, order )
 
-            local bp = self:GetBlueprint().General
+            local bp = __blueprints[self.BlueprintID].General
 
             if bp.RolloffDelay and bp.RolloffDelay > 0 and not self.FactoryBuildFailed then
 
@@ -2093,8 +2091,6 @@ function FactoryFixes( FactoryClass )
         PauseThread = function( self, unitBeingBuilt, order, productionpause )
 
             self:StopBuildFx()
-
-            --local productionpause = self:GetBlueprint().General.RolloffDelay
 
             if productionpause and productionpause > 0 then
 
@@ -2117,29 +2113,15 @@ FactoryUnit = FactoryFixes(FactoryUnit)
 
 QuantumGateUnit = Class(FactoryUnit) {
 
-	--import('/lua/CommonTools.lua') = import('/lua/CommonTools.lua')
-
 	-- Base economic costs for starting a teleport
 	BaseChargeTime = 30,
 	BaseEnergyCost = 5000,
 
 	-- Resource costs for various unit tiers
-	ResourceCosts = {
-		Energy = {
-			T1 = 25,
-			T2 = 100,
-			T3 = 250,
-			T4 = 1000,
-			COMMAND = 1500,
-		},
-	},
+	ResourceCosts = { Energy = { T1 = 25, T2 = 100,	T3 = 250, T4 = 1000, COMMAND = 1500	},	},
 
 	-- Sound that plays when a teleport happens
-	TeleportSound = Sound {
-		Bank = 'UAL',
-		Cue = 'UAL0001_Gate_In',
-		LodCutoff = 'UnitMove_LodCutoff',
-	},
+	TeleportSound = Sound { Bank = 'UAL', Cue = 'UAL0001_Gate_In', LodCutoff = 'UnitMove_LodCutoff'	},
 
 	-- Set of effects that are played when a gate involved with an in-progress teleport is destroyed
 	GateExplodeEffect = {
@@ -2207,7 +2189,6 @@ QuantumGateUnit = Class(FactoryUnit) {
 	-- Fires when the gateway is destroyed.  This handles killing the remote gateway and units in transit if
 	-- a teleportation is underway. It also fires off special effects
 	OnKilled = function(self, instigator, type, overkillRatio)
-		LOG('~Gateway destroyed!')
 
 		if self.TeleportThread then
 			KillThread(self.TeleportThread)
@@ -2335,7 +2316,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		for k, v in self.GateExplodeEffect do
 			for k, e in v.Emitters do
-				fx = CreateEmitterAtEntity(self, self:GetArmy(), e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
+				fx = CreateEmitterAtEntity(self, self.Sync.army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
 				table.insert(fxBag, fx)
 			end
 		end
@@ -2353,7 +2334,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		-- upwards funnel
 		for k, v in EffectTemplate.SIFInainoHit02 do
-			CreateEmitterAtEntity(self, self:GetArmy(), v):ScaleEmitter(0.7)
+			CreateEmitterAtEntity(self, self.Sync.army, v):ScaleEmitter(0.7)
 			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.7)
 		end
 
@@ -2364,7 +2345,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		-- flash!
 		for k, v in EffectTemplate.SIFInainoHit01 do
-			CreateEmitterAtEntity(self, self:GetArmy(), v):ScaleEmitter(1.15)
+			CreateEmitterAtEntity(self, self.Sync.army, v):ScaleEmitter(1.15)
 			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(1)
 		end
 
@@ -2373,7 +2354,8 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 	-- Initiates the "teleport charging" effect on gateways involved
 	StartGateChargeEffect = function(self)
-		local army = self:GetArmy()
+	
+		local army = self.Sync.army
 
 		self.TeleportChargeBag = { }
 
@@ -2447,7 +2429,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 				v:PlayScaledTeleportChargeEffects()
 
-				local cats = v:GetBlueprint().Categories
+				local cats = __blueprints[v.BlueprintID].Categories
 
 				-- COMMAND is first because SCUs have both a COMMAND and a TECH3 category
 				if table.find(cats, 'COMMAND') or table.find(cats, 'SUBCOMMANDER') then
@@ -2741,7 +2723,7 @@ MassCollectionUnit = Class(StructureUnit) {
 
             self:SetConsumptionPerSecondMass(0)
 
-            self:SetProductionPerSecondMass(GetBlueprint(self).Economy.ProductionPerSecondMass or 0)
+            self:SetProductionPerSecondMass(__blueprints[self.BlueprintID].Economy.ProductionPerSecondMass or 0)
         end
     end,
 
@@ -2889,7 +2871,7 @@ RadarJammerUnit = Class(StructureUnit) {
 
 			self.IntelEffectsBag = {}
 
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, self.IntelEffectsBag )
 			self.IntelFxOn = true
 
 		end
@@ -3001,7 +2983,7 @@ WalkingLandUnit = Class(MobileUnit) {
 
 			if ( old == 'Stopped' ) then
 
-				local bpDisplay = GetBlueprint(self).Display
+				local bpDisplay = __blueprints[self.BlueprintID].Display
 
 				if bpDisplay.AnimationWalk then
 
@@ -3055,7 +3037,8 @@ SubUnit = Class(MobileUnit) {
     -- DESTRUCTION PARAMS
     PlayDestructionEffects = true,
     ShowUnitDestructionDebris = false,
-    DeathThreadDestructionWaitTime = 10,
+	
+    DeathThreadDestructionWaitTime = 7,	-- 7 seconds
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
@@ -3077,10 +3060,12 @@ SubUnit = Class(MobileUnit) {
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
+	
+		--LOG("*AI DEBUG SubUnit DeathThread for "..self:GetBlueprint().Description)
 
         local bp = __blueprints[self.BlueprintID]
 		
-        local army = GetArmy(self)
+        local army = self.Sync.army
         local pos = GetPosition(self)
         local seafloor = GetTerrainHeight(pos[1], pos[3])
 
@@ -3153,6 +3138,8 @@ SubUnit = Class(MobileUnit) {
     end,
 
     ExplosionThread = function(self)
+	
+		--LOG("*AI DEBUG SubUnit ExplosionThread for "..repr(self:GetBlueprint().Description))
 
         local d = 0
         local rx, ry, rz = self:GetUnitSizes()
@@ -3232,7 +3219,7 @@ SubUnit = Class(MobileUnit) {
 
 SeaUnit = Class(MobileUnit) {
 
-    DeathThreadDestructionWaitTime = 10,
+    DeathThreadDestructionWaitTime = 7,	-- 7 seconds
     ShowUnitDestructionDebris = false,
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -3261,8 +3248,8 @@ SeaUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 
-        local bp = GetBlueprint(self)
-        local army = GetArmy(self)
+        local bp = __blueprints[self.BlueprintID]
+        local army = self.Sync.army
         local pos = GetPosition(self)
 
         local seafloor = GetTerrainHeight(pos[1], pos[3]) --+ GetTerrainTypeOffset(pos[1], pos[3])
@@ -3384,7 +3371,7 @@ SeaUnit = Class(MobileUnit) {
         local i = 8
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
-        local army = GetArmy(self)
+        local army = self.Sync.army
 
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		local Random = Random
@@ -3452,7 +3439,7 @@ AirUnit = Class(MobileUnit) {
 
     AddPingPong = function(self)
 
-        local bp = GetBlueprint(self)
+        local bp = __blueprints[self.BlueprintID]
 
         if bp.Display.PingPongScroller then
 
@@ -3571,8 +3558,6 @@ AirUnit = Class(MobileUnit) {
 		end
 		
 		self.HasFuel = true
-		
-		--LOG("*AI DEBUG OnGotFuel for "..repr(self:GetBlueprint().Description).." is "..repr(self:GetFuelRatio()))
 
     end,
 
@@ -3651,8 +3636,10 @@ AirUnit = Class(MobileUnit) {
     end,	
 	
     OnImpact = function(self, with, other)
+	
+		--LOG("*AI DEBUG AirUnit OnImpact for "..self:GetBlueprint().Description.." "..self.Sync.id.." with "..repr(with) )
 
-        local bp = GetBlueprint(self)
+        local bp = __blueprints[self.BlueprintID]
 
         local i = 1
 
@@ -3670,23 +3657,30 @@ AirUnit = Class(MobileUnit) {
 
             self:PlayUnitSound('AirUnitWaterImpact')
 
-            CreateEffects( self, GetArmy(self), EffectTemplate.DefaultProjectileWaterImpact )
+            CreateEffects( self, self.Sync.army, EffectTemplate.DefaultProjectileWaterImpact )
 
 			self:ForkThread(self.SinkIntoWaterAfterDeath, self.OverKillRatio)
 
         else
             if not self.DeathBounce then
                 self.DeathBounce = 1
-                self:ForkThread(self.DeathThread, self.OverKillRatio )
+				
+				if with == 'Terrain' then
+					self.CacheLayer = 'Land'
+				end
+
+                self:ForkThread(self.DeathThread, self.OverKillRatio or 0 )
             end
         end
     end,
 
 	SinkIntoWaterAfterDeath = function(self, overkillRatio)
+	
+		--LOG("*AI DEBUG AirUnit SinkIntoWaterAfterDeath")
 
 		local sx, sy, sz = self:GetUnitSizes()
 		local vol = sx * sy * sz
-		local army = GetArmy(self)
+		local army = self.Sync.army
 		local pos = GetPosition(self)
 
 		local seafloor = GetTerrainHeight(pos[1], pos[3])
@@ -3892,12 +3886,12 @@ ConstructionUnit = Class(MobileUnit) {
 
         Unit.OnCreate(self)
 
-        if GetBlueprint(self).General.BuildBones then
+        if __blueprints[self.BlueprintID].General.BuildBones then
             self:SetupBuildBones()
         end
 
-        if GetBlueprint(self).Display.AnimationBuild then
-            self.BuildingOpenAnim = self:GetBlueprint().Display.AnimationBuild
+        if __blueprints[self.BlueprintID].Display.AnimationBuild then
+            self.BuildingOpenAnim = __blueprints[self.BlueprintID].Display.AnimationBuild
         end
 
         if self.BuildingOpenAnim then
@@ -3955,7 +3949,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 		if order == 'Upgrade' then
 
-			if unitBeingBuilt:GetUnitId() == GetBlueprint(self).General.UpgradesTo then
+			if unitBeingBuilt:GetUnitId() == __blueprints[self.BlueprintID].General.UpgradesTo then
 
 				self.Upgrading = true
 				self.BuildingUnit = false
@@ -4037,7 +4031,7 @@ ConstructionUnit = Class(MobileUnit) {
 
         if self.BuildingOpenAnimManip then
 
-            self.BuildingOpenAnimManip:SetRate( GetBlueprint(self).Display.AnimationBuildRate or 1 )
+            self.BuildingOpenAnimManip:SetRate( __blueprints[self.BlueprintID].Display.AnimationBuildRate or 1 )
 
             if self.BuildArmManipulator then
 
@@ -4059,10 +4053,50 @@ ConstructionUnit = Class(MobileUnit) {
 
             self.BuildArmManipulator:Disable()
 
-            self.BuildingOpenAnimManip:SetRate(-(GetBlueprint(self).Display.AnimationBuildRate or 1))
+            self.BuildingOpenAnimManip:SetRate(-(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1))
 
         end
 
+    end,
+}
+
+--------------------------------------------------------------------------------
+local MissileDetectorRadius = {}
+--------------------------------------------------------------------------------
+BaseDirectionalAntiMissileFlare = Class() {
+
+    CreateMissileDetector = function(self)
+
+        local bp = self:GetBlueprint()
+        local MDbp = bp.Defense.MissileDetector
+		
+		-- The effectiveness of the anti-missile system is highly dependent upon the 
+		-- size of the detector - since in the tick between detection and impact the
+		-- missile can pass thru the radius of the detector and still impact the 
+		-- intended unit
+		-- Therefore - in order to insure a certain level of effectiveness against
+		-- SAM missiles (which can have a speed of 40 or more) we'll make the minimum
+		-- radius somewhere around 4
+
+        if not MissileDetectorRadius[bp.BlueprintId] and MDbp then
+		
+            MissileDetectorRadius[bp.BlueprintId] = 1 + math.sqrt(math.pow(VDist3(self:GetPosition(),self:GetPosition(MDbp.AttachBone)),2) + math.pow(bp.SizeSphere, 2))
+            LOG("Missile detector radius for " .. bp.BlueprintId .." set to "..MissileDetectorRadius[bp.BlueprintId])
+			
+        elseif not MissileDetectorRadius and not MDbp then
+		
+            MissileDetectorRadius[bp.BlueprintId] = 4
+            WARN("Missile Detector data not set up correctly - default to 3.")
+			
+        end
+	
+		local MissileDetector = import('/lua/defaultantiprojectile.lua').MissileDetector
+	
+        self.Trash:Add(MissileDetector {
+            Owner = self,
+            Radius = MissileDetectorRadius[bp.BlueprintId],
+            AttachBone = MDbp.AttachBone,
+        })
     end,
 
 }

@@ -632,7 +632,7 @@ end
 function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetAIBrain = moho.unit_methods.GetAIBrain
+	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
@@ -644,7 +644,7 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
 		
 				mlist[counter+1] = v
 				counter = counter + 1
@@ -662,7 +662,7 @@ end
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetAIBrain = moho.unit_methods.GetAIBrain
+	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
@@ -674,7 +674,7 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex != aiBrain.ArmyIndex then
+			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army != aiBrain.ArmyIndex then
 		
 				mlist[counter+1] = v
 				counter = counter + 1
@@ -693,7 +693,7 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-	local GetAIBrain = moho.unit_methods.GetAIBrain
+	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
     local mlist = {}
@@ -701,7 +701,7 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
-        if (not v.Dead) and GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+        if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
 
 			if tmin and tmax then
 			
@@ -732,7 +732,7 @@ end
 function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetAIBrain = moho.unit_methods.GetAIBrain
+	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
 	local counter = 0
@@ -741,7 +741,7 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
         if not v.Dead then
 		
-			if GetFractionComplete(v) == 1 and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+			if GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
 			
 				counter = counter + 1
 				

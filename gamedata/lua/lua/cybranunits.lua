@@ -42,7 +42,7 @@ CAirFactoryUnit = Class(FactoryUnit) {
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         if not unitBeingBuilt then return end
         WaitTicks( 1 )
-        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones, self.BuildEffectsBag )
+        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
     end,
     
     StartBuildFx = function(self, unitBeingBuilt)
@@ -52,7 +52,7 @@ CAirFactoryUnit = Class(FactoryUnit) {
         
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
-            self.BuildAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationBuild, true):SetRate(0)
+            self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
             self.Trash:Add(self.BuildAnimManip)
         end
         self.BuildAnimManip:SetRate(1)
@@ -155,7 +155,7 @@ CConstructionUnit = Class(ConstructionUnit){
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
 	
-        local buildbots = SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
+        local buildbots = SpawnBuildBots( self, unitBeingBuilt, table.getn( __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
 		
         CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
     end,
@@ -170,7 +170,7 @@ CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {
 		
         if self.AmbientEffects then
             for k, v in EffectTemplate[self.AmbientEffects] do
-                CreateAttachedEmitter(self, 0, self:GetArmy(), v)
+                CreateAttachedEmitter(self, 0, self.Sync.army, v)
             end
         end
     end,
@@ -186,7 +186,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         if not unitBeingBuilt then return end
         WaitTicks( 1 )
-        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones, self.BuildEffectsBag )
+        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
     end,   
    
     StartBuildFx = function(self, unitBeingBuilt)
@@ -197,7 +197,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
         # Start build process
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
-            self.BuildAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationBuild, true):SetRate(0)
+            self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
             self.Trash:Add(self.BuildAnimManip)
         end
 
@@ -247,7 +247,7 @@ CSonarUnit = Class(DefaultUnitsFile.SonarUnit) {}
 CSeaFactoryUnit = Class(FactoryUnit) {
     
     StartBuildingEffects = function( self, unitBeingBuilt, order )
-        self.BuildEffectsBag:Add( self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+        self.BuildEffectsBag:Add( self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
     end,
 
     OnPaused = function(self)
@@ -333,7 +333,7 @@ CConstructionEggUnit = Class(StructureUnit) {
 
         FactoryUnit.OnStopBeingBuilt(self,builder,layer)
 		
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
         local buildUnit = bp.Economy.BuildUnit
         
         local pos = self:GetPosition()
@@ -345,7 +345,7 @@ CConstructionEggUnit = Class(StructureUnit) {
         ForkThread( function()
                         self.OpenAnimManip = CreateAnimator(self)
                         self.Trash:Add(self.OpenAnimManip)
-                        self.OpenAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationOpen, false):SetRate(0.25)
+                        self.OpenAnimManip:PlayAnim( bp.Display.AnimationOpen, false):SetRate(0.25)
 
                         WaitFor(self.OpenAnimManip)
                         
@@ -363,7 +363,7 @@ CConstructionEggUnit = Class(StructureUnit) {
     
     EggConstruction = State {
         Main = function(self)
-            local bp = self:GetBlueprint()
+            local bp = __blueprints[self.BlueprintID]
             local buildUnit = bp.Economy.BuildUnit
             self:GetAIBrain():BuildUnit( self, buildUnit, 1 )
         end,

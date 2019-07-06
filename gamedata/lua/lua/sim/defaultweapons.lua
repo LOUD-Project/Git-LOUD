@@ -5,6 +5,7 @@ local Weapon = import('/lua/sim/Weapon.lua').Weapon
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
+--local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local LOUDABS = math.abs
 local LOUDGETN = table.getn
@@ -220,7 +221,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
             local nrgReq = self:GetWeaponEnergyRequired(bp)
             local nrgDrain = self:GetWeaponEnergyDrain(bp)
-			
+
             if nrgReq > 0 and nrgDrain > 0 then
 			
                 local time = nrgReq / nrgDrain
@@ -228,14 +229,14 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if time < 0.1 then
                     time = 0.1
                 end
-				
+
                 self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
                 self.FirstShot = true
             end
         end
     end,
 
-    -- The adjacency mod only effects the overall cost, not the drain per second. So, the drain will be about the same
+    -- adjacency affects the energy cost, not the drain. So, drain will be about the same
     -- but the time it takes to drain will not be.
 	-- passed in the bp data to save the call
     GetWeaponEnergyRequired = function(self, bp)
