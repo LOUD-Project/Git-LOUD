@@ -166,10 +166,8 @@ BuffBlueprint { Name = 'AeonMaelstromField',
             Mult = 1.0,
         },
     },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.4,
+	--Effects = {'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'},
+	--EffectsScale = 0.4,
 }
 
 BuffBlueprint { Name = 'AeonMaelstromField2',
@@ -184,10 +182,8 @@ BuffBlueprint { Name = 'AeonMaelstromField2',
             Mult = 1.0,
         },
     },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.65,
+	--Effects = {'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'},
+	--EffectsScale = 0.65,
 }
 
 BuffBlueprint { Name = 'AeonMaelstromField3',
@@ -202,10 +198,8 @@ BuffBlueprint { Name = 'AeonMaelstromField3',
             Mult = 1.0,
         },
     },
-	Effects = {
-		'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'
-	},
-	EffectsScale = 0.90,
+	--Effects = {'/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp'},
+	--EffectsScale = 0.90,
 }
 
 
