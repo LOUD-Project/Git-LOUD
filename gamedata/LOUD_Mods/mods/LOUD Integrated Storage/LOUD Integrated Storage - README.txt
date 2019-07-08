@@ -26,3 +26,6 @@ reduce the amount of unit cap that these buildings will consume - in some cases 
 
 In terms of game performance, the elimination of the buildings reduces unit count (which impacts sim speed) and the application and calculation
 of the buffs normally associated with adjacency (which reduces memory usage).
+
+The most recent addition to this mod is the inclusion of unique models for each factions Paragon-equivalent.  These
+models were kindly provided by BrewLAN.

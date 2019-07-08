@@ -226,7 +226,7 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = true,
         },
 
-        UnitName = '<LOC wel0405_name>King Kriptor',
+        UnitName = '<LOC wel0405_name>King Kraptor',
         UnitWeight = 1,
     },
 	

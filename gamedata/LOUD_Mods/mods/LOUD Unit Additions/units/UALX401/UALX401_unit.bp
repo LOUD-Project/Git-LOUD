@@ -110,7 +110,6 @@ UnitBlueprint {
 			Water = { Effects = {} },
 		},
 		
-        PlaceholderMeshName = 'UXL0009',
         SpawnRandomRotation = true,
         UniformScale = 0.6,
     },

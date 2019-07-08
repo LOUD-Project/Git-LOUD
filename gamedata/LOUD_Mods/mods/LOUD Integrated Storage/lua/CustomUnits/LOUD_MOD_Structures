@@ -1,9 +1,0 @@
-UnitList = {
-
-    T4EconExperimental = {
-        UEF = {'seb1401', 100},
-		Cybran = {'srb1401', 100},
-		Seraphim = {'ssb1401', 100},
-    },
-	
-}

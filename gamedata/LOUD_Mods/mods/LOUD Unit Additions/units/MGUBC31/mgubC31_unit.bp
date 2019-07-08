@@ -68,7 +68,7 @@ AI = {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0004',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {

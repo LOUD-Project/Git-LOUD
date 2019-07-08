@@ -1,6 +1,6 @@
 name = "LOUD Integrated Storage"
 uid = "ffffffff-6e98-4864-9599-4133236eea7a"
-version = 2.1
+version = 2.2
 copyright = "None"
 description = "Integrates storage & adjacency upgrades into resource units as upgrades.  Eliminates standard storage buildings (mass & energy), reducing unit count & increasing game performance."
 author = "H Katzmarek -- Sprouto"
