@@ -1,5 +1,5 @@
 
-local AStructureUnit = import('defaultunits.lua').StructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local AIFParagonDeathWeapon = import('/lua/aeonweapons.lua').AIFParagonDeathWeapon
 
 
