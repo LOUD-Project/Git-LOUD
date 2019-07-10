@@ -127,7 +127,7 @@ UnitBlueprint {
         BuildCostEnergy = 13500,
         BuildCostMass = 900,
         BuildRate = 15, -- T3 engineer BuildRate  
-        BuildTime = 3600,
+        BuildTime = 4500,
 		
     },
 	
