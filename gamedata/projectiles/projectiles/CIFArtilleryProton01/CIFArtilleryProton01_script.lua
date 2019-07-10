@@ -1,8 +1,5 @@
-#
-# Cybran Artillery Projectile
-#
 local CArtilleryProtonProjectile = import('/lua/cybranprojectiles.lua').CArtilleryProtonProjectile
---local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
 local DamageArea = DamageArea
 local CreateLightParticle = CreateLightParticle
 

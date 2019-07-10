@@ -1,10 +1,13 @@
 ProjectileBlueprint {
+
     Audio = {
+	
         Impact = Sound {
             Bank = 'Impacts',
             Cue = 'Impact_Water_Splash_AEON',
             LodCutoff = 'Weapon_LodCutoff',
         },
+		
         ImpactWater = Sound {
             Bank = 'Impacts',
             Cue = 'Impact_Water_Splash_AEON',
@@ -23,10 +26,7 @@ ProjectileBlueprint {
     },
 	
     General = {
-        Category = 'Anti Torpedo',
-        Faction = 'UEF',
-        TechLevel = 1,
-        Weapon = 'Anti Torpedo',
+        Category = 'Defense',
     },
 	
     Interface = {
@@ -34,18 +34,23 @@ ProjectileBlueprint {
     },
 	
     Physics = {
-		Acceleration = 2,
+	
+		Acceleration = 7.5,
+		
         DestroyOnWater = false,
+
+        MaxSpeed = 25,
 		
-        InitialSpeed = 120,
-        Lifetime = 0.5,
-		
-        MaxSpeed = 14,
+		OnLostTargetLifetime = 3,
 		
         StayUnderwater = true,
+		
         TrackTarget = true,
+		
         TurnRate = 540,
-        UseGravity = false,
+		
+        UseGravity = true,
+		
         VelocityAlign = true,
     },
 }
