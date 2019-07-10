@@ -16,7 +16,7 @@ XAB1401 = Class(AStructureUnit) {
 		local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 		local aiBrain = self:GetAIBrain()
 		
-		-- all allied paragons within 100 radius --
+		-- all allied paragons within 120 radius --
 		local paragons = GetUnitsAroundPoint( aiBrain, categories.xab1401, self:GetPosition(), 120, 'Ally')
 		
 		-- your own paragons (all of them) --

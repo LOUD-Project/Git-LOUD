@@ -96,7 +96,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
@@ -105,7 +105,7 @@ UnitBlueprint {
         BuildCostEnergy = 1450,
         BuildCostMass = 240,
         BuildRate = 10,
-        BuildTime = 1400,
+        BuildTime = 1200,
 		
         BuildableCategory = {'BUILTBYTIER2ENGINEER UEF',},
 		

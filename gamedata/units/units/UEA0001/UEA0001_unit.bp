@@ -88,10 +88,10 @@ UnitBlueprint {
         BuildCostEnergy = 1600,
         BuildCostMass = 160,
         BuildRate = 5,
-        BuildTime = 400,
-        BuildableCategory = {
-            'BUILTBYCOMMANDER UEF',
-        },
+        BuildTime = 960,
+		
+        BuildableCategory = {'BUILTBYCOMMANDER UEF'},
+		
         NaturalProducer = true,
 	},
 	

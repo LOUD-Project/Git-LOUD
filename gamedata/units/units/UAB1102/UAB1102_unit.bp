@@ -65,7 +65,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {

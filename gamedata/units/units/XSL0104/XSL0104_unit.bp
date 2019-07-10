@@ -76,7 +76,6 @@ UnitBlueprint {
             },
         },
 		
-        PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
 		
         TransportAnimation = {

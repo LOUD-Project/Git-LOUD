@@ -171,7 +171,8 @@ UnitBlueprint {
         BuildCostEnergy = 1050000,
         BuildCostMass = 52000,
         BuildRate = 180,
-        BuildTime = 14583,
+        BuildTime = 126000,
+		
         BuildableCategory = {
             'BUILTBYTIER1FACTORY AEON MOBILE AIR',
             'BUILTBYTIER2FACTORY AEON MOBILE AIR',

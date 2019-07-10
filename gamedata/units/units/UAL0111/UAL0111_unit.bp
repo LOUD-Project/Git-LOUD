@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -30,9 +31,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 30,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -45,7 +48,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = 0.1,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 750,
@@ -53,7 +58,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
+	
     Description = '<LOC ual0111_desc>Mobile Missile Launcher',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -71,15 +78,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0010',
+
         SpawnRandomRotation = true,
         UniformScale = 0.075,
     },
+	
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 180,
-        BuildTime = 1000,
+        BuildTime = 900,
     },
+	
     General = {
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -103,15 +112,19 @@ UnitBlueprint {
         UnitName = '<LOC ual0111_name>Evensong',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 21,
     },
+	
     Interface = {
         HelpText = 'Mobile Missile Launcher',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.75,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -139,18 +152,23 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
+	
     SizeX = 0.75,
     SizeY = 0.3,
     SizeZ = 1.1,
+	
     StrategicIconName = 'icon_land2_missile',
     StrategicIconSortPriority = 125,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -158,6 +176,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

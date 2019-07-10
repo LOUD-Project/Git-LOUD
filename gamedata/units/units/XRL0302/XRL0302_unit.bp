@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XRL_Weapon',
@@ -20,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 80,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -34,8 +37,10 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
     },
+	
     CollisionOffsetY = -0.025,
     CollisionOffsetZ = 0.05,
+	
     Defense = {
         ArmorType = 'Bettle',
         Health = 375,
@@ -43,7 +48,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 4,
     },
+	
     Description = '<LOC xrl0302_desc>Mobile Bomb',
+	
     Display = {
         Abilities = {
             'Suicide Weapon',
@@ -65,7 +72,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0011',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -75,14 +82,17 @@ UnitBlueprint {
         },
         UniformScale = 0.054,
     },
+	
     Economy = {
         BuildCostEnergy = 1800,
         BuildCostMass = 300,
-        BuildTime = 1200,
+        BuildTime = 1500,
+		
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
     },
+	
     General = {
         Category = 'Utility',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -105,15 +115,19 @@ UnitBlueprint {
         UnitName = '<LOC xrl0302_name>Fire Beetle',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 24,
     },
+	
     Interface = {
         HelpText = 'Mobile Bomb',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.5,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -139,17 +153,22 @@ UnitBlueprint {
         TurnRadius = 3,
         TurnRate = 120,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.83,
+	
     SizeX = 0.4,
     SizeY = 0.35,
     SizeZ = 0.55,
+	
     StrategicIconName = 'icon_land2_bomb',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         TransportClass = 2,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

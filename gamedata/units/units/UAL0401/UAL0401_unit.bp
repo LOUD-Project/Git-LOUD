@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         GuardScanRadius = 40,
 		GuardReturnRadius = 45,
+		
         TargetBones = {
             'Head_Muzzle',
             'Torso',
@@ -174,7 +175,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 460000, 
         BuildCostMass = 42500,
-        BuildTime = 8000,
+        BuildTime = 46000,
     },
 	
     General = {

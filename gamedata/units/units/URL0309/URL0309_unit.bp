@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 10,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -29,7 +31,9 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 87,		# BuildRate * 3 + 3% of health
@@ -37,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 1425,
         RegenRate = 2,
     },
+	
     Description = '<LOC url0309_desc>T3 Engineer',
+	
     Display = {
         AnimationWater = '/units/URL0309/url0309_Awheels.sca',
         Mesh = {
@@ -50,7 +56,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
@@ -59,7 +65,7 @@ UnitBlueprint {
         BuildCostEnergy = 4400,
         BuildCostMass = 625,
         BuildRate = 15,
-        BuildTime = 3300,
+        BuildTime = 3125,
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER CYBRAN',},
 		
@@ -138,6 +144,7 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 120,
     },
+	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
     SelectionSizeX = 0.65,

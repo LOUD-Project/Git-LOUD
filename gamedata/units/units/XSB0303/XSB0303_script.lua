@@ -1,6 +1,13 @@
 local SSeaFactoryUnit = import('/lua/seraphimunits.lua').SSeaFactoryUnit
 
+local SDFAjelluAntiTorpedoDefense = import('/lua/seraphimweapons.lua').SDFAjelluAntiTorpedoDefense
+
 XSB0303 = Class(SSeaFactoryUnit) {
+
+    Weapons = {
+        AntiTorpedo = Class(SDFAjelluAntiTorpedoDefense) {},
+    },
+  
     OnCreate = function(self)
         SSeaFactoryUnit.OnCreate(self)
         local bp = self:GetBlueprint()

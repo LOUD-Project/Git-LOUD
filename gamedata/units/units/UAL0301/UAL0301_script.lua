@@ -1,4 +1,4 @@
-
+-- technically this can point to defaultunits WalkingLandUnit as AWalkingLandUnit is empty
 local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 
 local AWeapons = import('/lua/aeonweapons.lua')
@@ -10,8 +10,7 @@ local Buff = import('/lua/sim/Buff.lua')
 UAL0301 = Class(AWalkingLandUnit) {    
     Weapons = {
         RightReactonCannon = Class(ADFReactonCannon) {},
-        DeathWeapon = Class(AIFCommanderDeathWeapon) {
-        },
+        DeathWeapon = Class(AIFCommanderDeathWeapon) {},
     },
     
     OnPrepareArmToBuild = function(self)
@@ -45,14 +44,6 @@ UAL0301 = Class(AWalkingLandUnit) {
         self:SetWeaponEnabledByLabel('RightReactonCannon', true)
         self:GetWeaponManipulatorByLabel('RightReactonCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
-
-    OnFailedToBuild = function(self)
-        AWalkingLandUnit.OnFailedToBuild(self)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('RightReactonCannon', true)
-        self:GetWeaponManipulatorByLabel('RightReactonCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
     
     OnStartBuild = function(self, unitBeingBuilt, order)
         AWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
@@ -71,7 +62,6 @@ UAL0301 = Class(AWalkingLandUnit) {
         self.UnitBuildOrder = nil
         self.BuildingUnit = false          
     end,
-
     
     OnFailedToBuild = function(self)
         AWalkingLandUnit.OnFailedToBuild(self)

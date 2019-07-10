@@ -95,7 +95,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -105,20 +105,27 @@ UnitBlueprint {
         },
         UniformScale = 0.13,
     },
+	
     Economy = {
         BuildCostEnergy = 114000,
         BuildCostMass = 9000,
         BuildRate = 60,
-        BuildTime = 36000,
+        BuildTime = 45000,
+		
         BuildableCategory = {
             'BUILTBYTIER4COMMANDER CYBRAN',
             'BUILTBYTIER3ENGINEER CYBRAN',
         },
+		
         MaintenanceConsumptionPerSecondEnergy = 0,
+		
 		MaxBuildDistance = 8,
+		
         NaturalProducer = true,
+		
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
+		
         StorageEnergy = 500,
         StorageMass = 100,
     },

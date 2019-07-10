@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 32,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -40,9 +42,9 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
-    CollisionOffsetX = 0,
+	
     CollisionOffsetY = -1,
-    CollisionOffsetZ = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 700,
@@ -50,7 +52,9 @@ UnitBlueprint {
         MaxHealth = 30000,
         RegenRate = 8,
     },
+	
     Description = '<LOC urb0303_desc>Advanced Naval Factory',
+	
     Display = {
         BuildAttachBone = 'Attachpoint',
 
@@ -71,27 +75,32 @@ UnitBlueprint {
         },
         UniformScale = 0.095,
     },
+	
     Economy = {
         BuildCostEnergy = 35100,
         BuildCostMass = 8000,
         BuildRate = 50,
         BuildTime = 12000,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY CYBRAN STRUCTURE NAVAL',
             'BUILTBYTIER3FACTORY CYBRAN MOBILE NAVAL',
         },
+		
         InitialRallyX = 0,
         InitialRallyZ = 10,
-        RebuildBonusIds = {
-            'urb0303',
-        },
+		
+        RebuildBonusIds = {'urb0303'},
+		
         StorageEnergy = 2000,
         StorageMass = 200,
     },
+	
     Footprint = {
         MinWaterDepth = 3,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -125,15 +134,20 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'urb0203',
     },
+	
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 15,
+		WaterVisionRadius = 15,
     },
+	
     Interface = {
         HelpText = 'Advanced Naval Factory',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 6,
     LifeBarSize = 4.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -163,16 +177,150 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+	
     SelectionCenterOffsetX = -0.57,
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.6,
     SelectionSizeZ = 8.1,
     SelectionThickness = 0.21,
+	
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+	
     StrategicIconName = 'icon_factory3_naval',
     StrategicIconSortPriority = 210,
+	
+    Weapon = {
+		
+        {
+            BallisticArc = 'RULEUBA_None',
+			CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DepthCharge = { Radius = 5.5 },
+			
+            DisplayName = 'Anti Torpedo Flare',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 360,
+			
+            Label = 'AntiTorpedo',
+			
+            MaxRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 3.6,
+			
+            ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 2.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'B14',
+                    },
+                    RackBone = 'B14',
+                },
+                {
+                    MuzzleBones = {
+                        'B28',
+                    },
+                    RackBone = 'B28',
+                },				
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 0.8,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.3,
+        },
+		
+        {
+            BallisticArc = 'RULEUBA_None',
+			CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DepthCharge = { Radius = 5.5 },
+			
+            DisplayName = 'Anti Torpedo Flare',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 360,
+			
+            Label = 'AntiTorpedo',
+			
+            MaxRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 3.6,
+			
+            ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 2.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'B06',
+                    },
+                    RackBone = 'B06',
+                },
+                {
+                    MuzzleBones = {
+                        'B08',
+                    },
+                    RackBone = 'B08',
+                },				
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 0.8,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.3,
+        },		
+    },	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

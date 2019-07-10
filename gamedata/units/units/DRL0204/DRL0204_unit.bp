@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 20,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -39,7 +42,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BOT',
     },
+	
     CollisionOffsetY = 0.15,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 820,
@@ -47,7 +52,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 5.4,
     },
+	
     Description = '<LOC drl0204_desc>Rocket Bot',
+	
     Display = {
         AnimationDeath = {
             {
@@ -87,7 +94,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -103,11 +110,13 @@ UnitBlueprint {
         },
         UniformScale = 0.07,
     },
+	
     Economy = {
         BuildCostEnergy = 1350,
         BuildCostMass = 200,
-        BuildTime = 800,
+        BuildTime = 1000,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -131,15 +140,19 @@ UnitBlueprint {
         UnitName = '<LOC drl0204_name>Hoplite',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 25,
     },
+	
     Interface = {
         HelpText = 'Rocket Bot',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.75,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -161,20 +174,23 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 60,
     },
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.3,
+	
     SizeX = 0.4,
     SizeY = 0.5,
     SizeZ = 0.72,
+	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -182,6 +198,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

@@ -135,7 +135,7 @@ UnitBlueprint {
             },
         },
         MissileBone = 'Nuke',
-        PlaceholderMeshName = 'UXB0026',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {

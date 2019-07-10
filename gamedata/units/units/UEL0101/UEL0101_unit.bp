@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {},
 	
     BuildIconSortPriority = 20,
@@ -40,6 +42,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYRADAR',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 35,
@@ -47,7 +50,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0.2,
     },
+	
     Description = '<LOC uel0101_desc>Land Scout',
+	
     Display = {
         Abilities = {
             'Radar',
@@ -68,15 +73,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0011',
+
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 40,
         BuildCostMass = 8,
-        BuildTime = 80,
+        BuildTime = 40,
     },
+	
     General = {
 		CapCost = 0.5,
         Category = 'Utility',
@@ -101,17 +108,21 @@ UnitBlueprint {
         UnitName = '<LOC uel0101_name>Snoop',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarRadius = 50,
         VisionRadius = 28,
     },
+	
     Interface = {
         HelpText = 'Land Scout',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.5,
+	
     Physics = {
         BackUpDistance = 2,
         BankingSlope = 0,
@@ -137,17 +148,22 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.75,
+	
     SizeX = 0.35,
     SizeY = 0.4,
     SizeZ = 0.65,
+	
     StrategicIconName = 'icon_land1_intel',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         TransportClass = 1,
     },		
+	
     Veteran = {
         Level1 = 1,
         Level2 = 2,
@@ -155,6 +171,7 @@ UnitBlueprint {
         Level4 = 4,
         Level5 = 5,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

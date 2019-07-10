@@ -74,15 +74,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0003',
+
         SpawnRandomRotation = true,
         UniformScale = 0.035,
     },
+	
     Economy = {
         BuildCostEnergy = 8900,
         BuildCostMass = 450,
-        BuildTime = 1800,
+        BuildTime = 2250,
     },
+	
     General = {
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',

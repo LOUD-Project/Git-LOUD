@@ -264,13 +264,15 @@ UnitBlueprint {
         BuildCostEnergy = 600000,
         BuildCostMass = 25550,
         BuildRate = 160,
-        BuildTime = 19500,
+        BuildTime = 60000,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY UEF MOBILE LAND',
             'BUILTBYTIER2FACTORY UEF MOBILE LAND',
             'BUILTBYTIER1FACTORY UEF MOBILE LAND',
             'BUILTBYLANDTIER2FACTORY UEF MOBILE LAND',
         },
+		
         MaintenanceConsumptionPerSecondEnergy = 400,
     },
 	

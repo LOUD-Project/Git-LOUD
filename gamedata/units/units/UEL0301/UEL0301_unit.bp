@@ -7,6 +7,7 @@ UnitBlueprint {
             'Left_Right_B02',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -29,6 +30,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 25,
@@ -38,6 +40,7 @@ UnitBlueprint {
             Level5 = 35,
         },
     },
+	
     BuildIconSortPriority = 5,
 	
     Categories = {
@@ -60,7 +63,9 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYOMNI',
     },
+	
     CollisionOffsetZ = -0.25,
+	
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 410,		# BuildRate + 1% of health
@@ -69,7 +74,9 @@ UnitBlueprint {
         RegenRate = 25,
         SurfaceThreatLevel = 65,
     },
+	
     Description = '<LOC uel0301_desc>Support Armored Command Unit',
+	
     Display = {
         Abilities = {
             'Amphibious',
@@ -93,7 +100,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -103,11 +110,12 @@ UnitBlueprint {
         },
         UniformScale = 0.17,
     },
+	
     Economy = {
         BuildCostEnergy = 114000,
         BuildCostMass = 9600,
         BuildRate = 60,
-        BuildTime = 36000,
+        BuildTime = 48000,
 		
         BuildableCategory = {
             'BUILTBYTIER4COMMANDER UEF',
@@ -115,15 +123,20 @@ UnitBlueprint {
         },
 		
         MaintenanceConsumptionPerSecondEnergy = 0,
+		
         NaturalProducer = true,
+		
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
+		
         StorageEnergy = 1000,
         StorageMass = 200,
+		
         TeleportEnergyMod = 4,
         TeleportMassMod = 3,
         TeleportTimeMod = 0.0001,
     },
+	
     Enhancements = {
         AdvancedCoolingUpgrade = {
             BuildCostEnergy = 45000,
@@ -432,6 +445,7 @@ UnitBlueprint {
 			},
         },
     },
+	
     General = {
         BuildBones = {
             AimBone = 'Arm_Right_Build',
@@ -468,6 +482,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 0,
     },
+	
     Intel = {
         FreeIntel = true,
         JamRadius = {
@@ -479,12 +494,15 @@ UnitBlueprint {
         VisionRadius = 33,
         WaterVisionRadius = 18,
     },
+	
     Interface = {
         HelpText = 'Support Armored Command Unit',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -511,22 +529,25 @@ UnitBlueprint {
         TurnRadius = 10,
         TurnRate = 150,
     },
-    SelectionCenterOffsetX = 0,
+	
     SelectionCenterOffsetZ = -0.1,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
-    SelectionYOffset = 0,
+
     SizeX = 0.9,
     SizeY = 1.4,
     SizeZ = 0.6,
+	
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 1,
+	
     Transport = {
         CanFireFromTransport = false,
         ClassSAttachSize = 0,
         TransportClass = 2,
     },
+	
     Veteran = {
         Level1 = 30,
         Level2 = 60,
@@ -534,6 +555,7 @@ UnitBlueprint {
         Level4 = 120,
         Level5 = 150,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,

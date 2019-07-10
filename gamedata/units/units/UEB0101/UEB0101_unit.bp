@@ -80,7 +80,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UEB0101',
+
         SpawnRandomRotation = false,
         Tarmacs = {
             {

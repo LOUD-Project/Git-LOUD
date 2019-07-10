@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+	
     BuildIconSortPriority = 40,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -39,7 +42,9 @@ UnitBlueprint {
         'HOVER',
 		'AMPHIBIOUS',
     },
+	
     CollisionOffsetZ = 0.1,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1200,
@@ -47,7 +52,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 6,
     },
+	
     Description = '<LOC dal0310_desc>Shield Disruptor',
+	
     Display = {
         Abilities = {
             'Hover',
@@ -67,18 +74,21 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
+	
     Economy = {
         BuildCostEnergy = 4800,
         BuildCostMass = 420,
-        BuildTime = 3600,
+        BuildTime = 2100,
+		
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
     },
+	
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -102,15 +112,19 @@ UnitBlueprint {
         UnitName = '<LOC dal0310_name>Absolver',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 20,
     },
+	
     Interface = {
         HelpText = 'Shield Disruptor',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 0.75,
+	
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0,
@@ -140,17 +154,22 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
+	
     SelectionSizeX = 0.6,
     SelectionSizeZ = 1.05,
     SelectionThickness = 0.37,
+	
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 1.1,
+	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 135,
+	
     Transport = {
         TransportClass = 3,
     },
+	
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -158,6 +177,7 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,

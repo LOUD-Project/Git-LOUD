@@ -1,9 +1,16 @@
 
 local CSeaFactoryUnit = import('/lua/cybranunits.lua').CSeaFactoryUnit
 
+local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
+
 local WaitFor = WaitFor
 
-URB0303 = Class(CSeaFactoryUnit) {    
+URB0303 = Class(CSeaFactoryUnit) {
+
+    Weapons = {
+        AntiTorpedo = Class(CIFSmartCharge) {},
+    },
+	
     StartArmsMoving = function(self)
         CSeaFactoryUnit.StartArmsMoving(self)
         if not self.ArmSlider1 then

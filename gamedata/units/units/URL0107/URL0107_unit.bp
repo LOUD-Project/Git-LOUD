@@ -82,7 +82,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -92,14 +92,16 @@ UnitBlueprint {
         },
         UniformScale = 0.13,
     },
+	
     Economy = {
         BuildCostEnergy = 400,
         BuildCostMass = 72,
         BuildRate = 1,
-        BuildTime = 288,
+        BuildTime = 360,
 		
         NeedToFaceTargetToBuild = true,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {

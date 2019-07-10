@@ -1,7 +1,14 @@
 
 local ASeaFactoryUnit = import('/lua/aeonunits.lua').ASeaFactoryUnit
 
-UAB0303 = Class(ASeaFactoryUnit) {    
+local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
+
+UAB0303 = Class(ASeaFactoryUnit) {
+
+    Weapons = {
+        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+    },
+    
     OnCreate = function(self)
         ASeaFactoryUnit.OnCreate(self)
         self.BuildPointSlider = CreateSlider(self, self:GetBlueprint().Display.BuildAttachBone or 0, -15, 0, 0, -1)

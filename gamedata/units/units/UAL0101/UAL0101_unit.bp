@@ -71,7 +71,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0011',
+
         SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
@@ -79,7 +79,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 40,
         BuildCostMass = 8,
-        BuildTime = 80,
+        BuildTime = 40,
     },
 	
     General = {

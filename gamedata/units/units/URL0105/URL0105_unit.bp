@@ -58,7 +58,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
@@ -67,7 +67,7 @@ UnitBlueprint {
         BuildCostEnergy = 300,
         BuildCostMass = 65,
         BuildRate = 5,
-        BuildTime = 300,
+        BuildTime = 325,
 		
         BuildableCategory = {'BUILTBYTIER1ENGINEER CYBRAN',},
 		

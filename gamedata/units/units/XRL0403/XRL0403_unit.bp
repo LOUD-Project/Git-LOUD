@@ -183,15 +183,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
+	
     Economy = {
         BuildCostEnergy = 450000,
         BuildCostMass = 46000,
         BuildRate = 180,
-        BuildTime = 10000,
+        BuildTime = 46000,
+		
         BuildableCategory = {
             'xrl0002',
             'xrl0003',
@@ -208,6 +210,7 @@ UnitBlueprint {
         },
         MaxBuildDistance = 3,
     },
+	
     General = {
 		CapCost = 8,
         Category = 'Experimental',
@@ -232,6 +235,7 @@ UnitBlueprint {
         UnitName = '<LOC xrl0403_name>Megalith',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 100,
@@ -239,12 +243,15 @@ UnitBlueprint {
         VisionRadius = 40,
         WaterVisionRadius = 38,
     },
+	
     Interface = {
         HelpText = 'Megalith Wants You!',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.7,
     LifeBarSize = 9,
+	
     Physics = {
         BackUpDistance = 12,
         BankingSlope = 0,
@@ -272,17 +279,22 @@ UnitBlueprint {
         TurnRate = 45,
         WaterSpeedMultiplier = 1.25,
     },
+	
     SelectionSizeX = 5.3,
     SelectionSizeZ = 5.3,
     SelectionThickness = 0.35,
+	
     SizeX = 4.6,
     SizeY = 3.5,
     SizeZ = 7.3,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 45,
+	
     Transport = {
         TransportClass = 10,
     },
+	
     Veteran = {
         Level1 = 40,
         Level2 = 80,
@@ -290,6 +302,7 @@ UnitBlueprint {
         Level4 = 160,
         Level5 = 200,
     },
+	
     Weapon = {
         {
             AboveWaterFireOnly = true,

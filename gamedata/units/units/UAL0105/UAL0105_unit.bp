@@ -113,7 +113,7 @@ UnitBlueprint {
         BuildCostEnergy = 300,
         BuildCostMass = 65,
         BuildRate = 5,
-        BuildTime = 300,
+        BuildTime = 325,
 		
         BuildableCategory = {'BUILTBYTIER1ENGINEER AEON',},
 		

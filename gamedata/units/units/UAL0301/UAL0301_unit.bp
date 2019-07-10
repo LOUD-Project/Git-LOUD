@@ -62,6 +62,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYOMNI',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 370,		# BuildRate + 1% of health
@@ -71,7 +72,9 @@ UnitBlueprint {
         RegenRate = 25,
         SurfaceThreatLevel = 20,
     },
+	
     Description = '<LOC ual0301_desc>Support Armored Command Unit',
+	
     Display = {
         Abilities = {
             'Amphibious',
@@ -96,7 +99,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
+
         SpawnRandomRotation = true,
         TransportAnimation = {
             {
@@ -112,21 +115,27 @@ UnitBlueprint {
         },
         UniformScale = 0.13, 
     },
+	
     Economy = {
         BuildCostEnergy = 123000,
         BuildCostMass = 8700,
         BuildRate = 60,
-        BuildTime = 36000,
+        BuildTime = 43500,
+		
         BuildableCategory = {
             'BUILTBYTIER4COMMANDER AEON',
 			'BUILTBYTIER3COMMANDER AEON',
             'BUILTBYTIER3ENGINEER AEON',
         },
+		
         NaturalProducer = true,
+		
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
+		
         SacrificeEnergyMult = 0.9,
         SacrificeMassMult = 0.9,
+		
         StorageEnergy = 500,
         StorageMass = 100,
     },

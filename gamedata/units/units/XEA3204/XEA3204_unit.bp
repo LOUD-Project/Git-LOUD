@@ -90,7 +90,7 @@ UnitBlueprint {
         BuildCostEnergy = 3600,
         BuildCostMass = 360,
         BuildRate = 10,
-        BuildTime = 900,
+        BuildTime = 2160,
     },
 	
     General = {

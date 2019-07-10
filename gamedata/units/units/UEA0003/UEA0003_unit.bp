@@ -43,7 +43,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
     CollisionOffsetZ = -0.07,
+	
     Defense = {
         ArmorType = 'Light',
         EconomyThreatLevel = 1,
@@ -51,7 +53,9 @@ UnitBlueprint {
         MaxHealth = 6,
         RegenRate = 0,
     },
+	
     Description = '<LOC uea0003_desc>Engineer Drone',
+	
     Display = {
         Abilities = {
             'Engineer Suite',
@@ -69,25 +73,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 160,
         BuildRate = 25,
-        BuildTime = 400,
-        BuildableCategory = {
-            'BUILTBYCOMMANDER UEF',
-        },
+        BuildTime = 960,
+		
+        BuildableCategory = {'BUILTBYCOMMANDER UEF'},
+		
         NaturalProducer = true,
     },
+	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+	
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -125,15 +132,19 @@ UnitBlueprint {
         UnitName = '<LOC uea0003_name>C-D2 "Rover"',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 12,
     },
+	
     Interface = {
         HelpText = 'Engineering Drone',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.3,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -153,15 +164,19 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 100,
     },
+	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.0,
+	
     SizeX = 0.5,
     SizeY = 0.5,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_land1_engineer',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,
+	
     Transport = {
         AirClass = true,
         TransportClass = 5,

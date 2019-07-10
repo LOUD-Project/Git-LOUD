@@ -1,14 +1,20 @@
 local TSeaFactoryUnit = import('/lua/terranunits.lua').TSeaFactoryUnit
 
+local TIFSmartCharge = import('/lua/terranweapons.lua').TIFSmartCharge
+
 local WaitFor = WaitFor
 
-UEB0303 = Class(TSeaFactoryUnit) {    
+UEB0303 = Class(TSeaFactoryUnit) {
+
+    Weapons = {
+        AntiTorpedo = Class(TIFSmartCharge) {},
+    },
+    
     OnCreate = function(self)
         TSeaFactoryUnit.OnCreate(self)
         self.BuildPointSlider = CreateSlider(self, self:GetBlueprint().Display.BuildAttachBone or 0, -15, 0, 0, -1)
         self.Trash:Add(self.BuildPointSlider)
     end,
-    
 
     StartArmsMoving = function(self)
         TSeaFactoryUnit.StartArmsMoving(self)

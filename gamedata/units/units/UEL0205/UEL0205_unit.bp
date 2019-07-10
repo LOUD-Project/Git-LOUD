@@ -72,7 +72,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 800,
         BuildCostMass = 200,
-        BuildTime = 115,
+        BuildTime = 1000,
     },
 	
     General = {

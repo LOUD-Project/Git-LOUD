@@ -7,6 +7,7 @@ UnitBlueprint {
             'Panel_04',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -24,7 +25,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 10,
+	
     Categories = {
         'INSIGNIFICANTUNIT',
         'SERAPHIM',
@@ -37,7 +40,9 @@ UnitBlueprint {
         'UNSELECTABLE',
         'UNTARGETABLE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 100,
@@ -45,7 +50,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 18,
     },
+	
     Description = '<LOC xsl0402_desc>Unidentified Residual Energy Signature',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -66,11 +73,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 1,
         BuildCostMass = 1,
-        BuildTime = 10,
+        BuildTime = 1,
     },
+	
     General = {
         CapCost = 0,
         Category = 'Construction',
@@ -96,12 +105,15 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 1,
     },
+	
     Interface = {
         HelpText = 'Incarna',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.5,
@@ -109,6 +121,7 @@ UnitBlueprint {
     # This is energy ball stuff
     Lifetime = 30,
     MaxMoveRange = 5,
+	
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0.5,
@@ -139,15 +152,19 @@ UnitBlueprint {
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
+	
     SelectionCenterOffsetY = -0.5,
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+	
     SizeX = 0.5,
     SizeY = 0.5,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 105,
+	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
