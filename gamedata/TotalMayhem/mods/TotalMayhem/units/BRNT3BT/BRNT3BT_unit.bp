@@ -75,15 +75,15 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
-        UniformScale = 0.055,
+        UniformScale = 0.05,
     },
 	
     Economy = {
         BuildCostEnergy = 9500,
         BuildCostMass = 920,
-        BuildTime = 3680,
+        BuildTime = 4600,
     },
 	
     General = {
@@ -149,15 +149,14 @@ UnitBlueprint {
         TurnRate = 30,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.4,
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.4,
 	
-    SizeX = 1.1,
-    SizeY = 0.72,
-    SizeZ = 1.4,
+    SizeX = 1,
+    SizeY = 0.67,
+    SizeZ = 1.25,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,

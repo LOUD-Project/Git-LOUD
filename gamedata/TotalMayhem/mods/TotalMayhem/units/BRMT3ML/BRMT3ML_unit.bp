@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-    }, 
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -19,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -28,7 +30,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+	
     BuildIconSortPriority = 31,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -42,6 +46,7 @@ UnitBlueprint {
         'TANK',
         'OVERLAYINDIRECTFIRE',
     },
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1100,
@@ -49,7 +54,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 12,
     },
+	
     Description = '<LOC brmt3ml_desc>Mobile Rocket Battery',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 150,
@@ -61,15 +68,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
+
         SpawnRandomRotation = false,
         UniformScale = 0.18,
     },
+	
     Economy = {
         BuildCostEnergy = 9500,
         BuildCostMass = 700,
-        BuildTime = 2800,
+        BuildTime = 3500,
     },
+	
     General = {
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',

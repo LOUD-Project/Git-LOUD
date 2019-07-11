@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardReturnRadius = 125,
         GuardScanRadius = 120,
     },
+	
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 3,
@@ -45,6 +46,7 @@ UnitBlueprint {
 		
         Winged = true,
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSA_Destroy',
@@ -143,7 +145,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 15500,
         BuildCostMass = 360,
-        BuildTime = 450,
+        BuildTime = 3322,
     },
 
     General = {

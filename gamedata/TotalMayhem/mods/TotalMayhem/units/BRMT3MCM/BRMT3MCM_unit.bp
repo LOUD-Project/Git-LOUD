@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 65, 
-    }, 
+    },
+	
     Audio = {
         DeathExplosion = Sound {
            Bank = 'Explosions',
@@ -29,6 +30,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -38,7 +40,9 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
+	
     BuildIconSortPriority = 19,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -153,7 +157,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 225000,
         BuildCostMass = 18000,
-        BuildTime = 14250,
+        BuildTime = 22500,
 	},
 	
     General = {
