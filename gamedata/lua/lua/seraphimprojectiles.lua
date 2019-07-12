@@ -510,7 +510,14 @@ SOhwalliStrategicBombProjectile = Class(MultiPolyTrailProjectile) {
 SAnjelluTorpedoDefenseProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactProjectileUnderWater = EffectTemplate.SDFAjelluAntiTorpedoHit01,
     PolyTrails = EffectTemplate.SDFAjelluAntiTorpedoPolyTrail01,  
-    PolyTrailOffset = {0,0},    
+    PolyTrailOffset = {0,0},
+	
+    OnCreate = function(self, inWater)
+	
+        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        EmitterProjectile.OnCreate(self, inWater)
+		
+    end,    
 }
 
 SDFSniperShotNormal = Class(MultiPolyTrailProjectile) {

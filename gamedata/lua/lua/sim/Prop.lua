@@ -6,6 +6,8 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 local PlayReclaimEndEffects = import('/lua/EffectUtilities.lua').PlayReclaimEndEffects
 local RebuildBonusCheckCallback = import('/lua/sim/RebuildBonusCallback.lua').RunRebuildBonusCallback
 
+local ForkThread = ForkThread
+
 local LOUDMAX = math.max
 local GetBlueprint = moho.entity_methods.GetBlueprint
 
@@ -50,7 +52,17 @@ Prop = Class(moho.prop_methods, Entity) {
         
         self.CanBeKilled = true
     end,
+	
+    ForkThread = function(self, fn, ...)
 
+        local thread = ForkThread(fn, self, unpack(arg))
+		
+        self.Trash:Add(thread)
+		
+        return thread
+		
+    end,
+	
     GetCachePosition = function(self)
         return self.CachePosition
     end,
@@ -245,4 +257,5 @@ Prop = Class(moho.prop_methods, Entity) {
             return false
         end
     end,
+
 }

@@ -940,6 +940,19 @@ function ModBlueprints(all_blueprints)
 					wl.Water = true
 					bp.Wreckage.LifeTime = 720
 				end
+				
+			else
+			
+				if bp.Wreckage then
+				
+					if not bp.Wreckage.Lifetime then
+
+						bp.Wreckage.Liftime = 900
+						
+					end
+				
+				end
+				
 			end
 		end
     end

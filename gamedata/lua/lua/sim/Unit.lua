@@ -1937,6 +1937,14 @@ Unit = Class(moho.unit_methods) {
 		local wreck = bp.Wreckage.Blueprint
 		
 		if wreck then
+		
+			local function LifetimeThread(prop,lifetime)
+			
+				WaitTicks(lifetime * 10)
+				
+				prop:Destroy()
+				
+			end
 			
 			local pos = self:GetPosition()
 			
@@ -1969,7 +1977,7 @@ Unit = Class(moho.unit_methods) {
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
-			self:ForkThread( self.LifeTimeThread, bp.Wreckage.LifeTime or 900)
+			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or 900)
 
             TryCopyPose(self,prop,false)
 
