@@ -120,7 +120,7 @@ UnitBlueprint {
 		
         BuildRate = 1950,
 		
-        BuildTime = 12500,
+        BuildTime = 75000,
 		
         MaintenanceConsumptionPerSecondEnergy = 4250,
     },

@@ -5,7 +5,7 @@ do
     function ModBlueprints(all_bps)
 	
 	    oldModBlueprints(all_bps)
-		
+
 		-- this controls the buildpower of factories and the buildtime of the units they build
 		-- by multiplying the buildpower AND the time of the units they build, the overall impact
 		-- of 'assisting' is divided - which helps to curb 'engineer spam'
@@ -28,14 +28,14 @@ do
         --loop through the blueprints and adjust as desired.
         for id,bp in all_bps.Unit do
 		
-		
-		
 			if bp.Categories then
 			
 				local max_mass, max_energy
 				local alt_mass, alt_energy
 		
 				for i, cat in bp.Categories do
+				
+					local reportflag = false
 			
 					if cat == 'STRUCTURE' then
 			
@@ -52,8 +52,12 @@ do
 									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 5
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
+									
+									if math.ceil(best_adjust) != bp.EconomyBuildTime then
 								
-									bp.Economy.BuildTime = math.ceil(best_adjust)
+										bp.Economy.BuildTime = math.ceil(best_adjust)
+										reportflag = true
+									end
 								end
 							end
 					
@@ -68,8 +72,12 @@ do
 									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10									
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
+									
+									if math.ceil(best_adjust) != bp.EconomyBuildTime then
 
-									bp.Economy.BuildTime = math.ceil(best_adjust)						
+										bp.Economy.BuildTime = math.ceil(best_adjust)
+										reportflag = true
+									end
 								end
 							end
 						
@@ -84,8 +92,12 @@ do
 									alt_energy = bp.Economy.BuildCostEnergy/max_energy * 15
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
+									
+									if math.ceil(best_adjust) != bp.EconomyBuildTime then
 
-									bp.Economy.BuildTime = math.ceil(best_adjust)
+										bp.Economy.BuildTime = math.ceil(best_adjust)
+										reportflag = true
+									end
 								end
 							end
 
@@ -101,7 +113,11 @@ do
 
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-									bp.Economy.BuildTime = math.ceil(best_adjust)
+									if math.ceil(best_adjust) != bp.EconomyBuildTime then
+
+										bp.Economy.BuildTime = math.ceil(best_adjust)
+										reportflag = true
+									end
 								end
 							end
 						end
@@ -155,9 +171,16 @@ do
 									
 									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower * buildratemod))
 
-									bp.Economy.BuildTime = best_adjust
+									if math.ceil( best_adjust * buildpower * buildratemod ) != math.ceil(bp.Economy.BuildTime) then
+
+										--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower * buildratemod))									
+										bp.Economy.BuildTime = best_adjust
 									
-									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										
+										reportflag = true
+										
+									end
 
 								end
 							end
@@ -176,9 +199,17 @@ do
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
 									
-									bp.Economy.BuildTime = best_adjust
+									if math.ceil( best_adjust * buildpower * buildratemod ) != math.ceil(bp.Economy.BuildTime) then									
 									
-									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower * buildratemod))
+									
+										bp.Economy.BuildTime = best_adjust
+									
+										bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										
+										reportflag = true
+										
+									end
 								end
 							end
 						
@@ -195,10 +226,16 @@ do
 									alt_energy = bp.Economy.BuildCostEnergy/max_energy
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
-								
-									bp.Economy.BuildTime = best_adjust
+
+									if math.ceil( best_adjust * buildpower * buildratemod ) != math.ceil(bp.Economy.BuildTime) then
 									
-									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										bp.Economy.BuildTime = best_adjust
+									
+										bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower * buildratemod)
+										
+										reportflag = true
+										
+									end
 								end
 							end
 							
@@ -216,29 +253,30 @@ do
 									alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60
 								
 									local best_adjust = math.max( 1, alt_mass, alt_energy)
+									
+									if math.ceil( best_adjust ) != math.ceil(bp.Economy.BuildTime) then																		
 
-									bp.Economy.BuildTime = math.ceil(best_adjust)
+										bp.Economy.BuildTime = math.ceil(best_adjust)
+										
+										reportflag = true
+									
+									end
 								end
 							end
-							
-							if max_mass then
 
-								LOG("*AI DEBUG class is "..cat.." "..repr(catj).." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
-								
-								break
-								
-							end
-							
 						end
-						
-						if max_mass then
-							break
-						end
-						
+
+					end
+					
+					if reportflag then
+					
+						LOG("*AI DEBUG class is "..cat.." "..id.."  alt_mass is "..repr(alt_mass).."  alt_energy is "..repr(alt_energy).." Buildtime set to "..repr(bp.Economy.BuildTime))
+
+						break
+					
 					end
 					
 				end
-				
 			end
         end
 	end
