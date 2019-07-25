@@ -151,10 +151,15 @@ Description['sss0319'] = "<LOC Unit_Description_BrewLAN_T3S003>Tech 3 naval cons
 Description['sss0306'] = "<LOC Unit_Description_BrewLAN_T3S004>Hovering torpedo system. Capable of destroying the largest of enemy vessels."
 
 --Experimentals
+Description['sab4401'] = "<LOC Unit_Description__BubbleTea_A4_01>Experimental shield projection facility. Generates protective bubbles around each individual structure within its opperational radius."
+Description['seb4401'] = "<LOC Unit_Description__BubbleTea_A4_02>Generates a heavy shield around units and structures within its opperational radius."
+Description['srb4401'] = "<LOC Unit_Description_BrewLAN_T4B003>Experimental shield generator. Protects a large area."
+Description['ssb4401'] = "<LOC Unit_Description__BubbleTea_A4_03>Experimental shield facility. Generates a lattice of shield bubbles of increasing strength towards the centre. Lattice drones orbit the facility to distribute damage."
+
+Description['seb0401'] = "<LOC Unit_Description_BrewLAN_T4B004>Experimental multi-purpose factory. Dynamically changes buildable units based on environment. Can be toggled to build aircraft in any environment."
+
 Description['srb2401'] = "<LOC Unit_Description_BrewLAN_T4B002>Experimental rapid-fire artillery. Consumes massive amounts of Energy with each shot."
 Description['ssb2404'] = "<LOC Unit_Description_BrewLAN_T4B002>Experimental rapid-fire artillery. Consumes massive amounts of Energy with each shot."
-Description['srb4401'] = "<LOC Unit_Description_BrewLAN_T4B003>Experimental shield generator. Protects a large area."
-Description['seb0401'] = "<LOC Unit_Description_BrewLAN_T4B004>Experimental multi-purpose factory. Dynamically changes buildable units based on environment. Can be toggled to build aircraft in any environment."
 Description['seb2404'] = "<LOC Unit_Description_BrewLAN_T4B005>Experimental rapid-fire artillery. Fires drop-pods containing manually constructed land units deep into enemy lines, causing minor impact damage. Drop-pods are launched in a first in last out order."
 Description['ssl0403'] = "<LOC Unit_Description_BrewLAN_T4L001>Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them."
 Description['sea0401'] = "<LOC Unit_Description_BrewLAN_T4A001>Experimental gunship with extensive anti-air capabilities. Most effective against other gunships."
@@ -187,3 +192,5 @@ Description['uel0301-eesup'] ="<LOC Unit_Description_BrewLAN_E001>Adds field eng
 Description['ual0301-eesup'] ="<LOC Unit_Description_BrewLAN_E001>Adds field engineer build capabilities to the SACU."
 Description['url0301-eesup'] ="<LOC Unit_Description_BrewLAN_E001>Adds field engineer build capabilities to the SACU."
 Description['xsl0301-eesup'] ="<LOC Unit_Description_BrewLAN_E001>Adds field engineer build capabilities to the SACU."
+
+

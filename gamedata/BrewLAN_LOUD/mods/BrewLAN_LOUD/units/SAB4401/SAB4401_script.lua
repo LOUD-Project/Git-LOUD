@@ -107,7 +107,7 @@ SAB4401 = Class(AShieldStructureUnit) {
         local spec = Bp.Defense.TargetShield
         local tBp = target:GetBlueprint()
 		
-        spec.ShieldSize = math.max(tBp.Footprint.SizeX or 0, tBp.Footprint.SizeZ or 0, tBp.SizeX or 0, tBp.SizeX or 0, tBp.SizeY or 0, tBp.SizeZ or 0, tBp.Physics.MeshExtentsX or 0, tBp.Physics.MeshExtentsY or 0, tBp.Physics.MeshExtentsZ or 0) * 1.414
+        spec.ShieldSize = math.max(tBp.Footprint.SizeX or 0, tBp.Footprint.SizeZ or 0, tBp.SizeX or 0, tBp.SizeX or 0, tBp.SizeY or 0, tBp.SizeZ or 0, tBp.Physics.MeshExtentsX or 0, tBp.Physics.MeshExtentsY or 0, tBp.Physics.MeshExtentsZ or 0) * 1.5
 
         --Create shield
         target:CreateProjectedShield(spec)
@@ -147,18 +147,23 @@ SAB4401 = Class(AShieldStructureUnit) {
             end
 			
         end
-		
+
         --Stop the animations
         for i, v in self.Manipulators do
-            --v[4]:SetSpinDown(true)
-            v[4]:SetTargetSpeed(0)
+
+			if v[4] then
+				v[4]:SetTargetSpeed(0)
+			end
+			
         end
 		
         --Kill the effects.
         if self.ShieldEffectsBag then
+		
             for k, v in self.ShieldEffectsBag do
                 v:Destroy()
             end
+			
             self.ShieldEffectsBag = {}
         end
     end,

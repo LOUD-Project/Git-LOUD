@@ -1,0 +1,231 @@
+UnitBlueprint {
+    Air = {
+        BankFactor = 0.1,
+        BankForward = false,
+        CanFly = true,
+        CirclingDirChangeFrequencySec = 1,
+        CirclingElevationChangeRatio = 0.25,
+        CirclingRadiusChangeMaxRatio = 0.9,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingTurnMult = 2,
+        KLift = 1,
+        KLiftDamping = 1,
+        KMove = 1,
+        KMoveDamping = 1.2,
+        KTurn = 3,
+        KTurnDamping = 3,
+        LiftFactor = 5,
+        MaxAirspeed = 4,
+        MinAirspeed = 3,
+        StartTurnDistance = 5,
+    },
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB4301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOff = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB4301_On_Off',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOn = Sound {
+            Bank = 'XSB',
+            Cue = 'XSB4301_On_Off',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 160,
+	
+    Categories = {
+        --'SELECTABLE',
+        'SERAPHIM',
+        'AIR',
+        'SHIELD',
+        'VISIBLETORECON',
+        'OVERLAYDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+
+        ArmorType = 'Structure',
+		
+        EconomyThreatLevel = 25,
+		
+        Health = 650,
+        MaxHealth = 650,
+		
+        RegenRate = 1,
+		
+        Shield = {
+            ImpactEffects = 'SeraphimShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+			
+            ShieldEnergyDrainRechargeTime = 8,
+			
+            ShieldMaxHealth = 14000,
+			
+            ShieldRechargeTime = 32,
+			
+            ShieldRegenRate = 109,
+			
+            ShieldRegenStartTime = 1,
+			
+            ShieldSize = 26,
+			
+            ShieldVerticalOffset = -7,
+        },
+
+        ParentID = 'ssb4401',
+    },
+	
+    Description = '<LOC ssb4401_drone_desc>Experimental Shield Drone',
+	
+    Display = {
+        AINames = {
+            'Lattice',
+        },
+        Abilities = {
+            '<LOC ability_shielddome>Shield Dome',
+        },
+
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Seraphim',
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    --MeshName = '/units/xsb4301/xsb4301_lod0.scm',
+                    AlbedoName = '/units/xsb4301/xsb4301_albedo.dds',
+                    SpecularName = '/units/xsb4301/xsb4301_specteam.dds',
+                    NormalsName = '/units/xsb4301/xsb4301_normalsts.dds',
+                },
+                {
+                    LODCutoff = 600,
+                    ShaderName = 'Seraphim',
+                    MeshName = '/units/xsb4301/xsb4301_lod1.dds',
+                    AlbedoName = '/units/xsb4301/xsb4301_lod1_albedo.dds',
+                    SpecularName = '/units/xsb4301/xsb4301_lod1_specteam.dds',
+                    NormalsName = '/units/xsb4301/xsb4301_lod1_normalsts.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.07,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 0,
+        BuildCostMass = 0,
+        BuildTime = 800,
+		
+        --MaintenanceConsumptionPerSecondEnergy = 393,
+    },
+	
+    General = {
+		CapCost = 0,
+        Category = 'Defense',
+        Classification = 'RULEUC_CounterMeasure',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'air',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = '<LOC ssb4401_small_name>Iaathanahee',
+        UnitWeight = 1,
+    },
+
+    Interface = {
+        HelpText = '<LOC ssb4401_drone_desc>Experimental Shield Drone',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1,
+    LifeBarSize = 2,
+	
+    Physics = {
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 5,
+        GroundCollisionOffset = 0.2,
+        MaxAcceleration = 10,
+        MaxSpeed = 10,
+        MaxSteerForce = 100,
+        MinSpeedPercent = 0.85,
+        MotionType = 'RULEUMT_Air',
+        TurnRadius = 100,
+        TurnRate = 100,
+    },
+	
+    SelectionSizeX = 1.5,
+    SelectionSizeZ = 1.5,
+    SelectionThickness = 0.35,
+
+    SizeX = 2,
+    SizeY = 2,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconNameEIOOverride = 'icon_experimental_gunship_shield',
+    StrategicIconSortPriority = 100,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

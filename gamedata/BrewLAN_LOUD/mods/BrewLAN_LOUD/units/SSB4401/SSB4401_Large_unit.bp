@@ -50,55 +50,59 @@ UnitBlueprint {
             Cue = 'XSB4301_On_Off',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
+	
     BuildIconSortPriority = 160,
+	
     Categories = {
-        'PRODUCTBREWLANSHIELDS',
         --'SELECTABLE',
         'SERAPHIM',
-        --'MOBILE',
         'AIR',
-        --'DEFENSE',
-        --'EXPERIMENTAL',
         'SHIELD',
-        --'SIZE16',
         'VISIBLETORECON',
-        --'RECLAIMABLE',
-        --'SHOWQUEUE',
         'OVERLAYDEFENSE',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
+
         ArmorType = 'Structure',
-        EconomyThreatLevel = 50,
-        Health = 4750,
-        MaxHealth = 4750,
-        RegenRate = 0,
+		
+        EconomyThreatLevel = 35,
+		
+        Health = 1200,
+        MaxHealth = 1200,
+		
+        RegenRate = 2,
+		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
             Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 210000 / 12,
-            ShieldRechargeTime = 100,
-            ShieldRegenRate = 336,
+			
+            ShieldEnergyDrainRechargeTime = 8,
+			
+            ShieldMaxHealth = 17500,
+			
+            ShieldRechargeTime = 32,
+			
+            ShieldRegenRate = 136,
+			
             ShieldRegenStartTime = 1,
-            ShieldSize = 26,
+			
+            ShieldSize = 35,
+			
             ShieldVerticalOffset = -7,
         },
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
+
         ParentID = 'ssb4401',
     },
+	
     Description = '<LOC ssb4401_drone_desc>Experimental Shield Drone',
+	
     Display = {
         AINames = {
             'Lattice',
@@ -106,26 +110,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
         },
-        --[[AnimationDeath = {
-            {
-                Animation = '/mods/brewlan_units/brewshields/units/seb4401/seb4401_Adeath01.sca',
-                AnimationRateMax = 2.25,
-                AnimationRateMin = 1.75,
-                Weight = 10,
-            },
-            {
-                Animation = '/mods/brewlan_units/brewshields/units/seb4401/seb4401_Adeath02.sca',
-                AnimationRateMax = 2.25,
-                AnimationRateMin = 1.75,
-                Weight = 10,
-            },
-            {
-                Animation = '/mods/brewlan_units/brewshields/units/seb4401/seb4401_Adeath03.sca',
-                AnimationRateMax = 2.25,
-                AnimationRateMin = 1.75,
-                Weight = 10,
-            },
-        },]]--
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -148,17 +133,21 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
+	
     Economy = {
         BuildCostEnergy = 0,
         BuildCostMass = 0,
-        BuildTime = 955,
-        MaintenanceConsumptionPerSecondEnergy = 15,
+        BuildTime = 1200,
+		
+        --MaintenanceConsumptionPerSecondEnergy = 711,
     },
+	
     General = {
+		CapCost = 0,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -173,25 +162,25 @@ UnitBlueprint {
             RULEUCC_Reclaim = false,
             RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = false,
-            RULEUCC_Stop = true,
+            RULEUCC_Stop = false,
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        SelectionPriority = 5,
+        SelectionPriority = 6,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC ssb4401_small_name>Iaathanahee',
+        UnitName = '<LOC ssb4401_large_name>Iaathanah',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 13,
-    },
+
     Interface = {
         HelpText = '<LOC ssb4401_drone_desc>Experimental Shield Drone',
     },
+	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 1,
-    LifeBarSize = 2,
+    LifeBarOffset = 1.5,
+    LifeBarSize = 3,
+	
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -212,16 +201,19 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 100,
     },
+	
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.35,
-    --SelectionCenterOffsetZ = 1,
+
     SizeX = 2,
     SizeY = 2,
     SizeZ = 2,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconNameEIOOverride = 'icon_experimental_gunship_shield',
     StrategicIconSortPriority = 100,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

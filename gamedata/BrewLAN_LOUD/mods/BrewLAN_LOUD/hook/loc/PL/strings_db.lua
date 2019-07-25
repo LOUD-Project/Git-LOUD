@@ -423,7 +423,20 @@ ssa00002_desc="hologram"
 --------------------------------------------------------------------------------
 -- doświadczalnej
 --------------------------------------------------------------------------------
+sab4401="Eksperymentalna Tarcza projektora"
+sab4401_name="Filar wyeksponowany"
+Unit_Description__BubbleTea_A4_01="Obiekt doświadczalny występ tarczą. Wytwarza pęcherzyki ochronną wokół każdego z jego struktury w promieniu działania."
 
+srb4401="Eksperymentalna Tarcza Generator"
+seb4401_name="BFS - Stalwart"
+Unit_Description__BubbleTea_A4_02="Generuje ciężką tarczę wokół jednostek i struktur wewnątrz promienia operacyjnego."
+
+ssb4401_desc="Eksperymentalna Tarcza Lattice"
+ssb4401_name="Iaathan"
+ssb4401_drone_desc="Eksperymentalna Tarcza Drone"
+ssb4401_large_name="Iaathanah"
+ssb4401_small_name="Iaathanahee"
+Unit_Description__BubbleTea_A4_03="Obiekt doświadczalny tarczą. Generuje siatkę pęcherzyków osłonowych, które zwiększają wytrzymałość w kierunku centrum. Kratowe drony okrążają centrum dystrybucji uszkodzenia."
 ssl0403_desc="Eksperymentalna Rekonstrukcja Engineer"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Eksperymentalny ziemnowodny naprawa, chwytania, a jednostka rekultywacji. Zyskuje plany jednostek i szczątków przez ich odzyskanie. Może przechowywać tylko 8 plany na raz."

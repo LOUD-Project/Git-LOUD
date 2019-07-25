@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -26,52 +27,58 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 16,
+	
     Categories = {
-        'PRODUCTBREWLANSHIELDS',
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER4COMMANDER',
         'UEF',
         'STRUCTURE',
         'DEFENSE',
         'EXPERIMENTAL',
         'SHIELD',
         'DRAGBUILD',
-        'SIZE16',
+        'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
         'OVERLAYDEFENSE',
         'SORTDEFENSE',
-        'RESEARCHLOCKED',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
-        AirThreatLevel = 0,
+
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3821,
-        Health = 7000,
-        MaxHealth = 7000,
-        RegenRate = 0,
+		
+        EconomyThreatLevel = 150,
+		
+        Health = 2650,
+        MaxHealth = 2650,
+		
+        RegenRate = 4,
+		
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
+			
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 150000,
-            ShieldRechargeTime = 95,
-            ShieldRegenRate = 262,
+            ShieldMaxHealth = 26500,
+            ShieldRechargeTime = 23,
+            ShieldRegenRate = 288,
             ShieldRegenStartTime = 1,
-            ShieldSize = 88,
-            ShieldVerticalOffset = -22,
+            ShieldSize = 65,
+            ShieldVerticalOffset = -5.5,
         },
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
     },
+	
     Description = '<LOC srb4401>Experimental Shield Generator',
+	
     Display = {
         AINames = {
             'Pulsar',
@@ -119,7 +126,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0018',
+
         SpawnRandomRotation = true,
         Tarmacs = {
             {
@@ -138,22 +145,26 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.08,
+        UniformScale = 0.07,
     },
+	
     Economy = {
-        BuildCostEnergy = 250000,
-        BuildCostMass = 15000,
-        BuildTime = 9375,
-        MaintenanceConsumptionPerSecondEnergy = 2000,
-        RebuildBonusIds = {
-            'seb4401',
-        },
+        BuildCostEnergy = 32500,
+        BuildCostMass = 5065,
+        BuildTime = 4000,
+		
+        MaintenanceConsumptionPerSecondEnergy = 2542,
+		
+        RebuildBonusIds = {'seb4401'},
     },
+	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 1,
+        SizeZ = 1,
     },
+	
     General = {
+		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -187,15 +198,15 @@ UnitBlueprint {
         UnitName = '<LOC seb4401_name>BFS - Nullifier',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 39,
-    },
+
     Interface = {
         HelpText = '<LOC srb4401>Experimental Shield Generator',
     },
+	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 2.7,
-    LifeBarSize = 5,
+    LifeBarOffset = 2,
+    LifeBarSize = 4,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -211,21 +222,24 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
         TurnRate = 0,
     },
-    SelectionSizeX = 3.1,
-    SelectionSizeZ = 3.1,
-    SelectionThickness = 0.35,
-    --SelectionCenterOffsetZ = 1,
-    SizeX = 5*1.1,
-    SizeY = 5*1.1,
-    SizeZ = 5*1.1,
+	
+    SelectionSizeX = 2.8,
+    SelectionSizeZ = 2.8,
+    SelectionThickness = 0.4,
+	
+    SizeX = 2.75,
+    SizeY = 5.75,
+    SizeZ = 2.75,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 100,
+	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
