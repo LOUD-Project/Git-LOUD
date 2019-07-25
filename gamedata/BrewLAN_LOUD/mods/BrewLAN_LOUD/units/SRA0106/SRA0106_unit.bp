@@ -1,0 +1,348 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+	
+    Air = {
+        AutoLandTime = 1,
+		
+        BankFactor = 4,
+        BankForward = false,
+		
+        BreakOffDistance = 34,
+        BreakOffIfNearNewTarget = true,
+        BreakOffTrigger = 20,
+		
+        CanFly = true,
+		
+        CombatTurnSpeed = 0.5,
+		
+        EngageDistance = 45,
+		
+        KLift = 3,
+        KLiftDamping = 2.5,
+		
+        KMove = 1,
+        KMoveDamping = 2,
+		
+        KRoll = 2,
+        KRollDamping = 4,
+		
+        KTurn = 1,
+        KTurnDamping = 1,
+		
+        LiftFactor = 7,
+		
+        MaxAirspeed = 12,
+        MinAirspeed = 11,
+		
+        StartTurnDistance = 5,
+		
+        TightTurnMultiplier = 0,
+		
+        TurnSpeed = 0.48,
+		
+        Winged = true,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'URADestroy',
+            Cue = 'URA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URA',
+            Cue = 'URA0101_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 41,
+	
+    Categories = {
+        'PRODUCTBREWLAN',
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH1',
+        'ANTINAVY',
+        'TORPEDOBOMBER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYSONAR',
+    },
+	
+    CollisionOffsetY = 0,
+    CollisionOffsetZ = 0,
+	
+    Defense = {
+
+        ArmorType = 'Light',
+
+        Health = 240,
+        MaxHealth = 240,
+        RegenRate = 2,
+        SubThreatLevel = 5,
+    },
+	
+    Description = '<LOC sair0106>Light Torpedo Bomber',
+	
+    Display = {
+        Abilities = {
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedo>Torpedoes',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Type = 'Landing01',
+                    },
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {
+                        Bones = {0},
+                        Type = 'TakeOff01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 120,
+                    ShaderName = 'Insect',
+                    AlbedoName = '/units/ura0101/ura0101_albedo.dds',
+                    NormalsName = '/units/ura0101/ura0101_normalsTS.dds',
+                    SpecularName = '/units/ura0101/ura0101_specteam.dds',
+                },
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = '/units/ura0101/ura0101_lod1.scm',
+                    AlbedoName = '/units/ura0101/ura0101_lod1_albedo.dds',
+                    NormalsName = '/units/ura0101/ura0101_lod1_normalsTS.dds',
+                    SpecularName = '/units/ura0101/ura0101_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Left_Contrail',
+                        'Right_Contrail',
+                    },
+                    ZOffset = 0,
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.075,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 3500,
+        BuildCostMass = 55,
+        BuildTime = 1600*0.25,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+        Category = 'Bomber',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = '<LOC sra0106_name>Gannet',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        SonarRadius = 50,
+        VisionRadius = 26,
+		WaterVisionRadius = 10,
+    },
+	
+    Interface = {
+        HelpText = '<LOC sair0106>Light Torpedo Bomber',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.2,
+    LifeBarSize = 0.5,
+	
+    Physics = {
+        AttackElevation = 2,
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Land = false,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        Elevation = 18,
+        FuelRechargeRate = 12,
+        FuelUseTime = 240,
+        GroundCollisionOffset = 1.425,
+        MaxSpeed = 0.5,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.45,
+    SelectionThickness = 0.85,
+	
+    SizeSphere = 1.3,
+	
+    SizeX = 0.4,
+    SizeY = 0.15,
+    SizeZ = 0.6,
+	
+    StrategicIconName = 'icon_bomber1_antinavy',
+    StrategicIconSortPriority = 65,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 1,
+    },
+	
+    Veteran = {
+        Level1 = 1,
+        Level2 = 2,
+        Level3 = 3,
+        Level4 = 4,
+        Level5 = 5,
+    },
+
+    Weapon = {
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URAWeapon',
+                    Cue = 'URA0204_Torpedo_Nanite',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            AutoInitiateAttackCommand = true,
+			
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 40,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Nanite Torpedo',
+			
+            DoTPulses = 5,
+            DoTTime = 1,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+                Land = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 3,
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 30,
+			
+            Label = 'Bomb',
+			
+            MaxRadius = 26,
+            MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 6,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
+            ProjectileLifetime = 10,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        0,
+                    },
+                    RackBone = 0,
+                },
+            },
+            RackFireTogether = false,
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.1,	-- 40x5 x 2 = 40 DPS
+			
+            TargetCheckInterval = 2.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+            TrackingRadius = 1.15,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 100,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+}

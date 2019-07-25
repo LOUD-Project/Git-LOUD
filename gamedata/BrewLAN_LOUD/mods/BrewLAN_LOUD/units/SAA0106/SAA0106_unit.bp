@@ -1,0 +1,325 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+    },
+    Air = {
+        AutoLandTime = 1,
+		
+        BankFactor = 4,
+        BankForward = false,
+		
+        BreakOffDistance = 34,
+        BreakOffIfNearNewTarget = true,
+        BreakOffTrigger = 20,
+		
+        CanFly = true,
+		
+        CombatTurnSpeed = 0.5,
+		
+        EngageDistance = 45,
+		
+        KLift = 6,
+        KLiftDamping = 5.5,
+		
+        KMove = 1,
+        KMoveDamping = 1,
+		
+        KRoll = 2,
+        KRollDamping = 4,
+		
+        KTurn = 1,
+        KTurnDamping = 1,
+		
+        LiftFactor = 8,
+		
+        MaxAirspeed = 12,
+        MinAirspeed = 10,
+		
+        StartTurnDistance = 5,
+		
+        TurnSpeed = 0.48,
+		
+        Winged = true,
+    },
+	
+    Audio = {
+        Killed = Sound {
+            Bank = 'UAADestroy',
+            Cue = 'UAA_Destroy_Air_Killed',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAA',
+            Cue = 'UAA0204_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Air',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 50,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'TECH1',
+        'ANTINAVY',
+        'TORPEDOBOMBER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYSONAR',
+    },
+	
+    Defense = {
+        ArmorType = 'Light',
+        Health = 240,
+        MaxHealth = 240,
+        SubThreatLevel = 5,
+		RegenRate = 1,
+    },
+	
+    Description = '<LOC sair0106>Light Torpedo Bomber',
+	
+    Display = {
+        Abilities = {
+            '<LOC ability_depthcharge>Depth Charges',
+            '<LOC ability_sonar>Sonar',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    {Bones = {0}, Type = 'Landing01'},
+                },
+            },
+            LandAir = {
+                Effects = {
+                    {Bones = {0}, Type = 'TakeOff01'},
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {LODCutoff = 65, ShaderName = 'Aeon'},
+                {LODCutoff = 130, ShaderName = 'Aeon'},
+                {LODCutoff = 260, ShaderName = 'Aeon'},
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {'Contrail_L', 'Contrail_R'},
+                },
+                Effects = {
+                    {Bones = {'Exhaust'}, Type = 'AirMoveExhaust01'},
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.04,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 3500,
+        BuildCostMass = 55,
+        BuildTime = 400,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+        Category = 'Bomber',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Basic',
+        UnitName = '<LOC saa0106_name>Saksinokka',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+        SonarRadius = 50,
+        VisionRadius = 26,
+		WaterVisonRadius = 10,
+    },
+	
+    Interface = {
+        HelpText = '<LOC sair0106>Light Torpedo Bomber',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.4,
+    LifeBarSize = 1,
+	
+    Physics = {
+	
+        AttackElevation = 2,
+		
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+            LAYER_Sub = true,
+        },
+		
+        Elevation = 15,
+		
+        FuelRechargeRate = 12,
+        FuelUseTime = 240,
+		
+        GroundCollisionOffset = 1.425,
+        MaxSpeed = 0.5,
+		
+        MeshExtentsX = 1.25,
+        MeshExtentsY = 0.25,
+        MeshExtentsZ = 1.25,
+        MotionType = 'RULEUMT_Air',
+    },
+	
+    SelectionSizeX = 0.75,
+    SelectionSizeZ = 0.7,
+    SelectionThickness = 0.49,
+	
+    SizeSphere = 1.3,
+	
+    SizeX = 1,
+    SizeY = 0.5,
+    SizeZ = 1,
+	
+    StrategicIconName = 'icon_bomber1_antinavy',
+    StrategicIconSortPriority = 65,
+	
+    Transport = {
+        AirClass = true,
+        TransportClass = 1,
+    },
+	
+    Veteran = {
+        Level1 = 1,
+        Level2 = 2,
+        Level3 = 3,
+        Level4 = 4,
+        Level5 = 5,
+    },
+	
+    Weapon = {
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UAAWeapon',
+                    Cue = 'UAA0204_Depth_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = true,
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 200,
+			DamageRadius = 1,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            EffectiveRadius = 25,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+                Land = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 1.5,
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 30,
+			
+            Label = 'Bomb',
+			
+            MaxRadius = 24,
+            MinRadius = 4,
+			
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 9,
+			
+            ProjectileId = '/projectiles/AANDepthCharge03/AANDepthCharge03_proj.bp',
+            ProjectileLifetime = 10,
+
+            RackBones = {
+                {
+					MuzzleBones = {
+						'Torpedo',
+					},
+					RackBone = 'Torpedo',
+				},
+            },
+            RackFireTogether = false,
+			
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RateOfFire = 0.1,	-- 400 every 10 = 40 DPS
+			
+            TargetCheckInterval = 4,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+			
+            TrackingRadius = 1.15,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 100,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            MaxRadius = 1,
+            WeaponCategory = 'Death',
+        },
+    },
+}
