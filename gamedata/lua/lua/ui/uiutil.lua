@@ -2,7 +2,7 @@
 --* Author: Chris Blackwell
 --* Summary: Various utility functions to make UI scripts easier and more consistent
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
 
 local LazyVar = import('/lua/lazyvar.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -54,7 +54,7 @@ consoleDepth = false  -- in order to get the console to always be on top, assign
 networkBool = import('/lua/lazyvar.lua').Create()    -- boolean whether the game is local or networked
 
 -- Default scenario for skirmishes / MP Lobby
-defaultScenario = '/maps/scmp_039/scmp_039_scenario.lua'      
+defaultScenario = '/maps/Blasted_20/Blasted_20_Standard_scenario.lua'      
 
 --* These values MUST NOT CHANGE! They syncronize with values in UIManager.h and are used to
 --* specify a render pass
