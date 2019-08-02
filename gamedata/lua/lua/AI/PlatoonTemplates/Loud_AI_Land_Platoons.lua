@@ -294,7 +294,7 @@ PlatoonTemplate { Name = 'T4ExperimentalGroupAmphibious',
 	
     GlobalSquads = {
         { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 6, 15, 'Artillery', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 24, 48, 'Attack', 'none' },
+        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 0, 48, 'Attack', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 10, 'Guard', 'none' },
 		--{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTISHIELD), 0, 3, 'Attack', 'none'},
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 18, 'Support', 'none' },
@@ -308,9 +308,9 @@ PlatoonTemplate { Name = 'T4ExperimentalGroup',
 	
     GlobalSquads = {
         { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 6, 15, 'Artillery', 'none' },
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 13, 24, 'Attack', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 6, 18, 'Artillery', 'none' },
-		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 12, 18, 'Guard', 'none' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 0, 24, 'Attack', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 18, 'Artillery', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 6, 'Support', 'none' },
         { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
