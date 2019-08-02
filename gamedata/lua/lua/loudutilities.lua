@@ -3870,10 +3870,10 @@ function ParseIntelThread( aiBrain )
 		myvalue = 0
 		
 		
-		local muzzmod = ( math.log10( GetGameTimeSeconds() ) *.01 )
+		--local muzzmod = ( math.log10( GetGameTimeSeconds() ) *.01 )
 
-		if muzzmod > 5 then muzzmod = 5 end
-		if muzzmod < 1 then muzzmod = 1 end
+		--if muzzmod > 5 then muzzmod = 5 end
+		--if muzzmod < 1 then muzzmod = 1 end
 
 		-- calculate my present land value
 		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
@@ -3888,7 +3888,7 @@ function ParseIntelThread( aiBrain )
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- we also cap the LANDRATIO at 10
-			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ) * muzzmod
+			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ) --* muzzmod
 
 			if ScenarioInfo.ReportRatios then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." count is "..EnemyData['Land']['Count'])
