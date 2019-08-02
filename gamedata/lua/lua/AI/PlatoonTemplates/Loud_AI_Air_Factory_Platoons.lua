@@ -8,16 +8,16 @@
 PlatoonTemplate { Name = 'T1AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 4, 'scout', 'none' }
+            { 'uea0101', 1, 3, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 4, 'scout', 'none' }
+            { 'uaa0101', 1, 3, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 4, 'scout', 'none' }
+            { 'ura0101', 1, 3, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 4, 'scout', 'none' }
+            { 'xsa0101', 1, 3, 'scout', 'none' }
         },
     }
 }
@@ -25,16 +25,16 @@ PlatoonTemplate { Name = 'T1AirScout',
 PlatoonTemplate { Name = 'T2AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 4, 'scout', 'none' }
+            { 'uea0101', 1, 3, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 4, 'scout', 'none' }
+            { 'uaa0101', 1, 3, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 4, 'scout', 'none' }
+            { 'ura0101', 1, 3, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 4, 'scout', 'none' }
+            { 'xsa0101', 1, 3, 'scout', 'none' }
         },
     }
 }
@@ -61,16 +61,16 @@ PlatoonTemplate { Name = 'T3AirScout',
 PlatoonTemplate { Name = 'T1Bomber',
     FactionSquads = {
         UEF = {
-            { 'uea0103', 1, 4, 'Attack', 'none' },
+            { 'uea0103', 1, 3, 'Attack', 'none' },
         },
         Aeon = {
-            { 'uaa0103', 1, 4, 'Attack', 'none' },
+            { 'uaa0103', 1, 3, 'Attack', 'none' },
         },
         Cybran = {
-            { 'ura0103', 1, 4, 'Attack', 'none' },
+            { 'ura0103', 1, 3, 'Attack', 'none' },
         },
         Seraphim = {
-            { 'xsa0103', 1, 4, 'Attack', 'none' },
+            { 'xsa0103', 1, 3, 'Attack', 'none' },
         },
     }
 }
@@ -112,16 +112,16 @@ PlatoonTemplate { Name = 'T3Bomber',
 PlatoonTemplate { Name = 'T1Fighter',
     FactionSquads = {
         UEF = {
-            { 'uea0102', 1, 5, 'Attack', 'none' },
+            { 'uea0102', 1, 4, 'Attack', 'none' },
         },
         Aeon = {
-            { 'uaa0102', 1, 5, 'Attack', 'none' },
+            { 'uaa0102', 1, 4, 'Attack', 'none' },
         },
         Cybran = {
-            { 'ura0102', 1, 5, 'Attack', 'none' },
+            { 'ura0102', 1, 4, 'Attack', 'none' },
         },
         Seraphim = {
-            { 'xsa0102', 1, 5, 'Attack', 'none' },
+            { 'xsa0102', 1, 4, 'Attack', 'none' },
         },
     }
 }

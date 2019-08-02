@@ -106,19 +106,19 @@ PlatoonTemplate { Name = 'Air Scout Formation',
 
 PlatoonTemplate { Name = 'Air Scout Group',
     GlobalSquads = {
-        { categories.AIR * categories.SCOUT, 2, 3, 'scout', 'ScatterFormation' },
+        { categories.AIR * categories.SCOUT, 2, 3, 'scout', 'none' },
     }
 }
 
 PlatoonTemplate { Name = 'Air Scout Group Large',
     GlobalSquads = {
-        { categories.AIR * categories.SCOUT * categories.TECH3, 6, 6, 'scout', 'ScatterFormation' },
+        { categories.AIR * categories.SCOUT - categories.TECH1, 6, 10, 'scout', 'ScatterFormation' },
     }
 }
 
 PlatoonTemplate { Name = 'Air Scout Group Huge',
     GlobalSquads = {
-        { categories.AIR * categories.SCOUT * categories.TECH3, 12, 12, 'scout', 'ScatterFormation' },
+        { categories.AIR * categories.SCOUT - categories.TECH1, 12, 15, 'scout', 'ScatterFormation' },
     }
 }
 

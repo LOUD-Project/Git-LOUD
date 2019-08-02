@@ -928,17 +928,19 @@ function AirScoutingAI( self, aiBrain )
 			
 					for widx,waypointPath in path do
 			
-						if pathSize != widx then
-				
-							IssueFormMove( units, waypointPath,'GrowthFormation', import('/lua/utilities.lua').GetDirectionInDegrees( lastpos, waypointPath ) )
-					
-							lastpos = table.copy(waypointPath)
+						--if pathSize != widx then
 						
-						end
+							IssueMove( units, waypointPath)
+				
+							--IssueFormMove( units, waypointPath,'CircleFormation', import('/lua/utilities.lua').GetDirectionInDegrees( lastpos, waypointPath ) )
+					
+							--lastpos = table.copy(waypointPath)
+						
+						--end
 				
 					end
 
-					self:MoveToLocation(dest, false)
+					--self:MoveToLocation(dest, false)
 			
 					return dest
 			
@@ -1146,7 +1148,7 @@ function AirScoutingAI( self, aiBrain )
 					
 				end
 				
-                WaitTicks(14)
+                WaitTicks(12)
 				
             end
 

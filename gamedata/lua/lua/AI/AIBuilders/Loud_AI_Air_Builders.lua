@@ -79,9 +79,9 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 10, [2048] = 12, [4096] = 12}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 16, [2048] = 24, [4096] = 24}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.AIR * categories.SCOUT } },			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH1 }},
 			
         },
@@ -101,10 +101,10 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 12, [512] = 24, [1024] = 36, [2048] = 48, [4096] = 56}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 16, [512] = 30, [1024] = 54, [2048] = 72, [4096] = 80}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.AIR * categories.SCOUT } },			
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH2 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT } },			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH2 }},
 			
         },
 		
@@ -122,10 +122,10 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 12, [512] = 24, [1024] = 36, [2048] = 48, [4096] = 56}, categories.AIR * categories.SCOUT * categories.TECH3 }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 16, [512] = 30, [1024] = 54, [2048] = 72, [4096] = 80}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT * categories.TECH3 }},			
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
 			
         },
 		

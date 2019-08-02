@@ -3462,7 +3462,7 @@ AirUnit = Class(MobileUnit) {
 		local vis = __blueprints[self.BlueprintID].Intel.VisionRadius or 2
 
 		if new == 'Land' then
-
+		
 			-- if current vision is mostly normal then
 			-- turn it down to 40% of current vision
 			if self:GetIntelRadius('Vision') > (vis * 0.75) then
@@ -3473,7 +3473,42 @@ AirUnit = Class(MobileUnit) {
 
 			self:DisableIntel('Sonar')
 			self:DisableIntel('Radar')
-			self:DisableIntel('Omni')
+			self:DisableIntel('Omni')			
+
+			if not EntityCategoryContains(categories.TRANSPORTFOCUS, self) then
+			
+				local brain = self:GetAIBrain()
+				
+				-- sometimes AI units will 'wander' away and land beyond the control of a base
+				-- this will get them back to a base position
+				if brain.BrainType == 'AI' then
+			
+					local beyondbase = true
+					local ReturnTransportsToPool = import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool
+	
+					-- loop thru his bases
+					for _,base in brain.BuilderManagers do
+				
+						local unitpos = self:GetPosition()
+					
+						-- if position is within the radius then return false (avoid this position)
+						if VDist2Sq(base.Position[1], base.Position[3], unitpos[1], unitpos[3]) < (base.Radius * base.Radius) then
+					
+							beyondbase = false
+
+						end
+
+					end
+				
+					if beyondbase then
+						--LOG("*AI DEBUG AI Air unit "..self:GetBlueprint().Description.." lands outside base radius")
+						ForkThread( ReturnTransportsToPool, brain, {self}, true )
+					end
+
+				end
+			
+			end
+
 		end
 
 		if new == 'Air' then
