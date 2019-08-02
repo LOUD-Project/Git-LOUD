@@ -525,19 +525,19 @@ function SpawnWaveThread( aiBrain )
     
     if faction == 1 then
 	
-		testUnits = { 'UEA0303', 'UEA0304', 'UEA0305', 'UEA0104', 'UEA0302' }
+		testUnits = { 'uea0303', 'uea0304', 'uea0305', 'uea0104', 'uea0302' }
 		
     elseif faction == 2 then
 	
-		testUnits = { 'UAA0303', 'UAA0304', 'XAA0305', 'UAA0104', 'UAA0302' }
+		testUnits = { 'uaa0303', 'uaa0304', 'xaa0305', 'uaa0104', 'uaa0302' }
 		
     elseif faction == 3 then
 	
-		testUnits = { 'URA0303', 'URA0304', 'XRA0305', 'URA0104', 'URA0302' }
+		testUnits = { 'ura0303', 'ura0304', 'xra0305', 'ura0104', 'ura0302' }
 		
 	elseif faction == 4 then
 	
-		testUnits = { 'XSA0303', 'XSA0304', 'XSA0203', 'XSA0104', 'XSA0302' }
+		testUnits = { 'xsa0303', 'xsa0304', 'xsa0203', 'xsa0104', 'xsa0302' }
 		
     end
 	
@@ -560,12 +560,22 @@ function SpawnWaveThread( aiBrain )
 			-- add the unit to the list --
 			table.insert(initialUnits, test_unit_id)
 			
+		else
+		
+			if not initialUnits then
+			
+				initialUnits = {}
+			
+			end
+			
+			table.insert(initialUnits, false)
+		
 		end
 		
 	end
 	
-	--LOG("*AI DEBUG testunits is "..repr(testUnits))
-	--LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
+	LOG("*AI DEBUG testunits is "..repr(testUnits))
+	LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 	
 	if initialUnits then
 	
@@ -623,46 +633,46 @@ function SpawnWaveThread( aiBrain )
 
 		
 			-- fighters --
-			--if initialUnits[1] and not Game.UnitRestricted( false, initialUnits[1] ) then
+			if initialUnits[1] then
 				unit = aiBrain:CreateUnitNearSpot(initialUnits[1],startx,startz)
 				SimulateFactoryBuilt( unit )
-			--end
+			end
 			
 			WaitTicks(1)
 
 			-- bombers --
-			--if initialUnits[2] and not Game.UnitRestricted( false, initialUnits[2] ) then
+			if initialUnits[2] then
 				unit = aiBrain:CreateUnitNearSpot(initialUnits[2],startx,startz)
 				SimulateFactoryBuilt( unit )
-			--end
+			end
 			
 			WaitTicks(1)
 
 			-- gunships --
-			--if initialUnits[3] and not Game.UnitRestricted( false, initialUnits[3] ) then
+			if initialUnits[3] then
 				unit = aiBrain:CreateUnitNearSpot(initialUnits[3],startx,startz)
 				SimulateFactoryBuilt( unit )
-			--end
+			end
 			
 			WaitTicks(1)
 
-			-- transports  --
-			if spawn < 6 then
+			-- transports -- but only if needed
+			if aiBrain.NeedTransports then
 
-				--if initialUnits[4] and not Game.UnitRestricted( false, initialUnits[4] ) then
+				if initialUnits[4] then
 					unit = aiBrain:CreateUnitNearSpot(initialUnits[4],startx,startz)
 					SimulateFactoryBuilt( unit )
-				--end
+				end
 				
 				WaitTicks(1)
 
 			end
 
 			-- spy planes --
-			--if initialUnits[5] and  not Game.UnitRestricted( false, initialUnits[5] ) then
+			if initialUnits[5] then
 				unit = aiBrain:CreateUnitNearSpot(initialUnits[5],startx,startz)
 				SimulateFactoryBuilt( unit )
-			--end
+			end
 			
 			WaitTicks(1)
 			

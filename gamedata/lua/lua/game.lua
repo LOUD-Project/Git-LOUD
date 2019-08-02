@@ -14,6 +14,8 @@ SpecialWepRestricted = false
 UnitCatRestricted = false
 
 _UnitRestricted_cache = {}
+_UnitRestricted_unitchecked = {}
+_UnitRestricted_checked = false
 
 doscript('/lua/BuffFieldDefinitions.lua')
 
@@ -92,33 +94,41 @@ end
 
 function UnitRestricted(unit, unitId)
 
-    if not CheckUnitRestrictionsEnabled() then     -- if no restrictions defined then dont bother
-        return false
-    end
-
-	if unit then
+    if ScenarioInfo.Options.RestrictedCategories then     -- if restrictions defined
 	
-		unitId = unit:GetUnitId()
+		if unit then
+			unitId = unit.BlueprintID	--:GetUnitId()
+		end
+
+		if _UnitRestricted_cache[unitId] then          -- use cache if available
+
+			return true
+		end
+		
+		if not _UnitRestricted_unitchecked[unitId] then
+
+			CacheRestrictedUnitLists()
+		
+			for k, cat in UnitCatRestricted do
+	
+				if EntityCategoryContains( cat, unitId ) then   -- because of this function we need the unit, not the unitId
+
+					_UnitRestricted_cache[unitId] = true
+			
+					break
+				end
+			end
+			
+			_UnitRestricted_unitchecked[unitId] = true
+
+			return _UnitRestricted_cache[unitId]
+		
+		end
+	else
+	
+		return false
 		
 	end
-	
-    if _UnitRestricted_cache[unitId] then          -- use cache if available
-        return _UnitRestricted_cache[unitId]
-    end
-
-    CacheRestrictedUnitLists()
-	
-    _UnitRestricted_cache[unitId] = false
-	
-    for k, cat in UnitCatRestricted do
-	
-        if EntityCategoryContains( cat, unitId ) then   -- because of this function we need the unit, not the unitId
-            _UnitRestricted_cache[unitId] = true
-            break
-        end
-    end
-
-    return _UnitRestricted_cache[unitId]
 	
 end
 
@@ -127,7 +137,9 @@ function WeaponRestricted(weaponLabel)
     if not CheckUnitRestrictionsEnabled() then     -- if no restrictions defined then dont bother
         return false
     end
+	
     CacheRestrictedUnitLists()
+	
     return SpecialWepRestricted[weaponLabel]
 end
 
@@ -148,8 +160,15 @@ function CheckUnitRestrictionsEnabled()
     return false
 end
 
-
+-- modified to make use of a global -- _UnitRestricted_checked
+-- which avoids continually rebuilding the restricted units list
+-- however - anytime a restriction is added or removed during the
+-- game, this global must be reset so that the list can be rebuilt
 function CacheRestrictedUnitLists()
+
+	if _UnitRestricted_checked then
+		return
+	end
 
     if type(UnitCatRestricted) == 'table' then
         return
@@ -157,6 +176,8 @@ function CacheRestrictedUnitLists()
 
     SpecialWepRestricted = {}
     UnitCatRestricted = {}
+	
+	LOG("*AI DEBUG CacheRestrictedUnitLists")
 	
     local restrictedUnits = import('/lua/ui/lobby/restrictedUnitsData.lua').restrictedUnits
     local c
@@ -199,4 +220,6 @@ function CacheRestrictedUnitLists()
             end
         end
     end
+	
+	_UnitRestricted_checked = true
 end

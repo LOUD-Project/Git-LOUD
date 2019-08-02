@@ -195,7 +195,9 @@ function BeginSession()
 			
         end
 		
-    end
+    else
+		ScenarioInfo.Options.RestrictedCategories = false
+	end
 
     -- Set up the teams we found
     for team,armyIndices in teams do
