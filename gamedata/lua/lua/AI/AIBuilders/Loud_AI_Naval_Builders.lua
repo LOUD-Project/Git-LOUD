@@ -46,7 +46,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL }},			
 			
         },
     },
@@ -147,7 +147,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
         Priority = 560,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		--PriorityFunction = IsEnemyNavalActive,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -157,7 +157,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 
 			{ UCBC, 'PoolLess', { 15, categories.xes0102 } },
 			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
         },
 		
     },
@@ -170,7 +170,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
         Priority = 560,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		--PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -178,7 +178,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 15, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
 			
@@ -197,7 +197,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
         Priority = 560,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		--PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -205,9 +205,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 15, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
 
         },
 		
@@ -221,7 +221,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
         Priority = 560,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		--PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -229,9 +229,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },			
+			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },			
 		
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
 
     },
@@ -251,7 +251,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
 
-			{ UCBC, 'PoolLess', { 8, categories.xes0205 }},
+			{ UCBC, 'PoolLess', { 6, categories.xes0205 }},
 			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -660,7 +660,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
 			
@@ -786,7 +786,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
 			
@@ -811,7 +811,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },
+			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -832,7 +832,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 10, categories.SUBMARINE } },			
+			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },			
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -858,6 +858,8 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0205, categories.NAVAL - categories.TECH1 }},				
+			
         },
 		
     },
@@ -881,6 +883,9 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.xrs0205 }},
 			
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},			
+			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},				
         },
 		
     },

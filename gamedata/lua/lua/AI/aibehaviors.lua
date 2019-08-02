@@ -2648,6 +2648,8 @@ function NavalForceAILOUD( self, aiBrain )
 
 		-- Locate LOCAL targets in the searchRadius range using the attackpriority list
 		target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
+		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeks local target")
 
 		-- if target, insure that it's in water and set the destination -- issue attack orders --
         if target and not target.Dead then
@@ -3095,9 +3097,9 @@ function NavalForceAILOUD( self, aiBrain )
 
 			if PlatoonExists( aiBrain, self) and mythreat <= (OriginalThreat * .40) then
 			
-				self.MergeIntoNearbyPlatoons( self, aiBrain, 'AttackForceAI', 100, false)
+				break	--self.MergeIntoNearbyPlatoons( self, aiBrain, 'AttackForceAI', 100, false)
 				
-				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+				--return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
 			
@@ -3109,12 +3111,14 @@ function NavalForceAILOUD( self, aiBrain )
 
 			WaitTicks(60)
 			
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." on Attack wait")
+			
 		end
 
 		-- check mission timer for RTB
 		if LOUDTIME() > EndMissionTime then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Mission Time expires")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI Mission Time expires")
 			
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			

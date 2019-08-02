@@ -4509,6 +4509,8 @@ Platoon = Class(moho.platoon_methods) {
 	-- own for 10 seconds
     DistressResponseAI = function( self, aiBrain )
 		
+		local oldPlan = self.PlanName -- we do this here to maintain the original plan, some platoons change the plan name
+		
 		local LOUDGETN = LOUDGETN
 
         local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
@@ -4520,7 +4522,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		local platoonPos
 		local distressLocation, distressType, distressplatoon, moveLocation, threatatPos, myThreatatPos
-		local units, unit, oldPlan
+		local units, unit
 		local inWater, cmd
 		local poscheck, prevpos, poscounter
 		
@@ -4694,8 +4696,6 @@ Platoon = Class(moho.platoon_methods) {
 					
 					if unit and unit:CanPathTo(distressLocation) then
 					
-						oldPlan = self.PlanName
-
 						if self.AIThread then
 						
 							if ScenarioInfo.DistressResponseDialog then

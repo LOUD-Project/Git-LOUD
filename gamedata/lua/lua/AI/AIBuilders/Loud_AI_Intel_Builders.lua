@@ -123,7 +123,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		
         Priority = 804,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
@@ -150,7 +150,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		
         Priority = 803,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -177,7 +177,7 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		
         Priority = 802,
 		
-		InstanceCount = 5,
+		InstanceCount = 4,
 		
         BuilderType = 'Any',
 		
@@ -199,17 +199,17 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
     
     -- Air Scout formations grow over time
 	
-	-- single plane formation for first 60 minutes
+	-- single plane formation for first 40 minutes
     Builder {BuilderName = 'Air Scout - Standard',
         PlatoonTemplate = 'Air Scout Formation',
 		PlatoonAIPlan = 'ScoutingAI',
 		Priority = 803,
 		
-		-- this function removes the builder after 45 minutes
+		-- this function removes the builder after 40 minutes
 		PriorityFunction = function(self, aiBrain)
 		
 			if self.Priority != 0 then
-				if aiBrain.CycleTime > 2700 then
+				if aiBrain.CycleTime > 2400 then
 					return 0, false
 				end
 			end
@@ -217,14 +217,16 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 			return self.Priority,true
 		end,
 		
-        InstanceCount = 8,
+        InstanceCount = 12,
+		
         BuilderType = 'Any',
+		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
 		},
-		BuilderData = {
-		},
+		
+		BuilderData = {},
     },
 	
 	-- double plane formation for first 90 minutes
@@ -233,16 +235,16 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		PlatoonAIPlan = 'ScoutingAI',
         Priority = 10,
 		
-		-- this function turns the builder on at 30 minutes and removes it at 75 minutes 
+		-- this function turns the builder on at 30 minutes and removes it at 60 minutes 
 		PriorityFunction = function(self, aiBrain)
 			
 			if self.Priority != 0 then
 				
-				if aiBrain.CycleTime > 1500 then
+				if aiBrain.CycleTime > 1800 then
 					return 803, true
 				end
 			
-				if aiBrain.CycleTime > 4500 then
+				if aiBrain.CycleTime > 3600 then
 					return 0, false
 				end
 			end
@@ -250,17 +252,19 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 6,
+        InstanceCount = 10,
+		
         BuilderType = 'Any',
+		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT }},
 		},
-		BuilderData = {
-		},
+		
+		BuilderData = {},
     },
 	
-	-- wing of 6 spy planes starting at 60 minutes
+	-- wing of 6 spy planes starting at 45 minutes
     Builder {BuilderName = 'Air Scout - Wing',
         PlatoonTemplate = 'Air Scout Group Large',
 		PlatoonAIPlan = 'ScoutingAI',
@@ -269,9 +273,9 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		-- this function turns the builder on at the 45 minute mark
 		PriorityFunction = function(self, aiBrain)
 			
-			if self.Priority != 720 then
+			if self.Priority != 803 then
 			
-				if aiBrain.CycleTime > 3600 then
+				if aiBrain.CycleTime > 2700 then
 					return 803, false
 				end
 			end
@@ -280,13 +284,15 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		end,
 		
         InstanceCount = 6,
+		
         BuilderType = 'Any',
+		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.AIR * categories.SCOUT * categories.TECH3 }},
 		},
-		BuilderData = {
-		},
+		
+		BuilderData = {},
     },
 	
 	-- group of 12 spy planes after 60 minutes
@@ -295,12 +301,12 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		PlatoonAIPlan = 'ScoutingAI',
         Priority = 10,
 		
-		-- this function will turn the builder on at the 90 minute mark
+		-- this function will turn the builder on at the 60 minute mark
 		PriorityFunction = function(self, aiBrain)
 		
-			if self.Priority != 800 then
+			if self.Priority != 802 then
 			
-				if aiBrain.CycleTime > 4500 then
+				if aiBrain.CycleTime > 3600 then
 					return 802, false
 				end
 			end
@@ -309,13 +315,15 @@ BuilderGroup {BuilderGroupName = 'Air Scout Formations',
 		end,
 
         InstanceCount = 6,
+		
         BuilderType = 'Any',
+		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.AIR * categories.SCOUT * categories.TECH3 }},
 		},
-		BuilderData = {
-		},
+		
+		BuilderData = {},
     },
 }
 

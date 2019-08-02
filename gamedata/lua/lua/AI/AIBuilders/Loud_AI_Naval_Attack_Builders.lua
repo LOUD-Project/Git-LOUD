@@ -54,9 +54,11 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 		},
 		
     },
@@ -82,9 +84,11 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 		},
 		
     },
@@ -118,7 +122,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			
         },
 		
@@ -195,6 +199,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 			
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},			
+			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
@@ -247,8 +253,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
 
         },
@@ -297,8 +303,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
 
         },
@@ -347,8 +353,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 
         },
 		
@@ -443,8 +449,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
 			
         },
@@ -491,8 +497,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DEFENSIVEBOAT }},
 			
         },
@@ -539,8 +545,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			
         },
 		
@@ -641,8 +647,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
 
         },
@@ -692,8 +698,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
 
         },
@@ -743,8 +749,8 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {
@@ -822,7 +828,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 225,
+			DistressRange = 175,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -838,7 +844,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderConditions = {
 		
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
+			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 			
         },
 		
@@ -861,7 +869,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
         BuilderData = {
 		
-			DistressRange = 225,
+			DistressRange = 175,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
