@@ -545,7 +545,7 @@ Unit = Class(moho.unit_methods) {
         
         local enemy_index = {}
         local enemy_count = 1
---[[
+
         for _, brain in ArmyBrains do
             if brain.BrainType == 'Human' and IsEnemy( brain.ArmyIndex, mybrain.ArmyIndex) then
                 enemy_index[enemy_count] = brain.ArmyIndex
@@ -594,7 +594,7 @@ Unit = Class(moho.unit_methods) {
 			WaitTicks(58)
 			
 		end
---]]		
+
     end,
 
     SetDead = function(self)
