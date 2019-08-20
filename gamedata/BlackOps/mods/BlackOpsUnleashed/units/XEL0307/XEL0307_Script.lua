@@ -155,7 +155,7 @@ XEL0307 = Class(TLandUnit) {
 
 	UnitLandAmbientEffectThread = function(self)
 	
-        local army = self:GetArmy()			
+        local army = self.Sync.army
         local exeff = self.AmbientLandExhaustEffects
         local ambones = self.AmbientExhaustBones
         local LOUDINSERT = table.insert

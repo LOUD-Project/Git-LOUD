@@ -191,8 +191,8 @@ UnitBlueprint {
 			
             DisplayName = 'Miasma Mortar',
 			
-			EnergyDrainPerSecond = 300,
-			EnergyRequired = 600,			#-- 2 second draw energy
+			EnergyDrainPerSecond = 150,
+			EnergyRequired = 600,			#-- 4 second draw energy
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -233,8 +233,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.25,	#-- fires every 4 seconds = 600/4 = 150DPS
-            RenderFireClock = true,
+            RateOfFire = 1,	#-- fires every 4 by energy = 600/4 = 150DPS
 			
             TargetCheckInterval = 2,
 			
