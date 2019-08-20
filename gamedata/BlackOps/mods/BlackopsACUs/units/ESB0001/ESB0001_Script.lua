@@ -59,7 +59,7 @@ ShieldEffects = {
             RedirectRateOfFire = bp2.RedirectRateOfFire
         }
         self.Trash:Add(SeraLambdaField01)
-        --self.Trash:Add(SeraLambdaField02)
+        self.Trash:Add(SeraLambdaField02)
         self.UnitComplete = true
     end,
     --Make this unit invulnerable

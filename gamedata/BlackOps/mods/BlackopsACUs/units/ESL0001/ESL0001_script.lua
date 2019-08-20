@@ -302,19 +302,25 @@ ESL0001 = Class( SWalkingLandUnit ) {
 		self:HideBone('S_Spinner_B03', true)
 		self:HideBone('Left_AA_Mount', true)
 		self:HideBone('Right_AA_Mount', true)
+		
 		self.lambdaEmitterTable = {}
+		
 		if not self.RotatorManipulator1 then
             self.RotatorManipulator1 = CreateRotator( self, 'S_Spinner_B01', 'y' )
             self.Trash:Add( self.RotatorManipulator1 )
         end
+		
         self.RotatorManipulator1:SetAccel( 30 )
         self.RotatorManipulator1:SetTargetSpeed( 120 )
+		
 		if not self.RotatorManipulator2 then
             self.RotatorManipulator2 = CreateRotator( self, 'L_Spinner_B01', 'y' )
             self.Trash:Add( self.RotatorManipulator2 )
         end
+		
         self.RotatorManipulator2:SetAccel( -15 )
         self.RotatorManipulator2:SetTargetSpeed( -60 )
+		
 		self.wcBuildMode = false
 		self.wcOCMode = false
 		self.wcTorp01 = false
