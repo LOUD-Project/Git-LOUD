@@ -44,34 +44,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Killed = Sound {
             Bank = 'URADestroy',
             Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -79,24 +54,9 @@ UnitBlueprint {
             Cue = 'URA0304_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        StopMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unload = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0104_Unit_Unload',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -211,6 +171,7 @@ UnitBlueprint {
         BuildCostEnergy = 17500,
         BuildCostMass = 330,
         BuildTime = 400,
+		
         MaintenanceConsumptionPerSecondEnergy = 30,
         ResearchMultTime = 0.5,
     },

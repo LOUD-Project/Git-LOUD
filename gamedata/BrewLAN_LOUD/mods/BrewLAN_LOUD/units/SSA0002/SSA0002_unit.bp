@@ -148,7 +148,7 @@ UnitBlueprint {
             },
         },
         HideLifebars = true,
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.03,
     },

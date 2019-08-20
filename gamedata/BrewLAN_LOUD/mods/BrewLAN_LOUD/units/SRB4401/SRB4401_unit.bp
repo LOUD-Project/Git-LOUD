@@ -32,14 +32,14 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 100,
+        EconomyThreatLevel = 150,
         Health = 850,
         MaxHealth = 850,
         RegenRate = 5,
@@ -50,6 +50,7 @@ UnitBlueprint {
             Mesh = '/effects/entities/CybranShield01/CybranShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
+			
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 22500,
             ShieldRechargeTime = 20,

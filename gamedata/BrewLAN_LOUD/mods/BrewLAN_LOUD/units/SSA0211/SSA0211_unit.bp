@@ -44,49 +44,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Killed = Sound {
             Bank = 'XSA_Destroy',
             Cue = 'XSA_Destroy_Air_Killed',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Landing = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB5202_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'XSA',
             Cue = 'XSA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Thruster',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -132,7 +97,7 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 1335,
         MaxHealth = 1335,
-		RegenRate = 4,
+		RegenRate = 5,
         SurfaceThreatLevel = 24,
     },
 	
