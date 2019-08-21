@@ -398,7 +398,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
             { LUTL, 'AirStrengthRatioLessThan', { 3 }}, 
 			
 			{ MIBC, 'MapLessThan', { 1028 } },
-			{ MIBC, 'GreaterThanGameTime', { 300 } },
+			{ MIBC, 'GreaterThanGameTime', { 180 } },
 			-- must not have any of the internal T2+ AA structures 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTIAIR, 14, 35 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.ANTIAIR}},

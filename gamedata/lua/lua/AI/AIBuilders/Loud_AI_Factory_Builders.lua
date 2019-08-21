@@ -19,7 +19,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 180 } },
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.LAND - categories.GATE }},			
@@ -57,7 +57,7 @@ BuilderGroup {BuilderGroupName = 'Factory Construction',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 180 } },
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR }},			
@@ -348,7 +348,7 @@ BuilderGroup {BuilderGroupName = 'Naval Factory Builders',
         BuilderConditions = {
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 180 } },
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.NAVAL }},			
