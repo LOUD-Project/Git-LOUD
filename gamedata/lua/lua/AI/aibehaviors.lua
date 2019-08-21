@@ -663,6 +663,9 @@ function CDRHideBehavior( aiBrain, cdr )
 		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 80, 'Ally' )
 		local nmaAA = aiBrain:GetNumUnitsAroundPoint( categories.ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
 		
+		local runShield = false
+		local runSpot = false
+
 		local category = categories.DEFENSE * categories.DIRECTFIRE
 		
 		if nmaShield > 0 then
@@ -675,13 +678,10 @@ function CDRHideBehavior( aiBrain, cdr )
 			category = categories.DEFENSE * categories.ANTIAIR
 			
 		end
-		
-		local runShield = false
-		local runSpot = false
-		
+	
 		if category then
 		
-			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 100, runShield )
+			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 80, runShield )
 			
 			IssueClearCommands( {cdr} )
 			IssueMove( {cdr}, runSpot )
