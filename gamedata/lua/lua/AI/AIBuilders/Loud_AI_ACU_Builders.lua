@@ -181,7 +181,7 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5900 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 45, 0 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
 			
         },
 		
