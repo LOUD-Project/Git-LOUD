@@ -146,8 +146,8 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 70000,
-        BuildCostMass = 11000,
+        BuildCostEnergy = 63000,
+        BuildCostMass = 10000,
 		BuildRate = 25,
         BuildTime = 9500,
 		

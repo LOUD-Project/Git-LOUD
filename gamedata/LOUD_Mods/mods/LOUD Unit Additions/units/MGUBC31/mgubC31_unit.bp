@@ -225,7 +225,7 @@ AI = {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',
@@ -334,7 +334,7 @@ AI = {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',
@@ -441,7 +441,7 @@ AI = {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',

@@ -213,7 +213,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -304,7 +304,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -393,7 +393,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',

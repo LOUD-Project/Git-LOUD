@@ -256,7 +256,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,

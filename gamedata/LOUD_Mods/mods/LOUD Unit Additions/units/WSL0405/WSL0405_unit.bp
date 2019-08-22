@@ -57,8 +57,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 100,
         ArmorType = 'Experimental',
-        Health = 85500,
-        MaxHealth = 85500,
+        Health = 85000,
+        MaxHealth = 85000,
         RegenRate = 32,
 		
         Shield = {
@@ -68,12 +68,12 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
 			
-            ShieldEnergyDrainRechargeTime = 25,
-            ShieldMaxHealth = 35500,
-            ShieldRechargeTime = 55,
-            ShieldRegenRate = 200,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 45000,
+            ShieldRechargeTime = 39,
+            ShieldRegenRate = 288,
             ShieldRegenStartTime = 1,
-            ShieldSize = 10,
+            ShieldSize = 12,
             ShieldVerticalOffset = -1,
         },
 		
@@ -205,11 +205,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1206003,
-        BuildCostMass = 97515,
-        BuildTime = 120601,
+        BuildCostEnergy = 1200000,
+        BuildCostMass = 88500,
+        BuildTime = 20000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 1000,
+        MaintenanceConsumptionPerSecondEnergy = 711,
     },
 	
     Footprint = {
@@ -256,8 +256,8 @@ UnitBlueprint {
 		FreeIntel = true,
 		OmniRadius = 45,
 		RadarRadius = 90,
-        VisionRadius = 50,
-        WaterVisionRadius = 28,
+        VisionRadius = 40,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -345,6 +345,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 2500,	#1250 DPS
+			DamageFriendly = true,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -849,9 +850,9 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
-            Damage = 6500,
+            Damage = 7500,
             DamageFriendly = true,
-            DamageRadius = 8,
+            DamageRadius = 10,
             DamageType = 'Normal',
             DisplayName = 'Megalith Death',
             DummyWeapon = true,
