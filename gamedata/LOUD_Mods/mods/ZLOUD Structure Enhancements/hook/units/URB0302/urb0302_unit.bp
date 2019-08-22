@@ -35,8 +35,8 @@ UnitBlueprint {
         },
 		
         ImprovedProduction = {    
-            BuildCostEnergy = 42000,
-            BuildCostMass = 2500,
+            BuildCostEnergy = 38500,
+            BuildCostMass = 2200,
             BuildTime = 18000,
 
             Icon = 'Prod_Imp',
@@ -65,9 +65,9 @@ UnitBlueprint {
         },
 		
         AdvancedProduction = {
-            BuildCostEnergy = 85000,
-            BuildCostMass = 5000,
-            BuildTime = 36000,
+            BuildCostEnergy = 70000,
+            BuildCostMass = 4000,
+            BuildTime = 32000,
 
             Icon = 'Prod_Adv',
             Name = 'Advanced Production',
@@ -98,8 +98,8 @@ UnitBlueprint {
         },
 		
         ImprovedMateriels = {    
-            BuildCostEnergy = 42000,
-            BuildCostMass = 2500,
+            BuildCostEnergy = 38500,
+            BuildCostMass = 2200,
             BuildTime = 18000,
 
             Icon = 'Materiel_Imp',
@@ -126,9 +126,9 @@ UnitBlueprint {
         },
 		
         AdvancedMateriels = {
-            BuildCostEnergy = 85000,
-            BuildCostMass = 5000,
-            BuildTime = 36000,
+            BuildCostEnergy = 70000,
+            BuildCostMass = 4000,
+            BuildTime = 32000,
 
             Icon = 'Materiel_Adv',
             Name = 'Advanced Materiels',
