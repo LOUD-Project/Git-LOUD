@@ -8,7 +8,7 @@ T1Artillery = {
 },
 
 T3GroundDefense = { 
-	Aeon = {'sab2306', 40 },
+	Aeon = {'sab2306', 25 },
 	Cybran = {'srb2306', 25 },
 },
 
@@ -20,6 +20,7 @@ T3NavalDefense = {
 
 T4GroundDefense = {
 	UEF = { 'seb2401', 50},
+	Cybran = {'srb2402', 100},
 },
 
 
