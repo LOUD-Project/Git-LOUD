@@ -1,11 +1,6 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URB_Destroy_Huge',
@@ -18,7 +13,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 160,
+    BuildIconSortPriority = 190,
 	
     Categories = {
         'SELECTABLE',
@@ -42,9 +37,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 155,
-        Health = 1800,
-        MaxHealth = 1800,
-        RegenRate = 2,
+        Health = 775,
+        MaxHealth = 775,
+        RegenRate = 3,
     },
 	
     Description = '<LOC brb4209_desc>Anti-Teleport Tower',
@@ -54,6 +49,7 @@ UnitBlueprint {
            'Anti-Teleport Field:Prevents Teleportation',
            'Aquatic: Can be built underwater',
            'Volatile',
+           'Upgradeable',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -66,7 +62,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.1,
+        UniformScale = 0.09,
     },
 	
     Economy = {
@@ -75,21 +71,15 @@ UnitBlueprint {
         BuildTime = 1050,
 		
 		BuildRate = 15,
+        
 		BuildableCategory = {'brb4309'},
 		
         MaintenanceConsumptionPerSecondEnergy = 350,
-		
-        RebuildBonusIds = {'brb4209','brb4309'},
     },
-	
-    Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
-    },
-	
+
     General = {
 		CapCost = 1,
-        Category = 'Defense',
+        Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Attack = false,
@@ -121,13 +111,14 @@ UnitBlueprint {
         },
         UnitName = '<LOC brb4209_name>Mist',
         UnitWeight = 1,
-		
+        
+        UpgradesFromBase = 'brb4209',
         UpgradesTo = 'brb4309',
     },
 	
     Intel = {
     	FreeIntel = true,
-        CloakFieldRadius = 55,
+        CloakFieldRadius = 45,
     },
 	
     Interface = {
@@ -135,8 +126,8 @@ UnitBlueprint {
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 1.25,
-    LifeBarSize = 3.5,
+    LifeBarOffset = 1.2,
+    LifeBarSize = 2.5,
 	
     Physics = {
         BankingSlope = 0,
@@ -153,29 +144,30 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 1.1,
-    SelectionSizeZ = 1.1,
-    SelectionThickness = 0.32,
+    SelectionSizeX = 2,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.3,
 	
-    SizeX = 1,
+    SizeX = 2,
     SizeY = 3.5,
-    SizeZ = 1,
+    SizeZ = 2,
 	
-    StrategicIconName = 'icon_structure3_intel',
+    StrategicIconName = 'icon_structure2_intel',
+    
     StrategicIconSortPriority = 225,
 	
     Weapon = {
         {
             Damage = 800,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

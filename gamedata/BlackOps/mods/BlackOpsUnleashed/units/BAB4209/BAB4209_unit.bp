@@ -23,7 +23,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 70,
+    BuildIconSortPriority = 190,
 	
     Categories = {
         'SELECTABLE',
@@ -47,8 +47,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 155,
-        Health = 1800,
-        MaxHealth = 1800,
+        Health = 775,
+        MaxHealth = 775,
         RegenRate = 1,
     },
 	
@@ -59,6 +59,7 @@ UnitBlueprint {
         	'Anti-Teleport Field: Prevents Teleportation',
         	'Aquatic: Can be built underwater',
             'Volatile',
+            'Upgradeable',
         },
         AnimationUpgrade = '/mods/BlackOpsUnleashed/units/bab4209/bab4209_aupgrade.sca',
         Mesh = {
@@ -71,31 +72,25 @@ UnitBlueprint {
             },
         },
         SpawnRandomRotation = true,
-        UniformScale = 0.0225,
+        UniformScale = 0.02,
     },
 	
     Economy = {
         BuildCostEnergy = 13125,
-        BuildCostMass = 700,
+        BuildCostMass = 665,
         BuildTime = 1050,
 		
         BuildRate = 15,
+        
 		BuildableCategory = {'bab4309'},		
 		
         MaintenanceConsumptionPerSecondEnergy = 350,
-		
-        RebuildBonusIds = {'bab4209','bab4309'},
-    },
-	
-    Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
     },
 	
     General = {
 		CapCost = 1,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        Category = 'Intelligence',
+        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -113,6 +108,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret', 
 		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
 		
@@ -122,16 +118,17 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC bab4209_name>Quantum Wake Generator',
         UnitWeight = 1,
 
+        UpgradesFromBase = 'bab4209',
         UpgradesTo = 'bab4309',		
     },
 	
     Intel = {
     	FreeIntel = true,
-        CloakFieldRadius = 55,
+        CloakFieldRadius = 45,
     },
 	
     Interface = {
@@ -155,34 +152,35 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 2.875,
-        MeshExtentsY = 2.125,
-        MeshExtentsZ = 2.875,
+        MeshExtentsX = 2.5,
+        MeshExtentsY = 2.25,
+        MeshExtentsZ = 2.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 1.45,
-    SelectionSizeZ = 1.45,
-    SelectionThickness = 0.39,
+    SelectionSizeX = 2,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.3,
 	
     SizeX = 2,
     SizeY = 1.375,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_structure3_intel',
-    StrategicIconSortPriority = 240,
+    StrategicIconName = 'icon_structure2_intel',
+    
+    StrategicIconSortPriority = 225,
 	
     Weapon = {
         {
-            Damage = 900,
+            Damage = 800,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -190,19 +188,5 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-	
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = true,
-            Sub = false,
-            Water = false,
-        },
-    },
+
 }

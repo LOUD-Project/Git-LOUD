@@ -40,15 +40,15 @@ BEB4309 = Class(TStructureUnit) {
         	end
 			
         	self.Rotator1:SetTargetSpeed(-70)
-        	self.Rotator1:SetAccel(30)
+        	self.Rotator1:SetAccel(7)
 
             if (not self.Rotator2) then
             	self.Rotator2 = CreateRotator(self, 'Spinner_middle', 'y')
             	self.Trash:Add(self.Rotator2)
         	end
 			
-        	self.Rotator2:SetTargetSpeed(500)
-        	self.Rotator2:SetAccel(100)
+        	self.Rotator2:SetTargetSpeed(300)
+        	self.Rotator2:SetAccel(30)
         
         	if (not self.Rotator3) then
             	self.Rotator3 = CreateRotator(self, 'Spinner_lower', 'y')
@@ -56,7 +56,7 @@ BEB4309 = Class(TStructureUnit) {
         	end
 			
         	self.Rotator3:SetTargetSpeed(-70)
-        	self.Rotator3:SetAccel(30)
+        	self.Rotator3:SetAccel(10)
         end
 		
     end,
@@ -114,7 +114,7 @@ BEB4309 = Class(TStructureUnit) {
         	end
 			
         	self.Rotator2:SetTargetSpeed(0)
-        	self.Rotator2:SetAccel(100)
+        	self.Rotator2:SetAccel(50)
         
         	if (not self.Rotator3) then
             	self.Rotator3 = CreateRotator(self, 'Spinner_lower', 'y')

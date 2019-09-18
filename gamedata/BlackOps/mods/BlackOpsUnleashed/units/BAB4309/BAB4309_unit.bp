@@ -23,7 +23,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 70,
+    BuildIconSortPriority = 190,
 	
     Categories = {
         'SELECTABLE',
@@ -43,8 +43,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 315,
-        Health = 5500,
-        MaxHealth = 5500,
+        Health = 1200,
+        MaxHealth = 1200,
         RegenRate = 2,
     },
 	
@@ -65,29 +65,23 @@ UnitBlueprint {
                 },
             },
         },
+        
         SpawnRandomRotation = true,
-        UniformScale = 0.0225,
+        UniformScale = 0.025,
     },
 	
     Economy = {
-        BuildCostEnergy = 39400,
-        BuildCostMass = 2100,
+        BuildCostEnergy = 39375,
+        BuildCostMass = 1950,
         BuildTime = 3150,
 		
-        MaintenanceConsumptionPerSecondEnergy = 1400,
-		
-        RebuildBonusIds = {'bab4309'},
+        MaintenanceConsumptionPerSecondEnergy = 1050,
     },
-	
-    Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
-    },
-	
+
     General = {
 		CapCost = 2,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        Category = 'Intelligence',
+        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -105,7 +99,8 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-		
+        TechLevel = 'RULEUTL_Advanced',
+        
         ToggleCaps = { RULEUTC_ShieldToggle = true },
 		
         OrderOverrides = {
@@ -114,22 +109,20 @@ UnitBlueprint {
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-		
-        TechLevel = 'RULEUTL_Advanced',
-		
         UnitName = '<LOC bab4309_name>Quantum Wake Generator',
         UnitWeight = 1,
+        
 		UpgradesFrom = 'bab4209',
 		UpgradesFromBase = 'bab4209',
     },
 	
     Intel = {
     	FreeIntel = true,
-        CloakFieldRadius = 115,
+        CloakFieldRadius = 70,
     },
 	
     Interface = {
-        HelpText = 'Adv. Anti-Teleport Generator',
+        HelpText = 'Adv. Anti-Teleport Field',
     },
 	
     LifeBarHeight = 0.075,
@@ -154,49 +147,35 @@ UnitBlueprint {
         MeshExtentsZ = 2.875,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 1.45,
-    SelectionSizeZ = 1.45,
-    SelectionThickness = 0.39,
+    SelectionSizeX = 2,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.4,
 	
     SizeX = 2,
-    SizeY = 1.375,
+    SizeY = 1.5,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure3_intel',
+    
     StrategicIconSortPriority = 240,
 	
     Weapon = {
         {
-            Damage = 2400,
+            Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 10,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
             Label = 'DeathWeapon',
             WeaponCategory = 'Death',
-        },
-    },
-	
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

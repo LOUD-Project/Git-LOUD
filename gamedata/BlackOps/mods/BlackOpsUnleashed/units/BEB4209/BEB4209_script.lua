@@ -36,8 +36,8 @@ BEB4209 = Class(TStructureUnit) {
                 self.Trash:Add(self.Rotator2)
             end
             
-        	self.Rotator2:SetTargetSpeed(500)
-        	self.Rotator2:SetAccel(100)
+        	self.Rotator2:SetTargetSpeed(300)
+        	self.Rotator2:SetAccel(30)
         end
     end,
 	
@@ -86,7 +86,7 @@ BEB4209 = Class(TStructureUnit) {
         	end
 			
         	self.Rotator2:SetTargetSpeed(0)
-        	self.Rotator2:SetAccel(100)
+        	self.Rotator2:SetAccel(50)
 		end
     end,
 

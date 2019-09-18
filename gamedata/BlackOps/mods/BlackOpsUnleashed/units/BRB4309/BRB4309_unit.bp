@@ -1,11 +1,6 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URB_Destroy_Huge',
@@ -13,12 +8,12 @@ UnitBlueprint {
         },
         UISelection = Sound {
             Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
+            Cue = 'Cybran_Select_Radar',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
 	
-    BuildIconSortPriority = 160,
+    BuildIconSortPriority = 190,
 	
     Categories = {
         'SELECTABLE',
@@ -28,8 +23,7 @@ UnitBlueprint {
         'STRUCTURE',
 		'ANTITELEPORT',
         'TECH3',
-        'DRAGBUILD',
-        'SIZE16',
+        'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
@@ -40,10 +34,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 100,
-        Health = 5500,
-        MaxHealth = 5500,
-        RegenRate = 3,
+        EconomyThreatLevel = 300,
+        Health = 1200,
+        MaxHealth = 1200,
+        RegenRate = 4,
     },
 	
     Description = '<LOC brb4309_desc>Advanced Anti-Teleport Tower',
@@ -69,23 +63,16 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 39600,
-        BuildCostMass = 2520,
+        BuildCostEnergy = 39375,
+        BuildCostMass = 2100,
         BuildTime = 3150,
 		
-        MaintenanceConsumptionPerSecondEnergy = 1400,
-		
-        RebuildBonusIds = {'brb4309'},
+        MaintenanceConsumptionPerSecondEnergy = 1050,
     },
-	
-    Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
-    },
-	
+
     General = {
 		CapCost = 2,
-        Category = 'Defense',
+        Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Attack = false,
@@ -105,7 +92,6 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-		
         TechLevel = 'RULEUTL_Advanced',
 		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
@@ -126,11 +112,11 @@ UnitBlueprint {
 	
     Intel = {
     	FreeIntel = true,
-        CloakFieldRadius = 100,
+        CloakFieldRadius = 70,
     },
 	
     Interface = {
-        HelpText = 'Advanced Anti-Teleport Tower',
+        HelpText = 'Adv. Anti-Teleport Tower',
     },
 	
     LifeBarHeight = 0.075,
@@ -152,29 +138,30 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 1.1,
-    SelectionSizeZ = 1.1,
-    SelectionThickness = 0.32,
+    SelectionSizeX = 2,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.4,
 	
-    SizeX = 1,
+    SizeX = 2,
     SizeY = 3.5,
-    SizeZ = 1,
+    SizeZ = 2,
 	
     StrategicIconName = 'icon_structure3_intel',
+    
     StrategicIconSortPriority = 225,
 	
     Weapon = {
         {
-            Damage = 2400,
+            Damage = 1200,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 10,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -182,19 +169,4 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-	
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = true,
-            Sub = false,
-            Water = false,
-        },
-    },	
 }
