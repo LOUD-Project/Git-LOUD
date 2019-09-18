@@ -22,7 +22,7 @@ UnitBlueprint {
         SeraLambdaField01 = {
             AttachBone = 'XSB0001',
             Radius = 4,
-            RedirectRateOfFire = 5,
+            RedirectRateOfFire = 3.5,
         },
         ArmorType = 'Structure',
         Health = 1,
