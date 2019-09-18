@@ -17,7 +17,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 1,
         MaxHealth = 1,
-    	NoTeleDistance = 100,
+    	NoTeleDistance = 70,
     },
 	
     Description = 'Advanced Anti-Teleport Emitter',

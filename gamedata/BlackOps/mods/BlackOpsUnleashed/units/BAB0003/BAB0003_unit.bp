@@ -18,7 +18,7 @@ UnitBlueprint {
         Health = 1,
         MaxHealth = 1,
         RegenRate = 0,
-    	NoTeleDistance = 100,
+    	NoTeleDistance = 70,
     },
 	
     Description = '<LOC bab0003_desc>Anti-Teleport Emitter',

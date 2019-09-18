@@ -23,7 +23,7 @@ UnitBlueprint {
         Health = 1,
         MaxHealth = 1,
         RegenRate = 0,
-    	NoTeleDistance = 55,
+    	NoTeleDistance = 45,
     },
 	
     Description = 'Anti-Teleport Emitter',
