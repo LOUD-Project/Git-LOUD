@@ -106,10 +106,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Commander',
-        EconomyThreatLevel = 5,
-        Health = 43200,
-        MaxHealth = 43200,
+        EconomyThreatLevel = 300,
+        
+        Health = 33200,
+        MaxHealth = 33200,
         RegenRate = 10,
+        
         SubThreatLevel = 0,
         SurfaceThreatLevel = 75,
 		
@@ -259,7 +261,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5000000,
+        BuildCostEnergy = 1000000,
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
@@ -289,7 +291,7 @@ UnitBlueprint {
         TeleportMassMod = 0.03985,
         TeleportTimeMod = 0.0001,
 		
-		TeleportBurstEnergyCost = 7000,
+		TeleportBurstEnergyCost = 10000,
     },
 	
     Enhancements = {

@@ -62,11 +62,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,		#3
-            Level2 = 20,		#6
-            Level3 = 30,		#9
-            Level4 = 40,		#12
-            Level5 = 50,		#15
+            Level1 = 12,		#3
+            Level2 = 24,		#6
+            Level3 = 36,		#9
+            Level4 = 48,		#12
+            Level5 = 60,		#15
         },
     },
 	
@@ -101,12 +101,16 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Commander',
-        EconomyThreatLevel = 5,
-        Health = 41500,
-        MaxHealth = 41500,
-        RegenRate = 10,
+        
+        EconomyThreatLevel = 300,
+        
+        Health = 31500,
+        MaxHealth = 31500,
+        RegenRate = 12,
+        
         SurfaceThreatLevel = 75,
-		NoTeleDistance = 55,	#40
+        
+		NoTeleDistance = 55,
 		MaxTeleRange = 500,
     },
 	
@@ -232,7 +236,7 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 5000000,
+        BuildCostEnergy = 1000000,
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
@@ -255,7 +259,7 @@ UnitBlueprint {
         TeleportMassMod = 0.04982,
         TeleportTimeMod = 0.0001,
 		
-		TeleportBurstEnergyCost = 7000,
+		TeleportBurstEnergyCost = 10000,
 		
 		xpBaseValue = 16000,
 		BuildxpLevelpSecond = 0,
