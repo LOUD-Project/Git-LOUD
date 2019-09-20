@@ -1,30 +1,28 @@
 
 local SShieldLandUnit = import('/lua/seraphimunits.lua').SShieldLandUnit
-local SeraLambdaFieldRedirector = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldRedirector
+
+--local SeraLambdaFieldRedirector = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldRedirector
 local SeraLambdaFieldDestroyer = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 
 BSB0005 = Class(SShieldLandUnit) {
 
-Parent = nil,
+    Parent = nil,
 
-SetParent = function(self, parent, droneName)
-    self.Parent = parent
-    self.Drone = droneName
-end,
+    SetParent = function(self, parent, droneName)
+        self.Parent = parent
+        self.Drone = droneName
+    end,
 
-	   OnCreate = function(self, builder, layer)
+    OnCreate = function(self, builder, layer)
+       
         SShieldLandUnit.OnCreate(self, builder, layer)
         
-    	local bp = self:GetBlueprint().Defense.SeraLambdaFieldRedirector01
+    	--local bp = self:GetBlueprint().Defense.SeraLambdaFieldRedirector01
+        
         local bp3 = self:GetBlueprint().Defense.SeraLambdaFieldDestroyer01
         
-        local SeraLambdaFieldRedirector01 = SeraLambdaFieldRedirector {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        --local SeraLambdaFieldRedirector01 = SeraLambdaFieldRedirector {Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 
         local SeraLambdaFieldDestroyer01 = SeraLambdaFieldDestroyer {
             Owner = self,
@@ -32,17 +30,21 @@ end,
             AttachBone = bp3.AttachBone,
             RedirectRateOfFire = bp3.RedirectRateOfFire
         }
-        self.Trash:Add(SeraLambdaFieldRedirector01)
+        
+        --self.Trash:Add(SeraLambdaFieldRedirector01)
 
         self.Trash:Add(SeraLambdaFieldDestroyer01)
         self.UnitComplete = true
     end,
+    
     --Make this unit invulnerable
     OnDamage = function()
     end,
+    
     OnKilled = function(self, instigator, type, overkillRatio)
         SShieldLandUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
+    
     DeathThread = function(self)
         self:Destroy()
     end,  

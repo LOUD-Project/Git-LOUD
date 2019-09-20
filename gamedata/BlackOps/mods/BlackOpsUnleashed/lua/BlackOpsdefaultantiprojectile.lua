@@ -7,8 +7,8 @@ local LOUDENTITY = EntityCategoryContains
 
 SeraLambdaFieldRedirector = Class(Entity) {
 
-    RedirectBeams = {},	--{'/mods/BlackOpsUnleashed/effects/emitters/invisible_cannon_beam_01_emit.bp','/mods/BlackOpsUnleashed/effects/emitters/invisible_cannon_beam_02_emit.bp'},
-    --EndPointEffects = {'/effects/emitters/particle_cannon_end_01_emit.bp',},
+    RedirectBeams = {},
+
 	LambdaEffects = BlackOpsEffectTemplate.EXLambdaRedirector,
     
     OnCreate = function(self, spec)
@@ -118,7 +118,8 @@ SeraLambdaFieldRedirector = Class(Entity) {
 
 SeraLambdaFieldDestroyer = Class(Entity) {
 
-    RedirectBeams = {},	#--{'/mods/BlackOpsUnleashed/effects/emitters/invisible_cannon_beam_01_emit.bp','/mods/BlackOpsUnleashed/effects/emitters/invisible_cannon_beam_02_emit.bp'},
+    RedirectBeams = {},
+    
 	LambdaEffects = BlackOpsEffectTemplate.EXLambdaDestoyer,
     
     OnCreate = function(self, spec)

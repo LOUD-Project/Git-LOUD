@@ -83,8 +83,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 525,
-        BuildCostMass = 95,
+        BuildCostEnergy = 500,
+        BuildCostMass = 85,
         BuildTime = 235,
     },
 	
@@ -135,10 +135,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.0,
-        MaxBrake = 3.0,
-        MaxSpeed = 3.0,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 3.1,
+        MaxBrake = 3.1,
+        MaxSpeed = 3.1,
+        MaxSpeedReverse = 3.1,
         MaxSteerForce = 10,
         MeshExtentsX = 0.7,
         MeshExtentsY = 0.5,
@@ -188,7 +188,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 13,
+            Damage = 14,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -230,7 +230,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,     -- 28 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
