@@ -2507,7 +2507,7 @@ function NavalForceAILOUD( self, aiBrain )
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
-    local searchRadius = data.SearchRadius or 150
+    local searchRadius = data.SearchRadius or 200		-- used to locate local targets to attack
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}

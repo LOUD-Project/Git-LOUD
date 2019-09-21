@@ -238,8 +238,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
 		-- than clumping up - this also avoids overlap of the army pools 
 	
-		-- cap the minimum baserange at 250
-		local minimum_baserange = 250
+		-- cap the minimum baserange at 200
+		local minimum_baserange = 200
 	
 		local Brains = ArmyBrains
     
@@ -318,7 +318,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
-		local minimum_baserange = 225
+		local minimum_baserange = 200
     
 		local Brains = ArmyBrains
 
@@ -401,7 +401,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Land	
-		local minimum_baserange = 225
+		local minimum_baserange = 200
 
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
@@ -478,7 +478,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 225
+		local minimum_baserange = 250
 	
 		-- so we now have a list of ALL the Naval DP positions on the map
 		-- loop thru the list and eliminate any that are already in use by enemy AI 
