@@ -346,11 +346,9 @@ function CollectCurrentScores()
 			energyValueDestroyed = GetArmyStat( brain,"Enemies_EnergyValue_Destroyed",0.0).Value
 			energyValueLost = GetArmyStat( brain, "Units_EnergyValue_Lost",0.0).Value
 
-			-- resources produced account for 20% of score -- but discounted by resource waste
+			-- resources account for 20% of score -- discounted by resource waste
 			resourceProduction = ( mass_total + (energy_total / energyValueCoefficient) ) * 0.20
-			
-			-- the value of resources wasted is half that of resources produced
-			resource_waste = ( mass_total_waste + (energy_total_waste / energyValueCoefficient) ) * 0.10
+			resource_waste = ( mass_total_waste + (energy_total_waste / energyValueCoefficient) ) * 0.20
 			
 			-- units built account for 35% of score
 			unitProduction = ( Unit_massSpent + (Unit_energySpent / energyValueCoefficient) ) * 0.35
@@ -359,7 +357,7 @@ function CollectCurrentScores()
 			battle_kills = ( massValueDestroyed + (energyValueDestroyed / energyValueCoefficient) )
 			battle_losses = ( massValueLost + (energyValueLost / energyValueCoefficient) )
 			
-			battleResults = ( battle_kills - (battle_losses / 2)) * 0.35
+			battleResults = ( battle_kills - battle_losses ) * 0.35
 
 			-- score calculated
 			score = resourceProduction - resource_waste + unitProduction + battleResults
