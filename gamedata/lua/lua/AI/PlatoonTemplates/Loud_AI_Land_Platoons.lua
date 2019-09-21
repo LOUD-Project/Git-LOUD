@@ -157,7 +157,7 @@ PlatoonTemplate { Name = 'AmphibAttackLarge',
 PlatoonTemplate { Name = 'AmphibAttackHuge',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 72, 110, 'Attack', 'none' },
+        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 60, 110, 'Attack', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 18, 'Guard', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 10, 'Guard', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
