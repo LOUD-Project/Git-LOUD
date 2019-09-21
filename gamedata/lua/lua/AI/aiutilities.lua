@@ -34,7 +34,8 @@ function AIAddMustScoutArea( aiBrain, location )
 end
 
 -- In this function we build a table of enemies and allies and insert their 'strength' value.
--- This is somewhat odd as it's based upon the structure values - not units
+-- Originally based only on structure values
+-- Now based upon ALL threat values
 function AIPickEnemyLogic( self, brainbool )
 
 	local function DrawPlanNodes()
@@ -42,7 +43,7 @@ function AIPickEnemyLogic( self, brainbool )
 		local DC = DrawCircle
 		local DLP = DrawLinePop
 		
-		LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
 		
 		while true do
 		
@@ -111,35 +112,49 @@ function AIPickEnemyLogic( self, brainbool )
 	local IsEnemy = IsEnemy
     local selfIndex = self.ArmyIndex
 	
+	local threattype = 'OverallNotAssigned'
+
     for k,v in ArmyBrains do
 	
         local armyindex = v.ArmyIndex
 		
-        if selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
+        if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
-            local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = v }
+			if IsEnemy(selfIndex, armyindex) then
 			
-			if not IsEnemy( selfIndex, armyindex ) then
-			
-                insertTable.Enemy = false
+				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+				--LOG("*AI DEBUG "..v.Nickname.." threats are "..repr(threats))
+		
+				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k }
 				
-            end
+				if threats[1] then
+
+                    -- use the position that reports the highest total threat
+					insertTable.Position = {threats[1][1],0,threats[1][2]}
+
+					-- and this gives the enemys total strength based upon what I can see 
+                    -- it has NOTHING TO DO WITH POSITION apparently
+					local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
+					insertTable.Strength = b
+				
+				end
+
+				-- make sure the value is positive
+				insertTable.Strength = math.max( insertTable.Strength, 0)
 			
-            insertTable.Position, insertTable.Strength = self:GetHighestThreatPosition( 2, true, 'Structures', armyindex )
+				if insertTable.Strength > 0 then
 			
-			insertTable.Strength = math.max( insertTable.Strength, 10) 		-- a minimum of 10 --
+					armyStrengthTable[armyindex] = insertTable
 			
-			--LOG("*AI DEBUG "..self.Nickname.." says Strength for "..v.Nickname.." is "..insertTable.Strength.." at "..repr(insertTable.Position))
-			
-			local pos,mys = v:GetHighestThreatPosition( 2, true, 'Structures', selfIndex )
-			
-			--LOG("*AI DEBUG My strength is "..mys)
-			
-            armyStrengthTable[armyindex] = insertTable
+				end
+				
+			end
 			
         end
 		
     end
+	
+	LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
 	
     --local allyEnemy = self:GetAllianceEnemy(armyStrengthTable, mys)
 	
@@ -207,7 +222,7 @@ function AIPickEnemyLogic( self, brainbool )
 				
                     enemyPosition = v.Position
 					enemyStrength = threatWeight
-                    enemy = v.Brain
+                    enemy = ArmyBrains[v.Brain]
 					
                 end
 				
