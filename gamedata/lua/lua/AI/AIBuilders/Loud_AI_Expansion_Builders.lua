@@ -101,7 +101,6 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
-			
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
@@ -174,6 +173,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
             Construction = {
 			
 				CountedBase = false,
+				
 				ExpansionBase = true,
 				ExpansionRadius = 100,
 				RallyPointRadius = 44,
@@ -220,7 +220,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
@@ -234,6 +234,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 			Construction = {
 			
 				CountedBase = false,
+				
 				ExpansionBase = true,
 				ExpansionRadius = 100,
 				RallyPointRadius = 23,
@@ -410,7 +411,6 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 	
 }
 
--- builds sonar outposts at the moment 
 BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 	BuildersType = 'EngineerBuilder',
 

@@ -1161,7 +1161,7 @@ BuilderGroup {BuilderGroupName = 'Mass Fab Builders - Expansions - LOUD_IS',
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
 			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.02 }},
