@@ -236,15 +236,15 @@ function CreateFlash( obj, bone, scale, army )
 end
 
 function CreateScorchMarkSplat( obj, scale, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale * 4, scale * 4, 110, GetRandomFloat(45,150), army )
+    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, 10) ], scale * 4, scale * 4, 110, GetRandomFloat(45,150), army )
 end
 
 function CreateScorchMarkDecal( obj, scale, army )
-    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, LOUDGETN(ScorchDecalTextures)) ], '', 'Albedo', scale * 3, scale * 3, 110, GetRandomFloat(45,150), army)
+    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, 10) ], '', 'Albedo', scale * 3, scale * 3, 110, GetRandomFloat(45,150), army)
 end
 
 function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, LOUDGETN(ScorchSplatTextures)) ], scale, scale, LOD, lifetime, army )
+    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, 10) ], scale, scale, LOD, lifetime, army )
 end
 
 ScorchSplatTextures = {

@@ -854,9 +854,14 @@ Platoon = Class(moho.platoon_methods) {
 			
 				stepsize = 250
 				
-				if distance <= stepsize or GetThreatBetweenPositions( aiBrain, start, destination, nil, threattype) < threatallowed then
+				if distance <= stepsize then
 					return {destination}, 'Direct', distance
 				end
+                
+                if GetThreatBetweenPositions( aiBrain, start, destination, nil, threattype) < (threatallowed * .75) then
+                    --LOG("*AI DEBUG Threat Between "..repr(start).." and "..repr(destination).." for "..repr(threattype).." is less than "..repr(threatallowed * .75))
+					return {destination}, 'Direct', distance
+                end
 
 			end
 			

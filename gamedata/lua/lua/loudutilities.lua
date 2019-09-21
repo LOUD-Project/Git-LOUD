@@ -3266,9 +3266,6 @@ end
 -- assessments at several points that are actually valid with respect to the taarget rather than the
 -- coarse results provided by the IMAP
 
--- NOTE also the inclusion of the NAVAL intelchecks which should be used to help guide AI naval
--- flotillas towards naval formations.
-
 -- I have added a new table (EnemyData) which records total threat values, by threatType
 -- The AI can make a judgement by comparing his strength to the enemys strength of a particular
 -- threat.  I record 80 values (about 80 samples - 8 seconds apart) so that its fairly accurate
@@ -3362,8 +3359,8 @@ function ParseIntelThread( aiBrain )
 
 	--[[
 	local IntelTypes = {
-        Overall,				-- reports everything - ALL threat values
-        OverallNotAssigned,		-- hmm....
+        Overall,				-- this one seems quite unreliable - not sure what it's doing
+        OverallNotAssigned,		-- this one seems to report everything except threats that we directly assign....
         StructuresNotMex,		-- any building except MEX - ALL threat values
         Structures,				-- ALL buildings - ALL threat values
 		
@@ -3476,7 +3473,15 @@ function ParseIntelThread( aiBrain )
 
         -- roll the iteration count back to one if it exceeds the maximum number of iterations
         if iterationcount > 8 then
-		
+ --[[       
+            LOG("*AI DEBUG All threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true) ))
+            LOG("*AI DEBUG All AIR threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Air') ))
+            LOG("*AI DEBUG All LND threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Land') ))
+            LOG("*AI DEBUG All ACU threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Commander') ))
+            LOG("*AI DEBUG All EXP threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Experimental') ))
+            LOG("*AI DEBUG All -AS threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiSurface') ))
+            LOG("*AI DEBUG All -AA threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiAir') ))
+--]]		
             iterationcount = 1
 
 			-- if human ally has requested status updates
@@ -4190,7 +4195,7 @@ function CreateAttackPlan( self, enemyPosition )
 		
 	end
 
-	local stagesize = 450
+	local stagesize = 400
 	
 	local minstagesize = (stagesize/2)*(stagesize/2)
 	local maxstagesize = (stagesize * stagesize)
@@ -4202,6 +4207,7 @@ function CreateAttackPlan( self, enemyPosition )
     local GoalReached = false
 
 	-- this should probably get set to the current PrimaryLandAttackBase
+	-- but we use the MAIN base for now 
     local StartPosition = self.BuilderManagers.MAIN.Position
 
     local markertypes = { 'Defensive Point','Naval Defensive Point', 'Blank Marker', 'Expansion Area', 'Large Expansion Area', 'Small Expansion Area' }
@@ -4465,8 +4471,8 @@ function CreateAttackPlan( self, enemyPosition )
 
         self.AttackPlan.StagePoints[counter] = Goal
 		
-		LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
+		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
+		LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
