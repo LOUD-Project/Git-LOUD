@@ -84,9 +84,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				},
 				
             }
-			
         }
-		
     },	
 
     Builder {BuilderName = 'T2 Base PD - Base Template',
@@ -102,7 +100,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 28, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 38 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
 			
         },
 		
@@ -121,9 +119,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
                 BuildStructures = {'T2GroundDefense'},
 				
             }
-			
         }
-		
     },
 
     Builder {BuilderName = 'T2 Base AA - Base Template',
@@ -137,7 +133,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 14, 38 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
 			
         },
 		
@@ -156,46 +152,9 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
                 BuildStructures = {'T2AADefense'},
 				
             }
-			
         }
-		
     },
 
-    Builder {BuilderName = 'T2 Artillery - Base Template',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 40 }},			
-			
-        },
-		
-        BuilderType = {'T2','T3'},
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				ThreatMax = 45,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T2Artillery'},
-				
-            }
-			
-        }
-		
-    },		
-	
     Builder {BuilderName = 'T2 Base TMD - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -208,7 +167,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 6, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 38 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
 			
         },
 		
@@ -227,9 +186,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
                 BuildStructures = {'T2MissileDefense' },
 				
             }
-			
         }
-		
     },
 
     Builder {BuilderName = 'T3 Base PD - Base Template',
@@ -267,9 +224,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
                 BuildStructures = {'T3GroundDefense'},
 				
             }
-			
         }
-		
     },
 
     Builder {BuilderName = 'T3 Base AA - Base Template',
@@ -307,11 +262,42 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				BuildStructures = {'T3AADefense' },
 				
             }
-			
         }
-		
     },
+
+    -- this artillery is built in the core - not the defense boxes
+    Builder {BuilderName = 'T2 Artillery - Base Template',
 	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+	    }
+    },		
+
 	-- setup so that we always build one
     Builder {BuilderName = 'AntiNuke',
 	
@@ -404,7 +390,7 @@ BuilderGroup {BuilderGroupName = 'Experimental Base Defenses',
 			{ LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 10, 40 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 10, 42 }},
 			
         },
 		
@@ -1059,15 +1045,15 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 0,
+        Priority = 750,
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			-- trigger this build if enemy has an Aeon scry device
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
 			
         },
@@ -1138,15 +1124,15 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Small Base',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 0,
+        Priority = 750,
 		
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			-- trigger this build if enemy has an Aeon scry device
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
 			
         },
@@ -1262,7 +1248,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Expansions',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			-- trigger this build if enemy has an Aeon scry device
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
+			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
 
