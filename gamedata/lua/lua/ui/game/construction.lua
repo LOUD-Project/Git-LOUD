@@ -2654,7 +2654,6 @@ function OnSelection( buildableCategories, selection, isOldSelection)
             if allMobile and not v:IsInCategory('MOBILE') then
 			
                 allMobile = false
-				
             end
 			
             if allSameUnit and bpID and bpID != v:GetBlueprint().BlueprintId then
@@ -2664,13 +2663,11 @@ function OnSelection( buildableCategories, selection, isOldSelection)
             else
 			
                 bpID = v:GetBlueprint().BlueprintId
-				
             end
 			
             if not allMobile and not allSameUnit then
                 break
             end
-			
         end
 
         -- turn on enhancement tab if it has enhancement and all same unit
@@ -2682,7 +2679,6 @@ function OnSelection( buildableCategories, selection, isOldSelection)
         else
 		
             controls.enhancementTab:Disable()
-			
         end
 
 		-- see if there are any building templates
@@ -2717,147 +2713,115 @@ function OnSelection( buildableCategories, selection, isOldSelection)
             currentCommandQueue = SetCurrentFactoryForQueueDisplay(selection[1])
 			
         else
-		
             currentCommandQueue = {}
             ClearCurrentFactoryForQueueDisplay()
-			
         end
 
 		-- Allow all races to build other races templates
 		-- by trying to replace unit prefixes - doesn't handle
 		-- much but the stock units
-		if options.gui_all_race_templates != 0 then
-		
-	        local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
+        local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
 
-	        if allMobile and templates and table.getsize(templates) > 0 then
-				
-				local currentFaction = selection[1]:GetBlueprint().General.FactionName
+        if allMobile and templates and table.getsize(templates) > 0 then
 
-				if currentFaction then
-					
-		            sortedOptions.templates = {}
+			local currentFaction = selection[1]:GetBlueprint().General.FactionName
 
-					local function ConvertID(BPID)
-						local prefixes = {
-							["AEON"] = {
-								"uab",
-								"xab",
-								"dab",
-							},
-							["UEF"] = {
-								"ueb",
-								"xeb",
-								"deb",
-							},
-							["CYBRAN"] = {
-								"urb",
-								"xrb",
-								"drb",
-							},
-							["SERAPHIM"] = {
-								"xsb",
-								"usb",
-								"dsb",
-							},
-						}
+			if currentFaction then
+
+	            sortedOptions.templates = {}
+
+				local function ConvertID(BPID)
+                
+					local prefixes = {
+                        ["AEON"] = {"uab","xab","dab"},
+                        ["UEF"] = {"ueb","xeb","deb"},
+						["CYBRAN"] = {"urb","xrb","drb"},
+						["SERAPHIM"] = {"xsb","usb","dsb"},
+					}
+
+					for i, prefix in prefixes[string.upper(currentFaction)] do
 						
-						for i, prefix in prefixes[string.upper(currentFaction)] do
-						
-							if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
+						if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
 							
-								return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
-								
-							end
+							return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
+
 						end
-						
-						return false
-						
 					end
 
-		            for templateIndex, template in templates do
-						
-		                local valid = true
-						local converted = false
-						
-		                for _, entry in template.templateData do
-							
-		                    if type(entry) == 'table' then
-								
+					return false
+
+				end
+
+	            for templateIndex, template in templates do
+
+	                local valid = true
+					local converted = false
+
+	                for _, entry in template.templateData do
+
+	                    if type(entry) == 'table' then
+
+	                        if not table.find(buildableUnits, entry[1]) then
+
+								entry[1] = ConvertID(entry[1])
+
+								converted = true
+
 		                        if not table.find(buildableUnits, entry[1]) then
-
-									entry[1] = ConvertID(entry[1])
-
-									converted = true
-
-			                        if not table.find(buildableUnits, entry[1]) then
-										valid = false
-			                            break
-									end
-		                        end
-		                    end
-		                end
-
-		                if valid then
-							
-							if converted then
-								
-								template.icon = ConvertID(template.icon)
-
-		                    end
-
-							template.templateID = templateIndex
-							
-		                    table.insert(sortedOptions.templates, template)
-
-						end
+									valid = false
+		                            break
+								end
+	                        end
+	                    end
 	                end
-	            end
-				
-			end
 
+	                if valid then
 
-			
+						if converted then
+							template.icon = ConvertID(template.icon)
+	                    end
 
-			--refresh the construction tab to show any new available templates
-			if not isOldSelection then
-				
-	            if not controls.constructionTab:IsDisabled() then
-				
-	                controls.constructionTab:SetCheck(true)
-					
-	            else
-				
-	                controls.selectionTab:SetCheck(true)
-					
-	            end
-				
-	        elseif controls.constructionTab:IsChecked() then
-			
-	            controls.constructionTab:SetCheck(true)
-				
-	        elseif controls.enhancementTab:IsChecked() then
-			
-	            controls.enhancementTab:SetCheck(true)
-				
-	        else
-			
-	            controls.selectionTab:SetCheck(true)
-				
-	        end
+						template.templateID = templateIndex
 
-			
-			prevSelection = selection
-			prevBuildCategories = buildableCategories
-			prevBuildables = buildableUnits
-			import(UIUtil.GetLayoutFilename('construction')).OnSelection(false)
-        
-			controls.constructionGroup:Show()
-			controls.choices:CalcVisible()
-			controls.secondaryChoices:CalcVisible()
+	                    table.insert(sortedOptions.templates, template)
 
+					end
+                end
+            end
 		end
-		
+
+		--refresh the construction tab to show any new available templates
+		if not isOldSelection then
+
+            if not controls.constructionTab:IsDisabled() then
+                controls.constructionTab:SetCheck(true)
+            else
+                controls.selectionTab:SetCheck(true)
+            end
+
+        elseif controls.constructionTab:IsChecked() then
+			
+            controls.constructionTab:SetCheck(true)
+
+        elseif controls.enhancementTab:IsChecked() then
+			
+            controls.enhancementTab:SetCheck(true)
+
+        else
+			
+            controls.selectionTab:SetCheck(true)
+
+        end
+
+		prevSelection = selection
+		prevBuildCategories = buildableCategories
+		prevBuildables = buildableUnits
+		import(UIUtil.GetLayoutFilename('construction')).OnSelection(false)
+        
+		controls.constructionGroup:Show()
+		controls.choices:CalcVisible()
+		controls.secondaryChoices:CalcVisible()
+
     else
 	
         if BuildMode.IsInBuildMode() then
