@@ -106,14 +106,13 @@ BaseBuilderTemplate {
 	
 	StandardCommanderUpgrades = {
 		'ACU Upgrades LOUD',
-		'ACU Builders - Standard',
 	},
 	
 	BOACUCommanderUpgrades = {
 		'BOACU Upgrades LOUD',
-		'ACU Builders - BOACU',
 	},
 	
+    -- IS = Integrated Storage --
 	LOUD_IS_Installed_Builders = {
 		'Mass Fab Builders - LOUD_IS',
 		'Economic Experimental Defense Builders - LOUD_IS',

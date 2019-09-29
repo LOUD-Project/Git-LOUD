@@ -5434,10 +5434,7 @@ Platoon = Class(moho.platoon_methods) {
 		-- this is what allows you to have faction specific building layouts with unique facility names
 		-- we'll take a copy of this table so that we can modify it for rotations without altering the source
         local baseTmpl = table.deepcopy( baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex] )
-		
-		-- This value is deprecated 
-        --eng.NeedGuard = self.PlatoonData.NeedGuard or false
-		
+
 		eng.EngineerBuildQueue = {} 	-- clear the engineers build queue		
 
         local reference = false
@@ -5451,7 +5448,7 @@ Platoon = Class(moho.platoon_methods) {
 		local buildpoint = cons.BasePerimeterSelection or false	-- true, false, or a specific number (0-12) depending upon Orientation (FRONT,REAR,ALL)
 		local iterations = cons.Iterations or false
 		
-        local buildFunction, closeToBuilder
+        local buildFunction = false
 
         local baseTmplList = {}
 		local counter = 0
@@ -5484,7 +5481,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local repeatbuilds = 0
-			local baseline = reference[1]
+			--local baseline = reference[1]
 
 			for k,v in reference do
 			
@@ -5693,7 +5690,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local repeatbuilds = 0
-			local baseline = reference[1]
+			--local baseline = reference[1]
 
 		    for k,v in reference do
 			
@@ -5793,25 +5790,14 @@ Platoon = Class(moho.platoon_methods) {
 		end
 		
 		--  Everything else (like MEX)
-		if (not cons.AdjacencyCategory) and (not cons.DefensivePoint) and (not cons.ExpansionBase) and (not cons.NearBasePerimeterPoints) then
-		
+		if not buildFunction then
+        
 			LOUDINSERT( baseTmplList, baseTmpl )
 			relative = true	
 			reference = true
 
 			buildFunction = AIExecuteBuildStructure
 		end
-
-		if cons.BuildClose then
-			closeToBuilder = true
-		else
-			closeToBuilder = false
-		end
-
-		--  Mass Extractors
-        if cons.BuildStructures[1] == 'T1Resource' or cons.BuildStructures[1] == 'T2Resource' or cons.BuildStructures[1] == 'T3Resource' then
-            relative = true
-        end                   
 
 		-- OK ALL Setup Complete -- lets create a queue of things for the engy to build
 		local did_a_build = false
@@ -5844,7 +5830,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." building "..repr(v).." with "..repr(builditem))
 
-					if buildFunction(aiBrain, eng, v, closeToBuilder, relative, builditem, baseListData, reference, cons.NearMarkerType) then
+					if buildFunction(aiBrain, eng, v, cons.BuildClose, relative, builditem, baseListData, reference, cons.NearMarkerType) then
 					
 						did_a_build = true
 						

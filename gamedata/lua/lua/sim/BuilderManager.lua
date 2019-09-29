@@ -244,6 +244,10 @@ BuilderManager = Class {
 
 		-- sort the builders list if needed
 		if self.BuilderData[unit.BuilderType].NeedSort then
+        
+            if ScenarioInfo.PriorityDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." sorting "..unit.BuilderType.." tasks")
+            end
 
 			LOUDSORT( self.BuilderData[unit.BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
 			
@@ -318,7 +322,7 @@ BuilderManager = Class {
 				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
 				
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." reports "..newPri.." versus "..task.Priority )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..task.Priority )
 					end
 
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )

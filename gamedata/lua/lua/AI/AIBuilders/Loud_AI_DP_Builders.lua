@@ -36,7 +36,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders Active DP',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},			
+			{ EBC, 'LessThanEconMassStorageRatio', { 20 }},			
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
 			
         },

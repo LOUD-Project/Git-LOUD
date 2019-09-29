@@ -1491,14 +1491,7 @@ SupportLayout = {
 			{ 41,-17 },
 			{ 41, 17 },
 		},
-        
-		{{ 'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-14 },
-			{ 29, 15 },
-			{ 29,-14 },
-			{-29, 15 },
-		},
-        
+
 		{{ 'T2EngineerSupport','T3EngineerSupport'	},
 			{ -5, -5 },
 			{  5,  5 },
@@ -1513,19 +1506,12 @@ SupportLayout = {
 			{ -5, 15 },
 			{  5, 15 },
 		},
-        
-		{{ 'T3StrategicMissileDefense' },
-			{ 22.0, 16.0 },
-			{-24.0,-16.0 },
-			{-24.0, 16.0 },
-			{ 24.0,-16.0 },
-		},
-        
+    
 		{{ 'T3StrategicMissile'	},
-			{ 19, 25 },
+			{ 19,-25 },            
 			{-19,-25 },
 			{-19, 25 },
-			{ 19,-25 },
+			{ 19, 25 },
 		},
         
         {{ 'T1Radar','T2Radar','T3Radar' },
@@ -1557,10 +1543,7 @@ SupportLayout = {
     },
 # Aeon Support Layout
     {
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{-10,-10 },
 			{ 10, 10 },
 			{ 41,-17 },
@@ -1568,17 +1551,13 @@ SupportLayout = {
 		},
         
 		{{ 'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-14 },
-			{ 29, 15 },
-			{ 29,-14 },
-			{-29, 15 },
+			{-29,-15 },
+			{ 30, 14 },
+			{ 29,-15 },
+			{-30, 14 },
 		},
 
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, -5 },
 			{  5,  5 },
 			{ -5,  5 },
@@ -1592,38 +1571,27 @@ SupportLayout = {
 			{ -5, 15 },
 			{  5, 15 },
 		},
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+        
+		{{'T3StrategicMissileDefense'},
 			{ 22.0, 16.0 },
 			{-24.0,-16.0 },
 			{-24.0, 16.0 },
 			{ 24.0,-16.0 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+        
+		{{'T3StrategicMissile'},
 			{ 19, 25 },
 			{-19,-25 },
 			{-19, 25 },
 			{ 19,-25 },
 		},
-        {
-            {
-            'T1Radar',
-			'T2Radar',
-			'T3Radar',
-            },
+        
+        {{'T1Radar','T2Radar','T3Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        
+        {{'T1GroundDefense','T1AADefense'},
             {  6, -8 },
             {  6,  4 },
             {  0, -8 },
@@ -1633,11 +1601,8 @@ SupportLayout = {
             {  6, -2 },
             { -6, -2 },
         },
-		{
-			{
-			'T2StrategicMissile',
-			'T2Artillery',
-			},
+        
+		{{'T2StrategicMissile','T2Artillery'},
 			{-11, -5 },
 			{ 11, -5 },			
 			{ -9, -5 },
@@ -1650,10 +1615,7 @@ SupportLayout = {
     },
 # Cybran Support Layout
     {
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{-10,-10 },
 			{ 10, 10 },
 			{ 41,-17 },
@@ -1661,17 +1623,13 @@ SupportLayout = {
 		},
         
 		{{ 'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-14 },
-			{ 29, 15 },
-			{ 29,-14 },
-			{-29, 15 },
+			{-29,-15 },
+			{ 30, 14 },
+			{ 29,-15 },
+			{-30, 14 },
 		},
 
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, -5 },
 			{  5,  5 },
 			{ -5,  5 },
@@ -1685,38 +1643,27 @@ SupportLayout = {
 			{ -5, 15 },
 			{  5, 15 },
 		},
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+        
+		{{'T3StrategicMissileDefense'},
 			{ 22.0, 16.0 },
 			{-24.0,-16.0 },
 			{-24.0, 16.0 },
 			{ 24.0,-16.0 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+        
+		{{'T3StrategicMissile'},
 			{ 19, 25 },
 			{-19,-25 },
 			{-19, 25 },
 			{ 19,-25 },
 		},
-        {
-            {
-            'T1Radar',
-			'T2Radar',
-			'T3Radar',
-            },
+        
+        {{'T1Radar','T2Radar','T3Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        
+        {{'T1GroundDefense','T1AADefense'},
             {  6, -8 },
             {  6,  4 },
             {  0, -8 },
@@ -1726,11 +1673,8 @@ SupportLayout = {
             {  6, -2 },
             { -6, -2 },
         },
-		{
-			{
-			'T2StrategicMissile',
-			'T2Artillery',
-			},
+        
+		{{'T2StrategicMissile','T2Artillery'},
 			{-11, -5 },
 			{ 11, -5 },			
 			{ -9, -5 },
@@ -1743,10 +1687,7 @@ SupportLayout = {
     },
 # Seraphim Support Layout
     {
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{-10,-10 },
 			{ 10, 10 },
 			{ 41,-17 },
@@ -1754,17 +1695,13 @@ SupportLayout = {
 		},
         
 		{{ 'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-14 },
-			{ 29, 15 },
-			{ 29,-14 },
-			{-29, 15 },
+			{-29,-15 },
+			{ 30, 14 },
+			{ 29,-15 },
+			{-30, 14 },
 		},
 
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, -5 },
 			{  5,  5 },
 			{ -5,  5 },
@@ -1778,38 +1715,27 @@ SupportLayout = {
 			{ -5, 15 },
 			{  5, 15 },
 		},
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+        
+		{{'T3StrategicMissileDefense'},
 			{ 22.0, 16.0 },
 			{-24.0,-16.0 },
 			{-24.0, 16.0 },
 			{ 24.0,-16.0 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+        
+		{{'T3StrategicMissile'},
 			{ 19, 25 },
 			{-19,-25 },
 			{-19, 25 },
 			{ 19,-25 },
 		},
-        {
-            {
-            'T1Radar',
-			'T2Radar',
-			'T3Radar',
-            },
+        
+        {{'T1Radar','T2Radar','T3Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        
+        {{'T1GroundDefense','T1AADefense'},
             {  6, -8 },
             {  6,  4 },
             {  0, -8 },
@@ -1819,11 +1745,8 @@ SupportLayout = {
             {  6, -2 },
             { -6, -2 },
         },
-		{
-			{
-			'T2StrategicMissile',
-			'T2Artillery',
-			},
+        
+		{{'T2StrategicMissile','T2Artillery'},
 			{-11, -5 },
 			{ 11, -5 },			
 			{ -9, -5 },
@@ -1841,12 +1764,12 @@ BaseDefenseLayout = {
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
 			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Forward - Left
-			{ 15, 32 },     -- Forward - Right
+			{-15, 32 },     -- Front - Left
+			{ 15, 32 },     -- Front - Right
 			{ 31, 15 },     -- Right - Forward
 			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Back - Right
-            {-15,-32 },     -- Back - Left
+			{ 15,-32 },     -- Rear - Right
+            {-15,-32 },     -- Rear - Left
 			{-31,-15 },     -- Left - Back
 			
 			{-34, 15 },
@@ -1885,7 +1808,14 @@ BaseDefenseLayout = {
 			{-18,-35 },
 			{-34,-24 },
 		},
-		
+        
+        {{'T2Artillery'},
+			{ 34,-24 },
+			{ 18,-35 },
+			{-18,-35 },
+			{-34,-24 },            
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -1921,14 +1851,28 @@ BaseDefenseLayout = {
 			{ 31,-18 },
 			{-31,-18 },
 		},
-        
-		{{'T3StrategicMissile'},
-			{-17, 25 },     -- Front - Left		
-			{ 17, 25 },     -- Front - Right
-			{-17,-25 },     -- Rear - Left
-			{ 17,-25 },     -- Rear - Right
+
+		{{'T3TeleportJammer'},
+            {-28, 20 },     -- Left - Front
+			{ 28, 20 },     -- Right - Front
+			{-28,-21 },     -- Left - Rear
+			{ 28,-21 },     -- Right - Rear
 		},
         
+		{{'T3StrategicMissile'},
+			{-17,-25 },     -- Rear - Left
+			{ 17,-25 },     -- Rear - Right        
+			{-17, 25 },     -- Front - Left		
+			{ 17, 25 },     -- Front - Right
+		},
+        
+		{{ 'T3StrategicMissileDefense' },
+			{ 24.0, 16.0 },
+			{-24.0, 16.0 },
+			{ 24.0,-16.0 },
+			{-24.0,-16.0 },
+		},
+
 		{{'T4AADefense'},
 			{-24, 20 },		
 			{ 24, 20 },
@@ -1991,7 +1935,14 @@ BaseDefenseLayout = {
 			{-18,-35 },
 			{-34,-24 },
 		},
-		
+        
+        {{'T2Artillery'},
+			{ 34,-24 },
+			{ 18,-35 },
+			{-18,-35 },
+			{-34,-24 },            
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2028,13 +1979,27 @@ BaseDefenseLayout = {
 			{-31,-18 },
 		},
 
-		{{'T3StrategicMissile'},
-			{-17, 25 },		
-			{ 17, 25 },
-			{-17,-25 },
-			{ 17,-25 },
+		{{'T3TeleportJammer'},
+            {-28, 20 },     -- Left - Front
+			{ 28, 20 },     -- Right - Front
+			{-28,-21 },     -- Left - Rear
+			{ 28,-21 },     -- Right - Rear
 		},
         
+		{{'T3StrategicMissile'},
+			{-17,-25 },     -- Rear - Left
+			{ 17,-25 },     -- Rear - Right        
+			{-17, 25 },     -- Front - Left		
+			{ 17, 25 },     -- Front - Right
+		},
+        
+		{{ 'T3StrategicMissileDefense' },
+			{ 24.0, 16.0 },
+			{-24.0, 16.0 },
+			{ 24.0,-16.0 },
+			{-24.0,-16.0 },
+		},
+
 		{{'T4AADefense'},
 			{-24, 20 },		
 			{ 24, 20 },
@@ -2097,7 +2062,14 @@ BaseDefenseLayout = {
 			{-18,-35 },
 			{-34,-24 },
 		},
-		
+        
+        {{'T2Artillery'},
+			{ 34,-24 },
+			{ 18,-35 },
+			{-18,-35 },
+			{-34,-24 },            
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2133,13 +2105,28 @@ BaseDefenseLayout = {
 			{ 31,-18 },
 			{-31,-18 },
 		},
-		{{'T3StrategicMissile'},
-			{-17, 25 },		
-			{ 17, 25 },
-			{-17,-25 },
-			{ 17,-25 },
+
+		{{'T3TeleportJammer'},
+            {-28, 20 },     -- Left - Front
+			{ 28, 20 },     -- Right - Front
+			{-28,-21 },     -- Left - Rear
+			{ 28,-21 },     -- Right - Rear
 		},
         
+		{{'T3StrategicMissile'},
+			{-17,-25 },     -- Rear - Left
+			{ 17,-25 },     -- Rear - Right        
+			{-17, 25 },     -- Front - Left		
+			{ 17, 25 },     -- Front - Right
+		},
+        
+		{{ 'T3StrategicMissileDefense' },
+			{ 24.0, 16.0 },
+			{-24.0, 16.0 },
+			{ 24.0,-16.0 },
+			{-24.0,-16.0 },
+		},
+
 		{{'T4AADefense'},
 			{-24, 20 },		
 			{ 24, 20 },
@@ -2202,7 +2189,14 @@ BaseDefenseLayout = {
 			{-18,-35 },
 			{-34,-24 },
 		},
-		
+        
+        {{'T2Artillery'},
+			{ 34,-24 },
+			{ 18,-35 },
+			{-18,-35 },
+			{-34,-24 },            
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2238,13 +2232,28 @@ BaseDefenseLayout = {
 			{ 31,-18 },
 			{-31,-18 },
 		},
-		{{'T3StrategicMissile'},
-			{-17, 25 },		
-			{ 17, 25 },
-			{-17,-25 },
-			{ 17,-25 },
+
+		{{'T3TeleportJammer'},
+            {-28, 20 },     -- Left - Front
+			{ 28, 20 },     -- Right - Front
+			{-28,-21 },     -- Left - Rear
+			{ 28,-21 },     -- Right - Rear
 		},
         
+		{{'T3StrategicMissile'},
+			{-17,-25 },     -- Rear - Left
+			{ 17,-25 },     -- Rear - Right        
+			{-17, 25 },     -- Front - Left		
+			{ 17, 25 },     -- Front - Right
+		},
+        
+		{{ 'T3StrategicMissileDefense' },
+			{ 24.0, 16.0 },
+			{-24.0, 16.0 },
+			{ 24.0,-16.0 },
+			{-24.0,-16.0 },
+		},
+
 		{{'T4AADefense'},
 			{-24, 20 },		
 			{ 24, 20 },
@@ -2257,7 +2266,7 @@ BaseDefenseLayout = {
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
-		},
+		},		
 	},
 }	
 
@@ -2311,81 +2320,81 @@ T3AirStagingComplex = {
 ResourceFacility = {
 # UEF Resource Facility
     {
-        {
-            {'T3ShieldDefense','T2ShieldDefense'},
-			{ 0, -10 }, # T3 Shields 2
+        {{'T3ShieldDefense','T2ShieldDefense'},
+			{ 0,-10 },
 			{ 0, 10 },
 			{ 10, 0 },
-			{ -10, 0 },
+			{-10, 0 },
         },
-        {
-            {'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense'},
-			{ -8, -8 }, # AA 4
+        
+        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense'},
+			{-8,-8 },       # AA 4
 			{ 8, 8 },
-			{ 8, -8 },
-			{ -8, 8 },
-			{ -10, -10}, # T2 TMD 2
+			{ 8,-8 },
+			{-8, 8 },
+			{-10,-10},      # T2 TMD 2
 			{ 10, 10 },
-			{ 10, -10 }, # T2 PD 2
-			{ -10, 10 },
+			{ 10,-10 },     # T2 PD 2
+			{-10, 10 },
         },
-		{
-			{'T3TeleportJammer','T2RadarJammer'},
-			{ -9, -9 },
+        
+		{{'T3TeleportJammer','T2RadarJammer'},
+			{-9,-9 },
 			{ 9, 9 },
-			{ 9, -9 },
-			{ -9, 9 },
+			{ 9,-9 },
+			{-9, 9 },
 		},
-        {
-            {'T4EconExperimental'},
-			{ 0, 0 },  # Resource Gen
+        
+        {{'T4EconExperimental'},
+			{ 0, 0 },       # Resource Gen
         },
-		{
-			{'T4GroundDefense'},
-			{ -11, -11 },
-			{  11,  11 },
-			{ -11,  11 },
-			{  11, -11 },
+        
+		{{'T4GroundDefense'},
+			{-11,-11 },
+			{ 11, 11 },
+			{-11, 11 },
+			{ 11,-11 },
 		},
-		{
-			{'EnergyStorage','T3Storage'},
-			{ 6, 0 },	-- around the paragon itself
+        
+		{{'EnergyStorage','T3Storage'},
+			{ 6, 0 },       -- around the paragon itself
 			{ 6, 2 },
-			{ 6, -2 },
-			{ -6, 0 },
-			{ -6, 2 },
-			{ -6, -2 },
+			{ 6,-2 },
+			{-6, 0 },
+			{-6, 2 },
+			{-6,-2 },
 			{ 0, 6 },
-			{ -2, 6 },
+			{-2, 6 },
 			{ 2, 6 },
-			{ 0, -6 },
-			{ -2, -6 },
-			{ 2, -6 },
-			{ 0, -14 },	-- shield augmentation
-			{ -2, -14 },
-			{ 2, -14 },
+			{ 0,-6 },
+			{-2,-6 },
+			{ 2,-6 },
+			{ 0,-14 },      -- shield augmentation
+			{-2,-14 },
+			{ 2,-14 },
 			{ 0, 14 },
-			{ -2, 14 },
+			{-2, 14 },
 			{ 2, 14 },
 			{ 14, 0 },
-			{ 14, -2 },
+			{ 14,-2 },
 			{ 14, 2 },
-			{ -14, 0 },
-			{ -14, -2 },
-			{ -14, 2 },
+			{-14, 0 },
+			{-14,-2 },
+			{-14, 2 },
 		},
-		{
-			{'MassStorage'},
-			{ 6, -4 },
+        
+		{{'MassStorage'},
+			{ 6,-4 },
 			{ 6, 4 },
-			{ -6, -4 },
-			{ -6, 4 },
-			{ -4, -6 },
-			{ 4, -6 },
+			{-6,-4 },
+			{-6, 4 },
+			{-4,-6 },
+			{ 4,-6 },
 			{ 4, 6 },
-			{ -4, 6 },
+			{-4, 6 },
 		},
     },
+    
 # Aeon Resource Facility
     {
         {

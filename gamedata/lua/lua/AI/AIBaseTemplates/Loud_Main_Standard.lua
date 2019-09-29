@@ -108,12 +108,10 @@ BaseBuilderTemplate {
 	
 	StandardCommanderUpgrades = {
 		'ACU Upgrades LOUD',
-		'ACU Builders - Standard',
 	},
 	
 	BOACUCommanderUpgrades = {
 		'BOACU Upgrades LOUD',
-		'ACU Builders - BOACU',
 	},
 	
 	LOUD_IS_Installed_Builders = {

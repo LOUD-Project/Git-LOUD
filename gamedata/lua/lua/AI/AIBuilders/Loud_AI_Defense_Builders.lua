@@ -133,7 +133,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
             { LUTL, 'UnitCapCheckLess', { .65 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
 			
         },
 		
@@ -164,7 +164,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
@@ -188,6 +188,72 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
             }
         }
     },
+
+    -- this artillery is built in the core - not the defense boxes
+    Builder {BuilderName = 'T2 Artillery - Base Template - Core',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+	    }
+    },
+    
+    -- this artillery is built in the defense boxes - not the core
+    Builder {BuilderName = 'T2 Artillery - Base Template - Boxes',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE, 15, 42 }},			
+			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 45,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+	    }
+    },		
 
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
@@ -264,9 +330,8 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
             }
         }
     },
-
-    -- this artillery is built in the core - not the defense boxes
-    Builder {BuilderName = 'T2 Artillery - Base Template',
+	
+    Builder {BuilderName = 'T3 Teleport Jamming',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -276,28 +341,33 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
 			
         },
 		
-        BuilderType = {'T2','T3'},
+        BuilderType = {'T3','SubCommander'},
 		
         BuilderData = {
 		
-            Construction = {
+			Construction = {
 			
 				NearBasePerimeterPoints = true,
-				ThreatMax = 45,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T2Artillery'},
-            }
-	    }
-    },		
+				ThreatMax = 35,				
 
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+                
+                BuildStructures = {'T3TeleportJammer'},
+				
+            }
+			
+        }
+		
+    },	
+	
 	-- setup so that we always build one
     Builder {BuilderName = 'AntiNuke',
 	
@@ -320,12 +390,12 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 			DesiresAssist = true,
 			
             Construction = {
-			
+				BasePerimeterOrientation = 'FRONT',			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 50,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
+				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T3StrategicMissileDefense'},
 				
@@ -335,7 +405,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 		
     },
 	
-	-- will build more if enemy has more than 1
+	-- and build more if enemy has more than 1
     Builder {BuilderName = 'AntiNuke - Response',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -363,7 +433,7 @@ BuilderGroup {BuilderGroupName = 'Base Defenses',
 				ThreatMax = 30,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
+				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T3StrategicMissileDefense'},
 				
@@ -1039,46 +1109,11 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders',
         }
 		
     },	
-	
-    Builder {BuilderName = 'T3 Teleport Jamming',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			-- trigger this build if enemy has an Aeon scry device
-			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
-			
-        },
-		
-        BuilderType = {'T3','SubCommander'},
-		
-        BuilderData = {
-		
-			Construction = {
-			
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-                BuildStructures = {'T3TeleportJammer'},
-				
-            }
-			
-        }
-		
-    },	
-	
+
 }
 
 BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Small Base',
     BuildersType = 'EngineerBuilder',
-
 	
     Builder {BuilderName = 'Air Staging - Small Base',
 	
@@ -1112,43 +1147,6 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Small Base',
 				BaseTemplate = 'T3AirStagingComplex',
 				
                 BuildStructures = {'T2AirStagingPlatform'},
-				
-            }
-			
-        }
-		
-    },	
-	
-    Builder {BuilderName = 'T3 Teleport Jamming - Small Base',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			-- trigger this build if enemy has an Aeon scry device
-			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
-			
-        },
-		
-        BuilderType = {'T3','SubCommander'},
-		
-        BuilderData = {
-		
-			Construction = {
-				
-				MaxThreat = 45,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T3TeleportJammer'},
 				
             }
 			
@@ -1268,7 +1266,7 @@ BuilderGroup {BuilderGroupName = 'Misc Engineer Builders - Expansions',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
 				
-                BuildStructures = {'T3TeleportJammer' },
+                BuildStructures = {'T3TeleportJammer'},
 				
             }
 			

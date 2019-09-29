@@ -112,7 +112,7 @@ end
 -- a building template can have many bType sections in it -- loop thru all to find a match
 -- each section can be host for multiple buildings -- loop to find match for the type
 -- loop thru all the the possible locations until you find one you can build at
-function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
+function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( eng, buildingType, buildingTemplate)
 
@@ -120,7 +120,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType , closeToBuilder
 
         if IsResource(buildingType) then
 		
-            return AIExecuteBuildStructure( aiBrain, eng, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference)
+            return AIExecuteBuildStructure( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference)
 			
         else
 		

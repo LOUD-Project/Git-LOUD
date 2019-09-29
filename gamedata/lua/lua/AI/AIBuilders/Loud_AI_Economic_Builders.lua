@@ -53,7 +53,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 
         BuilderConditions = {
 		
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', }},
 			
         },
@@ -237,7 +237,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
 			
         },
@@ -483,14 +483,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Aux',
 			{ LUTL, 'UnitCapCheckGreater', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 550, 'Land', 100 }},			
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE }},
+            
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY}},
 			
         },
 		
         BuilderData = {
 		
-			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE},
+			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY},
 			
         },
 		
@@ -1019,7 +1019,7 @@ BuilderGroup {BuilderGroupName = 'Mass Fab Builders',
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.02 }},
 			
         },
@@ -1063,7 +1063,7 @@ BuilderGroup {BuilderGroupName = 'Mass Fab Builders - LOUD_IS',
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.02 }},
 			
         },
@@ -1108,7 +1108,7 @@ BuilderGroup {BuilderGroupName = 'Mass Fab Builders - Expansions',
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.02 }},
 			
         },
@@ -1163,7 +1163,7 @@ BuilderGroup {BuilderGroupName = 'Mass Fab Builders - Expansions - LOUD_IS',
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.02 }},
 			
         },

@@ -42,7 +42,7 @@ Weapon = Class(moho.weapon_methods) {
 		end
 
 		-- if a weapon fires a round with these parameters 
-		-- flag it so we can avoide GetBlueprint when it is NOT
+		-- flag it so we can avoid GetBlueprint when it is NOT
         if bp.NukeOuterRingDamage and bp.NukeOuterRingRadius and bp.NukeOuterRingTicks and bp.NukeOuterRingTotalTime and
             bp.NukeInnerRingDamage and bp.NukeInnerRingRadius and bp.NukeInnerRingTicks and bp.NukeInnerRingTotalTime then
 			

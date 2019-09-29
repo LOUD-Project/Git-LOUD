@@ -19,6 +19,19 @@ local First30Minutes = function( self,aiBrain )
 	return self.Priority, true
 end
 
+-- this function turns on the builder when he has T3 ability
+local CDRbuildsT3 = function( self, aiBrain, unit )		
+
+    if self.Priority == 10 then
+        if unit:HasEnhancement('T3Engineering') or unit:HasEnhancement('EXAdvancedEngineering') or unit:HasEnhancement('EXExperimentalEngineering') then
+            return 780, false
+        end
+    end
+
+	return self.Priority, false
+end
+
+
 -- Some notes here about the syntax of the Construction section of the builder task
 
 -- There are several options that control 'where' structures are built but most 
@@ -161,7 +174,7 @@ BuilderGroup {BuilderGroupName = 'Loud Initial ACU Builders',
 	
 }
 
-	--  COMMANDER TASKS AFTER START
+--  COMMANDER TASKS AFTER START
 BuilderGroup {BuilderGroupName = 'ACU Builders',
     BuildersType = 'EngineerBuilder',
 	
@@ -481,27 +494,23 @@ BuilderGroup {BuilderGroupName = 'ACU Builders',
 		
     },	
 	
-}
-
---	TECH3 Commander Tasks vary if BO:ACU is installed
-
--- Commander Tech3 tasks - NO BO:ACU
-BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
-    BuildersType = 'EngineerBuilder',    
-	
-    Builder {BuilderName = 'CDR T3 Power - Template - Standard',
+    Builder {BuilderName = 'CDR - T3 Power',
         PlatoonTemplate = 'CommanderBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 780,
+
+        Priority = 10,
+        
+        PriorityFunction = CDRbuildsT3,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrend', { 2000 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 29, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},
+			{ EBC, 'LessThanEnergyTrend', { 2400 }},
 			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
+            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
+
         },
 	
         BuilderType = { 'Commander' },
@@ -523,31 +532,26 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
         }
     },
 	
-    Builder {BuilderName = 'CDR Mass Fab - Standard',
+    Builder {BuilderName = 'CDR - Mass Fab',
         PlatoonTemplate = 'CommanderBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 780,
-		
-		PriorityFunction = function(self, aiBrain)
-		
-			if ScenarioInfo.LOUD_IS_Installed then
-				return 0, false
-			end
-			
-			return self.Priority
-		end,
-		
+
+        Priority = 10,
+        
+        PriorityFunction = CDRbuildsT3,
+
         BuilderType = { 'Commander' },
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},			
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},			
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},			
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},			
+			
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
+            
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1 }},
@@ -569,192 +573,5 @@ BuilderGroup {BuilderGroupName = 'ACU Builders - Standard',
             }
         }
     },
-	
-    Builder {BuilderName = 'CDR Mass Fab - Standard - LOUD_IS',
-        PlatoonTemplate = 'CommanderBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 780,
-		
-		PriorityFunction = function(self, aiBrain)
-		
-			if ScenarioInfo.LOUD_IS_Installed then
-				return self.Priority
-			end
-			
-			return 0, false
-		end,
-		
-        BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},			
-			{ UCBC, 'ACUHasUpgrade', { 'T3Engineering' }},
-			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
-			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1 }},
-        },
 
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'MassFabLayout',
-				
-                BuildStructures = {
-                    'T3MassCreation',
-                },
-            }
-        }
-    },
-}
-
--- Commander Tech3 tasks - BO:ACU active
-BuilderGroup {BuilderGroupName = 'ACU Builders - BOACU',
-    BuildersType = 'EngineerBuilder',    
-	
-    Builder {BuilderName = 'CDR T3 Power - Template - BOACU',
-        PlatoonTemplate = 'CommanderBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-		
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') or unit:HasEnhancement('EXExperimentalEngineering')then
-					return 780, false
-				end
-			end
-			
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'LessThanEnergyTrend', { 2000 }},
-			{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 29, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-        },
-        BuilderData = {
-			DesiresAssist = true,
-            NumAssistees = 2,
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'PowerLayout',
-				
-                BuildStructures = {
-                    'T3EnergyProduction',
-                },
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'CDR Mass Fab - BOACU',
-        PlatoonTemplate = 'CommanderBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-		
-			if ScenarioInfo.LOUD_IS_Installed then
-				return 0, false
-			end		
-		
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') or unit:HasEnhancement('EXExperimentalEngineering')then
-					return 780, false
-				end
-			end
-			
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
-			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
-			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1 }},
-        },
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'MassFabLayout',
-                BuildStructures = {
-                    'T3MassCreation',
-                },
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'CDR Mass Fab - BOACU - LOUD_IS',
-        PlatoonTemplate = 'CommanderBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		PlatoonAIPlan = 'EngineerBuildAI',
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-		
-			if self.Priority == 10 and not ScenarioInfo.LOUD_IS_Installed then
-				if unit:HasEnhancement('EXAdvancedEngineering') or unit:HasEnhancement('EXExperimentalEngineering')then
-					return 780, false
-				end
-			end
-
-			if not ScenarioInfo.LOUD_IS_Installed then
-				return 0, false
-			end
-
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			
-			{ EBC, 'LessThanEconMassStorageRatio', { 90 }},
-			
-			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
-			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1 }},
-        },
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'MassFabLayout',
-                BuildStructures = {
-                    'T3MassCreation',
-                },
-            }
-        }
-    },
 }

@@ -264,7 +264,7 @@ PlatoonTemplate { Name = 'T2LandAmphibTank',
     }
 }
 
-PlatoonTemplate { Name = 'T2LandAmphibBot',
+PlatoonTemplate { Name = 'T2LandAmphibBot',     -- yes - this is the same as above - but is provided so we can enable amphib bots seperate from tanks if needed
     FactionSquads = {
         UEF = {
             { 'uel0203', 1, 3, 'Attack', 'none' }
@@ -281,7 +281,7 @@ PlatoonTemplate { Name = 'T2LandAmphibBot',
     }
 }
 
-PlatoonTemplate { Name = 'T2LandAmphibArtillery',
+PlatoonTemplate { Name = 'T2LandAmphibArtillery',   -- as above this is here to provide options for amphib artillery units if needed
     FactionSquads = {
         UEF = {
             { 'uel0111', 1, 1, 'Attack', 'none' },

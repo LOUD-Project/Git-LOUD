@@ -4472,7 +4472,7 @@ function CreateAttackPlan( self, enemyPosition )
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-		LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
+		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )

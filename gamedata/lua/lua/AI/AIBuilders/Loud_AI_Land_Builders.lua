@@ -147,12 +147,12 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND * categories.TECH2 }},
-			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},            
         },
 		
         BuilderType = {'LandT2'},
@@ -169,12 +169,12 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         BuilderType = {'LandT2'},
@@ -195,7 +195,8 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
-			
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
         },
 		
         BuilderType = {'LandT2'},
@@ -217,7 +218,8 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			
 			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
-			
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
         },
 		
         BuilderType = {'LandT3'},
@@ -237,7 +239,8 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			
 			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
-			
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
         },
 		
         BuilderType = {'LandT3'},
@@ -257,7 +260,8 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			
 			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
-			
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -277,7 +281,8 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 			
 			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
-			
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
         },
 		
         BuilderType = {'LandT3'},
