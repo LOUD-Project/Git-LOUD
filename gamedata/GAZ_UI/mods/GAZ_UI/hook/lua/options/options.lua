@@ -53,19 +53,6 @@ do
     })
     table.insert(options.ui.items,
     {
-        title = "GUI: All Race Templates",
-        key = 'gui_all_race_templates',
-        type = 'toggle',
-        default = 1,
-        custom = {
-            states = {
-                {text = "<LOC _Off>", key = 0 },
-                {text = "<LOC _On>", key = 1 },
-            },
-        },
-    })
-    table.insert(options.ui.items,
-    {
         title = "GUI: Single Unit Selected Info",
         key = 'gui_enhanced_unitview',
         type = 'toggle',
@@ -128,7 +115,7 @@ do
             },
         },
     })
-    
+
     --added by ghaleon
     table.insert(options.ui.items,
     {
@@ -240,9 +227,9 @@ do
         },
     })
     --added by ghaleon end
-    
+
     --Added by THYGRRR to enable smarter economy rate calculations
-    table.insert(options.ui.items, 
+    table.insert(options.ui.items,
 				{
 					title = "GUI: Smart Economy Indicators",
 					key = 'gui_smart_economy_indicators',
