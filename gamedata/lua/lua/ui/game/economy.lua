@@ -11,17 +11,19 @@ local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 local GameMain = import('/lua/ui/game/gamemain.lua')
 
 local Prefs = import('/lua/user/prefs.lua')
-local Tooltip = import('/lua/ui/game/tooltip.lua')
 
+local options = Prefs.GetFromCurrentProfile('options')
+local TextLine02 = false
+local TextLine03 = false
+
+local Tooltip = import('/lua/ui/game/tooltip.lua')
 
 local UIState = true
 
 group = false
 savedParent = false
 
-GUI = {
-    bg = false,
-}
+GUI = { bg = false }
 
 States = {
     energyDetail = Prefs.GetFromCurrentProfile("energyDetailedView"),
@@ -175,6 +177,37 @@ function CreateUI()
     
     GUI.mass = CreateResourceGroup('mass')
     GUI.energy = CreateResourceGroup('energy')
+    
+    if options.gui_display_reclaim_totals == 1 then
+    
+        ecostats = Bitmap(GetFrame(0))
+        ecostats:SetTexture('/textures/ui/common/game/economic-overlay/econ_bmp_m.dds')
+        ecostats.Depth:Set(99)
+
+        LayoutHelpers.AtLeftTopIn(ecostats, GetFrame(0), 340, 8)
+
+        ecostats.Height:Set(36)
+        ecostats.Width:Set(80)
+        ecostats:DisableHitTest(true)
+
+        local TextLine01 = UIUtil.CreateText(ecostats, 'reclaimed', 10, UIUtil.bodyFont)
+        
+        LayoutHelpers.CenteredAbove(TextLine01, ecostats, -12)
+
+        TextLine02 = UIUtil.CreateText(ecostats, '', 10, UIUtil.bodyFont)
+        TextLine02:SetColor('FFB8F400')
+
+        LayoutHelpers.AtRightTopIn(TextLine02, ecostats, 4, 10)
+
+        TextLine03 = UIUtil.CreateText(ecostats, '', 10, UIUtil.bodyFont)
+        TextLine03:SetColor('FFF8C000')
+
+        TextLine01:DisableHitTest(true)
+        TextLine02:DisableHitTest(true)
+        TextLine03:DisableHitTest(true)
+
+        LayoutHelpers.AtRightTopIn(TextLine03, ecostats, 4, 20)
+    end
 end
 
 function CommonLogic()
@@ -306,11 +339,15 @@ function _BeatFunction()
 	local LOUDCEIL = math.ceil
 	local LOUDFORMAT = string.format
     
+    -- fetch & format reclaim values
+    local reclaimedTotalsMass = LOUDCEIL(econData.reclaimed.MASS)
+    local reclaimedTotalsEnergy = LOUDCEIL(econData.reclaimed.ENERGY)
+    
     local function DisplayEconData(controls, tableID, viewPref)
 	
         local function FormatRateString(RateVal, StoredVal, IncomeAvg, ActualAvg, RequestedAvg)
 		
-            local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -999999), 999999) )
+            local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -99999999), 99999999) )
             local retEffVal = 0
 			
             if RequestedAvg == 0 then
@@ -332,9 +369,9 @@ function _BeatFunction()
         local lastRequestedVal = econData["lastUseRequested"][tableID]
         local lastActualVal = econData["lastUseActual"][tableID]
     
-        local requestedAvg = LOUDMIN( lastRequestedVal * simFrequency, 999999 )
-        local actualAvg = LOUDMIN( lastActualVal * simFrequency, 999999 )
-        local incomeAvg = LOUDMIN( incomeVal * simFrequency, 999999 )
+        local requestedAvg = LOUDMIN( lastRequestedVal * simFrequency, 99999999 )
+        local actualAvg = LOUDMIN( lastActualVal * simFrequency, 99999999 )
+        local incomeAvg = LOUDMIN( incomeVal * simFrequency, 99999999 )
         
         controls.storageBar:SetRange(0, maxStorageVal)
         controls.storageBar:SetValue(storedVal)
@@ -401,6 +438,13 @@ function _BeatFunction()
     
     DisplayEconData(GUI.mass, 'MASS', 'massViewState')
     DisplayEconData(GUI.energy, 'ENERGY', 'energyViewState')
+    
+    if options.gui_display_reclaim_totals == 1 then
+        -- display reclaim values
+        TextLine02:SetText(reclaimedTotalsMass)
+        TextLine03:SetText(reclaimedTotalsEnergy)
+    end
+
 end
 
 function ToggleEconPanel(state)

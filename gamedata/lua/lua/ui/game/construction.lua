@@ -28,8 +28,42 @@ local LOUDSORT = table.sort
 local Prefs = import('/lua/user/prefs.lua')
 local options = Prefs.GetFromCurrentProfile('options')
 local Effect = import('/lua/maui/effecthelpers.lua')
+
+-- GAZ UI template name size	
+local cutA = 1
+local cutB = 8
+	
 -- norem
-local TemplatesFactory = import('/mods/GAZ_UI/modules/templates_factory.lua')
+local TemplatesFactory = import('/lua/gaz_ui/modules/templates_factory.lua')
+local allFactories = false
+
+--draggable build queue
+local dragging = false
+local index = nil			--index of the item in the queue currently being dragged
+local originalIndex = false	--original index of selected item (so that UpdateBuildQueue knows where to modify it from)
+local oldQueue = {}
+local modifiedQueue = {}
+local updateQueue = true	--if false then queue won't update in the ui
+local modified = false		--if false then buttonrelease will increase buildcount in queue
+local dragLock = false		--to disable quick successive drags, which doubles the units in the queue
+
+--add gameparent handleevent for if the drag ends outside the queue window
+local gameParent = import('gamemain.lua').GetGameParent()
+local oldGameParentHandleEvent = gameParent.HandleEvent
+
+local prevBuildables = false
+local prevSelection = false
+local prevBuildCategories = false
+
+    
+gameParent.HandleEvent = function(self, event)
+   
+	if event.Type == 'ButtonRelease' then
+		import('/lua/ui/game/construction.lua').ButtonReleaseCallback()
+	end
+       
+	oldGameParentHandleEvent(self, event)
+end 
 
 --LOG("*AI DEBUG Construction.lua loaded")
 
@@ -290,6 +324,30 @@ function CreateTabs(type)
 
     local defaultTabOrder = {}
     local desiredTabs = 0
+    
+    if type == 'construction' and allFactories then
+        
+        -- nil value would cause refresh issues if templates tab is currently selected
+        sortedOptions.templates = {}
+
+        -- prevent tab autoselection when in templates tab,
+        -- normally triggered when number of active tabs has changed (fac upgrade added/removed from queue)
+        local templatesTab = GetTabByID('templates')
+
+        if templatesTab and templatesTab:IsChecked() then
+
+            local numActive = 0
+
+            for _, tab in controls.tabs do
+                
+                if sortedOptions[tab.ID] and table.getn(sortedOptions[tab.ID]) > 0 then
+                    numActive = numActive + 1
+                end
+            end
+
+            previousTabSize = numActive
+        end
+    end
 
     if type == 'construction' then
 
@@ -923,6 +981,15 @@ function CommonLogic()
 
         btn.OnRolloverEvent = OnRolloverHandler
         btn.OnClick = OnClickHandler
+        
+		-- creating the display area - GAZ UI - template names
+        btn.Tmplnm = UIUtil.CreateText(btn.Icon, '', 11, UIUtil.bodyFont)
+        btn.Tmplnm:SetColor('ffffff00')
+        btn.Tmplnm:DisableHitTest()
+        btn.Tmplnm:SetDropShadow(true)
+        btn.Tmplnm:SetCenteredHorizontally(true)
+        LayoutHelpers.CenteredBelow(btn.Tmplnm, btn, 0)
+        btn.Tmplnm.Depth:Set(function() return btn.Icon.Depth() + 10 end)
 
         return btn
 
@@ -1158,6 +1225,12 @@ function CommonLogic()
 #            control.ConsBar:SetAlpha(0, true)
 
             control.LowFuel:SetNeedsFrameUpdate(false)
+            
+			-- the GAZ UI template name
+            if 'templates' then
+                control.Tmplnm.Width:Set(48)
+                control.Tmplnm:SetText(string.sub(control.Data.template.name, cutA, cutB))
+            end            
 
         elseif type == 'item' then
 
@@ -1294,11 +1367,206 @@ function CommonLogic()
 
 end
 
+-- These next four functions all come from GAZ UI
+--
+	function MoveItemInQueue(queue, indexfrom, indexto)
+    
+		modified = true
+        
+		local moveditem = queue[indexfrom]
+        
+		if indexfrom < indexto then
+			--take indexfrom out and shunt all indices from indexfrom to indexto up one
+			for i = indexfrom, (indexto - 1) do
+				queue[i] = queue[i+1]
+			end
+            
+		elseif indexfrom > indexto then
+        
+			--take indexfrom out and shunt all indices from indexto to indexfrom down one
+			for i = indexfrom, (indexto + 1), -1 do
+				queue[i] = queue[i-1]
+			end
+		end
+        
+		queue[indexto] = moveditem
+		modifiedQueue = queue
+		currentCommandQueue = queue
+        
+		--update buttons in the UI
+		SetSecondaryDisplay('buildQueue')
+	end
+
+	function UpdateBuildList(newqueue, from)
+	    --The way this does this is UGLY but I can only find functions to remove things from the build queue and to add them at the end
+		--Thus the only way I can see to modify the build queue is to delete it back to the point it is modified from (the from argument) and then 
+	    --add the modified version back in. Unfortunately this causes a momentary 'skip' in the displayed build cue as it is deleted and replaced
+        
+		for i = table.getn(oldQueue), from, -1  do
+			DecreaseBuildCountInQueue(i, oldQueue[i].count)	
+		end
+        
+		for i = from, table.getn(newqueue)  do
+        
+	        blueprint = __blueprints[newqueue[i].id]
+            
+	        if blueprint.General.UpgradesFrom == 'none' then
+			    IssueBlueprintCommand("UNITCOMMAND_BuildFactory", newqueue[i].id, newqueue[i].count)
+			else
+			    IssueBlueprintCommand("UNITCOMMAND_Upgrade", newqueue[i].id, 1, false)
+	        end
+            
+		end
+        
+		ForkThread(dragPause)
+	end
+
+	function dragPause()
+		WaitSeconds(0.4)
+		dragLock = false
+	end
+
+	function ButtonReleaseCallback()
+    
+	    if dragging == true then
+        
+		    PlaySound(Sound({Cue = "UI_MFD_Click", Bank = "Interface"}))
+			--don't update the queue next time round, to avoid a list of 0 builds
+			updateQueue = false
+			--disable dragging until the queue is rebuilt
+			dragLock = true
+			--reset modified so buildcount increasing can be used again
+			modified = false
+	        --mouse button released so end drag
+	        dragging = false
+            
+			if originalIndex <= index then
+		        first_modified_index = originalIndex
+			else 
+				first_modified_index = index
+			end
+            
+			--on the release of the mouse button we want to update the ACTUAL build queue that the factory does. So far, only the UI has been changed,
+			UpdateBuildList(modifiedQueue, first_modified_index)
+            
+			--nothing is now selected
+			index = nil    
+	    end  
+	end
+
 function OnRolloverHandler(button, state)
 
     local item = button.Data
+    
+    -- from GAZ UI 
+    -- handle draggable queue for Factories
+    if item.type == 'queuestack' and prevSelection and EntityCategoryContains(categories.FACTORY, prevSelection[1]) then
+        
+	    if state == 'enter' then
 
-    if state == 'enter' then
+            button.oldHandleEvent = button.HandleEvent
+
+			--if we have entered the button and are dragging something then we want to replace it with what we are dragging
+			if dragging == true then
+                
+				--move item from old location (index) to new location (this button's index)
+				MoveItemInQueue(currentCommandQueue, index, item.position) 
+
+				--since the currently selected button has now moved, update the index
+				index = item.position
+
+				button.dragMarker = Bitmap(button, '/lua/gaz_ui/textures/queuedragger.dds')
+				LayoutHelpers.FillParent(button.dragMarker, button)
+				button.dragMarker:DisableHitTest()
+				Effect.Pulse(button.dragMarker, 1.5, 0.6, 0.8)
+	
+			end
+
+			button.HandleEvent = function(self, event)
+                
+				if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                    
+					local count = 1
+
+	                if event.Modifiers.Ctrl == true or event.Modifiers.Shift == true then
+	                    count = 5
+	                end
+
+	                if event.Modifiers.Left then
+                        
+						if not dragLock then
+							--left button pressed so start dragging procedure
+							dragging = true
+							index = item.position
+							originalIndex = index
+
+							self.dragMarker = Bitmap(self, '/lua/gaz_ui/textures/queuedragger.dds')
+							LayoutHelpers.FillParent(self.dragMarker, self)
+							self.dragMarker:DisableHitTest()
+							Effect.Pulse(self.dragMarker, 1.5, 0.6, 0.8)
+
+							--copy un modified queue so that current build order is recorded (for deleting it)
+							oldQueue = table.copy(currentCommandQueue)
+						end
+
+	                else
+						PlaySound(Sound({Cue = "UI_MFD_Click", Bank = "Interface"}))
+	                    DecreaseBuildCountInQueue(item.position, count)
+	                end
+
+				elseif event.Type == 'ButtonRelease' then
+                    
+					if dragging then
+                        
+						--if queue has changed then update queue, else increase build count (like default)
+						if modified then
+							ButtonReleaseCallback()
+						else
+							PlaySound(Sound({Cue = "UI_MFD_Click", Bank = "Interface"}))
+							dragging = false
+
+							local count = 1
+
+			                if event.Modifiers.Ctrl == true or event.Modifiers.Shift == true then
+			                    count = 5
+			                end
+
+							IncreaseBuildCountInQueue(item.position, count)
+						end
+
+						if self.dragMarker then
+							self.dragMarker:Destroy()
+							self.dragMarker = false
+						end
+					end
+
+				else
+					button.oldHandleEvent(self, event)
+				end
+			end
+
+			button.Glow:SetNeedsFrameUpdate(true)
+
+	    else
+            
+			if button.oldHandleEvent then
+				button.HandleEvent = button.oldHandleEvent
+			else
+				WARN('OLD HANDLE EVENT MISSING HOW DID THIS HAPPEN?!')
+			end
+                
+			if button.dragMarker then
+				button.dragMarker:Destroy()
+				button.dragMarker = false
+			end
+                
+			button.Glow:SetNeedsFrameUpdate(false)
+	        button.Glow:SetAlpha(0)
+	        UnitViewDetail.Hide()
+	    end
+        
+    -- otherwise normal behavior
+	elseif state == 'enter' then
 
         button.Glow:SetNeedsFrameUpdate(true)
 
@@ -1432,29 +1700,64 @@ function OnClickHandler(button, modifiers)
 
         elseif modifiers.Right then
 
-            local selection = {}
+            if modifiers.Shift or modifiers.Ctrl or (modifiers.Shift and modifiers.Ctrl) then -- we have one of our modifiers
+                local selectionx = {}
+                local countx = 0
+                
+                if modifiers.Shift then countx = 1 end 
+                
+                if modifiers.Ctrl then countx = 5 end
+                
+                if modifiers.Shift and modifiers.Ctrl then countx = 10 end
+                
+                for _, unit in sortedOptions.selection do
+                
+                    local foundx = false
+                    
+                    for _, checkUnit in item.units do
+                    
+                        if checkUnit == unit and countx > 0 then
+                            foundx = true
+                            countx = countx - 1
+                            break
+                        end
+                    end
+                    
+                    if not foundx then
+                        table.insert(selectionx, unit)
+                    end
+                    
+                end
+                
+                SelectUnits(selectionx)
+                
+            else -- default right-click behavior
+            
+                local selection = {}
 
-            for _, unit in sortedOptions.selection do
+                for _, unit in sortedOptions.selection do
 
-                local found = false
+                    local found = false
 
-                for _, checkUnit in item.units do
+                    for _, checkUnit in item.units do
 
-                    if checkUnit == unit then
-                        found = true
-                        break
+                        if checkUnit == unit then
+                            found = true
+                            break
+                        end
+
+                    end
+
+                    if not found then
+                        LOUDINSERT(selection, unit)
                     end
 
                 end
 
-                if not found then
-                    LOUDINSERT(selection, unit)
-                end
-
+                SelectUnits(selection)
             end
-
-            SelectUnits(selection)
-
+            
+            return
         end
 
     elseif item.type == 'attachedunit' then
@@ -1487,7 +1790,11 @@ function OnClickHandler(button, modifiers)
                 button.OptionMenu:Destroy()
                 button.OptionMenu = nil
             else
-                button.OptionMenu = CreateTemplateOptionsMenu(button)
+                if allFactories then
+                    button.OptionMenu = CreateFacTemplateOptionsMenu(button)
+                else
+                    button.OptionMenu = CreateTemplateOptionsMenu(button)
+                end
             end
 
             for _, otherBtn in controls.choices.Items do
@@ -1498,10 +1805,58 @@ function OnClickHandler(button, modifiers)
             end
 
         else
+        
+            if allFactories then
+            
+                -- add template to build queue
+                for _, data in ipairs(item.template.templateData) do
+                    
+                    local blueprint = __blueprints[data.id]
 
-            import('/lua/ui/game/commandmode.lua').StartCommandMode('build', {name=item.template.templateData[3][1]})
-            SetActiveBuildTemplate(item.template.templateData)
+                    if blueprint.General.UpgradesFrom == 'none' then
+                        IssueBlueprintCommand("UNITCOMMAND_BuildFactory", data.id, data.count)
+                    else
+                        IssueBlueprintCommand("UNITCOMMAND_Upgrade", data.id, 1, false)
+                    end
+                end
+                
+            else
+                import('/lua/ui/game/commandmode.lua').StartCommandMode('build', {name=item.template.templateData[3][1]})
+                SetActiveBuildTemplate(item.template.templateData)
+            end
         end
+        
+        -- this is the code for template rotation - taken from GAZ UI --        
+		local activeTemplate = item.template.templateData
+		local worldview = import('/lua/ui/game/worldview.lua').viewLeft
+		local oldHandleEvent = worldview.HandleEvent
+
+		worldview.HandleEvent = function(self, event)
+            
+			if event.Type == 'ButtonPress' then
+
+				if event.Modifiers.Middle then
+
+					ClearBuildTemplates()
+
+					local tempTemplate = table.deepcopy(activeTemplate)
+
+					for i = 3, table.getn(activeTemplate) do
+						local index = i
+						activeTemplate[index][3] = 0 - tempTemplate[index][4]
+						activeTemplate[index][4] = tempTemplate[index][3]
+					end
+
+					SetActiveBuildTemplate(activeTemplate)
+
+				elseif
+					event.Modifiers.Shift then
+
+				else
+					worldview.HandleEvent = oldHandleEvent
+				end
+			end
+		end        
 
     elseif item.type == 'enhancement' then
 
@@ -1569,43 +1924,248 @@ end
 
 local warningtext = false
 
+-- keybinding behaves differently in only factories are selected
+-- versus when they are not
 function ProcessKeybinding(key, templateID)
 
-    if key == UIUtil.VK_ESCAPE then
-
-        Templates.ClearTemplateKey(capturingKeys or templateID)
-        RefreshUI()
-
-    elseif key == string.byte('b') or key == string.byte('B') then
-
-        warningtext:SetText(LOC("<LOC CONSTRUCT_0005>Key must not be b!"))
+    if allFactories then
+        
+        if key == UIUtil.VK_ESCAPE then
+            TemplatesFactory.ClearTemplateKey(capturingKeys or templateID)
+            RefreshUI()
+            
+        elseif key == string.byte('b') or key == string.byte('B') then
+            warningtext:SetText(LOC("<LOC CONSTRUCT_0005>Key must not be b!"))
+        else
+            if (key >= string.byte('A') and key <= string.byte('Z')) or (key >= string.byte('a') and key <= string.byte('z')) then
+                if (key >= string.byte('a') and key <= string.byte('z')) then
+                    key = string.byte(string.upper(string.char(key)))
+                end
+                
+                if TemplatesFactory.SetTemplateKey(capturingKeys or templateID, key) then
+                    RefreshUI()
+                else
+                    warningtext:SetText(LOCF("<LOC CONSTRUCT_0006>%s is already used!", string.char(key)))
+                end
+                
+            else
+                warningtext:SetText(LOC("<LOC CONSTRUCT_0007>Key must be a-z!"))
+            end
+        end
+        
+        return true
 
     else
+    
+        if key == UIUtil.VK_ESCAPE then
+        
+            Templates.ClearTemplateKey(capturingKeys or templateID)
+            RefreshUI()
 
-        if (key >= string.byte('A') and key <= string.byte('Z')) or (key >= string.byte('a') and key <= string.byte('z')) then
+        elseif key == string.byte('b') or key == string.byte('B') then
 
-            if (key >= string.byte('a') and key <= string.byte('z')) then
-                key = string.byte(string.upper(string.char(key)))
-            end
-
-            if Templates.SetTemplateKey(capturingKeys or templateID, key) then
-                RefreshUI()
-            else
-                warningtext:SetText(LOCF("<LOC CONSTRUCT_0006>%s is already used!", string.char(key)))
-            end
+            warningtext:SetText(LOC("<LOC CONSTRUCT_0005>Key must not be b!"))
 
         else
 
-            warningtext:SetText(LOC("<LOC CONSTRUCT_0007>Key must be a-z!"))
+            if (key >= string.byte('A') and key <= string.byte('Z')) or (key >= string.byte('a') and key <= string.byte('z')) then
 
+                if (key >= string.byte('a') and key <= string.byte('z')) then
+                    key = string.byte(string.upper(string.char(key)))
+                end
+
+                if Templates.SetTemplateKey(capturingKeys or templateID, key) then
+                    RefreshUI()
+                else
+                    warningtext:SetText(LOCF("<LOC CONSTRUCT_0006>%s is already used!", string.char(key)))
+                end
+
+            else
+                warningtext:SetText(LOC("<LOC CONSTRUCT_0007>Key must be a-z!"))
+            end
         end
-
     end
 
     return true
 
 end
 
+-- options menu for Factory templates
+function CreateFacTemplateOptionsMenu(button)
+    
+    local group = Group(button)
+
+    group.Depth:Set(button:GetRootFrame():GetTopmostDepth() + 1)
+
+    local title = Edit(group)
+
+    local items = {
+        {label = '<LOC _Rename>Rename', action = function() title:AcquireFocus() end,},
+        {label = '<LOC _Change_Icon>Change Icon',
+            action = function()
+                local contents = {}
+                local controls = {}
+                
+                for _, entry in button.Data.template.templateData do
+                    if type(entry) != 'table' then continue end
+                    if not contents[entry.id] then
+                        contents[entry.id] = true
+                    end
+                end
+            
+                for iconType, _ in contents do
+                    local bmp = Bitmap(group, '/textures/ui/common/icons/units/'..iconType..'_icon.dds')
+                    bmp.Height:Set(30)
+                    bmp.Width:Set(30)
+                    bmp.ID = iconType
+                    table.insert(controls, bmp)
+                end
+            
+                group.SubMenu = CreateSubMenu(group, controls, function(id) TemplatesFactory.SetTemplateIcon(button.Data.template.templateID, id) RefreshUI() end)
+            end,
+        
+        arrow = true},
+
+        {label = '<LOC _Change_Keybinding>Change Keybinding',
+            action = function()
+                local text = UIUtil.CreateText(group, "<LOC CONSTRUCT_0008>Press a key to bind", 12, UIUtil.bodyFont)
+                if not BuildMode.IsInBuildMode() then
+                    text:AcquireKeyboardFocus(false)
+                    text.HandleEvent = function(self, event)
+                        if event.Type == 'KeyDown' then
+                            ProcessKeybinding(event.KeyCode, button.Data.template.templateID)
+                        end
+                        return true
+                    end
+                    local oldTextOnDestroy = text.OnDestroy
+                    text.OnDestroy = function(self)
+                        text:AbandonKeyboardFocus()
+                        oldTextOnDestroy(self)
+                    end
+                else
+                    capturingKeys = button.Data.template.templateID
+                end
+                warningtext = text
+                group.SubMenu = CreateSubMenu(group, {text}, function(id)
+                    TemplatesFactory.SetTemplateKey(button.Data.template.templateID, id)
+                    RefreshUI()
+                end, false)
+            end,
+        },
+
+        {label = '<LOC _Delete>Delete',
+            action = function()
+                TemplatesFactory.RemoveTemplate(button.Data.template.templateID)
+                RefreshUI()
+            end,
+        },
+    }
+    
+    local function CreateItem(data)
+    
+        local bg = Bitmap(group)
+        
+        bg:SetSolidColor('00000000')
+        bg.label = UIUtil.CreateText(bg, LOC(data.label), 12, UIUtil.bodyFont)
+        bg.label:DisableHitTest()
+        
+        LayoutHelpers.AtLeftTopIn(bg.label, bg, 2)
+        
+        bg.Height:Set(function() return bg.label.Height() + 2 end)
+        
+        bg.HandleEvent = function(self, event)
+            if event.Type == 'MouseEnter' then
+                self:SetSolidColor('ff777777')
+                
+            elseif event.Type == 'MouseExit' then
+                self:SetSolidColor('00000000')
+                
+            elseif event.Type == 'ButtonPress' then
+            
+                if group.SubMenu then
+                    group.SubMenu:Destroy()
+                    group.SubMenu = false
+                end
+                
+                data.action()
+            end
+            
+            return true
+        end
+        
+        if data.disabledFunc and data.disabledFunc() then
+            bg:Disable()
+            bg.label:SetColor('ff777777')
+        end
+        
+        return bg
+        
+    end
+
+    local totHeight = 0
+    local maxWidth = 0
+    
+    title.Height:Set(function() return title:GetFontHeight() end)
+    title.Width:Set(function() return title:GetStringAdvance(LOC(button.Data.template.name)) end)
+    
+    UIUtil.SetupEditStd(title, "ffffffff", nil, "ffaaffaa", UIUtil.highlightColor, UIUtil.bodyFont, 14, 200)
+    
+    title:SetDropShadow(true)
+    title:ShowBackground(true)
+    title:SetText(LOC(button.Data.template.name))
+    
+    LayoutHelpers.AtLeftTopIn(title, group)
+    totHeight = totHeight + title.Height()
+    maxWidth = math.max(maxWidth, title.Width())
+    
+    local itemControls = {}
+    local prevControl = false
+    
+    for index, actionData in items do
+        local i = index
+        itemControls[i] = CreateItem(actionData)
+        if prevControl then
+            LayoutHelpers.Below(itemControls[i], prevControl)
+        else
+            LayoutHelpers.Below(itemControls[i], title)
+        end
+        totHeight = totHeight + itemControls[i].Height()
+        maxWidth = math.max(maxWidth, itemControls[i].label.Width()+4)
+        prevControl = itemControls[i]
+    end
+    
+    for _, control in itemControls do
+        control.Width:Set(maxWidth)
+    end
+    
+    title.Width:Set(maxWidth)
+    
+    group.Height:Set(totHeight)
+    group.Width:Set(maxWidth)
+    
+    LayoutHelpers.Above(group, button, 10)
+    
+    title.HandleEvent = function(self, event)
+        Edit.HandleEvent(self, event)
+        return true
+    end
+    
+    title.OnEnterPressed = function(self, text)
+        TemplatesFactory.RenameTemplate(button.Data.template.templateID, text)
+        RefreshUI()
+    end
+    
+    local bg = CreateMenuBorder(group)
+    
+    group.HandleEvent = function(self, event)
+        return true
+    end
+    
+    return group
+
+end
+
+-- options menu for Engineer templates
 function CreateTemplateOptionsMenu(button)
 
     local group = Group(button)
@@ -1615,10 +2175,12 @@ function CreateTemplateOptionsMenu(button)
     local title = Edit(group)
 
     local items = {
-        {label = '<LOC _Rename>Rename', action = function() title:AcquireFocus() end,},
+        {label = '<LOC _Rename>Rename',
+        action = function() title:AcquireFocus()
+        end,
+        },
 
         {label = '<LOC _Change_Icon>Change Icon',
-
         action = function()
             local contents = {}
             local controls = {}
@@ -1640,7 +2202,8 @@ function CreateTemplateOptionsMenu(button)
                 RefreshUI()
             end)
         end,
-        arrow = true},
+        arrow = true
+        },
 
         {label = '<LOC _Change_Keybinding>Change Keybinding',
         action = function()
@@ -1666,40 +2229,15 @@ function CreateTemplateOptionsMenu(button)
                 Templates.SetTemplateKey(button.Data.template.templateID, id)
                 RefreshUI()
             end, false)
-        end,},
-
-        {label = '<LOC _Send_to>Send to',
-        action = function()
-            local armies = GetArmiesTable().armiesTable
-            local entries = {}
-            for i, armyData in armies do
-                if i != GetFocusArmy() and armyData.human then
-                    local entry = UIUtil.CreateText(group, armyData.nickname, 12, UIUtil.bodyFont)
-                    entry.ID = i
-                    LOUDINSERT(entries, entry)
-                end
-            end
-            if table.getsize(entries) > 0 then
-                group.SubMenu = CreateSubMenu(group, entries, function(id)
-                    Templates.SendTemplate(button.Data.template.templateID, id)
-                    RefreshUI()
-                end)
-            end
         end,
-        disabledFunc = function()
-            if table.getsize(GetSessionClients()) > 1 then
-                return false
-            else
-                return true
-            end
-        end,
-        arrow = true},
+        },
 
         {label = '<LOC _Delete>Delete',
         action = function()
             Templates.RemoveTemplate(button.Data.template.templateID)
             RefreshUI()
-        end,},
+        end,
+        },
 
     }
 
@@ -1970,7 +2508,8 @@ function CreateExtraControls(controlType)
 
     if controlType == 'construction' or controlType == 'templates' then
 
-        local allFactories = true
+        allFactories = true
+        
         local currentInfiniteQueueCheckStatus = false
 
         for i,v in sortedOptions.selection do
@@ -2248,7 +2787,7 @@ function FormatData(unitData, type)
 
                 LOUDINSERT(lowFuelUnits[id], unit)
 
-			elseif options.gui_seperate_idle_builders != 0 and unit:IsInCategory('CONSTRUCTION') and unit:IsIdle() then
+			elseif unit:IsInCategory('CONSTRUCTION') and unit:IsIdle() then
 
 				if not idleConsUnits[id] then
 					idleConsUnits[id] = {}
@@ -2311,7 +2850,7 @@ function FormatData(unitData, type)
 
         CreateExtraControls('selection')
         SetSecondaryDisplay('attached')
-
+        
     elseif type == 'templates' then
 
         LOUDSORT(unitData, function(a,b)
@@ -2474,6 +3013,31 @@ function FormatData(unitData, type)
     end
 
     import(UIUtil.GetLayoutFilename('construction')).OnTabChangeLayout(type)
+    
+    -- replace infinte button when factory is in templates tab
+    if type == 'templates' and allFactories then
+
+        -- replace Infinite queue by Create template
+        Tooltip.AddCheckboxTooltip(controls.extraBtn1, 'save_template')
+
+        if table.getsize(currentCommandQueue) > 0 then
+            controls.extraBtn1:Enable()
+            controls.extraBtn1.OnClick = function(self, modifiers)
+                TemplatesFactory.CreateBuildTemplate(currentCommandQueue)
+            end
+        else
+            controls.extraBtn1:Disable()
+        end
+
+        controls.extraBtn1.icon.OnTexture = UIUtil.UIFile('/game/construct-sm_btn/template_on.dds')
+        controls.extraBtn1.icon.OffTexture = UIUtil.UIFile('/game/construct-sm_btn/template_off.dds')
+
+        if controls.extraBtn1:IsDisabled() then
+            controls.extraBtn1.icon:SetTexture(controls.extraBtn1.icon.OffTexture)
+        else
+            controls.extraBtn1.icon:SetTexture(controls.extraBtn1.icon.OnTexture)
+        end
+    end
 
     return retData
 
@@ -2481,44 +3045,47 @@ end
 
 function SetSecondaryDisplay(type)
 
-    local data = {}
+    if updateQueue then
 
-    if type == 'buildQueue' then
+        local data = {}
 
-        if currentCommandQueue and LOUDGETN(currentCommandQueue) > 0 then
-            for index, unit in currentCommandQueue do
-                LOUDINSERT(data, {type = 'queuestack', id = unit.id, count = unit.count, position = index})
+        if type == 'buildQueue' then
+
+            if currentCommandQueue and LOUDGETN(currentCommandQueue) > 0 then
+                for index, unit in currentCommandQueue do
+                    LOUDINSERT(data, {type = 'queuestack', id = unit.id, count = unit.count, position = index})
+                end
             end
-        end
 
-        if LOUDGETN(sortedOptions.selection) == 1 and LOUDGETN(data) > 0 then
-            controls.secondaryProgress:SetNeedsFrameUpdate(true)
-        else
-            controls.secondaryProgress:SetNeedsFrameUpdate(false)
+            if LOUDGETN(sortedOptions.selection) == 1 and LOUDGETN(data) > 0 then
+                controls.secondaryProgress:SetNeedsFrameUpdate(true)
+            else
+                controls.secondaryProgress:SetNeedsFrameUpdate(false)
+                controls.secondaryProgress:SetAlpha(0, true)
+            end
+
+        elseif type == 'attached' then
+
+            local attachedUnits = EntityCategoryFilterDown(categories.MOBILE, GetAttachedUnitsList(sortedOptions.selection))
+
+            if attachedUnits and LOUDGETN(attachedUnits) > 0 then
+                for _, v in attachedUnits do
+                    LOUDINSERT(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
+                end
+            end
+
             controls.secondaryProgress:SetAlpha(0, true)
+
         end
 
-    elseif type == 'attached' then
-
-        local attachedUnits = EntityCategoryFilterDown(categories.MOBILE, GetAttachedUnitsList(sortedOptions.selection))
-
-        if attachedUnits and LOUDGETN(attachedUnits) > 0 then
-            for _, v in attachedUnits do
-                LOUDINSERT(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
-            end
-        end
-
-        controls.secondaryProgress:SetAlpha(0, true)
-
+        controls.secondaryChoices:Refresh(data)
+        
+    else
+        updateQueue = true
     end
-
-    controls.secondaryChoices:Refresh(data)
 
 end
 
-local prevBuildables = false
-local prevSelection = false
-local prevBuildCategories = false
 
 function OnQueueChanged(newQueue)
 
@@ -2565,7 +3132,20 @@ function RefreshUI()
 
 end
 
-function OnSelection( buildableCategories, selection, isOldSelection)
+function OnSelection(buildableCategories, selection, isOldSelection)
+
+    if table.empty(selection) then
+        allFactories = false
+    else    
+        allFactories = true
+        
+        for i,v in selection do
+            if not v:IsInCategory('FACTORY') then
+                allFactories = false
+                break
+            end
+        end
+    end    
 
     if table.getsize(selection) > 0 then
 
@@ -2834,6 +3414,65 @@ function OnSelection( buildableCategories, selection, isOldSelection)
 
 	end
 
+    if allFactories then
+
+        sortedOptions.templates = {}
+
+        local templates = TemplatesFactory.GetTemplates()
+
+        if templates and not table.empty(templates) then
+
+            local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
+
+            for templateIndex, template in ipairs(templates) do
+
+                local valid = true
+
+                for index, entry in ipairs(template.templateData) do
+
+                    if not table.find(buildableUnits, entry.id) then
+                        
+                        valid = false
+
+                        -- allow templates containing factory upgrades & higher tech units
+                        if index > 1 then
+                            
+                            for i = index - 1, 1, -1 do
+                                
+                                local blueprint = __blueprints[template.templateData[i].id]
+
+                                if blueprint.General.UpgradesFrom ~= 'none' then
+                                    -- previous entry is a (valid) upgrade
+                                    valid = true
+                                    break
+                                end
+                            end
+                        end
+
+                        break
+                    end
+                end
+
+                if valid then
+                    template.templateID = templateIndex
+                    table.insert(sortedOptions.templates, template)
+                end
+            end
+        end
+
+        -- templates tab enable & refresh
+        local templatesTab = GetTabByID('templates')
+
+        if templatesTab then
+               
+            templatesTab:Enable()
+
+            if templatesTab:IsChecked() then
+                templatesTab:SetCheck(true)
+            end
+        end
+    end    
+
 end
 
 function ShowBuildModeKeys(show)
@@ -2889,7 +3528,6 @@ function SetupConstructionControl(parent, inMFDControl, inOrdersControl)
 
     return controls.constructionGroup
 end
-
 
 function NewTech(Data)
     for _, unitlist in Data do

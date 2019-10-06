@@ -9,7 +9,9 @@ local WldUIProvider = import('/lua/ui/game/wlduiprovider.lua').WldUIProvider
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Movie = import('/lua/maui/movie.lua').Movie
+
 local Prefs = import('/lua/user/prefs.lua')
+local options = Prefs.GetFromCurrentProfile('options')
 
 local gameParent = false
 local controlClusterGroup = false
@@ -229,6 +231,10 @@ function CreateUI(isReplay)
     
     import('/lua/ui/game/chat.lua').SetupChatLayout(windowGroup)
     import('/lua/ui/game/minimap.lua').CreateMinimap(windowGroup)
+    
+    -- this feature from GAZ UI - SCU Manager
+    import('/lua/gaz_ui/modules/scumanager.lua').Init()
+   	import('/lua/gaz_ui/modules/keymapping.lua').Init()
 	
 	-- this feature comes from BO Unleashed all credit to original author
 	import('/lua/spreadattack.lua').Init()	
@@ -373,7 +379,11 @@ function CreateUI(isReplay)
 		end
 		
 	end
-	
+    
+    if options.gui_render_enemy_lifebars == 1 or options.gui_render_custom_names == 0 then
+        import('/lua/gaz_ui/modules/console_commands.lua').Init()
+    end
+    
 end
 	
 
@@ -633,6 +643,18 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 		
     end
 	
+	local selUnits = newSelection
+
+    if selUnits and table.getn(selUnits) == 1
+    and import('/lua/gaz_ui/modules/selectedinfo.lua').SelectedOverlayOn then
+    
+        import('/lua/gaz_ui/modules/selectedinfo.lua').ActivateSingleRangeOverlay()
+        
+    else
+		import('/lua/gaz_ui/modules/selectedinfo.lua').DeactivateSingleRangeOverlay()
+        
+	end 
+
 end
 
 function OnQueueChanged(newQueue)
@@ -1106,8 +1128,9 @@ end
 
 	GoBackToAction = function()
 		local cam = GetCamera("WorldCamera")
+        
 		if OriginalPos then
-      cam:RestoreSettings(OriginalPos)
+            cam:RestoreSettings(OriginalPos)
 		end
 	end
 	

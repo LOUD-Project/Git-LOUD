@@ -138,6 +138,20 @@ function SetLayout()
     controls.abilityBG.BR:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_lr.dds'))
     controls.abilityBG.BR.Left:Set(controls.abilities.Right)
     controls.abilityBG.BR.Top:Set(controls.abilities.Bottom)
+
+    -- all these come from GAZ UI --
+    LayoutHelpers.AtLeftTopIn(controls.healthBar, controls.bg, 66, 25)
+    LayoutHelpers.Below(controls.shieldBar, controls.healthBar)
+    controls.shieldBar.Height:Set(14)
+    LayoutHelpers.CenteredBelow(controls.shieldText, controls.shieldBar,0)
+    controls.shieldBar.Height:Set(2)
+    LayoutHelpers.AtLeftTopIn(controls.statGroups[1].icon, controls.bg, 70, 55)
+    LayoutHelpers.RightOf(controls.statGroups[1].value, controls.statGroups[1].icon, 5)
+    LayoutHelpers.Below(controls.statGroups[2].icon, controls.statGroups[1].icon,0)
+-- LayoutHelpers.AtRightTopIn(controls.StorageMass, controls.bg, 145, 55)
+    LayoutHelpers.RightOf(controls.statGroups[2].value, controls.statGroups[2].icon, 5)
+-- LayoutHelpers.AtRightTopIn(controls.StorageEnergy, controls.bg, 145, 73)
+    LayoutHelpers.Below(controls.Buildrate, controls.statGroups[2].value,1)    
 end
 
 function PositionWindow()

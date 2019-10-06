@@ -228,20 +228,31 @@ function CreateDialog(victory, showCampaign, operationVictoryTable, midGame)
     campaignScore = tostring(curInfo.scoreData.current[1].general.score)
 
     if showCampaign then
+    
         Prefs.SetToCurrentProfile('last_faction', operationVictoryTable.campaignID)
+        
         ConExecute("ren_Oblivion true")
+        
         local opData = import('/maps/'..operationVictoryTable.opKey..'/'..operationVictoryTable.opKey..'_operation.lua').operationData
+        
         local successKey = 'failure'
+        
         if operationVictoryTable.success then
             successKey = 'success'
         end
+        
         if opData.opMovies.postOpMovies[successKey] then
+        
             GetCursor():Hide()
+            
             local subtitleThread = false
+            
             function DisplaySubtitles(textControl,captions)
+            
                 if subtitleThread then
                     KillThread(subtitleThread)
                 end
+                
                 subtitleThread = ForkThread(
                     function()
                         # Display subtitles
@@ -264,17 +275,21 @@ function CreateDialog(victory, showCampaign, operationVictoryTable, midGame)
 
             local faction = operationVictoryTable.campaignID
             local subtitleSource = import('/lua/ui/game/vo_fmv.lua')
+            
             local creditData = {
                 uef = {vid = '/movies/Credits_UEF.sfd', sfx = 'X_FMV_UEF_Credits', voice = 'SCX_UEF_Credits_VO', subtitles = subtitleSource.SCX_UEF_Credits_VO.captions},
                 cybran = {vid = '/movies/Credits_Cybran.sfd', sfx = 'X_FMV_Cybran_Credits', voice = 'SCX_Cybran_Credits_VO', subtitles = subtitleSource.SCX_Cybran_Credits_VO.captions},
                 aeon = {vid = '/movies/Credits_Aeon.sfd', sfx = 'X_FMV_Aeon_Credits', voice = 'SCX_Aeon_Credits_VO', subtitles = subtitleSource.SCX_Aeon_Credits_VO.captions},
             }
+            
             local movies = {
                 {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', voice = 'SCX_Outro_VO'},
                 creditData[faction],
                 {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', voice = 'SCX_Post_Outro_VO', subtitles = subtitleSource.SCX_Post_Outro_VO.captions},
             }
+            
             local parent = UIUtil.CreateScreenGroup(GetFrame(0), "Campaign Movie ScreenGroup")
+            
             parent.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
             AddInputCapture(parent)
         
@@ -299,7 +314,7 @@ function CreateDialog(victory, showCampaign, operationVictoryTable, midGame)
             textArea.Depth:Set(function() return movie.Depth() + 5 end)
         
             movie:DisableHitTest()    -- get clicks to parent group
-                    
+
             movie.OnLoaded = function(self)
                 movie:Play()
                 GetCursor():Hide()
@@ -353,13 +368,52 @@ function CreateDialog(victory, showCampaign, operationVictoryTable, midGame)
     else
         CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
     end
+    
+    
+    if not SessionIsReplay() then
+    
+        -- all of this from GAZ UI --
+        local Prefs = import('/lua/user/prefs.lua')
+        local profile = Prefs.GetFromCurrentProfile('Name') or 'Player'
+        local filename = 'Autosave' .. profile .. math.random(9999)
+        local si
+        local til = {}
+
+        local sep1 = "."
+        local sep2 = "-"
+        
+        til = GetSpecialFileInfo(profile, LOC("<LOC Engine0030>") , 'Replay').WriteTime
+        
+        si = string.gsub(SessionGetScenarioInfo().name, "'" , "")
+        
+        if string.len(si) > 18 then
+            filename = string.sub(si, 1,18 )
+        else
+            filename = si
+        end
+        
+        for k,v in til do
+            if string.len(til[k]) == 1 then
+                til[k] = "0" .. til[k]
+            end
+        end
+        
+        til.year = string.sub(til.year ,3,4)
+
+        CopyCurrentReplay(profile, til.year .. til.month .. til.mday .. sep2 .. til.hour .. til.minute .. " " .. filename)
+
+    end
+    
 end
 
 function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
+
     if dialog then return end
 
     GetCursor():Show()
+    
     local factions = import('/lua/factions.lua').Factions
+    
     UIUtil.SetCurrentSkin(factions[1].DefaultSkin)
     
     -- create the dialog
@@ -380,17 +434,21 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
     bg.brackets = UIUtil.CreateDialogBrackets(bg, 40, 30, 40, 30)
     
     LayoutHelpers.FillParent(dialog, GetFrame(0))
-        
+
     movieBG.Height:Set(GetFrame(0).Height)
+    
     movieBG.Width:Set(function()
         local ratio = GetFrame(0).Height() / 1024
         return 1824 * ratio
     end)
+    
     movieBG.OnLoaded = function(self)
         self:Loop(true)
         self:Play()
     end
+    
     LayoutHelpers.AtCenterIn(movieBG, GetFrame(0))
+    
     movieBG:DisableHitTest()
     
     bg.title = UIUtil.CreateText(bg, "", 20, UIUtil.titleFont)
@@ -441,6 +499,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             ExitGame()
         end
     end
+    
     Tooltip.AddButtonTooltip(bg.continueBtn, 'PostScore_Quit')
     
     if showCampaign and not operationVictoryTable.success then
@@ -524,7 +583,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
         currentPage = Group(bg, "currentScorePageGroup")
         currentPage.tabData = tabData
         LayoutHelpers.FillParent(currentPage, bg)
-                
+
         -- show the "selected" state of the tab, which hides the button and shows a bitmap
         currentPage.tabButton = tabControl
         currentPage.tabButton:Hide()
@@ -1117,3 +1176,5 @@ function CreateBorderGroup(parent)
     
     return group
 end
+
+

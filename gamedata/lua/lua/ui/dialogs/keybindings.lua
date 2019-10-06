@@ -3,17 +3,17 @@
 --* Author: Ted Snook
 --* Summary: Help Text Popup
 --*
---* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Group = import('/lua/maui/group.lua').Group
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
---local Text = import('/lua/maui/text.lua').Text
+local Text = import('/lua/maui/text.lua').Text
 
 local keydesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
-local properKeyNames = import('/lua/keymap/properkeynames.lua').properKeyNames
+local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
 local keyNames = import('/lua/keymap/keyNames.lua').keyNames
 local keyCategories = import('/lua/keymap/keycategories.lua').keyCategories
 
@@ -24,7 +24,15 @@ local keyTable
 local function ResetKeyMap()
     IN_ClearKeyMap()
     import('/lua/keymap/keymapper.lua').ClearUserKeyMap()
-    IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyActions())
+    IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyMappings())
+    keyTable = FormatData()
+    keyContainer:CalcVisible()
+end
+
+local function ConfirmNewKeyMap()
+	--add option to accept the changes to the key map?
+    IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyMappings())
+
 end
 
 local function EditActionKey(parent, action, currentKey)
@@ -135,7 +143,7 @@ local function EditActionKey(parent, action, currentKey)
         -- check if key is already assigned to something else
         local Keymapper = import('/lua/keymap/keymapper.lua')
         local function MapKey()
-            Keymapper.SetUserKeyMapping(currentKeyPattern, action)
+            Keymapper.SetUserKeyMapping(currentKeyPattern, false, action)
             keyTable = FormatData()
             keyContainer:CalcVisible()
         end
@@ -203,21 +211,21 @@ function CreateUI()
     LayoutHelpers.AtTopIn(closeButton, panel.border.bm, -20)
     LayoutHelpers.AtHorizontalCenterIn(closeButton, panel)
     closeButton.OnClick = function(self, modifiers)
+		ConfirmNewKeyMap()
         panel:Destroy()
         panel = false
     end
 
 -- removed keybinding work
---[[
+
     local assignKeyButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0003>Assign Key"), 12)
-    LayoutHelpers.AtLeftIn(assignKeyButton, panel, 40)
-    LayoutHelpers.AtBottomIn(assignKeyButton, panel, 35)
+    LayoutHelpers.LeftOf(assignKeyButton, closeButton, 10)
     assignKeyButton.OnClick = function(self, modifiers)
         AssignCurrentSelection()
     end
     
     local resetButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0004>Reset"), 12)
-    LayoutHelpers.RightOf(resetButton, assignKeyButton, 10)
+    LayoutHelpers.RightOf(resetButton, closeButton, 10)
     resetButton.OnClick = function(self, modifiers)
         UIUtil.QuickDialog(panel, "<LOC key_binding_0005>Are you sure you want to reset all key bindings to the default keybindings?",
             "<LOC _Yes>", ResetKeyMap,
@@ -226,7 +234,7 @@ function CreateUI()
             true, 
             {escapeButton = 2, enterButton = 1, worldCover = false})
     end
---]]
+
 
     panel.HandleEvent = function(self, event)
         if event.Type == 'KeyDown' then
@@ -253,10 +261,9 @@ function CreateUI()
         keyEntries[index].bg = Bitmap(keyContainer)
         keyEntries[index].bg.Left:Set(keyContainer.Left)
         keyEntries[index].bg.Right:Set(keyContainer.Right)
-        
         keyEntries[index].key = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial")
         keyEntries[index].key:DisableHitTest()
-        
+
         keyEntries[index].description = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial")
         keyEntries[index].description:DisableHitTest()
         keyEntries[index].description:SetClipToWidth(true)
@@ -270,16 +277,14 @@ function CreateUI()
 
         keyEntries[index].bg.HandleEvent = function(self, event)
             local eventHandled = false
-
 -- removed keybinding work
---[[
             local function SelectLine()
                 for k, v in keyTable do
                     if v._selected then
                         v._selected = nil
                     end
                 end
-                if self.dataKey then
+                if keyTable[self.dataIndex].type == 'entry' then
                     keyTable[self.dataIndex]._selected = true
                 end               
                 keyContainer:CalcVisible()
@@ -292,12 +297,11 @@ function CreateUI()
                 SelectLine()
                 eventHandled = true
             end
---]]        
             
             return eventHandled
         end
     end
-    
+
     CreateElement(1)
     LayoutHelpers.AtTopIn(keyEntries[1].bg, keyContainer)
         
@@ -307,7 +311,7 @@ function CreateUI()
         LayoutHelpers.Below(keyEntries[index].bg, keyEntries[index-1].bg)
         index = index + 1
     end
-    
+
     local numLines = function() return table.getsize(keyEntries) end
     
     local function DataSize()
@@ -430,10 +434,10 @@ function FormatData()
             end
         end
     end
-    
+
     for i, v in retkeys do
         table.sort(v, function(val1, val2)
-            if val1.id >= val2.id then
+            if keydesc[val1.desckey] >= keydesc[val2.desckey] then
                 return false
             else
                 return true
@@ -443,17 +447,17 @@ function FormatData()
     
     local index = 1
     for i, v in retkeys do
-        if index != 1 then
-            KeyData[index] = {type = 'spacer'}
-            index = index + 1
-        end
-        KeyData[index] = {type = 'header', text = keyCategories[i]}
-        index = index + 1
-        for currentval, data in v do
-            local properKey = formatkeyname(data.key)
-            KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
-            index = index + 1
-        end
+       if index != 1 then
+          KeyData[index] = {type = 'spacer'}
+          index = index + 1
+       end
+       KeyData[index] = {type = 'header', text = keyCategories[i]}
+       index = index + 1
+       for currentval, data in v do
+          local properKey = formatkeyname(data.key)
+          KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
+          index = index + 1
+       end
     end
 
     return KeyData
@@ -534,3 +538,4 @@ function CreateBorder(parent)
     
     return tbl
 end
+

@@ -468,7 +468,84 @@ options = {
 					max = 5000,
 					inc = 100,
 				},
-			},			
+			},
+            {
+                title = "GUI: Display more Unit Stats",
+                key = 'gui_detailed_unitview',
+                type = 'toggle',
+                default = 1,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            },
+            {
+                title = "GUI: Display Reclaim Window",
+                key = 'gui_display_reclaim_totals',
+                type = 'toggle',
+                default = 0,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            },
+            {
+                title = "GUI: Render Custom Names",
+                key = 'gui_render_custom_names',
+                type = 'toggle',
+                default = 1,
+                set = function(key,value,startup)
+                    ConExecute("ui_RenderCustomNames " .. tostring(value))
+                end,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            },
+            {
+                title = "GUI: Render Enemy Lifebars",
+                key = 'gui_render_enemy_lifebars',
+                type = 'toggle',
+                default = 0,
+                set = function(key,value,startup)
+                    ConExecute("UI_ForceLifbarsOnEnemy " .. tostring(value))
+                end,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            },
+            {
+                title = "GUI: Single Unit Selected Rings",
+                key = 'gui_enhanced_unitrings',
+                type = 'toggle',
+                default = 1,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            },
+            {
+                title = "GUI: Zoom Pop Distance",
+                key = 'gui_zoom_pop_distance',
+                type = 'slider',
+                default = 80,
+                custom = {
+                    min = 1,
+                    max = 160,
+                    inc = 1,
+                },
+            },
         },
     },
     video = {

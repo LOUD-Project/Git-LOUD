@@ -10,7 +10,12 @@ local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 local veterancyDefaults = import('/lua/game.lua').VeteranDefault
 local Factions = import('/lua/factions.lua')
+
 local Prefs = import('/lua/user/prefs.lua')
+local options = Prefs.GetFromCurrentProfile('options')
+	
+local LOUDFLOOR = math.floor
+
 local EnhancementCommon = import('/lua/enhancementcommon.lua')
 
 local rolloverInfo = false
@@ -586,7 +591,139 @@ function UpdateWindow(info)
         end
 		
     end
-	
+    
+    controls.SCUType:Hide()
+
+    if info.userUnit.SCUType then
+        controls.SCUType:SetTexture('/lua/gaz_ui/textures/scumanager/'..info.userUnit.SCUType..'_icon.dds')
+        controls.SCUType:Show()
+    end
+    
+    -- Replace fuel bar with progress bar from GAZ UI
+    if info.blueprintId ~= 'unknown' then
+
+        controls.fuelBar:Hide()
+
+        if info.workProgress > 0 then
+            controls.fuelBar:Show()
+            controls.fuelBar:SetValue(info.workProgress)
+        end
+    end
+
+    if info.blueprintId != 'unknown' then
+
+        controls.Buildrate:Hide()
+        controls.shieldText:Hide()
+
+		-- works properly but i've yet to find a good spot to put that data in
+			--    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
+			--       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
+			--       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
+			--       controls.StorageMass:Show()
+			--       controls.StorageEnergy:Show()
+			--    else
+			--       controls.StorageMass:Hide()
+			--       controls.StorageEnergy:Hide()
+			--    end
+
+        --evilnewcode
+        local getEnh = import('/lua/enhancementcommon.lua')
+
+        if info.userUnit != nil then
+
+            local enhRegen , regenBase = 0 , 0
+
+            if getEnh.GetEnhancements(info.entityId) != nil then
+            
+                for k,v in getEnh.GetEnhancements(info.entityId) do
+                
+                    if info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate != nil then
+                        enhRegen = enhRegen + info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate
+                    end
+                    
+                end
+            end
+
+            local veterancyLevels = info.userUnit:GetBlueprint().Veteran or veterancyDefaults
+
+            if info.kills >= veterancyLevels[string.format('Level%d', 1)] then
+
+                local lvl = 1
+
+                for i = 2,5 do
+                    if info.kills >= veterancyLevels[string.format('Level%d', i)] then
+                        lvl = i
+                    end
+                end
+
+                -- note -- this requires that units have a Buff entry in the blueprint - not always true so default to 0 if not found
+                local addRegen = info.userUnit:GetBlueprint().Buffs.Regen[string.format('Level%d', lvl)] or 0
+                local regenTotal
+
+                if info.userUnit != nil and info.health then
+
+                    if LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate) > 0 then
+                        regenTotal = LOUDFLOOR(  (info.userUnit:GetBlueprint().Defense.RegenRate) + addRegen )
+                        regenBase = LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate + enhRegen )
+                    else
+                        regenTotal = LOUDFLOOR(addRegen)
+                    end
+
+                    if regenTotal > 0 and regenBase > 0 then
+                        controls.health:SetText(string.format("%d / %d +%d(%d)/s", info.health, info.maxHealth, regenBase ,regenTotal ))
+                    else
+                        controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth ,regenTotal ))
+                    end
+                end
+                
+            else
+            
+                if info.userUnit != nil and info.health and info.userUnit:GetBlueprint().Defense.RegenRate > 0 then
+                    controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth,LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate + enhRegen)))
+                end
+            end
+        end
+        --endevilnewcode
+        
+        if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth then
+
+            local ShieldMaxHealth = info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth
+
+            controls.shieldText:Show()
+
+            if info.userUnit:GetBlueprint().Defense.Shield.ShieldRegenRate then
+                controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth , info.userUnit:GetBlueprint().Defense.Shield.ShieldRegenRate))
+            else
+                controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth ))
+            end
+        end
+        
+        -- newcode
+        if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth == nil then
+
+            local ShieldMaxHealth = info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldMaxHealth
+
+			if ShieldMaxHealth then
+            
+                controls.shieldText:Show()
+
+                if info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldRegenRate then
+                    controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), ShieldMaxHealth , info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldRegenRate))
+                else
+                    controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), ShieldMaxHealth ))
+                end
+
+            end
+        end
+        
+        --newcode
+        if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
+            controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
+            controls.Buildrate:Show()
+        else
+            controls.Buildrate:Hide()
+        end
+    end
 end
 
 function ShowROBox()
@@ -604,6 +741,7 @@ function SetupUnitViewLayout(mapGroup, orderControl)
 end
 
 function CreateUI()
+
     controls.bg = Bitmap(controls.parent)
     controls.bracket = Bitmap(controls.bg)
     controls.name = UIUtil.CreateText(controls.bg, '', 14, UIUtil.bodyFont)
@@ -647,16 +785,48 @@ function CreateUI()
     controls.bg:DisableHitTest(true)
     
     controls.bg:SetNeedsFrameUpdate(true)
+    
     controls.bg.OnFrame = function(self, delta)
+    
         local info = GetRolloverInfo()
-        if info then
+        
+        if not info and import("/lua/gaz_ui/modules/selectedinfo.lua").SelectedInfoOn then
+
+            local selUnits = GetSelectedUnits()
+
+            if selUnits and table.getn(selUnits) == 1 and import('/lua/ui/game/unitviewDetail.lua').View.Hiding then
+
+                info = import("/lua/gaz_ui/modules/selectedinfo.lua").GetUnitRolloverInfo(selUnits[1])
+                --LOG(repr(import('/lua/enhancementcommon.lua').GetEnhancements(info.entityId)))
+            end
+        
+        elseif info then
+        
             UpdateWindow(info)
+            
             if self:GetAlpha() < 1 then
                 self:SetAlpha(math.min(self:GetAlpha() + (delta*3), 1), true)
             end
+            
             import(UIUtil.GetLayoutFilename('unitview')).PositionWindow()
+            
         elseif self:GetAlpha() > 0 then
+        
             self:SetAlpha(math.max(self:GetAlpha() - (delta*3), 0), true)
+            
         end
     end
+
+    -- from GAZ UI - SCU Manager
+    controls.SCUType = Bitmap(controls.bg)
+    LayoutHelpers.AtRightIn(controls.SCUType, controls.icon)
+    LayoutHelpers.AtBottomIn(controls.SCUType, controls.icon)
+
+    -- expanded unit stats
+    controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
+    controls.Buildrate = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+
+	-- controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+	-- controls.StorageEnergy = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+				    
 end

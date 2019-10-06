@@ -21,65 +21,54 @@ local TooltipInfo = {
 	},
 }
 	
-local upgradeDefaultTable = {
-	UEF = {
-		Engineer = {
-			'ResourceAllocation',
-			'Shield',
-			'ShieldGeneratorField'
-		},
-		Combat = {
-			'HighExplosiveOrdnance',
-			'AdvancedCoolingUpgrade',
-			'Shield',
-			'ShieldGeneratorField'
-		},
-	},
-	CYBRAN = {
-		Engineer = {
-			'Switchback',
-			'ResourceAllocation',
-			'NaniteMissileSystem'
-		},
-		Combat = {
-			'FocusConvertor',
-			'EMPCharge',
-			'SelfRepairSystem'
-		},
-	},
-	AEON = {
-		Engineer = {
-			'EngineeringFocusingModule',
-			'ResourceAllocation'
-		},
-		Combat = {
-			'StabilitySuppressant',
-			'Shield',
-			'ShieldHeavy'
-		},
-	},
-	SERAPHIM = {
-		Combat = {
-			'DamageStabilization',
-			'Missile',
-			'Overcharge'
-		},
-		Engineer = {
-			'EngineeringThroughput',
-			'Shield'
-		}
-	},
-}
 local upgradeTable = {}
+
 --button container, for positioning externally
 buttonGroup = false
+
 local markerTable = {}
 
 function Init()
+    
 	--add beat function to display markers
 	import('/lua/ui/game/gamemain.lua').AddBeatFunction(ShowMarkers)
-	--get the table of upgrades to use from prefs, or use default if prefs isn't available
-	upgradeTable = Prefs.GetFromCurrentProfile("SCU_Manager_settings") or upgradeDefaultTable
+    
+	--get the table of upgrades to use from prefs
+	upgradeTable = Prefs.GetFromCurrentProfile("SCU_Manager_settings")
+
+    local upgradeDefaultTable = {
+
+        UEF = {
+            Combat = {'HighExplosiveOrdnance','AdvancedCoolingUpgrade','Shield','ShieldGeneratorField'},    
+            Engineer = {'ResourceAllocation','Shield','ShieldGeneratorField'},
+        },
+    
+        CYBRAN = {
+            Combat = {'FocusConvertor','EMPCharge','SelfRepairSystem'},    
+            Engineer = {'Switchback','ResourceAllocation','NaniteMissileSystem'	},
+        },
+    
+        AEON = {
+            Combat = {'StabilitySuppressant','Shield','ShieldHeavy'	},    
+            Engineer = {'EngineeringFocusingModule','ResourceAllocation'},
+        },
+    
+        SERAPHIM = {
+            Combat = {'DamageStabilization','Missile','Overcharge'},
+            Engineer = {'EngineeringThroughput','Shield'},
+        },
+    
+    }
+    
+    -- if not there save defaults --
+    if not upgradeTable then
+        LOG("*SCU Manager Profile defaults loaded "..repr(upgradeTable))
+        upgradeTable = table.copy(upgradeDefaultTable)
+        
+		Prefs.SetToCurrentProfile("SCU_Manager_settings", upgradeTable)
+		Prefs.SavePreferences()        
+    end
+
 	--create the button container
 	buttonGroup = Group(GetFrame(0))
 	LayoutHelpers.AtRightTopIn(buttonGroup, GetFrame(0))
@@ -87,69 +76,100 @@ function Init()
 	buttonGroup.Width:Set(10)
 	buttonGroup.Depth:Set(500)
 	buttonGroup:DisableHitTest()
+    
 	--create the button for combat upgrades
 	local combatButton = Button(buttonGroup, UIUtil.GUITexture('/scumanager/combat_up.dds'), UIUtil.GUITexture('/scumanager/combat_down.dds'), UIUtil.GUITexture('/scumanager/combat_over.dds'), UIUtil.GUITexture('/scumanager/combat_up.dds'), "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
 	LayoutHelpers.AtRightTopIn(combatButton, buttonGroup)
 	combatButton.Type = 'Combat'
 	combatButton.HandleEvent = UpgradeClickFunc
+    
 	--create the button for engineer upgrades
 	local EngineerButton = Button(buttonGroup, UIUtil.GUITexture('/scumanager/engineer_up.dds'), UIUtil.GUITexture('/scumanager/engineer_down.dds'), UIUtil.GUITexture('/scumanager/engineer_over.dds'), UIUtil.GUITexture('/scumanager/engineer_up.dds'), "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
 	LayoutHelpers.Below(EngineerButton, combatButton)
 	EngineerButton.Type = 'Engineer'
 	EngineerButton.HandleEvent = UpgradeClickFunc
 	buttonGroup:Hide()
+    
 end
 
 function UpgradeClickFunc(self, event)
+
     if event.Type == 'MouseEnter' then
+    
         if not self.tooltip then
+        
             self.tooltip = ToolTip.CreateExtendedToolTip(self, TooltipInfo[self.Type].title, TooltipInfo[self.Type].description)
+            
             LayoutHelpers.LeftOf(self.tooltip, self)
+            
             self.tooltip:SetAlpha(0, true)
             self.tooltip:SetNeedsFrameUpdate(true)
+            
             self.tooltip.OnFrame = function(self, deltaTime)
+            
                 self:SetAlpha(math.min(self:GetAlpha() + (deltaTime * 3), 1), true)
+            
                 if self:GetAlpha() == 1 then
                     self:SetNeedsFrameUpdate(false)
                 end
+                
             end
+            
         end
+        
     elseif event.Type == 'MouseExit' then
+    
         if self.tooltip then
             self.tooltip:Destroy()
             self.tooltip = nil
         end
+        
     elseif event.Type == 'ButtonPress' then
+    
 		if event.Modifiers.Left then
+        
 			ApplyUpgrades(self.Type)
+            
 		elseif event.Modifiers.Right then
+        
 			ConfigureUpgrades()
 		end
 	end
 end
-
 --configuration window
 function ConfigureUpgrades()
+
 	local window = Bitmap(GetFrame(0))
-	window:SetTexture('/mods/GAZ_UI/textures/scumanager/configwindow.dds')
+    
+	window:SetTexture('/lua/gaz_ui/textures/scumanager/configwindow.dds')
+    
 	LayoutHelpers.AtRightTopIn(window, GetFrame(0), 100, 100)
+    
 	window.Depth:Set(1000)
+    
 	local buttonGrid = Grid(window, 48, 48)
+    
 	LayoutHelpers.AtLeftTopIn(buttonGrid, window, 10, 30)
+    
 	buttonGrid.Right:Set(function() return window.Right() - 10 end)
 	buttonGrid.Bottom:Set(function() return window.Bottom() - 32 end)
 	buttonGrid.Depth:Set(window.Depth() + 10)
 
 	local factionChooser = Combo(window, 14, 4, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+    
 	--create the buttons for choosing acu type
-	local combatButton = Checkbox(window, '/mods/GAZ_UI/textures/scumanager/combat_up.dds', '/mods/GAZ_UI/textures/scumanager/combat_sel.dds', '/mods/GAZ_UI/textures/scumanager/combat_over.dds', '/mods/GAZ_UI/textures/scumanager/combat_over.dds', '/mods/GAZ_UI/textures/scumanager/combat_up.dds', '/mods/GAZ_UI/textures/scumanager/combat_up.dds', "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
-	local EngineerButton = Checkbox(window, '/mods/GAZ_UI/textures/scumanager/engineer_up.dds', '/mods/GAZ_UI/textures/scumanager/engineer_sel.dds', '/mods/GAZ_UI/textures/scumanager/engineer_over.dds', '/mods/GAZ_UI/textures/scumanager/engineer_over.dds', '/mods/GAZ_UI/textures/scumanager/engineer_up.dds', '/mods/GAZ_UI/textures/scumanager/engineer_up.dds', "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
+	local combatButton = Checkbox(window, '/lua/gaz_ui/textures/scumanager/combat_up.dds', '/lua/gaz_ui/textures/scumanager/combat_sel.dds', '/lua/gaz_ui/textures/scumanager/combat_over.dds', '/lua/gaz_ui/textures/scumanager/combat_over.dds', '/lua/gaz_ui/textures/scumanager/combat_up.dds', '/lua/gaz_ui/textures/scumanager/combat_up.dds', "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
+	local EngineerButton = Checkbox(window, '/lua/gaz_ui/textures/scumanager/engineer_up.dds', '/lua/gaz_ui/textures/scumanager/engineer_sel.dds', '/lua/gaz_ui/textures/scumanager/engineer_over.dds', '/lua/gaz_ui/textures/scumanager/engineer_over.dds', '/lua/gaz_ui/textures/scumanager/engineer_up.dds', '/lua/gaz_ui/textures/scumanager/engineer_up.dds', "UI_Menu_MouseDown_Sml", "UI_Menu_MouseDown_Sml")
+    
 	combatButton:SetCheck(true)
 	
 	LayoutHelpers.AtLeftTopIn(factionChooser, window, 6, 6)
+    
 	factionChooser.Width:Set(100)
 	factionChooser:AddItems({'Aeon', 'Cybran', 'UEF', 'Seraphim'})
+    
 	factionChooser.OnClick = function(self, index, text)
+    
 		if combatButton:IsChecked() then
 			LayoutGrid(buttonGrid, text, 'Combat')
 		else
@@ -157,29 +177,36 @@ function ConfigureUpgrades()
 		end
 	end
 	
-	
-	
 	LayoutHelpers.AtLeftTopIn(combatButton, window, 108, 6)
 	LayoutHelpers.RightOf(EngineerButton, combatButton)
+    
 	combatButton.OnClick = function(self, modifiers)
+    
 		EngineerButton:SetCheck(false)
 		combatButton:SetCheck(true)
+        
 		local index, fact = factionChooser:GetItem()
 		LayoutGrid(buttonGrid, fact, 'Combat')
 	end
+    
 	EngineerButton.OnClick = function(self, modifiers)
+    
 		combatButton:SetCheck(false)
 		EngineerButton:SetCheck(true)
+        
 		local index, fact = factionChooser:GetItem()
 		LayoutGrid(buttonGrid, fact, 'Engineer')
 	end
 
 	--the 6 icons showing which upgrades the scu will recieve
 	buttonGrid.QueuedUpgrades = {}
+    
 	for i = 1, 6 do
 		local index = i
+        
 		buttonGrid.QueuedUpgrades[index] = Bitmap(buttonGrid)
-		buttonGrid.QueuedUpgrades[index]:SetTexture('/mods/GAZ_UI/textures/scumanager/queueborder.dds')
+		buttonGrid.QueuedUpgrades[index]:SetTexture('/lua/gaz_ui/textures/scumanager/queueborder.dds')
+        
 		if index == 1 then
 			LayoutHelpers.AtLeftTopIn(buttonGrid.QueuedUpgrades[index], window, 150, 4)
 		else
@@ -188,73 +215,103 @@ function ConfigureUpgrades()
 	end
 
 	local okButton = UIUtil.CreateButtonStd(window, '/widgets/small', 'OK', 16)
-	LayoutHelpers.AtLeftTopIn(okButton, window, 160, 123)
+    
+	LayoutHelpers.AtLeftTopIn(okButton, window, 8, 123)
+    
 	okButton.OnClick = function(self)
+
 		Prefs.SetToCurrentProfile("SCU_Manager_settings", upgradeTable)
 		Prefs.SavePreferences()
 		window:Destroy()
 	end
+    
 	local cancelButton = UIUtil.CreateButtonStd(window, '/widgets/small', 'Cancel', 16)
-	LayoutHelpers.AtLeftTopIn(cancelButton, window, 8, 123)
+    
+	LayoutHelpers.AtLeftTopIn(cancelButton, window, 160, 123)
+    
 	cancelButton.OnClick = function(self)
-		upgradeTable = Prefs.GetFromCurrentProfile("SCU_Manager_settings") or upgradeDefaultTable
+    
+		upgradeTable = Prefs.GetFromCurrentProfile("SCU_Manager_settings")
 		window:Destroy()
 	end
-
+    
+    -- if we have a unit selected use that faction - otherwise AEON
 	if GetSelectedUnits() then
+    
 		local faction = GetSelectedUnits()[1]:GetBlueprint().General.FactionName
+        
 		FactionIndexTable = {Aeon = 1, Cybran = 2, UEF = 3, Seraphim = 4}
+        
 		if FactionIndexTable[faction] then
 			factionChooser:SetItem(FactionIndexTable[faction])
 			LayoutGrid(buttonGrid, faction, 'Combat')
 		else
 			LayoutGrid(buttonGrid, 'Aeon', 'Combat')
 		end
+        
 	else
 		LayoutGrid(buttonGrid, 'Aeon', 'Combat')
 	end
+    
 end
 
 --shows available and current enhancements for an scu type
 function LayoutGrid(buttonGrid, faction, scuType)
+
 	--get the enhancements available to whichever scu is being edited
 	local bpid = 'ual0301'
+    
 	if faction == 'Cybran' then
 		bpid = 'url0301'
+        
 	elseif faction == 'UEF' then
 		bpid = 'uel0301'
+        
 	elseif faction == 'Seraphim' then
 		bpid = 'xsl0301'
+        
 	end
+    
 	local bp = __blueprints[bpid]
 	local availableEnhancements = bp["Enhancements"]
 
 	--clear the current enhancements, and add the new ones
 	for i, v in buttonGrid.QueuedUpgrades do
+    
 		if v.Icon then
 			v.Icon:Destroy()
 			v.Icon = false
 		end
+        
 		if upgradeTable[string.upper(faction)][scuType][i] then
+        
 			local enhancementName = upgradeTable[string.upper(faction)][scuType][i]
+            
 			v.Icon = CreateEnhancementButton(v, enhancementName, availableEnhancements[enhancementName], bpid, 22, faction, scuType, buttonGrid)
 			v.Icon.enhancementName = enhancementName
 			v.Icon.Index = i
 			LayoutHelpers.AtCenterIn(v.Icon, v)
 		end
+        
 	end
 
 	--make a table of available enhancements, not showing any that are already owned, any that need a non queued prerequisite, or any where the slot is already used
 	buttonGrid:DeleteAndDestroyAll(true)
+    
 	local visCols, visRows = buttonGrid:GetVisible()
 	local currentRow = 1
 	local currentCol = 1
+    
 	buttonGrid:AppendCols(visCols, true)
 	buttonGrid:AppendRows(1, true)
+    
 	local index = 0
 	local tempAvailableButtons = {}
+    
 	for name, data in availableEnhancements do
+    
 		local alreadyOwns = false
+        
 		for i, v in buttonGrid.QueuedUpgrades do
 			if v.Icon.enhancementName then
 				if v.Icon.enhancementName == name then
@@ -262,6 +319,7 @@ function LayoutGrid(buttonGrid, faction, scuType)
 				end
 			end
 		end
+        
 		if not alreadyOwns then
 			if data['Slot'] and not string.find(name, 'Remove') then
 				if data['Prerequisite'] then
@@ -288,10 +346,15 @@ function LayoutGrid(buttonGrid, faction, scuType)
 			end
 		end
 	end
+    
 	table.sort(tempAvailableButtons, function(up1, up2) return (up1.Enhancement.Slot .. up1.Name) <= (up2.Enhancement.Slot .. up2.Name) end)
+    
 	for i, data in tempAvailableButtons do
+    
 		local button = CreateEnhancementButton(buttonGrid, data.Name, data.Enhancement, bpid, 46, faction, scuType, buttonGrid)
+        
 		buttonGrid:SetItem(button, currentCol, currentRow, true)
+        
 		if currentCol < visCols then
 			currentCol = currentCol + 1
 		else
@@ -300,29 +363,38 @@ function LayoutGrid(buttonGrid, faction, scuType)
 			buttonGrid:AppendRows(1, true)
 		end
 	end
+    
 	buttonGrid:EndBatch()
 end
 
 function GetEnhancementPrefix(unitID, iconID)
+
     local prefix = ''
+    
     if string.sub(unitID, 2, 2) == 'a' then
-        prefix = '/game/aeon-enhancements/'..iconID
+        prefix = 'aeon-enhancements/'
     elseif string.sub(unitID, 2, 2) == 'e' then
-        prefix = '/game/uef-enhancements/'..iconID
+        prefix = 'uef-enhancements/'
     elseif string.sub(unitID, 2, 2) == 'r' then
-        prefix = '/game/cybran-enhancements/'..iconID
+        prefix = 'cybran-enhancements/'
     elseif string.sub(unitID, 2, 2) == 's' then
-        prefix = '/game/seraphim-enhancements/'..iconID
+        prefix = 'seraphim-enhancements/'
     end
+    
+    prefix = '/game/' ..prefix ..iconID
+    
     return prefix
 end
 
+
 function CreateEnhancementButton(parent, enhancementName, enhancement, bpid, size, faction, scuType, buttonGrid)
+
     local tempBmpName = ""
 
     tempBmpName = GetEnhancementPrefix(bpid, enhancement.Icon)
 
     local button = false
+    
 	if( string.find( enhancementName, 'Remove' ) ) then
         button = Button(parent,
             UIUtil.UIFile(tempBmpName .. '_btn_sel.dds'),
@@ -338,6 +410,7 @@ function CreateEnhancementButton(parent, enhancementName, enhancement, bpid, siz
             UIUtil.UIFile(tempBmpName .. '_btn_sel.dds'),
             "UI_Enhancements_Click", "UI_Enhancements_Rollover")
     end
+    
     button.Width:Set(size)
     button.Height:Set(size)
 
@@ -385,6 +458,7 @@ function CreateEnhancementButton(parent, enhancementName, enhancement, bpid, siz
 
 	--if there's a selection then show info for the enhancement
 	local testUnit = GetSelectedUnits()
+    
     button.HandleEvent = function(self, event)
 		if testUnit then
 	        if event.Type == 'MouseEnter' then
@@ -428,17 +502,22 @@ end
 
 --check for idle scus, then start the relevant upgrade on them
 function ApplyUpgrades(type)
+
 	local SCUList = GetIdleSCUs()
+    
 	if SCUList then
 		for i, v in SCUList do
 			UpgradeSCU(v, type)
 		end
 	end
+    
 end
 
 --tell the scu what type it now is, and upgrade it
 function UpgradeSCU(unit, upgType)
+
 	local faction = false
+    
 	if unit:IsInCategory('UEF') then
 		faction = 'UEF'
 	elseif unit:IsInCategory('AEON') then
@@ -448,11 +527,15 @@ function UpgradeSCU(unit, upgType)
 	elseif unit:IsInCategory('SERAPHIM') then
 		faction = 'SERAPHIM'
 	end
+    
 	if faction then
+
 		local upgList = upgradeTable[faction][upgType]
+        
 		if table.getsize(upgList) == 0 then
 			return
 		end
+        
 		for i, upgrade in upgList do
 			--LOG('issuing ' ..upgrade)
 			--get current command mode since issuing a unit command will cancel it so we need to reissue it
@@ -465,6 +548,7 @@ function UpgradeSCU(unit, upgType)
 			IssueUnitCommand({unit}, "UNITCOMMAND_Script", orderData, false)
 			commandmode.StartCommandMode(currentCommand[1], currentCommand[2])
 		end
+        
 		unit.SCUType = upgType
 	end
 end
@@ -473,31 +557,46 @@ end
 --AUTOMATIC UPGRADE MARKER FUNCTIONS
 --to stop show/hide being used constantly (may or may not be a bad thing...
 local showing = false
+
 --beat function to show all active markers
 function ShowMarkers()
+
 	if IsKeyDown('Shift') then
+    
 		if not showing then
+        
 			showing = true
+            
 			for i, marker in markerTable do
 				marker:Show()
 				marker:SetNeedsFrameUpdate(true)
 			end
 		end
+        
 	else
+    
 		if showing then
+        
 			showing = false
+            
 			for i, marker in markerTable do
 				marker:Hide()
 				marker:SetNeedsFrameUpdate(false)
 			end
 		end
 	end
+    
 end
 
 --create the dialog to choose upgrade marker type
 local dialog = false
+
 function CreateMarker()
+
 	local position = GetMouseWorldPos()
+    
+    Init()
+    
 	if not dialog then
 		dialog = UIUtil.QuickDialog(GetFrame(0), 'Choose your upgrade type',  "Combat", function() PlaceMarker('Combat', position) dialog:Destroy() dialog = false end, "Engineer", function() PlaceMarker('Engineer', position) dialog:Destroy() dialog = false end, nil, nil, false)
 	end
@@ -505,30 +604,43 @@ end
 
 --create the marker
 local index = 1
+
 function PlaceMarker(upgradeType, position)
+
+    -- open config window whenever a marker is placed
+    ConfigureUpgrades()
+
 	local worldview = import('/lua/ui/game/worldview.lua').viewLeft
+    
 	markerTable[index] = Bitmap(GetFrame(0))
-	markerTable[index]:SetTexture('/mods/GAZ_UI/textures/scumanager/'..upgradeType..'_up.dds')
+	markerTable[index]:SetTexture('/lua/gaz_ui/textures/scumanager/'..upgradeType..'_up.dds')
 	markerTable[index].Depth:Set(100)
 	markerTable[index].Left:Set(100)
 	markerTable[index].Top:Set(100)
 	markerTable[index].Index = index
 	markerTable[index].position = position
 	markerTable[index].upgradeType = upgradeType
+    
 	--move and destroy code
 	markerTable[index].HandleEvent = function(self, event)
+    
 		if event.Type == 'ButtonPress' then
+        
 			if event.Modifiers.Right and event.Modifiers.Ctrl then
 				KillThread(self.checkThread)
 				local removeIndex = self.Index
 				self:Destroy()
 				self = false
 				markerTable[removeIndex] = nil
+                
 			elseif event.Modifiers.Left then
+            
 				self:SetNeedsFrameUpdate(false)
 				self.drag = Dragger()
 				local moved = false
+                
 				GetCursor():SetTexture(UIUtil.GetCursor('MOVE_WINDOW'))
+                
 				self.drag.OnMove = function(dragself, x, y)
 					self.Left:Set(function() return  (x - (self.Width()/2)) end)
 					self.Top:Set(function() return  (y - (self.Height()/2)) end)
@@ -536,28 +648,35 @@ function PlaceMarker(upgradeType, position)
 					dragself.x = x
 					dragself.y = y
 				end
+                
 				self.drag.OnRelease = function(dragself)
 					self:SetNeedsFrameUpdate(true)
 					if moved then
 						self.position = GetMouseWorldPos()
 					end
 				end
+                
 				self.drag.OnCancel = function(dragself)
 					self:SetNeedsFrameUpdate(true)
 					self:EnableHitTest()
 				end
+                
 				PostDragger(self:GetRootFrame(), event.KeyCode, self.drag)
+                
 				return true
 			end
 		end
 	end
+    
 	--position each frame to keep same world position
 	markerTable[index].OnFrame = function(self)
 		self.Left:Set(function() return worldview:Project(self.position)[1]  - (self.Width()/2) +worldview.Left() end)
 		self.Top:Set(function() return worldview:Project(self.position)[2] - (self.Height()/2) +worldview.Top() end)
 	end
+    
 	markerTable[index]:Hide()
 	markerTable[index].checkThread = ForkThread(UpgradeSCUAroundPoint, markerTable[index])
+    
 	index = index+1
 end
 

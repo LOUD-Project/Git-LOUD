@@ -25,11 +25,7 @@ local worldView = import('/lua/ui/game/borders.lua').GetMapGroup()
 
 savedParent = false
 
-controls = {
-    bg = false,
-    overlayBtns = {},
-    pingBtns = {},
-}
+controls = { bg = false, overlayBtns = {}, pingBtns = {} }
 
 local activeFilters = Prefs.GetFromCurrentProfile('activeFilters') or {}
 
@@ -1108,4 +1104,9 @@ function FocusArmyChanged()
             control:Enable()
         end
     end
+end
+
+function UpdateActiveFilters()
+	activeFilters = Prefs.GetFromCurrentProfile('activeFilters') or {}
+	SetActiveOverlays()
 end

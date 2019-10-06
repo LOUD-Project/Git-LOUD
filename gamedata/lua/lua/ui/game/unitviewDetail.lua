@@ -85,8 +85,8 @@ end
 
 function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 
-	if CheckFormat() then
-	
+	if View and CheckFormat() then
+
 		-- Name / Description
 		View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))
 
@@ -650,7 +650,9 @@ function OnNIS()
 end
 
 function Hide()
-	View:Hide()
+    if View then
+        View:Hide()
+    end
 end
 
 function SetLayout()
