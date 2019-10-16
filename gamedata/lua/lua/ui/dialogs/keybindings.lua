@@ -21,12 +21,48 @@ local panel
 local keyContainer
 local keyTable
 
+-- Zulans HotBuild functions
+local initDefaultKeyMap = import('/mods/hotbuild/hotbuild.lua').initDefaultKeyMap
+
+local function initDefaultKeyMap_de()
+    initDefaultKeyMap('de')
+end
+
+local function initDefaultKeyMap_en()
+    initDefaultKeyMap('en')
+end
+
+local function initDefaultKeyMap_select()
+
+    UIUtil.QuickDialog(panel, "Which keyboard layout do you have?",
+        "German", initDefaultKeyMap_de,
+        "EN/US", initDefaultKeyMap_en,
+        nil, nil,
+        true, 
+        {escapeButton = 2, enterButton = 1, worldCover = false}
+    )
+    
+end
+
 local function ResetKeyMap()
+
     IN_ClearKeyMap()
+    
     import('/lua/keymap/keymapper.lua').ClearUserKeyMap()
+    
     IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyMappings())
+    
     keyTable = FormatData()
     keyContainer:CalcVisible()
+    
+    UIUtil.QuickDialog(panel, "Do you want to to reset to the default hotbuild keymapping by Zulan. This might require a restart.",
+        "<LOC _Yes>", initDefaultKeyMap_select,
+        "<LOC _No>", nil,
+        nil, nil,
+        true, 
+        {escapeButton = 2, enterButton = 1, worldCover = false}
+    )
+    
 end
 
 local function ConfirmNewKeyMap()
@@ -412,75 +448,102 @@ end
 
 --TODO clean up the table names a bit to be more consistent?
 function FormatData()
+
     local keyactions = import('/lua/keymap/keymapper.lua').GetKeyActions()
 
     local retkeys = {}
     local KeyData = {}
+    
     local keyLookup = import('/lua/keymap/keymapper.lua').GetKeyLookup()
 
     for k, v in keyactions do
+    
         if v.category then
+        
             local keyForAction = keyLookup[k]
+            
             if keyForAction == nil then
+            
                 if not retkeys['none'] then
                     retkeys['none'] = {}
                 end
+                
                 table.insert(retkeys['none'], {id = v.order, desckey = k, key = nil})
+                
             else
+            
                 if not retkeys[v.category] then
                     retkeys[v.category] = {}
                 end
+                
                 table.insert(retkeys[v.category], {id = v.order, desckey = k, key = keyForAction})
             end
         end
     end
 
     for i, v in retkeys do
-        table.sort(v, function(val1, val2)
-            if keydesc[val1.desckey] >= keydesc[val2.desckey] then
-                return false
-            else
-                return true
-            end
-        end)
+
+        if not table.empty(v) then
+    
+            table.sort(v, function(val1, val2)
+                if keydesc[val1.desckey] >= keydesc[val2.desckey] then
+                    return false
+                else
+                    return true
+                end
+            end)
+        end
+        
     end
     
     local index = 1
+    
     for i, v in retkeys do
-       if index != 1 then
-          KeyData[index] = {type = 'spacer'}
-          index = index + 1
-       end
-       KeyData[index] = {type = 'header', text = keyCategories[i]}
-       index = index + 1
-       for currentval, data in v do
-          local properKey = formatkeyname(data.key)
-          KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
-          index = index + 1
-       end
+    
+        if index != 1 then
+            KeyData[index] = {type = 'spacer'}
+            index = index + 1
+        end
+        
+        KeyData[index] = {type = 'header', text = keyCategories[i]}
+        
+        index = index + 1
+        
+        for currentval, data in v do
+        
+            local properKey = formatkeyname(data.key)
+            KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
+            index = index + 1
+        end
+        
     end
 
     return KeyData
 end
 
 function formatkeyname(key)
+
     if not key then
         return ""
     end
     
     local function LookupToken(token)
+    
         if properKeyNames[token] then
             return LOC(properKeyNames[token])
         else
             return token
         end
+        
     end
 
     local result = ''
 
     while string.find(key, '-') do
+    
         local loc = string.find(key, '-')
         local token = string.sub(key, 1, loc-1)
+        
         result = result..LookupToken(token)..' + '
         key = string.sub(key, loc+1)
     end

@@ -2,6 +2,8 @@
 --* Author: Chris Blackwell
 --* Summary: Entry point for the in game UI
 
+LOG("*AI DEBUG Loading Gamemain")
+
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 
@@ -85,6 +87,13 @@ function SetLayout(layout)
 end
 
 function OnFirstUpdate()
+    
+    LOG("*AI DEBUG OnFirstUpdate")
+
+    --import('/mods/hotbuild/hotbuild.lua').init()
+ 
+    --LOG("*AI DEBUG Hotbuild import complete")
+    
 
     EnableWorldSounds()
 	
