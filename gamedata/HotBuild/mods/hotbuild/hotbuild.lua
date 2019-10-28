@@ -155,7 +155,7 @@ function init()
 
     enabled = true
     
-    import('/lua/lazyvar.lua').ExtendedErrorMessages = true
+    --import('/lua/lazyvar.lua').ExtendedErrorMessages = true
 
     buildingTab = getBuildingTab()
   
@@ -295,7 +295,9 @@ end
 function buildAction(name, modifier)
 
     if (not enabled) then
-        LOG("BuildAction refused as hotbuild mod is not enabled")
+    
+        init()
+        --LOG("BuildAction refused as hotbuild mod is not enabled")
         return
     end
     
