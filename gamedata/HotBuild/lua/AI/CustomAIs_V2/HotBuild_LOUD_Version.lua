@@ -1,4 +1,4 @@
 AI = {
 	Name = "HotBuild",
-	Version = "0.1 LOUD",
+	Version = "0.2 LOUD",
 }
