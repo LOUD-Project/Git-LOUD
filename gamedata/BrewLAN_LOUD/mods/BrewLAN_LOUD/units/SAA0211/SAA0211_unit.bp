@@ -151,9 +151,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16250,
-        BuildCostMass = 300,
-        BuildTime = 400,
+        BuildCostEnergy = 20000,
+        BuildCostMass = 360,
+        BuildTime = 500,
     },
 	
     Footprint = {
@@ -276,9 +276,9 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1000,
+            Damage = 900,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 
             EffectiveRadius = 25,
@@ -319,7 +319,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.3,		-- 200 DPS
+            RateOfFire = 0.2,		-- 180 DPS
 			
             TargetCheckInterval = 2,
 			

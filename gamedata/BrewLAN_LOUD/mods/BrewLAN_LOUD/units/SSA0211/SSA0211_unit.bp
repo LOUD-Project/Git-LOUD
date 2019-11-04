@@ -181,9 +181,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 17500,
-        BuildCostMass = 330,
-        BuildTime = 400,
+        BuildCostEnergy = 22000,
+        BuildCostMass = 395,
+        BuildTime = 550,
         ResearchMultTime = 0.5,
     },
 	
@@ -298,10 +298,10 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 500,
 			
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             Display = 'Zhanasee Strategic Bomb',
@@ -344,7 +344,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,
+            RateOfFire = 0.2,   -- 200 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

@@ -168,9 +168,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 17500,
-        BuildCostMass = 330,
-        BuildTime = 400,
+        BuildCostEnergy = 22000,
+        BuildCostMass = 395,
+        BuildTime = 550,
 		
         MaintenanceConsumptionPerSecondEnergy = 30,
         ResearchMultTime = 0.5,
@@ -293,9 +293,9 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1100,
+            Damage = 950,
             DamageFriendly = true,
-            DamageRadius = 3.5,
+            DamageRadius = 2.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Neutron Bomb',
@@ -337,7 +337,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,
+            RateOfFire = 0.2,   -- 190 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

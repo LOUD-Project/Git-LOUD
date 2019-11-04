@@ -169,9 +169,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 17500,
-        BuildCostMass = 330,
-        BuildTime = 400,
+        BuildCostEnergy = 22000,
+        BuildCostMass = 395,
+        BuildTime = 550,
         ResearchMultTime = 0.5,
     },
 	
@@ -278,9 +278,9 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1100,
+            Damage = 950,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Tactical Bomb',
@@ -322,7 +322,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,	-- 220 DPS
+            RateOfFire = 0.2,	-- 190 DPS
 			
             TargetCheckInterval = 2,
 			
