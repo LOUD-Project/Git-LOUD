@@ -3,70 +3,6 @@
 ---  Summary  : Utility File to insert custom AI Tooltips into the game.
 
 Tooltips = {
-	lob_CapCheat_cheatlevel = {
-		title = "Enhanced",
-		description = "AIx Commanders unit cap is Unit Cap times Resource Cheat multiplier",
-	},
-	lob_UnitCap_250 = {
-        title = "250",
-        description = "250 units per player may be in play.",
-    },
-	lob_UnitCap_300 = {
-        title = "300",
-        description = "300 units per player may be in play.",
-    },
-	lob_UnitCap_350 = {
-        title = "350",
-        description = "350 units per player may be in play.",
-    },	
-	lob_UnitCap_400 = {
-        title = "400",
-        description = "400 units per player may be in play.",
-    },
-	lob_UnitCap_450 = {
-        title = "450",
-        description = "450 units per player may be in play.",
-    },	
-	lob_UnitCap_500 = {
-		title = "500",
-		description = "500 units per player may be in play.",
-	},
-	lob_UnitCap_550 = {
-        title = "550",
-        description = "550 units per player may be in play.",
-    },	
-	lob_UnitCap_625 = {
-        title = "625",
-        description = "625 units per player may be in play.",
-    },
-	lob_UnitCap_750 = {
-        title = "750",
-        description = "750 units per player may be in play.",
-    },
-	lob_UnitCap_800 = {
-        title = "800",
-        description = "800 units per player may be in play.",
-    },	
-	lob_UnitCap_875 = {
-		title = "875",
-		description = "875 units per player may be in play.",
-	},
-	lob_UnitCap_1000 = {
-        title = "1000",
-        description = "1000 units per player may be in play.",
-    },
-	lob_UnitCap_1250 = {
-        title = "1250",
-        description = "1250 units per player may be in play.",
-    },
-	lob_UnitCap_1500 = {
-        title = "1500",
-        description = "1500 units per player may be in play.",
-    },
-	lob_UnitCap_2000 = {
-        title = "2000",
-        description = "2000 units per player may be in play.",
-    },
 	lob_random_map = {
         title = "Random Map",
         description = "Chooses a random map.",
@@ -175,12 +111,5 @@ Tooltips = {
         title = "AI Markers",
         description = "Filter maps based on whether they have map markers or not.",
     },
-	lob_Victory_decapitation = {
-		title = "Advanced Assassination",
-		description = "Game will end when all enemy Commanders and Subcommanders are dead",
-	},
-	lob_Victory_timelimit = {
-		title = "Time Limited",
-		description = "Game will end after the time limit",
-	},
+
 }

@@ -10,9 +10,13 @@ Tooltips = {
         title = "Cheat Multiplyer",
         description = "Sets the resource multiplier for the cheating AIs.",
     },
+	["lob_CheatMult_0.8"] = {
+        title = "0.8",
+        description = "AIx Resources -20%. - greatly reduced",
+    },	    
 	["lob_CheatMult_0.9"] = {
         title = "0.9",
-        description = "AIx Resources -10%.",
+        description = "AIx Resources -10%. - slightly reduced",
     },	
 	["lob_CheatMult_1.0"] = {
         title = "1.0",
@@ -86,6 +90,10 @@ Tooltips = {
         title = "Build Multiplyer",
         description = "Sets the build rate multiplier for the cheating AIs.",
     },
+	["lob_BuildMult_0.8"] = {
+        title = "0.8",
+        description = "AIx Build Rate -20% - slowest.",
+    },    
 	["lob_BuildMult_0.9"] = {
         title = "0.9",
         description = "AIx Build Rate -10% - slower.",
