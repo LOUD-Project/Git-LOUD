@@ -17,7 +17,7 @@ UnitBlueprint {
         KLift = 0.5,
         KLiftDamping = 0.65,
 		
-        KMove = 0.75,
+        KMove = 0.72,
         KMoveDamping = 1,
 		
         KTurn = 0.7,
@@ -25,7 +25,7 @@ UnitBlueprint {
 		
         LiftFactor = 4,
 		
-        MaxAirspeed = 9,
+        MaxAirspeed = 10,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
