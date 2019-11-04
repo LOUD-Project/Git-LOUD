@@ -10,9 +10,7 @@ function AddHunker(prevClass)
 		OnStopBeingBuilt = function(self,builder,layer)
 	
 			prevClass.OnStopBeingBuilt(self,builder,layer)
-			
-			LOG("*AI DEBUG Hunker OnStopBeingBuilt")
-	
+
 			self.HunkerParams = { IsHunkering = false, CanHunker = false, ChargePaused = false, ChargeTime = false, ChargeFraction = false, ChargeProgress = false, }
 		end,
 
@@ -91,11 +89,20 @@ function AddHunker(prevClass)
 			self:SetUnSelectable(true)
 			self:SetBusy(true)
 			self:SetCanBeKilled(false)
-			
+            
+            -- apparently GetMotionStatus is not a valid command --
+            -- it is hooked in by Domino and relies upon storing the motion status
+            -- by the old code - which is no longer the case --
+            -- as a result - it always returns false
+--[[			
 			while self:GetMotionStatus() != 'Stopped' do
+            
 				WaitTicks(1)
+                
+                LOG("*AI DEBUG Waiting to Stop - currently "..repr( self:GetMotionStatus() ))
+                
 			end
-
+--]]
 			local loc = self:GetPosition()
 			local ori = self:GetOrientation()
 			local layer = self:GetCurrentLayer()
@@ -105,12 +112,17 @@ function AddHunker(prevClass)
 			local newHealth, EnergyUsage = self:GetHealthEnergy(FractionComplete)
 			local army = self:GetArmy()
 
+            --LOG("*AI DEBUG Create Animator")
 			-- Setup Animation
 			self.AnimManip = CreateAnimator(self)
 			self.AnimManip:SetPrecedence(0)
 			self.Trash:Add(self.AnimManip) 
+            
+            --LOG("*AI DEBUG Play Animator "..repr(self:GetBlueprint().Display.AnimationHunkerDown) )
 
 			self.AnimManip:PlayAnim(self:GetBlueprint().Display.AnimationHunkerDown, false):SetRate(2) 
+            
+            --LOG("*AI DEBUG Wait for Animation")
 			
 			WaitFor(self.AnimManip)
 
@@ -274,8 +286,9 @@ function AddHunker(prevClass)
 				if self:GetHunkerParam('ChargePaused') then 
 					SuspendCurrentThread()
 				end
-
-				local fraction = self:Get_Econ('EnergyStorageRatio')
+    
+                local aiBrain = GetArmyBrain(self:GetArmy())
+				local fraction = aiBrain:GetEconomyStoredRatio('ENERGY')
 				
 				curProgress = curProgress + ( fraction / 10)
 				curProgress = math.min( curProgress, time )

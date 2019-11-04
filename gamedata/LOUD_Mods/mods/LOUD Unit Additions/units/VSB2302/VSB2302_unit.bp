@@ -236,7 +236,7 @@ UnitBlueprint {
             DisplayName = 'AA Missile',
 			
             EnergyDrainPerSecond = 1000,
-            EnergyRequired = 20000,
+            EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',

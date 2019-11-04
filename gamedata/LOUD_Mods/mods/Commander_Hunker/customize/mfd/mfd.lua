@@ -1,5 +1,10 @@
+-- these are references for custom audio cues which are not present at this time
+-- but serve as examples of how they can be implemented - see hunker.lua for the
+-- calls which get made thru DoMFD to this data
 
-mfd = {
+mfd = {}
+
+--[[
 
 	--default acu's
 	ual0001_hunker_enhancement_complete = { cue = 'ual0001_hunker_enhancement_complete', bank = 'hunker',  text = 'ual0001_hunker_enhancement_complete', lengh = 6,},	
@@ -33,7 +38,7 @@ mfd = {
 	esl0001_hunker_full_charged = { cue = 'xsl0001_hunker_full_charged', bank = 'hunker',  text = 'xsl0001_hunker_full_charged', lengh = 6,},
 	eel0001_hunker_full_charged = { cue = 'uel0001_hunker_full_charged', bank = 'hunker',  text = 'uel0001_hunker_full_charged', lengh = 6,},
 	
-}
+--]]
 
 
 
