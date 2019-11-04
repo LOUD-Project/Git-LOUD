@@ -17,18 +17,5 @@ UnitList = {
 		Cybran = {'BRMT2EPD', 20},
 		Seraphim = {'BRPT2PD',25},
     },
-	
---[[
-	T1GroundDefense = {
-		UEF = {'BRNT1EXPD', 20},
-		Aeon = {'BROT1EXPD', 20},
-		Cybran = {'BRMT1EXPD', 20},
-    },
-    
-	T1AADefense = {
-		UEF = {'BRNT1EXPD', 20},
-		Aeon = {'BROT1EXPD', 20},
-		Cybran = {'BRMT1EXPD', 20},
-    },
---]]
+
 }

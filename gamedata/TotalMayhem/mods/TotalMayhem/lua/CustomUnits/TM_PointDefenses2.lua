@@ -3,7 +3,7 @@ UnitList = {
 	T4GroundDefense = {
 		UEF = {'BRNT3SHPD', 100},
 		Aeon = {'BROT3SHPD', 100},
-		Seraphim = {'BRPEXPD', 50},
+		Seraphim = {'BRPEXPD', 75},
 	},
 	
 	T3GroundDefense = {
@@ -15,11 +15,5 @@ UnitList = {
 		Aeon = {'BROT2EPD', 30},
 		Cybran = {'BRMT2EPD', 30},
     },
---[[
-	T1GroundDefense = {
-		UEF = {'BRNT1HPD', 30},
-		Aeon = {'BROT1HPD', 30},
-		Cybran = {'BRMT1PD', 30},
-    },
---]]
+
 }
