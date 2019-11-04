@@ -50,6 +50,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'OVERLAYANTIAIR',
+		'OVERLAYOMNI',
+		'OVERLAYRADAR',
         'SORTDEFENSE',
     },
 	
@@ -239,6 +241,9 @@ UnitBlueprint {
     },
 	
     Intel = {
+		OmniRadius = 0,
+		RadarRadius = 0,
+        ReactivateTime = 5,		
         VisionRadius = 42,
     },
 	
