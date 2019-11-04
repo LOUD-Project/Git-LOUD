@@ -69,6 +69,7 @@ UnitBlueprint {
 			'Slow Rate of Fire',
 			'Volatile',
         },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -85,6 +86,7 @@ UnitBlueprint {
         },
 		
         SpawnRandomRotation = true,
+		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -106,9 +108,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 105000,
-        BuildCostMass = 8500,
-        BuildTime = 7750,
+        BuildCostEnergy = 95000,
+        BuildCostMass = 8750,
+        BuildTime = 8250,
 		
         RebuildBonusIds = {'BRPT2EXPD'},
     },
@@ -241,7 +243,7 @@ UnitBlueprint {
 			
             Label = 'MainWeapon',
 			
-            MaxRadius = 77,
+            MaxRadius = 80,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
