@@ -127,6 +127,7 @@ function GetAnimationPrefs()
 end
 
 function GetLayoutFilename(key)
+
     if Layouts[currentLayout][key] then
         return Layouts[currentLayout][key]
     else

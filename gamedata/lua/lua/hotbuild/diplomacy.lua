@@ -1,10 +1,10 @@
 local KeyMapper = import('/lua/keymap/keymapper.lua')
 
 function initUserKeyActions()
-    KeyMapper.SetUserKeyAction('give_units_to_ally', {action = "UI_LUA import('/mods/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(false)"})
-	KeyMapper.SetUserKeyAction('give_all_units_to_ally', {action = "UI_LUA import('/mods/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(true)"})
-	KeyMapper.SetUserKeyAction('give_mass_to_ally', {action = "UI_LUA import('/mods/hotbuild/diplomacy.lua').mimc_giveRessToAlly(50.0, 0.0)"})
-	KeyMapper.SetUserKeyAction('give_energy_to_ally', {action = "UI_LUA import('/mods/hotbuild/diplomacy.lua').mimc_giveRessToAlly(0.0, 50.0)"})
+    KeyMapper.SetUserKeyAction('give_units_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(false)"})
+	KeyMapper.SetUserKeyAction('give_all_units_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(true)"})
+	KeyMapper.SetUserKeyAction('give_mass_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveRessToAlly(50.0, 0.0)"})
+	KeyMapper.SetUserKeyAction('give_energy_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveRessToAlly(0.0, 50.0)"})
 end
 
 function initDefaultKeyMap()

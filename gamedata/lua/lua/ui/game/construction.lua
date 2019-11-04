@@ -61,11 +61,9 @@ gameParent.HandleEvent = function(self, event)
 	if event.Type == 'ButtonRelease' then
 		import('/lua/ui/game/construction.lua').ButtonReleaseCallback()
 	end
-       
+
 	oldGameParentHandleEvent(self, event)
 end 
-
---LOG("*AI DEBUG Construction.lua loaded")
 
 local unitGridPages = {
     RULEUTL_Basic = {Order = 0, Label = "<LOC CONSTRUCT_0000>T1"},
@@ -111,16 +109,16 @@ local nestedTabKey = {
 }
 
 local enhancementTooltips = {
-    LCH = 'construction_tab_enhancment_left',
-    RCH = 'construction_tab_enhancment_right',
     Back = 'construction_tab_enhancment_back',
 	Command = 'construction_tab_enhancment_command',
+    LCH = 'construction_tab_enhancment_left',
+    RCH = 'construction_tab_enhancment_right',
 }
 
-local whatIfBuilder = nil
-local whatIfBlueprintID = nil
-local selectedwhatIfBuilder = nil
-local selectedwhatIfBlueprintID = nil
+--local whatIfBuilder = nil
+--local whatIfBlueprintID = nil
+--local selectedwhatIfBuilder = nil
+--local selectedwhatIfBlueprintID = nil
 
 function CreateTab(parent, id, onCheckFunc)
 
@@ -433,7 +431,7 @@ function CreateTabs(type)
             desiredTabs = table.getsize(enhancements.Slots)
         end
 
-        defaultTabOrder = {Back=1, LCH=2, RCH=3, Command=4}
+        defaultTabOrder = {Back=1, Command=2, LCH=3, RCH=4}
     end
 
     while table.getsize(controls.tabs) > desiredTabs do

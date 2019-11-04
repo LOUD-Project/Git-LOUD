@@ -145,7 +145,8 @@ function Create(parent)
     if not View.ShieldStat then
         View.ShieldStat = CreateStatGroup( View.BG, UIUtil.UIFile('/game/unit_view_icons/shield.dds') )
     end
-    # Tme stat
+    
+    # Time stat
     if not View.TimeStat then
         View.TimeStat = CreateStatGroup( View.BG, UIUtil.UIFile('/game/unit-over/icon-clock_bmp.dds') )
     end

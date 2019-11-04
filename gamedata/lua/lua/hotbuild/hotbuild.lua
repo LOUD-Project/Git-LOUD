@@ -15,7 +15,7 @@ local Effect = import('/lua/maui/effecthelpers.lua')
 
 
 
-local pathMod = '/mods/hotbuild/'
+local pathMod = '/lua/hotbuild/'
 local pathTex = pathMod .. 'textures/'
 
 local buildingTab

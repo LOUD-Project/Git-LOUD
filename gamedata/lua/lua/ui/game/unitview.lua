@@ -212,7 +212,7 @@ local statFuncs = {
 function UpdateWindow(info)
 
     if info.blueprintId == 'unknown' then
-	
+
         controls.name:SetText(LOC('<LOC rollover_0000>Unknown Unit'))
         controls.icon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
         controls.stratIcon:SetTexture('/textures/ui/common/game/strategicicons/icon_structure_generic_selected.dds')
@@ -589,50 +589,42 @@ function UpdateWindow(info)
             controls.abilities:Hide()
 			
         end
-		
-    end
-    
-    controls.SCUType:Hide()
-
-    if info.userUnit.SCUType then
-        controls.SCUType:SetTexture('/lua/gaz_ui/textures/scumanager/'..info.userUnit.SCUType..'_icon.dds')
-        controls.SCUType:Show()
-    end
-    
-    -- Replace fuel bar with progress bar from GAZ UI
-    if info.blueprintId ~= 'unknown' then
-
+        
+        -- code taken from below --
+        
+        -- first replaces fuel bar with progress bar when when upgrading
         controls.fuelBar:Hide()
 
         if info.workProgress > 0 then
             controls.fuelBar:Show()
             controls.fuelBar:SetValue(info.workProgress)
         end
-    end
 
-    if info.blueprintId != 'unknown' then
-
+        -- second adds additional info to the display
+        -- such as Regen Rate due to enhancements or veterancy buffs
+        -- shield max health and regen rate due to enhancements or other buffs
+        
         controls.Buildrate:Hide()
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
-			--    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
-			--       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
-			--       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
-			--       controls.StorageMass:Show()
-			--       controls.StorageEnergy:Show()
-			--    else
-			--       controls.StorageMass:Hide()
-			--       controls.StorageEnergy:Hide()
-			--    end
+		--    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
+		--       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
+		--       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
+		--       controls.StorageMass:Show()
+		--       controls.StorageEnergy:Show()
+		--    else
+		--       controls.StorageMass:Hide()
+		--       controls.StorageEnergy:Hide()
+		--    end
 
-        --evilnewcode
         local getEnh = import('/lua/enhancementcommon.lua')
 
         if info.userUnit != nil then
 
             local enhRegen , regenBase = 0 , 0
 
+            -- get regen rate from any enhancements
             if getEnh.GetEnhancements(info.entityId) != nil then
             
                 for k,v in getEnh.GetEnhancements(info.entityId) do
@@ -645,7 +637,9 @@ function UpdateWindow(info)
             end
 
             local veterancyLevels = info.userUnit:GetBlueprint().Veteran or veterancyDefaults
+            
 
+            -- get regen rate from any veteran levels
             if info.kills >= veterancyLevels[string.format('Level%d', 1)] then
 
                 local lvl = 1
@@ -678,13 +672,16 @@ function UpdateWindow(info)
                 
             else
             
+                -- display health, maxhealth and total regen values for the unit
+                -- and display it all on the HEALTH bar
                 if info.userUnit != nil and info.health and info.userUnit:GetBlueprint().Defense.RegenRate > 0 then
                     controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth,LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate + enhRegen)))
                 end
             end
         end
-        --endevilnewcode
-        
+
+        -- now do all the same for the Shield - showing health, max health and shield regen rate
+        -- and display it all on the SHIELD bar
         if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth then
 
             local ShieldMaxHealth = info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth
@@ -698,7 +695,6 @@ function UpdateWindow(info)
             end
         end
         
-        -- newcode
         if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth == nil then
 
             local ShieldMaxHealth = info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldMaxHealth
@@ -716,14 +712,24 @@ function UpdateWindow(info)
             end
         end
         
-        --newcode
+
+        -- if the unit has BuildRate >= 2 then show it below mass & energy stats
         if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
             controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
             controls.Buildrate:Show()
         else
             controls.Buildrate:Hide()
+        end   
+
+        controls.SCUType:Hide()
+
+        if info.userUnit.SCUType then
+            controls.SCUType:SetTexture('/lua/gaz_ui/textures/scumanager/'..info.userUnit.SCUType..'_icon.dds')
+            controls.SCUType:Show()
         end
+        
     end
+
 end
 
 function ShowROBox()
@@ -799,11 +805,13 @@ function CreateUI()
                 info = import("/lua/gaz_ui/modules/selectedinfo.lua").GetUnitRolloverInfo(selUnits[1])
                 --LOG(repr(import('/lua/enhancementcommon.lua').GetEnhancements(info.entityId)))
             end
-        
-        elseif info then
-        
-            UpdateWindow(info)
             
+        end
+        
+        if info then
+   
+            UpdateWindow(info)
+
             if self:GetAlpha() < 1 then
                 self:SetAlpha(math.min(self:GetAlpha() + (delta*3), 1), true)
             end
@@ -811,7 +819,7 @@ function CreateUI()
             import(UIUtil.GetLayoutFilename('unitview')).PositionWindow()
             
         elseif self:GetAlpha() > 0 then
-        
+
             self:SetAlpha(math.max(self:GetAlpha() - (delta*3), 0), true)
             
         end
@@ -822,11 +830,12 @@ function CreateUI()
     LayoutHelpers.AtRightIn(controls.SCUType, controls.icon)
     LayoutHelpers.AtBottomIn(controls.SCUType, controls.icon)
 
-    -- expanded unit stats
+    -- expanded unit stats also from GAZ
     controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
     controls.Buildrate = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
 
+    -- these are available but not implemented - showing storage values --
 	-- controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
 	-- controls.StorageEnergy = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
-				    
+
 end

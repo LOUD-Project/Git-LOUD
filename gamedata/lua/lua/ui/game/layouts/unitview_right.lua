@@ -149,8 +149,10 @@ function SetLayout()
 end
 
 function PositionWindow()
+
     local controls = import('/lua/ui/game/unitview.lua').controls
     local consControl = import('/lua/ui/game/construction.lua').controls.constructionGroup
+    
     if consControl:IsHidden() then
         LayoutHelpers.AtBottomIn(controls.bg, controls.parent)
         LayoutHelpers.AtLeftIn(controls.bg, controls.parent, 18)

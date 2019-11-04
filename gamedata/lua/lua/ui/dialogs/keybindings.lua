@@ -22,7 +22,13 @@ local keyContainer
 local keyTable
 
 -- Zulans HotBuild functions
-local initDefaultKeyMap = import('/mods/hotbuild/hotbuild.lua').initDefaultKeyMap
+local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
+
+LOG("Hotbuild --> Loading keydescriptions")
+
+for key, description in import('/lua/hotbuild/hotbuild.lua').getKeyDescriptions() do
+    keydesc[key] = description
+end
 
 local function initDefaultKeyMap_de()
     initDefaultKeyMap('de')
@@ -484,12 +490,18 @@ function FormatData()
     for i, v in retkeys do
 
         if not table.empty(v) then
-    
+
             table.sort(v, function(val1, val2)
-                if keydesc[val1.desckey] >= keydesc[val2.desckey] then
-                    return false
+
+                if val1 and val2 then
+                
+                    if (keydesc[val1.desckey] and keydesc[val2.desckey]) and keydesc[val1.desckey] >= keydesc[val2.desckey] then
+                        return false
+                    else
+                        return true
+                    end
                 else
-                    return true
+                    return false
                 end
             end)
         end

@@ -204,10 +204,10 @@ buildingTab = {
 
 ["Experimental"] = {
 -- Aeon
-"ual0401",
-"uaa0310",
-"uas0401",
-"xab1401",
+"ual0401",  -- Ernie
+"uaa0310",  -- Czar
+"uas0401",  -- Tempest
+"xab1401",  -- Paragon
 -- Cyb
 "url0402", -- Monkeylord
 "xrl0403", -- Megalith
@@ -216,7 +216,6 @@ buildingTab = {
 -- UEF
 "uel0401", -- Fatboy
 "ues0401", -- Atlantis
-"xeb2402", -- Novax
 "ueb2401", -- Mavor
 -- Sera
 "xsl0401", -- Ythotha

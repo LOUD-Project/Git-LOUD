@@ -9,14 +9,17 @@ local selectionOverlay = {
         Tooltip = "overlay_selection",
 }
 
-SelectedInfoOn = true
-SelectedOverlayOn = true
+SelectedInfoOn = false
+SelectedOverlayOn = false
 
-if options.gui_enhanced_unitview == 0 then 
-   SelectedInfoOn = false
+if options.gui_detailed_unitview == 1 then
+    LOG("*AI DEBUG turning on Enhanced Unitview")
+    SelectedInfoOn = true
 end
-if options.gui_enhanced_unitrings == 0 then 
-   SelectedOverlayOn = false
+
+if options.gui_enhanced_unitrings == 1 then 
+    LOG("*AI DEBUG turning on Enhanced Unit rings")
+    SelectedOverlayOn = true
 end
 
 function GetUnitRolloverInfo(unit)

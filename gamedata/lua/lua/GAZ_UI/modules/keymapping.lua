@@ -7,6 +7,7 @@ function Init()
     KeyMapper.SetUserKeyAction('show_network_stats', {action =  'ren_ShowNetworkStats', category = 'ui', order = 3})
     --add key to create an upgrade marker
     KeyMapper.SetUserKeyAction('scu_upgrade_marker', {action =  'UI_Lua import("/lua/gaz_ui/modules/scumanager.lua").CreateMarker()', category = 'user', order = 4})
+    
     KeyMapper.SetUserKeyAction('toggle_shield', {action = 'UI_Lua import("/lua/gaz_ui/modules/keymapping.lua").toggleScript("Shield")', category = 'orders', order = 6})
     KeyMapper.SetUserKeyAction('toggle_weapon', {action = 'UI_Lua import("/lua/gaz_ui/modules/keymapping.lua").toggleScript("Weapon")', category = 'orders', order = 7})
     KeyMapper.SetUserKeyAction('toggle_jamming', {action = 'UI_Lua import("/lua/gaz_ui/modules/keymapping.lua").toggleScript("Jamming")', category = 'orders', order = 8})

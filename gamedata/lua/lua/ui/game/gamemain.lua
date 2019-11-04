@@ -90,11 +90,6 @@ function OnFirstUpdate()
     
     LOG("*AI DEBUG OnFirstUpdate")
 
-    --import('/mods/hotbuild/hotbuild.lua').init()
- 
-    --LOG("*AI DEBUG Hotbuild import complete")
-    
-
     EnableWorldSounds()
 	
     local avatars = GetArmyAvatars()

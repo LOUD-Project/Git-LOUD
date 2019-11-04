@@ -785,7 +785,42 @@ Tooltips = {
         title = "20 Minutes",
         description = "You must stay in your starting area for 20 minutes",
     },
-
+    
+    lob_CheatsEnabled_false = {
+        title = 'Disable Cheats',
+        description = 'Disable all cheat functions',
+    },
+    lob_CheatsEnabled_true = {
+        title = 'Enable Cheats',
+        description = 'Enable cheat functions (reported to all players)',
+    },
+	
+    lob_FogOfWar_explored = {
+        title = 'Explored',
+        description = 'Sets Fog of War to Explored',
+    },
+    lob_FogOfWar_unexplored = {
+        title = 'Unexplored',
+        description = 'Sets the Fog of War to Unexplored',
+    },
+    lob_FogOfWar_none = {
+        title = 'None',
+        description = 'No Fog of War',
+    },
+        
+    lob_GameSpeed_normal = {
+        title = 'Normal',
+        description = 'Sets the game speed to Normal',
+    },
+    lob_GameSpeed_fast = {
+        title = 'Fast',
+        description = 'Sets the game speed to Fast',
+    },
+    lob_GameSpeed_adjustable = {
+        title = 'Adjustable',
+        description = 'Allows the game speed to be adjusted ingame',
+    },
+    
     Lobby_Gen_DisplayScores = {
         title = "Display Scores",
         description = "Turn the in game display of army scores on or off",
@@ -798,6 +833,7 @@ Tooltips = {
         title = "Scores On",
         description = "The scores are displayed during gameplay",
     },
+    
     Lobby_Prebuilt_Units = {
         title = "Prebuilt Units",
         description = "Each army will start with a basic prebuilt units",
@@ -811,6 +847,7 @@ Tooltips = {
         title = "On",
         description = "Prebuilt units are on",
     },
+    
     lob_slot = {
         title = "Player Slot",
         description = "Context sensitive menu which allows you to modify the player or AI for a given slot",
@@ -851,6 +888,7 @@ Tooltips = {
         title = "Random",
         description = '',
     },
+    
     lob_team_none = {
         title = 'No Team',
         description = '',
@@ -871,65 +909,121 @@ Tooltips = {
         title = 'Team 4',
         description = '',
     },
-    lob_GameSpeed_normal = {
-        title = 'Normal',
-        description = 'Sets the game speed to Normal',
+    lob_team_five = {
+        title = 'Team 5',
+        description = '',
     },
-    lob_GameSpeed_fast = {
-        title = 'Fast',
-        description = 'Sets the game speed to Fast',
+    lob_team_six = {
+        title = 'Team 6',
+        description = '',
     },
-    lob_GameSpeed_adjustable = {
-        title = 'Adjustable',
-        description = 'Allows the game speed to be adjusted ingame',
+    lob_team_seven = {
+        title = 'Team 7',
+        description = '',
     },
-    lob_UnitCap_250 = {
-        title = '250 Unit Cap',
-        description = 'Set Player Unit Cap to 250',
+    lob_team_eight = {
+        title = 'Team 8',
+        description = '',
     },
-    lob_UnitCap_300 = {
-        title = '300 Unit Cap',
-        description = 'Set Player Unit Cap to 300',
+    
+    lob_Timeouts_0 = {
+        title = 'No Pausing',
+        description = 'You will not be able to pause the game',
+    },
+    lob_Timeouts_3 = {
+        title = 'Timeouts 3',
+        description = 'You may pause the game 3 times',
+    },
+    ['lob_Timeouts_-1'] = {
+        title = 'Unlimited Pausing',
+        description = 'You can pause the game at any time',
+    },
+    
+
+	lob_CapCheat_cheatlevel = {
+		title = "Enhanced",
+		description = "AIx Commanders unit cap is Unit Cap times Resource Cheat multiplier",
+	},
+	lob_UnitCap_250 = {
+        title = "250",
+        description = "250 units per player may be in play.",
+    },
+	lob_UnitCap_300 = {
+        title = "300",
+        description = "300 units per player may be in play.",
+    },
+	lob_UnitCap_350 = {
+        title = "350",
+        description = "350 units per player may be in play.",
     },	
-    lob_UnitCap_500 = {
-        title = '500 Unit Cap',
-        description = 'Set Player Unit Cap to 500',
+	lob_UnitCap_400 = {
+        title = "400",
+        description = "400 units per player may be in play.",
     },
-    lob_UnitCap_750 = {
-        title = '750 Unit Cap',
-        description = 'Set Player Unit Cap to 750',
-    },
-    lob_UnitCap_875 = {
-        title = '875 Unit Cap',
-        description = 'Set Player Unit Cap to 875',
+	lob_UnitCap_450 = {
+        title = "450",
+        description = "450 units per player may be in play.",
     },	
-    lob_UnitCap_1000 = {
-        title = '1000 Unit Cap',
-        description = 'Set Player Unit Cap to 1000',
+	lob_UnitCap_500 = {
+		title = "500",
+		description = "500 units per player may be in play.",
+	},
+	lob_UnitCap_550 = {
+        title = "550",
+        description = "550 units per player may be in play.",
+    },
+	lob_UnitCap_600 = {
+        title = "600",
+        description = "600 units per player may be in play.",
+    },    
+	lob_UnitCap_625 = {
+        title = "625",
+        description = "625 units per player may be in play.",
+    },
+	lob_UnitCap_650 = {
+        title = "650",
+        description = "650 units per player may be in play.",
+    },
+	lob_UnitCap_700 = {
+        title = "700",
+        description = "700 units per player may be in play.",
+    },
+	lob_UnitCap_750 = {
+        title = "750",
+        description = "750 units per player may be in play.",
+    },
+	lob_UnitCap_800 = {
+        title = "800",
+        description = "800 units per player may be in play.",
+    },	
+	lob_UnitCap_875 = {
+		title = "875",
+		description = "875 units per player may be in play.",
+	},
+	lob_UnitCap_1000 = {
+        title = "1000",
+        description = "1000 units per player may be in play.",
+    },
+	lob_UnitCap_1250 = {
+        title = "1250",
+        description = "1250 units per player may be in play.",
+    },
+	lob_UnitCap_1500 = {
+        title = "1500",
+        description = "1500 units per player may be in play.",
     },
 	lob_UnitCap_2000 = {
-		title = '2000 Unit Cap',
-		description = 'Set Player Unit Cap to 2000',
-	},
+        title = "2000",
+        description = "2000 units per player may be in play.",
+    },    
 	lob_UnitCap_4000 = {
-		title = '4000 Unit Cap',
-		description = 'Set Player Unit Cap to 4000',
-	},	
-    lob_FogOfWar_explored = {
-        title = 'Explored',
-        description = 'Sets Fog of War to Explored',
-    },
-    lob_FogOfWar_unexplored = {
-        title = 'Unexplored',
-        description = 'Sets the Fog of War to Unexplored',
-    },
-    lob_FogOfWar_none = {
-        title = 'None',
-        description = 'No Fog of War',
-    },
+		title = '4000',
+		description = '4000 units per player may be in play.',
+	},
+
 	lob_Victory_decapitation = {
-		title = 'Advanced Assassintion',
-		description = 'Destroy the enemy Command and all SubCommanders to win',
+		title = "Advanced Assassination",
+		description = "Game will end when all enemy Commanders and Subcommanders are dead",
 	},
     lob_Victory_demoralization = {
         title = 'Assassination',
@@ -947,18 +1041,11 @@ Tooltips = {
         title = 'Sandbox',
         description = 'Your only defeat is leaving the game',
     },
-    lob_Timeouts_0 = {
-        title = 'Timeouts 0',
-        description = 'Someone Tell Tanksy What This Does',
-    },
-    lob_Timeouts_3 = {
-        title = 'Timeouts 3',
-        description = 'Someone Tell Tanksy What This Does',
-    },
-    ['lob_Timeouts_-1'] = {
-        title = 'Timeouts -1',
-        description = 'Someone Tell Tanksy What This Does',
-    },
+	lob_Victory_timelimit = {
+		title = "Time Limited",
+		description = "Game will end after the time limit",
+	},
+
     ['Give Units'] = {
         title = 'Give Units',
         description = '',
@@ -967,14 +1054,7 @@ Tooltips = {
         title = 'Give Resources',
         description = '',
     },
-    lob_CheatsEnabled_false = {
-        title = 'Disable Cheats',
-        description = 'Prevent players from cheating',
-    },
-    lob_CheatsEnabled_true = {
-        title = 'Enable Cheats',
-        description = 'Allow players to cheat',
-    },
+
     lob_TeamSpawn_random = {
         title = 'Random Spawnpoints',
         description = 'Players do not choose their spawn point',
@@ -990,6 +1070,34 @@ Tooltips = {
     lob_TeamLock_unlocked = {
         title = 'Unlock Teams',
         description = 'Teams can be changed during play',
+    },
+    lob_TimeLimitSetting_0 = {
+        title = 'No Limit',
+        description = 'Game will end using Victory Conditions',
+    },
+    lob_TimeLimitSetting_90 = {
+        title = '90 Minutes',
+        description = 'Game will end after 90 minutes',
+    },
+    lob_TimeLimitSetting_120 = {
+        title = '120 Minutes',
+        description = 'Game will end after 2 hours',
+    },
+    lob_TimeLimitSetting_150 = {
+        title = '150 Minutes',
+        description = 'Game will end after 2.5 hours',
+    },
+    lob_TimeLimitSetting_180 = {
+        title = '180 Minutes',
+        description = 'Game will end after 3 hours',
+    },
+    lob_TimeLimitSetting_210 = {
+        title = '210 Minutes',
+        description = 'Game will end after 3.5 hours',
+    },
+    lob_TimeLimitSetting_240 = {
+        title = '240 Minutes',
+        description = 'Game will end after 4 hours',
     },
     lob_describe_observers = {
         title = "Observers",
@@ -1627,6 +1735,10 @@ Tooltips = {
         title = "Server List",
         description = "Displays available LAN Games",
     },
+    mpselect_steam = {
+        title = "Steam",
+        description = "Host, Join or Observe games thru the Steam Matchmaking service",
+    },
     mpselect_name = {
         title = "Name",
         description = "Sets your Multiplayer Nickname",
@@ -1880,7 +1992,7 @@ Tooltips = {
         title = 'GUI Mod',
         description = 'Allows build templates to be used across all 4 factions.',
     }
-    Tooltips.options_gui_enhanced_unitview = {
+    Tooltips.options_gui_detailed_unitview = {
         title = 'GUI Mod',
         description = 'Replaces fuel bar with progress bar, and causes the unitview to always be shown for a 1 unit selection.',
     }
@@ -1903,10 +2015,6 @@ Tooltips = {
     Tooltips.options_gui_template_name_cutoff = {
         title = 'GUI Mod',
         description = 'The first 7 characters are displayed (default). Number of characters omitted can be customized. (Needs restart for effects to be visible.)',
-    }
-    Tooltips.options_gui_detailed_unitview = {
-        title = 'GUI Mod',
-        description = 'Displays Shield Hp, Regen rate, Hp Regen rate and Build rate. Adapted from Total Veterancy by Eni.',
     }
     Tooltips.options_gui_display_reclaim_totals = {
         title = 'GUI Mod',

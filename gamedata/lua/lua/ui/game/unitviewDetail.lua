@@ -7,8 +7,12 @@ local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Prefs = import('/lua/user/prefs.lua')
 local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
 
-local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
-local enhancementSlotNames = __DMSI.__DMod_EnhancementSlotNames
+--local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
+local   enhancementSlotNames = {}         -- __DMSI.__DMod_EnhancementSlotNames or {}
+
+enhancementSlotNames.back = '<LOC uvd_0007>Back'
+enhancementSlotNames.lch = '<LOC uvd_0008>LCH'
+enhancementSlotNames.rch = '<LOC uvd_0009>RCH'
 
 View = false
 ViewState = "full"
@@ -70,6 +74,8 @@ function ShowView( showUpKeep, enhancement, showecon, showShield )
 	import('/lua/ui/game/unitview.lua').ShowROBox(false, false)
 	
 	View:Show()
+    
+    View.Hiding = false
 	
 	View.UpkeepGroup:SetHidden(not showUpKeep)
 	
@@ -86,6 +92,8 @@ end
 function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 
 	if View and CheckFormat() then
+    
+        LOG("*AI DEBUG ShowEnhancement")
 
 		-- Name / Description
 		View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))
@@ -94,7 +102,6 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 		View.UnitShortDesc:SetFont(UIUtil.bodyFont, 14)
 
 		local slotName = enhancementSlotNames[string.lower(bp.Slot)]
-		
 		slotName = slotName or bp.Slot
 
 		if bp.Name != nil then
@@ -171,9 +178,13 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			View.BuildCostGroup:Hide()
 			View.TimeStat:Hide()
 		end
-	else
+        
+	elseif not View or not CheckFormat() then
+    
 		Hide()
+        
 	end
+    
 end
 
 function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
@@ -650,8 +661,10 @@ function OnNIS()
 end
 
 function Hide()
+
     if View then
         View:Hide()
+        View.Hiding = true
     end
 end
 
