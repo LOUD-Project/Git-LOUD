@@ -354,7 +354,7 @@ UnitBlueprint {
 			
             Damage = 3000,
             DamageFriendly = true,
-            DamageRadius = 4,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Small Yield Nuclear Bomb',
@@ -432,7 +432,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 900,
+            Damage = 600,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',

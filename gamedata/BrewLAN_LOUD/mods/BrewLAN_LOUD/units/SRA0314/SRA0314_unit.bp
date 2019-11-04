@@ -350,7 +350,7 @@ UnitBlueprint {
 			
             Damage = 2750,
             DamageFriendly = true,
-            DamageRadius = 4.5,
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'Neutron Bomb',
@@ -420,7 +420,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 900,
+            Damage = 600,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',

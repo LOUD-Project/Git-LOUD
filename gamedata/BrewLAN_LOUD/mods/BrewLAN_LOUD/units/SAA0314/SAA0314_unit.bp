@@ -352,7 +352,7 @@ UnitBlueprint {
 			
             Damage = 3450,
             DamageFriendly = true,
-            DamageRadius = 3.5,
+            DamageRadius = 3.2,
             DamageType = 'Normal',
 			
             EffectiveRadius = 25,
@@ -422,8 +422,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 900,
-            DamageRadius = 3,
+            Damage = 600,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Laanse Standoff Missile Launcher',
