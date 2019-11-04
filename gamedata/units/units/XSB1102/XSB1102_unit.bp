@@ -87,20 +87,25 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -4,
         BuildCostEnergy = 1800,
         BuildCostMass = 270,
 		BuildRate = 10,
-        BuildTime = 500,
+        BuildTime = 270,
+		
         ProductionPerSecondEnergy = 100,
+		
 		BuildableCategory = { 'bsb1202', },
+		
         RebuildBonusIds = {
             'xsb1102',
 			'bsb1202',
 			'bsb1302',
         },
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,

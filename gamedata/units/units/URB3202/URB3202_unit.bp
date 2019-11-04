@@ -62,16 +62,18 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.125,
     },
+	
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 120,
         BuildRate = 15,
-        BuildTime = 600,
-        BuildableCategory = {
-            'urs0305',
-        },
+        BuildTime = 360,
+		
+        BuildableCategory = {'urs0305'},
+		
         MaintenanceConsumptionPerSecondEnergy = 100,
     },
+	
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',

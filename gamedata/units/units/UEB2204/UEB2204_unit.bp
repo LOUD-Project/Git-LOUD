@@ -77,17 +77,19 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+	
     Economy = {
         BuildCostEnergy = 5600,
         BuildCostMass = 560,
-        BuildTime = 700,
-        RebuildBonusIds = {
-            'ueb2204',
-        },
+        BuildTime = 560,
+		
+        RebuildBonusIds = {'ueb2204'},
     },
+	
     Footprint = {
         MinWaterDepth = 2,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -112,15 +114,19 @@ UnitBlueprint {
         UnitName = '<LOC ueb2204_name>Air Cleaner',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 30,
     },
+	
     Interface = {
         HelpText = 'AA Flak Artillery',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -145,14 +151,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+	
     SizeX = 0.5,
     SizeY = 1.2,
     SizeZ = 0.5,
+	
     StrategicIconName = 'icon_structure2_antiair',
     StrategicIconSortPriority = 200,
+	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -160,6 +170,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+	
     Weapon = {
         {
             AlwaysRecheckTarget = true,

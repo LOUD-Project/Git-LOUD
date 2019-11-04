@@ -93,21 +93,24 @@ UnitBlueprint {
 
         UniformScale = 0.05,
     },
+	
     Economy = {
         BuildCostEnergy = 2500,
         BuildCostMass = 500,
         BuildRate = 10,
-        BuildTime = 1050,
-        BuildableCategory = {
-            'xrb0204',
-        },
+        BuildTime = 500,
+		
+        BuildableCategory = {'xrb0204'},
+		
         MaxBuildDistance = 15,
+		
         RebuildBonusIds = {
             'xrb0104',
 			'xrb0204',
 			'xrb0304',
         },
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,

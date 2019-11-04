@@ -83,23 +83,26 @@ UnitBlueprint {
         },
         UniformScale = 0.1,
     },
+	
     Economy = {
         BuildCostEnergy = 42525,
         BuildCostMass = 4725,
         BuildRate = 50,
-        BuildTime = 12000,
+        BuildTime = 9450,
+		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY UEF MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY UEF STRUCTURE LAND',
             'BUILTBYTIER3FACTORY UEF MOBILE LAND',
             'BUILTBYLANDTIER3FACTORY UEF MOBILE CONSTRUCTION',
         },
-        RebuildBonusIds = {
-            'ueb0301',
-        },
+		
+        RebuildBonusIds = {'ueb0301'},
+		
         StorageEnergy = 2000,
         StorageMass = 200,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,

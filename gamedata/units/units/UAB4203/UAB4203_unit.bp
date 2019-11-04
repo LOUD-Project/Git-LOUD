@@ -16,7 +16,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+	
     BuildIconSortPriority = 200,
+	
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -35,7 +37,9 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+	
     CollisionOffsetY = -0.25,
+	
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 6,
@@ -43,7 +47,9 @@ UnitBlueprint {
         MaxHealth = 175,
         RegenRate = 0,
     },
+	
     Description = '<LOC uab4203_desc>Stealth Field Generator',
+	
     Display = {
         Abilities = {
             'Stealth Field',
@@ -105,15 +111,17 @@ UnitBlueprint {
         },
         UniformScale = 1.7,
     },
+	
     Economy = {
         BuildCostEnergy = 6000,
         BuildCostMass = 400,
         BuildTime = 500,
+		
         MaintenanceConsumptionPerSecondEnergy = 125,
-        RebuildBonusIds = {
-            'uab4203',
-        },
+		
+        RebuildBonusIds = {'uab4203'},
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,

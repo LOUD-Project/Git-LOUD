@@ -199,7 +199,7 @@ UnitBlueprint {
     SelectionThickness = 0.27,
 	
     SizeX = 0.75,
-    SizeY = 0.6,
+    SizeY = 0.8,
     SizeZ = 2.5,
 	
     StrategicIconName = 'icon_ship2_counterintel',

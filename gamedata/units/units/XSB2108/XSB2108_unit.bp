@@ -105,10 +105,9 @@ UnitBlueprint {
         BuildCostEnergy = 4500,
         BuildCostMass = 825,
         BuildRate = 25,
-        BuildTime = 700,
-        RebuildBonusIds = {
-            'xsb2108',
-        },
+        BuildTime = 825,
+		
+        RebuildBonusIds = {'xsb2108'},
     },
     Footprint = {
         SizeX = 1,

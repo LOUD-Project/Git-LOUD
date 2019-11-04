@@ -89,24 +89,29 @@ UnitBlueprint {
         },
         UniformScale = 0.35,
     },
+	
     Economy = {
         BuildCostEnergy = 15210,
         BuildCostMass = 819,
         BuildRate = 35,
-        BuildTime = 2700,
+        BuildTime = 3042,
+		
         BuildableCategory = {
             'BUILTBYTIER2FACTORY AEON MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY AEON STRUCTURE AIR',
             'BUILTBYTIER2FACTORY AEON MOBILE AIR',
             'TRANSPORTBUILTBYTIER2FACTORY AEON MOBILE AIR',
         },
+		
         RebuildBonusIds = {
             'uab0202',
             'uab0302',
         },
+		
         StorageEnergy = 1000,
         StorageMass = 100,
     },
+	
     Footprint = {
         SizeX = 5,
         SizeZ = 5,

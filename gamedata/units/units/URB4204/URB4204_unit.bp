@@ -110,7 +110,7 @@ UnitBlueprint {
         BuildCostEnergy = 3000,
         BuildCostMass = 562,
         BuildRate = 10,
-        BuildTime = 300,
+        BuildTime = 562,
 		
         BuildableCategory = { 'urb4205' },
 		

@@ -52,14 +52,15 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+	
     Economy = {
         BuildCostEnergy = 10,
         BuildCostMass = 2,
-        BuildTime = 10,
-        RebuildBonusIds = {
-            'ueb5101',
-        },
+        BuildTime = 2,
+		
+        RebuildBonusIds = {'ueb5101'},
     },
+	
     General = {
         CapCost = 0.1,
         Category = 'Defense',

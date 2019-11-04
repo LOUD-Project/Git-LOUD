@@ -108,14 +108,18 @@ UnitBlueprint {
         },
         UniformScale = 0.07,
     },
+	
     Economy = {
         AdjacentStructureEnergyMod = -4,
         BuildCostEnergy = 22500,
         BuildCostMass = 2250,
         BuildTime = 3000,
+		
         ProductionPerSecondEnergy = 500,
+		
 		StorageEnergy = 50,
     },
+	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,

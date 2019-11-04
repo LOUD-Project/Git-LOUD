@@ -98,16 +98,19 @@ UnitBlueprint {
         },
         UniformScale = 0.45,
     },
+	
     Economy = {
         BuildCostEnergy = 9000,
         BuildCostMass = 1080,
         BuildTime = 1080,
     },
+	
     Footprint = {
         MinWaterDepth = 2,
         SizeX = 2,
         SizeZ = 2,
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -132,6 +135,7 @@ UnitBlueprint {
         UnitName = '<LOC uab2205_name>Wave Break',
         UnitWeight = 1,
     },
+	
     Intel = {
 		FreeIntel = true,
         RadarStealth = true,

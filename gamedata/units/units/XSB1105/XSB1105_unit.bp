@@ -70,20 +70,21 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.065,
     },
+	
     Economy = {
         AdjacentEnergyProductionMod = 2,
         BuildCostEnergy = 1200,
         BuildCostMass = 250,
 		BuildRate = 10,
-        BuildTime = 200,
-		BuildableCategory = {
-            'xsb2105',
-        },
-        RebuildBonusIds = {
-            'xsb1105',
-        },
+        BuildTime = 250,
+		
+		BuildableCategory = {'xsb2105'},
+		
+        RebuildBonusIds = {'xsb1105'},
+		
         StorageEnergy = 3000,
     },
+	
     General = {
 		CapCost = .25,
         Category = 'Economy',

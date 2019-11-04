@@ -61,10 +61,10 @@ UnitBlueprint {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
         BuildTime = 1800,
+		
         MaintenanceConsumptionPerSecondEnergy = 2000,
-        RebuildBonusIds = {
-            'uab3104',
-        },
+		
+        RebuildBonusIds = {'uab3104'},
     },
     Footprint = {
         SizeX = 1,

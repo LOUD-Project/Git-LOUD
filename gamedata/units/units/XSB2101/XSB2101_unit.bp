@@ -41,7 +41,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+	
     CollisionOffsetY = 0,
+	
     Defense = {
         ArmorType = 'Structure',
         Health = 1300,
@@ -49,7 +51,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 15,
     },
+	
     Description = '<LOC xsb2101_desc>Basic Point Defense',
+	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -72,14 +76,15 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.038,
     },
+	
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 250,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'xsb2101',
-        },
+		
+        RebuildBonusIds = {'xsb2101'},
     },
+	
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -103,15 +108,19 @@ UnitBlueprint {
         UnitName = '<LOC xsb2101_name>Uttaus',
         UnitWeight = 1,
     },
+	
     Intel = {
         VisionRadius = 26,
     },
+	
     Interface = {
         HelpText = 'Basic Point Defense',
     },
+	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.9,
+	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {

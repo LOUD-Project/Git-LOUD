@@ -57,15 +57,17 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
+	
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
-        BuildTime = 1800,
+        BuildTime = 3000,
+		
         MaintenanceConsumptionPerSecondEnergy = 2000,
-        RebuildBonusIds = {
-            'ueb3104',
-        },
+		
+        RebuildBonusIds = {'ueb3104'},
     },
+	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
