@@ -176,7 +176,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 3000,
+        BuildCostEnergy = 3600,
         BuildCostMass = 390,
         BuildTime = 1950,
     },
@@ -294,7 +294,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'Torpedo',
 			
-            MaxRadius = 40,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
@@ -385,7 +385,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.4,
 			
             TargetCheckInterval = 0.5,
 			

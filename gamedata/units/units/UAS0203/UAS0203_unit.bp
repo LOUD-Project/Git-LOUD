@@ -158,9 +158,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 3000,
+        BuildCostEnergy = 3600,
         BuildCostMass = 360,
-        BuildTime = 1800,
+        BuildTime = 1200,
     },
 
     General = {
@@ -277,7 +277,7 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 40,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
