@@ -194,9 +194,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 1100,
-        BuildTime = 5500,
+        BuildCostEnergy = 12000,
+        BuildCostMass = 1200,
+        BuildTime = 6000,
 		
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
@@ -240,7 +240,7 @@ UnitBlueprint {
         SonarRadius = 50,
         SonarStealth = true,
         VisionRadius = 28,
-        WaterVisionRadius = 32,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -307,7 +307,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 120,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -324,7 +324,7 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.4,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoSize = 3,
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -351,7 +351,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.4,		-- 6 torps * 60  = 360 * .4 = 144 Sub
+            RateOfFire = 0.4,		-- 3 torps * 120  = 360 * .4 = 144 Sub
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 20,
@@ -360,8 +360,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMARINE',
+				'NAVAL',
 				'MOBILE',
                 'STRUCTURE DEFENSE',
                 'ALLUNITS',
@@ -424,7 +424,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.8,
+            RateOfFire = 0.4,
 			
             TargetCheckInterval = 0.5,
 			

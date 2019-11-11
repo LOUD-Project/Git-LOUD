@@ -460,7 +460,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 150,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Ana-it Torpedo Launcher',
@@ -477,7 +477,7 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.7,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
@@ -501,7 +501,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 4 torps of 150 = 600 *.2 = 120 DPS Sub
+            RateOfFire = 0.2,		-- 2 torps of 300 = 600 *.2 = 120 DPS Sub
 			
             TargetCheckInterval = 1,
 			
@@ -564,7 +564,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1.0,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
 			
