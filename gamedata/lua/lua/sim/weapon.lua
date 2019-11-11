@@ -639,7 +639,7 @@ Weapon = Class(moho.weapon_methods) {
 	
         if buffname then
 		
-			LOG("*AI DEBUG Weapon DisableBuff "..repr(buffname))
+			--LOG("*AI DEBUG Weapon DisableBuff "..repr(buffname))
 		
 			if not self.Disabledbf then
 				self.Disabledbf = {}

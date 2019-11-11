@@ -574,13 +574,11 @@ function SpawnWaveThread( aiBrain )
 		
 	end
 	
-	LOG("*AI DEBUG testunits is "..repr(testUnits))
-	LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
+	--LOG("*AI DEBUG testunits is "..repr(testUnits))
+	--LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 	
 	if initialUnits then
-	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
-		
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
 	end
 	
 	local initialdelay = true
@@ -600,7 +598,7 @@ function SpawnWaveThread( aiBrain )
 				-- the factory must be fully built --
 				if v:GetFractionComplete() == 1 then
 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave timer launched")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave timer launched")
 					initialdelay = false
 					break
 					
@@ -617,20 +615,28 @@ function SpawnWaveThread( aiBrain )
 	local ArmyPool = aiBrain.ArmyPool
 
 	while initialUnits do
+    
+		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
+	
+        -- the spawnwave cannot happen unless a T3 Air Factory is present
+		if table.getn(T3AirFacs) == 0 then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave disabled - no factory")
+            WaitSeconds(120)
+			continue
+		end    
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = math.floor((wave * 2) * tonumber(ScenarioInfo.Options.BuildMult) )
+		local units = math.floor((wave * 1.5) * tonumber(ScenarioInfo.Options.BuildMult) )
+        -- insure that there is always at least 1 unit (in case of negative multipliers)
+        local units = math.max( units, 1 ) 
 		
 		-- increase the unit cap by the number of units * 5 - accounting for the multiple types
 		SetArmyUnitCap( aiBrain.ArmyIndex, GetArmyUnitCap( aiBrain.ArmyIndex) + (units * 5) )
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units)
 		
 		-- the unit we'll create
 		local unit
 		
 		for spawn = 1, units do
-
 		
 			-- fighters --
 			if initialUnits[1] then
@@ -675,28 +681,31 @@ function SpawnWaveThread( aiBrain )
 			end
 			
 			WaitTicks(1)
-			
 		end
 		
 		wave = wave + 1
 
+        -- cap out at 10 waves --
 		if wave > 10 then
-		
 			wave = 10
-			
 		end
 		
-		-- we'll just send everything in the core to a disperse point --
+		-- send everything in the core to a disperse point --
 		coreunits = GetFreeUnitsAroundPoint( aiBrain, categories.MOBILE - categories.ENGINEER, {startx, 0, startz}, 26 )
 		
 		DisperseUnitsToRallyPoints( aiBrain, coreunits, aiBrain.BuilderManagers['MAIN'].Position, aiBrain.BuilderManagers['MAIN'].RallyPoints )
 		
 		-- decrease the period until the next wave  -- modified by the build cheat level
-		spawndelay = spawndelay - ( (30 - wave) * tonumber(ScenarioInfo.Options.BuildMult) )
-		
+        -- each reduction will be smaller than the last until wave 10 when it becomes the same
+        -- initial reduction is 30 seconds + cheat
+        -- final   reduction is 12 seconds + cheat
+		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * tonumber(ScenarioInfo.Options.BuildMult) )
+        
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units.." at "..GetGameTimeSeconds().." seconds")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
+
 		-- wait for the next spawn wave
 		WaitTicks(spawndelay * 10)
-		
 	end
 	
 	LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave disabled")
@@ -764,12 +773,12 @@ end
 	
 
 -- Maintains table of platoons issuing distress calls and what kind of help they are looking for
--- The thread executes every 10 seconds and simly purges any distress entry more than 30 seconds old
+-- The thread executes every 10 seconds and simply purges any distress entry more than 30 seconds old
 -- or where the platoon that issued it is no longer around
 -- Lastly - it maintains a flag to signify if there are ANY platoon distress calls at all
 function PlatoonDistressMonitor( aiBrain )
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." starts PlatoonDistressMonitor")
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." starts PlatoonDistressMonitor")
 
 	-- create the data structure
     aiBrain.PlatoonDistress = { ['AlertSounded'] = false, ['Platoons'] = {} }
@@ -976,7 +985,7 @@ function SetPrimaryLandAttackBase( aiBrain )
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimaryLandAttackBase or aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM at "..builderManager.LocationType.." Set to Primary LAND Attack Base")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base")
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
@@ -1061,9 +1070,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 				-- ideally we should get a path ( Amphib since this base is on water and the goal is on land ) and use that value instead
 				Bases[counter+1] = { BaseName = v.BaseName, Position = v.Position, Distance = VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
 				counter = counter + 1
-				
 			end
-			
         end
         
 		-- sort them by distance to goal
@@ -1087,38 +1094,40 @@ function SetPrimarySeaAttackBase( aiBrain )
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimarySeaAttackBase or aiBrain.LastPrimarySeaAttackBase != aiBrain.PrimarySeaAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM at "..builderManager.LocationType.." Set to Primary SEA ATTACK Base")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base")
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
 
+                    -- turn off the old primary sea attack base
+                    if aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PrimarySeaAttackBase then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..aiBrain.LastPrimarySeaAttackBase.." was the Primary SEA ATTACK Base")
+                        
+                        -- turn off the primary flag
+                        aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PrimarySeaAttackBase = false
+
+                        -- reset the tasks with Priority Functions at the old primary
+                        aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PlatoonFormManager:ForkThread( ResetPFMTasks, aiBrain)
+                    end
+
+                    -- store the new primary sea attack base
 					aiBrain.LastPrimarySeaAttackBase = aiBrain.PrimarySeaAttackBase or false
 				
 					-- if a human ally has requested status updates
 					if aiBrain.DeliverStatus then
-						
 						ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary SEA Base is now '..aiBrain.PrimarySeaAttackBase )
-
-					end
-
+                    end
 				end
 
 			-- if the location is not the primary
 			-- check for any units that need to be moved up 
 			else
-
-				aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = false
-				
 				builderManager:ForkThread( ClearOutBase, aiBrain )
-
 			end
-			
 		end
 		
     else
-	
 		aiBrain.PrimarySeaAttackBase = false
-		
     end
 	
 end
@@ -1161,196 +1170,158 @@ function ClearOutBase( manager, aiBrain )
 
 	local basename = manager.LocationType
 	local Position = aiBrain.BuilderManagers[basename].Position
+    
+    -- the base cannot have any active alerts --
+    if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts != 0 then
+
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
 	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
+        -- all standard land units but Not experimentals 
+        local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+
+        if grouplndcount > 0 then
+
+            local plat = aiBrain:MakePlatoon('ClearOutLand','none')
+
+            plat.BuilderName = 'ClearOutPrimary Land'
+            plat.BulderLocation = basename
+
+            local counter = 0
+
+            for _,unit in grouplnd do
+
+                if counter < 60 then
+                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    counter = counter + 1
+                else
+                    break
+                end
+            end
+
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
+
+            plat:SetAIPlan( 'ReinforceLandAI', aiBrain )
+        end
 	
-	-- all standard land units but Not experimentals 
-	local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        -- all amphibious land units including experimentals
+        local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.AMPHIBIOUS * categories.MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
-	if grouplndcount > 0 then
+        if groupamphibcount > 0 then
 
-		local plat = aiBrain:MakePlatoon('ClearOutLand','none')
+            local plat = aiBrain:MakePlatoon('ClearOutAmphib','none')
 
-		plat.BuilderName = 'ClearOutPrimary Land'
-		plat.BulderLocation = basename
+            plat.BuilderName = 'ClearOutPrimary Amphib'
+            plat.BulderLocation = basename
 
-		local counter = 0
+            local counter = 0
 
-		for _,unit in grouplnd do
+            for _,unit in groupamphib do
 
-			if counter < 90 then
+                if counter < 60 then
+                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    counter = counter + 1
+                else
+                    break
+                end
+            end
 
-				aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-				counter = counter + 1
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-			else
-
-				break
-				
-			end
-
-		end
-
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
-
-		plat:SetAIPlan( 'ReinforceLandAI', aiBrain )
-
-	end
+            plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )
+        end
 	
-	-- all amphibious land units including experimentals
-	local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.AMPHIBIOUS * categories.MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        -- all naval units including EXPERIMENTALS excluding MOBILESONAR
+        local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.MOBILESONAR - categories.INSIGNIFICANTUNIT, Position, 100 )
 
-	if groupamphibcount > 0 then
+        if groupseacount > 0 then
 
-		local plat = aiBrain:MakePlatoon('ClearOutAmphib','none')
+            local plat = aiBrain:MakePlatoon('ClearOutSea','none')
 
-		plat.BuilderName = 'ClearOutPrimary Amphib'
-		plat.BulderLocation = basename
+            plat.BuilderName = 'ClearOutPrimary Sea'
+            plat.BulderLocation = basename
 
-		local counter = 0
+            local counter = 0
 
-		for _,unit in groupamphib do
+            for _,unit in groupsea do
 
-			if counter < 90 then
+                if counter < 60 then
+                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    counter = counter + 1
+                else
+                    break
+                end
+            end
 
-				aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-				counter = counter + 1
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-			else
+            plat:SetAIPlan( 'ReinforceNavalAI', aiBrain )
+        end
 
-				break
-				
-			end
+        -- all fighter units including air scouts
+        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100 )
 
-		end
+        if groupaircount > 0 then
 
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
+            local plat = aiBrain:MakePlatoon('ClearOutFighters','none')
 
-		plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )
+            plat.BuilderName = 'ClearOut Fighters'
+            plat.BuilderLocation = basename
 
-	end
+            for _,unit in groupair do
+
+                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+
+            end
+
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
+
+            plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+        end
 	
-	-- all naval units 
-	local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.MOBILESONAR - categories.INSIGNIFICANTUNIT, Position, 100 )
+        -- all gunship units including EXPERIMENTAL
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100 )
 
-	if groupseacount > 0 then
+        if groupaircount > 0 then
 
-		local plat = aiBrain:MakePlatoon('ClearOutSea','none')
+            local plat = aiBrain:MakePlatoon('ClearOutGunships','none')
 
-		plat.BuilderName = 'ClearOutPrimary Sea'
-		plat.BulderLocation = basename
+            plat.BuilderName = 'ClearOut Gunships'
+            plat.BuilderLocation = basename
 
-		local counter = 0
+            for _,unit in groupair do
 
-		for _,unit in groupsea do
+                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
 
-			if counter < 50 then
+            end
 
-				aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-				counter = counter + 1
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-			else
+            plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+        end	
 
-				break
+        -- all bomber units including torpedo bombers and EXPERIMENTALS
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER), Position, 100 )
 
-			end
+        if groupaircount > 0 then
 
-		end
+            local plat = aiBrain:MakePlatoon('ClearOutBombers','none')
 
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
+            plat.BuilderName = 'ClearOut Bombers'
+            plat.BuilderLocation = basename
 
-		plat:SetAIPlan( 'ReinforceNavalAI', aiBrain )
+            for _,unit in groupair do
 
-	end
+                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
 
-	-- all fighter units
-	local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * categories.ANTIAIR), Position, 100 )
+            end
 
-	if groupaircount > 0 then
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-		local plat = aiBrain:MakePlatoon('ClearOutFighters','none')
+            plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+        end
 
-		plat.BuilderName = 'ClearOut Fighters'
-		plat.BuilderLocation = basename
-
-		for _,unit in groupair do
-
-			aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-
-		end
-
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
-
-		plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
-
-	end
-	
-	-- all gunship units
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100 )
-
-	if groupaircount > 0 then
-
-		local plat = aiBrain:MakePlatoon('ClearOutGunships','none')
-
-		plat.BuilderName = 'ClearOut Gunships'
-		plat.BuilderLocation = basename
-
-		for _,unit in groupair do
-
-			aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-
-		end
-
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
-
-		plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
-
-	end	
-
-	-- all bomber units
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100 )
-
-	if groupaircount > 0 then
-
-		local plat = aiBrain:MakePlatoon('ClearOutBombers','none')
-
-		plat.BuilderName = 'ClearOut Bombers'
-		plat.BuilderLocation = basename
-
-		for _,unit in groupair do
-
-			aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-
-		end
-
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
-
-		plat:SetAIPlan( 'ReinforceAirLandAI', aiBrain )	-- Land bases only
-
-	end
-	
-	-- all torpedo bomber units but NOT experimentals
-	groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.ANTINAVY * categories.AIR ), Position, 100 )
-
-	if groupaircount > 0 then
-
-		local plat = aiBrain:MakePlatoon('ClearOutTorpedo','none')
-
-		plat.BuilderName = 'ClearOut Torps'
-		plat.BuilderLocation = basename
-
-		for _,unit in groupair do
-
-			aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
-
-		end
-
-		plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
-
-		plat:SetAIPlan( 'ReinforceAirNavalAI', aiBrain )	-- Naval bases only
-
-	end	
-	
+    end
+    
 	manager:ForkThread( ResetPFMTasks, aiBrain )
 	
 	return
@@ -1382,29 +1353,24 @@ function ResetPFMTasks (manager, aiBrain)
 					if newPri and newPri != b.Priority then
 
 						tasksaltered = tasksaltered + 1
-
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." at "..manager.LocationType.." "..b.BuilderName.." is set to "..repr(newPri).." Permanent is "..repr(not temporary))
+                        
+                        if ScenarioInfo.PriorityDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." at "..manager.LocationType.." "..b.BuilderName.." is set to "..repr(newPri).." Permanent is "..repr(not temporary))
+                        end
 
 						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
-
 					end
-
 				end
 
 				if (not newPri and b.Priority > 99) or (newPri and newPri > 99) then
 
 					newtasks = newtasks + 1
-
 				end
-
 			end
-
 		end
-
 	end
 
 	manager.NumBuilders = newtasks	
-
 end
 
 -- whenever the AI cannot find enough transports to move a platoon
@@ -1432,13 +1398,10 @@ function ProcessAirUnits( unit, aiBrain )
 			unit:ForkThread( AirUnitRefitThread, aiBrain )
 			
 			return true
-
 		end
-		
 	end
 	
 	return false
-	
 end
 
 -- this function will attempt to get the air unit to a repair pad
@@ -1492,68 +1455,47 @@ function AirUnitRefitThread( unit, aiBrain )
 								
 									closestairpad = airpad
 									distance = tempDist
-									
 								end
-								
 							end
-							
 						end
 						
 						-- Begin loading/refit sequence
 						if closestairpad then
 						
 							AirStagingThread (unit, closestairpad, aiBrain )
-							
-							--break
-							
-						end
 
-					end
-					
+						end
+                    end
 				else
-				
 					-- no airpad - just send them home --
 					if not rtbissued then
 					
 						rtbissued = true
-				
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." cannot find airpad")
-					
+
 						-- find closest base
 						local baseposition = AIFindClosestBuilderManagerName( aiBrain, unit:GetPosition(), true, false)
-					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." closest base is "..repr(baseposition))
-						
+
 						if baseposition then
 
 							IssueStop ( {unit} )
 							IssueClearCommands( {unit} )
 					
 							IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
-							
 						end
-						
 					end
-					
 				end
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
-			
 				break
-				
 			end
 	
 			WaitTicks(65)
-			
 		end
-		
 	end
 	
 	-- return repaired/refuelled unit to pool
 	if not unit.Dead then
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit:GetBlueprint().Description.." leaving refit thread")
 
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
@@ -1563,13 +1505,9 @@ function AirUnitRefitThread( unit, aiBrain )
 			unit.PlatoonHandle = aiBrain.ArmyPool
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )
-			
 		else
-		
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
-			
 		end
-		
 	end
 end
 
@@ -1581,8 +1519,6 @@ function AirStagingThread( unit, airstage, aiBrain )
 	if not airstage:BeenDestroyed() then
 		
 		if not unit:BeenDestroyed() then
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit:GetBlueprint().Description.." starts air staging")
 
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
@@ -1593,11 +1529,8 @@ function AirStagingThread( unit, airstage, aiBrain )
 			
 				IssueTransportLoad( {unit}, airstage )
 				unit:MarkWeaponsOnTransport(unit, true)		-- disable weapons so they wont seek targets -- I hope
-				
 			end
-			
 		end
-		
 	end
 
 	local waitcount = 0
@@ -1609,13 +1542,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
-
-		else
-		
+        else
 			break
-			
 		end
-		
 	end
 	
 	-- get it off the airpad
@@ -1661,19 +1590,13 @@ function AirStagingThread( unit, airstage, aiBrain )
 				unit:ShowBone(0, true)
 				unit:OnRemoveFromStorage(airstage)
 			end
-			
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit:GetBlueprint().Description.." leaves air staging")
-		
 	end
 	
 	if not unit.Dead then
 	
 		unit:MarkWeaponsOnTransport(unit, false)
-		
 	end	
-	
 end
 
 -- this will return true or false depending upon if an enemy ANTITELEPORT
@@ -1728,7 +1651,6 @@ function BOACU_Installed( aiBrain )
 	else
 		return ScenarioInfo.BOACU_Installed
 	end
-	
 end
 
 function BOU_Installed( aiBrain )
@@ -1738,7 +1660,6 @@ function BOU_Installed( aiBrain )
 	else
 		return ScenarioInfo.BOU_Installed
 	end
-	
 end
 
 function LOUD_IS_Installed( aiBrain )
@@ -1777,9 +1698,7 @@ function AddCustomUnitSupport( aiBrain )
 		
 		--If mod has a CustomUnits folder
 		local CustomUnitFiles = DiskFindFiles(m.location..'/lua/CustomUnits', '*.lua')
-		
-		--LOG('*AI DEBUG: Custom unit files found: '..repr(CustomUnitFiles))
-		
+
 		--Loop through files in CustomUnits folder
 		for k, v in CustomUnitFiles do
 		
@@ -2335,8 +2254,6 @@ end
 -- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 32 are dead
 function DeadBaseMonitor( aiBrain )
 
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Dead Base Monitor begins..")
-
 	WaitTicks(1800)	#-- dont start for 3 minutes
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -2349,8 +2266,6 @@ function DeadBaseMonitor( aiBrain )
 	local groupsea, groupseacount
 
 	while true do
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Dead Base check fires")
 
 		for k,v in aiBrain.BuilderManagers do
 			
@@ -2373,8 +2288,6 @@ function DeadBaseMonitor( aiBrain )
 				
 				-- increase the nofactory counter
 				aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(k).." reports no factories - count is "..aiBrain.BuilderManagers[k].nofactorycount)
 
 				-- if base has no engineers AND has had no factories for about 200 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
@@ -2386,24 +2299,19 @@ function DeadBaseMonitor( aiBrain )
 
 						-- Kill WaveSpawn thread if exists
 						if aiBrain.WaveThread then
-						
-							LOG("*AI DEBUG Kill WaveSpawn Thread")
-							
+
 							KillThread(aiBrain.WaveThread)
 							
 							aiBrain.WaveThread = nil
-							
 						end
 
 						-- record MainBaseDead
 						aiBrain.MainBaseDead = true
-						
 					end
 
 					-- clear any Primary flags
                     v.PrimaryLandAttackBase = false
 					v.PrimarySeaAttackBase = false
-
 
 					-- remove the dynamic rally points - using the basename (k) now instead of v.position
 					RemoveBaseRallyPoints( aiBrain, k, v.BaseType, v.RallyPointRadius )
@@ -2413,7 +2321,6 @@ function DeadBaseMonitor( aiBrain )
 					
 						v.EngineerManager:SetEnabled(aiBrain,false)
 						v.EngineerManager:Destroy()
-						
 					end
 
 					-- check if new primary bases are needed
@@ -2428,38 +2335,29 @@ function DeadBaseMonitor( aiBrain )
 					
 						v.FactoryManager:SetEnabled(aiBrain,false)
 						v.FactoryManager:Destroy()
-						
 					end
 					
 					if v.PlatoonFormManager then
 					
 						v.PlatoonFormManager:SetEnabled(aiBrain,false)
 						v.PlatoonFormManager:Destroy()
-						
 					end
 
 					-- update the base counter
 					if v.CountedBase then
 					
 						if v.BaseType == 'Sea' then
-						
 							aiBrain.NumBasesNaval = aiBrain.NumBasesNaval - 1
-							
 						else
-						
 							aiBrain.NumBasesLand = aiBrain.NumBasesLand - 1
-							
 						end
 					
 						aiBrain.NumBases = aiBrain.NumBases - 1
-						
 					end
 
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames then
-					
 						ForkThread( RemoveBaseMarker, aiBrain, k, aiBrain.BuilderManagers[k].MarkerID)
-						
 					end
 
 					-- remove base from table
@@ -2469,23 +2367,17 @@ function DeadBaseMonitor( aiBrain )
 					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
 
 					break -- we changed -- start at the top again					
-				
 				end
 
 			else
-			
 				aiBrain.BuilderManagers[k].nofactorycount = 0
-				
 			end
 			
 			WaitTicks(8)
-			
 		end
 		
 		WaitTicks(200)	#-- check every 20 seconds
-		
 	end
-	
 end
 
 -- this will start the individual path generators
@@ -2500,14 +2392,10 @@ function PathGeneratorThread( aiBrain )
 	-- the maximum possible distance you can travel on a map - corner to corner
 	if not aiBrain.dist_comp then
 		aiBrain.dist_comp = ( math.pow(ScenarioInfo.size[1],2) + math.pow(ScenarioInfo.size[2],2) )
-		--LOG("*AI DEBUG Setting Maximum distance value for this map to "..aiBrain.dist_comp)
 	end
 
 	WaitSeconds(20)
 
-	-- start the path generators
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Starting Path Generators")
-	
 	aiBrain:ForkThread1( PathGeneratorAir )
 	aiBrain:ForkThread1( PathGeneratorAmphibious )
 	aiBrain:ForkThread1( PathGeneratorLand )
@@ -3135,7 +3023,7 @@ end
 -- This routine purges the pathcache of any old entries
 function PathCacheMonitor( aiBrain )
 
-	LOG("*AI DEBUG "..aiBrain.Nickname.." starting PathCacheMonitor")
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." starting PathCacheMonitor")
 	
 	-- setup the PathCache for this brain and the counters for hits and misses
 	if not aiBrain.PathCache then
@@ -3857,8 +3745,8 @@ function ParseIntelThread( aiBrain )
 		if EnemyData['Air']['Total'] > 0 then
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- we also cap the AIRRATIO at 10
-			aiBrain.AirRatio = LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 )
+			-- with range limits between 0.01 and 10
+			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)
 			
 			if ScenarioInfo.ReportRatios then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." count is "..EnemyData['Air']['Count'])
@@ -3892,8 +3780,8 @@ function ParseIntelThread( aiBrain )
 		if EnemyData['Land']['Total'] > 0 then
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- we also cap the LANDRATIO at 10
-			aiBrain.LandRatio = LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ) --* muzzmod
+			-- with range limits between 0.01 and 10
+			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)  --* muzzmod
 
 			if ScenarioInfo.ReportRatios then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." count is "..EnemyData['Land']['Count'])
@@ -3918,11 +3806,12 @@ function ParseIntelThread( aiBrain )
 			
 		end
 
+        -- The Naval ratio falls between 0.01(inactive) and 8(naval supremacy)
 		if EnemyData['Naval']['Total'] > 0 then
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- we cap the NAVALRATIO at 8
-			aiBrain.NavalRatio = LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 )
+			-- with range limits between 0.01(min) and 8(max)
+			aiBrain.NavalRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 ), 0.01)
 
 			if ScenarioInfo.ReportRatios then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Ratio is "..repr(aiBrain.NavalRatio).." count is "..EnemyData['Naval']['Count'])

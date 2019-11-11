@@ -63,8 +63,6 @@ local VDist2 = VDist2
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
---local GetBlueprint = moho.entity_methods.GetBlueprint
---local GetCurrentLayer = moho.unit_methods.GetCurrentLayer
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount

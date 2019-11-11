@@ -247,10 +247,7 @@ function BeginSession()
 			LOG("*AI DEBUG Created "..repr(counter).." EFFECT entities")
 		end
     end
-	
-    --import('/lua/sim/scenarioutilities.lua').CreateProps()
-    --import('/lua/sim/scenarioutilities.lua').CreateResources()
-	
+
     -- start the runtime scorekeeping loop
     ForkThread(import('/lua/aibrain.lua').CollectCurrentScores)
 
