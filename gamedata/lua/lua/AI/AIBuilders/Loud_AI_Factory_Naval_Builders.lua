@@ -1,4 +1,5 @@
--- Loud_AI_Naval_Builders.lua
+-- Loud_AI_Factory_Naval_Builders.lua
+-- factory production of all naval units
 
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
@@ -9,7 +10,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 8) then
 	
-		return 560, true	-- standard naval priority -- 
+		return 600, true	-- standard naval priority -- 
 
 	end
 
@@ -18,7 +19,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 end
 
 
-BuilderGroup { BuilderGroupName = 'Sea Builders',
+BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
     BuildersType = 'FactoryBuilder',
 	
 	-- you'll notice the high priority on T1 subs and frigates -- this will keep them producing frequently thru the game or 
@@ -27,7 +28,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 	
         PlatoonTemplate = 'T1SeaSub',
 		
-        Priority = 560,
+        Priority = 610,
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
@@ -36,18 +37,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 				return 0, false
 			end
 			
-			return 600,true
+			return self.Priority,true
 			
 		end,
 		
         BuilderType = {'SeaT1'},
 		
         BuilderConditions = {
-		
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL }},			
-			
         },
     },
 
@@ -55,20 +54,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 	
         PlatoonTemplate = 'T1SeaFrigate',
 		
-        Priority = 560,
+        Priority = 610,
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 8, categories.FRIGATE } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON',
@@ -77,66 +72,53 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ UCBC, 'PoolLess', { 16, categories.DEFENSIVEBOAT } },
-
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 45, categories.DEFENSIVEBOAT } },
-	
+            
+			{ UCBC, 'PoolLess', { 16, categories.DEFENSIVEBOAT } },
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DEFENSIVEBOAT, categories.NAVAL }},			
-			
         },
-		
     },
 
     Builder {BuilderName = 'Destroyer',
 	
         PlatoonTemplate = 'T2SeaDestroyer',
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 10, categories.DESTROYER }},
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Cruiser',
 	
         PlatoonTemplate = 'T2SeaCruiser',
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 8, categories.CRUISER } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CRUISER, categories.NAVAL - categories.TECH1 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T2 Sub - UEF',	-- UEF Torpedo Boat
@@ -145,21 +127,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 15, categories.xes0102 } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
         },
-		
     },
 	
     Builder {BuilderName = 'T2 Sub - Aeon',
@@ -168,22 +145,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,
-		
+        Priority = 600,
+
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
-			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
         },
-		
     },
 
 	-- since the Cybrans and Sera might have T3 subs their base requirement is lower here
@@ -195,22 +166,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,
-		
+        Priority = 600,
+
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
-
         },
-		
     },
 
     Builder {BuilderName = 'T2 Sub - Sera',	-- T1 Submarine - no T2 sub for sera
@@ -219,21 +184,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,
-		
+        Priority = 600,
+
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE } },			
-		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
-
     },
 
     Builder {BuilderName = 'Shield Boat - UEF',
@@ -242,7 +202,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
@@ -254,9 +214,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			{ UCBC, 'PoolLess', { 6, categories.xes0205 }},
 			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Counter Intel Boat - Cybran',
@@ -265,73 +223,58 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			
 			{ UCBC, 'PoolLess', { 6, categories.xrs0205 }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},
-
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},
         },
-		
     },
 
     Builder {BuilderName = 'Battleship',
 	
         PlatoonTemplate = 'T3SeaBattleship',
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-			
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 
+    -- T3 Battlecruiser class --
     Builder {BuilderName = 'Battlecruiser - UEF',
 	
         PlatoonTemplate = 'T3Battlecruiser',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Missile Cruiser - Aeon',
@@ -340,26 +283,19 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Escort Cruiser - Cybran',
@@ -368,26 +304,18 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,		
-		
+        Priority = 600,
+
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
+            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Heavy Cruiser - Sera',
@@ -396,52 +324,40 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
-		
-		--PriorityFunction = IsEnemyNavalActive,		
-		
+        Priority = 600,
+
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},			
 			
 			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
+    -- T3 Submarines
 	Builder {BuilderName = 'T3 Assault Sub - Cybran',
 	
         PlatoonTemplate = 'T3SeaSub',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
-			
         },
-		
     },
 	
 	Builder {BuilderName = 'T3 SubKiller - Sera',
@@ -450,24 +366,19 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
-			
         },
-		
     },
 
 	-- all the Carriers and Nuke Subs currently suppressed
@@ -497,9 +408,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			--{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Carrier - Cybran',
@@ -527,9 +436,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			--{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Carrier - Sera',
@@ -557,9 +464,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			--{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},			
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 
     Builder {BuilderName = 'Nuke Sub - UEF',
@@ -580,9 +485,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Nuke Sub - Aeon',
@@ -603,9 +506,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 			
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Nuke Sub - Cybran',
@@ -626,15 +527,13 @@ BuilderGroup { BuilderGroupName = 'Sea Builders',
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 --]]
 
 }
 
-BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
+BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
     BuildersType = 'FactoryBuilder',
 	
 	-- you'll notice the high priority on T1 subs and frigates -- this will keep them producing frequently thru the game or 
@@ -643,7 +542,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 	
         PlatoonTemplate = 'T1SeaSub',
 		
-        Priority = 600,
+        Priority = 610,
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
@@ -652,18 +551,15 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 				return 0, false
 			end
 			
-			return 600,true
+			return self.Priority,true
 			
 		end,
 		
         BuilderType = {'SeaT1'},
 		
         BuilderConditions = {
-		
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
-			
         },
     },
 
@@ -671,20 +567,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 	
         PlatoonTemplate = 'T1SeaFrigate',
 		
-        Priority = 600,
+        Priority = 610,
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', {  6, categories.FRIGATE } },
-			
+			{ UCBC, 'PoolLess', { 6, categories.FRIGATE } },
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON - Small',
@@ -693,62 +585,50 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 12, categories.DEFENSIVEBOAT } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DEFENSIVEBOAT, categories.NAVAL }},			
-			
         },
-		
     },
 
     Builder {BuilderName = 'Destroyer - Small',
 	
         PlatoonTemplate = 'T2SeaDestroyer',
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 8, categories.DESTROYER }},
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Cruiser - Small',
 	
         PlatoonTemplate = 'T2SeaCruiser',
 		
-        Priority = 560,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 6, categories.CRUISER } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CRUISER, categories.NAVAL - categories.TECH1 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T2 Sub - UEF - Small',	-- UEF Torpedo Boat
@@ -757,19 +637,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'PoolLess', { 12, categories.xes0102 } },
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
         },
-		
     },
 	
     Builder {BuilderName = 'T2 Sub - Aeon - Small',
@@ -778,20 +655,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
-			
         },
-		
     },
 
 	-- since the Cybrans and Sera might have T3 subs their base requirement is lower here
@@ -803,19 +676,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
-		
     },
 
     Builder {BuilderName = 'T2 Sub - Sera - Small',	-- T1 Submarine - no T2 sub for sera
@@ -824,19 +694,16 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
+        Priority = 600,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ UCBC, 'PoolLess', { 12, categories.SUBMARINE } },			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
-
     },
 
     Builder {BuilderName = 'Shield Boat - UEF - Small',
@@ -845,23 +712,18 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
 
 			{ UCBC, 'PoolLess', { 6, categories.xes0205 }},
-			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0205, categories.NAVAL - categories.TECH1 }},				
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Counter Intel Boat - Cybran - Small',
@@ -870,48 +732,37 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			
 			{ UCBC, 'PoolLess', { 6, categories.xrs0205 }},			
-			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.xrs0205 }},
-			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},			
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},				
         },
-		
     },
 
     Builder {BuilderName = 'Battleship - Small',
 	
         PlatoonTemplate = 'T3SeaBattleship',
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 
     Builder {BuilderName = 'Battlecruiser - UEF - Small',
@@ -920,26 +771,20 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
+            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Missile Cruiser - Aeon - Small',
@@ -948,24 +793,18 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Escort Cruiser - Cybran - Small',
@@ -974,26 +813,20 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Heavy Cruiser - Sera - Small',
@@ -1002,26 +835,20 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLess', { 5, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
-
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
-		
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
 	
@@ -1031,24 +858,19 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE }},
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
-			
         },
-		
     },
 	
 	Builder {BuilderName = 'T3 SubKiller - Sera - Small',
@@ -1057,24 +879,19 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 4,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 16, categories.SUBMARINE }},
-			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
-			
         },
-		
     },
 	
 	-- all Carriers and Nuke subs suppressed atm
@@ -1087,7 +904,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		--PlatoonAddBehaviors = { 'CarrierThread' },
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 
@@ -1104,9 +921,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Carrier - Cybran - Small',
@@ -1117,7 +932,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		--PlatoonAddBehaviors = { 'CarrierThread' },
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
@@ -1134,9 +949,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Carrier - Sera - Small',
@@ -1147,7 +960,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		--PlatoonAddBehaviors = { 'CarrierThread' },
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
@@ -1164,9 +977,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			{ UCBC, 'PoolLess', { 1, categories.CARRIER * categories.NAVAL }},			
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.CARRIER * categories.NAVAL, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 
     Builder {BuilderName = 'Nuke Sub - UEF - Small',
@@ -1175,7 +986,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 1,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
@@ -1189,9 +1000,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 6, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Nuke Sub - Aeon - Small',
@@ -1200,7 +1009,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 2,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
@@ -1214,9 +1023,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 6, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Nuke Sub - Cybran - Small',
@@ -1225,7 +1032,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 		
 		FactionIndex = 3,
 		
-        Priority = 560,
+        Priority = 600,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
@@ -1239,9 +1046,7 @@ BuilderGroup { BuilderGroupName = 'Sea Builders - Small',
 			
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 6, categories.NUKE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NUKE, categories.NAVAL * categories.TECH3 }},
-			
         },
-		
     },
 --]]
 	

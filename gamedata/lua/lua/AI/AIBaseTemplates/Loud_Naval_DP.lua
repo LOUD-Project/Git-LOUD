@@ -12,32 +12,32 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 	
 		# Engineer Tasks
-		'Engineer Builders Active DP', -- basic reclaim, repair and assist functions
+		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
-		'Sea Experimental Builders - Expansions',
+		'Engineer T4 Naval Construction - Expansions',
 
         # ==== DEFENSES ==== #
-		'Naval DP Defenses',		-- rebuild the DP
+		'Engineer Defenses DP Naval',		-- rebuild the DP
 		
         # ==== EXPANSION ==== #
-		'Land Expansion Builders',
-		'DP Builders Standard',
-		'Naval Defensive Points',
+		'Engineer Land Expansion Construction',
+		'Engineer Defensive Point Construction STD',
+		'Engineer Defensive Point Construction - Naval',
 		
         # ==== OPERATIONS ==== #		
-        'Sea Attack Formations',
+        'Naval Formations',
 
-		'Air Scout Formations',		
+		'Air Formations - Scouts',		
 		'Sea Scout Formations',
 
-		'Air Hunt Formations',
+		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Point Guard Air Formations',
+		'Air Formations - Point Guards',
 		
-		'Amphibious Formations',
+		'Land Formations - Amphibious',
 		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
+		'Land Formations - Experimentals',
+		'Air Formations - Experimentals',
 		
 	},
 	

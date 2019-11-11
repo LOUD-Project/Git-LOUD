@@ -6,66 +6,65 @@ BaseBuilderTemplate {
     Builders = {
      	
 		# Engineers reclaim, repair, assist
-        'Engineer Builders',
+        'Engineer Tasks',
 		
 		# Engineers Build Mass 
-		'Extractor Builders - Expansions',
+		'Engineer Mass Builders - Expansions',
 
         # Build Defenses within the base
-        'Base Defenses - Expansions',
-		'Experimental Base Defenses - Expansions',
+        'Engineer Base Defense Construction - Core - Expansions',
         
 		# Various builds
-        'Misc Engineer Builders - Expansions',
+        'Engineer Misc Construction - Expansions',
         
 		# Create Platoons with Land Units
-		'Point Guard Land Formations',
-		'Base Guard Formations',
-		'Base Reinforcement Formations',
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
+		'Land Formations - Reinforcement',
 
 		# Create Platoons with Air Units
-		'Air Hunt Formations',
-		'Point Guard Air Formations',        
+		'Air Formations - Hunt',
+		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
-		'Artillery Builders - Expansions',
-		'Artillery Formations',
+		'Engineer Artillery Construction - Expansions',
+		'Land Formations - Artillery',
 
         # ==== EXPERIMENTALS ==== #
-		'Land Experimentals - Expansions',
+		'Engineer T4 Land Construction - Expansions',
 		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
+		'Land Formations - Experimentals',
+		'Air Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
-		'Air Scout Formations',
-		'Land Scout Formations',
+		'Air Formations - Scouts',
+		'Land Formations - Scouts',
       
-        'Radar Builders - Expansions',
-        'Optics Builders',
+        'Engineer Radar Construction - Expansions',
+        'Engineer Optics Construction',
     },
 	
 	WaterMapBuilders = {
 		'Air Formations - Water Map',
 		'Land Formations - Water Map',
-		'Air Experimentals - Expansions - Water',
+		'Engineer T4 Air Construction - Water Map - Expansions',
 
---		'Amphibious Formations',
+--		'Land Formations - Amphibious',
 	},
 	
 	LandOnlyBuilders = {
 		'Land Formations - Land Map',
-		'Air Experimentals - Expansions - Land',
+		'Engineer T4 Air Construction - Expansions',
 	},
 	
 	LOUD_IS_Installed_Builders = {
 --		'Mass Adjacency Defenses - LOUD_IS',
-		'Mass Fab Builders - Expansions - LOUD_IS',
+		'Engineer Mass Fab Construction - Expansions - LOUD_IS',
 	},
 	
 	LOUD_IS_Not_Installed_Builders = {
 --		'Mass Adjacency Defenses',
-		'Mass Fab Builders - Expansions',
+		'Engineer Mass Fab Construction - Expansions',
 		'Mass Storage',
 	},
 	

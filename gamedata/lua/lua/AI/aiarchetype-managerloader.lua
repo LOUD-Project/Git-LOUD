@@ -90,10 +90,10 @@ function SetupMainBase(aiBrain)
     for k,v in aiBrain.BuilderManagers do
 	
         v.EngineerManager:SortBuilderList('Any')
-        v.FactoryManager:SortBuilderList('Land')
-        v.FactoryManager:SortBuilderList('Air')
-        v.FactoryManager:SortBuilderList('Sea')
-        v.PlatoonFormManager:SortBuilderList('Any')
+        --v.FactoryManager:SortBuilderList('Land')
+        --v.FactoryManager:SortBuilderList('Air')
+        --v.FactoryManager:SortBuilderList('Sea')
+        --v.PlatoonFormManager:SortBuilderList('Any')
 		
     end
 end

@@ -1,5 +1,5 @@
---  Loud_AI_Land_Builders.lua
---- controls all land unit building by factories
+-- Loud_AI_Factory_Land_Builders.lua
+-- factory production of all land units
 
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
@@ -26,7 +26,7 @@ local First45Minutes = function(self,aiBrain)
 end
 
 -- This group covers those units that are universal to both land and water maps
-BuilderGroup {BuilderGroupName = 'Land Factory Builders',
+BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     BuildersType = 'FactoryBuilder',
 	
     Builder {BuilderName = 'Land Scout', 
@@ -49,28 +49,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
         BuilderType = {'LandT1','LandT2'},
 		
     },
-	
-    Builder {BuilderName = 'Land Scout T3', 
-	
-        PlatoonTemplate = 'T3LandScout',
-        Priority = 600,
 
-        BuilderConditions = {
-		
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			
-			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
-            { UCBC, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
-			-- and that we aren't already building some
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SCOUT * categories.LAND, categories.LAND } },
-			
-        }, 
-		
-        BuilderType = {'LandT3'},
-		
-    },
-	
 	Builder {BuilderName = 'T1 Bots',
 	
 		PlatoonTemplate = 'T1LandDFBot',
@@ -322,7 +301,7 @@ BuilderGroup {BuilderGroupName = 'Land Factory Builders',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
+BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
     BuildersType = 'FactoryBuilder',
 	
     Builder {BuilderName = 'T1 Tanks',
@@ -535,7 +514,7 @@ BuilderGroup {BuilderGroupName = 'Land Builders - Land Map',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Land Builders - Water Map',
+BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     BuildersType = 'FactoryBuilder',
 	
     Builder {BuilderName = 'T1 Tanks - Water',

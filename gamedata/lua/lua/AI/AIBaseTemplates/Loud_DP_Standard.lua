@@ -7,30 +7,30 @@ BaseBuilderTemplate {
 	
     Builders = {
   
-		'Engineer Builders Active DP', -- basic reclaim, repair and assist functions
+		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
-		'DP Defenses STD',	-- builds the structures at the active DP
+		'Engineer Defenses DP Standard',	-- builds the structures at the active DP
 
 		-- These allow the Active DP to utilize units
 
-		'Point Guard Land Formations',
-		'Base Guard Formations',
-		--'Base Reinforcement Formations',
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
+		'Land Formations - Reinforcement',
 		
-		'Air Hunt Formations',
-		'Point Guard Air Formations', 
+		'Air Formations - Hunt',
+		'Air Formations - Point Guards', 
 		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
+		'Land Formations - Experimentals',
+		'Air Formations - Experimentals',
 		
-		'Air Scout Formations',
-		'Land Scout Formations',
+		'Air Formations - Scouts',
+		'Land Formations - Scouts',
     },
 	
 	WaterMapBuilders = {
 		'Air Formations - Water Map',
 		'Land Formations - Water Map',
-		'Amphibious Formations',		
+		'Land Formations - Amphibious',		
 	},
 	
 	LandOnlyBuilders = {
@@ -41,7 +41,7 @@ BaseBuilderTemplate {
 	},
 	
 	LOUD_IS_Not_Installed_Builders = {
-		'Active DP Mass Storage',
+		'Engineer Mass Storage Construction - Active DP',
 	},
 	
     NonCheatBuilders = {

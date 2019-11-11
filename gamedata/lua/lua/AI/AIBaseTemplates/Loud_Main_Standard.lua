@@ -2,108 +2,85 @@
 BaseBuilderTemplate {
     BaseTemplateName = 'Loud_Main_Standard',
     Builders = {
-        # ==== ECONOMY ==== #
 
-        # Build Engineers from Factories
-        'Engineer Factory Builders',
-     	
+        # ACU Tasks
+        'ACU Tasks - Start Game',
+        'ACU Tasks',
+
+		# Build Factories
+        'Engineer Factory Construction',
+		'Engineer Quantum Gate Construction',
+
 		# Engineers reclaim, repair, assist
-        'Engineer Builders',
-		'Engineer Tasks - Aux',
-		
+        'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
+
 		'Engineer Transfers',		-- MAIN will transfer to expansions
-        
-        # Build energy at this base
-        'Energy Builders',
-     
-		# Engineers Build Mass 
-        'Extractor Builders',
-  
-		# Engineers & Bob build new factories
-        'Factory Construction',
-		'Quantum Gate Construction',
 
-        # Engineer Support buildings
-		'Engineering Support Builder',
+        # Engineers Build Economy
+        'Engineer Energy Builders',
+        'Engineer Mass Builders',
+		'Engineer T4 Economy Construction',
+		'Engineer Eng Station Construction',
 
-        # ACU Builders
-        'Loud Initial ACU Builders',
-        'ACU Builders',
-        
         # ==== EXPANSIONS ==== #
-		'Land Expansion Builders',
-		'DP Builders Standard',
-        
+		'Engineer Land Expansion Construction',
+		'Engineer Defensive Point Construction STD',
+
         # ==== DEFENSES ==== #
-        'Base Defenses',
-		'Experimental Base Defenses',
-		
-		'T1 Perimeter Defenses',
-		'T2 Perimeter Defenses',
-		'T3 Perimeter Defenses',
-		
-		'Picket Line Defenses',
-		
-		'Shields - Experimental',
+        'Engineer Base Defense Construction - Core',
+		'Engineer Base Defense Construction - Perimeter',
+		'Engineer Base Defense Construction - Picket Line',
+		'Engineer T4 Shield Construction',
+        'Engineer Misc Construction',
+		'Engineer Mass Point Defense Construction',
+		'Engineer Artillery Construction',
+        'Engineer Optics Construction',        
+		'Engineer Nuke Construction',
+
+        # ==== UNIT BUILDERS ==== #
+        'Factory Production - Engineers',
+		'Factory Production - Land',
+		'Factory Production - Air',
+		'Factory Production - Transports',
         
-        'Misc Engineer Builders',
+		'Engineer T4 Land Construction',
+
+        # ==== PLATOON FORMATIONS ==== #
+		'Land Formations - Scouts',        
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
+		'Land Formations - Reinforcement',
+		'Land Formations - Artillery',
+		'Land Formations - Nukes',
+		'Land Formations - Experimentals',
         
-        # ==== LAND UNIT BUILDERS ==== #
-		'Land Factory Builders',
-
-		'Point Guard Land Formations',
-		'Base Guard Formations',
-		--'Base Reinforcement Formations',
-
-        # ==== AIR UNIT BUILDERS ==== #
-		'Air Factory Builders',
-		'Transport Factory Builders',
-		
-		'Air Hunt Formations',
-		'Point Guard Air Formations',
-		
-		# ==== ARTILLERY BUILDERS ==== #
-		'Artillery Builders',
-		'Artillery Formations',
-        
-		'Nuke Builders',
-		'Nuke Formations',
-		
-        # ==== EXPERIMENTALS ==== #
-		'Land Experimental Builders',
-		'Land Experimental Formations',
-
-		'Air Experimental Formations',
-		
-		'Economic Experimental Builders',
-
-		# ==== INTELLIGENCE ===== #
-		'Air Scout Formations',
-		'Land Scout Formations',
-
-        'Optics Builders',
+		'Air Formations - Scouts',        
+		'Air Formations - Hunt',
+		'Air Formations - Point Guards',
+		'Air Formations - Experimentals',
     },
 	
 	WaterMapBuilders = {
-		'Air Experimental Builders - Water Map',
+		'Engineer T4 Air Construction - Water Map',
 		
-        'Naval Base Builders',
-		'Naval Defensive Points',
+        'Engineer Naval Expansion Construction',
+		'Engineer Defensive Point Construction - Naval',
 		
-		'Air Builders - Water Map',
-		'Air Formations - Water Map',
-		
-		'Land Builders - Water Map',
+		'Factory Production - Torpedo Bombers',
+		'Factory Producion - Land - Water Map',
+
+		'Air Formations - Water Map',		
+		'Land Formations - Amphibious',
 		'Land Formations - Water Map',
-		
-		'Amphibious Formations',
 	},
 	
 	LandOnlyBuilders = {
-		'Land Builders - Land Map',
+		'Engineer T4 Air Construction - Land Only Map',
+        
+		'Factory Producion - Land - Land Only Map',
+        
 		'Land Formations - Land Map',
-		
-		'Air Experimental Builders - Land Map',
 	},
 	
 	StandardCommanderUpgrades = {
@@ -113,39 +90,42 @@ BaseBuilderTemplate {
 	BOACUCommanderUpgrades = {
 		'BOACU Upgrades LOUD',
 	},
-	
-	LOUD_IS_Installed_Builders = {
-		'Mass Adjacency Defenses - LOUD_IS',
-		'Mass Fab Builders - LOUD_IS',
-		'Energy Facility - LOUD_IS',
-		'Economic Experimental Defense Builders - LOUD_IS',
-		'Shields - LOUD_IS',
-	},
-	
-	LOUD_IS_Not_Installed_Builders = {
-		'Mass Adjacency Defenses',
-		'Mass Fab Builders',
-		'Mass Storage',
-		'Energy Storage',
-		'Energy Facility',
-		'Economic Experimental Defense Builders',
-		'Perimeter Shield Augmentation',
-        'Shields',
-	},
-	
     
+	-- Integrated Storage --
+	LOUD_IS_Installed_Builders = {
+		'Engineer T4 Economy Defense Construction - LOUD IS',
+		'Engineer Shield Construction - LOUD_IS',
+	},
+	
+    -- Standard Storage --
+	LOUD_IS_Not_Installed_Builders = {
+		'Engineer Mass Storage Construction',
+		'Engineer Energy Storage Construction',
+
+		'Engineer T4 Economy Defense Construction',
+		'Engineer Perimeter Shield Augmentation',
+        'Engineer Shield Construction',
+	},
+
+    -- Required since non-cheating AI ACU doesn't have good radar
     NonCheatBuilders = {
-        'Radar Builders',
+        'Engineer Radar Construction',
     },
     
     BaseSettings = {
+    
 		-- This controls the upper limit on the engineers at this base
+        -- and are multiplied by cheating build multiplier        
+        -- additionally these limits go up for unit caps of 1000+
+        -- especially for the higher tier engineers
+        -- these limits are calculated in the BelowEngineerCapCheck function
         EngineerCount = {
             Tech1 = 7,
             Tech2 = 9,
             Tech3 = 8,
             SCU = 10,
         },
+        
 		-- This controls the upper limit on factories at this base
         FactoryCount = {
             LAND = 6,
@@ -180,11 +160,11 @@ BaseBuilderTemplate {
 		
 		--LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
 
-        -- If we're playing on a 5k or 10k map
+        -- If we're playing on a 5k or 10k map we'll want the Small base
         if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
             return 10, 'loud'
 			
-        -- If we're playing on a 20k map or low pop
+        -- If we're playing on a 20k map or low pop - then maybe we'll go Standard
         elseif ((mapSizeX >= 1024 and mapSizeX < 2048) and (mapSizeZ >= 1024 and mapSizeZ < 2048)) then
             return Random(10,60), 'loud'
 			

@@ -12,40 +12,40 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 	
         # Build Engineers
-        'Engineer Factory Builders Naval',
+        'Factory Production - Engineers',
 		
 		# Engineer Tasks
-		'Engineer Builders',
+		'Engineer Tasks',
 		
 		# Engineers Build Factories
-        'Naval Factory Builders',
+        'Engineer Factory Construction - Naval',
         
         # Mass
-        'Extractor Builders Naval Expansions',
+        'Engineer Mass Builders - Naval',
         
         # ==== DEFENSES ==== #
-		'Misc Engineer Builders - Naval',
+		'Engineer Misc Construction - Naval',
 		
-        'Sonar Builders',
+        'Engineer Sonar Builders',
 
         # ==== UNIT BUILDING ==== #
-        'Sea Builders - Small',
-		'Sea Experimental Builders',
+        'Factory Production - Naval - Small',
+		'Engineer T4 Naval Construction',
 		
         # ==== OPERATIONS ==== #		
-        'Sea Attack Formations',
+        'Naval Formations',
 
-		'Air Scout Formations',		
+		'Air Formations - Scouts',		
 		'Sea Scout Formations - Small',
 
-		'Air Hunt Formations',
+		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Point Guard Air Formations',
+		'Air Formations - Point Guards',
 		
-		'Amphibious Formations',
+		'Land Formations - Amphibious',
 		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
+		'Land Formations - Experimentals',
+		'Air Formations - Experimentals',
 		
 	},
 	
@@ -56,9 +56,9 @@ BaseBuilderTemplate {
 	
     BaseSettings = {
         EngineerCount = {
-            Tech1 = 1,
-            Tech2 = 2,
-            Tech3 = 2,
+            Tech1 = 0,
+            Tech2 = 3,
+            Tech3 = 3,
             SCU = 3,
         },
         FactoryCount = {

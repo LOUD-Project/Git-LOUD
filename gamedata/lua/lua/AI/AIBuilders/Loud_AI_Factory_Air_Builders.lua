@@ -1,4 +1,5 @@
---  File     :  /lua/ai/Loud_AI_Air_Builders.lua
+-- Loud_AI_Factory_Air_Builders.lua
+-- factory production of all air units
 
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
@@ -17,8 +18,8 @@ end
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 6) then
-	
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 8) then
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
 		return 600, true
 
 	end
@@ -60,78 +61,75 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 end
 
 -- The simple idea here is that fighters are always produced if the air ratio is less than 10
+-- Scout planes are always produced - controlled by map size ratio and number of factories producing
 -- Bomber and Gunships are only produced if air ratio is greater than 2
 
 -- T1 is produced while there is less than 4 T2/T3 Air Factories overall
 -- T2 is produced as long as there are T2 factories
 -- T2 is produced while there are less than 3 T3 Air Factories
-BuilderGroup {BuilderGroupName = 'Air Factory Builders',
+
+-- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports
+-- usually controlled by air ratio and number of factories producing that unit
+BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
 	
-	-- stop making when you have TECH2 air plants
     Builder {BuilderName = 'T1 Air Scout',
 	
         PlatoonTemplate = 'T1AirScout',
+        
         Priority = 600,
 
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 16, [2048] = 24, [4096] = 24}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH1 }},
-			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 		
         BuilderType =  {'AirT1'},
-		
     },
 	
-	-- stop making when you have TECH3 air plants
     Builder {BuilderName = 'T2 Air Scout',
 	
         PlatoonTemplate = 'T2AirScout',
+        
         Priority = 600,
 
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 16, [512] = 30, [1024] = 54, [2048] = 72, [4096] = 80}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT } },			
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH2 }},
-			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 		
         BuilderType =  {'AirT2'},
-		
     },
 
     Builder {BuilderName = 'T3 Air Scout',
 	
         PlatoonTemplate = 'T3AirScout',
+        
         Priority = 600,
 
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 16, [512] = 30, [1024] = 54, [2048] = 72, [4096] = 80}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
+
 	
 	Builder {BuilderName = 'Bomber T1',
 	
@@ -141,16 +139,11 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-		
-			-- stop making them if we have more than 3 T2/T3 air plants -- anywhere
-            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
-			
         },
 		
         BuilderType =  {'AirT1','AirT2'},
-		
     },
 	
     Builder {BuilderName = 'Fighters T1',
@@ -161,16 +154,11 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-		
-			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
-            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
-			
         },
 		
         BuilderType =  {'AirT1','AirT2'},
-		
     },
 	
     Builder {BuilderName = 'Bomber T2',
@@ -180,15 +168,9 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
-        BuilderConditions = {
-
-			-- stop making them if we have more than 3 T3 air plants -- anywhere
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
-        },
+        BuilderConditions = {},
 		
         BuilderType =  {'AirT2','AirT3'},
-		
     },
 	
     Builder {BuilderName = 'Fighters T2',
@@ -198,16 +180,11 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
-        BuilderConditions = {
-		
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
-			
-        },
+        BuilderConditions = {},
 		
         BuilderType =  {'AirT2','AirT3'},
-		
     },
-		
+
     Builder {BuilderName = 'Gunship T2',
 	
         PlatoonTemplate = 'T2Gunship',
@@ -216,15 +193,11 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 
         BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
         },
 		
         BuilderType =  {'AirT2','AirT3'},
-		
     },
 	
     Builder {BuilderName = 'Bomber T3',
@@ -232,15 +205,14 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         PlatoonTemplate = 'T3Bomber',
         Priority = 600,
 		
+        
+        
         BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
     
     Builder {BuilderName = 'Fighters T3',
@@ -249,15 +221,13 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         Priority = 600,
 		
         BuilderConditions = {
-		
             { LUTL, 'AirStrengthRatioLessThan', { 10 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
+            
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
 
     Builder {BuilderName = 'Gunship T3',
@@ -266,17 +236,13 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
         Priority = 600,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
-
 }
 
 -- Torpedo Bombers have been problematic (ie. - generally overproduced)
@@ -284,19 +250,18 @@ BuilderGroup {BuilderGroupName = 'Air Factory Builders',
 -- AND importantly, it should only become an issue if the AI is actually playing on the water
 -- When I see an AI with no Naval position building Torpedo Bombers I get disturbed especially
 -- if his partners are in the water and he isn't
-BuilderGroup {BuilderGroupName = 'Air Builders - Water Map',
+BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
     BuildersType = 'FactoryBuilder',
 
     Builder {BuilderName = 'Torpedo Bomber T2',
 	
         PlatoonTemplate = 'T2TorpedoBomber',
 		
-        Priority = 600,
+        Priority = 10,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
@@ -306,25 +271,24 @@ BuilderGroup {BuilderGroupName = 'Air Builders - Water Map',
 			-- a credible naval threat exists
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
 
+            -- one of the few places where I use a ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.AIR * categories.TECH2 }},
-			
+            -- never have more than 1 factory building them at this location
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH2 }},
         },
 		
-        BuilderType =  {'AirT2'},
-		
+        BuilderType =  {'AirT2','SeaT2'},
     },
 
     Builder {BuilderName = 'Torpedo Bomber T3',
 	
         PlatoonTemplate = 'T3TorpedoBomber',
 		
-        Priority = 600,
+        Priority = 10,
 		
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
@@ -334,16 +298,14 @@ BuilderGroup {BuilderGroupName = 'Air Builders - Water Map',
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.AIR * categories.TECH3 }},
-			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH3 }},
         },
 		
-        BuilderType =  {'AirT3'},
-		
+        BuilderType =  {'AirT3','SeaT3'},
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
+BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
     BuildersType = 'FactoryBuilder',
 	
 	-- I recently expanded the transports that engineers can use to include T2
@@ -353,25 +315,22 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
 	
         PlatoonTemplate = 'T1AirTransport',
 		
-        Priority = 610, 
+        Priority = 600, 
 		
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
 			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 1, [1024] = 1, [2048] = 2, [4096] = 2}, categories.TRANSPORTFOCUS * categories.TECH1}},
-
         },
 		
         BuilderType =  {'AirT1'},
-		
     },
-	
+
     Builder {BuilderName = 'Air Transport T1 - Standard',
 	
         PlatoonTemplate = 'T1AirTransport',
@@ -383,7 +342,6 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
 		PriorityFunction = First45Minutes,
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
@@ -391,15 +349,13 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
 			
 			-- stop making them if we have more than 2 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 3, [2048] = 4, [4096] = 6}, categories.TRANSPORTFOCUS * categories.TECH1}},
-			
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 3, [2048] = 4, [4096] = 4}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 		
         BuilderType =  {'AirT1'},
-		
     },
-    
-	-- we'll always try to maintain the base number of T2 transports (since engineers won't use T3 transports)
+
+	-- always maintain the base number of T2 transports (since engineers won't use T3 transports)
     Builder {BuilderName = 'Air Transport T2',
 	
         PlatoonTemplate = 'T2AirTransport',
@@ -407,17 +363,15 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         Priority = 600,
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 3, [1024] = 5, [2048] = 8, [4096] = 10 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
 			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
-		
     },
 	
 	-- stop construction of T2 Gunships (for transport) once we have the ability to build T3
@@ -430,7 +384,6 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         Priority = 600,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
@@ -439,7 +392,6 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         },
 		
         BuilderType =  {'AirT2'},
-		
     },
 	
 	-- stop construction of T2 Transports (for high need) once we have the ability to build T3 in some numbers
@@ -452,20 +404,16 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         Priority = 610,
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
-			
         },
 		
         BuilderType =  {'AirT2'},
-		
     },
-
 
     Builder {BuilderName = 'Air Transport T3',
 	
@@ -474,12 +422,7 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         Priority = 600,
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-			-- I can understand why I put this here -- but it's counterproductive in many cases --
-            --{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-			
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			-- this tends to prevent overbuilding of transports when they're not really needed --
@@ -491,11 +434,9 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
 			
 			-- note -- this condition counts ALL T2, T3 and T4 transports --
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
 	
     Builder {BuilderName = 'Air Transport T3 - HighNeed',
@@ -507,20 +448,16 @@ BuilderGroup {BuilderGroupName = 'Transport Factory Builders',
         Priority = 610,
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
-			
         },
 		
         BuilderType =  {'AirT3'},
-		
     },
-
 }
 
 

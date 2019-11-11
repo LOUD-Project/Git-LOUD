@@ -6,102 +6,95 @@ BaseBuilderTemplate {
         # ==== ECONOMY ==== #
 
         # Build Engineers from Factories
-        'Engineer Factory Builders',
+        'Factory Production - Engineers',
      	
 		# Engineers reclaim, repair, assist
-        'Engineer Builders',
-		'Engineer Tasks - Aux',
+        'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
 		
 		'Engineer Transfers',		-- MAIN will transfer to expansions
         
-        # Build energy at this base
-        'Energy Builders',
-     
-		# Engineers Build Mass 
-        'Extractor Builders',
+        # Build Economy at this base
+        'Engineer Energy Builders',
+        'Engineer Mass Builders',
+		'Engineer T4 Economy Construction',        
   
 		# Engineers & Bob build new factories
-        'Factory Construction',
-		'Quantum Gate Construction - Small Base',
+        'Engineer Factory Construction',
+		'Engineer Quantum Gate Construction - Small Base',
 
         # Engineer Support buildings
-		'Engineering Support Builder',
+		'Engineer Eng Station Construction',
 
-        # ACU Builders
-        'Loud Initial ACU Builders',
-        'ACU Builders',
+        # ACU Tasks
+        'ACU Tasks - Start Game',
+        'ACU Tasks',
         
         # ==== EXPANSIONS ==== #
-		'Land Expansion Builders',
-		'DP Builders Small',
+		'Engineer Land Expansion Construction',
+		'Engineer Defensive Point Construction - Small',
         
         # ==== DEFENSES ==== #
-        'Base Defenses',
-		'Experimental Base Defenses',
-		
-		'T1 Perimeter Defenses',
-		'T2 Perimeter Defenses',
-		'T3 Perimeter Defenses',
-		
-		'Shields - Experimental',
+        'Engineer Base Defense Construction - Core',
+		'Engineer Base Defense Construction - Perimeter',
+
+		'Engineer T4 Shield Construction',
        
-        'Misc Engineer Builders - Small Base',
+        'Engineer Misc Construction - Small',
         
         # ==== LAND UNIT BUILDERS ==== #
-		'Land Factory Builders',
+		'Factory Production - Land',
 
-		'Point Guard Land Formations',
-		'Base Guard Formations',
-		--'Base Reinforcement Formations',
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
+		'Land Formations - Reinforcement',
 
         # ==== AIR UNIT BUILDERS ==== #
-		'Air Factory Builders',
-		'Transport Factory Builders',
+		'Factory Production - Air',
+		'Factory Production - Transports',
 		
-		'Air Hunt Formations',
-		'Point Guard Air Formations',        
+		'Air Formations - Hunt',
+		'Air Formations - Point Guards',        
 		
 		# ==== ARTILLERY BUILDERS ==== #
-		'Artillery Builders',
-		'Artillery Formations',
+		'Engineer Artillery Construction',
+		'Land Formations - Artillery',
         
-		'Nuke Builders',
-		'Nuke Formations',
+		'Engineer Nuke Construction',
+		'Land Formations - Nukes',
 		
         # ==== EXPERIMENTALS ==== #
-		'Land Experimental Builders',
-		'Land Experimental Formations',
+		'Engineer T4 Land Construction',
+		'Land Formations - Experimentals',
 
-		'Air Experimental Formations',
-		
-		'Economic Experimental Builders',
+		'Air Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
-		'Air Scout Formations',
-		'Land Scout Formations',
+		'Air Formations - Scouts',
+		'Land Formations - Scouts',
 
-        'Optics Builders',
+        'Engineer Optics Construction',
     },
 	
 	WaterMapBuilders = {
-		'Air Experimental Builders - Water Map',
+		'Engineer T4 Air Construction - Water Map',
 		
-        'Naval Base Builders',
-		'Naval Defensive Points',
+        'Engineer Naval Expansion Construction',
+		'Engineer Defensive Point Construction - Naval',
 		
-		'Air Builders - Water Map',
+		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',
 		
-		'Land Builders - Water Map',
+		'Factory Producion - Land - Water Map',
 		'Land Formations - Water Map',
-		'Amphibious Formations',
+		'Land Formations - Amphibious',
 	},
 	
 	LandOnlyBuilders = {
-		'Land Builders - Land Map',
+		'Factory Producion - Land - Land Only Map',
 		'Land Formations - Land Map',
 		
-		'Air Experimental Builders - Land Map',
+		'Engineer T4 Air Construction - Land Only Map',
 	},
 	
 	StandardCommanderUpgrades = {
@@ -114,22 +107,22 @@ BaseBuilderTemplate {
 	
     -- IS = Integrated Storage --
 	LOUD_IS_Installed_Builders = {
-		'Mass Fab Builders - LOUD_IS',
-		'Economic Experimental Defense Builders - LOUD_IS',
-		'Shields - LOUD_IS',
+
+		'Engineer T4 Economy Defense Construction - LOUD IS',
+		'Engineer Shield Construction - LOUD_IS',
 	},
 	
 	LOUD_IS_Not_Installed_Builders = {
-		'Mass Fab Builders',
-		'Mass Storage',
-		'Energy Storage',
-		'Economic Experimental Defense Builders',
-        'Shields',
+
+		'Engineer Mass Storage Construction',
+		'Engineer Energy Storage Construction',
+		'Engineer T4 Economy Defense Construction',
+        'Engineer Shield Construction',
 	},
 	
     
     NonCheatBuilders = {
-        'Radar Builders',
+        'Engineer Radar Construction',
     },
     
     BaseSettings = {

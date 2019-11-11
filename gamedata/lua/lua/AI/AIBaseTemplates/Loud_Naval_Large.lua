@@ -8,51 +8,51 @@ BaseBuilderTemplate {
     Builders = {},
 	
 	WaterMapBuilders = {
-
-        # Build Engineers
-        'Engineer Factory Builders Naval',
 		
-		# Engineer Tasks
-		'Engineer Builders',
+		# Engineers reclaim, repair, assist
+		'Engineer Tasks',
 		
 		# Engineers Build Factories
-        'Naval Factory Builders',
+        'Engineer Factory Construction - Naval',
         
-        # Mass
-        'Extractor Builders Naval Expansions',
-		'Economic Experimental Builders Naval',
+        # Engineers Build Economy
+        'Engineer Mass Builders - Naval',
+		'Engineer T4 Economy Construction - Naval',
         
-        # ==== EXPANSION ==== #
-		'Land Expansion Builders',
-		'DP Builders Standard',
-		'Naval Base Builders - Expansion', 
+        # ==== EXPANSIONS ==== #
+		'Engineer Land Expansion Construction',
+		'Engineer Naval Expansion Construction - Expansions', 
+        
+		'Engineer Defensive Point Construction STD',
+		'Engineer Defensive Point Construction - Naval',        
+
 		
         # ==== DEFENSES ==== #
-		'Base Defenses - Naval',
-		'Misc Engineer Builders - Naval',
+		'Engineer Base Defense Construction - Naval',
+		'Engineer Misc Construction - Naval',
 
-        'Sonar Builders',
-		'Naval Defensive Points',
+        'Engineer Sonar Builders',
+
 
         # ==== UNIT BUILDING ==== #
-        'Sea Builders',
-		'Sea Experimental Builders',
+        'Factory Production - Engineers',        
+        'Factory Production - Naval',
+        
+		'Engineer T4 Naval Construction',
 		
         # ==== OPERATIONS ==== #		
-        'Sea Attack Formations',
+        'Naval Formations',
+		'Land Formations - Amphibious',
 
-		'Air Scout Formations',		
-		'Sea Scout Formations',
-
-		'Air Hunt Formations',
+		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Point Guard Air Formations',
-		
-		'Amphibious Formations',
-		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
-		
+		'Air Formations - Point Guards',
+
+		'Air Formations - Experimentals',		
+		'Land Formations - Experimentals',
+        
+		'Air Formations - Scouts',		
+		'Sea Scout Formations',
 	},
 	
 	LandOnlyBuilders = {},
@@ -61,23 +61,27 @@ BaseBuilderTemplate {
 	LOUD_IS_Not_Installed_Builders = {},
 	
     BaseSettings = {
+    
         EngineerCount = {
-            Tech1 = 1,
+            Tech1 = 0,
             Tech2 = 3,
             Tech3 = 3,
             SCU = 5,
         },
+        
         FactoryCount = {
             LAND = 0,
             AIR = 0,
             SEA = 8,
             GATE = 0,
         },
+        
         MassToFactoryValues = {
             T1Value = 8,
             T2Value = 14,
             T3Value = 19,
         },
+        
 		RallyPointRadius = 42,
     },
 	

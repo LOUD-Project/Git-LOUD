@@ -38,12 +38,13 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 end
 
 
-BuilderGroup {BuilderGroupName = 'Artillery Builders',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -51,7 +52,6 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 		PriorityFunction = LessThan20MinutesRemain,
 
         BuilderConditions = {
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
@@ -64,21 +64,17 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 4,
 			
             Construction = {
-			
 				Radius = 52,
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 				
-                BuildStructures = {
-                    'T3Artillery',
-                },
+                BuildStructures = {'T3Artillery'},
             }
         }
     },
@@ -87,6 +83,7 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
     Builder {BuilderName = 'Artillery Experimental',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -96,7 +93,6 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-	
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			
@@ -104,38 +100,34 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders',
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
-
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 6,
 			
             Construction = {
-			
 				Radius = 50,
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 				
-                BuildStructures = {
-                    'T4Artillery',
-                },
+                BuildStructures = {'T4Artillery'},
             }
         }
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3 Expansions',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -143,7 +135,6 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		PriorityFunction = LessThan20MinutesRemain,
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
@@ -161,17 +152,15 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
         BuilderData = {
 			DesiresAssist = true,
             NumAssistees = 4,
+            
             Construction = {
-			
 				Radius = 48,
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 				
-                BuildStructures = {
-                    'T3Artillery',
-                },
+                BuildStructures = {'T3Artillery'},
             }
         }
     },
@@ -179,6 +168,7 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
     Builder {BuilderName = 'Artillery Experimental Expansions',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -188,7 +178,6 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			
@@ -196,34 +185,29 @@ BuilderGroup {BuilderGroupName = 'Artillery Builders - Expansions',
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
-
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 6,
 			
             Construction = {
-			
 				Radius = 46,
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
 
-                BuildStructures = {
-                    'T4Artillery',
-                },
+                BuildStructures = {'T4Artillery'},
             }
         }
     },
 }
 
 
-BuilderGroup {BuilderGroupName = 'Nuke Builders',
+BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Nuke Silo',
@@ -236,22 +220,19 @@ BuilderGroup {BuilderGroupName = 'Nuke Builders',
 		PriorityFunction = LessThan30MinutesRemain,
 
         BuilderConditions = {
-		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },		
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.NUKE * categories.STRUCTURE }},			
-
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 4,
 			
@@ -262,15 +243,13 @@ BuilderGroup {BuilderGroupName = 'Nuke Builders',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
 				
-                BuildStructures = {
-                    'T3StrategicMissile',
-                },
+                BuildStructures = {'T3StrategicMissile'},
             }
         }
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Nuke Builders - Expansions',
+BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Nuke Silo - Expansion',
@@ -317,36 +296,6 @@ BuilderGroup {BuilderGroupName = 'Nuke Builders - Expansions',
                 },
             }
         }
-    },
-}
-
-
-
-BuilderGroup {BuilderGroupName = 'Artillery Formations',
-    BuildersType = 'PlatoonFormBuilder',
-	
-	Builder {BuilderName = 'T3 Artillery Formation',
-        PlatoonTemplate = 'StrategicArtilleryStructure',
-        Priority = 600,
-        InstanceCount = 12,
-        BuilderType = 'Any',
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.ARTILLERY * categories.STRUCTURE - categories.TECH2 } },
-        },
-    },
-}
-
-BuilderGroup {BuilderGroupName = 'Nuke Formations',
-    BuildersType = 'PlatoonFormBuilder',
-	
-    Builder {BuilderName = 'Nuke Silo Formation',
-        PlatoonTemplate = 'T3Nuke',
-        Priority = 800,
-        InstanceCount = 2,
-        BuilderType = 'Any',
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.STRATEGIC * categories.STRUCTURE * categories.NUKE } },
-        },
     },
 }
 

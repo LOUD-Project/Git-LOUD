@@ -3,119 +3,99 @@
 #**  Summary  : Manage engineers for a location
 #**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 #****************************************************************************
-
+-- this is a full sized expansion base with production facilities
 BaseBuilderTemplate {
     BaseTemplateName = 'Loud_Expansion_Standard',
     Builders = {
-
-        # Build Engineers from Factories
-        'Engineer Factory Builders Expansion',
-     	
+        
+		# Build Factories
+        'Engineer Factory Construction - Expansions',
+        
 		# Engineers reclaim, repair, assist
-        'Engineer Builders',
-		'Engineer Tasks - Aux',
+        'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
         
-        # Build energy at this base
-        'Energy Builders - Expansions',
-		
-		# Engineers Build Mass 
-		'Extractor Builders - Expansions',
-       
-		# Engineers build new factories
-        'Factory Construction - Expansions',
+        # Engineers Build Economy
+        'Engineer Energy Builders - Expansions',
+		'Engineer Mass Builders - Expansions',
+		'Engineer T4 Economy Construction - Expansions',
 
-        # Create New Land Bases & Active DP
-		'Land Expansion Builders',
-		'DP Builders Standard',
+        # === EXPANSIONS ==== #
+		'Engineer Land Expansion Construction',
+		'Engineer Defensive Point Construction STD',
         
-        # Build Defenses within the base
-        'Base Defenses - Expansions',
-		'Experimental Base Defenses - Expansions',
-		
-		# Build Defenses at perimeter of base
-		'T2 Perimeter Expansions',
-		'T3 Perimeter Expansions',
+        # === DEFENSES === #
+        'Engineer Base Defense Construction - Core - Expansions',
+		'Engineer Base Defense Construction - Perimeter - Expansions',
+        'Engineer Radar Construction - Expansions',
+		'Engineer T4 Shield Construction - Expansions',
+        'Engineer Misc Construction - Expansions',
+		'Engineer Artillery Construction - Expansions',
+		'Engineer Nuke Construction - Expansions',
+        'Engineer Optics Construction',
         
-		# Build Shield Matrix at Base
-		'Shields - Experimental - Expansions',
+        # ==== UNIT BUILDERS ==== #
+        'Factory Production - Engineers',        
+		'Factory Production - Land',
+		'Factory Production - Air',
+		'Factory Production - Transports',
         
-		# Various builds
-        'Misc Engineer Builders - Expansions',
-		
+		'Engineer T4 Land Construction - Expansions',
         
-        # ==== LAND UNIT BUILDERS ==== #
-		'Land Factory Builders',
-        
-		# Create Platoons with Land Units
-		'Point Guard Land Formations',
-		'Base Guard Formations',
-		--'Base Reinforcement Formations',
+		# === PLATOON FORMATIONS === #
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
 
-        # ==== AIR UNIT BUILDERS ==== #
-		'Air Factory Builders',
-		'Transport Factory Builders',
+		'Air Formations - Hunt',
+		'Air Formations - Point Guards',        
 
-		# Create Platoons with Air Units
-		'Air Hunt Formations',
-		'Point Guard Air Formations',        
+		'Land Formations - Artillery',
+		'Land Formations - Nukes',
 
-		# ==== ARTILLERY BUILDERS ==== #
-		'Artillery Builders - Expansions',
-		'Artillery Formations',
+		'Air Formations - Experimentals',		
+		'Land Formations - Experimentals',
+
+		'Air Formations - Scouts',
+		'Land Formations - Scouts',
         
-		'Nuke Builders - Expansions',
-		'Nuke Formations',
-	
-        # ==== EXPERIMENTALS ==== #
-		'Land Experimentals - Expansions',
-		'Economic Experimental Builders - Expansions',
-		
-		'Land Experimental Formations',
-		'Air Experimental Formations',
-
-
-		# ==== INTELLIGENCE ===== #
-		'Air Scout Formations',
-		'Land Scout Formations',
-      
-        'Radar Builders - Expansions',
-        'Optics Builders',
+		--'Land Formations - Reinforcement',
     },
 	
 	WaterMapBuilders = {
-        'Naval Base Builders',
-		'Naval Defensive Points',
+		'Engineer T4 Air Construction - Water Map - Expansions',
+        
+        'Engineer Naval Expansion Construction',
+		'Engineer Defensive Point Construction - Naval',
 		
-		'Air Builders - Water Map',
+		'Factory Production - Torpedo Bombers',
+		'Factory Producion - Land - Water Map',
+        
 		'Air Formations - Water Map',
-		
-		'Land Builders - Water Map',
+		'Land Formations - Amphibious',		
 		'Land Formations - Water Map',
-
-		'Amphibious Formations',
-		
-		'Air Experimentals - Expansions - Water',
 	},
 	
 	LandOnlyBuilders = {
-		'Land Builders - Land Map',
+		'Engineer T4 Air Construction - Expansions',
+        
+		'Factory Producion - Land - Land Only Map',
+        
 		'Land Formations - Land Map',
-		'Air Experimentals - Expansions - Land',
 	},
 	
     NonCheatBuilders = {
 	},
 	
 	LOUD_IS_Installed_Builders = {
-		'Mass Fab Builders - Expansions - LOUD_IS',
-        'Shields - Expansions - LOUD_IS',
+		'Engineer Mass Fab Construction - Expansions - LOUD_IS',
+        'Engineer Shield Construction - Expansions - LOUD_IS',
 	},
 	
 	LOUD_IS_Not_Installed_Builders = {
-		'Mass Fab Builders - Expansions',
-		'Mass Storage',
-		'Energy Storage',
-        'Shields - Expansions',
+		'Engineer Mass Fab Construction - Expansions',
+		'Engineer Mass Storage Construction',
+		'Engineer Energy Storage Construction',
+        'Engineer Shield Construction - Expansions',
 	},
 	
     BaseSettings = {

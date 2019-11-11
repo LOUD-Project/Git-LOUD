@@ -8,7 +8,7 @@ local BHVR = '/lua/ai/aibehaviors.lua'
 local NotPrimaryBase = function( self,aiBrain,manager)
 
 	if not aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return 710, false
+		return 650, false
 	end
 
 	return self.Priority, true
@@ -26,7 +26,7 @@ end
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function(self,aiBrain,manager)
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 6) then
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 8) then
 		return self.Priority, true
 	end
 
@@ -45,9 +45,9 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 		
 		PlatoonAIPlan = 'ScoutingAI',
 
-        Priority = 700,
+        Priority = 720,
 		
-        InstanceCount = 6,
+        InstanceCount = 5,
 		
 		RTBLocation = 'Any',
 		
@@ -75,7 +75,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 		
 		PlatoonAIPlan = 'ScoutingAI',
 
-        Priority = 700,
+        Priority = 720,
 		
         InstanceCount = 3,
 		
@@ -95,11 +95,11 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
+BuilderGroup {BuilderGroupName = 'Naval Formations',
     BuildersType = 'PlatoonFormBuilder',
 	
-	-- goes after enemy mass extractors
-    Builder {BuilderName = 'MEX Attack Naval',
+	-- we always hunt water MEX
+    Builder {BuilderName = 'Sub Sea Attack MEX',
 	
         PlatoonTemplate = 'MassAttackNaval',
 		
@@ -109,25 +109,22 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 710,
+        Priority = 750,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		--PriorityFunction = IsEnemyNavalActive,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			
         },
 		
         BuilderData = {
-		
 			DistressRange = 150,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
@@ -167,50 +164,48 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			AllowInWater = "Only",
 			
 			UseFormation = 'AttackFormation',
-			
         },
-
     },	
 
-
+    -- ALL the SEA ATTACK formations only appear when there is
+    -- enemy Naval Activity and we are not yet totally dominant
+    -- on the water (Naval Ratio < 8)
     Builder {BuilderName = 'T1 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Small',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
-		
+
 		PlatoonAIPlan = 'AttackForceAI',
-		
+
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 710,
+
+        Priority = 750,
 
 		PriorityFunction = IsPrimaryBase,
 
 		FactionIndex = 1,
-		
-        InstanceCount = 2,
-		
+
+        InstanceCount = 1,
+
 		RTBLocation = 'Any',
-		
+
         BuilderType = 'Any',
-		
+
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
-			
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},			
-			
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 200,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
@@ -220,47 +215,43 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'AttackFormation',
 			
 			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T1 Sea Attack - Aeon',
 	
         PlatoonTemplate = 'SeaAttack Small',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
-		
+
 		PlatoonAIPlan = 'AttackForceAI',
-		
+
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 710,
+
+        Priority = 750,
 
 		PriorityFunction = IsPrimaryBase,
 
-		FactionIndex = 2,
-		
+		FactionIndex = 1,
+
         InstanceCount = 2,
-		
+
 		RTBLocation = 'Any',
-		
+
         BuilderType = 'Any',
-		
+
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
-			
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 200,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
@@ -270,84 +261,78 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'AttackFormation',
 			
 			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T1 Sea Attack - Cybran',
 	
         PlatoonTemplate = 'SeaAttack Small',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
-		
+
 		PlatoonAIPlan = 'AttackForceAI',
-		
+
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 710,
+
+        Priority = 750,
 
 		PriorityFunction = IsPrimaryBase,
 
 		FactionIndex = 3,
-		
-        InstanceCount = 2,
-		
+
+        InstanceCount = 1,
+
 		RTBLocation = 'Any',
-		
+
         BuilderType = 'Any',
-		
+
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
-			
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 200,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
-			
+
 			MissionTime = 600,		-- 10 minute mission
-			
+
 			UseFormation = 'AttackFormation',
-			
+
 			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
-			
         },
-		
     },
 	
     Builder {BuilderName = 'T1 Sea Attack - Sera',
 	
         PlatoonTemplate = 'SeaAttack Small',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
-		
+
 		PlatoonAIPlan = 'AttackForceAI',
-		
+
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 710,
+
+        Priority = 750,
 
 		PriorityFunction = IsPrimaryBase,
 
 		FactionIndex = 4,
-		
-        InstanceCount = 2,
-		
+
+        InstanceCount = 1,
+
 		RTBLocation = 'Any',
-		
+
         BuilderType = 'Any',
-		
+
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 			
@@ -355,11 +340,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 200,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
@@ -367,11 +350,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			MissionTime = 600,		-- 8 minute mission
 			
 			UseFormation = 'AttackFormation',
-			
+
 			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
-			
         },
-		
     },
 
 	
@@ -384,19 +365,21 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 711,
+        Priority = 751,
 
 		PriorityFunction = IsPrimaryBase,
 		
 		FactionIndex = 1,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
 		RTBLocation = 'Any',
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
@@ -404,11 +387,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
-			
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -418,9 +399,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
-			
         },
-	
     },
 	
     Builder {BuilderName = 'T2 Sea Attack - Aeon',
@@ -432,19 +411,21 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 711,
+        Priority = 751,
 
 		PriorityFunction = IsPrimaryBase,
 		
 		FactionIndex = 2,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
 		RTBLocation = 'Any',
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
@@ -452,7 +433,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
-			
         },
 		
         BuilderData = {
@@ -466,45 +446,44 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
-			
         },
-	
     },
 	
     Builder {BuilderName = 'T2 Sea Attack - Cybran',
 	
         PlatoonTemplate = 'SeaAttack Medium',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 711,
+        Priority = 751,
 
 		PriorityFunction = IsPrimaryBase,
 		
 		FactionIndex = 3,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
 		RTBLocation = 'Any',
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DEFENSIVEBOAT }},
-			
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -514,44 +493,43 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
-			
         },
-	
     },
 	
     Builder {BuilderName = 'T2 Sea Attack - Sera',
 	
         PlatoonTemplate = 'SeaAttack Medium',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 711,
+        Priority = 751,
 
 		PriorityFunction = IsPrimaryBase,
 		
 		FactionIndex = 4,
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
 		RTBLocation = 'Any',
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -561,22 +539,21 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
-			
         },
-	
     },
 
 	
     Builder {BuilderName = 'T3 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Large',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 712,
+        Priority = 752,
 
 		PriorityFunction = IsPrimaryBase,
 		
@@ -589,7 +566,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
@@ -599,11 +575,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
@@ -613,9 +587,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
-			
         },
-
     },
 	
     Builder {BuilderName = 'T3 Sea Attack - Aeon',
@@ -627,7 +599,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 712,
+        Priority = 752,
 
 		PriorityFunction = IsPrimaryBase,
 		
@@ -640,7 +612,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
@@ -650,11 +621,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
@@ -664,21 +633,20 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
-			
         },
-
     },
 	
     Builder {BuilderName = 'T3 Sea Attack - Cybran',
 	
         PlatoonTemplate = 'SeaAttack Large',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 712,
+        Priority = 752,
 
 		PriorityFunction = IsPrimaryBase,
 		
@@ -691,7 +659,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 			
@@ -701,11 +668,9 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
-
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
@@ -715,21 +680,20 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
-			
         },
-
     },
 
     Builder {BuilderName = 'T3 Sea Attack - Sera',
 	
         PlatoonTemplate = 'SeaAttack Large',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 712,
+        Priority = 752,
 
 		PriorityFunction = IsPrimaryBase,
 
@@ -742,7 +706,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
@@ -754,7 +717,6 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         },
 		
         BuilderData = {
-		
 			DistressRange = 225,
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
@@ -764,22 +726,23 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'GrowthFormation',
 			
 			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
-			
         },
-
     },
 
-	
+    -- NAVAL BOMBARDMENT only appears once significant control over
+    -- the water has been achieved (Naval Ratio > 5) and continues
+    -- regardless of if the enemy is active in the water or not
     Builder {BuilderName = 'Sea Attack - Bombardment',
 	
         PlatoonTemplate = 'SeaAttack Bombardment',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAIPlan = 'BombardForceAI',		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 712,
+        Priority = 753,
 
 		PriorityFunction = IsPrimaryBase,
 
@@ -790,12 +753,10 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { 2 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 5 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			
         },
 		
         BuilderData = {
@@ -805,15 +766,16 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			UseFormation = 'DMSCircleFormation',
 			
 			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
-			
         },
-
     },
 
-	
+    -- NAVAL BASE Patrols only appear if there is a NAVAL threat
+    -- within 9km of the naval base - therefore these can still 
+    -- form even if intel says no enemy naval activity.
     Builder {BuilderName = 'Naval Base Patrol',
 	
         PlatoonTemplate = 'SeaAttack Medium - Base Patrol',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
@@ -827,8 +789,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderData = {
-		
-			DistressRange = 175,
+			DistressRange = 160,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -838,23 +799,20 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			PatrolTime = 360,	-- 6 minutes
 			PatrolType = true,
-			
         },
 		
         BuilderConditions = {
-		
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
-			
         },
-		
     },
 	
     Builder {BuilderName = 'Naval Base Sub Patrol',
 	
         PlatoonTemplate = 'SeaAttack Submarine - Base Patrol',
+        
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
@@ -868,8 +826,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderData = {
-		
-			DistressRange = 175,
+			DistressRange = 160,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -879,16 +836,12 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 			
 			PatrolTime = 360,	-- 6 minutes
 			PatrolType = true,
-			
         },
 		
         BuilderConditions = {
-		
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			
         },
-		
     },
 
 	
@@ -937,6 +890,7 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
 	Builder {BuilderName = 'Reinforce Primary - Naval',
 	
         PlatoonTemplate = 'SeaAttack Reinforcement',
+        
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAIPlan = 'ReinforceNavalAI',
@@ -950,13 +904,10 @@ BuilderGroup {BuilderGroupName = 'Sea Attack Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-		
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
-
         },
 		
         BuilderData = {

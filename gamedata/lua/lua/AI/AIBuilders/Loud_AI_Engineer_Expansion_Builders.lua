@@ -1,4 +1,4 @@
---   /lua/AI/AIBuilders/Loud_Expansion_Builders.lua
+--   /lua/AI/AIBuilders/Loud_AI_Engineer_Expansion_Builders.lua
 ---  Summary: All tasks for building additional bases
 
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
@@ -8,16 +8,30 @@ local LUTL = '/lua/loudutilities.lua'
 
 local MapHasNavalAreas = function( self, aiBrain )
 
-	if table.getn(ScenarioInfo.Env.Scenario.MasterChain['Naval Area']) > 0 then
-		return self.Priority, true
-	end
-
+    if table.getn(ScenarioInfo.Env.Scenario.MasterChain['Naval Area']) > 0 then
+        return self.Priority, false
+    end
+    
 	return 0, false
 
 end
 
+local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
 
-BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
+    if aiBrain.NumBasesNaval < 1 then
+    
+        if table.getn(ScenarioInfo.Env.Scenario.MasterChain['Naval Area']) > 0 then
+            return 999, false
+        else
+            return 0, false
+        end
+        
+    end
+    
+	return 10, true
+end
+
+BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 
     BuildersType = 'EngineerBuilder',
     
@@ -27,18 +41,21 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
     Builder {BuilderName = 'Land Expansion Base',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			-- this base must have 7+ T2/T3 factories
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
+            
 			-- all other 'counted' land bases must have at least 4 T2/T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
 			-- there must be an start/expansion area with no engineers
@@ -52,24 +69,30 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
 				-- a counted base is included when using ExistingBases functions - otherwise ignored
 				-- this is what allows active DPs to not count against maximum allowed bases
 				CountedBase = true,
+                
 				-- this tells the code to start an active base at this location
                 ExpansionBase = true,
+                
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
                 ExpansionRadius = 110,
+                
 				-- this controls the radius for creation of auto-rally points 
-				RallyPointRadius = 44,
+				RallyPointRadius = 40,
+                
 				-- and of course -- the type of markers we're looking for
                 NearMarkerType = 'Large Expansion Area',
+                
 				-- the limit of how far away to include markers when looking for a position
                 LocationRadius = 8000,
+                
 				-- this controls which base layout file to use
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
+                
 				-- these parameters control point selection
-                ThreatMin = -9999,
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
@@ -85,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Land Expansion Builders',
 
 }
 
-BuilderGroup {BuilderGroupName = 'DP Builders Standard',
+BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 
     BuildersType = 'EngineerBuilder',
 
@@ -93,12 +116,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 	Builder {BuilderName = 'Defensive Point Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-		Priority = 750,
+		Priority = 745,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
@@ -107,27 +130,24 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
-			
         },
 		
 		BuilderType = { 'T2','T3' },
 		
 		BuilderData = {
-		
 			Construction = {
-			
 				CountedBase = false,
 				
 				ExpansionBase = true,
 				ExpansionRadius = 100,
 				RallyPointRadius = 23,
+                
 				NearMarkerType = 'Defensive Point',
 				
 				LocationRadius = 2000,
 				
-                ThreatMin = -999999,
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -149,12 +169,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
     Builder {BuilderName = 'DP - Start & Expansion Areas',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 			
@@ -163,15 +183,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' } },
-			
         },
 		
         BuilderType = { 'T2','T3' },
 		
         BuilderData = {
-		
             Construction = {
-			
 				CountedBase = false,
 				
 				ExpansionBase = true,
@@ -181,9 +198,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
                 LocationRadius = 2000,
                 NearMarkerType = 'Expansion Area',
 
-                ThreatMin = -999999,
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -195,15 +211,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Standard',
 					'T2GroundDefense',
 					'T2AADefense',
                 }
-				
             }
-			
         }
-		
     },    
 }
 
-BuilderGroup {BuilderGroupName = 'DP Builders Small',
+BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
 
     BuildersType = 'EngineerBuilder',
 
@@ -211,11 +224,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 	Builder {BuilderName = 'Defensive Point Expansion Small',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		Priority = 750,
+        
+		Priority = 745,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
@@ -224,15 +238,12 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
-			
         },
 		
 		BuilderType = { 'T2','T3' },
 		
 		BuilderData = {
-		
 			Construction = {
-			
 				CountedBase = false,
 				
 				ExpansionBase = true,
@@ -243,9 +254,8 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 				
 				LocationRadius = 2000,
 				
-                ThreatMin = -999999,
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -263,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'DP Builders Small',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Naval Base Builders',
+BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 
     BuildersType = 'EngineerBuilder',
 
@@ -277,49 +287,46 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders',
     Builder {BuilderName = 'Naval Base Initial',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 999,
 		
-		PriorityFunction = MapHasNavalAreas,
+		PriorityFunction = MapHasNavalAreasButNotEstablished,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			
-			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
-			
+            
+			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+            
 			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
 			-- can't be a major enemy base with 10km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 500, 'Economy', 300 }},
 			
-			-- find a safe, unused, naval marker within 850 units of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 850, -250, 50, 2, 'AntiSurface' } },
-			
+			-- find a safe, unused, naval marker within 12km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
 		
         BuilderData = {
-		
             Construction = {
-			
 				CountedBase = true,
                 ExpansionBase = true,
                 ExpansionRadius = 110,
-				RallyPointRadius = 48,
+				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 850,
+                LocationRadius = 600,
 				
-                ThreatMin = -250,
                 ThreatMax = 50,
-                ThreatRings = 2,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -330,18 +337,13 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders',
 					'T2AirStagingPlatform',
 					'T1SeaFactory',
 					'T2Sonar',
-
                 }
-				
             }
-			
         }
-		
     },
-	
 }
 
-BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
+BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	
 	-- start additional naval bases if naval strength too low
@@ -350,6 +352,7 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
     Builder {BuilderName = 'Naval Base Secondary from EXPANSION',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 710,
@@ -357,7 +360,6 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 		PriorityFunction = MapHasNavalAreas,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
@@ -373,24 +375,20 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 			
 			-- all other 'counted' bases must have at least 4 T2/T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'All', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
-			
         },
 		
         BuilderType = { 'T2','T3' },
 		
         BuilderData = {
-		
             Construction = {
-			
 				CountedBase = true,
                 ExpansionBase = true,
                 ExpansionRadius = 110,
-				RallyPointRadius = 48,
+				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 1250,
 
-                ThreatMin = -250,
                 ThreatMax = 50,
                 ThreatRings = 2,
                 ThreatType = 'AntiSurface',
@@ -402,20 +400,17 @@ BuilderGroup {BuilderGroupName = 'Naval Base Builders - Expansion',
 					'T1SeaFactory',
 					'T2AirStagingPlatform',
                 }
-				
             }
-			
         }
-		
     },
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
+BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval',
 	BuildersType = 'EngineerBuilder',
 
 	-- build a naval position that is closer to the goal than the current primary position
-    Builder {BuilderName = 'Naval DP',
+    Builder {BuilderName = 'Naval DP Expansion',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		
@@ -429,23 +424,17 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
         InstanceCount = 1,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
-			
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-			
 			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1500, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 50, 1, 'AntiSurface' }},
-			
         },
 		
         BuilderType = { 'T2','T3', },
 		
         BuilderData = {
-		
             Construction = {
-			
 				CountedBase = false,
 				ExpansionBase = true,
                 ExpansionRadius = 110,
@@ -458,9 +447,8 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
                 MarkerUnitCategory = 'OVERLAYSONAR SONAR INTELLIGENCE',
                 MarkerRadius = 120,
                 MarkerUnitCount = 0,
-				
-                ThreatMin = -999999,
-                ThreatMax = 50,
+
+                ThreatMax = 60,
                 ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
@@ -468,7 +456,6 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 				BaseTemplate = 'NavalDefensivePoint',
 				
                 BuildStructures = {
-				
 					'T2AirStagingPlatform',
 					'T2Sonar',
 					
@@ -482,13 +469,9 @@ BuilderGroup {BuilderGroupName = 'Naval Defensive Points',
 
 					'T2GroundDefenseAmphibious',
 					'T2GroundDefenseAmphibious',
-					
                 }
-				
             }
-			
         }
-		
     },
 	
 }
