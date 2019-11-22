@@ -1,4 +1,7 @@
 do
+end
+
+--[[
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
 
 local enhancementSlotNames = __DMSI.__DMod_EnhancementSlotNames
@@ -6,7 +9,9 @@ local enhancementSlotNames = __DMSI.__DMod_EnhancementSlotNames
    
 local OldShowEnhancement = ShowEnhancement
 function ShowEnhancement(bp, bpID, iconID, iconPrefix, userUnit)
+
 	OldShowEnhancement(bp, bpID, iconID, iconPrefix, userUnit)
+    
     if CheckFormat() then
         # Name / Description
         View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))
@@ -30,12 +35,11 @@ function ShowEnhancement(bp, bpID, iconID, iconPrefix, userUnit)
         Hide()
     end
 end
-    
+
+--]]    
 
 
 
 
 
 
-
-end

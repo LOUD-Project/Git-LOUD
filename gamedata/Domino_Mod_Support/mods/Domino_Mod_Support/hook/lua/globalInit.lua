@@ -3,6 +3,7 @@
 do
 
 --Lets Populate all our tables with default values and values that cannot be overriden.
+LOG("*AI DEBUG Domino GlobalInit")
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') 
 __DMSI.Populate_All_DMod_Tables()
 

@@ -51,13 +51,15 @@ local MODUID = false
 
 function Populate_All_DMod_Tables()
 
+    LOG("*AI DEBUG Populate Domino Mod Tables")
+
 	Populate_Custom_LayoutNames()
 	Populate_ActiveModLocations()
 	Populate_DefaultVideos()
 
 	Populate_Textures()
 	Populate_Videos()
-		
+
 	Populate_TabFiles()	
 	Populate_TechFiles()
 	populate_ConstructionTabs()
@@ -77,7 +79,7 @@ function Populate_All_DMod_Tables()
 	Populate_Custom_Skins()
 	
 	Populate_Custom_Mfd()
-		
+
 	Populate_User_Tables()
 end
 
@@ -209,6 +211,7 @@ function Populate_User_Tables()
 				end
 				
 				if file == 'toggles' then 
+
 					local Toggles = import(m..Modfile).Toggles
 					
 					if Toggles and table.getsize(Toggles) > 0 then 
@@ -1114,7 +1117,5 @@ end
 function Custom_Mfd()
 	return __DMod_Custom_Mfd
 end
-
-
 
 

@@ -6,6 +6,9 @@
 --* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 do
+end
+
+--[[
 
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
 local __Textures = __DMSI.__DModTextures
@@ -64,4 +67,4 @@ function CreateUI()
 	end	  
 end
 
-end
+--]]
