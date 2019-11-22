@@ -262,6 +262,7 @@ function AddHunker(prevClass)
 		StartChargeEnergyDrain = function(self)		
 		
 			local UnitBp = self:GetBlueprint()
+            
 			local HunkerChargeEnergy = UnitBp.Enhancements.Hunker.MaintenanceConsumptionPerSecondEnergy or 0
 		
 			if not self:GetEnergyUsage('HunkerCharge') then 
@@ -628,7 +629,7 @@ function AddHunker(prevClass)
 	
 		CreateEnhancement = function(self, enh)
 		
-			LOG("*AI DEBUG Creating Hunker Enhancement")
+			LOG("*AI DEBUG Creating Enhancement "..enh)
 			
 			prevClass.CreateEnhancement(self, enh)
 		
@@ -641,6 +642,8 @@ function AddHunker(prevClass)
 			
 				self:SetHunkerParam('CanHunker', false)
 				self:SetHunkerParam('ChargePaused', false)
+                
+                LOG("*AI DEBUG Adding Extra Caps")
 				
 				self:AddExtraCap('RULEETC_HunkerToggle')
 				self:AddExtraCap('RULEETC_HunkerPauseToggle')
@@ -649,7 +652,7 @@ function AddHunker(prevClass)
 				
 				self:ForkThread(self.StartHunkerCharge)
 				
-				DoMFD(self, 'hunker_enhancement_complete')
+				--DoMFD(self, 'hunker_enhancement_complete')
 				
 			elseif enh == 'HunkerRemove' then
 			

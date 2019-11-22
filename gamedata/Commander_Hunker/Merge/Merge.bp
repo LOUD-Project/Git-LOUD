@@ -7,9 +7,8 @@ UnitBlueprint {
 	BlueprintId="ual0001", #AEON Commander
     
     Display = {	
-		Abilities = {
-            '<LOC Hunker>',
-        },
+		Abilities = {'<LOC Hunker>',},
+        
 		AnimationHunkerDown = '/mods/Commander_Hunker/anims/default/aeon/aeon_hunker_down.sca',
 		AnimationHunkerUp = '/mods/Commander_Hunker/anims/default/aeon/aeon_hunker_up.sca',
     },
