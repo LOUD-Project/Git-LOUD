@@ -1,4 +1,4 @@
 AI = {
 	Name = "LOUD_MODS",
-	Version = "3.85",
+	Version = "3.9",
 }

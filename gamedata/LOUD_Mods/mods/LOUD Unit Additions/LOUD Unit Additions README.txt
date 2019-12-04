@@ -2,13 +2,13 @@ The LOUD Unit Additions brings the following units into the game;
 
 The ABOMINATION class Experimentals
 
-- King Kryptor - with it's crown of thorns it reinforces the religious bent of the Way
+- King Kraptor - with it's crown of thorns it reinforces the religious bent of the Way
 - Angel	- an experimental mobile anti-nuke/radar/shield unit 
 - Fatboy II - ditch the factory, the shield and the AA - all armor and guns - 
 - Lucidity - an impressive experimental fighter-cluster bomber -
 - Megalith II - the 'Cockroach' is simply death on legs
 - Echibum - range, mobility and firepower and shielded to boot
-- Vergra - an experimental naval cruiser with devastating AA capability
+- Vergra - an experimental naval cruiser mounting T4 level AA
 
 Siege Shields for all factions - a T4 level base-sized shield useful in large area shield layering
 

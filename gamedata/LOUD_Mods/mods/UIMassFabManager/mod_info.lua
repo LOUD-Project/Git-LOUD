@@ -1,6 +1,6 @@
 name = "UI Mass Fab Manager FA"
 uid = "EF3ADDB4-9D34-437F-B1C8-440DAF896802"
-version = 3
+version = 4
 copyright = ""
 description = "Automatically switches mass fabricators on/off."
 author = "Stephen Evans (aka Goom), resurrected version (Otto Laulajainen aka lonkero173)"
