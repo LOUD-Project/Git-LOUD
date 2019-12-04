@@ -45,7 +45,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 		
 		PlatoonAIPlan = 'ScoutingAI',
 
-        Priority = 720,
+        Priority = 740,
 		
         InstanceCount = 5,
 		
@@ -75,7 +75,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 		
 		PlatoonAIPlan = 'ScoutingAI',
 
-        Priority = 720,
+        Priority = 740,
 		
         InstanceCount = 3,
 		
@@ -111,7 +111,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         Priority = 750,
 		
-		--PriorityFunction = IsEnemyNavalActive,
+		PriorityFunction = IsPrimaryBase,
 		
         InstanceCount = 2,
 		
@@ -782,7 +782,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 710,
+        Priority = 745,
 
         InstanceCount = 2,
 		
@@ -819,7 +819,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 710,
+        Priority = 745,
 
         InstanceCount = 1,
 		
