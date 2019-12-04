@@ -2237,20 +2237,15 @@ function AirForceAILOUD( self, aiBrain )
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
                 threatcompare = 'AntiSurface'
 				strikerange = 100
-				
             else
-			
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
                 threatcompare = 'AntiAir'
 				strikerange = 125
-				
             end
 
             if mythreat < 5 then
-			
                 mythreat = 5
-				
             end
 
 			-- store the anchorposition of the platoon which helps
@@ -2259,7 +2254,6 @@ function AirForceAILOUD( self, aiBrain )
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
-			
 					self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 					IssueClearCommands( GetPlatoonUnits(self) )
 				
@@ -2268,13 +2262,9 @@ function AirForceAILOUD( self, aiBrain )
 					IssueGuard( self:GetSquadUnits('Attack'), self.anchorposition)
 					
 					loiter = true
-					
 				end
-				
 			else
-			
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				
 			end
 
 			-- locate a target
@@ -2373,15 +2363,10 @@ function AirForceAILOUD( self, aiBrain )
 							target = false
 
 							self:MoveToLocation( self.anchorposition, false )
-							
 						end
-						
                     end
-					
 				end
-				
 			end
-			
         end
 
 		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
@@ -2419,13 +2404,9 @@ function AirForceAILOUD( self, aiBrain )
 						
 								fuellow = true
 								break
-							
 							end
-						
 						end
-					
 					end
-				
 				end
 
 				if platooncount < oldNumberOfUnitsInPlatoon * .35 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
@@ -2435,7 +2416,6 @@ function AirForceAILOUD( self, aiBrain )
 					target = false
 
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				
 				end
 
 				if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
@@ -2445,18 +2425,13 @@ function AirForceAILOUD( self, aiBrain )
 					target = false
 
 					self:MoveToLocation( self.anchorposition, false )
-				
 				end
-				
 			end
-			
 		end
 
         -- target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
-		
 			target = false
-			
 		end
 
 		-- loiter will be true if we did not find a target
@@ -2466,15 +2441,11 @@ function AirForceAILOUD( self, aiBrain )
 			WaitTicks(55)
 			
             attacktimer = attacktimer + 5.5
-			
 		end
-		
     end
 
     if PlatoonExists(aiBrain, self) then
-	
         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-		
     end
 	
 end
@@ -2640,7 +2611,7 @@ function NavalForceAILOUD( self, aiBrain )
 	-- force the plan name
 	self.PlanName = 'NavalForceAILOUD'
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." begins")
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." begins")
 
     while PlatoonExists(aiBrain, self) do
 
@@ -2868,7 +2839,7 @@ function NavalForceAILOUD( self, aiBrain )
 				
 				if table.getn(navalAreas) > 0 then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeking random Naval Area")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeking random Naval Area")
 
 					for k,v in RandomIter(navalAreas) do
 
@@ -2876,7 +2847,7 @@ function NavalForceAILOUD( self, aiBrain )
 						-- if we find an allied naval base there we'll just skip this BUT we'll keep it for later checking
 						if GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ) > 0 then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." - position "..repr(v.Position).." finds "..GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ).." allied units")
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." - position "..repr(v.Position).." finds "..GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ).." allied units")
 							
 							navalAreas[k] = nil
 							continue
@@ -2907,7 +2878,7 @@ function NavalForceAILOUD( self, aiBrain )
 
 							target = false
 
-							LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." gets random marker at "..repr(destination))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." gets random marker at "..repr(destination))
 							
 						end
 					
@@ -2922,7 +2893,7 @@ function NavalForceAILOUD( self, aiBrain )
 			-- if still nothing - RTB --
 			if not destination then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
@@ -3010,7 +2981,7 @@ function NavalForceAILOUD( self, aiBrain )
 				-- then submerge them
 				if waitneeded then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI on Air Wait")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI on Air Wait")
 					
 					WaitTicks(300)
 					
@@ -3057,7 +3028,7 @@ function NavalForceAILOUD( self, aiBrain )
 				
 				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
 					
 				end
 
@@ -3079,7 +3050,7 @@ function NavalForceAILOUD( self, aiBrain )
 					
 				else
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." all attack units dead - fight over")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." all attack units dead - fight over")
 					
 					target = false
 					

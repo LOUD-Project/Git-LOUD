@@ -123,7 +123,7 @@ BaseBuilderTemplate {
             Tech1 = 7,
             Tech2 = 9,
             Tech3 = 8,
-            SCU = 10,
+            SCU = 12,
         },
         
 		-- This controls the upper limit on factories at this base
