@@ -205,14 +205,15 @@ end
 
 -- This function finds any kind of available large base position (either start or expansion)
 -- that is not too close to any of our other 'counted' bases - DPs and Sea bases are ignored
+-- position is NOT driven by the Attack Plan but by the source base of the engineer doing this job
 function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
+    -- this option (unused at the moment) allows us to base the checks on the engineers position
+    -- you might use that on an engineer out in the field for example
 	if eng then
-	
-		Position = GetPlatoonPosition(eng) or false
-		
+		Position = eng
 	end
 	
 	if Position then
@@ -420,24 +421,27 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
 	if eng then
-	
-		Position = GetPlatoonPosition(eng) or false
-		
+		Position = eng
 	end
 	
     if Position then
 
+		-- this is the range that the current primary base is from the goal - new bases must be closer than this
+        -- we'll use the current PRIMARY LAND BASE as the centrepoint for radius
+        local test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or Position
+		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
+
 		local positions = {}
 	
-		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
 
-		-- sort the possible positions by distance -- 
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
+		-- sort the possible positions by distance from the test_position -- 
+		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 	
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 250
+		local minimum_baserange = 200
 	
 		-- so we now have a list of ALL the Naval DP positions on the map
 		-- loop thru the list and eliminate any that are already in use by enemy AI 
@@ -494,9 +498,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
 	if eng then
-	
-		Position = GetPlatoonPosition(eng) or false
-		
+		Position = eng
 	end
 	
     if Position then
@@ -511,7 +513,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		local Brains = ArmyBrains
 	
 		-- minimum range that a Naval Base can be from any existing base
-		local minimum_baserange = 250
+		local minimum_baserange = 200
 	
 		-- so we now have a list of ALL the Naval DP positions on the map
 		-- loop thru the list and eliminate any that are already in use by enemy AI 
@@ -650,16 +652,17 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
     if Position and  ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
 		
 		local test_range = false
+        local test_position = false
 		
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
+        -- and we'll use the current PRIMARY base as the centre of our test range
 		if aiBrain.PrimarySeaAttackBase then
 		
-			test_range = VDist3( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position, aiBrain.AttackPlan.Goal )
-			
+            test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
+			test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )
 		else
-		
-			test_range = VDist3( aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position, aiBrain.AttackPlan.Goal )
-		
+            test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or false
+			test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
@@ -667,21 +670,20 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		
 		local positions = {}
 
-		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position or Position, radius, tMin, tMax, tRings, tType))
     
-		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
+		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], test_position[1],test_position[3] ) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3]) end )
     
 		-- loop thru positions and do the structure/unit count check
 		-- originally intended to insure that there are no allied units of same category within radius of this position
 		for k,v in positions do
 		
-			-- must be able to path from current Primary to new position ( this deals with maps that have multiple water areas )
-			local path, reason = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position, v.Position, 1000, 250 )
+			-- must be able to path from current Sea Primary to new position
+            -- this prevents the AI from trying to locate naval DPs on another body of water
+			local path, reason = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position, v.Position, 9999, 250 )
 
 			if not path then
-				
 				continue
-
 			end		
 
 			-- check if there are existing structures at the point

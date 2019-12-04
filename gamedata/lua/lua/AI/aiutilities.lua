@@ -125,7 +125,7 @@ function AIPickEnemyLogic( self, brainbool )
 				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
 				--LOG("*AI DEBUG "..v.Nickname.." threats are "..repr(threats))
 		
-				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k }
+				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }
 				
 				if threats[1] then
 
@@ -154,7 +154,7 @@ function AIPickEnemyLogic( self, brainbool )
 		
     end
 	
-	LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
+	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
 	
     --local allyEnemy = self:GetAllianceEnemy(armyStrengthTable, mys)
 	
@@ -197,9 +197,16 @@ function AIPickEnemyLogic( self, brainbool )
 			KillThread(self.DrawPlanThread)
 			
 		end	
-		
+        
+		-- Just a note here - the position used when finding an enemy should likely
+        -- be based on his CURRENT PRIMARY position - and not always the starting position
+        -- this will help keep him focused upon what he's already achieved
+        -- rather than just switching to a stronger opponent
+        local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
+        
         if findEnemy then
 		
+            local enemydistance = 0
             local enemyPosition = false
             local enemyStrength = 0
             local enemy = false
@@ -213,54 +220,58 @@ function AIPickEnemyLogic( self, brainbool )
 					
                 end
 				
-                -- closer targets are worth more 
-                local distanceWeight = 0.1
-                local distance = VDist3( self:GetStartVector3f(), v.Position )
-                local threatWeight = (1 / ( distance * distanceWeight )) * v.Strength
+                -- closer targets are worth more - much more
+                local distanceWeight = 0.01
+                
+                -- distance of this this enemy from current PRIMARY position
+                local distance = VDist3( testposition, v.Position )
+                
+                -- adjust the strength according to distance result
+                local threatWeight = ( self.dist_comp/(distance*distance) ) * v.Strength
+                
+                --local threatWeight = (1 / ( distance * distanceWeight )) * v.Strength
+                
+                --LOG("*AI DEBUG "..self.Nickname.." Checking enemy at distance "..distance.." max dist is "..repr(self.dist_comp).." STR "..v.Strength.." result is "..threatWeight)
 				
+                -- store the highest value so far -- we'll pick this as the
+                -- enemy once we've checked all the enemies
                 if not enemy or threatWeight > enemyStrength then
 				
+                    enemydistance = distance
                     enemyPosition = v.Position
 					enemyStrength = threatWeight
                     enemy = ArmyBrains[v.Brain]
-					
                 end
-				
             end
-			
+
+            -- if we've picked an enemy and have a position for them
             if enemy and enemyPosition then
-			
+            
+                -- If we don't have an enemy or it's different than the one we already have
 				if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
 				
+                    -- set this as our current enemy
                     self:SetCurrentEnemy( enemy )
 					
+                    -- remember this enemy index on the brain
 					self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
 					
-					-- AI will announce his current target to allies
+					-- AI will announce the current target to allies
 					SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
 					
-                    LOG("*AI DEBUG " ..self.Nickname.. " Choosing enemy - " ..enemy.Nickname )
+                    LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
 					
-                    if ScenarioInfo.ArmySetup[self.Name].AIPersonality == 'loud' then
-					
-                        -- create a new attack plan
-                        self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
-						
-                    end
-					
+                    -- create a new attack plan
+                    self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
 				end
-				
 			end
-			
         end
 		
 		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
 		
 			self.DrawPlanThread = ForkThread( DrawPlanNodes )
-			
 		end 
-		
     end
 	
 end

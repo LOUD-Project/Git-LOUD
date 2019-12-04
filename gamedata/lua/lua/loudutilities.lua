@@ -956,16 +956,16 @@ function SetPrimaryLandAttackBase( aiBrain )
 		
 			if v.EngineerManager.Active and v.BaseType == "Land" then
 			
-				-- here is the distance calculation - very crude since it only accounts for the 'as the crow flies' distance
-				-- ideally we should get a path (Land or Amphib) and use that value instead
-				Bases[counter+1] = { BaseName = v.BaseName, Position = v.Position, Distance = VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
+				-- here is the distance calculation - very crude since it only accounts for the 'as the crow flies' distance originally
+				-- ideally we should get a path (Land or Amphib) and use the length of that instead
+                local path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
+                
+				Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }  --,VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
 				counter = counter + 1
-				
 			end
-			
         end
         
-		-- sort them by distance to goal
+		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
         
         -- make the closest one the Primary
@@ -1068,9 +1068,16 @@ function SetPrimarySeaAttackBase( aiBrain )
 			
 				-- here is the distance calculation - crude since it only accounts for the 'as the crow flies' distance
 				-- ideally we should get a path ( Amphib since this base is on water and the goal is on land ) and use that value instead
-				Bases[counter+1] = { BaseName = v.BaseName, Position = v.Position, Distance = VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
+                local path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
+                
+				Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
 				counter = counter + 1
 			end
+        end
+        
+        if counter == 0 then
+            aiBrain.PrimarySeaAttackBase = false
+            return
         end
         
 		-- sort them by distance to goal
@@ -4179,14 +4186,14 @@ function CreateAttackPlan( self, enemyPosition )
 					-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
 					self.AttackPlan.Method = 'Land'
 					
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 350, 160)
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 1000, 160)
 					
 					if not path then
 
 						-- attack plan will be amphibious if no land path, even if we dont find a path --
 						self.AttackPlan.Method = 'Amphibious'
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 350, 240)
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 240)
 						
 					end
 
