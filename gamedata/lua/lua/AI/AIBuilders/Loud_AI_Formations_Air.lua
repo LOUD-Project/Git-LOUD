@@ -28,8 +28,7 @@ end
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     BuildersType = 'PlatoonFormBuilder',
 	
--- Perimeter air scouts are always maintained first
-
+    -- Perimeter air scouts are maintained at all bases
     Builder {BuilderName = 'Air Scout Peri - 200',
 	
         PlatoonTemplate = 'Air Scout Formation',
@@ -64,7 +63,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT - categories.TECH1 }},
 		},
 		
 		BuilderData = {
@@ -87,7 +86,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT - categories.TECH1 }},
 		},
 		
 		BuilderData = {
@@ -96,7 +95,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			PatrolTime = 1200,
 		},
     },
-	
+
+    -- this one only appears at PRIMARY bases
     Builder {BuilderName = 'Air Scout Peri - 460',
 	
         PlatoonTemplate = 'Air Scout Formation',
@@ -104,18 +104,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 807,
+        
+        PriorityFunction = IsPrimaryBase,
 		
 		InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT - categories.TECH1 }},
 		},
 		
 		BuilderData = {
-		
 			BasePerimeterOrientation = 'ALL',        
 			Radius = 460,
 			PatrolTime = 1200,
@@ -132,7 +132,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-		Priority = 804,
+		Priority = 806,
 		
 		-- this function removes the builder after 30 minutes
 		PriorityFunction = function(self, aiBrain)
@@ -157,7 +157,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation for 30-70 minutes
+	-- double plane formation for 30-70 minutes - 8 instances
     Builder {BuilderName = 'Air Scout - Pair',
     
         PlatoonTemplate = 'Air Scout Group',
@@ -172,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			if self.Priority != 0 then
 				
 				if aiBrain.CycleTime > 1800 then
-					return 805, true
+					return 806, true
 				end
 			
 				if aiBrain.CycleTime > 4200 then
@@ -183,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 10,
+        InstanceCount = 8,
 		
         BuilderType = 'Any',
 		
@@ -193,41 +193,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderData = {},
     },
-    
-	-- squadron (10) formations after 75 minutes
-    Builder {BuilderName = 'Air Scout - Group',
-    
-        PlatoonTemplate = 'Air Scout Group Huge',
-        
-		PlatoonAIPlan = 'ScoutingAI',
-        
-        Priority = 10,
-		
-		-- this function will turn the builder on at the 75 minute mark
-		PriorityFunction = function(self, aiBrain)
-		
-			if self.Priority != 806 then
-			
-				if aiBrain.CycleTime > 4500 then
-					return 806, false
-				end
-			end
-			
-			return self.Priority,true
-		end,
 
-        InstanceCount = 4,
-		
-        BuilderType = 'Any',
-		
-		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 9, categories.AIR * categories.SCOUT * categories.TECH3 }},
-		},
-		
-		BuilderData = {},
-    },
-
-	-- wing (6) formations at 60 minutes
+	-- wing (5) formations at 60 minutes - 4 instances
     Builder {BuilderName = 'Air Scout - Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
@@ -254,7 +221,40 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.AIR * categories.SCOUT * categories.TECH3 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.SCOUT * categories.TECH3 }},
+		},
+		
+		BuilderData = {},
+    },
+    
+	-- squadron (9) formations after 75 minutes - 4 instances
+    Builder {BuilderName = 'Air Scout - Group',
+    
+        PlatoonTemplate = 'Air Scout Group Huge',
+        
+		PlatoonAIPlan = 'ScoutingAI',
+        
+        Priority = 10,
+		
+		-- this function will turn the builder on at the 75 minute mark
+		PriorityFunction = function(self, aiBrain)
+		
+			if self.Priority != 806 then
+			
+				if aiBrain.CycleTime > 4500 then
+					return 806, false
+				end
+			end
+			
+			return self.Priority,true
+		end,
+
+        InstanceCount = 4,
+		
+        BuilderType = 'Any',
+		
+		BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT * categories.TECH3 }},
 		},
 		
 		BuilderData = {},
