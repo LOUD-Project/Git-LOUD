@@ -593,7 +593,7 @@ function ModBlueprints(all_blueprints)
 				if cat == 'NAVAL' then
 			
 					econScale = 0.0    # -- cost more
-					speedScale = -0.1  # -- move slower
+					speedScale = -0.05  # -- move slower
 					viewScale = 0.0   
 			
 					for j, catj in bp.Categories do
@@ -660,8 +660,8 @@ function ModBlueprints(all_blueprints)
 			
 				if cat == 'AIR' then
 			
-					econScale = 0.20	# -- cost more
-					speedScale = -0.0   # -- move slower
+					econScale = 0.075	# -- cost more
+					speedScale = -0.0
 					viewScale = -0.05    # -- see less
 		
 					for j, catj in bp.Categories do
@@ -669,24 +669,18 @@ function ModBlueprints(all_blueprints)
 						if catj == 'MOBILE' then
 
 							if bp.Economy.BuildTime then
-							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
-								
 							end
 
 							-- although air units speed is not controlled by this I do it anyways for visual reference in-game.
 							if bp.Physics.Maxspeed then
-							
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
-								
 							end
 							
 							if bp.Air.MaxAirspeed then
-							
 								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
-								
 							end
 						
 							-- if the unit uses a SizeSphere for collisions, make sure it's big enough as related to it's max speed
@@ -694,38 +688,23 @@ function ModBlueprints(all_blueprints)
 							-- this steep dropoff starts to occur around .9 but is tolerable at that setting with a decent amount of
 							-- hits but a few misses at the top end (of particular note are the AA lasers)
 							if bp.SizeSphere and bp.Air.MaxAirspeed then
-								
-								--LOG("*AI DEBUG "..bp.Description.." has a sphere of "..bp.SizeSphere.." at max speed of "..bp.Air.MaxAirspeed)
-
 								bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
-
-								--LOG("*AI DEBUG "..bp.Description.." has a new sphere of "..bp.SizeSphere)
-
 							end
-			
 
 							if bp.Physics.MaxBrake then
-							
 								bp.Physics.MaxBrake = bp.Physics.MaxBrake + (bp.Physics.MaxBrake * speedScale)
-								
 							end
 							
 							if bp.Intel.VisionRadius then
-							
 								bp.Intel.VisionRadius = math.floor(bp.Intel.VisionRadius + (bp.Intel.VisionRadius * viewScale))
-								
 							end
 							
 							if bp.Intel.WaterVisionRadius and bp.Intel.WaterVisionRadius > 0 then
-							
 								bp.Intel.WaterVisionRadius = math.floor(bp.Intel.WaterVisionRadius + (bp.Intel.WaterVisionRadius * viewScale))
-								
 							else
-							
 								if bp.Intel then
 									bp.Intel.WaterVisionRadius = 0
 								end
-								
 							end
 						end
 					end
@@ -734,14 +713,14 @@ function ModBlueprints(all_blueprints)
 				if cat == 'LAND' then
 			
 					econScale = 0
-					speedScale = -0.05	# -- move slower
-					viewScale = 0.00
+					speedScale = 0
+					viewScale = 0
 		
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
 					
-							if bp.Economy.BuildTime and econScale > 0 then
+							if bp.Economy.BuildTime and econScale != 0 then
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
@@ -782,7 +761,7 @@ function ModBlueprints(all_blueprints)
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
 							local T1_Adjustment = 1.275
-							local T2_Adjustment = 1.105
+							local T2_Adjustment = 1.120
 							local T3_Adjustment = 1.000
 						
 							for _, cat_mobile in bp.Categories do
@@ -820,7 +799,7 @@ function ModBlueprints(all_blueprints)
 									
 									-- make them appear a little smaller
 									if bp.Display.UniformScale then
-										bp.Display.UniformScale = bp.Display.UniformScale * .9
+										bp.Display.UniformScale = bp.Display.UniformScale * .95
 									end
 								end
 							end
@@ -873,11 +852,11 @@ function ModBlueprints(all_blueprints)
 
 								if cat_tech == 'EXPERIMENTAL' then
 								
-									LOG("*AI DEBUG Modifying Weapon Range on EXPERIMENTAL "..bp.Description)
+									--LOG("*AI DEBUG Modifying Weapon Range on EXPERIMENTAL "..bp.Description)
 									
 									for ik, wep in bp.Weapon do
 										if wep.MaxRadius and wep.MaxRadius > 60 then
-											LOG("*AI DEBUG MaxRadius goes from "..wep.MaxRadius.." to "..math.floor(wep.MaxRadius * 0.91))
+											--LOG("*AI DEBUG MaxRadius goes from "..wep.MaxRadius.." to "..math.floor(wep.MaxRadius * 0.91))
 											wep.MaxRadius = math.floor(wep.MaxRadius * 0.91)
 										end
 									end										
@@ -939,9 +918,7 @@ function ModBlueprints(all_blueprints)
 						bp.Wreckage.Liftime = 900
 						
 					end
-				
 				end
-				
 			end
 		end
     end
@@ -968,7 +945,6 @@ function ModBlueprints(all_blueprints)
 					local Detected = Sound { Bank = 'XGG', Cue = 'XGG_Computer_CV01_04724',}
 
 					bp.Audio['EnemyUnitDetected'..faction] = Detected
-				
 				end
 				
 				if categories['STRATEGIC'] == true and categories['NUKE'] == true and categories['SILO'] == true then
@@ -977,8 +953,7 @@ function ModBlueprints(all_blueprints)
 					local Detected = Sound { Bank = 'XGG', Cue = 'XGG_Rhiza_MP1_04588',}
 
 					bp.Audio['EnemyUnitDetected'..faction] = Detected
-
-				end
+                end
 
 				if categories['TRANSPORTATION'] == true then
 				
@@ -994,8 +969,6 @@ function ModBlueprints(all_blueprints)
 					
 					bp.Audio['UnitUnderAttack'..faction] = MexUnderAttack
 				end
-
-
 			end
 		end
 	end
