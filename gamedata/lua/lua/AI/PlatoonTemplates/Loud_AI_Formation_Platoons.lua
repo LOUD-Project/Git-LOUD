@@ -251,9 +251,9 @@ PlatoonTemplate { Name = 'ArtilleryAttack',
 PlatoonTemplate { Name = 'T1MassAttack',
     Plan = 'GuardPoint',    
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 5, 10, 'Attack', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 3, 'Artillery', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 2, 'Guard', 'AttackFormation' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 5, 15, 'Attack', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 4, 'Guard', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 1, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
     },
@@ -377,21 +377,18 @@ PlatoonTemplate { Name = 'AmphibAttackHuge',
 PlatoonTemplate { Name = 'BaseGuardMedium',
 
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER - categories.EXPERIMENTAL, 13, 16, 'Attack', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 2, 'Guard', 'none' },
-		--{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 13, 24, 'Attack', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
 		-- allow experimentals except artillery and construction
-		{ (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.CONSTRUCTION - categories.ARTILLERY, 0, 1, 'Attack', 'none' },
+		{ (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 0, 1, 'Attack', 'none' },
     },
 }
 
 PlatoonTemplate { Name = 'BaseGuardAAPatrol',
 
     GlobalSquads = {
-		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 5, 12, 'Guard', 'GrowthFormation' },
-		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 1, 'Guard', 'none' },
-		--{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
-        --{ (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Guard', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 6, 18, 'Guard', 'GrowthFormation' },
+		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
     },
 }
 
