@@ -511,6 +511,7 @@ end
 function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 
     local catCheck = false
+    local capmult = 500
 	
     if techLevel == 'Tech1' then
 	
@@ -519,14 +520,17 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
     elseif techLevel == 'Tech2' then
 	
         catCheck = categories.TECH2
+        capmult = 300
 		
     elseif techLevel == 'Tech3' then
 	
         catCheck = categories.TECH3
+        capmult = 250
 		
     elseif techLevel == 'SCU' then
 	
         catCheck = categories.SUBCOMMANDER
+        capmult = 200
 		
     else
 	
@@ -539,9 +543,16 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 	
 	if aiBrain.CheatingAI then
 	
-		capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.BuildMult )) * (tonumber(ScenarioInfo.Options.BuildMult )) ))
+        capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.BuildMult )) * (tonumber(ScenarioInfo.Options.BuildMult )) ))
 	
-	end	
+	end
+    
+	if aiBrain.StartingUnitCap > 1000 then
+	
+        -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
+		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
+		
+	end
 	
 	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) >= capCheck
 	
