@@ -42,7 +42,7 @@ BaseBuilderTemplate {
 		# Create Platoons with Land Units
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
-		--'Land Formations - Reinforcement',
+		'Land Formations - Reinforcement',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Factory Production - Air',

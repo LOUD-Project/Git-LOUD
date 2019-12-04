@@ -58,7 +58,7 @@ BaseBuilderTemplate {
 		'Air Formations - Scouts',
 		'Land Formations - Scouts',
         
-		--'Land Formations - Reinforcement',
+		'Land Formations - Reinforcement',
     },
 	
 	WaterMapBuilders = {

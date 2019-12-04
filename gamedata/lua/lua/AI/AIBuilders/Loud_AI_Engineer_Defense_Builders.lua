@@ -301,13 +301,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750, 
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 15, 42 }},
-			
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -318,7 +316,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             NumAssistees = 2,
 			
             Construction = {
-			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 50,
 				
@@ -326,7 +323,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
 				BuildStructures = {'T3AADefense' },
-				
             }
         }
     },
@@ -339,13 +335,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
-			
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -353,7 +347,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderData = {
 		
 			Construction = {
-			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 35,				
 
@@ -361,11 +354,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
                 
                 BuildStructures = {'T3TeleportJammer'},
-				
             }
-			
         }
-		
     },	
 	
 	-- setup so that we always build one
@@ -377,16 +367,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 900,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		    { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},
-			
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
 			
             Construction = {
@@ -398,11 +385,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T3StrategicMissileDefense'},
-				
             }
-			
         }
-		
     },
 	
 	-- and build more if enemy has more than 1
@@ -414,21 +398,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 900,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3, 5, 45 }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 1, categories.NUKE * categories.SILO + categories.SATELLITE, 'Enemy' }},
-			
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
 			
             Construction = {
-			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 30,
 				
@@ -436,11 +416,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T3StrategicMissileDefense'},
-				
             }
-			
         }
-		
     },
 	
     Builder {BuilderName = 'Experimental PD',
@@ -451,23 +428,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750,
 		
         BuilderConditions = {
-		
-			{ LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 10, 42 }},
-			
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
 			NumAssistees = 4,
 			
             Construction = {
-			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 50,
 
@@ -475,11 +448,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T4GroundDefense'},
-				
             }
-			
         }
-		
     },
 
     Builder {BuilderName = 'Experimental AA Defense',
@@ -490,23 +460,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		Priority = 750,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},			
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.ANTIAIR, 10, 40 }},
-			
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 3,
 			
             Construction = {
-			
 				NearBasePerimeterPoints = true,
 				ThreatMax = 45,
 				
@@ -514,24 +480,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
                 BuildStructures = {'T4AADefense'},
-				
             }
-			
         }
-		
     },
-	
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Base - Core',
+    
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 800,
 		
 		InstanceCount = 1,
+        
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -561,11 +526,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
     },
 	
     Builder {BuilderName = 'Shields - Base - Outer',
+    
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 800,
 		
 		InstanceCount = 1,
+        
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
@@ -596,11 +564,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
     },
 	
 	Builder {BuilderName = 'Shield Augmentations',
+    
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 750,
 		
 		InstanceCount = 2,
+        
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
@@ -615,9 +586,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 				NearBasePerimeterPoints = true,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
-                BuildStructures = {
-					'EnergyStorage',
-                },
+                
+                BuildStructures = {'EnergyStorage'},
             }
         }
     },
@@ -627,8 +597,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Base - Inner - IS ',
+    
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 800,
 		
 		InstanceCount = 1,
@@ -652,16 +624,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 				MaxThreat = 30,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
-                BuildStructures = {
-                    'T2ShieldDefense',
-                },
+                
+                BuildStructures = {'T2ShieldDefense'},
             }
         }
     },
 	
     Builder {BuilderName = 'Shields - Base - Outer - IS',
+    
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 800,
 		
 		InstanceCount = 1,
@@ -685,9 +658,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 				MaxThreat = 30,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
-                BuildStructures = {
-                    'T3ShieldDefense',
-                },
+                
+                BuildStructures = {'T3ShieldDefense'},
             }
         }
     },	
@@ -721,7 +693,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
         Priority = 750,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
@@ -732,27 +703,22 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 			-- must have at least 1 Experimental level defense ?
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.SHIELD }},
-			
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 3,
 			
             Construction = {
-			
 				NearBasePerimeterPoints = true,
 				MaxThreat = 45,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
 				
-                BuildStructures = {
-					'T4ShieldDefense',
-                },
+                BuildStructures = {'T4ShieldDefense'},
             }
         }
     },
@@ -770,20 +736,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
         Priority = 751,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .75 } },
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
-			
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
 		
         BuilderData = {
-		
 			DesiresAssist = false,
 			
 			Construction = {
-			
 				Radius = 50,			
                 NearBasePerimeterPoints = true,
 				
@@ -796,14 +758,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 				BaseTemplate = 'T3AirStagingComplex',
 				
                 BuildStructures = {'T2AirStagingPlatform'},
-				
             }
-			
         }
-		
     },	
-
 }
+
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
     BuildersType = 'EngineerBuilder',
 	
@@ -815,20 +774,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         Priority = 751,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .75 } },
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
-			
         },
 		
         BuilderType = {'T2','T3'},
 		
         BuilderData = {
-		
 			DesiresAssist = false,
 			
 			Construction = {
-			
 				Radius = 40,			
                 NearBasePerimeterPoints = true,
 				
@@ -839,11 +794,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 				BaseTemplate = 'T3AirStagingComplex',
 				
                 BuildStructures = {'T2AirStagingPlatform'},
-				
             }
-			
         }
-		
     },	
 	
 }
@@ -938,13 +890,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-		
 			{ EBC, 'GreaterThanEnergyIncome', { 400 }},			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE}},
-			
         },
 		
         BuilderType = { 'T1' },
@@ -952,7 +902,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderData = {
 		
             Construction = {
-			
 				Radius = 51,
                 NearBasePerimeterPoints = true,
 				
@@ -966,11 +915,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 					'T1GroundDefense',
 					'T1AADefense',
 				},
-				
             }
-			
         }
-		
     },
 	
     Builder {BuilderName = 'T1 Perimeter AA - Response',
@@ -999,23 +945,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-		
             { LUTL, 'AirStrengthRatioLessThan', { 3 }},
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIAIR, 45, 75}},
-			
         },
 		
         BuilderType = { 'T1' },
 		
         BuilderData = {
-		
 			DesiresAssist = true,
             NumAssistees = 2,
 			
             Construction = {
-			
 				Radius = 51,
                 NearBasePerimeterPoints = true,
 				
@@ -1026,11 +968,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
                 BuildStructures = {'T1AADefense'},
-				
             }
-			
         }
-		
     },
 
     Builder {BuilderName = 'T2 Perimeter TMD',
@@ -1554,13 +1493,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
         Priority = 750,
 		
         BuilderConditions = {
-		
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             { LUTL, 'UnitCapCheckLess', { .65 } },			
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 1000, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
-			
         },
 		
         BuilderType = {'T3'},
@@ -1587,11 +1524,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 					'T1MassCreation',
 					'T3ShieldDefense',
                 }
-				
             }
-			
         }
-		
     },
 	
 }
