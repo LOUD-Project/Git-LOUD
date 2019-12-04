@@ -298,9 +298,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.ENGINEER, categories.STRUCTURE},
+            PrioritizedCategories = {categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 60,	
+			SearchRadius = 40,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -328,7 +328,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 3 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
         },
 		
         BuilderData = {
@@ -340,11 +340,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = 20,
 			
-            MissionTime = 180,
+            MissionTime = 150,
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
-			SearchRadius = 80,
+			SearchRadius = 65,
 			
             UseFormation = 'AttackFormation',
         },
@@ -379,18 +379,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 18, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 19, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
         },
 		
         BuilderData = {
-			DistressRange = 240,
+			DistressRange = 220,
 			DistressTypes = 'Land',
 			DistressThreshold = 20,
 			LocationType = 'LocationType',
             MergeLimit = 64,
-            MissionTime = 420,
+            MissionTime = 240,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 180,
+			SearchRadius = 135,
             UseFormation = 'AttackFormation',
         },
 		
@@ -599,13 +599,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 11,
+            MergeLimit = 16,
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.MOBILE * categories.AIR},
+            PrioritizedCategories = {categories.MOBILE * categories.AIR - categories.INTELLIGENCE},
 			
-			SearchRadius = 60,	
+			SearchRadius = 40,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -632,23 +632,23 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.ANTIAIR }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
         BuilderData = {
-			DistressRange = 180,
+			DistressRange = 160,
 			DistressTypes = 'Air',
 			DistressThreshold = 8,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 23,
+            MergeLimit = 32,
 			
-            MissionTime = 180,
+            MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.AIR},
+            PrioritizedCategories = { categories.MOBILE * categories.AIR - categories.INTELLIGENCE},
 			
-			SearchRadius = 90,
+			SearchRadius = 65,
 			
             UseFormation = 'AttackFormation',
         },
@@ -682,11 +682,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
 			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTIAIR }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
         BuilderData = {
-			DistressRange = 240,
+			DistressRange = 200,
 			DistressTypes = 'Air',
 			DistressThreshold = 16,
             
@@ -694,11 +694,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             MergeLimit = 32,
             
-            MissionTime = 260,
+            MissionTime = 200,
             
-            PrioritizedCategories = { categories.MOBILE * categories.AIR },
+            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
             
-			SearchRadius = 150,
+			SearchRadius = 125,
             
             UseFormation = 'AttackFormation',
         },
@@ -735,13 +735,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 16,
+            MergeLimit = 20,
 			
             MissionTime = 120,
 			
-            PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.INTELLIGENCE - categories.AIR, categories.ENGINEER},
+            PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.INTELLIGENCE - categories.AIR},
 			
-			SearchRadius = 60,
+			SearchRadius = 40,
 			
             UseFormation = 'AttackFormation',
         },
@@ -770,11 +770,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, categories.AIR * categories.GROUNDATTACK }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, categories.AIR * categories.GROUNDATTACK }},
         },
 		
         BuilderData = {
-			DistressRange = 130,
+			DistressRange = 140,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -786,7 +786,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
 			
-			SearchRadius = 80,
+			SearchRadius = 65,
 			
             UseFormation = 'AttackFormation',
         },
@@ -814,23 +814,23 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 1,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.AIR * categories.GROUNDATTACK }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, categories.AIR * categories.GROUNDATTACK }},
         },
 		
         BuilderData = {
 			DistressRange = 200,
 			DistressTypes = 'Land',
-			DistressThreshold = 10,
+			DistressThreshold = 15,
             
 			LocationType = 'LocationType',
             
-            MergeLimit = 48,
+            MergeLimit = 64,
             
-            MissionTime = 420,
+            MissionTime = 300,
             
-            PrioritizedCategories = {categories.SHIELD, categories.ANTIAIR, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
+            PrioritizedCategories = {categories.MOBILE * categories.SHIELD, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.ANTIAIR, categories.SHIELD, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
             
-			SearchRadius = 150,
+			SearchRadius = 120,
             
             UseFormation = 'AttackFormation',
         },
@@ -873,6 +873,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
         InstanceCount = 1,
+        
         Priority = 10,
 
 		PriorityFunction = NotPrimaryBase,
@@ -921,9 +922,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
     BuildersType = 'PlatoonFormBuilder',
 
     -- forms patrols around a base and distress response
+--[[   
+ 
     Builder {BuilderName = 'Home Fighter Squadron',
 	
-        PlatoonTemplate = 'FighterSquadron',
+        PlatoonTemplate = 'FighterEscort Large',
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
@@ -989,7 +992,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 	-- forms patrols around vacant DPs (within 5k) and distress response
     Builder {BuilderName = 'Standard Fighter Squadron DP',
 	
-        PlatoonTemplate = 'FighterSquadron',
+        PlatoonTemplate = 'FighterEscort Large',
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
@@ -1115,7 +1118,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 	-- forms  patrols around Expansion Base markers
     Builder {BuilderName = 'Standard Fighter Squadron Expansion',
 	
-        PlatoonTemplate = 'FighterSquadron',
+        PlatoonTemplate = 'FighterEscort Large',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1184,7 +1187,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 	-- forms patrols around Mass points that are open
     Builder {BuilderName = 'Standard Fighter Squadron Mass Point',
 	
-        PlatoonTemplate = 'FighterSquadron',
+        PlatoonTemplate = 'FighterEscort Large',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1323,6 +1326,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 			
         },
 	},
+--]]
 }
 
 BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
@@ -1359,9 +1363,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 100,
 			
-            PrioritizedCategories = {categories.MOBILE * categories.NAVAL, categories.STRUCTURE},
+            PrioritizedCategories = {categories.MOBILE * categories.NAVAL, categories.MOBILE},
 			
-			SearchRadius = 60,	
+			SearchRadius = 40,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1386,7 +1390,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         InstanceCount = 2,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.BOMBER * categories.ANTINAVY }},
         },
 		
         BuilderData = {
@@ -1398,11 +1402,52 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MergeLimit = 28,
 			
-            MissionTime = 180,
+            MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.NAVAL,categories.STRUCTURE},
+            PrioritizedCategories = { categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
 			
-			SearchRadius = 80,
+			SearchRadius = 65,
+			
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+
+    Builder {BuilderName = 'Hunt Torpedos Large',
+	
+        PlatoonTemplate = 'TorpedoAttack Large',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+
+        Priority = 720,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 2,
+
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.BOMBER * categories.ANTINAVY }},
+        },
+		
+        BuilderData = {
+			DistressRange = 220,
+			DistressTypes = 'NaVal',
+			DistressThreshold = 8,
+			
+			LocationType = 'LocationType',
+			
+            MergeLimit = 64,
+			
+            MissionTime = 260,
+			
+            PrioritizedCategories = { categories.MOBILE * categories.NAVAL * categories.EXPERIMENTAL, categories.MOBILE * categories.ANTIAIR, categories.MOBILE, categories.STRUCTURE},
+			
+			SearchRadius = 120,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1412,6 +1457,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
 	-- ALL these torpedo bomber groups are very specifically targeted and only come into play when the selected targets are available
 	-- this first one hunts nukes and antinukes - but will go after mobile experimentals as well
+    -- this is turned off since the build conditions can't identify if it's in the water or not
+--[[
     Builder {BuilderName = 'Hunt Torps - Nuke Antinuke',
 	
         PlatoonTemplate = 'TorpedoBomberAttack',
@@ -1420,7 +1467,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
-        Priority = 710,
+        Priority = 0,
 		
 		-- this will only form at primary bases
 		PriorityFunction = IsPrimaryBase,
@@ -1440,7 +1487,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             
             MergeLimit = false,
             
-            MissionTime = 180,
+            MissionTime = 300,
             
             PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
             
@@ -1449,7 +1496,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             UseFormation = 'AttackFormation',
         },
     },
-	
+--]]	
+
 	-- this one goes after sonar
     Builder {BuilderName = 'Hunt Torps - Sonar',
 	
@@ -1469,7 +1517,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.SONAR * categories.STRUCTURE, 'Enemy' }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
@@ -1479,17 +1526,19 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             
             MergeLimit = false,
             
-            MissionTime = 180,
+            MissionTime = 150,
             
-            PrioritizedCategories = { categories.SONAR * categories.STRUCTURE },
+            PrioritizedCategories = { categories.SONAR, categories.MOBILE },
             
-			SearchRadius = 500,
+			SearchRadius = 250,
             
             UseFormation = 'AttackFormation',
         },
     },
 
 	-- self explanatory - goes after Economic experimentals - but also massfabrication
+    -- again - turned off - conditions can't identify if it's in the water or not
+--[[
     Builder {BuilderName = 'Hunt Torps - Economic Experimental',
 	
         PlatoonTemplate = 'TorpedoBomberAttack',
@@ -1498,7 +1547,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
-        Priority = 710,
+        Priority = 0,
 		
 		-- this will only form at primary bases
 		PriorityFunction = IsPrimaryBase,
@@ -1518,7 +1567,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             
             MergeLimit = false,
             
-            MissionTime = 180,
+            MissionTime = 300,
             
             PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL, categories.MASSFABRICATION},
             
@@ -1527,7 +1576,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             UseFormation = 'AttackFormation',
         },
     },
-    
+--]]    
+
     Builder {BuilderName = 'Reinforce Primary - Torpedo Squadron',
 	
         PlatoonTemplate = 'TorpedoReinforce',
@@ -1535,30 +1585,29 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
         InstanceCount = 2,
-		
-        BuilderType = 'Any',
-		
+	
         Priority = 10,
 		
 		-- this function turns the builder on
 		PriorityFunction = NotPrimaryBase,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTINAVY } },
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
             LocationType = 'LocationType',
-        },    
+        },
+		
+        BuilderType = 'Any',
     }, 	
     
 
     -- Naval Flotilla Air Groups -- Large Support Groups
-    -- Turned off at the moment
     Builder {BuilderName = 'Naval Fighter Squadron',
 	
-        PlatoonTemplate = 'FighterSquadron',
+        PlatoonTemplate = 'FighterEscort Large',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1568,23 +1617,23 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderType = 'Any',
 		
-        Priority = 0,
+        Priority = 710,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CARRIER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL }},
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},        
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL }},
+			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + (categories.NAVAL * categories.CARRIER)}},            
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 200,
 			DistressTypes = 'Air',
-			DistressThreshold = 15,
+			DistressThreshold = 16,
 			
             LocationType = 'LocationType',
 			
 			PointType = 'Unit',
-			PointCategory = categories.CARRIER,
+			PointCategory = categories.CRUISER + (categories.NAVAL * categories.CARRIER),
 			PointSourceSelf = false,
 			PointFaction = 'Self',
 			PointRadius = 9999999,
@@ -1592,22 +1641,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			PointMin = 200,
 			PointMax = 9999999,
 			
-			StrCategory = categories.CARRIER,
+			StrCategory = nil,
 			StrRadius = 65,
 			StrTrigger = true,
-			StrMin = 1,
-			StrMax = 12,
+			StrMin = 2,
+			StrMax = 50,
 			
-			UntCategory = (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS,
+			UntCategory = (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL,
 			UntRadius = 60,
 			UntTrigger = true,
-			UntMin = 0,
+			UntMin = 2,
 			UntMax = 50,
 			
-            PrioritizedCategories = {'AIR MOBILE'},
+            PrioritizedCategories = {'AIR MOBILE -INTELLIGENCE'},
 			
-			GuardRadius = 300,
-			GuardTimer = 360,
+			GuardRadius = 140,
+			GuardTimer = 300,
 			
 			MergeLimit = 50,
 			
@@ -1627,11 +1676,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
-        Priority = 0,	--700,
+        Priority = 710,
 		
 		RTBLocation = 'Any',
 		
@@ -1646,14 +1695,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             LocationType = 'LocationType',
 			DistressRange = 125,
 			PointType = 'Unit',
-			PointCategory = categories.CARRIER,
+			PointCategory = categories.CRUISER + categories.CARRIER,
 			PointSourceSelf = false,
 			PointFaction = 'Self',
 			PointRadius = 9999999,
 			PointSort = 'Furthest',
 			PointMin = 200,
 			PointMax = 9999999,
-			StrCategory = categories.CARRIER,
+			StrCategory = categories.CRUISER + categories.CARRIER,
 			StrRadius = 65,
 			StrTrigger = true,
 			StrMin = 1,
@@ -1662,9 +1711,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			UntRadius = 50,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 24,
-            PrioritizedCategories = {'NAVAL MOBILE -SUBMERSIBLE', 'GROUNDATTACK', 'LAND MOBILE', 'STRUCTURE'},
-			GuardRadius = 250,
+			UntMax = 30,
+            PrioritizedCategories = {'NAVAL MOBILE SHIELD', 'NAVAL MOBILE -SUBMERSIBLE', 'GROUNDATTACK', 'LAND MOBILE', 'STRUCTURE'},
+			GuardRadius = 210,
 			GuardTimer = 400,
 			MergeLimit = 30,
 			AggressiveMove = true,
@@ -1675,56 +1724,61 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
     Builder {BuilderName = 'Naval Torpedo Squadron',
 	
-        PlatoonTemplate = 'TorpedoSquadron',
+        PlatoonTemplate = 'TorpedoEscort Large',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        InstanceCount = 5,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
-        Priority = 0,	--710,
+        Priority = 710,
 		
 		RTBLocation = 'Any',
 		
         BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},        
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.ANTINAVY } },
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + (categories.NAVAL * categories.CARRIER)}},
-			
         },
 		
         BuilderData = {
-		
-			DistressRange = 200,
+			DistressRange = 150,
 			DistressTypes = 'Naval',
-			DistressThreshold = 15,
+			DistressThreshold = 8,
+            
             LocationType = 'LocationType',
+            
 			PointType = 'Unit',
-			PointCategory = categories.CARRIER,
+			PointCategory = categories.CRUISER + (categories.NAVAL * categories.CARRIER),
 			PointSourceSelf = false,
 			PointFaction = 'Self',
 			PointRadius = 9999999,
 			PointSort = 'Furthest',
 			PointMin = 200,
 			PointMax = 9999999,
-			StrCategory = (categories.NAVAL * categories.CARRIER),
+            
+			StrCategory = nil,
 			StrRadius = 65,
 			StrTrigger = true,
 			StrMin = 1,
 			StrMax = 12,
+            
 			UntCategory = categories.HIGHALTAIR * categories.ANTINAVY,
 			UntRadius = 50,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 48,
-            PrioritizedCategories = {'NAVAL MOBILE','NAVAL STRUCTURE'},
-			GuardRadius = 225,
+            
+            PrioritizedCategories = {'MOBILE','STRUCTURE'},
+            
+			GuardRadius = 200,
 			GuardTimer = 420,
+            
 			MergeLimit = 48,
+            
 			AggressiveMove = true,
 			UseFormation = 'AttackFormation',
         },    
@@ -1890,7 +1944,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderConditions = {
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 6 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 9 } },
 		},
 		
         BuilderData = {

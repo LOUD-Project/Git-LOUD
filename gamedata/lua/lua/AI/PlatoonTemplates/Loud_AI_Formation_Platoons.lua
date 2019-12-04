@@ -4,31 +4,28 @@
 --------------------------
 ----- AIR FORMATIONS -----
 --------------------------
-PlatoonTemplate { Name = 'FighterSquadron',
-    Plan = 'GuardPointAir',
-    GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 1, 60, 'Attack', 'AttackFormation' },
-    }
-}
 
 PlatoonTemplate { Name = 'FighterAttack Small',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 1, 12, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 1, 15, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'FighterAttack',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 13, 24, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 16, 30, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'FighterAttack Large',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 25, 32, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 32, 'Attack', 'AttackFormation' },
     }
 }
-
+PlatoonTemplate { Name = 'FighterEscort Large',
+    Plan = 'GuardPointAir',
+    GlobalSquads = {
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 32, 'Attack', 'AttackFormation' },
+    }
+}
 PlatoonTemplate { Name = 'FighterReinforce',
     Plan = 'ReinforceAirAI',	-- to either land or sea bases
     GlobalSquads = {
@@ -40,37 +37,30 @@ PlatoonTemplate { Name = 'FighterReinforce',
 
 PlatoonTemplate { Name = 'BomberAttack Small',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 1, 6, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 1, 12, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'BomberAttack',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 8, 18, 'Attack', 'AttackFormation' },
-		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 12, 20, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'BomberAttack Large',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 19, 30, 'Attack', 'AttackFormation' },
-		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 20, 32, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'BomberAttack Super',
     GlobalSquads = {
         { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 25, 48, 'Attack', 'AttackFormation' },
 		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'Experimental Bomber',
     GlobalSquads = {
         { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.BOMBER) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Attack', 'none' },
     },
 }
-
 PlatoonTemplate { Name = 'BomberReinforce',
     Plan = 'ReinforceAirAI',	-- either Land or Sea bases
     GlobalSquads = {
@@ -82,20 +72,20 @@ PlatoonTemplate { Name = 'BomberReinforce',
 
 PlatoonTemplate { Name = 'GunshipAttack Small',
     GlobalSquads = {
-        { (categories.AIR * categories.GROUNDATTACK), 1, 10, 'Attack', 'AttackFormation' },
+        { (categories.AIR * categories.GROUNDATTACK), 1, 15, 'Attack', 'AttackFormation' },
     }
 }
 
 PlatoonTemplate { Name = 'GunshipAttack',
     GlobalSquads = {
-        { (categories.AIR * categories.GROUNDATTACK), 11, 24, 'Attack', 'AttackFormation' },
+        { (categories.AIR * categories.GROUNDATTACK), 16, 30, 'Attack', 'AttackFormation' },
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 4, 'Attack', 'none' },
     }
 }
 
 PlatoonTemplate { Name = 'GunshipAttack Large',
     GlobalSquads = {
-        { (categories.AIR * categories.GROUNDATTACK), 24, 40, 'Attack', 'AttackFormation' },
+        { (categories.AIR * categories.GROUNDATTACK), 28, 45, 'Attack', 'AttackFormation' },
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 6, 'Attack', 'none' },
     }
 }
@@ -137,13 +127,13 @@ PlatoonTemplate { Name = 'Air Scout Group',
 
 PlatoonTemplate { Name = 'Air Scout Group Large',
     GlobalSquads = {
-        { categories.AIR * categories.SCOUT - categories.TECH1, 6, 6, 'scout', 'ScatterFormation' },
+        { categories.AIR * categories.SCOUT - categories.TECH1, 5, 5, 'scout', 'ScatterFormation' },
     }
 }
 
 PlatoonTemplate { Name = 'Air Scout Group Huge',
     GlobalSquads = {
-        { categories.AIR * categories.SCOUT - categories.TECH1, 10, 10, 'scout', 'ScatterFormation' },
+        { categories.AIR * categories.SCOUT - categories.TECH1, 9, 9, 'scout', 'ScatterFormation' },
     }
 }
 
@@ -151,15 +141,8 @@ PlatoonTemplate { Name = 'Air Scout Group Huge',
 PlatoonTemplate { Name = 'TorpedoReinforce',
 	Plan = 'ReinforceAirNavalAI',	-- specifically naval bases
 	GlobalSquads = {
-		{ (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 4, 24, 'Attack', 'none' },
+		{ (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 6, 48, 'Attack', 'AttackFormation' },
 	}
-}
-
-PlatoonTemplate { Name = 'TorpedoSquadron',
-    Plan = 'GuardPointAir',
-    GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 16, 24, 'Attack', 'AttackFormation' },
-    }
 }
 
 PlatoonTemplate { Name = 'TorpedoBomberAttack',
@@ -178,6 +161,12 @@ PlatoonTemplate { Name = 'TorpedoAttack',
     }
 }
 PlatoonTemplate { Name = 'TorpedoAttack Large',
+    GlobalSquads = {
+        { (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 30, 42, 'Attack', 'AttackFormation' },
+    }
+}
+PlatoonTemplate { Name = 'TorpedoEscort Large',
+    Plan = 'GuardPointAir',
     GlobalSquads = {
         { (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 30, 42, 'Attack', 'AttackFormation' },
     }
