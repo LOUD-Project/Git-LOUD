@@ -722,17 +722,12 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		
 	end
 	
-	local myenemy = aiBrain:GetCurrentEnemy()	
+	--local myenemy = aiBrain:GetCurrentEnemy()	
+    
 	local minimumrange = (minRange * minRange)
 	
     local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-	
-	local LOUDGETN = table.getn
-	local LOUDSORT = table.sort
-	local VDist2Sq = VDist2Sq
-	local VDist2 = VDist2
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
@@ -762,9 +757,21 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	
 	-- get all the enemy units around this point (except walls)
 	local enemyunits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' )
+
+    if table.empty(enemyunits) then
+        return false, false
+    end
+
+	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+
+	local LOUDGETN = table.getn
+	local LOUDSORT = table.sort
+	local VDist2Sq = VDist2Sq
+	local VDist2 = VDist2
 	
-	
+    -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( categories.SHIELD * categories.STRUCTURE, enemyunits )
+    
 	local retUnit, rePosition, bestthreat, targetUnits
     
 	-- loop thru each of our attack priorities

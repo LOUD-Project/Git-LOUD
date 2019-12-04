@@ -32,8 +32,12 @@ local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
 local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
 
 -- from Domino Mod Support
-local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
-local AvailableToggles =  __DMSI.Custom_Toggles()
+local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
+local AvailableToggles = {} --  __DMSI.Custom_Toggles() or {}
+
+if __DMSI then
+    AvailableToggles = __DMSI.Custom_Toggles()
+end
 
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert

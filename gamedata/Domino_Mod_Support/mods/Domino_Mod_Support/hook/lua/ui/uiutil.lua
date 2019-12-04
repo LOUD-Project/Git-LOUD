@@ -38,7 +38,7 @@ local OldUIFile = UIFile
 function UIFile(filespec, param)
 
 	if not filespec then return end
-		
+
 	local filename = filespec
 	
 	if filename then 

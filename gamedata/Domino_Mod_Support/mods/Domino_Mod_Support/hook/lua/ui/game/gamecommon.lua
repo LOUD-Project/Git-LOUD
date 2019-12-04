@@ -23,7 +23,7 @@ local oldGetUnitIconFileNames = GetUnitIconFileNames
 function GetUnitIconFileNames(blueprint)
 
 	local IconPath = 'icons/units/'
-		
+
 	local ModiconName = IconPath .. blueprint.Display.IconName .. '_icon.dds'
 	local ModupIconName = IconPath .. blueprint.Display.IconName .. '_build_btn_up.dds'
 	local ModdownIconName = IconPath .. blueprint.Display.IconName .. '_build_btn_down.dds'
@@ -34,7 +34,6 @@ function GetUnitIconFileNames(blueprint)
 	local downIconName = __Textures[ModdownIconName].filepath	or '/textures/ui/common/icons/units/' .. blueprint.Display.IconName .. '_build_btn_down.dds'
 	local overIconName = __Textures[ModoverIconName].filepath or '/textures/ui/common/icons/units/' .. blueprint.Display.IconName .. '_build_btn_over.dds'
 	
-		
 	--If we dont find our icon... lets check for the filename 
 	if DiskGetFileInfo(iconName) == false then		
 		iconName = __FileNameTextures[blueprint.Display.IconName .. '_icon'].filepath or false
@@ -42,7 +41,7 @@ function GetUnitIconFileNames(blueprint)
 		downIconName = __FileNameTextures[blueprint.Display.IconName .. '_build_btn_down'].filepath or false
 		overIconName = __FileNameTextures[blueprint.Display.IconName .. '_build_btn_over'].filepath or false
     end
-				
+    
 	if not iconName then
         iconName = UIUtil.UIFile('/icons/units/default_icon.dds')
     end
@@ -51,7 +50,7 @@ function GetUnitIconFileNames(blueprint)
         upIconName = iconName
     end
 
-   if not downIconName then
+    if not downIconName then
         downIconName = iconName
     end
 
@@ -60,7 +59,7 @@ function GetUnitIconFileNames(blueprint)
     end
 
 	return iconName, upIconName, downIconName, overIconName
-		  
+
 end
 
 

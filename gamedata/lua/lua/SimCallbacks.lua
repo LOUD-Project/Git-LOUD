@@ -49,40 +49,63 @@ function Callbacks.OnMovieFinished(name)
 end
 
 Callbacks.OnControlGroupAssign = function(units)
-
-    if ScenarioInfo.tutorial then
-        local function OnUnitKilled(unit)
-            if ScenarioInfo.ControlGroupUnits then
-                for i,v in ScenarioInfo.ControlGroupUnits do
-                   if unit == v then
-                        LOUDREMOVE(ScenarioInfo.ControlGroupUnits, i)
-                   end 
-                end
-            end
-        end
-
-
-        if not ScenarioInfo.ControlGroupUnits then
-            ScenarioInfo.ControlGroupUnits = {}
-        end
-        
-        # add units to list
-        local entities = {}
-        for k,v in units do
-            LOUDINSERT(entities, GetEntityById(v))
-        end
-        ScenarioInfo.ControlGroupUnits = table.merged(ScenarioInfo.ControlGroupUnits, entities)
-
-        # remove units on death
-        for k,v in entities do
-            import('/lua/scenariotriggers.lua').CreateUnitDeathTrigger(OnUnitKilled, v)
-            import('/lua/scenariotriggers.lua').CreateUnitReclaimedTrigger(OnUnitKilled, v) #same as killing for our purposes   
-        end
-    end
 end
 
 Callbacks.OnControlGroupApply = function(units)
+end
 
+--Toggles
+function Callbacks.ToggleTheBit(data)
+
+	local Units = data.Params.Units
+	local ToggleState = data.Params.ToggleState
+	local ToggleName = data.Params.BitName
+
+	for i,u in Units do
+		local unit = GetEntityById(u)
+		if unit and UnitData[u].Data[ToggleName] then 
+			if ToggleState then 
+				--if true toggle the bit off
+				unit.Sync[ToggleName ..'_state'] = ToggleState
+				unit:OnExtraToggleSet(ToggleName)
+			else
+				--if false toggle the bit on
+				unit.Sync[ToggleName ..'_state'] = ToggleState
+				unit:OnExtraToggleClear(ToggleName)
+			end
+		end
+	end
+end
+	
+--Selected Units
+function Callbacks.RemoveSelectedUnits(data)
+
+	if table.getsize(data.OldSelection) > 0 then
+		for i, unit in data.OldSelection do
+			if GetEntityById(unit) then 
+				local RemUnit = GetEntityById(unit)
+
+				if RemUnit then 
+					RemUnit.IsSelected = false
+				end
+			end
+		end
+	end
+end
+	
+function Callbacks.UpdateSelectedUnits(data)
+
+	if table.getsize(data.NewSelection) > 0 then
+		for i, unit in data.NewSelection do
+			if GetEntityById(unit) then 
+				local SelUnit = GetEntityById(unit)
+
+				if SelUnit then 
+					SelUnit.IsSelected = true
+				end
+			end
+		end
+	end
 end
 
 
