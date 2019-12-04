@@ -41,15 +41,20 @@ function import(name)
 			if __modules[name2] then
 				return __modules[name2]
 			end
+
+            if DiskGetFileInfo(name2) then
+                
+                local m2 = import(name2) #-- this will use the global import
 			
-			--LOG("*IMPORT ENV "..name2)
-            local m2 = import(name2) #-- this will use the global import
+                if env.__moduleinfo.track_imports then
+                    m2.__moduleinfo.used_by[name] = true
+                end
 			
-            if env.__moduleinfo.track_imports then
-                m2.__moduleinfo.used_by[name] = true
+                return m2
+            else
+                LOG("*IMPORT "..name2.." FAILS "..repr(DiskGetFileInfo(name2)) )
+                return false
             end
-			
-            return m2
         end,
     }
 	

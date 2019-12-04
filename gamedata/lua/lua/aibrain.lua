@@ -10,15 +10,14 @@
 	
 
 	-- ATTACK PLANS and AI Strength Ratios
-	ScenarioInfo.DisplayAttackPlans = false
+	ScenarioInfo.DisplayAttackPlans = true
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
 
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
-
 	
 	-- SHOW AI Bases as Markers on map
-	ScenarioInfo.DisplayBaseNames = false
+	ScenarioInfo.DisplayBaseNames = true
 	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 
 	
@@ -26,7 +25,7 @@
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
-	ScenarioInfo.PlatoonDialog = true
+	ScenarioInfo.PlatoonDialog = false
 	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
 
 	ScenarioInfo.PlatoonMergeDialog = false

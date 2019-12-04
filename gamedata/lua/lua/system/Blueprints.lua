@@ -499,15 +499,13 @@ function ModBlueprints(all_blueprints)
 					wep.RateOfFire = wep.RateOfFire * ROFadjust
 					
 					if wep.MuzzleSalvoDelay == nil then
-						LOG("*AI DEBUG "..id.." has nil for "..repr(wep.Label).." MuzzleSalvoDelay")
+						--LOG("*AI DEBUG "..id.." has nil for "..repr(wep.Label).." MuzzleSalvoDelay")
 						wep.MuzzleSalvoDelay = 0
 					end
-
-				end
+                end
 
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
 					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
-					
 				end
 				
 				if wep.ProjectileLifetime == 0 then
@@ -515,7 +513,6 @@ function ModBlueprints(all_blueprints)
 					if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
 					
 						wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.15
-						
 					end
 				end
 
@@ -528,7 +525,6 @@ function ModBlueprints(all_blueprints)
 					if wep.TargetCheckInterval > 6 then
 						wep.TargetCheckInterval = 6
 					end
-					
 				end
 
 				if wep.DisplayName then
@@ -565,15 +561,12 @@ function ModBlueprints(all_blueprints)
 			if bp.AI.GuardReturnRadius > 80 then
 				bp.AI.GuardReturnRadius = 80
 			end
-			
 		else
-		
 			if not bp.AI then
 				bp.AI = {}
 			end
 		
 			bp.AI.GuardReturnRadius = 20
-			
 		end
 		
 		if bp.AI.GuardScanRadius then
@@ -581,13 +574,9 @@ function ModBlueprints(all_blueprints)
 			if bp.AI.GuardScanRadius > 40 then
 			
 				bp.AI.GuardScanRadius = 40
-				
 			end
-			
 		else
-		
 			bp.AI.GuardScanRadius = 15
-			
 		end
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then

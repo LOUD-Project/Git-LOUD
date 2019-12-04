@@ -116,7 +116,8 @@ EngineerManager = Class(BuilderManager) {
 
         table.insert( self.EngineerList, unit )
 		
-		--LOG("*AI DEBUG Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
+		--LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
+        --LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
 
@@ -238,7 +239,7 @@ EngineerManager = Class(BuilderManager) {
         if builder and (not unit.Dead) and (not unit.Fighting) then
 
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
 			end
 			
             local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate].Plan or 'none' )

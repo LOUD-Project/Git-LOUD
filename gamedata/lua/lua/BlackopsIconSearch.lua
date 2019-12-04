@@ -1,3 +1,5 @@
+LOG("*AI DEBUG loading BO Icon Search")
+
 EXIconPaths = {}
 EXIconPathOverwrites = {}
 EXUnitIconTemp = nil
@@ -55,6 +57,8 @@ end
 function EXBuildIconReferenceTables()
 
     for id, mod in __active_mods do
+    
+        LOG("*AI DEBUG EXBuildIconReferenceTable for "..repr(mod.location))
 	
 		-- Icon hunt script locates all icon DDS files in the active mod directories
         local LocatedIcons = DiskFindFiles(mod.location, '*_icon.dds')

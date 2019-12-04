@@ -3552,16 +3552,16 @@ Unit = Class(moho.unit_methods) {
 		
             if unitEnhancements[tempEnhanceBp.Slot] != tempEnhanceBp.Prerequisite then
 			
-                error('*ERROR: Ordered enhancement '..work..' does not have the proper prereq! ', 2)
+                LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." enhancement "..repr(work).." does not have the proper prereq "..repr(tempEnhanceBp.Prerequisite) )
                 return false	-- should we be forking to OnWorkFail at this point ?
 				
             end
 			
         elseif unitEnhancements[tempEnhanceBp.Slot] then
 		
-			--LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." "..self:GetBlueprint().Description.." Slot required is " .. tempEnhanceBp.Slot )
+			LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." "..self:GetBlueprint().Description.." Slot required is " .. tempEnhanceBp.Slot )
 			
-            error('*ERROR: Ordered enhancement '..work..' does not have the proper slot available!', 2)
+            --error('*ERROR: "..self.Brain.Nickname.." enhancement '..repr(work)..' does not have the proper slot available!', 2)
             return false	-- as above, to OnWorkFail ?
 			
         end

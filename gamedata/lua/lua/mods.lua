@@ -237,7 +237,9 @@ local function LoadModInfo(filename)
         shadowdir = '/shadow',  -- specify the name of shadow sub-directory
         uid = filename, -- default uid to name, should be a unique id
     }
+    
     local ok, result = pcall(doscript, filename, env)
+    
     if ok then
         env.location = Dirname(filename)
         return env
@@ -256,28 +258,40 @@ end
 
 -- Return a table of all mods found on disk (mapping id->mod_info)
 function AllMods()
+
     if not _mod_cache then
+    
         local r = {}
+        
         for i,file in DiskFindFiles('/mods', '*mod_info.lua') do
+        
             local mod = LoadModInfo(file)
+            
             if mod and (mod.enabled != false) then
                 r[mod.uid] = mod
             end
         end
+        
         _mod_cache = r
     end
+    
     return _mod_cache
 end
 
 
 -- Return a table of all mods found on disk with the 'selectable' flag set
 function AllSelectableMods()
+
     local r = {}
+    
     for uid,mod in AllMods() do
+    
         if mod.selectable then
             r[uid] = mod
         end
+        
     end
+    
     return r
 end
 
@@ -374,9 +388,12 @@ function GetDependencies(uid)
 
         -- check for all mods required by this mod, and then check those required dependencies
         if allMods[uid].requires then
+ 
             -- this variable gets installed requirements so we can check them
             local locReq = {}
+            
             for i, required in allMods[uid].requires do
+            
                 if allMods[required] then
                     ret.requires[required] = true
                     table.insert(locReq, required)
@@ -384,16 +401,18 @@ function GetDependencies(uid)
                     ret.missing[required] = true
                 end
             end
+            
             for i, required in locReq do
                 RecurseDependencies(required, ret)
             end
         end
+
     end
-    
+
     if allMods[uid] then
         RecurseDependencies(uid, ret)
     end
-    
+
     if table.empty(ret.requires) then ret.requires = nil end
     if table.empty(ret.missing) then ret.missing = nil end
     if table.empty(ret.conflicts) then ret.conflicts = nil end

@@ -9,8 +9,6 @@ local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTranspo
 
 local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
 
-local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
-
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
 
 local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
@@ -572,14 +570,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.Sync.id.." finishes building "..finishedUnit:GetBlueprint().Description)
 		
-		--aiBrain:AssignUnitsToPlatoon( aiBrain.ArmyPool, {finishedUnit}, 'Unassigned', '' )
-		
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
 
             EM:ForkThread( EM.AddEngineerUnit, finishedUnit )
-			
 		end
 		
         if LOUDENTITY((categories.AIR * categories.MOBILE), finishedUnit) then
@@ -598,13 +593,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
 						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-						
 					end
-					
 				end
 
 				finishedUnit:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
-
 				
 				local ProcessFuelOutAirUnit = function( finishedUnit )
 				
@@ -618,32 +610,23 @@ FactoryBuilderManager = Class(BuilderManager) {
 						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 					
 						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-						
 					end
-					
 				end
 				
 				finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
-				
 			else
 			
 				-- transports get assigned to the Transport pool
 				finishedUnit:ForkThread( AssignTransportToPool, aiBrain )
-				
 			end
-			
 		end
 		
 		if factory.addplan then
-		
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addplan], aiBrain )
-			
 		end
 		
 		if factory.addbehavior then
-		
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addbehavior], aiBrain )
-			
 		end
 		
         if LOUDENTITY( categories.FACTORY * categories.STRUCTURE, finishedUnit ) then
@@ -651,9 +634,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if finishedUnit:GetFractionComplete() == 1 then
 
 				ForkThread( self.AddFactory, self, finishedUnit )
+                
+                finishedUnit:LaunchUpgradeThread( aiBrain )
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1, 1.01, 9999, 9999, 16, 240, false )
-				
 				if not finishedUnit.EnhanceThread and __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence then
 				
 					finishedUnit.EnhanceThread = finishedUnit:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
@@ -665,9 +648,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				factory.Trash:Destroy()
 				
 				return self:FactoryDestroyed(factory)
-				
 			end
-			
 		end
 		
 		if not factory.Dead then
@@ -683,8 +664,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 					if not factory.UpgradeThread then
 					
-						factory.UpgradeThread = factory:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1, 1.01, 9999, 9999, 16, 240, false )
-						
+                        factory:LaunchUpgradeThread( aiBrain )
 					end
 					
 				end
@@ -694,15 +674,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 					if not factory.EnhanceThread and __blueprints[factory.BlueprintID].Enhancements.Sequence then
 					
 						factory.EnhanceThread = factory:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
-						
 					end
-					
 				end
-				
 			end
-			
 		end
-		
     end,
     
 	-- this function starts with a raw template - ie. T3Engineer and fills it in with the actual unit ID - ie. url0105

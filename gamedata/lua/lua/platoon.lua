@@ -139,11 +139,11 @@ Platoon = Class(moho.platoon_methods) {
         end
 		
 		if self[plan] then
-		
+--[[		
 			if ScenarioInfo.PlatoonDialog then
 				LOG("*AI DEBUG Platoon SetAIPlan for "..repr(self.BuilderName).." to "..repr(plan))
 			end
-		
+--]]	
 			self:ForkAIThread(self[plan], aiBrain)
 			
 		else
@@ -212,14 +212,14 @@ Platoon = Class(moho.platoon_methods) {
     end,
 
     OnDestroy = function( self)
-	
+--[[	
 		if ScenarioInfo.PlatoonDialog then
 		
 			local aiBrain = GetBrain(self)
 			
 			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon OnDestroy for "..repr(self.BuilderName).." from "..repr(self.LocationType) )
 		end
-	
+--]]	
         for k, cb in self.EventCallbacks.OnDestroyed do
 		
 	        if cb then
@@ -230,10 +230,7 @@ Platoon = Class(moho.platoon_methods) {
 			
         end		
 
-		--self:DoDestroyCallbacks()
-
         self.Trash:Destroy()
-		
     end,
 
 	MovePlatoon = function( self, path, PlatoonFormation, AggroMove)
@@ -339,11 +336,11 @@ Platoon = Class(moho.platoon_methods) {
     PlatoonDisband = function( self, aiBrain)
 	
 		if PlatoonExists(aiBrain,self) then
-		
+--[[		
 			if ScenarioInfo.PlatoonDialog then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Disband for "..repr(self.BuilderName))
 			end
-		
+--]]		
 			if self.MoveThread then
 
 				self:KillMoveThread()
@@ -874,7 +871,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
+                if platoon != 'AttackPlanner' or (platoon and platoon.BuilderName != nil) then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
+                end
 				return {destination}, 'Direct', 9999
 			end
 			
@@ -1159,22 +1158,22 @@ Platoon = Class(moho.platoon_methods) {
 		end
 
 		if not path or path == 'NoPath' then
-	
+
 			-- if no path can be found (versus too much threat or no reply) then add to badpath cache
 			if path == 'NoPath' and not BadPath[startNodeName][endNodeName] then
+    
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." NoPath reply for "..repr(startNodeName).." & "..repr(endNodeName))
 			
 				ForkTo(AddBadPath, platoonLayer, startNodeName, endNodeName )
 				
 			end
 	
 			return false, 'NoPath', 0
-			
 		end
 	
 		path[table.getn(path)+1] = destination
 	
 		return path, 'Pathing', pathlength
-		
 	end,	
 	
 	-- Finds a base to return to & disband
@@ -1340,11 +1339,11 @@ Platoon = Class(moho.platoon_methods) {
             return 
 			
 		end
-		
+--[[		
 		if ScenarioInfo.PlatoonDialog then
 			LOG("*AI DEBUG Platoon "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
 		end
-		
+--]]		
        	IssueClearCommands( GetPlatoonUnits(self) )
         
         local platPos = LOUDCOPY(GetPlatoonPosition(self))
@@ -1456,13 +1455,10 @@ Platoon = Class(moho.platoon_methods) {
 
             RTBLocation[2] = GetTerrainHeight( RTBLocation[1], RTBLocation[3] )
 			transportLocation[2] = GetTerrainHeight(transportLocation[1],transportLocation[3])
-		
 		else
-		
             LOG("*AI DEBUG "..aiBrain.Nickname.." RTB reports no platoon position or no bases")
 			
 			return self:PlatoonDisband(aiBrain)
-			
         end
 
 		
@@ -1848,27 +1844,19 @@ Platoon = Class(moho.platoon_methods) {
 		if PlatoonExists(aiBrain, self) then
 		
 			if self.MoveThread then
-
 				self:KillMoveThread()
-				
 			end
 			
 			-- all units are spread out to the rally points except engineers (we want them back to work ASAP)
 			if not engineer then
-			
 				import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, aiBrain.BuilderManagers[bestBaseName].RallyPoints or false )
-				
 			else
-			
 				-- without this, engineers will continue right to the heart of the base
 				self:Stop()
-				
 			end
         
 			self:PlatoonDisband(aiBrain)
-	
 		end
-		
     end,
 
 	-- not reviewed by me
@@ -3202,7 +3190,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- If Exit parameters have been met -- bypass guard cycle --
 			if guardtime >= guardTimer then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." has a travel/time trigger - guardTimer is "..repr(guardTimer).." time is "..repr(guardtime) )
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." has a travel/time trigger - guardTimer is "..repr(guardTimer).." time is "..repr(guardtime) )
 				
 				-- the guard cycle will be bypassed
 				marker = false
@@ -6953,7 +6941,7 @@ Platoon = Class(moho.platoon_methods) {
 	-- each guard will guard every unit in 
     GuardPlatoonAI = function( self, aiBrain )
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." GuardPlatoonAI launched")
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." GuardPlatoonAI launched")
         
         if PlatoonExists(aiBrain, self) then 
         
@@ -7318,7 +7306,7 @@ Platoon = Class(moho.platoon_methods) {
             local cmd
             local path, reason
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects "..targettype.." target at "..repr(targetLocation).." with value of "..repr(targetvalue))
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects "..targettype.." target at "..repr(targetLocation).." with value of "..repr(targetvalue))
 	
 			if targetLocation then 
 			
@@ -7451,7 +7439,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if not targetstillvalid then
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
 					
 						break
 						
@@ -7459,7 +7447,7 @@ Platoon = Class(moho.platoon_methods) {
 					
 					if targetthreat.Sur > (mystrength * 1.3) then
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri recheck reports target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri recheck reports target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
 						break
 						
 					else
@@ -7815,7 +7803,7 @@ Platoon = Class(moho.platoon_methods) {
 				else
 				
 					targetLocation = false
-					LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAILOUD reselects same DP")
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAILOUD reselects same DP")
 					
 				end
 				
@@ -7824,7 +7812,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- if still no target then RTB
 			if not targetLocation then 
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAILOUD has no target - RTB")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAILOUD has no target - RTB")
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
             

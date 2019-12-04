@@ -274,7 +274,7 @@ function UpdateWindow(info)
 				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
 				
 					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-					WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+					WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW - '..EXunitID)
 					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
 					
 				end
@@ -476,7 +476,7 @@ function UpdateWindow(info)
 					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
 					
 						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW2 - '..EXunitID)
 						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
 						
 					end

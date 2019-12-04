@@ -985,7 +985,7 @@ function SetPrimaryLandAttackBase( aiBrain )
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimaryLandAttackBase or aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
@@ -1090,43 +1090,36 @@ function SetPrimarySeaAttackBase( aiBrain )
 
 				aiBrain.PrimarySeaAttackBase = builderManager.LocationType
 
-				-- if this is NOT already the current primary Land Attack Base
+				-- if this is NOT already the current primary Sea Attack Base
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimarySeaAttackBase or aiBrain.LastPrimarySeaAttackBase != aiBrain.PrimarySeaAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
-
-                    -- turn off the old primary sea attack base
-                    if aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PrimarySeaAttackBase then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..aiBrain.LastPrimarySeaAttackBase.." was the Primary SEA ATTACK Base")
-                        
-                        -- turn off the primary flag
-                        aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PrimarySeaAttackBase = false
-
-                        -- reset the tasks with Priority Functions at the old primary
-                        aiBrain.BuilderManagers[aiBrain.LastPrimarySeaAttackBase].PlatoonFormManager:ForkThread( ResetPFMTasks, aiBrain)
-                    end
-
-                    -- store the new primary sea attack base
-					aiBrain.LastPrimarySeaAttackBase = aiBrain.PrimarySeaAttackBase or false
-				
+                    
+                    aiBrain.LastPrimarySeaAttackBase = aiBrain.PrimarySeaAttackBase or false
+                    
 					-- if a human ally has requested status updates
 					if aiBrain.DeliverStatus then
 						ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary SEA Base is now '..aiBrain.PrimarySeaAttackBase )
                     end
+
 				end
 
 			-- if the location is not the primary
 			-- check for any units that need to be moved up 
 			else
+            
+                aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = false
+            
 				builderManager:ForkThread( ClearOutBase, aiBrain )
 			end
 		end
 		
     else
+    
 		aiBrain.PrimarySeaAttackBase = false
     end
 	
@@ -1172,9 +1165,9 @@ function ClearOutBase( manager, aiBrain )
 	local Position = aiBrain.BuilderManagers[basename].Position
     
     -- the base cannot have any active alerts --
-    if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts != 0 then
+    if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts == 0 then
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
 	
         -- all standard land units but Not experimentals 
         local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
@@ -2657,6 +2650,7 @@ function PathGeneratorAmphibious(self)
 			local threat = GetThreatBetweenPositions( self, queueitem.Node.position, testposition, nil, data.ThreatLayer)
 
 			if threat > (queueitem.threat) then
+                --LOG("*AI DEBUG "..self.Nickname.." threat is "..threat.." vs. "..queueitem.threat.."  THREAT FAIL")
 				continue
 			end
 
@@ -2680,7 +2674,6 @@ function PathGeneratorAmphibious(self)
 		LOUDSORT(queue, function(a,b) return (a.cost + a.goaldist) < (b.cost + b.goaldist) end)
 		
 		return false, 0, false
-		
 	end
 
 	local closed = {}
@@ -2695,7 +2688,7 @@ function PathGeneratorAmphibious(self)
 		
 		if PathRequests[1] then
 		
-			--LOG("*AI DEBUG Amphibious PATHGEN gets request "..repr(PathRequests[1]))
+			--LOG("*AI DEBUG "..self.Nickname.." Amphibious PATHGEN gets request "..repr(PathRequests[1]))
 			
 			data = LOUDREMOVE(PathRequests, 1)
 			
@@ -2707,12 +2700,11 @@ function PathGeneratorAmphibious(self)
     
 			while LOUDGETN(queue) > 0 do
 
-				--LOG("*AI DEBUG Amphib PATHGEN is "..repr(LOUDGETN(queue)))
+				--LOG("*AI DEBUG "..self.Nickname.." "..data.ThreatWeight.." Amphib PATHGEN is "..repr(LOUDGETN(queue)))
 				
 				local pathlist, pathlength, shortcut = AStarLoopBody( data, queue, closed )
         
 				if pathlist then
-				
 					
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist) }
 					
@@ -3642,7 +3634,6 @@ function ParseIntelThread( aiBrain )
 			WaitTicks(3)
 			
 			usedticks = usedticks + 3
-			
 		end
 
 		local timecheck = GetGameTimeSeconds()
@@ -3668,7 +3659,6 @@ function ParseIntelThread( aiBrain )
 --]]
 					-- clear the item
 					aiBrain.IL.HiPri[s] = nil
-
 				end
 			end
 		end
@@ -3687,11 +3677,9 @@ function ParseIntelThread( aiBrain )
 			if a.LastScouted == b.LastScouted then
 			
 				return VD2(HomePosition[1], HomePosition[3], a.Position[1], a.Position[3]) < VD2(HomePosition[1], HomePosition[3], b.Position[1], b.Position[3])
-				
 			else
 				
 				return a.LastScouted < b.LastScouted
-				
 			end
 			
 		end)
@@ -3713,7 +3701,6 @@ function ParseIntelThread( aiBrain )
 					
 				end
 			end
-			
 		else
 		
 			if checkspertick < 5 then
@@ -3739,7 +3726,6 @@ function ParseIntelThread( aiBrain )
 			bp = ALLBPS[v.BlueprintID].Defense
 
 			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
-
 		end
 
 		if EnemyData['Air']['Total'] > 0 then
@@ -3747,26 +3733,14 @@ function ParseIntelThread( aiBrain )
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 10
 			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)
-			
-			if ScenarioInfo.ReportRatios then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." count is "..EnemyData['Air']['Count'])
-			end
-			
 		else
 		
 			aiBrain.AirRatio = 1
-			
 		end
 
 		--- LAND UNITS ---
 		------------------
 		myvalue = 0
-		
-		
-		--local muzzmod = ( math.log10( GetGameTimeSeconds() ) *.01 )
-
-		--if muzzmod > 5 then muzzmod = 5 end
-		--if muzzmod < 1 then muzzmod = 1 end
 
 		-- calculate my present land value
 		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
@@ -3774,7 +3748,6 @@ function ParseIntelThread( aiBrain )
 			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
-			
 		end
 
 		if EnemyData['Land']['Total'] > 0 then
@@ -3782,15 +3755,9 @@ function ParseIntelThread( aiBrain )
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 10
 			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)  --* muzzmod
-
-			if ScenarioInfo.ReportRatios then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Land Ratio is "..repr(aiBrain.LandRatio).." count is "..EnemyData['Land']['Count'])
-			end
-
-		else
+        else
 		
 			aiBrain.LandRatio = 1
-			
 		end
 
 		--- NAVAL UNITS ---
@@ -3803,7 +3770,6 @@ function ParseIntelThread( aiBrain )
 			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
-			
 		end
 
         -- The Naval ratio falls between 0.01(inactive) and 8(naval supremacy)
@@ -3812,15 +3778,13 @@ function ParseIntelThread( aiBrain )
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01(min) and 8(max)
 			aiBrain.NavalRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 ), 0.01)
-
-			if ScenarioInfo.ReportRatios then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Ratio is "..repr(aiBrain.NavalRatio).." count is "..EnemyData['Naval']['Count'])
-			end
-			
 		else
 		
 			aiBrain.NavalRatio = 0.01
-			
+		end
+
+		if ScenarioInfo.ReportRatios then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
 		end
     end
 end

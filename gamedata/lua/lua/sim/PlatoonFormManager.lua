@@ -20,9 +20,7 @@ local LOUDINSERT = table.insert
 function CreatePlatoonFormManager(brain, lType, position, radius)
 
     local pfm = PlatoonFormManager()
-	
-	--LOG("*AI DEBUG "..brain.Nickname.." creating PFM for "..lType)
-	
+
     pfm:Create(brain, lType, position, radius)
     pfm.BuilderCheckInterval = 40	-- default starting value
 	
@@ -175,22 +173,22 @@ PlatoonFormManager = Class(BuilderManager) {
 	-- Just to note that this only runs if the task has passed all of its conditions
 	-- platoon priorityfunctions (for the PFM) only run when the base changes its status between Primary and not Primary
 	-- hmm..might make sense if they were run each time the PFM started a new cycle...perhaps...
+    -- either way - the loop that runs this function can be found in BUILDERMANAGER
     ManagerLoopBody = function( self, builder, bType, aiBrain)
 		
 		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
 		local FormPlatoon = moho.platoon_methods.FormPlatoon
-		--local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 		
 		if aiBrain.BuilderManagers[self.LocationType] and builder.InstancesAvailable > 0 then
 		
 			local template = self.GetPlatoonTemplate( self, builder:GetPlatoonTemplate(), aiBrain )
 			
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
-			
+--[[			
 				if ScenarioInfo.PlatoonDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(template[1]))
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(builder.BuilderName).." using "..repr(template[1]))
 				end
-				
+--]]				
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
@@ -220,11 +218,11 @@ PlatoonFormManager = Class(BuilderManager) {
 				if Builders[builder.BuilderName].PlatoonAddPlans then
 				
 					for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
-					
+--[[					
 						if ScenarioInfo.PlatoonDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
 						end
-					
+--]]					
 						hndl:ForkThread( hndl[papv], aiBrain )
 						
 					end
@@ -239,7 +237,7 @@ PlatoonFormManager = Class(BuilderManager) {
 						-- these forks are NOT put into the platoons TRASH -- so they save on processing and storage - BUT 
 						-- they must terminate themselves -- ideally independent of the platoon entirely
 						if ScenarioInfo.PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(papv[2]))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(papv[2]))
 						end
 						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
@@ -251,7 +249,7 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
 
 						if ScenarioInfo.PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
 						end
 					
 						hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[papv], aiBrain )

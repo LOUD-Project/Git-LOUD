@@ -93,7 +93,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 
 	if View and CheckFormat() then
     
-        LOG("*AI DEBUG ShowEnhancement")
+        --LOG("*AI DEBUG ShowEnhancement")
 
 		-- Name / Description
 		View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))

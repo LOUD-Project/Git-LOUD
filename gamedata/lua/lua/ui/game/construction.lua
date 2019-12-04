@@ -562,7 +562,7 @@ function GetEnhancementPrefix(unitID, iconID)
 		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
 
 			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
+			WARN('Blackops Icon Mod: Upgrade Icon Not Found ENHANCEMENT PREFIX - '..iconID.." prefix "..repr(prefix) )
 			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
 
 		end
@@ -640,7 +640,7 @@ function GetEnhancementTextures(unitID, iconID)
 		if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] then
 
 			-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-			WARN('Blackops Icon Mod: Upgrade Icon Not Found - '..iconID)
+			WARN('Blackops Icon Mod: Upgrade Icon Not Found ENHANCEMENT TEXTURE - '..iconID)
 			BlackopsIcons.EXNoIconLogSpamControl[string.upper(iconID)] = iconID
 
 		end

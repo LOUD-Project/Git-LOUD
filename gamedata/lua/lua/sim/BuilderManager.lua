@@ -94,22 +94,29 @@ BuilderManager = Class {
     AddInstancedBuilder = function(self, newBuilder, builderType, aiBrain)
 
         local BuilderType = builderType	or 'Any'
+        
+        -- not all bases support all builder types -- ie. FBM at naval base only supports Sea
+        -- and likewise land bases don't support Sea -- this is particular mostly to the 
+        -- FactoryBuilderManager - so look there for more information
+        if self.BuilderData[BuilderType] then
 
-        if newBuilder then
+            if newBuilder then
+    
+                LOUDINSERT( self.BuilderData[BuilderType].Builders, newBuilder )
 
-            LOUDINSERT( self.BuilderData[BuilderType].Builders, newBuilder )
+                self.BuilderData[BuilderType].NeedSort = true
+                self.BuilderList = true
 
-            self.BuilderData[BuilderType].NeedSort = true
-            self.BuilderList = true
-
-			self.NumBuilders = self.NumBuilders + 1
+                self.NumBuilders = self.NumBuilders + 1
 			
-        end
+            end
 
-        if newBuilder.InstantCheck then
+            if newBuilder.InstantCheck then
 		
-            self:ManagerLoopBody(newBuilder)
+                self:ManagerLoopBody(newBuilder)
 			
+            end
+        
         end
 		
     end,
@@ -250,6 +257,21 @@ BuilderManager = Class {
             end
 
 			LOUDSORT( self.BuilderData[unit.BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
+            
+            if ScenarioInfo.PriorityDialog then
+                if not self.BuilderData[unit.BuilderType].displayed then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." SORTED "..unit.BuilderType.." Builders are ")
+                    
+                    for k,v in self.BuilderData[unit.BuilderType].Builders do
+                    
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
+                        
+                    end
+                    
+                    self.BuilderData[unit.BuilderType].displayed = true
+                end
+            end
 			
 			self.BuilderData[unit.BuilderType].NeedSort = false
 
@@ -399,6 +421,9 @@ BuilderManager = Class {
 	
 	-- essentially, as more conditions must be checked (more bases) we slow the rate of platoon checking
 	-- run all bases at 2/3 the rate of the Condition Monitor -- except primary runs at 1 to 1
+    
+    -- One huge difference in the PFM is that unlike the EM and the FM - if two tasks have equal priority
+    -- and they both pass their status checks, the PFM will form them in alphabetical order
     ManagerThread = function(self, brain)
 
         local LOUDCEIL = math.ceil
@@ -446,14 +471,21 @@ BuilderManager = Class {
         while self.Active do
 		
 			if self.BuilderData['Any'].NeedSort then
+            
+                local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
+            
+				-- reset the tasks with Priority Functions at this PFM
+				ResetPFMTasks( self, brain )
 			
 				LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
 				
+                --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
+                
 				self.BuilderData['Any'].NeedSort = false
 				
 			end
 
-			-- The PFM is the only manager truly affected by this since factorys and engineers seek their own jobs
+			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
 			-- Simply, the PFM at a Primary Base runs twice as fast as the Conditions Monitor while other bases run
 			-- at the same frequency as the Conditions Monitor thread
 			if brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
@@ -478,17 +510,37 @@ BuilderManager = Class {
 			numTested = 0
 			numPassed = 0
 			
+            -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, self.LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then
 			
+                -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
+                
+                    if ScenarioInfo.PlatoonDialog then
+                    
+                        LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()) )
+                        
+                    end
 			
 					for _,bData in bTypeData.Builders do
 					
 						if bData.Priority >= 100 then
+                        
+                            if ScenarioInfo.PlatoonDialog then
+                        
+                                LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." testing "..repr(bData.Priority).." "..repr(bData.BuilderName))
+                                
+                            end
 					
 							numTested = numTested + 1
 						
 							if GetBuilderStatus( bData, brain.ConditionsMonitor.ResultTable ) then
+                            
+                                --if ScenarioInfo.PlatoonDialog then
+                                
+                                  --  LOG("*AI DEBUG "..brain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(bData.BuilderName))
+                                    
+                                --end
 						
 								ForkTo ( ManagerLoopBody, self, bData, bType, brain )
 							

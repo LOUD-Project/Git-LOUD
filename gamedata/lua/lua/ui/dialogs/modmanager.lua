@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: Allows you to choose mods
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')

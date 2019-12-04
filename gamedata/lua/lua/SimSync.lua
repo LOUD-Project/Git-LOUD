@@ -14,7 +14,6 @@ local SimData = { SimSpeed = 0 }
 function ResetSyncTable()
 
     Sync = {
-
         CameraRequests = {},
         Sounds = {},
         Voice = {},
@@ -235,10 +234,6 @@ end
 
 function CreateCameraMarker(position)
     return import('/lua/simcameramarkers.lua').AddCameraMarker(position)
-end
-
-function EndDemo()
-    Sync.EndDemo = true
 end
 
 function PrintText(text, fontSize, fontColor, duration, location)
