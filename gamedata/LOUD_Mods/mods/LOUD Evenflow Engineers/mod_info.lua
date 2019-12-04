@@ -1,6 +1,6 @@
 name = "LOUD Evenflow Engineers"
 uid = "ffffffff-6f00-4864-9599-4133236eea7a"
-version = 1
+version = 1.1
 copyright = "None"
 description = "Alters build time of ALL units & structures to insure consistent mass & energy rates for engineers & factories. Makes the economic game much easier to predict and plan for.  See the README for details"
 author = "Sprouto"
