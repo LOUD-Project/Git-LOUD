@@ -2380,6 +2380,10 @@ NavalExpansionBase = {
             {  0, 22 },
 			{-22, 22 },
 			{ 22, 22 },
+            { 38,-38 }, -- extra 4 positions
+            {-38,-38 },
+            { 38, 38 },
+            {-38, 38 },
         },
 		
         {{'T3EnergyProduction'},
@@ -2453,6 +2457,10 @@ NavalExpansionBase = {
             {  0, 22 },
 			{-22, 22 },
 			{ 22, 22 },
+            { 38,-38 }, -- extra 4 positions
+            {-38,-38 },
+            { 38, 38 },
+            {-38, 38 },            
         },
 		
         {{'T3EnergyProduction'},
@@ -2526,6 +2534,10 @@ NavalExpansionBase = {
             {  0, 22 },
 			{-22, 22 },
 			{ 22, 22 },
+            { 38,-38 }, -- extra 4 positions
+            {-38,-38 },
+            { 38, 38 },
+            {-38, 38 },            
         },
 		
         {{'T3EnergyProduction'},
@@ -2599,6 +2611,10 @@ NavalExpansionBase = {
             {  0, 22 },
 			{-22, 22 },
 			{ 22, 22 },
+            { 38,-38 }, -- extra 4 positions
+            {-38,-38 },
+            { 38, 38 },
+            {-38, 38 },
         },
 		
         {{'T3EnergyProduction'},
