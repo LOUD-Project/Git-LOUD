@@ -500,7 +500,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
-		capCheck = math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
+		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
 		
 	end
 
