@@ -629,7 +629,6 @@ StructureUnit = Class(Unit) {
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.01, 9999, 9999, 18, 150, false )
 
 			end
-
 		end
 
 		-- power generation --

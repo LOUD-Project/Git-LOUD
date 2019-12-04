@@ -144,7 +144,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			StrRadius = 32,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 15,
+			StrMax = 18,
 			
 			UntCategory = categories.NAVAL * categories.MOBILE,
 			UntRadius = 64,

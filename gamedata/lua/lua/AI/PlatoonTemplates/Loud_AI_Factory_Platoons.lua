@@ -134,16 +134,16 @@ PlatoonTemplate { Name = 'T3LandSubCommander',
 PlatoonTemplate { Name = 'T1AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 3, 'scout', 'none' }
+            { 'uea0101', 1, 4, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 3, 'scout', 'none' }
+            { 'uaa0101', 1, 4, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 3, 'scout', 'none' }
+            { 'ura0101', 1, 4, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 3, 'scout', 'none' }
+            { 'xsa0101', 1, 4, 'scout', 'none' }
         },
     }
 }
@@ -151,16 +151,16 @@ PlatoonTemplate { Name = 'T1AirScout',
 PlatoonTemplate { Name = 'T2AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 3, 'scout', 'none' }
+            { 'uea0101', 1, 4, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 3, 'scout', 'none' }
+            { 'uaa0101', 1, 4, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 3, 'scout', 'none' }
+            { 'ura0101', 1, 4, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 3, 'scout', 'none' }
+            { 'xsa0101', 1, 4, 'scout', 'none' }
         },
     }
 }

@@ -137,7 +137,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
@@ -175,7 +175,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
@@ -289,7 +289,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
@@ -326,7 +326,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.25 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 120, 1.02, 1.02 }},

@@ -2217,7 +2217,7 @@ function AirForceAILOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 72, true, mergelimit) then
+			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 85, true, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberofUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
@@ -2277,32 +2277,23 @@ function AirForceAILOUD( self, aiBrain )
 					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
 
 					if not PlatoonExists(aiBrain, self) then
-					
 						return
-						
 					end					
 
 					if target then
-					
 						break
-						
 					end
 
                     WaitTicks(1)
-					
 				end
 
 				if target then
-				
 					maxrange = searchradius * rangemult
-					
 					break
-					
 				end
 
-                WaitTicks(2)
+                WaitTicks(1)
                 minrange = searchradius * rangemult
-				
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
@@ -5306,19 +5297,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
 			
 		elseif (not unitbeingbuilt.Dead) then
-			
-			-- otherwise assign them to the structure pool
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." Structure Pool 2 for "..repr(unitbeingbuilt:GetBlueprint().Description) )
-			
+
             AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {unitbeingbuilt}, 'Support', 'none' )
-			
 		end
 
         unit.UpgradeThread = nil
-
 	end
-	
 end
 
 -- SELF UPGRADE DELAY
@@ -6091,7 +6075,6 @@ end
 -- CZAR Behaviour - SORIAN
 -- =======================
 CzarBehaviorSorian = function(self, aiBrain)
-
 	
     if not PlatoonExists( aiBrain, self ) then
         return
@@ -6107,7 +6090,6 @@ CzarBehaviorSorian = function(self, aiBrain)
     local targetUnit = FindExperimentalTarget( self, aiBrain )
 	
     local oldTargetUnit = false
-	
 	
     while PlatoonExists( aiBrain, self ) do
 	

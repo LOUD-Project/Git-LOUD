@@ -73,26 +73,26 @@ end
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
 	
-    Builder {BuilderName = 'T1 Air Scout',
+    Builder {BuilderName = 'Air Scout T1',
 	
         PlatoonTemplate = 'T1AirScout',
         
-        Priority = 600,
+        Priority = 605,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 18, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 		
         BuilderType =  {'AirT1'},
     },
 	
-    Builder {BuilderName = 'T2 Air Scout',
+    Builder {BuilderName = 'Air Scout T2',
 	
         PlatoonTemplate = 'T2AirScout',
         
@@ -111,7 +111,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderType =  {'AirT2'},
     },
 
-    Builder {BuilderName = 'T3 Air Scout',
+    Builder {BuilderName = 'Air Scout T3',
 	
         PlatoonTemplate = 'T3AirScout',
         
@@ -208,7 +208,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         
         
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
 		
@@ -266,10 +266,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			-- a credible naval threat exists
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
             -- one of the few places where I use a ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
@@ -295,7 +295,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 35, 'Naval' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH3 }},

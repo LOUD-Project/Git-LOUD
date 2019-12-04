@@ -772,40 +772,49 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	
 		retUnit = false
 		retPosition = false
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory "..repr(category).." for "..platoon.BuilderName)
-		
+
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
 		if targetUnits and LOUDGETN(targetUnits) > 0 then		
-		
+
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory has targets for "..platoon.BuilderName)
+            
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
-
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory testing "..table.getn(targetUnits))
 		
 			local unitchecks, checkspertick, unitposition
 			local enemythreat, enemyshields, totalshieldvalueattarget
+            
+            local lastget = 0    -- debug value to monitor threat checks --
+            local gets = 0       -- how many times the threatcheck was the same
 			
 			unitchecks = 0
-			checkspertick = 6
+			checkspertick = 6   -- this is the performance critical value -- 
 		
 			-- loop thru the targets
 			for _,u in targetUnits do
-		
-				unitchecks = unitchecks + 1
 				
 				unitposition = u:GetPosition()
 			
 				-- if target is not dead and it's outside the minimum range
 				if (not u.Dead) and VDist2Sq(unitposition[1],unitposition[3], position[1],position[3]) >= minimumrange then
-				
+                
+                    -- only count it as a unit being checked if we actually have to process it
+                    unitchecks = unitchecks + 1
+                    
 					-- if can attack this type of target
 					if CanAttackTarget( platoon,'Attack',u ) then
 					
 						enemythreat = AIGetThreatLevelsAroundPoint(unitposition)
 
+                        -- monitor the number of times the getthreat call was the same
+                        if lastget != 0 and enemythreat == lastget then
+                            gets = gets + 1
+                        end
+                        
+                        lastget = enemythreat
+                        
 						-- if threat is less than threatself
 						if enemythreat <= threatself then						
 
@@ -818,24 +827,19 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 							
 								totalshieldvalueattarget = 0
 							
-							for _,s in enemyshields do
+                                for _,s in enemyshields do
 						
-								-- if the shield is On and it covers the target
-								if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
+                                    -- if the shield is On and it covers the target
+                                    if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
 									
-									enemythreat = enemythreat + (s.MyShield:GetHealth() * .01)	-- threat plus 1% of shield strength
-									
-								end
-							
-							end
-							
-						end
+                                        enemythreat = enemythreat + (s.MyShield:GetHealth() * .01)	-- threat plus 1% of shield strength
+                                    end
+                                end
+                            end
 					
 							-- cap low end of threat so we dont chase low value targets
 							if enemythreat < ( threatself * .25) then
-							
 								enemythreat = ( threatself * .25)
-								
 							end
 						
 							if (not retUnit) or enemythreat < bestthreat then
@@ -844,13 +848,9 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 								retPosition = table.copy(unitposition)
 								bestthreat = enemythreat
 								break
-								
 							end
-							
 						end
-						
 					end
-					
 				end
 			
 				-- dont check too many targets per tick
@@ -858,23 +858,18 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 				
 					WaitTicks(1)
 					unitchecks = 0
-					
 				end
-				
 			end
-		
+
 			if retUnit and not retUnit.Dead then
-			
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory reports valid target - checked "..unitchecks.." same threat "..gets)
+                
 				return retUnit,retPosition
-				
 			else
-			
 				retUnit = false
-				
 			end
-			
 		end
-		
 	end
 	
 	return false,false

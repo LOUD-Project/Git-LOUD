@@ -5,7 +5,7 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 	if aiBrain.BuilderManagers[locationType].Position then
 	
 		local position = aiBrain.BuilderManagers[locationType].Position
-		local threatTable = aiBrain:GetThreatsAroundPosition( position, 8, true, threattype)
+		local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, threattype)
 
 		for _,v in threatTable do
 
@@ -14,7 +14,7 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat within "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
 		
 				if VDist2( v[1], v[2], position[1], position[3] ) <= distance then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat within "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat closer than "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
 					return true
 				end
 			end

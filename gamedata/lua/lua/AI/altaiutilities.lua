@@ -78,11 +78,9 @@ function AssistBody(self, eng, aiBrain)
 			list = LOUDCONCAT( list, aiBrain.BuilderManagers[locationType].EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
 
 			return list
-		
 		end
 
 		return {}
-		
 	end
 
 	for k,catString in beingBuilt do
@@ -123,11 +121,8 @@ function AssistBody(self, eng, aiBrain)
         end
 
         if assistee then
-		
             break
-			
         end
-		
     end
 
     if assistee and not eng.Dead then
@@ -141,13 +136,10 @@ function AssistBody(self, eng, aiBrain)
 			IssueGuard( {eng}, assistee )
 			
 		end
-
     else
-	
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to find anything to assist")
 	
         eng.AssistPlatoon = nil
-		
     end
 	
 end
@@ -238,8 +230,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
 		-- than clumping up - this also avoids overlap of the army pools 
 	
-		-- cap the minimum baserange at 200
-		local minimum_baserange = 200
+		-- cap the minimum baserange at 180
+		local minimum_baserange = 180
 	
 		local Brains = ArmyBrains
     
@@ -255,11 +247,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 				if brain.BuilderManagers[marker.Name] or ( marker.Position[1] == brain.BuilderManagers['MAIN'].Position[1] and marker.Position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
 					
 					removed = true
-					
 					break
-					
 				end
-				
 			end
 		
 			if not removed then
@@ -271,29 +260,21 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, marker.Position ) < minimum_baserange then
 					
 						removed = true
-						
 						break
-						
 					end
-					
 				end
 			
 				if not removed then
 				
 					return marker.Position, marker.Name
-					
 				end
-				
 			end
-			
 		end
 	
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE for EXPANSION finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
-
 	end
 
 	return false, false
-	
 end
 
 -- This functions serves the role of finding open Start/Expansion markers which currently have no base on them
@@ -336,9 +317,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 					removed = true
 				
 					break
-				
 				end
-			
 			end
 		
 			if not removed then
@@ -350,58 +329,51 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 						removed = true
 						
 						break
-					
 					end
-				
 				end
 			
 				if not removed then
-			
 					return marker.Position, marker.Name
-				
 				end
-			
 			end
-		
 		end
 	
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE FOR DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
-	
 	end
 
 	return false, false
-	
 end
 
 -- finds DP and EXPANSION BASE(regular not LARGE) markers - minimum range to ANY other LAND base is 200
+-- non-counted bases that operate as forward positions or intel gathering locations
 function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
 	if eng then
-	
-		Position = GetPlatoonPosition(eng) or false
-		
+		Position = eng
 	end
 	
     if Position and aiBrain.PrimaryLandAttackBase and aiBrain.AttackPlan.Goal then
 	
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
-		local test_range = VDist3( aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position, aiBrain.AttackPlan.Goal )	
+        -- we'll use the current PRIMARY LAND BASE as the centrepoint for radius
+        local test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or Position
+		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
 		local positions = {}
 	
-		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
 	
-		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', test_position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the positions by distance from Position --
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
+		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Land	
-		local minimum_baserange = 200
+		local minimum_baserange = 180
 
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
@@ -415,11 +387,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				if brain.BuilderManagers[marker.Name] then
 			
 					removed = true
-
 					break
-				
 				end
-			
 			end
 		
 			-- if it's still valid -- check my own bases and exclude anything too close to ANY existing base
@@ -430,29 +399,19 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 					if VDist3( base.Position, marker.Position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, marker.Position ) > test_range then
 
 						removed = true
-						
 						break
-					
 					end
-				
 				end
 
 				if not removed then
 
 					return marker.Position, marker.Name
-				
 				end	
-			
 			end
-		
 		end
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
-	
 	end
 
 	return false, false
-	
 end
 
 -- finds Naval DPs - minimum range to ANY sea base is 200 - allows ALLIED base sharing --
@@ -500,13 +459,9 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 					if not ally then
 
 						removed = true
-					
 						break
-					
 					end
-				
 				end
-			
 			end
 		
 			-- if valid then range check it to OUR other SEA bases
@@ -518,29 +473,19 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 					if VDist3( base.Position, marker.Position ) < minimum_baserange then
 
 						removed = true
-						
 						break
-					
 					end
-				
 				end
 		
 				if not removed then
 		
 					return marker.Position, marker.Name
-			
 				end	
-
 			end
-
 		end
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND NAVAL DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
-		
 	end
 
 	return false, false
-	
 end
 
 -- finds Naval Areas - minimum range to ANY sea base is 200 - NO ALLIED sharing --
@@ -582,11 +527,8 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 				if brain.BuilderManagers[marker.Name] then
 				
 					removed = true
-					
 					break
-				
 				end
-			
 			end
 		
 			-- if valid then range check it to OUR other SEA bases
@@ -598,31 +540,20 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 					if base.BaseType == 'Sea' and VDist3( base.Position, marker.Position ) < minimum_baserange then
 
 						removed = true
-						
 						break
-					
 					end
-		
 				end
 
 				if not removed then
-		
+                
 					return marker.Position, marker.Name
-			
 				end						
-
-			end
-		
+            end
 		end
-
 	end
 
 	return false, false
-	
 end
-
-
-
 
 
 -- these functions check various types of markers that dont have any allied structures in radius of the given categories
@@ -650,15 +581,11 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
 			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally') <= unitMax then
 			
 				return v.Position, v.Name
-				
 			end
-			
 		end
-		
 	end
 	
 	return false, false
-	
 end
 
 -- as above but examines DPs and 'small' Expansion Areas
@@ -680,17 +607,12 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
 		for k,v in positions do
 		
 			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally' ) <= unitMax then
-			
 				return v.Position, v.Name
-				
 			end	
-			
 		end
-		
 	end
 	
 	return false, false
-	
 end
 
 -- as above but examines only LARGE Expansion Areas
@@ -711,17 +633,12 @@ function AIFindExpansionPointNeedsStructure( aiBrain, locationType, radius, cate
 		for k,v in positions do
 		
 			if AIUtils.GetNumberOfOwnUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius ) <= unitMax then
-			
 				return v.Position, v.Name
-				
 			end
-			
 		end
-		
 	end
 	
 	return false, false
-	
 end
 
 -- as above but for Naval DPs - new DPs must be better than current Primary
@@ -781,25 +698,17 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 						if VDist2( base.Position[1],base.Position[3], v.Position[1],v.Position[3] ) < minimum_baserange or VDist2( aiBrain.AttackPlan.Goal[1],aiBrain.AttackPlan.Goal[3], v.Position[1],v.Position[3] ) > test_range then
 						
 							reject = true
-							
 							break
-						
 						end
-					
 					end
-					
 				end
 				
 				if not reject then
 				
 					return v.Position, v.Name
-					
 				end
-				
 			end	
-			
 		end
-		
 	end
 
 	return false, false
@@ -824,30 +733,20 @@ function AIFindStartPointNeedsStructure( aiBrain, locationType, radius, category
 			if v.Position[1] == Position[1] and v.Position[3] == Position[3] then
 			
 				LOUDREMOVE( positions, k )
-				
 				break
-				
 			end
-			
 		end
     
 		for _,v in positions do
 		
 			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally' ) <= unitMax then
-			
 				return v.Position, v.Name
-				
 			end
-			
 		end
-		
 	end
 	
 	return false, false
-	
 end
-
-
 
 
 -- finds a relatively safe area (one with the greatest number of specified allied units) within range
@@ -946,11 +845,8 @@ function AIFindDefensiveAreaSorian( aiBrain, unit, category, range, runShield )
                         highPoint = checkPos
 						
                     end
-					
                 end
-				
             end
-			
         end
 		
 		--LOG("*AI DEBUG Found defensive point at "..repr(highPoint))
@@ -1001,15 +897,11 @@ function GetNumTransports(units)
 			
 				LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
 				return false, nil
-				
             end
-
-		end
-		
+        end
     end
 	
     return transportsNeeded, transportslotsNeeded
-	
 end
 
 
@@ -1046,15 +938,11 @@ function GetTransports( platoon, aiBrain)
 			
 					LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
 					return false, nil
-				
 				end
-
 			end	
-		
 		end
 	
 		return transportsNeeded, transportslotsNeeded
-	
 	end
 
 	local LOUDCOPY = table.copy
@@ -1109,7 +997,6 @@ function GetTransports( platoon, aiBrain)
 			-- get the T2 gunships and Gargantua - we can't use the specific ID since if BO is not turned on it would cause an error - we use a general lookup instead
 			armypooltransports = EntityCategoryFilterDown( categories.uea0203 + (categories.AIR * categories.EXPERIMENTAL * categories.TRANSPORTFOCUS), GetPlatoonUnits(armypool) )
 		end
-		
 	end
 	
 	-- OK - so we now have 2 lists of units and we want to make sure the 'specials' get utilized first
@@ -1143,11 +1030,8 @@ function GetTransports( platoon, aiBrain)
 					if tcount == 12 then
 						break
 					end
-					
 				end
-				
 			end
-			
 		end
 		
 		if TransportPoolTransports and LOUDGETN(TransportPoolTransports) > 0 then
@@ -1155,16 +1039,11 @@ function GetTransports( platoon, aiBrain)
 			for _,trans in TransportPoolTransports do
 			
 				if not trans.InUse then
-				
 					AvailableTransports[counter + 1] = trans
 					counter = counter + 1
-					
 				end
-				
 			end
-			
 		end
-		
 	end
 	
 	armypooltransports = nil
@@ -1183,7 +1062,6 @@ function GetTransports( platoon, aiBrain)
 			if not u.Dead then
 				counter = counter + 1
 			end
-			
 		end
 
 		if counter > 0 then
@@ -1195,19 +1073,14 @@ function GetTransports( platoon, aiBrain)
 	if transportcount < 1 or counter < 1 then
 		
 		if counter < 1 then
-		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." No Units to transport from "..repr(platoon.BuilderName).." "..counter )
-			
 		end
 
 		if not location then
-		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." finds no platoon position")
-			
 		end
 		
 		if transportcount > 0 then
-		
 			-- send all transports back into pool - which covers the specials (ie. UEF Gunships) 
 			ForkThread( ReturnTransportsToPool, aiBrain, AvailableTransports, true )
 		end
@@ -1408,13 +1281,9 @@ function GetTransports( platoon, aiBrain)
 						end
 						
 					end
-					
 				end
-				
 			end
-			
 		end
-		
 	end
 
 	if not CanUseTransports then
@@ -1425,9 +1294,7 @@ function GetTransports( platoon, aiBrain)
 			
 				-- let the brain know we couldn't fill a transport request by a ground platoon
 				aiBrain.NeedTransports = true
-				
 			end
-			
 		end
 		
 		-- send all transports back into pool - which covers the specials (ie. UEF Gunships) 
@@ -1436,7 +1303,6 @@ function GetTransports( platoon, aiBrain)
 		platoon.UsingTransport = false
 		
         return false, false
-		
 	end
 	
 	Collected = nil
@@ -1480,7 +1346,6 @@ function GetTransports( platoon, aiBrain)
 					
 					transportplatoon.PlanName = 'TransportUnits '..tostring(ident)
 					transportplatoon.BuilderName = 'Load and Transport '..tostring(ident)
-					
 				end
 				
 				AssignUnitsToPlatoon( aiBrain, transportplatoon, {transport}, 'Support', 'BlockFormation')
@@ -1498,7 +1363,6 @@ function GetTransports( platoon, aiBrain)
                     AvailableSlots.Large = AvailableSlots.Large - 1.0
 					AvailableSlots.Medium = AvailableSlots.Medium - 0.25
                     AvailableSlots.Small = AvailableSlots.Small - 0.34
-					
 				end
 				
                 while neededTable.Medium >= 1 and AvailableSlots.Medium >= 1 do
@@ -1523,15 +1387,10 @@ function GetTransports( platoon, aiBrain)
 				
 				-- if no more slots are needed signal that we have all the transport we require
                 if neededTable.Small < 1 and neededTable.Medium < 1 and neededTable.Large < 1 then
-				
                     CanUseTransports = true
-					
                 end
-				
 			end
-			
         end
-
     end
 
 	-- one last check for the validity of both unit and transport platoons
@@ -1560,19 +1419,13 @@ function GetTransports( platoon, aiBrain)
 		if not transportplatoon or counter < 1 then
 		
 			if not transportplatoon then
-			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." transportplatoon dead after assignmnet "..repr(transportplatoon))
-				
 			else
-			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." unit platoon dead after assignment ")
-				
 			end
 			
 			CanUseTransports = false
-
 		end
-		
 	end
 	
 	transports = nil
@@ -1582,21 +1435,17 @@ function GetTransports( platoon, aiBrain)
     if not CanUseTransports or counter < 1 then
 
 		if transportplatoon then
-
 			ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true )
-			
 		end
 
 		platoon.UsingTransport = false
 		
         return false, false
-		
     else
 		
         platoon.UsingTransport = true
 		
         return counter, transportplatoon
-		
     end
 	
 end

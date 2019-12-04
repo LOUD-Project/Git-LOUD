@@ -96,7 +96,7 @@ local T1Art = { 'Art1', 'Art2', 'Art3', }
 local AA = { 'AA3', 'AA2', 'AA1', }
 local Util = { 'Util3', 'Util2', 'Util1', }
 local Com = { 'Com3', 'Com2', 'Com1', }
-local Shield = { 'Shields', }
+local Shield = { 'Shields' }
 local Experimental = { 'Experimentals', }
 	
 #=== LAND BLOCK TYPES =#

@@ -61,9 +61,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	local navalMarker = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation(aiBrain, 'Naval Area', 0, 0)
 	
 	if not navalMarker then
-	
 		navalMarker = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation(aiBrain, 'Naval Defensive Point', 0, 0)
-		
 	end
 	
 	-- load the primary base templates

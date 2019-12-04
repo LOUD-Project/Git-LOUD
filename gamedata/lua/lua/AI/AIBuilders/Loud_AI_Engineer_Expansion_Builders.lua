@@ -51,15 +51,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
             
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
 			-- this base must have 7+ T2/T3 factories
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
             
 			-- all other 'counted' land bases must have at least 4 T2/T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
+            
 			-- there must be an start/expansion area with no engineers
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 8000, -9999, 50, 1, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 60, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -67,7 +70,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         BuilderData = {
             Construction = {
 				-- a counted base is included when using ExistingBases functions - otherwise ignored
-				-- this is what allows active DPs to not count against maximum allowed bases
+				-- this is what allows a base to count or not count against maximum allowed bases
+                -- Counted Bases are typically production centres
 				CountedBase = true,
                 
 				-- this tells the code to start an active base at this location
@@ -84,7 +88,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 NearMarkerType = 'Large Expansion Area',
                 
 				-- the limit of how far away to include markers when looking for a position
-                LocationRadius = 8000,
+                LocationRadius = 2000,
                 
 				-- this controls which base layout file to use
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -97,9 +101,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 				
 				-- what we'll build
                 BuildStructures = {  
-					'T1LandFactory',
 					'T2AirStagingPlatform',
+					'T2GroundDefense',
+					'T2GroundDefense',                    
+					'T1LandFactory',
+                    'T1AirFactory',
 					'T2Radar',
+					'T2GroundDefense',                    
 					'T2GroundDefense',
                 }               
             },
@@ -146,8 +154,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				
 				LocationRadius = 2000,
 				
-                ThreatMax = 60,
-                ThreatRings = 0,
+                ThreatMax = 50,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -156,8 +164,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 BuildStructures = {
 					'T2AirStagingPlatform',
 					'T2GroundDefense',
-					'T2Radar',
+                    'T2MissileDefense',
+					'T2GroundDefense',                    
 					'T2AADefense',
+					'T2AADefense',                    
+					'T2Radar',                    
 				}
 			}
 		}
@@ -318,15 +329,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
         BuilderData = {
             Construction = {
 				CountedBase = true,
+                
                 ExpansionBase = true,
                 ExpansionRadius = 110,
+                
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 600,
 				
                 ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -349,7 +362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 	-- start additional naval bases if naval strength too low
 	-- must already have a naval base -- must have 4+ Naval factories
 	-- only Naval Bases will do this
-    Builder {BuilderName = 'Naval Base Secondary from EXPANSION',
+    Builder {BuilderName = 'Naval Base Secondary',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
