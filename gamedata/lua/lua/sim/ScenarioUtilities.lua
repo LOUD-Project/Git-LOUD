@@ -384,7 +384,7 @@ function InitializeArmies()
 		-- is used to limit the # of self-upgrades that can be issued in a given time
 		-- to avoid having more than X units trying to upgrade at once
 		self.UpgradeIssued = 0
-		self.UpgradeIssuedLimit = 2
+		self.UpgradeIssuedLimit = 1
 		self.UpgradeIssuedPeriod = 225
 
 		-- set the base radius according to map size -- affects platoon formation radius and base alert radius
