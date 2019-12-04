@@ -1435,8 +1435,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
-							-- only send response if we can muster 33% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/3) then
+							-- only send response if we can muster 50% of enemy threat
+							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/2) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1476,7 +1476,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface'))
 							end
 				
-							if GetThreatOfGroup(groupsea,'Naval') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/2) then
+                            -- only send response if we can muster 66% of enemy threat
+							if GetThreatOfGroup(groupsea,'Naval') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/1.5) then
 					
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
@@ -1508,7 +1509,7 @@ EngineerManager = Class(BuilderManager) {
 							-- get all bombers and gunships not already in platoons
 							groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius )
 
-							if groupaircount > 2 then
+							if groupaircount > 4 then
 
 								if ScenarioInfo.DistressResponseDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
@@ -1534,15 +1535,15 @@ EngineerManager = Class(BuilderManager) {
 							-- locate all anti-air air units not already in platoons
 							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius )
 
-							-- if there are more than 2 anti-air units
-							if groupftrcount > 2 then 
+							-- if there are more than 4 anti-air units
+							if groupftrcount > 4 then 
 						
 								if ScenarioInfo.DistressResponseDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
 								end
 						
-								-- and we can match at least half of the threat
-								if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/2) then
+								-- and we can match at least 66% of the enemy threat
+								if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/1.5) then
 					
 									-- Move the fighter group to the distress location 
 									IssueClearCommands( groupftr )
