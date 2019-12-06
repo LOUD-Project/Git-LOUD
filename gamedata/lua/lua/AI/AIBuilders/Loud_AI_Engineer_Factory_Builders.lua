@@ -108,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -146,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -217,7 +217,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.03, 1.03 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -253,7 +253,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
             { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.03, 1.03 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -298,7 +298,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
             -- only adding another factory if we had less than 2 T1 already here
             -- in practice - this sometimes just forced the creation of another
             -- naval yard if available
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 4, categories.NAVAL * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.NAVAL * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},

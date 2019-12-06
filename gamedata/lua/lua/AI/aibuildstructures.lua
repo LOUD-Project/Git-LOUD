@@ -350,9 +350,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 				if not highPri or baseValue > highPri then
 					highPri = baseValue
 				end
-				
 			end
-			
 		end
 
 		-- if more than one with highest value - pick randomly
@@ -365,15 +363,15 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 				LOUDINSERT( validNames, {Base = v.Base, Island = v.Island} )
 				
 			end
-			
 		end
 		
 		local pick = validNames[ Random( 1, LOUDGETN(validNames) ) ] or false
         
 		if not pick then
-		
-			LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
-
+        
+            if not engineer.Dead then
+                LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
+            end
 		else
 
 			-- this function would level the area around a new base
@@ -390,11 +388,8 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			aiBrain.BuilderManagers[baseName].EngineerManager:AddEngineerUnit(engineer, true)
 			
 			return true
-			
 		end
-		
 	end
 
 	return false
-	
 end

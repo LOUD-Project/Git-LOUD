@@ -386,8 +386,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
 			
-			-- all other 'counted' bases must have at least 4 T2/T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'All', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
+			-- all other 'counted' Sea bases must have at least 4 T2/T3 factories
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Sea', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
         },
 		
         BuilderType = { 'T2','T3' },
