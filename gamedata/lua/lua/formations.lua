@@ -354,36 +354,28 @@ local NineRowAttackFormationBlock = {
 local GroundAttackAir = ( categories.AIR * categories.GROUNDATTACK ) - categories.ANTIAIR
 local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS - categories.GROUNDATTACK
 local BomberAir = categories.AIR * categories.BOMBER - categories.ANTINAVY
-local AAAir = categories.AIR * categories.ANTIAIR
+local AAAir = categories.AIR * categories.ANTIAIR * categories.HIGHALTAIR
 local AntiNavyAir = categories.AIR * categories.ANTINAVY
 local IntelAir = categories.AIR * ( categories.SCOUT + categories.RADAR )
 local ExperimentalAir = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTATION
 
 #=== TECH LEVEL AIR CATEGORIES ===#
+-- this has been greatly simplified
 local AirCategories = {
-    Ground1 = GroundAttackAir * categories.TECH1,
-    Ground2 = GroundAttackAir * categories.TECH2,
-    Ground3 = GroundAttackAir * categories.TECH3,
-
-    Bomb1 = BomberAir * categories.TECH1,
-    Bomb2 = BomberAir * categories.TECH2,
-    Bomb3 = BomberAir * categories.TECH3,
-
-    AA1 = AAAir * categories.TECH1,
-    AA2 = AAAir * categories.TECH2,
-    AA3 = AAAir * categories.TECH3,
-
-    AN1 = AntiNavyAir * categories.TECH1,
-    AN2 = AntiNavyAir * categories.TECH2,
-    AN3 = AntiNavyAir * categories.TECH3,
-
-    AIntel1 = IntelAir * categories.TECH1,
-    AIntel2 = IntelAir * categories.TECH2,
-    AIntel3 = IntelAir * categories.TECH3,
-
+    AUnits = categories.AIR - ExperimentalAir,
     AExper = ExperimentalAir,
 
-    RemainingCategory = categories.AIR - ( GroundAttackAir + TransportationAir + BomberAir + AAAir + AntiNavyAir + IntelAir + ExperimentalAir )
+--    RemainingCategory = categories.AIR - ( GroundAttackAir + TransportationAir + BomberAir + AAAir + AntiNavyAir + IntelAir + ExperimentalAir )
+--    Ground2 = GroundAttackAir * categories.TECH2,
+--    Ground3 = GroundAttackAir * categories.TECH3,
+--    Bomb2 = BomberAir * categories.TECH2,
+--    Bomb3 = BomberAir * categories.TECH3,
+--    AA2 = AAAir * categories.TECH2,
+--    AA3 = AAAir * categories.TECH3,
+--    AN2 = AntiNavyAir * categories.TECH2,
+--    AN3 = AntiNavyAir * categories.TECH3,
+--    AIntel2 = IntelAir * categories.TECH2,
+--    AIntel3 = IntelAir * categories.TECH3,
 }
 
 local AirTransportCategories = {
@@ -395,18 +387,20 @@ local AirTransportCategories = {
 
 
 #=== SUB GROUP ORDERING ===#
-
-local GroundAttack = { 'Ground3', 'Ground2', 'Ground1', }
+local AirUnits = { 'AUnits'}
+local ExperAir = { 'AExper' }
 local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
-local Bombers = { 'Bomb3', 'Bomb2', 'Bomb1', }
-local AntiAir = { 'AA3', 'AA2', 'AA1', }
-local AntiNavy = { 'AN3', 'AN2', 'AN1', }
-local Intel = { 'AIntel3', 'AIntel2', 'AIntel1', }
-local ExperAir = { 'AExper', }
+
+--local GroundAttack = {'Ground' }
+--local Bombers = { 'Bomb' }
+--local AntiAir = { 'AA' }
+--local AntiNavy = {'AN' }
+--local Intel = { 'AIntel' }
+--local Remaining = { 'RemainingCategory' }
 
 #=== Air Block Arrangement ===#
 
-local ChevronSlot = { AntiAir, ExperAir, AntiNavy, GroundAttack, Bombers, Intel, RemainingCategory }
+local ChevronSlot = { AirUnits, ExperAir }
 local TransportSlot = { Transports }
 
 local InitialChevronBlock = {
@@ -822,9 +816,7 @@ function AttackFormation( formationUnits )
 
 	
 	if airUnitsList.UnitTotal > 0 then
-
 		BlockBuilderAir(airUnitsList, StaggeredChevronBlock, FormationPos)
-
 	end
 	
 	if TransportUnitsList.UnitTotal > 0 then
@@ -844,15 +836,10 @@ function AttackFormation( formationUnits )
 		elseif TransportUnitsList.UnitTotal <= 25 then
 		
 			BlockBuilderLand(TransportUnitsList, FiveWideTransportGrowthFormation, AirTransportCategories, FormationPos)
-			
 		end
-		
 	end	
 
-	--LOG("*AI DEBUG FormationPos for ATTACK FORMATION is "..repr(FormationPos))
-	
     return FormationPos
-	
 end
 
 function GrowthFormation( formationUnits )
@@ -1523,14 +1510,19 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
     end
     local chevronType = false
     local formationLength = 0
-    local spacing = 1.25
+    
+    local spacing = 1.22
 
     if unitsList.AExper > 0 then
-        spacing = 1.33
+        spacing = 1.3
     end
     
     i = 1
-	
+    
+    local currSlot
+    local inserted = false
+    local xPos, yPos
+
     while unitsList.UnitTotal >= i do
 	
         if chevronPos > chevronSize then
@@ -1560,22 +1552,22 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
             end
         end
 		
-        local currSlot = airBlock[whichRow][whichCol]
-        local inserted = false
+        currSlot = airBlock[whichRow][whichCol]
+        inserted = false
 		
         for numType, type in currSlot do
-		
+        
             if inserted then
                 break
             end
-			
+
             for numGroup, group in type do
 			
                 if not airBlock.HomogenousBlocks or chevronType == false or chevronType == type then
 				
                     if unitsList[group] > 0 then
-					
-                        local xPos, yPos = GetChevronPosition(chevronPos, whichCol, currRowLen, formationLength)
+
+                        xPos, yPos = GetChevronPosition(chevronPos, whichCol, currRowLen, formationLength)
 						
                         if airBlock.HomogenousBlocks and not chevronType then
                             chevronType = type
@@ -1585,17 +1577,15 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
 						
                         unitsList[group] = unitsList[group] - 1
                         inserted = true
+                        i = i + 1
                         break
                     end
                 end
             end
         end
 		
-        if inserted then
-            i = i + 1
-        end
-		
         chevronPos = chevronPos + 1
+
     end
 	
     return FormationPos
@@ -1804,14 +1794,21 @@ end
 
 #========= UNIT SORTING ==========#
 
+-- OK - a great deal of data reduction here 
+-- it was clear that while all these breakdowns of air units
+-- by category and tier was nice - it was NOT being used in
+-- any meaningful fashion - so we simplified it - reducing
+-- data usage and processing
 function CategorizeAirUnits( formationUnits )
 
     local unitsList = {
-        Ground1 = 0, Ground2 = 0, Ground3 = 0,
-        Bomb1 = 0, Bomb2 = 0, Bomb3 = 0,
-        AA1 = 0, AA2 = 0, AA3 = 0,
-        AN1 = 0, AN2 = 0, AN3 = 0,
-        AIntel1 = 0, AIntel2 = 0, AIntel3 = 0,
+        --Ground1 = 0, Ground2 = 0, Ground3 = 0,
+        --Bomb1 = 0, Bomb2 = 0, Bomb3 = 0,
+        --AA1 = 0, AA2 = 0, AA3 = 0,
+        --AN1 = 0, AN2 = 0, AN3 = 0,
+        --AIntel1 = 0, AIntel2 = 0, AIntel3 = 0,
+        --Ground = 0, Bomb = 0, AA = 0, AN = 0, AIntel = 0,
+        AUnits = 0,
         AExper = 0,
         RemainingCategory = 0,
         UnitTotal = 0,
@@ -1838,8 +1835,7 @@ function CategorizeAirUnits( formationUnits )
 			formationUnits[i] = nil
 		end
     end
-	
-	--LOG("*AI DEBUG UnitsList is "..repr(unitsList))
+
     return unitsList
 end
 
@@ -1869,8 +1865,7 @@ function CategorizeTransportUnits( formationUnits )
 			formationUnits[i] = nil
 		end
     end
-	
-	--LOG("*AI DEBUG UnitsList is "..repr(unitsList))
+
     return unitsList
 end
 
@@ -1975,7 +1970,6 @@ function CategorizeLandUnits( formationUnits )
 			LOG("*AI DEBUG Dead Land unit in FORMATIONS")
 			formationUnits[i] = nil
 		end
-		
     end
 
     return unitsList
