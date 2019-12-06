@@ -1009,16 +1009,17 @@ function GetTransports( platoon, aiBrain)
 	
 	counter = 0
 	
+    -- collect a list of all available transports
 	if PlatoonExists(aiBrain,platoon) then
 
 		if armypooltransports and LOUDGETN(armypooltransports) > 0 then
 		
-			-- I loop in here to limit the number of army pool transports we take to 12
+			-- I loop in here to limit the number of army pool transports we take to 15
 			local tcount = 0
 		
 			for _,trans in armypooltransports do
 			
-				if not trans.InUse then
+				if not trans.InUse and not trans.Assigning then
 				
 					AvailableTransports[counter + 1] = trans
 					counter = counter + 1
@@ -1029,7 +1030,7 @@ function GetTransports( platoon, aiBrain)
 					
 					tcount = tcount + 1
 				
-					if tcount == 12 then
+					if tcount == 15 then
 						break
 					end
 				end
@@ -1040,7 +1041,7 @@ function GetTransports( platoon, aiBrain)
 		
 			for _,trans in TransportPoolTransports do
 			
-				if not trans.InUse then
+				if not trans.InUse and not trans.Assigning then
 					AvailableTransports[counter + 1] = trans
 					counter = counter + 1
 				end
@@ -1057,6 +1058,7 @@ function GetTransports( platoon, aiBrain)
 	
 	local location = false
 	
+    -- recheck the platoon unit count and store the platoon location
 	if PlatoonExists(aiBrain,platoon) then
 		
 		for _,u in GetPlatoonUnits(platoon) do
@@ -1265,6 +1267,10 @@ function GetTransports( platoon, aiBrain)
 
 							transports[counter+1] = { Unit = transport, Distance = range, Slots = LOUDCOPY(aiBrain.TransportSlotTable[id]) }
 							counter = counter + 1
+                            
+                            -- mark the transport as being assigned 
+                            -- to prevent it from being picked up in another transport collection
+                            transport.Assigning = true
 
 							Collected.Large = Collected.Large + transports[counter].Slots.Large
 							Collected.Medium = Collected.Medium + transports[counter].Slots.Medium
@@ -1274,14 +1280,10 @@ function GetTransports( platoon, aiBrain)
 							if Collected.Large >= neededTable.Large and Collected.Medium >= neededTable.Medium and Collected.Small >= neededTable.Small then
 								CanUseTransports = true
 							end
-							
 						else
-						
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." transport out of range at "..range)
 							out_of_range = true
-							
 						end
-						
 					end
 				end
 			end
@@ -1336,6 +1338,8 @@ function GetTransports( platoon, aiBrain)
 			
 				-- mark the transport as InUse
 				transport.InUse = true
+                -- mark it as no longer in Assignment
+                transport.Assigning = false
 				
 				-- count the number of transports used
 				counter = counter + 1
@@ -2208,6 +2212,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			local transport = data.Transport
 			
 			transport.InUse = true
+            transport.Assigning = false
 		
 			transport.WatchLoadingThread = transport:ForkThread( WatchUnitLoading, unitstoload, aiBrain )
 			
@@ -2569,14 +2574,12 @@ function AssignTransportToPool( unit, aiBrain )
 		
 			unit.PlatoonHandle = aiBrain.TransportPool
 		
-			unit.InUse = false			
+			unit.InUse = false
+            unit.Assigning = false
 
 			return ReturnTransportsToPool( aiBrain, {unit}, true )
-			
 		end
-		
 	end
-	
 end
 	
 --  This routine should get transports on the way back to an existing base 
@@ -2680,7 +2683,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 			
 				-- go direct -- possibly bad
 				IssueMove( units, position )
-				
 			end
 	
 			for k,unit in units do
@@ -2694,32 +2696,24 @@ function ReturnTransportsToPool( aiBrain, units, move )
 						AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support', '' )
 						
 						unit.PlatoonHandle = aiBrain.TransportPool
-			
 					else
-					
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit:GetBlueprint().Description.." added to Army Pool")
 				
 						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
 						
 						unit.PlatoonHandle = aiBrain.ArmyPool
-				
 					end
 			
 					unit.InUse = false
-	
+                    unit.Assigning = false
 				end
-		
 			end
-			
 		end
-	
 	end
 	
 	
 	if not aiBrain.CheckTransportPoolThread then
-	
 		aiBrain.CheckTransportPoolThread = ForkThread( CheckTransportPool, aiBrain )
-		
 	end
 	
 end
@@ -2743,7 +2737,7 @@ function CheckTransportPool( aiBrain )
 				oldplatoonname = platoon.BuilderName or false
 			end
 			
-			if (not v:IsIdleState()) or v.InUse or (platoon and PlatoonExists(aiBrain,platoon)) then
+			if (not v:IsIdleState()) or v.InUse or v.Assigning or (platoon and PlatoonExists(aiBrain,platoon)) then
 			
 				if not v:IsIdleState() then
 					continue
@@ -2787,6 +2781,7 @@ function CheckTransportPool( aiBrain )
 			
 		end
 		
+        v.Assigning = false
 		v.InUse = false
 	end
 	
