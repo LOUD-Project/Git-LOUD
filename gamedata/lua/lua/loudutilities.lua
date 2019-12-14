@@ -2657,6 +2657,8 @@ function PathGeneratorAmphibious(self)
 
 			local fork = { cost = 0, goaldist = 0, length = 0, Node = graph[adjacentNode[1]], path = LOUDCOPY(queueitem.path) }
 
+            -- each step adds +20 -- would be nice if we could value one terrain over another at this point - just slightly
+            -- to do that efficiently we'd have to note the terrain of each position at game start - ie. on land, in water, etc.
 			fork.cost = queueitem.cost + threat + 20
 
 			fork.goaldist = VDist2( data.Dest[1], data.Dest[3], testposition[1], testposition[3] )
@@ -3016,7 +3018,7 @@ end
 -- This routine purges the pathcache of any old entries
 function PathCacheMonitor( aiBrain )
 
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." starting PathCacheMonitor")
+	LOG("*AI DEBUG "..aiBrain.Nickname.." starting PathCacheMonitor")
 	
 	-- setup the PathCache for this brain and the counters for hits and misses
 	if not aiBrain.PathCache then
@@ -3028,10 +3030,10 @@ function PathCacheMonitor( aiBrain )
 	end
 
 	local cachecount = 0
-	local cachetime = 1200	-- starting lifetime 1200 seconds = 2 minutes
+	local cachetime = 900	-- starting lifetime 1200 seconds = 2 minutes
 	local looprate = cachetime * 0.1
 	
-	local maxcachetime = 1800
+	local maxcachetime = 1500
 	
 	if ScenarioInfo.size[1] < 2048 or ScenarioInfo.size[2] < 2048 then
 	
@@ -3065,6 +3067,8 @@ function PathCacheMonitor( aiBrain )
 				cachecount = cachecount + 1
 
 				if (not PathCache[k][a].settime) or testtime > PathCache[k][a].settime + cachetime then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." removing path cache "..repr(k).." "..repr(a))
 				
 					PathCache[k][a] = nil
 					
@@ -3090,6 +3094,8 @@ function PathCacheMonitor( aiBrain )
 		if (aiBrain.PathMiss + aiBrain.PathHits) > 0 then
 		
 			k = (aiBrain.PathHits/(aiBrain.PathMiss+aiBrain.PathHits))*100
+            
+            LOG("*AI DEBUG "..aiBrain.Nickname.." path cache hit/miss ratio is "..repr(k))
 			
 			if k < 15 then
 			

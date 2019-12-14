@@ -85,7 +85,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 			
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 18, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT } },
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.AIR * categories.SCOUT } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 		

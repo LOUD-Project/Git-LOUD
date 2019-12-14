@@ -41,7 +41,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = HaveZeroFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -72,7 +72,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = HaveZeroFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -107,8 +107,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 20, 1.01, 1.01 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -145,8 +145,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 20, 1, 1 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
