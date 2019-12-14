@@ -1301,7 +1301,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 80,             -- this platoon has no distress response
+			DistressRange = 80,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1376,7 +1376,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 90,                 -- as above - no distress response in this platoon
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1449,7 +1449,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 90,                 -- again - no distress for this platoon
+			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1600,7 +1600,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-		
 			DistressRange = 90,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,

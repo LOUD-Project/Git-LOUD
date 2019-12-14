@@ -134,11 +134,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         
 		Priority = 806,
 		
-		-- this function removes the builder after 30 minutes
+		-- this function removes the builder after 45 minutes
 		PriorityFunction = function(self, aiBrain)
 		
 			if self.Priority != 0 then
-				if aiBrain.CycleTime > 1800 then
+				if aiBrain.CycleTime > 2700 then
 					return 0, false
 				end
 			end
@@ -157,7 +157,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation for 30-70 minutes - 8 instances
+	-- double plane formation for 30-75 minutes - 8 instances
     Builder {BuilderName = 'Air Scout - Pair',
     
         PlatoonTemplate = 'Air Scout Group',
@@ -175,7 +175,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 					return 806, true
 				end
 			
-				if aiBrain.CycleTime > 4200 then
+				if aiBrain.CycleTime > 4500 then
 					return 0, false
 				end
 			end
@@ -194,7 +194,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
 
-	-- wing (5) formations at 60 minutes - 4 instances
+	-- wing (5) formations at 60 minutes - 6 instances
     Builder {BuilderName = 'Air Scout - Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 		
-        InstanceCount = 4,
+        InstanceCount = 6,
 		
         BuilderType = 'Any',
 		
@@ -227,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- squadron (9) formations after 75 minutes - 4 instances
+	-- squadron (9) formations after 75 minutes - 5 instances
     Builder {BuilderName = 'Air Scout - Group',
     
         PlatoonTemplate = 'Air Scout Group Huge',
@@ -249,7 +249,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 4,
+        InstanceCount = 5,
 		
         BuilderType = 'Any',
 		

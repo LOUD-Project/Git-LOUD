@@ -230,23 +230,16 @@ BuilderManager = Class {
 					if not aiBrain.ConditionsMonitor.ResultTable[value].Status then
 					
 						return false
-						
 					end
-					
 				else
-				
 					if not aiBrain.ConditionsMonitor.ResultTable[value]:GetStatus(aiBrain) then
 					
 						return false
-						
 					end
-					
 				end
-				
 			end
 			
 			return true
-			
 		end
 
 		-- sort the builders list if needed
@@ -266,7 +259,6 @@ BuilderManager = Class {
                     for k,v in self.BuilderData[unit.BuilderType].Builders do
                     
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
-                        
                     end
                     
                     self.BuilderData[unit.BuilderType].displayed = true
@@ -274,8 +266,7 @@ BuilderManager = Class {
             end
 			
 			self.BuilderData[unit.BuilderType].NeedSort = false
-
-		end
+        end
 		
 		-- use the BuilderParamCheck function specific to the Manager that called this function (ie. Engineer or Factory)
         local BuilderParamCheck = self.BuilderParamCheck		
@@ -294,10 +285,6 @@ BuilderManager = Class {
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
                 if (not found) or task.Priority >= found then
-				
-					--if unit.BuilderType == 'Commander' then
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." checking task "..task.BuilderName)
-					--end
 
                     if GetBuilderStatus( task ) then
 
@@ -306,17 +293,13 @@ BuilderManager = Class {
                             found = task.Priority
                             possibleBuilders[counter+1] = k
 							counter = counter + 1
-							
                         end
-						
                     end
                     
                 elseif found and task.Priority < found then
 				
 					continuesearching = false
-					
                 end
-
             else
 
 				if task.OldPriority and task.OldPriority == 0 then
@@ -328,9 +311,7 @@ BuilderManager = Class {
 					LOUDREMOVE(self.BuilderData[unit.BuilderType].Builders,k)
 
 					self.BuilderData[unit.BuilderType].NeedSort = true
-
 				end
-				
 			end
 			
 			if Builders[TaskList[k].BuilderName].PriorityFunction then
@@ -350,27 +331,19 @@ BuilderManager = Class {
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )
 					
 					self.BuilderData[unit.BuilderType].NeedSort = true
-					
 				end
-				
 			end
-			
         end
 
         if counter > 0 then 
-		
 			return TaskList[ possibleBuilders[ Random(1, counter) ] ]
-			
         end
 		
 		if self.ManagerType == 'FBM' then
-		
 			unit.failedbuilds = unit.failedbuilds + 1
-			
 		end
 		
         return false
-		
     end,
 	
 	RebuildTable = function(self,oldtable)
@@ -386,19 +359,13 @@ BuilderManager = Class {
 				if type(k) == 'string' then
 				
 					temptable[k] = v
-					
 				else
-				
 					LOUDINSERT(temptable, v)
-					
 				end
-				
 			end
-			
 		end
 		
 		return temptable
-		
 	end,
     
     ManagerLoopBody = function(self,builder,bType)
@@ -406,9 +373,7 @@ BuilderManager = Class {
         if builder:CalculatePriority(self) then
 		
             self.BuilderData[bType].NeedSort = true
-			
         end
-		
     end,
   
 	-- originally this thread ran for each manager - but now just the PFM

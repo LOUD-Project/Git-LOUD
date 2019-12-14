@@ -427,20 +427,14 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
         for _,v in units do
 		
             if not v.Dead and IsEnemy( GetAIBrain(v).ArmyIndex, aiBrain.ArmyIndex) then
-			
                 enemyunits[counter+1] =  v
 				counter = counter + 1
-				
             end
-			
         end 
 		
         if counter > 0 then
-		
             return enemyunits, counter
-			
         end
-		
     end
     
     return {}, 0
@@ -3272,12 +3266,13 @@ function ParseIntelThread( aiBrain )
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- added in Economy 
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { resolution, 12 * ThresholdMult, 10, (categories.MOBILE * categories.AIR) - categories.SATELLITE, 1,'ffff0096'},
+		Air 			= { resolution, 12 * ThresholdMult, 10, categories.AIR - categories.SATELLITE, 1,'ffff0096'},
 		
 		Land 			= { resolution, 12 * ThresholdMult, 30, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 2,'afff9600' },
 		
 		Experimental 	= { resolution, 50, 35, (categories.EXPERIMENTAL * categories.MOBILE), 3,'ffff0000'},
-		Naval 			= { resolution, 18 * ThresholdMult, 35, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), 3,'af0a0a0a' },
+        
+		Naval 			= { resolution, 18 * ThresholdMult, 35, categories.NAVAL, 3,'af0a0a0a' },
 		
 		Commander 		= { resolution, 60, 40, categories.COMMAND, 4,'ff00ffff' },
 
@@ -3344,7 +3339,8 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
 	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, newpos, newthreat, newtime, myunits, myvalue, bp
-	
+	local mergedistance, timeecheck, totalage, totalcount
+    
 	local ALLBPS = __blueprints
 
 	-- in a perfect world we would check all 8 threat types every parseinterval 
@@ -3407,7 +3403,7 @@ function ParseIntelThread( aiBrain )
 
 				totalThreat = 0
 			
-				local mergedistance = vx[1]*vx[1]
+				mergedistance = vx[1]*vx[1]
 				
 				if ScenarioInfo.DisplayIntelPoints then
 					LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." checking "..threatType.." mergedistance is "..vx[1] )
@@ -3511,7 +3507,7 @@ function ParseIntelThread( aiBrain )
 							
 								aiBrain:ForkThread( DrawCirc, newPos, vx[1], vx[6] )
 								
-								LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." found "..table.getn(units).." visible units at "..repr(newPos))
+								LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
 							end
 							
                             -- find the closest known unit to that new position that is within the merge distance
@@ -3539,10 +3535,11 @@ function ParseIntelThread( aiBrain )
 								if ScenarioInfo.DisplayIntelPoints then
 									LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." "..repr(threatType).." shows "..threat[3].." at "..repr(newPos).." but I find no units ")
 								end
-								newthreat = threat[3] * .8
+                                
+								newthreat = threat[3] * .9
 								
-								-- reduce the existing threat by 25% with a 1% decay every 10 seconds
-								aiBrain:AssignThreatAtPosition( newPos, -(threat[3] * .2), 0.001, threatType)
+								-- reduce the existing threat by 10% with a 1% decay every 10 seconds
+								aiBrain:AssignThreatAtPosition( newPos, -(threat[3] * .1), 0.001, threatType)
 							end
 
 							newtime = gametime
@@ -3555,6 +3552,7 @@ function ParseIntelThread( aiBrain )
 							-- we'll update ALL entries that are within the merge distance meaning we may get duplicates
 							-- umm...could I sort HiPri here for distance from newPos ? 
 							-- then I could bypass all other HiPri entries
+                            
                             for k,loc in aiBrain.IL.HiPri do
 								
 								-- it's got to be of the same type
@@ -3572,7 +3570,6 @@ function ParseIntelThread( aiBrain )
 											aiBrain.IL.HiPri[k] = nil
 											
 											continue
-											
 										end
 									
 										-- it might be a duplicate
@@ -3592,7 +3589,6 @@ function ParseIntelThread( aiBrain )
 											end
 										
 											loc.Position = newPos
-											
 										else
 											if ScenarioInfo.DisplayIntelPoints then
 												LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Removing Existing "..threatType.." "..repr(newthreat).." too low at "..repr(loc.Position))
@@ -3600,7 +3596,6 @@ function ParseIntelThread( aiBrain )
 											
 											-- newthreat is too low 
 											aiBrain.IL.HiPri[k] = nil
-											
 										end
 									end
                                 end
@@ -3614,28 +3609,21 @@ function ParseIntelThread( aiBrain )
 								end
 
                                 LOUDINSERT(aiBrain.IL.HiPri, { Position = newPos, Type = threatType, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
-								
 							end
 						end
-						
                     else
 					
 						-- reduce the existing threat to zero - it's already very low
 						aiBrain:AssignThreatAtPosition( {newPos[1],0,newPos[3]}, -threat[3], 0.01, threatType)
-					
-						--break -- rest of the threats will be below minimumcheck level and can be bypassed
-						
 					end
-					
                 end
-				
+
 				-- Update the EnemyData Array for this threattype -- Array element 'Total' carries a running total
                 -- update the array using the current sample counter -- first remove what is there from total
 				-- then update the current counter -- then add the current counter to the total
 				EnemyData[threatType]['Total'] = EnemyData[threatType]['Total'] - (EnemyData[threatType][EnemyDataCount] or 0)
                 EnemyData[threatType][EnemyDataCount] = totalThreat
 				EnemyData[threatType]['Total'] = EnemyData[threatType]['Total'] + totalThreat
-				
             end
 			
 			WaitTicks(3)
@@ -3643,12 +3631,17 @@ function ParseIntelThread( aiBrain )
 			usedticks = usedticks + 3
 		end
 
-		local timecheck = GetGameTimeSeconds()
+		timecheck = GetGameTimeSeconds()
 
 		if ScenarioInfo.DisplayIntelPoints then
 			LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Purging Stale HiPri data - table has "..table.getn(aiBrain.IL.HiPri) )
+            --LOG("*AI DEBUG HiPri list is "..repr(aiBrain.IL.HiPri))
+            --LOG("*AI DEGUG LowPri list is "..repr(aiBrain.IL.LowPri))
 		end
 		
+        totalage = 0
+        totalcount = 0
+        
 		-- purge outdated, non-permanent intel if past the timeout period or below the threat threshold
 		for s, t in aiBrain.IL.HiPri do
 		
@@ -3671,7 +3664,23 @@ function ParseIntelThread( aiBrain )
 		end
 
 		if ScenarioInfo.DisplayIntelPoints then
-			LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Rebuilding HiPri")
+          
+            for s, t in aiBrain.IL.HiPri do
+                totalcount = totalcount + 1
+                totalage = totalage + (timecheck - math.min(t.LastScouted,timecheck))
+            end
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL HiPri Avg. Age is "..math.floor(totalage/totalcount).." seconds.")        
+        
+            for s, t in aiBrain.IL.LowPri do
+                totalcount = totalcount + 1
+                totalage = totalage + (timecheck - t.LastScouted)
+            end
+      
+            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL Total intel targets = "..totalcount.." Avg. Age is "..math.floor(totalage/totalcount).." seconds.")
+       
+            LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Rebuilding HiPri")
+            
 		end
 		
 		-- rebuild to remove nil entries
@@ -3682,10 +3691,8 @@ function ParseIntelThread( aiBrain )
 		LOUDSORT(aiBrain.IL.HiPri, function(a,b) 
 		
 			if a.LastScouted == b.LastScouted then
-			
 				return VD2(HomePosition[1], HomePosition[3], a.Position[1], a.Position[3]) < VD2(HomePosition[1], HomePosition[3], b.Position[1], b.Position[3])
 			else
-				
 				return a.LastScouted < b.LastScouted
 			end
 			
@@ -3702,19 +3709,14 @@ function ParseIntelThread( aiBrain )
 			if parseinterval - usedticks > 40 then
 			
 				if checkspertick > 1 then
-				
 					checkspertick = checkspertick - 1
 					LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." lowered CPT to "..checkspertick)
-					
 				end
 			end
 		else
-		
 			if checkspertick < 5 then
-			
 				checkspertick = checkspertick + 1
 				LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." increased CPT to "..checkspertick)
-				
 			end
 		end
 
@@ -3736,12 +3738,10 @@ function ParseIntelThread( aiBrain )
 		end
 
 		if EnemyData['Air']['Total'] > 0 then
-
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01 and 10
-			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)
+			-- with range limits between 0.01 and 100
+			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
 		else
-		
 			aiBrain.AirRatio = 1
 		end
 
@@ -3758,12 +3758,10 @@ function ParseIntelThread( aiBrain )
 		end
 
 		if EnemyData['Land']['Total'] > 0 then
-
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01 and 10
-			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 10 ), 0.01)  --* muzzmod
+			-- with range limits between 0.01 and 100
+			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
         else
-		
 			aiBrain.LandRatio = 1
 		end
 
@@ -3781,12 +3779,10 @@ function ParseIntelThread( aiBrain )
 
         -- The Naval ratio falls between 0.01(inactive) and 8(naval supremacy)
 		if EnemyData['Naval']['Total'] > 0 then
-
 			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01(min) and 8(max)
-			aiBrain.NavalRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 8 ), 0.01)
+			-- with range limits between 0.01(min) and 100(max)
+			aiBrain.NavalRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
 		else
-		
 			aiBrain.NavalRatio = 0.01
 		end
 
@@ -3800,8 +3796,9 @@ end
 -- Sets up all the permanent scouting areas. If playing with fixed starting locations,
 -- also sets up high-priority scouting areas. This function may be called multiple times, but only 
 -- has an effect the first time it is called per brain.
--- Modified to eliminate any points which may be within 50 of an existing point to keep the list
+-- Modified to eliminate any points which may be within 55 of an existing point to keep the list
 -- to a more manageable size and prevent over-scouting any one area
+-- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 
 	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
@@ -3817,27 +3814,18 @@ function BuildScoutLocations( self )
 		local VDist2Sq = VDist2Sq
     
 		for _,v in self.IL.LowPri do
-		
-			if VDist2Sq(v.Position[1],v.Position[3], intelpoint[1],intelpoint[3]) < 2500 then
-			
+			if VDist2Sq(v.Position[1],v.Position[3], intelpoint[1],intelpoint[3]) < 3000 then
 				return true
-				
 			end
-			
 		end
 		
 		for _,v in self.IL.HiPri do
-		
-			if VDist2Sq(v.Position[1],v.Position[3], intelpoint[1],intelpoint[3]) < 2500 then
-			
+			if VDist2Sq(v.Position[1],v.Position[3], intelpoint[1],intelpoint[3]) < 3000 then
 				return true
-				
 			end
-			
 		end
 		
 		return false
-		
 	end
 	
     if not self.IL then
@@ -3857,40 +3845,30 @@ function BuildScoutLocations( self )
 
                 if army and startPos then
 				
-					-- if position has enemy player put into high priority for 20 minutes with initial 300 threat
+					-- if position has enemy player put into high priority for 20 minutes with initial 500 threat
 					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
 						
-						-- assign initial threat of 300 at enemy position
-						self:AssignThreatAtPosition( startPos, 300, 0.001, 'Economy' )
+						-- assign initial threat of 500 at enemy position
+						self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 300, Permanent = false } )
-						
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 500, Permanent = true } )
                     else
-					
                         allyStarts['ARMY_' .. i] = startPos
-						
                     end
-					
                 end
-				
             end
 
 			local positions = AIGetMarkerLocations('Start Location')
 
             for _,v in positions do
-			
-                -- if position is vacant add to low priority list permanently
+                -- if position is vacant add to hi priority list permanently
                 if not opponentStarts[v.Name] and not allyStarts[v.Name] then
-				
-                    LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
-					
+                    LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
-				
             end
-			
 
         else
 
@@ -3908,19 +3886,14 @@ function BuildScoutLocations( self )
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
 						
-						-- assign initial threat of 300 at enemy position
-						self:AssignThreatAtPosition( startPos, 350, 0.001, 'Economy' )
+						-- assign initial threat of 500 at enemy position
+						self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
 						
-                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 350, Permanent = false } )
-						
+                        LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 500, Permanent = false } )
                     else
-					
                         allyStarts['ARMY_' .. i] = startPos
-						
                     end				
-
                 end
-				
             end
 
             -- Add Start points not ours or allied and not already in one of the lists
@@ -3931,11 +3904,8 @@ function BuildScoutLocations( self )
 				if not allyStarts[v.Name] and not IntelPointNearby(v.Position) then
 				
 					LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
-					
 				end
-				
 			end
-			
         end
 
         self.Players = ScenarioInfo.Options.PlayerCount
@@ -3954,7 +3924,8 @@ function BuildScoutLocations( self )
 		LOG("*AI DEBUG "..self.Nickname.." Opponent count is "..numOpponents)
 
 		-- Having handled Starting Locations lets add others to the permanent list
-        local PointTypes = { 'Large Expansion Area', 'Expansion Area', 'Naval Area', 'Combat Zone', 'Mass', 'Defensive Point', 'Naval Defensive Point' }
+        -- for HiPri
+        local PointTypes = { 'Large Expansion Area', 'Expansion Area', 'Naval Area', 'Naval Defensive Point' }
 
         for _, v in PointTypes do
 
@@ -3963,13 +3934,25 @@ function BuildScoutLocations( self )
             for _,v in positions do
 			
                 if not IntelPointNearby(v.Position) then
-				
-                    LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
-					
+                    LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
-				
             end
+        end
+
+		-- Having handled Starting Locations lets add others to the permanent list
+        -- for LowPri
+        local PointTypes = { 'Combat Zone', 'Mass', 'Hydrocarbon', 'Defensive Point' }
+
+        for _, v in PointTypes do
+
+            local positions = AIGetMarkerLocations( v )
+
+            for _,v in positions do
 			
+                if not IntelPointNearby(v.Position) then
+                    LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
+                end
+            end
         end
 
 		PointTypes = nil
@@ -3979,18 +3962,20 @@ function BuildScoutLocations( self )
 		AISortScoutingAreas( self, self.IL.HiPri)
 
 		AISortScoutingAreas( self, self.IL.LowPri)
-		
     end
-	
+    
+    -- use the ratio between low and hi priority scout positions to determine how many
+    -- low priority missions must be taken before another hi priority
+    -- this value can range from 1 to 8
+    self.AILowHiScoutRatio =  math.max( 1, math.min( math.floor(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
+    
+    LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
 end
 
 -- This one complements the previous function to remove visible markers from the map 
 function RemoveBaseMarker( self, baseName, markerid )
 
-	--LOG("*AI DEBUG Removing Base Marker "..repr(markerid).." "..baseName.." from Owner "..repr(self.ArmyIndex - 1).." "..self.Nickname)
-	
 	import('/lua/simping.lua').UpdateMarker({Action = 'delete', ID = markerid, Owner = self.ArmyIndex - 1})
-	
 end
 
 
@@ -4001,13 +3986,9 @@ function PickEnemy( self )
 	self.targetoveride = false
 
     while true do
-	
         AIPickEnemyLogic( self, true)
-		
         WaitTicks(4800)	-- every 8 minutes
-		
     end
-	
 end
 
 -- The ATTACK PLANNER - oh boy here we go

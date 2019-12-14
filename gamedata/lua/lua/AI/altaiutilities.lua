@@ -1984,26 +1984,20 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					
 					-- add the unit to the list for this transport
 					LOUDINSERT( transportTable[transSlotNum].Units.Small, unit )
-					
 				else
 				
 					--WARN("*AI DEBUG "..unit:GetAIBrain().Nickname.." FOUND TRANSPORT NOT ENOUGH SLOTS for "..unit:GetBlueprint().Description)
 					
 					LOUDINSERT(leftoverUnits, unit)
-					
 				end
-				
 			else
 			
 				--LOG('*AI DEBUG: NO TRANSPORT FOUND')
 				LOUDINSERT(leftoverUnits, unit)
-				
 			end
-			
 		end
 
 		return transportTable, leftoverUnits
-		
 	end	
 
 	-- tables that hold those units which are NOT loaded yet
@@ -2140,7 +2134,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
     remainingSize2 = nil
     remainingSize1 = nil
 
-
 	-- At this point all units should be assigned to a given transport or dismissed
 	local loading = false
 	
@@ -2166,15 +2159,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					
 					unitstoload[counter+1] = v
 					counter = counter + 1
-					
 				else
-				
 					data.Units[size][u] = nil
-					
 				end
-				
 			end
-			
 		end
 
 		-- if units are assigned to this transport
@@ -2183,7 +2171,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
             IssueClearCommands( data.Units["Large"] )
 			
 			loadissued = true
-			
 		end
 		
 		if LOUDGETN( data.Units["Medium"] ) > 0 then
@@ -2191,7 +2178,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
             IssueClearCommands( data.Units["Medium"] )
 		
 			loadissued = true
-			
 		end
 		
 		if LOUDGETN( data.Units["Small"] ) > 0 then
@@ -2199,16 +2185,13 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
             IssueClearCommands( data.Units["Small"] )
 			
 			loadissued = true
-			
 		end
 		
 		if not loadissued or not unitstoload then
 		
 			-- RTP any transport with nothing to load
 			ForkTo( ReturnTransportsToPool, aiBrain, {data.Transport}, true )
-			
 		else
-		
 			local transport = data.Transport
 			
 			transport.InUse = true
@@ -2217,9 +2200,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			transport.WatchLoadingThread = transport:ForkThread( WatchUnitLoading, unitstoload, aiBrain )
 			
 			loading = true
-			
 		end
-		
     end
 	
 	-- if loading has been issued watch it here
@@ -2255,15 +2236,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				
 						loadwatch = true
 						break
-					
 					end
-				
 				end
-			
 			end
-		
 		end
-		
 	end
 	
 	--LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." loadwatch complete")
@@ -2293,40 +2269,27 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 						returnpool.PlanName = 'ReturnToBaseAI'
 						
 						if not string.find(UnitPlatoon.BuilderName, 'FailLoad') then
-						
 							returnpool.BuilderName = 'FailLoad '..UnitPlatoon.BuilderName
-							
 						else
-						
 							returnpool.BuilderName = UnitPlatoon.BuilderName
-							
 						end
-						
 					end
 				
 					IssueClearCommands( {v} )
 				
 					-- there are simply places where a transport can't or won't pick up a unit - and the unit can't move to the transport
 					if PlatoonExists( aiBrain, transports ) then
-					
 						Warp( v, transports:GetPlatoonPosition() )
-						
 					end
 
 					AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Attack', 'None' )
-			
 				end
-				
 			end
-			
 		end
 	
 		if returnpool then
-		
 			returnpool:SetAIPlan('ReturnToBaseAI', aiBrain )
-			
 		end
-		
 	end
 
 	counter = 0
@@ -2341,13 +2304,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				ForkTo( ReturnTransportsToPool, aiBrain, {v}, true )
 
 				transports[k] = nil
-			
 			else
 				counter = counter + 1
 			end
-			
 		end	
-		
 	end
 
 	-- plan the move and send them on their way
@@ -2392,11 +2352,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 							IssueFormMove( GetPlatoonUnits(transports), p, 'AttackFormation', Direction)
 						
 							prevposition = p
-					
 						end
-					
 					end
-				
 				else
 					
 					LOG("*AI DEBUG "..aiBrain.Nickname.." goes direct to "..repr(location))
@@ -2411,15 +2368,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					if not v.Dead then
 			
 						v.WatchTravelThread = v:ForkThread(WatchTransportTravel, location, aiBrain)		
-				
 					end
-			
 				end
-				
 			end
-		
 		end
-		
 	end
 	
 	local transporters = GetPlatoonUnits(transports) or false
@@ -2450,13 +2402,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				
 					travelwatch = true
 					break
-					
 				end
-				
 			end
-			
 		end
-		
     end
 
 	transporters = GetPlatoonUnits(transports) or false
@@ -2478,13 +2426,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				
 					unloadwatch = true
 					break
-					
 				end
-				
 			end
-			
 		end
-		
     end
 	
 	if not PlatoonExists(aiBrain,UnitPlatoon) then
@@ -2494,7 +2438,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 	UnitPlatoon.UsingTransport = false
 	
 	return true
-	
 end
 
 -- This gets called whenever a unit failed to unload properly - rare
@@ -2525,7 +2468,6 @@ function ReturnUnloadedUnitToPool( aiBrain, unit )
 		end
 
 		returnpool:SetAIPlan('ReturnToBaseAI', aiBrain )
-		
 	end
 	
 	return
@@ -2555,16 +2497,13 @@ function AssignTransportToPool( unit, aiBrain )
 					if table.getn(unit:GetCargo()) == 0 then
 				
 						if unit.WatchUnloadThread then
-					
 							KillThread(unit.WatchUnloadThread)
 							unit.WatchUnloadThread = nil
-						
 						end
 					
 						ForkTo( AssignTransportToPool, unit, aiBrain )
 					
 					end
-				
 				end, 'OnTransportDetach')
 			
 				unit.ReturnToPoolCallbackSet = true
@@ -2609,15 +2548,10 @@ function ReturnTransportsToPool( aiBrain, units, move )
 				WaitTicks(3)
 				
 				for _,unloadedunit in unloadedlist do
-				
 					ForkTo(ReturnUnloadedUnitToPool,aiBrain,unloadedunit)
-					
 				end
-				
 			end
-			
 		end
-		
     end
 	
 	if not unit or unit == nil then
@@ -2659,11 +2593,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
 				end
 				
 			elseif v and v.Dead then
-			
 				units[k] = nil
-				
 			end
-			
 		end
 		
 		if unitcount > 0 then
@@ -2678,7 +2609,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 				for _,p in safePath do
 					IssueMove( units, p )
 				end
-				
 			else
 			
 				-- go direct -- possibly bad
@@ -2746,25 +2676,20 @@ function CheckTransportPool( aiBrain )
 				if platoon.CreationTime and (aiBrain.CycleTime - platoon.CreationTime) < 360 then
 					continue
 				end
-				
 			end
 			
 			IssueClearCommands( {v} )
 			
 			if v.WatchLoadingThread then
-			
 				LOG("*AI DEBUG Killing Watch Loading thread in CheckTransportPool")
 				KillThread(v.WatchLoadingThread)
 				v.WatchLoadingThread = nil
-				
 			end
 			
 			if v.WatchTravelThread then
-			
 				LOG("*AI DEBUG Killing Watch Travel Thread in CheckTransportPool")
 				KillThread(v.WatchTravelThread)
 				v.WatchTravelThread = nil
-				
 			end
 			
 			if platoon and PlatoonExists(aiBrain,platoon) then
@@ -2773,12 +2698,10 @@ function CheckTransportPool( aiBrain )
 				
 					LOG("*AI DEBUG "..aiBrain.Nickname.." disbanding old "..repr(platoon.BuilderName).." platoon")
 					aiBrain:DisbandPlatoon(platoon)
-					
 				end
 			end
 
 			ForkTo( AssignTransportToPool, v, aiBrain )
-			
 		end
 		
         v.Assigning = false
@@ -2867,41 +2790,42 @@ function GetHiPriTargetList(aiBrain, location)
 	
 	local ALLBPS = __blueprints
 
+	local targets
+
+	local allthreat, airthreat, ecothreat, subthreat, surthreat
+	local unitpos, x1, x2, x3
+	local unitcount = 0
+	local newPos = false
+
 	LOUDSORT( threatlist, function(a,b) return VDist2(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )
-	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." SORTED HIPRI List IMAP is "..repr(IMAPRadius).." from "..repr(location).." list is "..repr(threatlist))
 
     for _,threat in threatlist do
 	
 		if LOUDEQUAL( threat.Position, prev_position ) then
-		
 			continue
-			
 		end
 
 		if checks > 2 then
-		
 			WaitTicks(1)
 			checks = 1
-			
 		else
 			checks = checks + 1
 		end
 		
-		local targets = GetEnemyUnitsInRect( aiBrain, threat.Position[1]-IMAPRadius, threat.Position[3]-IMAPRadius, threat.Position[1]+IMAPRadius, threat.Position[3]+IMAPRadius)
+		targets = GetEnemyUnitsInRect( aiBrain, threat.Position[1]-IMAPRadius, threat.Position[3]-IMAPRadius, threat.Position[1]+IMAPRadius, threat.Position[3]+IMAPRadius)
 		
-		local allthreat = 0.0
-		local airthreat = 0.0
-		local ecothreat = 0.0
-		local subthreat = 0.0
-		local surthreat = 0.0
+		allthreat = 0.0
+		airthreat = 0.0
+		ecothreat = 0.0
+		subthreat = 0.0
+		surthreat = 0.0
 		
-		local unitpos
-		local x1 = 0
-		local x2 = 0
-		local x3 = 0
-		local unitcount = 0
-		local newPos = 0
+		unitpos = false
+		x1 = 0
+		x2 = 0
+		x3 = 0
+		unitcount = 0
+		newPos = false
 		
 		if targets then
 		
@@ -2925,14 +2849,11 @@ function GetHiPriTargetList(aiBrain, location)
 					ecothreat = ecothreat + bp.EconomyThreatLevel
 					subthreat = subthreat + bp.SubThreatLevel
 					surthreat = surthreat + bp.SurfaceThreatLevel
-					
 				end
-				
 			end
 			
 			newPos = { x1/unitcount, x2/unitcount, x3/unitcount }
 			allthreat = ecothreat + subthreat + surthreat + airthreat
-			
 		end
 		
 		if newPos and allthreat > 0 then
@@ -2942,9 +2863,7 @@ function GetHiPriTargetList(aiBrain, location)
 			counter = counter + 1
 			
 			prev_position = LOUDCOPY(threat.Position)
-			
 		end
-		
     end
 	
 	return targetlist
