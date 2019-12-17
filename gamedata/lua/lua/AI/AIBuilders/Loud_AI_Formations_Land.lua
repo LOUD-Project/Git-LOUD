@@ -1394,6 +1394,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,				-- structure parameters trigger end to guardtimer
 			StrMin = 0,
 			StrMax = 4,
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
 			UntRadius = 45,
@@ -1467,7 +1470,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,				-- structure parameters trigger end to guardtimer
 			StrMin = 0,
 			StrMax = 4,
-			
+            
+            ThreatMin = 0,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
+
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
 			UntRadius = 35,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
@@ -1618,7 +1624,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,				-- structure parameters trigger an end to guardtimer
 			StrMin = 0,
 			StrMax = 8,
-			
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
+
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
@@ -1691,7 +1700,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 8,
-			
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
+
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
 			UntTrigger = true,
@@ -1767,7 +1779,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 6,
-			
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
+
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
 			UntTrigger = true,
@@ -1841,6 +1856,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,					-- structure parameters trigger end to guardtimer
 			StrMin = 0,
 			StrMax = 6,
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
@@ -1917,6 +1935,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,					-- structure parameters trigger end to guardtimer
 			StrMin = 0,
 			StrMax = 6,
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
 			
 			UntCategory = categories.LAND * categories.MOBILE * categories.DIRECTFIRE,		-- secondary filter on presence of units/structures at point
 			UntRadius = 60,
@@ -1992,6 +2013,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,					-- structure parameters trigger an end to guardtimer
 			StrMin = 0,
 			StrMax = 6,
+            
+            ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatRings = 1,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),		-- secondary filter on units/structures at point
 			UntRadius = 60,

@@ -1585,7 +1585,6 @@ EngineerManager = Class(BuilderManager) {
 				-- the inital response period is 20 seconds -- then 40 -- then 60 -- then 80
 				-- and can go as high as 120 seconds
 				distressrepeats = distressrepeats + 20
-				
 			end
 		
 			if distressrepeats > 100 then
@@ -1596,7 +1595,6 @@ EngineerManager = Class(BuilderManager) {
 
 			-- Delay between Distress check cycles
 			WaitTicks( (self.BaseMonitor.AlertResponseTime + distressrepeats) * 10)
-
 		end
 	
 		-- If there was a response by any group try and send those groups back to rally points
@@ -1622,9 +1620,7 @@ EngineerManager = Class(BuilderManager) {
 					DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 				
 					recovery = true
-				
 				end
-			
 			end
 
 			if distress_naval then
@@ -1640,9 +1636,7 @@ EngineerManager = Class(BuilderManager) {
 					DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 				
 					recovery = true
-				
 				end
-			
 			end
 
 			if distress_air then
@@ -1657,9 +1651,7 @@ EngineerManager = Class(BuilderManager) {
 					DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 				
 					recovery = true
-				
 				end
-			
 			end
 		
 			if distress_ftr then
@@ -1674,15 +1666,11 @@ EngineerManager = Class(BuilderManager) {
 					DisperseUnitsToRallyPoints( aiBrain, groupftr, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
 				
 					recovery = true
-				
 				end
-			
 			end	
-		
 		end
 
 		self.BMDistressResponseThread = nil
-	
 	end,
 
 	-- So, if your following the story then you know we now have detailed alert information 

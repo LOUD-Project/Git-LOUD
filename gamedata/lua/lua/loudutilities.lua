@@ -122,20 +122,14 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 			if v.EngineerManager.EngineerList.Count > 0 or v.FactoryManager:GetNumCategoryFactories(categories.FACTORY - categories.NAVAL) > 0 then
 			
 				if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) <= distance then
-				
 					distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
 					closest = v.Position
-					
 				end
-				
 			end
-			
         end
-		
     end
 	
     return closest
-	
 end
 
 -- similar to above but returns the name of the location
@@ -153,20 +147,14 @@ function AIFindClosestBuilderManagerName( aiBrain, position, allownavalbases, on
 			if (v.BaseType != 'Sea' and (not onlynavalbases)) or (v.BaseType == 'Sea' and allownavalbases) then
 			
 				if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) < distance then
-				
 					distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
 					closest = v.BaseName
-					
 				end
-				
 			end
-			
 		end
-		
     end
 
     return closest
-	
 end
 
 -- Sorts the list of scouting areas by time since scouted, and then distance from main base.
@@ -180,21 +168,14 @@ function AISortScoutingAreas( aiBrain, list )
 		if a.LastScouted and b.LastScouted then
 		
 			if a.LastScouted == b.LastScouted then
-		
 				return VDist2Sq(MainX, MainZ, a.Position[1], a.Position[3]) < VDist2Sq(MainX, MainZ, b.Position[1], b.Position[3])
-			
 			else
-		
 				return a.LastScouted < b.LastScouted
-			
 			end
 			
 		else
-		
 			return a.LastScouted
-			
 		end
-		
     end)
 	
 end
@@ -219,13 +200,9 @@ function HasMassPointShare( aiBrain )
 			ArmyCount = ArmyCount + 1		-- number of players in the game
 			
 			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-			
 				TeamCount = TeamCount + 1 	-- number of players on this team
-				
 			end
-			
         end
-		
     end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
@@ -237,7 +214,6 @@ function HasMassPointShare( aiBrain )
 	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
 	
 	return extractorCount >= LOUDFLOOR( (NumMassPoints/ ArmyCount)-1 )
-	
 end
 
 -- a variant of the above
@@ -257,13 +233,9 @@ function NeedMassPointShare( aiBrain )
 			ArmyCount = ArmyCount + 1		-- number of players in the game
 			
 			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-			
 				TeamCount = TeamCount + 1 	-- number of players on this team
-				
 			end
-			
         end
-		
     end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
@@ -275,14 +247,10 @@ function NeedMassPointShare( aiBrain )
 	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
 	
 	return extractorCount <= LOUDFLOOR( (ScenarioInfo.NumMassPoints/ ArmyCount)-1 )	
-	
 end
 
 -- verifies if the TEAM has its share of mass points
 function TeamMassPointShare( aiBrain, bool )
-
-	local LOUDFLOOR = math.floor
-	local LOUDGETN = table.getn
 
     local ArmyCount = 0
 	local TeamCount = 0
@@ -296,13 +264,9 @@ function TeamMassPointShare( aiBrain, bool )
 			ArmyCount = ArmyCount + 1		-- number of players in the game
 			
 			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-			
 				TeamCount = TeamCount + 1 	-- number of players on this team
-				
 			end
-			
         end
-		
     end
 
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' ))
@@ -311,31 +275,22 @@ function TeamMassPointShare( aiBrain, bool )
 	if TeamExtractors >= TeamNeeded then
 		
 		if bool then
-		
 			return true
-			
 		end
-
 		
 	elseif TeamExtractors < TeamNeeded then
 		
 		if not bool then
-		
 			return true
-			
 		end
-		
 	end
 	
 	return false
-	
 end
 
 -- returns true if the TEAM does not have its share of mass points
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
-
-	local LOUDFLOOR = math.floor
 
     local ArmyCount = 0
 	local TeamCount = 0
@@ -347,69 +302,55 @@ function NeedTeamMassPointShare( aiBrain )
 			ArmyCount = ArmyCount + 1		-- number of players in the game
 			
 			if IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) then
-			
 				TeamCount = TeamCount + 1 	-- number of players on this team
-				
 			end
-			
         end
-		
     end
 
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' ))
 	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/ArmyCount) - 1) * TeamCount)
 	
 	return TeamExtractors < TeamNeeded
-	
 end
 
 -- if there is not a base alert at this location	
 function NoBaseAlert( aiBrain, locType )
 
 	if aiBrain.BuilderManagers[locType].EngineerManager.Active then
-	
 		return aiBrain.BuilderManagers[locType].EngineerManager.BaseMonitor.ActiveAlerts == 0
-		
 	end
 
 	return true
-	
 end
 
 function AirStrengthRatioGreaterThan( aiBrain, value )
 
 	return aiBrain.AirRatio >= value
-	
 end
 
 function AirStrengthRatioLessThan ( aiBrain, value )
 
 	return aiBrain.AirRatio < value
-	
 end
 
 function LandStrengthRatioGreaterThan( aiBrain, value )
 
 	return aiBrain.LandRatio >= value
-	
 end
 
 function LandStrengthRatioLessThan ( aiBrain, value )
 
 	return aiBrain.LandRatio < value
-	
 end
 
 function NavalStrengthRatioGreaterThan( aiBrain, value )
 
 	return aiBrain.NavalRatio >= value
-	
 end
 
 function NavalStrengthRatioLessThan ( aiBrain, value )
 
     return aiBrain.NavalRatio < value
-	
 end
 
 function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
@@ -438,19 +379,15 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
     end
     
     return {}, 0
-	
 end
 
 function GreaterThanEnemyUnitsAroundBase( aiBrain, locationtype, numUnits, unitCat, radius )
 
     if aiBrain.BuilderManagers[locationtype] then
-	
 		return GetNumUnitsAroundPoint(aiBrain, unitCat, aiBrain.BuilderManagers[locationtype].Position, radius, 'Enemy') > numUnits
-		
 	end
 	
 	return false
-	
 end
 
 -- gets units that are NOT in a platoon around a point
@@ -471,7 +408,6 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tma
 		threat = GetThreatAtPosition( aiBrain, location, rings, true, tType or 'Overall' )
 		
 		checkThreat = (threat >= tmin and threat <= tmax)
-		
     end
 	
 	if checkThreat then
@@ -485,17 +421,12 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tma
 
 					retUnits[counter+1] = v
 					counter = counter + 1
-
 				end
-				
 			end
-			
         end
-		
     end
 	
     return retUnits,counter
-	
 end
 
 --	The SpawnWave is a bonus given only to the AIx
@@ -518,21 +449,16 @@ function SpawnWaveThread( aiBrain )
 	local hold_wave = true
     
     if faction == 1 then
-	
 		testUnits = { 'uea0303', 'uea0304', 'uea0305', 'uea0104', 'uea0302' }
-		
+        
     elseif faction == 2 then
-	
 		testUnits = { 'uaa0303', 'uaa0304', 'xaa0305', 'uaa0104', 'uaa0302' }
 		
     elseif faction == 3 then
-	
 		testUnits = { 'ura0303', 'ura0304', 'xra0305', 'ura0104', 'ura0302' }
 		
 	elseif faction == 4 then
-	
 		testUnits = { 'xsa0303', 'xsa0304', 'xsa0203', 'xsa0104', 'xsa0302' }
-		
     end
 	
 	-- validate our testUnits list against build restrictions --
@@ -546,30 +472,20 @@ function SpawnWaveThread( aiBrain )
 			-- if we haven't added a unit yet then convert
 			-- initialUnits into a table
 			if not initialUnits then 
-			
 				initialUnits = {}
-				
 			end
 			
 			-- add the unit to the list --
 			table.insert(initialUnits, test_unit_id)
-			
 		else
 		
 			if not initialUnits then
-			
 				initialUnits = {}
-			
 			end
 			
 			table.insert(initialUnits, false)
-		
 		end
-		
 	end
-	
-	--LOG("*AI DEBUG testunits is "..repr(testUnits))
-	--LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 	
 	if initialUnits then
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
@@ -595,15 +511,9 @@ function SpawnWaveThread( aiBrain )
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave timer launched")
 					initialdelay = false
 					break
-					
 				end
-				
 			end
-			
-		else
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave delayed")
 		end
-		
 	end
 	
 	local ArmyPool = aiBrain.ArmyPool
@@ -663,9 +573,7 @@ function SpawnWaveThread( aiBrain )
 					unit = aiBrain:CreateUnitNearSpot(initialUnits[4],startx,startz)
 					SimulateFactoryBuilt( unit )
 				end
-				
 				WaitTicks(1)
-
 			end
 
 			-- spy planes --
@@ -727,13 +635,10 @@ function SimulateFactoryBuilt (finishedUnit)
 					local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
 					ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					
 				end
-				
 			end
 
 			finishedUnit:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
-
 			
 			local ProcessFuelOutAirUnit = function( finishedUnit )
 				
@@ -747,32 +652,24 @@ function SimulateFactoryBuilt (finishedUnit)
 					local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 					
 					ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					
 				end
-				
 			end
 			
 			finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
-			
 		else
 			
 			-- transports get assigned to the Transport pool
 			finishedUnit:ForkThread( AssignTransportToPool, finishedUnit:GetAIBrain() )
-			
 		end
-		
 	end
-	
 end
 	
 
 -- Maintains table of platoons issuing distress calls and what kind of help they are looking for
--- The thread executes every 10 seconds and simply purges any distress entry more than 30 seconds old
+-- The thread executes every 8 seconds and simply purges any distress entry more than 30 seconds old
 -- or where the platoon that issued it is no longer around
 -- Lastly - it maintains a flag to signify if there are ANY platoon distress calls at all
 function PlatoonDistressMonitor( aiBrain )
-	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." starts PlatoonDistressMonitor")
 
 	-- create the data structure
     aiBrain.PlatoonDistress = { ['AlertSounded'] = false, ['Platoons'] = {} }
@@ -888,48 +785,33 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable )
 		for _,u in units do
 
 			if not u.Dead then
-
 				aiBrain:AssignUnitsToPlatoon( returnpool, {u}, 'Unassigned', 'None' )
 				
 				u.PlatoonHandle = {returnpool}
 				u.PlatoonHandle.PlanName = 'ReturnToBaseAI'
-				
 			end
-			
 		end
 		
 		if returnpool.MovementLayer == "Land" then
-
 			-- dont use naval bases for land --
 			returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), false )
-
 		else
-
 			if returnpool.MovementLayer == "Air" or returnpool.PlatoonLayer == "Amphibious" then
-
 				-- use any kind of base --
 				returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), true, false )
-
 			else
-
 				-- use only naval bases --
 				returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), true, true )
-
 			end
-
 		end
 
 		returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to that base
 
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL Platoon at "..repr(returnpool:GetPlatoonPosition()).." submitted to RTB at "..repr(returnpool.BuilderLocation))
-
 		-- send the new platoon off to RTB
 		returnpool:SetAIPlan('ReturnToBaseAI', aiBrain)
-		
 	end
 
 	return
-	
 end
 
 -- This function determines which base is closest to the primary
@@ -988,30 +870,20 @@ function SetPrimaryLandAttackBase( aiBrain )
 				
 					-- if a human ally has requested status updates
 					if aiBrain.DeliverStatus then
-						
 						ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary LAND Base is now '..aiBrain.PrimaryLandAttackBase )
-
 					end
-
 				end
 
 			-- if the location is not the primary
 			-- check for any units that need to be moved up 
 			else
-
 				aiBrain.BuilderManagers[v.BaseName].PrimaryLandAttackBase = false
-
 				builderManager:ForkThread( ClearOutBase, aiBrain )
-
 			end
-			
 		end
-		
     else
-	
         aiBrain.BuilderManagers.MAIN.PrimaryLandAttackBase = true
 		aiBrain.PrimaryLandAttackBase = 'MAIN'
-		
     end
 	
 end
@@ -1019,27 +891,20 @@ end
 function GetPrimaryLandAttackBase( aiBrain )
 
 	if aiBrain.PrimaryLandAttackBase then
-
 		return aiBrain.PrimaryLandAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimaryLandAttackBase ].Position
-		
 	end
 
     for k,v in aiBrain.BuilderManagers do
 	
         if v.PrimaryLandAttackBase then
-		
+
 			LOG("*AI DEBUG Returning search for PLAB "..repr(k) )
-			
             return k, v.Position
-			
         end
-		
     end
     
 	WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Land Attack Base")
-	
     return false, nil
-	
 end
 
 -- This function determines which base is closest to the primary
@@ -1118,12 +983,9 @@ function SetPrimarySeaAttackBase( aiBrain )
 				builderManager:ForkThread( ClearOutBase, aiBrain )
 			end
 		end
-		
     else
-    
 		aiBrain.PrimarySeaAttackBase = false
     end
-	
 end
 
 function GetPrimarySeaAttackBase( aiBrain )
@@ -1131,11 +993,7 @@ function GetPrimarySeaAttackBase( aiBrain )
 	if ScenarioInfo.IsWaterMap then
 
 		if aiBrain.PrimarySeaAttackBase then
-	
-			--LOG("*AI DEBUG Returning PSAB "..repr(aiBrain.PrimarySeaAttackBase))
-		
 			return aiBrain.PrimarySeaAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position
-		
 		end
 	
 		--LOG("*AI DEBUG Searching for Primary Sea Attack Base")
@@ -1145,19 +1003,14 @@ function GetPrimarySeaAttackBase( aiBrain )
 			if v.PrimarySeaAttackBase then
 		
 				LOG("*AI DEBUG Returning search for PSAB "..repr(k) )
-			
 				return k, v.Position
-			
 			end
-		
 		end
     
 		WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Sea Attack Base")
-		
 	end
 	
     return false, nil
-	
 end
 
 function ClearOutBase( manager, aiBrain )
@@ -1755,7 +1608,6 @@ function NameEngineerUnits( platoon, aiBrain )
 			elseif LOUDENTITY( categories.COMMAND, eng) and eng.PlatoonHandle.BuilderName then
 
 				eng:SetCustomName( aiBrain.Nickname.." ".. eng.PlatoonHandle.BuilderName)
-
 			end
 		end
 	end

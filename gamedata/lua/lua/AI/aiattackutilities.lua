@@ -330,6 +330,7 @@ function CanGraphTo( unitposition, destinationposition, layer )
 end
 
 -- this is a rather broad function that fills several flexible needs
+-- it is exclusively used by GuardPoint behaviors
 function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, shouldcheckAvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
 
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -379,21 +380,15 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
     end	
 	
 	if PointType == 'Unit' and type(PointCategory) == 'string' then
-	
 		PointCategory = LOUDPARSE(PointCategory)
-		
 	end
 	
 	if type(StrCategory) == 'string' then
-	
 		StrCategory = LOUDPARSE(StrCategory)
-		
 	end
 	
 	if type(UntCategory) == 'string' then
-	
 		UntCategory = LOUDPARSE(UntCategory)
-		
 	end
 	
 	--- Assemble the basic list of points either for Units or Markers and then for Self or not Self within that
@@ -410,9 +405,7 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 	local platpos = GetPlatoonPosition(self)
 
 	if not platpos then
-	
 		return false
-		
 	end
 	
 	local pos, distance, platdistance
@@ -421,13 +414,9 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 	if PointType == 'Unit' then
 	
 		if PointFaction == 'Self' then
-		
 			pointlist = GetOwnUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius )
-			
 		else
-		
 			pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, PointFaction )
-			
 		end
 		
 		for k,v in pointlist do
@@ -440,14 +429,10 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 			
 				-- check if in range of Allied Base
 				if AvoidsBases( pos, shouldcheckAvoidBases, DistMin) then
-				
 					positions[counter+1] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
-					
 				end
-				
 			end
-			
 		end
 		
 	elseif PointType == 'Marker' then
@@ -465,16 +450,13 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 			end
 			
 			for _,cat in CheckCategory do
-			
 				pointlist = table.cat(pointlist, ScenarioInfo.Env.Scenario.MasterChain[ cat ] or AIGetMarkerLocations( cat ) )
-
 			end
 		
 			if LOUDGETN(pointlist)>0 and PointSource then
 
 				-- sort the list by distance from source 
 				table.sort( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
-				
 				
 				for k,v in pointlist do
 				
@@ -495,30 +477,19 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 								positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
 							
 								counter = counter + 1
-							
 							end
-							
 						end
-						
 					else
-					
 						break -- beyond max distance stop checking --
-						
 					end
-					
 				end
-				
 			end
-			
 		else
-		
 			-- using BASE as the pointsource tells us that our present base is inserted into the list - distance is 0
 			-- and it will be the ONLY entry in the point list
 			positions[counter+1] = { PointSource[1], PointSource[2], PointSource[3], 0, 0 }
 			counter = counter + 1
-			
 		end
-		
 	end
 	
 	-- if there are positions to check --
@@ -534,44 +505,35 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 			if allowinwater == "false" then
 			
 				if (GetTerrainHeight(v[1], v[3])) <= (GetSurfaceHeight(v[1], v[3]) - 1) then
-				
 					positions[k]=nil
 					counter = counter - 1
 					continue
-					
 				end
-				
 			end
 			
 			-- only allow targets that are in the water
 			if allowinwater == "Only" then
-			
 				if (GetTerrainHeight( v[1], v[3] )) > (GetSurfaceHeight( v[1], v[3] ) - 1) then
-				
 					positions[k] = nil
 					counter = counter - 1
 					continue
-					
 				end
-			
 			end
        
 			-- threat checks can be bypassed entirely with these values
 			if threatmin != -999999 and threatmax != 999999 then
 			
-				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 0, true, threattype )
+				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
 	
 				if (threatatpoint < threatmin or threatatpoint > threatmax) then
-				
+                    -- remove this position from list
 					positions[k]=nil
 					counter = counter - 1
 					
 					-- track the position thas was just checked
 					previous = v 	-- to prevent duplicates
 					continue
-					
 				end
-				
 			end
 
 			-- structure count check --
@@ -595,11 +557,8 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 					continue
 					
 				end
-				
 			end	
-			
 		end
-		
 	end
 
 	--- Sort according to distance
@@ -614,15 +573,12 @@ function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Po
 		elseif PointSort == 'Furthest' then
 		
 			LOUDSORT(positions, function(a,b)	return (a[4]-a[5]) > (b[4]-b[5]) end)
-			
 		end
 		
 		return positions
-
 	end
 	
 	return false
-	
 end	
 
 -- this function locates a target for a squad within a given range and list of priority target types
