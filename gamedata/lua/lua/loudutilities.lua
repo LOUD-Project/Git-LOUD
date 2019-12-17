@@ -1764,12 +1764,13 @@ end
 -- Records economy values every 10 ticks - builds array of 90 sample points
 -- which covers the values of the last 90 seconds - used as trend analysis
 -- added in average Mass and Energy Trends
+-- added in average Mass and Energy Storage level
 function EconomyMonitor( aiBrain )
 	
-    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassTrend'] = {}, ['Period'] = 900, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
+    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 900, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
 
 	-- number of sample points
-	local point
+	-- local point
 	local samplerate = 10
 	local samples = aiBrain.EcoData['Period'] / samplerate
 
@@ -1777,15 +1778,18 @@ function EconomyMonitor( aiBrain )
 	for point = 1, samples do
 		aiBrain.EcoData['EnergyIncome'][point] = 0
 		aiBrain.EcoData['EnergyRequested'][point] = 0
+        aiBrain.EcoData['EnergyStorage'][point] = 0
 		aiBrain.EcoData['EnergyTrend'][point] = 0
 		aiBrain.EcoData['MassIncome'][point] = 0
 		aiBrain.EcoData['MassRequested'][point] = 0
+        aiBrain.EcoData['MassStorage'][point] = 0
 		aiBrain.EcoData['MassTrend'][point] = 0
 	end    
 
     local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
     local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 	local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
+    local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
 
 	local LOUDMIN = math.min
 	local LOUDMAX = math.max
@@ -1796,9 +1800,13 @@ function EconomyMonitor( aiBrain )
     local mIncome = 0
     local eRequested = 0
     local mRequested = 0
+    local eStorage = 0
+    local mStorage = 0
 	local eTrend = 0
 	local mTrend = 0
 
+    -- this will be used to multiply the totals
+    -- to arrive at the averages
 	local samplefactor = 1/samples
 
     local EcoData = aiBrain.EcoData
@@ -1809,28 +1817,37 @@ function EconomyMonitor( aiBrain )
     local EcoDataMassRequested = EcoData['MassRequested']
     local EcoDataEnergyTrend = EcoData['EnergyTrend']
     local EcoDataMassTrend = EcoData['MassTrend']
+    local EcoDataEnergyStorage = EcoData['EnergyStorage']
+    local EcoDataMassStorage = EcoData['MassStorage']
 
     local EcoDataOverTime = EcoData['OverTime']
+    
+    local e,m
 
     while true do
 
 		for point = 1, samples do
 
+            -- remove this point from the totals
 			eIncome = eIncome - EcoDataEnergyIncome[point]
 			mIncome = mIncome - EcoDataMassIncome[point]
 			eRequested = eRequested - EcoDataEnergyRequested[point]
 			mRequested = mRequested - EcoDataMassRequested[point]
+            eStorage = eStorage - EcoDataEnergyStorage[point]
+            mStorage = mStorage - EcoDataMassStorage[point]
 			eTrend = eTrend - EcoDataEnergyTrend[point]
 			mTrend = mTrend - EcoDataMassTrend[point]
-
+            
+            -- insert the new data --
 			EcoDataEnergyIncome[point] = GetEconomyIncome( aiBrain, 'ENERGY')
 			EcoDataMassIncome[point] = GetEconomyIncome( aiBrain, 'MASS')
-
 			EcoDataEnergyRequested[point] = GetEconomyRequested( aiBrain, 'ENERGY')
 			EcoDataMassRequested[point] = GetEconomyRequested( aiBrain, 'MASS')
+            EcoDataEnergyStorage[point] = GetEconomyStoredRatio( aiBrain, 'ENERGY')*100
+            EcoDataMassStorage[point] = GetEconomyStoredRatio( aiBrain, 'MASS')*100
 
-			local e = GetEconomyTrend( aiBrain, 'ENERGY')
-			local m = GetEconomyTrend( aiBrain, 'MASS')
+			e = GetEconomyTrend( aiBrain, 'ENERGY')
+			m = GetEconomyTrend( aiBrain, 'MASS')
 
 			if e > 0.1 then
 				EcoDataEnergyTrend[point] = e
@@ -1844,17 +1861,23 @@ function EconomyMonitor( aiBrain )
 				EcoDataMassTrend[point] = 0.1
 			end
 
+            -- add the new data to totals
 			eIncome = eIncome + EcoDataEnergyIncome[point]
 			mIncome = mIncome + EcoDataMassIncome[point]
 			eRequested = eRequested + EcoDataEnergyRequested[point]
 			mRequested = mRequested + EcoDataMassRequested[point]
+            eStorage = eStorage + EcoDataEnergyStorage[point]
+            mStorage = mStorage + EcoDataMassStorage[point]
 			eTrend = eTrend + EcoDataEnergyTrend[point]
 			mTrend = mTrend + EcoDataMassTrend[point]
-
+            
+            -- calculate new OverTime values --
 			EcoDataOverTime['EnergyIncome'] = eIncome * samplefactor
 			EcoDataOverTime['MassIncome'] = mIncome * samplefactor
 			EcoDataOverTime['EnergyRequested'] = eRequested * samplefactor
 			EcoDataOverTime['MassRequested'] = mRequested * samplefactor
+            EcoDataOverTime['EnergyStorage'] = eStorage * samplefactor
+            EcoDataOverTime['MassStorage'] = mStorage * samplefactor
 			EcoDataOverTime['EnergyTrend'] = eTrend * samplefactor
 			EcoDataOverTime['MassTrend'] = mTrend * samplefactor
 
