@@ -165,8 +165,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         Priority = 802,
 		
-		--PriorityFunction = IsPrimaryBase,
-		
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -1296,7 +1294,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
+			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, 0, 75, 1, 'AntiSurface', 1 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
 		
@@ -1319,6 +1317,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrTrigger = true,				-- structure parameters trigger end to guardtimer
 			StrMin = 0,
 			StrMax = 0,
+            
+            ThreatMin = 0,
+            ThreatMax = 75,
+            ThreatRings = 1,
 			
 			UntCategory = categories.LAND * categories.MOBILE - categories.ENGINEER,		-- secondary filter on units/structures at point
 			UntRadius = 45,
@@ -1371,7 +1373,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			-- we have a mass extractor within 15km with less than 4 defense structures 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 750, 4 }},
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 750, 4, 5, 200, 1 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
 		
@@ -1396,6 +1398,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 4,
             
             ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatMax = 200,                -- and no more than this
             ThreatRings = 1,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
@@ -1447,7 +1450,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			-- we have a mass extractor within 2-15km with less than 4 defense structures 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 100, 750, 4 }},
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 100, 750, 4, 0, 100, 1 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},			
         },
 		
@@ -1471,7 +1474,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 4,
             
-            ThreatMin = 0,                  -- pick points with at least 5 threat
+            ThreatMin = 0,                  -- pick points with at least this threat
+            threatMax = 100,                -- and no more than this
             ThreatRings = 1,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
@@ -1598,7 +1602,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1500, -9999, 80, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1500, 5, 80, 1, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
@@ -1626,6 +1630,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 8,
             
             ThreatMin = 5,                  -- pick points with at least 5 threat
+            ThreatMax = 80,
             ThreatRings = 1,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),

@@ -834,7 +834,7 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 	return false
 end
 
-function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistance, maxdistance, defenseunits, startX, startZ)
+function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistance, maxdistance, defenseunits, threatmin, threatmax, threatrings)
 
     local pos = aiBrain.BuilderManagers[ locationType ].Position
 	
@@ -843,11 +843,23 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
 	
 		local mexposition = v:GetPosition()
 		local distance = VDist3( pos, mexposition )
+        local threat = 0
 		
 		if distance >= mindistance and distance <= maxdistance then
-			-- get the storage units around that point
+        
+            if threatmin or threatmax then
+                threat = aiBrain:GetThreatAtPosition( mexposition, threatrings or 0, true, 'AntiSurface')
+            else
+                threatmin = 0
+                threatmax = 999999
+            end
+            
+			-- get the units around that point
 			if GetNumUnitsAroundPoint(aiBrain, categories.STRUCTURE * categories.DEFENSE, mexposition, 20, 'Ally') < defenseunits then
-				return true
+            
+                if threat >= threatmin and threat <= threatmax then
+                    return true
+                end
 			end
 		end
 	end
