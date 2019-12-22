@@ -325,6 +325,10 @@ end
 
 function AirStrengthRatioGreaterThan( aiBrain, value )
 
+    if aiBrain.AirRatio <= .01 then
+        return true
+    end
+
 	return aiBrain.AirRatio >= value
 end
 
@@ -335,6 +339,10 @@ end
 
 function LandStrengthRatioGreaterThan( aiBrain, value )
 
+    if aiBrain.LandRatio <= .01 then
+        return true
+    end
+
 	return aiBrain.LandRatio >= value
 end
 
@@ -344,6 +352,10 @@ function LandStrengthRatioLessThan ( aiBrain, value )
 end
 
 function NavalStrengthRatioGreaterThan( aiBrain, value )
+
+    if aiBrain.NavalRatio <= .01 then
+        return true
+    end
 
 	return aiBrain.NavalRatio >= value
 end

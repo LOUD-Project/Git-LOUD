@@ -28,6 +28,19 @@ local IsEnemyNavalActive = function( self, aiBrain, manager )
 	
 end
 
+-- this function will turn a builder off if the enemy is not active in the water
+local IsEnemyAirActive = function(self,aiBrain,manager)
+
+	if aiBrain.AirRatio and (aiBrain.AirRatio > .01 and aiBrain.AirRatio <= 10) then
+	
+		return 600, true	-- standard naval priority -- 
+
+	end
+
+	return 10, true
+	
+end
+
 local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
 	-- remove by game time --
@@ -204,8 +217,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 	
         PlatoonTemplate = 'T3Bomber',
         Priority = 600,
-		
-        
         
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
@@ -220,6 +231,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         PlatoonTemplate = 'T3Fighter',
         Priority = 600,
 		
+		PriorityFunction = IsEnemyAirActive,
+
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 10 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},

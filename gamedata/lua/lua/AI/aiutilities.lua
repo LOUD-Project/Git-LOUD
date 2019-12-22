@@ -123,7 +123,6 @@ function AIPickEnemyLogic( self, brainbool )
 			if IsEnemy(selfIndex, armyindex) then
 			
 				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
-				--LOG("*AI DEBUG "..v.Nickname.." threats are "..repr(threats))
 		
 				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }
 				
@@ -229,10 +228,6 @@ function AIPickEnemyLogic( self, brainbool )
                 -- adjust the strength according to distance result
                 local threatWeight = ( self.dist_comp/(distance*distance) ) * v.Strength
                 
-                --local threatWeight = (1 / ( distance * distanceWeight )) * v.Strength
-                
-                --LOG("*AI DEBUG "..self.Nickname.." Checking enemy at distance "..distance.." max dist is "..repr(self.dist_comp).." STR "..v.Strength.." result is "..threatWeight)
-				
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
                 if not enemy or threatWeight > enemyStrength then
