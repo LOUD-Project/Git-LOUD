@@ -694,7 +694,7 @@ function PlatoonDistressMonitor( aiBrain )
 
 	while true do
 
-		WaitTicks(100)
+		WaitTicks(80)
 
 		if aiBrain.PlatoonDistress.AlertSounded then
 		
@@ -708,13 +708,9 @@ function PlatoonDistressMonitor( aiBrain )
 					change = true
 
 					if PlatoonExists(aiBrain, v.Platoon) then
-					
 						v.Platoon.DistressCall = nil
-						
 					end
-					
 				end
-				
 			end
 
 			if change then
@@ -722,60 +718,58 @@ function PlatoonDistressMonitor( aiBrain )
 				aiBrain.PlatoonDistress.Platoons = RebuildTable( aiBrain, aiBrain.PlatoonDistress.Platoons)
 
 				if LOUDGETN(aiBrain.PlatoonDistress.Platoons) == 0 then
-			
 					aiBrain.PlatoonDistress.AlertSounded = false
-					
-				--else
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." is monitoring "..LOUDGETN(aiBrain.PlatoonDistress.Platoons).." distress platoons")
-					
-				end
-			
+                end
 			end
-			
 		end
-		
 	end
-	
 end
 
-
-function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable )
+-- feature request - have a flag which will disperse the units to X number of 
+-- rallypoints closest to a given position -- would be used during threat conditions
+-- to 'stage' units nearer to threat for better response
+function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, checkposition, checkcount )
 
 	if not rallypointtable then
 
 		local rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Rally Point', position, 90)
 	
 		if table.getn(rallypoints) < 1 then
-		
 			rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Naval Rally Point', position, 90)
-			
 		end
-		
+	
 		rallypointtable = {}
 		
 		for _,v in rallypoints do
-		
 			table.insert( rallypointtable, v.Position )
-			
 		end
-		
 	end
+
+    -- if checkposition is provided then sort the rallypoints by closest to checkposition
+    if checkposition then
+        LOUDSORT( rallypointtable, function(a,b) return VDist2Sq(a[1],a[3],checkposition[1],checkposition[3]) < VDist2Sq(b[1],b[3], checkposition[1],checkposition[3]) end )
+    end
 
 	if table.getn(rallypointtable) > 0 then
 	
 		local rallycount = table.getn(rallypointtable)
+
+        -- if provided use only that number of points
+        -- since the table should be sorted, we end up moving only to those
+        -- number of points that are closest to checkposition
+        if checkcount then
+            if rallycount >= checkcount then
+                rallycount = checkcount
+            end
+        end
 		
 		for _,u in units do
 		
 			local rp = rallypointtable[ Random( 1, rallycount) ]
-			
 			IssueMove( {u}, RandomLocation(rp[1],rp[3], 9))
-			
 		end
-		
+        
 	else
-	
 		-- try and catch units being dispersed to what may now be a dead base --
 		-- the idea is to drop them back into an RTB which should find another base
 		--WARN("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
@@ -835,20 +829,19 @@ function SetPrimaryLandAttackBase( aiBrain )
         local goal = aiBrain.AttackPlan.Goal
         local Bases = {}
 		local counter = 0
-
-		local LOUDSORT = table.sort
-        local VDist2Sq = VDist2Sq
+        
+        local path, reason, pathlength
+        local Primary
 		
 		-- make a table of all land bases
         for k,v in aiBrain.BuilderManagers do
 		
 			if v.EngineerManager.Active and v.BaseType == "Land" then
 			
-				-- here is the distance calculation - very crude since it only accounts for the 'as the crow flies' distance originally
-				-- ideally we should get a path (Land or Amphib) and use the length of that instead
-                local path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
+				-- here is the distance calculation 
+                path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
                 
-				Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }  --,VDist2Sq(v.Position[1],v.Position[3], goal[1],goal[3]) }
+				Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
 				counter = counter + 1
 			end
         end
@@ -857,7 +850,7 @@ function SetPrimaryLandAttackBase( aiBrain )
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
         
         -- make the closest one the Primary
-        local Primary = Bases[1].BaseName
+        Primary = Bases[1].BaseName
         
         for k,v in Bases do
 			
@@ -928,9 +921,9 @@ function SetPrimarySeaAttackBase( aiBrain )
         local goal = aiBrain.AttackPlan.Goal
         local Bases = {}
 		local counter = 0
-
-		local LOUDSORT = table.sort
-        local VDist2Sq = VDist2Sq
+        
+        local path, reason, pathlength
+        local Primary
 		
 		-- make a table of all sea bases
         for k,v in aiBrain.BuilderManagers do
@@ -939,7 +932,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 			
 				-- here is the distance calculation - crude since it only accounts for the 'as the crow flies' distance
 				-- ideally we should get a path ( Amphib since this base is on water and the goal is on land ) and use that value instead
-                local path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
+                path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
                 
 				Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
 				counter = counter + 1
@@ -955,7 +948,7 @@ function SetPrimarySeaAttackBase( aiBrain )
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
 		
         -- make the closest one the Primary
-        local Primary = Bases[1].BaseName
+        Primary = Bases[1].BaseName
         
         -- iterate thru all existing SEA bases
         for k,v in Bases do 	
@@ -1287,7 +1280,7 @@ function AirUnitRefitThread( unit, aiBrain )
 			
 			if fuel < fuellimit or health < healthlimit then
 
-				-- check for any airpads -- 
+				-- check for any airpads -- ignore mobile ones 
 				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then
 				
 					unitPos = table.copy(GetPosition(unit))
@@ -3635,7 +3628,7 @@ function ParseIntelThread( aiBrain )
 			-- with range limits between 0.01 and 100
 			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
 		else
-			aiBrain.AirRatio = 1
+			aiBrain.AirRatio = 0.01
 		end
 
 		--- LAND UNITS ---
@@ -3655,7 +3648,7 @@ function ParseIntelThread( aiBrain )
 			-- with range limits between 0.01 and 100
 			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
         else
-			aiBrain.LandRatio = 1
+			aiBrain.LandRatio = 0.01
 		end
 
 		--- NAVAL UNITS ---
