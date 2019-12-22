@@ -7,8 +7,14 @@ local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Prefs = import('/lua/user/prefs.lua')
 local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
 
---local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua')
-local   enhancementSlotNames = {}         -- __DMSI.__DMod_EnhancementSlotNames or {}
+local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
+
+local enhancementSlotNames = {}
+
+-- if DMS is turned on --
+if __DMSI then
+    enhancementSlotNames = __DMSI.__DMod_EnhancementSlotNames
+end
 
 enhancementSlotNames.back = '<LOC uvd_0007>Back'
 enhancementSlotNames.lch = '<LOC uvd_0008>LCH'
