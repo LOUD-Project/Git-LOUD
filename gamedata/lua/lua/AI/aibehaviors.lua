@@ -5083,9 +5083,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		local bypassecon = false
 	end
 	
-	if ScenarioInfo.StructureUpgradeDialog then
-		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
-	end
+	--if ScenarioInfo.StructureUpgradeDialog then
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
+	--end
 
     -- basic costs of upgraded unit
 	local MassNeeded = upgradebp.Economy.BuildCostMass
@@ -5094,12 +5094,14 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     -- build rate of construction unit
     local buildrate = __blueprints[unit.BlueprintID].Economy.BuildRate
+    local massmade = __blueprints[unit.BlueprintID].Economy.ProductionPerSecondMass or 0
+    local enermade = __blueprints[unit.BlueprintID].Economy.ProductionPerSecondEnergy or 0
 
     -- trend rates needed to sustain this build without loss
     -- all trend rates are divided by 10 to match with the ECO trends
-    local MassTrendNeeded = ((MassNeeded / buildtime) * buildrate) * .1
-    local EnergyTrendNeeded = ((EnergyNeeded / buildtime) * buildrate) * .1
-	local EnergyMaintenance = (aiBrain:GetUnitBlueprint(upgradeID).Economy.MaintenanceConsumptionPerSecondEnergy or 50) * .1
+    local MassTrendNeeded = ( math.min( 0,(MassNeeded / buildtime) * buildrate) - massmade) * .1
+    local EnergyTrendNeeded = ( math.min( 0,(EnergyNeeded / buildtime) * buildrate) - enermade) * .1
+	local EnergyMaintenance = (aiBrain:GetUnitBlueprint(upgradeID).Economy.MaintenanceConsumptionPerSecondEnergy or 10) * .1
 
 	local init_delay = 0
 
@@ -5148,7 +5150,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			end
 
 			--if ScenarioInfo.StructureUpgradeDialog then
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." passes basic triggers to start upgrade to "..repr(upgradeID))
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." passes basic triggers to start upgrade to "..repr(upgradeID))
 			--end
             
 			-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
@@ -5164,47 +5166,63 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 				if (MassStorage > ( MassNeeded * .15 * masslowtrigger) and EnergyStorage > ( EnergyNeeded * .15 * energylowtrigger)) or bypassecon then
                     
                     if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit then
-						
-						--if ScenarioInfo.StructureUpgradeDialog then
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." waiting to start upgrade to "..repr(upgradeID))
-						--end
-						
+
 						if not unit.Dead then
 					
 							-- if upgrade issued and not completely full --
-							if GetEconomyStoredRatio(aiBrain, 'MASS') < .95 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < .95 then
-							
-								ForkThread(SelfUpgradeDelay, aiBrain) 	-- tell brain that we issued an upgrade
-								
-							end
+							if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
+                            
+								ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod)  -- delay the next upgrade by the full amount
+							else
+                                ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod * .5)     -- otherwise halve the delay period
+                            end
 
 							upgradeIssued = true
 
 							IssueUpgrade({unit}, upgradeID)
-			
+
 							if ScenarioInfo.StructureUpgradeDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." upgrading to "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." at "..GetGameTimeSeconds() )
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MEf is "..econ.MassEfficiency.."("..masslowtrigger..") Eef is "..econ.EnergyEfficiency.."("..energylowtrigger..")" )
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MTrend "..econ.MassTrend.."("..MassTrendNeeded..")  ETrend "..econ.EnergyTrend.."("..EnergyTrendNeeded..")" )
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MassStorage "..MassStorage.." MassNeeded "..MassNeeded.." Build Time "..buildtime.." Build Rate "..buildrate ) 
+								LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." upgrading to "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." at "..GetGameTimeSeconds() )
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MEf is "..econ.MassEfficiency.."("..masslowtrigger..") Eef is "..econ.EnergyEfficiency.."("..energylowtrigger..")" )
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MTrend "..econ.MassTrend.."("..MassTrendNeeded..")  ETrend "..econ.EnergyTrend.."("..EnergyTrendNeeded..")" )
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MassStorage "..MassStorage.." MassNeeded "..MassNeeded.." Build Time "..buildtime.." Build Rate "..buildrate ) 
 							end
 						
 							repeat
 								WaitTicks(20)
 							until unit.Dead or (unit.UnitBeingBuilt.BlueprintID == upgradeID)
-						
 						end
-						
+
                         if unit.Dead then
-                        
                             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
-                            
                             upgradeIssued = false
                         end
 
                         if upgradeIssued then
                             continue
                         end
+                    end
+                end
+            else
+                if ScenarioInfo.StructureUpgradeDialog then
+                    if not ( econ.MassTrend >= MassTrendNeeded ) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS Trend trigger "..econ.MassTrend.." needed "..MassTrendNeeded)
+                    end
+                    
+                    if not ( econ.EnergyTrend >= EnergyTrendNeeded ) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER Trend trigger "..econ.EnergyTrend.." needed "..EnergyTrendNeeded)
+                    end
+                    
+                    if not (econ.EnergyTrend >= EnergyMaintenance) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS Maintenance trigger "..econ.EnergyTrend.." "..EnergyMaintenance)  
+                    end
+                    
+                    if not ( MassStorage >= (MassNeeded * .8)) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS storage trigger "..MassStorage.." needed "..(MassNeeded*.8) )
+                    end
+                    
+                    if not (EnergyStorage > (EnergyNeeded * .4)) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER storage trigger "..EnergyStorage.." needed "..(EnergyNeeded*.4) )
                     end
                 end
 			end
@@ -5256,17 +5274,21 @@ end
 -- from all trying to upgrade at once - when an upgrade is begun - the
 -- counter is increased by one for 22.5 seconds - in operation this prevents
 -- more than a certain number of self-upgrades in a short time period
-function SelfUpgradeDelay( aiBrain )
+function SelfUpgradeDelay( aiBrain, delay )
 
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued + 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter up to "..aiBrain.UpgradeIssued.." period is "..aiBrain.UpgradeIssuedPeriod)
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter up to "..aiBrain.UpgradeIssued.." period is "..delay)
     end
 
-    WaitTicks( aiBrain.UpgradeIssuedPeriod )
+    WaitTicks( delay )
 	
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued - 1
+    
+    if ScenarioInfo.StructureUpgradeDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter down to "..aiBrain.UpgradeIssued)
+    end
     
 end
 
