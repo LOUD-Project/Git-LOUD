@@ -540,30 +540,24 @@ function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayerche
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 	
 	-- check if platoon exists --
-	if not GetPlatoonPosition(self) or not maxRange then
-	
+    local position = GetPlatoonPosition(self) or false
+    
+	if not position or not maxRange then
 		return false,false
-		
 	end
 	
-	-- are there any enemy units ?
-	if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, GetPlatoonPosition(self), maxRange, 'Enemy' ) < 1 then
+    if PlatoonExists( aiBrain, self) then
+    
+        -- are there any enemy units ?
+        if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
+            return false, false
+        end
 	
-		return false, false
-
-	end
-	
-	local GetPosition = moho.entity_methods.GetPosition
-	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local EntityCategoryFilterDown = EntityCategoryFilterDown
-	local VDist2Sq = VDist2Sq
-	
-	local unit = false
-
-	if PlatoonExists( aiBrain,self) then
-		
-		local position = table.copy(GetPlatoonPosition(self))
+        local GetPosition = moho.entity_methods.GetPosition
+        local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+        local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+        local EntityCategoryFilterDown = EntityCategoryFilterDown
+        local VDist2Sq = VDist2Sq
 	
 		local enemyunits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy')
 
@@ -744,24 +738,21 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 								retUnit = u
 								retPosition = table.copy(unitposition)
 								bestthreat = enemythreat
+                                unitchecks = 0
 								break
 							end
 						end
 					end
-				end
 			
-				-- dont check too many targets per tick
-				if unitchecks >= checkspertick then
-				
-					WaitTicks(1)
-					unitchecks = 0
+                    -- dont check too many targets per tick
+                    if unitchecks >= checkspertick then
+                        WaitTicks(1)
+                        unitchecks = 0
+                    end                    
 				end
 			end
 
 			if retUnit and not retUnit.Dead then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory reports valid target - checked "..unitchecks.." same threat "..gets)
-                
 				return retUnit,retPosition
 			else
 				retUnit = false
