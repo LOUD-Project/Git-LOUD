@@ -28,9 +28,7 @@ function GetNavalPlatoonMaxRange(aiBrain, platoon)
 			
 				-- weapon must be able to fire FROM the Water layer and not be a nuke
 				if weapon.NukeWeapon or not weapon.FireTargetLayerCapsTable or not weapon.FireTargetLayerCapsTable.Water then
-				
 					continue
-					
 				end
         
 				-- we'll exclude any weapon that can target the Air layer -- 
@@ -60,29 +58,20 @@ function GetNavalPlatoonMaxRange(aiBrain, platoon)
 						turretPitch = nil
 						
 					else
-					
 						continue
-						
 					end
 					
 					maxRange = weapon.MaxRadius
-					
 				end
-				
 			end
-			
 		end
-		
     end
     
     if maxRange == 0 then
-	
         return false,'none', nil
-		
     end
 	
     return maxRange, selectedWeaponArc, turretPitch
-	
 end
 
 -- A change here to save a lot of processing - if the layer is already set just
@@ -130,15 +119,11 @@ function GetMostRestrictiveLayer(platoon)
 			
                 platoon.MovementLayer = 'Land'
                 break   --Nothing more restrictive than land, since there should be no mixed land/water platoons
-				
             end
-			
         end
-		
     end
 	
     return
-	
 end
 
 --	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
@@ -148,7 +133,6 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
 	
 	if nodes then
-	
 		local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
 		local radius = LayerLimits[layer]
 		
@@ -157,15 +141,11 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 		
 		-- if the first result is within radius then respond
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
-		
 			return true, nodes[1].position
-			
 		end
-		
 	end
 
 	return false, nil
-	
 end
 
 --	This function uses Graph Node markers in the map to fill in some global data for pathfinding - generally only runs once
@@ -179,8 +159,6 @@ end
 function GetPathGraphs()
 
     if not ScenarioInfo.PathGraphs then 
-	
-		--local memstart = gcinfo()
 		
 		local AIGetMarkerLocationsEx = import('/lua/ai/aiutilities.lua').AIGetMarkerLocationsEx
 
@@ -203,7 +181,6 @@ function GetPathGraphs()
 		for k, v in markerGroups do
 		
 			for _, marker in v do
-
 				ScenarioInfo.PathGraphs[k] = ScenarioInfo.PathGraphs[k] or {}
 				ScenarioInfo.PathGraphs['RawPaths'][k] = ScenarioInfo.PathGraphs['RawPaths'][k] or {}
             
@@ -213,22 +190,17 @@ function GetPathGraphs()
 				counter = 0
 				
 				for _,v in adj do
-				
 					newadj[counter+1] = v
 					counter = counter + 1
-					
 				end
 				
 				-- sort the adjacent nodes by name
 				table.sort(newadj)
-				
-				--LOG("*AI DEBUG Writing "..repr(marker.name).." "..repr(marker.position))
-				
+
 				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj) }
 				
 				table.insert(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
 			end
-			
 		end
 
 		local mapsizex = ScenarioInfo.size[1]
@@ -252,17 +224,13 @@ function GetPathGraphs()
 					x,y,z = unpack(mdata.position)
 
 					if x<0 or y<0 or z<0 or x>mapsizex or z>mapsizez then
-					
 						LOG("*AI DEBUG marker "..repr(mn).." is outside map boundaries!")
 						continue
-						
 					end
 				
 					-- a point MUST be connected to something
 					if table.getn(mdata.adjacent) < 1 then
-					
 						badpoint = true
-						
 					end
 					
 					for k, adj in mdata.adjacent do
@@ -270,47 +238,32 @@ function GetPathGraphs()
 						if ScenarioInfo.PathGraphs[gk][adj] then
 					
 							if badpoint then
-						
 								badpoint = false
-							
 							end
 						
 							counter = counter + 1
 						
-
 							local DComp = math.floor( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
 						
 							ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
-							
 						else
 						
 							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
 							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
-							
 						end
 						
 					end
 
 					if badpoint then
-					
 						LOG("*AI DEBUG marker "..repr(mn).." at position "..repr(mdata.position).." has no ajacent connections")
-						
 					end
-					
 				end
-				
 			end
-			
 		end
-		
-		--LOG("*AI DEBUG Loaded "..counter.." movement marker points -- used "..((gcinfo() - memstart)*1024).." bytes" )
-		
     end
 
     return ScenarioInfo.PathGraphs or {}
-	
 end
-
 
 --	Checks to see if platoon can path to destination using path graphs. Used to save precious precious CPU cycles compared to CanPathTo
 --	Note - this is a very efficient check - BUT - it has one glaring flaw - it doesnt tell you if you can path between the two points
@@ -326,7 +279,6 @@ function CanGraphTo( unitposition, destinationposition, layer )
     end
 	
 	return false, nil
-	
 end
 
 -- this is a rather broad function that fills several flexible needs
@@ -629,27 +581,20 @@ function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayerche
 					if CanAttackTarget( self, squad, u ) then
 
 						if nolayercheck then 
-						
 							return u, GetPosition(u)
 
 						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) then
 
 							return u, GetPosition(u)
-							
 						end
-
 					end
-					
 				end
-				
 			end
 			
 		end	-- get the next category in the atkPri list
-		
 	end
 	
 	return false, false
-	
 end
 
 -- This function locates a target within specific parameters around a specific location or around the platoon
@@ -664,22 +609,15 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
         position = table.copy(GetPlatoonPosition(platoon))
 		
 		if not position then
-		
 			return false,false
-			
 		end
-		
     end
 	
 	-- are there any enemy units ?
 	if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
-	
 		return false, false
-		
 	end
-	
-	--local myenemy = aiBrain:GetCurrentEnemy()	
-    
+
 	local minimumrange = (minRange * minRange)
 	
     local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -706,9 +644,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		else
 		
 			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
-			
 		end
-		
 	end
 	
 	-- get all the enemy units around this point (except walls)
@@ -791,10 +727,8 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 								totalshieldvalueattarget = 0
 							
                                 for _,s in enemyshields do
-						
                                     -- if the shield is On and it covers the target
                                     if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
-									
                                         enemythreat = enemythreat + (s.MyShield:GetHealth() * .01)	-- threat plus 1% of shield strength
                                     end
                                 end
@@ -836,27 +770,21 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	end
 	
 	return false,false
-	
 end
 	
 function InWaterCheck(platoon)
 
 	if platoon.MovementLayer == 'Air' then
-	
 		return false
-		
 	end
 	
 	local platPos = GetPlatoonPosition(platoon)
 	
 	return GetTerrainHeight(platPos[1], platPos[3]) < GetSurfaceHeight(platPos[1], platPos[3])
-	
 end
 
 function LocationInWaterCheck(position)
-
 	return GetTerrainHeight(position[1], position[3]) < GetSurfaceHeight(position[1], position[3])
-	
 end
 
 function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, stepby, alliance)
@@ -864,9 +792,7 @@ function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, step
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 
     if type(unitCat) == 'string' then
-	
         unitCat = ParseEntityCategory(unitCat)
-		
     end
 
 	local returnNum = 0
@@ -883,11 +809,8 @@ function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, step
 	ystep = (start[3] - finish[3]) / steps
 	
 	for i = 1, steps do
-	
 		returnNum = returnNum + GetNumUnitsAroundPoint( aiBrain, unitCat, { start[1] - (xstep * i), 0, start[3] - (ystep * i) }, stepby, alliance )
-		
 	end
 	
 	return returnNum
-	
 end

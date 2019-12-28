@@ -668,7 +668,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, .75, 1.02, 1.5, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, .72, 1.01, 1.5, 9999, 18, 90, true )
 
 			end
 

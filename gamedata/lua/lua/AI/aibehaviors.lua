@@ -1164,7 +1164,7 @@ function LandScoutingAI( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 	
-	local GetClosestPathNodeInRadiusByLayer = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
+	--local GetClosestPathNodeInRadiusByLayer = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
 
 	local curPos = nil
 	local usedTransports = false
@@ -1220,9 +1220,7 @@ function LandScoutingAI( self, aiBrain )
 		
         targetArea = false
 		reconcomplete = false
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." LANDSCOUTAI "..repr(self.BuilderName).." getting Scouting target")
-	
+
         if not aiBrain.IL.LastScoutHi and aiBrain.IL.HiPri then
 		
 			local prioritylist = aiBrain.IL.HiPri
@@ -2075,19 +2073,13 @@ function AirForceAILOUD( self, aiBrain )
 		if not v.Dead then
 		
 			if v:TestToggleCaps('RULEUTC_StealthToggle') then
-			
 				v:SetScriptBit('RULEUTC_StealthToggle', false)
-				
 			end
 			
 			if v:TestToggleCaps('RULEUTC_CloakToggle') then
-			
 				v:SetScriptBit('RULEUTC_CloakToggle', false)
-				
 			end
-			
 		end
-		
 	end
 
     -- setup escorting fighters if any 
@@ -2097,7 +2089,6 @@ function AirForceAILOUD( self, aiBrain )
 	local guardunits = self:GetSquadUnits('guard')
 
     if guardunits and LOUDGETN(guardunits) > 0 then
-        
         guardplatoon = aiBrain:MakePlatoon('GuardPlatoon','none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, self:GetSquadUnits('guard'), 'Attack', 'none')
 
@@ -2105,7 +2096,6 @@ function AirForceAILOUD( self, aiBrain )
         guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
-		
     end
 
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
@@ -2119,24 +2109,18 @@ function AirForceAILOUD( self, aiBrain )
 		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
 	
 		if steps > 0 then
-
 			local xstep = (start[1] - finish[1]) / steps
 			local ystep = (start[3] - finish[3]) / steps
 
 			for i = 1, steps  do
 			
 				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-				
 					return true
-					
 				end
-				
 			end	
-			
 		end
 		
 		return false
-		
 	end
 
 	
@@ -2159,9 +2143,7 @@ function AirForceAILOUD( self, aiBrain )
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberofUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
-				
 			end
-			
         end
 
         platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
@@ -2383,9 +2365,7 @@ end
 function NavalForceAILOUD( self, aiBrain )
 
 	if not GetPlatoonPosition(self) then
-	
         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-		
     end
 
     local armyIndex = aiBrain.ArmyIndex
@@ -5149,10 +5129,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 				continue
 			end
 
-			--if ScenarioInfo.StructureUpgradeDialog then
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." passes basic triggers to start upgrade to "..repr(upgradeID))
-			--end
-            
 			-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 			-- or we have the amount of mass and energy stored to build this item
 
@@ -5183,9 +5159,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 							if ScenarioInfo.StructureUpgradeDialog then
 								LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." upgrading to "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." at "..GetGameTimeSeconds() )
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MEf is "..econ.MassEfficiency.."("..masslowtrigger..") Eef is "..econ.EnergyEfficiency.."("..energylowtrigger..")" )
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MTrend "..econ.MassTrend.."("..MassTrendNeeded..")  ETrend "..econ.EnergyTrend.."("..EnergyTrendNeeded..")" )
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade MassStorage "..MassStorage.." MassNeeded "..MassNeeded.." Build Time "..buildtime.." Build Rate "..buildrate ) 
 							end
 						
 							repeat
