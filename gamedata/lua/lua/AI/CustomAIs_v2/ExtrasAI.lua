@@ -1,7 +1,7 @@
 AI = {
 	Name = "AI Patch LOUD",
 	
-	Version = "5.1 Xenix Final",
+	Version = "5.1 Xenix Final A",
 	
 	AIList = {
 		{
