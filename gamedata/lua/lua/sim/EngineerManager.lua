@@ -1280,7 +1280,7 @@ EngineerManager = Class(BuilderManager) {
 				
 						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER, baseposition, radius )
 					
-						if groupseacount > 0 then
+						if groupseacount > 2 then
 						
 							if ScenarioInfo.DistressResponseDialog then
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface'))
@@ -1288,18 +1288,41 @@ EngineerManager = Class(BuilderManager) {
 				
                             -- only send response if we can muster 66% of enemy threat
 							if GetThreatOfGroup(groupsea,'Naval') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' )/1.5) then
-					
+
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
-						
-								IssueAggressiveMove( groupsea, distressLocation )
-					
-								DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 5 )
 
-								response = true
+                                -- sort all the response units so that the farthest will be first in the list
+                                LOUDSORT( groupsea, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], distressLocation[1],distressLocation[3]) > VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], distressLocation[1],distressLocation[3]) end)
+
+                                local counter = 0
+                                local totalthreatsent = 0
+
+                                -- send 5 per 3 tick to the distressLocation --
+                                for _,u in groupsea do
+
+                                    if not u.Dead then
+                                        IssueAggressiveMove( {u}, RandomLocation(distressLocation[1],distressLocation[3], 10))
+                                        counter = counter + 1
+                                        totalthreatsent = totalthreatsent + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0)
+                                    end
+
+                                    if totalthreatsent > aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) then
+                                        break   -- dont send any more units --
+                                    end
+
+                                    if counter >= 4 then
+                                        WaitTicks(3)
+                                        counter = 0
+                                    end
+                                end
+
+                                -- then send them back to rally points --
+                                DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 2 )
+
+                                response = true
 								distress_naval = true
 							else
-							
 								if ScenarioInfo.DistressResponseDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE unable to respond to "..distressType.." only have "..GetThreatOfGroup(groupsea,'AntiSurface'))
 								end
