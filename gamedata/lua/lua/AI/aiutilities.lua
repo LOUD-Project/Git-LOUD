@@ -135,22 +135,16 @@ function AIPickEnemyLogic( self, brainbool )
                     -- it has NOTHING TO DO WITH POSITION apparently
 					local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
 					insertTable.Strength = b
-				
 				end
 
 				-- make sure the value is positive
 				insertTable.Strength = math.max( insertTable.Strength, 0)
 			
 				if insertTable.Strength > 0 then
-			
 					armyStrengthTable[armyindex] = insertTable
-			
 				end
-				
 			end
-			
         end
-		
     end
 	
 	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
@@ -280,25 +274,19 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
     local threatMin = -999999
 	
     if tMin and tMax and tRings then
-	
         threatCheck = true
         threatMax = tMax
         threatMin = tMin
-		
     end
  
     local startPosX, startPosZ
     
     if position then
-	
         startPosX = position[1]
         startPosZ = position[3]
-		
     else
-	
 		startPosX = aiBrain.StartPosX
 		startPosZ = aiBrain.StartPosZ
-		
 	end
     
 	-- sort this list from the starting position
@@ -318,44 +306,32 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 			threat = aiBrain:GetThreatAtPosition( point, 0, true, 'AntiSurface')
 
 			if threat > threatMax then
-			
 				break
-				
 			end
 			
 			if threat >= threatMin then
-			
 				mlist[counter+1] = point
 				counter = counter + 1
-				
 			end
 			
 		else
-		
 			mlist[counter+1] = point
 			counter = counter + 1
-			
         end
 
 		-- sort the list from the new position
         LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
 		
 		if counter >= maxNumber then
-		
 			break
-			
 		end
-		
     end
 	
 	if counter > 0 then
-	
 		return mlist
-		
 	end
 	
 	return false
-
 end
 
 -- modified this function to store the lists that would be generated for each type of marker
@@ -363,9 +339,7 @@ end
 function AIGetMarkerLocations(markerType)
 
 	if ScenarioInfo.Env.Scenario.MasterChain[markerType] then
-	
 		return ScenarioInfo.Env.Scenario.MasterChain[markerType]
-		
 	end
 	
     local markerlist = {}
@@ -378,14 +352,10 @@ function AIGetMarkerLocations(markerType)
         for k,v in tempMarkers do
 		
             if string.sub(v.Name,1,5) == 'ARMY_' then 
-			
                 markerlist[counter+1] = { Position = {v.Position[1],v.Position[2],v.Position[3]}, Name = v.Name}
 				counter = counter + 1
-				
             end
-			
         end 
-		
     else
 	
         local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers  --GetMarkers()
@@ -395,22 +365,16 @@ function AIGetMarkerLocations(markerType)
             for k, v in markers do
 			
                 if v.type == markerType then
-				
                     markerlist[counter+1] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = k }
 					counter = counter + 1
-					
                 end
-				
             end
-			
         end
-		
     end
 
 	ScenarioInfo.Env.Scenario.MasterChain[markerType] = markerlist
 
     return markerlist
-	
 end
 
 -- similar to the function above this function returns a list of markers (multiple types)
@@ -436,15 +400,11 @@ function AIGetMarkerLocationsEx(aiBrain, markerType)
                 v.name = k
                 markerlist[counter+1] = v
 				counter = counter + 1
-				
             end
-			
         end
-		
     end
 	
     return markerlist
-	
 end
 
 function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin, threatMax, threatRings, threatType )
@@ -459,9 +419,7 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 	local checkdistance = radius * radius
 	
 	if not tempMarkers then
-	
 		return {}
-		
 	end
 	
 	LOUDSORT(tempMarkers, function(a,b) return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
@@ -474,30 +432,22 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 			
                 markerlist[counter+1] = v
 				counter = counter + 1
-				
             else
 			
                 local threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
 				
                 if threat >= threatMin and threat <= threatMax then
-				
                     markerlist[counter+1] = v
 					counter = counter + 1
-					
 				end
-				
             end
 			
         else
-		
 			break
-			
 		end
-		
     end
 	
 	return markerlist
-	
 end
 
 
@@ -515,13 +465,10 @@ function AIFilterAlliedBases( aiBrain, positions )
 		
             markerlist[counter+1] = v
 			counter = counter + 1
-			
         end
-		
     end
 	
     return markerlist
-	
 end
 
 function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
@@ -535,23 +482,17 @@ function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
         if not aiBrain.BuilderManagers[v.Name] then
 		
 			return v.Position,v.Name
-			
         else
 		
             local managers = aiBrain.BuilderManagers[v.Name]
 			
             if managers.EngineerManager.EngineerList.Count == 0 and managers.FactoryManager:GetNumCategoryFactories(categories.FACTORY) < 1 then 
-			
 				return v.Position,v.Name
-				
             end
-			
         end
-		
     end
 	
     return false, nil
-	
 end
 
 
@@ -573,11 +514,9 @@ function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, ca
         if numUnits <= unitMax then
 			return v.Position, v.Name
         end
-		
     end
 	
     return false,nil
-	
 end
 
 -- return the position of the closest marker of a given type
@@ -591,9 +530,7 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
         for _, pType in extraTypes do
 		
             markerlist = table.cat(markerlist, ScenarioInfo.Env.Scenario.MasterChain[pType] or AIGetMarkerLocations(pType) )
-			
         end
-		
     end
 	
 	if LOUDGETN(markerlist) > 0 then
@@ -601,11 +538,9 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
 		LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
 
 		return markerlist[1].Position, markerlist[1].Name
-		
 	end
 	
 	return false,nil
-	
 end
 
 function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threatMin, threatMax, rings, threatType)
@@ -621,15 +556,11 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
         local threat = GetThreatAtPosition( aiBrain, v.Position, rings, true, threatType or 'Overall')
         
         if threat >= threatMin and threat <= threatMax then
-		
 			return v.Position, v.Name
-			
         end
-		
     end
 	
     return false, nil
-	
 end
 
 -- added optional range and location values for more flexible use
@@ -646,14 +577,12 @@ function AIGetReclaimablesAroundLocation( aiBrain, locationType, range, location
 	end
 	
 	return false
-	
 end
 
 
 function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
@@ -666,24 +595,18 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 		for k,v in units do
 	
 			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
-		
 				mlist[counter+1] = v
 				counter = counter + 1
-
 			end
-		
 		end
-		
 	end
 	
     return mlist
-	
 end
 
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
@@ -696,18 +619,13 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 		for k,v in units do
 	
 			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army != aiBrain.ArmyIndex then
-		
 				mlist[counter+1] = v
 				counter = counter + 1
-
 			end
-		
 		end
-		
 	end
 	
     return mlist
-	
 end
 
 function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, radius, tmin, tmax, rings, tType )
@@ -753,7 +671,6 @@ end
 function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	--local GetAIBrain = moho.unit_methods.GetAIBrain
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
 	local counter = 0
@@ -763,25 +680,18 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
         if not v.Dead then
 		
 			if GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
-			
 				counter = counter + 1
-				
 			end
-			
         end
-		
     end
 	
     return counter
-	
 end
 
 function CheckUnitPathingEx( destPos, curlocation, unit )
 
     if unit.Dead then
-	
         return false
-		
     end
 	
     local pathingType = 'Land'
@@ -834,17 +744,13 @@ end
 function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
 
     if not position or not maxRange then
-	
         return false
-		
     end
     
     local testCat = category
 	
     if type(testCat) == 'string' then
-	
         testCat = LOUDPARSE( testCat )
-		
     end
 
     local targetUnits = aiBrain:GetUnitsAroundPoint( testCat, position, maxRange, 'Enemy' )
@@ -860,18 +766,13 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
 			local newdist = VDist2( position[1],position[3], unitPos[1],unitPos[3] )
 			
             if not retUnit or newdist < distance then
-			
                 retUnit = unit
                 distance = newdist
-				
             end
-			
         end
-		
     end
 
     return retUnit
-	
 end
 
 function RandomLocation(x,z, value)
@@ -1032,38 +933,8 @@ function GetNumTransportSlots(unit, aiBrain)
 		
 		--LOG ("*AI DEBUG Global Transport Slot table is now "..repr(aiBrain.TransportSlotTable) )
 		return bones
-		
 	end
 
-end
-
-function EngineerTryRepair(aiBrain, eng, whatToBuild, pos)
-
-    if whatToBuild and pos then
-
-		LOG("*AI DEBUG Eng "..eng.Sync.id.." Starting EngineerTryRepair on "..repr(whatToBuild) )
-
-		for _,v in aiBrain:GetUnitsAroundPoint( LOUDPARSE( whatToBuild ), pos, 1, 'Ally' ) do
-			
-			if not v.Dead and v:GetFractionComplete() < 1 then
-
-				IssueRepair( {eng}, v )
-				
-				eng.IssuedReclaimCommand = false
-                eng.IssuedBuildCommand = true
-				
-				LOG("*AI DEBUG Eng "..eng.Sync.id.." repairing at "..repr(pos))
-				
-				return true
-				
-			end
-			
-		end
-		
-	end
-	
-    return false
-	
 end
 
 -- This function just returns the distance to the closest IMAP threat position that exceeds the threatCutoff
@@ -1248,28 +1119,21 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Ally' ) do
 		
 			if not v.Dead then
-			
 				massValue = massValue - GetBlueprint(v).Economy.BuildCostMass
-				
 			end
-			
 		end
 		
 		-- and the mass value of enemy units (positive)
 		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Enemy' ) do
 		
 			if not v.Dead then
-			
 				massValue = massValue + GetBlueprint(v).Economy.BuildCostMass
-				
 			end	
-			
 		end
 		
 		LOG("*AI DEBUG "..aiBrain.Nickname.." gets value of "..repr(massValue).." for nuke target at "..repr(pos))
 		
 		return massValue > massCost
-		
     end
 	
 	local position = launcher:GetPosition()
@@ -1296,9 +1160,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 				antiNukes = SUtils.NumberofUnitsBetweenPoints(aiBrain, position, unitPos, categories.ANTIMISSILE * categories.SILO, 90, 'Enemy')
 				
 				if not CheckCost( unitPos ) then
-				
 					continue
-					
 				end
 				
 				dupTarget = false
@@ -1308,11 +1170,8 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 				for x,z in oldTarget do
 				
 					if unit == z or (not z.Dead and XZDistanceTwoVectors( z:GetPosition(), unitPos ) < 30) then
-					
 						dupTarget = true
-						
 					end
-					
 				end
 				
 				for k,v in ArmyBrains do
@@ -1320,13 +1179,9 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 					if IsAlly( v.ArmyIndex, aiBrain.ArmyIndex ) or ( aiBrain.ArmyIndex == v.ArmyIndex ) then
 						
 						if VDist2Sq( v.StartPosX, v.StartPosZ, unitPos[1], unitPos[3]) < (220*220) then
-						
 							dupTarget = true
-							
 						end
-						
 					end
-					
 				end
 				
                 if (not retUnit or (distance and XZDistanceTwoVectors( position, unitPos ) < distance)) and ((antiNukes + 2 < nukeCount or antiNukes == 0) and not dupTarget) then
@@ -1349,47 +1204,34 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 								antiNukes = SUtils.NumberofUnitsBetweenPoints(aiBrain, position, pos, categories.ANTIMISSILE * categories.TECH3 * categories.STRUCTURE, 90, 'Enemy')
 								
 								if (antiNukes + 2 < nukeCount or antiNukes == 0) then
-								
 									retUnit = unit
 									retPosition = pos
 									retAntis = antiNukes
 									distance = XZDistanceTwoVectors( position, unitPos )
-									
 								end
-								
 							end
 							
 							if retUnit then
-							
 								break
-								
 							end
 							
 						end
 						
 						if retUnit then
-						
 							break
-							
 						end
-						
 					end
-					
                 end
-				
             end
-			
         end
 		
         if retUnit then
 		
             return retUnit, retPosition, retAntis
-			
         end
 		
     end
 	
     return false
-	
 end
 

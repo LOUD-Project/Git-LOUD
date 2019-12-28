@@ -872,7 +872,6 @@ function GetNumTransports(units)
 
 	LOG("*AI DEBUG Getting Number of transports required")
 	
-	--local GetBlueprint = moho.entity_methods.GetBlueprint
 	local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
     local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, }
 	

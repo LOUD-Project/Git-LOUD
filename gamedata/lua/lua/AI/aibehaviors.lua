@@ -2380,20 +2380,15 @@ function NavalForceAILOUD( self, aiBrain )
     if data.PrioritizedCategories then
 	
         for _,v in data.PrioritizedCategories do
-		
             LOUDINSERT( atkPri, v )
             LOUDINSERT( categoryList, LOUDPARSE( v ) )
-			
         end
-		
     else
-	
 		LOUDINSERT( atkPri, 'NAVAL' )
 		LOUDINSERT( categoryList, categories.NAVAL )
-		
 	end
 
-    self:SetPrioritizedTargetList( 'Attack', categoryList )
+    --self:SetPrioritizedTargetList( 'Attack', categoryList )
 
     local path, reason, pathlength
     local target, targetposition
