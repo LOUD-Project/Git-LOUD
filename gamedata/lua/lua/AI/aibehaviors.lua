@@ -2048,14 +2048,11 @@ function AirForceAILOUD( self, aiBrain )
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-		
             LOUDINSERT( categoryList, v )
-			
         end
-		
     end
 
-    self:SetPrioritizedTargetList( 'Attack', categoryList )
+    --self:SetPrioritizedTargetList( 'Attack', categoryList )
 
     local target = false
 	local targetposition = false
@@ -2168,14 +2165,14 @@ function AirForceAILOUD( self, aiBrain )
                 mythreat = 5
             end
 
-			-- store the anchorposition of the platoon which helps
-			-- the platoon return to its starting position
+			-- the anchorposition is the start position of the platoon
+			-- where the platoon returns to
 			-- if it should be drawn away due to distress calls
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
-					self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-					IssueClearCommands( GetPlatoonUnits(self) )
+
+					IssueClearCommands( platoonUnits )
 				
 					self:MoveToLocation( self.anchorposition, false)
 					
@@ -2183,15 +2180,14 @@ function AirForceAILOUD( self, aiBrain )
 					
 					loiter = true
 				end
+                
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
 			-- locate a target
             for _,rangemult in mult do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." seeking target")
-				
+
 				for _,threatmult in difficulty do
 
 					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
@@ -2212,16 +2208,13 @@ function AirForceAILOUD( self, aiBrain )
 					break
 				end
 
-                WaitTicks(1)
                 minrange = searchradius * rangemult
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
 			-- use strikerange to determine point from which to switch into attack mode
 			if target and not target.Dead and PlatoonExists(aiBrain, self) then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." moving to target")
-				
+
 				IssueClearCommands( platoonUnits )
 
 				local path, reason
@@ -2258,22 +2251,15 @@ function AirForceAILOUD( self, aiBrain )
                         if PlatoonExists(aiBrain, self) and target and not target.Dead then
 							IssueAttack( self:GetSquadUnits('Attack'), target )
                         end
-
                     else
-					
 						if reason == 'Direct' then
 						
 							LOG("*AI DEBUG StrikeForce got Direct from SafePath")
-
 							IssueAttack( self:GetSquadUnits('Attack'), target)
-
 						else
-						
 							LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
-							
 							target = false
-
-							self:MoveToLocation( self.anchorposition, false )
+                            self:MoveToLocation( self.anchorposition, false )
 						end
                     end
 				end
@@ -2287,16 +2273,14 @@ function AirForceAILOUD( self, aiBrain )
         local attacktimer = 0
 
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." prosecuting target")
-		
+
 			loiter = false
 			
-			WaitTicks(15)
+			WaitTicks(13)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.5
+				attacktimer = attacktimer + 1.3
 
 				local platooncount = 0
 				local fuellow = false
@@ -2342,16 +2326,16 @@ function AirForceAILOUD( self, aiBrain )
 
         -- target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
+        
 			target = false
+            self:MoveToLocation( self.anchorposition, false )
 		end
 
 		-- loiter will be true if we did not find a target
-		-- or we couldn't get to the target
+		-- or we couldn't get to the target - we should 
+        -- still be guarding the anchorposition
 		if loiter then
-		
-			WaitTicks(55)
-			
-            attacktimer = attacktimer + 5.5
+			WaitTicks(42)
 		end
     end
 
