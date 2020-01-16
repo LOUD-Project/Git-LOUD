@@ -88,11 +88,17 @@ GPGrestrictedUnits = {
         tooltip = "restricted_units_nukes",
     },
 	
-	HEAVYARTILLERY = {
-		categories = { "uab2302","ueb2302","urb2302","xsb2302", "mguba31", "mgubc31", "mgubu31", "mgubs31" },
-		name = "No T3 Artillery or Barrage Artillery",
-		tooltip = "restricted_units_T3_artillery",
+	TACTICALARTILLERY = {
+		categories = { "mguba31", "mgubc31", "mgubu31", "mgubs31" },
+		name = "No T3 Barrage Artillery",
+		tooltip = "restricted_units_T3_Tactical_artillery",
 	},
+
+    STRATEGICARTILLERY = {
+        categories = { "uab2302","ueb2302","urb2302","xsb2302" },
+        name = "No T3 Strategic Artillery",
+        tooltip = "restricted_units_T3_Strategic_artillery",
+    },
 	
 	EXPERIMENTALARTILLERY = {
 		categories = { "xab2307", "ueb2401", "url0401", "seb2404", "ssb2404" },
@@ -146,16 +152,13 @@ GPGsortOrder = {
 	"AIRTRANSPORTS",
     "AIREXPERIMENTALS",	
 	"TACTICALMISSILELAUNCHERS",
+    "TACTICALARTILLERY",
+    "STRATEGICARTILLERY",
+    "EXPERIMENTALARTILLERY",
     "NUKE",
-	"HEAVYARTILLERY",
-	"EXPERIMENTALARTILLERY",
-    "GAMEENDERS",
-    "BUBBLES",
+    "SHIELDS",
     "INTEL",
-    "SUPCOM",
     "FABS",
-    "NOENGINEERS",
-
 }
 
 GPGOptions = {}
