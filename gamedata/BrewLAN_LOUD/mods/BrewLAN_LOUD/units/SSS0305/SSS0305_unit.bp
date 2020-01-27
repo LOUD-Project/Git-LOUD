@@ -24,8 +24,6 @@ UnitBlueprint {
     BuildIconSortPriority = 190,
     Categories = {
         'SELECTABLE',
-        --'BUILTBYTIER3ENGINEER',
-        --'BUILTBYTIER3COMMANDER',
         'SERAPHIM',
         'MOBILE',
         'INTELLIGENCE',
@@ -110,20 +108,25 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05*1.2,
     },
+    
     Economy = {
-        BuildCostEnergy = 15000,
-        BuildCostMass = 500,
-        BuildTime = 1000,
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        BuildCostEnergy = 16000,
+        BuildCostMass = 560,
+        BuildTime = 2500,
+        
+        MaintenanceConsumptionPerSecondEnergy = 750,
+        
         TeleportEnergyMod = 2,
-        TeleportMassMod = 0,
+        TeleportMassMod = 0.01,
         TeleportTimeMod = 0.001,
     },
+    
     Footprint = {
         MinWaterDepth = 0,
         SizeX = 2,
         SizeZ = 2,
     },
+    
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
@@ -161,18 +164,22 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'xsb3202',
     },
+    
     Intel = {
         ShowIntelOnSelect = true,
-        SonarRadius = 450,
+        SonarRadius = 175,
         VisionRadius = 32,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 32,
     },
+    
     Interface = {
         HelpText = '<LOC uas0305_help>Sonar Platform',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -198,26 +205,15 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 100,
     },
+    
     SelectionSizeX = 0.6*1.2,
     SelectionSizeZ = 0.6*1.2,
     SelectionThickness = 0.66,
+    
     SizeX = 1,
     SizeY = 1*1.2,
     SizeZ = 1,
+    
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 235,
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
-    },
 }
