@@ -55,6 +55,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'FACTORY',
         'NAVALCARRIER',
+        'OVERLAYRADAR',
         'SHOWQUEUE',
     },
 	
@@ -170,6 +171,7 @@ UnitBlueprint {
     },
 	
     Intel = {
+        ShowIntelOnSelect = true,    
 		FreeIntel = true,
         RadarRadius = 165,
         VisionRadius = 40,
