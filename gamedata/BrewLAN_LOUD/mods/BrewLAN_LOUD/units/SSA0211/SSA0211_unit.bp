@@ -98,7 +98,7 @@ UnitBlueprint {
         Health = 1335,
         MaxHealth = 1335,
 		RegenRate = 5,
-        SurfaceThreatLevel = 24,
+        SurfaceThreatLevel = 17,
     },
 	
     Description = '<LOC ssa0211_desc>Tactical Bomber',
@@ -294,14 +294,14 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
 			
-            BombDropThreshold = 5,
+            BombDropThreshold = 3,
 			
             CollideFriendly = false,
 			
-            Damage = 500,
+            Damage = 425,
 			
             DamageFriendly = true,
-            DamageRadius = 2.2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             Display = 'Zhanasee Strategic Bomb',
@@ -344,7 +344,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,   -- 200 DPS
+            RateOfFire = 0.2,   -- 170 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

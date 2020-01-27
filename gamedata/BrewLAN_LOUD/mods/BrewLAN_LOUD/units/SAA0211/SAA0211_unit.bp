@@ -96,7 +96,7 @@ UnitBlueprint {
         Health = 1400,
         MaxHealth = 1400,
         RegenRate = 4,
-        SurfaceThreatLevel = 20,
+        SurfaceThreatLevel = 15,
     },
 	
     Description = '<LOC saa0211_desc>Tactical Bomber',
@@ -272,13 +272,13 @@ UnitBlueprint {
                 },
             },
 
-            BombDropThreshold = 5,
+            BombDropThreshold = 3,
 			
             CollideFriendly = false,
 			
-            Damage = 900,
+            Damage = 750,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 
             EffectiveRadius = 25,
@@ -294,7 +294,7 @@ UnitBlueprint {
 			
             Label = 'Bomb',
 			
-            MaxRadius = 50,
+            MaxRadius = 55,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -319,7 +319,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,		-- 180 DPS
+            RateOfFire = 0.2,		-- 150 DPS
 			
             TargetCheckInterval = 2,
 			
