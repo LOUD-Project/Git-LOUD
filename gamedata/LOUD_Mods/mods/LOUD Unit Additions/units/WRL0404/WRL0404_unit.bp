@@ -308,13 +308,13 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
 			
-            Damage = 1250,	#2500 DPS
+            Damage = 1200,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -331,7 +331,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 85,
+            MaxRadius = 82,
             MinRadius = 8,
 			
             MuzzleSalvoDelay = 0,
@@ -359,7 +359,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 2,
+            RateOfFire = 2,     -- 2400 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 110,
@@ -426,7 +426,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 600,	-- 2400 DPS
+            Damage = 450,	-- 1800 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -526,7 +526,7 @@ UnitBlueprint {
             BeamLifetime = 0.2,
             CollideFriendly = false,
             ContinuousBeam = true,
-            Damage = 600,	-- 2400 DPS
+            Damage = 450,	-- 1800 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			

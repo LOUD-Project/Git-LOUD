@@ -79,14 +79,14 @@ UnitBlueprint {
         Health = 142000,
         MaxHealth = 142000,
         RegenRate = 38,
-        SurfaceThreatLevel = 650,
+        SurfaceThreatLevel = 552,
     },
 	
     Description = '<LOC wel0405_desc>Experimental Assault Bot',
 	
     Display = {
         Abilities = {
-            'Wave Cannons',
+            'Wave Cannons (Shield Draining)',
 			'Missile Barrage',
 			'Anti Air',
 			'Emits Miasma field (50 DPS - Range 36)',
@@ -308,10 +308,10 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 3000,
+            Damage = 2200,
             DamageFriendly = true,
             DamageRadius = 2.5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.3',
 			
             DisplayName = 'Wave Cannon',
 			
@@ -324,17 +324,17 @@ UnitBlueprint {
 		
             Label = 'RightMainWeapon',
 			
-            MaxRadius = 85,
+            MaxRadius = 82,
 			
             MuzzleChargeDelay = 2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 25,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
-            ProjectileLifetime = 2,
+            ProjectileLifetime = 3.4,
 			
             RackBones = {
                 {
@@ -356,7 +356,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 1500 DPS
+            RateOfFire = 0.5,		-- 1100 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -403,10 +403,10 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 3000,
+            Damage = 2200,
             DamageFriendly = true,
             DamageRadius = 2.5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.3',
 			
             DisplayName = 'Wave Cannon',
 			
@@ -419,17 +419,17 @@ UnitBlueprint {
 			
             Label = 'LeftMainWeapon',
 			
-            MaxRadius = 85,
+            MaxRadius = 82,
 			
             MuzzleChargeDelay = 2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 25,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
-            ProjectileLifetime = 2,
+            ProjectileLifetime = 3.5,
 			
             RackBones = {
                 {
@@ -451,7 +451,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 0.5,	-- 1500 DPS
+            RateOfFire = 0.5,	-- 1100 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -495,7 +495,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 280,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -545,7 +545,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 900 DPS
+            RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -586,7 +586,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 280,
             DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Gauss Cannon',
@@ -632,7 +632,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 900 DPS
+            RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -672,7 +672,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 280,
             DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Gauss Cannon',
@@ -719,7 +719,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 900 DPS
+            RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
