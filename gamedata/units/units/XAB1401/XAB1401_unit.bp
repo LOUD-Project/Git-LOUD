@@ -18,9 +18,9 @@ UnitBlueprint {
         'SELECTABLE',
 		'BUILTBYTIER4COMMANDER',
         'AEON',
-		'UEF',
-		'CYBRAN',
-		'SERAPHIM',
+--		'UEF',
+--		'CYBRAN',
+--		'SERAPHIM',
         'STRUCTURE',
         'ECONOMIC',
         'EXPERIMENTAL',
@@ -142,7 +142,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1828125,
+        BuildCostEnergy = 1828125,  -- AEON Faction Bonus
         BuildCostMass = 145938,
         BuildTime = 150000,
 

@@ -38,8 +38,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 3725,
-        Health = 14550,
-        MaxHealth = 14550,
+        Health = 16000,     -- UEF Faction Bonus
+        MaxHealth = 16000,
+        RegenRate = 15,
     },
 	
     Description = '<LOC sb1401_desc>Experimental Resource Generator',
@@ -90,7 +91,7 @@ UnitBlueprint {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
                 DeathLifetime = 10,
-                FadeOut = 600,
+                FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_01_normals',
                 Orientations = {0, 90, 180, 270},
@@ -102,9 +103,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1828125,
-        BuildCostMass = 145938,
-        BuildTime = 150000,
+        BuildCostEnergy = 1920000,
+        BuildCostMass = 147500,
+        BuildTime = 157500,
 
         NaturalProducer = true,
 		

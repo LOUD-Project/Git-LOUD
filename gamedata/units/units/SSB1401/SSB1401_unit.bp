@@ -28,6 +28,7 @@ UnitBlueprint {
         EconomyThreatLevel = 3275,
         Health = 14550,
         MaxHealth = 14550,
+        RegenRate = 15,
     },
 	
     Description = '<LOC sb1401_desc>Experimental Resource Generator',
@@ -75,8 +76,8 @@ UnitBlueprint {
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 600,
+                DeathLifetime = 10,
+                FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
                 Orientations = {0, 90, 180, 270},
@@ -88,13 +89,13 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1828125,
-        BuildCostMass = 145938,
-        BuildTime = 150000,
+        BuildCostEnergy = 1920000,
+        BuildCostMass = 147500,
+        BuildTime = 157500,
 
         NaturalProducer = true,
 		
-        ProductionPerSecondEnergy = 12000,
+        ProductionPerSecondEnergy = 13200,       -- SERA Faction Bonus
         ProductionPerSecondMass = 150,
 		
 		StorageEnergy = 24000,
@@ -107,7 +108,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 55,
+		CapCost = 52,                           -- SERA Faction Bonus
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {

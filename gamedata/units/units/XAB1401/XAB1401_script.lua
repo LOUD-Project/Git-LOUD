@@ -15,20 +15,17 @@ XAB1401 = Class(AStructureUnit) {
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 		local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 		local aiBrain = self:GetAIBrain()
-		
+
 		-- all allied paragons within 120 radius --
-		local paragons = GetUnitsAroundPoint( aiBrain, categories.xab1401, self:GetPosition(), 120, 'Ally')
+		local paragons = GetUnitsAroundPoint( aiBrain, categories.xab1401 + categories.seb1401 + categories.srb1401 + categories.ssb1401, self:GetPosition(), 120, 'Ally')
 		
 		-- your own paragons (all of them) --
-		local MyParagons = GetListOfUnits( aiBrain, categories.xab1401, true )
-		
+		local MyParagons = GetListOfUnits( aiBrain, categories.xab1401 + categories.seb1401 + categories.srb1401 + categories.ssb1401, true )
+
 		local ParagonTooClose = false
 		
 		local MyPosition = self:GetPosition()
 
-		--LOG("*AI DEBUG There are "..table.getn(MyParagons).." Paragon(s) I own")
-		--LOG("*AI DEBUG There are "..table.getn(paragons).." allied Paragon(s) in the area")
-		
 		-- any paragon is too close --
 		-- the greater than 1 accounts for the new one we're trying to put up
 		if table.getn(paragons) > 1 then

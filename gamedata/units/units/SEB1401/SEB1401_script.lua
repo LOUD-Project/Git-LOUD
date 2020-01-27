@@ -26,11 +26,6 @@ SEB1401 = Class(AStructureUnit) {
 		
 		local MyPosition = self:GetPosition()
 
-		--LOG("*AI DEBUG There are "..table.getn(MyParagons).." Paragon(s) I own")
-		--LOG("*AI DEBUG There are "..table.getn(paragons).." allied Paragon(s) in the area")
-		
-		-- any paragon is too close --
-		-- the greater than 1 accounts for the new one we're trying to put up
 		if table.getn(paragons) > 1 then
 		
 			ParagonTooClose = true
