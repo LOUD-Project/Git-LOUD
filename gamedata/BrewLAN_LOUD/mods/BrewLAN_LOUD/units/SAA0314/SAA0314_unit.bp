@@ -35,7 +35,7 @@ UnitBlueprint {
 		
         LiftFactor = 6.5,
 		
-        MaxAirspeed = 20,
+        MaxAirspeed = 19,
         MinAirspeed = 15,
 		
         PredictAheadForBombDrop = 3,
@@ -136,11 +136,11 @@ UnitBlueprint {
 
         ArmorType = 'Light',
         EconomyThreatLevel = 10,
-        Health = 7100,
-        MaxHealth = 7100,
+        Health = 6500,
+        MaxHealth = 6500,
         RegenRate = 10,
         SubThreatLevel = 30,
-        SurfaceThreatLevel = 152,
+        SurfaceThreatLevel = 133,
     },
 	
     Description = '<LOC sa0314_desc>Penetrator Bomber',
@@ -210,7 +210,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 200000,
+        BuildCostEnergy = 210000,
         BuildCostMass = 5000,
         BuildTime = 2775,
 		
@@ -281,7 +281,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 30,
+        Elevation = 24,
 		
         FuelRechargeRate = 20,
         FuelUseTime = 800,
@@ -332,27 +332,13 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
---[[			
-            Buffs = {
-                {
-                    Add = {
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 1,
-					Radius = 1.5,
-                    TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'AIR,COMMAND,WALL,TECH3,EXPERIMENTAL',
-                },
-            },
---]]
-            BombDropThreshold = 3.5,
+
+            BombDropThreshold = 3,
             CollideFriendly = false,
 			
-            Damage = 3450,
+            Damage = 3100,
             DamageFriendly = true,
-            DamageRadius = 3.2,
+            DamageRadius = 2.8,
             DamageType = 'Normal',
 			
             EffectiveRadius = 25,
@@ -392,7 +378,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,
+            RateOfFire = 0.2,       #-- 1240 * .2 = 248
 			
             TargetCheckInterval = 2.5,
 			
@@ -470,7 +456,7 @@ UnitBlueprint {
 			
             --RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1/12.5,
+            RateOfFire = 1/12.5,        -- 96 DPS
 			
             SlavedToBody = true,
 			

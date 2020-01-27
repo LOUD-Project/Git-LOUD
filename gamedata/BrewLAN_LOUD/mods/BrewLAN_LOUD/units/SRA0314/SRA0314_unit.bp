@@ -34,7 +34,7 @@ UnitBlueprint {
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 20,
+        MaxAirspeed = 19,
         MinAirspeed = 15,
 		
         PredictAheadForBombDrop = 3,
@@ -142,8 +142,8 @@ UnitBlueprint {
 		
         ArmorType = 'Light',
         EconomyThreatLevel = 10,
-        Health = 7100,
-        MaxHealth = 7100,
+        Health = 6500,
+        MaxHealth = 6500,
         RegenRate = 14,
         SubThreatLevel = 30,
         SurfaceThreatLevel = 152,
@@ -211,9 +211,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 210000,
+        BuildCostEnergy = 180000,
         BuildCostMass = 5250,
-        BuildTime = 2915,
+        BuildTime = 2500,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 100,
@@ -282,7 +282,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 30,
+        Elevation = 24,
 		
         FuelRechargeRate = 20,
         FuelUseTime = 800,
@@ -329,7 +329,9 @@ UnitBlueprint {
                 },
             },
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
+            
             BombDropThreshold = 3.5,			
 			
             Buffs = {
@@ -348,9 +350,9 @@ UnitBlueprint {
 
             CollideFriendly = false,
 			
-            Damage = 2750,
+            Damage = 2650,
             DamageFriendly = true,
-            DamageRadius = 4,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Neutron Bomb',
@@ -368,7 +370,7 @@ UnitBlueprint {
             Label = 'Bomb',
 			
             NotExclusive = true,
-            MaxRadius = 90,
+            MaxRadius = 75,
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
@@ -396,7 +398,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,
+            RateOfFire = 0.2,       -- 5300 * .2 = 1060 DPS
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
@@ -474,7 +476,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 1/12.5,
+            RateOfFire = 1/12.5,        -- 96 DPS
 			
             SlavedToBody = true,
 			
