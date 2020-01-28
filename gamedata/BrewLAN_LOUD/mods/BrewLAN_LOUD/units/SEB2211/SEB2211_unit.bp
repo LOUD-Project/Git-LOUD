@@ -34,8 +34,6 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SHOWATTACKRETICLE',
-        'OVERLAYINDIRECTFIRE',
         'SORTDEFENSE',
     },
 
@@ -43,11 +41,11 @@ UnitBlueprint {
 
         ArmorType = 'Structure',
 
-        Health = 2400,
-        MaxHealth = 2400,
-        RegenRate = 2,
+        Health = 2100,
+        MaxHealth = 2100,
+        RegenRate = 1,
 
-        SurfaceThreatLevel = 11,
+        SurfaceThreatLevel = 12,
     },
 	
     Description = '<LOC sbui2311_desc>Anti-Armor Point Defense',
@@ -91,13 +89,13 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
-        UniformScale = 0.22,
+        UniformScale = 0.18,
     },
 	
     Economy = {
-        BuildCostEnergy = 3950,
-        BuildCostMass = 590,
-        BuildTime = 495,
+        BuildCostEnergy = 4200,
+        BuildCostMass = 575,
+        BuildTime = 575,
 		
         RebuildBonusIds = {'seb2211'},
     },
@@ -133,7 +131,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 30,
     },
 	
     Interface = {
@@ -157,9 +155,9 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 2.1,
+        MeshExtentsX = 2,
         MeshExtentsY = 1.15,
-        MeshExtentsZ = 2.1,
+        MeshExtentsZ = 2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         SkirtOffsetX = -0.5,
@@ -174,9 +172,9 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.48,
 	
-    SizeX = 1.3,
+    SizeX = 1.2,
     SizeY = 0.6,
-    SizeZ = 1.3,
+    SizeZ = 1.2,
 	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 205,
@@ -212,7 +210,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 120,
+            Damage = 180,
+            DamageFriendly = true,
             DamageRadius = 0.5,
             DamageType = 'Normal',
 			
@@ -224,19 +223,20 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.35,
+            FiringRandomness = 0.4,
             FiringTolerance = 2,
 			
-            Label = 'Turrettt',
+            Label = 'Turret',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 36,
+            MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
-			ProjectileLifetime = 1.5,
+			ProjectileLifetime = 1.8,
 
             RackBones = {
                 {
@@ -261,9 +261,9 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RangeCategory = 'UWRC_IndirectFire',
+            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	-- 120 x 2 = 240 / 2 = 120 DPS
+            RateOfFire = 0.35,	-- 180 x 2 = 360 / 3 = 120 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -281,12 +281,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 10,
-            TurretPitchRange = 20,
+            TurretPitchRange = 25,
             TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 37,
 			
             Turreted = true,
         },

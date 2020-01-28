@@ -22,7 +22,7 @@ Unit_Description_BrewLAN_Turrets_0003="Heavy defensive tower. Armed with a plasm
 
 seb2211_name="Stouty"
 sbui2311_desc="Anti-Armor Point Defense"
-Unit_Description_BrewLAN_Turrets_0004="Defensive tower. Armed with a destroyer grade plasma cannon."
+Unit_Description_BrewLAN_Turrets_0004="Modestly armored defense weapon with excellent range. Armed with a destroyer grade plasma cannon."
 
 srb2402_name="Neolith"
 seb2401_desc="Experimental Point Defence"
