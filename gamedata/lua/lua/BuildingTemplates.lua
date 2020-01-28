@@ -1,7 +1,7 @@
 #**  File     :  /lua/buildingtemplates.lua
 
 -- This file contains all the Platoon Template References for building structures
--- I have enhanced it to provide additional categories for specific new units
+-- I have enhanced it to provide additional categories
 -- mostly to support unique units from 3rd party mods
 
 BuildingTemplates = {
@@ -13,14 +13,12 @@ BuildingTemplates = {
         { 'T1HydroCarbon', 'ueb1102'      },
         { 'T2EnergyProduction', 'ueb1201' },
         { 'T3EnergyProduction', 'ueb1301' },
-        { 'T4EnergyProduction', 'ueb1301' },
 	-- Mass Structures
         { 'T1Resource', 'ueb1103' 		  },
         { 'T2Resource', 'ueb1202'         },
         { 'T3Resource', 'ueb1302'         },
 		{ 'T1MassCreation', 'ueb1104'     },
         { 'T3MassCreation', 'ueb1303'     },
-        { 'T4MassCreation', 'ueb1303'     },
     -- Land Factory Structures
         { 'T1LandFactory', 'ueb0101'      },
         { 'T2LandFactory', 'ueb0201'      },
@@ -110,14 +108,13 @@ BuildingTemplates = {
 	-- Satellites
         { 'T4SatelliteExperimental', 'xeb2402'  },
 	-- Economic
-        { 'T4EconExperimental', 'xab1401' },
+        { 'T4EconExperimental', 'seb1401' },
     },
 
 -- Aeon Building List
     {
 	-- Power Structures
         { 'T3EnergyProduction', 'uab1301' },
-        { 'T4EnergyProduction', 'uab1301' },
         { 'T1EnergyProduction', 'uab1101' },
         { 'T1HydroCarbon', 'uab1102'      },
         { 'T2EnergyProduction', 'uab1201' },
@@ -127,7 +124,6 @@ BuildingTemplates = {
         { 'T2Resource', 'uab1202'      },
         { 'T3Resource', 'uab1302'      },
         { 'T3MassCreation', 'uab1303'  },
-        { 'T4MassCreation', 'uab1303'  },
     -- Land Factory Structures
         { 'T1LandFactory', 'uab0101'  },
         { 'T2LandFactory', 'uab0201'  },
@@ -228,14 +224,12 @@ BuildingTemplates = {
         { 'T1HydroCarbon', 'urb1102'        },
         { 'T2EnergyProduction', 'urb1201'   },
         { 'T3EnergyProduction', 'urb1301'   },
-        { 'T4EnergyProduction', 'urb1301'   },
     -- Mass Structures
         { 'T1Resource', 'urb1103'  			},
         { 'T1MassCreation', 'urb1104'       },
         { 'T2Resource', 'urb1202'			},
         { 'T3Resource', 'urb1302'			},
         { 'T3MassCreation', 'urb1303'		},
-        { 'T4MassCreation', 'urb1303'       },
 	-- Factory Structures
         { 'T1LandFactory', 'urb0101'	},
         { 'T2LandFactory', 'urb0201'	},
@@ -321,7 +315,7 @@ BuildingTemplates = {
 		{ 'T4SeaExperimental1',		},
 		{ 'T4SeaExperimental2',		},
 	-- Economic
-        { 'T4EconExperimental', 'xab1401'   },
+        { 'T4EconExperimental', 'srb1401'   },
     },
 
 -- Seraphim Building List
@@ -331,14 +325,12 @@ BuildingTemplates = {
         {'T1HydroCarbon','xsb1102'			},
         {'T2EnergyProduction','xsb1201'		},
         {'T3EnergyProduction','xsb1301'		},
-        {'T4EnergyProduction','xsb1301'		},
 	-- Mass Structures
         {'T1Resource','xsb1103'		},
         {'T1MassCreation','xsb1104' },
         {'T2Resource','xsb1202'		},
         {'T3Resource','xsb1302'		},
         {'T3MassCreation','xsb1303' },
-        {'T4MassCreation','xsb1303' },
 	-- Factories
         { 'T1LandFactory', 'xsb0101'	},
         { 'T2LandFactory', 'xsb0201'    },
@@ -425,7 +417,7 @@ BuildingTemplates = {
 		{ 'T4SeaExperimental1',	'tcss0403'	},
 		{ 'T4SeaExperimental2',	},				--Vergra Cruiser
 	-- Economic
-        {'T4EconExperimental', 'xab1401'	},
+        {'T4EconExperimental', 'ssb1401'	},
     }
 }
 
