@@ -288,7 +288,7 @@ UnitBlueprint {
     SizeY = 2.1,
     SizeZ = 2.7,
 	
-    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 200,
 	
     Veteran = {
