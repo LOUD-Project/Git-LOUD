@@ -1,4 +1,3 @@
-
 local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 
 local utilities = import('/lua/utilities.lua')
@@ -11,17 +10,23 @@ local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 local WeaponsFile = import ('/lua/aeonweapons.lua')
 
 local ADFPhasonLaser = WeaponsFile.ADFPhasonLaser
-local ADFGravitonProjectorWeapon = import('/lua/aeonweapons.lua').ADFGravitonProjectorWeapon
-local ADFLaserHighIntensityWeapon = import('/lua/aeonweapons.lua').ADFLaserHighIntensityWeapon
-local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
+local ADFGravitonProjectorWeapon = WeaponsFile.ADFGravitonProjectorWeapon
+local ADFLaserHighIntensityWeapon = WeaponsFile.ADFLaserHighIntensityWeapon
+local AAAZealotMissileWeapon = WeaponsFile.AAAZealotMissileWeapon
 local ADFChronoDampener = WeaponsFile.ADFChronoDampener
 
 UAL0402 = Class(AWalkingLandUnit) {
+
     Weapons = {
-        EyeWeapon = Class(ADFPhasonLaser) {},
-        FrontTurret01 = Class(ADFLaserHighIntensityWeapon) {},
-        MainGun = Class(ADFGravitonProjectorWeapon) {},
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},
+    
+        RightArm = Class(ADFPhasonLaser) {},
+        
+        LeftArm = Class(ADFLaserHighIntensityWeapon) {},
+        
+        Shoulder = Class(ADFGravitonProjectorWeapon) {},
+        
+        AA = Class(AAAZealotMissileWeapon) {},
+        
         ChronoDampener = Class(ADFChronoDampener) {},        
     },
 
@@ -46,20 +51,11 @@ UAL0402 = Class(AWalkingLandUnit) {
         AWalkingLandUnit.OnAnimCollision(self, bone, x, y, z)         
     end,
 
-    --[[
-        self.detector:WatchBone('Right_Leg_B01')
-        self.detector:WatchBone('Left_Leg_B01')
-        self.detector:WatchBone('WeaponRight')
-        self.detector:WatchBone('WeaponLeft')
-        self.detector:WatchBone('Right_Leg_B02')
-        self.detector:WatchBone('Left_Leg_B02')     
-        ]]--   
-
     DestructionEffectBones = {
         'Right_Leg_B01','Left_Leg_B01','ShoulderCannon','Right_Leg_B02','Left_Leg_B02','ArmRight','ArmLeft','ShoulderTurret','Right_Foot','Left_Foot','ShoulderBarrel',
         'WeaponRight','WeaponLeft','BarrelLeft','Missile2','Missile3','Missile1','MuzzleShoulder','MuzzleRight','MuzzleLeft',
-        },
-       
+    },
+
     OnKilled = function(self, instigator, type, overkillRatio)
         AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
         local wep = self:GetWeaponByLabel('EyeWeapon')

@@ -252,14 +252,12 @@ UnitBlueprint {
                     RackBone = 'Barrel2',
                 },                
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -8,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 10,		#-- every 2 seconds = 360 DPS

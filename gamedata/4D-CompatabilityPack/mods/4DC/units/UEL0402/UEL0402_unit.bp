@@ -85,13 +85,13 @@ UnitBlueprint {
         'EXPERIMENTAL',
         'LAND',
         'MOBILE',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYINDIRECTFIRE',        
+        'AMPHIBIOUS',
         'NEEDMOBILEBUILD',
         'RECLAIMABLE',
         'SELECTABLE',
         'UEF',
         'VISIBLETORECON',
+        'OVERLAYSONAR',
     },
 	
     Defense = {
@@ -195,7 +195,7 @@ UnitBlueprint {
                         },
                     },
                     Damage = {
-                        Amount = 2500,
+                        Amount = 2000,
                         DamageFriendly = false,
                         Radius = 1.5,
                         Type = 'ExperimentalFootfall',
@@ -206,7 +206,6 @@ UnitBlueprint {
 
         SpawnRandomRotation = false,
         UniformScale = 0.017,
-		
     },
 	
     Economy = {
@@ -307,7 +306,7 @@ UnitBlueprint {
     SizeY = 3.5, 
     SizeZ = 2, 
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 5,
 	
     Veteran = {
@@ -400,16 +399,13 @@ UnitBlueprint {
                     },
                     RackBone = 'missile_left',
                 },               
-                
             },			
 			
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,		#-- 650 DPS every 10 seconds = 65 DPS
@@ -477,10 +473,7 @@ UnitBlueprint {
             FiringTolerance = 0.5,
             FiringRandomness = 0.4,
             FiringRandomnessWhileMoving = 1.6,
-			
-            --HeadingArcCenter = -42,
-            --HeadingArcRange = 58,
-			
+
             Label = 'auto_cannon_right',
 
             MaxRadius = 42,
@@ -504,15 +497,11 @@ UnitBlueprint {
                     RackBone = 'auto_cannon_barrels_right',
                 },
             },
-            RackFireTogether = false,
-			
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 2,
             RackSalvoReloadTime = 2,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 3000 Damage every 7 seconds = 428 DPS
@@ -521,7 +510,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'TECH3 MOBILE',
-                'STRUCTURE DEFENSE DIRECTFIRE',
+                'DEFENSE DIRECTFIRE',
                 'TECH2 MOBILE',
                 'ALLUNITS',
             },
@@ -577,10 +566,7 @@ UnitBlueprint {
 			
             FiringRandomness = 0.4,
             FiringRandomnessWhileMoving = 1.6,
-			
-            --HeadingArcCenter = 42,
-            --HeadingArcRange = 58,
-			
+
             Label = 'auto_cannon_left',
 
             MaxRadius = 42,
@@ -604,17 +590,11 @@ UnitBlueprint {
                     RackBone = 'auto_cannon_barrels_left',
                 },
             },
-			RackFireTogether = false,
-			
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 2,
             RackSalvoReloadTime = 2,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,						#-- 428 DPS
 
             TargetCheckInterval = 0.5,
@@ -622,7 +602,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'TECH3 MOBILE',
-                'STRUCTURE DEFENSE DIRECTFIRE',
+                'DEFENSE DIRECTFIRE',
                 'TECH2 MOBILE',
                 'ALLUNITS',
             },
@@ -700,10 +680,7 @@ UnitBlueprint {
 			
             FiringRandomness = 0.25,
             FiringRandomnessWhileMoving = 0.6,
-			
-            --HeadingArcCenter = -42,
-            --HeadingArcRange = 58,
-			
+
             Label = 'emp_right',			#-- this is the right arm underslung weapon
 			
             MaxRadius = 42,
@@ -726,22 +703,19 @@ UnitBlueprint {
                     RackBone = 'emp_slider_right',
                 },
             },
-
-            RackFireTogether = false,
+            
             RackRecoilDistance = -12,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.6,			#-- 500 every 1.65 seconds is 300 DPS
 
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'TECH3 MOBILE',
-                'STRUCTURE DEFENSE DIRECTFIRE',
+                'DEFENSE DIRECTFIRE',
                 'TECH2 MOBILE',
                 'ALLUNITS',
             },
@@ -809,10 +783,7 @@ UnitBlueprint {
 			
             FiringRandomness = 0.25,
             FiringRandomnessWhileMoving = 0.6,
-			
-            --HeadingArcCenter = 42,
-            --HeadingArcRange = 58,
-			
+
             Label = 'emp_left',		#-- this is the left arm underslung weapon
 			
             MaxRadius = 42,
@@ -835,13 +806,11 @@ UnitBlueprint {
                     RackBone = 'emp_slider_left',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -12,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.6,			#--- another 300 DPS
 
@@ -938,27 +907,21 @@ UnitBlueprint {
                     RackBone = 'plasma_repeater_slider_left',
                 },
             },
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
-            RackFireTogether = false,
-			
+
             RackRecoilDistance = -4,
 			
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
+            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 3.0,		#--   100 DPS
-			
-            --SlavedToBody = true,
-			
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'EXPERIMENTAL',
-                'STRUCTURE DEFENSE DIRECTFIRE',
+                'DEFENSE DIRECTFIRE',
                 'TECH1 MOBILE',
                 'TECH2 MOBILE',
                 'ALLUNITS',
@@ -1044,14 +1007,11 @@ UnitBlueprint {
                     RackBone = 'torso',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,			-- 12 * 110 = 132 DPS
@@ -1072,7 +1032,7 @@ UnitBlueprint {
             Turreted = false,
         },
         {
-            Damage = 5600,
+            Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',
