@@ -1,0 +1,14 @@
+BeamBlueprint {
+    Lifetime = 1.5,
+    TextureName = '/mods/BattlePack/textures/particles/rb_0038_35.dds',
+    Thickness = 0.4,
+    StartColor = {x=1.0,y=1.0,z=1.0,w=1.0}, -- R,G,B,A
+    EndColor = {x=1.0,y=1.0,z=1.0,w=1.0}, -- R,G,B,A
+    Length = 1,
+    RepeatRate= 0.04,
+    UShift = 0.0,
+    VShift = -0.2,
+	Blendmode = 3.0,
+	LODCutoff = 500.00,
+}
+

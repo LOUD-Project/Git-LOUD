@@ -1,0 +1,64 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'UEF',
+        'PROJECTILE',
+        'ANTIAIR',
+        'MISSILE',
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium01',
+        },
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/mods/BattlePack/projectiles/UAntiAirMissile01/UAntiAirMissile01_albedo.dds',
+                    MeshName = '/mods/BattlePack/projectiles/UAntiAirMissile01/UAntiAirMissile01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 2,
+        UniformScale = 0.2,
+    },
+    General = {
+        Category = 'Anti Air',
+        Faction = 'UEF',
+        TechLevel = 3,
+        Weapon = 'Flayer SAM Launcher',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 6,
+        InitialSpeed = 30,
+        LeadTarget = false,
+        Lifetime = 4,
+        MaxSpeed = 50,
+        MaxZigZag = 10,
+        OnLostTargetLifetime = 0.7,
+        TrackTarget = true,
+        TurnRate = 180,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 0.1,
+    },
+}

@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_u_crm01_p_06_polytrail',
+	Lifetime = -1.00,
+    TrailLength = 1.0,
+    Size = 0.14,
+    SortOrder = -10,
+    BlendMode = 3,
+    TextureRepeatRate = 0.5,
+    LODCutoff = 300,
+	RepeatTexture = [[/mods/BattlePack/textures/particles/beam_exhaust_01.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ra_0095_red.dds]],
+}
+

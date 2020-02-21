@@ -1,0 +1,57 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'AEON_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'Aeon',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
+        'NOSPLASHDAMAGE',
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium01',
+        },
+        CameraFollowTimeout = 3,
+        CameraFollowsProjectile = true,
+        StrategicIconSize = 2,
+    },
+    General = {
+        Category = 'Missile',
+        Faction = 'Illuminate',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+	DestroyOnWater = true,
+        Acceleration = 3,
+        InitialSpeed = 3,
+        MaxSpeed = 12,
+        MaxZigZag = 3,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        TurnRate = 4,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 0.32,
+    },
+}

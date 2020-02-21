@@ -1,0 +1,10 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = '/mods/BattlePack/projectiles/OTacticalMissile01/OTacticalMissile01_lod0.scm',
+            AlbedoName = '/mods/BattlePack/projectiles/OTacticalMissile01/OTacticalMissile01_albedo.dds',
+            ShaderName = 'TMeshAlpha',
+            LODCutoff = 150,
+        },
+    },
+}

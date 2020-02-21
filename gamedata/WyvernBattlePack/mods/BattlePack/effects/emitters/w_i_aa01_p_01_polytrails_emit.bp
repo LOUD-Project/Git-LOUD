@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_i_aa01_p_01_polytrails',
+	Lifetime = -1.00,
+    TrailLength = 0.4,
+    Size = 0.25,
+    SortOrder = 1,
+    BlendMode = 3,
+    TextureRepeatRate = .5,
+    LODCutoff = 300,
+	RepeatTexture = [[/mods/BattlePack/textures/particles/quantum_beam_01.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ra_0102_lightaqua.dds]],
+}
+

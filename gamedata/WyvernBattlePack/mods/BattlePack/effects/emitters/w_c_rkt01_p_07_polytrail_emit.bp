@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_c_las01_p_07_polytrail',
+	Lifetime = -1.00,
+    TrailLength = 5.0,
+    Size = 0.06,
+    SortOrder = -10,
+    BlendMode = 3,
+    TextureRepeatRate = 0.25,
+    LODCutoff = 300,
+	RepeatTexture = [[/mods/BattlePack/textures/particles/nano_dart_trail.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ra_0120_trail.dds]],
+}
+

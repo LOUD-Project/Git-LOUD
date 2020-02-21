@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_u_dra01_p_09_polytrail',
+	Lifetime = -1.00,
+    TrailLength = 8,
+    Size = 0.35,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 0.07,
+    LODCutoff = 830,
+	RepeatTexture = [[/mods/BattlePack/textures/particles/trail_aeon_01.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ramp_trail_17.dds]],
+}
+

@@ -1,0 +1,18 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            MeshName = '/mods/BattlePack/units/WSL0308/WSL0308_lod0.scm',
+            AlbedoName = '/mods/BattlePack/units/WSL0308/WSL0308_albedo.dds',
+            NormalsName = '/mods/BattlePack/units/WSL0308/WSL0308_normalsTS.dds',
+            SpecularName = '/mods/BattlePack/units/WSL0308/WSL0308_specteam.dds',
+            LookupName = '/effects/entities/ShieldSection01/ShieldSection01b_Albedo.dds',
+            SecondaryName = '/effects/entities/PhaseShield/PhaseShieldLookup.dds',
+
+            LODCutoff = 195,
+            
+            Scrolling = true,
+            ShaderName = 'SeraphimPersonalShield',
+        },
+    },
+}

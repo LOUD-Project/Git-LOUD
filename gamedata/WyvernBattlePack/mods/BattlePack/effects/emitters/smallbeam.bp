@@ -1,0 +1,20 @@
+-----------------------------------------------------------------------------  
+--  File     : /4DC_V0.81/effects/Emitters/bfg_fx_02_beam_emit.bp 
+-- 
+--  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
+-- 
+--  Summary  : FX Beam for the Aeon BFG cannon
+-- 
+--  Copyright © 2010 4DC_V0.81  All rights reserved.
+----------------------------------------------------------------------------- 
+BeamBlueprint {
+    Lifetime = 10.0, 
+    TextureName = '/textures/particles/beam_uef_hiro_01.dds',       
+    Length = 2000, 
+    Thickness = 0.01,  
+    StartColor = {x=0.8,y=0.8,z=1,w=0.0}, # R,G,B,A
+    EndColor = {x=0.6,y=0.6,z=1,w=0.0}, # R,G,B,A
+    UShift = 0.0,
+    VShift = 0.4,
+    LOD= 200,
+}

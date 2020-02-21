@@ -1,0 +1,62 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'AEON_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_AEON',
+            LodCutoff = 'Weapon_LodCutoff',
+        },                   
+    },
+    Categories = {
+        'AEON',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+    },
+    Display = {
+        CameraFollowsProjectile = false,
+        Mesh = {
+            LODs = {
+                {                                      
+         	        MeshName = '/projectiles/TIFNapalmCarpetBomb02/TIFNapalmCarpetBomb02_lod0.scm',
+         	        AlbedoName = '/projectiles/TIFNapalmCarpetBomb02/TIFNapalmCarpetBomb02_Albedo.dds',
+         	        NormalsName = '/projectiles/TIFNapalmCarpetBomb02/TIFNapalmCarpetBomb02_normalsTS.dds',
+         	        SpecularName = '/projectiles/TIFNapalmCarpetBomb02/TIFNapalmCarpetBomb02_SpecTeam.dds',
+         	        LODCutoff = 150,
+                    ShaderName = 'NormalMappedAlpha',  
+                },
+            },
+        },
+        StrategicIconSize = 1,
+        UniformScale = 0.05,
+    },
+    General = {
+        Category = 'Bomb',
+        EntityCategory = {
+            'AEON',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+        },
+        Faction = 'Aeon',
+        Weapon = 'Miasma Bomb', 
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        MaxSpeed = 20,
+        RealisticOrdinance = true,
+        TrackTarget = false,
+        TurnRate = 30,
+        VelocityAlign = true,
+    },
+}

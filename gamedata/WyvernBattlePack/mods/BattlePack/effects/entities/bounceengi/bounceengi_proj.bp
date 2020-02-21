@@ -1,0 +1,28 @@
+ProjectileBlueprint {
+    Display = {
+        ImpactEffects = {
+            Type = 'Small01',
+            Scale = 1.0,
+        },
+		MeshBlueprint = '/units/uel0105/uel0105_mesh.bp',
+        UniformScale = 0.1,
+    },
+    Physics = {
+        MinBounceCount = 10,
+        MaxBounceCount = 10,
+        DestroyOnWater = true,
+        DirectionX = 1.0,
+        DirectionXRange = 5,
+        DirectionY = 1.75,
+        DirectionYRange = 0.5,
+        DirectionZ = 1.75,
+        DirectionZRange = 5,
+        InitialSpeed = 1.5,
+        InitialSpeedRange = 4,
+        MaxSpeed = 10,
+        RotationalVelocity = 90,
+        RotationalVelocityRange = 45,
+        VelocityAlign = true,
+		Lifetime = 60,
+    },
+}

@@ -1,0 +1,65 @@
+EmitterBlueprint {
+	BlueprintId = 'w_i_pla05_l_09_distortring',
+	Lifetime = 2.00,
+	Repeattime = 2.00,
+	Blendmode = 5.00,
+	LocalVelocity = true,
+	LODCutoff = -1.00,
+	InterpolateEmission = false,
+	SortOrder = 5.00,
+	LowFidelity = false,
+	MedFidelity = false,
+	Texture = [[/mods/BattlePack/textures/particles/rn_0021_44.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ra_0115_white_premod.dds]],
+	EmitRateCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=1.0000,y=1.0000,z=0.0000 },
+		},
+	},
+	LifetimeCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=0.9000,y=2.5000,z=0.0000 },
+			{ x=1.0000,y=6.0000,z=0.0000 },
+		},
+	},
+	ZPosCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=1.0000,y=2.5000,z=0.0000 },
+		},
+	},
+	YDirectionCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=1.0020,y=0.0000,z=0.0000 },
+		},
+	},
+	StartSizeCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=0.9000,y=0.0000,z=0.0000 },
+			{ x=1.0000,y=2.5000,z=0.0000 },
+		},
+	},
+	EndSizeCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=0.9000,y=4.0000,z=0.0000 },
+			{ x=1.0000,y=2.0000,z=0.0000 },
+		},
+	},
+	InitialRotationCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=1.0000,y=180.0000,z=360.0000 },
+		},
+	},
+	FrameRateCurve = {
+		XRange = 2.0000,
+		Keys = {
+			{ x=1.0000,y=1.0000,z=0.0000 },
+		},
+	},
+}

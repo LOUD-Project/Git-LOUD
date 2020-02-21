@@ -1,0 +1,42 @@
+local TMobileFactoryUnit = import('/lua/terranunits.lua').TMobileFactoryUnit
+local WeaponsFile = import('/lua/terranweapons.lua')
+
+local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon
+local TAAFlakArtilleryCannon = WeaponsFile.TAAFlakArtilleryCannon
+local TIFCruiseMissileLauncher = WeaponsFile.TIFCruiseMissileLauncher
+local TDFHiroPlasmaCannon = WeaponsFile.TDFHiroPlasmaCannon
+local TANTorpedoAngler = WeaponsFile.TANTorpedoAngler
+local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectUtil = import('/lua/EffectUtilities.lua')
+
+
+WEL0401 = Class(TMobileFactoryUnit) {
+
+	Weapons = {
+    
+        Turret = Class(TDFGaussCannonWeapon) {},
+        
+        Riotgun = Class(TDFRiotWeapon) {
+            FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank
+        },
+
+        Torpedo = Class(TANTorpedoAngler) {},
+        
+		MainGun = Class(TIFArtilleryWeapon) {
+            FxMuzzleFlashScale = 1.5,
+        },
+        
+		AAGun = Class(TAAFlakArtilleryCannon) {
+            PlayOnlyOneSoundCue = true,
+        },
+        
+		Rockets = Class(TIFCruiseMissileLauncher) {},
+        
+		TMD = Class(TDFHiroPlasmaCannon) {},
+    },
+}
+
+TypeClass = WEL0401

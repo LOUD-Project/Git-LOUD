@@ -1,0 +1,114 @@
+EmitterBlueprint {
+	BlueprintId = 'w_c_nan01_p_05_nanoglow',
+	Lifetime = -1.00,
+	Repeattime = 11.00,
+	Blendmode = 3.00,
+	LocalVelocity = true,
+	LODCutoff = 830.00,
+	EmitIfVisible = false,
+	SortOrder = -1.00,
+	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ra_0133_lightpurple.dds]],
+	EmitRateCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=4.5870,y=4.0000,z=0.0000 },
+		},
+	},
+	LifetimeCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=11.0000,y=2.0000,z=2.0000 },
+		},
+	},
+	SizeCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.6100,y=0.0100,z=0.0000 },
+		},
+	},
+	ZPosCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.6100,y=0.3000,z=0.0000 },
+		},
+	},
+	VelocityCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.5000,y=1.0000,z=0.0000 },
+		},
+	},
+	YDirectionCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.3900,y=0.0000,z=0.0000 },
+		},
+	},
+	ZDirectionCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=2.7500,y=0.0000,z=0.0000 },
+		},
+	},
+	StartSizeCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=3.7950,y=0.5000,z=0.0000 },
+		},
+	},
+	EndSizeCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=2.7390,y=0.5000,z=0.0000 },
+		},
+	},
+	InitialRotationCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.5000,y=180.0000,z=360.0000 },
+		},
+	},
+	RotationRateCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.5000,y=0.0000,z=2.0000 },
+		},
+	},
+	FrameRateCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=5.6100,y=0.0000,z=0.0000 },
+		},
+	},
+	RampSelectionCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=3.2450,y=0.0000,z=0.0000 },
+		},
+	},
+	DistMapScaleCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=3.3813,y=0.0000,z=0.0000 },
+		},
+	},
+	DistMapBeginStrengthCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=2.7863,y=0.0000,z=0.0000 },
+		},
+	},
+	DistMapEndStrengthCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=1.5818,y=0.0000,z=0.0000 },
+		},
+	},
+	DistMapUShiftRateCurve = {
+		XRange = 11.0000,
+		Keys = {
+			{ x=1.3641,y=0.0000,z=0.0000 },
+		},
+	},
+}

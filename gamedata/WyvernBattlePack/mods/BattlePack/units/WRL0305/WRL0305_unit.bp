@@ -1,0 +1,349 @@
+UnitBlueprint {
+    Audio = {
+
+        Killed = Sound {
+            Bank = 'URLWeapon',
+            Cue = 'URL0303_Death_EMP',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'URL',
+            Cue = 'URL0303_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+    },
+    
+    BuildIconSortPriority = 20,
+    
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'DIRECTFIRE',
+        'SNIPER',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'BOT',
+        'OVERLAYDIRECTFIRE',
+        'OVERLAYDEFENSE',
+    },
+    Defense = {
+
+        ArmorType = 'Normal',
+
+        Health = 460,
+        MaxHealth = 460,
+        RegenRate = 2,
+
+        SurfaceThreatLevel = 18,
+    },
+
+    Description = 'Sniper Bot',
+    
+    Display = {
+        AnimationDeath = {
+            {
+                Animation = '/Mods/BattlePack/units/WRL0305/WRL0305_Adeath01.sca',
+                AnimationRateMax = 1.25,
+                AnimationRateMin = 0.75,
+                Weight = 1,
+            },
+            {
+                Animation = '/Mods/BattlePack/units/WRL0305/WRL0305_Adeath02.sca',
+                AnimationRateMax = 1.25,
+                AnimationRateMin = 0.75,
+                Weight = 1,
+            },
+        },
+        
+        AnimationWalk = '/Mods/BattlePack/units/WRL0305/WRL0305_awalk.sca',
+        AnimationWalkRate = 4.5,
+        
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'wrl0305_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'Insect',
+                    SpecularName = 'wrl0305_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'LegL_B04',
+                            'LegR_B04',
+                        },
+                        Type = 'GroundKickup01',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        
+        TransportAnimation = {
+            {
+                Animation = '/Mods/BattlePack/units/WRL0305/WRL0305_Afold01.sca',
+                Weight = 100,
+            },
+        },
+        UniformScale = 0.10,
+    },
+    
+    Economy = {
+        BuildCostEnergy = 19500,
+        BuildCostMass = 900,
+        BuildTime = 500,
+        
+        MaintenanceConsumptionPerSecondEnergy = 25,        
+    },
+    
+    General = {
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-personal',
+                helpText = 'toggle_stealth_personal',
+            },
+        },
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },        
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = 'Echidna',
+        UnitWeight = 1,
+    },
+    
+    Intel = {
+        VisionRadius = 32,
+		RadarStealth = true,
+    },
+    
+    Interface = {
+        HelpText = 'Sniper Bot',
+    },
+    
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.55,
+    LifeBarSize = 1,
+    
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        
+        MaxAcceleration = 0.9,
+        MaxBrake = 1.3,
+        MaxSpeed = 3.9,
+        MaxSpeedReverse = 0,
+        
+        MaxSteerForce = 10,
+        
+        MeshExtentsX = 1.1,
+        MeshExtentsY = 1.3,
+        MeshExtentsZ = 1.1,
+        
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Land',
+        
+        StandUpright = true,
+        
+        TurnRadius = 5,
+        TurnRate = 120,
+    },
+    
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0,
+    SelectionSizeX = 0.55,
+    SelectionSizeZ = 0.5,
+    SelectionThickness = 0.4,
+    
+    SizeX = 0.8,
+    SizeY = 1.1,
+    SizeZ = 0.8,
+    
+    StrategicIconName = 'icon_bot3_sniper',
+    StrategicIconSortPriority = 115,
+    
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 3,
+    },
+    
+    Veteran = {
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
+    },
+    
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                MuzzleChargeStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_none',
+            CollideFriendly = false,
+            
+            Damage = 1800,
+            DamageType = 'ShieldMult0.5',
+            
+            DisplayName = 'Disintegrator Pulse Laser',
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 1,
+            
+			FiringRandomnessWhileMoving = 1.5,
+            
+            Label = 'MainGun',
+            
+            MaxRadius = 70,
+            
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 60,
+            
+            NotExclusive = false,
+            
+            ProjectileId = '/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.4,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Main_Muzzle',
+                    },
+                    RackBone = 'Sniper_Recoil',
+                },
+            },
+
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_DirectFire',
+            
+            RateOfFire = 0.1,
+            RenderFireClock = true,
+            
+            TargetCheckInterval = 4,
+            
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'COMMAND',
+				'EXPERIMENTAL',
+                'TECH3 MOBILE',
+                'TECH2 MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+            
+            TurretBoneMuzzle = 'Main_Muzzle',
+            TurretBonePitch = 'Sniper_Pitch',
+            TurretBoneYaw = 'Torso',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 10,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 30,
+            
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 45,
+            
+            Turreted = true,
+        },
+    },
+    
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

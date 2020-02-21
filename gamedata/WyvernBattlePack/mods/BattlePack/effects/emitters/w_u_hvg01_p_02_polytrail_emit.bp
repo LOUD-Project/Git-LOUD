@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'w_u_hvg01_p_02_polytrail',
+	Lifetime = -1.00,
+    TrailLength = 4.5,
+    Size = 0.1,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 1,
+    LODCutoff = 830,
+	RepeatTexture = [[/mods/BattlePack/textures/particles/railgun_trail_01.dds]],
+	RampTexture = [[/mods/BattlePack/textures/particles/ramp_white_19.dds]],
+}
+
