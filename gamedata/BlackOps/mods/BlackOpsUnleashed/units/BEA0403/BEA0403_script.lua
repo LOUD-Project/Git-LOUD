@@ -7,17 +7,13 @@ local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
 local TAAFlakArtilleryCannon = WeaponsFile.TAAFlakArtilleryCannon
 local TDFPlasmaCannonWeapon = WeaponsFile.TDFPlasmaCannonWeapon
 
-local YCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').YCannonWeapon
-
 local EffectUtils = import('/lua/effectutilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
 local ForkThread = ForkThread
 
 BEA0403 = Class(TAirUnit) {
     Weapons = {
-	
-    	SiegeTurret = Class(YCannonWeapon) {},
-		
+
         Turret = Class(TDFGaussCannonWeapon) {},
 
         AAAFlak = Class(TAAFlakArtilleryCannon) {},
@@ -118,9 +114,11 @@ BEA0403 = Class(TAirUnit) {
     FxDamageScale = 1.5,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
 		self.AirPadTable = {}
+        
 		self:ForkThread(self.AirPad)
-		self:SetWeaponEnabledByLabel('SiegeTurret', false)
+
         TAirUnit.OnStopBeingBuilt(self,builder,layer)
     end,
 
@@ -134,7 +132,7 @@ BEA0403 = Class(TAirUnit) {
 				self:HideBone('AttachRepair04', true)
 				self:HideBone('AttachRepair05', true)
 				self:HideBone('AttachRepair06', true)
-
+--[[
 				-- Gets the platforms current orientation
 				local platOrient = self:GetOrientation()
             
@@ -162,10 +160,11 @@ BEA0403 = Class(TAirUnit) {
 				-- AirPad clean up scripts
 				self.Trash:Add(AirPad01)
 				self.Trash:Add(AirPad02)
+--]]
 			end
 		end 
 	end,
-
+--[[
     OnScriptBitSet = function(self, bit)
         TAirUnit.OnScriptBitSet(self, bit)
         if bit == 1 then 
@@ -187,7 +186,7 @@ BEA0403 = Class(TAirUnit) {
     	self:SetSpeedMult(1)
     	end
     end,
-	
+--]]	
 	--Cleans up threads and drones on death
 	OnKilled = function(self, instigator, type, overkillRatio)
 		self:HideBone('AttachRepair01', true)

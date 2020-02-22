@@ -254,7 +254,7 @@ UnitBlueprint {
     SizeY = 5.25,
     SizeZ = 2.4,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
 	
     Transport = {
@@ -347,9 +347,7 @@ UnitBlueprint {
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 1,
             RackSalvoReloadTime = 1,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
 			-- the true rate of fire is a combination of the rack salvo reload - 1 seconds
@@ -454,16 +452,13 @@ UnitBlueprint {
                     RackBone = 'Beam_Pitch',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
+            
 			ReTargetOnMiss = true,
 
             RateOfFire = 1,	#-- 375 * 8 = 3000 DPS 
@@ -568,9 +563,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiNavy',
-			
+
             RateOfFire = 3,		#-- 900 DPS
 			
             TargetCheckInterval = 0.3,
@@ -651,13 +644,11 @@ UnitBlueprint {
                     RackBone = 'TMD_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.1,
@@ -735,14 +726,11 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,

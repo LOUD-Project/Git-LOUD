@@ -59,6 +59,7 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYRADAR',
         'DRAGBUILD',
     },
 	
@@ -153,7 +154,7 @@ UnitBlueprint {
                         },
                     },
                     Damage = {
-                        Amount = 700,
+                        Amount = 1000,
                         DamageFriendly = false,
                         Radius = 1,
                         Type = 'ExperimentalFootfall',
@@ -261,7 +262,7 @@ UnitBlueprint {
     SizeY = 3.15,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 175,
 	
     Veteran = {
@@ -315,9 +316,7 @@ UnitBlueprint {
 			
             DisplayName = 'Heavy Microwave Laser',
 			
-			DoNotCollideList = {
-                'MISSILE',
-            },
+			DoNotCollideList = {'MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -353,18 +352,13 @@ UnitBlueprint {
                     RackBone = 'Barrel01',
                 },
             },
-			
             RackFireTogether = true, 
-             
-			
+
             RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (2 seconds), fire (3 seconds), reload (8 seconds) 
             RackSalvoFiresAfterCharge = false,
 			
             RackSalvoReloadTime = 10,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
 			RenderFireClock = true,
 			
             SlavedToBody = true,
@@ -417,9 +411,7 @@ UnitBlueprint {
 			
             DisplayName = 'Head weapon',
 			
-			DoNotCollideList = {
-                'MISSILE',
-            },
+			DoNotCollideList = {'MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -454,8 +446,7 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -472,7 +463,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE -WALL',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
 			

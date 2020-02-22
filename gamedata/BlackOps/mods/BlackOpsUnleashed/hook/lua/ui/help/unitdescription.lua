@@ -1,4 +1,4 @@
-#Descriptions for new units in BlackOps
+-- BLACK OPS Unit Descriptions
 
 --Aeon
 

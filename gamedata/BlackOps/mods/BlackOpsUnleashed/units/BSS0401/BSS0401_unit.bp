@@ -245,7 +245,7 @@ UnitBlueprint {
     SizeY = 1.9,
     SizeZ = 11.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_ship_artillery',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
@@ -324,16 +324,14 @@ UnitBlueprint {
                     RackBone = 'Main_Front_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.4,	-- 600 DPS 
@@ -433,15 +431,13 @@ UnitBlueprint {
                     RackBone = 'Main_Back_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.4,	-- 600 DPS since BSL0404 does 1500 damage over it's lifetime
 			
@@ -452,7 +448,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -537,15 +532,13 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 350 DPS	
@@ -639,15 +632,13 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,		-- 350 DPS
 			
             SlavedToBody = true,
@@ -738,15 +729,13 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel03',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,		-- 350 DPS
 			
             SlavedToBody = true,
@@ -756,7 +745,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -841,15 +829,11 @@ UnitBlueprint {
                     RackBone = 'Left_Deck_Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,		-- 125 DPS
 			
             SlavedToBody = true,
@@ -859,7 +843,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -937,15 +920,11 @@ UnitBlueprint {
                     RackBone = 'Right_Deck_Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,		-- 125 DPS
 			
             SlavedToBody = true,
@@ -955,7 +934,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1034,15 +1012,11 @@ UnitBlueprint {
                     RackBone = 'Left_Deck_Turret02_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,		-- 125 DPS
 			
             SlavedToBody = true,
@@ -1052,7 +1026,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1132,14 +1105,11 @@ UnitBlueprint {
                     RackBone = 'Right_Deck_Turret02_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.25,	-- 125 DPS
 			
             SlavedToBody = true,
@@ -1149,7 +1119,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1219,8 +1188,7 @@ UnitBlueprint {
                     RackBone = 'TMD_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -1309,9 +1277,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Turret01_Barrel01',
                 },				
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackFiresAfterCharge = true,
@@ -1322,6 +1288,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 3,	-- 150 DPS Air
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1404,9 +1371,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Turret02_Barrel01',
                 },				
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalveFiresAfterCharge = true,
@@ -1415,6 +1380,7 @@ UnitBlueprint {
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 150 DPS Air
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1497,8 +1463,7 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Turret01_Barrel01',
                 },				
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalvoFiresAfterCharge = true,
@@ -1507,6 +1472,7 @@ UnitBlueprint {
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 150 DPS Air
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1589,8 +1555,7 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Turret02_Barrel01',
                 },				
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalvoFiresAfterCharge = true,
@@ -1599,6 +1564,7 @@ UnitBlueprint {
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 150 DPS Air
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1684,15 +1650,11 @@ UnitBlueprint {
                     RackBone = 'Projectile01',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,

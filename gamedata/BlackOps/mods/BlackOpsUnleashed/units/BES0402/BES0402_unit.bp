@@ -245,7 +245,7 @@ UnitBlueprint {
     SizeY = 1.80,
     SizeZ = 11.5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_ship_artillery',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
@@ -328,14 +328,12 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 5,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,		#-- 600 DPS
@@ -446,19 +444,19 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 5,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.2,		#-- 600 dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
+            
             TargetCheckInterval = 5.0,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL NAVAL MOBILE',
@@ -560,13 +558,11 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 5,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.2,		#-- another 600 DPS
 			
@@ -679,8 +675,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-			
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -796,7 +791,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -911,7 +906,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1026,7 +1021,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1141,7 +1136,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1256,7 +1251,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1371,7 +1366,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1486,7 +1481,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1582,7 +1577,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1597,24 +1592,27 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
+            
             TurretBoneMuzzle = 'Left_AA_Muzzle01',
             TurretBonePitch = 'Left_AA_Barrel01',
             TurretBoneYaw = 'Left_AA_Turret01',
             TurretDualManipulators = false,
+            
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 145,
             TurretYawSpeed = 70,
+            
             Turreted = true,
         },
         {
@@ -1671,7 +1669,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1680,13 +1678,13 @@ UnitBlueprint {
             RackSlavedToTurret = true,
 
             RateOfFire = 1.5,		-- 150 DPS Air
+            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1700,9 +1698,11 @@ UnitBlueprint {
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 70,
+
             Turreted = true,
         },
         {
@@ -1759,7 +1759,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel03',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1772,24 +1772,27 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
+            
             TurretBoneMuzzle = 'Left_AA_Muzzle05',
             TurretBonePitch = 'Left_AA_Barrel03',
             TurretBoneYaw = 'Left_AA_Turret03',
             TurretDualManipulators = false,
+            
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 70,
+            
             Turreted = true,
         },
         {
@@ -1846,7 +1849,7 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel04',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1858,10 +1861,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1875,9 +1877,11 @@ UnitBlueprint {
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 125,
             TurretYawSpeed = 70,
+            
             Turreted = true,
         },
         {
@@ -1932,7 +1936,7 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -1945,10 +1949,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1962,9 +1965,11 @@ UnitBlueprint {
             TurretPitch = 45,
             TurretPitchRange = 40,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 145,
             TurretYawSpeed = 70,
+            
             Turreted = true,
         },
         {
@@ -2019,7 +2024,7 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -2032,13 +2037,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
@@ -2051,9 +2053,11 @@ UnitBlueprint {
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 70,
+            
             Turreted = true,
         },
         {
@@ -2108,7 +2112,6 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel03',
                 },
             },
-            RackFireTogether = false,
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -2121,10 +2124,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -2195,7 +2197,7 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel04',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.25,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -2208,10 +2210,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

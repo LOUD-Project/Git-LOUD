@@ -213,7 +213,7 @@ UnitBlueprint {
     SizeY = 5.6,
     SizeZ = 3.0,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_land',
     StrategicIconSortPriority = 207,
 	
     Wreckage = {

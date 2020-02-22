@@ -3,12 +3,7 @@ UnitBlueprint {
     AI = {
 		GuardRadius = 75,
 		GuardReturnRadius = 80,
-        GuardScanRadius = 110,
-        RefuelingMultiplier = 50,
-        RefuelingRepairAmount = 300,
-        RepairConsumeEnergy = 5,
-		StagingPlatformScanRadius = 450,
-        RepairConsumeMass = 0.5,
+
         TargetBones = {
             'BEA0403',
             'Target_01',
@@ -22,12 +17,20 @@ UnitBlueprint {
         BankFactor = 0,
         BankForward = false,
         CanFly = true,
+        
+        CirclingDirChangeFrequencySec = 12,
+        CirclingElevationChangeRatio = 0.65,
+        CirclingRadiusChangeMaxRatio = 0.99,
+        CirclingRadiusChangeMinRatio = 0.6,
+        CirclingRadiusVsAirMult = 0.46,
+        CirclingTurnMult = 3,
+        
         HoverOverAttack = false,
 		
         KLift = 2,
         KLiftDamping = 3.5,
 		
-        KMove = 0.9,
+        KMove = 0.85,
         KMoveDamping = 0.95,
 		
         KTurn = 1,
@@ -90,11 +93,11 @@ UnitBlueprint {
         'AIR',
         'EXPERIMENTAL',
 		'GROUNDATTACK',
-		'AIRSTRAGINGPLATFORM',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
+        'OVERLAYRADAR',
     },
 
     CollisionOffsetY = -1,
@@ -114,8 +117,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Radar',
-			'2x Shielded Air Staging Platforms',
-			'4x Ground-Attack Cannon Batteries',
+			'4x Ground-Attack Cannon',
             '4x Flak Cannons',
 			'4x Anti-Air Gatlings',
         },
@@ -222,7 +224,7 @@ UnitBlueprint {
     SizeY = 3,
     SizeZ = 9.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_gunship_directfire',
     StrategicIconSortPriority = 45,
 
     Veteran = {
@@ -235,8 +237,8 @@ UnitBlueprint {
 	
     Weapon = {
 	
-		-- 4 x Ground-Attack Cannon Batteries
-		-- Cannon Battery #1
+		-- 4 x Ground-Attack Cannon
+		-- Battery #1
         {
             AboveWaterTargetsOnly = true,		
             AlwaysRecheckTarget = true,
@@ -263,7 +265,7 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.5,
+            FiringRandomness = 0.6,
 			FiringRandomnessWhileMoving = 1.0,
 			
             FiringTolerance = 2,
@@ -274,10 +276,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 28,
+            MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
-			ProjectileLifetime = 3.3,
+			ProjectileLifetime = 3,
 			
             RackBones = {
                 {
@@ -331,7 +334,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Cannon Battery #2
+		-- Battery #2
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -357,7 +360,7 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.5,
+            FiringRandomness = 0.6,
 			FiringRandomnessWhileMoving = 1.0,
 			
             FiringTolerance = 2,
@@ -368,10 +371,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 28,
+            MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
-			ProjectileLifetime = 3.3,			
+			ProjectileLifetime = 3,			
 			
             RackBones = {
                 {
@@ -394,18 +398,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,							-- 360 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
+                'MOBILE',
+                'STRUCTURE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -427,7 +427,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Cannon Battery #3
+		-- Battery #3
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -453,7 +453,7 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.5,
+            FiringRandomness = 0.6,
 			FiringRandomnessWhileMoving = 1.0,
 			
             FiringTolerance = 2,
@@ -464,10 +464,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 28,
+            MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
-			ProjectileLifetime = 3.3,
+			ProjectileLifetime = 3,
 			
             RackBones = {
                 {
@@ -490,9 +491,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,							-- 360 DPS
 			
             TargetCheckInterval = 0.5,
@@ -500,7 +499,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -522,7 +521,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Cannon Battery #4
+		-- Battery #4
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -548,7 +547,7 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.5,
+            FiringRandomness = 0.6,
 			FiringRandomnessWhileMoving = 1.0,
 			
             FiringTolerance = 2,
@@ -559,10 +558,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 28,
+            MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
-			ProjectileLifetime = 3.3,
+			ProjectileLifetime = 3,
 			
             RackBones = {
                 {
@@ -585,16 +585,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,							-- 360 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -669,14 +667,12 @@ UnitBlueprint {
                     RackBone = 'Front_Left_Flak_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 66 DPS Air
@@ -755,25 +751,21 @@ UnitBlueprint {
                     RackBone = 'Front_Right_Flak_Recoil',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 66 DPS Air
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Front_Right_Flak_Muzzle',
@@ -842,26 +834,21 @@ UnitBlueprint {
                     RackBone = 'Back_Left_Flak_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 66 DPS Air
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Back_Left_Flak_Muzzle',
@@ -929,24 +916,19 @@ UnitBlueprint {
                     RackBone = 'Back_Right_Flak_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,		-- 66 DPS Air
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
@@ -996,7 +978,7 @@ UnitBlueprint {
             Label = 'GatlingAACannon01',
 			LeadTarget = true,
 
-            MaxRadius = 45,
+            MaxRadius = 35,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -1014,37 +996,36 @@ UnitBlueprint {
                     RackBone = 'Front_Left_AAC_Rotator',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,		-- 162 DPS Air
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Front_Left_AAC_Muzzle',
             TurretBonePitch = 'Front_Left_AAC_Barrel',
             TurretBoneYaw = 'Front_Left_AAC_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -1095,37 +1076,36 @@ UnitBlueprint {
                     RackBone = 'Front_Right_AAC_Rotator',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Front_Right_AAC_Muzzle',
             TurretBonePitch = 'Front_Right_AAC_Barrel',
             TurretBoneYaw = 'Front_Right_AAC_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -1175,36 +1155,36 @@ UnitBlueprint {
                     RackBone = 'Back_Left_AAC_Rotator',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Back_Left_AAC_Muzzle',
             TurretBonePitch = 'Back_Left_AAC_Barrel',
             TurretBoneYaw = 'Back_Left_AAC_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -1255,39 +1235,40 @@ UnitBlueprint {
                     RackBone = 'Back_Right_AAC_Rotator',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,
+            
             TargetCheckInterval = 0.5,
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Back_Right_AAC_Muzzle',
             TurretBonePitch = 'Back_Right_AAC_Barrel',
             TurretBoneYaw = 'Back_Right_AAC_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
+            
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
@@ -1295,7 +1276,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Damage = 6000,
             DamageFriendly = true,
-            DamageRadius = 11,
+            DamageRadius = 10,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

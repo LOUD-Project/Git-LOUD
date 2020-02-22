@@ -53,7 +53,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = '<LOC bsl0206_desc>Improved Protector bot',
+    Description = '<LOC bsl0206_desc>Amphibious Protector bot',
 	
     Display = {
         Abilities = {
@@ -94,7 +94,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 335,
-        BuildTime = 900,
+        BuildTime = 250,
     },
 	
     General = {
@@ -115,7 +115,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsl0206_name>Ula Ilhaas',
         UnitWeight = 1,
@@ -123,10 +123,11 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 22,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
-        HelpText = 'Improved Protector bot',
+        HelpText = 'Amphibious Protector bot',
     },
 	
     LifeBarHeight = 0.075,
@@ -163,7 +164,7 @@ UnitBlueprint {
 	
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
-    SelectionThickness = 0.83,
+    SelectionThickness = 0.6,
 	
     SizeX = 1.1,
     SizeY = 0.8,
@@ -226,14 +227,11 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 70 dps

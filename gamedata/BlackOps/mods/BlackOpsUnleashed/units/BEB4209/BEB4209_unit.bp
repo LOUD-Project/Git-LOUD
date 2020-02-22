@@ -76,7 +76,13 @@ UnitBlueprint {
 
         MaintenanceConsumptionPerSecondEnergy = 350,
     },
-
+    
+    Footprint = {
+        MinWaterDepth = 3,
+        SizeX = 2,
+        SizeZ = 2,
+    },
+	
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_CounterMeasure',

@@ -34,7 +34,7 @@ UnitBlueprint {
 		
         LiftFactor = 8,
 		
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 13,
 		
         StartTurnDistance = 10,
 		
@@ -89,7 +89,6 @@ UnitBlueprint {
 		'NEEDMOBILEBUILD',
         'RECLAIMABLE',
         'TRANSPORTFOCUS',
-		'SHOWATTACKRETICLE',
         'OVERLAYCOUNTERINTEL',
 		'OVERLAYRADAR',
         'CANNOTUSEAIRSTAGING',
@@ -238,10 +237,12 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         Elevation = 15,
+        
 		SkirtOffsetX = 0,
         SkirtOffsetZ = -6,
         SkirtSizeX = 5,
         SkirtSizeZ = 18,
+        
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
@@ -254,7 +255,7 @@ UnitBlueprint {
     SizeY = 3,
     SizeZ = 17.5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_gunship_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {
@@ -351,16 +352,11 @@ UnitBlueprint {
                     RackBone = 'R_Barrel_01',
                 },
             },
-			
-            RackFireTogether = false,
-			
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 300 DPS
@@ -465,14 +461,11 @@ UnitBlueprint {
                     RackBone = 'L_Barrel_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,	-- about 300DPS
 			
             TargetCheckInterval = 0.5,
@@ -573,21 +566,18 @@ UnitBlueprint {
                     RackBone = 'R_Back_Barrel_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
@@ -678,13 +668,10 @@ UnitBlueprint {
                     RackBone = 'L_Back_Barrel_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.5,
 			
@@ -693,7 +680,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -758,7 +745,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -772,15 +759,11 @@ UnitBlueprint {
                     RackBone = 'R_F_AA_Muzzle_01',
                 },
             },
-			
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 200 DPS Air
@@ -857,7 +840,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -871,15 +854,13 @@ UnitBlueprint {
                     RackBone = 'L_F_AA_Muzzle_01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
@@ -951,7 +932,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -965,15 +946,13 @@ UnitBlueprint {
                     RackBone = 'R_U_Muzzle_01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
@@ -1044,7 +1023,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1058,15 +1037,13 @@ UnitBlueprint {
                     RackBone = 'L_U_AA_Muzzle01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
@@ -1136,7 +1113,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1150,18 +1127,16 @@ UnitBlueprint {
                     RackBone = 'L_B_AA_Muzzle_01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'AIR MOBILE ANTIAIR',
@@ -1227,7 +1202,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1241,18 +1216,17 @@ UnitBlueprint {
                     RackBone = 'R_B_AA_Muzzle_01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
 			SlavedToBody = false,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'AIR MOBILE ANTIAIR',
@@ -1399,8 +1373,7 @@ UnitBlueprint {
                     RackBone = 'Main_Gun_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 4,
@@ -1415,9 +1388,9 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'STRUCTURE RADAR',
+				'RADAR',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TrackingRadius = 1.1,

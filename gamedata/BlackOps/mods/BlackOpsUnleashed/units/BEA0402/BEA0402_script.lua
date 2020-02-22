@@ -1,8 +1,5 @@
 local TAirUnit = import('/lua/terranunits.lua').TAirUnit
 
-local Buff = import('/lua/sim/Buff.lua')
-local BuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
-
 local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TAAFlakArtilleryCannon = WeaponsFile.TAAFlakArtilleryCannon
@@ -20,16 +17,6 @@ BEA0402 = Class(TAirUnit) {
     DestroyNoFallRandomChance = 1.1,
     FxDamageScale = 2,
 
-	BuffFields = {
-	
-		RegenField = Class(BuffField){
-		
-			OnCreate = function(self)
-				BuffField.OnCreate(self)
-			end,
-		},
-	},
-	
     Weapons = {
 	
 		MainTurret = Class(RailGunWeapon02) {},

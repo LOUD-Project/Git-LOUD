@@ -94,8 +94,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 6250,
-        BuildCostMass = 625,
-        BuildTime = 2500,
+        BuildCostMass = 600,
+        BuildTime = 315,
     },
 	
     General = {
@@ -123,7 +123,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 28,
+        VisionRadius = 30,
     },
 	
     Interface = {
@@ -145,9 +145,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
+        MaxAcceleration = 3.1,
+        MaxBrake = 3.1,
+        MaxSpeed = 3.1,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -160,7 +160,7 @@ UnitBlueprint {
     SelectionCenterOffsetZ = -0.15,
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
-    SelectionThickness = 0.5,
+    SelectionThickness = 0.3,
 	
     SizeX = 0.8,
     SizeY = 1.2,
@@ -196,7 +196,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 66,
 			
 			DoTPulses = 5,
             DoTTime = 2.5,
@@ -244,17 +244,15 @@ UnitBlueprint {
                     RackBone = 'Cannon_Right_Recoil',
                 },
             },
-			RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.25,		# 300 Damage every 4 seconds = 75dps
+            RateOfFire = 0.25,		# 330 Damage every 4 seconds = 82.5 dps
 			
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 60,
@@ -263,8 +261,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS,-WALL',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
@@ -280,7 +277,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },
@@ -336,15 +333,12 @@ UnitBlueprint {
                     RackBone = 'Guns_Right_Recoil',
                 },
             },
-            RackFireTogether = false,
 			
             RackRecoilDistance = -0.2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,		#-- about 75 DPS
@@ -352,12 +346,10 @@ UnitBlueprint {
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 180,
 			
-            TargetCheckInterval = 0.50,
+            TargetCheckInterval = 0.25,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS,-WALL',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
@@ -375,7 +367,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },

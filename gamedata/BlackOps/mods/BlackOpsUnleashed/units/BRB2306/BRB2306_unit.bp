@@ -236,8 +236,7 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,	#-- 1 second to charge as per script
             RackSalvoFiresAfterCharge = false, 
@@ -339,15 +338,11 @@ UnitBlueprint {
                     RackBone = 'Muzzle02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		#-- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
 			
             TargetCheckInterval = 0.25,

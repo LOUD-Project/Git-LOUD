@@ -5,7 +5,21 @@ UnitList = {
         Aeon = {'bab2303', 50},		    # Energy Mortar
 		Cybran = {'brb2303', 50},		# Hailfire Turret
     },
-	
+
+    T2TeleportJammer = {
+        UEF = {'beb4209', 100},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    },
+    
+    T3TeleportJammer = {
+        UEF = {'beb4309', 100},
+        Aeon = {'bab4309', 100},
+        Cybran = {'brb4309', 100},
+        Seraphim = {'bsb4309', 100},    
+    },
+    	
 	
 	T3GroundDefense = {
         Aeon = {'bab2306', 100},		# Aria PD

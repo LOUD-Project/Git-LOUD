@@ -11,18 +11,20 @@ UnitBlueprint {
         BankFactor = 0,
         BankForward = false,
         CanFly = true,
+        
         CirclingDirChangeFrequencySec = 12,
         CirclingElevationChangeRatio = 0.65,
         CirclingRadiusChangeMaxRatio = 0.99,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.46,
         CirclingTurnMult = 3,
+        
         HoverOverAttack = false,
 		
         KLift = 2,
         KLiftDamping = 3.5,
 		
-        KMove = 0.9,
+        KMove = 0.88,
         KMoveDamping = 0.95,
 		
         KTurn = 1,
@@ -36,11 +38,7 @@ UnitBlueprint {
 		
         StartTurnDistance = 40,
     },
-	
-	BuffFields = {
-		RegenField = 'AirStagingBuffField',
-	},
-	
+
     Audio = {
     	AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
@@ -93,6 +91,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -1.5,
@@ -221,7 +220,7 @@ UnitBlueprint {
     SizeY = 3,
     SizeZ = 12.4,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_gunship_antiair',
     StrategicIconSortPriority = 45,
 
     Veteran = {
@@ -309,7 +308,6 @@ UnitBlueprint {
                     RackBone = 'Railgun_Barrel_1',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -418,7 +416,6 @@ UnitBlueprint {
                     RackBone = 'Railgun_Barrel_2',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -484,7 +481,7 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 70,
+            MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -506,14 +503,11 @@ UnitBlueprint {
                     RackBone = 'HVM_Barrel_1',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.4,					-- 1440 Damage = 576 DPS Air
@@ -577,7 +571,7 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 66,
+            MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -599,13 +593,10 @@ UnitBlueprint {
                     RackBone = 'HVM_Barrel_2',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.4,					-- 576 DPS Air
             TargetCheckInterval = 1.0,
@@ -667,7 +658,7 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 66,
+            MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -689,13 +680,10 @@ UnitBlueprint {
                     RackBone = 'HVM_Barrel_3',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.4,					-- 576 DPS Air
             TargetCheckInterval = 1.0,
@@ -756,7 +744,7 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 66,
+            MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -778,13 +766,10 @@ UnitBlueprint {
                     RackBone = 'HVM_Barrel_4',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.4,						-- 576 DPS Air
             TargetCheckInterval = 1.0,
@@ -850,7 +835,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 58,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -877,17 +862,12 @@ UnitBlueprint {
                     RackBone = 'Flak_Recouil_B_1',
                 },
             },
-			
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 2,						-- 160 DPS Air
 			
             TargetCheckInterval = 0.3,
@@ -947,7 +927,7 @@ UnitBlueprint {
             Label = 'AAAFlak',
 			LeadTarget = true,
 			
-            MaxRadius = 58,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -974,13 +954,11 @@ UnitBlueprint {
                     RackBone = 'Flak_Recouil_B_2',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,						-- 160 DPS Air
 			
@@ -1046,7 +1024,7 @@ UnitBlueprint {
 
             PrefersPrimaryWeaponTarget = false,
 
-            MaxRadius = 58,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1069,13 +1047,11 @@ UnitBlueprint {
                     RackBone = 'Flak_Recouil_B_3',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,							-- 160 DPS Air
 			
@@ -1138,7 +1114,7 @@ UnitBlueprint {
             Label = 'AAAFlak',
 			
 			LeadTarget = true,
-            MaxRadius = 58,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1165,13 +1141,11 @@ UnitBlueprint {
                     RackBone = 'Flak_Recouil_B_4',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,						-- 160 DPS Air
 			
@@ -1230,7 +1204,7 @@ UnitBlueprint {
             Label = 'GattlerTurret01',
 			LeadTarget = true,
 			
-            MaxRadius = 45,
+            MaxRadius = 35,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -1251,17 +1225,13 @@ UnitBlueprint {
                     RackBone = 'Gat_Rotator_1',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiNavy',
-			
+
             RateOfFire = 1,	-- 260 DPS Air
 			
             TargetCheckInterval = 0.5,
@@ -1325,7 +1295,7 @@ UnitBlueprint {
             Label = 'GattlerTurret02',
 			LeadTarget = true,
 			
-            MaxRadius = 45,
+            MaxRadius = 35,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -1346,10 +1316,7 @@ UnitBlueprint {
                     RackBone = 'Gat_Rotator_2',
                 },
             },
-			
-            RackFireTogether = false,
-			
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,

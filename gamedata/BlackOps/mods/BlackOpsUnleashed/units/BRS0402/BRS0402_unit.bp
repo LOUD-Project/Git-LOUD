@@ -265,7 +265,7 @@ UnitBlueprint {
     SizeY = 1.8,
     SizeZ = 10.6,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_ship_missile',
     StrategicIconSortPriority = 145,
 	
 	-- the LOA missile, when hit by TMD, splits into 3 children
@@ -354,14 +354,11 @@ UnitBlueprint {
                     RackBone = 'Hailfire_Barrels',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface
@@ -369,9 +366,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'STRUCTURE ECONOMIC',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+				'ECONOMIC',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -506,7 +502,7 @@ UnitBlueprint {
                     RackBone = 'Left_Railgun',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -660,16 +656,14 @@ UnitBlueprint {
                     RackBone = 'Right_Railgun',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,		-- 700 DPS Surface
 			
             TargetCheckInterval = 1.5,
@@ -769,8 +763,6 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -867,9 +859,7 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 2,		-- 180 DPS Surface
 			
             TargetCheckInterval = 0.5,
@@ -967,8 +957,6 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1067,8 +1055,6 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1165,8 +1151,6 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1262,8 +1246,6 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1332,7 +1314,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 7,
 			
             RackBones = {
                 {
@@ -1353,14 +1335,11 @@ UnitBlueprint {
                     RackBone = 'Left_Torp01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.2,		-- 144 DPS Sub/Surface
@@ -1427,8 +1406,7 @@ UnitBlueprint {
                     RackBone = 'Zapper_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -1512,25 +1490,23 @@ UnitBlueprint {
                     RackBone = 'Front_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1603,24 +1579,22 @@ UnitBlueprint {
                     RackBone = 'Back_Center_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
 			
@@ -1691,24 +1665,22 @@ UnitBlueprint {
                     RackBone = 'Back_Left_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,
+            
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1777,14 +1749,11 @@ UnitBlueprint {
                     RackBone = 'Back_Right_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
 			
@@ -1792,9 +1761,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
 			
@@ -1867,25 +1836,22 @@ UnitBlueprint {
                     RackBone = 'Middle_Right_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- 300 DPS Air
+            
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1957,23 +1923,21 @@ UnitBlueprint {
                     RackBone = 'Middle_Left_AALaser',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1,		-- 200 DPS Air
+            
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
 			

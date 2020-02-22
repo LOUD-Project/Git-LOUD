@@ -189,7 +189,7 @@ UnitBlueprint {
     SizeY = 6.5,
     SizeZ = 3,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_directfire',
     StrategicIconSortPriority = 240,
 	
     Weapon = {
@@ -276,14 +276,11 @@ UnitBlueprint {
                     RackBone = 'Eye02',
                 },				
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 10,	-- RoF by energy required -- 6000K every 5 seconds = 1200 DPS
@@ -293,8 +290,6 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TrackingRadius = 1.15,

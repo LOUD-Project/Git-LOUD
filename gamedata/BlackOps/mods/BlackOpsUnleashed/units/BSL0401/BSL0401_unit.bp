@@ -245,7 +245,7 @@ UnitBlueprint {
     SizeY = 1.9,
     SizeZ = 8.0,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
 	
     Transport = {
@@ -329,14 +329,11 @@ UnitBlueprint {
                     RackBone = 'Beam_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,	# 500dps  + 7 drones * 50dps = 850dps
@@ -348,8 +345,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -443,14 +439,11 @@ UnitBlueprint {
                     RackBone = 'Beam_Muzzle02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 3,			# 750dps
 			
             SlavedToBody = true,
@@ -460,8 +453,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -557,14 +549,11 @@ UnitBlueprint {
                     RackBone = 'Beam_Muzzle03',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 3,			# 1250dps
 			
             SlavedToBody = true,
@@ -574,7 +563,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -653,14 +642,11 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,			#-- 200 DPS Air
@@ -671,8 +657,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
-                'MOBILE',
-                'ALLUNITS',
+                'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
@@ -748,14 +733,11 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 2,		#-- 200 DPS
 			
             TargetCheckInterval = 0.3,
@@ -764,8 +746,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
-                'MOBILE',
-                'ALLUNITS',
+                'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
