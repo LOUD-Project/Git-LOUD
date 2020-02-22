@@ -37,7 +37,6 @@ UnitBlueprint {
         'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
 		'OVERLAYRADAR',
         'SORTDEFENSE',
     },
@@ -256,7 +255,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_directfire',
     StrategicIconSortPriority = 175,
 	
     Veteran = {
@@ -321,7 +320,7 @@ UnitBlueprint {
 			
             Label = 'ParticleGun',
 			
-            MaxRadius = 80,
+            MaxRadius = 84,
             MinRadius = 7,
 			
             MuzzleSalvoDelay = 0,
@@ -341,26 +340,20 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.9,
-			
-            SlavedToBody = false,
-			
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

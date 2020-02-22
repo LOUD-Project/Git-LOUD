@@ -69,19 +69,9 @@ UnitBlueprint {
             Cue = 'UEA0304_Move_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         StartMove = Sound {
             Bank = 'UEA',
             Cue = 'UEA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Thruster = Sound {
@@ -124,18 +114,18 @@ UnitBlueprint {
         'RECLAIMABLE',
         'DRAGBUILD',
         'SHOWATTACKRETICLE',
-        'OVERLAYANTIAIR',
-        'OVERLAYDIRECTFIRE',
         'OVERLAYRADAR',
         'CANNOTUSEAIRSTAGING',
     },
 
     Defense = {
         AirThreatLevel = 296,
+        
         ArmorType = 'Light',
-        EconomyThreatLevel = 25,
+
         Health = 57500,
         MaxHealth = 57500,
+        
         RegenRate = 18,
         SurfaceThreatLevel = 30,
     },
@@ -298,7 +288,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
 
-        Elevation = 23,
+        Elevation = 20,
 
         GroundCollisionOffset = 10,
         MaxSpeed = 0.5,
@@ -325,7 +315,7 @@ UnitBlueprint {
     SizeY = 2.0,
     SizeZ = 9,
 
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_gunship_antiair',
     StrategicIconSortPriority = 65,
 
     Transport = {
@@ -432,14 +422,11 @@ UnitBlueprint {
                     RackBone = 'Head_Turret_Barrel006',
                 },
             },
-            RackFireTogether = false,
 
             RackRecoilDistance = -7,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -546,16 +533,11 @@ UnitBlueprint {
                     RackBone = 'Rear_Turret_Barrel004',
                 },
             },
-            RackFireTogether = false,
 
             RackRecoilDistance = -7,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
 			RateOfFire = 2,		-- 450 DPS
 
@@ -614,11 +596,11 @@ UnitBlueprint {
 
             Label = 'SAM',
 
-            MaxRadius = 55,
+            MaxRadius = 53,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 33,
 
 			NotExclusive = true,
 
@@ -640,13 +622,10 @@ UnitBlueprint {
                     RackBone = 'SAM_Barrel',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -704,11 +683,11 @@ UnitBlueprint {
 
             Label = 'SAM',
 
-            MaxRadius = 55,
+            MaxRadius = 53,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 33,
 
 			NotExclusive = true,
 
@@ -730,15 +709,10 @@ UnitBlueprint {
                     RackBone = 'SAM_Barrel001',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 0.5,	-- 440 DPS
 
@@ -825,16 +799,9 @@ UnitBlueprint {
                 },
             },
 
-            RackFireTogether = false,
-
-            RackRecoilDistance = 0,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 3,		-- 1200 DPS Air
 
@@ -917,13 +884,10 @@ UnitBlueprint {
                     RackBone = 'GGun_Barrel001',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.5,
             RackSalvoReloadTime = 3,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -959,7 +923,7 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
-            Damage = 5000,
+            Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 7,
             DamageType = 'Normal',
@@ -975,8 +939,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

@@ -210,8 +210,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_experimental_generic',
-    StrategicIconNameEIOOverride = 'icon_experimental_gunship_shield',
+    StrategicIconName = 'icon_experimental_gunship_shield',
     StrategicIconSortPriority = 100,
 	
     Wreckage = {

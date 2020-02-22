@@ -69,8 +69,8 @@ UnitBlueprint {
         AirThreatLevel = 450,
         ArmorType = 'Structure',
         EconomyThreatLevel = 306,
-        Health = 27690,
-        MaxHealth = 27690,
+        Health = 24500,
+        MaxHealth = 24500,
         RegenRate = 10,
     },
 	
@@ -204,7 +204,7 @@ UnitBlueprint {
     SizeY = 1.75,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_antiair',
     StrategicIconSortPriority = 175,
 	
     Veteran = {
@@ -237,62 +237,71 @@ UnitBlueprint {
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
+            
             EnergyDrainPerSecond = 10000,
             EnergyRequired = 1000,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
+            
             FiringTolerance = 0,
+            
             Label = 'MainGun',
+            
             LeadTarget = true,
+            
             EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
-            MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
+            
+            MaxRadius = 52, --Can shoot at things with elevation of 30 at from 52 away.
             MinRadius = 0,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
             NeedPrep = false,
+            
             RackBones = {
                 {
                     MuzzleBones = {'TurretA_Muzzle'},
                     RackBone = 'TurretA',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
+            
             RateOfFire = 0.375,
+            
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
                 'TECH3',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'TurretA_Muzzle',
             TurretBonePitch = 'TurretA',
             TurretBoneYaw = 'TurretA',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
             TurretPitchSpeed = 360,
+            
             TurretYaw = 0,
             TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
             TurretYawSpeed = 360,
+            
             Turreted = true,
-            --UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AimsStraightOnDisable = true,
@@ -303,7 +312,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
@@ -315,8 +324,10 @@ UnitBlueprint {
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
+            
             EnergyDrainPerSecond = 10000,
             EnergyRequired = 1000,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
@@ -324,53 +335,55 @@ UnitBlueprint {
             FiringTolerance = 0,
             Label = 'MainGun',
             LeadTarget = true,
+            
             EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
             NeedPrep = false,
+            
             RackBones = {
                 {
                     MuzzleBones = {'TurretB_Muzzle'},
                     RackBone = 'TurretB',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.375,
+            
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
                 'TECH3',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'TurretB_Muzzle',
             TurretBonePitch = 'TurretB',
             TurretBoneYaw = 'TurretB',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
             TurretPitchSpeed = 360,
+            
             TurretYaw = 0,
             TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
             TurretYawSpeed = 360,
+            
             Turreted = true,
-            --UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AimsStraightOnDisable = true,
@@ -381,74 +394,81 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
             BeamLifetime = 0.3,
 
             CollideFriendly = false,
+            
             Damage = 1000,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
+            
             EnergyDrainPerSecond = 10000,
             EnergyRequired = 1000,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
             FiringTolerance = 0,
+            
             Label = 'MainGun',
+            
             LeadTarget = true,
+            
             EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
             NeedPrep = false,
+            
             RackBones = {
                 {
                     MuzzleBones = {'TurretC_Muzzle'},
                     RackBone = 'TurretC',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.375,
+            
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
                 'TECH3',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'TurretC_Muzzle',
             TurretBonePitch = 'TurretC',
             TurretBoneYaw = 'TurretC',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
             TurretPitchSpeed = 360,
+            
             TurretYaw = 0,
             TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
             TurretYawSpeed = 360,
+            
             Turreted = true,
-            --UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AimsStraightOnDisable = true,
@@ -459,74 +479,80 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
             BeamLifetime = 0.3,
 
             CollideFriendly = false,
+            
             Damage = 1000,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
+            
             EnergyDrainPerSecond = 10000,
             EnergyRequired = 1000,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
             FiringTolerance = 0,
+            
             Label = 'MainGun',
             LeadTarget = true,
+            
             EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
             NeedPrep = false,
+            
             RackBones = {
                 {
                     MuzzleBones = {'TurretD_Muzzle'},
                     RackBone = 'TurretD',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.375,
+            
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
                 'TECH3',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'TurretD_Muzzle',
             TurretBonePitch = 'TurretD',
             TurretBoneYaw = 'TurretD',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
             TurretPitchSpeed = 360,
+            
             TurretYaw = 0,
             TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
             TurretYawSpeed = 360,
+            
             Turreted = true,
-            --UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             Damage = 4000,

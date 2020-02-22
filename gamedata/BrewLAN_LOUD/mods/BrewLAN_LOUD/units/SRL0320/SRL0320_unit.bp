@@ -6,11 +6,6 @@ UnitBlueprint {
             Cue = 'URL0304_Move_Extend',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        AmbientMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URL_Destroy_Land',
@@ -142,14 +137,15 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 10500,
-        BuildCostMass = 1000,
-        BuildTime = 500,
+        BuildCostEnergy = 12500,
+        BuildCostMass = 1200,
+        BuildTime = 625,
 		
         MaintenanceConsumptionPerSecondEnergy = 150,
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -207,10 +203,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 1.7,
+        MaxAcceleration = 0.9,
         MaxBrake = 2.6,
-        MaxSpeed = 2.9,
-        MaxSpeedReverse = 2.9,
+        MaxSpeed = 2.7,
+        MaxSpeedReverse = 2.7,
 		
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -241,11 +237,11 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 12,
-        Level2 = 24,
-        Level3 = 36,
-        Level4 = 48,
-        Level5 = 60,
+        Level1 = 10,
+        Level2 = 20,
+        Level3 = 30,
+        Level4 = 40,
+        Level5 = 50,
     },
 	
     Weapon = {
@@ -277,14 +273,14 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 53,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 20,
 			
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.9,
 
             RackBones = {
                 {
@@ -298,14 +294,10 @@ UnitBlueprint {
                     RackBone = 'Muzzle1',
                 },
             },
-            RackFireTogether = false,
 			
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -347,7 +339,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },

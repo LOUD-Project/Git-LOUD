@@ -53,7 +53,9 @@ UnitBlueprint {
         DoneBeingBuilt = Sound {Bank = 'UEB',        Cue = 'UEB0301_Activate',           LodCutoff = 'UnitMove_LodCutoff'},
            UISelection = Sound {Bank = 'Interface',  Cue = 'UEF_Select_Factory',         LodCutoff = 'UnitMove_LodCutoff'},
     },
+    
     BuildIconSortPriority = 70,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4ENGINEER',
@@ -73,7 +75,9 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'GATE',
     },
+    
     CollisionOffsetY = -2,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2011,
@@ -81,7 +85,9 @@ UnitBlueprint {
         MaxHealth = 40500,
         RegenRate = 10,
     },
+    
     Description = '<LOC seb0401>Experimental Factory',
+    
     Display = {
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
@@ -154,6 +160,7 @@ UnitBlueprint {
         },
         UniformScale = 0.28,
     },
+    
     Economy = {
         BuildCostEnergy = 384000,
         BuildCostMass = 31440,
@@ -168,7 +175,9 @@ UnitBlueprint {
         StorageMass = 1000,
         InitialRallyZ = 28,
     },
+    
     Footprint = {SizeX = 15, SizeZ = 15},
+    
     General = {
         CapCost = 15,
         BuildBones = {
@@ -217,15 +226,19 @@ UnitBlueprint {
         UnitName = '<LOC seb0401_name>Gantry',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 20,
     },
+    
     Interface = {
         HelpText = '<LOC seb0401>Experimental Factory',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 7.5,
     LifeBarSize = 16,
+    
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -252,17 +265,21 @@ UnitBlueprint {
         SkirtSizeX = 18,
         SkirtSizeZ = 18,
     },
+    
     SelectionMeshScaleX = 0.5,
     SelectionMeshScaleZ = 0.5,
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 10.5,
     SelectionSizeZ = 10.5,
     SelectionThickness = 0.1,
+    
     SizeX = 16,
     SizeY = 6,
     SizeZ = 16,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_factory_land',
     StrategicIconSortPriority = 210,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

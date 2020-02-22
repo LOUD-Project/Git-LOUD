@@ -267,7 +267,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_factory_artillery',
     StrategicIconSortPriority = 175,
 	
     Veteran = {
@@ -348,14 +348,12 @@ UnitBlueprint {
                     TelescopeRecoilDistance = 15,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -40,
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = .5,

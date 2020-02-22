@@ -348,7 +348,7 @@ UnitBlueprint {
     SizeY = 7,
     SizeZ = 13,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {
@@ -470,9 +470,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.5,
 			
             TargetCheckInterval = 0.5,
@@ -598,9 +596,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 1.5,
 			
             TargetCheckInterval = 0.5,
@@ -677,7 +673,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',

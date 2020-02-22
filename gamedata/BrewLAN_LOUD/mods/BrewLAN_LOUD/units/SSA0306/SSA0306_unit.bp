@@ -350,13 +350,10 @@ UnitBlueprint {
                     RackBone = 'Center_Turret_Barrel_Muzzle',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -430,14 +427,11 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
@@ -447,7 +441,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.5,
@@ -511,23 +505,18 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
 			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 1.5,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.4,

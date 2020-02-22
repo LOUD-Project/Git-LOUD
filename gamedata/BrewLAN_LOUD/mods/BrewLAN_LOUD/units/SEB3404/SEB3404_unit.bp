@@ -477,7 +477,7 @@ UnitBlueprint {
     SizeY = 7,
     SizeZ = 15,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_intel',
     StrategicIconSortPriority = 225,
 	
     Wreckage = {

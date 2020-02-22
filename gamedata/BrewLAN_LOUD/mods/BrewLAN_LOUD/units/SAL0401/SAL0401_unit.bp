@@ -54,7 +54,6 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYINDIRECTFIRE',
         'OVERLAYCOUNTERMEASURE',
     },
 	
@@ -63,9 +62,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Experimental',
         EconomyThreatLevel = 490,
-        Health = 45000,
-        MaxHealth = 45000,
-        RegenRate = 18,
+        Health = 42500,
+        MaxHealth = 42500,
+        RegenRate = 15,
         SurfaceThreatLevel = 24,
     },
 	
@@ -202,7 +201,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 380000,
         BuildCostMass = 18500,
-        BuildTime = 6666,
+        BuildTime = 6350,
     },
 	
     General = {
@@ -294,12 +293,13 @@ UnitBlueprint {
     SizeY = 1.3,
     SizeZ = 5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 146,
 	
     Transport = {
         TransportClass = 4,
     },
+    
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -339,6 +339,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 6000,
+            DamageFriendly = true,
             DamageRadius = 3.5,
             DamageType = 'Normal',
 			
@@ -349,14 +350,14 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.05,
-			FiringRandomnessWhileMoving = 0.5,
-            FiringTolerance = 1.5,
+            FiringRandomness = 0.2,
+			FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 1,
 			
             Label = 'MainGun',
 			LeadTarget = true,
 			
-            MaxRadius = 128,
+            MaxRadius = 120,
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 1.2,
@@ -379,20 +380,16 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -3,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,	-- 1200 DPS
-			
-            SlavedToBody = false,
-			
+
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -442,7 +439,7 @@ UnitBlueprint {
 			
             Label = 'AntiMissile',
 			
-            MaxRadius = 50,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -466,8 +463,7 @@ UnitBlueprint {
                     RackBone = 'Tracker02',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0.5,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -503,9 +499,9 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
-            Damage = 4000,
+            Damage = 4800,
             DamageFriendly = true,
-            DamageRadius = 7,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -516,7 +512,7 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
+        HealthMult = 0.5,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

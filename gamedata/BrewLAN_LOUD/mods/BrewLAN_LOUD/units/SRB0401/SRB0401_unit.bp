@@ -406,9 +406,7 @@ UnitBlueprint {
     SizeY = 5,
     SizeZ = 15,
 
-    StrategicIconName = 'icon_experimental_generic',
-    StrategicIconNameEIOOverride = 'icon_experimental_factory_land',
-
+    StrategicIconName = 'icon_experimental_factory_land',
     StrategicIconSortPriority = 210,
 
     Wreckage = {

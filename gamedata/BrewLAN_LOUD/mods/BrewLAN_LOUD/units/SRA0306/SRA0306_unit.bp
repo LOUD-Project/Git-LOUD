@@ -31,7 +31,7 @@ UnitBlueprint {
 		
         LiftFactor = 10,
 		
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 12.5,
 		
         StartTurnDistance = 14,
 		
@@ -359,8 +359,7 @@ UnitBlueprint {
                     RackBone = 'Front_Down_Turret',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = true,
@@ -444,14 +443,11 @@ UnitBlueprint {
                     RackBone = 'Back_Up_Turret',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,
@@ -527,16 +523,11 @@ UnitBlueprint {
                     RackBone = 'Back_Up_Turret01',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,
             TargetCheckInterval = 0.5,
 			

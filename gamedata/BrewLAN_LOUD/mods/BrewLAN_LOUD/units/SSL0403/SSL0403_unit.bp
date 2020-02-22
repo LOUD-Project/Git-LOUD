@@ -534,7 +534,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_engineer',
     StrategicIconSortPriority = 45,
 	
     Transport = {
@@ -615,15 +615,12 @@ UnitBlueprint {
                     RackBone = 'Weapon',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = .2,	-- the beam does upto 5000 damage per on fire - every 5 seconds - so 1000 DPS
