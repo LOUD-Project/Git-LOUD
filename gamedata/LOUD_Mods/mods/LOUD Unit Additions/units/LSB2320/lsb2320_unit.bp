@@ -1,25 +1,23 @@
 UnitBlueprint {
-AI = {
-        TargetBones = {
-            'Turret_Recoil',
-            'Turret',
-        },
-    },
-	
     Audio = {
         Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Land',
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB2303_Activate',
+            Bank = 'XSB',
+            Cue = 'XSB2303_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_gun',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -32,39 +30,49 @@ AI = {
         'SELECTABLE',
         'BUILTBYTIER3COMMANDER',
 		'BUILTBYTIER3ENGINEER',
-        'CYBRAN',
+        'SERAPHIM',
         'STRUCTURE',
         'TECH3',
+		'SIZE8',
 		'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
-		'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SHOWATTACKRETICLE',
+        'SHOWATTACKRETICLE',
         'SORTDEFENSE',
     },
 	
     CollisionOffsetY = -0.25,
 	
     Defense = {
-		
         ArmorType = 'Normal',
         Health = 4800,
         MaxHealth = 4800,
-        RegenRate = 6,
-		SurfaceThreatLevel = 72,		
+        RegenRate = 3,
+		SurfaceThreatLevel = 80,		
     },
 	
-    Description = '<LOC mgubc31_desc>Barrage Artillery',
+    Description = '<LOC lsb2320_desc>Barrage Artillery',
 	
     Display = {
+	
+        AnimationDeath = {
+            {
+                Animation = '/units/lsb2320/lsb2320_ADeath.sca',
+                AnimationRateMax = 1,
+                AnimationRateMin = 1,
+                Weight = 100,
+            },
+        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 220,
-                    ShaderName = 'Insect',
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
                 },
             },
         },
@@ -72,11 +80,11 @@ AI = {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
+                Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
-                Length = 12,
-                Normal = 'Tarmacs/Tar6x_cybran_01_normals',
+                Length = 8,
+                Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
                 Orientations = {
                     0,
                     90,
@@ -84,17 +92,18 @@ AI = {
                     270,
                 },
                 RemoveWhenDead = false,
-                Width = 12,
+                Width = 8,
             },
         },
-        UniformScale = 0.018,
+        UniformScale = 0.036,
     },
 	
     Economy = {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-		RebuildBonusIds = { 'mgubC31' },
+        
+        RebuildBonusIds = { 'lsb2320' },
     },
 	
 	Footprint = {
@@ -120,11 +129,11 @@ AI = {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'Cybran',
-		Icon = 'amph',
-		SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC mgubc31_name>Trigger',
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = '<LOC lsb2320_name>Incubus',
         UnitWeight = 1,
     },
 	
@@ -136,8 +145,8 @@ AI = {
         HelpText = 'Barrage Artillery',
     },
 	
-    LifeBarHeight = 0.09,
-    LifeBarOffset = 0.5,
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.65,
     LifeBarSize = 1.25,
 	
     Physics = {
@@ -153,6 +162,9 @@ AI = {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
+        MeshExtentsX = 1.75,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 3,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         SkirtOffsetX = -1.5,
@@ -164,21 +176,22 @@ AI = {
 	
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.5,
+	SelectionCenterOffsetZ = -0.5,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.3,
-    SizeY = 2.8,
-    SizeZ = 1.6,
+    SizeX = 2.2,
+    SizeY = 2.4,
+    SizeZ = 2.2,
 	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 27,
+        Level2 = 54,
+        Level3 = 81,
+        Level4 = 108,
+        Level5 = 135,
     },
 	
     Weapon = {
@@ -187,35 +200,42 @@ AI = {
             ArtilleryShieldBlocks = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Zthuthaam_Cannon',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
-			
-            Buffs = {
-            	{
-                    Add = {
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+            BarrelStart = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-
+            BarrelLoop = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            MuzzleChargeStart = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 2.8,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
-            DisplayName = 'Resonance Artillery',
+            DisplayName = 'Zthuthaam Cannon',
 			
             EnergyDrainPerSecond = 400,
             EnergyRequired = 2000,
@@ -225,59 +245,61 @@ AI = {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
-            Label = 'gun',
+            Label = 'MainGun',
 			
-            LeadTarget = true,
+			LeadTarget = true,			
 			
             MaxRadius = 160,
             MinRadius = 25,
 			
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 33,
 			
+            MuzzleVelocity = 33,
 			MuzzleVelocityReduceDistance = 175,
 			
-            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
-			ProjectileLifetime = 12,			
+            ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
+			ProjectileLifetime = 12,
 			
             RackBones = {
-                {
+					{
                     MuzzleBones = {
-                        'gun_muzzle03',
+                        'Turret_Muzzle',
                     },
-                    RackBone = 'gun_rack03',
+                    RackBone = 'Turret_Recoil',
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -36,
+            RackRecoilDistance = -8,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-			RangeCategory = 'UWRC_IndirectFire',
+            RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1.0,	-- RoF is controlled by Energy Drain
-
+            RateOfFire = 1,
+			
             TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'gun_muzzle03',
-            TurretBonePitch = 'gun03',
-            TurretBoneYaw = 'gun_base03',
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Recoil',
+            TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
@@ -290,41 +312,47 @@ AI = {
 			
             Turreted = true,
         },
-
-        {
+		
+		{
             AboveWaterTargetsOnly = true,
-            ArtilleryShieldBlocks = true,		
+            ArtilleryShieldBlocks = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Zthuthaam_Cannon',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
-			
-            Buffs = {
-            	{
-                    Add = {
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+            BarrelStart = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+            BarrelLoop = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            MuzzleChargeStart = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 2.8,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
-            DisplayName = 'Resonance Artillery',
+            DisplayName = 'Zthuthaam Artillery Cannon',
 			
             EnergyDrainPerSecond = 400,
             EnergyRequired = 2000,
@@ -334,59 +362,56 @@ AI = {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
-            Label = 'gun',
+            Label = 'MainGun',
 			
-			LeadTarget = true,			
+			LeadTarget = true,
 			
             MaxRadius = 160,
             MinRadius = 25,
 			
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 33,
+			MuzzleVelocityReduceDistance = 175,
 			
-			MuzzleVelocityReduceDistance = 175,			
-			
-            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
+            ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
 			ProjectileLifetime = 10,
-			
+
             RackBones = {
                 {
                     MuzzleBones = {
-                        'gun_muzzle01',
+                        'Turret_Muzzle01',
                     },
-                    RackBone = 'gun_rack01',
+                    RackBone = 'Turret_Recoil01',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = -36,
+
+            RackRecoilDistance = -8,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
-			RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 1.0,	-- RoF controlled by energy drain
+
+            RateOfFire = 1,
 			
             TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TurretBoneMuzzle = 'gun_muzzle01',
-            TurretBonePitch = 'gun01',
-            TurretBoneYaw = 'gun01',
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Turret_Muzzle01',
+            TurretBonePitch = 'Turret_Recoil01',
+            TurretBoneYaw = 'Turret01',
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
@@ -394,104 +419,110 @@ AI = {
             TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
-            TurretYawRange = 5,
-            TurretYawSpeed = 2,
+            TurretYawRange = 180,
+            TurretYawSpeed = 6,
 			
             Turreted = true,
         },
 		
-        {
+		{
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Zthuthaam_Cannon',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
-			
-            Buffs = {
-            	{
-                    Add = {
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+            BarrelStart = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+            BarrelLoop = {
+                Fire = Sound {
+                    Bank = 'XSB',
+                    Cue = 'XSB2303_Turret_Artillery_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            MuzzleChargeStart = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2303_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1300,
             DamageFriendly = true,
-            DamageRadius = 2.8,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
-            DisplayName = 'Resonance Artillery',
+            DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
-            Label = 'gun',
+            Label = 'MainGun',
 			
-			LeadTarget = true,			
+			LeadTarget = true,
 			
             MaxRadius = 160,
-	        MinRadius = 25,
+            MinRadius = 25,
 			
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 33,
-			
 			MuzzleVelocityReduceDistance = 175,
 			
-            ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
+            ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
 			ProjectileLifetime = 10,
-			
+
             RackBones = {
                 {
                     MuzzleBones = {
-                        'gun_muzzle02',
+                        'Turret_Muzzle02',
                     },
-                    RackBone = 'gun_rack02',
+                    RackBone = 'Turret_Recoil02',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = -36,
+
+            RackRecoilDistance = -8,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
+            RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-			RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 1.0,	-- RoF controlled by energy drain
+
+            RateOfFire = 1,
 			
             TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'gun_muzzle02',
-            TurretBonePitch = 'gun02',
-            TurretBoneYaw = 'gun02',
+            TurretBoneMuzzle = 'Turret_Muzzle02',
+            TurretBonePitch = 'Turret_Recoil02',
+            TurretBoneYaw = 'Turret02',
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
@@ -499,12 +530,12 @@ AI = {
             TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
-            TurretYawRange = 5,
-            TurretYawSpeed = 2,
+            TurretYawRange = 180,
+            TurretYawSpeed = 6,
 			
             Turreted = true,
         },
-
+		
     },
 	
     Wreckage = {

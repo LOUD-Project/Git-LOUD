@@ -105,7 +105,7 @@ UnitBlueprint {
         RegenRate = 18,
     },
 	
-    Description = '<LOC tcau0401_desc>Experimental Fighter/Bomber',
+    Description = '<LOC lea0401_desc>Experimental Fighter/Bomber',
 	
     Display = {
         Abilities = {
@@ -177,7 +177,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 7,
+		CapCost = 6,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -198,7 +198,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC tcau0401_name>Lucidity',
+        UnitName = '<LOC lea0401_name>Lucidity',
         UnitWeight = 1,
     },
 	
@@ -371,7 +371,7 @@ UnitBlueprint {
 			
             Label = 'Missile',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -391,15 +391,11 @@ UnitBlueprint {
                     RackBone = 'MissileRack00',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.7,		-- 1120 DPS Air
@@ -408,7 +404,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ANTIAIR',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -446,7 +441,7 @@ UnitBlueprint {
 			
             Label = 'Missile',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
@@ -466,23 +461,17 @@ UnitBlueprint {
                     RackBone = 'MissileRack01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.7,			-- another 1120 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ANTIAIR',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

@@ -1,7 +1,7 @@
 local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 local CIFArtilleryWeapon = import('/lua/cybranweapons.lua').CIFArtilleryWeapon
 
-mgubC31 = Class(CStructureUnit) {
+LRB2320 = Class(CStructureUnit) {
     Weapons = {
         gun = Class(CIFArtilleryWeapon) {
             FxMuzzleFlash = {
@@ -13,4 +13,4 @@ mgubC31 = Class(CStructureUnit) {
     },
 }
 
-TypeClass = mgubC31
+TypeClass = LRB2320

@@ -1,8 +1,7 @@
-
 local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon
 
-Umgub31 = Class(TStructureUnit) {
+LEB2320 = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         TStructureUnit.OnStopBeingBuilt(self,builder,layer)
@@ -18,4 +17,4 @@ Umgub31 = Class(TStructureUnit) {
     },
 }
 
-TypeClass = Umgub31
+TypeClass = LEB2320

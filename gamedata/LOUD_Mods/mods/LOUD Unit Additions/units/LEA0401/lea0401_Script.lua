@@ -4,7 +4,7 @@ local TWeapons = import('/lua/terranweapons.lua')
 local TIFSmallYieldNuclearBombWeapon = TWeapons.TIFSmallYieldNuclearBombWeapon
 local TSAMLauncher = TWeapons.TSAMLauncher
 
-tcau0401 = Class(TAirUnit) {
+LEA0401 = Class(TAirUnit) {
 
     BeamExhaustCruise = '/effects/emitters/transport_thruster_beam_01_emit.bp',
     BeamExhaustIdle = '/effects/emitters/transport_thruster_beam_02_emit.bp',
@@ -17,4 +17,4 @@ tcau0401 = Class(TAirUnit) {
     },
 }
 
-TypeClass = tcau0401
+TypeClass = LEA0401
