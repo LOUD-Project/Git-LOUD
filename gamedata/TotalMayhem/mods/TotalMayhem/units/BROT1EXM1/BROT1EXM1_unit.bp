@@ -241,7 +241,7 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -258,7 +258,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -416,7 +416,7 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,

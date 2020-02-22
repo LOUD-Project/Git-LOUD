@@ -304,7 +304,7 @@ UnitBlueprint {
                     RackBone = 'Recoil',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1.75,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -323,7 +323,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

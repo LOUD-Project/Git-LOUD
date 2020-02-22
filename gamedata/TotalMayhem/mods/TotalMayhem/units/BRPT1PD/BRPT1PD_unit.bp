@@ -239,7 +239,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -18.5,
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -20,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -256,8 +256,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

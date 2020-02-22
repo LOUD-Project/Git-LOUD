@@ -249,7 +249,7 @@ UnitBlueprint {
                     RackBone = 'gun02',
                 },
             },
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -265,7 +265,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
 			

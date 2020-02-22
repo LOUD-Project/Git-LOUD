@@ -233,7 +233,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -250,7 +250,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

@@ -29,6 +29,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -38,13 +39,16 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
+    
     BuildIconSortPriority = 18,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
         'CYBRAN',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'DIRECTFIRE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
@@ -54,6 +58,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
 		'OVERLAYINDIRECTFIRE',
     },
+    
     Defense = {
         ArmorType = 'Experimental',
         Health = 34000,
@@ -61,7 +66,9 @@ UnitBlueprint {
         RegenRate = 15,
         SurfaceThreatLevel = 85,
     },
+    
     Description = '<LOC brmt3vul_desc>Light Experimental Mech',
+    
     Display = {
         Abilities = {
             'Amphibious',
@@ -176,16 +183,20 @@ UnitBlueprint {
         UnitName = '<LOC brmt3vul_name>Vulture',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 32,
 		WaterVisionRadius = 20,
     },
+    
     Interface = {
         HelpText = 'Experimental Light Mech',
     },
+    
     LifeBarHeight = 0.07,
     LifeBarOffset = 1.46,
     LifeBarSize = 2.5,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -211,16 +222,20 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 30,
     },
+    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 2,
     SelectionSizeZ = 2,
     SelectionThickness = 0.3,
+    
     SizeX = 1.8,
     SizeY = 2.9,
     SizeZ = 1.8,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
+    
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -228,9 +243,11 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
+    
     Transport = {
         TransportClass = 4,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -298,8 +315,7 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -388,7 +404,7 @@ UnitBlueprint {
                     RackBone = 'Gun02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -410,7 +426,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -481,16 +497,14 @@ UnitBlueprint {
                     RackBone = 'Gun01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.80,	# 240 dps
 			
             SlavedToBody = true,
@@ -502,7 +516,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -526,6 +540,7 @@ UnitBlueprint {
 
 
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
@@ -576,16 +591,13 @@ UnitBlueprint {
                     RackBone = 'MachineGun02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiNavy',
-			
+
             RateOfFire = 3,	# 60 dps
 			
             SlavedToBody = true,
@@ -596,7 +608,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -622,7 +634,7 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,

@@ -222,7 +222,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -3,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

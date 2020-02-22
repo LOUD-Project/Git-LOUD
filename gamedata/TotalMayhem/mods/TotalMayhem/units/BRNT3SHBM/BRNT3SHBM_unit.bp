@@ -49,14 +49,11 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'OVERLAYANTIAIR',
-        'OVERLAYDIRECTFIRE',
-		'OVERLAYINDIRECTFIRE',
-        'OVERLAYDEFENSE',
         'OVERLAYRADAR',
         'NEEDMOBILEBUILD',
         'DRAGBUILD',
@@ -237,7 +234,7 @@ UnitBlueprint {
     SizeY = 4.6,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 116,
 	
     Transport = {
@@ -472,7 +469,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
 			
@@ -570,11 +567,7 @@ UnitBlueprint {
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',			
-			
+
             RateOfFire = 0.2,	# 800 damage every 5 seconds = 160 dps
 			
             TargetCheckInterval = 2,
@@ -582,7 +575,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -658,15 +651,11 @@ UnitBlueprint {
                     RackBone = 'rl09', 
                 }, 
             },
-			
-            RackFireTogether = true, 
 
             RackReloadTimeout = 0, 
             RackSalvoChargeTime = 0, 
             RackSalvoReloadTime = 0, 
-            RackSalvoSize = 1, 
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,			#--- 880 DPS Air
@@ -677,7 +666,7 @@ UnitBlueprint {
                 'BOMBER', 
                 'GROUNDATTACK', 
                 'MOBILE', 
-                'SPECIALLOWPRI', 
+
                 'ALLUNITS', 
             }, 
             TargetRestrictDisallow = 'UNTARGETABLE', 
@@ -741,13 +730,10 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -760,7 +746,7 @@ UnitBlueprint {
                 'MOBILE SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -814,7 +800,7 @@ UnitBlueprint {
                     RackBone = 'AttachPoint',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -829,7 +815,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

@@ -49,6 +49,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',
@@ -258,7 +259,6 @@ UnitBlueprint {
                     RackBone = 'head',
                 },
             },
-            RackFireTogether = true,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -274,7 +274,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -320,8 +320,8 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-			FiringRandomness = 1.5,
-            FiringTolerance = 0.5,
+			FiringRandomness = 0.8,
+            FiringTolerance = 0.4,
 
             Label = 'topgunaa',
 			
@@ -344,9 +344,7 @@ UnitBlueprint {
                     RackBone = 'topgun',
                 },
             },
-            RackFireTogether = true,
-			
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -360,9 +358,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
 			
@@ -421,8 +419,7 @@ UnitBlueprint {
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
             ProjectileLifetime = 3,
-			
-            ProjectilesPerOnFire = 10,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -440,8 +437,7 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -458,8 +454,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -483,6 +479,7 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

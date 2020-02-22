@@ -283,7 +283,7 @@ UnitBlueprint {
                     RackBone = 'Barrel02',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,

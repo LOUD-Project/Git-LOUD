@@ -269,7 +269,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
 				'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
@@ -354,7 +354,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

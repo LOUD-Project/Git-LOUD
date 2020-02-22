@@ -1,5 +1,4 @@
---  File     :  /hook/lua/ui/help/unitdescriptions.lua
---  Summary  :  Unit Help Text
+-- TOTAL MAYHEM Unit Descriptions --
 
 Description['brmst3bom']	=	"A modified Battleship designed for long range hi-arc bombardment rather than direct fire."
 

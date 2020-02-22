@@ -264,7 +264,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 3,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
 	
     Veteran = {
@@ -339,14 +339,11 @@ UnitBlueprint {
                     RackBone = 'Left_Arm03',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,	-- 4000 Damage / 4 = 1000 DPS
@@ -358,7 +355,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
@@ -437,16 +434,11 @@ UnitBlueprint {
                     RackBone = 'Right_Arm01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.25,	-- another 1000 DPS
 			
 			RetargetOnMiss = true,
@@ -456,7 +448,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
@@ -532,14 +523,10 @@ UnitBlueprint {
                     RackBone = 'Left_Upgrade_Weapon01_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -551,7 +538,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
@@ -620,16 +606,11 @@ UnitBlueprint {
                     RackBone = 'Right_Upgrade_Weapon01_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
-            RangeCategory = 'UWRC_IndirectFire',
-			
             RateOfFire = 1,		-- 200 DPS Ground
 			
             TargetCheckInterval = 0.5,
@@ -638,7 +619,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
@@ -711,14 +691,12 @@ UnitBlueprint {
                     RackBone = 'AA_LeftBarrel01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 3,		-- 180 DPS surface/air
@@ -729,7 +707,6 @@ UnitBlueprint {
                 'MOBILE SHIELD',
                 'MOBILE AIR',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -799,16 +776,11 @@ UnitBlueprint {
                     RackBone = 'AA_LeftBarrel02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
             TargetCheckInterval = 0.66,
@@ -817,7 +789,6 @@ UnitBlueprint {
                 'MOBILE SHIELD',
                 'MOBILE AIR',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -886,16 +857,11 @@ UnitBlueprint {
                     RackBone = 'AA_LeftBarrel03',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
             TargetCheckInterval = 0.4,
@@ -903,7 +869,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE AIR',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -972,16 +938,11 @@ UnitBlueprint {
                     RackBone = 'AA_LeftBarrel04',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
             TargetCheckInterval = 0.4,
@@ -989,7 +950,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE AIR',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

@@ -57,14 +57,13 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BOT',
 		'OVERLAYRADAR',
-        'OVERLAYDIRECTFIRE',
     },
 	
     Defense = {
         ArmorType = 'Normal',
         Health = 9050,
         MaxHealth = 9050,
-        RegenRate = 3,
+        RegenRate = 4,
         SurfaceThreatLevel = 57,
     },
 	
@@ -254,6 +253,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
 			ProjectileId = '/mods/TotalMayhem/projectiles/BRNT1MTproj/BRNT1MTproj_proj.bp',
 
@@ -271,13 +272,12 @@ UnitBlueprint {
                     RackBone = 'shouldergun02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1.5,	# 120 dps
@@ -359,13 +359,11 @@ UnitBlueprint {
                     RackBone = 'gunbarrel02',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -3,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

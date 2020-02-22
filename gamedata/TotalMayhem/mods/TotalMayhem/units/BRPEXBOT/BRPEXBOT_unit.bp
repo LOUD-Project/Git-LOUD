@@ -250,7 +250,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 2.5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
 	
     Veteran = {
@@ -319,15 +319,13 @@ UnitBlueprint {
                     RackBone = 'RightCannonBarrel_02',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1.4,
             RackRecoilReturnSpeed = 4,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 1,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 2,		-- 1500 DPS
@@ -337,7 +335,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -406,15 +403,11 @@ UnitBlueprint {
                     RackBone = 'Left_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 4,		-- 600 DPS
@@ -424,7 +417,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS,-WALL',
             },
 			

@@ -242,7 +242,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

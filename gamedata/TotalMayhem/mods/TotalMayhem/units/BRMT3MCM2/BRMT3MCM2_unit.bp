@@ -29,6 +29,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -38,7 +39,9 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
+    
     BuildIconSortPriority = 21,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -46,13 +49,12 @@ UnitBlueprint {
         'MOBILE',
         'LAND',
         'DIRECTFIRE',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
-        'OVERLAYDIRECTFIRE',
-		'OVERLAYINDIRECTFIRE',
     },
 	
     Defense = {
@@ -220,11 +222,14 @@ UnitBlueprint {
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
+    
     SizeX = 1.8,
     SizeY = 3.6,
     SizeZ = 2.7,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
+    
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -232,11 +237,14 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
+    
     Transport = {
         TransportClass = 4,
     },
+    
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
                 BarrelLoop = Sound {
@@ -356,7 +364,7 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -426,7 +434,7 @@ UnitBlueprint {
                     RackBone = 'leftgun01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -445,7 +453,7 @@ UnitBlueprint {
 				'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -518,9 +526,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,	# 450 dps
 			
             TargetCheckInterval = 2.0,
@@ -529,7 +535,7 @@ UnitBlueprint {
 				'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -599,7 +605,6 @@ UnitBlueprint {
                     RackBone = 'machinegun01',
                 },
             },
-			
             RackFireTogether = true,
 
             RackReloadTimeout = 10,
@@ -608,9 +613,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 3,	# 180 dps
 			
             TargetCheckInterval = 0.66,
@@ -619,7 +622,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -714,16 +717,13 @@ UnitBlueprint {
                     RackBone = 'machinegun02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 3,	# 450 dps
 			
             ReTargetOnMiss = true,
@@ -734,7 +734,7 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',

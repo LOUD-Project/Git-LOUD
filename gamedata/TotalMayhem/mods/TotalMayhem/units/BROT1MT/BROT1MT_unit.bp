@@ -189,7 +189,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -207,8 +207,8 @@ UnitBlueprint {
                 'TECH1 MOBILE',
                 'TECH2 MOBILE',
                 'TECH3 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

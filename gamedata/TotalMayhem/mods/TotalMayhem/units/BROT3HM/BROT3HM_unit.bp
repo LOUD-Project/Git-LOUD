@@ -288,7 +288,7 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -374,7 +374,7 @@ UnitBlueprint {
                     RackBone = 'gun01barre01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

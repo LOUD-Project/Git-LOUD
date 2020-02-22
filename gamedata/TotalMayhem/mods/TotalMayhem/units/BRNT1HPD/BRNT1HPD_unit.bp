@@ -210,7 +210,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

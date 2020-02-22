@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 20,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 100,
         },
     },
+    
     BuildIconSortPriority = 111,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
@@ -40,12 +43,16 @@ UnitBlueprint {
 		'OVERLAYOMNI',
 		'OVERLAYRADAR',
     },
+    
     Defense = {
         AirThreatLevel = 88,
+        
         ArmorType = 'Structure',
+        
         Health = 39900,
         MaxHealth = 39900,
         RegenRate = 25,
+        
         SurfaceThreatLevel = 244,
     },
 	
@@ -117,7 +124,7 @@ UnitBlueprint {
 		InstallT3Radar = {
 			BuildCostEnergy = 30000,
 			BuildCostMass = 2000,
-			BuildTime = 10000,
+			BuildTime = 6500,
 			
 			MaintenanceConsumptionPerSecondEnergy = 2000,
 			
@@ -257,7 +264,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
+        
         FlattenSkirt = true,
+        
         MaxSteerForce = 0,
         MeshExtentsX = 2.8,
         MeshExtentsY = 1.4,
@@ -279,7 +288,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 3.0,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_directfire',
     StrategicIconSortPriority = 200,
 	
     Veteran = {
@@ -464,15 +473,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel01',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 250 DPS
@@ -550,15 +555,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- another 250 DPS
 			
             ReTargetOnMiss = true,
@@ -634,17 +635,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel03',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
 			
             ReTargetOnMiss = true,
@@ -719,15 +714,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel04',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
             ReTargetOnMiss = true,
 			
@@ -803,16 +794,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel05',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -887,15 +873,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel06',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
             ReTargetOnMiss = true,
 			
@@ -971,15 +953,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel07',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -1054,16 +1032,11 @@ UnitBlueprint {
                     RackBone = 'SmallTurret_Barrel08',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -1135,14 +1108,11 @@ UnitBlueprint {
                     RackBone = 'aa01',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 4 Missiles per second = 880 DPS
@@ -1178,9 +1148,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

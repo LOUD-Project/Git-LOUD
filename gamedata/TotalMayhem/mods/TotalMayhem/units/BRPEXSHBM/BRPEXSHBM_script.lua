@@ -1,4 +1,3 @@
-
 local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 
 local SDFUltraChromaticBeamGenerator = import('/lua/seraphimweapons.lua').SDFUltraChromaticBeamGenerator02
@@ -36,7 +35,7 @@ BRPEXSHBM = Class( SWalkingLandUnit ) {
 
         Topguns = Class(SIFZthuthaamArtilleryCannon){ FxMuzzleFlashScale = 3.0 },		
 
-        MainGun = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1 },
+        Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1 },
 
         NoseGun = Class(SDFAireauWeapon) { },
 		

@@ -55,6 +55,7 @@ UnitBlueprint {
         'MOBILE',
         'MASSIVE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',
@@ -227,7 +228,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 2.2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
 	
     StrategicIconSortPriority = 115,
 	
@@ -303,13 +304,10 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = true,
-			
             RackRecoilDistance = -2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -321,8 +319,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -399,27 +397,19 @@ UnitBlueprint {
                     RackBone = 'topgun02',
                 },
             },
-			
-            RackFireTogether = true,
-			
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,		-- 500dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -509,7 +499,6 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            RackFireTogether = true,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -532,8 +521,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
 			
@@ -633,9 +622,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 500dps	-- approx 6 seconds per fire
 			
             ReTargetOnMiss = true,
@@ -647,8 +634,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
 			
@@ -742,8 +729,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
 			
@@ -824,9 +811,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
 			
             RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_Countermeasure',
-			
+
             RateOfFire = 8,		-- 240dps
 	
             TargetCheckInterval = 0.5,
@@ -836,8 +821,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
 			
@@ -916,7 +901,7 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -935,8 +920,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

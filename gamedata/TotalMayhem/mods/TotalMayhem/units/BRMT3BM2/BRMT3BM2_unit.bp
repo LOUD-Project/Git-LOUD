@@ -312,7 +312,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -507,7 +507,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
@@ -578,7 +578,7 @@ UnitBlueprint {
                     RackBone = 'AttachPoint',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,

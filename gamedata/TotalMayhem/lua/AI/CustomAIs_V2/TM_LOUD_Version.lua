@@ -1,4 +1,4 @@
 AI = {
 	Name = "TotalMayhem",
-	Version = "4.54 LOUD",
+	Version = "5.2 LOUD",
 }

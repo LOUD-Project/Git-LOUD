@@ -265,14 +265,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = 0.35,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2.0,	-- 50 DPS
@@ -282,7 +280,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
 			

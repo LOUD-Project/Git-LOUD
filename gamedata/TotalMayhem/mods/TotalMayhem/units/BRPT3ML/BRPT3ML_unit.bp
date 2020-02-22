@@ -278,7 +278,7 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_B01',
                 },
             },
-            RackFireTogether = false,
+            
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,

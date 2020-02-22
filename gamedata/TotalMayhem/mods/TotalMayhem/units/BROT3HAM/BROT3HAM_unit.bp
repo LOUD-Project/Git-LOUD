@@ -42,12 +42,11 @@ UnitBlueprint {
         'AEON',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYDEFENSE',
         'NEEDMOBILEBUILD',
         'DRAGBUILD',
     },
@@ -196,16 +195,20 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 40,
     },
+    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 2,
     SelectionSizeZ = 2,
     SelectionThickness = 0.5,
+    
     SizeX = 1.9,
     SizeY = 3.0,
     SizeZ = 1.8,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
+    
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -291,8 +294,7 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -308,8 +310,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -385,7 +387,6 @@ UnitBlueprint {
                     RackBone = 'gun02',
                 },
             },
-			
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
@@ -404,7 +405,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -501,7 +502,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR',
@@ -528,10 +529,11 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
+        HealthMult = 0.6,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

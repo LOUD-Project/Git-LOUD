@@ -215,7 +215,7 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -233,7 +233,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE SHIELD',
 				'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

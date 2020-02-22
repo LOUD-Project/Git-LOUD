@@ -280,14 +280,11 @@ UnitBlueprint {
                     RackBone = 'Center_Projectile',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,	-- 240 DPS
 			
 			SkipReadyState = true,

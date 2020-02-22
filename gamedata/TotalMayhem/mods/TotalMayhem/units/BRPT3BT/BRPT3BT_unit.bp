@@ -248,7 +248,7 @@ UnitBlueprint {
                     RackBone = 'Upgrade04_01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1.5,
             RackRecoilReturnSpeed = 3,
             RackReloadTimeout = 0,

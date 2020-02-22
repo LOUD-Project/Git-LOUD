@@ -255,7 +255,7 @@ UnitBlueprint {
                     RackBone = 'Weapon02',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -272,7 +272,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -344,7 +344,7 @@ UnitBlueprint {
                     RackBone = 'Weapon01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

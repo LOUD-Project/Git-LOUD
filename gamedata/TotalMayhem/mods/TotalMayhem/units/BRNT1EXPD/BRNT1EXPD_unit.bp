@@ -192,7 +192,7 @@ UnitBlueprint {
                     RackBone = 'minigun02',
                 },
             },
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
@@ -209,8 +209,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -266,7 +266,7 @@ UnitBlueprint {
                     RackBone = 'minigun01',
                 },
             },
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
@@ -283,8 +283,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

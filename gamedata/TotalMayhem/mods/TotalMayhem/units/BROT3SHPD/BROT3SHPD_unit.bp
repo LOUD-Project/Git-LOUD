@@ -48,8 +48,6 @@ UnitBlueprint {
         'SIZE16',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYANTIAIR',
 		'OVERLAYOMNI',
 		'OVERLAYRADAR',
         'SORTDEFENSE',
@@ -288,7 +286,7 @@ UnitBlueprint {
     SizeY = 2.1,
     SizeZ = 2.7,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_directfire',
     StrategicIconSortPriority = 200,
 	
     Veteran = {
@@ -390,8 +388,8 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -443,14 +441,13 @@ UnitBlueprint {
             FiringTolerance = 10,
             Label = 'AntiAirMissiles',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
-			
             ProjectileLifetime = 4,
 			
             RackBones = {
@@ -463,13 +460,13 @@ UnitBlueprint {
                     RackBone = 'aa00',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+            
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.8,	-- 528dps AA
@@ -482,7 +479,7 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -507,7 +504,7 @@ UnitBlueprint {
         {
             Damage = 2400,
             DamageFriendly = true,
-            DamageRadius = 8,
+            DamageRadius = 6,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
 			DummyWeapon = true,
@@ -517,9 +514,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.75,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

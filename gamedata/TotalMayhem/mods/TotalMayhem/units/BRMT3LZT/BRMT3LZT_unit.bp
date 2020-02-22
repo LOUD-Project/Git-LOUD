@@ -247,7 +247,7 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+            
 			
             RackRecoilDistance = -0.8,
 			

@@ -298,7 +298,7 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -391,7 +391,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'EXPERIMENTAL',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
 				'MOBILE -AIR',
                 'ALLUNITS -WALL',
             },

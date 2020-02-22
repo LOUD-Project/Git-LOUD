@@ -24,6 +24,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -33,21 +34,22 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
+    
     BuildIconSortPriority = 100,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4COMMANDER',
         'AEON',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'DIRECTFIRE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
-        'OVERLAYDIRECTFIRE',
-        'OVERLAYANTIAIR',
 		'OVERLAYRADAR',
     },
 	
@@ -162,6 +164,7 @@ UnitBlueprint {
         VisionRadius = 36,
         WaterVisionRadius = 25,
     },
+    
     Interface = {
         HelpText = 'Little Jimmy',
     },
@@ -201,14 +204,18 @@ UnitBlueprint {
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.5,
+    
     SizeX = 2.2,
     SizeY = 4.4,
     SizeZ = 2.7,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
+    
     Transport = {
         TransportClass = 4,
     },
+    
     Veteran = {
         Level1 = 40,
         Level2 = 80,
@@ -216,6 +223,7 @@ UnitBlueprint {
         Level4 = 160,
         Level5 = 200,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -275,7 +283,7 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -293,7 +301,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -315,8 +323,10 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 35,
+            
             Turreted = true,
         },
+        
         {
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -356,11 +366,16 @@ UnitBlueprint {
             },
 
             FiringTolerance = 0.1,
+            
             Label = 'laserblue2',
+            
             MaxRadius = 44,
+            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
 			PrefersPrimaryWeaponTarget = true,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -369,16 +384,14 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 2.5,	# 375 dps
 			
             ReTargetOnMiss = true,
@@ -387,7 +400,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -452,11 +465,16 @@ UnitBlueprint {
             },
 
             FiringTolerance = 0.1,
+            
             Label = 'laserblue3',
+            
             MaxRadius = 44,
+            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
 			PrefersPrimaryWeaponTarget = true,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -465,16 +483,14 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 2.7,	# 378 dps
 			
             ReTargetOnMiss = true,
@@ -484,8 +500,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -564,15 +580,14 @@ UnitBlueprint {
                     RackBone = 'gun02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.2,	# fire every 5 seconds = 2000dps
 			
             ReTargetOnMiss = true,
@@ -583,8 +598,8 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -664,7 +679,6 @@ UnitBlueprint {
                     RackBone = 'aa02',
                 },
             },
-			
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
@@ -672,6 +686,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+            
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,
@@ -684,7 +699,7 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS',
             },
 			
@@ -751,35 +766,40 @@ UnitBlueprint {
                     RackBone = 'AttachPoint',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = 0.05,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
+            
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
             TurretBoneYaw = 'AttachPoint',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 100,
+            
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 100,
+            
             Turreted = true,
         },
 		{

@@ -200,7 +200,7 @@ UnitBlueprint {
     SizeY = 3.3,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_antiair',
     StrategicIconSortPriority = 115,
 	
     Veteran = {
@@ -271,14 +271,11 @@ UnitBlueprint {
                     RackBone = 'Object06',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,
@@ -288,10 +285,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TurretBoneDualMuzzle = 'muzzle01',
             TurretBoneDualPitch = 'Object11',
             TurretBoneMuzzle = 'muzzle02',
@@ -363,7 +360,6 @@ UnitBlueprint {
                     RackBone = 'Object08',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
@@ -380,7 +376,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',

@@ -280,7 +280,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-            RackFireTogether = false,
+            
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -363,7 +363,7 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -380,7 +380,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -456,7 +456,7 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            RackFireTogether = false,
+            
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -473,7 +473,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
