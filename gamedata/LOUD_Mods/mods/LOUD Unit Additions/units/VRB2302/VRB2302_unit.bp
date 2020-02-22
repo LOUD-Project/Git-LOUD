@@ -177,7 +177,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_antiair',
 	
     StrategicIconSortPriority = 115,
 	
@@ -222,14 +222,14 @@ UnitBlueprint {
 			
             Label = 'Missile01',
 			
-            MaxRadius = 92,
+            MaxRadius = 89,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {

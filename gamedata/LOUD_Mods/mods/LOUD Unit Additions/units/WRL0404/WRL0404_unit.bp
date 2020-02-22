@@ -230,17 +230,19 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
 		OmniRadius = 50,
-		RadarRadius = 115,
-        VisionRadius = 50,
-        WaterVisionRadius = 35,
+		RadarRadius = 110,
+        VisionRadius = 48,
+        WaterVisionRadius = 26,
     },
 	
     Interface = {
         HelpText = 'Experimental Roachbot',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.25,
     LifeBarSize = 6,
+    
     Physics = {
         BackupDistance = 0,
         BankingSlope = 0,
@@ -253,33 +255,45 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.7,
-        MaxSpeed = 2.7,
-        MaxSpeedReverse = 0,
+        
+        MaxAcceleration = 0.6,
+        MaxSpeed = 2.4,
+        MaxSpeedReverse = 2.4,
+        
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Amphibious',
+        
         SinkLower = true,
+        
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
+        
         TurnRadius = 5,
         TurnRate = 28,
-		WaterSpeedMultiplier = 1.15,
+        
+		WaterSpeedMultiplier = 1.1,
     },
+    
     SelectionCenterOffsetZ = -0.5,
     SelectionSizeX = 3.75,
     SelectionSizeZ = 3.75,
     SelectionThickness = 0.28,
+    
     SizeX = 2,
     SizeY = 2.4,
     SizeZ = 4.2,
-    StrategicIconName = 'icon_experimental_generic',
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 45,
+    
     Transport = {
         TransportClass = 10,
     },
+    
     Veteran = {
         Level1 = 75,
         Level2 = 150,
@@ -287,6 +301,7 @@ UnitBlueprint {
         Level4 = 300,
         Level5 = 375,
     },
+    
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -326,19 +341,21 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 82,
+            MaxRadius = 78,
             MinRadius = 8,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
+            ProjectileLifetime = 2,
 			
             RackBones = {
                 {
@@ -348,14 +365,11 @@ UnitBlueprint {
                     RackBone = 'UCX0101_T01_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -426,7 +440,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 450,	-- 1800 DPS
+            Damage = 350,	-- 1400 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -460,14 +474,11 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret02',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,
@@ -522,11 +533,15 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+            
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.2,
+            
             CollideFriendly = false,
+            
             ContinuousBeam = true,
-            Damage = 450,	-- 1800 DPS
+            
+            Damage = 350,	-- 1400 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -538,13 +553,18 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+            
             HeadingArcCenter = -85,
             HeadingArcRange = 95,
+            
             Label = 'LeftLaserTurret',
+            
             MaxRadius = 46,
             MinRadius = 2,
+            
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -559,10 +579,9 @@ UnitBlueprint {
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 2,
+            
             TargetCheckInterval = 0.2,
             TargetPriorities = {
                 'LAND MOBILE',
@@ -570,16 +589,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'UCX0101_T03_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret03',
             TurretBoneYaw = 'UCX0101_Turret03',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 360,
+            
             TurretYaw = 275,
             TurretYawRange = 95,
             TurretYawSpeed = 50,
+            
             Turreted = true,
         },		
         {
@@ -596,12 +619,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 64,	-- 256 DPS Air
+            
+            Damage = 60,	-- 240 DPS Air
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+            
 			DetonatesAtTargetHeight = true,
+            
             DisplayName = 'Electron Flak',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
@@ -609,12 +636,17 @@ UnitBlueprint {
             },
 			FiringRandomness = 0.5,
             FiringTolerance = 1,
+            
             Label = 'AAGun1',
+            
             LeadTarget = true,
+            
             MaxRadius = 50,
+            
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 95,
+            
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
             RackBones = {
@@ -625,35 +657,39 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret04',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
+            
             RateOfFire = 2,
+            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
+            
             TurretBoneMuzzle = 'UCX0101_T04_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret04',
             TurretBoneYaw = 'UCX0101_Turret04',
             TurretDualManipulators = false,
+            
             TurretPitch = 35,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 120,
+            
             Turreted = true,
         },
         {
@@ -670,12 +706,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 64,	-- 256 DPS Air
+            
+            Damage = 60,	-- 240 DPS Air
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+            
 			DetonatesAtTargetHeight = true,
+            
             DisplayName = 'Electron Flak',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
@@ -683,14 +723,20 @@ UnitBlueprint {
             },
 			FiringRandomness = 0.5,
             FiringTolerance = 1,
+            
             Label = 'AAGun2',
+            
             LeadTarget = true,
+            
             MaxRadius = 50,
+            
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 95,
+            
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -699,35 +745,37 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret05',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 2,
+            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'UCX0101_T05_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret05',
             TurretBoneYaw = 'UCX0101_Turret05',
             TurretDualManipulators = false,
+            
             TurretPitch = 35,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 120,
+            
             Turreted = true,
         },
         {
@@ -744,12 +792,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 64,	-- 256 DPS Air
+            
+            Damage = 60,	-- 240 DPS Air
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+            
 			DetonatesAtTargetHeight = true,
+            
             DisplayName = 'Electron Flak',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
@@ -757,12 +809,16 @@ UnitBlueprint {
             },
             FiringRandomness = 0.5,
             FiringTolerance = 1,
+            
             Label = 'AAGun3',
             LeadTarget = true,
+            
             MaxRadius = 50,
+            
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 95,
+            
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
             RackBones = {
@@ -773,35 +829,37 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret06',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 2,
+            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'UCX0101_T06_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret06',
             TurretBoneYaw = 'UCX0101_Turret06',
             TurretDualManipulators = false,
+            
             TurretPitch = 35,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 120,
+            
             Turreted = true,
         },
         {
@@ -818,12 +876,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 64,	-- 256 DPS Air
+            
+            Damage = 60,	-- 240 DPS Air
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
+            
 			DetonatesAtTargetHeight = true,
+            
             DisplayName = 'Electron Flak',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
@@ -831,14 +893,19 @@ UnitBlueprint {
             },
 			FiringRandomness = 0.5,
             FiringTolerance = 1,
+            
             Label = 'AAGun4',
             LeadTarget = true,
+            
             MaxRadius = 50,
+            
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 95,
+            
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -847,43 +914,57 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret07',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 2,
+            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'UCX0101_T07_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret07',
             TurretBoneYaw = 'UCX0101_Turret07',
             TurretDualManipulators = false,
+            
             TurretPitch = 35,
             TurretPitchRange = 55,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 120,
+            
             Turreted = true,
         },
+		{
+            AboveWaterTargetsOnly = true,
+            Damage = 7500,
+            DamageFriendly = true,
+            DamageRadius = 8,
+            DamageType = 'Normal',
+            DisplayName = 'Megalith Death',
+            DummyWeapon = true,
+            Label = 'MegalithDeath',
+            WeaponCategory = 'Death',
+        },        
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

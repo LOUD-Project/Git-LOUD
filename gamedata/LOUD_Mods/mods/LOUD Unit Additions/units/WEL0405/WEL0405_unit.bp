@@ -189,7 +189,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1200000,
         BuildCostMass = 62000,
-        BuildTime = 120000,
+        BuildTime = 20000,
     },
 	
     General = {
@@ -274,7 +274,7 @@ UnitBlueprint {
     SizeY = 6.75,
     SizeZ = 3.6,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
 	
     Veteran = {
@@ -346,8 +346,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -441,15 +440,12 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
 
             RateOfFire = 0.5,	-- 1100 DPS
 			
@@ -535,16 +531,14 @@ UnitBlueprint {
                     RackBone = 'UUX0111_T02_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.3,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
@@ -622,16 +616,14 @@ UnitBlueprint {
                     RackBone = 'UUX0111_T03_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.3,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
@@ -709,16 +701,14 @@ UnitBlueprint {
                     RackBone = 'UUX0111_T04_Barrel01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.3,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,		-- 840 DPS
 			
             TargetCheckInterval = 0.5,
@@ -812,14 +802,11 @@ UnitBlueprint {
                     RackBone = 'UUX0111_RightMissileTop',
                 },
             },
-			
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.05,	-- 16 missiles * 1000 = 16000 every 20 seconds = 800 DPS
@@ -898,14 +885,11 @@ UnitBlueprint {
                     RackBone = 'UUX0111_Crown',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,		-- 800 DPS Air
@@ -915,14 +899,11 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
-
-            Turreted = false,
         },
 		
         {

@@ -163,7 +163,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -221,7 +221,7 @@ UnitBlueprint {
     SizeY = 5,
     SizeZ = 5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_shield',
     StrategicIconSortPriority = 195,
 	
     Wreckage = {

@@ -220,7 +220,7 @@ UnitBlueprint {
     SizeY = 2.5,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_ship_antiair',
     StrategicIconSortPriority = 155,
 	
     Veteran = {
@@ -276,7 +276,7 @@ UnitBlueprint {
                     RackBone = 'Front_Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -466,9 +466,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 2,		-- 880 DPS
 			RetargetOnMiss = true,
 			

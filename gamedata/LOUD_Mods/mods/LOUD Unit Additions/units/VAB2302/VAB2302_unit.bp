@@ -192,7 +192,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_antiair',
 	
     StrategicIconSortPriority = 115,
 	
@@ -237,14 +237,14 @@ UnitBlueprint {
 			
             Label = 'AntiAirMissiles',
 			
-            MaxRadius = 92,
+            MaxRadius = 89,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -254,8 +254,7 @@ UnitBlueprint {
                     RackBone = 'Turret_B01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,

@@ -153,7 +153,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 360000,
         BuildCostMass = 22913,
-        BuildTime = 36500,
+        BuildTime = 18250,
 		
         MaintenanceConsumptionPerSecondEnergy = 5143,
 		
@@ -170,7 +170,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 10,
+		CapCost = 12,
         Category = 'Defense',
         Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
@@ -247,7 +247,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_shield',
     StrategicIconSortPriority = 195,
 	
     Wreckage = {

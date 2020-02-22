@@ -66,13 +66,13 @@ UnitBlueprint {
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
             Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
-            RegenAssistMult = 60,
+            RegenAssistMult = 1000,
 			
-            ShieldEnergyDrainRechargeTime = 24,
+            ShieldEnergyDrainRechargeTime = 10,
 			
-            ShieldMaxHealth = 22500,
+            ShieldMaxHealth = 27500,
             ShieldRechargeTime = 24,
-            ShieldRegenRate = 281,
+            ShieldRegenRate = 286,
             ShieldRegenStartTime = 1,
             ShieldSize = 45,
             ShieldVerticalOffset = -5,
@@ -86,8 +86,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Hover',
-            'Heavy Shield Dome',
+            'Shield Dome',
             'Omni Radar',
+            'Anti-Teleport field',
             'Strategic Missile Defense',
         },
 		
@@ -116,13 +117,13 @@ UnitBlueprint {
 	
     Economy = {
 		BuildCostEnergy = 750000,
-        BuildCostMass = 42500,
+        BuildCostMass = 43500,
 		
         BuildRate = 1950,
 		
-        BuildTime = 75000,
+        BuildTime = 12500,
 		
-        MaintenanceConsumptionPerSecondEnergy = 4250,
+        MaintenanceConsumptionPerSecondEnergy = 4750, -- for shield, radar and anti-teleport
     },
 	
     General = {
@@ -206,9 +207,7 @@ UnitBlueprint {
         SkirtSizeZ = 10,
 		
         RotateBodyWhileMoving = true,
-		
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+
         TurnFacingRate = 60,
         TurnRadius = 5,
         TurnRate = 30,
@@ -225,7 +224,7 @@ UnitBlueprint {
     SizeY = 1.8,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_shield',
     StrategicIconSortPriority = 125,
 	
     Transport = {
@@ -284,14 +283,11 @@ UnitBlueprint {
                     RackBone = 'AntiNuke',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.6,
@@ -310,7 +306,7 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
+        HealthMult = 0.5,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

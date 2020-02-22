@@ -1,14 +1,11 @@
 -- Barrage Artillery
-Description['mgubA31'] = "Multi-Barrelled Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
-Description['mgubC31'] = "Multi-Barrelled Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
-Description['mgubS31'] = "Multi-Barrelled Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
-Description['mgubU31'] = "Multi-Barrelled Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
+Description['lab2320'] = "Multi-Barrelled Tactical Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
+Description['leb2320'] = "Multi-Barrelled Tactical Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
+Description['lrb2320'] = "Multi-Barrelled Tactical Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
+Description['lsb2320'] = "Multi-Barrelled Tactical Barrage Artillery - Triple Barrels, more range, higher Rate of Fire - ideal for defensive work"
 
 -- Lucidity Fighter-Cluster Bomber
-Description['tcau0401'] = "The Lucidity is an experimental Fighter-Cluster Bomber designed for work against large collections of enemy units in the field. Outstanding AA weapons, and a bucketload of bombs makes it a formidable unit"
-
--- Quantum T4 Point Defense
-Description['tcba0401'] = "A Cybran hack job, built from Aeon technology, this high-end defensive structure melts large enemy units at considerable range"
+Description['lea0401'] = "Lucidity is an experimental Fighter-Cluster Bomber designed for work against large collections of enemy units in the field. Outstanding AA weapons, and a bucketload of bombs makes it a formidable unit"
 
 -- Quantum Teleporters
 Description['uab0305'] = "A simple idea - Quantum teleports can teleport units to other allied teleporters."
@@ -54,4 +51,4 @@ Description['wrl0404'] = "Mega Roach - Typical Cybran insect megabot.  Dangerous
 Description['wsl0405'] = "Echibum - The newest and most advanced addition to the Seraphim arsenal.  Mobility, firepower, range and shielded."
 
 -- Experimental Cruiser
-Description['xss0403'] = "The Vergra is a powerful AA Battlecruiser"
+Description['xss0403'] = "The Vergra is a powerful AA Battlecruiser. T3 level surface firepower but superior AA weaponry."

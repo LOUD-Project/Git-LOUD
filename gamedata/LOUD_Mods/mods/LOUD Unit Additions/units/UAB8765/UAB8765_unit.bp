@@ -41,8 +41,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2126,	# 1% Health + .1% Energy Storage + 1% Mass Storage
-        Health = 9550,
+        EconomyThreatLevel = 845,	# 1% Health + .1% Energy Storage + 1% Mass Storage
+        Health = 7550,
         MaxHealth = 7550,
         RegenRate = 10,
     },
@@ -155,7 +155,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 600000,
         BuildCostMass = 35000,
-        BuildTime = 36500,
+        BuildTime = 18250,
 
         StorageMass = 32000,
         StorageEnergy = 450000,
@@ -167,7 +167,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 8,
+		CapCost = 15,
         Category = 'Experiemtnal',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -185,7 +185,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
@@ -232,7 +232,7 @@ UnitBlueprint {
     SizeY = 3.75,
     SizeZ = 4,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_mass',
 	
     StrategicIconSortPriority = 150,
 	
@@ -252,10 +252,10 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
-            NukeInnerRingDamage = 15000,
+            NukeInnerRingDamage = 18000,
             NukeInnerRingRadius = 20,
             NukeInnerRingTotalTime = 3,
-            NukeOuterRingDamage = 3500,
+            NukeOuterRingDamage = 5000,
             NukeOuterRingRadius = 44,
             NukeOuterRingTotalTime = 5,
             ProjectileId = '/projectiles/AIFQuantumWarhead02/AIFQuantumWarhead02_proj.bp',

@@ -39,9 +39,9 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2126,# 1% Health + .1% Energy Storage + 1% Mass Storage
-        Health = 10500,
-        MaxHealth = 10500,
+        EconomyThreatLevel = 852,   # 1% Health + .1% Energy Storage + 1% Mass Storage
+        Health = 8250,
+        MaxHealth = 8250,
         RegenRate = 10,
     },
 	
@@ -92,14 +92,14 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 600000,
         BuildCostMass = 35000,
-        BuildTime = 36500,
+        BuildTime = 18250,
 
         StorageMass = 32000,
         StorageEnergy = 450000,
     },
 	
     General = {
-		CapCost = 8,
+		CapCost = 15,
         Category = 'Experimental',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -169,7 +169,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 4,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_mass',
 	
     StrategicIconSortPriority = 250,
 	
@@ -189,10 +189,10 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
-            NukeInnerRingDamage = 15000,
+            NukeInnerRingDamage = 18000,
             NukeInnerRingRadius = 20,
             NukeInnerRingTotalTime = 3,
-            NukeOuterRingDamage = 3500,
+            NukeOuterRingDamage = 5000,
             NukeOuterRingRadius = 44,
             NukeOuterRingTotalTime = 5,
             ProjectileId = '/effects/Entities/UEFNukeEffectController01/UEFNukeEffectController01_proj.bp',

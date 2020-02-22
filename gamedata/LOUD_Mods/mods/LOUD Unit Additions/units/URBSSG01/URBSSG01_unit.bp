@@ -133,7 +133,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 400000,
         BuildCostMass = 22560,
-        BuildTime = 38294,
+        BuildTime = 18500,
 		
         MaintenanceConsumptionPerSecondEnergy = 5325,
 		
@@ -224,7 +224,7 @@ UnitBlueprint {
     SizeY = 5.5,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_shield',
     StrategicIconSortPriority = 200,
 	
     Wreckage = {
