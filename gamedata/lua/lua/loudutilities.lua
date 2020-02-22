@@ -1238,22 +1238,22 @@ end
 function ProcessAirUnits( unit, aiBrain )
 
 	if not unit.Dead then
-		
-		if unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80 then
+    
+        local fuel = unit:GetFuelRatio()
+
+		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
 			
 			-- put air unit into the refuel pool -- 
 			aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." ProcessAirUnits for  "..unit:GetBlueprint().Description )
-	
+
 			-- and send it off to the refit thread --
 			unit:ForkThread( AirUnitRefitThread, aiBrain )
 			
-			return true
+			return true     -- unit had to be processed
 		end
 	end
 	
-	return false
+	return false    -- unit did not need processing
 end
 
 -- this function will attempt to get the air unit to a repair pad
@@ -1278,7 +1278,7 @@ function AirUnitRefitThread( unit, aiBrain )
 			fuel = GetFuelRatio(unit)
 			health = unit:GetHealthPercent()
 			
-			if fuel < fuellimit or health < healthlimit then
+			if ( fuel > -1 and fuel < fuellimit ) or health < healthlimit then
 
 				-- check for any airpads -- ignore mobile ones 
 				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then
@@ -1414,8 +1414,10 @@ function AirStagingThread( unit, airstage, aiBrain )
 			local ready = false
 			
 			while (not ready) and (not airstage.Dead) do
+            
+                local fuel = unit:GetFuelRatio()
 			
-				if (not unit.Dead) and (unit:GetFuelRatio() > .85 and unit:GetHealthPercent() > .85)  then
+				if (not unit.Dead) and ( fuel > -1 and fuel > .85 and unit:GetHealthPercent() > .85)  then
 					ready = true
 					break
 				end
@@ -1426,13 +1428,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 			if ready and unit:IsUnitState('Attached') and (not unit.Dead) and (not airstage.Dead) then
 			
 				if airstage.UnitStored[unit.Sync.id] then
-				
 					airstage.UnitStored[unit.Sync.id] = nil
-				
-					--unit:DetachFrom()
-					
-					--LOG("*AI DEBUG Airpad says "..repr(airstage.UnitStored))
-					
 				end
 				
 				unit:SetCanTakeDamage(true)
@@ -3203,7 +3199,6 @@ function ParseIntelThread( aiBrain )
     -- local the repetitive functions		
 	local EntityCategoryFilterDown = EntityCategoryFilterDown
 	local GETTHREATATPOSITION = moho.aibrain_methods.GetThreatAtPosition
-	--local GetBlueprint = moho.entity_methods.GetBlueprint
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	local GetPosition = moho.entity_methods.GetPosition
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint

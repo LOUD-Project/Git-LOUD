@@ -80,6 +80,7 @@ Weapon = Class(moho.weapon_methods) {
         self:SetWeaponPriorities()
 		
         --self.Disabledbf = {}
+        
         --self.DamageMod = 0
         --self.DamageRadiusMod = 0
 		

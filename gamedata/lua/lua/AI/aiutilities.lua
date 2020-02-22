@@ -910,8 +910,8 @@ function GetNumTransportSlots(unit, aiBrain)
 		-- Gargantua
 		elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
 			bones.Large = 20
-			bones.Medium = 0
-			bones.Small = 0
+			bones.Medium = 4
+			bones.Small = 4
 		
 		-- BO Sera transport
 		elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then

@@ -1232,6 +1232,10 @@ EngineerManager = Class(BuilderManager) {
 									-- Move the land group to the distress location and then back to the location of the base
 									IssueClearCommands( grouplnd )
                                     
+                                    -- so new thinking - get all the units but sort for closest first
+                                    -- select enough units to at least double the enemy threat
+                                    -- put those into new list and then sort for furthest
+                                    
                                     -- sort all the response units so that the farthest will be first in the list
                                     LOUDSORT( grouplnd, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], distressLocation[1],distressLocation[3]) > VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], distressLocation[1],distressLocation[3]) end)
 
@@ -1247,7 +1251,8 @@ EngineerManager = Class(BuilderManager) {
                                             totalthreatsent = totalthreatsent + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0)
                                         end
                                         
-                                        if totalthreatsent > aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) then
+                                       
+                                        if totalthreatsent > (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * 2) then
                                             break   -- dont send any more units --
                                         end
                                         

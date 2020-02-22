@@ -346,13 +346,17 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			-- as with Health we just apply the effect when it happens
 			local unitfuel = GetFuelRatio(unit)
+            
+            if unitfuel > -1 then
 
-			-- and we use the lowest value so never more than 1.0 (full)
-			local val = math.min((unitfuel + (buffAffects.FuelRatio.Add or 0)) * (buffAffects.FuelRatio.Mult or 1), 1)
+                -- and we use the lowest value so never more than 1.0 (full)
+                local val = math.min((unitfuel + (buffAffects.FuelRatio.Add or 0)) * (buffAffects.FuelRatio.Mult or 1), 1)
 
-			SetFuelRatio( unit, val )
+                SetFuelRatio( unit, val )
 
-			RequestRefreshUI(unit)
+                RequestRefreshUI(unit)
+                
+            end
 
         elseif atype == 'MaxHealth' then
 
@@ -610,9 +614,13 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				local shieldsize = __blueprints[unit.BlueprintID].Defense.Shield.ShieldSize or 1
 
 				unit.MyShield:SetSize(val * shieldsize)
+                
+                if unit.MyShield:IsOn() then
 
-				unit.MyShield:RemoveShield()
-				unit.MyShield:CreateShieldMesh()
+                    unit.MyShield:RemoveShield()
+                    unit.MyShield:CreateShieldMesh()
+                    
+                end
 			end
 
 		elseif atype == 'ShieldHealth' then

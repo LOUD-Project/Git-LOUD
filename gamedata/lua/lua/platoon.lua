@@ -342,9 +342,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 --]]		
 			if self.MoveThread then
-
 				self:KillMoveThread()
-				
 			end
 
 			local units = GetPlatoonUnits(self)
@@ -369,7 +367,6 @@ Platoon = Class(moho.platoon_methods) {
 								v.failedbuilds = (v.failedbuilds + 1) or 1
 								
 								ForkTo( EM.AssignTimeout, EM, self.BuilderName, 300 )
-								
 							end
 						end
                     
@@ -378,13 +375,9 @@ Platoon = Class(moho.platoon_methods) {
 							if v.BuilderName and not LOUDENTITY( categories.COMMAND, v ) then
 							
 								v:SetCustomName("Eng "..v.Sync.id.." Last: "..v.BuilderName)
-								
 							else
-							
 								v:SetCustomName( aiBrain.Nickname )
-								
 							end
-							
 						end
 
 						v.BuilderName = nil
@@ -398,40 +391,27 @@ Platoon = Class(moho.platoon_methods) {
 						if EM.Active then
 						
 							EM:ForkThread( EM.DelayAssignEngineerTask, v, aiBrain)
-							
 						else
-						
 							EM:ForkThread( EM.ReassignEngineer, v, aiBrain)
-							
 						end
-
-					end
+                    end
 				
 					-- processing for air units assigns them to the refuel pool 
 					if LOUDENTITY( categories.AIR * categories.MOBILE - categories.EXPERIMENTAL, v ) then
 					
 						if ProcessAirUnits( v, aiBrain) then
-						
 							-- onto next unit --
 							continue
-							
 						end
-						
 					end
 					
 					-- everyone else goes to Army Pool -- 
 					if not v.PlatoonHandle then
-					
 						AssignUnitsToPlatoon( aiBrain, 'ArmyPool', {v}, 'Unassigned','none' )
-						
 					end
-					
 				end
-				
 			end
-			
 		end
-
     end,
 
 	-- Find enough transports to move the platoon to the destination. 
@@ -556,20 +536,14 @@ Platoon = Class(moho.platoon_methods) {
 								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds SAFEDROP at "..repr(v.Position))
 							
 								return v.Position, v.Name
-							
 							end
-
 						end
-					
 					end
-					
 				end
-
 				
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO safe drop for "..repr(destination).." using "..layer)
 				
 				return false, nil
-				
 			end
 	
 			local counter = 0
@@ -589,28 +563,21 @@ Platoon = Class(moho.platoon_methods) {
 					bUsedTransports, transportplatoon = GetTransports( self, aiBrain )
 			
 					if bUsedTransports or counter == attempts then
-					
 						break 
-						
 					end
 
 					WaitTicks(120)
-
 				end
-				
 			end
 
 			-- if we didnt use transports
 			if (not bUsedTransports) then
 
 				if transportplatoon then
-				
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
-					
 				end
 
 				return false
-				
 			end
 
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." assigns "..transportplatoon.BuilderName.." to "..self.BuilderName)
@@ -656,21 +623,15 @@ Platoon = Class(moho.platoon_methods) {
 				if self.MovementLayer == 'Amphibious' then
 				
 					transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Amphibious Path Node','Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
-					
 				else
-				
 					transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
-					
 				end
 				
 				if transportLocation then
-				
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds alternate landing position at "..repr(transportLocation))
 					
 					ForkTo( AISendPing, transportLocation, 'alert', aiBrain.ArmyIndex )
-				
 				end
-			
 			end
 		
 			-- if no alternate, or either self has died, return the transports and abort transport
@@ -681,26 +642,23 @@ Platoon = Class(moho.platoon_methods) {
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - aborting transport")
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
-					
 				end
 
 				return false
-				
 			end
 
 			-- correct drop location for surface height
 			transportLocation[2] = GetSurfaceHeight(transportLocation[1], transportLocation[3])
 
 			if self.MoveThread then
-			
 				-- if the platoon has a movement thread this should kill it 
 				-- before we pick the platoon up -- 
 				self:KillMoveThread()
-				
 			end
 
-			
-			-- LOAD THE TRANSPORTS AND DELIVER
+            -------------------------------------
+			-- LOAD THE TRANSPORTS AND DELIVER --
+            -------------------------------------
 			-- we stay in this function until we load, move and arrive or die
 			-- will get a false if entire self cannot be used
 			-- note how we pass the IsEngineer flag -- alters the behaviour of the transport
@@ -711,17 +669,15 @@ Platoon = Class(moho.platoon_methods) {
 			
 				-- if transports RTB them --
 				if PlatoonExists(aiBrain,transportplatoon) then
-				
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
-					
 				end
 				
-				
 				return false
-				
 			end
 
-			-- PROCESS THE PLATOON AFTER LANDING 
+            ---------------------------------------
+			-- PROCESS THE PLATOON AFTER LANDING --
+            ---------------------------------------
 			-- if we used transports then process any unlanded units
 			-- seriously though - UseTransports should have dealt with that
 			-- anyhow - forcibly detach the unit and re-enable standard conditions
@@ -730,7 +686,6 @@ Platoon = Class(moho.platoon_methods) {
 			for _,v in units do
 			
 				if not v.Dead and IsUnitState( v, 'Attached' ) then
-				
 					v:DetachFrom()
 					v:SetCanTakeDamage(true)
 					v:SetDoNotTarget(false)
@@ -738,9 +693,7 @@ Platoon = Class(moho.platoon_methods) {
 					v:SetCapturable(true)
 					v:ShowBone(0, true)
 					v:MarkWeaponsOnTransport(v, false)
-					
 				end
-				
 			end
 		
 			-- set path to destination if we landed anywhere else but the destination
@@ -748,9 +701,7 @@ Platoon = Class(moho.platoon_methods) {
 			if (not IsEngineer) and GetPlatoonPosition(self) != destination then
 		
 				if not PlatoonExists( aiBrain, self ) or not GetPlatoonPosition(self) then
-				
 					return false
-					
 				end
 
 				-- path from where we are to the destination - use inflated threat to get there --
@@ -764,23 +715,17 @@ Platoon = Class(moho.platoon_methods) {
 					if not path and destination != nil then
 
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." transport failed and/or no path to destination ")
-						
 						return false
 				
 					elseif path then
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'AttackFormation', AggroMove )
-
 					end
-					
 				end
-				
 			end
-			
 		end
     
 		return PlatoonExists( aiBrain, self )
-		
 	end,
 
 	-- If there are pathing nodes available to this platoon's most restrictive movement type, then a path to the destination

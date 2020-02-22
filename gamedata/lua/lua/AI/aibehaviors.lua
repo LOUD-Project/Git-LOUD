@@ -107,7 +107,7 @@ function CommanderThread( platoon, aiBrain )
 		-- Wander around when idle too long
         if not cdr.Dead and moveWait >= 10 then 
 		
-			CDRHideBehavior( aiBrain, cdr ) 
+			CDRHideBehavior( aiBrain, cdr )     -- this will run for 8 seconds
 			
 			moveWait = 0
 			

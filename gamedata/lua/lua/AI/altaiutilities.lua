@@ -970,7 +970,7 @@ function GetTransports( platoon, aiBrain)
 	-- COLLECTION PHASE -- if UEF or Cybran - they have additional transportation units
 	local Special = false
 	
-	if aiBrain.FactionIndex == 1 or aiBrain.FactionIndex == 3 then
+	if aiBrain.FactionIndex == 1 then   --or aiBrain.FactionIndex == 3 then
 		Special = true
 	end
 	
@@ -983,7 +983,7 @@ function GetTransports( platoon, aiBrain)
 	-- build table of transports available to engineers - allow use of T1/T2  plus Gunships for UEF
 	if IsEngineer then
 	
-		TransportPoolTransports = EntityCategoryFilterDown( categories.AIR * categories.TRANSPORTFOCUS - categories.TECH3, GetPlatoonUnits(pool) )
+		TransportPoolTransports = EntityCategoryFilterDown( (categories.AIR * categories.TRANSPORTFOCUS) - categories.TECH3 - categories.EXPERIMENTAL, GetPlatoonUnits(pool) )
 		
 		if Special then
 			armypooltransports = EntityCategoryFilterDown( categories.uea0203, GetPlatoonUnits(armypool) )
@@ -996,7 +996,7 @@ function GetTransports( platoon, aiBrain)
 		
 		if Special then
 			-- get the T2 gunships and Gargantua - we can't use the specific ID since if BO is not turned on it would cause an error - we use a general lookup instead
-			armypooltransports = EntityCategoryFilterDown( categories.uea0203 + (categories.AIR * categories.EXPERIMENTAL * categories.TRANSPORTFOCUS), GetPlatoonUnits(armypool) )
+			armypooltransports = EntityCategoryFilterDown( categories.uea0203, GetPlatoonUnits(armypool) )
 		end
 	end
 	
@@ -1039,7 +1039,11 @@ function GetTransports( platoon, aiBrain)
 		if TransportPoolTransports and LOUDGETN(TransportPoolTransports) > 0 then
 		
 			for _,trans in TransportPoolTransports do
-			
+            
+                --if not IsEngineer then
+                    --LOG("*AI DEBUG "..trans:GetBlueprint().Description.." In use "..repr(trans.InUse).."  Assigning "..repr(trans.Assigning))
+                --end
+                
 				if not trans.InUse and not trans.Assigning then
 					AvailableTransports[counter + 1] = trans
 					counter = counter + 1
@@ -1209,8 +1213,8 @@ function GetTransports( platoon, aiBrain)
 			-- Gargantua
 			elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
 				bones.Large = 20
-				bones.Medium = 0
-				bones.Small = 0
+				bones.Medium = 4
+				bones.Small = 4
 		
 			-- BO Sera transport
 			elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
@@ -1237,11 +1241,16 @@ function GetTransports( platoon, aiBrain)
 		
 		if not transport.Dead then
 		
+            --LOG("*AI DEBUG reviewing transport "..transport:GetBlueprint().Description)
+            
 			-- use only those that are not in use, not being built and have > 50% fuel and > 70% health
-			if (not transport.InUse) and (not IsBeingBuilt(transport)) and GetFuelRatio(transport) > .50 and transport:GetHealthPercent() > .70  then
+			if (not transport.InUse) and (not IsBeingBuilt(transport)) and ( GetFuelRatio(transport) == -1 or GetFuelRatio(transport) > .50) and transport:GetHealthPercent() > .70  then
 			
+            
 				-- use only those which are not already busy or are not loading already
 				if not IsUnitState( transport, 'Busy') and not IsUnitState( transport, 'TransportLoading') then
+                
+                    --LOG("*AI DEBUG using transport "..transport:GetBlueprint().Description.." needed Large is "..repr(neededTable.Large) )
 				
 					-- deny use of T1 transport to platoons needing more than 1 large transport
 					if (not IsEngineer) and LOUDENTITY( categories.TECH1, transport ) and neededTable.Large > 1 then
@@ -1261,6 +1270,9 @@ function GetTransports( platoon, aiBrain)
 							local id = transport.BlueprintID
 				
 							if not aiBrain.TransportSlotTable[id] then
+                            
+                                LOG("*AI DEBUG Getting transport slots for "..repr(id))
+                                
 								GetNumTransportSlots( transport )
 							end
 
@@ -1280,7 +1292,7 @@ function GetTransports( platoon, aiBrain)
 								CanUseTransports = true
 							end
 						else
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." transport out of range at "..range)
+							LOG("*AI DEBUG "..aiBrain.Nickname.." transport out of range at "..range)
 							out_of_range = true
 						end
 					end
@@ -2483,9 +2495,7 @@ function AssignTransportToPool( unit, aiBrain )
 		WaitTicks(1)
 		
 		local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ATTP for "..unit:GetBlueprint().Description)
-		
+
 		-- if not in need of repair or fuel -- 
 		if not ProcessAirUnits( unit, aiBrain ) then
 
@@ -2621,15 +2631,11 @@ function ReturnTransportsToPool( aiBrain, units, move )
 				if not unit.Dead then
 				
 					if LOUDENTITY( categories.TRANSPORTFOCUS - categories.uea0203, unit ) then
-			
+                    
 						AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support', '' )
-						
 						unit.PlatoonHandle = aiBrain.TransportPool
 					else
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit:GetBlueprint().Description.." added to Army Pool")
-				
 						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
-						
 						unit.PlatoonHandle = aiBrain.ArmyPool
 					end
 			
@@ -2640,11 +2646,9 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		end
 	end
 	
-	
 	if not aiBrain.CheckTransportPoolThread then
 		aiBrain.CheckTransportPoolThread = ForkThread( CheckTransportPool, aiBrain )
 	end
-	
 end
 
 -- This utility will traverse all true transports to insure they are in the TransportPool
@@ -2656,7 +2660,7 @@ function CheckTransportPool( aiBrain )
 	local unitlist = aiBrain:GetListOfUnits(((categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203)), true, true)
 	
 	for k,v in unitlist do
-	
+        
 		if v and v.PlatoonHandle != TransportPool and v:GetFractionComplete() == 1 then
 		
 			local platoon = v.PlatoonHandle or false

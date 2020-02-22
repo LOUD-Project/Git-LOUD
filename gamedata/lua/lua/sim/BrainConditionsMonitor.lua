@@ -105,11 +105,8 @@ BrainConditionsMonitor = Class {
 		if ScenarioInfo.VictoryTime then
 		
 			aiBrain.VictoryTime = ScenarioInfo.VictoryTime
-		
 		else
-		
 			aiBrain.VictoryTime = false
-			
 		end
 	
 		-- LocationType entries MUST ALWAYS be the first element so if it isnt we just
@@ -122,14 +119,11 @@ BrainConditionsMonitor = Class {
 				if type(v.FunctionData[1]) == 'string' then 
 				
 					if aiBrain.BuilderManagers[v.FunctionData[1]].EngineerManager.Active then
-						--v.Status = true
 						return true
 					else
-						--v.Status = false
 						return false
 					end
 				end
-			
 			end
 
 			return true
@@ -146,7 +140,7 @@ BrainConditionsMonitor = Class {
         local ResultTable = self.ResultTable
 
         local playerfactor = (self.Brain.Players or 1) * 4
-		
+	
 		
         while true do
 			
@@ -198,15 +192,11 @@ BrainConditionsMonitor = Class {
             end
 
 			if ((self.ThreadWaitDuration * 10) - numChecks) > 0 then
-			
 				WaitTicks((self.ThreadWaitDuration * 10) - numResults)
-				
 			end
 			
 			checkrate = 1
-			
         end
-		
     end,
 	
 }

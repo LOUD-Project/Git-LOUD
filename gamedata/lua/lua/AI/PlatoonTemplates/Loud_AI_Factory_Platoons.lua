@@ -635,15 +635,11 @@ PlatoonTemplate { Name = 'T2MobileShields',
 
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
-        UEF = {
-            { 'uel0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
-        },	
+        UEF = {},	
         Aeon = {
             { 'ual0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
-        Cybran = {
-            { 'url0205', 1, 1, 'Attack', 'none' }	-- T2 AA vehicle
-        },		
+        Cybran = {},		
         Seraphim = {
             { 'xsl0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
@@ -686,18 +682,10 @@ PlatoonTemplate { Name = 'T2LandAmphibBot',     -- yes - this is the same as abo
 
 PlatoonTemplate { Name = 'T2LandAmphibArtillery',   -- as above this is here to provide options for amphib artillery units if needed
     FactionSquads = {
-        UEF = {
-            { 'uel0111', 1, 1, 'Attack', 'none' },
-        },
-        Aeon = {
-            { 'ual0111', 1, 1, 'Attack', 'none' },
-        },
-        Cybran = {
-            { 'url0111', 1, 1, 'Attack', 'none' },
-        },
-        Seraphim = {
-            { 'xsl0111', 1, 1, 'Attack', 'none' },
-        },
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
     }
 }
 
@@ -783,20 +771,22 @@ PlatoonTemplate { Name = 'T3Amphibious',
 
 PlatoonTemplate { Name = 'T3AmphibiousAA',
     FactionSquads = {
-        UEF = {
-            { 'uel0205', 1, 2, 'Attack', 'none' }	# All factions use T2 AA by default since base game has no T3 AA (land or amphibious)
-        },
-        Aeon = {
-            { 'ual0205', 1, 2, 'Attack', 'none' }
-        },
-        Cybran = {
-            { 'url0205', 1, 2, 'Attack', 'none' }
-        },
-        Seraphim = {
-            { 'xsl0205', 1, 2, 'Attack', 'none' }
-        },
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
     }
 }
+
+PlatoonTemplate { Name = 'T3AmphibiousArtillery',       -- here to provide compatability
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 
 PlatoonTemplate { Name = 'T3LandArtillery',
     FactionSquads = {

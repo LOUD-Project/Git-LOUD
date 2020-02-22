@@ -84,8 +84,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
         BuilderConditions = {
 
-			--{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
-
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION - categories.TECH1 }},
@@ -120,7 +118,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
         
 			{ EBC, 'LessThanEnergyTrend', { 2400 }},
-			--{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
@@ -155,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 7.5, 0, 'AntiSurface', 1 }},
@@ -185,7 +182,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
 			
 			{ EBC, 'LessThanEnergyTrend', { 2400 }},
-			--{ EBC, 'LessThanEconEfficiencyOverTime', { 2, 1.06 }},
 			
 			-- must have much of the inner core power systems complete
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 20, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON, 0, 59 }},
@@ -216,6 +212,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 	
 }
 
+-- Energy Building is focused mainly at the MAIN position but 
+-- additional energy will be built when unit count allows it
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
     BuildersType = 'EngineerBuilder',
    
@@ -229,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 300, -9999, 7.5, 0, 'AntiSurface', 1 }},
         },
@@ -255,7 +253,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ EBC, 'LessThanEnergyTrend', { 2400 }},
@@ -283,7 +282,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
     },
 }
 
-
+-- As with expansions, Naval bases will build some additional power
+-- provided we're well under unit cap
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
     BuildersType = 'EngineerBuilder',
 
@@ -300,7 +300,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},

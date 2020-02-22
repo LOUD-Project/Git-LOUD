@@ -54,7 +54,7 @@ BuildingTemplates = {
         { 'T2AADefense', 'ueb2204'        },
 		{ 'T2AADefenseAmphibious', 'ueb2204'        },
         { 'T3AADefense', 'ueb2304'        },
-        { 'T4AADefense', 'veb2302'        },
+        { 'T4AADefense', },
 	-- Naval Defense
         { 'T1NavalDefense', 'ueb2109'},
         { 'T2NavalDefense', 'ueb2205'},
@@ -62,7 +62,7 @@ BuildingTemplates = {
     -- Shields
         { 'T2ShieldDefense', 'ueb4202'    },
         { 'T3ShieldDefense', 'ueb4301'    },
-        { 'T4ShieldDefense', 'uebssg01'    },
+        { 'T4ShieldDefense', },
     -- Missile Defense
         { 'T2MissileDefense','ueb4201'    },
         { 'T3MissileDefense','ueb4201'    },
@@ -72,8 +72,8 @@ BuildingTemplates = {
         { 'T3Radar', 'ueb3104'     },
 	-- Jammers
         { 'T2RadarJammer', 'ueb4203'    },
-        { 'T2TeleportJammer', 'beb4209' },
-		{ 'T3TeleportJammer', 'beb4309' },
+        { 'T2TeleportJammer', },
+		{ 'T3TeleportJammer', },
 	-- Sonars
         { 'T1Sonar', 'ueb3102'      },
         { 'T2Sonar', 'ueb3202'      },
@@ -89,19 +89,19 @@ BuildingTemplates = {
         { 'T4StrategicMissile', 'ueb2305' },		
         { 'T3StrategicMissileDefense', 'ueb4302' },
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'beb5102' },
+        { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'ueb5202' },
-		{ 'T3AirStagingPlatform', 'ueb5202'	},
+		{ 'T3AirStagingPlatform', },
     -- Experimentals
 	-- Land
 		{ 'T4LandExperimental1', 'uel0401'	},
         { 'T4LandExperimental2', 'uel0401'	},	-- fatboy	
 		{ 'T4LandExperimental3', 'uel0401'	},
-		{ 'T4LandExperimental4', 'wel0404'	},	-- Fatboy II		
+		{ 'T4LandExperimental4', },	-- Fatboy II		
 	-- Air
-		{ 'T4AirExperimental1',	'tcau0401'	},
-		{ 'T4AirExperimental2',	'tcau0401'	},	-- Lucidity FtrBomber
-		{ 'T4AirExperimental3', 'tcau0401'	},		
+		{ 'T4AirExperimental1',	},
+		{ 'T4AirExperimental2',	},
+		{ 'T4AirExperimental3', },		
 	-- Naval
         { 'T4SeaExperimental1', 'ues0401' },	-- Atlantis
 		{ 'T4SeaExperimental2', },
@@ -130,8 +130,8 @@ BuildingTemplates = {
         { 'T3LandFactory', 'uab0301'  },
         { 'T3QuantumGate', 'uab0304'  },
 	-- Engineer Stations
-        { 'T2EngineerSupport',	 },
-        { 'T3EngineerSupport', 'wab0201' },
+        { 'T2EngineerSupport', },
+        { 'T3EngineerSupport', },
     -- Air Factory Structures
         { 'T1AirFactory', 'uab0102'   },
         { 'T2AirFactory', 'uab0202'   },
@@ -163,11 +163,11 @@ BuildingTemplates = {
         { 'T2AADefense', 'uab2204'   },
 		{ 'T2AADefenseAmphibious', 'uab2204'        },
         { 'T3AADefense', 'uab2304'   },
-        { 'T4AADefense', 'vab2302'   },
+        { 'T4AADefense',    },
     -- Shields
         { 'T2ShieldDefense', 'uab4202'  },
         { 'T3ShieldDefense', 'uab4301'  },
-        { 'T4ShieldDefense', 'uabssg01'  },
+        { 'T4ShieldDefense',   },
     -- Missile Defense
         { 'T2MissileDefense', 'uab4201'  },
         { 'T3MissileDefense', 'uab4201'  },
@@ -178,8 +178,8 @@ BuildingTemplates = {
         { 'T3Optics', 'xab3301'   },
 	-- Jammers 
         { 'T2RadarJammer', 'uab4203'     },
-        { 'T2TeleportJammer', 'bab4209'  },
-		{ 'T3TeleportJammer', 'bab4309'  },
+        { 'T2TeleportJammer', },
+		{ 'T3TeleportJammer', },
 	-- Sonars
         { 'T1Sonar', 'uab3102'      },
         { 'T2Sonar', 'uab3202'      },
@@ -195,15 +195,15 @@ BuildingTemplates = {
         { 'T3StrategicMissile', 'uab2305'   		},
         { 'T3StrategicMissileDefense', 'uab4302'	},
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'bab5102' },
+        { 'T1AirStagingPlatform',},
         { 'T2AirStagingPlatform', 'uab5202' },
-		{ 'T3AirStagingPlatform', 'uab5202'	},
+		{ 'T3AirStagingPlatform',},
 	-- Experimentals
 	-- Land
 		{'T4LandExperimental1', 'ual0401'	},
 		{'T4LandExperimental2', 'ual0401'	},
         {'T4LandExperimental3', 'ual0401'	},	-- Ernie
-		{'T4LandExperimental4', 'wel0405'	},	-- King Kriptor
+		{'T4LandExperimental4', },
 	-- Air
         {'T4AirExperimental1', 'uaa0310'	},	-- Czar
 		{'T4AirExperimental2', 'uaa0310'	},
@@ -267,11 +267,11 @@ BuildingTemplates = {
         { 'T2AADefense', 'urb2204'	},
 		{ 'T2AADefenseAmphibious', 'urb2204'        },
         { 'T3AADefense', 'urb2304'	},
-        { 'T4AADefense', 'vrb2302'  },
+        { 'T4AADefense',   },
 	-- Shield Defense
         { 'T2ShieldDefense', 'urb4202'	},
         { 'T3ShieldDefense', 'urb4207'	},
-        { 'T4ShieldDefense', 'urbssg01'  },
+        { 'T4ShieldDefense',   },
 	-- Missile Defense
         { 'T2MissileDefense', 'urb4201'	},
         { 'T3MissileDefense', 'urb4201'	},
@@ -282,8 +282,8 @@ BuildingTemplates = {
         { 'T3Optics', 'xrb3301'	},
 	-- Jammers
         { 'T2RadarJammer', 'urb4203'	},
-        { 'T2TeleportJammer', 'brb4209'	},
-		{ 'T3TeleportJammer', 'brb4309'	},
+        { 'T2TeleportJammer',},
+		{ 'T3TeleportJammer',},
 	-- Sonars
         { 'T1Sonar', 'urb3102'	},
         { 'T2Sonar', 'urb3202'	},
@@ -298,22 +298,22 @@ BuildingTemplates = {
         { 'T3StrategicMissile', 'urb2305'			},
         { 'T3StrategicMissileDefense', 'urb4302'	},
 	-- Air Staging
-	    { 'T1AirStagingPlatform', 'brb5102'	},
+	    { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'urb5202'	},
-		{ 'T3AirStagingPlatform', 'urb5202'	},
+		{ 'T3AirStagingPlatform', },
 	-- Experimentals
 	-- Land
 		{ 'T4LandExperimental1', 'url0402'	},
         { 'T4LandExperimental2', 'url0402'	},	-- MonkeyLord
 		{ 'T4LandExperimental3', 'xrl0403'	},	-- Megalith
-        { 'T4LandExperimental4', 'wrl0404'	},	-- Cockroach
+        { 'T4LandExperimental4', },
 	-- Air
         { 'T4AirExperimental1', 'ura0401'	},	-- Ripper
 		{ 'T4AirExperimental2', 'ura0401'	},
 		{ 'T4AirExperimental3', 'ura0401'	},
 	-- Naval
-		{ 'T4SeaExperimental1',		},
-		{ 'T4SeaExperimental2',		},
+		{ 'T4SeaExperimental1',	},
+		{ 'T4SeaExperimental2',	},
 	-- Economic
         { 'T4EconExperimental', 'srb1401'   },
     },
@@ -343,8 +343,8 @@ BuildingTemplates = {
         { 'T2SeaFactory',  'xsb0203'	},
         { 'T3SeaFactory',  'xsb0303'	},
 	-- Engineer Stations
-        { 'T2EngineerSupport',  },
-        { 'T3EngineerSupport', 'wsb0104' },
+        { 'T2EngineerSupport', },
+        { 'T3EngineerSupport', },
 	-- Storage Structures
         { 'MassStorage', 'xsb1106'		},
         { 'EnergyStorage', 'xsb1105'	},
@@ -362,17 +362,17 @@ BuildingTemplates = {
 	-- Naval Defense
         { 'T1NavalDefense', 'xsb2109'  },
         { 'T2NavalDefense', 'xsb2205'  },
-        { 'T3NavalDefense',			},
+        { 'T3NavalDefense',	},
 	-- AA Defense
 		{ 'T1AADefense', 'xsb2104'     },
         { 'T2AADefense', 'xsb2204'     },
-		{ 'T2AADefenseAmphibious', 'xsb2204'        },
+		{ 'T2AADefenseAmphibious', 'xsb2204' },
         { 'T3AADefense', 'xsb2304'     },
-        { 'T4AADefense', 'vsb2302'     },
+        { 'T4AADefense', },
 	-- Shields
         { 'T2ShieldDefense', 'xsb4202'      },
         { 'T3ShieldDefense', 'xsb4301'		},
-        { 'T4ShieldDefense', 'xsbssg01'      },
+        { 'T4ShieldDefense', },
 	-- Missile Defense
         { 'T2MissileDefense', 'xsb4201'	},
         { 'T3MissileDefense', 'xsb4201' },
@@ -382,8 +382,8 @@ BuildingTemplates = {
         { 'T3Radar', 'xsb3104'	},
 	-- Jammers
 		{ 'T2RadarJammer', 'xsb4203'	},
-        { 'T2TeleportJammer', 'bsb4209' },
-		{ 'T3TeleportJammer', 'bsb4309' },
+        { 'T2TeleportJammer', },
+		{ 'T3TeleportJammer', },
 	-- Sonars
         { 'T1Sonar', 'xsb3102'	},
         { 'T2Sonar', 'xsb3202'	},
@@ -399,23 +399,23 @@ BuildingTemplates = {
         { 'T3StrategicMissileDefense','xsb4302'	},
 		{ 'T4StrategicMissile', 'xsb2401'		},
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'xsb5104'     },
+        { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'xsb5202'     },
-		{ 'T3AirStagingPlatform', 'xsb5202'		},
+		{ 'T3AirStagingPlatform', },
 
 	-- Experimentals
 	-- Land
         {'T4LandExperimental1', 'xsl0401'	},	-- Ythotha
         {'T4LandExperimental2', 'xsl0401'	},
         {'T4LandExperimental3', 'xsl0401'	},
-        {'T4LandExperimental4', 'wsl0405'	},	-- Echibum
+        {'T4LandExperimental4', },
 	-- Air
         {'T4AirExperimental1', 'xsa0402'	},	-- Ahwassa Bomber
         {'T4AirExperimental2', 'xsa0402'	},
         {'T4AirExperimental3', 'xsa0402'	},
 	-- Naval
-		{ 'T4SeaExperimental1',	'tcss0403'	},
-		{ 'T4SeaExperimental2',	},				--Vergra Cruiser
+		{ 'T4SeaExperimental1',	},
+		{ 'T4SeaExperimental2',	},
 	-- Economic
         {'T4EconExperimental', 'ssb1401'	},
     }

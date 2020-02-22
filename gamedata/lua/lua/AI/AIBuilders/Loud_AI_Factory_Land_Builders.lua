@@ -725,6 +725,28 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		
     },
 	
+	
+	-- T3 Amphibious AA
+    Builder {BuilderName = 'T3 Amphibious Artillery',
+	
+        PlatoonTemplate = 'T3AmphibiousArtillery',
+        Priority = 600, 
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+			
+			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},
+			
+			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ARTILLERY, categories.LAND * categories.TECH3 }},
+		
+        },
+		
+        BuilderType = {'LandT3'},
+		
+    },
+	    
 	-- T3 NON-AMPHIB Production --
 	-- begins only when there are 4 T3 factories --
 	

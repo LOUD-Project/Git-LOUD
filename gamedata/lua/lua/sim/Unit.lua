@@ -3941,7 +3941,6 @@ Unit = Class(moho.unit_methods) {
         CleanupEffectBag(self,'BeamExhaustEffectsBag')
 		
     end,
-	
 
     MovementCameraShakeThread = function( self, camShake )
 	

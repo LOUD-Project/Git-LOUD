@@ -1839,28 +1839,36 @@ Tooltips = {
     restricted_units_nukes = {
         title = "No Nukes",
         description = "Players will not be able to build any nuke launching units - launchers, subs or battleships ",
-    },	
-	restricted_units_T3_artillery = {
+    },
+    
+	restricted_units_T3_Tactical_artillery = {
 		title = "No T3 Artillery structures.",
-		description = "Players will not be able to build T3 Artillery structures.",
+		description = "Players will not be able to build T3 Tactical (Barrage) artillery.",
 	},
+    restricted_units_T3_Strategic_artillery = {
+        title = "No T3 Strategic Artillery.",
+        description = "Players will not be able to build T3 Strategic artillery.",
+    },
 	restricted_units_exp_artillery = {
 		title = "No Experimental Artillery",
-		description = "Players will not be able to build Mavor, Scathis or Salvation.",
+		description = "Players will not be able to build T4 Experimental (Mavor, Scathis, Yolona Oss, Salvation) artillery.",
 	},
 
     restricted_units_gameenders = {
         title = "No Game Enders",
         description = "Players will not be able to build certain top-end experimentals, Paragon, Novax, and Yolona Oss",
     },
+    
     restricted_units_bubbles = {
         title = "No Bubbles",
         description = "Players will not be able to build mobile shield generators or shield defenses",
     },
+    
     restricted_units_intel = {
         title = "No Intel Structures",
         description = "Players will not be able to build radar, sonar and omni installations",
     },
+    
     restricted_units_supcom = {
         title = "No Support Commanders",
         description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
