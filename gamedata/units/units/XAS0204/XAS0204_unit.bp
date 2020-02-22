@@ -361,7 +361,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'SUBMARINE',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

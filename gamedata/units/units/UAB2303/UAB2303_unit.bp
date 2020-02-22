@@ -248,7 +248,7 @@ UnitBlueprint {
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

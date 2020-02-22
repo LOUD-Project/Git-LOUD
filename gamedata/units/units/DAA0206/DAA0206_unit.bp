@@ -241,14 +241,11 @@ UnitBlueprint {
                     RackBone = 'DAA0206',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 10,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 10,
 			
             SlavedToBody = true,

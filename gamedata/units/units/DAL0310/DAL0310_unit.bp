@@ -190,22 +190,30 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 20,
             DamageRadius = 0,
             DamageToShields = 100,
             DamageType = 'Normal',
+            
             DisplayName = 'Shield Disruptor Cannon',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            
             FiringTolerance = 1,
+            
             Label = 'MainGun',
+            
             MaxRadius = 60,
+            
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+            
             ProjectileId = '/projectiles/ADFShieldDisruptor01/ADFShieldDisruptor01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
 
@@ -217,22 +225,23 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 0.5,
+            
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
+            
             TargetCheckInterval = 0.75,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'SHIELD',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

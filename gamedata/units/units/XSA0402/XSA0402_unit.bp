@@ -276,7 +276,7 @@ UnitBlueprint {
     SizeY = 2.7,
     SizeZ = 9.8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_bomber_directfire',
     StrategicIconSortPriority = 55,
 	
     Transport = {
@@ -349,14 +349,11 @@ UnitBlueprint {
                     RackBone = 'Center_Muzzle',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.1,
             RenderFireClock = true,
 			
@@ -423,13 +420,10 @@ UnitBlueprint {
                     RackBone = 'Right_Front_Autocannon_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		#-- 400 DPS Air
@@ -510,14 +504,10 @@ UnitBlueprint {
                     RackBone = 'Left_Front_Autocannon_Muzzle',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 2,		#-- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
@@ -592,21 +582,17 @@ UnitBlueprint {
                     RackBone = 'Right_Rear_Autocannon_Muzzle',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 2,	-- 400 DPS Air
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
+                
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
@@ -675,13 +661,10 @@ UnitBlueprint {
                     RackBone = 'Left_Rear_Autocannon_Muzzle',
                 },
             },
-            RackFireTogether = false,
             
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 2,		-- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
@@ -722,9 +705,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.05,
         HealthMult = 0.6,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

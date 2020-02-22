@@ -33,14 +33,16 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'BOT',
-        'SHOWATTACKRETICLE',
     },
 	
     Defense = {
         ArmorType = 'Normal',
+        
         Health = 900,
         MaxHealth = 900,
+        
         RegenRate = 1,
+        
         SurfaceThreatLevel = 8,
     },
 	
@@ -210,6 +212,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.3,	#-- 15 rounds in 4.5 seconds
             MuzzleSalvoSize = 15,	#-- 15 rounds per salvo
             MuzzleVelocity = 30,
+            
             NoPause = true,
 			
             ProjectileId = '/projectiles/TDFPlasma02/TDFPlasma02_proj.bp',
@@ -223,34 +226,38 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 3,	#-- 3 seconds to warm up
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,	#-- 1 seconds to reload
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 1,			#-- 15 * 15 every 5.5 seconds = 40 DPS
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'STRUCTURE -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Left_Arm_Barrel_Muzzle',
             TurretBonePitch = 'Left_Arm_B01',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 50,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
             WeaponRepackTimeout = 2,
@@ -317,7 +324,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
 				'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

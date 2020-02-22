@@ -326,7 +326,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -410,9 +410,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,		-- another 120 DPS
 			
             SlavedToBody = true,
@@ -423,21 +421,25 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01_Barrel01',
             TurretBoneYaw = 'Back_Turret01',
             TurretDualManipulators = false,
+            
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 30,
+            
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 45,
+            
             Turreted = true,
         },
 		
@@ -514,23 +516,26 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.3,
+            
             TurretBoneMuzzle = 'Front_Turret02_Muzzle01',
             TurretBonePitch = 'Front_Turret02_Barrel01',
             TurretBoneYaw = 'Front_Turret02',
             TurretDualManipulators = false,
+            
             TurretPitch = 45,
             TurretPitchRange = 45,
             TurretPitchSpeed = 90,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 75,
+            
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -602,10 +607,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMARINE',
+				'SUBMERSIBLE',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

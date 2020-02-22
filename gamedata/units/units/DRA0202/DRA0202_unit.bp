@@ -258,13 +258,10 @@ UnitBlueprint {
                     RackBone = 'Projectile_Aim',
                 },
             },
-            RackFireTogether = true,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 1,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			

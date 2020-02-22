@@ -18,7 +18,11 @@ UEL0001 = Class(TWalkingLandUnit) {
 
     Weapons = {
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
+        
         RightZephyr = Class(TDFZephyrCannonWeapon) {},
+        
+        RightZephyrUpgraded = Class(TDFZephyrCannonWeapon) {},
+
         OverCharge = Class(TDFOverchargeWeapon) {
 
             OnCreate = function(self)
@@ -71,6 +75,7 @@ UEL0001 = Class(TWalkingLandUnit) {
                     TDFOverchargeWeapon.OnFire(self)
                 end
             end,
+            
             IdleState = State(TDFOverchargeWeapon.IdleState) {
                 OnGotTarget = function(self)
                     if not self.unit:IsOverchargePaused() then
@@ -83,6 +88,7 @@ UEL0001 = Class(TWalkingLandUnit) {
                     end
                 end,
             },
+            
             RackSalvoFireReadyState = State(TDFOverchargeWeapon.RackSalvoFireReadyState) {
                 OnFire = function(self)
                     if not self.unit:IsOverchargePaused() then
@@ -92,7 +98,9 @@ UEL0001 = Class(TWalkingLandUnit) {
             },            
             
         },
+        
         TacMissile = Class(TIFCruiseMissileLauncher) {},
+        
         TacNukeMissile = Class(TIFCruiseMissileLauncher) {},
     },
 
@@ -110,14 +118,82 @@ UEL0001 = Class(TWalkingLandUnit) {
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
     end,
 
+    OnStopBeingBuilt = function(self,builder,layer)
+    
+        TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
+        if self:BeenDestroyed() then return end
+        
+        self.Animator = CreateAnimator(self)
+        self.Animator:SetPrecedence(0)
+        
+        if self.IdleAnim then
+            self.Animator:PlayAnim(self:GetBlueprint().Display.AnimationIdle, true)
+            for k, v in self.DisabledBones do
+                self.Animator:SetBoneEnabled(v, false)
+            end
+        end
+        
+        self:BuildManipulatorSetEnabled(false)
+        
+        self:SetWeaponEnabledByLabel('RightZephyr', true)
+        self:SetWeaponEnabledByLabel('RightZephyrUpgraded', false)
+        self:SetWeaponEnabledByLabel('TacMissile', false)
+        self:SetWeaponEnabledByLabel('TacNukeMissile', false)
+        
+        self:ForkThread(self.GiveInitialResources)
+    end,
+
     OnPrepareArmToBuild = function(self)
         --TWalkingLandUnit.OnPrepareArmToBuild(self)
         if self:BeenDestroyed() then return end
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
-        self:SetWeaponEnabledByLabel('RightZephyr', false)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
+        --self:SetWeaponEnabledByLabel('RightZephyr', false)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
+    end,
+
+    OnStartBuild = function(self, unitBeingBuilt, order)
+        TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        if self.Animator then
+            self.Animator:SetRate(0)
+        end
+        self.UnitBeingBuilt = unitBeingBuilt
+        self.UnitBuildOrder = order
+        self.BuildingUnit = true        
+    end,
+
+    OnStopBuild = function(self, unitBeingBuilt)
+	
+        TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+		
+        if self:BeenDestroyed() then return end
+		
+        if (self.IdleAnim and not self:IsDead()) then
+            self.Animator:PlayAnim(self.IdleAnim, true)
+        end
+		
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+		
+        --self:SetWeaponEnabledByLabel('RightZephyr', true)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
+		
+        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self.UnitBeingBuilt = nil
+        self.UnitBuildOrder = nil
+        self.BuildingUnit = false          
+    end,
+
+    OnFailedToBuild = function(self)
+        TWalkingLandUnit.OnFailedToBuild(self)
+        if self:BeenDestroyed() then return end
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+        --self:SetWeaponEnabledByLabel('RightZephyr', true)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
+        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
     OnStopCapture = function(self, target)
@@ -125,8 +201,8 @@ UEL0001 = Class(TWalkingLandUnit) {
         if self:BeenDestroyed() then return end
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
+        --self:SetWeaponEnabledByLabel('RightZephyr', true)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
@@ -134,8 +210,8 @@ UEL0001 = Class(TWalkingLandUnit) {
         TWalkingLandUnit.OnFailedCapture(self, target)
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
+        --self:SetWeaponEnabledByLabel('RightZephyr', true)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
@@ -144,8 +220,8 @@ UEL0001 = Class(TWalkingLandUnit) {
         if self:BeenDestroyed() then return end
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
+        --self:SetWeaponEnabledByLabel('RightZephyr', true)
+        --self:SetWeaponEnabledByLabel('OverCharge', false)
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
@@ -153,24 +229,6 @@ UEL0001 = Class(TWalkingLandUnit) {
         WaitTicks(5)
         self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-
-    OnStopBeingBuilt = function(self,builder,layer)
-        TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-        if self:BeenDestroyed() then return end
-        self.Animator = CreateAnimator(self)
-        self.Animator:SetPrecedence(0)
-        if self.IdleAnim then
-            self.Animator:PlayAnim(self:GetBlueprint().Display.AnimationIdle, true)
-            for k, v in self.DisabledBones do
-                self.Animator:SetBoneEnabled(v, false)
-            end
-        end
-        self:BuildManipulatorSetEnabled(false)
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('TacMissile', false)
-        self:SetWeaponEnabledByLabel('TacNukeMissile', false)
-        self:ForkThread(self.GiveInitialResources)
     end,
 
     PlayCommanderWarpInEffect = function(self)
@@ -206,26 +264,6 @@ UEL0001 = Class(TWalkingLandUnit) {
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
     end,
 
-    OnStartBuild = function(self, unitBeingBuilt, order)
-        TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
-        if self.Animator then
-            self.Animator:SetRate(0)
-        end
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true        
-    end,
-
-    OnFailedToBuild = function(self)
-        TWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
     CreateBuildEffects = function( self, unitBeingBuilt, order )
 	
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
@@ -236,28 +274,6 @@ UEL0001 = Class(TWalkingLandUnit) {
         else
             EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
         end           
-    end,
-
-    OnStopBuild = function(self, unitBeingBuilt)
-	
-        TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-		
-        if self:BeenDestroyed() then return end
-		
-        if (self.IdleAnim and not self:IsDead()) then
-            self.Animator:PlayAnim(self.IdleAnim, true)
-        end
-		
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-		
-        self:SetWeaponEnabledByLabel('RightZephyr', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-		
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-        self.UnitBeingBuilt = nil
-        self.UnitBuildOrder = nil
-        self.BuildingUnit = false          
     end,
 
 #### Brute51 Pod Fix part 1/2 ---------------------------------
@@ -378,6 +394,7 @@ UEL0001 = Class(TWalkingLandUnit) {
                 Buff.RemoveBuff( self, 'UefACURegenerateBonus' )
             end  
             Buff.ApplyBuff(self, 'UefACURegenerateBonus')
+
         elseif enh =='DamageStablizationRemove' then
             # added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
             TWalkingLandUnit.CreateEnhancement(self, enh)
@@ -385,30 +402,28 @@ UEL0001 = Class(TWalkingLandUnit) {
                 Buff.RemoveBuff( self, 'UefACURegenerateBonus' )
             end  
 		
-		
-		
         elseif enh == 'Teleporter' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Teleport')
-			
+
         elseif enh == 'TeleporterRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:RemoveCommandCap('RULEUCC_Teleport')
-			
+
         elseif enh == 'Shield' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddToggleCap('RULEUTC_ShieldToggle')
             self:CreatePersonalShield(bp)
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
-			
+
         elseif enh == 'ShieldRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             RemoveUnitEnhancement(self, 'ShieldRemove')
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
-			
+
         elseif enh == 'ShieldGeneratorField' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
@@ -418,13 +433,13 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
                 self:SetMaintenanceConsumptionActive()
             end)
-			
+
         elseif enh == 'ShieldGeneratorFieldRemove' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
-			
+
 		-- T2 Engineering 
         elseif enh =='AdvancedEngineering' then
 		
@@ -505,26 +520,7 @@ UEL0001 = Class(TWalkingLandUnit) {
             end
 			
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
-
-        elseif enh =='HeavyAntiMatterCannon' then
-			TWalkingLandUnit.CreateEnhancement(self, enh)
-            local wep = self:GetWeaponByLabel('RightZephyr')
-            wep:AddDamageMod(bp.ZephyrDamageMod)        
-            wep:ChangeMaxRadius(bp.NewMaxRadius or 44)
-            local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bp.NewMaxRadius or 44)
-			
-        elseif enh =='HeavyAntiMatterCannonRemove' then
-			TWalkingLandUnit.CreateEnhancement(self, enh)
-            local bp = self:GetBlueprint().Enhancements['HeavyAntiMatterCannon']
-            if not bp then return end
-            local wep = self:GetWeaponByLabel('RightZephyr')
-            wep:AddDamageMod(-bp.ZephyrDamageMod)
-            local bpDisrupt = self:GetBlueprint().Weapon[1].MaxRadius
-            wep:ChangeMaxRadius(bpDisrupt or 22)
-            local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bpDisrupt or 22)            
-			
+	
         --ResourceAllocation              
         elseif enh == 'ResourceAllocation' then
 			TWalkingLandUnit.CreateEnhancement(self, enh)
@@ -540,7 +536,37 @@ UEL0001 = Class(TWalkingLandUnit) {
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-			
+
+        elseif enh =='HeavyAntiMatterCannon' then
+        
+			TWalkingLandUnit.CreateEnhancement(self, enh)
+
+            self:SetWeaponEnabledByLabel('RightZephyrUpgraded', true)
+            
+            local wep = self:GetWeaponByLabel('RightZephyr')
+            wep:ChangeMaxRadius(30)
+            
+            wep = self:GetWeaponByLabel('RightZephyrUpgraded')
+            wep:ChangeMaxRadius(30)
+            
+            wep = self:GetWeaponByLabel('OverCharge')
+            wep:ChangeMaxRadius(30)
+            
+        elseif enh =='HeavyAntiMatterCannonRemove' then
+        
+			TWalkingLandUnit.CreateEnhancement(self, enh)
+            
+            local wep = self:GetWeaponByLabel('RightZephyr')
+            wep:ChangeMaxRadius(22)
+            
+            wep = self:GetWeaponByLabel('RightZephyrUpgraded')
+            wep:ChangeMaxRadius(22)
+            
+            wep = self:GetWeaponByLabel('OverCharge')
+            wep:ChangeMaxRadius(22)
+            
+            self:SetWeaponEnabledByLabel('RightZephyrUpgraded', false)
+
         elseif enh =='TacticalMissile' then
 		
 			TWalkingLandUnit.CreateEnhancement(self, enh)

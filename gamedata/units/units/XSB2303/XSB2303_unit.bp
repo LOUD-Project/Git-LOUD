@@ -276,7 +276,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
 				'STRUCTURE,-WALL',
 				'MOBILE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

@@ -73,7 +73,7 @@ UnitBlueprint {
         'CANNOTUSEAIRSTAGING',
     },
 	
-    CollisionOffsetY = -0.2, #-2,
+    CollisionOffsetY = -0.2,
     CollisionOffsetZ = 1.5,
 	
     Defense = {

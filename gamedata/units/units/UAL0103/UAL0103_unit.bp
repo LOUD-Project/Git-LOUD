@@ -229,7 +229,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'ARTILLERY',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

@@ -232,7 +232,7 @@ UnitBlueprint {
                 'AIR MOBILE GROUNDATTACK',
                 'AIR MOBILE TRANSPORTATION',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
+                
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,

@@ -274,7 +274,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
                 'AIR MOBILE -INTELLIGENCE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',

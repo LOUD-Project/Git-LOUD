@@ -333,7 +333,7 @@ UnitBlueprint {
                 'MOBILE SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -470,7 +470,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
 			

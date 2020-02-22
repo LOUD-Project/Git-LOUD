@@ -218,7 +218,7 @@ UnitBlueprint {
             Label = 'AutoCannon',
 			LeadTarget = true,
 			
-            MaxRadius = 64,
+            MaxRadius = 58,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -237,9 +237,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,

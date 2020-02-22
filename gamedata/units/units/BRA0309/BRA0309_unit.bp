@@ -31,7 +31,7 @@ UnitBlueprint {
 
         LiftFactor = 10,
 
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 12.5,
 
         StartTurnDistance = 5,
 
@@ -334,14 +334,11 @@ UnitBlueprint {
                     RackBone = 'Front_Down_Turret',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -421,13 +418,9 @@ UnitBlueprint {
                 },
             },
 
-            RackFireTogether = false,
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -505,15 +498,10 @@ UnitBlueprint {
                     RackBone = 'Back_Turret01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,	-- another 120 DPS air
 

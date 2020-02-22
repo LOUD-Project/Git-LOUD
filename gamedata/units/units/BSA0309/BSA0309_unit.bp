@@ -289,13 +289,10 @@ UnitBlueprint {
                     RackBone = 'Center_Turret_Barrel_Muzzle',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -375,13 +372,10 @@ UnitBlueprint {
                     RackBone = 'Left_Turret01_Barrel01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -459,15 +453,10 @@ UnitBlueprint {
                     RackBone = 'Right_Turret01_Barrel01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1.5,
 
@@ -542,15 +531,10 @@ UnitBlueprint {
                     RackBone = 'Left_Turret02_Barrel01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,
 
@@ -625,15 +609,10 @@ UnitBlueprint {
                     RackBone = 'Right_Turret02_Barrel02',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1.5,
 

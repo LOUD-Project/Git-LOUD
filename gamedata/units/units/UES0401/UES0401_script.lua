@@ -10,7 +10,7 @@ UES0401 = Class(TSubUnit) {
     Weapons = {
 	
         Torpedo = Class(TANTorpedoAngler) {},
-        MissileRack = Class(TSAMLauncher) {},
+        AA = Class(TSAMLauncher) {},
 	},
 
     OnCreate = function(self)

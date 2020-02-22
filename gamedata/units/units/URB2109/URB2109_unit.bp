@@ -208,8 +208,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+                
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

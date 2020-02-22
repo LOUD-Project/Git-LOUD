@@ -562,8 +562,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -707,8 +707,8 @@ UnitBlueprint {
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

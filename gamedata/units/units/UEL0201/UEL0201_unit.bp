@@ -223,7 +223,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

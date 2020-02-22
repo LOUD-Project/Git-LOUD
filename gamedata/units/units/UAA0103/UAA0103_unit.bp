@@ -287,7 +287,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE -WALL',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

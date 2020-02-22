@@ -144,8 +144,7 @@ UnitBlueprint {
         MeshExtentsZ = 1.6,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 0,
         TurnRate = 75,
     },
@@ -154,9 +153,11 @@ UnitBlueprint {
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.45,
+    
     SizeX = 0.7,
     SizeY = 0.5,
     SizeZ = 1.1,
+    
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 115,
     Transport = {
@@ -225,13 +226,11 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -10,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

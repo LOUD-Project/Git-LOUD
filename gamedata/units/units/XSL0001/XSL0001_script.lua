@@ -26,7 +26,15 @@ XSL0001 = Class( SWalkingLandUnit ) {
 
     Weapons = {
         DeathWeapon = Class(SIFCommanderDeathWeapon) {},
-        ChronotronCannon = Class(SDFChronotronCannonWeapon) {},
+        
+        ChronotronCannon = Class(SDFChronotronCannonWeapon) {
+            OnCreate = function(self)
+                SDFChronotronCannonWeapon.OnCreate(self)
+                self.DamageMod = 0
+                self.DamageRadiusMod = 0
+            end,
+        },
+        
         Missile = Class(SIFLaanseTacticalMissileLauncher) {
             OnCreate = function(self)
                 SIFLaanseTacticalMissileLauncher.OnCreate(self)
@@ -406,11 +414,13 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if not bp then return end
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+            
         elseif enh == 'ResourceAllocationRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
+            
         elseif enh == 'ResourceAllocationAdvanced' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local bp = self:GetBlueprint().Enhancements[enh]
@@ -418,6 +428,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if not bp then return end
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+            
         elseif enh == 'ResourceAllocationAdvancedRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local bpEcon = self:GetBlueprint().Economy
@@ -448,7 +459,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
                 Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
             end  
-            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilization')    
+            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilization')
+            
       	elseif enh == 'DamageStabilizationAdvanced' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             if not Buffs['SeraphimACUDamageStabilizationAdv'] then
@@ -473,7 +485,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if Buff.HasBuff( self, 'SeraphimACUDamageStabilizationAdv' ) then
                 Buff.RemoveBuff( self, 'SeraphimACUDamageStabilizationAdv' )
             end  
-            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilizationAdv')     	    
+            Buff.ApplyBuff(self, 'SeraphimACUDamageStabilizationAdv')
+            
         elseif enh == 'DamageStabilizationAdvancedRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             # since there's no way to just remove an upgrade anymore, if we're remove adv, we're removing both
@@ -482,25 +495,30 @@ XSL0001 = Class( SWalkingLandUnit ) {
             end
             if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
                 Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
-            end         
+            end
+            
         elseif enh == 'DamageStabilizationRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
                 Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
-            end           
+            end
+            
         #Teleporter
         elseif enh == 'Teleporter' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Teleport')
+            
         elseif enh == 'TeleporterRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:RemoveCommandCap('RULEUCC_Teleport')
+            
         # Tactical Missile
         elseif enh == 'Missile' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')        
             self:SetWeaponEnabledByLabel('Missile', true)
+            
         elseif enh == 'MissileRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:RemoveCommandCap('RULEUCC_Tactical')
@@ -613,7 +631,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
             wep:ChangeRateOfFire(bp.NewRateOfFire or 2)
             wep:ChangeMaxRadius(bp.NewMaxRadius or 44)
             local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bp.NewMaxRadius or 44)            
+            oc:ChangeMaxRadius(bp.NewMaxRadius or 44)
+            
         elseif enh == 'RateOfFireRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local wep = self:GetWeaponByLabel('ChronotronCannon')
@@ -622,7 +641,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
             bpDisrupt = self:GetBlueprint().Weapon[1].MaxRadius            
             wep:ChangeMaxRadius(bpDisrupt or 22)
             local oc = self:GetWeaponByLabel('OverCharge')
-            oc:ChangeMaxRadius(bpDisrupt or 22)                        
+            oc:ChangeMaxRadius(bpDisrupt or 22)
+            
         # Remote Viewing system
         #elseif enh == 'RemoteViewing' then
         #    self.Sync.Abilities = {[bp.NewAbility] = self:GetBlueprint().Abilities[bp.NewAbility]}

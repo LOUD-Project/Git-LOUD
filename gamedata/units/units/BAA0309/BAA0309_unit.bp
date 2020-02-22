@@ -31,7 +31,7 @@ UnitBlueprint {
 
         LiftFactor = 9,
 
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 12.5,
 
         StartTurnDistance = 5,
 
@@ -296,13 +296,9 @@ UnitBlueprint {
                 },
             },
 
-            RackFireTogether = false,
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -381,15 +377,9 @@ UnitBlueprint {
                 },
             },
 
-            RackFireTogether = false,
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_DirectFire',
 
             RateOfFire = 1,		-- 45 DPS Ground
 
@@ -467,13 +457,9 @@ UnitBlueprint {
                 },
             },
 
-            RackFireTogether = false,
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -549,15 +535,10 @@ UnitBlueprint {
                     RackBone = 'Turret_Back',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 60 DPS Air
 
@@ -633,15 +614,10 @@ UnitBlueprint {
                     RackBone = 'Turret_Front01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 60 DPS Air
 
@@ -718,15 +694,10 @@ UnitBlueprint {
                     RackBone = 'Turret_Back01',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-
-            RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 80 DPS Air
 

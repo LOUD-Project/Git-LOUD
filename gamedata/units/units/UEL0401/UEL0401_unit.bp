@@ -95,9 +95,9 @@ UnitBlueprint {
     },
 
     Defense = {
-        AirThreatLevel = 8.4,
-        EconomyThreatLevel = 120,		
-        SubThreatLevel = 15,
+        AirThreatLevel = 22,
+        EconomyThreatLevel = 350,       -- due to factory and shield
+        SubThreatLevel = 18,
         SurfaceThreatLevel = 330,
 		
         ArmorType = 'Experimental',
@@ -264,7 +264,7 @@ UnitBlueprint {
         BuildCostEnergy = 600000,
         BuildCostMass = 25550,
         BuildRate = 160,
-        BuildTime = 60000,
+        BuildTime = 10000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY UEF MOBILE LAND',
@@ -384,7 +384,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 8,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_mobilefactory_directfire',
     StrategicIconSortPriority = 45,
 	
     Transport = {
@@ -429,7 +429,7 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = .5,
+            FiringRandomness = .6,
             FiringTolerance = 2,
 			
             HeadingArcCenter = 75,
@@ -484,7 +484,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -527,7 +527,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
             },
-            FiringRandomness = .5,
+            FiringRandomness = .6,
             FiringTolerance = 2,
 			
             HeadingArcCenter = 120,
@@ -574,16 +574,14 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1,			#-- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -626,7 +624,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
             },
-            FiringRandomness = .5,
+            FiringRandomness = .6,
             FiringTolerance = 2,
 			
             HeadingArcCenter = -75,
@@ -674,15 +672,13 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RangeCategory = 'UWRC_DirectFire',
-			
             RateOfFire = 1,		#-- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -721,7 +717,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
             },
-            FiringRandomness = .5,
+            FiringRandomness = .6,
             FiringTolerance = 2,
 			
             HeadingArcCenter = -120,
@@ -769,15 +765,13 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RangeCategory = 'UWRC_DirectFire',
-			
             RateOfFire = 1,		#-- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -810,7 +804,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 150,
+            Damage = 50,
             DamageType = 'Normal',
 			
             DisplayName = 'Hells Fury Riot Gun',
@@ -844,23 +838,18 @@ UnitBlueprint {
                     RackBone = 'Riot_Gun_Right_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 3,		#-- 450 DPS
+
+            RateOfFire = 3,		#-- 150 DPS
 			
             TargetCheckInterval = 0.16,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
 				'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -894,7 +883,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 150,
+            Damage = 50,
             DamageType = 'Normal',
 			
             DisplayName = 'Hells Fury Riot Gun',
@@ -916,9 +905,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-			
-            PrefersPrimaryWeaponTarget = true,
-			
+
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetime = 1.2,
 			
@@ -930,23 +917,18 @@ UnitBlueprint {
                     RackBone = 'Riot_Gun_Left_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 3,			#-- 450 DPS
 			
             TargetCheckInterval = 0.33,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1021,24 +1003,22 @@ UnitBlueprint {
                     RackBone = 'Turret_Right_AA_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,   -- 2 * 36 = 72 * 1.5 = 108 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1072,7 +1052,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 76,
+            
+            Damage = 36,
 			DamageFriendly = false,
 			DamageRadius = 2.0,
             DamageType = 'Normal',
@@ -1111,24 +1092,20 @@ UnitBlueprint {
                     RackBone = 'Turret_Left_AA_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
-            RangeCategory = 'UWRC_AntiAir',
-			
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- another 108 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1193,14 +1170,11 @@ UnitBlueprint {
                     RackBone = 'Torpedo_01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.4,	#-- 440 Damage every 2.5 seconds = 176 DPS Sub
@@ -1209,7 +1183,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,

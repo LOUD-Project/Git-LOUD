@@ -223,7 +223,7 @@ UnitBlueprint {
 				'ENGINEER',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

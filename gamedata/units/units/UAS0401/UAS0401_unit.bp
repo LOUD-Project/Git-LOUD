@@ -95,7 +95,6 @@ UnitBlueprint {
         'DRAGBUILD',
         'PODSTAGINGPLATFORM',
         'SUBMARINE',
-		--'DIRECTFIRE',
         'SHOWQUEUE',
     },
 	
@@ -399,7 +398,7 @@ UnitBlueprint {
     SizeY = 2.7,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_mobilefactory_artillery',
     StrategicIconSortPriority = 45,
 	
     Veteran = {
@@ -478,14 +477,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -3,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.3,		-- 1800 DPS
@@ -498,7 +495,7 @@ UnitBlueprint {
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -567,15 +564,11 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.5,		-- 6 Torps * 200 = 600 DPS Sub
@@ -586,7 +579,7 @@ UnitBlueprint {
                 'MOBILE SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -631,12 +624,10 @@ UnitBlueprint {
                     RackBone = 'Anti_Torpedo_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -688,13 +679,11 @@ UnitBlueprint {
                     RackBone = 'Anti_Torpedo_Muzzle02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,

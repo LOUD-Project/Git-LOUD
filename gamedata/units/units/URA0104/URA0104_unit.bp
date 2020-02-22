@@ -31,7 +31,7 @@ UnitBlueprint {
 		
         LiftFactor = 8,
 		
-        MaxAirspeed = 13,
+        MaxAirspeed = 12,
 		
         StartTurnDistance = 10,
 		
@@ -280,8 +280,7 @@ UnitBlueprint {
                     RackBone = 'Front_Down_Turret',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = true,
@@ -359,14 +358,11 @@ UnitBlueprint {
                     RackBone = 'Back_Up_Turret',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 4,		#-- 72 DPS Air

@@ -223,13 +223,11 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -243,7 +241,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'ALLUNITS',
+                'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
@@ -309,13 +307,10 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RateOfFire = 1,		#-- 150 DPS
 			
@@ -377,7 +372,6 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
-
 			
             ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
             ProjectileLifetime = 1,
@@ -390,13 +384,10 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1,		-- another 150 DPS
 			
@@ -466,13 +457,10 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			

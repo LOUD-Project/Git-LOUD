@@ -248,7 +248,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
 				'ARTILLERY',
 				'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

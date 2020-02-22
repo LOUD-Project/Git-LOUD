@@ -318,14 +318,11 @@ UnitBlueprint {
                     RackBone = 'PlasmaGun01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1.0,		#-- 35 DPS Ground
@@ -400,16 +397,11 @@ UnitBlueprint {
                     RackBone = 'PlasmaGun02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 1.0,		#-- 35 DPS Ground
 			
             TargetCheckInterval = 0.5,
@@ -486,14 +478,11 @@ UnitBlueprint {
                     RackBone = 'AA_Turret01',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.25,		#-- 300 Damage every 4 is 75 DPS Air
@@ -501,8 +490,8 @@ UnitBlueprint {
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
-                'MOBILE,HIGHPRIAIR',
-                'MOBILE,ANTIAIR',
+                'HIGHPRIAIR',
+                'ANTIAIR',
 				'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -572,21 +561,16 @@ UnitBlueprint {
                     RackBone = 'AA_Turret02',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.25,	-- 75 DPS
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
-                'MOBILE,ANTIAIR',
+                'ANTIAIR',
 				'MOBILE',
             },
 			
@@ -659,22 +643,17 @@ UnitBlueprint {
                     RackBone = 'AA_Turret03',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.25,		-- 75 DPS
 			
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
-                'MOBILE,ANTIAIR',
+                'ANTIAIR',
 				'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -744,21 +723,16 @@ UnitBlueprint {
                     RackBone = 'AA_Turret04',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiAir',
-			
+
             RateOfFire = 0.25,		#-- 75 DPS Air
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
-                'MOBILE,ANTIAIR',
+                'ANTIAIR',
 				'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

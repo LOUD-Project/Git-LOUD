@@ -256,7 +256,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
+                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

@@ -1,10 +1,11 @@
-
 local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
 local cWeapons = import('/lua/cybranweapons.lua')
+
 local CDFLaserDisintegratorWeapon = cWeapons.CDFLaserDisintegratorWeapon01
 local CDFElectronBolterWeapon = cWeapons.CDFElectronBolterWeapon
+
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
 
 local EMPDeathWeapon = Class(Weapon) {

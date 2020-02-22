@@ -20,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 60,
@@ -177,8 +178,10 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
+            
             CameraLifetime = 5,
             CameraVisionRadius = 5,
+            
             CollideFriendly = false,
 			
             Damage = 150,
@@ -233,7 +236,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'ARTILLERY',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS -AIR -WALL',
 				'WALL',
             },

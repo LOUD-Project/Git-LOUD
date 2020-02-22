@@ -46,7 +46,6 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
-#        'SIZE20',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTDEFENSE',
@@ -82,9 +81,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        PlaceholderMeshName = 'UXB0004',
-		
+
         SpawnRandomRotation = true,
 		
         Tarmacs = {
@@ -192,7 +189,7 @@ UnitBlueprint {
     SizeY = 4.4,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_structure3_artillery',
+    StrategicIconName = 'icon_experimental_structure_artillery',
     StrategicIconSortPriority = 180,
 	
     Veteran = {
@@ -268,17 +265,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackRecoilDistance = -1,
 			
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,		#-- every 5 seconds = 1152 DPS
@@ -288,9 +282,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI -AIR',
-                'EXPERIMENTAL ECONOMIC',
-                'EXPERIMENTAL SHIELD STRUCTURE',
-                'EXPERIMENTAL ARTILLERY',
+                'EXPERIMENTAL STRUCTURE',
 				'TECH3 STRUCTURE ANTIMISSILE SILO',
                 'TECH3 ARTILLERY',
                 'TECH3 STRUCTURE ECONOMIC',
