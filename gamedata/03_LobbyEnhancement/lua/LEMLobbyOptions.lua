@@ -89,7 +89,7 @@ GPGrestrictedUnits = {
     },
 	
 	TACTICALARTILLERY = {
-		categories = { "mguba31", "mgubc31", "mgubu31", "mgubs31" },
+		categories = { "lab4320", "leb4320", "lrb4320", "lsb4320" },
 		name = "No T3 Barrage Artillery",
 		tooltip = "restricted_units_T3_Tactical_artillery",
 	},
