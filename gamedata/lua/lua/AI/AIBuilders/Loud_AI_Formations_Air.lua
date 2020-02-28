@@ -300,7 +300,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 40,	
+			SearchRadius = 35,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -344,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
-			SearchRadius = 65,
+			SearchRadius = 55,
 			
             UseFormation = 'AttackFormation',
         },
@@ -390,7 +390,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             MergeLimit = 64,
             MissionTime = 240,
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
-			SearchRadius = 135,
+			SearchRadius = 125,
             UseFormation = 'AttackFormation',
         },
 		
@@ -741,7 +741,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.INTELLIGENCE - categories.AIR},
 			
-			SearchRadius = 40,
+			SearchRadius = 35,
 			
             UseFormation = 'AttackFormation',
         },
@@ -786,7 +786,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
 			
-			SearchRadius = 65,
+			SearchRadius = 55,
 			
             UseFormation = 'AttackFormation',
         },
@@ -830,7 +830,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             PrioritizedCategories = {categories.MOBILE * categories.SHIELD, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.ANTIAIR, categories.SHIELD, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
             
-			SearchRadius = 120,
+			SearchRadius = 110,
             
             UseFormation = 'AttackFormation',
         },

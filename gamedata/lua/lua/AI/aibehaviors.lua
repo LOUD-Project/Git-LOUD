@@ -2224,7 +2224,8 @@ function AirForceAILOUD( self, aiBrain )
                 -- if within strikerange go right at it
 				if VDist2( prevposition[1],prevposition[3], targetposition[1],targetposition[3] ) <= strikerange then
 
-					IssueAttack( platoonUnits, target )
+					--IssueAttack( platoonUnits, target )
+                    IssueAggressiveMove( platoonUnits, targetposition )
 
                 -- otherwise plot a safe path
 				else
@@ -2249,7 +2250,10 @@ function AirForceAILOUD( self, aiBrain )
                         end
 
                         if PlatoonExists(aiBrain, self) and target and not target.Dead then
-							IssueAttack( self:GetSquadUnits('Attack'), target )
+                        
+							--IssueAttack( self:GetSquadUnits('Attack'), target )
+                            IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition )
+                            
                         end
                     else
 						if reason == 'Direct' then
@@ -2276,11 +2280,11 @@ function AirForceAILOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(13)
+			WaitTicks(11)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.3
+				attacktimer = attacktimer + 1.1
 
 				local platooncount = 0
 				local fuellow = false
@@ -2304,11 +2308,13 @@ function AirForceAILOUD( self, aiBrain )
 					end
 				end
 
-				if platooncount < oldNumberOfUnitsInPlatoon * .35 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
+				if platooncount < oldNumberOfUnitsInPlatoon * .4 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
 				
 					IssueClearCommands( platoonUnits )
 				
 					target = false
+                    
+                    self:MoveToLocation( self.anchorposition, false )
 
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end

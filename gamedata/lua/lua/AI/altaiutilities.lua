@@ -149,13 +149,14 @@ function UnfinishedBody(self, eng, aiBrain)
     local assistData = self.PlatoonData.Assist
     local assistee = false
     local beingBuilt = assistData.BeingBuiltCategories or categories.ALLUNITS
+    local range = assistData.Range or 80
 	
     local catString, category, assistList
 
     for _,catString in beingBuilt do
 
         category = catString
-        assistList = FindUnfinishedUnits( aiBrain, self.BuilderLocation, category )
+        assistList = FindUnfinishedUnits( aiBrain, self.BuilderLocation, category, range )
 
 		if assistList then
 			assistee = assistList
@@ -1271,7 +1272,7 @@ function GetTransports( platoon, aiBrain)
 				
 							if not aiBrain.TransportSlotTable[id] then
                             
-                                LOG("*AI DEBUG Getting transport slots for "..repr(id))
+                                --LOG("*AI DEBUG Getting transport slots for "..repr(id))
                                 
 								GetNumTransportSlots( transport )
 							end
@@ -2742,11 +2743,11 @@ function GetGuards( aiBrain, Unit)
 	return count
 end
 
-function FindUnfinishedUnits( aiBrain, locationType, buildCat )
+function FindUnfinishedUnits( aiBrain, locationType, buildCat, range )
 
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
-	local unfinished = GetUnitsAroundPoint( aiBrain, buildCat, aiBrain.BuilderManagers[locationType].Position, 80, 'Ally' )
+	local unfinished = GetUnitsAroundPoint( aiBrain, buildCat, aiBrain.BuilderManagers[locationType].Position, range or 80, 'Ally' )
 	
 	for num, unit in unfinished do
 		if GetFractionComplete(unit) < 1 and GetGuards(aiBrain, unit) < 1 then 

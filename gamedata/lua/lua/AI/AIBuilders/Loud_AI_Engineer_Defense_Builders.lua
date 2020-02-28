@@ -243,7 +243,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
         },
 		
         BuilderType = {'T2','T3'},
