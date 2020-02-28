@@ -314,21 +314,18 @@ UnitBlueprint {
                     RackBone = 'Bomb',
                 },
             },
-            RackFireTogether = false,
 			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.2,	-- 160 DPS
 			
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
+                'DEFENSE',
                 'ALLUNITS',
             },
 			
@@ -380,38 +377,37 @@ UnitBlueprint {
                     RackBone = 'Tailgun',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1.5,
 			
             TargetCheckInterval = 0.16,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
-                'AIR MOBILE -INTELLIGENCE',
-                'SPECIALLOWPRI',
+                'MOBILE -INTELLIGENCE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,SATELLITE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Tailgun',
             TurretBonePitch = 'Tailgun',
             TurretBoneYaw = 'Tailgun',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 360,
+            
             TurretYaw = 0,
             TurretYawRange = 55,
             TurretYawSpeed = 360,
+            
             Turreted = true,
         },
         {

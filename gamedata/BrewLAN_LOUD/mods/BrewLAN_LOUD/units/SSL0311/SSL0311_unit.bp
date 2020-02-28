@@ -330,8 +330,7 @@ UnitBlueprint {
                     RackBone = 'Left_Arm',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -346,8 +345,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',

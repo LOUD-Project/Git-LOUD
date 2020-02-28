@@ -274,14 +274,11 @@ UnitBlueprint {
                     RackBone = 'Turret',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1.5, --With 1.5 RoF and damage, multiplier, and collisions of 2 each, minimum damage per shot is 28 and sustained DPS is 40.
@@ -294,7 +291,6 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'TECH3 MOBILE',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -354,9 +350,7 @@ UnitBlueprint {
             RackBones = {
                 {MuzzleBones = {0}, RackBone = 0},
             },
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
+
             RateOfFire = 0.5,
 			
             SalvoSize = 1,

@@ -381,8 +381,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
+                'AIR',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -452,9 +451,7 @@ UnitBlueprint {
                     RackBone = 'Left_Projectile02',
                 },
             },
-			
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -469,8 +466,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -520,14 +516,11 @@ UnitBlueprint {
                     RackBone = 'Right_Projectile03',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.8,

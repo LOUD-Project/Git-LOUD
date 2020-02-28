@@ -414,14 +414,11 @@ UnitBlueprint {
                     RackBone = 'Body',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.2,       -- 5750 * .2 = 1150 DPS
 			
             TargetCheckInterval = 5,
@@ -432,7 +429,6 @@ UnitBlueprint {
                 'ANTIAIR',
                 'ENERGYPRODUCTION',
                 'MASSFABRICATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -490,13 +486,10 @@ UnitBlueprint {
                     RackBone = 'Body',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 37.5,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1/12.5,        -- 96 DPS
 			
@@ -509,7 +502,6 @@ UnitBlueprint {
                 'ANTIAIR',
                 'ENERGYPRODUCTION',
                 'MASSFABRICATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -581,14 +573,11 @@ UnitBlueprint {
                     RackBone = 'Torpedo',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.1,
 			
             TargetCheckInterval = 2.5,
@@ -596,7 +585,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

@@ -775,15 +775,12 @@ UnitBlueprint {
                     RackBone = 'Right_Turret02_Barrel004',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 96 DPS Air

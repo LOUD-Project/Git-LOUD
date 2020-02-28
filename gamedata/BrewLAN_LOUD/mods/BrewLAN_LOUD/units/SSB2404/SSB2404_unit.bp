@@ -297,8 +297,7 @@ UnitBlueprint {
             TargetCheckInterval = 8,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',

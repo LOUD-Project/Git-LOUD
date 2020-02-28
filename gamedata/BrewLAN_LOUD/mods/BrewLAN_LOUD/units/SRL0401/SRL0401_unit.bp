@@ -413,7 +413,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','SPECIALLOWPRI','ALLUNITS'},
+            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
             TrackingRadius = 1.15,
 			
@@ -475,7 +475,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','SPECIALLOWPRI','ALLUNITS'},
+            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
             TrackingRadius = 1.15,
 			
@@ -539,7 +539,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','SPECIALLOWPRI','ALLUNITS'},
+            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
             TrackingRadius = 1.15,
 			
@@ -601,7 +601,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','SPECIALLOWPRI','ALLUNITS'},
+            TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
             TrackingRadius = 1.15,
 			
@@ -656,13 +656,11 @@ UnitBlueprint {
                     RackBone = 'Torp_001',
                 },
             },
-            RackFireTogether = false,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.25,

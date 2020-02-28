@@ -36,15 +36,22 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
+        },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 5,
+            Level4 = 6,
+            Level5 = 7,
         },
     },
 	
-    BuildIconSortPriority = 120,
+    BuildIconSortPriority = 191,
 	
     Categories = {
         'SELECTABLE',
@@ -54,13 +61,10 @@ UnitBlueprint {
         'DEFENSE',
         'EXPERIMENTAL',
         'ANTIAIR',
-        'DRAGBUILD',
-        'SIZE16',
+        'SIZE8',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYANTIAIR',
         'SORTDEFENSE',
-        'RESEARCHLOCKED',
     },
 	
     CollisionOffsetY = -1,
@@ -68,10 +72,13 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 450,
         ArmorType = 'Structure',
+        
         EconomyThreatLevel = 306,
-        Health = 24500,
-        MaxHealth = 24500,
-        RegenRate = 10,
+        
+        Health = 10500,
+        MaxHealth = 10500,
+        
+        RegenRate = 6,
     },
 	
     Description = '<LOC seb2402_desc>Experimental Anti-Air Defence',
@@ -97,41 +104,113 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar12x_01_albedo',
-                DeathLifetime = 300,
-                FadeOut = 150,
-                Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 12.8,
-            },
-        },
-        UniformScale = 0.0275*2.5,
+
+        UniformScale = 0.0275*1,
     },
 	
     Economy = {
         BuildCostEnergy = 136100,
         BuildCostMass = 11650,
-        BuildTime = 11650,
+        
+        BuildRate = 15,
+        
+        BuildTime = 2270,
 		
         RebuildBonusIds = {'seb2402'},
 		
-        StorageEnergy = 10000,
+        StorageEnergy = 5000,
     },
 	
-    Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
-    },
+	Enhancements = {
 	
+		Sequence = {'InstallFactoryShield','InstallRegenPackage1'},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+
+		InstallFactoryShield = {
+            BuildCostEnergy = 7500,
+            BuildCostMass = 500,
+            BuildTime = 2500,
+			
+            Icon = 'Shield',
+			
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+			
+            MaintenanceConsumptionPerSecondEnergy = 200,
+			
+            Name = 'Shield Dome',
+			
+            RegenAssistMult = 60,            
+			
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 7000,
+            ShieldRechargeTime = 14,
+            ShieldRegenRate = 98,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 8,
+            ShieldVerticalOffset = -2,
+			
+            Slot = 'Back',
+			
+            UpgradeEffectBones = {'Crystal'},
+			UpgradeUnitAmbientBones = {'Crystal'},
+
+        },
+		
+		InstallFactoryShieldRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+			
+            Icon = 'Shield',
+            Name = 'Remove Factory Shield',
+            Prerequisite = 'InstallFactoryShield',
+			
+            RegenAssistMult = nil,            
+			
+            ShieldEnergyDrainRechargeTime = nil,
+            ShieldMaxHealth = nil,
+            ShieldRechargeTime = nil,
+            ShieldRegenRate = nil,
+            ShieldRegenStartTime = nil,
+            ShieldSize = nil,
+            ShieldVerticalOffset = nil,
+			
+            RemoveEnhancements = {
+                'InstallFactoryShield',
+                'InstallFactoryShieldRemove',
+            },
+			
+            Slot = 'Back',
+        },
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 15600,
+            BuildCostMass = 1300,
+            BuildTime = 1900,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'Crystal'},
+			UpgradeUnitAmbientBones = {'Crystal'},
+			
+			NewRegenRate = 12,
+        },		
+    },
+
     General = {
 		CapCost = 5,
         Category = 'Defense',
@@ -167,8 +246,8 @@ UnitBlueprint {
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 2.9,
-    LifeBarSize = 6.5,
+    LifeBarOffset = 0.9,
+    LifeBarSize = 2.5,
 	
     Physics = {
         BankingSlope = 0,
@@ -183,36 +262,39 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 6.5,
-        MeshExtentsY = 4,
-        MeshExtentsZ = 6.5,
+        
+        MeshExtentsX = 2.3,
+        MeshExtentsY = 2.3,
+        MeshExtentsZ = 2.3,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
 	
-    SelectionSizeX = 4.25,
-    SelectionSizeZ = 4,
-    SelectionThickness = 0.24,
+    SelectionSizeX = 2.25,
+    SelectionSizeZ = 2.25,
+    SelectionThickness = 0.3,
     SelectionMeshUseTopAmount = 0.100769769069,--to be exact.
 	
-    SizeX = 6,
-    SizeY = 1.75,
-    SizeZ = 6,
+    SizeX = 2,
+    SizeY = 1.2,
+    SizeZ = 2,
 	
     StrategicIconName = 'icon_experimental_structure_antiair',
     StrategicIconSortPriority = 175,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 35,
+        Level2 = 70,
+        Level3 = 105,
+        Level4 = 140,
+        Level5 = 175,
     },
 	
     Weapon = {
@@ -225,7 +307,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
@@ -238,7 +320,7 @@ UnitBlueprint {
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 10000,
+            EnergyDrainPerSecond = 4000,
             EnergyRequired = 1000,
             
             FireTargetLayerCapsTable = {
@@ -252,7 +334,7 @@ UnitBlueprint {
             
             LeadTarget = true,
             
-            EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            EffectiveRadius = 43.3013, --Assuming a elevation of 25, max effective radius is 43.
             
             MaxRadius = 52, --Can shoot at things with elevation of 30 at from 52 away.
             MinRadius = 0,
@@ -276,7 +358,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 0.375,
+            RateOfFire = 0.375,     -- 3000 per Onfire
             
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -285,7 +367,8 @@ UnitBlueprint {
                 'TECH3',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.15,
             
             TurretBoneMuzzle = 'TurretA_Muzzle',
@@ -293,13 +376,13 @@ UnitBlueprint {
             TurretBoneYaw = 'TurretA',
             TurretDualManipulators = false,
             
-            TurretPitch = 0,
-            TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretPitchSpeed = 360,
+            TurretPitch = 30,
+            TurretPitchRange = 45,  --45 Is the graphical limit before clipping occurs
+            TurretPitchSpeed = 120,
             
             TurretYaw = 0,
-            TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,    --45 Is the graphical limit before clipping occurs
+            TurretYawSpeed = 120,
             
             Turreted = true,
         },
@@ -325,7 +408,7 @@ UnitBlueprint {
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 10000,
+            EnergyDrainPerSecond = 4000,
             EnergyRequired = 1000,
             
             FireTargetLayerCapsTable = {
@@ -367,7 +450,8 @@ UnitBlueprint {
                 'TECH3',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.15,
             
             TurretBoneMuzzle = 'TurretB_Muzzle',
@@ -375,13 +459,13 @@ UnitBlueprint {
             TurretBoneYaw = 'TurretB',
             TurretDualManipulators = false,
             
-            TurretPitch = 0,
-            TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretPitchSpeed = 360,
+            TurretPitch = 30,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 120,
             
             TurretYaw = 0,
-            TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,
+            TurretYawSpeed = 120,
             
             Turreted = true,
         },
@@ -408,7 +492,7 @@ UnitBlueprint {
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 10000,
+            EnergyDrainPerSecond = 4000,
             EnergyRequired = 1000,
             
             FireTargetLayerCapsTable = {
@@ -452,7 +536,8 @@ UnitBlueprint {
                 'TECH3',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',            
             TrackingRadius = 1.15,
             
             TurretBoneMuzzle = 'TurretC_Muzzle',
@@ -460,13 +545,13 @@ UnitBlueprint {
             TurretBoneYaw = 'TurretC',
             TurretDualManipulators = false,
             
-            TurretPitch = 0,
-            TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretPitchSpeed = 360,
+            TurretPitch = 30,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 120,
             
             TurretYaw = 0,
-            TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,
+            TurretYawSpeed = 120,
             
             Turreted = true,
         },
@@ -493,7 +578,7 @@ UnitBlueprint {
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 10000,
+            EnergyDrainPerSecond = 5000,
             EnergyRequired = 1000,
             
             FireTargetLayerCapsTable = {
@@ -505,7 +590,7 @@ UnitBlueprint {
             Label = 'MainGun',
             LeadTarget = true,
             
-            EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            EffectiveRadius = 43.3013,
             
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
@@ -536,7 +621,8 @@ UnitBlueprint {
                 'TECH3',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.15,
             
             TurretBoneMuzzle = 'TurretD_Muzzle',
@@ -544,13 +630,13 @@ UnitBlueprint {
             TurretBoneYaw = 'TurretD',
             TurretDualManipulators = false,
             
-            TurretPitch = 0,
-            TurretPitchRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretPitchSpeed = 360,
+            TurretPitch = 30,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 120,
             
             TurretYaw = 0,
-            TurretYawRange = 45,--45 Is the graphical limit before clipping occurs
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,
+            TurretYawSpeed = 120,
             
             Turreted = true,
         },
@@ -567,8 +653,8 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
-        HealthMult = 0.9,
+        EnergyMult = 0.0,
+        HealthMult = 0.6,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

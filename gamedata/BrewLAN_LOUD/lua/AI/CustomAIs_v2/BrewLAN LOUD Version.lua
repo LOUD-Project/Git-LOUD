@@ -1,4 +1,4 @@
 AI = {
 	Name = "BrewLAN",
-	Version = "0.77 LOUD",
+	Version = "0.78 LOUD",
 }

@@ -292,7 +292,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
+                'DEFENSE',
                 'MOBILE',
                 'ALLUNITS',
             },

@@ -338,16 +338,11 @@ UnitBlueprint {
                     RackBone = 'Projectile',
                 },
             },
-            RackFireTogether = false,
 			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-			
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,		-- 375 DPS
@@ -357,7 +352,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
@@ -410,14 +404,11 @@ UnitBlueprint {
                     RackBone = 'Left_Barrel_AA',
                 },
             },
-            RackFireTogether = false,
 			
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
@@ -490,8 +481,7 @@ UnitBlueprint {
                     RackBone = 'Right_Barrel_AA',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,

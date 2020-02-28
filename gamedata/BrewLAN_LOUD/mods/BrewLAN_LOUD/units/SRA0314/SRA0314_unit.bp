@@ -403,7 +403,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE,-WALL',
+                'DEFENSE',
                 'ENGINEER',
                 'ALLUNITS,-WALL',
             },
@@ -468,14 +468,11 @@ UnitBlueprint {
                     RackBone = 'AGM_005',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 37.5,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1/12.5,        -- 96 DPS
 			
             SlavedToBody = true,
@@ -487,7 +484,6 @@ UnitBlueprint {
                 'ANTIAIR',
                 'ENERGYPRODUCTION',
                 'MASSFABRICATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -559,21 +555,17 @@ UnitBlueprint {
                     RackBone = 'Bomb_Rear',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.08,
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

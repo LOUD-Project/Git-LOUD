@@ -394,7 +394,6 @@ UnitBlueprint {
                     RackBone = 'AA_Barrel',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -412,7 +411,6 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

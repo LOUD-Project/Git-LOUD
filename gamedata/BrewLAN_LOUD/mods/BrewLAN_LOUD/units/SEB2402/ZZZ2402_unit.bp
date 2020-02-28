@@ -1,15 +1,17 @@
 UnitBlueprint {
+
     Categories = {
-        'PRODUCTBREWLANTURRETS',
         'STRUCTURE',
         'BENIGN',
         'UNSELECTABLE',
         'UNTARGETABLE',
     },
+    
     Defense = {
         Health = 0,
         MaxHealth = 0,
     },
+    
     Display = {
         Mesh = {
             IconFadeInZoom = 9999999,
@@ -20,15 +22,16 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = true,
         UniformScale = 0,
         HideLifebars = true,
     },
+    
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+    
     General = {
         CapCost = 0,
         Category = 'Defense',
@@ -49,9 +52,11 @@ UnitBlueprint {
         },
         FactionName = 'None',      --Because ofcourse it is the responsibility of the data set to make sure you sanitise your inputs.
     },
+    
     Intel = {
         VisionRadius = 0,
     },
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -76,9 +81,11 @@ UnitBlueprint {
         SkirtSizeZ = 0,
         TurnRate = 0,
     },
+    
     SizeX = 1,
-    SizeY = 3.8,
+    SizeY = 1.6,
     SizeZ = 1,
+    
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 207,
 }

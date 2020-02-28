@@ -370,14 +370,11 @@ UnitBlueprint {
                     RackBone = 0,
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.2,       #-- 1240 * .2 = 248
 			
             TargetCheckInterval = 2.5,
@@ -388,7 +385,6 @@ UnitBlueprint {
                 'ANTIAIR',
                 'ENERGYPRODUCTION',
                 'MASSFABRICATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -446,16 +442,11 @@ UnitBlueprint {
                     RackBone = 'Wing_L',
                 },
             },
-            RackFireTogether = false,
-			
+
             RackReloadTimeout = 37.5,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            --RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 1/12.5,        -- 96 DPS
 			
             SlavedToBody = true,
@@ -467,7 +458,6 @@ UnitBlueprint {
                 'ANTIAIR',
                 'ENERGYPRODUCTION',
                 'MASSFABRICATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -539,21 +529,17 @@ UnitBlueprint {
                     RackBone = 'Blade_R',
                 },
             },
-            RackFireTogether = false,
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.1,
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

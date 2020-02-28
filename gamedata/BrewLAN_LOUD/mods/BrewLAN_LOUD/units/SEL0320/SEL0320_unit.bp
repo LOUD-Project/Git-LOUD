@@ -216,28 +216,40 @@ UnitBlueprint {
                 },
             },
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
+            
             BeamCollisionDelay = 0.1,
             BeamLifetime = 1,
+            
             CollideFriendly = false,
+            
             Damage = 970,
             DamageFriendly = true,
             DamageRadius = 1,
             DamageType = 'Normal',
+            
             DisplayName = 'Orbital Death Laser',
+            
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 1,
+            
             Label = 'OrbitalDeathLaserWeapon',
+            
             MaxRadius = 80,
+            
             MaximumBeamLength = 25000,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
             NeedPrep = true,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -246,42 +258,42 @@ UnitBlueprint {
                     RackBone = 'SPACE',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 0.03333333333333333333,
+            
             RenderFireClock = true,
+            
             SlavedToBody = true,
+            
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'STRUCTURE DEFENSE',
+                'STRUCTURE',
                 'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'SPECIALLOWPRI',
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+            
             TurretBoneMuzzle = 'SPACE',
             TurretBonePitch = 'SPACE',
             TurretBoneYaw = 'SPACE',
+            
             TurretPitch = -90,
             TurretPitchRange = 10000,
             TurretPitchSpeed = 10000,
+            
             TurretYaw = 0,
             TurretYawRange = 0,
             TurretYawSpeed = 0,
-            TurretDualManipulators = false,
+            
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
-            WeaponRepackTimeout = 10,
-            WeaponUnpacks = false,
         },
         {
             AboveWaterTargetsOnly = true,
@@ -321,11 +333,9 @@ UnitBlueprint {
             RateOfFire = 1,
             SlavedToBody = true,
             TargetPriorities = {
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'SPECIALLOWPRI',
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -378,11 +388,9 @@ UnitBlueprint {
             RateOfFire = 1,
             SlavedToBody = true,
             TargetPriorities = {
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'SPECIALLOWPRI',
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
