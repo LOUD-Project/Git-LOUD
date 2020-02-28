@@ -811,13 +811,11 @@ UnitBlueprint {
 			
             RateOfFire = 0.05,	-- 16 missiles * 1000 = 16000 every 20 seconds = 800 DPS
 			RenderFireClock = true,
-			
-            SlavedToBody = false,
-			
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
 				'EXPERIMENTAL',
                 'MOBILE',
                 'ALLUNITS -WALL',

@@ -252,7 +252,7 @@ UnitBlueprint {
                     RackBone = 'T01_Barrel01',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -271,21 +271,24 @@ UnitBlueprint {
                 'SHIELD',				
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'T01_B01_Muzzle02',
             TurretBonePitch = 'T01_Barrel01',
             TurretBoneYaw = 'Turret01',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 30,
+            
             Turreted = true,
         },
 		
@@ -347,7 +350,7 @@ UnitBlueprint {
                     RackBone = 'T02_Barrel01',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -442,7 +445,7 @@ UnitBlueprint {
                     RackBone = 'T03_Barrel01',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.4,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -536,7 +539,7 @@ UnitBlueprint {
                     RackBone = 'T04_Barrel01',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.4,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

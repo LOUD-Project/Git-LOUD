@@ -263,7 +263,6 @@ AI = {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
@@ -353,7 +352,6 @@ AI = {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
@@ -443,7 +441,6 @@ AI = {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			

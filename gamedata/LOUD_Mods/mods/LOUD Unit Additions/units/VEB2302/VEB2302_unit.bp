@@ -112,7 +112,7 @@ UnitBlueprint {
 	
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,
-        BuildTime = 13000,
+        BuildTime = 2500,
 		
         RebuildBonusIds = {'veb2302'},
     },

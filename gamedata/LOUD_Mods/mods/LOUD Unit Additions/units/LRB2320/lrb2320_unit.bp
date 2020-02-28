@@ -252,14 +252,12 @@ AI = {
                     RackBone = 'gun_rack03',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -36,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1.0,	-- RoF is controlled by Energy Drain
@@ -269,8 +267,7 @@ AI = {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
 			
@@ -361,25 +358,19 @@ AI = {
                     RackBone = 'gun_rack01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -36,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
-			RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 1.0,	-- RoF controlled by energy drain
 			
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -468,24 +459,19 @@ AI = {
                     RackBone = 'gun_rack02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -36,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-			RangeCategory = 'UWRC_IndirectFire',
-			
+
             RateOfFire = 1.0,	-- RoF controlled by energy drain
 			
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'STRUCTURE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

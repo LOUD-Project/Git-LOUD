@@ -239,14 +239,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -25,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_IndirectFire',			
 			
             RateOfFire = 1,
@@ -256,7 +254,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -329,14 +326,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil01',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -25,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,
 			
             TargetCheckInterval = 3,
@@ -344,7 +339,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			
@@ -419,14 +413,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -25,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,
 			
             TargetCheckInterval = 3,
@@ -434,7 +426,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
 			

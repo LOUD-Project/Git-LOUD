@@ -68,7 +68,7 @@ UnitList = {
     },
     
     T4SeaExperimental1 = {
-        UEF = {'tcss0403', 100},
+        UEF = {},
         Aeon = {},
         Cybran = {},
         Seraphim = {'xss0403', 60},    
