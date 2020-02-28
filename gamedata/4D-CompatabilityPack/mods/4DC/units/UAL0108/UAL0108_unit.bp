@@ -340,7 +340,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE -WALL',
+                'DEFENSE -WALL',
                 'ALLUNITS -WALL',
             },
             TrackingRadius = 1.1,

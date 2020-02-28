@@ -56,7 +56,6 @@ UnitBlueprint {
         'SORTDEFENSE',
         'TECH3',        
         'VISIBLETORECON',
-		'OVERLAYINDIRECTFIRE',
     },
 	
     CollisionOffsetY = -0.5,
@@ -276,7 +275,6 @@ UnitBlueprint {
             	'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

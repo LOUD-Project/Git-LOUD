@@ -268,7 +268,6 @@ UnitBlueprint {
 				'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

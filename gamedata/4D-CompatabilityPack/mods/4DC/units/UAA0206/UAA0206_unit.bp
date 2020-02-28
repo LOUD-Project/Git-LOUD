@@ -1,9 +1,3 @@
------------------------------------------------------------------------------
---  File     : /units/UAA0206/UAA0206_unit.bp
---  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---  Summary  : Aeon Abolisher Gunship Blueprint 
---  Copyright � 2010 4DC  All rights reserved.
------------------------------------------------------------------------------ 
 UnitBlueprint {
 
     AI = {
@@ -290,16 +284,11 @@ UnitBlueprint {
                     RackBone = 'muzzle_beam',
                 },
             },
-			
-            RackFireTogether = true,
-			
-            
-			
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- about 75dps

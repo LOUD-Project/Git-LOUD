@@ -1,13 +1,5 @@
------------------------------------------------------------------------------
---  File     : /units/XSA0201/XSA0201_unit.bp
---
---  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---
---  Summary  : Shield Drone 
---
---  Copyright � 2010 4DC  All rights reserved.
------------------------------------------------------------------------------
 UnitBlueprint {
+
     Air = {
         AutoLandTime = 0,       
         BankFactor = 0.1,
@@ -181,9 +173,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'xsa0201',
-            BuildEffectBones = {
-                'xsa0201',
-            },
+            BuildEffectBones = {'xsa0201'},
             PitchBone = 'xsa0201',
             YawBone = 'xsa0201',
         },    

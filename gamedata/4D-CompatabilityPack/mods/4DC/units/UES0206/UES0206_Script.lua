@@ -1,12 +1,3 @@
------------------------------------------------------------------------------
---  File     :  /units/UES0206/UES0206_script.lua
---
---  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime, Vissroid
---
---  Summary  :  UEF "Barnacle" Naval Mine
---
---  Copyright © 2010 4DC  All rights reserved.
------------------------------------------------------------------------------
 
 local TSubUnit = import('/lua/terranunits.lua').TSubUnit
 local CMobileKamikazeBombWeapon = import('/lua/cybranweapons.lua').CMobileKamikazeBombWeapon

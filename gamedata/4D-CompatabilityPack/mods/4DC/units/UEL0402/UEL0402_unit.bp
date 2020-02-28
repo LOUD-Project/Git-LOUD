@@ -1,11 +1,5 @@
------------------------------------------------------------------------------
---  File     : /units/UEL0402/UEL0402_unit.bp
---  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---  Special Thanks to : Exavier_Macbeth
---  Summary  : UEF Rampage Assault Bot Script
---  Copyright � 2010 4DC  All rights reserved.
------------------------------------------------------------------------------
 UnitBlueprint {
+
     AI = {
         GuardRadius = 50,
         GuardReturnRadius = 25,
@@ -76,7 +70,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 90,
+    BuildIconSortPriority = 9,
 	
     Categories = {
         'BUILTBYTIER4COMMANDER',
@@ -284,8 +278,8 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Amphibious',
         RotateOnSpot = false,
         SinkLower = true,
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -1,
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 0,
         SkirtSizeX = 3,
         SkirtSizeZ = 3,
         StandUpright = true,
@@ -414,7 +408,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
 				'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -818,7 +812,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'TECH3 MOBILE',
-                'STRUCTURE DEFENSE DIRECTFIRE',
+                'DEFENSE DIRECTFIRE',
                 'TECH2 MOBILE',
                 'ALLUNITS',
             },
@@ -1024,7 +1018,7 @@ UnitBlueprint {
                 'MOBILE SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

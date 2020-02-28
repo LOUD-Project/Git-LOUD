@@ -250,14 +250,12 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -10,                    
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -12,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,				#--- 180 DPS
@@ -268,7 +266,6 @@ UnitBlueprint {
                 'COMMAND',
                 'MOBILE',
                 'DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
