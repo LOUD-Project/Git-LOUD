@@ -1,4 +1,4 @@
 AI = {
 	Name = "Wyvern",
-	Version = "1.0 LOUD",
+	Version = "0.2 LOUD",
 }

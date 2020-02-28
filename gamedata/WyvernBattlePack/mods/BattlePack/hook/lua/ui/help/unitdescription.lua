@@ -19,8 +19,7 @@
 	Description['wel0416'] = "Taking a cue from the Cybran Basilisk, Dragonite attempts to bring the same features to the table, lots of weapons, regenerative.\nPersonal Shield."
 	Description['wel1409'] = "Experimental Tank - The Wyvern version of Fatboy II.  Less total firepower - more range."
 	Description['wel1409-sgf'] = "Creates a protective shield around the Fatboy 2. Requires Energy to run."
-    Description['wel4404'] = "Star Adder is a Medium Mech blessed with very good speed, solid firepower, and optional stealth field upgrade.\nIntended to replace the less successful Rampage"
-    Description['wel4404-rj'] = "Installs Stealth Generator."
+    Description['wel4404'] = "Star Adder is a Medium Mech blessed with very good speed, solid firepower, radar, and personal stealth.\nIntended to replace the less successful Rampage"
 	Description['wes0303'] = "Heavily armoured Escort ship. Can attack all types of targets including Subs and Aircraft."
 
 	-- CYBRAN

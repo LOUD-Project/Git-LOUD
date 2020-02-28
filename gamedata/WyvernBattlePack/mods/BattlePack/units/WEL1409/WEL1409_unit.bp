@@ -84,7 +84,7 @@ UnitBlueprint {
         },
     },
     
-    BuildIconSortPriority = 10,
+    BuildIconSortPriority = 31,
     
     Categories = {
         'SELECTABLE',
@@ -282,17 +282,33 @@ UnitBlueprint {
     },
     
 	Enhancements = {
+        
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = 5,
+                y = -10,
+            },
+        },
+        
         ShieldGeneratorField = {
+        
             BuildCostEnergy = 112500,
             BuildCostMass = 1500,
             BuildTime = 1500,
+            
             Icon = 'sgf',
+            
             ImpactEffects = 'UEFShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            
             MaintenanceConsumptionPerSecondEnergy = 350,
+            
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            
             Name = 'Shield Generator Field',
+            
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 20000,
             ShieldRechargeTime = 34,
@@ -300,7 +316,9 @@ UnitBlueprint {
             ShieldRegenStartTime = 1,
             ShieldSize = 25,
             ShieldVerticalOffset = -7,
+            
             Slot = 'Back',
+            
             UpgradeUnitAmbientBones = {
                 'WEL1409',
 				'Turret_Left02',
@@ -309,6 +327,7 @@ UnitBlueprint {
 				'Turret_Right01',
             },
         },
+        
         ShieldGeneratorFieldRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -321,13 +340,6 @@ UnitBlueprint {
                 'ShieldGeneratorFieldRemove',
             },
             Slot = 'Back',
-        },
-        Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 5,
-                y = -10,
-            },
         },
     },
     
@@ -416,7 +428,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 4.2,
     
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 45,
     
     Transport = {

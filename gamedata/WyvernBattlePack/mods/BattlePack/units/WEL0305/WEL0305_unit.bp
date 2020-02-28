@@ -164,7 +164,7 @@ UnitBlueprint {
             RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = true,
+            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'amph',

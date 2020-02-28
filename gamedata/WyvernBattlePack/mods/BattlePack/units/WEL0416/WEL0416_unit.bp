@@ -52,7 +52,7 @@ UnitBlueprint {
         },
     },
     
-    BuildIconSortPriority = 20,
+    BuildIconSortPriority = 30,
     
     Categories = {
         'SELECTABLE',
@@ -295,7 +295,7 @@ UnitBlueprint {
     SizeY = 6,
     SizeZ = 3.5,
     
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 45,
     
     Transport = {
@@ -369,8 +369,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

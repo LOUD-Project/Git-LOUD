@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        AttackAngle = 15,
+        AttackAngle = 30,
         GuardScanRadius = 50,
     },
     
@@ -37,15 +37,15 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
     
-    BuildIconSortPriority = 11,
+    BuildIconSortPriority = 10.1,
     
     Categories = {
         'SELECTABLE',
@@ -54,6 +54,7 @@ UnitBlueprint {
         'MOBILE',
         'LAND',
         'EXPERIMENTAL',
+        'AMPHIBIOUS',
         'INDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
@@ -70,10 +71,10 @@ UnitBlueprint {
         
         ArmorType = 'Experimental',
 
-        Health = 22500,
-        MaxHealth = 22500,
+        Health = 22000,
+        MaxHealth = 22000,
         
-        RegenRate = 12,
+        RegenRate = 10,
         
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
@@ -82,11 +83,11 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 30000,
+            ShieldMaxHealth = 27500,
             ShieldRechargeTime = 26,
             ShieldRegenRate = 288,
             ShieldRegenStartTime = 1,
-            ShieldSize = 20,
+            ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
     },
@@ -212,7 +213,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.20,
+        UniformScale = 0.18,
     },
     
     Economy = {
@@ -292,8 +293,8 @@ UnitBlueprint {
         LayerChangeOffsetHeight = -0.75,
         
         MaxAcceleration = 0.8,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
+        MaxBrake = 2.3,
+        MaxSpeed = 2.3,
         MaxSpeedReverse = 1.7,
         
         MaxSteerForce = 1000,
@@ -313,8 +314,8 @@ UnitBlueprint {
         SkirtSizeX = 9,
         SkirtSizeZ = 9,
         
-        TurnRadius = 0,
-        TurnRate = 30,
+        TurnRadius = 20,
+        TurnRate = 15,
     },
     
     SelectionCenterOffsetX = 0,
@@ -327,7 +328,7 @@ UnitBlueprint {
     SizeY = 3,
     SizeZ = 8,
     
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 45,
     
     Transport = {
@@ -419,7 +420,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -475,7 +475,7 @@ UnitBlueprint {
             MaxRadius = 115,
             MinRadius = 18,
             
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 1,
@@ -1064,7 +1064,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'BOMBER',
                 'GROUNDATTACK',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

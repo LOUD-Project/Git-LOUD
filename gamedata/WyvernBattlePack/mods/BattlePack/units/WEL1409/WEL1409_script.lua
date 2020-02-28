@@ -16,13 +16,18 @@ WEL1409 = Class(TLandUnit) {
         
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
+        
         #Shield Field
         if enh == 'ShieldGeneratorField' then
-                self:CreateShield(bp)
-				self:AddToggleCap('RULEUTC_ShieldToggle')
-                self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
-                self:SetMaintenanceConsumptionActive()
+        
+            self:CreateShield(bp)
+            self:AddToggleCap('RULEUTC_ShieldToggle')
+            self:SetScriptBit('RULEUTC_ShieldToggle', true)
+            self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
+            self:SetMaintenanceConsumptionActive()
+
         elseif enh == 'ShieldGeneratorFieldRemove' then
+        
             self:DestroyShield()
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')

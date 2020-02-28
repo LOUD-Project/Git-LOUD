@@ -341,7 +341,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
@@ -424,7 +423,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -683,7 +681,7 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0.2,
             BeamLifetime = 2,
             
             CollideFriendly = false,
@@ -731,8 +729,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -784,7 +781,7 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0.2,
             BeamLifetime = 2,
             
             CollideFriendly = false,
@@ -826,14 +823,13 @@ UnitBlueprint {
             RackSalvoFiresAfterCharge = true, 
             RackSalvoReloadTime = 5,        -- 5 seconds cooldown
 
-            RateOfFire = 1,     -- another 750 DPS / 5 = 150 DPS
+            RateOfFire = 1,     -- another 750 damage / 5 = 150 DPS
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

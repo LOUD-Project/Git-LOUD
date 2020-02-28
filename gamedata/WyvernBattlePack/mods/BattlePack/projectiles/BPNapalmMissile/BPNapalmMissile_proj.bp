@@ -29,7 +29,7 @@ ProjectileBlueprint {
         },
         MeshBlueprint = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_mesh.bp',
         StrategicIconSize = 2,
-        UniformScale = 0.2,
+        UniformScale = 0.1,
     },
     General = {
         Category = 'Direct Fire',

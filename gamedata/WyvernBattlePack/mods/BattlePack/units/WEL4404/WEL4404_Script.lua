@@ -12,8 +12,15 @@ WEL4404 = Class(TWalkingLandUnit) {
         BeamCannon = Class(StarAdderLaser) {},
         PlasmaPPC = Class(BPPPlasmaPPCProj) {},
     },
-	
 
+    OnStopBeingBuilt = function(self,builder,layer)
+	
+        TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+		
+        self:SetScriptBit('RULEUTC_StealthToggle', true)
+
+    end,
+    
 }
 
 TypeClass = WEL4404

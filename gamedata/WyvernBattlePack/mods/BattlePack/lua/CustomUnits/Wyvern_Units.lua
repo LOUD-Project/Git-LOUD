@@ -43,26 +43,31 @@ UnitList = {
     
     -- Land Experimentals --
     T4LandExperimental1 = {
-        UEF = {'wel4404', 50},
+		Aeon = {'wal4404', 100},     -- Maruda
+        UEF = {'wel4404', 100},      -- Star Adder
+		Seraphim = {'wsl0404', 100}, -- Yath-Yen        
     },
     
     T4LandExperimental2 = {
-		Aeon = {'wal0401', 50},    
-        UEF = {'wel0401', 75 },
-		Seraphim = {'wsl0404', 50},        
+        UEF = {'wel0401', 65 },     -- Wyvern Fatboy
     },
     
     T4LandExperimental3 = {
-        UEF = {'wel1409', 50 },
+		Aeon = {'wal0401', 60},     -- Universal Collosus        
+        UEF = {'wel1409', 60 },     -- Wyvern Fatboy II
     },
     
     T4LandExperimental4 = {
-        UEF = {'wel0416', 60 },
-        Cybran = {'wrl1466', 60},        
+        UEF = {'wel0416', 60 },     -- Dragonite
+        Cybran = {'wrl1466', 60},   -- Star Strider
     },
 
     -- Air Experimentals --
     T4AirExperimental1 = {
-        Cybran = {'wra0401', 100},
+        Cybran = {'wra0401', 100},  -- Ripper II
     },
+    
+    T4AirExperimental2 = {
+        Cybran = {'wra0401', 80},
+    },    
 }
