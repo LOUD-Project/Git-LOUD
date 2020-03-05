@@ -310,27 +310,12 @@ globalOpts = {
 	},
 
     {
-        default = 12,
+        default = 9,
         label = "Unit Cap",
         help = "Set the maximum number of units that can be in play by one player",
         key = 'UnitCap',
         pref = 'Lobby_Gen_Cap',
         values = {
-            {
-                text = "250",
-                help = "250 units per player may be in play",
-                key = '250',
-            },
-            {
-                text = "300",
-                help = "300 units per player may be in play",
-                key = '300',
-            },
-            {
-                text = "350",
-                help = "350 units per player may be in play",
-                key = '350',
-            },
             {
                 text = "400",
                 help = "400 units per player may be in play",
