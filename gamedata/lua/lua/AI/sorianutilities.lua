@@ -278,7 +278,7 @@ function FinishAIChat(data)
 			
 		else
 		
-			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give an engineer.')
+			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give me an engineer.')
 			
 		end
 		

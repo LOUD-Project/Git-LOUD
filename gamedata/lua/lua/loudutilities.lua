@@ -1815,7 +1815,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 			-- tracks if we used threat to determine Orientation
 			local Direction = false
 			
-			local threats = aiBrain:GetThreatsAroundPosition( location, 32, true, 'Economy' )
+			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Economy' )
 			
 			LOUDSORT( threats, function(a,b) return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
 			

@@ -981,25 +981,21 @@ function GetTransports( platoon, aiBrain)
 	local armypooltransports = false
 	local TransportPoolTransports = false
 	
-	-- build table of transports available to engineers - allow use of T1/T2  plus Gunships for UEF
-	if IsEngineer then
+	-- build table of transports for engineers - only T1/T2
+    -- or less than 2 large units (ie. - Scouts only or very small platoons)
+	if IsEngineer or neededTable.Large < 2 then
 	
 		TransportPoolTransports = EntityCategoryFilterDown( (categories.AIR * categories.TRANSPORTFOCUS) - categories.TECH3 - categories.EXPERIMENTAL, GetPlatoonUnits(pool) )
-		
-		if Special then
-			armypooltransports = EntityCategoryFilterDown( categories.uea0203, GetPlatoonUnits(armypool) )
-		end
-		
-	-- else build a table of all transports - allow UEF and Cybrans to use additional transport units (T2 Gunship, Experimental Transport)
-	else
-	
-		TransportPoolTransports = EntityCategoryFilterDown( categories.AIR * categories.TRANSPORTFOCUS, GetPlatoonUnits(pool) )
-		
-		if Special then
-			-- get the T2 gunships and Gargantua - we can't use the specific ID since if BO is not turned on it would cause an error - we use a general lookup instead
-			armypooltransports = EntityCategoryFilterDown( categories.uea0203, GetPlatoonUnits(armypool) )
-		end
+    else
+
+		TransportPoolTransports = EntityCategoryFilterDown( categories.AIR * categories.TRANSPORTFOCUS, GetPlatoonUnits(pool) )    
+    end
+    
+	-- get the T2 gunships --
+	if Special then
+		armypooltransports = EntityCategoryFilterDown( categories.uea0203, GetPlatoonUnits(armypool) )
 	end
+
 	
 	-- OK - so we now have 2 lists of units and we want to make sure the 'specials' get utilized first
 	-- so we'll add the specials to the Available list first, and then the standard ones

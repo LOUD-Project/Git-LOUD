@@ -1805,7 +1805,7 @@ end
 
 -- callback when Mod Manager dialog finishes (modlist==nil on cancel)
 -- FIXME: The mod manager should be given a list of game mods set by the host, which
--- clients can look at but not changed, and which don't get saved in our local prefs.
+-- clients can look at but not change, and which don't get saved in our local prefs.
 function OnModsChanged(modlist)
 
     if modlist then

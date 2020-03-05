@@ -1972,9 +1972,8 @@ Unit = Class(moho.unit_methods) {
 			
 			prop:SetReclaimValues(time, time, mass, energy)
 			
-			prop:SetMaxHealth( bp.Defense.Health )
-			
-			prop:SetHealth( self, bp.Defense.Health * (bp.Wreckage.HealthMult or 1))
+			prop:SetMaxHealth( bp.Defense.Health * (bp.Wreckage.HealthMult or .1) )
+			prop:SetHealth( self, bp.Defense.Health * (bp.Wreckage.HealthMult or .1))
 
             if not bp.Wreckage.UseCustomMesh then
     	        prop:SetMesh(bp.Display.MeshBlueprintWrecked)

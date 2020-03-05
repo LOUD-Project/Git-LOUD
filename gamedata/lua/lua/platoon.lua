@@ -476,6 +476,8 @@ Platoon = Class(moho.platoon_methods) {
 
 				end
 				
+                -- if there is  IMAP threat and it's greater than what we actually see
+                -- use the sum of both * .5
 				if sfake > 0 and sfake > s then
 				
 					s = (s + sfake) * .5
@@ -4117,12 +4119,16 @@ Platoon = Class(moho.platoon_methods) {
 	PlatoonUnderAttack = function(self, aiBrain)
 	
 		self.UnderAttack = true
+        
+        if GetPlatoonPosition(self) then
 		
-		ForkTo( AIAddMustScoutArea, aiBrain, table.copy(GetPlatoonPosition(self)) )
+            ForkTo( AIAddMustScoutArea, aiBrain, table.copy(GetPlatoonPosition(self)) )
 		
-		WaitTicks(100)
+            WaitTicks(100)
 		
-		self.UnderAttack = nil
+            self.UnderAttack = nil
+            
+        end
 	end,
 	
 	------------- Platoon Call For Help AI --------------------
@@ -6802,7 +6808,8 @@ Platoon = Class(moho.platoon_methods) {
         if PlatoonExists(aiBrain, self) then 
         
             if PlatoonExists( aiBrain, self.GuardedPlatoon ) then
-				#LOG("*AI DEBUG Found Platoon to be guarded")
+            
+				LOG("*AI DEBUG Found Platoon to be guarded "..repr(self.GuardedPlatoon.BuilderName) )
 				
                 for _,w in GetPlatoonUnits(self.GuardedPlatoon) do
                     if not w.Dead then
