@@ -71,7 +71,7 @@ GPGrestrictedUnits = {
     },
 
     AIREXPERIMENTALS = {
-		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "tcau0401", "uaa0310",},
+		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "lea0401", "uaa0310","saa0306",},
 		name = "No Air Experimentals",
 		tooltip = "restricted_units_air_experimentals",
     },
@@ -107,19 +107,25 @@ GPGrestrictedUnits = {
 	},
 
     SHIELDS = {
-        categories = {"uel0307", "ual0307", "xsl0307", "xes0205", "ueb4202", "urb4202", "uab4202", "xsb4202", "ueb4301", "uab4301", "xsb4301", },
+        categories = {"uel0307", "ual0307", "xsl0307", "xes0205", "ueb4202", "urb4202", "uab4202", "xsb4202", "ueb4301", "uab4301", "xsb4301","seb4401","ssb4401","ualx0401","uabssg01","uebssg01","urbssg01","xsbssg01" },
         name = "<LOC restricted_units_data_0013>No Shield Units",
         tooltip = "restricted_units_bubbles",
     },
+    
+    SUPPORTCOMMANDERS = {
+        categories = {"ual0301","uel0301","url0301","xsl0301"},
+        name = "No Support Commanders - SACU",
+        tooltip = "restricted_units_supcom",
+    },
 	
     INTEL = {
-        categories = {"OMNI", "uab3101", "uab3201", "ueb3101", "ueb3201", "urb3101", "urb3201", "xsb3101", "xsb3201", "uab3102", "uab3202", "ueb3102", "ueb3202", "urb3102", "urb3202", "xsb3102", "xsb3202", "xab3301", "xrb3301", "ues0305", "uas0305", "urs0305", },
+        categories = {"OMNI", "uab3101", "uab3201", "ueb3101", "ueb3201", "urb3101", "urb3201", "xsb3101", "xsb3201", "uab3102", "uab3202", "ueb3102", "ueb3202", "urb3102", "urb3202", "xsb3102", "xsb3202", "xab3301", "xrb3301", "ues0305", "uas0305", "urs0305","seb3404" },
         name = "<LOC restricted_units_data_0014>No Intel Structures",
         tooltip = "restricted_units_intel",
     },
 
     FABS = {
-        categories = {"ueb1104", "ueb1303", "urb1104", "urb1303", "uab1104", "uab1303", "xsb1104", "xsb1303", "xab1401" },
+        categories = {"ueb1104", "ueb1303", "urb1104", "urb1303", "uab1104", "uab1303", "xsb1104", "xsb1303", "xab1401","seb1401","srb1401","ssb1401" },
         name = "<LOC restricted_units_data_0019>No Mass Fabrication",
         tooltip = "restricted_units_massfab",
     },
@@ -157,6 +163,7 @@ GPGsortOrder = {
     "EXPERIMENTALARTILLERY",
     "NUKE",
     "SHIELDS",
+    "SUPPORTCOMMANDERS",
     "INTEL",
     "FABS",
 }
