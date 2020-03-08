@@ -391,7 +391,45 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
             }
         }
     },
+
+    Builder {BuilderName = 'Air Experimental - Air Transport',
 	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+
+        Priority = 750,
+
+		PriorityFunction = LessThan20MinutesRemain,
+
+		InstanceCount = 1,
+
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+			
+            { UCBC, 'ArmyNeedsTransports', { true } },
+			
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            Construction = {
+				Radius = 50,
+                NearBasePerimeterPoints = true,
+				BasePerimeterOrientation = 'FRONT',
+				BasePerimeterSelection = true,
+				Iterations = 1,
+
+                BuildStructures = { 'T4AirExperimentalTransport' },
+            }
+        }
+    },
+    
     Builder {BuilderName = 'Air Experimental 2 - Land Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',

@@ -100,6 +100,7 @@ BuildingTemplates = {
 		{ 'T4LandExperimental4', },	-- Fatboy II		
 	-- Air
 		{ 'T4AirExperimental1',	},
+        { 'T4AirExperimentalTransport'},
 		{ 'T4AirExperimental2',	},
 		{ 'T4AirExperimental3', },		
 	-- Naval
@@ -206,6 +207,7 @@ BuildingTemplates = {
 		{'T4LandExperimental4', },
 	-- Air
         {'T4AirExperimental1', 'uaa0310'	},	-- Czar
+        { 'T4AirExperimentalTransport'},        
 		{'T4AirExperimental2', 'uaa0310'	},
 		{'T4AirExperimental3', 'uaa0310'	},
 	-- Naval
@@ -309,6 +311,7 @@ BuildingTemplates = {
         { 'T4LandExperimental4', },
 	-- Air
         { 'T4AirExperimental1', 'ura0401'	},	-- Ripper
+        { 'T4AirExperimentalTransport'},        
 		{ 'T4AirExperimental2', 'ura0401'	},
 		{ 'T4AirExperimental3', 'ura0401'	},
 	-- Naval
@@ -411,6 +414,7 @@ BuildingTemplates = {
         {'T4LandExperimental4', },
 	-- Air
         {'T4AirExperimental1', 'xsa0402'	},	-- Ahwassa Bomber
+        {'T4AirExperimentalTransport'},      
         {'T4AirExperimental2', 'xsa0402'	},
         {'T4AirExperimental3', 'xsa0402'	},
 	-- Naval
