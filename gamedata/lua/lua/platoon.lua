@@ -233,7 +233,7 @@ Platoon = Class(moho.platoon_methods) {
         self.Trash:Destroy()
     end,
 
-	MovePlatoon = function( self, path, PlatoonFormation, AggroMove)
+	MovePlatoon = function( self, path, PlatoonFormation, AggroMove, waypointslackdistance)
 		
 		local prevpoint = GetPlatoonPosition(self) or false
 
@@ -246,7 +246,12 @@ Platoon = Class(moho.platoon_methods) {
 			-- this seems to be most helpful for very large platoons which
 			-- often seem to get 'stuck' right at a waypoint, unable to close
 			-- the distance due to the sheer size of the platoon
-			local pathslack = 16
+            -- problem is - you don't want the value too large or platoons will change
+            -- to their next waypoint too early - also - speed of the platoon is important 
+            -- faster platoons need a little more warning 
+            -- TODO: Make pathslack an optional variable that can be passed in - but 
+            -- will default to 16 if not provided.
+			local pathslack = waypointslackdistance or 16
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
 
@@ -1141,7 +1146,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if self == aiBrain.ArmyPool or not PlatoonExists(aiBrain, self) then
 		
-			WARN("*AI DEBUG ArmyPool or nil in RTB")
+			WARN("*AI DEBUG "..aiBrain.Nickname.." ArmyPool or nil in RTB for "..repr(self.BuilderName))
 			return
 			
 		end
@@ -8078,7 +8083,7 @@ Platoon = Class(moho.platoon_methods) {
 			if not v.Dead then
 			
 				CmdQ = v:GetCommandQueue()
-				
+		
 				break
 				
 			end

@@ -1610,14 +1610,17 @@ function NavalScoutingAI( self, aiBrain )
 			-------------------------------
 			distance = VDist3(GetPlatoonPosition(self), targetArea)
 
-			-- like Land Scouting we use an artificially higher threat to insure path finding
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 85, 240 )
+			-- like Land Scouting we use an artificially higher threat of 100 to insure path finding
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 100, 240 )
 			
 			if PlatoonExists( aiBrain, self ) then
 
 				if not path then
 				
 					if distance <= 120 and scout:CanPathTo(targetArea) then
+                    
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scout has no path but distance is "..repr(distance).." - moving direct to "..repr(targetArea))
+                        
 						self:MoveToLocation(targetArea, false)
 					else
 						targetArea = false
@@ -1625,7 +1628,9 @@ function NavalScoutingAI( self, aiBrain )
 				end
 			
 				if path and targetArea then
-					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', false )
+                    -- this call takes advantage of the pathslack option so that naval scouting platoons will change to their next
+                    -- waypoint at a distance of 20 rather than the default value of 16
+					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', false, 20 )
 				end
 			end
 
@@ -1642,11 +1647,15 @@ function NavalScoutingAI( self, aiBrain )
 				
 				if curPos then
 
-					if VDist3({targetArea[1],0,targetArea[3]},{curPos[1],0,curPos[3]} ) < 35 then
+					if VDist2( targetArea[1],targetArea[3], curPos[1],curPos[3] ) < 35 then
 						
 						reconcomplete = true
+                        
 					else
-						if lastpos and VDist3(curPos,lastpos) < 1 then
+                    
+						if lastpos and VDist2(curPos[1],curPos[3], lastpos[1],lastpos[3]) < 0.1 then
+                        
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
 							reconcomplete = true
 						end
 
@@ -1683,6 +1692,7 @@ function NavalScoutingAI( self, aiBrain )
                             aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
                         end
                     end
+                    
 				end
                 
                 if not reconcomplete and cyclecount < 25 then
@@ -1706,6 +1716,10 @@ function NavalScoutingAI( self, aiBrain )
 				for _,v in GetPlatoonUnits(self) do
 					IssueClearCommands( {v} )
 				end
+                
+                if self.MoveThread then
+                    KillThread( self.MoveThread )
+                end
 
                 -- get the perimeter points around this position - range 42
 				local loclist = GetBasePerimeterPoints(aiBrain, targetArea, 42, false, false,'Water')
@@ -1744,9 +1758,15 @@ function NavalScoutingAI( self, aiBrain )
 
 				IssueClearCommands(GetPlatoonUnits(self))
 			end
+            
         end
 
-		WaitTicks(45)
+        -- if we didn't find a recon mission wait 5.5 seconds before trying again
+        -- otherwise go right back and find another mission
+        if not reconcomplete then
+            WaitTicks(55)
+        end
+        
     end
 
 	return self:SetAIPlan('ReturnToBaseAI',aiBrain)
