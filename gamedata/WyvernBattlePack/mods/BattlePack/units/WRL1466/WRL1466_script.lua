@@ -118,54 +118,52 @@ WRL1466 = Class(CWalkingLandUnit) {
 
     DeathThread = function(self)
         self:PlayUnitSound('Destroyed')
+        
         local army = self:GetArmy()
 
-        # Create Initial explosion effects
-        explosion.CreateFlash( self, 'Left_Leg01_B01', 4.5, army )
+        -- Create Initial explosion effects
+        explosion.CreateFlash( self, 'Left_Leg01_B01', 3.5, army )
+        
         CreateAttachedEmitter(self, 'XRL0403', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):OffsetEmitter( 0, 5, 0 )
         CreateAttachedEmitter(self,'XRL0403', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp'):OffsetEmitter( 0, 5, 0 )
         CreateAttachedEmitter(self,'XRL0403', army, '/effects/emitters/distortion_ring_01_emit.bp')
+        
         self:CreateFirePlumes( army, {'XRL0403'}, 0 )
 
-        self:CreateFirePlumes( army, {'Right_Leg01_B01','Right_Leg02_B01','Left_Leg02_B01',}, 0.5 )
+        --self:CreateFirePlumes( army, {'Right_Leg01_B01','Right_Leg02_B01','Left_Leg02_B01',}, 0.5 )
 
-        self:CreateExplosionDebris( army )
-        self:CreateExplosionDebris( army )
-        self:CreateExplosionDebris( army )
-
-        WaitSeconds(1)
+        WaitSeconds(0.4)
         
-        # Create damage effects on turret bone
+        -- Create damage effects on turret bone
         CreateDeathExplosion( self, 'MainTurret_Yaw', 1.5)
+        
         self:CreateDamageEffects( 'MainTurret_Yaw', army )
         self:CreateDamageEffects( 'Right_Turret001', army )
 
-        WaitSeconds( 1 )
+        WaitSeconds(0.2)
+        
         self:CreateFirePlumes( army, {'Right_Leg01_B01','Right_Leg02_B01','Left_Leg02_B01',}, 0.5 )
-        WaitSeconds(0.3)
         self:CreateDeathExplosionDustRing()
-        WaitSeconds(0.4)
-
+        
+        WaitSeconds(0.2)
 
         # When the spider bot impacts with the ground
         # Effects: Explosion on turret, dust effects on the muzzle tip, large dust ring around unit
         # Other: Damage force ring to force trees over and camera shake
+        
         self:ShakeCamera(40, 4, 1, 3.8)
+        
         CreateDeathExplosion( self, 'Left_Turret001', 1)
 
-        self:CreateExplosionDebris( army )
         self:CreateExplosionDebris( army )
 
         local x, y, z = unpack(self:GetPosition())
         z = z + 3
-        DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
-        WaitSeconds(0.5)
-        CreateDeathExplosion( self, 'Left_Turret001', 2)
-
-        # Finish up force ring to push trees
+        
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
         local bp = self:GetBlueprint()
+        
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'MegalithDeath') then
                 DamageArea(self, self:GetPosition(), bp.Weapon[i].DamageRadius, bp.Weapon[i].Damage, bp.Weapon[i].DamageType, bp.Weapon[i].DamageFriendly)
@@ -173,30 +171,43 @@ WRL1466 = Class(CWalkingLandUnit) {
             end
         end
 
-        # Explosion on and damage fire on various bones
-        CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,2) .. '_B0' .. Random(1,2), 0.25)
-        CreateDeathExplosion( self, 'Right_Turret_Muzzle01', 2)
-        self:CreateFirePlumes( army, {'Right_Turret_Muzzle01'}, -1 )
-        self:CreateDamageEffects( 'Right_Turret001', army )
-        WaitSeconds(0.5)
+        -- Explosion on and damage fire on various bones
+        CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,2) .. '_B02', 0.25)
         
-        CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,2) .. '_B0' .. Random(1,2), 0.25)
+        CreateDeathExplosion( self, 'Right_Turret_Muzzle01', 2)
+        
+        self:CreateFirePlumes( army, {'Right_Turret_Muzzle01'}, -1 )
+        
+        self:CreateDamageEffects( 'Right_Turret001', army )
+        
+        WaitSeconds(0.2)
+        
+        CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,2) .. '_B01', 0.25)
+        
         self:CreateDamageEffects( 'Right_Footfall_02', army )
-        WaitSeconds(0.5)
-        CreateDeathExplosion( self, 'Right_Turret_Muzzle01', 1)
+        
+        WaitSeconds(0.2)
+        
+        CreateDeathExplosion( self, 'Left_Turret_Muzzle01', 1)
+        
         self:CreateExplosionDebris( army )
         
-        CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,2) .. '_B0' .. Random(1,2), 0.25)
-        self:CreateDamageEffects( 'Right_Turret_Muzzle02', army )
-        WaitSeconds(0.5)
+        CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,2) .. '_B02', 0.25)
         
-        CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,2) .. '_B0' .. Random(1,2), 0.25)
+        self:CreateDamageEffects( 'Left_Turret_Muzzle02', army )
+        
+        WaitSeconds(0.2)
+        
+        CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,2) .. '_B01', 0.25)
+        
         CreateDeathExplosion( self, 'Right_Turret_Muzzle01', 2 )
+        
         self:CreateDamageEffects( 'NewLeg', army )
-        explosion.CreateFlash( self, 'Right_Leg01_B01', 3.2, army )        
+        
+        explosion.CreateFlash( self, 'Right_Leg01_B04', 2.2, army )        
 
         self:CreateWreckage(0.1)
-        self:ShakeCamera(3, 2, 0, 0.15)
+
         self:Destroy()
     end,
     

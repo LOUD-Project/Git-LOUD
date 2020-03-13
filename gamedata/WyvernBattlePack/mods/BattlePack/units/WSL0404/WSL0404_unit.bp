@@ -45,6 +45,7 @@ UnitBlueprint {
         'SERAPHIM',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'INDIRECTFIRE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
@@ -149,6 +150,7 @@ UnitBlueprint {
     LifeBarSize = 4,
     
     Physics = {
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
@@ -166,27 +168,30 @@ UnitBlueprint {
         MaxSpeedReverse = 1.50,
         
         MaxSteerForce = 10,
-        MeshExtentsX = 2.75,
-        MeshExtentsY = 6.75,
+        MeshExtentsX = 3,
+        MeshExtentsY = 3.75,
         MeshExtentsZ = 3,
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Amphibious',
-		SkirtOffsetX = 1.5,
-        SkirtOffsetZ = 1.5,
-        SkirtSizeX = 6,
-        SkirtSizeZ = 6,
+        
+		SkirtOffsetX = 1,
+        SkirtOffsetZ = 1,
+        
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
 
-        TurnRadius = 0,
-        TurnRate = 65,
+        TurnRadius = 15,
+        TurnRate = 45,
     },
     
-    SelectionSizeX = 4,
-    SelectionSizeZ = 4,
+    SelectionSizeX = 2.4,
+    SelectionSizeZ = 2.4,
     SelectionThickness = 0.3,
     
-    SizeX = 6.5,
-    SizeY = 2,
-    SizeZ = 6.5,
+    SizeX = 3.5,
+    SizeY = 1.4,
+    SizeZ = 3.5,
     
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
