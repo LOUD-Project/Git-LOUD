@@ -915,7 +915,7 @@ function GetTransports( platoon, aiBrain)
 	local function GetNumTransports(units)
 
 		local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
-		local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, }
+		local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, Total = 0 }
 	
 		for _, v in units do
 	
@@ -924,20 +924,22 @@ function GetTransports( platoon, aiBrain)
 				if v.TransportClass == 1 then
 					transportsNeeded = true
 					transportslotsNeeded.Small = transportslotsNeeded.Small + 1.0
+                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1
 				
 				elseif v.TransportClass == 2 then
 					transportsNeeded = true
 					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.34
 					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 1.0
+                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1                    
 				
 				elseif v.TransportClass == 3 then
 					transportsNeeded = true
 					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.5
 					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 0.25
 					transportslotsNeeded.Large = transportslotsNeeded.Large + 1.0
-				
+                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1
+                    
 				else
-			
 					LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
 					return false, nil
 				end
@@ -982,8 +984,8 @@ function GetTransports( platoon, aiBrain)
 	local TransportPoolTransports = false
 	
 	-- build table of transports for engineers - only T1/T2
-    -- or less than 2 large units (ie. - Scouts only or very small platoons)
-	if IsEngineer or neededTable.Large < 2 then
+    -- or less than 15 units (ie. - Scouts only or very small platoons)
+	if IsEngineer or neededTable.Total < 15 then
 	
 		TransportPoolTransports = EntityCategoryFilterDown( (categories.AIR * categories.TRANSPORTFOCUS) - categories.TECH3 - categories.EXPERIMENTAL, GetPlatoonUnits(pool) )
     else
@@ -1047,6 +1049,7 @@ function GetTransports( platoon, aiBrain)
 				end
 			end
 		end
+        
 	end
 	
 	armypooltransports = nil
@@ -2470,9 +2473,10 @@ function ReturnUnloadedUnitToPool( aiBrain, unit )
 	
 			if IsUnitState( unit, 'Attached') then
 				attached = true
+                WaitTicks(20)
 			end
 		
-			WaitTicks(20)
+			--WaitTicks(20)
 		end
 
 		returnpool:SetAIPlan('ReturnToBaseAI', aiBrain )

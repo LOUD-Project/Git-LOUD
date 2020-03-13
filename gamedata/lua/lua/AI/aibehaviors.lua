@@ -2585,6 +2585,8 @@ function NavalForceAILOUD( self, aiBrain )
 							for _,m in self:GetSquadUnits('Guard') do
 								
 								if m and not m.Dead then
+                                
+                                    LOG("*AI DEBUG Issue guard in NavalForceAI")
 								
 									IssueGuard( self:GetSquadUnits('Guard'), v )
 									

@@ -990,11 +990,11 @@ function SetupAICheat(aiBrain)
 		-- This code works fine as long as there are only two teams --
 		-- otherwise it will break with 3 or more -- really need to know
 		-- which team has the largest TOTAL unit cap and work from that --
-        local initialCap = tonumber(ScenarioInfo.Options.UnitCap)
+        local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
-        local cheatCap = initialCap * tonumber(ScenarioInfo.Options.CheatMult) * (math.max(PlayerDiff,1))
+        local cheatCap = initialCap * tonumber(ScenarioInfo.Options.CheatMult or 1) * (math.max(PlayerDiff,1))
 
-		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.CheatMult)
+		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.CheatMult or 1)
 
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Unit Cap to "..cheatCap)
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
