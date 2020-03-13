@@ -71,7 +71,7 @@ GPGrestrictedUnits = {
     },
 
     AIREXPERIMENTALS = {
-		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "lea0401", "uaa0310","saa0306",},
+		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "lea0401", "uaa0310","saa0306","wra0401","sea0401"},
 		name = "No Air Experimentals",
 		tooltip = "restricted_units_air_experimentals",
     },
