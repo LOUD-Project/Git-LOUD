@@ -4331,16 +4331,16 @@ function DrawIntel( aiBrain )
 		Land = 'afff9600', #--Orange
 		Naval = 'af0a0a0a', #--Black
 		Air = 'ffff0096', #--Pink
-		--AntiAir = 'ff00ff00', #-- Green
+		AntiAir = 'ff00ff00', #-- Green
 	}
 	
 	local threatColor2 = {
 		--ThreatType = { ARGB value }
-		--StructuresNotMex = 'ff00ff00', #--Green
-		--Commander = 'ff00ffff', #--Cyan
-		--Economy = 'ddffffff', #--White
-		--Experimental = 'ffff0000', #--Red
-		--Artillery = 'ffffff00', #--Yellow
+		StructuresNotMex = 'ff00ff00', #--Green
+		Commander = 'ff00ffff', #--Cyan
+		Economy = 'ddffffff', #--White
+		Experimental = 'ffff0000', #--Red
+		Artillery = 'ffffff00', #--Yellow
 		Land = 'ffff9600', #--Orange
 		Naval = 'ffff00ff', #--Purple
 		Air = 'ffffd700', #--gold
