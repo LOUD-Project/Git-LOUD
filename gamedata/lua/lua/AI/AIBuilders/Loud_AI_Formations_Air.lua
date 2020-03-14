@@ -288,9 +288,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 110,
 			DistressTypes = 'Land',
-			DistressThreshold = 4,
+			DistressThreshold = 5,
 			
 			LocationType = 'LocationType',
 			
@@ -332,7 +332,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 140,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -722,22 +722,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 
         Priority = 700,
-        InstanceCount = 3,
+        InstanceCount = 4,
 
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.GROUNDATTACK }},
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 90,
 			DistressTypes = 'Land',
-			DistressThreshold = 4,
+			DistressThreshold = 5,
 			
 			LocationType = 'LocationType',
 			
             MergeLimit = 20,
 			
-            MissionTime = 120,
+            MissionTime = 100,
 			
             PrioritizedCategories = {categories.MOBILE - categories.AIR, categories.INTELLIGENCE - categories.AIR},
 			
@@ -769,12 +769,12 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, categories.AIR * categories.GROUNDATTACK }},
         },
 		
         BuilderData = {
-			DistressRange = 140,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -818,7 +818,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 180,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             
