@@ -1498,7 +1498,8 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if PlatoonExists(aiBrain, self) then
 				
-					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', false)
+                    -- Move using aggressive move
+					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', true)
 
 				end
 			
@@ -1506,11 +1507,11 @@ Platoon = Class(moho.platoon_methods) {
 			
 		else
 		
-			-- closer than 75 - move directly --
+			-- closer than 60 - move directly --
 			if platPos and transportLocation then
 			
                 --self:Stop()
-				self:MoveToLocation(transportLocation, true)		
+				self:AggressiveMoveToLocation(transportLocation)    --, true)		
 				
 			end
 			
