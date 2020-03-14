@@ -378,7 +378,7 @@ PlatoonTemplate { Name = 'BaseGuardMedium',
 
     GlobalSquads = {
         { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 13, 24, 'Attack', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Attack', 'none' },
 		-- allow experimentals except artillery and construction
 		{ (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 0, 1, 'Attack', 'none' },
     },
@@ -414,11 +414,11 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 PlatoonTemplate { Name = 'T1MassGuard',
     Plan = 'GuardPoint',    
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 4, 'Attack', 'AttackFormation' },
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 5, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 2, 'Artillery', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 1, 'Guard', 'AttackFormation' },		
+		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 1, 'Attack', 'AttackFormation' },		
         { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
-		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Attack', 'none' },
     },
 }
 
