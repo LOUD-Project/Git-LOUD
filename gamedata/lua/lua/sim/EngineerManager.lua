@@ -1341,67 +1341,72 @@ EngineerManager = Class(BuilderManager) {
 				
 					if distressType then
 		
-						-- ALWAYS respond with gunships and bombers if NOT air distress
+						-- respond with gunships and bombers if NOT air distress
 						if distressType != 'Air' then
                         
-                            if distressType !='Naval' then
+                            -- but only if there has been a response from another layer
+                            if response then
+                        
+                                if distressType !='Naval' then
 						
-                                -- get all bombers and gunships not already in platoons
-                                groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius )
+                                    -- get all bombers and gunships not already in platoons
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius )
 
-                                if groupaircount > 4 then
+                                    if groupaircount > 4 then
 
-                                    if ScenarioInfo.DistressResponseDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
-                                    end
+                                        if ScenarioInfo.DistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                        end
 						
-                                    -- Move the gunship/bomber group to the distress location and issue guard there 
-                                    IssueClearCommands( groupair )
-                                    IssueAggressiveMove( groupair, distressLocation )
+                                        -- Move the gunship/bomber group to the distress location and issue guard there 
+                                        IssueClearCommands( groupair )
+                                        IssueAggressiveMove( groupair, distressLocation )
                                 
-                                    DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 5 )                                
+                                        DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 5 )                                
 					
-                                    response = true
-                                    distress_air = true
+                                        response = true
+                                        distress_air = true
+                                    else
+						
+                                        if ScenarioInfo.DistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship unable to respond to "..distressType.." only have "..groupaircount)
+                                        end
+                                
+                                        -- move the units to the 3 rallypoints closest to the distressLocation
+                                        DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 3 )						
+                                    end
+                            
                                 else
 						
-                                    if ScenarioInfo.DistressResponseDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship unable to respond to "..distressType.." only have "..groupaircount)
+                                    -- get all torpedobombers and gunships not already in platoons
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.TORPEDOBOMBER + categories.GROUNDATTACK, baseposition, radius )
+
+                                    if groupaircount > 4 then
+
+                                        if ScenarioInfo.DistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                        end
+						
+                                        -- Move the torpedo/gunship group to the distress location and issue guard there 
+                                        IssueClearCommands( groupair )
+                                        IssueAggressiveMove( groupair, distressLocation )
+                                
+                                        DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 5 )                                
+					
+                                        response = true
+                                        distress_air = true
+                                    else
+						
+                                        if ScenarioInfo.DistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE torpedo/gunship unable to respond to "..distressType.." only have "..groupaircount)
+                                        end
+                                
+                                        -- move the units to the 3 rallypoints closest to the distressLocation
+                                        DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 3 )						
                                     end
                                 
-                                    -- move the units to the 3 rallypoints closest to the distressLocation
-                                    DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 3 )						
                                 end
                             
-                            else
-						
-                                -- get all torpedobombers and gunships not already in platoons
-                                groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.TORPEDOBOMBER + categories.GROUNDATTACK, baseposition, radius )
-
-                                if groupaircount > 4 then
-
-                                    if ScenarioInfo.DistressResponseDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
-                                    end
-						
-                                    -- Move the torpedo/gunship group to the distress location and issue guard there 
-                                    IssueClearCommands( groupair )
-                                    IssueAggressiveMove( groupair, distressLocation )
-                                
-                                    DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 5 )                                
-					
-                                    response = true
-                                    distress_air = true
-                                else
-						
-                                    if ScenarioInfo.DistressResponseDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE torpedo/gunship unable to respond to "..distressType.." only have "..groupaircount)
-                                    end
-                                
-                                    -- move the units to the 3 rallypoints closest to the distressLocation
-                                    DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints, distressLocation, 3 )						
-                                end
-                                
                             end
                             
 						else
