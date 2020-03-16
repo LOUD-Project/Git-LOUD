@@ -408,7 +408,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 380, 'Land', 120 }},            
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+            
+            -- as an attack platoon - it needs to be streamlined - so no more minimum AA component -- we'll see if thats more effective
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -422,25 +424,25 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointFaction = 'Enemy',
 			PointRadius = 1250,
 			PointSort = 'Closest',
-			PointMin = 200,
+			PointMin = 150,
 			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
-			StrRadius = 60,
+			StrRadius = 75,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 12,
+			StrMax = 10,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 60,
+			UntRadius = 75,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 20,
+			UntMax = 24,
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 75,
-			GuardTimer = 30,
+			GuardRadius = 100,
+			GuardTimer = 33,
 			
 			MergeLimit = 60,
 			
@@ -481,9 +483,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 380, 'Land', 120 }},            
 
 			-- enemy mass points within 15km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1250 }},
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+            
+            -- as an attack platoon - it needs to be streamlined - so no more minimum AA component -- we'll see if thats more effective            
+            --{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
         },
 		
@@ -497,27 +502,27 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointCategory = categories.MASSPRODUCTION,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 1000,
+			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
-			StrRadius = 60,
+			StrRadius = 75,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 15,
+			StrMax = 10,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 60,
+			UntRadius = 75,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 24,
 			
             PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','DIRECTFIRE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 75,
-			GuardTimer = 30,
+			GuardRadius = 100,
+			GuardTimer = 33,
 			
 			MergeLimit = 60,
 			
@@ -557,10 +562,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 380, 'Land', 120 }},            
 
 			-- enemy AA structures within 15km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1250 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1500 }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -568,7 +573,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			PointCategory = categories.ANTIAIR * categories.STRUCTURE,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1250,
+			PointRadius = 1500,
 			PointSort = 'Closest',
 			PointMin = 100,
 			PointMax = 1250,
@@ -587,8 +592,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 			
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
-			GuardRadius = 45,
-			GuardTimer = 20,
+			GuardRadius = 80,
+			GuardTimer = 32,
 			
 			MergeLimit = 32,
 			
@@ -727,7 +732,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -754,8 +759,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
 			
-			GuardRadius = 45,
-			GuardTimer = 30,
+			GuardRadius = 70,
+			GuardTimer = 32,
 			
 			MergeLimit = 32,
 			

@@ -264,8 +264,8 @@ PlatoonTemplate { Name = 'T2MassAttack',
     GlobalSquads = {
         { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 5, 10, 'Guard', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 5, 'Support', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 10, 'Guard', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 4, 'Support', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 3, 'Guard', 'none' },
     },
 }
