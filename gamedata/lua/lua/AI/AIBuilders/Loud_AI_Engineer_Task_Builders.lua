@@ -446,6 +446,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 730,
+        
+        InstanceCount = 2,
 		
         BuilderType = { 'T1','T2','T3','Commander' },
 		
@@ -467,6 +469,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 730,
+        
+        InstanceCount = 2,
 		
         BuilderType = { 'T2','T3','Commander' },
 		
@@ -480,7 +484,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 		
         BuilderData = {
 			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC},
-
         },
     },
     
