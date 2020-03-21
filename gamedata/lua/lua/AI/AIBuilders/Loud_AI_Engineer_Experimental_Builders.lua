@@ -58,10 +58,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 2,
+		InstanceCount = 3,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			--{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
@@ -96,7 +96,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 1,
+		InstanceCount = 2,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -109,7 +109,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderData = {
 			DesiresAssist = true,
-			NumAssistees = 2,
+			NumAssistees = 3,
             Construction = {
 				Radius = 50,
                 NearBasePerimeterPoints = true,
@@ -137,7 +137,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
@@ -147,7 +147,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderData = {
 			DesiresAssist = true,
-			NumAssistees = 3,
+			NumAssistees = 4,
             Construction = {
 				Radius = 50,
                 NearBasePerimeterPoints = true,
