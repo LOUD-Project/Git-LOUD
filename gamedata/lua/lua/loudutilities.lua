@@ -134,7 +134,7 @@ end
 
 -- similar to above but returns the name of the location
 -- a bit different in that it can filter FOR naval bases or filter OUT naval bases
-function AIFindClosestBuilderManagerName( aiBrain, position, allownavalbases, onlynavalbases)
+function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases)
 
     local distance = 99999999
 	local closest = false
@@ -800,14 +800,14 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		
 		if returnpool.MovementLayer == "Land" then
 			-- dont use naval bases for land --
-			returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), false )
+			returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), false )
 		else
 			if returnpool.MovementLayer == "Air" or returnpool.PlatoonLayer == "Amphibious" then
 				-- use any kind of base --
-				returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), true, false )
+				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), true, false )
 			else
 				-- use only naval bases --
-				returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, returnpool:GetPlatoonPosition(), true, true )
+				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), true, true )
 			end
 		end
 
@@ -1325,7 +1325,7 @@ function AirUnitRefitThread( unit, aiBrain )
 						rtbissued = true
 
 						-- find closest base
-						local baseposition = AIFindClosestBuilderManagerName( aiBrain, unit:GetPosition(), true, false)
+						local baseposition = FindClosestBaseName( aiBrain, unit:GetPosition(), true, false)
 
 						if baseposition then
 

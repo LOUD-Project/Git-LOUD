@@ -283,7 +283,7 @@ end
 
 -- this is a rather broad function that fills several flexible needs
 -- it is exclusively used by GuardPoint behaviors
-function AIFindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, shouldcheckAvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
+function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, shouldcheckAvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
 
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
@@ -535,7 +535,7 @@ end
 
 -- this function locates a target for a squad within a given range and list of priority target types
 -- returning an actual unit and its position -- modified to include the nolayercheck option
-function AIFindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck )
+function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck )
 
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 	
@@ -763,6 +763,10 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	return false,false
 end
 	
+-- this simply tells you if a point is in the water
+-- which Air units don't care about
+-- and is simply just a comparison between terrain height and surface height
+-- if the terrain height is lower - then this is a water co-ordinate
 function InWaterCheck(platoon)
 
 	if platoon.MovementLayer == 'Air' then

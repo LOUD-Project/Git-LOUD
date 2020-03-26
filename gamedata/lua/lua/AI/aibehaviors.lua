@@ -2712,7 +2712,7 @@ function NavalForceAILOUD( self, aiBrain )
 	local LOUDGETN = LOUDGETN
 	local LOUDPARSE = ParseEntityCategory
 	
-	local AIFindTargetInRange = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRange
+	local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
@@ -2865,7 +2865,7 @@ function NavalForceAILOUD( self, aiBrain )
 		mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
 
 		-- Locate LOCAL targets in the searchRadius range using the attackpriority list
-		target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
+		target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeks local target")
 
@@ -3406,7 +3406,7 @@ function NavalBombardAILOUD( self, aiBrain )
 	local LOUDGETN = LOUDGETN
 	local LOUDPARSE = ParseEntityCategory
 	
-	local AIFindTargetInRange = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRange
+	local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
@@ -3508,7 +3508,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		
 		if not self.MoveThread then
 
-			target, targetposition = AIFindTargetInRange( self, aiBrain, 'Artillery', maxRange, atkPri, true )
+			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, atkPri, true )
 		
 		end
 

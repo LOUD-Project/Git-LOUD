@@ -3,11 +3,8 @@
 local import = import
 
 local AIAddMustScoutArea = import('ai/aiutilities.lua').AIAddMustScoutArea
-
 local AIGetClosestMarkerLocation = import('ai/aiutilities.lua').AIGetClosestMarkerLocation
-
 local AIGetReclaimablesAroundLocation = import('ai/aiutilities.lua').AIGetReclaimablesAroundLocation
-
 local CheckUnitPathingEx = import('ai/aiutilities.lua').CheckUnitPathingEx
 local GetOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local GetOwnUnitsAroundPointWithThreatCheck = import('ai/aiutilities.lua').GetOwnUnitsAroundPointWithThreatCheck
@@ -21,7 +18,6 @@ local AIFindBasePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFin
 local AIFindNavalAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindNavalAreaForExpansion
 local AIFindNavalDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindNavalDefensivePointNeedsStructure
 local AIFindStartPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindStartPointNeedsStructure
-
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 
 local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
@@ -39,8 +35,8 @@ local AINewExpansionBase = import('/lua/ai/aibuildstructures.lua').AINewExpansio
 
 local Behaviors = import('/lua/ai/aibehaviors.lua')
 
-local AIFindPointMeetsConditions = import('/lua/ai/aiattackutilities.lua').AIFindPointMeetsConditions
-local AIFindTargetInRange = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRange
+local FindPointMeetsConditions = import('/lua/ai/aiattackutilities.lua').FindPointMeetsConditions
+local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 local GetMostRestrictiveLayer = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer
 local InWaterCheck = import('/lua/ai/aiattackutilities.lua').InWaterCheck
 
@@ -48,8 +44,7 @@ local AIFindUndefendedBrainTargetInRangeSorian = import('/lua/ai/sorianutilities
 local FindDamagedShield = import('/lua/ai/sorianutilities.lua').FindDamagedShield
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 
-local AIFindClosestBuilderManagerName = import('loudutilities.lua').AIFindClosestBuilderManagerName
-
+local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
@@ -1237,7 +1232,7 @@ Platoon = Class(moho.platoon_methods) {
 								-- dont use naval bases for land --
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." seeks ONLY Land Bases")
 								
-								self.LocationType = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(self), false, false )
+								self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
 								RTBLocation = self.LocationType
 								
 							else
@@ -1245,7 +1240,7 @@ Platoon = Class(moho.platoon_methods) {
 								if self.MovementLayer == "Air" or self.MovementLayer == "Amphibious" then
 								
 									-- use any kind of base --
-									self.LocationType = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(self), true, false )
+									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
 									RTBLocation = self.LocationType
 									
 								else
@@ -1253,7 +1248,7 @@ Platoon = Class(moho.platoon_methods) {
 									-- use only naval bases for 'Sea' platoons
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.Buildername).." seeks ONLY Naval bases")
 									
-									self.LocationType = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(self), true, true )
+									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
 									RTBLocation = self.LocationType
 									
 								end
@@ -1752,19 +1747,19 @@ Platoon = Class(moho.platoon_methods) {
 						if returnpool.MovementLayer == "Land" then
 						
 							-- dont use naval bases for land --
-							returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(returnpool), false )
+							returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
 							
 						else
 						
 							if returnpool.MovementLayer == "Air" or returnpool.PlatoonLayer == "Amphibious" then
 							
 								-- use any kind of base --
-								returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(returnpool), true, false )
+								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
 								
 							else
 							
 								-- use only naval bases --
-								returnpool.BuilderLocation = AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(returnpool), true, true )
+								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
 								
 							end
 							
@@ -2264,7 +2259,7 @@ Platoon = Class(moho.platoon_methods) {
 			if position then
 			
 				-- Get a list of points that meet all of the required conditions 
-				pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * 0.8, 'AntiSurface')
+				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * 0.8, 'AntiSurface')
 
 				-- if list then select a random marker
 				-- never re-select the same point if it already failed
@@ -2462,7 +2457,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- seek a target around the point --
 				target = false
 				
-				target,targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
+				target,targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
 				
 				units = GetPlatoonUnits(self)
 				
@@ -2853,7 +2848,7 @@ Platoon = Class(moho.platoon_methods) {
 			oldPlatPos = LOUDCOPY(GetPlatoonPosition(self) or false)
 		
 			-- Get a point that meets all of the required conditions
-			pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat, 'AntiAir')
+			pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat, 'AntiAir')
 
 			if PlatoonExists( aiBrain, self ) then
 			
@@ -3436,7 +3431,7 @@ Platoon = Class(moho.platoon_methods) {
 			if position then
 			
 				-- Get a point that meets all of the required conditions
-				pointlist = AIFindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
+				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
 			
 				if pointlist then
 				
@@ -3661,7 +3656,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				target = false
 			
-				target, targetposition = AIFindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
+				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
 
 				units = GetPlatoonUnits(self)
 				
@@ -4087,6 +4082,9 @@ Platoon = Class(moho.platoon_methods) {
 			end
 		end
 
+        -- a patrolling platoon checks for patroltime expiry or 
+        -- having lost 50% of it's numerical size in order to 
+        -- begin RTB
 		while PlatoonExists(aiBrain, self) do
 
 			WaitTicks(100)
@@ -6937,7 +6935,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
 			
-			target, targetLocation = AIFindTargetInRange( self, aiBrain, 'Attack', 75, { 'LAND MOBILE','STRUCTURE -WALL', } )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 75, { 'LAND MOBILE','STRUCTURE -WALL', } )
 			
 			if target and not target.Dead then
 			
@@ -7401,7 +7399,7 @@ Platoon = Class(moho.platoon_methods) {
             targettype = false
 			target = false
 			
-			target, targetLocation = AIFindTargetInRange( self, aiBrain, 'Attack', 100, { 'ECONOMIC','LAND MOBILE','STRUCTURE -WALL' } )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 100, { 'ECONOMIC','LAND MOBILE','STRUCTURE -WALL' } )
 			
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			

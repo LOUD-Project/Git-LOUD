@@ -1501,7 +1501,7 @@ EngineerManager = Class(BuilderManager) {
 				
 					-- we need to find the closest LAND manager name at this point
 					-- put grouplnd into a platoon --
-					-- use AIFindClosestBuilderManagerName( aiBrain, GetPlatoonPosition(), false, false ) for BaseName
+					-- use FindClosestBaseName( aiBrain, GetPlatoonPosition(), false, false ) for BaseName
 					-- use BaseName instead of self.LocationType below
 					-- OR JUST RTB the platoon
 					DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, aiBrain.BuilderManagers[self.LocationType].RallyPoints )
