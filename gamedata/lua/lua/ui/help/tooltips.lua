@@ -737,11 +737,11 @@ Tooltips = {
         title = "Cheating",
         description = "Enable or disable Cheats in the game",
     },
-        Lobby_Gen_Timeouts = {
+    Lobby_Gen_Timeouts = {
         title = "Timeouts",
         description = "Set number of Pauses each Player is allowed",
     },
-        Lobby_Gen_GameSpeed = {
+    Lobby_Gen_GameSpeed = {
         title = "Game Speed",
         description = "Set how quickly the Game runs",
     },
@@ -749,19 +749,23 @@ Tooltips = {
         title = "Teams",
         description = "Set Teams",
     },
-        Lobby_Gen_Civilians = {
+    Lobby_AI_Mult = {
+        title = "Select AI Difficulty",
+        description = "Set Difficult of AI - affects Resources/Build Speed directly - Health/Intel affected at lower rate.",
+    },
+    Lobby_Gen_Civilians = {
         title = "Civilians",
         description = "Set civilian unit behavior",
     },
-        Lob_CivilianAlliance_enemy = {
+    Lob_CivilianAlliance_enemy = {
         title = "Enemy",
         description = "Civilian units will attack",
     },
-        Lob_CivilianAlliance_neutral = {
+    Lob_CivilianAlliance_neutral = {
         title = "Neutral",
         description = "Civilian units will ignore other factions",
     },
-        Lob_CivilianAlliance_removed = {
+    Lob_CivilianAlliance_removed = {
         title = "Removed",
         description = "No civilian units are present",
     },
@@ -785,7 +789,6 @@ Tooltips = {
         title = "20 Minutes",
         description = "You must stay in your starting area for 20 minutes",
     },
-    
     lob_CheatsEnabled_false = {
         title = 'Disable Cheats',
         description = 'Disable all cheat functions',
@@ -794,7 +797,6 @@ Tooltips = {
         title = 'Enable Cheats',
         description = 'Enable cheat functions (reported to all players)',
     },
-	
     lob_FogOfWar_explored = {
         title = 'Explored',
         description = 'Sets Fog of War to Explored',
@@ -807,7 +809,6 @@ Tooltips = {
         title = 'None',
         description = 'No Fog of War',
     },
-        
     lob_GameSpeed_normal = {
         title = 'Normal',
         description = 'Sets the game speed to Normal',
@@ -820,7 +821,6 @@ Tooltips = {
         title = 'Adjustable',
         description = 'Allows the game speed to be adjusted ingame',
     },
-    
     Lobby_Gen_DisplayScores = {
         title = "Display Scores",
         description = "Turn the in game display of army scores on or off",
@@ -833,7 +833,6 @@ Tooltips = {
         title = "Scores On",
         description = "The scores are displayed during gameplay",
     },
-    
     Lobby_Prebuilt_Units = {
         title = "Prebuilt Units",
         description = "Each army will start with a basic prebuilt units",
@@ -888,7 +887,6 @@ Tooltips = {
         title = "Random",
         description = '',
     },
-    
     lob_team_none = {
         title = 'No Team',
         description = '',
@@ -937,6 +935,98 @@ Tooltips = {
     ['lob_Timeouts_-1'] = {
         title = 'Unlimited Pausing',
         description = 'You can pause the game at any time',
+    },
+    
+	########################
+	#   Cheat Multiplyer   #
+	########################
+    ["Lobby_Cheat_Mult"] = {
+        title = "Cheat Multiplyer",
+        description = "Sets the resource multiplier for the cheating AIs.",
+    },
+	["lob_AIMult_0.8"] = {
+        title = "0.8",
+        description = "AI Difficulty -20%. - greatly reduced",
+    },	    
+	["lob_AIMult_0.9"] = {
+        title = "0.9",
+        description = "AI Difficulty -10%. - slightly reduced",
+    },	
+	["lob_AIMult_1.0"] = {
+        title = "1.0",
+        description = "AIx Normal Resources.",
+    },
+	["lob_AIMult_1.05"] = {
+        title = "1.05",
+        description = "AI Difficulty +5%",
+    },
+	["lob_AIMult_1.075"] = {
+        title = "1.075",
+        description = "AI Difficulty +7.5%",
+    },
+	["lob_AIMult_1.1"] = {
+        title = "1.1",
+        description = "AI Difficulty +10%",
+    },
+	["lob_AIMult_1.125"] = {
+        title = "1.125",
+        description = "AI Difficulty +12.5%",
+    },
+	["lob_AIMult_1.15"] = {
+        title = "1.150",
+        description = "AI Difficulty +15%",
+    },
+	["lob_AIMult_1.175"] = {
+        title = "1.175",
+        description = "AI Difficulty +17.5%",
+    },	
+	["lob_AIMult_1.2"] = {
+        title = "1.200",
+        description = "AI Difficulty +20%.",
+    },
+	["lob_AIMult_1.225"] = {
+        title = "1.225",
+        description = "AI Difficulty +22.5%",
+    },	
+	["lob_AIMult_1.25"] = {
+        title = "1.250",
+        description = "AI Difficulty +25%.",
+    },
+	["lob_AIMult_1.3"] = {
+        title = "1.300",
+        description = "AI Difficulty +30%",
+    },
+	["lob_AIMult_1.325"] = {
+        title = "1.325",
+        description = "AI Difficulty +32.5%",
+    },    
+	["lob_AIMult_1.35"] = {
+        title = "1.35",
+        description = "AI Difficulty +35%",
+    },
+	["lob_AIMult_1.375"] = {
+        title = "1.375",
+        description = "AI Difficulty +37.5%",
+    },	
+	["lob_AIMult_1.4"] = {
+        title = "1.40",
+        description = "AI Difficulty +40%",
+    },
+	["lob_AIMult_1.5"] = {
+        title = "1.50",
+        description = "AI Difficulty +50%",
+    },
+	["lob_AIMult_1.6"] = {
+        title = "1.60",
+        description = "AI Difficulty +60%",
+    },    
+	["lob_AIMult_1.75"] = {
+        title = "1.75",
+        description = "AI Difficulty +75%",
+    },
+	["lob_AIMult_2.0"] = {
+        title = "2.00",
+        description = "AI Difficulty +100%",
     },
     
 

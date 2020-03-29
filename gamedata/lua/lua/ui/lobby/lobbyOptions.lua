@@ -112,6 +112,144 @@ teamOptions =
 }
 
 globalOpts = {
+	{   default = 3,
+        label = "AI Multiplier",
+        help = "Set the difficulty multiplier for the AIs.",
+        key = 'AIMult',
+        pref = 'Lobby_AI_Mult',
+        values = {
+            {
+                text = "0.8",
+                help = "AI Difficulty -20% - slower",
+                key = '0.8',
+            },
+            {
+                text = "0.9",
+                help = "AI Difficulty -10% - slow",
+                key = '0.9',
+            },
+            {
+                text = "1.0",
+                help = "Standard",
+                key = '1.0',
+            },
+            {
+                text = "1.05",
+                help = "AI Difficulty +5%",
+                key = '1.05',
+            },
+            {
+                text = "1.075",
+                help = "AI Difficulty +7.5%",
+                key = '1.075',
+            },
+            {
+                text = "1.10",
+                help = "AI Difficulty +10%",
+                key = '1.1',
+            },
+            {
+                text = "1.125",
+                help = "AI Difficulty +12.5%",
+                key = '1.125',
+            },
+            {
+                text = "1.150",
+                help = "AI Difficulty +15%",
+                key = '1.15',
+            },
+            {
+                text = "1.175",
+                help = "AI Difficulty +17.5%",
+                key = '1.175',
+            },
+            {
+                text = "1.200",
+                help = "AI Difficulty +20%",
+                key = '1.2',
+            },
+            {
+                text = "1.225",
+                help = "AI Difficulty +22.5%",
+                key = '1.225',
+            },
+            {   text = "1.250",
+                help = "AI Difficulty +25%",
+                key = '1.25',
+            },
+            {
+                text = "1.300",
+                help = "AI Difficulty +30%",
+                key = '1.3',
+            },
+            {
+                text = "1.325",
+                help = "AI Difficulty +32.5%",
+                key = '1.325',
+            },            
+            {
+                text = "1.35",
+                help = "AI Difficulty +35%",
+                key = '1.35',
+            },
+            {
+                text = "1.375",
+                help = "AI Difficulty +37.5%",
+                key = '1.375',
+            },            
+            {
+                text = "1.40",
+                help = "AI Difficulty +40%",
+                key = '1.4',
+            },
+            {
+                text = "1.50",
+                help = "AI Difficulty +50%",
+                key = '1.5',
+            },
+            {
+                text = "1.60",
+                help = "AI Difficulty +60%",
+                key = '1.6',
+            },            
+            {
+                text = "1.75",
+                help = "AI Difficulty +75%",
+                key = '1.75',
+            },
+            {
+                text = "2.00",
+                help = "AI Difficulty +100%",
+                key = '2.0',
+            },
+
+        },
+	},
+	{   default = 2,
+        label = "AI Unit Cap",
+        help = "Set the Unit Cap limit for the AIs.",
+        key = 'CapCheat',
+        pref = 'Lobby_Cap_Cheat',
+        values = {
+            {
+                text = "Unlimited",
+                help = "AI ignores unit cap",
+                key = 'unlimited',
+            },
+			{
+				text = "Enhanced",
+				help = "AI Unit Cap modified by Difficulty setting",
+				key = 'cheatlevel',
+			},
+            {
+                text = "Normal",
+                help = "AI has same unit cap as humans",
+                key = 'off',
+            },
+        },
+	},
+    
+--[[
 	{   default = 5,
         label = "AIx Cheat Multiplier",
         help = "Set the resource multiplier for the cheating AIs.",
@@ -308,7 +446,7 @@ globalOpts = {
             },
         },
 	},
-
+--]]
     {
         default = 9,
         label = "Unit Cap",
@@ -393,45 +531,22 @@ globalOpts = {
 			},
         },
     },
-	{   default = 2,
-        label = "Unit Cap AI",
-        help = "Set the Unit Cap limit for cheating AIs.",
-        key = 'CapCheat',
-        pref = 'Lobby_Cap_Cheat',
-        values = {
-            {
-                text = "Unlimited",
-                help = "AI ignores unit cap",
-                key = 'unlimited',
-            },
-			{
-				text = "Enhanced",
-				help = "AI Unit Cap tied to Resource Cheat level",
-				key = 'cheatlevel',
-			},
-            {
-                text = "Off",
-                help = "AI has same unit cap as humans",
-                key = 'off',
-            },
-        },
-	},
 
     {
         default = 1,
-        label = "<LOC lobui_0208>Cheating",
-        help = "<LOC lobui_0209>Enable cheat codes",
+        label = "User Spawn/Cheat Menu",
+        help = "Enable spawn/cheat menu",
         key = 'CheatsEnabled',
         pref = 'Lobby_Gen_CheatsEnabled',
         values = {
             {
                 text = "<LOC _Off>Off",
-                help = "<LOC lobui_0210>Cheats disabled",
+                help = "<LOC lobui_0210>Spawn/Cheat Menu disabled",
                 key = 'false',
             },
             {
                 text = "<LOC _On>On",
-                help = "<LOC lobui_0211>Cheats enabled",
+                help = "<LOC lobui_0211>Spawn/Cheats Menu enabled",
                 key = 'true',
             },
         },
@@ -558,8 +673,8 @@ globalOpts = {
     },
     {
         default = 2,
-        label = "<LOC lobui_0242>Timeouts",
-        help = "<LOC lobui_0243>Sets the number of timeouts each player can request",
+        label = "User Timeouts",
+        help = "The number of timeouts each player can request",
         key = 'Timeouts',
         pref = 'Lobby_Gen_Timeouts',
         mponly = true,
