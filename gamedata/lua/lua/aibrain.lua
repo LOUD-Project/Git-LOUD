@@ -37,7 +37,10 @@
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 
-	
+    -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
+	ScenarioInfo.TransportDialog = false
+    LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
+    
 	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))

@@ -1243,6 +1243,8 @@ function ProcessAirUnits( unit, aiBrain )
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
 			
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool")
+            
 			-- put air unit into the refuel pool -- 
 			aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
 
@@ -1285,60 +1287,70 @@ function AirUnitRefitThread( unit, aiBrain )
 				
 					unitPos = table.copy(GetPosition(unit))
 					
-					-- now limit to airpads within 15k
-					plats = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE, unitPos, 1500 )
+					-- now limit to airpads within 30k
+					plats = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE, unitPos, 1536 )
 					
 					-- Locate closest airpad
 					if LOUDGETN( plats ) > 0 then
-					
-						closestairpad = false
-						distance = 999000
-						
-						-- loop thru and see if they have room
-						for _,airpad in plats do
-						
-							if not airpad.Dead then
-							
-								platPos = GetPosition(airpad)
-								
-								tempDist = VDist2( unitPos[1],unitPos[3], platPos[1],platPos[3] )
-								
-								if ( not closestairpad or tempDist < distance ) then
-								
-									closestairpad = airpad
-									distance = tempDist
-								end
-							end
-						end
-						
+                    
+                        LOUDSORT( plats, function(a,b) return VDist3Sq(a:GetPosition(),unitPos) < VDist3Sq(b:GetPosition(),unitPos) end )
+                        
+                        closestairpad = plats[1]
+
 						-- Begin loading/refit sequence
 						if closestairpad then
 						
 							AirStagingThread (unit, closestairpad, aiBrain )
 
 						end
+                    else
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
                     end
-				else
-					-- no airpad - just send them home --
-					if not rtbissued then
+                end
+                
+				-- no airpad - just send them home --
+                if not rtbissued then
 					
-						rtbissued = true
+					rtbissued = true
 
-						-- find closest base
-						local baseposition = FindClosestBaseName( aiBrain, unit:GetPosition(), true, false)
+					-- find closest base
+					local baseposition = FindClosestBaseName( aiBrain, unit:GetPosition(), true, false)
 
-						if baseposition then
+					if baseposition then
 
-							IssueStop ( {unit} )
-							IssueClearCommands( {unit} )
-					
-							IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
-						end
+						IssueStop ( {unit} )
+						IssueClearCommands( {unit} )
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." no airpad in range - moving to "..repr(baseposition))
+			
+                        local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 240)
+			
+                        if safePath then
+            
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
+			
+                            -- use path
+                            for _,p in safePath do
+                                IssueMove( {unit}, p )
+                            end
+                
+                        else
+            
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB after drop")
+                
+                            -- go direct -- possibly bad
+                            IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
+                
+                        end
+						
+						--IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
 					end
 				end
+
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." unit "..unit.Sync.id.." leaving refit thread")
 				break
 			end
 	
@@ -1358,6 +1370,7 @@ function AirUnitRefitThread( unit, aiBrain )
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )
 		else
+
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
 		end
 	end
@@ -1374,12 +1387,31 @@ function AirStagingThread( unit, airstage, aiBrain )
 
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
-			
-			IssueMove( {unit}, GetPosition(airstage) )
 
-			if not (unit:BeenDestroyed() or airstage:BeenDestroyed()) and (not unit:IsUnitState('Attached')) then
+            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 14, 240)
 			
-				IssueTransportLoad( {unit}, airstage )
+            if safePath then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
+			
+                -- use path
+                for _,p in safePath do
+                    IssueMove( {unit}, p )
+                end
+
+            else
+            
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB after drop")
+                
+                -- go direct -- possibly bad
+                IssueMove( {unit}, GetPosition(airstage))
+                
+            end
+
+			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
+
+                safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
+
 				unit:MarkWeaponsOnTransport(unit, true)		-- disable weapons so they wont seek targets -- I hope
 			end
 		end
@@ -1388,7 +1420,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	local waitcount = 0
 	
 	-- loop until unit attached, idle, dead or it's fixed itself
-	while not (unit:BeenDestroyed()) and not (airstage:BeenDestroyed()) do
+	while not ( unit.Dead and not airstage.Dead) do
 		
 		--if (not unit:IsUnitState('Attached') and (not unit:IsIdleState())) and (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then

@@ -3499,6 +3499,9 @@ AirUnit = Class(MobileUnit) {
 				
 					if beyondbase then
 						--LOG("*AI DEBUG AI Air unit "..self:GetBlueprint().Description.." lands outside base radius")
+                        
+                        --LOG("*AI DEBUG "..brain.Nickname.." RTP 9")
+                        
 						ForkThread( ReturnTransportsToPool, brain, {self}, true )
 					end
 
