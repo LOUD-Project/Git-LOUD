@@ -134,19 +134,17 @@ Platoon = Class(moho.platoon_methods) {
         end
 		
 		if self[plan] then
---[[		
+
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG Platoon SetAIPlan for "..repr(self.BuilderName).." to "..repr(plan))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." SetAIPlan to "..repr(plan))
 			end
---]]	
+
 			self:ForkAIThread(self[plan], aiBrain)
 			
 		else
 		
 			WARN("Unable to locate AIPlan "..repr(plan).." for "..repr(self.BuilderName))
-			
 		end
-		
     end,
 
     StopAI = function( self )
@@ -207,14 +205,14 @@ Platoon = Class(moho.platoon_methods) {
     end,
 
     OnDestroy = function( self)
---[[	
+
 		if ScenarioInfo.PlatoonDialog then
 		
 			local aiBrain = GetBrain(self)
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon OnDestroy for "..repr(self.BuilderName).." from "..repr(self.LocationType) )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon OnDestroy  from "..repr(self.LocationType) )
 		end
---]]	
+
         for k, cb in self.EventCallbacks.OnDestroyed do
 		
 	        if cb then
@@ -232,7 +230,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local prevpoint = GetPlatoonPosition(self) or false
 
-		if prevpoint and path then
+		if prevpoint and LOUDGETN(path) > 0 then
 		
 			-- this variable controls what I call the 'path slack'
 			-- essentially - as a platoon moves from point to point
@@ -308,7 +306,9 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 		else
-			WARN("*AI DEBUG "..self.BuilderName.." has no path ! Position is "..repr(prevpoint))
+			--WARN("*AI DEBUG "..self.BuilderName.." has no path ! Position is "..repr(prevpoint))
+            
+            self:KillMoveThread()
 		end
 		
 	end,
@@ -336,11 +336,11 @@ Platoon = Class(moho.platoon_methods) {
     PlatoonDisband = function( self, aiBrain)
 	
 		if PlatoonExists(aiBrain,self) then
---[[		
+
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Disband for "..repr(self.BuilderName))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon Disbanded")
 			end
---]]		
+
 			if self.MoveThread then
 				self:KillMoveThread()
 			end
@@ -590,7 +590,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 			airthreatMax = airthreatMax + ( airthreatMax * math.log10(transportcount))
 			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." airthreatMax for "..transportcount.." unit transport platoon is "..repr(airthreatMax).." calc is "..math.log10(transportcount) )
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." calc is "..math.log10(transportcount) )
+            end
 			
 			-- this is the desired drop location
 			local transportLocation = LOUDCOPY(destination)
@@ -608,11 +610,13 @@ Platoon = Class(moho.platoon_methods) {
 			-- if the destination doesn't look good, use alternate or false
 			if surthreat > mythreat or airthreat > airthreatMax then
 			
-				-- we'll look for a drop zone at least half as close as we already are
-				local markerrange = VDist3( self:GetPlatoonPosition(), destination ) * .5
+				-- we'll look for a safe drop zone at least 25% closer than we already are
+				local markerrange = VDist3( self:GetPlatoonPosition(), destination ) * .75
 				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
-			
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." carrying "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
+                end
+                
 				transportLocation = false
 
 				-- If destination is too hot -- locate the nearest movement marker that is safe
@@ -624,8 +628,11 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 				if transportLocation then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds alternate landing position at "..repr(transportLocation))
-					
+                
+                    if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation))
+					end
+                    
 					ForkTo( AISendPing, transportLocation, 'alert', aiBrain.ArmyIndex )
 				end
 			end
@@ -635,7 +642,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - aborting transport")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 				end
@@ -6465,6 +6472,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					eng.failedmoves = 10	-- clear all orders --
 					
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." cannot move with safe path")
+
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
 					return false
@@ -6540,6 +6549,8 @@ Platoon = Class(moho.platoon_methods) {
 				if not eng.Dead and eng.failedmoves >= 10 then
 
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
+                    
+   					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." too many failures")
 					
 					return false
 					
@@ -6647,6 +6658,9 @@ Platoon = Class(moho.platoon_methods) {
 								
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, eng.NewExpansion[1], eng.NewExpansion[2], eng, eng.NewExpansion[3] ) then
+                                
+                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Eng "..eng.Sync.id.." creates new base at "..repr(eng.NewExpansion[2]))
+                                    --LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
 									
 									platoon.LocationType = eng.NewExpansion[1]
 									platoon.RTBLocation = eng.NewExpansion[1]
@@ -7353,7 +7367,7 @@ Platoon = Class(moho.platoon_methods) {
 					
                     OriginalSurfaceThreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 					
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AmphibForceAILOUD Merges")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AmphibForceAILOUD Merges")
 					
 					-- reset experimental flag --
                     for _,v in platoonUnits do
@@ -7841,7 +7855,9 @@ Platoon = Class(moho.platoon_methods) {
 		local mergedunits = false
 		local allyPlatoonSize, validUnits, counter = 0
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)))
+        if ScenarioInfo.PlatoonMergeDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)).." platoons")
+        end
 		
 		local count = 0
 		
@@ -7933,7 +7949,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			-- otherwise we do the merge
 			if ScenarioInfo.PlatoonMergeDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." MERGE_WITH "..repr(self.BuilderName).." takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
 			end
 			
 			-- unmark the allied platoon
@@ -7950,7 +7966,10 @@ Platoon = Class(moho.platoon_methods) {
 			
         end
 
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checked "..count.." platoons")
+        if ScenarioInfo.PlatoonMergeDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." reviewed "..count.." platoons")
+        end
+        
 		return mergedunits
 		
     end,

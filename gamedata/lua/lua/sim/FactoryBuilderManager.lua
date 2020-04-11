@@ -617,6 +617,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 			else
 			
 				-- transports get assigned to the Transport pool
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." ATP 3")
+                
 				finishedUnit:ForkThread( AssignTransportToPool, aiBrain )
 			end
 		end

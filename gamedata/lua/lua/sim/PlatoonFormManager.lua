@@ -184,11 +184,11 @@ PlatoonFormManager = Class(BuilderManager) {
 			local template = self.GetPlatoonTemplate( self, builder:GetPlatoonTemplate(), aiBrain )
 			
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
---[[			
+
 				if ScenarioInfo.PlatoonDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(builder.BuilderName).." using "..repr(template[1]))
 				end
---]]				
+
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
@@ -218,15 +218,13 @@ PlatoonFormManager = Class(BuilderManager) {
 				if Builders[builder.BuilderName].PlatoonAddPlans then
 				
 					for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
---[[					
+
 						if ScenarioInfo.PlatoonDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
 						end
---]]					
+
 						hndl:ForkThread( hndl[papv], aiBrain )
-						
 					end
-					
 				end
 
 				if Builders[builder.BuilderName].PlatoonAddFunctions then
@@ -249,22 +247,19 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
 
 						if ScenarioInfo.PlatoonDialog then
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
 						end
 					
 						hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[papv], aiBrain )
-						
 					end
 				end
 
 			else
-			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
-			
+                if ScenarioInfo.PlatoonDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
+                end
 			end
-			
         end
-		
     end,
 	
 }

@@ -51,7 +51,10 @@
 
 	
 	-- INTEL, BASEMONITORS and DISTRESS RESPONSE dialogs
-	ScenarioInfo.DisplayIntelPoints = false
+    ScenarioInfo.IntelDialog = false
+    LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
+    
+	ScenarioInfo.DisplayIntelPoints = true
 	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 	
 	ScenarioInfo.DisplayPingAlerts = false

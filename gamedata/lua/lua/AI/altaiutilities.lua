@@ -2277,7 +2277,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		
 		if not loadissued or not unitstoload then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..data.Transport.Sync.id.." from "..repr(transports.BuilderName).." no load issued or units to load")
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..data.Transport.Sync.id.." from "..repr(transports.BuilderName).." no load issued or units to load")
+            end
 		
 			-- RTP any transport with nothing to load
 			ForkTo( ReturnTransportsToPool, aiBrain, {data.Transport}, true )
@@ -2392,7 +2394,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		for k,v in GetPlatoonUnits(transports) do
 	
 			if v and (not v.Dead) and LOUDGETN(v:GetCargo()) == 0 then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTP 5")
+
 				ForkTo( ReturnTransportsToPool, aiBrain, {v}, true )
 
 				transports[k] = nil
@@ -2421,11 +2423,14 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			-- essentially giving each transport an air threat level of 14
 			local safePath, reason = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 240)
 		
-			if not safePath then
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." USETRANSPORTS finds no safe path to "..repr(location).." using threat of "..airthreatMax)
-			else
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." has path to "..repr(location))
-			end
+            if ScenarioInfo.TransportDialog then
+            
+                if not safePath then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." no safe path to "..repr(location).." using threat of "..airthreatMax)
+                else
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - "..repr(safePath))
+                end
+            end
 		
 			if PlatoonExists( aiBrain, transports) then
 		
@@ -2448,9 +2453,12 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 							prevposition = p
 						end
 					end
+                    
 				else
-					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." goes direct to "..repr(location))
+                
+					if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." goes direct to "..repr(location))
+                    end
 			
 					-- go direct ?? -- what ?
 					IssueFormMove( GetPlatoonUnits(transports), location, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location )) 
@@ -2742,7 +2750,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 			else
             
                 if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB after drop")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- home -- after drop")
                 end
                 
 				-- go direct -- possibly bad

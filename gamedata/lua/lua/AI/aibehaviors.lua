@@ -2398,9 +2398,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
             LOUDINSERT( categoryList, v )
         end
     end
---[[
-    self:SetPrioritizedTargetList( 'Attack', categoryList )
---]]
 
     local target = false
 	local targetposition = false

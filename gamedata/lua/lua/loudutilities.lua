@@ -866,7 +866,7 @@ function SetPrimaryLandAttackBase( aiBrain )
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimaryLandAttackBase or aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
@@ -965,7 +965,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 				-- save the current position on the brain and notify allies
 				if not aiBrain.LastPrimarySeaAttackBase or aiBrain.LastPrimarySeaAttackBase != aiBrain.PrimarySeaAttackBase then
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
 					
 					-- reset the tasks with Priority Functions at this PFM
 					builderManager:ForkThread( ResetPFMTasks, aiBrain )
@@ -989,6 +989,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 			end
 		end
     else
+        LOG("*AI DEBUG "..aiBrain.Nickname.." has no attack plan - cannot set Primary Base")
 		aiBrain.PrimarySeaAttackBase = false
     end
 end
@@ -1304,7 +1305,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						end
                     else
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
                     end
                 end
                 
@@ -1335,8 +1336,10 @@ function AirUnitRefitThread( unit, aiBrain )
                             end
                 
                         else
-            
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB after drop")
+                        
+                            if ScenarioInfo.TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- refuel no airpad -- after drop")
+                            end
                 
                             -- go direct -- possibly bad
                             IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
@@ -1401,7 +1404,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 
             else
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB after drop")
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
+                end
                 
                 -- go direct -- possibly bad
                 IssueMove( {unit}, GetPosition(airstage))
@@ -2194,7 +2199,7 @@ function DeadBaseMonitor( aiBrain )
 				-- if base has no engineers AND has had no factories for about 200 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k))
 					
 					-- handle the MAIN base
 					if k == 'MAIN' then
@@ -3134,17 +3139,32 @@ function ParseIntelThread( aiBrain )
 	
 
 	local function DrawRectangle(aiBrain, threat, color)
-		for x = 1,15 do
-			DrawLine({threat[1]-IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]-IMAPRadius}, color)
-			DrawLine({threat[1]+IMAPRadius,0,threat[2]-IMAPRadius},{threat[1]+IMAPRadius,0,threat[2]+IMAPRadius}, color)
-			DrawLine({threat[1]+IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]+IMAPRadius}, color)
-			DrawLine({threat[1]-IMAPRadius,0,threat[2]+IMAPRadius},{threat[1]-IMAPRadius,0,threat[2]-IMAPRadius}, color)
-			WaitTicks(1)
+
+		if aiBrain.ArmyIndex != GetFocusArmy() then
+            return
+        end
+    
+        local a = {threat[1]-IMAPRadius,0,threat[2]-IMAPRadius}
+        local b = {threat[1]+IMAPRadius,0,threat[2]-IMAPRadius}
+        local c = {threat[1]+IMAPRadius,0,threat[2]+IMAPRadius}
+        local d = {threat[1]-IMAPRadius,0,threat[2]+IMAPRadius}
+        
+		for x = 1,50 do
+			DrawLine( a, b, color)
+			DrawLine( b, c, color)
+			DrawLine( c, d, color)
+			DrawLine( d, a, color)
+			WaitTicks(2)
 		end
 	end
 	
 	local function DrawCirc(aiBrain, position, range, color)
-		for x = 1,15 do
+
+		if aiBrain.ArmyIndex != GetFocusArmy() then
+            return
+        end
+        
+		for x = 1,35 do
 			DrawCircle( position, range, color)
 			WaitTicks(1)
 		end
@@ -3180,20 +3200,20 @@ function ParseIntelThread( aiBrain )
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- added in Economy 
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { resolution, 12 * ThresholdMult, 10, categories.AIR - categories.SATELLITE, 1,'ffff0096'},
+		Air 			= { resolution, 12 * ThresholdMult, 10, categories.AIR - categories.SATELLITE, 1,'a0ff0096'},
 		
 		Land 			= { resolution, 12 * ThresholdMult, 30, (categories.MOBILE * categories.LAND) - categories.ANTIAIR, 2,'afff9600' },
 		
 		Experimental 	= { resolution, 50, 35, (categories.EXPERIMENTAL * categories.MOBILE), 3,'ffff0000'},
         
-		Naval 			= { resolution, 18 * ThresholdMult, 35, categories.NAVAL, 3,'af0a0a0a' },
+		Naval 			= { resolution, 18 * ThresholdMult, 35, categories.NAVAL, 3,'ff0000a0' },
 		
 		Commander 		= { resolution, 60, 40, categories.COMMAND, 4,'ff00ffff' },
 
 		Artillery 		= { resolution, 100, 70, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffff00ff' },
 
-		Economy			= { resolution, 100, 70, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 7,'ddffffff' },
-		StructuresNotMex = { resolution, 30, 70, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 7, 'ff00ff00' },
+		Economy			= { resolution, 100, 70, ((categories.STRUCTURE * categories.ECONOMIC) + (categories.FACTORY * categories.STRUCTURE)), 7,'a0ffffff' },
+		StructuresNotMex = { resolution, 30, 70, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.FACTORY - (categories.NAVAL * categories.DEFENSE), 7, 'ff00c000' },
 	}
 
 	local numchecks = 0
@@ -3318,7 +3338,7 @@ function ParseIntelThread( aiBrain )
 			
 				mergedistance = vx[1]*vx[1]
 				
-				if ScenarioInfo.DisplayIntelPoints then
+				if ScenarioInfo.IntelDialog then
 					LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." checking "..threatType.." mergedistance is "..vx[1] )
 				end
 			
@@ -3340,7 +3360,7 @@ function ParseIntelThread( aiBrain )
 			
                 gametime = LOUDFLOOR(GetGameTimeSeconds())
 				
-				if ScenarioInfo.DisplayIntelPoints then
+				if ScenarioInfo.IntelDialog then
 					LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." gets "..table.getn(threats).." "..threatType.." results at GameSecond "..gametime)
 				end
 	
@@ -3353,7 +3373,7 @@ function ParseIntelThread( aiBrain )
                     -- only check threats above minimumcheck otherwise break as rest will be below that
                     if threat[3] > vx[2] then
 					
-						if ScenarioInfo.DisplayIntelPoints then
+						if ScenarioInfo.IntelDialog then
 							LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." processing "..threatType.." threat of "..repr(threat[3]).." at "..repr( {threat[1],0,threat[2]} ))
 						end
 
@@ -3401,10 +3421,11 @@ function ParseIntelThread( aiBrain )
 						-- otherwise just move onto the next threat and let this threat age
 						if counter > 0 then
 					
-							if ScenarioInfo.DisplayIntelPoints then
-							
+							if ScenarioInfo.IntelDialog then
 								LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Reviewing threat "..repr(threat).." real units "..counter)
-
+                            end
+                            
+                            if ScenarioInfo.DisplayIntelPoints then
 								aiBrain:ForkThread(DrawRectangle,threat,vx[6])
 							end
 	
@@ -3420,7 +3441,9 @@ function ParseIntelThread( aiBrain )
 							
 								aiBrain:ForkThread( DrawCirc, newPos, vx[1], vx[6] )
 								
-								LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
+                                if ScenarioInfo.IntelDialog then
+                                    LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
+                                end
 							end
 							
                             -- find the closest known unit to that new position that is within the merge distance
@@ -3438,14 +3461,17 @@ function ParseIntelThread( aiBrain )
                             newthreat = GETTHREATATPOSITION( aiBrain, newPos, Rings, true, threatType )
 							
 							if newthreat < (threat[3]/2) then
-								if ScenarioInfo.DisplayIntelPoints then
+                            
+								if ScenarioInfo.IntelDialog then
 									LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." "..repr(threatType).." threat at "..repr(newPos).." reports "..newthreat.." versus "..threat[3].." from IMAP")
 								end
+                                
 								newthreat = threat[3]/2
 							end
 							
 							if table.getn(units) < 1 then
-								if ScenarioInfo.DisplayIntelPoints then
+                            
+								if ScenarioInfo.IntelDialog then
 									LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." "..repr(threatType).." shows "..threat[3].." at "..repr(newPos).." but I find no units ")
 								end
                                 
@@ -3457,7 +3483,7 @@ function ParseIntelThread( aiBrain )
 
 							newtime = gametime
 							
-							if ScenarioInfo.DisplayIntelPoints then
+							if ScenarioInfo.IntelDialog then
 								LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." doing merge with existing HiPri")
 							end
 
@@ -3476,7 +3502,7 @@ function ParseIntelThread( aiBrain )
 									
 										if dupe then
 										
-											if ScenarioInfo.DisplayIntelPoints then
+											if ScenarioInfo.IntelDialog then
 												LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Killing Duplicate "..threatType.." at "..repr(loc.Position) )
 											end
 										
@@ -3490,7 +3516,7 @@ function ParseIntelThread( aiBrain )
 										
 										if newthreat > vx[2] then
 										
-											if ScenarioInfo.DisplayIntelPoints then
+											if ScenarioInfo.IntelDialog then
 												LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Updating Existing "..threatType.." to "..repr(newthreat).." from "..repr(loc.Position).." to "..repr(newPos) )
 											end
 										
@@ -3503,7 +3529,7 @@ function ParseIntelThread( aiBrain )
 										
 											loc.Position = newPos
 										else
-											if ScenarioInfo.DisplayIntelPoints then
+											if ScenarioInfo.IntelDialog then
 												LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Removing Existing "..threatType.." "..repr(newthreat).." too low at "..repr(loc.Position))
 											end
 											
@@ -3517,7 +3543,7 @@ function ParseIntelThread( aiBrain )
                             -- if not a duplicate and it passes the threat threshold we'll add it - otherwise we ignore it
                             if (not dupe) and newthreat > vx[2] then
 							
-								if ScenarioInfo.DisplayIntelPoints then
+								if ScenarioInfo.IntelDialog then
 									LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Inserting new "..threatType.." threat of "..newthreat.." at "..repr(newPos))
 								end
 
@@ -3546,7 +3572,7 @@ function ParseIntelThread( aiBrain )
 
 		timecheck = GetGameTimeSeconds()
 
-		if ScenarioInfo.DisplayIntelPoints then
+		if ScenarioInfo.IntelDialog then
 			LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." Purging Stale HiPri data - table has "..table.getn(aiBrain.IL.HiPri) )
             --LOG("*AI DEBUG HiPri list is "..repr(aiBrain.IL.HiPri))
             --LOG("*AI DEGUG LowPri list is "..repr(aiBrain.IL.LowPri))
@@ -3576,7 +3602,7 @@ function ParseIntelThread( aiBrain )
 			end
 		end
 
-		if ScenarioInfo.DisplayIntelPoints then
+		if ScenarioInfo.IntelDialog then
           
             for s, t in aiBrain.IL.HiPri do
                 totalcount = totalcount + 1
@@ -3613,7 +3639,7 @@ function ParseIntelThread( aiBrain )
 
 		if parseinterval - usedticks >= 10 then
 		
-			if ScenarioInfo.DisplayIntelPoints then	
+			if ScenarioInfo.IntelDialog then	
 				LOG("*AI DEBUG PARSEINTEL "..aiBrain.Nickname.." On Wait for ".. parseinterval - usedticks .. " ticks")	
 			end
 			
@@ -3922,7 +3948,7 @@ function AttackPlanner(self, enemyPosition)
     self.AttackPlan.StagePoints = {}
     self.AttackPlan.GoSignal = false
 	
-	LOG("*AI DEBUG "..self.Nickname.." starts Attack Planner")
+	--LOG("*AI DEBUG "..self.Nickname.." starts Attack Planner")
 
     CreateAttackPlan( self, enemyPosition )
 
@@ -4346,14 +4372,14 @@ function DrawIntel( aiBrain )
 	
 	local threatColor = {
 		--ThreatType = { ARGB value }
-		StructuresNotMex = 'ff00ff00', #--Green
+		--StructuresNotMex = 'ff00ff00', #--Green
 		Commander = 'ff00ffff', #--Cyan
-		Economy = 'ddffffff', #--White
+		Economy = 'a0ffffff', #--White
 		Experimental = 'ffff0000', #--Red
-		Artillery = 'ffff00ff', #--purple
-		Land = 'afff9600', #--Orange
-		Naval = 'af0a0a0a', #--Black
-		Air = 'ffff0096', #--Pink
+		Artillery = 'fffffc00', #--Yellow
+		Land = 'ffa000ff', #--Purple
+		Naval = 'ff0000a0', #--Blueish (again)
+		Air = 'a0ff0096', #--Pink
 		AntiAir = 'ff00ff00', #-- Green
 	}
 	
@@ -4361,31 +4387,32 @@ function DrawIntel( aiBrain )
 		--ThreatType = { ARGB value }
 		StructuresNotMex = 'ff00ff00', #--Green
 		Commander = 'ff00ffff', #--Cyan
-		Economy = 'ddffffff', #--White
+		Economy = 'a0ffffff', #--White
 		Experimental = 'ffff0000', #--Red
-		Artillery = 'ffffff00', #--Yellow
-		Land = 'ffff9600', #--Orange
-		Naval = 'ffff00ff', #--Purple
-		Air = 'ffffd700', #--gold
+		Artillery = 'fffffc00', #--Yellow
+		Land = 'ffa000ff', #--Purple
+		Naval = 'ff0000a0', #--Blueish (again)
+		Air = 'a0ff0096', #--Pink
 		AntiAir = 'ffff0000', #-- red
 	}	
 	
 	-- this will draw resolved intel data (specific points)
-	local function DrawIntelPoint(position, color)
-	
-		for i = 0,5 do
-			DrawC( position, 1, color )
-			WaitTicks(1)
-			DrawC( position, 3, color )
-			WaitTicks(1)
-			DrawC( position, 5, color )	
-			WaitTicks(1)
-			DrawC( position, 7, color )
-			WaitTicks(1)
-			DrawC( position, 9, color )	
-			WaitTicks(1)
+    -- for about 6 seconds
+	local function DrawIntelPoint(position, color, threatamount)
+    
+        local threatscalar = 20
+        
+		for i = 0,3 do
+        
+            -- radiate out from point according to threat intensity
+            for distance = 0, math.floor(threatamount/threatscalar) do
+            
+                DrawC( position, distance, color )
+                WaitTicks(1)
+                DrawC( position, distance +1, color)
+                WaitTicks(1)
+            end
 		end
-		
 	end
 
 	-- this will draw 'raw' intel data (standard threat map points)
@@ -4396,13 +4423,9 @@ function DrawIntel( aiBrain )
 		for _,v in threats do
 		
 			if v[3] > 5 then
-			
-				ForkThread( DrawIntelPoint, {v[1],0,v[2]}, threatColor2[Type] )
-				
+				ForkThread( DrawIntelPoint, {v[1],0,v[2]}, threatColor2[Type], v[3] )
 			end
-			
 		end
-		
 	end
 	
 	while true do
@@ -4410,24 +4433,26 @@ function DrawIntel( aiBrain )
 		if aiBrain.ArmyIndex == GetFocusArmy() then
 		
             local inteldata = aiBrain.IL.HiPri
-			
+            -- inteldata.LastScouted
+            -- inteldata.LastUpdate
+            -- inteldata.Position
+            -- inteldata.Threat
+            -- inteldata.Type
+            
+            -- display the HiPri positions every 3.5 seconds --
 			for _,v in inteldata do
 			
+                -- for any active types in the threatColor table --
 				if threatColor[v.Type] then
 				
-					ForkThread( DrawIntelPoint, v.Position, threatColor[v.Type] )
+					ForkThread( DrawIntelPoint, v.Position, threatColor[v.Type], v.Threat )
 					
 					--ForkThread( DrawRawIntel, v.Position, v.Type )
-					
 				end
-				
-				--WaitTicks(1)
-				
 		    end
-			
 		end
 		
-		WaitTicks(25)
+		WaitTicks(35)
 		
 	end
 	

@@ -205,9 +205,9 @@ EngineerManager = Class(BuilderManager) {
 		
         if builder and (not unit.Dead) and (not unit.Fighting) then
 
-			--if ScenarioInfo.PlatoonDialog then
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
-			--end
+			if ScenarioInfo.PlatoonDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
+			end
 			
             local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builders[builder.BuilderName].PlatoonTemplate].Plan or 'none' )
 
@@ -262,6 +262,10 @@ EngineerManager = Class(BuilderManager) {
 			
                 for pafk, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
                     ForkThread( import(pafv[1])[pafv[2]], hndl, aiBrain)
+
+					if ScenarioInfo.PlatoonDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(pafv[2]))
+					end
                 end
             end
 			
@@ -276,6 +280,11 @@ EngineerManager = Class(BuilderManager) {
             if Builders[builder.BuilderName].PlatoonAddPlans then
 			
                 for papk, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+
+					if ScenarioInfo.PlatoonDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
+					end
+
                     hndl:ForkThread( hndl[papv], aiBrain )
                 end
             end
@@ -284,6 +293,11 @@ EngineerManager = Class(BuilderManager) {
 			
 				-- fork off all the additional behaviors --
                 for pafk, pafv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+
+					if ScenarioInfo.PlatoonDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(pafv))
+					end
+
                     hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[pafv], aiBrain )
                 end
             end
