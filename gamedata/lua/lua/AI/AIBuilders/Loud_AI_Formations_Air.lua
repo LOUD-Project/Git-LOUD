@@ -278,7 +278,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
         InstanceCount = 3,
@@ -288,19 +288,19 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 110,
+			DistressRange = 100,
 			DistressTypes = 'Land',
 			DistressThreshold = 5,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 16,
+            MergeLimit = 12,
 			
             MissionTime = 90,
 			
             PrioritizedCategories = {categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 35,	
+			SearchRadius = 30,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -318,7 +318,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 
         Priority = 710,
 		
@@ -327,24 +327,23 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
         },
 		
         BuilderData = {
-			DistressRange = 140,
+			DistressRange = 150,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 20,
+            MergeLimit = 25,
 			
             MissionTime = 150,
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
-			SearchRadius = 55,
+			SearchRadius = 50,
 			
             UseFormation = 'AttackFormation',
         },
@@ -362,7 +361,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 
         Priority = 720,
 
@@ -407,7 +406,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 710,
 		
@@ -441,7 +440,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 710,
 		
@@ -475,7 +474,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 710,
 		
@@ -509,7 +508,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 
         Priority = 710,
 		
@@ -542,7 +541,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 710,
 		
@@ -1343,7 +1342,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
         InstanceCount = 3,
@@ -1381,7 +1380,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',
 
         Priority = 710,
 		
@@ -1422,7 +1421,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',
 
         Priority = 720,
 		
@@ -1505,7 +1504,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',
 		
         Priority = 710,
 		
@@ -1795,7 +1794,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 	
         PlatoonTemplate = 'Experimental Bomber',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'},{BHVR, 'AirForceAILOUD'} },		
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'},{BHVR, 'AirForceAI_Bomber_LOUD'} },		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		

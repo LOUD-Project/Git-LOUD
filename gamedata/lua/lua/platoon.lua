@@ -3993,6 +3993,16 @@ Platoon = Class(moho.platoon_methods) {
 		end
 	
 	end,
+    
+    AttackForceAI_Bomber = function( self, aiBrain )
+	
+        if self.MovementLayer == 'Air' then
+		
+			self:ForkAIThread( Behaviors.AirForceAI_Bomber_LOUD, aiBrain) 
+			
+		end
+    
+    end,
 
 	BombardForceAI = function( self, aiBrain )
 	
