@@ -248,7 +248,7 @@ function AIPickEnemyLogic( self, brainbool )
 					-- AI will announce the current target to allies
 					SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
 					
-                    LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+                    --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
 					
                     -- create a new attack plan
                     self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
@@ -970,7 +970,7 @@ end
 -- This function sets up the cheats used by the AI
 function SetupAICheat(aiBrain)
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Cheating AI functions")
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Cheating AI functions")
 	
 	local PlayerDiff = (aiBrain.NumOpponents or 1)/(aiBrain.Players - aiBrain.NumOpponents)
 
@@ -996,7 +996,6 @@ function SetupAICheat(aiBrain)
 
 		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.AIMult or 1)
 
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Unit Cap to "..cheatCap)
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
 		
     end
@@ -1006,29 +1005,16 @@ function SetupAICheat(aiBrain)
 	aiBrain.StartingUnitCap = GetArmyUnitCap(aiBrain.ArmyIndex)
 
 	-- start the spawn wave thread for cheating AI --
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Spawn wave started ")
     aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
 
 	
-	#== CREATE THE BUFFS THAT WILL BE USED BY THE CHEATING AI ==#
+	#== CREATE THE BUFFS THAT WILL BE USED BY THE AI ==#
 
 	-- build rate cheat
     local buffDef = Buffs['CheatBuildRate']
 	local buffAffects = buffDef.Affects
 	
-	--buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.BuildMult)
-    buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.AIMult)
-	
-	
-	-- reduce mass/energy used when building and maintaining
-	-- but only at 75% of the build multiplier
-	--local modifier = 0.75 * (1 - (tonumber(ScenarioInfo.Options.BuildMult)) )
-    local modifier = 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) )
-	
-	buffAffects.EnergyMaintenance.Add = modifier
-	buffAffects.EnergyActive.Add = modifier
-	buffAffects.MassActive.Add = modifier
-	
+	buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.AIMult)
 
 	-- resource rate cheat buff
     buffDef = Buffs['CheatIncome']
@@ -1037,8 +1023,23 @@ function SetupAICheat(aiBrain)
 	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	
+	
+	
+	-- reduce mass/energy used when building and maintaining
+	-- but only at 75% of the build multiplier
+    -- and only when multiplier > 1
+    local modifier = 1
+    
+    if tonumber(ScenarioInfo.Options.AIMult) > 1 then
+        modifier = 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) )
+    end
+	
+	buffAffects.EnergyMaintenance.Add = modifier
+	buffAffects.EnergyActive.Add = modifier
+	buffAffects.MassActive.Add = modifier
+	
 
-	-- intel range cheat -- increases intel ranges by the cheat buff 
+	-- intel range cheat -- increases intel ranges by the multiplier
 	buffDef = Buffs['CheatIntel']
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
@@ -1046,22 +1047,23 @@ function SetupAICheat(aiBrain)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.SonarRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	
-	-- storage cheat -- increases storage by the cheat buff 
+	-- storage cheat -- increases storage by the multiplier
 	buffDef = Buffs['CheatStorage']
 	buffAffects = buffDef.Affects
 	buffAffects.EnergyStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.MassStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
 
-	-- overall cheat buff -- applied at 50% of the resource cheat multiplier
+	-- overall cheat buff -- applied at 50% of the multiplier
 	-- alter unit health and shield health and regen rates
 	-- and the delay period between upgrades
+    -- and only when multiplier => 1
 	buffDef = Buffs['CheatALL']
 	buffAffects = buffDef.Affects
 	
-	modifier = tonumber(ScenarioInfo.Options.AIMult) - 1.0 
+	modifier = math.max( 0, tonumber(ScenarioInfo.Options.AIMult) - 1.0 )
 	modifier = modifier * 0.5
 	modifier = 1.0 + modifier
-	
+
 	buffAffects.MaxHealth.Mult = modifier
 	buffAffects.RegenPercent.Mult = modifier
 	buffAffects.ShieldRegeneration.Mult = modifier

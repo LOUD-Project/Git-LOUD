@@ -107,11 +107,6 @@ BaseBuilderTemplate {
         'Engineer Shield Construction',
 	},
 
-    -- Required since non-cheating AI ACU doesn't have good radar
-    NonCheatBuilders = {
-        'Engineer Radar Construction',
-    },
-    
     BaseSettings = {
     
 		-- This controls the upper limit on the engineers at this base

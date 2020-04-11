@@ -490,14 +490,10 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
     end
 	
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
-	
-	if aiBrain.CheatingAI then
-	
-		--capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.BuildMult )) * (tonumber(ScenarioInfo.Options.BuildMult )) ))
-        capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) ))
-	
-	end
-	
+
+    -- always use the largest value - so even if the cheat level is less than 1 - we'll have the usual number of engineers
+    capCheck = math.max( capCheck, math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) )) )
+
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
@@ -541,13 +537,10 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
     end
 	
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
-	
-	if aiBrain.CheatingAI then
-	
-        --capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.BuildMult )) * (tonumber(ScenarioInfo.Options.BuildMult )) ))
-        capCheck = math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) ))
-	end
     
+    -- multiply the engineer limit by the AI multiplier - but insure it's never less than minimum (if multiplier is less than 1)
+    capCheck = math.max( capCheck, math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) )) )
+
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --

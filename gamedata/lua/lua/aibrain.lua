@@ -574,7 +574,9 @@ AIBrain = Class(moho.aibrain_methods) {
 		self.PingCallbackList = {}
         
 		self.IgnoreArmyCaps = false
-		self.CheatingAI = false
+
+        -- all AI are technically 'cheaters' now --
+        self.CheatingAI = true
 		
         local civilian = false
         
@@ -597,19 +599,7 @@ AIBrain = Class(moho.aibrain_methods) {
 				self.CurrentPlan = self.AIPlansList[self.FactionIndex][1]
 				
 			end
-			
-            local per = ScenarioInfo.ArmySetup[self.Name].AIPersonality
-            
-            local cheatPos = LOUDSTRING( per, 'cheat')
-			
-            if cheatPos then
-			
-				-- strip the cheat from the AI name
-                ScenarioInfo.ArmySetup[self.Name].AIPersonality = string.sub( per, 1, cheatPos - 1 )
 
-				self.CheatingAI = true
-            end
-			
 			-- go get and set a plan for MAIN
 			if self:IsOpponentAIRunning() then
 			

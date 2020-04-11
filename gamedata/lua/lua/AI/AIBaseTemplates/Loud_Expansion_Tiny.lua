@@ -67,10 +67,7 @@ BaseBuilderTemplate {
 		'Land Formations - Land Map',
 		'Engineer T4 Air Construction - Expansions',
 	},
-	
-    NonCheatBuilders = {
-	},
-	
+
 	LOUD_IS_Installed_Builders = {
 	},
 	

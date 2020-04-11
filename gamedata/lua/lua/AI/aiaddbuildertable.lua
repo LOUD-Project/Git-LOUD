@@ -119,18 +119,6 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 		
 	end
 	
-	
-	-- load the non-cheating templates
-    if not aiBrain.CheatingAI and BaseBuilderTemplates[baseBuilderName].NonCheatBuilders then
-	
-        for k,v in BaseBuilderTemplates[baseBuilderName].NonCheatBuilders do
-		
-            AddGlobalBuilderGroup( v )
-			
-        end
-		
-    end
-	
 	-- load the LOUD Integrated Storage templates
 	if ScenarioInfo.LOUD_IS_Installed then
 

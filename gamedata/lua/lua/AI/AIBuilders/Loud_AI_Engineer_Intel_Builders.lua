@@ -6,6 +6,7 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+--[[
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction',
     BuildersType = 'EngineerBuilder',
 	
@@ -43,6 +44,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction',
         }
     },
 }
+
+--]]
 
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     BuildersType = 'EngineerBuilder',

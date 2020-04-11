@@ -67,9 +67,7 @@ BaseBuilderTemplate {
 		'Engineer Mass Fab Construction - Expansions',
 		'Mass Storage',
 	},
-	
-    NonCheatBuilders = {},
-	
+
     BaseSettings = {
         EngineerCount = {
             Tech1 = 1,

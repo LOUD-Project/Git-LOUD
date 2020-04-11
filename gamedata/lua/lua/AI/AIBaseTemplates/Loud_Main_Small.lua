@@ -119,12 +119,7 @@ BaseBuilderTemplate {
 		'Engineer T4 Economy Defense Construction',
         'Engineer Shield Construction',
 	},
-	
-    
-    NonCheatBuilders = {
-        'Engineer Radar Construction',
-    },
-    
+
     BaseSettings = {
 	
         EngineerCount = {

@@ -482,30 +482,26 @@ BuilderManager = Class {
 				for bType,bTypeData in self.BuilderData do
                 
                     if ScenarioInfo.PlatoonDialog then
-                    
                         LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()) )
-                        
                     end
 			
 					for _,bData in bTypeData.Builders do
 					
 						if bData.Priority >= 100 then
-                        
+--[[                        
                             if ScenarioInfo.PlatoonDialog then
                         
                                 LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." testing "..repr(bData.Priority).." "..repr(bData.BuilderName))
                                 
                             end
-					
+--]]					
 							numTested = numTested + 1
 						
 							if GetBuilderStatus( bData, brain.ConditionsMonitor.ResultTable ) then
                             
-                                --if ScenarioInfo.PlatoonDialog then
-                                
-                                  --  LOG("*AI DEBUG "..brain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(bData.BuilderName))
-                                    
-                                --end
+                                if ScenarioInfo.PlatoonDialog then
+                                    LOG("*AI DEBUG "..brain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(bData.BuilderName))
+                                end
 						
 								ForkTo ( ManagerLoopBody, self, bData, bType, brain )
 							
@@ -515,13 +511,9 @@ BuilderManager = Class {
 								numTicks = numTicks + ticksize
 							
 							end
-						
 						end
-					
 					end
-				
 				end
-			
 			end
 			
 			if numTicks < duration then

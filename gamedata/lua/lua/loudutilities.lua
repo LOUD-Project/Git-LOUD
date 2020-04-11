@@ -3990,13 +3990,10 @@ function CreateAttackPlan( self, enemyPosition )
 					return true
 					
 				end
-				
 			end	
-			
 		end
 		
 		return false
-		
 	end	
 	
     -- first lets build a masterlist of all valid staging points between start and goal
@@ -4023,11 +4020,8 @@ function CreateAttackPlan( self, enemyPosition )
                     break
 					
                 end
-				
             end
-			
         end
-		
     end
 
 	if table.getn(markerlist) < 1 then
@@ -4199,9 +4193,7 @@ function CreateAttackPlan( self, enemyPosition )
 				GoalReached = true
 				
 			end
-			
         end 
-		
     end
 
 	
@@ -4212,7 +4204,6 @@ function CreateAttackPlan( self, enemyPosition )
 		self.AttackPlan.StageCount = StageCount
         self.AttackPlan.StagePoints = { [0] = StartPosition }
         self.AttackPlan.GoSignal = false
-		
 
         local counter = 1
 

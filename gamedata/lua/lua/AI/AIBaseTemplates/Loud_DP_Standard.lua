@@ -43,11 +43,7 @@ BaseBuilderTemplate {
 	LOUD_IS_Not_Installed_Builders = {
 		'Engineer Mass Storage Construction - Active DP',
 	},
-	
-    NonCheatBuilders = {
 
-    },
-	
     BaseSettings = {
 	
         EngineerCount = {

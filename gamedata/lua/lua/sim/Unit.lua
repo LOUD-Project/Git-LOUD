@@ -355,13 +355,11 @@ Unit = Class(moho.unit_methods) {
         self.Dead = false		
 		self.PlatoonHandle = false
 
-		-- apply cheat buffs to AI units
+        -- all AI are technically cheaters --
         if self:GetAIBrain().CheatingAI then
-		
-			ApplyCheatBuffs(self)
-			
+            ApplyCheatBuffs(self)
         end
-		
+
 		-- this routine gets launched on EVERY unit
 		-- since it really only does anything if the blueprint has the
 		-- correct audio section - then this should only be launched if

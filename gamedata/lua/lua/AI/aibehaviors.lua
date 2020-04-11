@@ -3947,12 +3947,9 @@ function EngineerTransferAI( self, aiBrain )
 			
 			
 			local capCheck = v.BaseSettings.EngineerCount[Eng_Type] or 1
-			
-			if aiBrain.CheatingAI then
-			
-				--capCheck = math.floor( capCheck * ((tonumber(ScenarioInfo.Options.BuildMult )) * (tonumber(ScenarioInfo.Options.BuildMult )) ))
-                capCheck = math.floor( capCheck * ((tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) ))
-			end
+            
+            -- use maximum amount but never let it go below the base value due to AI multiplier being less than 1
+            capCheck = math.max(capCheck, math.floor( capCheck * ((tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) )) )
 			
 			if aiBrain.StartingUnitCap >= 1000 then
 			

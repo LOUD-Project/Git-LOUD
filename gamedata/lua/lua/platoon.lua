@@ -441,9 +441,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					LOG("*AI DEBUG SendPlatWTrans says Water")
 					return false
-					
 				end
-				
 			end
 			
 			-- a local function to get the real surface and air threat at a position based on known units rather than using the threat map
@@ -557,9 +555,7 @@ Platoon = Class(moho.platoon_methods) {
 			for counter = 1, attempts do
 			
 				if PlatoonExists( aiBrain, self ) then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." call transports attempt "..counter)
-					
+
 					-- check if we can get enough transport and how many transports we are using
 					-- this call will return the # of units transported (true) or false, if true, the self holding the transports or false
 					bUsedTransports, transportplatoon = GetTransports( self, aiBrain )
@@ -582,8 +578,6 @@ Platoon = Class(moho.platoon_methods) {
 				return false
 			end
 
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." assigns "..transportplatoon.BuilderName.." to "..self.BuilderName)
-	
 			-- ===================================
 			-- FIND A DROP ZONE FOR THE TRANSPORTS
 			-- ===================================
@@ -6489,6 +6483,8 @@ Platoon = Class(moho.platoon_methods) {
 							if not EngineerBuildValid( buildlocation, builditem ) then
 						
 								eng.failedmoves = eng.failedmoves + 2
+                                
+               					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." build invalid")
 								
 								ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )								
 							
@@ -6611,10 +6607,6 @@ Platoon = Class(moho.platoon_methods) {
 										-- in this way Enemy bases and full allied bases can be marked as taken
 										-- while still allowing Allied players to share other markers
 										
-										--if (not Ally and brain.BuilderManagers[ eng.NewExpansion[1] ].CountedBase)
-											--or (Ally and brain.BuilderManagers[ eng.NewExpansion[1] ].CountedBase != false) then
-											
-										
 										-- I no longer permit any base sharing --	
 										if Ally then
 	
@@ -6625,11 +6617,8 @@ Platoon = Class(moho.platoon_methods) {
 											break
 
 										end
-
 									end
-
 								end
-
 							end
 							
 							if eng.Dead or basetaken or not eng.NewExpansion[2] then

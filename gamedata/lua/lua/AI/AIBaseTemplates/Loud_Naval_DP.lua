@@ -42,7 +42,7 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {},
-    NonCheatBuilders = {},
+
 	LOUD_IS_Installed_Builders = {},
 	LOUD_IS_Not_Installed_Builders = {},
 	

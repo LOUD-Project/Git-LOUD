@@ -937,13 +937,15 @@ Tooltips = {
         description = 'You can pause the game at any time',
     },
     
-	########################
-	#   Cheat Multiplyer   #
-	########################
+	#####################
+	#   AI Multiplier   #
+	#####################
+    
     ["Lobby_Cheat_Mult"] = {
         title = "Cheat Multiplyer",
-        description = "Sets the resource multiplier for the cheating AIs.",
+        description = "Sets the difficulty multiplier for the AI.",
     },
+    
 	["lob_AIMult_0.8"] = {
         title = "0.8",
         description = "AI Difficulty -20%. - greatly reduced",
@@ -954,7 +956,7 @@ Tooltips = {
     },	
 	["lob_AIMult_1.0"] = {
         title = "1.0",
-        description = "AIx Normal Resources.",
+        description = "AI Normal Difficulty.",
     },
 	["lob_AIMult_1.05"] = {
         title = "1.05",
@@ -1028,16 +1030,92 @@ Tooltips = {
         title = "2.00",
         description = "AI Difficulty +100%",
     },
-    
 
-	lob_CapCheat_cheatlevel = {
-		title = "Enhanced",
-		description = "AIx Commanders unit cap is Unit Cap times Resource Cheat multiplier",
-	},
-	lob_UnitCap_250 = {
-        title = "250",
-        description = "250 units per player may be in play.",
+	########################
+	#	Unit Cap Cheat	   #
+	########################
+    ["Lobby_Cap_Cheat"] = {
+        title = "Unit Cap Setting",
+        description = "Sets if AI players have normal unit caps, enhanced unit caps (by AI multiplier) or an unlimited unit cap.",
     },
+    
+	["lob_CapCheat_unlimited"] = {
+        title = "Unlimited",
+        description = "AI players have no unit limit.",
+    },
+	["lob_CapCheat_cheatlevel"] = {
+		title = "Enhanced",
+		description = "AI players get a normal unit cap modified by the AI Multiplier.",
+	},
+	["lob_CapCheat_off"] = {
+        title = "Off",
+        description = "AI players have the same unit cap as human players.",
+    },	
+
+	#####################################
+	#  Unused Start Location Resources  #
+	#####################################
+    
+	["Lobby_UnusedResources"] = {
+		title = "Unused Start Locations",
+		description = "Remove resources near unused Start Locations",
+	},
+    
+	["lob_UnusedResources_1"] = {
+		title = "Keep All",
+		description = "Keep all resources at unused Start Locations",
+	},
+	["lob_UnusedResources_2"] = {
+		title = "Keep 50%",
+		description = "50% chance that resources will be kept",
+	},
+	["lob_UnusedResources_3"] = {
+		title = "Keep 33%",
+		description = "33% chance that resources will be kept",
+	},
+	["lob_UnusedResources_4"] = {
+		title = "Keep 25%",
+		description = "25% chance that resources will be kept",
+	},
+	["lob_UnusedResources_5"] = {
+		title = "Keep 20%",
+		description = "20% chance that resources will be kept",
+	},
+	["lob_UnusedResources_10"] = {
+		title = "Keep 10%",
+		description = "10% chance that resources will be kept",
+	},
+	["lob_UnusedResources_100"] = {
+		title = "Remove All",
+		description = "No start location resources will be kept",
+	},
+    
+	#######################
+	#    Missile Options  #
+	#######################
+    
+	["Lobby_MissileOption"] = {
+		title = "Missile Options",
+		description = "Allow Nukes & Antinukes to have prebuilt missiles",
+	},
+    
+	["lob_MissileOption_0"] = {
+		title = "Empty",
+		description = "All Nukes and Antinukes are empty when built",
+	},
+	["lob_MissileOption_1"] = {
+		title = "One",
+		description = "All Nukes and Antinukes come with one missile when built",
+	},
+	["lob_MissileOption_2"] = {
+		title = "Two",
+		description = "All Nukes and Antinukes come with two missiles when built",
+	},
+
+    #################
+    #  Unit Limits  #
+    #################
+    
 	lob_UnitCap_300 = {
         title = "300",
         description = "300 units per player may be in play.",
@@ -1066,10 +1144,6 @@ Tooltips = {
         title = "600",
         description = "600 units per player may be in play.",
     },    
-	lob_UnitCap_625 = {
-        title = "625",
-        description = "625 units per player may be in play.",
-    },
 	lob_UnitCap_650 = {
         title = "650",
         description = "650 units per player may be in play.",
@@ -1086,10 +1160,14 @@ Tooltips = {
         title = "800",
         description = "800 units per player may be in play.",
     },	
-	lob_UnitCap_875 = {
-		title = "875",
-		description = "875 units per player may be in play.",
+	lob_UnitCap_850 = {
+		title = "850",
+		description = "850 units per player may be in play.",
 	},
+    lob_UnitCap_900 = {
+        title = "900",
+        description = "900 units per player may be in play.",
+    },
 	lob_UnitCap_1000 = {
         title = "1000",
         description = "1000 units per player may be in play.",
@@ -1110,7 +1188,11 @@ Tooltips = {
 		title = '4000',
 		description = '4000 units per player may be in play.',
 	},
-
+    
+    ########################
+    #  Victory Conditions  #
+    ########################
+    
 	lob_Victory_decapitation = {
 		title = "Advanced Assassination",
 		description = "Game will end when all enemy Commanders and Subcommanders are dead",
@@ -1136,6 +1218,7 @@ Tooltips = {
 		description = "Game will end after the time limit",
 	},
 
+
     ['Give Units'] = {
         title = 'Give Units',
         description = '',
@@ -1144,6 +1227,7 @@ Tooltips = {
         title = 'Give Resources',
         description = '',
     },
+
 
     lob_TeamSpawn_random = {
         title = 'Random Spawnpoints',

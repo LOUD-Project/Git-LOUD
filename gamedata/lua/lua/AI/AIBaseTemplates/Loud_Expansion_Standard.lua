@@ -82,10 +82,7 @@ BaseBuilderTemplate {
         
 		'Land Formations - Land Map',
 	},
-	
-    NonCheatBuilders = {
-	},
-	
+
 	LOUD_IS_Installed_Builders = {
 		'Engineer Mass Fab Construction - Expansions - LOUD_IS',
         'Engineer Shield Construction - Expansions - LOUD_IS',
