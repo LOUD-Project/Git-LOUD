@@ -1009,43 +1009,50 @@ function SetupAICheat(aiBrain)
 
 	
 	#== CREATE THE BUFFS THAT WILL BE USED BY THE AI ==#
+    local modifier = 1
 
 	-- build rate cheat
     local buffDef = Buffs['CheatBuildRate']
 	local buffAffects = buffDef.Affects
 	
 	buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.AIMult)
-
-	-- resource rate cheat buff
-    buffDef = Buffs['CheatIncome']
-	buffAffects = buffDef.Affects
-
-	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
-	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
-	
-	
 	
 	-- reduce mass/energy used when building and maintaining
-	-- but only at 75% of the build multiplier
+	-- but only at 75% of the multiplier (ie. at 1.1 this would be a 7.5% reduction
     -- and only when multiplier > 1
-    local modifier = 1
-    
-    if tonumber(ScenarioInfo.Options.AIMult) > 1 then
-        modifier = 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) )
-    end
+    -- so this value will always be 0 or negative
+    modifier = math.min(0, 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) ))
+
 	
 	buffAffects.EnergyMaintenance.Add = modifier
 	buffAffects.EnergyActive.Add = modifier
 	buffAffects.MassActive.Add = modifier
+
 	
+	-- resource rate cheat buff
+    buffDef = Buffs['CheatIncome']
+	buffAffects = buffDef.Affects
+	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
+	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
+
 
 	-- intel range cheat -- increases intel ranges by the multiplier
 	buffDef = Buffs['CheatIntel']
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
+    buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)    
 	buffAffects.RadarRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.SonarRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
+
+
+    -- ACU intel range buff
+    buffDef = Buffs['CheatCDROmni']
+	buffAffects = buffDef.Affects
+	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
+    buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
+	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
+   
 	
 	-- storage cheat -- increases storage by the multiplier
 	buffDef = Buffs['CheatStorage']
@@ -1053,6 +1060,7 @@ function SetupAICheat(aiBrain)
 	buffAffects.EnergyStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.MassStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
 
+    
 	-- overall cheat buff -- applied at 50% of the multiplier
 	-- alter unit health and shield health and regen rates
 	-- and the delay period between upgrades
@@ -1072,7 +1080,7 @@ function SetupAICheat(aiBrain)
 	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
-
+    
 end
 
 -- and this function will apply them to units as they are created
