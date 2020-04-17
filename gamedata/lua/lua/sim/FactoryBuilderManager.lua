@@ -369,9 +369,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 			WaitTicks(10)
 			
 		end
+        
+        -- the cheatvalue directly impacts the triggers --
+        local masstrig = 200 * (1/aiBrain.CheatValue)
+        local enertrig = 2500 * (1/aiBrain.CheatValue)
 
-		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (200 - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (2500 - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
-		
+		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+
+            -- higher tier factories check more frequently
 			WaitTicks(23 - (factory.BuildLevel * 3))
 			
 		end
@@ -615,10 +620,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
 			else
-			
-				-- transports get assigned to the Transport pool
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." ATP 3")
-                
+
 				finishedUnit:ForkThread( AssignTransportToPool, aiBrain )
 			end
 		end

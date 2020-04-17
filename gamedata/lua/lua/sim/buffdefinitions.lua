@@ -584,21 +584,21 @@ BuffBlueprint { Name = 'CheatBuildRate',
 	    BuildRate = {
 			BuffCheckFunction = AdjBuffFuncs.BuildRateBuffCheck,
             Add = 0,
-            Mult = 1.05,
+            Mult = 1,
         },
 		EnergyMaintenance = {
 		    BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-			Add = -0.20,
+			Add = -0,
 			Mult = 1.0,
 		},
 		EnergyActive = {
 		    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
-			Add = -0.20,
+			Add = -0,
 			Mult = 1.0,
 		},
 		MassActive = {
 		    BuffCheckFunction = AdjBuffFuncs.BuildBuffCheck,
-			Add = -0.20,
+			Add = -0,
 			Mult = 1.0,
 		}
     },
@@ -612,12 +612,12 @@ BuffBlueprint { Name = 'CheatIncome',
         EnergyProduction = {
 		    BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
             Add = 0,
-            Mult = 1.05,
+            Mult = 1,
         },
         MassProduction = {
 		    BuffCheckFunction = AdjBuffFuncs.MassProductionBuffCheck,
             Add = 0,
-            Mult = 1.05,
+            Mult = 1,
         }
     },
 }
@@ -629,27 +629,27 @@ BuffBlueprint { Name = 'CheatIntel',
 	Affects = {
 		VisionRadius = {
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		WaterVisionRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		RadarRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.RadarRadiusBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		SonarRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.SonarRadiusBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		OmniRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		}
 	},
 }
@@ -662,12 +662,12 @@ BuffBlueprint { Name = 'CheatStorage',
 		EnergyStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		MassStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 	},
 }
@@ -680,15 +680,19 @@ BuffBlueprint { Name = 'CheatCDROmni',
     Duration = -1,
     Affects = {
         OmniRadius = {
-            Add = 75,
-            Mult = 1.0,
-    },
-
+            Add = 15,
+            Mult = 1,
+        },
         VisionRadius = {
-            Add = 100,
-            Mult = 1.0,
-        }
-    },
+            Add = 15,
+            Mult = 1,
+        },
+		WaterVisionRadius = {
+		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,
+			Add = 15,
+			Mult = 1,
+		},    
+    },        
 }
 
 BuffBlueprint { Name = 'CheatENG',
@@ -703,15 +707,15 @@ BuffBlueprint { Name = 'CheatENG',
 		},
         VisionRadius = {
             Add = 15,
-            Mult = 1.0,
+            Mult = 1,
         },
 		WaterVisionRadius = {
 			Add = 30,
-			Mult = 1.0,
+			Mult = 1,
 		},
         OmniRadius = {
             Add = 5,
-            Mult = 1.0,
+            Mult = 1,
         }
     },
 }
@@ -724,7 +728,7 @@ BuffBlueprint { Name = 'CheatMOBILE',
     Affects = {
 		MoveMult = {
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 	},
 }
@@ -736,21 +740,21 @@ BuffBlueprint { Name = 'CheatALL',
 	Affects = {
 		MaxHealth = {
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		RegenPercent = {
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		ShieldRegeneration = {
 		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		},
 		ShieldHealth = {
 			BuffCheckFunction = AdjBuffFuncs.ShieldHealthBuffCheck,
 			Add = 0,
-			Mult = 1.05,
+			Mult = 1,
 		}
     },
 }

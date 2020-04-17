@@ -166,6 +166,8 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 
 	local MassIncome = aiBrain.EcoData['OverTime'].MassIncome
 	local EnergyIncome = aiBrain.EcoData['OverTime'].EnergyIncome
+    
+    local CheatAdjust = aiBrain.CheatValue or 1
 
 	if (aiBrain.EcoData['OverTime'].MassRequested > MassIncome) and (aiBrain.EcoData['OverTime'].EnergyRequested > EnergyIncome) then
 		if not GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
@@ -189,9 +191,12 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 	-- mult by 10 to save mult each time during check
 	MassIncome = MassIncome * 10
 	
-    local t1Drain = aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T1Value or 8
-    local t2Drain = aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 13
-    local t3Drain = aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 18
+    -- ALL Drain values are modified by the cheat level - ie. - cheaters need less to upgrade -
+    local cheatmod = 1/CheatAdjust
+    
+    local t1Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T1Value or 8)
+    local t2Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 13)
+    local t3Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 18)
 	
 	local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 

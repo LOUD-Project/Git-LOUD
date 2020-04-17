@@ -547,7 +547,7 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
 		
 	end
-	
+
 	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) >= capCheck
 	
 end
