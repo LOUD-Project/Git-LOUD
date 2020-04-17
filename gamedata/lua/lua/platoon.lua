@@ -286,7 +286,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					while self.MovingToWaypoint do
 
-						WaitTicks(15)
+						WaitTicks(10)
 
 					end
 
@@ -1414,7 +1414,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- Move the platoon to the transportLocation either by ground, transport or teleportation (engineers only)
 		-- NOTE: distance is calculated above - it's always distance from the base (RTBLocation) - not from the transport location - 
-        -- NOTE: When the platoon is within 75 of the base we just bypass this code
+        -- NOTE: When the platoon is within 60 of the base we just bypass this code
         if platPos and transportLocation and distance > (60*60) then
         
             local mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
@@ -1506,8 +1506,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- closer than 60 - move directly --
 			if platPos and transportLocation then
 			
-                --self:Stop()
-				self:AggressiveMoveToLocation(transportLocation)    --, true)		
+				self.MoveThread = self:ForkThread( self.MovePlatoon, {transportLocation}, 'GrowthFormation', true ) --:AggressiveMoveToLocation(transportLocation)    --, true)		
 				
 			end
 			
@@ -1519,7 +1518,7 @@ Platoon = Class(moho.platoon_methods) {
 		-- At this point the platoon is on its way back to base (or may be there)
 		local count = false
 		local StuckCount = 0
-		local nocmdactive = false	-- this will bypass the nocmdactive check the first time
+		--local nocmdactive = false	-- this will bypass the nocmdactive check the first time
 		
         local timer = LOUDTIME()
         local StartMoveTime = LOUDFLOOR(timer)
@@ -1535,7 +1534,7 @@ Platoon = Class(moho.platoon_methods) {
             for _,v in GetPlatoonUnits(self) do
 				
 				if not v.Dead then
-					
+--[[					
 					if nocmdactive then
 					
 						if LOUDGETN(GetCommandQueue(v)) > 0 or (not v:IsIdleState()) then
@@ -1549,7 +1548,7 @@ Platoon = Class(moho.platoon_methods) {
 						end
 						
 					end
-					
+--]]					
 					-- look for stuck units after 90 seconds
 					if (LOUDTIME() - StartMoveTime) > 90 then
 					
@@ -1666,7 +1665,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			-- if platoon idle or base is now inactive -- resubmit platoon if not dead --
-			if PlatoonExists(aiBrain, self) and (StuckCount > 10 or nocmdactive or (not aiBrain.BuilderManagers[bestBaseName])) then
+			if PlatoonExists(aiBrain, self) and (StuckCount > 10 or (not aiBrain.BuilderManagers[bestBaseName])) then
 				
 				if self.MoveThread then
 				
@@ -1784,7 +1783,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 
-			nocmdactive = true	-- this will trigger the nocmdactive check on the next pass
+			--nocmdactive = true	-- this will trigger the nocmdactive check on the next pass
 
 			WaitTicks(55)
 
@@ -7230,7 +7229,7 @@ Platoon = Class(moho.platoon_methods) {
 					oldplatpos = LOUDCOPY(platpos)
 					stuckcount = 0
 				end
-
+--[[
 				local nocmdactive = true
 
 				for _,v in platoonUnits do
@@ -7251,7 +7250,7 @@ Platoon = Class(moho.platoon_methods) {
 					LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD was idle in travel loop")
 					break 	-- platoon is idle (which should not happen inside this loop)
 				end
-
+--]]
 				local mystrength = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				
                 -- retreat behavior --
@@ -7676,7 +7675,7 @@ Platoon = Class(moho.platoon_methods) {
 			local oldplatpos = LOUDCOPY(GetPlatoonPosition(self))
 			
 			local stuckcount = 0
-			local nocmdactive
+			--local nocmdactive
 			
 			local calltransport = 3	-- call for transport on first pass --
 			
@@ -7710,8 +7709,9 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				oldplatpos = LOUDCOPY(pos)
-				nocmdactive = true
-				
+                
+				--nocmdactive = true
+--[[				
 				-- check for an idle platoon (no commands)
 				for _,v in platoonUnits do
 				
@@ -7735,7 +7735,7 @@ Platoon = Class(moho.platoon_methods) {
 					break -- platoon is idle (which should not happen inside this loop)
 					
 				end
-				
+--]]				
 				mystrength = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				
 				if mystrength <= (OriginalSurfaceThreat * .35) then
