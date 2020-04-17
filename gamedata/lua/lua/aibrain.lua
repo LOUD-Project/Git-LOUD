@@ -54,7 +54,7 @@
     ScenarioInfo.IntelDialog = false
     LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
     
-	ScenarioInfo.DisplayIntelPoints = true
+	ScenarioInfo.DisplayIntelPoints = false
 	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 	
 	ScenarioInfo.DisplayPingAlerts = false
@@ -580,7 +580,12 @@ AIBrain = Class(moho.aibrain_methods) {
 
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
-		
+
+        -- store the cheat value (ie. 1.1 = 10% cheat)
+        self.CheatValue = tonumber(ScenarioInfo.Options.AIMult)
+        
+        LOG("*AI DEBUG Setting Cheat Value to "..repr(self.CheatValue))
+
         local civilian = false
         
         for name,data in ScenarioInfo.ArmySetup do

@@ -718,7 +718,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Gunship',		
 
         Priority = 700,
         InstanceCount = 4,
@@ -759,7 +759,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Gunship',		
 		
         Priority = 710,
 		
@@ -804,7 +804,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI',		
+		PlatoonAIPlan = 'AttackForceAI_Gunship',		
 
         Priority = 720,
 
