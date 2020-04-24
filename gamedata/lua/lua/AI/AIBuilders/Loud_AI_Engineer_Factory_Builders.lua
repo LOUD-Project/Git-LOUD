@@ -108,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 20, 1.01, 1.01 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1, 1 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -321,6 +321,37 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         },
     },
 
+    Builder {BuilderName = 'Naval Factory Rebuild',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 999,
+
+        BuilderConditions = {
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.NAVAL * categories.TECH1 }}            
+        },
+		
+        BuilderType = { 'T1','T2','T3','SubCommander' },
+
+        BuilderData = {
+		
+            Construction = {
+                NearBasePerimeterPoints = true,
+			
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+				
+				ThreatMax = 50,
+				
+                BuildStructures = {'T1SeaFactory' },
+            }
+        }
+    },
+	
 }
 
 

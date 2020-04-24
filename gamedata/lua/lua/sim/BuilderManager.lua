@@ -217,7 +217,7 @@ BuilderManager = Class {
 		-- only returns true if all conditions pass 
 		local GetBuilderStatus = function( task )
 			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." testing Builder "..task.BuilderName.." at "..task.Priority)
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." "..unit.BuilderType.." testing Builder "..task.BuilderName.." at "..task.Priority)
 		
 			for _,value in task.BuilderConditions do
 			

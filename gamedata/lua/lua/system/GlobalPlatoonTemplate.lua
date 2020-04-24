@@ -47,6 +47,7 @@ PlatoonTemplateDefMeta.__call = function(...)
     if oldFactionSquads then
         for k,v in oldFactionSquads do
             if not PlatoonTemplates[arg[2].Name].FactionSquads[k] then
+ 
                 PlatoonTemplates[arg[2].Name].FactionSquads[k] = v
             end
         end

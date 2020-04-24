@@ -3688,7 +3688,8 @@ function ParseIntelThread( aiBrain )
 		------------------
 		myvalue = 0
 
-		-- calculate my present land value
+		-- calculate my present land value -- this should remove ANTIAIR to be better matched to whats
+        -- going on in the PARSEINTEL thread
 		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
@@ -3708,7 +3709,7 @@ function ParseIntelThread( aiBrain )
 		-------------------
 		myvalue = 0
 
-		-- calculate my present naval value
+		-- calculate my present naval value -- I don't think we should be adding our own factories to this total --
 		for _,v in EntityCategoryFilterDown( (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), myunits ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense

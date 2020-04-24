@@ -329,7 +329,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', }},
             
-			{ EBC, 'LessEconEnergyStorageCurrent', { 5900 }},
+			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
         },
 		
         BuilderData = {

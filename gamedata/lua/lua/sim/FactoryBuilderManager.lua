@@ -261,7 +261,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.Sync.id.." takes "..builder.BuilderName)
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." takes "..builder.BuilderName.." platoon is "..repr(buildplatoon))
 		
 					factory.addplan = false
 					factory.addbehavior = false
@@ -317,11 +317,15 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." FBM unable to build "..repr(builder.BuilderName).." setting priority to 10")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." unable to build "..repr(builder.BuilderName).." setting priority to 10")
 					end
-					
-					self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
-					
+
+                    self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
+			
+                    if ScenarioInfo.DisplayFactoryBuilds then
+                        ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
+                    end
+
 					self.BuilderData[factory.BuilderType].NeedSort = true
 					
 					ForkThread( self.DelayBuildOrder, self, factory )
@@ -364,7 +368,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 	
 		WaitTicks( (6 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) + 1 )
 
-		if self.EnhanceThread then
+		if factory.EnhanceThread or factory.Upgrading then
+        
+            if ScenarioInfo.DisplayFactoryBuilds then
+                ForkThread(FloatingEntityText, factory.Sync.id, "Enhance/Upgrade Thread ")
+            end
 		
 			WaitTicks(10)
 			
@@ -374,8 +382,12 @@ FactoryBuilderManager = Class(BuilderManager) {
         local masstrig = 200 * (1/aiBrain.CheatValue)
         local enertrig = 2500 * (1/aiBrain.CheatValue)
 
-		while (not factory.Dead) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
-
+		while (not factory.Dead) and (not factory.Upgrading) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+        
+            if ScenarioInfo.DisplayFactoryBuilds then
+                ForkThread(FloatingEntityText, factory.Sync.id, "Insufficient Resource")
+            end
+	
             -- higher tier factories check more frequently
 			WaitTicks(23 - (factory.BuildLevel * 3))
 			
@@ -691,7 +703,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		local customData = ScenarioInfo.CustomUnits[templateName][faction] or false
 
-		local template = { PlatoonTemplates[templateName].Name, '', }
+        local template = false
+		
 		local Random = Random
 		
 		local LOUDINSERT = table.insert
@@ -740,16 +753,28 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
 					if replacement then
 					
+                        if not template then
+                            template = { PlatoonTemplates[templateName].Name, '', }
+                        end
+                        
 						LOUDINSERT( template, replacement )
 						replacementdone = true -- keeps us from replacing anything but the first unit in a template
 						
 					else
-					
+                    
+                        if not template then
+                            template = { PlatoonTemplates[templateName].Name, '', }
+                        end 
+                        
 						LOUDINSERT( template, v )
 						
 					end
 					
 				else
+                
+                    if not template then
+                        template = { PlatoonTemplates[templateName].Name, '', }
+                    end
 				
 					LOUDINSERT( template, v )
 					
@@ -770,6 +795,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 		end
 		
+        if not template then
+        
+            LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
+            
+        end
+        
 		return template
 		
 	end,
