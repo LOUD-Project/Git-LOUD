@@ -580,6 +580,7 @@ function AIGetReclaimablesAroundLocation( aiBrain, locationType, range, location
 end
 
 
+-- this will return a list of only your units within radius --
 function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -604,6 +605,7 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
     return mlist
 end
 
+-- this will return a list of ALL Allied units (yours and allies)
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -618,7 +620,7 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army != aiBrain.ArmyIndex then
+			if (not v.Dead) and GetFractionComplete(v) == 1 then
 				mlist[counter+1] = v
 				counter = counter + 1
 			end
