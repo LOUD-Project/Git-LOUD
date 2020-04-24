@@ -12,8 +12,6 @@ local BuffFieldBlueprint = import('/lua/sim/BuffField.lua').BuffFieldBlueprint
 -- this unique field is intended to be used by airpads
 -- designed to overcome the flaw where airpads claim to be full when they are
 -- actually empty thus allowing aircraft to recharge and repair slowly without necessarily landing
-
-
 BuffFieldBlueprint { Name = 'AirStagingBuffField',
     AffectsUnitCategories = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL,
     AffectsAllies = true,
@@ -24,6 +22,7 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 0,
     Radius = 20,
+    RadiusOffsetY = 5,
     Buffs = {
         'AIRSTAGING',
     },

@@ -270,17 +270,21 @@ BuffField = Class(Entity) {
 			local pos = Owner:GetPosition() or false
 
 			if pos then
+            
+                if bp.RadiusOffsetY then
+                    pos[2] = pos[2] + bp.RadiusOffsetY
+                end
 			
-				if bp.AffectsOwnUnits then
+				if bp.AffectsOwnUnits and not bp.AffectsAllies then
 					unitlist = GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
 				end
 			
 				if bp.AffectsAllies then
-					unitlist = LOUDMERGE(unitlist, GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius))
+					unitlist = GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
 				end
 			
 				if bp.AffectsVisibleEnemies then
-					unitlist = LOUDMERGE(unitlist, aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' ))
+					unitlist = aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' )
 				end
 				
 			end
@@ -328,15 +332,9 @@ BuffField = Class(Entity) {
 							end
 						end
 					end
-				--else
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." unit "..unit.Sync.id.." is dead")
 				end
 			end
-			
-			--if mastercount > 0 then
-				--LOG("*AI DEBUG Field "..bp.Name.." processed "..mastercount)
-			--end
-			
+
 			WaitTicks( 38 - mastercount ) -- this should be anything but 5 (of the other wait) to help spread the cpu load
 		end
     end,
@@ -345,18 +343,22 @@ BuffField = Class(Entity) {
 	UnitBuffFieldThread = function( unit, Owner, Field, bp )
 
 		if bp.Buffs != nil then
-		
-			--LOG("*AI DEBUG Bufffield bp is "..repr(bp))
 
 			unit.HasBuffFieldThreadHandle[bp.Name] = true
 
 			local GetPosition = moho.entity_methods.GetPosition
-			--local VDist3 = VDist3
 
 			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
+            
+                local FieldPosition = GetPosition(Owner)
+                
+                if bp.RadiusOffsetY then
+                    FieldPosition[2] = FieldPosition[2] + bp.RadiusOffsetY
+                end
 
-				if VDist3( GetPosition(unit), GetPosition(Owner) ) > bp.Radius then
-					--LOG("*AI DEBUG Out of field range")
+                -- still need to account for the bp.RadiusOffsetY --
+				if VDist3( GetPosition(unit), FieldPosition ) > bp.Radius then
+
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
 				end
 
