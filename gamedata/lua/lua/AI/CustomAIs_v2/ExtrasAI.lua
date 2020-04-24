@@ -1,7 +1,7 @@
 AI = {
 	Name = "AI Patch LOUD",
 	
-	Version = "5.2.05",
+	Version = "5.2.06",
 
 	AIList = {
 		{
@@ -10,12 +10,4 @@ AI = {
 		},
 	},
 
---[[
-	CheatAIList = {
-		{
-			key = 'loudcheat',
-			name = "AIx: LOUDER",
-		},
-	},
---]]
 }
