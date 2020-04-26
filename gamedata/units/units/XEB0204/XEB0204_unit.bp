@@ -89,7 +89,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 5250,
         BuildCostMass = 1450,
-        BuildRate = 15,
+        BuildRate = 20,
         BuildTime = 1750,
 
 		MaxBuildDistance = 18.5,	-- seems to originate at the edge of the unit
