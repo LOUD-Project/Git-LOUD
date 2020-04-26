@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 240,
-		GuardScanRadius = 220,
+        GuardReturnRadius = 200,
+		GuardScanRadius = 200,
     },
 	
     Air = {
@@ -27,7 +27,7 @@ UnitBlueprint {
 		
         LiftFactor = 5,
 		
-        MaxAirspeed = 10,
+        MaxAirspeed = 9,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
@@ -78,15 +78,14 @@ UnitBlueprint {
         'GROUNDATTACK',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
     },
 	
     CollisionOffsetY = 0.1,
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 420,
-        MaxHealth = 420,
+        Health = 345,
+        MaxHealth = 345,
         RegenRate = 2,
         SurfaceThreatLevel = 3.9,
     },
@@ -115,9 +114,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4400,
-        BuildCostMass = 110,
-        BuildTime = 1320,
+        BuildCostEnergy = 4600,
+        BuildCostMass = 105,
+        BuildTime = 290,
     },
 	
     Footprint = {
@@ -169,7 +168,7 @@ UnitBlueprint {
         Elevation = 13,
 		
         FuelRechargeRate = 8,
-        FuelUseTime = 200,
+        FuelUseTime = 160,
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
@@ -216,7 +215,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 15,
             DamageType = 'Normal',
 			
             DisplayName = 'Laser Autogun',
@@ -225,6 +224,8 @@ UnitBlueprint {
                 Air = 'Air|Land|Water|Seabed',
                 Land = 'Air|Land|Water|Seabed',
             },
+            
+            FiringRandomness = 0.4,
 			
             FiringTolerance = 2,
 			
@@ -234,10 +235,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {
@@ -247,14 +248,11 @@ UnitBlueprint {
                     RackBone = 'Laser_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,
@@ -275,11 +273,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
             TurretYawRange = 60,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },
