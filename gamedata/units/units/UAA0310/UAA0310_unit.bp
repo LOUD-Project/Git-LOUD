@@ -117,6 +117,7 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'SHOWQUEUE',
         'CANNOTUSEAIRSTAGING',
+        'AIRSTAGINGPLATFORM',
 		'OVERLAYRADAR',
 		'OVERLAYSONAR',
     },
@@ -880,8 +881,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.65,
-        MassMult = 0.65,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
