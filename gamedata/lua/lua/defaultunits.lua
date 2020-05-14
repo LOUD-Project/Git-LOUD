@@ -615,9 +615,7 @@ StructureUnit = Class(Unit) {
 	-- this aids in keeping the army pool smaller and slightly quicker to query
 	LaunchUpgradeThread = function( finishedUnit, aiBrain )
 
-        local faction = aiBrain.FactionIndex
-		local StructurePool = aiBrain.StructurePool
-		local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
+		--local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 
 		local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
 
@@ -626,7 +624,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.015, 1.01, 9999, 9999, 18, 150, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.015, 1.01, 9999, 9999, 18, 150, false )
 
 			end
 		end
@@ -636,7 +634,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.02, 9999, 1.5, 27, 360, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.01, 1.02, 9999, 1.5, 27, 360, true )
 
 			end
 
@@ -647,7 +645,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.01, 9999, 1.5, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.01, 1.01, 9999, 1.5, 18, 90, true )
 
 			end
 
@@ -662,13 +660,13 @@ StructureUnit = Class(Unit) {
 			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(finishedUnit.Sync.id)
 			Mexplatoon.MovementLayer = 'Land'
 
-            AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
+            aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
 			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, .72, 1.01, 1.5, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.01, 1.5, 9999, 18, 90, true )
 
 			end
 
@@ -679,7 +677,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1, 1.01, 9999, 9999, 24, 180, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1, 1.01, 9999, 9999, 24, 180, false )
 
 			end
 
@@ -690,7 +688,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1, 1.02, 9999, 9999, 24, 180, false )
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1, 1.02, 9999, 9999, 24, 180, false )
 
 			end
 
@@ -699,7 +697,7 @@ StructureUnit = Class(Unit) {
 		-- pick up any structure that has an upgrade not covered by above
 		if __blueprints[finishedUnit.BlueprintID].General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
 
-			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, faction, aiBrain, 1.01, 1.03, 9999, 9999, 36, 360, false )
+			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.01, 1.03, 9999, 9999, 36, 360, false )
 
 		end
 
