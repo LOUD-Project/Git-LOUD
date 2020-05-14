@@ -3615,7 +3615,7 @@ function NavalForceAILOUD( self, aiBrain )
 			
 				if PlatoonExists( aiBrain, self ) then
 				
-					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Naval' then
+					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Naval' then
 				
 						continue	-- allow only the target types listed above
 					
@@ -4268,7 +4268,7 @@ function NavalBombardAILOUD( self, aiBrain )
 			
 				if PlatoonExists( aiBrain, self ) then
 				
-					if Target.Type != 'Economy' and Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Naval' then
+					if Target.Type != 'Economy' and Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Naval' then
 				
 						continue	-- allow only the target types listed above
 					
