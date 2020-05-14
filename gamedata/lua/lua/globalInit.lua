@@ -46,7 +46,7 @@ doscript '/lua/system/collapse.lua'
 # classes yet, just lists of exported methods and base classes. Turn them into
 # real classes.
 for name,cclass in moho do
-    --SPEW('C->lua ',name)
+    SPEW('C->lua ',name)
     ConvertCClassToLuaClass(cclass)
 end
 
@@ -69,14 +69,5 @@ doscript '/lua/system/GlobalBuilderGroup.lua'
 LOG("*AI DEBUG     Setup BaseBuilder Template Structure")
 # Load Global Base Templates
 doscript '/lua/system/GlobalBaseTemplate.lua'
---[[
-LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
-# Load buff definitions
-import( '/lua/sim/buffdefinitions.lua')
-
-LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
-# Load Adjacency Buff definitions 
-import('/lua/sim/adjacencybuffs.lua')
---]]
 
 InitialRegistration = false

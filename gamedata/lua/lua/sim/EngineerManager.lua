@@ -505,7 +505,15 @@ EngineerManager = Class(BuilderManager) {
 		unit.EventCallbacks.OnStartBeingCaptured = nil
     end,
     
-    UnitConstructionStarted = function( self, unit, unitBeingBuilt )
+    -- this gets fired by self when it begins to build the unit
+    -- we use it to pass the Manager location to a factory as soon
+    -- as it's started in order to sidestep it being set incorrectly
+    -- if an engineer from another location comes along and finishes it
+    UnitConstructionStarted = function( self, unit )
+       
+        if not unit.LocationType then
+            unit.LocationType = self.LocationType
+        end
     end,
 
 	-- When an engineer finishes construction of something it will pass thru here making it a natural place to assign unit-specific routines
@@ -525,12 +533,13 @@ EngineerManager = Class(BuilderManager) {
 		local StructurePool = aiBrain.StructurePool
 
 		if LOUDENTITY( categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL, finishedUnit ) and finishedUnit:GetAIBrain().ArmyIndex == aiBrain.ArmyIndex then
-		
+
 			-- this was a tricky problem for engineers starting new bases since it was getting
 			-- the LocationType from the platoon (which came from the original base not the new base)
 			-- since the engineer is added to the new base (which changes his LocationType but not the platoons)
 			-- it was necessary to change this call to use the units LocationType and NOT the platoons
-            ForkThread( aiBrain.BuilderManagers[unit.LocationType].FactoryManager.AddFactory, aiBrain.BuilderManagers[unit.LocationType].FactoryManager, finishedUnit )
+            -- altered this so that we pass the locationtype to the factory when the build is started 
+            ForkThread( aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager.AddFactory, aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager, finishedUnit )
 		end
 
 		-- if STRUCTURE see if Upgrade Thread should start - excluding NUKES
@@ -776,9 +785,7 @@ EngineerManager = Class(BuilderManager) {
 
 					-- sort the threat table by distance from this base --
 					LOUDSORT(threatTable, function (a,b) return VDist2Sq(a.Position[1],a.Position[3], self.Location[1],self.Location[3]) < VDist2Sq(b.Position[1],b.Position[3], self.Location[1],self.Location[3]) end)
-		
-					--local LoopTypes = { 'Experimental', 'Land', 'Air', 'Naval' }
-				
+
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
 		

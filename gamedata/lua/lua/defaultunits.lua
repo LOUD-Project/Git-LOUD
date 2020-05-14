@@ -3852,11 +3852,8 @@ ConstructionUnit = Class(MobileUnit) {
 							end
 
 						end
-
 					end
-
 				end
-
 			end
 
 			local EngineerCaptureDone = function( unit )
@@ -3916,6 +3913,8 @@ ConstructionUnit = Class(MobileUnit) {
 			end
 
 			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
+            
+            eng:AddOnStartBuildCallback( EM.UnitConstructionStarted, categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL )
 
 			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
 			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
