@@ -1165,8 +1165,6 @@ function LandScoutingAI( self, aiBrain )
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-	
-	--local GetClosestPathNodeInRadiusByLayer = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
 
 	local curPos = nil
 	local usedTransports = false
@@ -2590,12 +2588,12 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." bombers has target at "..repr(targetposition))
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." bombers has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
                     
                 else
                     SecondaryAATargets = false
@@ -2603,7 +2601,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
                     
                 else
                     SecondaryShieldTargets = false
@@ -2611,7 +2609,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
                     
                 else
                     TertiaryTargets = false
@@ -2658,8 +2656,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                         end
                     end
                     
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
 
                     -- if we have a path - versus direct which will have zero path entries --
                     if LOUDGETN(newpath) > 0 then
@@ -2674,7 +2672,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                         
                     end
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
                     
                     if self.MoveThread then
                         self:KillMoveThread()
@@ -2701,7 +2699,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
                     
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." bombers at strikeposition - targeting")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." bombers at strikeposition - targeting")
                     
                     local squad = GetPlatoonPosition(self)
                     
@@ -2845,7 +2843,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
         
 			target = false
             
@@ -3075,12 +3073,12 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." gunships has target at "..repr(targetposition))
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." gunships has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
                     
                 else
                     SecondaryAATargets = false
@@ -3088,7 +3086,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
                     
                 else
                     SecondaryShieldTargets = false
@@ -3096,7 +3094,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
                     
                 else
                     TertiaryTargets = false
@@ -3143,8 +3141,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         end
                     end
                     
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
 
                     -- if we have a path - versus direct which will have zero path entries --
                     if LOUDGETN(newpath) > 0 then
@@ -3159,14 +3157,14 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         
                     end
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
                     
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
 
                 else
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Gunship_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Gunship_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
                     loiter = true
@@ -3186,7 +3184,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
                     
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." gunships at strikeposition - targeting")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." gunships at strikeposition - targeting")
                     
                     local squad = GetPlatoonPosition(self)
                     
@@ -3330,7 +3328,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
         
 			target = false
             
@@ -5948,25 +5946,19 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 							if manager then
 								ForkThread(manager.DelayBuildOrder, manager, unit )
 							end
-							
 						end
 
 					else
-					
 						WaitTicks(40)
-						
 					end
 					
 				else
-				
 					WaitTicks(40)
-
 				end
 				
 			end
 			
 	        WaitTicks(25)		
-			
         end
         
         if HasEnhancement( unit, final) then
@@ -5979,9 +5971,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 			unit.failedbuilds = 0
 			
             EBP = false
-
         end
-		
     end
 	
 	unit.EnhancementsComplete = true
@@ -6249,7 +6239,6 @@ function SelfUpgradeDelay( aiBrain, delay )
     if ScenarioInfo.StructureUpgradeDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter down to "..aiBrain.UpgradeIssued)
     end
-    
 end
 
 -- this function identifies units in a platoon that may have air/land toggle weapons
@@ -6280,7 +6269,6 @@ end
 -- this function is quite simple - in concept - utilize the weapon toggle that some units have
 -- which allow it to shoot both at AIR units and LAND/NAVAL units
 function AirLandToggleThread(unit, aiBrain)
-
 	
     local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 	
@@ -6348,9 +6336,7 @@ function AirLandToggleThread(unit, aiBrain)
         end
 		
         WaitTicks(100)
-		
     end
-	
 end
 
 --	Finds the experiemental unit in the platoon (assumes platoons are only experimentals)

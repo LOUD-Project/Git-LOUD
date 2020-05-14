@@ -83,7 +83,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		PriorityFunction = First60Minutes,
         
         BuilderConditions = {
-
+        
+			{ EBC, 'LessThanEnergyTrend', { 500 }},
+            
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION - categories.TECH1 }},

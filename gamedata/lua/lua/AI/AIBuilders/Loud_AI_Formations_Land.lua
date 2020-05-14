@@ -580,10 +580,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointCategory = categories.ANTIAIR * categories.STRUCTURE,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1500,
+			PointRadius = 1750,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 1250,
+			PointMax = 1750,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
 			StrRadius = 50,
@@ -600,7 +600,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
 			GuardRadius = 80,
-			GuardTimer = 32,
+			GuardTimer = 20,
 			
 			MergeLimit = 32,
 			

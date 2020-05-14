@@ -35,9 +35,7 @@ local PlatoonTemplates = PlatoonTemplates
 function CreateFactoryBuilderManager(brain, lType, location, basetype)
 
     local fbm = FactoryBuilderManager()
-	
-	--LOG("*AI DEBUG "..brain.Nickname.." creating FBM for "..lType)
-	
+
     fbm:Create(brain, lType, location, basetype)
 
     fbm.BuilderCheckInterval = 40	-- default starting value
@@ -250,7 +248,7 @@ FactoryBuilderManager = Class(BuilderManager) {
     AssignBuildOrder = function( self, factory, aiBrain )
 	
 		if factory.Sync.id and not factory.Upgrading then
-		
+
 			self.BuilderData[factory.BuilderType].NeedSort = true
 			
 			local builder = self:GetHighestBuilder( factory, aiBrain )
@@ -584,9 +582,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			factory:SetCustomName("")
 			
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.Sync.id.." finishes building "..finishedUnit:GetBlueprint().Description)
-		
+
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager

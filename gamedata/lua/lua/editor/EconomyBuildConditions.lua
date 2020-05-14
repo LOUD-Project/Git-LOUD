@@ -128,6 +128,8 @@ end
 function GreaterThanEconTrendEfficiencyOverTime(aiBrain, mTrend, eTrend, massefficiency,energyefficiency)
 
 	if GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." EconTrend Mass "..repr(aiBrain.EcoData['OverTime'].MassTrend).." Energy "..repr(aiBrain.EcoData['OverTime'].EnergyTrend))
 		
 		if aiBrain.EcoData['OverTime'].MassTrend >= mTrend then
 			return aiBrain.EcoData['OverTime'].EnergyTrend >= eTrend
