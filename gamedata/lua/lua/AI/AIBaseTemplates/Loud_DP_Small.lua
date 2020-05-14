@@ -16,6 +16,8 @@ BaseBuilderTemplate {
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
 		'Land Formations - Reinforcement',
+        
+        'Land Formations - Land Only Map',
 		
 		'Air Formations - Hunt',
 		'Air Formations - Point Guards', 
@@ -34,7 +36,7 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Land Formations - Land Map',
+		--'Land Formations - Land Only Map',
 	},
 	
 	LOUD_IS_Installed_Builders = {

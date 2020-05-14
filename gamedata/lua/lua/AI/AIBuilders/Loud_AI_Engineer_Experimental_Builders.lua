@@ -370,6 +370,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -406,6 +407,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
@@ -444,10 +446,11 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -485,7 +488,9 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },

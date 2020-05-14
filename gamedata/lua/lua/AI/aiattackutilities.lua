@@ -161,6 +161,7 @@ function GetPathGraphs()
     if not ScenarioInfo.PathGraphs then 
 		
 		local AIGetMarkerLocationsEx = import('/lua/ai/aiutilities.lua').AIGetMarkerLocationsEx
+        local InWaterCheck = LocationInWaterCheck   --import('/lua/ai/aiattackutilities.lua').LocationInWaterCheck
 
 		-- create the persistent tables --
 		ScenarioInfo.PathGraphs = { ['RawPaths'] = {}, ['Air'] = {}, ['Amphibious'] = {}, ['Land'] = {}, ['Water'] = {} }
@@ -193,14 +194,26 @@ function GetPathGraphs()
 					newadj[counter+1] = v
 					counter = counter + 1
 				end
+                
+                -- record if a position is in the water or not 
+                -- this is used in pathfinding to give preference to certain movements for
+                -- amphibious platoons
+                local water = false
+                
+                if InWaterCheck( {marker.position[1], marker.position[2], marker.position[3]} ) then
+                    water = true
+                end
 				
 				-- sort the adjacent nodes by name
 				table.sort(newadj)
 
-				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj) }
+				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj), InWater = water }
 				
 				table.insert(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
 			end
+            
+            --LOG ("*AI DEBUG "..repr(k).." table is "..repr(ScenarioInfo.PathGraphs[k]) )
+
 		end
 
 		local mapsizex = ScenarioInfo.size[1]

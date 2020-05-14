@@ -32,8 +32,13 @@ BaseBuilderTemplate {
 
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Land Construction - Expansions',
+        
+        'Engineer T4 Air Construction - Expansions',
 		
 		'Land Formations - Experimentals',
+        
+        'Land Formations - Land Only Map',
+        
 		'Air Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
@@ -53,8 +58,8 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Land Formations - Land Map',
-		'Engineer T4 Air Construction - Expansions',
+		--'Land Formations - Land Only Map',
+		--'Engineer T4 Air Construction - Expansions',
 	},
 	
 	LOUD_IS_Installed_Builders = {

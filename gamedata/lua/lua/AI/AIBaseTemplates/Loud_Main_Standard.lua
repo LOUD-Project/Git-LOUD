@@ -38,11 +38,15 @@ BaseBuilderTemplate {
         'Engineer Optics Construction',        
 		'Engineer Nuke Construction',
 
+        'Engineer T4 Air Construction - Land Only Map',
+        
         # ==== UNIT BUILDERS ==== #
         'Factory Production - Engineers',
 		'Factory Production - Land',
 		'Factory Production - Air',
 		'Factory Production - Transports',
+        
+        'Factory Producion - Land - Land Only Map',
         
 		'Engineer T4 Land Construction',
 
@@ -54,6 +58,8 @@ BaseBuilderTemplate {
 		'Land Formations - Artillery',
 		'Land Formations - Nukes',
 		'Land Formations - Experimentals',
+        
+        'Land Formations - Land Only Map',
         
 		'Air Formations - Scouts',        
 		'Air Formations - Hunt',
@@ -76,11 +82,11 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Engineer T4 Air Construction - Land Only Map',
+		--'Engineer T4 Air Construction - Land Only Map',
         
-		'Factory Producion - Land - Land Only Map',
+		--'Factory Producion - Land - Land Only Map',
         
-		'Land Formations - Land Map',
+		--'Land Formations - Land Only Map',
 	},
 	
 	StandardCommanderUpgrades = {

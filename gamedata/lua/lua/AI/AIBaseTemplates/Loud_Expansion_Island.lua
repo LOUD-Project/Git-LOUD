@@ -91,8 +91,7 @@ BaseBuilderTemplate {
 		'Engineer T4 Air Construction - Water Map - Expansions',
 	},
 	
-	LandOnlyBuilders = {
-	},
+	LandOnlyBuilders = {},
 
 	LOUD_IS_Installed_Builders = {
 		'Engineer Mass Fab Construction - Expansions - LOUD_IS',

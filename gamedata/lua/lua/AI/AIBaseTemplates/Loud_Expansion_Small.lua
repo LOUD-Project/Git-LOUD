@@ -39,10 +39,14 @@ BaseBuilderTemplate {
         # ==== LAND UNIT BUILDERS ==== #
 		'Factory Production - Land',
         
+        'Factory Producion - Land - Land Only Map',
+        
 		# Create Platoons with Land Units
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
 		'Land Formations - Reinforcement',
+        
+        'Land Formations - Land Only Map',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Factory Production - Air',
@@ -62,6 +66,7 @@ BaseBuilderTemplate {
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Land Construction - Expansions',
 		'Engineer T4 Economy Construction - Expansions',
+        'Engineer T4 Air Construction - Expansions',
 		
 		'Land Formations - Experimentals',
 		'Air Formations - Experimentals',
@@ -91,9 +96,9 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Factory Producion - Land - Land Only Map',
-		'Land Formations - Land Map',
-		'Engineer T4 Air Construction - Expansions',
+		--'Factory Producion - Land - Land Only Map',
+		--'Land Formations - Land Only Map',
+		--'Engineer T4 Air Construction - Expansions',
 	},
 
 	LOUD_IS_Installed_Builders = {

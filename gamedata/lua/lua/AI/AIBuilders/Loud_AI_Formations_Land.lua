@@ -150,7 +150,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
+BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     BuildersType = 'PlatoonFormBuilder',
     
     -- this is the VENTING attack -- no odds required
@@ -173,6 +173,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 69, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -213,6 +214,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
@@ -289,6 +291,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
@@ -364,6 +367,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},        
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
@@ -402,6 +406,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
@@ -476,6 +481,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
@@ -556,13 +562,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 380, 'Land', 120 }},            
 
 			-- enemy AA structures within 15km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1500 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1750 }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR }},

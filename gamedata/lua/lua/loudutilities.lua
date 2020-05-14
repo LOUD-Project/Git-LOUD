@@ -313,6 +313,19 @@ function NeedTeamMassPointShare( aiBrain )
 	return TeamExtractors < TeamNeeded
 end
 
+
+-- a land-based production centre can be in LandMode or not (== AmphibiousMode)
+function BaseInLandMode( aiBrain, locType )
+
+    return aiBrain.BuilderManagers[locType].LandMode
+end
+
+function BaseInAmphibiousMode( aiBrain, locType )
+
+    return not aiBrain.BuilderManagers[locType].LandMode
+end
+
+
 -- if there is not a base alert at this location	
 function NoBaseAlert( aiBrain, locType )
 

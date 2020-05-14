@@ -45,9 +45,13 @@ BaseBuilderTemplate {
         # ==== LAND UNIT BUILDERS ==== #
 		'Factory Production - Land',
 
+        'Factory Producion - Land - Land Only Map',
+        
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
 		'Land Formations - Reinforcement',
+        
+        'Land Formations - Land Only Map',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Factory Production - Air',
@@ -65,6 +69,9 @@ BaseBuilderTemplate {
 		
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Land Construction',
+        
+        'Engineer T4 Air Construction - Land Only Map',
+        
 		'Land Formations - Experimentals',
 
 		'Air Formations - Experimentals',
@@ -91,10 +98,10 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Factory Producion - Land - Land Only Map',
-		'Land Formations - Land Map',
+		--'Factory Producion - Land - Land Only Map',
+		--'Land Formations - Land Only Map',
 		
-		'Engineer T4 Air Construction - Land Only Map',
+		--'Engineer T4 Air Construction - Land Only Map',
 	},
 	
 	StandardCommanderUpgrades = {

@@ -40,11 +40,16 @@ BaseBuilderTemplate {
 		'Factory Production - Air',
 		'Factory Production - Transports',
         
+        'Factory Producion - Land - Land Only Map',
+        
 		'Engineer T4 Land Construction - Expansions',
+        'Engineer T4 Air Construction - Expansions',
         
 		# === PLATOON FORMATIONS === #
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+        
+        'Land Formations - Land Only Map',
 
 		'Air Formations - Hunt',
 		'Air Formations - Point Guards',        
@@ -76,11 +81,11 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		'Engineer T4 Air Construction - Expansions',
+		--'Engineer T4 Air Construction - Expansions',
         
-		'Factory Producion - Land - Land Only Map',
+		--'Factory Producion - Land - Land Only Map',
         
-		'Land Formations - Land Map',
+		--'Land Formations - Land Only Map',
 	},
 
 	LOUD_IS_Installed_Builders = {

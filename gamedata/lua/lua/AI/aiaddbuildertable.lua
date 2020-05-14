@@ -108,6 +108,8 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 			AddGlobalBuilderGroup( v )
 			
 		end
+        
+        aiBrain.BuilderManagers[locationType].LandMode = false
 		
 	else
 	
@@ -116,6 +118,8 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 			AddGlobalBuilderGroup( v )
 			
 		end
+        
+        aiBrain.BuilderManagers[locationType].LandMode = true
 		
 	end
 	

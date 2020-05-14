@@ -1,46 +1,20 @@
--- the purpose of this function is to select the most viable base plan
--- you can tailor the plan for certain considerations and it would get selected here
--- each Starting Base plan will have a FIRSTBASEFUNCTION that will return a value 
--- the base plan with the highest value is the one that gets selected
-function GetBestBasePlan(aiBrain)
-
-    local base = false
-    local returnVal = 0
-    local aiType = false
-    
-    for k,v in BaseBuilderTemplates do
-	
-        if v.FirstBaseFunction then
-		
-            local baseVal, baseType = v.FirstBaseFunction(aiBrain)
-			
-            if baseVal > returnVal then
-				base = k
-                returnVal = baseVal
-                aiType = baseType
-            end
-        end
-    end
-    
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Selected "..base)
-	
-    return base, returnVal, aiType
-	
-end
-
-function EvaluatePlan( aiBrain )
-
-    local base, returnVal = GetBestBasePlan(aiBrain)
-    
-    return returnVal
-end
-
+-- This is essentially the entry point for any AI --
+-- and it is initiated in the OnCreateAI function
 function ExecutePlan(aiBrain)
 
 	aiBrain.ConstantEval = false
 	
-    WaitTicks(10)
-	
+    WaitTicks(5)
+
+    -- put some initial threat at all enemy positions
+    for k,brain in ArmyBrains do
+        if not brain:IsDefeated() and not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex) then
+			aiBrain:AssignThreatAtPosition( brain:GetStartVector3f(), 500, 0.001, 'Economy' )        
+        end
+    end
+    
+    WaitTicks(5)	
+    
     if not aiBrain.BuilderManagers.MAIN.FactoryManager.BuilderList then
 
         aiBrain:SetResourceSharing(true)
@@ -79,11 +53,7 @@ function SetupMainBase(aiBrain)
 
     local base, returnVal, baseType = GetBestBasePlan(aiBrain)
 
-    local per = ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality
-	
-    if per != 'adaptive' then
-        ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality = baseType
-    end
+    ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality = baseType
 	
     import('/lua/ai/aiaddbuildertable.lua').AddGlobalBaseTemplate(aiBrain, 'MAIN', base)
 
@@ -97,6 +67,44 @@ function SetupMainBase(aiBrain)
 		
     end
 end
+
+
+-- the purpose of this function is to select the most viable base plan
+-- you can tailor the plan for certain considerations and it would get selected here
+-- each Starting Base plan will have a FIRSTBASEFUNCTION that will return a value 
+-- the base plan with the highest value is the one that gets selected
+function GetBestBasePlan(aiBrain)
+
+    local base = false
+    local returnVal = 0
+    local aiType = false
+    
+    for k,v in BaseBuilderTemplates do
+	
+        if v.FirstBaseFunction then
+		
+            local baseVal, baseType = v.FirstBaseFunction(aiBrain)
+			
+            if baseVal > returnVal then
+				base = k
+                returnVal = baseVal
+                aiType = baseType
+            end
+        end
+    end
+    
+	LOG("*AI DEBUG "..aiBrain.Nickname.." Selected "..base)
+	
+    return base, returnVal, aiType
+end
+
+function EvaluatePlan( aiBrain )
+
+    local base, returnVal = GetBestBasePlan(aiBrain)
+    
+    return returnVal
+end
+
 
 function UnitCapWatchThread(aiBrain)
 

@@ -434,6 +434,30 @@ BuilderManager = Class {
 		local PoolGreaterAtLocation = import ('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
 		
         while self.Active do
+        
+            -- if this is not a naval base - see if mode should change from Amphibious to Land
+            if brain.AttackPlan.Goal and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
+        
+                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 9999, 160 )
+                
+                -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
+                -- but for now - we'll settle for land production if any kind of land connection exists --
+                if path and not brain.BuilderManagers[self.LocationType].LandMode then
+                
+                    brain.BuilderManagers[self.LocationType].LandMode = true
+                    LOG("*AI DEBUG "..brain.Nickname.." There is a LAND path from "..self.LocationType.." dist "..landpathlength.." steps "..LOUDGETN(path).." cost is "..repr(pathcost).." to "..repr(brain.AttackPlan.Goal))
+                else
+
+                    brain.BuilderManagers[self.LocationType].LandMode = false
+                    LOG("*AI DEBUG "..brain.Nickname.." No LAND path from "..self.LocationType.." to "..repr(brain.AttackPlan.Goal).." - now in AMPHIB mode")                
+                end
+                
+                --local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Amphibious', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 9999, 160 )
+                
+                --if path then
+                    --LOG("*AI DEBUG "..brain.Nickname.." There is a AMPHIB path from "..self.LocationType.." dist "..landpathlength.." steps "..LOUDGETN(path).." cost is "..repr(pathcost).." to "..repr(brain.AttackPlan.Goal))
+                --end
+            end
 		
 			if self.BuilderData['Any'].NeedSort then
             
@@ -447,7 +471,6 @@ BuilderManager = Class {
                 --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
                 
 				self.BuilderData['Any'].NeedSort = false
-				
 			end
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
@@ -456,11 +479,9 @@ BuilderManager = Class {
 			if brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
 				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * .5
-				
 			else
 			
 				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
-				
 			end		
 			
 			if tasks != self.NumBuilders or ((self.BuilderCheckInterval * 10) != duration) then
@@ -468,7 +489,6 @@ BuilderManager = Class {
 				duration = self.BuilderCheckInterval * 10
 				tasks = self.NumBuilders
 				ticksize = LOUDFLOOR( duration / tasks )
-				
 			end
 
             numTicks = 0
@@ -509,7 +529,6 @@ BuilderManager = Class {
 						
 								WaitTicks(ticksize)
 								numTicks = numTicks + ticksize
-							
 							end
 						end
 					end
@@ -519,11 +538,8 @@ BuilderManager = Class {
 			if numTicks < duration then
 			
 				WaitTicks( duration - numTicks )
-				
 			end
-			
         end
-		
     end,
 	
 }
