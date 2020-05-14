@@ -6657,9 +6657,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         self:SetPlatoonFormationOverride('LOUDClusterFormation')
         
+		local MaximumAttackRange = self.PlatoonData.MaxAttackRange or 1024        
 		local PlatoonFormation = self.PlatoonData.UseFormation or 'AttackFormation'
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILoud Begins")
 
 		local notargetcount = 0
         local experimentalunit
@@ -6733,17 +6732,15 @@ Platoon = Class(moho.platoon_methods) {
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
 			
-			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 75, { 'LAND MOBILE','STRUCTURE -WALL', } )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 75, { 'ECONOMIC','LAND MOBILE','STRUCTURE -WALL' } )
 			
-			if target and not target.Dead then
+			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			
 				if Behaviors.LocationInWaterCheck( target:GetPosition() ) then
-				
 					target = false
 					targetLocation = false
 				else
                     targettype = 'Local'
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets local target at "..repr(target:GetPosition()))
 				end
 			end
 			
@@ -6756,25 +6753,23 @@ Platoon = Class(moho.platoon_methods) {
 				target = false
 				
 				local landattackbase, landattackposition = GetPrimaryLandAttackBase(aiBrain)
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI seeking HiPri target from "..repr(landattackbase))
 
-				-- get a hipri list with distances based upon PRIMARY LAND ATTACK base
 				local targetlist = GetHiPriTargetList( aiBrain, landattackposition )
-
 				targetvalue = 0
                 
 				LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." LandForceAI targetlist is "..repr(targetlist))
-                
+
 				local itemsprocessed = 0
                 local sthreat, ethreat, ecovalue, milvalue, value
 				
 				for _,Target in targetlist do
                 
-					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Land' and Target.Type != "Economy" then
+					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Land' and Target.Type != "Economy" then
 						continue	-- allow only the targets listed above
+					end
+					
+					if VDist3( Target.Position, pos ) > MaximumAttackRange then
+						break	-- all additional targets are beyond attack range
 					end
 
 					sthreat = Target.Threats.Sur
@@ -6830,7 +6825,7 @@ Platoon = Class(moho.platoon_methods) {
 
                     -- ignore targets we are still too weak against
 					-- REPLACE THIS VALUE WITH PLATOON DATA VALUE - VALUE BREAKPOINT
-                    if value <= 1.0 then 
+                    if value <= 0.85 then 
                         continue
                     end
  
@@ -6843,10 +6838,9 @@ Platoon = Class(moho.platoon_methods) {
 					-- by increasing the value of targets where his current enemy is present
 					local enemyindex = aiBrain.CurrentEnemyIndex
 				
-					for _,u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS, Target.Position, 90, 'Enemy') do
+					for _,u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, Target.Position, 90, 'Enemy') do
 					
 						if enemyindex == u:GetAIBrain().ArmyIndex then
-						
 							value = value * 1.15
 							break
 						end
@@ -6863,46 +6857,46 @@ Platoon = Class(moho.platoon_methods) {
 						if pathlength > Target.Distance then
 							Target.Distance = pathlength
 						end
-					end
 					
-					-- this value will multiply the value of the target - closer = higher distancefactor
-					local distancefactor = aiBrain.dist_comp/Target.Distance   	-- makes closer targets more valuable
+                        -- this value will multiply the value of the target - closer = higher distancefactor
+                        local distancefactor = aiBrain.dist_comp/Target.Distance   	-- makes closer targets more valuable
 					
-					local targetdistance = VDist3(pos, Target.Position)
+                        local targetdistance = VDist3(pos, Target.Position)
 					
-					-- make any target we cant path to less valuable since we have to transport
-					-- for Land Attack platoons only - amphibs dont have this
-					if not path then
-						distancefactor = distancefactor / 2
-					end
+                        -- make any target we cant path to less valuable since we have to transport
+                        -- for Land Attack platoons only - amphibs dont have this
+                        if not path then
+                            distancefactor = distancefactor / 2
+                        end
 					
-					-- REPLACE 350 with PLATOON DATA - URGENT TARGET BREAKPOINT
-					if targetdistance < 350 and Target.Distance < (targetdistance * 1.3) then
-						distancefactor = 50		-- make any hipri within 350 of the platoon very valuable
-					end
+                        -- REPLACE 350 with PLATOON DATA - URGENT TARGET BREAKPOINT
+                        if targetdistance < 250 and Target.Distance < (targetdistance * 1.3) then
+                            distancefactor = 100		-- make any hipri within 250 of the platoon very valuable
+                        end
                     
-					-- make any target far away (and would need air transport) have a lower distancefactor (less valuable)
-					-- REPLACE 1024 with PLATOON DATA - DISTANCE BREAKPOINT
-					if targetdistance >= 1024 then
-						distancefactor = distancefactor * ( 1024 / targetdistance )
-					end					
+                        -- make any target far away (and would need air transport) have a lower distancefactor (less valuable)
+                        -- REPLACE 1024 with PLATOON DATA - DISTANCE BREAKPOINT
+                        if targetdistance >= 1024 then
+                            distancefactor = distancefactor * ( 1024 / targetdistance )
+                        end					
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Target Position is "..repr(Target.Position))					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Eco: "..ethreat.."  Sur: "..sthreat.."  My: "..mythreat)
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Milvalue: "..milvalue.."  Ecovalue: "..ecovalue.."  Result: "..value)
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD TravelDist: "..Target.Distance.."  Crow flies "..targetdistance.."  Distfactor: "..distancefactor)
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Resulting value is "..value * distancefactor)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Target Position is "..repr(Target.Position))					
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Eco: "..ethreat.."  Sur: "..sthreat.."  My: "..mythreat)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD Milvalue: "..milvalue.."  Ecovalue: "..ecovalue.."  Result: "..value)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAILOUD TravelDist: "..Target.Distance.."  Crow flies "..targetdistance.."  Distfactor: "..distancefactor)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Resulting value is "..value * distancefactor)
                     
-					-- now use distance to modify the value and go after the most valuable
-					if (value * distancefactor) > targetvalue then
+                        -- now use distance to modify the value and go after the most valuable
+                        if (value * distancefactor) > targetvalue then
 					
-						target = Target
-						targetvalue = value * distancefactor
-						targetLocation = Target.Position
-						targettype = 'HiPri'
-						targetclass = Target.Type
-						notargetcount = 0
-					end
+                            target = Target
+                            targetvalue = value * distancefactor
+                            targetLocation = LOUDCOPY(Target.Position)
+                            targetclass = Target.Type
+                            targettype = 'HiPri'                            
+                            notargetcount = 0
+                        end
+                    end
 					
 					WaitTicks(2)
 				end
@@ -7092,36 +7086,23 @@ Platoon = Class(moho.platoon_methods) {
 		local VDist3 = VDist3
 		
         local platoonUnits = GetPlatoonUnits(self)
-		local experimentalunit = false
-		
-		-- set experimental flag --
-        for _,v in platoonUnits do
-		
-			if not v.Dead and LOUDENTITY(categories.EXPERIMENTAL,v) then
-			
-				experimentalunit = v
-				break
-				
-			end
-			
-        end
-		
-		-- set platoon numbers --
         local numberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 		
         local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 		local OriginalSurfaceThreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 		
         local MergeLimit = self.PlatoonData.MergeLimit or false
+		local bAggroMove = self.PlatoonData.AggressiveMove or false
 
         self.PlatoonAttackForce = true
+
         self:SetPlatoonFormationOverride('LOUDClusterFormation')
-        
+
 		local MaximumAttackRange = self.PlatoonData.MaxAttackRange or 1024
 		local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
 
+        local experimentalunit 
         local pos
-        
 
 		local oldTargetLocation = false
 
@@ -7139,57 +7120,56 @@ Platoon = Class(moho.platoon_methods) {
         while PlatoonExists(aiBrain,self) do
 		
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI cycles")
+            
+			if self.MoveThread then
+				self:KillMoveThread()
+			end
 
             pos = GetPlatoonPosition(self) or false
             
             if not pos then
-			
                 return
-				
             end
 			
             platoonUnits = GetPlatoonUnits(self)
-			
+            
+            experimentalunit = false
+
+            for _,v in platoonUnits do
+            
+				if not experimentalunit and LOUDENTITY(categories.EXPERIMENTAL,v) then
+					experimentalunit = v
+					break
+				end
+            end
+
             if MergeLimit and oldNumberOfUnitsInPlatoon < MergeLimit then
 
 				if self.MergeWithNearbyPlatoons( self, aiBrain, 'AmphibForceAILOUD', 75, false, MergeLimit) then
 
                     platoonUnits = GetPlatoonUnits(self)
 					
-					-- reset platoon numbers --
-                    numberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
-                    oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
-					
-                    OriginalSurfaceThreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-					
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AmphibForceAILOUD Merges")
-					
-					-- reset experimental flag --
+                    numberOfUnitsInPlatoon = 0
+
                     for _,v in platoonUnits do
 					
-						if not v.Dead and LOUDENTITY(categories.EXPERIMENTAL,v) then
-						
-							experimentalunit = v
-							break
-							
+						if not v.Dead then
+                            numberOfUnitsInPlatoon = numberOfUnitsInPlatoon + 1
+                            
+                            if LOUDENTITY(categories.EXPERIMENTAL,v) then
+                                experimentalunit = v
+							end
                         end
-						
                     end
                     
                     self:SetPlatoonFormationOverride(PlatoonFormation)
-                    
-					-- reset platoon layer
+
+                    OriginalSurfaceThreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
+                    oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon                    
                     GetMostRestrictiveLayer(self)
-					
                 end
-				
             end
 
-			if self.MoveThread then
-			
-				self:KillMoveThread()
-				
-			end
 
             -- Find A Local target, Priority Target or a Defensive Point
 			targetLocation = false
@@ -7202,27 +7182,21 @@ Platoon = Class(moho.platoon_methods) {
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			
 				if Behaviors.LocationInWaterCheck( target:GetPosition() ) and not CanAttackTarget(self,'Attack',target) then
-				
 					target = false
 					targetLocation = false
-					
 				else
-				
                     targettype = 'Local'
 					oldTargetLocation = false
-					
 				end
-				
 			end
 			
 			mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
             
-			if not target and not targetLocation then
+			if (not target) and (not targetLocation) then
             
 				targetLocation = false
 				target = false
 				
-				-- get the primary Land Attack Base position
 				landattackbase, landattackposition = GetPrimaryLandAttackBase(aiBrain)
 				
 				targetlist = GetHiPriTargetList( aiBrain, landattackposition )
@@ -7233,32 +7207,23 @@ Platoon = Class(moho.platoon_methods) {
 				-- process the hipri list to find a target
 				for _, Target in targetlist do
 					
-					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Artillery' and Target.Type != 'Land' and Target.Type != "Economy" then
-					
+					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Land' and Target.Type != "Economy" then
 						continue	-- allow only the targets listed above
-						
 					end
 					
 					if VDist3( Target.Position, pos ) > MaximumAttackRange then
-					
 						break	-- all additional targets are beyond attack range
-						
 					end
 
-					-- establish military and economic values for the target
 					sthreat = Target.Threats.Sur
 					ethreat = Target.Threats.Eco
 					
 					if sthreat < 1 then
-					
 						sthreat = 1
-						
 					end
 					
 					if ethreat < 1 then 
-					
 						ethreat = 1
-						
 					end
 
                     -- calc economic value of the target area but cap it so it doesn't drown the military value
@@ -7305,31 +7270,25 @@ Platoon = Class(moho.platoon_methods) {
 
                     -- ignore targets we are still too weak against
                     if value <= 0.85 then 
-					
                         continue
-						
                     end
                     
                     -- ignore targets that may be in or on the water -- yes - this is an amphib platoon but no way to tell
                     -- if its capable of attacking such a goal so just let the navy deal with it
 					if Behaviors.LocationInWaterCheck(Target.Position) then
-					
 						continue
-						
 					end
+                    
+					-- this next segement of code is designed to help the AI stay focused on his current enemy
+					-- by increasing the value of targets where his current enemy is present
+					local enemyindex = aiBrain.CurrentEnemyIndex
 
-					
-					--LOG("AI DEBUG "..aiBrain.Nickname.." AmphbiForceAI checks units at target")
-					
 					for _,u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, Target.Position, 90, 'Enemy') do
 					
-						if aiBrain.CurrentEnemyIndex == u:GetAIBrain().ArmyIndex then
-						
+						if enemyindex == u:GetAIBrain().ArmyIndex then
 							value = value * 1.15
 							break
-							
 						end
-						
 					end
 					
 					-- ok - the 'real' distancefactor is not the 'as the crow flies' distance
@@ -7341,9 +7300,7 @@ Platoon = Class(moho.platoon_methods) {
 					if path then
 
 						if pathlength > Target.Distance then
-						
 							Target.Distance = pathlength	--totaldistance
-							
 						end
 
 						local distancefactor = aiBrain.dist_comp/Target.Distance   
@@ -7351,17 +7308,13 @@ Platoon = Class(moho.platoon_methods) {
 						local targetdistance = VDist3( pos, Target.Position)
 					
 						-- this will give us an override to account for any hipri targets close to the platoon (and we can reasonably path to)
-						if targetdistance < 300 and Target.Distance < (targetdistance * 1.3) then
-						
-							distancefactor = 50		-- make any hipri within 250 of the platoon very valuable
-							
+						if targetdistance < 200 and Target.Distance < (targetdistance * 1.3) then
+							distancefactor = 100		-- make any hipri within 250 of the platoon very valuable
 						end
                     
 						-- make any target far away (and would need air transport) have a lower distancefactor (less valuable)
 						if targetdistance >= 1024 then
-						
 							distancefactor = distancefactor * ( 1024 / targetdistance )
-							
 						end
                     
 						-- the targetvalue is essentially (value * distancefactor)
@@ -7374,15 +7327,11 @@ Platoon = Class(moho.platoon_methods) {
 							targetclass = Target.Type
 							targettype = 'HiPri'
 							oldTargetLocation = false
-							
 						end
-						
 					end
 					
-					WaitTicks(4)
-					
+					WaitTicks(2)
 				end
-				
 			end
 			
 			local name = false
