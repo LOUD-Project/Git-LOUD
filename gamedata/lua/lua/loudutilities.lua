@@ -3610,19 +3610,49 @@ function ParseIntelThread( aiBrain )
 		--- AIR UNITS ---
 		-----------------
 		myvalue = 0
+        
+        local mycount = 0
 		
 		-- calculate my present airvalue			
-		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE, myunits ) do
+		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, myunits ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
 
 			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
+            mycount = mycount + 1
 		end
 
 		if EnemyData['Air']['Total'] > 0 then
+        
+            local realair = 0
+            local realcount = 0
+            
+            for v, brain in ArmyBrains do
+                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                
+                    local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                    
+                    for _,v in enemyunits do
+                    
+                        local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                        realair = realair + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        realcount = realcount + 1
+                    end
+                end
+            end
+            
+            realair = LOUDMAX( LOUDMIN(( myvalue / realair ) / NumOpponents, 100 ), 0.01)
+            
+            
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 100
 			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Real Air says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realair).." versus IMAP "..aiBrain.AirRatio)
+            
+            aiBrain.AirRatio = realair
+            
 		else
 			aiBrain.AirRatio = 0.01
 		end
@@ -3630,20 +3660,49 @@ function ParseIntelThread( aiBrain )
 		--- LAND UNITS ---
 		------------------
 		myvalue = 0
+        
+        mycount = 0
 
 		-- calculate my present land value -- this should remove ANTIAIR to be better matched to whats
         -- going on in the PARSEINTEL thread
-		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE), myunits ) do
+		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, myunits ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
+            mycount = mycount + 1
 		end
 
 		if EnemyData['Land']['Total'] > 0 then
+        
+            local realland = 0
+            local realcount = 0
+            
+            for v, brain in ArmyBrains do
+                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                
+                    local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, false, false)
+                    
+                    for _,v in enemyunits do
+                    
+                        local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                        realland = realland + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        realcount = realcount + 1
+                    end
+                end
+            end
+            
+            realland = LOUDMAX( LOUDMIN(( myvalue / realland ) / NumOpponents, 100 ), 0.01)
+
+
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 100
 			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
+            
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Real Land says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realland).." versus IMAP "..aiBrain.LandRatio)
+            
+            aiBrain.LandRatio = realland
         else
 			aiBrain.LandRatio = 0.01
 		end
