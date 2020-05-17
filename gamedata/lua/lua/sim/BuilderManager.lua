@@ -438,7 +438,7 @@ BuilderManager = Class {
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if brain.AttackPlan.Goal and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
         
-                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 9999, 160 )
+                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 99999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
@@ -447,9 +447,10 @@ BuilderManager = Class {
                     brain.BuilderManagers[self.LocationType].LandMode = true
                     LOG("*AI DEBUG "..brain.Nickname.." There is a LAND path from "..self.LocationType.." dist "..landpathlength.." steps "..LOUDGETN(path).." cost is "..repr(pathcost).." to "..repr(brain.AttackPlan.Goal))
                 else
-
-                    brain.BuilderManagers[self.LocationType].LandMode = false
-                    LOG("*AI DEBUG "..brain.Nickname.." No LAND path from "..self.LocationType.." to "..repr(brain.AttackPlan.Goal).." - now in AMPHIB mode")                
+                    if not path then
+                        brain.BuilderManagers[self.LocationType].LandMode = false
+                        LOG("*AI DEBUG "..brain.Nickname.." No LAND path from "..self.LocationType.." to "..repr(brain.AttackPlan.Goal).." - now in AMPHIB mode")
+                    end
                 end
                 
                 --local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Amphibious', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 9999, 160 )
