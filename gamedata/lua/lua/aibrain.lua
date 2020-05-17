@@ -576,6 +576,10 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 		self.PingCallbackList = {}
         
+        -- this is a LOUD data element for storing unpacked
+        -- platoon templates
+        self.PlatoonTemplates = {}
+        
 		self.IgnoreArmyCaps = false
 
         -- all AI are technically 'cheaters' now --

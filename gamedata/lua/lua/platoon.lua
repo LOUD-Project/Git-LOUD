@@ -1185,7 +1185,6 @@ Platoon = Class(moho.platoon_methods) {
 					end
 					
 					RTBLocation = v.LocationType
-					
 				end
 				
 				-- if no platoon RTBLocation then force one
@@ -1248,18 +1247,14 @@ Platoon = Class(moho.platoon_methods) {
 					v:SetCapturable(true)
 					v:ShowBone(0, true)
 					v:MarkWeaponsOnTransport(v, false)
-					
 				end
-				
 			end
-			
         end
 
 		-- exit if no units --
 		if platoonDead then
 		
             return 
-			
 		end
 --[[		
 		if ScenarioInfo.PlatoonDialog then
@@ -1290,7 +1285,6 @@ Platoon = Class(moho.platoon_methods) {
 				bestBase = bases[RTBLocation]
 				bestBaseName = RTBLocation
                 RTBLocation = bestBase.Position
-			
 			else
 				
 				RTBLocation = 'Any'
@@ -1323,11 +1317,8 @@ Platoon = Class(moho.platoon_methods) {
 								bestDistance = distance    
 								
 							end
-							
 						end
-						
 					end
-					
 				end
             
 				if not bestBase then
@@ -1337,22 +1328,18 @@ Platoon = Class(moho.platoon_methods) {
 					bestBase = aiBrain.BuilderManagers['MAIN']
 					bestBaseName = 'MAIN'
 					RTBLocation = bestBase.Position
-					
 				end
-				
 			end
 
 			-- set transportlocation - engineers always use base centre	
 			if bestBase.Position then
 			
 				transportLocation = table.copy(bestBase.Position)
-				
 			else
 				
 				LOG("*AI DEBUG "..aiBrain.Nickname.." RTB cant locate a bestBase")
 				
 				return self:PlatoonDisband(aiBrain)
-				
 			end
 			
 			-- others will seek closest rally point of that base
@@ -1396,7 +1383,6 @@ Platoon = Class(moho.platoon_methods) {
             if mythreat < 10 then
 			
 				mythreat = 10
-				
             end
 			
 			-- set marker radius for path finding
@@ -1405,7 +1391,6 @@ Platoon = Class(moho.platoon_methods) {
 			if self.MovementLayer == 'Air' or self.MovementLayer == 'Water' then
 			
 				markerradius = 200
-				
 			end
 			
             -- we use normal threat first
@@ -1423,7 +1408,6 @@ Platoon = Class(moho.platoon_methods) {
 				path = {transportLocation}
 				distance = 1
 				IssueTeleport( {engineer}, transportLocation )
-				
 			end
 
 			-- if there is no path try transport call
@@ -1435,7 +1419,6 @@ Platoon = Class(moho.platoon_methods) {
 				if (self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious') and not experimental then
 				
 					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, transportLocation, 4, false )
-					
 				end
 				
 				-- if no transport reply resubmit LAND platoons, others will set a direct path
@@ -1448,7 +1431,6 @@ Platoon = Class(moho.platoon_methods) {
 						WaitTicks(35)
 						
 						return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-						
 					else
 					
                         self:Stop()
@@ -1456,11 +1438,8 @@ Platoon = Class(moho.platoon_methods) {
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
 						
 						path = { transportLocation }
-						
 					end
-				
 				end
-			
 			end
 
 			-- execute the path movement
@@ -1470,11 +1449,8 @@ Platoon = Class(moho.platoon_methods) {
 				
                     -- Move using aggressive move
 					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', true)
-
 				end
-			
 			end
-			
 		else
 		
 			-- closer than 60 - move directly --
@@ -4573,6 +4549,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		local categories = data.Reclaim
         local counter = 0
+        
         local units = GetPlatoonUnits(self)
 		
         while PlatoonExists(aiBrain,self) do
@@ -4602,7 +4579,9 @@ Platoon = Class(moho.platoon_methods) {
 			LOUDSORT(reclaimlist, function(a,b) return a.Distance > b.Distance end)
 			
 			local sortedreclaimlist = {}
+            
 			counter = 0
+            
 			local lastpos
 			
 			while LOUDGETN(reclaimlist) > 0 do
@@ -4640,9 +4619,7 @@ Platoon = Class(moho.platoon_methods) {
             until allIdle
 			
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-			
         end
-		
     end,
 	
 	EngineerReclaimUnitAI = function( self, aiBrain )
@@ -4682,6 +4659,7 @@ Platoon = Class(moho.platoon_methods) {
 			local reclaimables = EntityCategoryFilterDown( reclaimcat, GetPlatoonUnits(armypool) )
 
 			if LOUDGETN(reclaimables) > 0 then
+            
 				LOUDSORT( reclaimables, function(a,b) return VDist3(a:GetPosition(), baseposition) < VDist3( b:GetPosition(), baseposition) end)
 
 				for _,v in reclaimables do
@@ -7547,13 +7525,11 @@ Platoon = Class(moho.platoon_methods) {
         if self.UsingTransport then
 		
             return false
-			
         end
 		
 		if not PlatoonExists(aiBrain,self) then
 		
 			return false
-			
 		end
 
         local platoonUnits = GetPlatoonUnits(self)
@@ -7564,15 +7540,12 @@ Platoon = Class(moho.platoon_methods) {
 			if not v.Dead then
 			
 				platooncount = platooncount + 1
-				
 			end
-			
 		end
 
 		if (mergelimit and platooncount > mergelimit) or platooncount < 1 then
 		
 			return false
-			
 		end
 		
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
@@ -7620,35 +7593,30 @@ Platoon = Class(moho.platoon_methods) {
             if aPlat.UsingTransport then
 			
                 continue
-				
             end
 			
 			-- not only the plan must match but the buildername as well
 			if planmatchrequired and aPlat.BuilderName != self.BuilderName then
 			
 				continue
-				
 			end
 			
 			-- otherwise it must a least have the same plan
             if aPlat.PlanName != planName then
 			
                 continue
-				
             end
 			
 			-- and be on the same movement layer
             if self.MovementLayer != aPlat.MovementLayer then
 			
                 continue
-				
             end
 			
 			-- check distance of allied platoon -- as soon as we hit one farther away then we're done
 			if VDist2Sq(platPos[1],platPos[3], GetPlatoonPosition(aPlat)[1],GetPlatoonPosition(aPlat)[3]) > radiusSq then
 			
 				break
-				
 			end
 			
             -- get the allied platoons size
@@ -7676,20 +7644,15 @@ Platoon = Class(moho.platoon_methods) {
 						
 							validUnits[counter+1] = u
 							counter = counter + 1
-							
 						end
-						
 					end
-					
                 end
-				
             end
 
 			-- if no valid units or we are smaller than the allied platoon then dont allow
 			if counter < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
 			
                 continue
-				
             end
 
 			-- otherwise we do the merge
@@ -7708,7 +7671,6 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- flag that we did a merge --
 			mergedunits = true
-			
         end
 
         if ScenarioInfo.PlatoonMergeDialog then
@@ -7716,7 +7678,6 @@ Platoon = Class(moho.platoon_methods) {
         end
         
 		return mergedunits
-		
     end,
 
     --  Function: MergeIntoNearbyPlatoons

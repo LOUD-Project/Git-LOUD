@@ -61,7 +61,6 @@ function SetupSession()
 
     ArmyBrains = {}
 
-
 	--# ScenarioInfo.Env is the environment that the save file and scenario script file are loaded into.
     ScenarioInfo.Env = import('/lua/scenarioenvironment.lua')
 	
@@ -194,7 +193,6 @@ function BeginSession()
             AddBuildRestriction(index, buildRestrictions)
 			
         end
-		
     else
 		ScenarioInfo.Options.RestrictedCategories = false
 	end
@@ -211,9 +209,7 @@ function BeginSession()
             end
 			
             ArmyBrains[index].RequestingAlliedVictory = true
-			
         end
-		
     end
     
     -- Create any effect markers on map

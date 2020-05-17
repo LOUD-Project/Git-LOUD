@@ -62,24 +62,43 @@ PlatoonFormManager = Class(BuilderManager) {
 	
     -- I finished the ability to have faction based squads which was obviously intended but never fully coded
 	-- so now you can specify a single platoon but have faction unique compositions for them
+    -- the next trick is too make the upper limits dynamic with the AI multiplier
+    -- rather than unpack them every time they're needed - we'll store them on the brain that's using them
+    -- a small savings but useful
     GetPlatoonTemplate = function( self, templateName, aiBrain )
+    
+        if not aiBrain.PlatoonTemplates[templateName] then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." resolving template "..templateName)
 
-        if PlatoonTemplates[templateName].GlobalSquads then
-		
-            return { PlatoonTemplates[templateName].Name, PlatoonTemplates[templateName].Plan or 'none', unpack(PlatoonTemplates[templateName].GlobalSquads) }
+            local resolvedtemplate
+
+            if PlatoonTemplates[templateName].GlobalSquads then
+        
+                resolvedtemplate = { PlatoonTemplates[templateName].Name, PlatoonTemplates[templateName].Plan or 'none', unpack(PlatoonTemplates[templateName].GlobalSquads) }
+            else
 			
-        else
+                local factionitem = factionnames[aiBrain.FactionIndex]
 			
-			local factionitem = factionnames[aiBrain.FactionIndex]
-			
-            if PlatoonTemplates[templateName].FactionSquads[factionitem] then
-			
-				return { PlatoonTemplates[templateName].Name, PlatoonTemplates[templateName].Plan or 'none', unpack(PlatoonTemplates[templateName].FactionSquads[factionitem]) }
-				
+                if PlatoonTemplates[templateName].FactionSquads[factionitem] then
+            
+                    resolvedtemplate = { PlatoonTemplates[templateName].Name, PlatoonTemplates[templateName].Plan or 'none', unpack(PlatoonTemplates[templateName].FactionSquads[factionitem]) }
+                end
             end
-			
+            
+            -- apply the AI Multiplier to the maximum of each squad
+            for k,v in resolvedtemplate do
+            
+                if k > 2 then
+                
+                    v[3] = math.floor(math.max( 1, v[3] * aiBrain.CheatValue ))
+                end
+            end
+
+            aiBrain.PlatoonTemplates[templateName] = resolvedtemplate
         end
-		
+        
+        return aiBrain.PlatoonTemplates[templateName]
     end,
     
     GetUnitsBeingBuilt = function( self, aiBrain, buildingCategory, builderCategory)
