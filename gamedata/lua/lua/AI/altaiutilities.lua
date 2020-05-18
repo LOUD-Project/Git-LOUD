@@ -2686,15 +2686,14 @@ function ReturnTransportsToPool( aiBrain, units, move )
 			end
 		end
     end
-	
-	if not unit or unit == nil then
-	
-		return
-		
-	end
 
-    local x = aiBrain.StartPosX
-	local z = aiBrain.StartPosZ
+    local x = aiBrain.StartPosX or false
+	local z = aiBrain.StartPosZ or false
+
+    -- if not a unit or no brain startposition (ie.- civilians)
+	if (not unit or unit == nil) or (not x) or (not z) then
+		return
+	end
 	
 	local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unit:GetPosition())
 	
@@ -2702,9 +2701,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
 	
 		x = baseposition[1]
 		z = baseposition[3]
-		
-	end
-	
+    end
+
     local position = AIUtils.RandomLocation(x,z)
 	
 	local unit = false
