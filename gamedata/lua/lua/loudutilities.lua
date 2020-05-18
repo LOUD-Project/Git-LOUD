@@ -3149,7 +3149,7 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 60 	-- the rate of a single iteration in ticks - essentially every 6 seconds
+	local parseinterval = 66 	-- the rate of a single iteration in ticks - essentially every 6.6 seconds
 
     -- the current iteration value
     local iterationcount = 1 
@@ -3648,7 +3648,7 @@ function ParseIntelThread( aiBrain )
             
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 100
-			aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
+			--aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." Real Air says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realair).." versus IMAP "..aiBrain.AirRatio)
             
@@ -3699,9 +3699,9 @@ function ParseIntelThread( aiBrain )
 
 			-- ratio will be total value divided by number of history points divided again by number of opponents
 			-- with range limits between 0.01 and 100
-			aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
+			--aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Real Land says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realland).." versus IMAP "..aiBrain.LandRatio)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Real Land says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realland).." versus IMAP "..aiBrain.LandRatio)
             
             aiBrain.LandRatio = realland
         else
