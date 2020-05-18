@@ -643,33 +643,25 @@ function CDRFinishUnit( aiBrain, cdr )
     cdr.UnitBeingBuiltBehavior = false
 end
 
+-- When idle, the ACU will exhibit a 'hide' behavior and run for certain defensive positions
+-- Modified this so that he doesn't run like this if there's no place to run to - the original
+-- Sorian code would have the ACU run to the 'top left' of the base every time in this case
 function CDRHideBehavior( aiBrain, cdr )
 
 	if cdr:IsIdleState() then
 		
-		cdr.Fighting = true
-		cdr.Upgrading = false
-		
-		local id = cdr:GetEntityId()
-		
-		FloatingEntityText(id,'Inspection Tour...')
-		
-        local plat = MakePlatoon( aiBrain, 'CDRWander', 'none' )
-		
-		plat.BuilderName = 'CDRWander'
-		
-        AssignUnitsToPlatoon( aiBrain, plat, {cdr}, 'Support', 'None' )
-		
-		IssueClearCommands( {cdr} )		
+        cdr.Fighting = true
+        cdr.Upgrading = false
+	    
+        local category = false
 		
 		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 80, 'Ally' )
 		local nmaAA = aiBrain:GetNumUnitsAroundPoint( categories.ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
+        local nmaDF = aiBrain:GetNumUnitsAroundPoint( categories.DIRECTFIRE, cdr.CDRHome, 80, 'Ally' )
 		
 		local runShield = false
 		local runSpot = false
 
-		local category = categories.DEFENSE * categories.DIRECTFIRE
-		
 		if nmaShield > 0 then
 		
 			category = categories.SHIELD
@@ -679,21 +671,35 @@ function CDRHideBehavior( aiBrain, cdr )
 		
 			category = categories.DEFENSE * categories.ANTIAIR
 			
-		end
+		elseif nmaDF > 0 then
+        
+     		category = categories.DIRECTFIRE
+        end
 	
 		if category then
+	
+            local id = cdr:GetEntityId()
+		
+            FloatingEntityText(id,'Inspection Tour...')
+		
+            local plat = MakePlatoon( aiBrain, 'CDRWander', 'none' )
+		
+            plat.BuilderName = 'CDRWander'
+		
+            AssignUnitsToPlatoon( aiBrain, plat, {cdr}, 'Support', 'None' )
+		
+            IssueClearCommands( {cdr} )		
 		
 			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 80, runShield )
 			
 			IssueClearCommands( {cdr} )
 			IssueMove( {cdr}, runSpot )
-			
-		end
 
-		WaitTicks(80)
+            WaitTicks(80)
 		
-		plat:SetAIPlan('ReturnToBaseAI',aiBrain)		
-	
+            plat:SetAIPlan('ReturnToBaseAI',aiBrain)		
+        end
+        
         cdr.Fighting = false
 	end
 	
