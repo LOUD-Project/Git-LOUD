@@ -7,11 +7,27 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 -- this function will turn a builder on if there are no factories
-local HaveZeroFactories = function( self, aiBrain )
+local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 90 then
+    if aiBrain.CycleTime > 300 then
 	
-        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY, false, true )) < 1 then
+        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
+	
+            return 990, true
+		
+        end
+        
+    end
+
+	return self.Priority, false
+
+end
+
+local HaveZeroLandFactories = function( self, aiBrain )
+
+    if aiBrain.CycleTime > 300 then
+	
+        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
 	
             return 990, true
 		
@@ -38,10 +54,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         Priority = 10,
         
-        PriorityFunction = HaveZeroFactories,
+        PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -69,10 +85,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         Priority = 10,
         
-        PriorityFunction = HaveZeroFactories,
+        PriorityFunction = HaveZeroAirFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -179,7 +195,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		
         Priority = 10,
         
-        PriorityFunction = HaveZeroFactories,
+        PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -330,7 +346,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         Priority = 999,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.NAVAL * categories.TECH1 }}            
         },
