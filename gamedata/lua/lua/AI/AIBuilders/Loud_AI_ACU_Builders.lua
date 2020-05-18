@@ -546,7 +546,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},			
 
-			{ MIBC, 'GreaterThanGameTime', { 180 } },
+			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
 			-- must not have any of the internal T2+ AA structures 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTIAIR, 14, 35 }},
@@ -557,7 +557,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Construction = {
-				Radius = 50,
+				Radius = 51,    -- we use the same radius as that used by the T1 engineers so we don't overbuild
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,	-- randomly select one of orientation points

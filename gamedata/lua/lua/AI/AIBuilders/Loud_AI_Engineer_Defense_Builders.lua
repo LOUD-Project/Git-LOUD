@@ -70,7 +70,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
+			{ EBC, 'GreaterThanEnergyIncome', { 440 }},
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
@@ -834,7 +834,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEnergyIncome', { 400 }},
+			{ EBC, 'GreaterThanEnergyIncome', { 440 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			-- dont have any advanced power built -- makes this gun obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
@@ -890,7 +890,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEnergyIncome', { 400 }},			
+			{ EBC, 'GreaterThanEnergyIncome', { 440 }},			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
