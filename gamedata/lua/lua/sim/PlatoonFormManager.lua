@@ -64,12 +64,10 @@ PlatoonFormManager = Class(BuilderManager) {
 	-- so now you can specify a single platoon but have faction unique compositions for them
     -- the next trick is too make the upper limits dynamic with the AI multiplier
     -- rather than unpack them every time they're needed - we'll store them on the brain that's using them
-    -- a small savings but useful
+    -- a small savings but useful at the cost of some memory
     GetPlatoonTemplate = function( self, templateName, aiBrain )
     
         if not aiBrain.PlatoonTemplates[templateName] then
-        
-            LOG("*AI DEBUG "..aiBrain.Nickname.." resolving template "..templateName)
 
             local resolvedtemplate
 

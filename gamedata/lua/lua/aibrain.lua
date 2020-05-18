@@ -5,7 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-	ScenarioInfo.NameEngineers = false
+	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 	
 
@@ -13,7 +13,7 @@
 	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
 
-	ScenarioInfo.ReportRatios = false
+	ScenarioInfo.ReportRatios = true
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 	
 	-- SHOW AI Bases as Markers on map
@@ -46,7 +46,7 @@
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
     
 	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
-	ScenarioInfo.PriorityDialog = true
+	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
     
     -- INSTANCE COUNT dialogs - shows instance counts for tasks as they are used/released
@@ -62,9 +62,9 @@
     ScenarioInfo.IntelDialog = false
     LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
     
-	ScenarioInfo.DisplayIntelPoints = false
+	ScenarioInfo.DisplayIntelPoints = true
 	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
-	
+
 	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 

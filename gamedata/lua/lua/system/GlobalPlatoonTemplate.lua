@@ -1,6 +1,6 @@
 #**  File     :  /lua/system/GlobalPlatoonTemplate.lua
 #**  Summary  :  Global buff table and blueprint methods
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+#**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
 
 
 PlatoonTemplates = {}

@@ -64,15 +64,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if basetype == 'Sea' then
 		
 			builderTypes = { 'SeaT1','SeaT2','SeaT3' }
-			
 		end
 		
 		for _,v in builderTypes do
 		
 			self:AddBuilderType(v)
-			
 		end
-
 	end,
 
 	-- modified this process so we can specify multiple factory types (vs. All) to add builders for
@@ -115,7 +112,6 @@ FactoryBuilderManager = Class(BuilderManager) {
         while (not factory.Dead) and factory:GetFractionComplete() < 1 do
 		
             WaitTicks(100)
-			
         end
 		
 		--LOG("*AI DEBUG Adding Factory "..factory.Sync.id.." to "..self.ManagerType.." "..self.LocationType)
@@ -177,14 +173,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				factory.BuilderType = 'Gate'
 				factory.BuildLevel = 3
-				
 			end
 			
 			-- fired off when the factory completes an item (single or multiple units)
 			local factoryWorkFinish = function( factory, finishedUnit, aiBrain )
 			
 				self:FactoryFinishBuilding(factory, finishedUnit)
-				
 			end
 			
 			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
@@ -199,7 +193,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 				local factoryDestroyed = function( factory )
 				
 					self:FactoryDestroyed( factory )
-					
 				end
 
 				factory:AddUnitCallback( factoryDestroyed, 'OnReclaimed')
@@ -213,11 +206,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 				ForkThread( self.DelayBuildOrder, self, factory )
 
 				self.FactoryList = self:RebuildTable( self.FactoryList )
-				
 			end
-			
 		end
-		
 	end,
     
     FactoryDestroyed = function(self, factory)
@@ -230,15 +220,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 					self.FactoryList[k] = nil
 					break
-					
 				end
-				
 			end
 		
 			self.FactoryList = self:RebuildTable( self.FactoryList )
-			
 		end
-		
     end,
     
     -- this is the function which actually finds and builds something
@@ -249,7 +235,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 	
 		if factory.Sync.id and not factory.Upgrading then
 
-			self.BuilderData[factory.BuilderType].NeedSort = true
+            -- this line has me a bit puzzled - not sure if this needs to be done
+            -- since only a new/removed builder or a priority change would make it necessary
+			--self.BuilderData[factory.BuilderType].NeedSort = true
 			
 			local builder = self:GetHighestBuilder( factory, aiBrain )
 		
@@ -273,9 +261,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
 					
 							factory.addplan = papv
-						
 						end
-					
 					end
 
 					if Builders[builder.BuilderName].PlatoonAddBehaviors then
@@ -283,9 +269,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 						for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
 					
 							factory.addbehavior = papv
-						
 						end
-					
 					end
 				
 					if ScenarioInfo.DisplayFactoryBuilds then
@@ -293,7 +277,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 						factory:SetCustomName(repr(builder.BuilderName))
 					
 						FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
-				
 					end
 
 					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
@@ -303,13 +286,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
 					
 							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
-						
 						end
-					
 					end
 					
 				else
-				
 					-- was originally going to set the priority to zero and have the job totally disabled but
 					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
@@ -318,16 +298,23 @@ FactoryBuilderManager = Class(BuilderManager) {
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." unable to build "..repr(builder.BuilderName).." setting priority to 10")
 					end
 
-                    self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
+                    -- if there was a build platoon but we failed anyway - assign a timeout
+                    -- otherwise set the job priority to zero so it doesn't come up again
+                    if buildplatoon then
+                    
+                        self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
+                    else
+                    
+                        builder:SetPriority( 0, false)
+                    end
 			
                     if ScenarioInfo.DisplayFactoryBuilds then
                         ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
                     end
 
 					self.BuilderData[factory.BuilderType].NeedSort = true
-					
+
 					ForkThread( self.DelayBuildOrder, self, factory )
-				
 				end
 				
 			else
@@ -339,11 +326,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 				factory.failedbuilds = factory.failedbuilds + 1
 
                 ForkThread( self.DelayBuildOrder, self, factory )
-				
 			end
-			
 		end
-		
 	end,
     
 	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
@@ -354,7 +338,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if factory:BeenDestroyed() then
 		
 			return
-			
 		end
 	
 		local WaitTicks = coroutine.yield
@@ -373,7 +356,6 @@ FactoryBuilderManager = Class(BuilderManager) {
             end
 		
 			WaitTicks(10)
-			
 		end
         
         -- the cheatvalue directly impacts the triggers --
@@ -388,7 +370,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 	
             -- higher tier factories check more frequently
 			WaitTicks(23 - (factory.BuildLevel * 3))
-			
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
@@ -402,20 +383,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 				else
 				
 					break
-					
 				end
-				
 			end
-			
 		
 			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not factory.Upgrading) then
 			
 				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
-				
 			end
-			
 		end
-		
     end,
     
 	-- I learned something interesting here - when a factory gets upgraded, it is NOT removed from 
@@ -432,30 +407,24 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if v.Sync.id then
 			
                counter = counter + 1
-			   
 			else
 
 				self.FactoryList[k] = nil
 				changed = true
-				
 			end
-			
 		end
 		
         if changed then
 		
 			self.FactoryList = self:RebuildTable( self.FactoryList )
-			
 		end
 
 		return counter
-		
 	end,
     
 	GetNumCategoryFactories = function(self, category)
 	
 		return EntityCategoryCount( category, self.FactoryList ) or 0
-		
 	end,
     
 	GetNumCategoryBeingBuilt = function(self, category, facCategory )
@@ -467,13 +436,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if v.Dead then
 			
 				continue
-				
 			end
             
 			if not v:IsUnitState('Upgrading') and not v:IsUnitState('Building') then
 			
 				continue
-				
 			end
             
 			local beingBuiltUnit = v.UnitBeingBuilt	
@@ -481,21 +448,17 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if not beingBuiltUnit or beingBuiltUnit.Dead then
 			
 				continue
-				
 			end
             
 			if not LOUDENTITY( category, beingBuiltUnit ) then
 			
 				continue
-				
 			end
             
 			counter = counter + 1
-			
 		end
 		
 		return counter
-		
 	end,
     
 	GetFactoriesBuildingCategory = function(self, category, facCategory )
@@ -508,13 +471,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if v.Dead then
 			
 				continue
-				
 			end
             
 			if not v:IsUnitState('Upgrading') and not v:IsUnitState('Building') then
 			
 				continue
-				
 			end
             
 			local beingBuiltUnit = v.UnitBeingBuilt	
@@ -522,22 +483,18 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if not beingBuiltUnit or beingBuiltUnit.Dead then
 			
 				continue
-				
 			end
             
 			if not LOUDENTITY( category, beingBuiltUnit ) then
 			
 				continue
-				
 			end
             
 			units[counter+1] = v
 			counter = counter + 1
-			
 		end
 
 		return units
-		
 	end,
     
 	GetFactoriesWantingAssistance = function(self, category, facCatgory )
@@ -550,22 +507,18 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if v.DesiresAssist == false then
 			
                continue
-			   
 			end
             
 			if v.NumAssistees and LOUDGETN( v:GetGuards() ) >= v.NumAssistees then
 			
 				continue
-				
 			end 
             
 			units[counter+1] = v
 			counter = counter + 1
-			
 		end
         
        return units
-	   
     end,
 	
 	-- this is fired when a factory completes a build order
@@ -580,7 +533,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if ScenarioInfo.DisplayFactoryBuilds then
 		
 			factory:SetCustomName("")
-			
 		end
 
         if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
@@ -652,7 +604,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 				if not finishedUnit.EnhanceThread and __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence then
 				
 					finishedUnit.EnhanceThread = finishedUnit:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
-					
 				end				
 
 				factory.Dead = true
@@ -678,7 +629,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 					
                         factory:LaunchUpgradeThread( aiBrain )
 					end
-					
 				end
 				
 				if not factory.EnhancementsComplete then
@@ -773,11 +723,8 @@ FactoryBuilderManager = Class(BuilderManager) {
                     end
 				
 					LOUDINSERT( template, v )
-					
 				end
-				
 			end
-			
 			
 		elseif faction and customData then
 
@@ -786,19 +733,15 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if replacement then
 			
 				LOUDINSERT( template, replacement )
-				
 			end
-			
 		end
 		
         if not template then
         
             LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
-            
         end
         
 		return template
-		
 	end,
 	
 	-- as with the BuilderParamCheck in the EM, we no longer need most of these checks
@@ -808,11 +751,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if factory.Upgrading or factory:IsUnitState('Upgrading') then
 		
 			return false
-			
 		end
 		
 		return true
-		
     end,
     
 	-- one of the LOUD features - AI no longer relies upon placement of Rally Point markers - makes his own when he starts a base
@@ -832,7 +773,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if LOUDENTITY( categories.NAVAL, factory ) then
 			
 				rallyType = 'Naval Rally Point'
-				
 			end
         
 			rally = AIGetClosestMarkerLocation( self, rallyType, position[1], position[3] )
@@ -841,7 +781,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				position = RandomLocation(position[1],position[3])
 				rally = position
-				
 			end
         
 			IssueClearFactoryCommands( {factory} )
@@ -849,9 +788,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			IssueFactoryRallyPoint({factory}, rally)
 		
 			factory:ForkThread(self.TrafficControlThread, position, rally)
-			
 		end
-		
     end,
 
 	-- thread runs as long as the factory is alive and monitors the units at that
@@ -885,7 +822,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		else
 		
 			Direction = 270		-- West
-			
 		end
 
 		local aiBrain = factory:GetAIBrain()
@@ -908,9 +844,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					if (unit.PlatoonHandle == aiBrain.ArmyPool) and unit:IsIdleState() then
 
 						table.insert( unitlist, unit )
-						
 					end
-					
 				end
 				
 				if table.getn(unitlist) > 10 then
@@ -920,13 +854,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 					IssueClearCommands( unitlist )
 
 					IssueFormMove( unitlist, rallypoint, 'BlockFormation', Direction )
-					
 				end
-				
 			end
-			
 		end
-		
 	end,
 	
 }

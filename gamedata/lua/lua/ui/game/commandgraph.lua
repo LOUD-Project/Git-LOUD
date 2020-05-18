@@ -13,8 +13,10 @@ function OnCommandGraphShow(show)
 
 end
 
+-- this is triggered whenever you start to drag a movement order around
+-- not sure about others yet
 function OnCommandDragBegin()
-
+    --LOG("*AI DEBUG OnCommandDragBegin")
 end
 
 function OnCommandDragEnd(event,cmdId)
