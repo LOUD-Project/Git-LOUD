@@ -377,18 +377,14 @@ PlatoonBuilder = Class(Builder) {
 								b.InstanceCount[platoon.BuilderInstance].PlatoonHandle = false
 								b.InstanceCount[platoon.BuilderInstance].Status = 'Available'
 								
-								if ScenarioInfo.PriorityDialog then
+								if ScenarioInfo.InstanceDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstancesAvailable)
 								end
 								
 								break
-								
 							end
-							
 						end
-						
 					end
-					
                 end
 				
 				LOUDINSERT(platoon.EventCallbacks.OnDestroyed, destroyedCallback)
@@ -396,13 +392,10 @@ PlatoonBuilder = Class(Builder) {
 				builder.InstancesAvailable = builder.InstancesAvailable - 1
 
 				return true
-				
 			end
-			
         end
 
 		return false
-		
     end,
 	
 }

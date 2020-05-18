@@ -3613,6 +3613,7 @@ function ParseIntelThread( aiBrain )
         
         local mycount = 0
 		
+
 		-- calculate my present airvalue			
 		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, myunits ) do
 		
