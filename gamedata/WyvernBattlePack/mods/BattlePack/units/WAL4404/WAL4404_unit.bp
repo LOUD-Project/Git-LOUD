@@ -55,7 +55,7 @@ UnitBlueprint {
         MaxHealth = 34000,
         RegenRate = 12,
 
-        SurfaceThreatLevel = 53,
+        SurfaceThreatLevel = 186.4,
     },
     
     Description = 'Light Experimental Assault Bot',

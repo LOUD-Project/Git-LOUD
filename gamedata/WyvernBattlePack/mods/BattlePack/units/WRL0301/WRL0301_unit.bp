@@ -58,7 +58,7 @@ UnitBlueprint {
         
         RegenRate = 3,
 
-        SurfaceThreatLevel = 30,
+        SurfaceThreatLevel = 39.1,
     },
     
     Description = 'Heavy Amphibious Stealth Tank',

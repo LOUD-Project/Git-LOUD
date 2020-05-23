@@ -92,7 +92,7 @@ UnitBlueprint {
         
         RegenRate = 100,
 
-        SurfaceThreatLevel = 470,
+        SurfaceThreatLevel = 1263.4,
     },
     
     Description = 'Abomination Bot',

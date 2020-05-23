@@ -74,7 +74,7 @@ UnitBlueprint {
             StartsOff = true,
         }, 
 
-        SurfaceThreatLevel = 27,
+        SurfaceThreatLevel = 64.6,
     },
     
     Description = 'Armored Siege Support Bot',
