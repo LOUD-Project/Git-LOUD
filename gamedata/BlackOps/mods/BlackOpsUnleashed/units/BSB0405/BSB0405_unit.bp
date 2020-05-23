@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 16500,
         MaxHealth = 16500,
         RegenRate = 15,
-        SurfaceThreatLevel = 120,
+        SurfaceThreatLevel = 317.3,
     },
 	
     Description = '<LOC bsb0405_desc>Lambda Generator Advanced Point Defense',

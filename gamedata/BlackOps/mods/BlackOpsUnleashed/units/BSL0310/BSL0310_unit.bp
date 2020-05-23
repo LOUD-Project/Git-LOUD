@@ -56,7 +56,7 @@ UnitBlueprint {
         Health = 5400,
         MaxHealth = 5400,
         RegenRate = 2.5,
-        SurfaceThreatLevel = 42,
+        SurfaceThreatLevel = 49,
     },
 	
     Description = '<LOC bsl0310_desc>Lambda Equipped Assault Bot',

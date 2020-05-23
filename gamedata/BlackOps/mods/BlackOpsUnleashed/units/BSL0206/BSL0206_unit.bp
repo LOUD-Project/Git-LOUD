@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 1500,
         MaxHealth = 1500,
         RegenRate = 3,
-        SurfaceThreatLevel = 7,
+        SurfaceThreatLevel = 9.3,
     },
 	
     Description = '<LOC bsl0206_desc>Amphibious Protector bot',

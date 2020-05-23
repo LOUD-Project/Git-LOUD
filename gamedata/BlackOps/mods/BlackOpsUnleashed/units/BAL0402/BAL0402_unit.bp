@@ -67,7 +67,7 @@ UnitBlueprint {
         Health = 48000,
         MaxHealth = 48000,
         RegenRate = 18,
-        SurfaceThreatLevel = 198,
+        SurfaceThreatLevel = 804.2,
     },
 	
     Description = '<LOC bal0402_desc>Experimental Assault HoverTank',

@@ -81,7 +81,7 @@ UnitBlueprint {
         Health = 44000,
         MaxHealth = 44000,
         RegenRate = 18,
-        SurfaceThreatLevel = 75,
+        SurfaceThreatLevel = 552.1,
     },
 	
     Description = '<LOC bal0401_desc>Experimental Siege Weapon',
