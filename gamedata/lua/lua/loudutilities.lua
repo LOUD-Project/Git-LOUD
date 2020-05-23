@@ -1134,8 +1134,9 @@ function ClearOutBase( manager, aiBrain )
             plat.BuilderLocation = basename
 
             for _,unit in groupair do
-
-                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                -- assign the units into 'Artillery' which will get an AttackMove order
+                -- rather than typical attack - which forces an attack formation - but uses a simple move order
+                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Artillery','None')
 
             end
 

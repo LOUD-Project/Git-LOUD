@@ -6020,7 +6020,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	
 	-- set defaults for any without triggers
 	if not masslowtrigger then
-		local masslowtrigger = .8
+		local masslowtrigger = .85
 		local energylowtrigger = 1.10
 	end
     
