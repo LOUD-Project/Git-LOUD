@@ -2309,11 +2309,12 @@ Platoon = Class(moho.platoon_methods) {
 					end
 
 					WaitTicks(80)
-				
+
+                    -- check marker distance/guardtime/call for transport
 					if marker and PlatoonExists( aiBrain, self ) then
 					
 						-- travel uses up a little guardtime --
-						guardtime = guardtime + 0.5
+						guardtime = guardtime + 0.2
 
 						distance = VDist3( GetPlatoonPosition(self), marker )
 
@@ -2330,15 +2331,14 @@ Platoon = Class(moho.platoon_methods) {
                 end
 			end
 			
-			-- if we still have a marker - stop any move thread -- otherwise find a new point
+			-- if marker still valid and we have time left - stop movement
+            -- otherwise continue to finding a new point
 			if marker and guardtime < guardTimer then
 			
 				if PlatoonExists(aiBrain,self) and self.MoveThread then
 					self:KillMoveThread()
 				end
 			else
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker).." guardtime is "..repr(guardtime).." "..repr(guardTimer))
 				continue
 			end
 
@@ -2349,9 +2349,7 @@ Platoon = Class(moho.platoon_methods) {
 			guardtime = 0
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." in guard behavior")
-			
+
 				-- seek a target around the point --
 				target = false
 				
@@ -2361,9 +2359,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				-- if there is a target prosecute it
 				if target then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." has attackposition at "..repr(targetposition) )
-					
+
 					-- issue attack orders on target --
 					if target.Sync.id and not target.Dead then
 					
@@ -2567,9 +2563,7 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 				if MissionTimer == 'Abort' then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." Abort Platoon")
-					
+
 					-- assign them to the structure pool so they dont interfere with normal unit pools
 					AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
 					
@@ -2579,9 +2573,7 @@ Platoon = Class(moho.platoon_methods) {
 				WaitTicks(80)
 				guardtime = guardtime + 8
 			end
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." guard completed - MoveThread is "..repr(self.MoveThread) )
-			
+
 			marker = false
 			
 			WaitTicks(35)
