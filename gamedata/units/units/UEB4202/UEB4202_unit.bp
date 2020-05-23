@@ -57,6 +57,7 @@ UnitBlueprint {
             ShieldSize = 26,
             ShieldVerticalOffset = -2,
         },
+        SurfaceThreatLevel = 49.1,
     },
 	
     Description = '<LOC ueb4202_desc>Standard Shield Generator',

@@ -54,7 +54,7 @@ UnitBlueprint {
             ShieldSize = 19,
             ShieldVerticalOffset = -3,
         },
-        SurfaceThreatLevel = 9,
+        SurfaceThreatLevel = 83.2,
     },
 
     Description = '<LOC ual0307_desc>Hvy Mobile Shield Generator',

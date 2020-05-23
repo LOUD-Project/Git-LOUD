@@ -43,7 +43,7 @@ UnitBlueprint {
         
         RegenRate = 1,
         
-        SurfaceThreatLevel = 8,
+        SurfaceThreatLevel = 9.6,
     },
 	
     Description = '<LOC del0204_desc>Gatling Bot',

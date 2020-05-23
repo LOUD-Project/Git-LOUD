@@ -65,7 +65,7 @@ UnitBlueprint {
             ShieldSize = 2.6,
             ShieldVerticalOffset = 0,
         },
-        SurfaceThreatLevel = 37,
+        SurfaceThreatLevel = 40.7,
     },
 	
     Description = '<LOC ual0303_desc>Heavy Assault Bot',

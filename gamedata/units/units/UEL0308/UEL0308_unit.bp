@@ -56,7 +56,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -3,
         },
 		
-        SurfaceThreatLevel = 9,
+        SurfaceThreatLevel = 87.9,
     },
 
     Description = '<LOC uel0307_desc>Mobile Shield Generator',

@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 2200,
         MaxHealth = 2200,
         RegenRate = 1,
-        SurfaceThreatLevel = 17,
+        SurfaceThreatLevel = 58,
     },
 	
     Description = '<LOC ueb2303_desc>Field Artillery',

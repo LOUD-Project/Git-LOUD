@@ -63,6 +63,7 @@ UnitBlueprint {
             ShieldSize = 18,
             ShieldVerticalOffset = -2,
         },
+        SurfaceThreatLevel = 22.1,
     },
 	
     Description = '<LOC urb4202_desc>Basic Shield Generator',

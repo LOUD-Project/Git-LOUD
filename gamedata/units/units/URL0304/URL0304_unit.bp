@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 875,
         MaxHealth = 875,
         RegenRate = 2,
-        SurfaceThreatLevel = 9,
+        SurfaceThreatLevel = 24.1,
     },
 	
     Description = '<LOC url0304_desc>Mobile Heavy Artillery',

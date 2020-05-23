@@ -55,7 +55,7 @@ UnitBlueprint {
             ShieldSize = 72,
             ShieldVerticalOffset = -24,
         },
-        SubThreatLevel = 9,
+        SubThreatLevel = 168.4,
     },
 	
     Description = '<LOC xes0205_desc>Shield Boat',

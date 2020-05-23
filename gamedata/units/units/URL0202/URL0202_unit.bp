@@ -47,7 +47,7 @@ UnitBlueprint {
         Health = 1050,
         MaxHealth = 1050,
         RegenRate = 1.5,
-        SurfaceThreatLevel = 7.2,
+        SurfaceThreatLevel = 7.7,
     },
 	
     Description = '<LOC url0202_desc>Heavy Tank',

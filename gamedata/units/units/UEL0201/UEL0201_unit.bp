@@ -45,7 +45,7 @@ UnitBlueprint {
         Health = 280,
         MaxHealth = 280,
         RegenRate = 0,
-        SurfaceThreatLevel = 2.4,
+        SurfaceThreatLevel = 2.5,
     },
 	
     Description = '<LOC uel0201_desc>Medium Tank',

@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 1400,
         MaxHealth = 1400,
         RegenRate = 1.5,
-        SurfaceThreatLevel = 7.5,
+        SurfaceThreatLevel = 10.2,
     },
 	
     Description = '<LOC xsl0203_desc>Hover Tank',

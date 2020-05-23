@@ -45,7 +45,7 @@ UnitBlueprint {
         Health = 2100,
         MaxHealth = 2100,
         RegenRate = 1,
-        SurfaceThreatLevel = 16,
+        SurfaceThreatLevel = 24.2,
     },
 
     Description = '<LOC xsb2301_desc>Improved Point Defense',
