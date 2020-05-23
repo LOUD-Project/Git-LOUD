@@ -97,6 +97,8 @@ UnitBlueprint {
 			
             ShieldVerticalOffset = -7,
         },
+        
+		SurfaceThreatLevel = 150,
 
     },
 	

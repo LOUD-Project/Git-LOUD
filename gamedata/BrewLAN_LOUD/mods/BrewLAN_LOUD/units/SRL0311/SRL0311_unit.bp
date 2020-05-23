@@ -56,7 +56,7 @@ UnitBlueprint {
         Health = 1600,
         MaxHealth = 1600,
         RegenRate = 2,
-        SurfaceThreatLevel = 22,
+        SurfaceThreatLevel = 45.5,
     },
 	
     Description = 'Mobile Missile Platform',

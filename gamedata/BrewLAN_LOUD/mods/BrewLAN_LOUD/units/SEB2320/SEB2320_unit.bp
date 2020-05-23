@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 7625,
         MaxHealth = 7625,
         RegenRate = 3,
-        SurfaceThreatLevel = 25,
+        SurfaceThreatLevel = 69.7,
     },
 	
     Description = '<LOC seb2320_desc>Heavy Beam Point Defense',

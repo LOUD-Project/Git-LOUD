@@ -97,6 +97,8 @@ UnitBlueprint {
 			
             ShieldVerticalOffset = -7,
         },
+		
+        SurfaceThreatLevel = 76.4,
 
         ParentID = 'ssb4401',
     },

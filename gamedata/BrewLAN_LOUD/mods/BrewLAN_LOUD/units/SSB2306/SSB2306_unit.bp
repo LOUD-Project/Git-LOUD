@@ -61,7 +61,7 @@ UnitBlueprint {
         Health = 6250,
         MaxHealth = 6250,
         RegenRate = 3,
-        SurfaceThreatLevel = 36,
+        SurfaceThreatLevel = 69,
     },
 	
     Description = '<LOC xeb2306_desc>Heavy Point Defense',
