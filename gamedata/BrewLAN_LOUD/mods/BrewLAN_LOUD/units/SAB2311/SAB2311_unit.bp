@@ -61,7 +61,7 @@ UnitBlueprint {
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 2,
-        SurfaceThreatLevel = 40,
+        SurfaceThreatLevel = 125.4,
     },
 	
     Description = '<LOC sbui2311_desc>Oblivion Field Artillery',
