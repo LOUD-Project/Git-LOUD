@@ -9,7 +9,66 @@ function ExecutePlan(aiBrain)
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do
         if not brain:IsDefeated() and not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex) then
-			aiBrain:AssignThreatAtPosition( brain:GetStartVector3f(), 500, 0.001, 'Economy' )        
+        
+            local place = brain:GetStartVector3f()
+            local threatlayer = 'AntiAir'
+            
+            -- assign 500 ecothreat for 10 minutes
+			aiBrain:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
+
+--[[
+         Valid Options are:
+            Overall
+            OverallNotAssigned
+            StructuresNotMex
+            Structures
+            Naval
+            Air
+            Land
+            Experimental
+            Commander
+            Artillery
+            AntiAir
+            AntiSurface
+            AntiSub
+            Economy
+            Unknown
+--]]         
+
+           
+            --aiBrain:AssignThreatAtPosition( place, 6, 0.1, threatlayer )
+--[[
+            for i = 1,900 do
+                LOG("*AI DEBUG Ecothreat after "..i.." ticks is "..repr(aiBrain:GetThreatAtPosition( place, 0, true, threatlayer) ))
+                WaitTicks(1)
+            end
+            
+            LOG("*AI DEBUG Ecothreat after 90 seconds is "..aiBrain:GetThreatAtPosition( place, 0, true, 'Economy') )
+            
+            --aiBrain:AssignThreatAtPosition( place, aiBrain:GetThreatAtPosition( place, 0, true, 'Economy'), 0.01, 'Economy' )
+            
+            --aiBrain:AssignThreatAtPosition( place, 0, 0.35, threatlayer )
+            
+            --LOG("*AI DEBUG Ecothreat after decay reset is "..aiBrain:GetThreatAtPosition( place, 0, true, 'Economy') )
+
+            for i = 901,1800 do
+                LOG("*AI DEBUG Ecothreat after "..i.." ticks is "..repr(aiBrain:GetThreatAtPosition( place, 0, true, threatlayer) ))
+                WaitTicks(1)
+            end
+
+            LOG("*AI DEBUG Ecothreat after another 90 seconds is "..aiBrain:GetThreatAtPosition( place, 0, true, 'Economy') )
+            
+            --aiBrain:AssignThreatAtPosition( place, 0, 0.03, threatlayer )
+            
+            --LOG("*AI DEBUG Ecothreat after decay reset is "..aiBrain:GetThreatAtPosition( place, 0, true, 'Economy') )
+
+            for i = 1801,2700 do
+                LOG("*AI DEBUG Ecothreat after "..i.." ticks is "..repr(aiBrain:GetThreatAtPosition( place, 0, true, threatlayer) ))
+                WaitTicks(1)
+            end
+            
+            LOG("*AI DEBUG Ecothreat after final 90 seconds is "..aiBrain:GetThreatAtPosition( place, 0, true, 'Economy') )
+--]]
         end
     end
     

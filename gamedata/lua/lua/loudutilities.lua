@@ -3298,16 +3298,18 @@ function ParseIntelThread( aiBrain )
                     -- add up the threat from each IMAP position - we'll use this as history even if it doesn't result in a InterestList entry
                     totalThreat = totalThreat + threat[3]
 
+                    newPos = {threat[1],0,threat[2]}
+
                     -- only check threats above minimumcheck otherwise break as rest will be below that
                     if threat[3] > vx[1] then
 					
 						if ScenarioInfo.IntelDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." processing threat of "..repr(threat[3]).." at "..repr( {threat[1],0,threat[2]} ))
 						end
-
+                        
                         if ScenarioInfo.DisplayIntelPoints then
 							aiBrain:ForkThread(DrawRectangle,threat,vx[5])
-						end
+						end                                        
 	
                         -- count the number of checks we've done and insert a wait to keep this routine from hogging the CPU 
                         numchecks = numchecks + 1
@@ -3418,8 +3420,8 @@ function ParseIntelThread( aiBrain )
                                 
 								newthreat = threat[3] * .9
 								
-								-- reduce the existing threat by 10% with a 1% decay every 10 seconds
-								aiBrain:AssignThreatAtPosition( newPos, -(threat[3] * .1), 0.001, threatType)
+								-- reduce the existing threat by 10% with a 5% decay - IMAP refreshes every 3 seconds
+								--aiBrain:AssignThreatAtPosition( newPos, ( GETTHREATATPOSITION( aiBrain, newPos, 0, true, threatType ) * -0.1), 0.05, threatType)
 							end
 
 							newtime = gametime
@@ -3494,7 +3496,7 @@ function ParseIntelThread( aiBrain )
 						end
 
 						-- reduce the existing threat to zero - it's already very low
-						aiBrain:AssignThreatAtPosition( newPos, -1 * threat[3], 0.01, threatType)
+						--aiBrain:AssignThreatAtPosition( newPos, -1 * threat[3], 0.01, threatType)
 					end
                 end
 
@@ -4252,7 +4254,6 @@ function CreateAttackPlan( self, enemyPosition )
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
 	end
-	
 end
 
 function AttackPlanMonitor(self)

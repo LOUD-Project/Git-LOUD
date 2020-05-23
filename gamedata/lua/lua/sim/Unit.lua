@@ -1743,12 +1743,12 @@ Unit = Class(moho.unit_methods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 	
-		--LOG("*AI DEBUG OnKilled for "..repr(self:GetBlueprint().Description).." "..self.Sync.id)
+		--LOG("*AI DEBUG OnKilled for "..repr(__blueprints[self.BlueprintID].Description).." "..self.Sync.id)
+        
+        --LOG("*AI DEBUG "..repr(__blueprints[self.BlueprintID].Defense))
 		
 		--if instigator then
-		
 			--LOG("*AI DEBUG by "..repr(instigator:GetAIBrain().Nickname).." "..instigator:GetBlueprint().Description)	--.." "..repr(instigator))
-			
 		--end
 
         
@@ -1759,9 +1759,7 @@ Unit = Class(moho.unit_methods) {
             if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() != 1 then
 			
                 self.UnitBeingBuilt:Kill()
-				
             end
-			
         end
 
         if self.PlayDeathAnimation then 
@@ -1771,9 +1769,7 @@ Unit = Class(moho.unit_methods) {
 			    self:ForkThread(self.PlayAnimationThread, 'AnimationDeath')
 				
 				self:SetCollisionShape('None')
-				
 			end
-			
         end
 		
 		self:DoUnitCallbacks( 'OnKilled' )
@@ -1781,13 +1777,11 @@ Unit = Class(moho.unit_methods) {
 		if self.TopSpeedEffectsBag then
 		
 			self:DestroyTopSpeedEffects()
-			
 		end
 		
 		if self.BeamExhaustEffectsBag then
 		
 		    self:DestroyBeamExhaust()
-			
 		end
 		
 		if self.BuildEffectsBag then
@@ -1800,18 +1794,14 @@ Unit = Class(moho.unit_methods) {
 		
             self.UnitBeingTeleported:Destroy()
             self.UnitBeingTeleported = nil
-			
         end
 
         -- Notify instigator that you killed me - do not grant kills for walls
 		if not LOUDENTITY(categories.WALL, self) then
 		
 			if instigator and IsUnit(instigator) then
-			
 				instigator:ForkThread( instigator.OnKilledUnit, self )
-				
 			end
-			
 		else
 		
 			-- remove the kill before the instigator has a chance to test veterancy
@@ -1820,22 +1810,20 @@ Unit = Class(moho.unit_methods) {
 				local kills = instigator:GetStat('KILLS', 0).Value
 				
 				instigator:SetStat('KILLS', kills - 1)
-				
 			end
-			
 		end
 		
         if self.DeathWeaponEnabled != false then
 		
             self:DoDeathWeapon()
-			
         end
 		
         self:DisableShield()
         self:DisableUnitIntel()
-
-        self:ForkThread(self.DeathThread, overkillRatio, instigator)
-
+        
+        if not self.Impact then
+            self:ForkThread(self.DeathThread, overkillRatio, instigator)
+        end
     end,
 	
     PlayAnimationThread = function(self, anim, rate)
@@ -1881,7 +1869,6 @@ Unit = Class(moho.unit_methods) {
         if self.DeathAnimManip then
 
 			WaitFor(self.DeathAnimManip)
-			
 		end
 		
 		self:PlayUnitSound('Destroyed')		
@@ -1899,7 +1886,6 @@ Unit = Class(moho.unit_methods) {
 		
 				--CreateScalableUnitExplosion( self,overkillRatio )	
 				self:CreateDestructionEffects( overkillRatio )
-			
 			end
         
 			if ( self.ShowUnitDestructionDebris and overkillRatio ) then
@@ -1909,7 +1895,6 @@ Unit = Class(moho.unit_methods) {
 				else
 					self:ForkThread( CreateUnitDestructionDebris, false, true, true )
 				end
-			
 			end
 		end
 		
@@ -1920,7 +1905,6 @@ Unit = Class(moho.unit_methods) {
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.1) * 10)
 
         self:Destroy()
-		
     end,
 
     CreateWreckage = function( self, overkillRatio )
@@ -1928,16 +1912,14 @@ Unit = Class(moho.unit_methods) {
         if ALLBPS[self.BlueprintID].Wreckage.WreckageLayers[self.CacheLayer] then
 
 			self:CreateWreckageProp(overkillRatio)
-			
         end
-		
     end,
 
     CreateWreckageProp = function( self, overkillRatio )
 
 		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
-		
+
 		if wreck then
 		
 			local function LifetimeThread(prop,lifetime)
@@ -1945,7 +1927,6 @@ Unit = Class(moho.unit_methods) {
 				WaitTicks(lifetime * 10)
 				
 				prop:Destroy()
-				
 			end
 			
 			local pos = self:GetPosition()
@@ -2002,9 +1983,7 @@ Unit = Class(moho.unit_methods) {
 		if not self.Dead then
 		
 			self:CheckVeteranLevel()
-			
 		end
-		
     end,
 
     DoDeathWeapon = function(self)
@@ -2012,7 +1991,6 @@ Unit = Class(moho.unit_methods) {
         if self:IsBeingBuilt() then
 		
 			return
-			
 		end
 		
         local weapons = ALLBPS[self.BlueprintID].Weapon or {}

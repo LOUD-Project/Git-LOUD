@@ -891,7 +891,60 @@ MobileUnit = Class(Unit) {
 		self.TransportClass = __blueprints[self.BlueprintID].Transport.TransportClass or false
 	end,
 
-	
+
+    OnKilled = function(self, instigator, type, overkillRatio)
+
+        local bp = __blueprints[self.BlueprintID].Defense
+        
+        if bp.AirThreatLevel > 0 or bp.SurfaceThreatLevel > 0 or bp.SubThreatLevel > 0 then
+        
+            for k, brain in ArmyBrains do
+            
+                local function delaythreat( brain, position, threatamount, threattype)
+                
+                    local WaitTicks = coroutine.yield
+                    local fastamount = threatamount * .02
+                    local assign = moho.aibrain_methods.AssignThreatAtPosition
+                
+                    -- immediately reduce the IMAP threat of the unit but make sure this is fully decayed
+                    -- by the time the natural decay begins
+                    assign( brain, position, -threatamount, 0.05, threattype)
+
+                    -- this is the delay built-in for anti-threat before decline begins
+                    WaitTicks(291)
+
+                    for i = 1, 50 do
+                        -- and this is here to counter the negative threat that will get generated
+                        assign( brain, position, fastamount, 1, threattype)
+                        WaitTicks(31)
+                    end
+                end
+        
+                local position = self:GetPosition()
+                
+                if IsEnemy( self:GetAIBrain().ArmyIndex, brain.ArmyIndex ) then
+                
+                    if bp.AirThreatLevel > 0 then
+                        ForkTo ( delaythreat, brain, position, bp.AirThreatLevel, 'AntiAir' )
+                    end
+                    
+                    if bp.SubThreatLevel > 0 then
+                        ForkTo ( delaythreat, brain, position, bp.SubThreatLevel, 'AntiSub' )
+                    end
+                    
+                    if bp.SurfactThreatLevel > 0 then
+                        ForkTo ( delaythreat, brain, position, bp.SurfaceThreatLevel, 'AntiSurface' )
+                    end
+
+                end
+                
+            end
+            
+        end
+        
+        Unit.OnKilled(self, instigator, type, overkillRatio)
+    end,
+
 	-- when you start capturing a unit
     OnStartCapture = function(self, target)
         self:DoUnitCallbacks( 'OnStartCapture', target )
@@ -3020,6 +3073,10 @@ WalkingLandUnit = Class(MobileUnit) {
 	SetupEngineerCallbacks = function( eng, EM )
 		ConstructionUnit.SetupEngineerCallbacks( eng, EM )
 	end,
+    
+    OnKilled = function(self, instigator, type, overkillRatio)
+        MobileUnit.OnKilled(self, instigator, type, overkillRatio) 
+    end,
 }
 
 SubUnit = Class(MobileUnit) {
@@ -3050,7 +3107,7 @@ SubUnit = Class(MobileUnit) {
 			end
 		end
 
-        Unit.OnKilled(self, instigator, type, overkillRatio)
+        MobileUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
@@ -3237,7 +3294,7 @@ SeaUnit = Class(MobileUnit) {
 
         end
 
-        Unit.OnKilled(self, instigator, type, overkillRatio)
+        MobileUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
@@ -3704,6 +3761,7 @@ AirUnit = Class(MobileUnit) {
                 self:ForkThread(self.DeathThread, self.OverKillRatio or 0 )
             end
         end
+        
     end,
 
 	SinkIntoWaterAfterDeath = function(self, overkillRatio)
@@ -3760,7 +3818,9 @@ AirUnit = Class(MobileUnit) {
 		--LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." air sink Thread complete for "..GetBlueprint(self).Description)
 
 		self:CreateWreckage(overkillRatio)
+        
 		self:Destroy()
+
 	end,
 
     CreateUnitAirDestructionEffects = function( self, scale )
@@ -3804,7 +3864,11 @@ AirUnit = Class(MobileUnit) {
 
 			self:DisableShield()
 			self:DisableUnitIntel()
-
+            
+            self.Impact = true
+            
+            MobileUnit.OnKilled(self, instigator, deathtype, overkillRatio)
+            
 		-- this is the disintegrate path -- always used when air units are on the ground
         else
 
@@ -3815,7 +3879,7 @@ AirUnit = Class(MobileUnit) {
 			self.PlayDeathAnimation = false
 			self.DeathWeaponEnabled = false
 			
-			Unit.OnKilled(self, instigator, deathtype, overkillRatio)
+			MobileUnit.OnKilled(self, instigator, deathtype, overkillRatio)
         end
 
     end,
