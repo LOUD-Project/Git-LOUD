@@ -53,7 +53,7 @@ UnitBlueprint {
         Health = 2150,
         MaxHealth = 2150,
         RegenRate = 3,
-        SurfaceThreatLevel = 17,
+        SurfaceThreatLevel = 25.5,
     },
 	
     Description = '<LOC brb2303_desc>Light Rocket Artillery',

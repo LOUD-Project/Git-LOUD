@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 2200,
         MaxHealth = 2200,
         RegenRate = 1,
-        SurfaceThreatLevel = 21,
+        SurfaceThreatLevel = 30.9,
     },
 	
     Description = '<LOC bab2303_desc>Energy Mortar Emplacement',
