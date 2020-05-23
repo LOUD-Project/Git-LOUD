@@ -63,7 +63,7 @@ UnitBlueprint {
         MaxHealth = 2100,
         RegenRate = 3,
 
-        SurfaceThreatLevel = 12,
+        SurfaceThreatLevel = 15.6,
     },
 	
     Description = '<LOC brpt2btbot_desc>Amphibious Assault Bot',

@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 1500,
         MaxHealth = 1500,
         RegenRate = 1,
-        SurfaceThreatLevel = 11,
+        SurfaceThreatLevel = 25.4,
     },
 	
     Description = '<LOC brpt3ml_desc>Thau Battery',

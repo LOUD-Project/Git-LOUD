@@ -81,7 +81,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -0.3,
         },
 		
-        SurfaceThreatLevel = 24,
+        SurfaceThreatLevel = 43.9,
     },
 	
     Description = '<LOC brmt2epd_desc>Adv. Shielded PD/AA',

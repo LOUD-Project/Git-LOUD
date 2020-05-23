@@ -52,7 +52,7 @@ UnitBlueprint {
         Health = 240,
         MaxHealth = 240,
         RegenRate = 1,
-        SurfaceThreatLevel = 2.6,
+        SurfaceThreatLevel = 2.5,
     },
 	
     Description = '<LOC brpt1ht_desc>Medium Hovertank',

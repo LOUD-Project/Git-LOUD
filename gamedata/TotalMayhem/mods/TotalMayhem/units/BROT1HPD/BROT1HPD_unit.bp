@@ -48,7 +48,7 @@ UnitBlueprint {
         Health = 1800,
         MaxHealth = 1800,
         RegenRate = 1,
-        SurfaceThreatLevel = 15,
+        SurfaceThreatLevel = 17.1,
     },
     Description = '<LOC brot1hpd_desc>Enhanced Point Defense',
     Display = {

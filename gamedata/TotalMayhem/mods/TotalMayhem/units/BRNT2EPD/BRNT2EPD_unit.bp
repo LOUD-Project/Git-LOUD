@@ -60,7 +60,7 @@ UnitBlueprint {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 2,
-        SurfaceThreatLevel = 24,
+        SurfaceThreatLevel = 47.8,
     },
 	
     Description = '<LOC brnt2epd_desc>Plasma Cannon',

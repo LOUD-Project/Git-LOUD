@@ -44,7 +44,7 @@ UnitBlueprint {
         Health = 2700,
         MaxHealth = 2700,
         RegenRate = 2,
-        SurfaceThreatLevel = 40,
+        SurfaceThreatLevel = 125.3,
     },
 	
     Description = '<LOC brmt3pdro_desc>Rocket Pod',

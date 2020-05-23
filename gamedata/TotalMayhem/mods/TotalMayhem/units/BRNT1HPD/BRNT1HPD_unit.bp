@@ -44,7 +44,7 @@ UnitBlueprint {
         Health = 1950,
         MaxHealth = 1950,
         RegenRate = 1,
-        SurfaceThreatLevel = 15,
+        SurfaceThreatLevel = 17.3,
     },
 	
     Description = '<LOC brnt1hpd_desc>AT Defense',

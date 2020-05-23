@@ -65,7 +65,7 @@ UnitBlueprint {
         Health = 1850,
         MaxHealth = 1850,
         RegenRate = 3,
-        SurfaceThreatLevel = 13,
+        SurfaceThreatLevel = 15.9,
     },
 	
     Description = '<LOC brmt2medm_desc>Amphibious Medium Bot',

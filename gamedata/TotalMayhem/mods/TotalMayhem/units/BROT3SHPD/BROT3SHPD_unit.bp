@@ -59,7 +59,7 @@ UnitBlueprint {
         Health = 22500,
         MaxHealth = 22500,
         RegenRate = 25,
-        SurfaceThreatLevel = 240,
+        SurfaceThreatLevel = 588.1,
     },
 	
     Description = '<LOC brot3shpd_desc>Heavy Defense Battery',

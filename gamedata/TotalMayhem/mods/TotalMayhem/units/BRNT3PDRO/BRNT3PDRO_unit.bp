@@ -41,7 +41,7 @@ UnitBlueprint {
         Health = 3000,
         MaxHealth = 3000,
         RegenRate = 2,
-        SurfaceThreatLevel = 40,
+        SurfaceThreatLevel = 106.1,
     },
     Description = '<LOC brnt3pdro_desc>Rocket System',
     Display = {
