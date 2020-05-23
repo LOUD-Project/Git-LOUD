@@ -692,10 +692,9 @@ function CDRHideBehavior( aiBrain, cdr )
 		
             plat:SetAIPlan('ReturnToBaseAI',aiBrain)		
         end
-        
-        cdr.Fighting = false
 	end
-	
+
+    cdr.Fighting = false
 end
 
 -- for enhancements (not upgrades) on the COMMANDER

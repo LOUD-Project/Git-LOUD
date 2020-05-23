@@ -3078,7 +3078,7 @@ function ParseIntelThread( aiBrain )
             local c = {threat[1]+IMAPRadius,surface,threat[2]+IMAPRadius}
             local d = {threat[1]-IMAPRadius,surface,threat[2]+IMAPRadius}
         
-            for x = 1,30 do
+            for x = 1,33 do
                 DrawLine( a, b, color)
                 DrawLine( b, c, color)
                 DrawLine( c, d, color)
@@ -3372,7 +3372,7 @@ function ParseIntelThread( aiBrain )
 
 							if ScenarioInfo.DisplayIntelPoints then
 							
-								aiBrain:ForkThread( DrawCirc, newPos, OgridRadius, vx[5] )
+								--aiBrain:ForkThread( DrawCirc, newPos, OgridRadius, vx[5] )
 								
                                 if ScenarioInfo.IntelDialog then
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
@@ -4283,11 +4283,25 @@ function AttackPlanMonitor(self)
 			SetPrimaryLandAttackBase(self)
 			
 			SetPrimarySeaAttackBase(self)
-			
 		end
-		
     end
-	
+end
+
+function DrawPath ( origin, path, destination )
+ 
+    for i = 0, 250 do
+    
+        local lastpoint = table.copy(origin)
+        
+        for _, v in path do
+            DrawLinePop( lastpoint, v, 'ffffff' )
+            lastpoint = table.copy(v)
+        end
+        
+        DrawLinePop( lastpoint, destination, 'ff0000' )
+        
+        WaitTicks(2)
+    end
 end
 
 -- function to draw HiPri Intel points on the map for debugging - all credit to Sorian
@@ -4331,16 +4345,15 @@ function DrawIntel( aiBrain )
     -- for about 3 seconds
 	local function DrawIntelPoint(position, color, threatamount)
     
-        local distmax = math.floor((threatamount/150)+1)
+        local distmax = math.floor(((threatamount/150)+1)*.3)
         
         -- controls display length
 		for i = 0,24 do
         
             -- radiate out from point according to threat intensity
-            for distance = 1, distmax do
+            for distance = .3, distmax, .3 do
             
                 DrawC( position, distance, color )
-
             end
             
             WaitTicks(1)
