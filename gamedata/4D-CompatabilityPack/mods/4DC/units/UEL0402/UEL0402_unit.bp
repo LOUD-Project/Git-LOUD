@@ -94,7 +94,7 @@ UnitBlueprint {
         MaxHealth = 36500,
         RegenRate = 17,
         SubThreatLevel = 30,
-        SurfaceThreatLevel = 161,
+        SurfaceThreatLevel = 307.7,
     },
 	
     Description = '<LOC uel0402_desc>Experimental Assault Mech',

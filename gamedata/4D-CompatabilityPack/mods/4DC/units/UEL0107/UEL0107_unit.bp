@@ -53,7 +53,7 @@ UnitBlueprint {
         Health = 240,
         MaxHealth = 240,
         RegenRate = 0,
-        SurfaceThreatLevel = 2.7,
+        SurfaceThreatLevel = 2.9,
     },
 	
     Description = '<LOC uel0107_desc>Mortar Hovercraft',

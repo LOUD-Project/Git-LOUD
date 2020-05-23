@@ -69,7 +69,7 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 210,
         MaxHealth = 210,
-        SurfaceThreatLevel = 4.4,
+        SurfaceThreatLevel = 3.2,
     },
 	
     Description = '<LOC ual0108_desc>Light Assault Walker',  

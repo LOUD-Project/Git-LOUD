@@ -65,7 +65,7 @@ UnitBlueprint {
         Health = 6500,
         MaxHealth = 6500,
 		RegenRate = 5,
-        SurfaceThreatLevel = 36,
+        SurfaceThreatLevel = 77.4,
     },
 	
     Description = '<LOC urb2306_desc>Heavy Microwave Tower',
