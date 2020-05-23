@@ -912,17 +912,7 @@ end
 -- Will now also limit transport selection to those within 16 km
 function GetTransports( platoon, aiBrain) 
 
-	local LOUDCOPY = table.copy
-	local LOUDENTITY = EntityCategoryContains
-	local LOUDGETN = table.getn
-	local WaitTicks = coroutine.yield
-	
-	local counter = 0
 	local IsEngineer = platoon:PlatoonCategoryCount( categories.ENGINEER ) > 0
-    
-    if ScenarioInfo.TransportDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." getting transports")
-    end
 
 	-- COLLECTION PHASE --
     -- first step is to collect available transports
@@ -957,13 +947,22 @@ function GetTransports( platoon, aiBrain)
     -- if there are no transports available - we're done
     if (armypooltransports and LOUDGETN(armypooltransports) < 1) and (TransportPoolTransports and LOUDGETN(TransportPoolTransports) < 1) then
     
-        if ScenarioInfo.TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transports available")
-        end
+        --if ScenarioInfo.TransportDialog then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transports available")
+        --end
         
         return false, false
     end
 
+
+	local LOUDCOPY = table.copy
+	local LOUDENTITY = EntityCategoryContains
+	local LOUDGETN = table.getn
+	local WaitTicks = coroutine.yield
+	
+	local counter = 0
+
+    
     -- This local function will traverse all the units in the platoon and 
     -- calculate the number and size of all slots required
 	local function GetNumTransports(units)
@@ -1946,7 +1945,7 @@ end
 -- This function actually loads and moves units on transports using a safe path to the location desired
 -- Just a personal note - this whole transport thing is a BITCH
 -- This was one of the first tasks I tackled and years later I still find myself coming back to it again and again - argh
-function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
+function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
 	local LOUDCOPY = table.copy
 	local LOUDENTITY = EntityCategoryContains
@@ -1985,11 +1984,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		
 				transportTable[counter + 1] = {	Transport = v, LargeSlots = slots.Large, MediumSlots = slots.Medium, SmallSlots = slots.Small, Units = { ["Small"] = {}, ["Medium"] = {}, ["Large"] = {} } }
 				counter = counter + 1
-				
 			end
-			
 		end
-		
 	end
 	
 	if counter < 1 then
@@ -2036,9 +2032,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					remainingLarge = tData.LargeSlots
 					remainingMed = tData.MediumSlots
 					remainingSml = tData.SmallSlots
-					
 				end
-				
 			end
 			
 			if transSlotNum > 0 then
@@ -2079,8 +2073,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					LOUDINSERT(leftoverUnits, unit)
 				end
 			else
-			
-				--LOG('*AI DEBUG: NO TRANSPORT FOUND')
+
 				LOUDINSERT(leftoverUnits, unit)
 			end
 		end
@@ -2135,13 +2128,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 					v:SetCapturable(true)
 					v:ShowBone(0, true)
 					v:MarkWeaponsOnTransport(v, false)
-					
 				end
-				
 			end
-			
 		end
-		
 	end
 
 	-- if units were assigned - sort them and tag them for specific transports
@@ -2165,9 +2154,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			if not v.Dead then
 			
 				LOUDINSERT(leftoverUnits, v)
-				
 			end
-			
 		end
 		
 		currLeftovers = {}
@@ -2181,9 +2168,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			if not v.Dead then
 			
 				LOUDINSERT(leftoverUnits, v)
-				
 			end
-			
 		end
 		
 		currLeftovers = {}
@@ -2191,7 +2176,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		if LOUDGETN(leftoverUnits) > 0 then
 		
 			transportTable, currLeftovers = SortUnitsOnTransports( transportTable, leftoverUnits )
-			
 		end
 	
 	
@@ -2201,7 +2185,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			for _,v in currLeftovers do
 			
 				IssueClearCommands({v})
-				
 			end
 	
 			local ident = Random(1,999999)
@@ -2213,9 +2196,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			returnpool.BuilderName = 'SortUnitsOnTransportsLeftovers'..tostring(ident)
 			
 			returnpool:SetAIPlan('ReturnToBaseAI',aiBrain)
-			
 		end
-		
 	end
 
 	remainingSize3 = nil
@@ -2305,7 +2286,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 			UnitPlatoon.WaypointCallback = nil
 			
 			UnitPlatoon.MovingToWaypoint = nil
-			
 		end
 
         if ScenarioInfo.TransportDialog then
@@ -2341,7 +2321,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 	if not PlatoonExists(aiBrain, transports) then
 		
 		return false
-		
 	end
 
 	-- Any units that failed to load send back to pool thru RTB
@@ -2406,7 +2385,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 
 	-- plan the move and send them on their way
 	if counter > 0 then
-	
+
         if ScenarioInfo.TransportDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." plot transport movement ")
         end
@@ -2415,20 +2394,34 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 		
 		if platpos then
 
-			local airthreatMax = counter * 8
+			local airthreatMax = counter * 5
 			
 			airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
-	
-			-- I use the number of transports as a multiplier so that large transport groups will accept larger threat levels
-			-- essentially giving each transport an air threat level of 14
-			local safePath, reason = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 240)
-		
+
+            local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 240)
+
             if ScenarioInfo.TransportDialog then
             
                 if not safePath then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." no safe path to "..repr(location).." using threat of "..airthreatMax)
                 else
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - "..repr(safePath))
+                    
+                    if GetFocusArmy() == aiBrain.ArmyIndex then
+                        ForkTo ( import('/lua/loudutilities.lua').DrawPath, platpos, safePath, location )
+                    end
+                    
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - cost "..pathcost)
+                    
+                    if LOUDGETN( safePath ) > 1 then
+                        local lastpos = table.copy(platpos)
+                        
+                        for _,v in safePath do
+                            LOG("*AI DEBUG between "..repr(lastpos).." and "..repr(v).." is "..moho.aibrain_methods.GetThreatBetweenPositions( aiBrain, lastpos, v, false, 'Air'))
+                            LOG("*AI DEBUG at "..repr(v).." "..moho.aibrain_methods.GetThreatAtPosition( aiBrain, v, 0, false, 'AntiAir'))
+                            lastpos = table.copy(v)
+                        end
+                    end
+
                 end
             end
 		
@@ -2439,7 +2432,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer)
 				IssueMove( GetPlatoonUnits(transports), GetPlatoonPosition(transports))
 
 				if safePath then 
-			
+
 					local prevposition = GetPlatoonPosition(transports) or false
 		
 					for _,p in safePath do
@@ -2748,7 +2741,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 			else
             
                 if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- home -- after drop")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- home -- after drop - going direct")
                 end
                 
 				-- go direct -- possibly bad

@@ -295,7 +295,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." unable to build "..repr(builder.BuilderName).." setting priority to 10")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." unable to build "..repr(builder.BuilderName))
 					end
 
                     -- if there was a build platoon but we failed anyway - assign a timeout
@@ -309,7 +309,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                     end
 			
                     if ScenarioInfo.DisplayFactoryBuilds then
-                        ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
+                        ForkThread(FloatingEntityText, factory.Sync.id, "Failed Job for "..factory.BuilderType )
                     end
 
 					self.BuilderData[factory.BuilderType].NeedSort = true

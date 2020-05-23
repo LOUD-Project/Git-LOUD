@@ -82,28 +82,24 @@ function CommanderThread( platoon, aiBrain )
         if not cdr.Dead then
 		
 			CDROverCharge( aiBrain, cdr)
-			
 		end
 		
 		-- Run Away when hurt
         if not cdr.Dead then
 		
 			CDRRunAway( aiBrain, cdr )
-			
 		end
 		
 		-- if Bob was building something and was distracted
 		if not cdr.Dead then
 		
 			CDRFinishUnit( aiBrain, cdr )
-			
 		end
 		
         -- Go back to base when outside tether
         if not cdr.Dead then
 		
 			CDRReturnHome( aiBrain, cdr, Mult ) 
-			
 		end
 		
 		-- Wander around when idle too long
@@ -116,7 +112,6 @@ function CommanderThread( platoon, aiBrain )
 		else
 		
 			moveWait = moveWait + 1
-			
 		end
 		
         -- resume building
@@ -127,9 +122,7 @@ function CommanderThread( platoon, aiBrain )
             if not cdr.EngineerBuildQueue or LOUDGETN(cdr.EngineerBuildQueue) == 0 then
 				
 				cdr.UnitBeingBuiltBehavior = false
-				
             end
-			
         end
 
 		-- if GetGameTimeSeconds() > NextTaunt then
@@ -890,7 +883,7 @@ function AirScoutingAI( self, aiBrain )
 			end
 		
 			-- use an elevated threat level in order to find paths for the air scouts --
-			local threatlevel = 10 + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
+			local threatlevel = 24 + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
 		
 			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 240)
 		
@@ -2054,7 +2047,6 @@ end
 
 
 -- Basic Air attack logic
--- primarily used for bombers and gunships
 -- Now includes code for escorting fighters --
 function AirForceAILOUD( self, aiBrain )
 

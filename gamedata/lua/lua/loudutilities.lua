@@ -2405,21 +2405,28 @@ function PathGeneratorAir( aiBrain )
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 			
-			local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer)
+			local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, false, data.ThreatLayer)
 
 			if threat > (queueitem.threat) then
 				continue
 			end
 			
-			threat = GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer )
+			threat = math.max(0, GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer ))
 			
 			if threat > (queueitem.threat) then
 				continue
 			end
 			
 			local fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
+            
+            local stepcostadjust = 0
+            
+            -- a step with ANY threat costs more than one without
+            if threat > 0 then 
+                stepcostadjust = data.Stepsize
+            end
 
-			fork.cost = queueitem.cost + threat + 10
+			fork.cost = queueitem.cost + threat + stepcostadjust
 
 			-- as we accrue more steps in a path - the value of being closer to the goal diminishes quickly in favor of being safe --
 			fork.goaldist = VDist2( data.Dest[1], data.Dest[3], testposition[1], testposition[3] ) * ( LOUDLOG10(queueitem.pathcount + 1))
@@ -3237,26 +3244,21 @@ function ParseIntelThread( aiBrain )
 				if not aiBrain.LastLandRatio or aiBrain.LastLandRatio != aiBrain.LandRatio then
 				
 					ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My present LAND ratio is '..aiBrain.LandRatio )
-					
 					aiBrain.LastLandRatio = aiBrain.LandRatio
 				end
 			
 				if not aiBrain.LastAirRatio or aiBrain.LastAirRatio != aiBrain.AirRatio then
 				
 					ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My present AIR ratio is '..aiBrain.AirRatio )
-					
 					aiBrain.LastAirRatio = aiBrain.AirRatio
 				end
 			
 				if not aiBrain.LastNavalRatio or aiBrain.LastNavalRatio != aiBrain.NavalRatio then
 				
 					ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My present NAVAL ratio is '..aiBrain.NavalRatio )
-					
 					aiBrain.LastNavalRatio = aiBrain.NavalRatio
 				end
-				
 			end
-			
         end
 
 		-- loop thru each of the threattypes
@@ -4296,14 +4298,14 @@ function DrawIntel( aiBrain )
 	local threatColor = {
 		--ThreatType = { ARGB value }
 		Air = 'ffff0000',   #-- Red 
-		Land = 'ff00ff00',  #-- Green
-		Naval = 'ff00a0ff', #-- Dark Blue
+		--Land = 'ff00ff00',  #-- Green
+		--Naval = 'ff00a0ff', #-- Dark Blue
 
-		Experimental = 'ff00fec3',  #-- Cyan
-		Commander = 'a0ffffff',     #-- White
+		--Experimental = 'ff00fec3',  #-- Cyan
+		--Commander = 'a0ffffff',     #-- White
       
-		Economy = '90ff7000',           #-- Gold
-		StructuresNotMex = 'c0ffff00',  #-- Yellow
+		--Economy = '90ff7000',           #-- Gold
+		--StructuresNotMex = 'c0ffff00',  #-- Yellow
         
 		--Artillery = 'ffffff00',   #--Yellow
 		AntiAir = 'ffff00ff', #-- Bright Red
