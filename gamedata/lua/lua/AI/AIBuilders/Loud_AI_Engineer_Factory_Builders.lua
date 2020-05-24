@@ -39,6 +39,22 @@ local HaveZeroLandFactories = function( self, aiBrain )
 
 end
 
+local HaveZeroNavalFactories = function( self, aiBrain )
+
+    if aiBrain.CycleTime > 300 then
+	
+        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
+	
+            return 990, true
+		
+        end
+        
+    end
+
+	return self.Priority, false
+
+end
+
 -- In LOUD, construction of new factories is controlled by three things
 -- the cap check, which comes from the BaseTemplateFile, controls the max number of factories by type
 -- the balance between land and air factories -- we try to keep them in lock step with each other
@@ -343,12 +359,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 999,
+        Priority = 10,
+        
+        PriorityFunction = HaveZeroNavalFactories,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.NAVAL * categories.TECH1 }}            
+            { LUTL, 'UnitCapCheckLess', { .65 } },        
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
