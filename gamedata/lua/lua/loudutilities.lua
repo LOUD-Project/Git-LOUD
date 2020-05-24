@@ -2562,7 +2562,7 @@ function PathGeneratorAmphibious(aiBrain)
 			
 		end
 
-		if queueitem.Node.position == data.EndNode.position or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
+		if queueitem.Node.position == data.EndNode.position then    --or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
 		
@@ -2595,7 +2595,7 @@ function PathGeneratorAmphibious(aiBrain)
                 ThreatLayerCheck = 'AntiSub'
             end
 
-            local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, ThreatLayerCheck)
+            local threat = math.max(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, ThreatLayerCheck))
 
 			if threat > (queueitem.threat) then
 				continue
@@ -2607,7 +2607,7 @@ function PathGeneratorAmphibious(aiBrain)
             
             -- make water based movement cheaper
             if queueitem.Node.InWater then
-                stepcost = 3
+                stepcost = 1
             end
 
             -- each step adds the stepcost

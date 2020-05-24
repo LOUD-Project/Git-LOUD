@@ -780,11 +780,6 @@ Platoon = Class(moho.platoon_methods) {
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance, 0
 				end
-                
-                --if GetThreatBetweenPositions( aiBrain, start, destination, nil, threattype) < (threatallowed * .4) then
-					--return {destination}, 'Direct', distance, 0
-                --end
-
 			end
 			
 		else
@@ -792,16 +787,16 @@ Platoon = Class(moho.platoon_methods) {
 			if not destination then
 			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Generate Safe Path "..platoonLayer.." had a bad destination "..repr(destination))
+                
 				return false, 'Badlocations', 0, 0
-				
 			else
 			
                 if platoon != 'AttackPlanner' or (platoon and platoon.BuilderName != nil) then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
                 end
+                
 				return {destination}, 'Direct', 9999, 0
 			end
-			
 		end
 
 		-- MaxMarkerDist controls the range we look for markers AND the range we use when making threat checks
@@ -860,6 +855,45 @@ Platoon = Class(moho.platoon_methods) {
 			return false
 		end
 
+		-- the intent of this function is to make sure that we don't try and respond over mountains
+		-- and rivers and other serious terrain blockages -- these are generally identified by
+        -- a rapid elevation change over a very short distance
+		local function CheckBlockingTerrain( pos, targetPos )
+	
+			-- This gives us the number of approx. 6 ogrid steps in the distance
+			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			
+			local lastpos = {pos[1], 0, pos[3]}
+	
+			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+			for i = 0, steps do
+	
+				if i > 0 then
+		
+					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+					-- Get height for both points
+					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+					-- if more than 2 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 2 then
+						
+						-- we are obstructed
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." for "..platoonLayer.." at "..repr(pos).." to "..repr(targetPos).." Get Closest Safe Path Node OBSTRUCTED ")
+						return true
+					end
+					
+					lastpos = nextpos
+                end
+			end
+	
+			return false
+		end
+		
 		-- this function will return a 3D position and a named marker
 		local GetClosestSafePathNodeInRadiusByLayerLOUD = function( location, seeksafest, goalseek, threatmodifier )
 	
@@ -879,22 +913,32 @@ Platoon = Class(moho.platoon_methods) {
 			
 					-- process only those entries within the radius
 					if VDist3Sq( v.position, location ) <= radiuscheck then
+                    
+                        local obstructed = false
+                    
+                        -- we should do an OBSTRUCTED test here -- but only for land movement --
+                        if platoonLayer == 'Land' or platoonLayer == 'Amphibious' then
+                            obstructed = CheckBlockingTerrain( v.position, location )
+                        end
+                        
+                        if not obstructed then
 			
-						-- add only those with acceptable threat to the new list
-						-- if seeksafest or goalseek flag is set we'll build a table of points with allowable threats
-						-- otherwise we'll just take the closest one
-						if AIGetThreatLevelsAroundPoint( v.position, threatradius) <= (threatallowed * threatmodifier) then
+                            -- add only those with acceptable threat to the new list
+                            -- if seeksafest or goalseek flag is set we'll build a table of points with allowable threats
+                            -- otherwise we'll just take the closest one
+                            if AIGetThreatLevelsAroundPoint( v.position, threatradius) <= (threatallowed * threatmodifier) then
 
-							if seeksafest or goalseek then
+                                if seeksafest or goalseek then
 						
-								positions[counter+1] = { AIGetThreatLevelsAroundPoint( v.position, threatradius), v.node, v.position }
-								counter = counter + 1
+                                    positions[counter+1] = { AIGetThreatLevelsAroundPoint( v.position, threatradius), v.node, v.position }
+                                    counter = counter + 1
 							
-							else
+                                else
 						
-								return ScenarioInfo.PathGraphs[platoonLayer][v.node], v.node or GetPathGraphs()[platoonLayer][v.node], v.node
-							end
-						end
+                                    return ScenarioInfo.PathGraphs[platoonLayer][v.node], v.node or GetPathGraphs()[platoonLayer][v.node], v.node
+                                end
+                            end
+                        end
 					end
 				end
 			
@@ -907,7 +951,7 @@ Platoon = Class(moho.platoon_methods) {
 				--LOG("*AI DEBUG Sorted positions for destination "..repr(goalseek).." are "..repr(positions))
 			
 				local bestThreat = (threatallowed * threatmodifier)
-				local bestMarker = positions[1][2]	-- defalut to the one closest to goal 	--false
+				local bestMarker = positions[1][2]	-- default to the one closest to goal
 			
 				-- loop thru to find one with lowest threat	-- if all threats are equal we'll end up with the closest
 				if seeksafest then
@@ -985,6 +1029,8 @@ Platoon = Class(moho.platoon_methods) {
     
 		-- Get the closest safe node at the destination which is cloest to the start
 		local endNode, endNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( destination, true, false, 1 )
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." for "..platoonLayer.." using endNode at "..repr(endNode))
 
 		if not endNode then
 		
