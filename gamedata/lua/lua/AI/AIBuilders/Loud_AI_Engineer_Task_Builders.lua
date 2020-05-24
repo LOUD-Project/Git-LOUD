@@ -337,6 +337,74 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 			ReclaimType = 'Energy',
         },
     },
+
+    -- when there is nothing else to do assist AIR factories
+    Builder {BuilderName = 'Assist Factory AIR',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 701,
+		
+		InstanceCount = 8,
+		
+		BuilderType = { 'T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 1 } },
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+            
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
+        },
+		
+        BuilderData = {
+            Assist = {
+				AssistRange = 120,
+				AssisteeType = 'Factory',
+				AssisteeCategory = categories.FACTORY * categories.AIR,
+				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
+                Time = 90,
+            },
+        },
+    },
+    
+    -- when there is nothing else to do assist AIR factories
+    Builder {BuilderName = 'Assist Factory LAND',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 701,
+		
+		InstanceCount = 8,
+		
+		BuilderType = { 'T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            { LUTL, 'LandStrengthRatioLessThan', { 1 } },
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+            
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
+        },
+		
+        BuilderData = {
+            Assist = {
+				AssistRange = 120,
+				AssisteeType = 'Factory',
+				AssisteeCategory = categories.FACTORY * categories.LAND,
+				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
+                Time = 90,
+            },
+        },
+    },
     
     -- when there is nothing else to do assist factories
     Builder {BuilderName = 'Assist Factory',
