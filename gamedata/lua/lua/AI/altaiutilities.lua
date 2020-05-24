@@ -2413,6 +2413,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - cost "..pathcost)
                     
                     if LOUDGETN( safePath ) > 1 then
+                    
                         local lastpos = table.copy(platpos)
                         
                         for _,v in safePath do

@@ -2750,7 +2750,7 @@ function PathGeneratorLand(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 			
-			local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer)
+			local threat = math.max(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer))
 
             -- if below min threat - devalue it even further
 			if threat <= data.ThreatWeight * minthreat then
@@ -3610,22 +3610,18 @@ function ParseIntelThread( aiBrain )
 		-- recalc the strength ratios every iteration ---
 		-- get the full list of units
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
-		myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
+		--myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
 
 		--- AIR UNITS ---
 		-----------------
 		myvalue = 0
-        
-        local mycount = 0
-		
 
 		-- calculate my present airvalue			
-		for _,v in EntityCategoryFilterDown( (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, myunits ) do
+		for _,v in GetListOfUnits( aiBrain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
 
 			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
-            mycount = mycount + 1
 		end
 
 		if EnemyData['Air']['Total'] > 0 then
@@ -3648,17 +3644,9 @@ function ParseIntelThread( aiBrain )
                 end
             end
             
-            realair = LOUDMAX( LOUDMIN(( myvalue / realair ) / NumOpponents, 100 ), 0.01)
-            
-            
-			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01 and 100
-			--aiBrain.AirRatio = LOUDMAX(LOUDMIN( myvalue / ( (EnemyData['Air']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Real Air says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realair).." versus IMAP "..aiBrain.AirRatio)
-            
+            realair = LOUDMAX( LOUDMIN( myvalue / (realair/NumOpponents), 100 ), 0.01)
+
             aiBrain.AirRatio = realair
-            
 		else
 			aiBrain.AirRatio = 0.01
 		end
@@ -3666,17 +3654,12 @@ function ParseIntelThread( aiBrain )
 		--- LAND UNITS ---
 		------------------
 		myvalue = 0
-        
-        mycount = 0
 
-		-- calculate my present land value -- this should remove ANTIAIR to be better matched to whats
-        -- going on in the PARSEINTEL thread
-		for _,v in EntityCategoryFilterDown( (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, myunits ) do
+		for _,v in GetListOfUnits( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, false, false ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
-            mycount = mycount + 1
 		end
 
 		if EnemyData['Land']['Total'] > 0 then
@@ -3699,15 +3682,8 @@ function ParseIntelThread( aiBrain )
                 end
             end
             
-            realland = LOUDMAX( LOUDMIN(( myvalue / realland ) / NumOpponents, 100 ), 0.01)
+            realland = LOUDMAX( LOUDMIN( myvalue / (realland/NumOpponents), 100 ), 0.01)
 
-
-			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01 and 100
-			--aiBrain.LandRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Land']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)  --* muzzmod
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Real Land says count "..realcount/NumOpponents.." vs "..mycount.." ratio is "..repr(realland).." versus IMAP "..aiBrain.LandRatio)
-            
             aiBrain.LandRatio = realland
         else
 			aiBrain.LandRatio = 0.01
@@ -3718,18 +3694,36 @@ function ParseIntelThread( aiBrain )
 		myvalue = 0
 
 		-- calculate my present naval value -- I don't think we should be adding our own factories to this total --
-		for _,v in EntityCategoryFilterDown( (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), myunits ) do
+		for _,v in GetListOfUnits( aiBrain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false ) do
 		
 			bp = ALLBPS[v.BlueprintID].Defense
 			
 			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
 		end
 
-        -- The Naval ratio falls between 0.01(inactive) and 8(naval supremacy)
 		if EnemyData['Naval']['Total'] > 0 then
-			-- ratio will be total value divided by number of history points divided again by number of opponents
-			-- with range limits between 0.01(min) and 100(max)
-			aiBrain.NavalRatio = LOUDMAX(LOUDMIN( myvalue / ((EnemyData['Naval']['Total'] / EnemyDataHistory) / NumOpponents), 100 ), 0.01)
+        
+            local realnaval = 0
+            local realcount = 0
+            
+            for v, brain in ArmyBrains do
+                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                
+                    local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                    
+                    for _,v in enemyunits do
+                    
+                        local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                        realland = realland + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        realcount = realcount + 1
+                    end
+                end
+            end
+            
+            realnaval = LOUDMAX( LOUDMIN( myvalue / (realnaval/NumOpponents), 100 ), 0.01)
+
+            aiBrain.NavalRatio = realnaval
 		else
 			aiBrain.NavalRatio = 0.01
 		end
