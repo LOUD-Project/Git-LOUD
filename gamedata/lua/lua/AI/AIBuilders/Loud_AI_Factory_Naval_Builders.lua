@@ -99,7 +99,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },
 			{ UCBC, 'PoolLess', { 10, categories.DESTROYER }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
         },
@@ -269,6 +269,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
@@ -310,6 +311,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },            
             { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
@@ -353,6 +355,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},
@@ -374,6 +377,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLess', { 25, categories.SUBMARINE }},

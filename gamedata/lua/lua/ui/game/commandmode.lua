@@ -175,6 +175,8 @@ function OnCommandIssued(command)
 			}, 0.75)		
 		end		
 	end
+    
+    --LOG("*AI DEBUG CommandIssued is "..repr(command))
 	
 	-- from BO Unleashed - all credit to author Magic Power
 	import('/lua/spreadattack.lua').MakeShadowCopyOrders(command)	

@@ -375,7 +375,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .60 } },
 			
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },

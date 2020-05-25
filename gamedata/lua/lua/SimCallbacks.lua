@@ -44,6 +44,7 @@ Callbacks.NoteSimSpeedChange = function(data)
 	UpdateSimSpeed(data)
 end
 
+
 function Callbacks.OnMovieFinished(name)
     ScenarioInfo.DialogueFinished[name] = true
 end
@@ -107,7 +108,6 @@ function Callbacks.UpdateSelectedUnits(data)
 		end
 	end
 end
-
 
 
 

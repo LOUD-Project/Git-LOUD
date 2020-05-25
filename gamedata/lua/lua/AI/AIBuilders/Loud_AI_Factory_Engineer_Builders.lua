@@ -38,7 +38,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER) - categories.TECH1 - categories.COMMAND }},
@@ -55,7 +55,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
         
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .80 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},

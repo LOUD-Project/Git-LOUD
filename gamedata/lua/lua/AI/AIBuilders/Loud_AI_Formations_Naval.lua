@@ -144,13 +144,13 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			StrRadius = 32,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 18,
+			StrMax = 12,
 			
 			UntCategory = categories.NAVAL * categories.MOBILE,
 			UntRadius = 64,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 20,
+			UntMax = 12,
 			
             PrioritizedCategories = { 'ECONOMIC','STRUCTURE' },
 			
@@ -194,7 +194,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},			
 
@@ -242,7 +242,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
@@ -288,7 +288,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
@@ -334,7 +334,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
@@ -379,7 +379,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			--{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
@@ -425,7 +424,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
@@ -473,7 +471,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
@@ -520,7 +517,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
@@ -567,8 +563,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			--{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
-		
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
@@ -613,8 +608,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
-		
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
@@ -660,8 +654,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
-			
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
@@ -707,8 +700,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 8 } },
-		
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
@@ -730,7 +722,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
     },
 
     -- NAVAL BOMBARDMENT only appears once significant control over
-    -- the water has been achieved (Naval Ratio > 5) and continues
+    -- the water has been achieved (Naval Ratio > 1.5) and continues
     -- regardless of if the enemy is active in the water or not
     Builder {BuilderName = 'Sea Attack - Bombardment',
 	
@@ -753,7 +745,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 1.5 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
@@ -770,7 +762,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
     },
 
     -- NAVAL BASE Patrols only appear if there is a NAVAL threat
-    -- within 9km of the naval base - therefore these can still 
+    -- within 8km of the naval base - therefore these can still 
     -- form even if intel says no enemy naval activity.
     Builder {BuilderName = 'Naval Base Patrol',
 	
@@ -802,7 +794,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderConditions = {
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Naval' }},
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.FRIGATE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
@@ -839,7 +831,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderConditions = {
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 35, 'Naval' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
         },
     },

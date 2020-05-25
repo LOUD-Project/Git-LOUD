@@ -96,6 +96,8 @@ function SpreadAttack()
 	for _,unit in ipairs(curSelection) do
 	
 		local unitorders = ShadowOrders[unit:GetEntityId()]
+        
+        --LOG("*AI DEBUG Shadow Order is "..repr(unitorders))
 
 		-- Only mix orders if this unit has any orders to mix.
 		if not( unitorders ) and not( unitorders[1] ) then 
@@ -151,6 +153,8 @@ function SpreadAttack()
 
 		-- Repeat this loop and search for more Attack series.
 		end
+        
+        --LOG("*AI DEBUG After mix-up orders are "..repr(unitorders))
   
 		-- All Attack orders have been mixed, now it's time to reassign those orders.
 		-- Since giving orders is a Sim-side command, use a SimCallback function.
@@ -161,7 +165,6 @@ function SpreadAttack()
 
 
 end -- Function SpreadAttack()
-
 
 ----------------------------
 -- Function GiveOrders(Data)
