@@ -80,7 +80,7 @@ UnitBlueprint {
         MaxHealth = 75000,
         RegenRate = 100,
 
-        SurfaceThreatLevel = 403,
+        SurfaceThreatLevel = 961.2,
     },
     
     Description = 'Assault Roachbot',

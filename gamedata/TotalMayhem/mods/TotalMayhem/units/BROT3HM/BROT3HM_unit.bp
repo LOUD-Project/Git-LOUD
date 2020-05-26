@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 8250,
         MaxHealth = 8250,
         RegenRate = 3,
-        SurfaceThreatLevel = 57,
+        SurfaceThreatLevel = 78.1,
     },
 	
     Description = '<LOC brot3hm_desc>Siege Mech',

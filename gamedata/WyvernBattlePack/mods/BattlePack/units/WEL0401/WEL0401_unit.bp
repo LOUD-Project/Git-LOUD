@@ -67,7 +67,7 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 29,
         SubThreatLevel = 18,
-        SurfaceThreatLevel = 348,        
+        SurfaceThreatLevel = 995.2,        
         
         ArmorType = 'Experimental',
 

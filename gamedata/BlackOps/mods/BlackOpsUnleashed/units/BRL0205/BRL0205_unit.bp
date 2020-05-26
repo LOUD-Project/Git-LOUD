@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 900,
         MaxHealth = 900,
         RegenRate = 2,
-        SurfaceThreatLevel = 7.3,
+        SurfaceThreatLevel = 7.4,
     },
 	
     Description = '<LOC brl0205_desc>Ambush Bot',

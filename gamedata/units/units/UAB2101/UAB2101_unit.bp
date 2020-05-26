@@ -42,7 +42,7 @@ UnitBlueprint {
         Health = 1300,
         MaxHealth = 1300,
         RegenRate = 0,
-        SurfaceThreatLevel = 15,
+        SurfaceThreatLevel = 13,
     },
     Description = '<LOC uab2101_desc>Point Defense',
     Display = {

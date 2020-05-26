@@ -60,6 +60,7 @@ UnitBlueprint {
             ShieldSize = 59,
             ShieldVerticalOffset = -7,
         },
+        SurfaceThreatLevel = 144.7,
     },
 	
     Description = '<LOC xsb4303_desc>Heavy Shield Generator & Storage',

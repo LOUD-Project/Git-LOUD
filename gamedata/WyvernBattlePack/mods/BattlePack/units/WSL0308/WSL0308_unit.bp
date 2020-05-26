@@ -53,7 +53,7 @@ UnitBlueprint {
         
         RegenRate = 3,
 
-        SurfaceThreatLevel = 18,
+        SurfaceThreatLevel = 37.8,
     },
     
     Description = 'Rapid Assault Tank',

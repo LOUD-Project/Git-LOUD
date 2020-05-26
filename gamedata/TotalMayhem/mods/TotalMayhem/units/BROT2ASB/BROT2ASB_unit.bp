@@ -52,7 +52,7 @@ UnitBlueprint {
         Health = 1850,
         MaxHealth = 1850,
         RegenRate = 1,
-        SurfaceThreatLevel = 12,
+        SurfaceThreatLevel = 15.3,
     },
 	
     Description = '<LOC brot2asb_desc>Amphib Assault Bot',

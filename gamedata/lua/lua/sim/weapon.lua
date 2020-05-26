@@ -339,7 +339,10 @@ Weapon = Class(moho.weapon_methods) {
 		-- cloaked unit fires
 		-- just a note - this triggers only ONCE per firing cycle - not when each muzzle fires
 		-- so you'll only get one event no matter how many muzzles and projectiles are created
-		-- it also appears that the event is created AFTER the projectile is created
+		-- it also appears that the event is created AFTER the first projectile is created
+        -- there's some doubt that we'd see this more than once as long as the weapon keeps firing
+        -- at the same target
+        -- This means it's not a really good place for watching if a weapon fires
 	end,
 
     OnEnableWeapon = function(self)

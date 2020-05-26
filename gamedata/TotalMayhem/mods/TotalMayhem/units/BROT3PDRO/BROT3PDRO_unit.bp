@@ -44,7 +44,7 @@ UnitBlueprint {
         Health = 2700,
         MaxHealth = 2700,
         RegenRate = 2,
-        SurfaceThreatLevel = 40,
+        SurfaceThreatLevel = 105.4,
     },
     Description = '<LOC brot3pdro_desc>Plasma Rocket Battery',
     Display = {

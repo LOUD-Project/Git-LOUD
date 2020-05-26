@@ -57,7 +57,7 @@ UnitBlueprint {
             ShieldSize = 20,
             ShieldVerticalOffset = -3,
         },
-        SurfaceThreatLevel = 9,
+        SurfaceThreatLevel = 93.7,
     },
 	
     Description = '<LOC xsl0307_desc>Hover Shield Generator',

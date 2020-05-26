@@ -92,7 +92,7 @@ UnitBlueprint {
         
         RegenRate = 15,
 
-        SurfaceThreatLevel = 270,
+        SurfaceThreatLevel = 587,
     },
     
     Description = 'Experimental Medium Mech',

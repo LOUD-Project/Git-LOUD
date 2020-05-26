@@ -94,7 +94,7 @@ UnitBlueprint {
         RegenRate = 25,
 		
         SubThreatLevel = 20,
-        SurfaceThreatLevel = 345,
+        SurfaceThreatLevel = 657.7,
     },
 	
     Description = '<LOC url0402_desc>Experimental Spiderbot',

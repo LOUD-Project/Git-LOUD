@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 820,
         MaxHealth = 820,
         RegenRate = 1,
-        SurfaceThreatLevel = 5.4,
+        SurfaceThreatLevel = 8.4,
     },
 	
     Description = '<LOC drl0204_desc>Rocket Bot',

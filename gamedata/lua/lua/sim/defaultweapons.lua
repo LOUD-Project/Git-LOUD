@@ -669,7 +669,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
     },
 	
-
     WeaponUnpackingState = State {
 
         WeaponWantEnabled = false,
@@ -711,7 +710,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
     },
 	
-
     RackSalvoChargeState = State {
 
         WeaponWantEnabled = true,

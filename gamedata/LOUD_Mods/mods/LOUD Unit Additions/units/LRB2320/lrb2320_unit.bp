@@ -53,7 +53,7 @@ AI = {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 6,
-		SurfaceThreatLevel = 72,		
+		SurfaceThreatLevel = 295.6,		
     },
 	
     Description = '<LOC lrb2320_desc>Barrage Artillery',

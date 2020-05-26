@@ -59,6 +59,8 @@ UnitBlueprint {
             ShieldSize = 55,
             ShieldVerticalOffset = -3,
         },
+		
+        SurfaceThreatLevel = 185.5,
     },
 	
     Description = '<LOC srb4401>Experimental Shield Generator',

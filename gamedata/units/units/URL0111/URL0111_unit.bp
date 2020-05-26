@@ -57,7 +57,7 @@ UnitBlueprint {
         Health = 750,
         MaxHealth = 750,
         RegenRate = 1,
-        SurfaceThreatLevel = 6,
+        SurfaceThreatLevel = 13.3,
     },
 	
     Description = '<LOC url0111_desc>Mobile Missile Launcher',

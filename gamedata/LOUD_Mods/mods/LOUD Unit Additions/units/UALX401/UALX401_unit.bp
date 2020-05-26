@@ -78,7 +78,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -5,
         },
         EconomyThreatLevel = 1500,
-		SurfaceThreatLevel = 30,
+		SurfaceThreatLevel = 184.7,
     },
 	
     Description = '<LOC ualx401_desc>Experimental Guardian',

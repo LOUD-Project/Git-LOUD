@@ -63,7 +63,7 @@ UnitBlueprint {
         Health = 35500,
         MaxHealth = 35500,
         RegenRate = 27,
-        SurfaceThreatLevel = 90,
+        SurfaceThreatLevel = 228,
     },
 	
     Description = '<LOC bsl0406_desc>Experimental Protector bot',

@@ -56,7 +56,7 @@ UnitBlueprint {
         Health = 2500,
         MaxHealth = 2500,
         RegenRate = 4,
-        SurfaceThreatLevel = 30,
+        SurfaceThreatLevel = 35.9,
     },
 	
     Description = '<LOC brmt3lzt_desc>Amphib AA/Support',

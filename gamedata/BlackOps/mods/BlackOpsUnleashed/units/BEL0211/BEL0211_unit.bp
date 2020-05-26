@@ -43,7 +43,7 @@ UnitBlueprint {
         Health = 1320,
         MaxHealth = 1320,
         RegenRate = 2,
-        SurfaceThreatLevel = 10,
+        SurfaceThreatLevel = 10.9,
     },
 	
     Description = '<LOC bel0211_desc>FlameThrower Vehicle',

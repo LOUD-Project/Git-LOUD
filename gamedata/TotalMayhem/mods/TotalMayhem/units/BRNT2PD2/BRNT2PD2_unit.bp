@@ -46,7 +46,7 @@ UnitBlueprint {
         Health = 2750,
         MaxHealth = 2750,
         RegenRate = 2,
-        SurfaceThreatLevel = 18,
+        SurfaceThreatLevel = 30.8,
     },
 	
     Description = '<LOC brnt2pd2_desc>Point Defense',

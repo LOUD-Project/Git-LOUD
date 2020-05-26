@@ -65,7 +65,7 @@ UnitBlueprint {
         MaxHealth = 117500,
         RegenRate = 40,
 		AirThreatLevel = 88,
-        SurfaceThreatLevel = 544,
+        SurfaceThreatLevel = 1265.8,
     },
 	
     Description = '<LOC brnt3shbm_desc>Experimental Battle Mech',

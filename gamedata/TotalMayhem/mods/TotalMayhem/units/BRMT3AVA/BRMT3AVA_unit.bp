@@ -77,7 +77,7 @@ UnitBlueprint {
         Health = 260000,
         MaxHealth = 260000,
         RegenRate = 125,
-        SurfaceThreatLevel = 725,
+        SurfaceThreatLevel = 2623.3,
     },
 	
     Description = '<LOC brmt3ava_desc>Experimental Ultraheavy Beetlebot',

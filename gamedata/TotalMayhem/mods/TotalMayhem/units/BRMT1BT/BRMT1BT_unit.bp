@@ -59,7 +59,7 @@ UnitBlueprint {
         Health = 225,
         MaxHealth = 225,
         RegenRate = 1,
-        SurfaceThreatLevel = 4,
+        SurfaceThreatLevel = 2.9,
     },
 	
     Description = '<LOC brmt1bt_desc>Amphibious Tank',

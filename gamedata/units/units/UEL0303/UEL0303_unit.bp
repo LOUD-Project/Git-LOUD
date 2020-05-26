@@ -71,7 +71,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
-        SurfaceThreatLevel = 18,
+        SurfaceThreatLevel = 27.4,
     },
 	
     Description = '<LOC uel0303_desc>Rapid Assault Bot',

@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 515,
         MaxHealth = 515,
         RegenRate = 2,
-        SurfaceThreatLevel = 5.4,
+        SurfaceThreatLevel = 5.7,
     },
 	
     Description = '<LOC brmt1exm1_desc>Medium Assault Bot',

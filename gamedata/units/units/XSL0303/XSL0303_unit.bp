@@ -54,7 +54,7 @@ UnitBlueprint {
         MaxHealth = 4000,
         RegenRate = 3,
 		SubThreatLevel = 10.5,
-        SurfaceThreatLevel = 40,
+        SurfaceThreatLevel = 402.5,
     },
 	
     Description = '<LOC xsl0303_desc>Amphibious Siege Tank',

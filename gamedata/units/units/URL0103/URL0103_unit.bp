@@ -46,7 +46,7 @@ UnitBlueprint {
         Health = 100,
         MaxHealth = 100,
         RegenRate = 1,
-        SurfaceThreatLevel = 3,
+        SurfaceThreatLevel = 2.7,
     },
 	
     Description = '<LOC url0103_desc>Mobile Light Artillery',

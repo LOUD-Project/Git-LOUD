@@ -44,7 +44,7 @@ UnitBlueprint {
         Health = 1720,
         MaxHealth = 1720,
         RegenRate = 1,
-        SurfaceThreatLevel = 15,
+        SurfaceThreatLevel = 17.5,
     },
     Description = '<LOC brnt1expd_desc>Gatling Defense System',
     Display = {

@@ -65,6 +65,7 @@ UnitBlueprint {
         MaxHealth = 2450,
 		
         RegenRate = 8,
+        SurfaceThreatLevel = 299.5,
 		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',

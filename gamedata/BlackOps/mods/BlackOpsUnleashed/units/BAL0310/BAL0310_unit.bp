@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 5000,
         MaxHealth = 5000,
         RegenRate = 2,
-        SurfaceThreatLevel = 48,
+        SurfaceThreatLevel = 70.8,
     },
 	
     Description = '<LOC bal0310_desc>Heavy Hover Tank',

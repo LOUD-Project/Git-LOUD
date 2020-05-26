@@ -65,6 +65,8 @@ UnitBlueprint {
             ShieldSize = 2.5,
             ShieldVerticalOffset = 0.65,
         },
+		
+        SurfaceThreatLevel = 47.7,
     },
 	
     Description = '<LOC ssb5301_desc>Shield Wall Section',

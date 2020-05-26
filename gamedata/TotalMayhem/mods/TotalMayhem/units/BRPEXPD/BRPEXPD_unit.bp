@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 18500,
         MaxHealth = 18500,
         RegenRate = 15,
-        SurfaceThreatLevel = 85,
+        SurfaceThreatLevel = 229.9,
     },
 	
     Description = '<LOC brpexpd_desc>Experimental Multirole Point Defense',
