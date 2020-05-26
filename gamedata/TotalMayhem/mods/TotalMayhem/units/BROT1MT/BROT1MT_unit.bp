@@ -39,7 +39,7 @@ UnitBlueprint {
         Health = 215,
         MaxHealth = 215,
         RegenRate = 0,
-        SurfaceThreatLevel = 3,
+        SurfaceThreatLevel = 2.3,
     },
     Description = '<LOC brot1mt_desc>Light Tank',
     Display = {

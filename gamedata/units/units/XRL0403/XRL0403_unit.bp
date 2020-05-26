@@ -90,7 +90,7 @@ UnitBlueprint {
         MaxHealth = 110000,
         RegenRate = 32,
         SubThreatLevel = 180,
-        SurfaceThreatLevel = 245,
+        SurfaceThreatLevel = 776.2,
     },
     
     Description = '<LOC xrl0403_desc>Experimental Mobile Factory',

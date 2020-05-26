@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 121000,
         MaxHealth = 121000,
         RegenRate = 100,
-        SurfaceThreatLevel = 730,
+        SurfaceThreatLevel = 1387.7,
     },
 	
     Description = '<LOC wrl0404_desc>Experimental Roachbot',

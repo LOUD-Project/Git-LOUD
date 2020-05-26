@@ -48,7 +48,7 @@ UnitBlueprint {
         Health = 2450,
         MaxHealth = 2450,
         RegenRate = 2,
-        SurfaceThreatLevel = 12,
+        SurfaceThreatLevel = 28.1,
     },
 	
     Description = '<LOC beb2303_desc>Rapid Light Howitzer',

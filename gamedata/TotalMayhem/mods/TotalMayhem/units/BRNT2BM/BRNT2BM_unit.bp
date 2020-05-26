@@ -56,7 +56,7 @@ UnitBlueprint {
         Health = 2000,
         MaxHealth = 2000,
         RegenRate = 1,
-        SurfaceThreatLevel = 9,
+        SurfaceThreatLevel = 13.1,
     },
     Description = '<LOC brnt2bm_desc>Amphibious Gatling Mech',
     Display = {

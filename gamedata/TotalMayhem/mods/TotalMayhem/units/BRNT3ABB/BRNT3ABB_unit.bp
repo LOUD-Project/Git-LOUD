@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 9050,
         MaxHealth = 9050,
         RegenRate = 4,
-        SurfaceThreatLevel = 57,
+        SurfaceThreatLevel = 82,
     },
 	
     Description = '<LOC brnt3abb_desc>Armored Battle Bot',

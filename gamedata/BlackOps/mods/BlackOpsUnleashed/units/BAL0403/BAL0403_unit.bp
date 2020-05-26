@@ -71,7 +71,7 @@ UnitBlueprint {
         Health = 47500,
         MaxHealth = 47500,
         RegenRate = 12,
-        SurfaceThreatLevel = 90,
+        SurfaceThreatLevel = 417.6,
     },
 	
     Description = '<LOC bal0403_desc>Experimental Sniper',

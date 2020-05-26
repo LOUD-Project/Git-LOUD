@@ -79,7 +79,7 @@ UnitBlueprint {
         Health = 99999,
         MaxHealth = 99999,
         RegenRate = 28,
-        SurfaceThreatLevel = 280,
+        SurfaceThreatLevel = 630.1,
     },
 	
     Description = '<LOC ual0401_desc>Hey! ERNIE is here!!',

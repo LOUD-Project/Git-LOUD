@@ -76,7 +76,7 @@ UnitBlueprint {
         Health = 75000,
         MaxHealth = 75000,
         RegenRate = 150,
-        SurfaceThreatLevel = 490,
+        SurfaceThreatLevel = 960,
     },
 	
     Description = '<LOC brl0401_desc>Basilisk Regenerative Heavy Assault Mech',

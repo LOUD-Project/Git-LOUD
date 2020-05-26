@@ -114,7 +114,7 @@ UnitBlueprint {
         MaxHealth = 90000,
         RegenRate = 28,
 
-        SurfaceThreatLevel = 296,
+        SurfaceThreatLevel = 1044.7,
     },
     
     Description = 'Wyvern Experimental Assault Vehicle',

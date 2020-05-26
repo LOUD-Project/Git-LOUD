@@ -66,7 +66,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
-        SurfaceThreatLevel = 59,
+        SurfaceThreatLevel = 75.1,
     },
 	
     Description = '<LOC xel0307_desc>Battle Station',

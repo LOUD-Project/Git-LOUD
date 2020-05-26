@@ -62,7 +62,7 @@ UnitBlueprint {
         Health = 32500,
         MaxHealth = 32500,
         RegenRate = 10,
-        SurfaceThreatLevel = 75,
+        SurfaceThreatLevel = 172.3,
     },
 	
     Description = '<LOC brpexbtbot_desc>Light Experimental AA Battle Bot',

@@ -91,7 +91,7 @@ UnitBlueprint {
         Health = 98500,
         MaxHealth = 98500,
         RegenRate = 20,
-        SurfaceThreatLevel = 340,
+        SurfaceThreatLevel = 1393.5,
     },
 	
     Description = '<LOC brpexshbm_desc>Experimental Artillery Support Bot',

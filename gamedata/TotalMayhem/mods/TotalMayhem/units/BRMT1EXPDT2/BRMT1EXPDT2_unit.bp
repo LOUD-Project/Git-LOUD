@@ -60,7 +60,7 @@ UnitBlueprint {
         Health = 1600,
         MaxHealth = 1600,
         RegenRate = 2,
-        SurfaceThreatLevel = 20,
+        SurfaceThreatLevel = 20.7,
     },
 	
     Description = '<LOC brmt1expdt2_desc>Microwave PD - Dual',

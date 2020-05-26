@@ -75,7 +75,7 @@ UnitBlueprint {
         Health = 8250,
         MaxHealth = 8250,
         RegenRate = 6,
-        SurfaceThreatLevel = 58,
+        SurfaceThreatLevel = 84.3,
     },
 	
     Description = '<LOC brmt3bm2_desc>Adv. Amphib Battle Bot',

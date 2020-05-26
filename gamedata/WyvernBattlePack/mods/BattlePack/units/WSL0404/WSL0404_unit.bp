@@ -62,7 +62,7 @@ UnitBlueprint {
         MaxHealth = 31000,
         RegenRate = 15,
 
-        SurfaceThreatLevel = 132,
+        SurfaceThreatLevel = 427.9,
     },
     
     Description = 'Experimental Mobile Artillery',

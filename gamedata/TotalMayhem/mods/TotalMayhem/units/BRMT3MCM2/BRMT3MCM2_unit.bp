@@ -62,7 +62,7 @@ UnitBlueprint {
         Health = 62000,
         MaxHealth = 62000,
         RegenRate = 20,
-        SurfaceThreatLevel = 213,
+        SurfaceThreatLevel = 478,
     },
 	
     Description = '<LOC brmt3mcm2_desc>Experimental Medium Assault Mech',

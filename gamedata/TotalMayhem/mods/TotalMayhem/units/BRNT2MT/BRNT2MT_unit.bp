@@ -45,7 +45,7 @@ UnitBlueprint {
         Health = 910,
         MaxHealth = 910,
         RegenRate = 0.5,
-        SurfaceThreatLevel = 4.8,
+        SurfaceThreatLevel = 6.4,
     },
 	
     Description = '<LOC brnt2mt_desc>Rapid Light Assault Tank',

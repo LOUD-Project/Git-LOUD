@@ -52,7 +52,7 @@ UnitBlueprint {
         MaxHealth = 3200,
         RegenRate = 2,
 
-        SurfaceThreatLevel = 36,
+        SurfaceThreatLevel = 37.3,
     },
     
     Description = 'Amphibious Assault Tank',

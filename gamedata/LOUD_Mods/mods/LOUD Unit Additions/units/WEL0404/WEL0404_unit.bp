@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 90000,
         MaxHealth = 90000,
         RegenRate = 28,
-        SurfaceThreatLevel = 480,
+        SurfaceThreatLevel = 1302,
     },
 	
     Description = '<LOC wel0404_desc>Experimental Assault Vehicle',

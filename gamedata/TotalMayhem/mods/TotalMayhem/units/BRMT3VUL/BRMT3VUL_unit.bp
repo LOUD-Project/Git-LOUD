@@ -64,7 +64,7 @@ UnitBlueprint {
         Health = 34000,
         MaxHealth = 34000,
         RegenRate = 15,
-        SurfaceThreatLevel = 85,
+        SurfaceThreatLevel = 204.4,
     },
     
     Description = '<LOC brmt3vul_desc>Light Experimental Mech',

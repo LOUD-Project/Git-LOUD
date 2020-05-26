@@ -58,7 +58,7 @@ UnitBlueprint {
         Health = 6250,
         MaxHealth = 6250,
         RegenRate = 2,
-        SurfaceThreatLevel = 33,
+        SurfaceThreatLevel = 73,
     },
 	
     Description = '<LOC uab2306_desc>Anachronon',

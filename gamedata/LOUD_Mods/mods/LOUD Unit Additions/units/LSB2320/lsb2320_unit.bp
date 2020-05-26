@@ -50,7 +50,7 @@ UnitBlueprint {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 3,
-		SurfaceThreatLevel = 80,		
+		SurfaceThreatLevel = 318.7,		
     },
 	
     Description = '<LOC lsb2320_desc>Barrage Artillery',

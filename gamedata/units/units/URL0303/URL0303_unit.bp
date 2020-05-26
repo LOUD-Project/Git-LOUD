@@ -67,7 +67,7 @@ UnitBlueprint {
         Health = 3000,
         MaxHealth = 3000,
         RegenRate = 2.5,
-        SurfaceThreatLevel = 19.5,
+        SurfaceThreatLevel = 27.4,
     },
 	
     Description = '<LOC url0303_desc>Siege Assault Bot',

@@ -53,7 +53,7 @@ UnitBlueprint {
         MaxHealth = 39900,
         RegenRate = 25,
         
-        SurfaceThreatLevel = 244,
+        SurfaceThreatLevel = 787.2,
     },
 	
     Description = '<LOC brnt3shpd_desc>Heavy Fortification',

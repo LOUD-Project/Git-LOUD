@@ -65,7 +65,7 @@ UnitBlueprint {
         Health = 1650,
         MaxHealth = 1650,
         RegenRate = 2,
-        SurfaceThreatLevel = 14,
+        SurfaceThreatLevel = 17.1,
     },
 	
     Description = '<LOC brot1expd_desc>Multirole Point Defense',

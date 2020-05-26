@@ -84,7 +84,7 @@ UnitBlueprint {
         Health = 104000,
         MaxHealth = 104000,
         RegenRate = 35,
-        SurfaceThreatLevel = 560,
+        SurfaceThreatLevel = 1042.8,
     },
 	
     Description = '<LOC bel0402_desc>Goliath Assault Bot',

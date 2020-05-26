@@ -60,7 +60,7 @@ UnitBlueprint {
         MaxHealth = 1100,
         RegenRate = 1,
 
-        SurfaceThreatLevel = 10.5,
+        SurfaceThreatLevel = 27,
     },
     
     Description = 'Amphibious Heavy Artillery',

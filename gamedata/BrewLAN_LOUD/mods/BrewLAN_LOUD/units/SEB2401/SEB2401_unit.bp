@@ -65,7 +65,7 @@ UnitBlueprint {
         Health = 18500,
         MaxHealth = 18500,
         RegenRate = 15,
-        SurfaceThreatLevel = 62,
+        SurfaceThreatLevel = 314.8,
     },
 
     Description = '<LOC seb2401_desc>Experimental Point Defence',

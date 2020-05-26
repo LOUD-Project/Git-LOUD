@@ -63,7 +63,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartOn = true,
         },
-        SurfaceThreatLevel = 10,
+        SurfaceThreatLevel = 12.2,
     },
     Description = '<LOC ual0202_desc>Heavy Tank',
     Display = {

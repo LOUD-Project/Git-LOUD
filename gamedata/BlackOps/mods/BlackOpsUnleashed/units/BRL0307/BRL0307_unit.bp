@@ -55,7 +55,7 @@ UnitBlueprint {
         Health = 2500,
         MaxHealth = 2500,
         RegenRate = 3,
-        SurfaceThreatLevel = 18,
+        SurfaceThreatLevel = 36.5,
     },
 	
     Description = '<LOC brl0307_desc>Hailfire Rocket Assault Bot',

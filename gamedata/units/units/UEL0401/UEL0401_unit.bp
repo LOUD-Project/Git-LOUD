@@ -98,7 +98,7 @@ UnitBlueprint {
         AirThreatLevel = 22,
         EconomyThreatLevel = 350,       -- due to factory and shield
         SubThreatLevel = 18,
-        SurfaceThreatLevel = 330,
+        SurfaceThreatLevel = 644.3,
 		
         ArmorType = 'Experimental',
 

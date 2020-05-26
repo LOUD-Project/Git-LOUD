@@ -66,7 +66,7 @@ UnitBlueprint {
         Health = 9500,
         MaxHealth = 9500,
         RegenRate = 4,
-        SurfaceThreatLevel = 36,
+        SurfaceThreatLevel = 130.5,
     },
 	
     Description = '<LOC sbui2311_desc>Anti-Armor Point Defense',

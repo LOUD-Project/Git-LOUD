@@ -58,7 +58,7 @@ UnitBlueprint {
         MaxHealth = 460,
         RegenRate = 2,
 
-        SurfaceThreatLevel = 18,
+        SurfaceThreatLevel = 35.5,
     },
 
     Description = 'Sniper Bot',

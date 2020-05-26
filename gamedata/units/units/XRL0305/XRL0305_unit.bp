@@ -65,7 +65,7 @@ UnitBlueprint {
         MaxHealth = 6250,
         RegenRate = 4,
         SubThreatLevel = 5,
-        SurfaceThreatLevel = 45,
+        SurfaceThreatLevel = 56.8,
     },
 	
     Description = '<LOC xrl0305_desc>Armored Assault Bot',

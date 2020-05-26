@@ -79,7 +79,7 @@ UnitBlueprint {
         Health = 142000,
         MaxHealth = 142000,
         RegenRate = 38,
-        SurfaceThreatLevel = 552,
+        SurfaceThreatLevel = 1604.4,
     },
 	
     Description = '<LOC wel0405_desc>Experimental Assault Bot',
