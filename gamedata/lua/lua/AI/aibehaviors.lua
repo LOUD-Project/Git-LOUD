@@ -2382,6 +2382,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
     local searchradius = self.PlatoonData.SearchRadius or 250
+    
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
@@ -2542,6 +2543,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 			-- locate a primary target
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
+            
+            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
             
             for _,rangemult in mult do
 
@@ -3027,6 +3030,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
+
+            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
 
             for _,rangemult in mult do
 
