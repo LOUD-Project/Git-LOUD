@@ -1247,18 +1247,20 @@ function ResetBrainNeedsTransport( aiBrain )
     aiBrain.NeedTransports = false
 end
 
--- this function will direct all air units (ex. Transports) into the refit/refuel process if needed
+-- this function will direct all air units into the refit/refuel process if needed
 -- this is fired off by the OnRunOutOfFuel event which triggers it as a callback -- only used by the AI --
 -- or during the ReturnToBaseAI function 
 function ProcessAirUnits( unit, aiBrain )
 
 	if not unit.Dead then
-    
+
         local fuel = unit:GetFuelRatio()
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
-			
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool")
+
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool")
+            end
             
 			-- put air unit into the refuel pool -- 
 			aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
@@ -1319,7 +1321,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						end
                     else
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
                     end
                 end
                 
@@ -1367,7 +1369,6 @@ function AirUnitRefitThread( unit, aiBrain )
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." unit "..unit.Sync.id.." leaving refit thread")
 				break
 			end
 	
@@ -1387,7 +1388,10 @@ function AirUnitRefitThread( unit, aiBrain )
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )
 		else
-
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
+            end
+            
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
 		end
 	end
@@ -1408,23 +1412,23 @@ function AirStagingThread( unit, airstage, aiBrain )
             local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 14, 240)
 			
             if safePath then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
-			
+                
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." data is "..repr(unit))
+                end
+
                 -- use path
                 for _,p in safePath do
                     IssueMove( {unit}, p )
                 end
-
             else
-            
                 if ScenarioInfo.TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
                 end
-                
+
                 -- go direct -- possibly bad
                 IssueMove( {unit}, GetPosition(airstage))
-                
             end
 
 			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
@@ -1441,13 +1445,18 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while not ( unit.Dead and not airstage.Dead) do
 		
-		--if (not unit:IsUnitState('Attached') and (not unit:IsIdleState())) and (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
+            waitcount = waitcount + 1
         else
 			break
 		end
+        
+        if waitcount > 120 then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AirStagingThread timeout for unit "..unit.Sync.id.." at "..repr(unit:GetPosition()))
+            return AirStagingThread( unit, airstage, aiBrain )
+        end
 	end
 	
 	-- get it off the airpad

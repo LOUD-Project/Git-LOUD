@@ -1843,8 +1843,7 @@ FactoryUnit = Class(StructureUnit) {
             self:StopBuildFx()
 
             self:ForkThread(self.FinishBuildThread, unitBeingBuilt, order )
-
-        end
+		end            
 
         self.BuildingUnit = false
     end,

@@ -5,8 +5,6 @@
 
 local import = import
 
-local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
-
 local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
@@ -17,8 +15,6 @@ local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
 
 local BuildPlatoon = moho.aibrain_methods.BuildPlatoon
-
---local CanBuildPlatoon = moho.aibrain_methods.CanBuildPlatoon
 
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert

@@ -616,7 +616,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
+                    if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
+                    end
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 				end
