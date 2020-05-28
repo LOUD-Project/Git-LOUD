@@ -3198,6 +3198,7 @@ function ParseIntelThread( aiBrain )
     local EnemyDataHistory = EnemyData.History
 
     local NumOpponents = aiBrain.NumOpponents
+    local NumAllies = aiBrain.NumAllies
 	
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
@@ -3651,7 +3652,7 @@ function ParseIntelThread( aiBrain )
                 end
             end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+            realvalue = LOUDMAX( LOUDMIN( (myvalue/NumAllies) / (realvalue/NumOpponents), 10 ), 0.011)
 
             aiBrain.AirRatio = realvalue
 		else
@@ -3688,7 +3689,7 @@ function ParseIntelThread( aiBrain )
                 end
             end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+            realvalue = LOUDMAX( LOUDMIN( (myvalue/NumAllies) / (realvalue/NumOpponents), 10 ), 0.011)
 
             aiBrain.LandRatio = realvalue
         else
@@ -3727,7 +3728,7 @@ function ParseIntelThread( aiBrain )
                 end
             end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+            realvalue = LOUDMAX( LOUDMIN( (myvalue/NumAllies) / (realvalue/NumOpponents), 10 ), 0.011)
 
             aiBrain.NavalRatio = realvalue
 		else
@@ -3783,6 +3784,7 @@ function BuildScoutLocations( self )
         local myArmy = ScenarioInfo.ArmySetup[self.Name]
 
         local numOpponents = 0
+        local numAllies = 0
 
         if ScenarioInfo.Options.TeamSpawn == 'fixed' then
 			
@@ -3798,13 +3800,11 @@ function BuildScoutLocations( self )
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
-						
-						-- assign initial threat of 500 at enemy position
-						--self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
-						
+
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 500, Permanent = true } )
                     else
                         allyStarts['ARMY_' .. i] = startPos
+                        numAllies = numAllies + 1
                     end
                 end
             end
@@ -3833,13 +3833,11 @@ function BuildScoutLocations( self )
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
-						
-						-- assign initial threat of 500 at enemy position
-						--self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
-						
+
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 500, Permanent = false } )
                     else
                         allyStarts['ARMY_' .. i] = startPos
+                        numAllies = numAllies + 1
                     end				
                 end
             end
@@ -3858,6 +3856,7 @@ function BuildScoutLocations( self )
 
         self.Players = ScenarioInfo.Options.PlayerCount
         self.NumOpponents = numOpponents
+        self.NumAllies = numAllies
 		
 		local StartPosX, StartPosZ = self:GetArmyStartPos()
 		
