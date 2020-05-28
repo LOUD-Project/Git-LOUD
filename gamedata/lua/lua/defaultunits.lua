@@ -2635,7 +2635,15 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 			self.UnitStored = {}
 			
 		end
-		
+        
+        -- cancel any pending forced unload process
+        if self.ForcedUnload then
+            KillThread(self.ForcedUnload)
+        end
+
+        -- force an unload 20 seconds after an attach
+        self.ForcedUnload = self:ForkThread( function(self) WaitTicks(200) IssueTransportUnload( {self},self:GetPosition() )  end )
+        
 		self.UnitStored[unit.Sync.id] = true
 
 		StructureUnit.OnTransportAttach(self, attachBone, unit)	
@@ -3469,6 +3477,54 @@ AirUnit = Class(MobileUnit) {
 		self.EventCallbacks.OnRunOutOfFuel = {}
 		self.EventCallbacks.OnGotFuel = {}
 		self.HasFuel = true
+            
+            local aiBrain = self:GetAIBrain()
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirUnit OnCreate "..repr(self:GetBlueprint().Description))
+            
+            if aiBrain.BrainType == 'AI' then
+            
+                local LOUDENTITY = EntityCategoryContains
+
+                if LOUDENTITY((categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT, self) then
+		
+                    -- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
+                    if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), self) then
+
+                        local ProcessDamagedAirUnit = function( self, newHP, oldHP )
+	
+                            -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
+                            -- to bypass this if the unit is in the transport pool --
+                            if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
+
+                                local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+
+                                ProcessAirUnits( self, self:GetAIBrain() )
+                            end
+                        end
+
+                        self:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
+				
+                        local ProcessFuelOutAirUnit = function( self )
+				
+                            -- this flag only gets turned on after this executes
+                            -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
+                            -- and we don't process this if it's a transport pool unit --
+                            if not self.ReturnToPoolCallbackSet then
+
+                                local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+					
+                                ProcessAirUnits( self, self:GetAIBrain() )
+                            end
+                        end
+                        
+                        self:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
+                    else
+
+                        self:ForkThread( import('/lua/ai/altaiutilities.lua').AssignTransportToPool, aiBrain )
+                    end
+                end
+            end        
     end,
 
     ActiveState = State {
@@ -3619,6 +3675,10 @@ AirUnit = Class(MobileUnit) {
 
 	-- this fires when the unit fuel falls below the trigger threshold
     OnRunOutOfFuel = function(self)
+    
+		--ForkThread(FloatingEntityText, self.Sync.id, 'On Run Out of Fuel - Has Fuel '..repr(self.HasFuel)..' callback is '..repr(self.ReturnToPoolCallbackSet) )
+
+        self:DoUnitCallbacks('OnRunOutOfFuel')
 
         self:SetSpeedMult(0.4)
         self:SetAccMult(0.5)
@@ -3627,8 +3687,6 @@ AirUnit = Class(MobileUnit) {
 		if self.TopSpeedEffectsBag then
 			self:DestroyTopSpeedEffects()
 		end
-
-        self:DoUnitCallbacks('OnRunOutOfFuel')
 
         self.HasFuel = false
 

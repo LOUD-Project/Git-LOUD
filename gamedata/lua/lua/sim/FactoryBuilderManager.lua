@@ -537,50 +537,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
             EM:ForkThread( EM.AddEngineerUnit, finishedUnit )
 		end
-		
-        if LOUDENTITY((categories.AIR * categories.MOBILE), finishedUnit) then
-		
-			-- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
-			if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), finishedUnit) then
 
-				local ProcessDamagedAirUnit = function( finishedUnit, newHP, oldHP )
-	
-					-- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
-					-- to bypass this is the unit is in the transport pool --
-					if (newHP < oldHP and newHP < 0.5) and not finishedUnit.ReturnToPoolCallbackSet then
-					
-						--LOG("*AI DEBUG Callback Damaged running on "..finishedUnit:GetBlueprint().Description.." with New "..repr(newHP).." and Old "..repr(oldHP))
-
-						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-
-						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					end
-				end
-
-				finishedUnit:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
-				
-				local ProcessFuelOutAirUnit = function( finishedUnit )
-				
-					-- this flag only gets turned on after this executes
-					-- and is turned back on only when the unit gets fuel - so we avoid multiple executions
-					-- and we don't process this if it's a transport pool unit --
-					if finishedUnit.HasFuel and not finishedUnit.ReturnToPoolCallbackSet then
-				
-						--LOG("*AI DEBUG Callback OutOfFuel running on "..finishedUnit:GetBlueprint().Description )
-				
-						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-					
-						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					end
-				end
-				
-				finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
-			else
-
-				finishedUnit:ForkThread( AssignTransportToPool, aiBrain )
-			end
-		end
-		
 		if factory.addplan then
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addplan], aiBrain )
 		end
