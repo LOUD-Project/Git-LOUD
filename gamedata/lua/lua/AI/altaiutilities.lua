@@ -1027,24 +1027,31 @@ function GetTransports( platoon, aiBrain)
 
     -- collect a list of all available transports
 	if PlatoonExists(aiBrain,platoon) then
+    
+        if ScenarioInfo.TransportDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." getting available transports")
+        end
 
 		if armypooltransports and LOUDGETN(armypooltransports) > 0 then
 
 			for _,trans in armypooltransports do
 			
-				if not trans.InUse and not trans.Assigning then
+				if not trans.InUse then
+                
+                    if not trans.Assigning then
 				
-					AvailableTransports[transportcount + 1] = trans
-					transportcount = transportcount + 1
+                        AvailableTransports[transportcount + 1] = trans
+                        transportcount = transportcount + 1
 
-					-- this puts specials into the transport pool -- occurs to me that they
-					-- may get stuck in here if it turns out we cant use transports
-					AssignUnitsToPlatoon( aiBrain, transportpool, {trans}, 'Support','none')
+                        -- this puts specials into the transport pool -- occurs to me that they
+                        -- may get stuck in here if it turns out we cant use transports
+                        AssignUnitsToPlatoon( aiBrain, transportpool, {trans}, 'Support','none')
                     
-                    -- limit collection of armypool transports to 15
-					if transportcount == 15 then
-						break
-					end
+                        -- limit collection of armypool transports to 15
+                        if transportcount == 15 then
+                            break
+                        end
+                    end
                     
 				else
                     if ScenarioInfo.TransportDialog then
@@ -1062,10 +1069,13 @@ function GetTransports( platoon, aiBrain)
                     --LOG("*AI DEBUG "..trans:GetBlueprint().Description.." In use "..repr(trans.InUse).."  Assigning "..repr(trans.Assigning))
                 --end
                 
-				if not trans.InUse and not trans.Assigning then
+				if not trans.InUse then
                 
-					AvailableTransports[transportcount + 1] = trans
-					transportcount = transportcount + 1
+                    if not trans.Assigning then
+                
+                        AvailableTransports[transportcount + 1] = trans
+                        transportcount = transportcount + 1
+                    end
                     
 				else
                 
@@ -1286,7 +1296,7 @@ function GetTransports( platoon, aiBrain)
 			if (not transport.InUse) and (not transport.Assigning) and (not IsBeingBuilt(transport)) and ( GetFuelRatio(transport) == -1 or GetFuelRatio(transport) > .50) and transport:GetHealthPercent() > .70  then
             
 				-- use only those which are not already busy or are not loading already
-				if not IsUnitState( transport, 'Busy') and not IsUnitState( transport, 'TransportLoading') then
+				if (not IsUnitState( transport, 'Busy')) and (not IsUnitState( transport, 'TransportLoading')) then
 
 					-- deny use of T1 transport to platoons needing more than 1 large transport
 					if (not IsEngineer) and LOUDENTITY( categories.TECH1, transport ) and neededTable.Large > 1 then
@@ -1345,9 +1355,8 @@ function GetTransports( platoon, aiBrain)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." rejects transport "..transport.Sync.id.." In Use "..repr(transport.InUse).." - Assigning "..repr(transport.Assigning).." - BeingBuilt "..repr(IsBeingBuilt(transport)).." or Low Fuel/Health")
                 end
                 
-                if (not transport.InUse) and (not transport.Assigning) and (not IsBeingBuilt(transport)) then
-                
-                end
+                ForkThread( ReturnTransportsToPool, aiBrain, {transport}, true )
+                AvailableTransports[k] = nil
             end
 		end
 	end
@@ -1367,6 +1376,8 @@ function GetTransports( platoon, aiBrain)
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." unable to locate enough transport")
         end
 		
+        AvailableTransports = aiBrain:RebuildTable(AvailableTransports)
+        
 		-- send all transports back into pool - which covers the specials (ie. UEF Gunships) 
 		ForkThread( ReturnTransportsToPool, aiBrain, AvailableTransports, true )
 		
@@ -1576,6 +1587,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 
 	IssueClearCommands( {transport} )
 	
+    -- At this point we really should safepath to the position
 	IssueMove( {transport}, units[1]:GetPosition() )
     
     if ScenarioInfo.TransportDialog then
@@ -1609,7 +1621,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 		watchcount = watchcount + 3.0
 
 		if watchcount > 150 then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..transport.Sync.id.." ABORTING LOAD")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..transport.Sync.id.." from "..transport.PlatoonHandle.BuilderName.." ABORTING LOAD - watchcount "..watchcount)
 			loading = false
 			break
 		end
@@ -1710,7 +1722,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 			
 				if reloads > 1 then
 			
-					--LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
+					LOG("*AI DEBUG Reloading "..counter.." units - reload "..reloads)
 				end
 			
 				IssueStop( newunits )
@@ -1734,14 +1746,21 @@ function WatchUnitLoading( transport, units, aiBrain )
 	end
 
     if ScenarioInfo.TransportDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..transport.Sync.id.." completes load - unitsdead is "..repr(unitsdead).." watchcount is "..watchcount)
+        if transport.Dead then
+            -- at this point we should find a way to reprocess the units this transport was responsible for
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..transport.Sync.id.." dead during WatchLoading")
+        else
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..transport.Sync.id.." completes load - unitsdead is "..repr(unitsdead).." watchcount is "..watchcount)
+        end
     end
-
-	IssueClearCommands( {transport} )
-
-	-- have the transport guard his loading spot until everyone else has loaded up
-	IssueGuard( {transport}, transport:GetPosition() )
-
+    
+    IssueClearCommands( {transport} )
+    
+    if not transport.Dead then
+        -- have the transport guard his loading spot until everyone else has loaded up
+        IssueGuard( {transport}, transport:GetPosition() )
+    end
+    
 	transport.Loading = nil
 end
 
@@ -2307,7 +2326,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
 	-- Any units that failed to load send back to pool thru RTB
 	if PlatoonExists( aiBrain, UnitPlatoon ) then
-	
+
 		local returnpool = false
 
 		for k,v in GetPlatoonUnits(UnitPlatoon) do
@@ -2317,26 +2336,26 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 				if not IsUnitState( v, 'Attached') then
 
 					if not returnpool then
-					
+
 						local ident = Random(100000,999999)
 						returnpool = aiBrain:MakePlatoon('FailTransportLoad'..tostring(ident), 'none' )
-						
+
 						returnpool.PlanName = 'ReturnToBaseAI'
-						
+
 						if not string.find(UnitPlatoon.BuilderName, 'FailLoad') then
 							returnpool.BuilderName = 'FailLoad '..UnitPlatoon.BuilderName
 						else
 							returnpool.BuilderName = UnitPlatoon.BuilderName
 						end
 					end
-				
+
 					IssueClearCommands( {v} )
-				
+
 					-- there are simply places where a transport can't or won't pick up a unit - and the unit can't move to the transport
 					if PlatoonExists( aiBrain, transports ) then
-                    
+
                         LOG("*AI DEBUG "..aiBrain.Nickname.." WARPING unit "..v.Sync.id.." from "..UnitPlatoon.BuilderName.." to transport "..transports.BuilderName.." position "..repr(transports:GetPlatoonPosition()).." Distance "..VDist3( v:GetPosition(), transports:GetPlatoonPosition()))
-                        
+
 						Warp( v, transports:GetPlatoonPosition() )
 					end
 
@@ -2344,7 +2363,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 				end
 			end
 		end
-	
+
 		if returnpool then
 			returnpool:SetAIPlan('ReturnToBaseAI', aiBrain )
 		end
@@ -2649,6 +2668,11 @@ function ReturnTransportsToPool( aiBrain, units, move )
 	-- make sure all units are unloaded
     for k,v in units do
     
+        if v.InUse then
+            units[v] = nil
+            continue
+        end
+    
         if v.WatchLoadingThread then
             if ScenarioInfo.TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." killing WatchLoadingThread")
@@ -2720,106 +2744,98 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		end
     end
 
-    local x = aiBrain.StartPosX or false
-	local z = aiBrain.StartPosZ or false
+    --local x = aiBrain.StartPosX or false
+	--local z = aiBrain.StartPosZ or false
 
     -- if not a unit or no brain startposition (ie.- civilians)
-	if (not unit or unit == nil) or (not x) or (not z) then
-		return
-	end
-	
-	local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unit:GetPosition())
-	
-	if baseposition then
-	
-		x = baseposition[1]
-		z = baseposition[3]
-    end
+	--if (not unit or unit == nil) or (not x) or (not z) then
+		--return
+	--end
 
-    local position = AIUtils.RandomLocation(x,z)
-	
-	local unit = false
-	local unitcount = 0
-	
 	if move then
 
 		units = aiBrain:RebuildTable(units)	
 	
 		for k,v in units do
 		
-			if v and not v.Dead then
-			
-				IssueClearCommands( {v} )
-				unitcount = unitcount + 1
-				
-				if not unit then
-					unit = v
-				end
-				
-			elseif v and v.Dead then
-				units[k] = nil
-			end
-		end
-		
-		if unitcount > 0 then
-		
-			units = aiBrain:RebuildTable(units)
-			
-			local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), position, 14 * unitcount, 240)
-			
-			if safePath then
-            
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
-                end
-			
-				-- use path
-				for _,p in safePath do
-					IssueMove( units, p )
-				end
+			if v and not v.Dead and (not v.InUse) and (not v.Assigning) then
+            	
+                local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unit:GetPosition())
                 
-			else
-            
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- home -- after drop - going direct")
-                end
-                
-				-- go direct -- possibly bad
-				IssueMove( units, position )
-                
-			end
+                if baseposition then
 	
-			for k,unit in units do
-	
-				-- move the units to the correct pool - pure transports to Transport Pool
-				-- all others -- including temporary transports (UEF T2 gunship) to Army Pool
-				if not unit.Dead then
-				
-					if LOUDENTITY( categories.TRANSPORTFOCUS - categories.uea0203, unit ) then
+                    x = baseposition[1]
+                    z = baseposition[3]
+                end
+
+                local position = AIUtils.RandomLocation(x,z)
+			    
+                if VDist3( baseposition, v:GetPosition() ) > 100 then
+
+                    IssueClearCommands( {v} )
                     
-                        if unit.PlatoonHandle != aiBrain.TransportPool then
+                    local ident = Random(100000,999999)
+                    local returnpool = aiBrain:MakePlatoon('TransportRTB'..tostring(ident), 'none')
+                    
+                    AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Unassigned', '')
+                    
+                    v.PlatoonHandle = returnpool
+			
+                    local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, v.PlatoonHandle, 'Air', v:GetPosition(), position, 20, 240)
+			
+                    if safePath then
+                
+                        if ScenarioInfo.TransportDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." "..v:GetBlueprint().Description.." gets RTB path of "..repr(safePath))
+                        end
+			
+                        -- use path
+                        for _,p in safePath do
+                            IssueMove( v, p )
+                        end
+                
+                    else
+            
+                        if ScenarioInfo.TransportDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." "..v:GetBlueprint().Description.." no safe path for RTB -- home -- after drop - going direct")
+                        end
+                
+                        -- go direct -- possibly bad
+                        IssueMove( v, position )
+                    end
+                else
+                    IssueMove( v, position)
+                end
+
+				-- move the unit to the correct pool - pure transports to Transport Pool
+				-- all others -- including temporary transports (UEF T2 gunship) to Army Pool
+				if not v.Dead then
+				
+					if LOUDENTITY( categories.TRANSPORTFOCUS - categories.uea0203, v ) then
+                    
+                        if v.PlatoonHandle != aiBrain.TransportPool then
                             
                             if ScenarioInfo.TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Transport "..unit.Sync.id.." to Transport Pool from "..repr(unit.PlatoonHandle.BuilderName).." In Use is "..repr(unit.InUse))
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Transport "..v.Sync.id.." to Transport Pool from "..repr(v.PlatoonHandle.BuilderName).." In Use is "..repr(v.InUse))
                             end
                     
-                            AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support', '' )
+                            AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {v}, 'Support', '' )
                             
-                            unit.PlatoonHandle = aiBrain.TransportPool
-                            unit.InUse = false
-                            unit.Assigning = false                            
+                            v.PlatoonHandle = aiBrain.TransportPool
+                            v.InUse = false
+                            v.Assigning = false                            
                         end
 					else
                     
                         if ScenarioInfo.TransportDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning unit "..unit.Sync.id.." "..unit:GetBlueprint().Description.." to Army Pool from "..repr(unit.PlatoonHandle.BuilderName))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning unit "..v.Sync.id.." "..v:GetBlueprint().Description.." to Army Pool from "..repr(v.PlatoonHandle.BuilderName))
                         end
 
-						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
+						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {v}, 'Unassigned', '' )
 
-						unit.PlatoonHandle = aiBrain.ArmyPool
-       					unit.InUse = false
-                        unit.Assigning = false
+						v.PlatoonHandle = aiBrain.ArmyPool
+       					v.InUse = false
+                        v.Assigning = false
 					end
 				end
 			end
