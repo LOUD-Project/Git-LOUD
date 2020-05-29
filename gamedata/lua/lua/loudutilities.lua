@@ -1252,18 +1252,20 @@ end
 -- or during the ReturnToBaseAI function 
 function ProcessAirUnits( unit, aiBrain )
 
-	if not unit.Dead then
+	if (not unit.Dead) and (not unit:IsBeingBuilt()) then
 
         local fuel = unit:GetFuelRatio()
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
 
             if ScenarioInfo.TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool ")
             end
             
 			-- put air unit into the refuel pool -- 
-			aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
+			--aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
+            
+            --unit.PlatoonHandle = aiBrain.RefuelPool
 
 			-- and send it off to the refit thread --
 			unit:ForkThread( AirUnitRefitThread, aiBrain )
@@ -1284,27 +1286,29 @@ function AirUnitRefitThread( unit, aiBrain )
 	-- if not dead 
 	if (not unit:BeenDestroyed()) then
 
+        local ident = Random(100000,999999)
+        local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
+        
+        returnpool.BuilderName = 'AirRefit'..tostring(ident)
+
+        aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
+
+        unit.PlatoonHandle = returnpool
+
 		local fuellimit = .75
 		local healthlimit = .80
-		
+
 		local fuel, health, unitpos, plats, closestairpad, distance
 		local platpos, tempDist
-		
+
 		local rtbissued = false
-	
+
 		while (not unit.Dead) do
 		
 			fuel = GetFuelRatio(unit)
 			health = unit:GetHealthPercent()
 			
 			if ( fuel > -1 and fuel < fuellimit ) or health < healthlimit then
-
-                local ident = Random(100000,999999)
-                local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
-
-                aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
-                
-                unit.PlatoonHandle = returnpool
 
 				-- check for any airpads -- ignore mobile ones 
 				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then

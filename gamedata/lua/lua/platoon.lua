@@ -184,20 +184,14 @@ Platoon = Class(moho.platoon_methods) {
 	        if cb then
 			
                 cb( GetBrain(self), self )
-				
             end
-			
         end
-		
     end,
 
     OnDestroy = function( self)
 
 		if ScenarioInfo.PlatoonDialog then
-		
 			local aiBrain = GetBrain(self)
-			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon OnDestroy  from "..repr(self.LocationType) )
 		end
 
         for k, cb in self.EventCallbacks.OnDestroyed do
@@ -205,9 +199,7 @@ Platoon = Class(moho.platoon_methods) {
 	        if cb then
 			
                 cb( GetBrain(self), self )
-				
             end
-			
         end		
 
         self.Trash:Destroy()

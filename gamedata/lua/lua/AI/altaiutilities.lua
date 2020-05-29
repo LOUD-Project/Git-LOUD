@@ -2320,11 +2320,11 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	end
     
 	if not PlatoonExists(aiBrain, transports) then
-		
 		return false
 	end
 
 	-- Any units that failed to load send back to pool thru RTB
+    -- this one really only occurs when an inbound transport is killed
 	if PlatoonExists( aiBrain, UnitPlatoon ) then
 
 		local returnpool = false
@@ -2350,14 +2350,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 					end
 
 					IssueClearCommands( {v} )
-
-					-- there are simply places where a transport can't or won't pick up a unit - and the unit can't move to the transport
-					if PlatoonExists( aiBrain, transports ) then
-
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." WARPING unit "..v.Sync.id.." from "..UnitPlatoon.BuilderName.." to transport "..transports.BuilderName.." position "..repr(transports:GetPlatoonPosition()).." Distance "..VDist3( v:GetPosition(), transports:GetPlatoonPosition()))
-
-						Warp( v, transports:GetPlatoonPosition() )
-					end
 
 					AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Attack', 'None' )
 				end
@@ -2624,9 +2616,7 @@ function AssignTransportToPool( unit, aiBrain )
 	if not unit.Dead and (not unit.PlatoonHandle != aiBrain.TransportPool) then
 
 		IssueClearCommands( {unit} )
-		
-		WaitTicks(1)
-		
+
 		local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
 		-- if not in need of repair or fuel -- 
@@ -2642,13 +2632,15 @@ function AssignTransportToPool( unit, aiBrain )
             unit.Assigning = false        
 
 			unit.PlatoonHandle = aiBrain.TransportPool
-
-			return ReturnTransportsToPool( aiBrain, {unit}, true )
+            
+            if not unit:IsBeingBuilt() then
+                return ReturnTransportsToPool( aiBrain, {unit}, true )
+            end
 		end
         
 	else
     
-        if not unit.Dead then
+        if not unit.Dead and (not unit:IsBeingBuilt()) then
             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." already in Transport Pool")
         end
     end
@@ -2668,7 +2660,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 	-- make sure all units are unloaded
     for k,v in units do
     
-        if v.InUse then
+        if v.InUse or v:IsBeingBuilt() then
             units[v] = nil
             continue
         end
@@ -2759,47 +2751,47 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		for k,v in units do
 		
 			if v and not v.Dead and (not v.InUse) and (not v.Assigning) then
-            	
-                local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unit:GetPosition())
+
+                local ident = Random(100000,999999)
+                local returnpool = aiBrain:MakePlatoon('TransportRTB'..tostring(ident), 'none')
+                
+                returnpool.BuilderName = 'TransportRTB'..tostring(ident)
+                returnpool.PlanName = 'TransportRTB'..tostring(ident)
+
+                AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Unassigned', '')
+
+                v.PlatoonHandle = returnpool
+
+                local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, v:GetPosition())
                 
                 if baseposition then
-	
                     x = baseposition[1]
                     z = baseposition[3]
                 end
 
                 local position = AIUtils.RandomLocation(x,z)
-			    
+
+                IssueClearCommands( {v} )
+
                 if VDist3( baseposition, v:GetPosition() ) > 100 then
 
-                    IssueClearCommands( {v} )
-                    
-                    local ident = Random(100000,999999)
-                    local returnpool = aiBrain:MakePlatoon('TransportRTB'..tostring(ident), 'none')
-                    
-                    AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Unassigned', '')
-                    
-                    v.PlatoonHandle = returnpool
-			
                     local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, v.PlatoonHandle, 'Air', v:GetPosition(), position, 20, 240)
-			
+
                     if safePath then
-                
+
                         if ScenarioInfo.TransportDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." "..v:GetBlueprint().Description.." gets RTB path of "..repr(safePath))
                         end
-			
+
                         -- use path
                         for _,p in safePath do
                             IssueMove( v, p )
                         end
-                
                     else
-            
                         if ScenarioInfo.TransportDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." "..v:GetBlueprint().Description.." no safe path for RTB -- home -- after drop - going direct")
                         end
-                
+
                         -- go direct -- possibly bad
                         IssueMove( v, position )
                     end
@@ -2818,9 +2810,9 @@ function ReturnTransportsToPool( aiBrain, units, move )
                             if ScenarioInfo.TransportDialog then
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Transport "..v.Sync.id.." to Transport Pool from "..repr(v.PlatoonHandle.BuilderName).." In Use is "..repr(v.InUse))
                             end
-                    
+
                             AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {v}, 'Support', '' )
-                            
+
                             v.PlatoonHandle = aiBrain.TransportPool
                             v.InUse = false
                             v.Assigning = false                            
