@@ -2785,7 +2785,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 
                         -- use path
                         for _,p in safePath do
-                            IssueMove( v, p )
+                            IssueMove( {v}, p )
                         end
                     else
                         if ScenarioInfo.TransportDialog then
@@ -2793,10 +2793,10 @@ function ReturnTransportsToPool( aiBrain, units, move )
                         end
 
                         -- go direct -- possibly bad
-                        IssueMove( v, position )
+                        IssueMove( {v}, position )
                     end
                 else
-                    IssueMove( v, position)
+                    IssueMove( {v}, position)
                 end
 
 				-- move the unit to the correct pool - pure transports to Transport Pool
