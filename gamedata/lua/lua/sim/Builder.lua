@@ -500,7 +500,7 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 			end
 
 			if table.empty(template) then
-				LOG("*AI DEBUG id for "..repr(v).." in "..data.BuilderName.." is empty ")
+				--LOG("*AI DEBUG id for "..repr(v).." in "..data.BuilderName.." is empty ")
 			else
 				LOUDINSERT( fulltemplate, template )
 				LOUDINSERT( datatemplate, v )
@@ -510,7 +510,7 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 		
 		if table.empty(fulltemplate) then
 		
-			LOG("*AI DEBUG Builder "..repr(data.BuilderName).." is empty")
+			--LOG("*AI DEBUG Builder "..repr(data.BuilderName).." is empty")
 			
 			return false
 			

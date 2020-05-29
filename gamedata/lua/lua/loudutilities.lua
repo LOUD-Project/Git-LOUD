@@ -1299,6 +1299,13 @@ function AirUnitRefitThread( unit, aiBrain )
 			
 			if ( fuel > -1 and fuel < fuellimit ) or health < healthlimit then
 
+                local ident = Random(100000,999999)
+                local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
+
+                aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
+                
+                unit.PlatoonHandle = returnpool
+
 				-- check for any airpads -- ignore mobile ones 
 				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then
 				
@@ -1337,42 +1344,32 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
-                        
+             
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." no airpad in range - moving to "..repr(baseposition))
 			
                         local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 240)
 			
                         if safePath then
-            
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
-			
+
                             -- use path
                             for _,p in safePath do
                                 IssueMove( {unit}, p )
                             end
                 
                         else
-                        
-                            if ScenarioInfo.TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- refuel no airpad -- after drop")
-                            end
-                
+
                             -- go direct -- possibly bad
                             IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
-                
                         end
-						
-						--IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
 					end
 				end
-
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
 				break
 			end
 	
-			WaitTicks(65)
+			WaitTicks(30)
 		end
 	end
 	
@@ -1409,7 +1406,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
 
-            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 14, 240)
+            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 16, 240)
 			
             if safePath then
                 
@@ -1453,8 +1450,8 @@ function AirStagingThread( unit, airstage, aiBrain )
 			break
 		end
         
-        if waitcount > 120 then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AirStagingThread timeout for unit "..unit.Sync.id.." at "..repr(unit:GetPosition()))
+        if (not EntityCategoryContains( categories.CANNOTUSEAIRSTAGING, unit)) and waitcount > 90 then
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirStagingThread timeout for unit "..unit.Sync.id.." at "..repr(unit:GetPosition()))
             return AirStagingThread( unit, airstage, aiBrain )
         end
 	end

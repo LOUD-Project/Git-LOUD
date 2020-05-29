@@ -691,7 +691,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
         if not template then
         
-            LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
+            --LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
         end
         
 		return template

@@ -297,8 +297,10 @@ Platoon = Class(moho.platoon_methods) {
 		else
 			--WARN("*AI DEBUG "..self.BuilderName.." has no path ! Position is "..repr(prevpoint))
             
-            self:KillMoveThread()
+
 		end
+        
+        self:KillMoveThread()        
 	end,
 	
 	KillMoveThread = function( self )
