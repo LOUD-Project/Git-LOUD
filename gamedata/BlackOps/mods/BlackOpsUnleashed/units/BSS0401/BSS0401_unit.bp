@@ -56,7 +56,8 @@ UnitBlueprint {
 		'ANTIMISSILE',
         'SILO',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -1,

@@ -65,6 +65,7 @@ UnitBlueprint {
         'SILO',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
         --'NUKESUB',
     },
 	

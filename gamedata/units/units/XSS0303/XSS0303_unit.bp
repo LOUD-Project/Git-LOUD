@@ -52,6 +52,7 @@ UnitBlueprint {
         'NAVALCARRIER',
         'SHOWATTACKRETICLE',
         'SHOWQUEUE',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.5,

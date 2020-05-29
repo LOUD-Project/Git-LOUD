@@ -49,6 +49,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
         'CRUISER',
+        'OVERLAYRADAR',
     },
     CollisionOffsetY = -0.35,
     Defense = {

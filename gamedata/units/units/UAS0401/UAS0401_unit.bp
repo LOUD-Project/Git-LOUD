@@ -96,6 +96,7 @@ UnitBlueprint {
         'PODSTAGINGPLATFORM',
         'SUBMARINE',
         'SHOWQUEUE',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.4,

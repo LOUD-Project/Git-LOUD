@@ -62,7 +62,8 @@ UnitBlueprint {
         'NUKE',
         'SILO',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -1,

@@ -60,6 +60,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'FAVORSWATER',
         'DESTROYER',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.29,

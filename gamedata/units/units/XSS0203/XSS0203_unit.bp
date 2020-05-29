@@ -52,6 +52,7 @@ UnitBlueprint {
         'SUBMERSIBLE',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetX = 0.05,

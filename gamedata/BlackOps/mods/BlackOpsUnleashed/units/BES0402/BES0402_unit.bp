@@ -60,7 +60,8 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'RECLAIMABLE',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -0.4,
