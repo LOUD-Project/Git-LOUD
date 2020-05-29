@@ -2202,7 +2202,9 @@ function AirForceAILOUD( self, aiBrain )
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-
+            
+            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            
 			-- locate a target
             for _,rangemult in mult do
 
@@ -2243,7 +2245,7 @@ function AirForceAILOUD( self, aiBrain )
 				if VDist2( prevposition[1],prevposition[3], targetposition[1],targetposition[3] ) <= strikerange then
 
 					IssueAttack( platoonUnits, target )
-                    --IssueAggressiveMove( platoonUnits, targetposition )
+
 
                 -- otherwise plot a safe path
 				else
@@ -2254,43 +2256,52 @@ function AirForceAILOUD( self, aiBrain )
 
                     if path then
 						
+                        local newpath = {}
                         local pathsize = LOUDGETN(path)
-						self:SetPlatoonFormationOverride('AttackFormation')
 
                         for waypoint,p in path do
 						
                             if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
-                                self:MoveToLocation( p, false )
+                            
+                                LOUDINSERT( newpath, p )
+                                
 								prevposition = p
 							else
                                 break
                             end
                         end
-
-                        if PlatoonExists(aiBrain, self) and target and not target.Dead then
                         
-							--IssueAttack( self:GetSquadUnits('Attack'), target )
-                            IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition )
-                            
+                        if LOUDGETN(newpath) > 0 then
+
+                            -- move the platoon to within strikerange in formation
+                            self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 90)
+
+                            -- wait for the movement orders to execute --
+                            while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
+                                WaitTicks(5)
+                            end
                         end
+                        
                     else
-						if reason == 'Direct' then
-						
-							LOG("*AI DEBUG StrikeForce got Direct from SafePath")
-							IssueAttack( self:GetSquadUnits('Attack'), target)
-						else
-							LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAILOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
-							target = false
-                            self:MoveToLocation( self.anchorposition, false )
-						end
+                    
+                        target = false
+                        loiter = true
+                        
+                        self:MoveToLocation( self.anchorposition, false)
                     end
 				end
 			end
         end
+        
+        if target and not target.Dead and PlatoonExists(aiBrain,self) then
+        
+            IssueAttack( self:GetSquadUnits('Attack'), target )
+        
+        end
 
 		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
 
-		-- the attacktimer essentially keeps this bombing run down to 200 seconds
+		-- the attacktimer essentially keeps this run down to 200 seconds
 		-- if you cant reach the target and destroy it then platoon will RTB
         local attacktimer = 0
 
@@ -2356,6 +2367,9 @@ function AirForceAILOUD( self, aiBrain )
 		if target and PlatoonExists(aiBrain, self) then
         
 			target = false
+            
+            loiter = false
+            
             self:MoveToLocation( self.anchorposition, false )
 		end
 
@@ -2363,7 +2377,7 @@ function AirForceAILOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(30)
+			WaitTicks(15)
 		end
     end
 
@@ -2650,7 +2664,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                             LOUDINSERT( newpath, p )
 
                             prevposition = p
-
 						else
                             break
                         end
@@ -2669,7 +2682,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
                             WaitTicks(5)
                         end
-                        
                     end
 
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
@@ -2679,7 +2691,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     end
 
                 else
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Bomber_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Bomber_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
                     loiter = true
