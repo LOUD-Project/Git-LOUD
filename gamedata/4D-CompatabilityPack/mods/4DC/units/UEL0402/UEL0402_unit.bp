@@ -346,8 +346,8 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.3,	#-- every .4 seconds
-            MuzzleSalvoSize = 30,	#-- 30 grenades = 9 seconds
+            MuzzleSalvoDelay = 0.3,	---- every .4 seconds
+            MuzzleSalvoSize = 30,	---- 30 grenades = 9 seconds
 			
             MuzzleVelocity = 17,
             MuzzleVelocityRandom = 3,
@@ -402,7 +402,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,		#-- 650 DPS every 10 seconds = 65 DPS
+            RateOfFire = 0.1,		---- 650 DPS every 10 seconds = 65 DPS
 			
             TargetCheckInterval = 4,
             TargetPriorities = {
@@ -458,7 +458,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Ravager Cannon',		#-- this is the right large arm weapons
+            DisplayName = 'Ravager Cannon',		---- this is the right large arm weapons
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Seabed|Water',
@@ -550,7 +550,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Ravager Cannon',		#-- this is the left large arm weapon		
+            DisplayName = 'Ravager Cannon',		---- this is the left large arm weapon		
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Seabed|Water',              
@@ -589,7 +589,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 2,
             RackSalvoReloadTime = 2,
 
-            RateOfFire = 1,						#-- 428 DPS
+            RateOfFire = 1,						---- 428 DPS
 
             TargetCheckInterval = 0.5,
 			
@@ -675,7 +675,7 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringRandomnessWhileMoving = 0.6,
 
-            Label = 'emp_right',			#-- this is the right arm underslung weapon
+            Label = 'emp_right',			---- this is the right arm underslung weapon
 			
             MaxRadius = 42,
             MinRadius = 8,
@@ -703,7 +703,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.6,			#-- 500 every 1.65 seconds is 300 DPS
+            RateOfFire = 0.6,			---- 500 every 1.65 seconds is 300 DPS
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -778,7 +778,7 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringRandomnessWhileMoving = 0.6,
 
-            Label = 'emp_left',		#-- this is the left arm underslung weapon
+            Label = 'emp_left',		---- this is the left arm underslung weapon
 			
             MaxRadius = 42,
             MinRadius = 8,
@@ -806,7 +806,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.6,			#--- another 300 DPS
+            RateOfFire = 0.6,			----- another 300 DPS
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -859,7 +859,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Nose Turret',		#-- this is the dual nose gun
+            DisplayName = 'Nose Turret',		---- this is the dual nose gun
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water',
@@ -910,7 +910,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 
-            RateOfFire = 3.0,		#--   100 DPS
+            RateOfFire = 3.0,		----   100 DPS
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {

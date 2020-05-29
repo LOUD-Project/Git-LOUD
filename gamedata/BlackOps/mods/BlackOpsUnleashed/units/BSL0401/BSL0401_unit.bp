@@ -2,10 +2,10 @@ UnitBlueprint {
     AI = {
         TargetBones = {	'BSL0401' },
 		
-		AssistHeartbeatInterval = 0.5, # def. 1, time in seconds between drone and carrier management heartbeats
-        DroneControlRange = 50, # def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
-        DroneReturnRange = 25, # def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
-        AirMonitorRange = 30, # def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
+		AssistHeartbeatInterval = 0.5, -- def. 1, time in seconds between drone and carrier management heartbeats
+        DroneControlRange = 50, -- def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
+        DroneReturnRange = 25, -- def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
+        AirMonitorRange = 30, -- def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
     },
 	
     Audio = {
@@ -336,7 +336,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,	# 500dps  + 7 drones * 50dps = 850dps
+            RateOfFire = 3,	-- 500dps  + 7 drones * 50dps = 850dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
@@ -444,7 +444,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 3,			# 750dps
+            RateOfFire = 3,			-- 750dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
@@ -554,7 +554,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 3,			# 1250dps
+            RateOfFire = 3,			-- 1250dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
@@ -649,7 +649,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,			#-- 200 DPS Air
+            RateOfFire = 2,			---- 200 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -738,7 +738,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		#-- 200 DPS
+            RateOfFire = 2,		---- 200 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

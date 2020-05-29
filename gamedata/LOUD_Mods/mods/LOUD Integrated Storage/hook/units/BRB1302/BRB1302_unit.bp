@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "brb1302", #Cybran T3 Hydrocarbon
+	BlueprintId = "brb1302", --Cybran T3 Hydrocarbon
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

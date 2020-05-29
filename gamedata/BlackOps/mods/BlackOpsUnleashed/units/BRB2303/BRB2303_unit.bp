@@ -246,7 +246,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1.5,			#-- 105 DPS
+            RateOfFire = 1.5,			---- 105 DPS
             RenderFireClock = true,
 			
             TargetCheckInterval = .4,

@@ -289,14 +289,14 @@ UnitBlueprint {
 
             FiringTolerance = 30,
 			
-            FixBombTrajectory = false,	#-- this will cause all bombs to hit in tight grouping
+            FixBombTrajectory = false,	---- this will cause all bombs to hit in tight grouping
 			
             Label = 'Bomb',
 			
             MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0.05,
-            MuzzleSalvoSize = 14,	#-- drops 2 sticks of 7 bombs
+            MuzzleSalvoSize = 14,	---- drops 2 sticks of 7 bombs
             MuzzleVelocity = 12,
 
             NeedToComputeBombDrop = true,

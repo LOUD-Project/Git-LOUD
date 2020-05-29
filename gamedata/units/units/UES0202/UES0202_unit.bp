@@ -335,7 +335,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,		#-- 4 missiles every 10 seconds = 100 DPS
+            RateOfFire = 0.1,		---- 4 missiles every 10 seconds = 100 DPS
             RenderFireClock = true,
 			
             TargetCheckInterval = 5,

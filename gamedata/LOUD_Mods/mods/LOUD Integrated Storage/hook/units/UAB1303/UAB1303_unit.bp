@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "uab1303", #Aeon T3 Mass Fabricator
+	BlueprintId = "uab1303", --Aeon T3 Mass Fabricator
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

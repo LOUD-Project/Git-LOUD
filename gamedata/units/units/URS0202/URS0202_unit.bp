@@ -258,7 +258,7 @@ UnitBlueprint {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         DockingSlots = 1,
-#        RepairRate = 0.1,
+--        RepairRate = 0.1,
         TransportClass = 10,
     },
 	

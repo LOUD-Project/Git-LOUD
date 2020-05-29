@@ -6,10 +6,10 @@ UnitBlueprint {
             'Pontoon',
             'Door',
         },
-        AssistHeartbeatInterval = 1, # def. 1, time in seconds between drone and carrier management heartbeats
-        DroneControlRange = 110, # def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
-        DroneReturnRange = 60, # def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
-        AirMonitorRange = 70, # def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
+        AssistHeartbeatInterval = 1, -- def. 1, time in seconds between drone and carrier management heartbeats
+        DroneControlRange = 110, -- def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
+        DroneReturnRange = 60, -- def. control range / 2, radius at which returning drones will have command input and weapons re-enabled
+        AirMonitorRange = 70, -- def. (control range + 10) / 2, radius that the drone heartbeat will check for hostile gunships 
     },
 	
     Audio = {

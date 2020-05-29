@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "urb1201", #Cybran T2 Energy
+    BlueprintId = "urb1201", --Cybran T2 Energy
     Economy = {
         BuildRate = 15,
         BuildableCategory = {

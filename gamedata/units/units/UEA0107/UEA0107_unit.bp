@@ -73,7 +73,7 @@ UnitBlueprint {
         'CANNOTUSEAIRSTAGING',
 	},
 	
-    CollisionOffsetY = 0, #-0.7,
+    CollisionOffsetY = 0, ---0.7,
 	
     Defense = {
 		AirThreatLevel = 1,
@@ -184,7 +184,7 @@ UnitBlueprint {
     SelectionThickness = 0.22,
 	
     SizeX = 1.4,
-    SizeY = 0.7, #1.8,
+    SizeY = 0.7, --1.8,
     SizeZ = 4.5,
 	
     StrategicIconName = 'icon_gunship1_transport',

@@ -381,7 +381,7 @@ UnitBlueprint {
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
 			
-            TurretYaw = 315,	#yaw value inverted
+            TurretYaw = 315,	--yaw value inverted
             TurretYawRange = 140,
             TurretYawSpeed = 36,
 			
@@ -404,7 +404,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 200,	#1167 DPS
+            Damage = 200,	--1167 DPS
             DamageFriendly = true,			
             DamageRadius = 1.5,
             DamageType = 'Normal',
@@ -474,7 +474,7 @@ UnitBlueprint {
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
 			
-            TurretYaw = 45,	#yaw value inverted
+            TurretYaw = 45,	--yaw value inverted
             TurretYawRange = 140,
             TurretYawSpeed = 36,
 			
@@ -568,7 +568,7 @@ UnitBlueprint {
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
 			
-            TurretYaw = -45,	#yaw value inverted
+            TurretYaw = -45,	--yaw value inverted
             TurretYawRange = 140,
             TurretYawSpeed = 36,
 			
@@ -662,7 +662,7 @@ UnitBlueprint {
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
 			
-            TurretYaw = 45,	#yaw value inverted
+            TurretYaw = 45,	--yaw value inverted
             TurretYawRange = 140,
             TurretYawSpeed = 36,
 			

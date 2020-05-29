@@ -311,7 +311,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	# 500dps
+            RateOfFire = 0.5,	-- 500dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

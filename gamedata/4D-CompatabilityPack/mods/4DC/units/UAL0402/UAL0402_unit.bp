@@ -322,7 +322,7 @@ UnitBlueprint {
         Level5 = 250,
     },
 	
-	#-- Looks like about 2300 DPS and 1200 DPS Air - plus can stun every 5 seconds
+	---- Looks like about 2300 DPS and 1200 DPS Air - plus can stun every 5 seconds
 	
     Weapon = {
 		
@@ -386,7 +386,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 2.0,			#-- 500 DPS
+            RateOfFire = 2.0,			---- 500 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -492,7 +492,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,				#-- about 2000 DPS
+            RateOfFire = 1,				---- about 2000 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -578,7 +578,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 			
-            RateOfFire = 1.0,			#-- 300 DPS
+            RateOfFire = 1.0,			---- 300 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -670,7 +670,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiAir',			
             
-            RateOfFire = 1.0,				#-- 3 missiles @ 220 every second = 660 DPS Air
+            RateOfFire = 1.0,				---- 3 missiles @ 220 every second = 660 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -685,7 +685,7 @@ UnitBlueprint {
             Turreted = false,
         },
 		
-		-- Chrono Dampener		# -- will STUN ALL UNITS (even Experimentals) for 2 seconds within 30 radius every 5 seconds
+		-- Chrono Dampener		-- -- will STUN ALL UNITS (even Experimentals) for 2 seconds within 30 radius every 5 seconds
 		
         {
             AboveWaterFireOnly = true,

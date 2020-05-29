@@ -41,7 +41,7 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
-#        AnimationPermOpen = '/units/xsb4203/xsb4203_AActivate.sca',
+--        AnimationPermOpen = '/units/xsb4203/xsb4203_AActivate.sca',
         DamageEffects = {
             {
                 Bone = 0,

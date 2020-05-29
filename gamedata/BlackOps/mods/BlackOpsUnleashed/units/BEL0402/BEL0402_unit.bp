@@ -271,7 +271,7 @@ UnitBlueprint {
 	
     Weapon = {
 		
-		#	Tactical Missiles
+		--	Tactical Missiles
 		
         {
 			AboveWaterFireOnly = false,
@@ -355,7 +355,7 @@ UnitBlueprint {
 			-- and the rack salvo charge time - 1 seconds
 			-- so true firing cycle is 10 seconds or 9600/10
 
-            RateOfFire = 0.1,	#-- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
+            RateOfFire = 0.1,	---- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -376,7 +376,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
 
-		#-- Shoulder Beam Cannon
+		---- Shoulder Beam Cannon
 		
 		{
             AboveWaterFireOnly = true,
@@ -461,7 +461,7 @@ UnitBlueprint {
             
 			ReTargetOnMiss = true,
 
-            RateOfFire = 1,	#-- 375 * 8 = 3000 DPS 
+            RateOfFire = 1,	---- 375 * 8 = 3000 DPS 
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -564,7 +564,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		#-- 900 DPS
+            RateOfFire = 3,		---- 900 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

@@ -315,7 +315,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.3,		#-- 144 DPS -- controlled by muzzle delay and rack salvo reload - every 5 seconds -
+            RateOfFire = 0.3,		---- 144 DPS -- controlled by muzzle delay and rack salvo reload - every 5 seconds -
 			
             TargetCheckInterval = 0.5,
 			
@@ -548,7 +548,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		#-- 66 DPS Air
+            RateOfFire = 1,		---- 66 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

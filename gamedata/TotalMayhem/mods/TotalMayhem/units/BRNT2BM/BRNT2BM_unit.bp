@@ -241,7 +241,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08,	# 16dps
+            RateOfFire = 0.08,	-- 16dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,
@@ -310,7 +310,7 @@ UnitBlueprint {
 			
 			NoPause = true,
 
-            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', #'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', --'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
 			ProjectileLifetime = 0.9,
 
             RackBones = {
@@ -349,7 +349,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	# we get 80dps
+            RateOfFire = 1,	-- we get 80dps
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

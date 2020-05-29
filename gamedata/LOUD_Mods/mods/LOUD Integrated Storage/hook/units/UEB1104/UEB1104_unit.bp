@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "ueb1104", #UEF T2 Mass Fabricator
+	BlueprintId = "ueb1104", --UEF T2 Mass Fabricator
     Defense = {
         RegenRate = 1,
     },

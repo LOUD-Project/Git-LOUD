@@ -463,7 +463,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,	# 2400dps
+            RateOfFire = 0.4,	-- 2400dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -557,7 +557,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,	# 2250dps
+            RateOfFire = 0.5,	-- 2250dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -601,7 +601,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.2,	# damage 2x per fire
+            BeamLifetime = 0.2,	-- damage 2x per fire
 			
             CollideFriendly = false,
 			
@@ -637,7 +637,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 			
-            RateOfFire = 2,			# 400dps
+            RateOfFire = 2,			-- 400dps
 			
             ReTargetOnMiss = true,
             
@@ -716,7 +716,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,			# 400dps
+            RateOfFire = 2,			-- 400dps
             
             ReTargetOnMiss = true,
             
@@ -801,7 +801,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 3,					# 360dps
+            RateOfFire = 3,					-- 360dps
 			
             TargetCheckInterval = 0.66,
             TargetPriorities = {
@@ -899,7 +899,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 12 of 600dmg every 10 seconds = 720dps
+            RateOfFire = 0.1,	-- 12 of 600dmg every 10 seconds = 720dps
 			RenderFireClock = true,
 
             TargetCheckInterval = 2,
@@ -1001,7 +1001,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.1,	# 720dps
+            RateOfFire = 0.1,	-- 720dps
 
             TargetCheckInterval = 2,
 			

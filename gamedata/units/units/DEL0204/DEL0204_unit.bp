@@ -209,8 +209,8 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0.3,	#-- 15 rounds in 4.5 seconds
-            MuzzleSalvoSize = 15,	#-- 15 rounds per salvo
+            MuzzleSalvoDelay = 0.3,	---- 15 rounds in 4.5 seconds
+            MuzzleSalvoSize = 15,	---- 15 rounds per salvo
             MuzzleVelocity = 30,
             
             NoPause = true,
@@ -228,13 +228,13 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 0,
-            RackSalvoChargeTime = 3,	#-- 3 seconds to warm up
+            RackSalvoChargeTime = 3,	---- 3 seconds to warm up
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 1,	#-- 1 seconds to reload
+            RackSalvoReloadTime = 1,	---- 1 seconds to reload
 
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,			#-- 15 * 15 every 5.5 seconds = 40 DPS
+            RateOfFire = 1,			---- 15 * 15 every 5.5 seconds = 40 DPS
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -293,8 +293,8 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0.3,	#-- every .3 seconds
-            MuzzleSalvoSize = 4,	#-- 4 grenades per salvo = 1.2 seconds
+            MuzzleSalvoDelay = 0.3,	---- every .3 seconds
+            MuzzleSalvoSize = 4,	---- 4 grenades per salvo = 1.2 seconds
             MuzzleVelocity = 13,
             MuzzleVelocityRandomness = 0.5,
 			
@@ -318,7 +318,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.2,		#-- 240 DPS every 5.5 seconds = 43 DPS
+            RateOfFire = 0.2,		---- 240 DPS every 5.5 seconds = 43 DPS
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {

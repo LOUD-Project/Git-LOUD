@@ -185,7 +185,7 @@ UnitBlueprint {
     SelectionThickness = 0.23,
 	
     SizeX = 4.5,
-    SizeY = 1.2, #3,
+    SizeY = 1.2, --3,
     SizeZ = 7,
 	
     StrategicIconName = 'icon_gunship1_transport',

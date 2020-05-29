@@ -118,7 +118,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 660000,
         BuildCostMass = 34500,
-        BuildTime = 41000,	#-- was 29500
+        BuildTime = 41000,	---- was 29500
 		
         RebuildBonusIds = {'xsb2302'},
     },
@@ -298,7 +298,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,	#-- 4250 damage every 10 seconds -- 5950 to shields - controlled by energy
+            RateOfFire = 1,	---- 4250 damage every 10 seconds -- 5950 to shields - controlled by energy
 
             ShieldDamage = 6000,
 

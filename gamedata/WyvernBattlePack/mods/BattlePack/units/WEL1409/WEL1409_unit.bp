@@ -444,7 +444,7 @@ UnitBlueprint {
     },
     
     Weapon = {
-			###Main Cannon
+			------Main Cannon
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -541,7 +541,7 @@ UnitBlueprint {
             Turreted = true,
         },
         
-		###Mini Cannons
+		------Mini Cannons
         
         {
             AboveWaterFireOnly = true,
@@ -935,7 +935,7 @@ UnitBlueprint {
             Turreted = true,
         },
         
-		###DeathWeapon
+		------DeathWeapon
         
         {
             Damage = 4000,

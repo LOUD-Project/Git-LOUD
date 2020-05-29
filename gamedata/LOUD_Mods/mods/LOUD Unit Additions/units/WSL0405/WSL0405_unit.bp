@@ -344,7 +344,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2500,	#1250 DPS
+            Damage = 2500,	--1250 DPS
 			DamageFriendly = true,
             DamageRadius = 1.5,
             DamageType = 'Normal',
@@ -427,7 +427,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 500,	--1000 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -510,7 +510,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 500,	--1000 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -591,7 +591,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 500,	--1000 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -672,7 +672,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 500,	--1000 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -755,7 +755,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 250,	#1000 DPS air
+            Damage = 250,	--1000 DPS air
             DamageRadius = 2,
             DamageType = 'Normal',
 			

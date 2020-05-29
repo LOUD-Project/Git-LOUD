@@ -194,7 +194,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 27,		#-- 270 Damage per second
+            Damage = 27,		---- 270 Damage per second
 			DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',

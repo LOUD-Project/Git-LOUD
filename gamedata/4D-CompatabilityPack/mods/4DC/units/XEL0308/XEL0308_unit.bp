@@ -191,7 +191,7 @@ UnitBlueprint {
         Level5 = 50,
     },
 	
-	#-- Fires a volley of 12 missiles every 2 seconds = 720/2 or 360 DPS
+	---- Fires a volley of 12 missiles every 2 seconds = 720/2 or 360 DPS
 
     Weapon = {
         {
