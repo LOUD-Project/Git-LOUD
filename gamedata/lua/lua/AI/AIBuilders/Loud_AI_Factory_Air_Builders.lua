@@ -380,6 +380,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+            
 			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
@@ -442,11 +443,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
-			-- someone else is building a transport --
+			-- is someone else is building a transport --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
 			
-			-- note -- this condition counts ALL T2, T3 and T4 transports --
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			-- note -- this condition counts ALL T3 and T4 transports --
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.TECH2 - categories.uea0203}},
         },
 		
         BuilderType =  {'AirT3'},
