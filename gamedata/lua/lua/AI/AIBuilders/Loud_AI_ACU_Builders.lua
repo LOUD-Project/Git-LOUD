@@ -504,8 +504,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderType = { 'Commander' },
 		
         BuilderConditions = {
-			{ EBC, 'LessThanEconMassStorageRatio', { 20 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 15 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 60 }},
         },
 		
         BuilderData = {
@@ -514,7 +514,6 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         },
     },
 
-   
     -- just an in-case situation - rarely seen and only first 30 minutes
     Builder {BuilderName = 'CDR T1 AA - Response - Small Maps',
 	
