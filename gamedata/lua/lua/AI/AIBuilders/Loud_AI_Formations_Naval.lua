@@ -194,6 +194,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},			
@@ -242,6 +243,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
@@ -288,6 +290,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
@@ -334,6 +337,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
@@ -563,7 +567,9 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },		
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
@@ -608,7 +614,9 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+            
 			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
