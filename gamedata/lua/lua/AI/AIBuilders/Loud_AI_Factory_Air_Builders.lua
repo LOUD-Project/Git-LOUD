@@ -380,6 +380,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+            
 			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
@@ -446,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
 			
 			-- note -- this condition counts ALL T2, T3 and T4 transports --
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.TECH2 - categories.uea0203}},
         },
 		
         BuilderType =  {'AirT3'},
