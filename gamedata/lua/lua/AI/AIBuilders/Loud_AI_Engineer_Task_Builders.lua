@@ -417,7 +417,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 700,
 		
-		InstanceCount = 12,
+		InstanceCount = 5,
 		
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 		
@@ -447,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-		InstanceCount = 8,
+		InstanceCount = 6,
 		
         Priority = 650,
 		
