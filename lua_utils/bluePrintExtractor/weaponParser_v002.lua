@@ -1,6 +1,6 @@
 local inspect = require('inspect')
 local dirtree = require('dirtree')
-local UvesoWeapDPS = require('UvesoWeapDPS')
+local uvesoWeapDPS = require('uvesoWeapDPS')
 
 local allBlueprints = {}
 local curBlueprint = {}
@@ -87,12 +87,17 @@ print("...Uveso Run Begining...")
 for curBPid,curBP in ipairs(allBlueprints) do
     --print(allShortIDs[i], "has max speed", bp.Physics.MaxSpeed, "is stored in", allFullDirs[i])
     local NumWeapons = table.getn(curBP.Weapon)
-    print(allShortIDs[curBPid] .. " has " .. NumWeapons .. " weapons and" ..
-          " is stored in " .. allFullDirs[curBPid])
+    print(allShortIDs[curBPid] .. "/" .. curBP.Description .. 
+          " has " .. NumWeapons .. " weapons" ..
+          " and is stored in " .. allFullDirs[curBPid])
     for curWepID,curWep in ipairs(curBP.Weapon) do
         --print(allShortIDs[curBPid] .. " is stored in " .. allFullDirs[curBPid])
-        local DPS = UvesoWeapDPS(curBP,curWep)
-        print(allShortIDs[curBPid] .. ' has Damage: '..DPS.Damage..' - RateOfFire: '..DPS.RateOfFire..
-              ' - new DPS: '..(DPS.Damage*DPS.RateOfFire))
+        local DPS = uvesoWeapDPS(curBP,curWep)
+        print(allShortIDs[curBPid] ..
+              "/" .. DPS.WeaponName ..
+              ': has Damage: ' .. DPS.Damage ..
+              ' - RateOfFire: ' .. DPS.RateOfFire ..
+              ' - new DPS: ' .. (DPS.Damage*DPS.RateOfFire))
+        print(" ")
     end
 end
