@@ -256,7 +256,7 @@ UnitBlueprint {
         Level5 = 160,
     },
 	
-    Weapon = {
+    Weapon = { -- TODO: Why are there 5 Heavy Quarnon Cannons?
     	{
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -287,6 +287,7 @@ UnitBlueprint {
             Damage = 1,	-- just a note - the damage is not really this - it's defined by the projectile at 1500 
             DamageRadius = 0,
             DamageType = 'Normal',
+            DamOverRide = 1500*0.4,
 			
             DisplayName = 'Heavy Quarnon Cannon',
 			
@@ -314,7 +315,9 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/SeraDreadCannon01/SeraDreadCannon01_proj.bp',
-			ProjectileLifetime = 15,
+            -- 250 damage @ 1.5 hits/secs over 4 secs = 1500 damage
+            -- 
+            ProjectileLifetime = 15,
 
             RackBones = {
                 {
@@ -394,7 +397,8 @@ UnitBlueprint {
             Damage = 1,		-- again, damage is specified by the projectile - see BSL0404
             DamageRadius = 0,
             DamageType = 'Normal',
-			
+            DamOverRide = 1500*0.4,
+
             DisplayName = 'Heavy Quarnon Cannon',
 			
             FireTargetLayerCapsTable = {
@@ -1513,7 +1517,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 70,  -- TODO: I Think This is wrong...
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',

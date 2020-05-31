@@ -36,19 +36,33 @@ function uvesoWeapDPS(bp,weapon)
 
     -- enable debug text
     local bugtext = false
-    if weapon.DummyWeapon == true then --skip dummy weapons
+    if weapon.DPSOverRide then
+        DPS.Damage = weapon.DPSOverRide
+        DPS.RoF = 1
+
+    elseif weapon.DummyWeapon == true then --skip dummy weapons
         DPS.RateOfFire = 1
         DPS.Damage = 0
+    elseif weapon.WeaponCategory  == 'Kamikaze' then
+        --Suicide Weapons have no RateOfFire
+        DPS.RateOfFire = 1
+        DPS.Damage = weapon.Damage
 
     elseif weapon.DoTPulses then -- Not verified by DJO yet.
         if(debug) then print("DoTPulses") end
         DPS.RateOfFire = 1 / (round(10/weapon.RateOfFire) / 10)
         DPS.Damage = weapon.Damage * weapon.MuzzleSalvoSize * weapon.DoTPulses
 
+    elseif (weapon.ContinuousBeam) then
+        if(debug) then print("Continuous Beam") end
+        DPS.RateOfFire = weapon.RateOfFire
+        DPS.Damage = weapon.Damage / math.max(weapon.BeamCollisionDelay,0.1)
+
     elseif weapon.BeamLifetime then
-        if(debug) then print("Beam") end
-        DPS.RateOfFire = 1 / math.min(weapon.BeamCollisionDelay,0.1)
-        DPS.Damage = weapon.Damage
+        if(debug) then print("Pulse Beam") end
+        DPS.RateOfFire = math.min(10, weapon.RateOfFire, weapon.BeamLifetime)
+        local BeamTriggerTime = math.max(0.1,weapon.BeamCollisionDelay)
+        DPS.Damage = weapon.Damage * weapon.BeamLifetime / BeamTriggerTime
 
     -- elseif (weapon.RackSalvoReloadTime and weapon.RackSalvoReloadTime > 0) and not weapon.RackSalvoFiresAfterCharge then
     --     print("Rack Salvos")
