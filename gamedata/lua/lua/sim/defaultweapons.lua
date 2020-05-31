@@ -236,7 +236,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
     end,
 
-    -- adjacency affects the energy cost, not the drain. So, drain will be about the same
+    -- adjacency affects the energy cost required, not the drain. So, drain will be about the same
     -- but the time it takes to drain will not be.
 	-- passed in the bp data to save the call
     GetWeaponEnergyRequired = function(self, bp)
