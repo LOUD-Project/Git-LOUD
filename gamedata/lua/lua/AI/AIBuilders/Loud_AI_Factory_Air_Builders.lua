@@ -446,7 +446,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			-- is someone else is building a transport --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
 			
+<<<<<<< HEAD
 			-- note -- this condition counts ALL T3 and T4 transports --
+=======
+			-- note -- this condition counts ALL T2, T3 and T4 transports --
+>>>>>>> master
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.TECH2 - categories.uea0203}},
         },
 		
