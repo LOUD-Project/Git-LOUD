@@ -40,7 +40,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
-            { UCBC, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
+            { LUTL, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
 			-- and that we aren't already building some
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SCOUT * categories.LAND, categories.LAND } },
 			
@@ -59,7 +59,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
 		BuilderConditions = {
 
-			{ UCBC, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
+			{ LUTL, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
 			
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},			
 
@@ -78,7 +78,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
         BuilderConditions = {
 
-			{ UCBC, 'PoolLess', { 8, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			{ LUTL, 'PoolLess', { 8, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
 
@@ -126,9 +126,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},            
@@ -148,9 +148,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
@@ -170,9 +170,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
@@ -195,7 +195,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
@@ -237,7 +237,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
@@ -258,7 +258,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
@@ -387,7 +387,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH2, categories.LAND - categories.TECH1 }},
 			
         },
@@ -426,7 +426,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH3, (categories.LAND * categories.TECH3) + categories.GATE }},
 			
         },
@@ -449,7 +449,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 			
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 			
         },
 		
@@ -468,7 +468,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 			
         },
 		
@@ -488,8 +488,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, categories.LAND * categories.TECH3 }},
             { UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
 			
@@ -512,8 +512,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xel0306, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.xel0306 }},
 			
@@ -538,7 +538,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-			{ UCBC, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
+			{ LUTL, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
 			
 		},
 		
@@ -556,7 +556,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-			{ UCBC, 'PoolLess', { 8, categories.INDIRECTFIRE * categories.MOBILE }},
+			{ LUTL, 'PoolLess', { 8, categories.INDIRECTFIRE * categories.MOBILE }},
 			
         },
 		
@@ -576,7 +576,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-            { UCBC, 'PoolLess', { 48, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
+            { LUTL, 'PoolLess', { 48, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2, categories.LAND }},
 			
@@ -596,7 +596,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND }},
 			
@@ -617,10 +617,10 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
-			{ UCBC, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 			
         },
@@ -639,9 +639,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
 			
@@ -661,9 +661,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 28, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
 			
@@ -683,9 +683,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-			{ UCBC, 'PoolLess', { 20, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ LUTL, 'PoolLess', { 20, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.INDIRECTFIRE * categories.MOBILE, categories.LAND }},
 			
@@ -709,7 +709,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, (categories.LAND * categories.AMPHIBIOUS) * categories.DIRECTFIRE }},
 			
         },
@@ -728,9 +728,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 			
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
 		
         },
@@ -750,9 +750,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
-			{ UCBC, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},
 			
-			{ UCBC, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ARTILLERY, categories.LAND * categories.TECH3 }},
 		
         },
@@ -775,9 +775,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 			
-			{ UCBC, 'PoolLess', { 48, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
+			{ LUTL, 'PoolLess', { 48, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 			
-			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},			
 			
         },
@@ -797,9 +797,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },			
 			
-			{ UCBC, 'PoolLess', { 28, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},			
+			{ LUTL, 'PoolLess', { 28, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.TECH1 }},			
 
-			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), categories.LAND * categories.TECH3 }},
 
         },
@@ -820,9 +820,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 			
-			{ UCBC, 'PoolLess', { 24, categories.xel0306 }},
+			{ LUTL, 'PoolLess', { 24, categories.xel0306 }},
 
-			{ UCBC, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
 			
         },
