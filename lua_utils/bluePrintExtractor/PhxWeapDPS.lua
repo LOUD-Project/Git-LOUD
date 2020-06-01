@@ -5,11 +5,11 @@ local function round(x)
 end
 
 local dirtree ={
-    _VERSION = '0.1',
+    _VERSION = '0.2',
     _DESCRIPTION = 'DPS Calculator',
 }
 
-function uvesoWeapDPS(bp,weapon)
+function PhxWeapDPS(bp,weapon)
     -- Original Code by Uveso, edited by Phoenix
     local DPS = {}
     DPS.Damage = 0
@@ -55,8 +55,9 @@ function uvesoWeapDPS(bp,weapon)
 
     elseif (weapon.ContinuousBeam) then
         if(debug) then print("Continuous Beam") end
+        local timeToTriggerDam = math.max(weapon.BeamCollisionDelay,0.1)
         DPS.RateOfFire = weapon.RateOfFire
-        DPS.Damage = weapon.Damage / math.max(weapon.BeamCollisionDelay,0.1)
+        DPS.Damage = weapon.Damage * weapon.BeamLifetime / timeToTriggerDam
 
     elseif weapon.BeamLifetime then
         if(debug) then print("Pulse Beam") end
@@ -77,6 +78,9 @@ function uvesoWeapDPS(bp,weapon)
         --print("Weapon RoFs Options: " .. weapon.RateOfFire .. " , " .. 1/(weapon.MuzzleSalvoDelay*weapon.MuzzleSalvoSize) )
         DPS.RateOfFire = math.min(10, weapon.RateOfFire, 1/(weapon.MuzzleSalvoDelay*weapon.MuzzleSalvoSize))
         DPS.Damage = weapon.Damage * weapon.MuzzleSalvoSize
+        if(weapon.RackFireTogether) then 
+            DPS.Damage = DPS.Damage * numRackBones
+        end
 
     else
         if(debug) then print("One Shot") end
@@ -93,10 +97,16 @@ function uvesoWeapDPS(bp,weapon)
         DPS.RateOfFire = 1 / (math.max(round(10/DPS.RateOfFire),1) / 10)
     end
 
+    -- TODO: Add code to check if RateOfFire has rounding error problem (ie., RoF = 3 --> TimeToFire = 0.333 --> 0.4)
+
+    -- TODO: Rework RoF to include 0.1 second rounding
+
+    -- TODO: Add a check that if(RackReloadTimeout>0 and numRackBones > 1)
+
     if DPS.RateOfFire == 0 then DPS.RateOfFire = 1 end
     --print(' Damage: '..DPS.Damage..' - RateOfFire: '..DPS.RateOfFire..' - new DPS: '..(DPS.Damage*DPS.RateOfFire))
     DPS.DPS = DPS.Damage*DPS.RateOfFire
     return DPS
 end
 
-return uvesoWeapDPS
+return PhxWeapDPS

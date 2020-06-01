@@ -1,3 +1,7 @@
+
+-- This example code looks at 6 units and all their weapons in the modDir1,2,3 Directories.  It 
+--   is an initial trial utilized to develope the algorithms.
+
 local inspect = require('inspect')
 local dirtree = require('dirtree')
 local uvesoWeapDPS = require('uvesoWeapDPS')
