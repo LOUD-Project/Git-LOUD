@@ -837,7 +837,17 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             if bp.RackFireTogether == true then
                 numRackFiring = RacksToBeFired
-            end			
+            end	
+			
+            -- this used to be placed AFTER the firing events 
+            if bp.RenderFireClock and bp.RateOfFire > 0 then
+			
+	            if not self:BeenDestroyed() and not self.unit.Dead then
+				
+                    local rof = 1 / bp.RateOfFire                
+                    self:ForkThread(self.RenderClockThread, rof)                
+                end
+            end
 
             -- Most of the time this will only run once, the only time it doesn't is when racks fire together.
             while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
@@ -961,17 +971,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             self:OnWeaponFired()
 
             self:StartEconomyDrain(bp)
-			
-            if bp.RenderFireClock and bp.RateOfFire > 0 then
-			
-	            if not self:BeenDestroyed() and not self.unit.Dead then
-				
-                    local rof = 1 / bp.RateOfFire                
-                    self:ForkThread(self.RenderClockThread, rof)                
-                end
-            end
 
             self.HaltFireOrdered = false
+            
+            LOG("*AI DEBUG Current RackSalvoNumber is "..repr(self.CurrentRackSalvoNumber).." - Racks to Fire = "..repr(RacksToBeFired))
 
 			-- if all the racks have fired --
             if self.CurrentRackSalvoNumber > RacksToBeFired then
@@ -1058,13 +1061,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 			local WaitTicks = coroutine.yield
 			
             while clockTime > 0.0 and not self:BeenDestroyed() and not self.unit.Dead do
-			
-                self.unit:SetWorkProgress( 1 - clockTime / rof )
+                
                 clockTime = clockTime - 0.1
+                
+                self.unit:SetWorkProgress( 1 - clockTime / rof )
+                
                 WaitTicks(1)
-				
             end
-			
         end,
     },
 
