@@ -272,9 +272,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				end
 
 			else
-                if ScenarioInfo.PlatoonDialog then
+                --if ScenarioInfo.PlatoonDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
-                end
+                --end
 			end
         end
     end,

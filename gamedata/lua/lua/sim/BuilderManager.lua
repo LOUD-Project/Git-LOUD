@@ -385,7 +385,7 @@ BuilderManager = Class {
 	-- is the PrimaryLandAttackBase or not
 	
 	-- essentially, as more conditions must be checked (more bases) we slow the rate of platoon checking
-	-- run all bases at 2/3 the rate of the Condition Monitor -- except primary runs at 1 to 1
+	-- run all bases at 1/2 the rate of the Condition Monitor -- except primary runs at 1 to 1
     
     -- One huge difference in the PFM is that unlike the EM and the FM - if two tasks have equal priority
     -- and they both pass their status checks, the PFM will form them in alphabetical order
@@ -473,10 +473,10 @@ BuilderManager = Class {
 			-- at the same frequency as the Conditions Monitor thread
 			if brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * .5
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
 			else
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
 			end		
 			
 			if tasks != self.NumBuilders or ((self.BuilderCheckInterval * 10) != duration) then
@@ -503,13 +503,13 @@ BuilderManager = Class {
 					for _,bData in bTypeData.Builders do
 					
 						if bData.Priority >= 100 then
---[[                        
+                        
                             if ScenarioInfo.PlatoonDialog then
                         
                                 LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." testing "..repr(bData.Priority).." "..repr(bData.BuilderName))
                                 
                             end
---]]					
+					
 							numTested = numTested + 1
 						
 							if GetBuilderStatus( bData, brain.ConditionsMonitor.ResultTable ) then
@@ -524,7 +524,9 @@ BuilderManager = Class {
 						
 								WaitTicks(ticksize)
 								numTicks = numTicks + ticksize
-							end
+							else
+                                --LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." status fails "..repr(bData.BuilderName))
+                            end
 						end
 					end
 				end
