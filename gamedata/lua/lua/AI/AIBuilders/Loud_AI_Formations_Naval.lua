@@ -797,7 +797,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			
 			Radius = 75,
 			
-			PatrolTime = 360,	-- 6 minutes
+			PatrolTime = 300,	-- 5 minutes
 			PatrolType = true,
         },
 		
@@ -834,7 +834,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			
 			Radius = 75,
 			
-			PatrolTime = 360,	-- 6 minutes
+			PatrolTime = 240,	-- 4 minutes
 			PatrolType = true,
         },
 		
