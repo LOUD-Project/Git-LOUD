@@ -261,8 +261,8 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackSalvoChargeTime = 0, -- Delay before firing begins
+            RackSalvoReloadTime = 0, -- Delays after firing ends
 
             RangeCategory = 'UWRC_AntiAir',
 			

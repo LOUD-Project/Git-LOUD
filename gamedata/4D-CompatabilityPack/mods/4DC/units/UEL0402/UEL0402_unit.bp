@@ -346,7 +346,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.3,	---- every .4 seconds
+            MuzzleSalvoDelay = 0.3,	---- every .3 seconds
             MuzzleSalvoSize = 30,	---- 30 grenades = 9 seconds
 			
             MuzzleVelocity = 17,

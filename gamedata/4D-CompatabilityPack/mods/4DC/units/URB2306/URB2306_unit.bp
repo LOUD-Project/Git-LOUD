@@ -296,7 +296,6 @@ UnitBlueprint {
             WeaponRepackTimeout = 0.6,
             WeaponUnpacks = true,
         },
-		
         {
             Audio = {
                 Fire = Sound {
