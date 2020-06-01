@@ -358,7 +358,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.AIR }},
         },
 		
         BuilderData = {
@@ -392,7 +392,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.LAND }},
         },
 		
         BuilderData = {
@@ -419,12 +419,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		InstanceCount = 5,
 		
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY}},
         },
 		
         BuilderData = {
