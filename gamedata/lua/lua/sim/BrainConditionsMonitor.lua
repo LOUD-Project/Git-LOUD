@@ -130,7 +130,8 @@ BrainConditionsMonitor = Class {
 		end
 
         local WaitTicks = coroutine.yield
-		local LOUDCEIL = math.ceil		
+		local LOUDCEIL = math.ceil
+        local LOUDMAX = math.max
 
 		local numChecks = self.ResultTableCounter
 		local numResults = 0
@@ -147,10 +148,10 @@ BrainConditionsMonitor = Class {
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
 
-			-- the thread duration is always the number of conditions (minimum of 60 seconds)
-			self.ThreadWaitDuration = math.max( LOUDCEIL((numChecks) / 10) + playerfactor, 60 )
+			-- the thread duration is always the number of checked conditions times 2 (minimum of 60 seconds)
+			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL((numResults * 2) / 10) + playerfactor, 60 )
 			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." Manager Thread Duration is "..self.ThreadWaitDuration)
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Manager Thread Duration is "..self.ThreadWaitDuration.." seconds for "..numChecks.." conditions - last cycle check "..numResults)
 			
 			numChecks = 0
 			numResults = 0
@@ -191,8 +192,11 @@ BrainConditionsMonitor = Class {
 				end
             end
 
-			if ((self.ThreadWaitDuration * 10) - numChecks) > 0 then
-				WaitTicks((self.ThreadWaitDuration * 10) - numResults)
+			if ( (self.ThreadWaitDuration * 10) - numResults ) > 0 then
+            
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Manager Thread waited "..(( (self.ThreadWaitDuration * 10) - numResults)/10).." seconds - tested "..numResults.." of "..numChecks)
+                
+				WaitTicks( (self.ThreadWaitDuration * 10) - numResults )
 			end
 			
 			checkrate = 1
