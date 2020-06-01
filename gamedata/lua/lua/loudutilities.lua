@@ -31,82 +31,82 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-
+local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 
 -- static version of function from EBC
 function GreaterThanEnergyIncome(aiBrain, eIncome)
-
 	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
-	
 end
 
 -- static versions of functions from UCBC
 function IsBaseExpansionUnderway(aiBrain, bool)
-
 	return bool == aiBrain.BaseExpansionUnderway
-	
+end
+
+function PoolLess( aiBrain, unitCount, testCat)
+	return PlatoonCategoryCount( aiBrain.ArmyPool, testCat ) < unitCount
+end
+
+function PoolGreater( aiBrain, unitCount, testCat)
+	return PlatoonCategoryCount( aiBrain.ArmyPool, testCat ) > unitCount
 end
 
 function FactoryGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
-
 	return EntityCategoryCount( testCat, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) > unitCount	
+end
+
+function FactoriesGreaterThan( aiBrain, unitCount, testCat )
+
+	local result = 0
 	
+	for k,v in aiBrain.BuilderManagers do
+		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
+	end
+    
+	return result > unitCount
 end
 
 function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 
 	if aiBrain.BuilderManagers[locationType].EngineerManager then
-	
 		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') < unitCount
-		
 	end
 	
 	return false
-	
 end
 
 function HaveGreaterThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
-
     return GetCurrentUnits(aiBrain,testCat) > numReq
-
 end
 
 function HaveGreaterThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
-
 	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) > numReq
-	
 end
 
 function HaveLessThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
-	
     return GetCurrentUnits(aiBrain,testCat) < numReq
-	
 end
 
 
 function UnitCapCheckGreater(aiBrain, percent)
 
 	if aiBrain.IgnoreArmyCaps then
-	
 		return false
-		
 	end
 	
     return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) > percent 
-	
 end
 
 function UnitCapCheckLess(aiBrain, percent)
 
 	if aiBrain.IgnoreArmyCaps then
-	
 		return true
-		
 	end
 
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
-	
 end
+
+
 
 
 -- This routine returns the location of the closest base that has engineers or factories
