@@ -17,13 +17,13 @@ PlatoonTemplate { Name = 'FighterAttack',
 }
 PlatoonTemplate { Name = 'FighterAttack Large',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 32, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 36, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterEscort Large',
     Plan = 'GuardPointAir',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 32, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 36, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterReinforce',

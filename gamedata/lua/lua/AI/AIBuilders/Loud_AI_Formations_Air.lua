@@ -585,7 +585,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 3,
+        InstanceCount = 4,
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR - categories.ANTINAVY }},
@@ -628,7 +628,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 3,
+        InstanceCount = 4,
 
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTIAIR }},
@@ -687,17 +687,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderData = {
 			DistressRange = 200,
 			DistressTypes = 'Air',
-			DistressThreshold = 16,
+			DistressThreshold = 12,
             
 			LocationType = 'LocationType',
             
-            MergeLimit = 32,
+            MergeLimit = 36,
             
             MissionTime = 200,
             
             PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
             
-			SearchRadius = 125,
+			SearchRadius = 130,
             
             UseFormation = 'AttackFormation',
         },
@@ -1348,7 +1348,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         InstanceCount = 3,
 		
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER * categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTINAVY }},
         },
 		
         BuilderData = {
@@ -1386,10 +1386,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.BOMBER * categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.ANTINAVY }},
         },
 		
         BuilderData = {
@@ -1430,7 +1430,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         InstanceCount = 2,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.BOMBER * categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.ANTINAVY }},
         },
 		
         BuilderData = {
