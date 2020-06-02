@@ -50,7 +50,7 @@ BaseBuilderTemplate {
 	
     BaseSettings = {
         EngineerCount = {
-            Tech1 = 0,
+            Tech1 = 1,
             Tech2 = 2,
             Tech3 = 3,
             SCU = 2,

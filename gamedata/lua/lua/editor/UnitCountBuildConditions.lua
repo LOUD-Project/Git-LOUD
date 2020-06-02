@@ -468,6 +468,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
     local catCheck = false
     local capmult = 500     -- for every 500 units add 1
+    local caplimit = 1
 	
     if techLevel == 'Tech1' then
 	
@@ -477,16 +478,19 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	
         catCheck = categories.TECH2
         capmult = 300
+        caplimit = 3
 		
     elseif techLevel == 'Tech3' then
 	
         catCheck = categories.TECH3
         capmult = 250
+        caplimit = 5
 		
     elseif techLevel == 'SCU' then
 	
         catCheck = categories.SUBCOMMANDER
         capmult = 200
+        caplimit = 10
 		
     else
 	
@@ -501,8 +505,10 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
 	if aiBrain.StartingUnitCap > 1000 then
 	
-        -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
-		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
+        -- at 1000+ units add 1 engineer for every capmult - up to the cap limit --
+		capCheck = capCheck + math.min( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer "..repr(techLevel).." at "..repr(locationType).." is "..capCheck)
 	end
 
 	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) < capCheck

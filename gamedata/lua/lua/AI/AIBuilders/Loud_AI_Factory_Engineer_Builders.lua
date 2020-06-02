@@ -24,7 +24,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .70 } },
-
+            
+            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
             { UCBC, 'EngineerLessAtLocation', { 'LocationType', 3, categories.ENGINEER - categories.SUBCOMMANDER - categories.COMMAND }},
         },
 		
