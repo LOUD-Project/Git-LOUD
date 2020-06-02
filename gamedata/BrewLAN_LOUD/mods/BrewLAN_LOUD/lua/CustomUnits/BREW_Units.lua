@@ -51,6 +51,7 @@ T3Amphibious = {
 
 T3AmphibiousAA = {
 	Aeon = {'sal0320', 100},	-- Armillary
+    Cybran = {'srl0320', 100},
 	Seraphim = {'ssl0320', 100},
 },
 
