@@ -628,6 +628,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 				
 			end
+            
+            if not template then
+                template = { 'none', 1, 1, 'attack', 'none' }
+            end
 
 			if counter > 0 then
 				return { possibles[Random(1,counter)], template[2], template[3], template[4], template[5] }
@@ -642,42 +646,68 @@ FactoryBuilderManager = Class(BuilderManager) {
 			-- this is here to insure that IF there are replacments we only replace
 			-- the FIRST unit in those cases where a template may have multiple units specified (ie.- a platoon of units)
 			local replacementdone = false
+            
+            -- sometimes the stock unit template is empty
+            local tablesize = LOUDGETN(PlatoonTemplates[templateName].FactionSquads[faction])
+            
+            if tablesize > 0 then
 		
-			for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
+                for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
 			
-				if customData and (not replacementdone) then
+                    if customData and (not replacementdone) then
 
-					local replacement = GetCustomReplacement( v )
+                        local replacement = GetCustomReplacement( v )
 					
-					-- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
-					if replacement then
+                        -- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
+                        if replacement then
+					
+                            if not template then
+                                template = { PlatoonTemplates[templateName].Name, '', }
+                            end
+                        
+                            LOUDINSERT( template, replacement )
+                            replacementdone = true -- keeps us from replacing anything but the first unit in a template
+						
+                        else
+                    
+                            if not template then
+                                template = { PlatoonTemplates[templateName].Name, '', }
+                            end 
+                        
+                            LOUDINSERT( template, v )
+						
+                        end
+					
+                    else
+                
+                        if not template then
+                            template = { PlatoonTemplates[templateName].Name, '', }
+                        end
+				
+                        LOUDINSERT( template, v )
+                    end
+                end
+                
+            else
+            
+                if customData and (not replacementdone) then
+                
+                    local replacement = GetCustomReplacement()
+					
+                    -- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
+                    if replacement then
 					
                         if not template then
                             template = { PlatoonTemplates[templateName].Name, '', }
                         end
                         
-						LOUDINSERT( template, replacement )
-						replacementdone = true -- keeps us from replacing anything but the first unit in a template
-						
-					else
-                    
-                        if not template then
-                            template = { PlatoonTemplates[templateName].Name, '', }
-                        end 
-                        
-						LOUDINSERT( template, v )
-						
-					end
-					
-				else
-                
-                    if not template then
-                        template = { PlatoonTemplates[templateName].Name, '', }
+                        LOUDINSERT( template, replacement )
+                        replacementdone = true -- keeps us from replacing anything but the first unit in a template
+
                     end
-				
-					LOUDINSERT( template, v )
-				end
-			end
+                end
+            end
+           
 			
 		elseif faction and customData then
 
@@ -691,7 +721,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
         if not template then
         
-            --LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
+            LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(PlatoonTemplates[templateName].FactionSquads[faction]))
         end
         
 		return template
