@@ -1631,6 +1631,11 @@ function NavalScoutingAI( self, aiBrain )
 					self.MoveThread = self:ForkThread( self.MovePlatoon, path, 'GrowthFormation', false, 20 )
 				end
 			end
+            
+            -- a delay to allow some movement to occur --
+            if self.MoveThread then
+                WaitTicks(50)
+            end
 
 			------------------------------
             -- Travel to the targetArea --
