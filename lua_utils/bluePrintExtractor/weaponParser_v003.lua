@@ -22,7 +22,7 @@ function Sound(list)
     return list
 end
 
-for filename, attr in dirtree("../../gamedata/4D-CompatabilityPack/mods/4DC/units") do
+for filename, attr in dirtree("../../gamedata/units/units") do
 --for filename, attr in dirtree("../SCFA_Git3/Git-LOUD/gamedata") do
         --print(attr.mode, filename)
     --if string.find(filename, '.*[.]bp') then
@@ -67,8 +67,8 @@ for curBPid,curBP in ipairs(allBlueprints) do
             print(allShortIDs[curBPid] ..
                 "/" .. DPS.WeaponName ..
                 ': has Damage: ' .. DPS.Damage ..
-                ' - RateOfFire: ' .. DPS.RateOfFire ..
-                ' - new DPS: ' .. (DPS.Damage*DPS.RateOfFire))
+                ' - Time: ' .. DPS.Ttime ..
+                ' - new DPS: ' .. (DPS.Damage/DPS.Ttime))
             print(" ")
         end
     else
