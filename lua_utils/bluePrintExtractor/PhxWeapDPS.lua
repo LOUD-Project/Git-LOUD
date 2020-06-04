@@ -15,8 +15,9 @@ function PhxWeapDPS(bp,weapon)
     DPS.Damage = 0
     DPS.RateOfFire = 0
     DPS.Ttime = 0
-    DPS.Tdam = 0
+    DPS.Damage = 0
     DPS.DPS = 0
+    DPS.Range = 0
     DPS.WeaponName = weapon.DisplayName or "No Name"
 
     local debug = true
@@ -40,31 +41,33 @@ function PhxWeapDPS(bp,weapon)
     local bugtext = false
     if weapon.DPSOverRide then
         DPS.Damage = weapon.DPSOverRide
-        DPS.RoF = 1
+        DPS.Ttime = 1
 
     elseif weapon.DummyWeapon == true then --skip dummy weapons
-        DPS.RateOfFire = 1
         DPS.Damage = 0
+        DPS.Ttime = 1
 
     elseif weapon.WeaponCategory  == 'Kamikaze' then
         --Suicide Weapons have no RateOfFire
-        DPS.RateOfFire = 1
+        DPS.Ttime = 1
         DPS.Damage = weapon.Damage
 
     elseif weapon.DoTPulses then -- Not verified by DJO yet.
         if(debug) then print("DoTPulses") end
-        DPS.RateOfFire = 1 / (round(10/weapon.RateOfFire) / 10)
+        DPS.Ttime = (math.ceil(10/weapon.RateOfFire) / 10)
         DPS.Damage = weapon.Damage * weapon.MuzzleSalvoSize * weapon.DoTPulses
 
     elseif (weapon.ContinuousBeam and weapon.BeamLifetime==0) then
         if(debug) then print("Continuous Beam") end
         local timeToTriggerDam = math.max(weapon.BeamCollisionDelay,0.1)
         DPS.RateOfFire = weapon.RateOfFire
-        DPS.Damage = weapon.Damage * weapon.BeamLifetime / timeToTriggerDam
+        DPS.Ttime = math.ceil(timeToTriggerDam*10)/10
+        DPS.Damage = weapon.Damage
 
     elseif weapon.BeamLifetime then
         if(debug) then print("Pulse Beam") end
         DPS.RateOfFire = math.min(10, weapon.RateOfFire, weapon.BeamLifetime)
+        DPS.Ttime = math.ceil(10/DPS.RateOfFire)/10
         local BeamTriggerTime = math.max(0.1,weapon.BeamCollisionDelay)
         DPS.Damage = weapon.Damage * weapon.BeamLifetime / BeamTriggerTime
 
@@ -106,7 +109,6 @@ function PhxWeapDPS(bp,weapon)
                                 math.ceil(10*rechargeTime)/10, 
                                 math.ceil(10/weapon.RateOfFire)/10,
                                 DPS.Ttime)
-        DPS.RateOfFire = 1/DPS.Ttime -- TODO: Move after if/elseif eventually
 
         --Add additional time if(RackSalvoChargeTime > 0) {add time RackSalvoChargeTime}
 
@@ -140,7 +142,10 @@ function PhxWeapDPS(bp,weapon)
 
     if DPS.RateOfFire == 0 then DPS.RateOfFire = 1 end
     --print(' Damage: '..DPS.Damage..' - RateOfFire: '..DPS.RateOfFire..' - new DPS: '..(DPS.Damage*DPS.RateOfFire))
+    DPS.RateOfFire = 1/DPS.Ttime
     DPS.DPS = DPS.Damage/DPS.Ttime
+    DPS.Range = weapon.MaxRadius or 0
+
     return DPS
 end
 
