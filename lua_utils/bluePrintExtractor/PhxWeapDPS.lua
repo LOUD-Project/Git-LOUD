@@ -4,6 +4,30 @@ local function round(x)
     return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
 end
 
+local function cleanUnitName(bp)
+    --<LOC ual0402_name>Overlord
+    local UnitBaseName = "None"
+    if(bp.General and bp.General.UnitName) then
+        UnitBaseName = bp.General.UnitName
+        local strStrt = string.find(UnitBaseName,">")
+        local strStop = string.len(UnitBaseName)
+        if (strStrt and strStop) then
+            UnitBaseName = string.sub(UnitBaseName,strStrt+1,strStop)
+        end
+    elseif(bp.Description) then
+        UnitBaseName = bp.Description
+        local strStrt = string.find(UnitBaseName,">")
+        local strStop = string.len(UnitBaseName)
+        if (strStrt and strStop) then
+            UnitBaseName = string.sub(UnitBaseName,strStrt+1,strStop)
+        end
+    else
+        --UnitBaseName = "None"
+    end
+
+    return UnitBaseName
+end
+
 local dirtree ={
     _VERSION = '0.2',
     _DESCRIPTION = 'DPS Calculator',
@@ -18,7 +42,8 @@ function PhxWeapDPS(bp,weapon)
     DPS.Damage = 0
     DPS.DPS = 0
     DPS.Range = 0
-    DPS.WeaponName = weapon.DisplayName or "No Name"
+    DPS.WeaponName = weapon.DisplayName or "None"
+    DPS.UnitName = cleanUnitName(bp)
 
     local debug = true
 
@@ -43,7 +68,8 @@ function PhxWeapDPS(bp,weapon)
         DPS.Damage = weapon.DPSOverRide
         DPS.Ttime = 1
 
-    elseif weapon.DummyWeapon == true then --skip dummy weapons
+    elseif weapon.DummyWeapon == true or weapon.Label == 'DummyWeapon' then
+        --skip dummy weapons
         DPS.Damage = 0
         DPS.Ttime = 1
 
@@ -64,7 +90,7 @@ function PhxWeapDPS(bp,weapon)
         DPS.Ttime = math.ceil(timeToTriggerDam*10)/10
         DPS.Damage = weapon.Damage
 
-    elseif weapon.BeamLifetime then
+    elseif weapon.BeamLifetime and weapon.BeamLifetime ~= 0 then
         if(debug) then print("Pulse Beam") end
         DPS.RateOfFire = math.min(10, weapon.RateOfFire, weapon.BeamLifetime)
         DPS.Ttime = math.ceil(10/DPS.RateOfFire)/10
@@ -81,36 +107,47 @@ function PhxWeapDPS(bp,weapon)
         -- TODO: Need a better methodology to identify single-shot and
         --       multi-muzzle/rack weapons
         if(debug) then print("Multiple Rack/Muzzles") end
-        --print("Weapon RoFs Options: " .. weapon.RateOfFire .. " , " .. 1/(weapon.MuzzleSalvoDelay*weapon.MuzzleSalvoSize) )
-        DPS.Ttime = math.ceil((weapon.MuzzleSalvoDelay or 0)*10)/10 + DPS.Ttime
-        DPS.Ttime = math.ceil((weapon.MuzzleChargeDelay or 0)*10)/10 + DPS.Ttime
-        DPS.Ttime = (weapon.MuzzleSalvoSize or 1) * DPS.Ttime
 
+        local muzzleTime = 0;
+        muzzleTime = (weapon.MuzzleSalvoDelay  or 0) + muzzleTime
+        muzzleTime = (weapon.MuzzleChargeDelay or 0) + muzzleTime
+
+        muzzleTime = (weapon.MuzzleSalvoSize or 1) * muzzleTime
         DPS.Damage = weapon.Damage * (weapon.MuzzleSalvoSize or 1)
+
         if(weapon.RackFireTogether) then 
             DPS.Damage = DPS.Damage * numRackBones
-            DPS.Ttime = DPS.Ttime * numRackBones
+            muzzleTime = muzzleTime * numRackBones
         end
 
-        DPS.Ttime = (weapon.RackSalvoChargeTime or 0) + DPS.Ttime
-        DPS.Ttime = (weapon.RackSalvoReloadTime or 0) + DPS.Ttime
+        local RackTime = (weapon.RackSalvoReloadTime or 0) + 
+                         (weapon.RackSalvoChargeTime or 0)
 
         -- I'm still a little confused, does energy charge happen in parallel?
         local rechargeTime = 0
+
+        print(weapon.RackSalvoFiresAfterCharge or 0)
         if(weapon.EnergyRequired and 
            weapon.EnergyRequired > 0 and 
            weapon.RackSalvoFiresAfterCharge==false) then
-            rechargeTime = (weapon.EnergyRequired or 0) / 
-                           (weapon.EnergyDrainPerSecond or 0)
+            print("boink")
+            rechargeTime = weapon.EnergyRequired / 
+                           weapon.EnergyDrainPerSecond
+            if (rechargeTime < 0.1) then
+                rechargeTime = 0.1
+            end
         end
 
-        -- I'm pretty certain, but not positive that RateOfFire happens in parallel
-        DPS.Ttime = math.max(   0.1,
-                                math.ceil(10*rechargeTime)/10, 
-                                math.ceil(10/weapon.RateOfFire)/10,
-                                DPS.Ttime)
+        local rackNchargeTime = math.max(RackTime,rechargeTime)
+        rackNchargeTime = math.ceil(rackNchargeTime*10)/10
+        print("Quick Debug: ",RackTime,',',rechargeTime)
 
-        --Add additional time if(RackSalvoChargeTime > 0) {add time RackSalvoChargeTime}
+        -- I'm pretty certain, but not positive that RateOfFire happens in parallel
+        --print("Quick Debug: ",muzzleTime,',',rackNchargeTime,',',math.ceil(10/weapon.RateOfFire)/10)
+        DPS.Ttime = math.max(   0.1,
+                                muzzleTime + rackNchargeTime, 
+                                math.ceil(10/weapon.RateOfFire)/10
+                            )
 
         --Add additional time if( WeaponUnpacks && WeaponRepackTimeout > 0 && RackSalvoChargeTime <= 0) 
         -- {add_time WeaponRepackTimeout}
