@@ -847,7 +847,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				local MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
                 local numMuzzlesFiring = bp.MuzzleSalvoSize
 
-                if bp.MuzzleSalvoDelay == 0 then
+                if bp.MuzzleSalvoDelay == 0 then  -- DJO: Should this be MuzzleSalvoSize == 0 ?
                     numMuzzlesFiring = MuzzlesToBeFired
                 end
 				
