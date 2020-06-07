@@ -284,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 		
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER }},
         },
 		
         BuilderData = {
@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
         },
 		
         BuilderData = {
@@ -606,7 +606,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 		
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -872,7 +872,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.HIGHALTAIR * categories.BOMBER }},
         },
 		
         BuilderData = {
@@ -1022,7 +1022,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
 		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL }},
 			
         },
@@ -1220,7 +1220,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
 			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 150, 1, 'AntiAir', 1 }},
 
@@ -1292,7 +1292,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.GROUNDATTACK }},
 			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 150, 1, 'AntiAir', 1 }},
 			
@@ -1494,7 +1494,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },			
         },
@@ -1574,7 +1574,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },
         },

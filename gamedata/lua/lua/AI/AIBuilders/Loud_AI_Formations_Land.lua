@@ -982,7 +982,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1148,7 +1148,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
@@ -1183,12 +1183,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 48, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		

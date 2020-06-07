@@ -37,21 +37,26 @@
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 
+
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
+
     
     -- PATHFINDING dialogs - report pathfinding failures to log
     ScenarioInfo.PathFindingDialog = false
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
+
     
 	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
+
     
     -- INSTANCE COUNT dialogs - shows instance counts for tasks as they are used/released
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
+
 	
 	-- UNIT BUFF dialog - show units being buffed and de-buffed
 	ScenarioInfo.BuffDialog = false
