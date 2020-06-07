@@ -1228,10 +1228,9 @@ AIBrain = Class(moho.aibrain_methods) {
             position[2] = GetSurfaceHeight( position[1], position[3] )
 			
 			basetype = "Sea"
-			
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName))
+		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName).." counted is "..repr(countedbase))
 		
 		-- add the buildermanager record to this brain
         self.BuilderManagers[baseName] = {

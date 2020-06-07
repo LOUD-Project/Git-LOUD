@@ -1535,7 +1535,13 @@ function GetTransports( platoon, aiBrain)
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot service "..platoon.BuilderName)
             end
             
-			ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true )
+            for _,transport in GetPlatoonUnits(transportplatoon) do
+
+                -- unmark the transport
+                transport.InUse = false
+                -- and return it to the transport pool
+                ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+            end
 		end
 
 		platoon.UsingTransport = false
@@ -1656,7 +1662,8 @@ function WatchUnitLoading( transport, units, aiBrain )
 					transport.InUse = false
                     transport.Loading = nil
 
-					return ReturnTransportsToPool( aiBrain, {transport}, true )
+					ForkTo ( ReturnTransportsToPool, aiBrain, {transport}, true )
+                    return
 				end
 				
 				loading = false
@@ -1809,7 +1816,8 @@ function WatchTransportTravel( transport, destination, aiBrain )
 				transport.LastPosition = nil
 				transport.Travelling = false
 
-				return ReturnTransportsToPool( aiBrain, {transport}, true )
+				ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+                return
 			end
 		
 			-- is the transport still close to its last position bump the stuckcount
@@ -1905,7 +1913,8 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain )
 					transport.InUse = false
                     transport.Unloading = nil
 
-					return ReturnTransportsToPool( aiBrain, {transport}, true )
+					ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+                    return
 				end
 			end
 
@@ -2628,7 +2637,8 @@ function AssignTransportToPool( unit, aiBrain )
 			unit.PlatoonHandle = aiBrain.TransportPool
             
             if not unit:IsBeingBuilt() then
-                return ReturnTransportsToPool( aiBrain, {unit}, true )
+                ForkTo( ReturnTransportsToPool, aiBrain, {unit}, true )
+                return
             end
 		end
         
@@ -2730,14 +2740,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		end
     end
 
-    --local x = aiBrain.StartPosX or false
-	--local z = aiBrain.StartPosZ or false
-
-    -- if not a unit or no brain startposition (ie.- civilians)
-	--if (not unit or unit == nil) or (not x) or (not z) then
-		--return
-	--end
-
 	if move then
 
 		units = aiBrain:RebuildTable(units)	
@@ -2746,18 +2748,23 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		
 			if v and not v.Dead and (not v.InUse) and (not v.Assigning) then
 
-                local ident = Random(100000,999999)
-                local returnpool = aiBrain:MakePlatoon('TransportRTB'..tostring(ident), 'none')
+                local returnpool = aiBrain:MakePlatoon('TransportRTB'..tostring(v.Sync.id), 'none')
                 
-                returnpool.BuilderName = 'TransportRTB'..tostring(ident)
-                returnpool.PlanName = 'TransportRTB'..tostring(ident)
+                returnpool.BuilderName = 'TransportRTB'..tostring(v.Sync.id)
+                returnpool.PlanName = returnpool.BuilderName
 
                 AssignUnitsToPlatoon( aiBrain, returnpool, {v}, 'Unassigned', '')
+                
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." assigned to "..repr(returnpool.BuilderName))
+                end
 
                 v.PlatoonHandle = returnpool
-
-                local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, v:GetPosition())
                 
+                local unitposition = v:GetPosition()
+
+                local baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitposition)
+
                 if baseposition then
                     x = baseposition[1]
                     z = baseposition[3]
