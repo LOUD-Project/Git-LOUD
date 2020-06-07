@@ -707,7 +707,6 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 				end
 				
 				if not reject then
-				
 					return v.Position, v.Name
 				end
 			end	
@@ -1464,7 +1463,6 @@ function GetTransports( platoon, aiBrain)
 					
                     AvailableSlots.Medium = AvailableSlots.Medium - 1.0
 					AvailableSlots.Small = AvailableSlots.Small - 0.34
-					
                 end
 				
                 while neededTable.Small >= 1 and AvailableSlots.Small >= 1 do
@@ -1486,7 +1484,6 @@ function GetTransports( platoon, aiBrain)
             
             -- mark each transport (used or not) as no longer in Assignment
             transport.Assigning = false
-		
         end
     end
 
@@ -1504,13 +1501,11 @@ function GetTransports( platoon, aiBrain)
 				if not u.Dead then
 					counter = counter + 1
 				end
-				
 			end
 			
 			if counter > 0 then
 				location = LOUDCOPY(GetPlatoonPosition(platoon))
 			end
-			
 		end
 
 		if not transportplatoon or counter < 1 then
@@ -1522,7 +1517,6 @@ function GetTransports( platoon, aiBrain)
                 else
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." unit platoon dead after assignment ")
                 end
-                
             end
 			
 			CanUseTransports = false
@@ -2711,15 +2705,15 @@ function ReturnTransportsToPool( aiBrain, units, move )
                     end
                 end
                 
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." no longer marked InUse")
-                end
+                --if ScenarioInfo.TransportDialog then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." no longer marked InUse")
+                --end
                 
                 v.InUse = nil
 
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." no longer marked Assigning")
-                end
+                --if ScenarioInfo.TransportDialog then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." no longer marked Assigning")
+                --end
                 
                 v.Assigning = nil
                 

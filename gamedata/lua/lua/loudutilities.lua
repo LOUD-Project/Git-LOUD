@@ -128,7 +128,7 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 			end
         end
     end
-	
+
     return closest
 end
 
@@ -153,6 +153,8 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 			end
 		end
     end
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." FindClosestBase says "..repr(closest).." from position "..repr(position))
 
     return closest
 end
@@ -1503,7 +1505,6 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	if not unit.Dead then
-	
 		unit:MarkWeaponsOnTransport(unit, false)
 	end	
 end
@@ -3508,8 +3509,6 @@ function ParseIntelThread( aiBrain )
 							LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." ignoring threat of "..repr(threat[3]).." at "..repr( {threat[1],0,threat[2]} ))
 						end
 
-						-- reduce the existing threat to zero - it's already very low
-						--aiBrain:AssignThreatAtPosition( newPos, -1 * threat[3], 0.01, threatType)
 					end
                 end
 

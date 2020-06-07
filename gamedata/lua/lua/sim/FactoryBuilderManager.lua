@@ -242,9 +242,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." takes "..builder.BuilderName.." platoon is "..repr(buildplatoon))
-		
+
 					factory.addplan = false
 					factory.addbehavior = false
 				
@@ -721,7 +719,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
         if not template then
         
-            LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(PlatoonTemplates[templateName].FactionSquads[faction]))
+            WARN("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(PlatoonTemplates[templateName].FactionSquads[faction]))
         end
         
 		return template

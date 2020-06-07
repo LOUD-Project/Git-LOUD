@@ -3438,11 +3438,8 @@ function NavalForceAILOUD( self, aiBrain )
 	for k,v in combatmarkers do
 		
 		if GetTerrainHeight(v.Position[1], v.Position[3]) < GetSurfaceHeight(v.Position[1], v.Position[3]) then
-		
 			LOUDINSERT(navalAreas, v)
-			
 		end
-		
 	end
 
 	-- add any mass points that might be in the water or near a water path node
@@ -3451,20 +3448,15 @@ function NavalForceAILOUD( self, aiBrain )
 		if GetTerrainHeight(v.Position[1], v.Position[3]) < GetSurfaceHeight(v.Position[1], v.Position[3]) then
 		
 			LOUDINSERT(navalAreas, v)
-			
 		else
-		
             -- if platoon capable of bombardment --
             if maxRange then
             
                 local nearwater = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation( aiBrain, 'Water Path Node', v.Position, maxRange * .25 )
 			
                 if table.getn(nearwater) > 0 then
-			
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." Mass point in range "..(maxRange *.25).." of "..repr(v.Position).. " Adding "..repr(nearwater[1]))
-				
                     LOUDINSERT(navalAreas, nearwater[1])
-                    
                 end
 			end
 		end
@@ -3479,10 +3471,7 @@ function NavalForceAILOUD( self, aiBrain )
 	for k,v in navalAreas do
 	
 		if VDist3( v.Position, GetPlatoonPosition(self) ) < 100 then
-		
 			navalAreas[k] = nil
-			
-			
 		else
 		
 			for _,base in aiBrain.BuilderManagers do
@@ -3490,15 +3479,10 @@ function NavalForceAILOUD( self, aiBrain )
 				if VDist3( v.Position, base.Position ) < 100 then
 				
 					navalAreas[k] = nil
-					
 					break
-					
 				end
-				
 			end
-			
 		end			
-		
 	end
 
 	-- rebuild the table
@@ -3513,7 +3497,6 @@ function NavalForceAILOUD( self, aiBrain )
 		
 		target = false
 		targetposition = false
-
 	end
 
 	local EndMissionTime = LOUDTIME() + MissionTime
@@ -3526,8 +3509,6 @@ function NavalForceAILOUD( self, aiBrain )
 	
 	-- force the plan name
 	self.PlanName = 'NavalForceAILOUD'
-	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." begins")
 
     while PlatoonExists(aiBrain, self) do
 
@@ -3549,9 +3530,7 @@ function NavalForceAILOUD( self, aiBrain )
 				destination = table.copy(targetposition)
 
 				if self.MoveThread then
-				
 					self:KillMoveThread()
-					
 				end
 				
 				self:Stop()
@@ -3560,14 +3539,10 @@ function NavalForceAILOUD( self, aiBrain )
 				for _,v in EntityCategoryFilterDown( (categories.SERAPHIM * categories.SUBMERSIBLE) - categories.NUKE, GetPlatoonUnits(self)) do
 					
 					if (not v.Dead) and (not v.CacheLayer == 'Water') then
-					
 						IssueDive( {v} )
-						
 					end
-					
 				end
 --]]
-
 				-- would direction help here ? --
 				IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', 0)
 				
@@ -3587,33 +3562,23 @@ function NavalForceAILOUD( self, aiBrain )
 								if m and not m.Dead then
                                 
                                     LOG("*AI DEBUG Issue guard in NavalForceAI")
-								
 									IssueGuard( self:GetSquadUnits('Guard'), v )
-									
 								end
-								
 							end
 							
 							guardset = true
-							
 						end
 						
 						break
-						
 					end
-					
 				end	
-				
 			else
 			
 				target = false
-				
 			end
-			
         else
 		
 			target = false
-			
 		end
 
 		-- if no target and no movement orders -- use HiPri list or random Naval marker
@@ -3637,13 +3602,11 @@ function NavalForceAILOUD( self, aiBrain )
 					if Target.Type != 'StructuresNotMex' and Target.Type != 'Commander' and Target.Type != 'Naval' then
 				
 						continue	-- allow only the target types listed above
-					
 					end
 
 					if GetSurfaceHeight(Target.Position[1], Target.Position[3]) - 2 < GetTerrainHeight(Target.Position[1], Target.Position[3]) then
 				
 						continue    -- skip targets that are NOT in or on water
-					
 					end					
 
 					-- get basic threat types at position
@@ -3651,15 +3614,11 @@ function NavalForceAILOUD( self, aiBrain )
 					ethreat = Target.Threats.Eco
 
 					if sthreat < 1 then
-					
 						sthreat = 1
-						
 					end
 
 					if ethreat < 1 then
-					
 						ethreat = 1
-						
 					end
 
 					ecovalue = ethreat/mythreat
@@ -3688,7 +3647,6 @@ function NavalForceAILOUD( self, aiBrain )
 					
 						milvalue = milvalue * milvalue
 						ecovalue = ecovalue * .5
-						
 					end
 
 					-- now add in the economic value of the target
@@ -3722,7 +3680,6 @@ function NavalForceAILOUD( self, aiBrain )
 						if VDist3( GetPlatoonPosition(self), Target.Position) < 500 then -- and very close targets even more valuable
 						
 							distancefactor = distancefactor * 2
-							
 						end
 					
 						-- store the destination of the most valuable target
@@ -3731,20 +3688,15 @@ function NavalForceAILOUD( self, aiBrain )
 							targetvalue = (value * distancefactor)
 							destination = table.copy(Target.Position)
 							destinationpath = table.copy( path )
-
 						end
-
 					end
 				
 					WaitTicks(1) -- check next target --
-					
 				else
 				
 					destination = false
 					break
-					
 				end
-				
 			end
 
 			-- if no HiPri target then try random NAVAL MARKER and set that as the destinatin but with TARGET == false
@@ -3757,8 +3709,6 @@ function NavalForceAILOUD( self, aiBrain )
 				
 				if table.getn(navalAreas) > 0 then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeking random Naval Area")
-
 					for k,v in RandomIter(navalAreas) do
 
 						-- this is essentially the AVOIDS BASES function
@@ -3766,16 +3716,14 @@ function NavalForceAILOUD( self, aiBrain )
 						if GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ) > 0 then
 						
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." - position "..repr(v.Position).." finds "..GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, v.Position, 75, 'Ally' ).." allied units")
-							
 							navalAreas[k] = nil
 							continue
-							
 						end
 						
 						if PlatoonExists(aiBrain, self) then
 
 							-- get a path to the Position
-							path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), v.Position, mythreat, 200 )
+							path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), v.Position, mythreat, 250 )
 
 							-- remove this entry from the platoons list since are either going there or we cant there
 							-- and we dont want to bounce around - if we've visited a site remove it from the list so 
@@ -3784,9 +3732,7 @@ function NavalForceAILOUD( self, aiBrain )
 							navalAreas[k] = nil
 
 							if not path then
-							
 								continue
-								
 							end
 
 							-- set a destination but note the FALSE on the target -- we'll start moving but we'll then cycle back 
@@ -3797,24 +3743,18 @@ function NavalForceAILOUD( self, aiBrain )
 							target = false
 
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." gets random marker at "..repr(destination))
-							
 						end
 					
 						break
-						
 					end
-					
 				end
-				
 			end
 
 			-- if still nothing - RTB --
 			if not destination then
 			
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
-				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				
 			end
 
 			-- Issue Dive Order to ALL SERAPHIM Submersible Units -- that are not already submerged
@@ -3827,9 +3767,7 @@ function NavalForceAILOUD( self, aiBrain )
 				if LOUDENTITY( categories.SERAPHIM * categories.SUBMERSIBLE, v ) then
 				
 					IssueDive( {v} )
-					
 				end
-				
 			end
 
 			-- use the destinationpath to plot movement to the target
@@ -3840,13 +3778,11 @@ function NavalForceAILOUD( self, aiBrain )
 				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
 				
 				WaitTicks(30)
-				
 			else
 			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." NAVALFORCEAI "..self.BuilderName.." has no path")
 				
 				target = false
-
 			end
 			
 		end
@@ -3858,9 +3794,7 @@ function NavalForceAILOUD( self, aiBrain )
 			if (not self.WaypointCallback) or (not destination) then
 			
 				if self.MoveThread then
-
 					self:KillMoveThread()
-					
 				end 
 			
 				IssueClearCommands( GetPlatoonUnits(self) )
@@ -3884,15 +3818,10 @@ function NavalForceAILOUD( self, aiBrain )
 							waitneeded = true
 
 							if (not v.Dead) and v.CacheLayer == 'Sub' then
-							
 								IssueDive( {v} )
-								
 							end
-							
 						end
-						
 					end
-					
 				end
 
 				-- if friendly air units in area -- wait 40 seconds --
@@ -3908,27 +3837,19 @@ function NavalForceAILOUD( self, aiBrain )
 					if PlatoonExists( aiBrain, self ) then
 					
 						for k,v in GetPlatoonUnits(self) do
-						
+
 							if not v.Dead and LOUDENTITY( categories.AIRSTAGINGPLATFORM * categories.SUBMERSIBLE, v) then
-							
 								IssueDive( {v} )	-- submerge Atlantis
-								
 							end
-							
 						end
-						
 					end
-					
 				end
 
 				target = false
-				
 			else
 			
 				WaitTicks(50)
-				
 			end
-			
         end
 
 		-- loop here while prosecuting a target -- 
@@ -4003,16 +3924,13 @@ function NavalForceAILOUD( self, aiBrain )
 			WaitTicks(60)
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." on Attack wait")
-			
 		end
 
 		-- check mission timer for RTB
 		if LOUDTIME() > EndMissionTime then
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI Mission Time expires")
-			
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-			
 		end
 		
 		-- if there is a mergelimit (we allow merging platoons)
@@ -4039,28 +3957,21 @@ function NavalForceAILOUD( self, aiBrain )
                 if (oldNumberOfUnitsInPlatoon != numberOfUnitsInPlatoon) then
 					
 					if self.MoveThread then
-					
 						self:KillMoveThread()
-						
 					end 
 
                     StopAttack(self)
 
 					-- reform the platoon --
                     self:SetPlatoonFormationOverride(PlatoonFormation)
-					
                 end
 
                 oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 
                 OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
-				
             end
-			
         end
-	
     end
-	
 end
 
 -- NAVAL BOMBARDMENT --

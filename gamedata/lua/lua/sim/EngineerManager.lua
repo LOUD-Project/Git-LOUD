@@ -103,9 +103,11 @@ EngineerManager = Class(BuilderManager) {
     AddEngineerUnit = function( self, unit, dontAssign )
 
         table.insert( self.EngineerList, unit )
-		
-		--LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
-        --LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+        
+        if ScenarioInfo.EngineerDialog then
+            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+        end
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
 
@@ -485,6 +487,12 @@ EngineerManager = Class(BuilderManager) {
         for num,sUnit in self.EngineerList do
 
             if sUnit == unit then
+            
+                if ScenarioInfo.EngineerDialog then
+                    local brain = unit:GetAIBrain()
+                    LOG("*AI DEBUG "..brain.Nickname.." Removing Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." from "..self.ManagerType.." "..self.LocationType)
+                    LOG("*AI DEBUG "..brain.Nickname.." Engineer Count is "..self.EngineerList.Count - 1)
+                end
 
                 LOUDREMOVE( self.EngineerList, num )
 				
