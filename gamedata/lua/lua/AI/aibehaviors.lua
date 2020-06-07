@@ -3393,7 +3393,7 @@ function NavalForceAILOUD( self, aiBrain )
 
     local data = self.PlatoonData
 
-	local bAggroMove = true
+	local bAggroMove = false        -- Dont move flotillas aggressively - use formation
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
@@ -3630,8 +3630,7 @@ function NavalForceAILOUD( self, aiBrain )
 					elseif ecovalue < 0.5 then
 					
 						ecovalue = 0.5
-
-					end
+                    end
 
 					-- target value is relative to the platoons strength vs. the targets strength
 					-- cap the value at 3 to limit chasing worthless targets
@@ -3854,25 +3853,19 @@ function NavalForceAILOUD( self, aiBrain )
 			updatedtargetposition = false
 
 			if not target.Dead then
-			
 				updatedtargetposition = table.copy(target:GetPosition())
-				
 			end
 
 			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
 				
-				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
-				
+				--if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
-					
-				end
+				--end
 
 				StopAttack(self)
 				
 				target = false
-				
 				break
-				
 			end
 
 			if (not target.Dead) and updatedtargetposition and updatedtargetposition != targetposition then
@@ -3881,8 +3874,7 @@ function NavalForceAILOUD( self, aiBrain )
 				
 					targetposition = table.copy(updatedtargetposition)
 				
-					IssueAttack( self:GetSquadUnits('Attack'), target )
-					
+					IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition )
 				else
 				
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." all attack units dead - fight over")
@@ -3890,15 +3882,11 @@ function NavalForceAILOUD( self, aiBrain )
 					target = false
 					
 					if self.MoveThread then
-					
 						self:KillMoveThread()
-						
 					end
 					
 					break
-				
 				end
-				
 			end
 
 			mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
@@ -5582,6 +5570,43 @@ function BroadcastPlatoonPlan ( platoon, aiBrain )
 		
     end
 	
+end
+
+-- this function is used to monitor any change to the primary base
+-- position during the execution of a Return To Base
+-- if it changes - the RTB is reissued with new primary base
+function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
+
+    local GetPrimarySeaAttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase
+    
+    -- set the Primary base at the start
+    local Base = GetPrimarySeaAttackBase(aiBrain)
+
+    -- if the primary base changes - restart the plan
+    -- which should send the platoon to the new primary
+    while PlatoonExists( aiBrain, platoon ) do
+    
+        WaitTicks(80)
+        
+        local Primary = GetPrimarySeaAttackBase(aiBrain)
+        
+        if Primary != Base then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Primary Sea Base has changed to "..repr(Primary))
+            
+            platoon.RTBLocation = Primary
+            
+            for _,v in GetPlatoonUnits(platoon) do
+                v.LocationType = platoon.RTBLocation
+            end
+
+            platoon:SetAIPlan( 'ReturnToBaseAI', aiBrain )
+            
+            -- make the target base the primary
+            Base = Primary
+        end
+    end
+
 end
 
 -- SELF ENHANCE THREAD for SUBCOMMANDERS

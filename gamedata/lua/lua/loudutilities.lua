@@ -75,6 +75,15 @@ function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 	return false
 end
 
+function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
+
+	if aiBrain.BuilderManagers[locationType].EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') > unitCount
+	end
+    
+	return false
+end
+
 function HaveGreaterThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
     return GetCurrentUnits(aiBrain,testCat) > numReq
 end
@@ -787,7 +796,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 	else
 		-- try and catch units being dispersed to what may now be a dead base --
 		-- the idea is to drop them back into an RTB which should find another base
-		--WARN("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
+		LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
 
        	IssueClearCommands( units )
 
@@ -1263,11 +1272,6 @@ function ProcessAirUnits( unit, aiBrain )
             if ScenarioInfo.TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool ")
             end
-            
-			-- put air unit into the refuel pool -- 
-			--aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
-            
-            --unit.PlatoonHandle = aiBrain.RefuelPool
 
 			-- and send it off to the refit thread --
 			unit:ForkThread( AirUnitRefitThread, aiBrain )
@@ -1329,12 +1333,8 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						-- Begin loading/refit sequence
 						if closestairpad then
-						
 							AirStagingThread (unit, closestairpad, aiBrain )
-
 						end
-                    else
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
                     end
                 end
                 
@@ -1453,7 +1453,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 		end
         
         if (not EntityCategoryContains( categories.CANNOTUSEAIRSTAGING, unit)) and waitcount > 90 then
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirStagingThread timeout for unit "..unit.Sync.id.." at "..repr(unit:GetPosition()))
+
             return AirStagingThread( unit, airstage, aiBrain )
         end
 	end
@@ -2179,7 +2179,7 @@ end
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
 -- no longer valid means no engineers AND no factories for at least 200 seconds (10 loops)
--- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 32 are dead
+-- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 60 are dead
 function DeadBaseMonitor( aiBrain )
 
 	WaitTicks(1800)	#-- dont start for 3 minutes
@@ -2206,7 +2206,7 @@ function DeadBaseMonitor( aiBrain )
 
 			if not v.CountedBase then
 			
-				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 32))
+				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
 				
 			end
 
@@ -2220,7 +2220,7 @@ function DeadBaseMonitor( aiBrain )
 				-- if base has no engineers AND has had no factories for about 200 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k).." counted is "..repr(v.CountedBase))
 					
 					-- handle the MAIN base
 					if k == 'MAIN' then
@@ -4282,7 +4282,7 @@ end
 
 function AttackPlanMonitor(self)
 	
-	LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
+	--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
 	
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()

@@ -8071,25 +8071,18 @@ Platoon = Class(moho.platoon_methods) {
         if AttackBase and AttackBase != self.BuilderLocation then
 
             self.RTBLocation = AttackBase
-			
-			local units = GetPlatoonUnits(self)
-			
-            for _,v in units do
-			
+
+            for _,v in GetPlatoonUnits(self) do
                 v.LocationType = AttackBase
-				
             end
 			
 			return self:SetAIPlan( 'ReturnToBaseAI', aiBrain )
-			
         else
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_NAVAL "..repr(self.BuilderName).." got primary sea attack base same as source")
-			
 		end
 		
         return self:PlatoonDisband( aiBrain )
-		
     end,
 
 }

@@ -1257,7 +1257,20 @@ AIBrain = Class(moho.aibrain_methods) {
             PlatoonFormManager = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
+
+        -- increment the base counter for production bases (those that have factories)
+		if countedbase then
 		
+			if basetype == "Sea" then	
+				self.NumBasesNaval = self.NumBasesNaval + 1
+			else
+				self.NumBasesLand = self.NumBasesLand + 1
+			end
+			
+			-- increment the total number of bases used by this brain
+			self.NumBases = self.NumBases + 1
+		end
+
 		-- this call will calculate the Rally Point positions for this base
 		-- we do it here (just after creating the BuilderManagers record) since it relies upon data from within that table (as opposed to doing it during it's creation)
 		self.BuilderManagers[baseName].RallyPoints = SetBaseRallyPoints( self, baseName, basetype, rallypointradius, rallypointorientation )
@@ -1268,24 +1281,6 @@ AIBrain = Class(moho.aibrain_methods) {
         -- check if we need to assign new primary attack bases
 		SetPrimaryLandAttackBase(self)
 		SetPrimarySeaAttackBase(self)
-		
-		if countedbase then
-		
-			if basetype == "Sea" then	
-			
-				self.NumBasesNaval = self.NumBasesNaval + 1
-				
-			else
-			
-				self.NumBasesLand = self.NumBasesLand + 1
-				
-			end
-			
-			-- increment the total number of bases used by this brain
-			self.NumBases = self.NumBases + 1
-			
-		end
-		
     end,
 
     GetStartVector3f = function(self)
@@ -1293,7 +1288,6 @@ AIBrain = Class(moho.aibrain_methods) {
         local startX, startZ = self:GetArmyStartPos()
 
         return { startX, GetTerrainHeight( startX, startZ ), startZ }
-
     end,
 
     AbandonedByPlayer = function(self)

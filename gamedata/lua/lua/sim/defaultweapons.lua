@@ -840,17 +840,17 @@ DefaultProjectileWeapon = Class(Weapon) {
             -- Most of the time this will only run once, the only time it doesn't is when racks fire together.
             while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
 			
-                local rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]			
-				
+                local rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]
+
 				local MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
                 local numMuzzlesFiring = bp.MuzzleSalvoSize
 
                 if bp.MuzzleSalvoDelay == 0 then
                     numMuzzlesFiring = MuzzlesToBeFired
                 end
-				
+
                 local muzzleIndex = 1
-	
+
 				-- fire all the muzzles --
                 for i = 1, numMuzzlesFiring do
 
@@ -873,13 +873,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 						
                         self:PlayFxMuzzleChargeSequence(muzzle)
 						
-                        if bp.NotExclusive then
+                        if NotExclusive then
                             self.unit:SetBusy(false)
                         end
 						
                         WaitSeconds(bp.MuzzleChargeDelay)
 						
-                        if bp.NotExclusive then
+                        if NotExclusive then
                             self.unit:SetBusy(true)
                         end
                     end
@@ -918,13 +918,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 					-- muzzle salvo delay -- 
                     if bp.MuzzleSalvoDelay > 0 then
 					
-                        if bp.NotExclusive then
+                        if NotExclusive then
                             self.unit:SetBusy(false)
                         end
 						
                         WaitSeconds(bp.MuzzleSalvoDelay)
 						
-                        if bp.NotExclusive then
+                        if NotExclusive then
                             self.unit:SetBusy(true)
                         end
                     end

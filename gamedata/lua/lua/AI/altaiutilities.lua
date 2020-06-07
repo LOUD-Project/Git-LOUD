@@ -654,16 +654,18 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		
 		local test_range = false
         local test_position = false
+        
+        local Goal = table.copy(aiBrain.AttackPlan.Goal)
 		
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
         -- and we'll use the current PRIMARY base as the centre of our test range
 		if aiBrain.PrimarySeaAttackBase then
 		
             test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
-			test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )
+			test_range = VDist3( test_position, Goal )
 		else
             test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or false
-			test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )
+			test_range = VDist3( test_position, Goal )
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
@@ -696,9 +698,9 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 				for basename, base in aiBrain.BuilderManagers do
 				
 					if base.EngineerManager.Active then
-	
+
 						-- if too close to ANY of our other existing bases or further than our current primary sea attack base --
-						if VDist2( base.Position[1],base.Position[3], v.Position[1],v.Position[3] ) < minimum_baserange or VDist2( aiBrain.AttackPlan.Goal[1],aiBrain.AttackPlan.Goal[3], v.Position[1],v.Position[3] ) > test_range then
+						if VDist2( base.Position[1],base.Position[3], v.Position[1],v.Position[3] ) < minimum_baserange or VDist2( Goal[1],Goal[3], v.Position[1],v.Position[3] ) > test_range then
 						
 							reject = true
 							break
