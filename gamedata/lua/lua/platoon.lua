@@ -530,7 +530,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- can the transports reach that marker ?
 						if landpath then
 
-							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 240 )
+							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 250 )
 						
 							if path then
 
@@ -3263,7 +3263,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			distance = VDist3( GetPlatoonPosition(self), marker )
 
-			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 200)
+			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 250)
 			
 			if PlatoonExists(aiBrain, self) then
 			

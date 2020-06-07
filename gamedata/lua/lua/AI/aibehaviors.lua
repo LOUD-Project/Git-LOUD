@@ -884,7 +884,7 @@ function AirScoutingAI( self, aiBrain )
 			-- use an elevated threat level in order to find paths for the air scouts --
 			local threatlevel = 24 + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
 		
-			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 240)
+			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 250)
 		
 			if path then
 		
@@ -1609,7 +1609,7 @@ function NavalScoutingAI( self, aiBrain )
 			distance = VDist3(GetPlatoonPosition(self), targetArea)
 
 			-- like Land Scouting we use an artificially higher threat of 100 to insure path finding
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 100, 240 )
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 100, 250 )
 			
 			if PlatoonExists( aiBrain, self ) then
 
@@ -2653,7 +2653,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
 
                 -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 240 )
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
                 if path then
 
@@ -3138,7 +3138,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
 
                 -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 240 )
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
                 if path then
 
@@ -3659,17 +3659,13 @@ function NavalForceAILOUD( self, aiBrain )
 					if value < 1.0 then
 					
 						--LOG("*AI DEBUG Value too low")
-					
 						continue
-						
 					else
-						
 						--LOG("*AI DEBUG Values are Eco "..repr(ecovalue).." Mil is "..repr(milvalue))
-					
 					end
 
 					-- naval platoons must be able to get to the position
-					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), Target.Position, mythreat, 200 )
+					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), Target.Position, mythreat, 250 )
 
 					-- if we have a path to the target and its value is highest one so far then set destination
 					-- and store the targetvalue for comparison 
@@ -4283,7 +4279,7 @@ function NavalBombardAILOUD( self, aiBrain )
 					end
 
 					-- naval platoons must be able to get to the closest bombardment position
-					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), navalAreas[1].Position, mythreat, 200 )
+					path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), navalAreas[1].Position, mythreat, 250 )
 
 					-- if we have a path to the bombardment position and its value is highest one so far then set destination
 					-- and store the targetvalue for comparison 

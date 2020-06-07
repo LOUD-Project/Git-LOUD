@@ -1350,10 +1350,8 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
-             
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." no airpad in range - moving to "..repr(baseposition))
-			
-                        local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 240)
+
+                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 250)
 			
                         if safePath then
 
@@ -1361,9 +1359,7 @@ function AirUnitRefitThread( unit, aiBrain )
                             for _,p in safePath do
                                 IssueMove( {unit}, p )
                             end
-                
                         else
-
                             -- go direct -- possibly bad
                             IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
                         end
@@ -4141,7 +4137,7 @@ function CreateAttackPlan( self, enemyPosition )
 						-- attack plan will be amphibious if no land path, even if we dont find a path --
 						self.AttackPlan.Method = 'Amphibious'
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 240)
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 250)
 						
 					end
 
