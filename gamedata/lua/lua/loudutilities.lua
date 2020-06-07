@@ -3172,7 +3172,7 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 66 	-- the rate of a single iteration in ticks - essentially every 6.6 seconds
+	local parseinterval = 75    --66 	-- the rate of a single iteration in ticks - essentially every 6.6 seconds
 
     -- the current iteration value
     local iterationcount = 1 
@@ -3625,149 +3625,133 @@ function ParseIntelThread( aiBrain )
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
 		--myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
 
-		--- AIR UNITS ---
-		-----------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
-
-		-- calculate my present airvalue
---[[		
-		for _,v in GetListOfUnits( aiBrain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-
-			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
-		end
---]]
-		if EnemyData['Air']['Total'] > 0 then
+        if (iterationcount == 4) or (iterationcount == 8) then
+        
             
-            for v, brain in ArmyBrains do
+        
+            --- AIR UNITS ---
+            -----------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
+
+
+            if EnemyData['Air']['Total'] > 0 then
             
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                for v, brain in ArmyBrains do
+            
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                    local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                        local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
                     
-                    for _,v in enemyunits do
+                        for _,v in enemyunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                        realcount = realcount + 1
-                    end
-                else
-                    local myteamunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+                        local myteamunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
                     
-                    for _,v in myteamunits do
+                        for _,v in myteamunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                    end                    
-                end
-            end
-            
-            aiBrain.AirRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
-		else
-			aiBrain.AirRatio = 0.01
-		end
-
-		--- LAND UNITS ---
-		------------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
---[[
-		for _,v in GetListOfUnits( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-			
-			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
-		end
---]]
-		if EnemyData['Land']['Total'] > 0 then
-
-            for v, brain in ArmyBrains do
-            
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
-                
-                    local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
-                    
-                    for _,v in enemyunits do
-                    
-                        local bp = ALLBPS[v.BlueprintID].Defense
-                        
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                        realcount = realcount + 1
-                    end
-                else
-                
-                    local myteamunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
-                    
-                    for _,v in myteamunits do
-                    
-                        local bp = ALLBPS[v.BlueprintID].Defense
-                        
-                        myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end                    
                     end
                 end
+            
+                aiBrain.AirRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.AirRatio = 0.01
             end
-            
-            aiBrain.LandRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
-        else
-			aiBrain.LandRatio = 0.01
-		end
 
-		--- NAVAL UNITS ---
-		-------------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
---[[
-		-- calculate my present naval value -- I don't think we should be adding our own factories to this total --
-		for _,v in GetListOfUnits( aiBrain, (categories.MOBILE * categories.NAVAL), false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-			
-			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
-		end
---]]
-		if EnemyData['Naval']['Total'] > 0 then
+            --- LAND UNITS ---
+            ------------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
 
-            for v, brain in ArmyBrains do
+            if EnemyData['Land']['Total'] > 0 then
+
+                for v, brain in ArmyBrains do
             
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                    local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                        local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
                     
-                    for _,v in enemyunits do
+                        for _,v in enemyunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                        realcount = realcount + 1
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+                
+                        local myteamunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
+                    
+                        for _,v in myteamunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end
                     end
-                else
-
-                    local myteamunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
-                    
-                    for _,v in myteamunits do
-                    
-                        local bp = ALLBPS[v.BlueprintID].Defense
-                        
-                        myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                    end                
                 end
-            end
             
-            aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
-		else
-			aiBrain.NavalRatio = 0.01
-		end
+                aiBrain.LandRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.LandRatio = 0.01
+            end
 
-		if ScenarioInfo.ReportRatios then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
-		end
+            --- NAVAL UNITS ---
+            -------------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
+
+            if EnemyData['Naval']['Total'] > 0 then
+
+                for v, brain in ArmyBrains do
+            
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
+                
+                        local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                    
+                        for _,v in enemyunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+
+                        local myteamunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                    
+                        for _,v in myteamunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end                
+                    end
+                end
+            
+                aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.NavalRatio = 0.01
+            end
+
+            if ScenarioInfo.ReportRatios then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
+            end
+        
+        end
+        
     end
 end
 
