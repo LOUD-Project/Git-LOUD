@@ -340,13 +340,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             local ix,iy,iz = self.unit:GetBoneDirection(bp.RackBones[self.CurrentRackSalvoNumber].RackBone)
 			
             self.unit:RecoilImpulse(-ix,-iy,-iz)
-			
         end
 		
         if bp.RackRecoilDistance and bp.RackRecoilDistance != 0 then
-
             self:PlayRackRecoil({bp.RackBones[self.CurrentRackSalvoNumber]}, bp)
-			
         end
     end,
 
@@ -557,6 +554,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             if self.unit.Dead then return end
             
+            --LOG("*AI DEBUG Weapon IdleState")
+            
             self.unit:SetBusy(false)
             self:WaitForAndDestroyManips()
             
@@ -567,24 +566,18 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if v.HideMuzzle == true then
 				
                     for _, mv in v.MuzzleBones do
-					
                         self.unit:ShowBone(mv, true)
-						
                     end
-					
                 end
-				
             end
 
 			if bp.EnergyRequired and bp.EnergyDrainPerSecond then
-            
 				self:StartEconomyDrain(bp)
-			
 			end
             
 			-- if the weapon has fired prior to coming back to Idle, execute the reload timeout
 			-- and reset the rack salvo number back to 1 -- except the WeaponFiringState will
-            -- always reset the rack salvo number back to 1 - from what I read
+            -- always reset the rack salvo number back to 1 - from what I read - so this never happens
             
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
@@ -818,7 +811,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
-			
+            local NotExclusive = bp.NotExclusive
+            
 			if self.RecoilManipulators then
 				self:DestroyRecoilManips()
 			end

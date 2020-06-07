@@ -429,13 +429,9 @@ EngineerBuilder = Class(PlatoonBuilder) {
 			PlatoonBuilder.Create( self, manager, brain, data, locationType)
 			
 			return true
-			
 		else
-		
 			return false
-			
 		end
-		
     end,
 }
 
@@ -444,9 +440,7 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
     local builder = EngineerBuilder()
 	
 	if not builder then
-
 		return false
-		
 	end
 	
 	local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement

@@ -95,6 +95,12 @@ BrainConditionsMonitor = Class {
 	-- designed it to be dynamic in duration so that we keep checks at 2 per tick max
 	-- and we add in some additional duration based upon number of players
     ConditionMonitorThread = function(self, aiBrain)
+
+        local WaitTicks = coroutine.yield
+		local LOUDCEIL = math.ceil
+        local LOUDFLOOR = math.floor
+        local LOUDMAX = math.max
+        local type = type
 	
 		-- record current game time
 		aiBrain.CycleTime = GetGameTimeSeconds()
@@ -129,10 +135,6 @@ BrainConditionsMonitor = Class {
 			return true
 		end
 
-        local WaitTicks = coroutine.yield
-		local LOUDCEIL = math.ceil
-        local LOUDMAX = math.max
-
 		local numChecks = self.ResultTableCounter
 		local numResults = 0
 		
@@ -140,7 +142,10 @@ BrainConditionsMonitor = Class {
         
         local ResultTable = self.ResultTable
 
-        local playerfactor = (self.Brain.Players or 1) * 4
+        -- adjustment for high player count comes into play when we can no longer maintain the minimum cycle time
+        local playerfactor = table.getn(ArmyBrains) * 2
+        
+        local minimumcycletime = 60
 	
 		
         while true do
@@ -148,11 +153,11 @@ BrainConditionsMonitor = Class {
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
 
-			-- the thread duration is always the number of checked conditions times 2 (minimum of 60 seconds)
-			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL((numResults * 2) / 10) + playerfactor, 60 )
-			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Manager Thread Duration is "..self.ThreadWaitDuration.." seconds for "..numChecks.." conditions - last cycle check "..numResults)
-			
+			-- the thread duration is always the number of checked conditions times 2 (minimum of minimumcycletime)
+			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2) / 10) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime + aiBrain.NumBases )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Thread Duration for "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration)
+
 			numChecks = 0
 			numResults = 0
 			
@@ -175,9 +180,7 @@ BrainConditionsMonitor = Class {
 						
 					else
 						ResultTable[k].Active = false
-						
-						--LOG("*AI DEBUG Key "..k.." "..v.FunctionName.." "..repr(v.FunctionData[1].." is no longer active " ))
-						
+
 						for a,b in self.ConditionData[v.Filename][v.FunctionName] do
 						
 							if k == b.Key then
@@ -192,15 +195,13 @@ BrainConditionsMonitor = Class {
 				end
             end
 
-			if ( (self.ThreadWaitDuration * 10) - numResults ) > 0 then
-            
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Manager Thread waited "..(( (self.ThreadWaitDuration * 10) - numResults)/10).." seconds - tested "..numResults.." of "..numChecks)
-                
-				WaitTicks( (self.ThreadWaitDuration * 10) - numResults )
+			if ( (self.ThreadWaitDuration * 10) - (numResults * checkrate) ) > 0 then
+				WaitTicks( (self.ThreadWaitDuration * 10) - ( numResults * checkrate ) )
 			end
-			
-			checkrate = 1
+
+            checkrate = LOUDFLOOR( (self.ThreadWaitDuration * 10) / numResults )
         end
+        
     end,
 	
 }
