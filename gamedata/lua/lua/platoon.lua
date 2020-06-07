@@ -1101,7 +1101,8 @@ Platoon = Class(moho.platoon_methods) {
 				return false, 'NoResponse',0,0
 			end
 
-			Replies[platoon] = false
+            -- remove reply
+			Replies[platoon] = nil  --false
 		end
 
 		if not path or path == 'NoPath' then
@@ -1378,16 +1379,15 @@ Platoon = Class(moho.platoon_methods) {
             local mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
             
             if mythreat < 10 then
-			
-				mythreat = 10
+				mythreat = 15
             end
 			
 			-- set marker radius for path finding
-			local markerradius = 150
+			local markerradius = 160
 			
 			if self.MovementLayer == 'Air' or self.MovementLayer == 'Water' then
 			
-				markerradius = 200
+				markerradius = 250
 			end
 			
             -- we use normal threat first
@@ -1432,7 +1432,7 @@ Platoon = Class(moho.platoon_methods) {
 					
                         self:Stop()
 						
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..mythreat.." threat - No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
 						
 						path = { transportLocation }
 					end
@@ -1637,7 +1637,7 @@ Platoon = Class(moho.platoon_methods) {
 					returnpool.RTBLocation = self.RTBLocation or false
 					returnpool.MovementLayer = self.MovementLayer
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(nocmdactive).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
 					
 					for _,u in units do
 					
@@ -3851,7 +3851,7 @@ Platoon = Class(moho.platoon_methods) {
 		
             ForkTo( AIAddMustScoutArea, aiBrain, table.copy(GetPlatoonPosition(self)) )
 		
-            WaitTicks(100)
+            WaitTicks(75)
 		
             self.UnderAttack = nil
             

@@ -2457,7 +2457,7 @@ function PathGeneratorAir( aiBrain )
 	
 	local closed = {}
 	local queue = {}
-	local data = {}
+	local data = false
 
     local PathRequests = aiBrain.PathRequests.Air
     local PathReplies = aiBrain.PathRequests['Replies']
@@ -2479,10 +2479,12 @@ function PathGeneratorAir( aiBrain )
 	--	 the platoon will chose a path that gets there with survivable losses that allow it to get to the final destination
 	--	 the platoon will refuse the task	
 	while true do
+    
+        data = LOUDREMOVE(PathRequests, 1) or false
 		
-		if PathRequests[1] then
-		
-			data = LOUDREMOVE(PathRequests, 1)
+		if data then
+
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." processing "..repr(data.Platoon.BuilderName).." request - current path reply is "..repr(PathReplies[data.platoon]))
             
 			closed = {}
             
@@ -2507,12 +2509,18 @@ function PathGeneratorAir( aiBrain )
 			end
 			
 			if not PathReplies[data.Platoon] then
+            
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe AIR path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe AIR path found to "..repr(data.Dest))
                 end
+                
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
-			end
+			--else
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." has a reply of "..repr(PathReplies[data.Platoon]))
+            end
 		end
+        
+        data = false
 		
 		WaitTicks(1)
 	end
@@ -2677,7 +2685,7 @@ function PathGeneratorAmphibious(aiBrain)
 			
 			if not PathReplies[data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe AMPHIB path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
@@ -2829,7 +2837,7 @@ function PathGeneratorLand(aiBrain)
 
 			if not PathReplies[data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then            
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe LAND path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe LAND path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
@@ -2969,7 +2977,7 @@ function PathGeneratorWater(aiBrain)
 			
 			if not aiBrain.PathRequests['Replies'][data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe WATER path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe WATER path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
