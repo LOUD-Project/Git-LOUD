@@ -694,11 +694,12 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { LUTL, 'UnitCapCheckLess', { .80 } },
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
+
 			-- must have at least 1 Experimental level defense ?
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.SHIELD }},
@@ -2012,11 +2013,12 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
-			
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
+            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
+
 			-- must have at least 1 Experimental level defense ?
 			--{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.SHIELD }},

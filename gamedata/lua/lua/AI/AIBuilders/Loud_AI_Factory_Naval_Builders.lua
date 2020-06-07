@@ -60,8 +60,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+            
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 100, categories.FRIGATE }},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE } },
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
         },
     },
@@ -100,6 +102,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 80, categories.DESTROYER }},
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 10, categories.DESTROYER }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
         },
@@ -115,8 +119,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.CRUISER } },
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 80, categories.CRUISER }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.CRUISER }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.CRUISER, categories.NAVAL - categories.TECH1 }},
         },
     },
@@ -134,7 +140,9 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.xes0102 } },
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 100, categories.xes0102 }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.xes0102 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xes0102, categories.NAVAL - categories.TECH1 }},			
         },
     },
@@ -151,8 +159,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE } },
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 100, categories.SUBMARINE }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE }},
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
         },
     },
@@ -172,8 +182,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE } },
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 100, categories.SUBMARINE }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
         },
     },
@@ -190,7 +202,9 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 100, categories.SUBMARINE }},
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE } },			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -207,9 +221,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 60, categories.xes0205 }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.xes0205 }},
 			
@@ -231,6 +246,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 45, categories.xrs0205 }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.xrs0205 }},
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},
@@ -294,7 +311,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
         },

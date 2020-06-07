@@ -280,12 +280,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
-			
-			-- a credible naval threat exists
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
             -- one of the few places where I use a ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+            
             -- never have more than 1 factory building them at this location
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH2 }},
         },
@@ -307,10 +305,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+            
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH3 }},
         },
 		

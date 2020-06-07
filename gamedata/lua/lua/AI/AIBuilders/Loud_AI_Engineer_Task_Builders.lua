@@ -157,10 +157,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
-		
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE * categories.ARTILLERY, categories.ENGINEER, 125 }},
-			
+
         },
 		
         BuilderData = {
