@@ -6,7 +6,7 @@
 local inspect = require('inspect')
 local dirtree = require('dirtree')
 local PhxWeapDPS = require('PhxWeapDPS')
-local cleanUnitName = require('cleanUnitName')
+local cleanUnitName = require('PhxLib').cleanUnitName
 
 local allBlueprints = {}
 local curBlueprint = {}
@@ -59,10 +59,6 @@ for filename, attr in dirtree("../../gamedata/") do
 
 end
 
-local curDPS = 0
-local curDam = 0
-local curTimeToFire = 0
-
 print("...PhxWeapDPS Run Beginning...")
 local file = io.open("output.csv", "w+")
 io.output(file)
@@ -88,12 +84,13 @@ for curBPid,curBP in ipairs(allBlueprints) do
 
     if curBP.Weapon then
         local NumWeapons = table.getn(curBP.Weapon)
-        print(curShortID .. "/" .. (curBP.Description or "None") .. 
-            " has " .. NumWeapons .. " weapons" ..
-            " and is stored in " .. (allFullDirs[curBPid] or "None"))
+        print("**" .. curShortID .. "/" .. cleanUnitName(curBP) 
+            .. " has " .. NumWeapons .. " weapons" 
+            --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
+        )
         for curWepID,curWep in ipairs(curBP.Weapon) do
             --print(curShortID .. " is stored in " .. allFullDirs[curBPid])
-            local DPS = PhxWeapDPS(curBP,curWep)
+            local DPS = PhxWeapDPS(curWep)
             print(curShortID ..
                 "/" .. DPS.WeaponName ..
                 ': has Damage: ' .. DPS.Damage ..
