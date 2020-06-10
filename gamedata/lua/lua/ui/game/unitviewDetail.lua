@@ -155,7 +155,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			
 				local tempDesc = LOC(UnitDescriptions[tempDescID])
 				
-				WrapAndPlaceText(nil, nil, nil, nil, tempDesc, View.Description)
+				WrapAndPlaceText(nil, nil, nil, nil, nil, tempDesc, View.Description)
 			else
 				WARN('No description found for unit: ', bpID, ' enhancement: ', iconID)
 				
