@@ -6,6 +6,7 @@
 local inspect = require('inspect')
 local dirtree = require('dirtree')
 local PhxWeapDPS = require('PhxWeapDPS')
+local cleanUnitName = require('cleanUnitName')
 
 local allBlueprints = {}
 local curBlueprint = {}
@@ -67,17 +68,24 @@ local file = io.open("output.csv", "w+")
 io.output(file)
 io.write(
                 "ID" 
-                .. "," .. "Desc"
-                .. "," .. "Weapon"
-                .. "," .. "DPS"
-                .. "," .. "Range"
-                .. "," .. "djoWarn"
+                .. "," .. "Unit Name"
+                .. "," .. "tSurfDPS"
+                .. "," .. "tSubDPS"
+                .. "," .. "tAirDPS"
+                .. "," .. "maxRange"
+                .. "," .. "Warnings"
                 .. "\n"
             )
 
 for curBPid,curBP in ipairs(allBlueprints) do
     --print(allShortIDs[i], "has max speed", bp.Physics.MaxSpeed, "is stored in", allFullDirs[i])
     local curShortID = (allShortIDs[curBPid] or "None")
+    local tSurfDPS = 0
+    local tSubDPS = 0
+    local tAirDPS = 0
+    local maxRange = 0
+    local tWarn = ''
+
     if curBP.Weapon then
         local NumWeapons = table.getn(curBP.Weapon)
         print(curShortID .. "/" .. (curBP.Description or "None") .. 
@@ -86,7 +94,6 @@ for curBPid,curBP in ipairs(allBlueprints) do
         for curWepID,curWep in ipairs(curBP.Weapon) do
             --print(curShortID .. " is stored in " .. allFullDirs[curBPid])
             local DPS = PhxWeapDPS(curBP,curWep)
-            local djoWarn = 'false'
             print(curShortID ..
                 "/" .. DPS.WeaponName ..
                 ': has Damage: ' .. DPS.Damage ..
@@ -94,35 +101,33 @@ for curBPid,curBP in ipairs(allBlueprints) do
                 ' - new DPS: ' .. (DPS.Damage/DPS.Ttime)
             )
 
-            if(
-                curWep.MuzzleSalvoDelay and
-                curWep.MuzzleSalvoSize and
-                curWep.RackBones[curWepID] and
-                table.getn(curWep.RackBones[curWepID].MuzzleBones) and
-                curWep.MuzzleSalvoDelay == 0 and
-                curWep.MuzzleSalvoSize ~= table.getn(curWep.RackBones[curWepID].MuzzleBones)
-                ) 
-            then
-                djoWarn = 'true'
-                --io.write("DJO QUICK WARN\n")
-            end
+            if(maxRange < DPS.Range) then maxRange = DPS.Range end
+            tSurfDPS = tSurfDPS + DPS.srfDPS
+            tSubDPS = tSubDPS + DPS.subDPS
+            tAirDPS = tSubDPS + DPS.airDPS
 
-            io.write(
-                curShortID 
-                .. "," .. DPS.UnitName
-                .. "," .. DPS.WeaponName
-                .. "," .. DPS.Damage/DPS.Ttime
-                .. "," .. DPS.Range
-                .. "," .. djoWarn
-                .. "\n"
-            )
+            --Do per weapon checking here
+            tWarn = tWarn .. DPS.Warn
 
             print(" ")  -- End of Weapon Analysis
-        end
+        end --Weapon For Loop
     else
         print(curShortID .. "/" .. (curBP.Description or "None") .. 
             " has NO weapons")
     end
-end
+
+    --Record Accumulated Values and Final Values
+
+    io.write(
+        curShortID 
+        .. "," .. cleanUnitName(curBP)
+        .. "," .. tSurfDPS
+        .. "," .. tSubDPS
+        .. "," .. tAirDPS
+        .. "," .. maxRange
+        .. "," .. tWarn
+        .. "\n"
+    )
+end -- Blueprint for() Loop
 
 io.close(file)
