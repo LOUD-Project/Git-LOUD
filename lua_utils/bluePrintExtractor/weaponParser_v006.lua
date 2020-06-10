@@ -104,7 +104,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
             if(maxRange < DPS.Range) then maxRange = DPS.Range end
             tSurfDPS = tSurfDPS + DPS.srfDPS
             tSubDPS = tSubDPS + DPS.subDPS
-            tAirDPS = tSubDPS + DPS.airDPS
+            tAirDPS = tAirDPS + DPS.airDPS
 
             --Do per weapon checking here
             tWarn = tWarn .. DPS.Warn

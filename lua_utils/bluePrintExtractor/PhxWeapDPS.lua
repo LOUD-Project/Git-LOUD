@@ -27,6 +27,25 @@ local function canTargetHighAir(weapon)
     return false
 end
 
+local function canTargetLand(weapon)
+    local completeTargetLayerList = ''
+--    for curLayerID,curLayerList in ipairs(weapon.FireTargetLayerCapsTable) do
+--        completeTargetLayerList = completeTargetLayerList .. curLayerList
+--    end
+    if(weapon.FireTargetLayerCapsTable) then
+        for curKey,curLayerList in pairs(weapon.FireTargetLayerCapsTable) do
+            completeTargetLayerList = completeTargetLayerList .. curLayerList
+        end
+        if(string.find(completeTargetLayerList,"Land") or
+           string.find(completeTargetLayerList,"Water")
+        ) then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function canTargetSubs(weapon)
     if(weapon.AboveWaterTargetsOnly) then return false end
     if(weapon.FireTargetLayerCapsTable) then
@@ -101,7 +120,11 @@ function PhxWeapDPS(bp,weapon)
     elseif (weapon.ContinuousBeam and weapon.BeamLifetime==0) then
         if(debug) then print("Continuous Beam") end
         local timeToTriggerDam = math.max(weapon.BeamCollisionDelay,0.1)
+
+        DPS.cBeamTimeError = DPS.Ttime 
         DPS.Ttime = math.ceil(timeToTriggerDam*10)/10
+        DPS.cBeamTimeError = DPS.MaxTimeError - DPS.Ttime
+
         DPS.Damage = weapon.Damage
 
     -- elseif weapon.BeamLifetime and weapon.BeamLifetime > 0 then
@@ -147,7 +170,10 @@ function PhxWeapDPS(bp,weapon)
         if(BeamLifetime > 0) then
             if(debug) then print("Pulse Beam") end
             
+            DPS.BeamLifeTimeError = BeamLifetime
             BeamLifetime = math.ceil(BeamLifetime*10)/10
+            DPS.BeamLifeTimeError = DPS.BeamLifeTimeError - BeamLifetime
+
             local BeamTriggerTime = math.max(0.1,weapon.BeamCollisionDelay)
 
             DPS.Ttime = math.max(BeamLifetime,0.1,DPS.Ttime)
@@ -170,8 +196,11 @@ function PhxWeapDPS(bp,weapon)
 
         -- RackTime is in parallel with energy-based recharge time
         local rackNchargeTime = math.max(RackTime,rechargeTime)
+        
+        DPS.rackNchargeTimeError = rackNchargeTime
         rackNchargeTime = math.ceil(rackNchargeTime*10)/10
-
+        DPS.rackNchargeTimeError = DPS.rackNchargeTimeError - rackNchargeTime
+        
         -- RateofFire is always in parallel
         -- MuzzleTime is added to rackTime and energy-based recharge time
         --print("Quick Debug: ",muzzleTime,',',rackNchargeTime,',',math.ceil(10/weapon.RateOfFire)/10)
@@ -184,15 +213,24 @@ function PhxWeapDPS(bp,weapon)
         -- {add_time WeaponRepackTimeout}
 
     -- TODO: Talk to Sprouto about DOTs
-    elseif weapon.DoTPulses then -- Not verified by DJO yet.
-        if(debug) then print("DoTPulses") end
-        DPS.Ttime = (math.ceil(10/weapon.RateOfFire) / 10)
-        DPS.Damage = weapon.Damage * weapon.MuzzleSalvoSize * weapon.DoTPulses
+    --   I think this is correct, may need to add a safety catch for
+    --   DoTTime > Ttime(?) or DoTTime > onFireTime
+    if(weapon.DoTPulses) then 
+        DPS.Damage = DPS.Damage * weapon.DoTPulses
+        if(weapon.DoTTime > DPS.Ttime) then 
+            DPS.Warn = DPS.Warn .. "Possible_DoT_overrun,"
+        end
+    end
+
+    -- elseif weapon.DoTPulses then -- Not verified by DJO yet.
+    --     if(debug) then print("DoTPulses") end
+    --     DPS.Ttime = (math.ceil(10/weapon.RateOfFire) / 10)
+    --     DPS.Damage = weapon.Damage * weapon.MuzzleSalvoSize * weapon.DoTPulses
 
     else
         if(debug) then print("Unknown") end
         print("ERROR: Weapon Type Undetermined")
-        DPS.Warn = 'Unknown Type'
+        DPS.Warn = DPS.Warn .. 'Unknown Type,'
         DPS.Damage = 0
         DPS.Ttime = 1
     end
@@ -230,7 +268,8 @@ function PhxWeapDPS(bp,weapon)
     if(canTargetHighAir(weapon)) then
         DPS.airDPS = DPS.DPS
         if(debug) then print("air") end
-    elseif(canTargetSubs(weapon)) then
+    end
+    if(canTargetSubs(weapon)) then
         DPS.subDPS = DPS.DPS
         if(debug) then print("sub") end
     else
