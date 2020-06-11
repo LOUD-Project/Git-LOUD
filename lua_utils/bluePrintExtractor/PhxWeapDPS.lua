@@ -74,9 +74,10 @@ function PhxWeapDPS(weapon)
         --  It is supposed to be time between onFire() events
         local onFireTime = math.max(0.1,math.ceil(10/weapon.RateOfFire)/10)
 
-        -- Muzzles Cycle
+        -- Muzzles Cycle, MuzzleSalvoDelay
         local muzzleTime =  (weapon.MuzzleSalvoDelay  or 0) +
                             (weapon.MuzzleChargeDelay or 0)
+        print("Quick Debug: ",(weapon.MuzzleSalvoDelay  or 0),",",(weapon.MuzzleChargeDelay  or 0),",",muzzleTime)
 
         if weapon.MuzzleSalvoDelay == 0 then  
             -- These are special catch for a dumb if() in code
@@ -86,6 +87,7 @@ function PhxWeapDPS(weapon)
             DPS.Damage = weapon.Damage * (weapon.MuzzleSalvoSize or 1)
             muzzleTime = muzzleTime * (weapon.MuzzleSalvoSize or 1)
         end
+        --print("Quick Debug: ",muzzleTime)
 
         if(weapon.RackFireTogether) then 
             DPS.Damage = DPS.Damage * numRackBones
