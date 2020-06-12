@@ -16,23 +16,35 @@ local countBPs = 0
 local countFiles = 0
 
 function UnitBlueprint(bp)
+    -- Helper function that replaces the SCFA function UnitBlueprint() and
+    --   instead concatinates all BPs into "allBlueprints"
+    -- Required Globals (bad practice I know, but kludge.)
+    --    curBlueprint
+    --    allBlueprints
     countBPs = countBPs + 1
     table.insert(allBlueprints, bp)
     curBlueprint = bp
 end
 
 function Sound(list)
+    -- Helper function that replaces the SCFA function Sound()
     return list
 end
 
-for filename, attr in dirtree("../../gamedata/") do
---for filename, attr in dirtree("../SCFA_Git3/Git-LOUD/gamedata") do
-        --print(attr.mode, filename)
-    --if string.find(filename, '.*[.]bp') then
-    if string.find(filename, '.*/units/.*_unit%.bp') then
-        -- filename = "./modDir2/units/UAL0402_unit.bp"
 
-        print("Found Matching File:", filename)
+-- Initial loop that finds and runs each BP file in the path given
+-- This will generate the following:
+--   allBlueprints -  a single table with all BPs in it.
+--   allShortIDs - a list of UnitIDSs for all BPs
+--   allFullDirs - a list of full directory path to each BP
+local baseFolder = "../../gamedata"
+print("Reading blueprints...")
+print("Scanning all folders in " .. baseFolder)
+for filename, attr in dirtree("../../gamedata/") do
+    if string.find(filename, '.*/units/.*_unit%.bp') then
+        -- filename = "./modDir/units/UAL0402_unit.bp"
+
+        --print("Found Matching File:", filename)
         UnitBaseName = string.match(filename, '[%a%d]*_unit%.bp$')
         -- UnitBaseName = "UAL0402_unit.bp"
 
@@ -60,7 +72,8 @@ for filename, attr in dirtree("../../gamedata/") do
 end
 
 print("...PhxWeapDPS Run Beginning...")
-local file = io.open("sizes_dewey.csv", "w+")
+local outputFileName = "sizes_dewey.csv"
+local file = io.open(outputFileName, "w+")
 io.output(file)
 io.write(
                 "ID" 
@@ -88,3 +101,4 @@ for curBPid,curBP in ipairs(allBlueprints) do
 end -- Blueprint for() Loop
 
 io.close(file)
+print("Results written to: " .. outputFileName)
