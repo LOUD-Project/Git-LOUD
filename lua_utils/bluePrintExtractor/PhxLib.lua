@@ -14,10 +14,12 @@ function PhxLib.canTargetHighAir(weapon)
             completeTargetLayerList = completeTargetLayerList .. curLayerList
         end
         if(string.find(completeTargetLayerList,"Air") and
-           not string.find((weapon.TargetRestrictDisallow or "None"),
+            not string.find((weapon.TargetRestrictDisallow or "None"),
                            "HIGHALTAIR") and
-           not string.find((weapon.TargetRestrictOnlyAllow or "None"),
-                           "TACTICAL MISSILE")
+            not string.find((weapon.TargetRestrictOnlyAllow or "None"),
+                           "TACTICAL") and
+            not string.find((weapon.TargetRestrictOnlyAllow or "None"),
+                           "MISSILE")
         ) then
             return true
         end
