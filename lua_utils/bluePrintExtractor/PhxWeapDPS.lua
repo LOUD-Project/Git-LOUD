@@ -77,7 +77,7 @@ function PhxWeapDPS(weapon)
         -- Muzzles Cycle, MuzzleSalvoDelay
         local muzzleTime =  (weapon.MuzzleSalvoDelay  or 0) +
                             (weapon.MuzzleChargeDelay or 0)
-        print("Quick Debug: ",(weapon.MuzzleSalvoDelay  or 0),",",(weapon.MuzzleChargeDelay  or 0),",",muzzleTime)
+        --print("Quick Debug: ",(weapon.MuzzleSalvoDelay  or 0),",",(weapon.MuzzleChargeDelay  or 0),",",muzzleTime)
 
         if weapon.MuzzleSalvoDelay == 0 then  
             -- These are special catch for a dumb if() in code

@@ -1,8 +1,5 @@
-
-
--- This example code looks at all the units in the 4DC Modpack. It was utilized to check 
---   more edge cases.
-
+-- This file is the initial pass for debugging PhxWeapDPS
+-- all files are scanned and output to output.csv
 local inspect = require('inspect')
 local dirtree = require('dirtree')
 local PhxWeapDPS = require('PhxWeapDPS')
@@ -16,23 +13,34 @@ local countBPs = 0
 local countFiles = 0
 
 function UnitBlueprint(bp)
+    -- Helper function that replaces the SCFA function UnitBlueprint() and
+    --   instead concatinates all BPs into "allBlueprints"
+    -- Required Globals (bad practice I know, but kludge.)
+    --    curBlueprint
+    --    allBlueprints
     countBPs = countBPs + 1
     table.insert(allBlueprints, bp)
     curBlueprint = bp
 end
 
 function Sound(list)
+    -- Helper function that replaces the SCFA function Sound()
     return list
 end
 
+-- Initial loop that finds and runs each BP file in the path given
+-- This will generate the following:
+--   allBlueprints - a single table with all BPs in it.
+--   allShortIDs - a table of UnitIDSs for all BPs
+--   allFullDirs - a table of full directory path to each BP
+local baseFolder = "../../gamedata"
+print("Reading blueprints...")
+print("Scanning all folders in " .. baseFolder)
 for filename, attr in dirtree("../../gamedata/") do
---for filename, attr in dirtree("../SCFA_Git3/Git-LOUD/gamedata") do
-        --print(attr.mode, filename)
-    --if string.find(filename, '.*[.]bp') then
     if string.find(filename, '.*/units/.*_unit%.bp') then
-        -- filename = "./modDir2/units/UAL0402_unit.bp"
+        -- filename = "./modDir/units/UAL0402_unit.bp"
 
-        print("Found Matching File:", filename)
+        --print("Found Matching File:", filename)
         UnitBaseName = string.match(filename, '[%a%d]*_unit%.bp$')
         -- UnitBaseName = "UAL0402_unit.bp"
 
@@ -60,7 +68,8 @@ for filename, attr in dirtree("../../gamedata/") do
 end
 
 print("...PhxWeapDPS Run Beginning...")
-local file = io.open("output.csv", "w+")
+local outputFileName = "output.csv"
+local file = io.open(outputFileName, "w+")
 io.output(file)
 io.write(
                 "ID" 
@@ -74,7 +83,6 @@ io.write(
             )
 
 for curBPid,curBP in ipairs(allBlueprints) do
-    --print(allShortIDs[i], "has max speed", bp.Physics.MaxSpeed, "is stored in", allFullDirs[i])
     local curShortID = (allShortIDs[curBPid] or "None")
     local tSurfDPS = 0
     local tSubDPS = 0
@@ -89,7 +97,6 @@ for curBPid,curBP in ipairs(allBlueprints) do
             --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
         )
         for curWepID,curWep in ipairs(curBP.Weapon) do
-            --print(curShortID .. " is stored in " .. allFullDirs[curBPid])
             local DPS = PhxWeapDPS(curWep)
             print(curShortID ..
                 "/" .. DPS.WeaponName ..
