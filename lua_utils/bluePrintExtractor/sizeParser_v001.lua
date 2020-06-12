@@ -1,8 +1,4 @@
-
-
--- This example code looks at all the units in the 4DC Modpack. It was utilized to check 
---   more edge cases.
-
+-- This file fulfills a request by Dewey for unit size data
 local inspect = require('inspect')
 local dirtree = require('dirtree')
 local PhxWeapDPS = require('PhxWeapDPS')
