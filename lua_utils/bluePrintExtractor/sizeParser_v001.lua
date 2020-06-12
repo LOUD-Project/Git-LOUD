@@ -34,9 +34,9 @@ end
 
 -- Initial loop that finds and runs each BP file in the path given
 -- This will generate the following:
---   allBlueprints -  a single table with all BPs in it.
---   allShortIDs - a list of UnitIDSs for all BPs
---   allFullDirs - a list of full directory path to each BP
+--   allBlueprints - a single table with all BPs in it.
+--   allShortIDs - a table of UnitIDSs for all BPs
+--   allFullDirs - a table of full directory path to each BP
 local baseFolder = "../../gamedata"
 print("Reading blueprints...")
 print("Scanning all folders in " .. baseFolder)
