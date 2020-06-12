@@ -7,6 +7,7 @@
 --*****************************************************************************
 
 ainames = {
+
     uef = {
         "Cockbag Surprise!",
         "Keville",
@@ -89,7 +90,8 @@ ainames = {
         "GStar",
         "Sckricko",
     },
-    seraphim = {
+    seraphim = { 
+        "Terhminate-Or",
         "Stash-Ullevash",
         "Ahn-Aishayeth",
         "Ahn-Iashen",
@@ -117,4 +119,5 @@ ainames = {
         "Paj-Tshiab",
         "Al-Ghoussein",
     },
+    
 }
