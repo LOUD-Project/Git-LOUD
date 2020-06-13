@@ -243,7 +243,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 5.5,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_bomber_directfire',
     StrategicIconSortPriority = 65,
 	
     Veteran = {
