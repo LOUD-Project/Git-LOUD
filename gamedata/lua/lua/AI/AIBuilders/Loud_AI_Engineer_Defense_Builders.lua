@@ -242,7 +242,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
         },
 		
         BuilderType = {'T2','T3'},
@@ -273,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE, 15, 42 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 }},			
         },
 		
         BuilderType = {'T2','T3'},
@@ -335,7 +335,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
@@ -357,6 +357,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },	
 	
+    Builder {BuilderName = 'T3 Tactical Artillery - Boxes',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+		
+			DesiresAssist = true,
+            NumAssistees = 2,
+
+			Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 35,				
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+                
+                BuildStructures = {'T3TacticalArtillery'},
+            }
+        }
+    },	
+
 	-- setup so that we always build one
     Builder {BuilderName = 'AntiNuke',
 	

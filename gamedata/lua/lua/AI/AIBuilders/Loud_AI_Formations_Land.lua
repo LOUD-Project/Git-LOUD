@@ -51,8 +51,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
         Priority = 600,
         InstanceCount = 12,
         BuilderType = 'Any',
+        
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.ARTILLERY * categories.STRUCTURE - categories.TECH2 - categories.TECH1 } },
+            -- any strategic artillery --
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.ARTILLERY * categories.STRUCTURE - categories.TACTICAL - categories.TECH2 - categories.TECH1 } },
         },
     },
 }
