@@ -5,9 +5,11 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-	ScenarioInfo.NameEngineers = false
+	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
-	
+
+    ScenarioInfo.EngineerDialog = false
+    LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
 	-- ATTACK PLANS and AI Strength Ratios
 	ScenarioInfo.DisplayAttackPlans = false

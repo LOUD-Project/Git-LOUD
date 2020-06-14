@@ -35,7 +35,7 @@ UnitBlueprint {
         'UEF',
         'STRUCTURE',
 		'TECH3',
-        'INDIRECTFIRE',
+        'TACTICAL',
         'ARTILLERY',
         'DRAGBUILD',
 		'SIZE8',
@@ -93,7 +93,7 @@ UnitBlueprint {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-		RebuildBonusIds = { 'mgubU31' },
+		RebuildBonusIds = { 'leb2320' },
     },
 	
 	Footprint = {
@@ -177,11 +177,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
     },
 	
     Weapon = {
@@ -205,22 +205,22 @@ UnitBlueprint {
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -253,9 +253,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -292,22 +295,22 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
-			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
-			
+
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -338,10 +341,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel01',
@@ -378,23 +383,23 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
-			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
-			
+
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
 			LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -425,10 +430,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Barrel02',

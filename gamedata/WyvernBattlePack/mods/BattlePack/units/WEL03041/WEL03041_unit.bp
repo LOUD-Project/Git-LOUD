@@ -44,6 +44,8 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
+        'SUBMERSIBLE',
         'TECH3',
         'INDIRECTFIRE',
         'ARTILLERY',
