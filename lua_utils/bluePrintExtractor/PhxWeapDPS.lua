@@ -148,6 +148,14 @@ function PhxWeapDPS(weapon)
             end
         end
 
+        --TODO: Serious Issue here with some units, likely miscalculating
+        --        damage as this flag bypasses all eco and RoF calcs
+        if(weapon.RackSalvoFiresAfterCharge and
+           weapon.RackSalvoChargeTime
+          ) then
+            DPS.Warn = DPS.Warn .. "RackSalvoFiresAfterCharge,"
+        end
+
     else
         if(debug) then print("Unknown") end
         print("ERROR: Weapon Type Undetermined")
