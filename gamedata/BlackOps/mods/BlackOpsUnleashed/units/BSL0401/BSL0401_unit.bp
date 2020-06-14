@@ -298,7 +298,8 @@ UnitBlueprint {
             Damage = 50,
             DamageRadius = 3.5,
             DamageType = 'Normal',
-			
+            DPSOverRide = 850, --Due to Drones
+
             DisplayName = 'Experimental Phason Beam Generator',
 			
             FireTargetLayerCapsTable = {
