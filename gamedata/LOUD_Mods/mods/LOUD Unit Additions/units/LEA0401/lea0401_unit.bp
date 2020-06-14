@@ -273,7 +273,7 @@ UnitBlueprint {
 			
             Damage = 2200,
             DamageFriendly = true,
-            DamageRadius = 3.5,
+            DamageRadius = 3.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Napalm Bomb',
@@ -332,13 +332,15 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'EXPERIMENTAL -AIR',
-                'STRUCTURE -WALL',
-                'MOBILE -AIR',
+                'ANTIAIR',
+                'SHIELD',
+				'EXPERIMENTAL',
+                'STRUCTURE',
+                'MOBILE',
 				'ENGINEER',
-                'ALLUNITS -WALL',
+                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
         },
         {

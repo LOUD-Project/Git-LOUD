@@ -57,8 +57,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 100,
         ArmorType = 'Experimental',
-        Health = 85000,
-        MaxHealth = 85000,
+        Health = 80000,
+        MaxHealth = 80000,
         RegenRate = 32,
 		
         Shield = {
@@ -344,7 +344,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2500,	#1250 DPS
+            Damage = 2400,
 			DamageFriendly = true,
             DamageRadius = 1.5,
             DamageType = 'Normal',
@@ -360,7 +360,7 @@ UnitBlueprint {
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 85,
+            MaxRadius = 80,
 			MinRadius = 10,
 			
             MuzzleSalvoDelay = 0.2,
@@ -386,7 +386,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.5,   -- 2 x 2400 = 4800 Damage / 2 = 2400 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -427,7 +427,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 400,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -469,7 +469,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- 2 x 400 = 800 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -510,7 +510,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 400,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -550,7 +550,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,
+            RateOfFire = 1,     -- another 800 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -591,7 +591,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 400,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -631,7 +631,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,
+            RateOfFire = 1,     -- another 800 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -672,7 +672,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,	#1000 DPS
+            Damage = 400,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -712,7 +712,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,
+            RateOfFire = 1,     -- another 800 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -755,7 +755,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 250,	#1000 DPS air
+            Damage = 250,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -796,7 +796,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 4,
+            RateOfFire = 2,     -- 2 x 250 = 500 * 2 = 1000 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

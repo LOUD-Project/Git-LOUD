@@ -112,7 +112,7 @@ UnitBlueprint {
 		},
 		
         SpawnRandomRotation = true,
-        UniformScale = 0.6,
+        UniformScale = 0.54,
     },
 	
     Economy = {
@@ -175,7 +175,7 @@ UnitBlueprint {
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.3,
-    LifeBarSize = 7,
+    LifeBarSize = 6.5,
 	
     Physics = {
         BankingSlope = 0.5,
@@ -194,9 +194,11 @@ UnitBlueprint {
         MaxSpeed = 2.4,
         MaxSpeedReverse = 1.0,
         MaxSteerForce = 1000,
-        MeshExtentsX = 7,
-        MeshExtentsY = 2,
-        MeshExtentsZ = 7,
+        
+        MeshExtentsX = 6.5,
+        MeshExtentsY = 1.8,
+        MeshExtentsZ = 6.5,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
 		
@@ -216,13 +218,13 @@ UnitBlueprint {
         WobbleSpeed = 0.001,
     },
 	
-    SelectionSizeX = 6.5,
-    SelectionSizeZ = 6.5,
+    SelectionSizeX = 5.8,
+    SelectionSizeZ = 5.8,
     SelectionThickness = 0.2,
 	
-    SizeX = 7.2,
-    SizeY = 1.8,
-    SizeZ = 7.2,
+    SizeX = 6.5,
+    SizeY = 1.7,
+    SizeZ = 6.5,
 	
     StrategicIconName = 'icon_experimental_land_shield',
     StrategicIconSortPriority = 125,
@@ -265,9 +267,9 @@ UnitBlueprint {
 			
             Label = 'MissileRack',
 			
-            MaxProjectileStorage = 5,
+            MaxProjectileStorage = 6,
 			
-            MaxRadius = 90,
+            MaxRadius = 100,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -303,11 +305,12 @@ UnitBlueprint {
             Turreted = false,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.5,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
