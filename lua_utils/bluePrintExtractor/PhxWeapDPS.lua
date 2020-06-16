@@ -138,16 +138,6 @@ function PhxWeapDPS(weapon)
         -- TODO: Add additional time if( WeaponUnpacks && WeaponRepackTimeout > 0 && RackSalvoChargeTime <= 0) 
         -- {add_time WeaponRepackTimeout}
 
-        -- TODO: Talk to Sprouto about DOTs
-        --   I think this is correct, may need to add a safety catch for
-        --   DoTTime > Ttime(?) or DoTTime > onFireTime
-        if(weapon.DoTPulses) then 
-            DPS.Damage = DPS.Damage * weapon.DoTPulses
-            if(weapon.DoTTime > DPS.Ttime) then 
-                DPS.Warn = DPS.Warn .. "Possible_DoT_overrun,"
-            end
-        end
-
         --TODO: Serious Issue here with some units, likely miscalculating
         --        damage as this flag bypasses all eco and RoF calcs
         if(weapon.RackSalvoFiresAfterCharge and
@@ -167,11 +157,13 @@ function PhxWeapDPS(weapon)
     -- TODO: Add warning code to check if RateOfFire has rounding error problem (ie., RoF = 3 --> TimeToFire = 0.333 --> 0.4)
     -- TODO: Add warning code to check if(RackReloadTimeout>0 and numRackBones > 1)
     
+    -- TODO: SkipReadyState is not modeled yet.
+    
     -- DONE: Check if(MuzzleSalvoDelay == 0 and MuzzleBones ~= MuzzleSalvoSize)
     if (weapon.MuzzleSalvoDelay == 0) and (numMuzzleBones ~= (weapon.MuzzleSalvoSize or 1)) then 
         DPS.Warn = DPS.Warn.."MuzzleSalvoSize_Overridden,"
     end
-    --    || Results in MuzzleBones firing, MuzzleSalvoSize
+    --    || Results in MuzzleBones firing not MuzzleSalvoSize
     --    || Issue in deafaultweapons.lua Line 850
 
     if DPS.RateOfFire == 0 then DPS.RateOfFire = 1 end
