@@ -349,6 +349,8 @@ end
 
 function InitializeArmies()
 
+    ScenarioInfo.biggestTeamSize = 0
+    
     local function InitializeSkirmishSystems(self)
 	
 		-- store which team we're on
@@ -472,12 +474,23 @@ function InitializeArmies()
 		-- turn on resource sharing
 		self:SetResourceSharing(true)
 		
+		--3+ Teams Unit Cap Fix : Determine team size of current army,
+		-- if it is bigger than what was previously recorded, this is the new
+		-- biggest team to work with later to determine other team's armies unit cap
+		local teamSize = ( self.Players - self.NumOpponents )
+		
+		if teamSize > ScenarioInfo.biggestTeamSize then
+			ScenarioInfo.biggestTeamSize = teamSize		
+		end
+        
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
 		end
 		
 		local PlayerDiff = (self.NumOpponents or 1)/(self.Players - self.NumOpponents)		
 		
+		ScenarioInfo.ArmySetup[self.Name].NumAllies = self.Players - self.NumOpponents
+        
 		-- if outnumbered increase the number of simultaneous upgrades allowed
 		-- and reduce the waiting period by 2 seconds ( about 10% )
 		if PlayerDiff > 1.0 then
@@ -571,7 +584,25 @@ function InitializeArmies()
         end
 		
     end
+    
+	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
+	-- now that we know what is the number of armies in the biggest team.                 
+	for iArmy, strArmy in pairs(tblArmy) do
 
+        local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
+        local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
+
+        if tblData then
+			
+			-- if this is an AI (but not civilian)
+            if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
+			
+				import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( GetArmyBrain(strArmy), ScenarioInfo.biggestTeamSize )
+				
+            end
+		end
+	end	
+    
     return tblGroups
 	
 end

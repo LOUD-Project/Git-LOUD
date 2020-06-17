@@ -55,7 +55,11 @@ end
 BuildBuffCheck = function(buff, unit)
 
 	-- we have to test this since the engine gives ALL units an empty BuildableCategory table
-    return not LOUDEMPTY(__blueprints[unit.BlueprintID].Economy.BuildableCategory)
+    -- and this mechanism does not pickup structures with enhancements --
+    -- return not LOUDEMPTY(__blueprints[unit.BlueprintID].Economy.BuildableCategory)
+    
+    -- so lets make the check simple - do you have build power ?
+    return BuildRateBuffCheck( buff,unit)
 
 end
 
@@ -170,7 +174,7 @@ end
 -- Weapon Rate of Fire -- for energy using weapons
 RateOfFireBuffCheck = function(buff, unit)
 
-    return unit:GetWeaponCount() > 0
+    return EnergyWeaponBuffCheck( buff,unit)    --unit:GetWeaponCount() > 0
 
 end
 

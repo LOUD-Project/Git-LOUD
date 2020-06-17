@@ -32,15 +32,11 @@ BuilderManager = Class {
         for _,bType in self.BuilderData do
 		
 			for k,v in bType do
-			
                 v = nil
-				
             end
-			
         end
-		
+
         self.Trash:Destroy()
-		
     end,
     
     ForkThread = function(self, fn, ...)
@@ -48,7 +44,6 @@ BuilderManager = Class {
         local thread = ForkThread(fn, self, unpack(arg))
         
 		self.Trash:Add(thread)
-		
     end,
 
     SetEnabled = function(self, brain, enable)
@@ -62,9 +57,7 @@ BuilderManager = Class {
 
 			self.Active = false		
 			self.Trash:Destroy()
-
         end
-
 	end,
 
     SortBuilderList = function(self, bType)
@@ -78,9 +71,7 @@ BuilderManager = Class {
 			self.BuilderData[bType].Builders = table.copy(oldtable)
 
 			self.BuilderData[bType].NeedSort = false
-
 		end
-
     end,
 
     AddBuilder = function(self, brain, builderData, locationType, builderType)
@@ -88,7 +79,6 @@ BuilderManager = Class {
         local newBuilder = CreateBuilder(brain, builderData, locationType, builderType)
 
         self:AddInstancedBuilder(newBuilder, builderType, brain)
-		
     end,
     
     AddInstancedBuilder = function(self, newBuilder, builderType, aiBrain)
@@ -108,15 +98,11 @@ BuilderManager = Class {
                 self.BuilderList = true
 
                 self.NumBuilders = self.NumBuilders + 1
-			
             end
 
             if newBuilder.InstantCheck then
-		
                 self:ManagerLoopBody(newBuilder)
-			
             end
-        
         end
 		
     end,
@@ -128,17 +114,12 @@ BuilderManager = Class {
             for _,builder in bType.Builders do
 
                 if builder.BuilderName == builderName then
-				
                     return builder.Priority
-					
                 end
-
             end
-			
         end
 
         return false
-		
     end,
     
     SetBuilderPriority = function( manager, builderName, priority, temporary )
@@ -154,31 +135,22 @@ BuilderManager = Class {
 						builder:SetPriority(priority, temporary)
 
 						if priority == 0 and not temporary then
-							
 							table.remove( manager.BuilderData[k1].Builders, k2 )
-							
 						end
 					
 						manager.BuilderData[k1].NeedSort = true
-						
 					end
 					
 					return builder
-					
                 end
-				
             end
-			
         end
 		
 		return false
-		
     end,
 
     AssignTimeout = function( self, builderName, timeoutticks )
-	
-		--LOG("*AI DEBUG Assigning timeout to "..repr(builderName))
-    
+
 		WaitTicks(2)	-- this allows platoon to disband first (which would possibly reset the builder to normal priority)
 
         local builder = self:SetBuilderPriority( builderName, 10, true ) -- set the builder to priority 10 temporarily
@@ -192,15 +164,11 @@ BuilderManager = Class {
 			end
 
 			builder:ResetPriority(self)
-
 		end
-
     end,
 	
     AddBuilderType = function(self, buildertype)
-	
         self.BuilderData[buildertype] = { Builders = {}, NeedSort = true }
-		
     end,
 	
 
@@ -212,28 +180,36 @@ BuilderManager = Class {
 	-- stop looping once you encounter a job with a lower priority than that trigger (but not zero - those are ignored)
 	-- and randomly return one of the possible jobs
     GetHighestBuilder = function( self, unit, aiBrain )
+		
+		-- use the BuilderParamCheck function specific to the Manager that called this function (ie. Engineer or Factory)
+        local BuilderParamCheck = self.BuilderParamCheck		
+		
+        local found = false
+        local possibleBuilders = {}
+		local counter = 0
+        local conditionschecked = 0
+		
+		local TaskList = self.BuilderData[unit.BuilderType].Builders or {}
+        local ResultTable = aiBrain.ConditionsMonitor.ResultTable
+
+		local continuesearching = true
 
 		-- function that checks all the conditions of a builder
 		-- only returns true if all conditions pass 
-		local GetBuilderStatus = function( task )
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." "..unit.BuilderType.." testing Builder "..task.BuilderName.." at "..task.Priority)
-		
-			for _,value in task.BuilderConditions do
-			
-				--if unit.BuilderType == 'Commander' then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.."         checking condition "..repr(value).." "..repr(aiBrain.ConditionsMonitor.ResultTable[value].FunctionName) )
-				--end
+		local GetBuilderStatus = function( BuilderConditions )
 
-				if not aiBrain.ConditionsMonitor.ResultTable[value].Instant then
+			for _,value in BuilderConditions do
+
+				if not ResultTable[value].Instant then
 				
-					if not aiBrain.ConditionsMonitor.ResultTable[value].Status then
-					
+					if not ResultTable[value].Status then
 						return false
 					end
 				else
-					if not aiBrain.ConditionsMonitor.ResultTable[value]:GetStatus(aiBrain) then
-					
+                
+                    conditionschecked = conditionschecked + 1
+
+					if not ResultTable[value]:GetStatus(aiBrain) then
 						return false
 					end
 				end
@@ -267,26 +243,17 @@ BuilderManager = Class {
 			
 			self.BuilderData[unit.BuilderType].NeedSort = false
         end
-		
-		-- use the BuilderParamCheck function specific to the Manager that called this function (ie. Engineer or Factory)
-        local BuilderParamCheck = self.BuilderParamCheck		
-		
-        local found = false
-        local possibleBuilders = {}
-		local counter = 0
-		
-		local TaskList = self.BuilderData[unit.BuilderType].Builders or {}
-
-		local continuesearching = true
 
         for k,task in TaskList do
+        
+            conditionschecked = 0
 		
 			if task.Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
                 if (not found) or task.Priority >= found then
 
-                    if GetBuilderStatus( task ) then
+                    if GetBuilderStatus( task.BuilderConditions ) then
 
                         if BuilderParamCheck(self, task, unit) then
 						
@@ -297,9 +264,9 @@ BuilderManager = Class {
                     end
                     
                 elseif found and task.Priority < found then
-				
 					continuesearching = false
                 end
+                
             else
 
 				if task.OldPriority and task.OldPriority == 0 then
@@ -385,7 +352,7 @@ BuilderManager = Class {
 	-- is the PrimaryLandAttackBase or not
 	
 	-- essentially, as more conditions must be checked (more bases) we slow the rate of platoon checking
-	-- run all bases at 2/3 the rate of the Condition Monitor -- except primary runs at 1 to 1
+	-- run all bases at 1/2 the rate of the Condition Monitor -- except primary runs at 1 to 1
     
     -- One huge difference in the PFM is that unlike the EM and the FM - if two tasks have equal priority
     -- and they both pass their status checks, the PFM will form them in alphabetical order
@@ -393,50 +360,57 @@ BuilderManager = Class {
 
         local LOUDCEIL = math.ceil
 		local LOUDFLOOR = math.floor
+        local LOUDGETN = table.getn
         local WaitTicks = coroutine.yield
        
         local ManagerLoopBody = self.ManagerLoopBody
 
 		local duration = (self.BuilderCheckInterval) * 10
-        local ticksize = 1	
+        local ticksize = 1
+        
+        local conditionscheckedcount = 0
+        local conditioncounttotal = 0
 
 		local tasks = self.NumBuilders
-		
-		local GetBuilderStatus = function( self, ResultTable )
-			
-			for _,v in self.BuilderConditions do
-			
-				if not ResultTable[v].Instant then
-				
-					if not ResultTable[v].Status then
-					
-						return false
-						
-					end
-					
-				else
-				
-					if not ResultTable[v]:GetStatus(brain) then
-					
-						return false
-						
-					end
-					
-				end
-				
-			end
-		
-			return true
-		end		
 		
 		local numTicks, numTested, numPassed
 		
 		local PoolGreaterAtLocation = import ('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
+
+
+		local GetBuilderStatus = function( BuilderConditions, ResultTable )
+
+			for _,v in BuilderConditions do
+            
+                conditioncounttotal = conditioncounttotal + LOUDGETN(BuilderConditions)
+			
+				if not ResultTable[v].Instant then
+				
+					if not ResultTable[v].Status then
+						return false
+					end
+					
+				else
+                    conditionscheckedcount = conditionscheckedcount + 1
+                    
+                    WaitTicks(1)
+                    numTicks = numTicks + 1
+				
+					if not ResultTable[v]:GetStatus(brain) then
+						return false
+					end
+					
+				end
+			end
 		
+			return true
+		end		
+
+	
         while self.Active do
         
             -- if this is not a naval base - see if mode should change from Amphibious to Land
-            if brain.AttackPlan.Goal and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
+            if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not table.equal(self.LastGoalCheck, brain.AttackPlan.Goal) ) and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
         
                 local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 99999, 160 )
                 
@@ -445,44 +419,29 @@ BuilderManager = Class {
                 if path and not brain.BuilderManagers[self.LocationType].LandMode then
                 
                     brain.BuilderManagers[self.LocationType].LandMode = true
-                    LOG("*AI DEBUG "..brain.Nickname.." There is a LAND path from "..self.LocationType.." dist "..landpathlength.." steps "..LOUDGETN(path).." cost is "..repr(pathcost).." to "..repr(brain.AttackPlan.Goal))
+
                 else
-                    if not path then
+                    if not path and brain.BuilderManagers[self.LocationType].LandMode then
+                    
                         brain.BuilderManagers[self.LocationType].LandMode = false
-                        LOG("*AI DEBUG "..brain.Nickname.." No LAND path from "..self.LocationType.." to "..repr(brain.AttackPlan.Goal).." - now in AMPHIB mode")
+
                     end
                 end
                 
-                --local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Amphibious', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 9999, 160 )
-                
-                --if path then
-                    --LOG("*AI DEBUG "..brain.Nickname.." There is a AMPHIB path from "..self.LocationType.." dist "..landpathlength.." steps "..LOUDGETN(path).." cost is "..repr(pathcost).." to "..repr(brain.AttackPlan.Goal))
-                --end
+                -- record the position of the the goal --
+                self.LastGoalCheck = table.copy(brain.AttackPlan.Goal)
             end
-		
-			if self.BuilderData['Any'].NeedSort then
-            
-                local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
-            
-				-- reset the tasks with Priority Functions at this PFM
-				ResetPFMTasks( self, brain )
-			
-				LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
-				
-                --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
-                
-				self.BuilderData['Any'].NeedSort = false
-			end
+
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
-			-- Simply, the PFM at a Primary Base runs twice as fast as the Conditions Monitor while other bases run
-			-- at the same frequency as the Conditions Monitor thread
-			if brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
+			-- Simply, the PFM at a Primary Base (or MAIN) runs at the same speed as the Conditions Monitor while other bases run
+			-- at half that speed
+			if self.LocationType == 'MAIN' or brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * .5
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
 			else
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 5
 			end		
 			
 			if tasks != self.NumBuilders or ((self.BuilderCheckInterval * 10) != duration) then
@@ -495,9 +454,26 @@ BuilderManager = Class {
             numTicks = 0
 			numTested = 0
 			numPassed = 0
+            
+            conditionscheckedcount = 0
+            conditioncounttotal = 0
 			
             -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, self.LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then
+		
+                if self.BuilderData['Any'].NeedSort then
+            
+                    local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
+            
+                    -- reset the tasks with Priority Functions at this PFM
+                    ResetPFMTasks( self, brain )
+			
+                    LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
+				
+                    --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
+                
+                    self.BuilderData['Any'].NeedSort = false
+                end
 			
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
@@ -509,35 +485,27 @@ BuilderManager = Class {
 					for _,bData in bTypeData.Builders do
 					
 						if bData.Priority >= 100 then
---[[                        
-                            if ScenarioInfo.PlatoonDialog then
-                        
-                                LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." testing "..repr(bData.Priority).." "..repr(bData.BuilderName))
-                                
-                            end
---]]					
+
 							numTested = numTested + 1
 						
-							if GetBuilderStatus( bData, brain.ConditionsMonitor.ResultTable ) then
-                            
-                                if ScenarioInfo.PlatoonDialog then
-                                    LOG("*AI DEBUG "..brain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(bData.BuilderName))
-                                end
-						
+							if GetBuilderStatus( bData.BuilderConditions, brain.ConditionsMonitor.ResultTable ) then
+
 								ForkTo ( ManagerLoopBody, self, bData, bType, brain )
 							
 								numPassed = numPassed + 1
 						
 								WaitTicks(ticksize)
 								numTicks = numTicks + ticksize
-							end
+                            end
 						end
 					end
 				end
 			end
+            
+            --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." processed "..numTested.." Builders - ticks used is "..numTicks.." Formed "..numPassed)
+            --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass - in "..(numTicks/10).." seconds")
 			
 			if numTicks < duration then
-			
 				WaitTicks( duration - numTicks )
 			end
         end

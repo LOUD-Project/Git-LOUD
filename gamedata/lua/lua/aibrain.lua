@@ -7,7 +7,9 @@
 
 	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
-	
+
+    ScenarioInfo.EngineerDialog = false
+    LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
 	-- ATTACK PLANS and AI Strength Ratios
 	ScenarioInfo.DisplayAttackPlans = false
@@ -37,21 +39,26 @@
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 
+
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
+
     
     -- PATHFINDING dialogs - report pathfinding failures to log
     ScenarioInfo.PathFindingDialog = false
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
+
     
 	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
+
     
     -- INSTANCE COUNT dialogs - shows instance counts for tasks as they are used/released
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
+
 	
 	-- UNIT BUFF dialog - show units being buffed and de-buffed
 	ScenarioInfo.BuffDialog = false
@@ -1228,10 +1235,9 @@ AIBrain = Class(moho.aibrain_methods) {
             position[2] = GetSurfaceHeight( position[1], position[3] )
 			
 			basetype = "Sea"
-			
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName))
+		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName).." counted is "..repr(countedbase))
 		
 		-- add the buildermanager record to this brain
         self.BuilderManagers[baseName] = {
@@ -1258,7 +1264,20 @@ AIBrain = Class(moho.aibrain_methods) {
             PlatoonFormManager = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
+
+        -- increment the base counter for production bases (those that have factories)
+		if countedbase then
 		
+			if basetype == "Sea" then	
+				self.NumBasesNaval = self.NumBasesNaval + 1
+			else
+				self.NumBasesLand = self.NumBasesLand + 1
+			end
+			
+			-- increment the total number of bases used by this brain
+			self.NumBases = self.NumBases + 1
+		end
+
 		-- this call will calculate the Rally Point positions for this base
 		-- we do it here (just after creating the BuilderManagers record) since it relies upon data from within that table (as opposed to doing it during it's creation)
 		self.BuilderManagers[baseName].RallyPoints = SetBaseRallyPoints( self, baseName, basetype, rallypointradius, rallypointorientation )
@@ -1269,24 +1288,6 @@ AIBrain = Class(moho.aibrain_methods) {
         -- check if we need to assign new primary attack bases
 		SetPrimaryLandAttackBase(self)
 		SetPrimarySeaAttackBase(self)
-		
-		if countedbase then
-		
-			if basetype == "Sea" then	
-			
-				self.NumBasesNaval = self.NumBasesNaval + 1
-				
-			else
-			
-				self.NumBasesLand = self.NumBasesLand + 1
-				
-			end
-			
-			-- increment the total number of bases used by this brain
-			self.NumBases = self.NumBases + 1
-			
-		end
-		
     end,
 
     GetStartVector3f = function(self)
@@ -1294,7 +1295,6 @@ AIBrain = Class(moho.aibrain_methods) {
         local startX, startZ = self:GetArmyStartPos()
 
         return { startX, GetTerrainHeight( startX, startZ ), startZ }
-
     end,
 
     AbandonedByPlayer = function(self)

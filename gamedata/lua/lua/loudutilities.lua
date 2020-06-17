@@ -31,82 +31,91 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-
+local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 
 -- static version of function from EBC
 function GreaterThanEnergyIncome(aiBrain, eIncome)
-
 	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
-	
 end
 
 -- static versions of functions from UCBC
 function IsBaseExpansionUnderway(aiBrain, bool)
-
 	return bool == aiBrain.BaseExpansionUnderway
-	
+end
+
+function PoolLess( aiBrain, unitCount, testCat)
+	return PlatoonCategoryCount( aiBrain.ArmyPool, testCat ) < unitCount
+end
+
+function PoolGreater( aiBrain, unitCount, testCat)
+	return PlatoonCategoryCount( aiBrain.ArmyPool, testCat ) > unitCount
 end
 
 function FactoryGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
-
 	return EntityCategoryCount( testCat, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) > unitCount	
+end
+
+function FactoriesGreaterThan( aiBrain, unitCount, testCat )
+
+	local result = 0
 	
+	for k,v in aiBrain.BuilderManagers do
+		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
+	end
+    
+	return result > unitCount
 end
 
 function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 
 	if aiBrain.BuilderManagers[locationType].EngineerManager then
-	
 		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') < unitCount
-		
 	end
 	
 	return false
-	
+end
+
+function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
+
+	if aiBrain.BuilderManagers[locationType].EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') > unitCount
+	end
+    
+	return false
 end
 
 function HaveGreaterThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
-
     return GetCurrentUnits(aiBrain,testCat) > numReq
-
 end
 
 function HaveGreaterThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
-
 	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) > numReq
-	
 end
 
 function HaveLessThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
-	
     return GetCurrentUnits(aiBrain,testCat) < numReq
-	
 end
 
 
 function UnitCapCheckGreater(aiBrain, percent)
 
 	if aiBrain.IgnoreArmyCaps then
-	
 		return false
-		
 	end
 	
     return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) > percent 
-	
 end
 
 function UnitCapCheckLess(aiBrain, percent)
 
 	if aiBrain.IgnoreArmyCaps then
-	
 		return true
-		
 	end
 
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
-	
 end
+
+
 
 
 -- This routine returns the location of the closest base that has engineers or factories
@@ -128,7 +137,7 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 			end
         end
     end
-	
+
     return closest
 end
 
@@ -153,6 +162,8 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 			end
 		end
     end
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." FindClosestBase says "..repr(closest).." from position "..repr(position))
 
     return closest
 end
@@ -785,7 +796,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 	else
 		-- try and catch units being dispersed to what may now be a dead base --
 		-- the idea is to drop them back into an RTB which should find another base
-		--WARN("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
+		LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
 
        	IssueClearCommands( units )
 
@@ -1247,21 +1258,20 @@ function ResetBrainNeedsTransport( aiBrain )
     aiBrain.NeedTransports = false
 end
 
--- this function will direct all air units (ex. Transports) into the refit/refuel process if needed
+-- this function will direct all air units into the refit/refuel process if needed
 -- this is fired off by the OnRunOutOfFuel event which triggers it as a callback -- only used by the AI --
 -- or during the ReturnToBaseAI function 
 function ProcessAirUnits( unit, aiBrain )
 
-	if not unit.Dead then
-    
+	if (not unit.Dead) and (not unit:IsBeingBuilt()) then
+
         local fuel = unit:GetFuelRatio()
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
-			
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool")
-            
-			-- put air unit into the refuel pool -- 
-			aiBrain:AssignUnitsToPlatoon( aiBrain.RefuelPool, {unit}, 'Support', 'none' )
+
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool ")
+            end
 
 			-- and send it off to the refit thread --
 			unit:ForkThread( AirUnitRefitThread, aiBrain )
@@ -1282,14 +1292,23 @@ function AirUnitRefitThread( unit, aiBrain )
 	-- if not dead 
 	if (not unit:BeenDestroyed()) then
 
+        local ident = Random(100000,999999)
+        local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
+        
+        returnpool.BuilderName = 'AirRefit'..tostring(ident)
+
+        aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
+
+        unit.PlatoonHandle = returnpool
+
 		local fuellimit = .75
 		local healthlimit = .80
-		
+
 		local fuel, health, unitpos, plats, closestairpad, distance
 		local platpos, tempDist
-		
+
 		local rtbissued = false
-	
+
 		while (not unit.Dead) do
 		
 			fuel = GetFuelRatio(unit)
@@ -1314,12 +1333,8 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						-- Begin loading/refit sequence
 						if closestairpad then
-						
 							AirStagingThread (unit, closestairpad, aiBrain )
-
 						end
-                    else
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no airpad in range for unit "..unit.Sync.id)
                     end
                 end
                 
@@ -1335,43 +1350,28 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
-                        
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." no airpad in range - moving to "..repr(baseposition))
-			
-                        local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 240)
+
+                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 250)
 			
                         if safePath then
-            
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
-			
+
                             -- use path
                             for _,p in safePath do
                                 IssueMove( {unit}, p )
                             end
-                
                         else
-                        
-                            if ScenarioInfo.TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- refuel no airpad -- after drop")
-                            end
-                
                             -- go direct -- possibly bad
                             IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
-                
                         end
-						
-						--IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
 					end
 				end
-
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." unit "..unit.Sync.id.." leaving refit thread")
 				break
 			end
 	
-			WaitTicks(65)
+			WaitTicks(30)
 		end
 	end
 	
@@ -1387,7 +1387,10 @@ function AirUnitRefitThread( unit, aiBrain )
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )
 		else
-
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
+            end
+            
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
 		end
 	end
@@ -1405,26 +1408,26 @@ function AirStagingThread( unit, airstage, aiBrain )
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
 
-            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 14, 240)
+            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 16, 240)
 			
             if safePath then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath))
-			
+                
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." data is "..repr(unit))
+                end
+
                 -- use path
                 for _,p in safePath do
                     IssueMove( {unit}, p )
                 end
-
             else
-            
                 if ScenarioInfo.TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
                 end
-                
+
                 -- go direct -- possibly bad
                 IssueMove( {unit}, GetPosition(airstage))
-                
             end
 
 			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
@@ -1441,13 +1444,18 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while not ( unit.Dead and not airstage.Dead) do
 		
-		--if (not unit:IsUnitState('Attached') and (not unit:IsIdleState())) and (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
+            waitcount = waitcount + 1
         else
 			break
 		end
+        
+        if (not EntityCategoryContains( categories.CANNOTUSEAIRSTAGING, unit)) and waitcount > 90 then
+
+            return AirStagingThread( unit, airstage, aiBrain )
+        end
 	end
 	
 	-- get it off the airpad
@@ -1493,7 +1501,6 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	if not unit.Dead then
-	
 		unit:MarkWeaponsOnTransport(unit, false)
 	end	
 end
@@ -2172,7 +2179,7 @@ end
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
 -- no longer valid means no engineers AND no factories for at least 200 seconds (10 loops)
--- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 32 are dead
+-- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 60 are dead
 function DeadBaseMonitor( aiBrain )
 
 	WaitTicks(1800)	#-- dont start for 3 minutes
@@ -2199,7 +2206,7 @@ function DeadBaseMonitor( aiBrain )
 
 			if not v.CountedBase then
 			
-				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 32))
+				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
 				
 			end
 
@@ -2213,7 +2220,7 @@ function DeadBaseMonitor( aiBrain )
 				-- if base has no engineers AND has had no factories for about 200 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k).." counted is "..repr(v.CountedBase))
 					
 					-- handle the MAIN base
 					if k == 'MAIN' then
@@ -2450,7 +2457,7 @@ function PathGeneratorAir( aiBrain )
 	
 	local closed = {}
 	local queue = {}
-	local data = {}
+	local data = false
 
     local PathRequests = aiBrain.PathRequests.Air
     local PathReplies = aiBrain.PathRequests['Replies']
@@ -2472,10 +2479,12 @@ function PathGeneratorAir( aiBrain )
 	--	 the platoon will chose a path that gets there with survivable losses that allow it to get to the final destination
 	--	 the platoon will refuse the task	
 	while true do
+    
+        data = LOUDREMOVE(PathRequests, 1) or false
 		
-		if PathRequests[1] then
-		
-			data = LOUDREMOVE(PathRequests, 1)
+		if data then
+
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." processing "..repr(data.Platoon.BuilderName).." request - current path reply is "..repr(PathReplies[data.platoon]))
             
 			closed = {}
             
@@ -2500,12 +2509,18 @@ function PathGeneratorAir( aiBrain )
 			end
 			
 			if not PathReplies[data.Platoon] then
+            
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe AIR path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe AIR path found to "..repr(data.Dest))
                 end
+                
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
-			end
+			--else
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." has a reply of "..repr(PathReplies[data.Platoon]))
+            end
 		end
+        
+        data = false
 		
 		WaitTicks(1)
 	end
@@ -2670,7 +2685,7 @@ function PathGeneratorAmphibious(aiBrain)
 			
 			if not PathReplies[data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe AMPHIB path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
@@ -2822,7 +2837,7 @@ function PathGeneratorLand(aiBrain)
 
 			if not PathReplies[data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then            
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe LAND path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe LAND path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
@@ -2962,7 +2977,7 @@ function PathGeneratorWater(aiBrain)
 			
 			if not aiBrain.PathRequests['Replies'][data.Platoon] then
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..data.Platoon.BuilderName.." no safe WATER path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." no safe WATER path found to "..repr(data.Dest))
                 end
 				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
@@ -3157,7 +3172,7 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 66 	-- the rate of a single iteration in ticks - essentially every 6.6 seconds
+	local parseinterval = 75    --66 	-- the rate of a single iteration in ticks - essentially every 6.6 seconds
 
     -- the current iteration value
     local iterationcount = 1 
@@ -3189,6 +3204,7 @@ function ParseIntelThread( aiBrain )
     local EnemyDataHistory = EnemyData.History
 
     local NumOpponents = aiBrain.NumOpponents
+    local NumAllies = aiBrain.NumAllies
 	
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
@@ -3497,8 +3513,6 @@ function ParseIntelThread( aiBrain )
 							LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." ignoring threat of "..repr(threat[3]).." at "..repr( {threat[1],0,threat[2]} ))
 						end
 
-						-- reduce the existing threat to zero - it's already very low
-						--aiBrain:AssignThreatAtPosition( newPos, -1 * threat[3], 0.01, threatType)
 					end
                 end
 
@@ -3611,123 +3625,133 @@ function ParseIntelThread( aiBrain )
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
 		--myunits = GetListOfUnits( aiBrain, categories.MOBILE, false, false)
 
-		--- AIR UNITS ---
-		-----------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
-
-		-- calculate my present airvalue			
-		for _,v in GetListOfUnits( aiBrain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-
-			myvalue = myvalue + bp.AirThreatLevel + bp.SubThreatLevel + bp.SurfaceThreatLevel
-		end
-
-		if EnemyData['Air']['Total'] > 0 then
+        if (iterationcount == 4) or (iterationcount == 8) then
+        
             
-            for v, brain in ArmyBrains do
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
+        
+            --- AIR UNITS ---
+            -----------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
+
+
+            if EnemyData['Air']['Total'] > 0 then
+            
+                for v, brain in ArmyBrains do
+            
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                    local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, true)
+                        local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
                     
-                    for _,v in enemyunits do
+                        for _,v in enemyunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                        realcount = realcount + 1
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+                        local myteamunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                    
+                        for _,v in myteamunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end                    
                     end
                 end
-            end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+                aiBrain.AirRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.AirRatio = 0.01
+            end
 
-            aiBrain.AirRatio = realvalue
-		else
-			aiBrain.AirRatio = 0.01
-		end
+            --- LAND UNITS ---
+            ------------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
 
-		--- LAND UNITS ---
-		------------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
+            if EnemyData['Land']['Total'] > 0 then
 
-		for _,v in GetListOfUnits( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-			
-			myvalue = myvalue + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.AirThreatLevel
-		end
-
-		if EnemyData['Land']['Total'] > 0 then
-
-            for v, brain in ArmyBrains do
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                for v, brain in ArmyBrains do
+            
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                    local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT, false, true)
+                        local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
                     
-                    for _,v in enemyunits do
+                        for _,v in enemyunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.EconomyThreatLevel
-                        realcount = realcount + 1
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+                
+                        local myteamunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
+                    
+                        for _,v in myteamunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end
                     end
                 end
-            end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+                aiBrain.LandRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.LandRatio = 0.01
+            end
 
-            aiBrain.LandRatio = realvalue
-        else
-			aiBrain.LandRatio = 0.01
-		end
+            --- NAVAL UNITS ---
+            -------------------
+            myvalue = 0
+            realvalue = 0
+            realcount = 0
 
-		--- NAVAL UNITS ---
-		-------------------
-		myvalue = 0
-        realvalue = 0
-        realcount = 0
+            if EnemyData['Naval']['Total'] > 0 then
 
-		-- calculate my present naval value -- I don't think we should be adding our own factories to this total --
-		for _,v in GetListOfUnits( aiBrain, (categories.MOBILE * categories.NAVAL), false, false ) do
-		
-			bp = ALLBPS[v.BlueprintID].Defense
-			
-			myvalue = myvalue + bp.SubThreatLevel + bp.SurfaceThreatLevel + bp.AirThreatLevel
-		end
-
-		if EnemyData['Naval']['Total'] > 0 then
-
-            for v, brain in ArmyBrains do
-                if IsEnemy( aiBrain.ArmyIndex, v ) then
+                for v, brain in ArmyBrains do
+            
+                    if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                    -- but here - we include the enemy naval factories and defenses - this means we'll always try to stay ahead of the turtle -
-                    local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, true)
+                        local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
                     
-                    for _,v in enemyunits do
+                        for _,v in enemyunits do
                     
-                        local bp = ALLBPS[v.BlueprintID].Defense
+                            local bp = ALLBPS[v.BlueprintID].Defense
                         
-                        realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                        realcount = realcount + 1
+                            realvalue = realvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            realcount = realcount + 1
+                        end
+                    else
+
+                        local myteamunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                    
+                        for _,v in myteamunits do
+                    
+                            local bp = ALLBPS[v.BlueprintID].Defense
+                        
+                            myvalue = myvalue + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                        end                
                     end
                 end
-            end
             
-            realvalue = LOUDMAX( LOUDMIN( myvalue / (realvalue/NumOpponents), 100 ), 0.011)
+                aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (myvalue / realvalue), 10 ), 0.011)
+            else
+                aiBrain.NavalRatio = 0.01
+            end
 
-            aiBrain.NavalRatio = realvalue
-		else
-			aiBrain.NavalRatio = 0.01
-		end
-
-		if ScenarioInfo.ReportRatios then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
-		end
+            if ScenarioInfo.ReportRatios then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
+            end
+        
+        end
+        
     end
 end
 
@@ -3774,6 +3798,7 @@ function BuildScoutLocations( self )
         local myArmy = ScenarioInfo.ArmySetup[self.Name]
 
         local numOpponents = 0
+        local numAllies = 0
 
         if ScenarioInfo.Options.TeamSpawn == 'fixed' then
 			
@@ -3789,13 +3814,11 @@ function BuildScoutLocations( self )
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
-						
-						-- assign initial threat of 500 at enemy position
-						--self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
-						
+
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 500, Permanent = true } )
                     else
                         allyStarts['ARMY_' .. i] = startPos
+                        numAllies = numAllies + 1
                     end
                 end
             end
@@ -3824,13 +3847,11 @@ function BuildScoutLocations( self )
 					
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
-						
-						-- assign initial threat of 500 at enemy position
-						--self:AssignThreatAtPosition( startPos, 500, 0.001, 'Economy' )
-						
+
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 500, Permanent = false } )
                     else
                         allyStarts['ARMY_' .. i] = startPos
+                        numAllies = numAllies + 1
                     end				
                 end
             end
@@ -3849,6 +3870,7 @@ function BuildScoutLocations( self )
 
         self.Players = ScenarioInfo.Options.PlayerCount
         self.NumOpponents = numOpponents
+        self.NumAllies = numAllies
 		
 		local StartPosX, StartPosZ = self:GetArmyStartPos()
 		
@@ -4107,7 +4129,7 @@ function CreateAttackPlan( self, enemyPosition )
 						-- attack plan will be amphibious if no land path, even if we dont find a path --
 						self.AttackPlan.Method = 'Amphibious'
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 240)
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 250)
 						
 					end
 
@@ -4252,7 +4274,7 @@ end
 
 function AttackPlanMonitor(self)
 	
-	LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
+	--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
 	
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()

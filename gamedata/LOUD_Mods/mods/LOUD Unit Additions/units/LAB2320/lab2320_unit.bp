@@ -40,7 +40,7 @@ AI = {
         'AEON',
         'STRUCTURE',
         'TECH3',
-		'INDIRECTFIRE',
+        'TACTICAL',
         'ARTILLERY',
         'DRAGBUILD',
 		'SIZE8',
@@ -183,11 +183,11 @@ AI = {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
     },
 	
     Weapon = {
@@ -214,21 +214,21 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',
             LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -262,7 +262,9 @@ AI = {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
 			
@@ -304,22 +306,22 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
-			
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',
 			
             LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -351,10 +353,12 @@ AI = {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel01',
@@ -393,22 +397,22 @@ AI = {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
-			
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',
 			
             LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -440,10 +444,12 @@ AI = {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Barrel02',

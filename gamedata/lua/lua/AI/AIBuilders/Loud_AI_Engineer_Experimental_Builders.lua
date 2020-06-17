@@ -138,7 +138,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
         },
 		
@@ -176,7 +176,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
         },
 		
@@ -290,7 +290,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
         },
 		
@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
         },
 		
@@ -571,7 +571,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -607,7 +607,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -768,7 +768,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
             { LUTL, 'UnitCapCheckLess', { .95 } },		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 3, categories.BATTLESHIP }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -810,7 +810,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -857,7 +857,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -899,7 +899,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 3, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			

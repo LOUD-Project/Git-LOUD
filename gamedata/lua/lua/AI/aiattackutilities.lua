@@ -211,9 +211,6 @@ function GetPathGraphs()
 				
 				table.insert(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
 			end
-            
-            --LOG ("*AI DEBUG "..repr(k).." table is "..repr(ScenarioInfo.PathGraphs[k]) )
-
 		end
 
 		local mapsizex = ScenarioInfo.size[1]
@@ -264,7 +261,6 @@ function GetPathGraphs()
 							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
 							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
 						end
-						
 					end
 
 					if badpoint then
@@ -328,20 +324,14 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 						if VDist2Sq(base.Position[1], base.Position[3], markerPos[1], markerPos[3]) < (baseRadius * baseRadius) then
 						
 							return false
-							
 						end
-						
 					end
-					
 				end
-				
 			end
-			
 		end
 		
 		-- position is ok (not within radius of an Allied base)
         return true
-		
     end	
 	
 	if PointType == 'Unit' and type(PointCategory) == 'string' then
@@ -510,7 +500,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					counter = counter - 1
 					continue
 				end
-				
 			end
 			
 			-- unit count check --

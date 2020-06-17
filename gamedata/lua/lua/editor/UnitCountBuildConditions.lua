@@ -48,13 +48,11 @@ end
 function HaveGreaterThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
 
 	return GetCurrentUnits(aiBrain,testCat) > numReq
-
 end
 
 function HaveLessThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
 
     return GetCurrentUnits(aiBrain,testCat) < numReq
-
 end
 
 function HaveLessThanUnitsAsPercentageOfUnitCap(aiBrain, Percentage, testCat, idleReq)
@@ -62,15 +60,14 @@ function HaveLessThanUnitsAsPercentageOfUnitCap(aiBrain, Percentage, testCat, id
 	local numReq = GetArmyUnitCap(aiBrain.ArmyIndex) * (Percentage/100)
 
     return GetCurrentUnits(aiBrain,testCat) < numReq
-
 end
 
 function HaveLessThanUnitsForMapSize(aiBrain, sizetable, testCat, idleReq)
 	
-	local numReq = sizetable[ScenarioInfo.size[1]] or sizetable[ScenarioInfo.size[2]]
+    -- use the largest map dimension to determine which size selection we'll use for the number required
+	local numReq = math.max(sizetable[ScenarioInfo.size[1]], sizetable[ScenarioInfo.size[2]])
 	
     return GetCurrentUnits(aiBrain,testCat) < numReq
-
 end
 
 function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, category )
@@ -82,9 +79,7 @@ function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, categor
 			if numReq > EntityCategoryCount( category, v.FactoryManager.FactoryList ) then
 				return false
 			end	
-			
 		end
-		
 	end
 	
 	return true
@@ -121,6 +116,7 @@ function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 			return false
 		end
     end
+    
 	return true
 end
 
@@ -131,7 +127,6 @@ function BaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin,
     if AIFindBaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
 	
         return true
-		
     end
 	
     return false
@@ -143,7 +138,6 @@ function BaseAreaForDP( aiBrain, locationType, locationRadius, threatMin, threat
     if AIFindBaseAreaForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
 	
         return true
-		
     end
 	
     return false
@@ -155,11 +149,9 @@ function DefensivePointForExpansion( aiBrain, locationType, locationRadius, thre
     if AIFindDefensivePointForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
 	
         return true
-		
     end
 	
     return false
-	
 end
 
 -- used to find available Naval Area positions
@@ -168,6 +160,7 @@ function NavalAreaForExpansion( aiBrain, locationType, locationRadius, threatMin
 	if AIFindNavalAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
         return true
     end
+    
     return false
 end
 
@@ -176,6 +169,7 @@ function DefensivePointNeedsStructure( aiBrain, locationType, locationRadius, ca
     if AIFindDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
+    
     return false    
 end
 
@@ -184,6 +178,7 @@ function NavalDefensivePointNeedsStructure( aiBrain, locationType, locationRadiu
     if AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
+    
     return false    
 end
 
@@ -192,6 +187,7 @@ function ExpansionPointNeedsStructure( aiBrain, locationType, locationRadius, ca
     if AIFindExpansionPointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
+    
     return false    
 end
 
@@ -200,6 +196,7 @@ function StartingPointNeedsStructure( aiBrain, locationType, locationRadius, cat
     if AIFindStartPointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
+    
     return false    
 end
 
@@ -208,6 +205,7 @@ function BasePointNeedsStructure( aiBrain, locationType, locationRadius, categor
     if AIFindBasePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
+    
     return false    
 end
 
@@ -216,6 +214,7 @@ function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 	if aiBrain.BuilderManagers[locationType].EngineerManager then
 		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') < unitCount
 	end
+    
 	return false
 end
 
@@ -238,6 +237,7 @@ function UnitsLessAtLocationInRange( aiBrain, locationType, unitCount, testCat, 
 		end
 		return numUnits < unitCount
 	end
+    
 	return false
 end
 
@@ -246,6 +246,7 @@ function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
 	if aiBrain.BuilderManagers[locationType].EngineerManager then
 		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') > unitCount
 	end
+    
 	return false
 end
 
@@ -266,8 +267,10 @@ function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCa
 				numUnits = numUnits + 1
 			end
 		end
+        
 		return numUnits > unitCount
 	end
+    
 	return false
 end
 
@@ -300,6 +303,7 @@ function PoolLessAtLocation( aiBrain, locationType, unitCount, testCat)
 		
 		return numUnits < unitCount
 	end
+    
 	return true
 end
 
@@ -314,6 +318,7 @@ function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 	
 		return numUnits - (engbeingbuilt + facbeingbuilt) > unitCount
 	end
+    
 	return false
 end
 
@@ -335,6 +340,7 @@ function FactoriesGreaterThan( aiBrain, unitCount, testCat )
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
 	end
+    
 	return result > unitCount
 end
 
@@ -345,6 +351,7 @@ function FactoriesLessThan( aiBrain, unitCount, testCat )
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
 	end
+    
 	return result < unitCount
 end
 
@@ -416,7 +423,6 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
 				return true
 			end
 		end
-		
 	end
 	
     return false
@@ -462,6 +468,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
     local catCheck = false
     local capmult = 500     -- for every 500 units add 1
+    local caplimit = 1
 	
     if techLevel == 'Tech1' then
 	
@@ -471,22 +478,24 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	
         catCheck = categories.TECH2
         capmult = 300
+        caplimit = 3
 		
     elseif techLevel == 'Tech3' then
 	
         catCheck = categories.TECH3
         capmult = 250
+        caplimit = 5
 		
     elseif techLevel == 'SCU' then
 	
         catCheck = categories.SUBCOMMANDER
         capmult = 200
+        caplimit = 10
 		
     else
 	
         WARN('*AI WARNING: Invalid techLevel - ' .. techLevel)
         return false
-		
     end
 	
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
@@ -496,13 +505,13 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
 	if aiBrain.StartingUnitCap > 1000 then
 	
-        -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
-		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
-		
+        -- at 1000+ units add 1 engineer for every capmult - up to the cap limit --
+		capCheck = capCheck + math.min( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer "..repr(techLevel).." at "..repr(locationType).." is "..capCheck)
 	end
 
 	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) < capCheck
-	
 end
 
 function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
@@ -533,7 +542,6 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 	
         WARN('*AI WARNING: Invalid techLevel - ' .. techLevel)
         return false
-		
     end
 	
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
@@ -545,11 +553,9 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 	
         -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
 		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
-		
 	end
 
 	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) >= capCheck
-	
 end
 
 function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
@@ -613,6 +619,7 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
             return true
         end
     end
+    
     return false
 end
 
@@ -620,6 +627,7 @@ function UnitCapCheckGreater(aiBrain, percent)
 	if aiBrain.IgnoreArmyCaps then
 		return false
 	end
+    
     return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) > percent 
 end
 
@@ -627,6 +635,7 @@ function UnitCapCheckLess(aiBrain, percent)
 	if aiBrain.IgnoreArmyCaps then
 		return true
 	end
+    
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
 end
 
@@ -658,6 +667,7 @@ function CheckUnitRange(aiBrain, locationType, unitType, category, factionIndex)
     if unit then
         return true
     end
+    
     return false
 end
 
@@ -699,6 +709,7 @@ function CompareBody( numOne, numTwo, compareType )
         error('*AI ERROR: Invalid compare type: ' .. compareType)
         return false
     end
+    
     return false
 end
 
@@ -710,7 +721,6 @@ function ACUNeedsUpgrade(aiBrain, upgrade)
         if not v:HasEnhancement( upgrade ) then
             return true
         end
-		
     end
 	
     return false
@@ -723,7 +733,6 @@ function ACUHasUpgrade(aiBrain, upgrade)
         if v:HasEnhancement( upgrade ) then
             return true
 		end
-
     end
 	
     return false
@@ -747,6 +756,7 @@ function DamagedStructuresInArea(aiBrain, locationtype)
 			end
 		end
 	end
+    
     return false
 end
 
@@ -763,6 +773,7 @@ function UnfinishedUnits(aiBrain, locationType, category)
 			end
 		end
 	end
+    
 	return false
 end
 
@@ -770,11 +781,13 @@ function GetGuards(aiBrain, Unit)
 	local engs = GetUnitsAroundPoint(aiBrain, categories.ENGINEER, Unit:GetPosition(), 15, 'Ally' )
 	local count = 0
 	local UpgradesFrom = Unit:GetBlueprint().General.UpgradesFrom
+    
 	for k,v in engs do
 		if v.UnitBeingBuilt == Unit and v != Unit then
 			count = count + 1
 		end
 	end
+    
 	if UpgradesFrom and UpgradesFrom != 'none' then -- Used to filter out upgrading units
 		local oldCat = LOUDPARSE(UpgradesFrom)
 		local oldUnit = GetUnitsAroundPoint(aiBrain, oldCat, Unit:GetPosition(), 0, 'Ally' )
@@ -782,6 +795,7 @@ function GetGuards(aiBrain, Unit)
 			count = count + 1
 		end
 	end
+    
 	return count
 end
 
@@ -802,6 +816,7 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 			end
 		end
 	end
+    
 	return false
 end
 
@@ -825,6 +840,7 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 			end
 		end
 	end
+    
 	return false
 end
 
@@ -857,6 +873,7 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
 			end
 		end
 	end
+    
 	return false
 end
 
@@ -881,5 +898,6 @@ function ShieldDamaged(aiBrain, locationType)
 			end
 		end
 	end
+    
 	return false
 end

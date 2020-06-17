@@ -1,4 +1,4 @@
-local TAirStagingPlatformUnit = import('/lua/terranunits.lua').TAirStagingPlatformUnit
+local TAirStagingPlatformUnit = import('defaultunits.lua').AirStagingPlatformUnit
 
 local Buff = import('/lua/sim/Buff.lua')
 local BuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
@@ -22,7 +22,7 @@ UEB5202 = Class(TAirStagingPlatformUnit) {
 		self:GetBuffFieldByName('AirStagingBuffField'):Enable()		
 
     end,
-		
+
 }
 
 TypeClass = UEB5202

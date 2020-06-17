@@ -184,20 +184,14 @@ Platoon = Class(moho.platoon_methods) {
 	        if cb then
 			
                 cb( GetBrain(self), self )
-				
             end
-			
         end
-		
     end,
 
     OnDestroy = function( self)
 
 		if ScenarioInfo.PlatoonDialog then
-		
 			local aiBrain = GetBrain(self)
-			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon OnDestroy  from "..repr(self.LocationType) )
 		end
 
         for k, cb in self.EventCallbacks.OnDestroyed do
@@ -205,9 +199,7 @@ Platoon = Class(moho.platoon_methods) {
 	        if cb then
 			
                 cb( GetBrain(self), self )
-				
             end
-			
         end		
 
         self.Trash:Destroy()
@@ -296,9 +288,9 @@ Platoon = Class(moho.platoon_methods) {
 			end
 		else
 			--WARN("*AI DEBUG "..self.BuilderName.." has no path ! Position is "..repr(prevpoint))
-            
-            self:KillMoveThread()
 		end
+        
+        self:KillMoveThread()        
 	end,
 	
 	KillMoveThread = function( self )
@@ -538,7 +530,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- can the transports reach that marker ?
 						if landpath then
 
-							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 240 )
+							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 250 )
 						
 							if path then
 
@@ -616,7 +608,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
+                    if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
+                    end
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 				end
@@ -1056,6 +1050,10 @@ Platoon = Class(moho.platoon_methods) {
 		-- if the nodes are not in the bad path cache generate a path for them
 		-- Generate the safest path between the start and destination nodes
 		if not BadPath[startNodeName][endNodeName] then
+        
+            --if platoon.BuilderName then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." submits "..platoonLayer.." path request")
+            --end
 			
 			-- add the platoons request for a path to the respective path generator for that layer
 			LOUDINSERT(aiBrain.PathRequests[platoonLayer], {
@@ -1075,21 +1073,22 @@ Platoon = Class(moho.platoon_methods) {
             local Replies = aiBrain.PathRequests['Replies']
 			
 			local waitcount = 1
-		
 			
 			-- loop here until reply or 90 seconds
 			while waitcount < 100 do
-			
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." waiting on path request "..waitcount)
+                
 				WaitTicks(3)
 
 				waitcount = waitcount + 1
 				
 				if Replies[platoon].path then
-				
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." gets path reply")
 					break
 				end
 			end
-		
+
 			if waitcount < 100 then
 			
 				path = Replies[platoon].path
@@ -1102,7 +1101,8 @@ Platoon = Class(moho.platoon_methods) {
 				return false, 'NoResponse',0,0
 			end
 
-			Replies[platoon] = false
+            -- remove reply
+			Replies[platoon] = nil  --false
 		end
 
 		if not path or path == 'NoPath' then
@@ -1132,34 +1132,25 @@ Platoon = Class(moho.platoon_methods) {
 		local VDist2 = VDist2
 		
 		if not aiBrain then
-		
 			aiBrain = GetBrain(self)
-			
 		end
 
 		if self == aiBrain.ArmyPool or not PlatoonExists(aiBrain, self) then
 		
 			WARN("*AI DEBUG "..aiBrain.Nickname.." ArmyPool or nil in RTB for "..repr(self.BuilderName))
 			return
-			
 		end
 		
 		if self.DistressResponseAIRunning then
-		
 			self.DistressResponseAIRunning = false
-			
 		end
 
 		if self.MoveThread then
-
 			self:KillMoveThread()
-			
 		end
 		
 		if not self.MovementLayer then
-		
 			GetMostRestrictiveLayer(self)
-			
 		end
 		
 		-- assume platoon is dead 
@@ -1192,19 +1183,14 @@ Platoon = Class(moho.platoon_methods) {
                     if v.BuilderName and ScenarioInfo.NameEngineers then
 					
 						if not LOUDENTITY( categories.COMMAND, v ) then
-						
 							v:SetCustomName("Eng "..v.Sync.id.." RTB from "..v.BuilderName.." to "..v.LocationType )
-							
 						end
-						
                     end
 					
 					-- force CDR to disband - he never leaves home
 	                if LOUDENTITY( categories.COMMAND, v ) then
-					
 						self:PlatoonDisband( aiBrain )
 						return
-						
 					end
 					
 					RTBLocation = v.LocationType
@@ -1220,7 +1206,6 @@ Platoon = Class(moho.platoon_methods) {
 						
 							self.LocationType = v.LocationType
 							RTBLocation = v.LocationType
-							
 						else
 						
 							-- find the closest manager 
@@ -1231,7 +1216,6 @@ Platoon = Class(moho.platoon_methods) {
 								
 								self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
 								RTBLocation = self.LocationType
-								
 							else
 							
 								if self.MovementLayer == "Air" or self.MovementLayer == "Amphibious" then
@@ -1239,7 +1223,6 @@ Platoon = Class(moho.platoon_methods) {
 									-- use any kind of base --
 									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
 									RTBLocation = self.LocationType
-									
 								else
 								
 									-- use only naval bases for 'Sea' platoons
@@ -1247,17 +1230,12 @@ Platoon = Class(moho.platoon_methods) {
 									
 									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
 									RTBLocation = self.LocationType
-									
 								end
-								
 							end
 							
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using RTBLocation "..repr(RTBLocation))
-							
 						end
-						
 					end
-					
 				end
 				
 				-- default attached processing (something is not doing this properly)
@@ -1276,14 +1254,13 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- exit if no units --
 		if platoonDead then
-		
             return 
 		end
---[[		
+		
 		if ScenarioInfo.PlatoonDialog then
 			LOG("*AI DEBUG Platoon "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
 		end
---]]		
+
        	IssueClearCommands( GetPlatoonUnits(self) )
         
         local platPos = LOUDCOPY(GetPlatoonPosition(self))
@@ -1331,14 +1308,12 @@ Platoon = Class(moho.platoon_methods) {
 							   (self.MovementLayer == 'Water' and base.BaseType != "Sea") then
 							   
 								continue
-						
 							else
 							
 								bestBase = base
 								bestBaseName = baseName
 								RTBLocation = bestBase.Position
 								bestDistance = distance    
-								
 							end
 						end
 					end
@@ -1404,16 +1379,15 @@ Platoon = Class(moho.platoon_methods) {
             local mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
             
             if mythreat < 10 then
-			
-				mythreat = 10
+				mythreat = 15
             end
 			
 			-- set marker radius for path finding
-			local markerradius = 150
+			local markerradius = 160
 			
 			if self.MovementLayer == 'Air' or self.MovementLayer == 'Water' then
 			
-				markerradius = 200
+				markerradius = 250
 			end
 			
             -- we use normal threat first
@@ -1458,7 +1432,7 @@ Platoon = Class(moho.platoon_methods) {
 					
                         self:Stop()
 						
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..mythreat.." threat - No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
 						
 						path = { transportLocation }
 					end
@@ -1482,7 +1456,6 @@ Platoon = Class(moho.platoon_methods) {
 				self.MoveThread = self:ForkThread( self.MovePlatoon, {transportLocation}, 'GrowthFormation', true ) --:AggressiveMoveToLocation(transportLocation)    --, true)		
 				
 			end
-			
 		end
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..repr(self.BuilderName).." Moving to transportLocation - distance "..repr(math.sqrt(distance)))
@@ -1539,23 +1512,16 @@ Platoon = Class(moho.platoon_methods) {
 									Warp( v, platPos )
 									IssueMove( {v}, RTBLocation)
 									v.WasWarped = true
-									
 								else
 								
 									WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit at "..repr(unitpos).." from platoon at "..repr(platPos).." Killed in RTB")
 									
 									v:Kill()
-									
 								end
-								
 							end
-							
 						end
-						
 					end
-					
 				end
-				
             end
 			
 			-- while moving - check distance and call for transport --
@@ -1589,19 +1555,14 @@ Platoon = Class(moho.platoon_methods) {
 								distance = VDist2Sq( platPos[1],platPos[3], RTBLocation[1],RTBLocation[3] )
 								
 								usedTransports = false
-								
 							end
 							
 						else
 						
 							calltransport = calltransport + 1
-							
 						end
-						
 					end
-					
 				end
-				
 			end
 			
 			-- while moving - check for proximity to base (not transportlocation) --
@@ -1612,7 +1573,6 @@ Platoon = Class(moho.platoon_methods) {
 				
 					count = true -- we are near the base - trigger the end of the loop
                     break
-					
 				end
 				
 				-- proximity to transportlocation --
@@ -1620,30 +1580,24 @@ Platoon = Class(moho.platoon_methods) {
 				
                     count = true
                     break
-					
                 end
 				
 				-- if haven't moved much -- 
 				if not count and ( lastpos and VDist2Sq( lastpos[1],lastpos[3], platPos[1],platPos[3] ) < 0.15 ) then
 				
 					StuckCount = StuckCount + 1
-					
 				else
 				
 					lastpos = LOUDCOPY(platPos)
 					StuckCount = 0
-					
 				end
-				
 			end
 
 			-- if platoon idle or base is now inactive -- resubmit platoon if not dead --
 			if PlatoonExists(aiBrain, self) and (StuckCount > 10 or (not aiBrain.BuilderManagers[bestBaseName])) then
 				
 				if self.MoveThread then
-				
 					self:KillMoveThread()
-					
 				end
 				
 				local platooncount = 0
@@ -1652,18 +1606,13 @@ Platoon = Class(moho.platoon_methods) {
 				for k,v in GetPlatoonUnits(self) do
 				
 					if not v.Dead then
-					
 						platooncount = platooncount + 1
-						
 					end
-					
 				end
                 
 				-- dead platoon
                 if platooncount == 0 then
-				
                 	return
-					
                 end                
                 
 				-- if there is only one unit -- just move it - otherwise resubmit to RTB
@@ -1672,7 +1621,6 @@ Platoon = Class(moho.platoon_methods) {
                     IssueMove( GetPlatoonUnits(self), RTBLocation)
                     StuckCount = 0
                     count = false
-                
 				else
 				
 					local units = GetPlatoonUnits(self)
@@ -1689,7 +1637,7 @@ Platoon = Class(moho.platoon_methods) {
 					returnpool.RTBLocation = self.RTBLocation or false
 					returnpool.MovementLayer = self.MovementLayer
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(nocmdactive).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
 					
 					for _,u in units do
 					
@@ -1700,15 +1648,10 @@ Platoon = Class(moho.platoon_methods) {
 								AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
 								u.PlatoonHandle = {returnpool}
 								u.PlatoonHandle.PlanName = 'ReturnToBaseAI'
-								
 							else
-								
 								IssueMove( {u}, RTBLocation )
-								
 							end
-							
 						end
-						
 					end
 
 
@@ -1721,27 +1664,22 @@ Platoon = Class(moho.platoon_methods) {
 						
 							-- dont use naval bases for land --
 							returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
-							
 						else
 						
 							if returnpool.MovementLayer == "Air" or returnpool.PlatoonLayer == "Amphibious" then
 							
 								-- use any kind of base --
 								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
-								
 							else
 							
 								-- use only naval bases --
 								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
-								
 							end
-							
 						end
 						
 						returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
 						
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(returnpool.BuilderName).." submitted to "..repr(returnpool.BuilderLocation))
-						
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(returnpool.BuilderName).." on layer "..returnpool.MovementLayer.." submitted to "..repr(returnpool.BuilderLocation))
 					end
 					
                     count = true -- signal the end of the primary loop
@@ -1751,15 +1689,12 @@ Platoon = Class(moho.platoon_methods) {
 
 					WaitTicks(2)
 					break
-					
 				end
-				
 			end
 
 			--nocmdactive = true	-- this will trigger the nocmdactive check on the next pass
 
 			WaitTicks(55)
-
         end
         
 		if PlatoonExists(aiBrain, self) then
@@ -2194,7 +2129,6 @@ Platoon = Class(moho.platoon_methods) {
 			position = GetPlatoonPosition(self) or false
 			
 			-- FIRST TASK -- FIND A POINT WE CAN GET TO --
-			-- new feature to insure the same point is not picked repeatedly
 			
 			marker = false
 			
@@ -3329,7 +3263,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			distance = VDist3( GetPlatoonPosition(self), marker )
 
-			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 200)
+			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat, 250)
 			
 			if PlatoonExists(aiBrain, self) then
 			
@@ -3917,7 +3851,7 @@ Platoon = Class(moho.platoon_methods) {
 		
             ForkTo( AIAddMustScoutArea, aiBrain, table.copy(GetPlatoonPosition(self)) )
 		
-            WaitTicks(100)
+            WaitTicks(75)
 		
             self.UnderAttack = nil
             
@@ -8115,21 +8049,16 @@ Platoon = Class(moho.platoon_methods) {
 			local units = GetPlatoonUnits(self)
 			
             for _,v in units do
-			
                 v.LocationType = AttackBase
-				
             end
 			
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-			
         else
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_LAND "..repr(self.BuilderName).." got primary land attack base same as source")
-			
 		end
 		
         return self:PlatoonDisband( aiBrain )
-		
     end,
 	
     ReinforceNavalAI = function( self )
@@ -8142,25 +8071,18 @@ Platoon = Class(moho.platoon_methods) {
         if AttackBase and AttackBase != self.BuilderLocation then
 
             self.RTBLocation = AttackBase
-			
-			local units = GetPlatoonUnits(self)
-			
-            for _,v in units do
-			
+
+            for _,v in GetPlatoonUnits(self) do
                 v.LocationType = AttackBase
-				
             end
 			
 			return self:SetAIPlan( 'ReturnToBaseAI', aiBrain )
-			
         else
 		
 			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_NAVAL "..repr(self.BuilderName).." got primary sea attack base same as source")
-			
 		end
 		
         return self:PlatoonDisband( aiBrain )
-		
     end,
 
 }

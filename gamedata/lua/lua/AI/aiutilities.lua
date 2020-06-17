@@ -969,12 +969,11 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
 	
 end
 
--- This function sets up the cheats used by the AI
-function SetupAICheat(aiBrain)
+-- 3+ Teams Unit Cap Fix : That part is moved away from the main SetupAICheat 
+-- to do it after we figured out how many armies are in the biggest team
+function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Cheating AI functions")
-	
-	local PlayerDiff = (aiBrain.NumOpponents or 1)/(aiBrain.Players - aiBrain.NumOpponents)
+	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.Players - aiBrain.NumOpponents)
 
 	-- set unit cap and veterancy multiplier --
 	if ScenarioInfo.Options.CapCheat == "unlimited" then
@@ -1008,8 +1007,11 @@ function SetupAICheat(aiBrain)
 
 	-- start the spawn wave thread for cheating AI --
     aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
+    
+end
 
-	
+-- This function sets up the cheats used by the AI
+function SetupAICheat(aiBrain, biggestTeamSize)
 	#== CREATE THE BUFFS THAT WILL BE USED BY THE AI ==#
     local modifier = 1
 

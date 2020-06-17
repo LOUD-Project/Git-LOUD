@@ -58,8 +58,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
             
-			-- all other 'counted' land bases must have at least 4 T2/T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
+			-- all other 'counted' land bases must have at least 4 T3 factories
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             
 			-- there must be an start/expansion area with no engineers
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 60, 0, 'AntiSurface' } },
@@ -375,7 +375,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .60 } },
 			
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },
@@ -386,8 +386,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
 			
-			-- all other 'counted' Sea bases must have at least 4 T2/T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Sea', categories.FACTORY * categories.STRUCTURE - categories.TECH1 }},
+			-- all other 'counted' Sea bases must have at least 4 T3 factories
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Sea', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
         },
 		
         BuilderType = { 'T2','T3' },
@@ -441,7 +441,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1500, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 50, 1, 'AntiSurface' }},
+			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 75, 1, 'AntiSurface' }},
         },
 		
         BuilderType = { 'T2','T3', },
@@ -455,13 +455,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 
                 NearMarkerType = 'Naval Defensive Point',
 				
-                LocationRadius = 1500,
+                LocationRadius = 1200,
 				
                 MarkerUnitCategory = 'OVERLAYSONAR SONAR INTELLIGENCE',
                 MarkerRadius = 120,
                 MarkerUnitCount = 0,
 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				

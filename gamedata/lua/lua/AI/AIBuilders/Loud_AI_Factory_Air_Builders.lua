@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         Priority = 600,
         
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
 		
@@ -234,7 +234,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = IsEnemyAirActive,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            --{ LUTL, 'AirStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
@@ -249,7 +249,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         Priority = 600,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            --{ LUTL, 'UnitCapCheckLess', { .95 } },
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
@@ -280,12 +280,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
-			
-			-- a credible naval threat exists
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
             -- one of the few places where I use a ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+            
             -- never have more than 1 factory building them at this location
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH2 }},
         },
@@ -307,10 +305,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-			
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 2000, 30, 'Naval' }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+            
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH3 }},
         },
 		
@@ -380,8 +377,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+            
 			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -422,7 +420,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS * categories.TECH2 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
         },
 		
         BuilderType =  {'AirT2'},
@@ -442,9 +440,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
-			-- someone else is building a transport --
+			-- is someone else is building a transport --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
-			
+
 			-- note -- this condition counts ALL T2, T3 and T4 transports --
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
         },
