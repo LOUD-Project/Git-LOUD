@@ -1,7 +1,13 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
+        TargetBones = {
+            'head',
+            'legb4',
+            'legb05',
+        },
     }, 
+	
 	ModIconName = 'wbp',
     Audio = {
         AmbientMove = Sound {
@@ -226,7 +232,7 @@ UnitBlueprint {
     
     SizeX = 2.6,
     SizeY = 3.8,
-    SizeZ = 3.2,
+    SizeZ = 2.6,
     
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
