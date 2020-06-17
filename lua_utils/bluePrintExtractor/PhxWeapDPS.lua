@@ -150,6 +150,11 @@ function PhxWeapDPS(weapon)
             DPS.Ttime = muzzleTime + RackTime
             DPS.Warn = DPS.Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
         end
+        -- Units Affected: 
+        -- UAB2204 (T2 Aeon? Flak), 
+        -- XSB3304 (T3 Sera Flak), 
+        -- XSS0202 (T2 Sera Cruiser),
+        -- WRA0401, 
 
         -- TODO: Add additional time if( WeaponUnpacks && WeaponRepackTimeout > 0 && RackSalvoChargeTime <= 0) 
         -- {add_time WeaponRepackTimeout}
