@@ -255,7 +255,7 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 0.3,
-    SizeY = 1.1, 
+    SizeY = 1.04, 
     SizeZ = 0.44,
 	
     StrategicIconName = 'icon_bot1_directfire',
