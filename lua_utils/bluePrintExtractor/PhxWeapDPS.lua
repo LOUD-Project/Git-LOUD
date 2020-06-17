@@ -135,16 +135,33 @@ function PhxWeapDPS(weapon)
                                 onFireTime
                             )
 
+        --   This is correct method for DoT, which happen DoTPulses 
+        --   times and stack infinately
+        if(weapon.DoTPulses) then 
+            DPS.Damage = DPS.Damage * weapon.DoTPulses
+        end
+
+        -- This is a rare weapon catch that skips OnFire() and
+        --   EconDrain entirely, its kinda scary.
+        if(weapon.RackSalvoFiresAfterCharge and 
+           weapon.RackSalvoReloadTime>0 and
+           weapon.RackSalvoChargeTime>0
+          ) then
+            DPS.Ttime = muzzleTime + RackTime
+            DPS.Warn = DPS.Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
+        end
+
         -- TODO: Add additional time if( WeaponUnpacks && WeaponRepackTimeout > 0 && RackSalvoChargeTime <= 0) 
         -- {add_time WeaponRepackTimeout}
-
-        --TODO: Serious Issue here with some units, likely miscalculating
-        --        damage as this flag bypasses all eco and RoF calcs
-        if(weapon.RackSalvoFiresAfterCharge and
-           weapon.RackSalvoChargeTime
-          ) then
-            DPS.Warn = DPS.Warn .. "RackSalvoFiresAfterCharge,"
+        -- This only matters if SkipReadState is true and we enter Unpack more than once.
+        if(weapon.SkipReadyState and weapon.WeaponUnpacks) then
+            DPS.Warn = DPS.Warn .. "SkipReadyState_addsUnpackDelay,"
         end
+
+        -- TODO: Another oddball case, if SkipReadyState and not 
+        --   RackSalvoChargeTime>0 and not WeaponUnpacks then Econ 
+        --   drain doesn't get checked.  Otherwise behaves normally(?).
+        -- Only three units /w : BRPAT2BOMBER, DEA0202, XSA0202
 
     else
         if(debug) then print("Unknown") end
