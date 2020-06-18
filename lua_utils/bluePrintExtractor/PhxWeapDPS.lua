@@ -1,7 +1,7 @@
 -- Heavily modified by Phoenix
 -- Contributions by Uveso, Balthazar, Sprouto
 local PhxWeapDPS ={
-    _VERSION = '0.4',
+    _VERSION = '1.0',
     _DESCRIPTION = 'DPS Calculator',
 }
 
@@ -12,23 +12,33 @@ local canTargetSubs = require('PhxLib').canTargetSubs
 local inspect = require('inspect')
 
 function PhxWeapDPS(weapon)
-    -- Original Code by Uveso, edited by Phoenix
+    -- Inputs: weapon blueprint
+    -- Outputs: DPS table with:
+    --            Ttime - total time for all racks+muzzles+recharges etc.
+    --            RateOfFire - 1/(Ttime)
+    --              NOTE: Not blueprint weapon RoF!
+    --            Damage - Alpha Strike or Impulse Damage
+    --            Range
+    --            WeaponName
+    --            Warn - A comma-delimited list of special warnings
+    --            subDPS - DPS to submarine vessels (not seafloor)
+    --            airDPS - DPS to High Altitude Air 
+    --            srfDPS - DPS to surface targets (land and sea)
+    --            DPS - Total DPS to any one target (not the sum of above!)
+
     local DPS = {}
-    DPS.RateOfFire = 0
-    DPS.Ttime = 0
-    DPS.Damage = 0
-    DPS.DPS = 0
-    DPS.Range = 0
+    local Ttime = 0
+    local Tdamage = 0
+    DPS.Range = weapon.MaxRadius or 0
     DPS.WeaponName = (weapon.Label or "None") .. 
                      "/" .. (weapon.DisplayName or "None")
-    DPS.Warn = ''
+    local Warn = ''
 
     local debug = true
 
     local numRackBones = 0
     local numMuzzleBones = 0
     if weapon.RackBones then
-        
         numRackBones = table.getn(weapon.RackBones) or 0
 
         if(weapon.RackBones[1].MuzzleBones) then
@@ -40,32 +50,34 @@ function PhxWeapDPS(weapon)
 
 
     -- enable debug text
-    local bugtext = false
+    local BeamLifetime = (weapon.BeamLifetime or 0)
+
     if weapon.DPSOverRide then
-        DPS.Damage = weapon.DPSOverRide
-        DPS.Ttime = 1
+        -- Override of script-based weapons (like drones)
+        Tdamage = weapon.DPSOverRide
+        Ttime = 1
 
     elseif weapon.DummyWeapon == true or weapon.Label == 'DummyWeapon' then
         --skip dummy weapons
-        DPS.Damage = 0
-        DPS.Ttime = 1
+        Tdamage = 0
+        Ttime = 1
 
     elseif weapon.WeaponCategory  == 'Kamikaze' then
         --Suicide Weapons have no RateOfFire
-        DPS.Ttime = 1
-        DPS.Damage = weapon.Damage
+        Ttime = 1
+        Tdamage = weapon.Damage
 
     -- Check for Continous Beams
     --   NOTE: This will throw out lots of logic as beam turns on only
     --         once and then do damage continuously. That's ok for now.
-    elseif (weapon.ContinuousBeam and weapon.BeamLifetime==0) then
+    elseif (weapon.ContinuousBeam and BeamLifetime==0) then
         if(debug) then print("Continuous Beam") end
         local timeToTriggerDam = math.max(weapon.BeamCollisionDelay,0.1)
 
-        DPS.Ttime = math.ceil(timeToTriggerDam*10)/10
-        DPS.Damage = weapon.Damage
+        Ttime = math.ceil(timeToTriggerDam*10)/10
+        Tdamage = weapon.Damage
 
-    elseif (weapon.RackBones) then
+    elseif (numRackBones > 0) then
         -- TODO: Need a better methodology to identify single-shot and
         --       multi-muzzle/rack weapons
         if(debug) then print("Multiple Rack/Muzzles") end
@@ -74,50 +86,65 @@ function PhxWeapDPS(weapon)
         --  It is supposed to be time between onFire() events
         local onFireTime = math.max(0.1,math.ceil(10/weapon.RateOfFire)/10)
 
-        -- Muzzles Cycle, MuzzleSalvoDelay
-        local muzzleTime =  (weapon.MuzzleSalvoDelay  or 0) +
+        -- Each Muzzle Cycle Time
+        local MuzzleSalvoDelay = (weapon.MuzzleSalvoDelay or 0)
+        local muzzleTime =  MuzzleSalvoDelay +
                             (weapon.MuzzleChargeDelay or 0)
-        --print("Quick Debug: ",(weapon.MuzzleSalvoDelay  or 0),",",(weapon.MuzzleChargeDelay  or 0),",",muzzleTime)
 
-        if weapon.MuzzleSalvoDelay == 0 then  
-            -- These are special catch for a dumb if() in code
-            DPS.Damage = weapon.Damage * numMuzzleBones
-            muzzleTime = muzzleTime * numMuzzleBones
-        else  -- These are the standard calculations
-            DPS.Damage = weapon.Damage * (weapon.MuzzleSalvoSize or 1)
+        if not(MuzzleSalvoDelay == 0) then  
+            -- These are the standard calculations
+            -- Each Muzzle spawns a projectile and takes muzzleTime to do so
+            Tdamage = weapon.Damage * (weapon.MuzzleSalvoSize or 1)
             muzzleTime = muzzleTime * (weapon.MuzzleSalvoSize or 1)
-        end
-        --print("Quick Debug: ",muzzleTime)
+        else  
+            -- These are special catch for a dumb if() statement
+            --    || Issue in deafaultweapons.lua Line 850
+            
+            -- Warn if the number of MuzzleBones doesn't equal the MuzzleSalvoSize
+            if (numMuzzleBones ~= (weapon.MuzzleSalvoSize or 1)) then 
+                Warn = Warn.."MuzzleSalvoSize_Overridden,"
+            end
 
+            -- either way report the actual DPS (but likely unintended)
+            Tdamage = weapon.Damage * numMuzzleBones
+            muzzleTime = muzzleTime * numMuzzleBones
+
+        end
+
+        -- If RackFireTogether is set, then each rack also fires all muzzles
+        --  all in RackSalvoFiringState without exiting to another state
         if(weapon.RackFireTogether) then 
-            DPS.Damage = DPS.Damage * numRackBones
+            Tdamage = Tdamage * numRackBones
             muzzleTime = muzzleTime * numRackBones
         elseif (numRackBones > 1) then
+            --  However, racks go back to RackSalvoFireReadyState and wait
+            --   for OnFire() event
             muzzleTime = math.max(muzzleTime, onFireTime) * numRackBones
-            DPS.Damage = DPS.Damage * numRackBones
+            Tdamage = Tdamage * numRackBones
         end
 
         -- Check for Beams that trigger multiple times
-        local BeamLifetime = (weapon.BeamLifetime or 0)
         if(BeamLifetime > 0) then
             if(debug) then print("Pulse Beam") end
             
+            -- Beam damage events can only trigger on ticks, therefore round
+            --  both BeamLifetime and BeamTriggerTime
             BeamLifetime = math.ceil(BeamLifetime*10)/10
             local BeamTriggerTime = math.max(0.1,weapon.BeamCollisionDelay)
+            BeamTriggerTime = math.ceil(BeamTriggerTime*10)/10
 
-            DPS.Ttime = math.max(BeamLifetime,0.1,DPS.Ttime)
-            DPS.Damage = DPS.Damage * BeamLifetime / BeamTriggerTime
+            Ttime = math.max(BeamLifetime,0.1,Ttime)
+            Tdamage = Tdamage * BeamLifetime / BeamTriggerTime
         end
 
         local rechargeTime = 0
-        if(weapon.EnergyRequired and 
-           weapon.EnergyRequired > 0 and 
+        local energyRequired = (weapon.EnergyRequired or 0)
+        if(energyRequired > 0 and 
            not weapon.RackSalvoFiresAfterCharge) then
-            rechargeTime = weapon.EnergyRequired / 
+            rechargeTime = energyRequired / 
                            weapon.EnergyDrainPerSecond
-            if (rechargeTime < 0.1) then
-                rechargeTime = 0.1
-            end
+            rechargeTime = math.ceil(rechargeTime*10)/10
+            rechargeTime = math.max(0.1,rechargeTime)
         end
 
         local RackTime = (weapon.RackSalvoReloadTime or 0) + 
@@ -130,7 +157,7 @@ function PhxWeapDPS(weapon)
         -- RateofFire is always in parallel
         -- MuzzleTime is added to rackTime and energy-based recharge time
         --print("Quick Debug: ",muzzleTime,',',rackNchargeTime,',',math.ceil(10/weapon.RateOfFire)/10)
-        DPS.Ttime = math.max(   
+        Ttime = math.max(   
                                 muzzleTime + rackNchargeTime, 
                                 onFireTime
                             )
@@ -138,7 +165,7 @@ function PhxWeapDPS(weapon)
         --   This is correct method for DoT, which happen DoTPulses 
         --   times and stack infinately
         if(weapon.DoTPulses) then 
-            DPS.Damage = DPS.Damage * weapon.DoTPulses
+            Tdamage = Tdamage * weapon.DoTPulses
         end
 
         -- This is a rare weapon catch that skips OnFire() and
@@ -147,8 +174,8 @@ function PhxWeapDPS(weapon)
            weapon.RackSalvoReloadTime>0 and
            weapon.RackSalvoChargeTime>0
           ) then
-            DPS.Ttime = muzzleTime + RackTime
-            DPS.Warn = DPS.Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
+            Ttime = muzzleTime + RackTime
+            Warn = Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
         end
         -- Units Affected: 
         -- UAB2204 (T2 Aeon? Flak), 
@@ -160,7 +187,7 @@ function PhxWeapDPS(weapon)
         -- {add_time WeaponRepackTimeout}
         -- This only matters if SkipReadState is true and we enter Unpack more than once.
         if(weapon.SkipReadyState and weapon.WeaponUnpacks) then
-            DPS.Warn = DPS.Warn .. "SkipReadyState_addsUnpackDelay,"
+            Warn = Warn .. "SkipReadyState_addsUnpackDelay,"
         end
 
         -- TODO: Another oddball case, if SkipReadyState and not 
@@ -171,28 +198,18 @@ function PhxWeapDPS(weapon)
     else
         if(debug) then print("Unknown") end
         print("ERROR: Weapon Type Undetermined")
-        DPS.Warn = DPS.Warn .. 'Unknown Type,'
-        DPS.Damage = 0
-        DPS.Ttime = 1
+        Warn = Warn .. 'Unknown Type,'
+        Tdamage = 0
+        Ttime = 1
     end
 
     -- TODO: Add warning code to check if RateOfFire has rounding error problem (ie., RoF = 3 --> TimeToFire = 0.333 --> 0.4)
     -- TODO: Add warning code to check if(RackReloadTimeout>0 and numRackBones > 1)
     
-    -- TODO: SkipReadyState is not modeled yet.
-    
-    -- DONE: Check if(MuzzleSalvoDelay == 0 and MuzzleBones ~= MuzzleSalvoSize)
-    if (weapon.MuzzleSalvoDelay == 0) and (numMuzzleBones ~= (weapon.MuzzleSalvoSize or 1)) then 
-        DPS.Warn = DPS.Warn.."MuzzleSalvoSize_Overridden,"
-    end
-    --    || Results in MuzzleBones firing not MuzzleSalvoSize
-    --    || Issue in deafaultweapons.lua Line 850
-
-    if DPS.RateOfFire == 0 then DPS.RateOfFire = 1 end
-    --print(' Damage: '..DPS.Damage..' - RateOfFire: '..DPS.RateOfFire..' - new DPS: '..(DPS.Damage*DPS.RateOfFire))
-    DPS.RateOfFire = 1/DPS.Ttime
-    DPS.DPS = DPS.Damage/DPS.Ttime
-    DPS.Range = weapon.MaxRadius or 0
+    DPS.RateOfFire = 1/Ttime
+    DPS.DPS = Tdamage/Ttime
+    DPS.Damage = Tdamage
+    DPS.Ttime = Ttime
 
     -- Categorize DPS
     DPS.subDPS = 0
@@ -201,19 +218,21 @@ function PhxWeapDPS(weapon)
     --Weapons that can target air also are allowed to be counted as 
     --  surf/sub damge
     if(canTargetHighAir(weapon)) then
-        DPS.airDPS = DPS.DPS
+        DPS.airDPS = Tdamage/Ttime
         if(debug) then print("air") end
     end
 
     --Since "Surface" and "Sub" both include water sub damage must 
     --  override surface damage.
     if(canTargetSubs(weapon)) then
-        DPS.subDPS = DPS.DPS
+        DPS.subDPS = Tdamage/Ttime
         if(debug) then print("sub") end
     elseif (canTargetLand(weapon)) then
-        DPS.srfDPS = DPS.DPS
+        DPS.srfDPS = Tdamage/Ttime
         if(debug) then print("surface") end
     end
+
+    DPS.Warn = Warn
 
     return DPS
 end
