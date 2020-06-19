@@ -91,4 +91,41 @@ function PhxLib.cleanUnitName(bp)
     return UnitBaseName
 end
 
+function PhxLib.getTechLevel(bp)
+    if(bp.Categories) then
+        local completeCategoriesList = ''
+        for curKey,curCategory in pairs(bp.Categories) do
+            completeCategoriesList = completeCategoriesList .. curCategory
+        end
+        if string.find(completeCategoriesList,"EXPERIMENTAL")
+            then return 4
+        elseif string.find(completeCategoriesList,"TECH3")
+            then return 3
+        elseif string.find(completeCategoriesList,"TECH2")
+            then return 2
+        elseif string.find(completeCategoriesList,"TECH1")
+            then return 1
+        else 
+            return 0
+        end
+    else
+        if bp.General and 
+            bp.General.TechLevel == 'RULEUTL_Basic'
+        then Tier = 1
+        elseif bp.General and 
+            bp.General.TechLevel == 'RULEUTL_Advanced'
+        then Tier = 2
+        elseif bp.General and 
+            bp.General.TechLevel == 'RULEUTL_Secret'
+        then Tier = 3
+        elseif bp.General and 
+            bp.General.TechLevel == 'RULEUTL_Experimental'
+        then Tier = 4
+        end
+
+        return 0
+    end
+end
+
+
 return PhxLib
