@@ -87,6 +87,7 @@ io.write(
                 .. "," .. "Tier"
                 .. "," .. "Type"
                 .. "," .. "Type2"
+                .. "," .. "Race"
                 .. "," .. "Chassis"
                 .. "," .. "ThreatSpd"
                 .. "," .. "ThreatRange"
@@ -125,6 +126,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local BuildTime = 0
     local Tier = 0
     local Vision = 0
+    local Race = 'none'
 
     local ThreatSpd = 0
     local ThreatRange = 0
@@ -176,6 +178,10 @@ for curBPid,curBP in ipairs(allBlueprints) do
     else
         print(curShortID .. "/" .. (curBP.Description or "None") .. 
             " has NO weapons")
+    end
+
+    if curBP.General and curBP.General.FactionName then 
+        Race = curBP.General.FactionName
     end
 
     -- Do per unit processing here
@@ -231,6 +237,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. Tier
         .. "," .. "Type"
         .. "," .. "Type2"
+        .. "," .. Race
         .. "," .. "Chassis"
         .. "," .. ThreatSpd
         .. "," .. ThreatRange
@@ -244,9 +251,9 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. Vision
         .. "," .. Shield
         .. "," .. Health
-        .. "," .. "Mass"
-        .. "," .. "Energy"
-        .. "," .. "BuildTime"
+        .. "," .. Mass
+        .. "," .. Energy
+        .. "," .. BuildTime
         .. "," .. Speed
         .. "," .. tWarn
         .. "\n"
