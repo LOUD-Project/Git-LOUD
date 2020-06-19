@@ -1850,7 +1850,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1858,6 +1858,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },
 		},
 		
 		{{'T3AADefense'},
@@ -1984,7 +1986,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1992,6 +1994,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2118,7 +2122,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2126,6 +2130,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2252,7 +2258,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2260,6 +2266,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
