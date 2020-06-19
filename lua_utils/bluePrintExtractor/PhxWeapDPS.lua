@@ -84,7 +84,7 @@ function PhxWeapDPS(weapon)
 
         -- This is extrapolated from coversations with people, not actual code
         --  It is supposed to be time between onFire() events
-        local onFireTime = math.max(0.1,math.ceil(10/weapon.RateOfFire)/10)
+        local onFireTime = math.max(0.1,math.floor(10/weapon.RateOfFire+0.5)/10)
 
         -- Each Muzzle Cycle Time
         local MuzzleSalvoDelay = (weapon.MuzzleSalvoDelay or 0)
@@ -130,7 +130,7 @@ function PhxWeapDPS(weapon)
             -- Beam damage events can only trigger on ticks, therefore round
             --  both BeamLifetime and BeamTriggerTime
             BeamLifetime = math.ceil(BeamLifetime*10)/10
-            local BeamTriggerTime = math.max(0.1,weapon.BeamCollisionDelay)
+            local BeamTriggerTime = weapon.BeamCollisionDelay + 0.01
             BeamTriggerTime = math.ceil(BeamTriggerTime*10)/10
 
             Ttime = math.max(BeamLifetime,0.1,Ttime)
