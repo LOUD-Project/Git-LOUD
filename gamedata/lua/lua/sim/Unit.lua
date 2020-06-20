@@ -4219,18 +4219,12 @@ Unit = Class(moho.unit_methods) {
                 for kcb, vcb in v do
 				
                     if vcb == fn then
-					
-					
+                        LOG("*AI DEBUG Removing Callback "..repr(vcb))
                         v[kcb] = nil
-						
                     end
-					
                 end
-				
             end
-			
         end
-		
     end,
 
     AddOnDamagedCallback = function(self, fn, amount, repeatNum)
