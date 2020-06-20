@@ -139,8 +139,9 @@ function PhxWeapDPS(weapon)
 
         local rechargeTime = 0
         local energyRequired = (weapon.EnergyRequired or 0)
-        if(energyRequired > 0 and 
-           not weapon.RackSalvoFiresAfterCharge) then
+        if energyRequired > 0 -- and 
+           --not weapon.RackSalvoFiresAfterCharge 
+           then
             rechargeTime = energyRequired / 
                            weapon.EnergyDrainPerSecond
             rechargeTime = math.ceil(rechargeTime*10)/10
