@@ -130,7 +130,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -241,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
