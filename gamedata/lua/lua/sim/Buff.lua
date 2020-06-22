@@ -515,17 +515,20 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 		elseif atype == 'EnergyStorage' then
 			local val = BuffCalculate(unit, buffName, 'EnergyStorage', GetBlueprint(unit).Economy.StorageEnergy or 1)
 
-			LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
+			--LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
 
 			-- the trick here is to know just how much storage there already is - and add to it - can't seem to find that
+            -- since atm I only use this on the ACU at the start of the game - it's not a real issue
 			unit:GetAIBrain():GiveStorage('ENERGY',val)
+            unit:GetAIBrain():GiveResource('Energy',val)
 
 		elseif atype == 'MassStorage' then
 			local val = BuffCalculate(unit, buffName, 'MassStorage', GetBlueprint(unit).Economy.StorageMass or 1)
 
-			LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
+			--LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
 
-			unit:GetAIBrain():GiveStorage('MASS',val)
+			unit:GetAIBrain():GiveStorage('Mass',val)
+            unit:GetAIBrain():GiveResource('Mass',val)
 
 
 
