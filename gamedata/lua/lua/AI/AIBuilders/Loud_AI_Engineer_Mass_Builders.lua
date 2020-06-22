@@ -324,7 +324,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'NeedMassPointShare', {} },	
+			{ LUTL, 'NeedMassPointShare', { 1 } },	
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
             { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 1500, -9999, 10, 1, 'AntiSurface', 1 }},
@@ -366,7 +366,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ LUTL, 'NeedMassPointShare', {} },
+			{ LUTL, 'NeedMassPointShare', { 1 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
