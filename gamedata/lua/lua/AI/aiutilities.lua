@@ -998,7 +998,6 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.AIMult or 1)
 
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
-		
     end
 
 	-- record the starting unit cap
@@ -1007,12 +1006,13 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
 	-- start the spawn wave thread for cheating AI --
     aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
-    
 end
+
 
 -- This function sets up the cheats used by the AI
 function SetupAICheat(aiBrain, biggestTeamSize)
-	#== CREATE THE BUFFS THAT WILL BE USED BY THE AI ==#
+
+	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
 
 	-- build rate cheat
@@ -1058,11 +1058,14 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
    
 	
-	-- storage cheat -- increases storage by the multiplier
-	buffDef = Buffs['CheatStorage']
+	-- storage cheat -- increases storage by the multiplier - only used on the ACU
+	buffDef = Buffs['CheatEnergyStorage']
 	buffAffects = buffDef.Affects
-	buffAffects.EnergyStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
-	buffAffects.MassStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
+	buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
+    
+    buffDef = Buffs['CheatMassStorage']
+    buffAffects = buffDef.Affects
+	buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
 
     
 	-- overall cheat buff -- applied at 50% of the multiplier
@@ -1084,8 +1087,8 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
-    
 end
+
 
 -- and this function will apply them to units as they are created
 function ApplyCheatBuffs(unit)
@@ -1103,6 +1106,8 @@ function ApplyCheatBuffs(unit)
 			if LOUDENTITY( categories.COMMAND, unit ) then 
 				
 				ApplyBuff(unit, 'CheatCDROmni')
+                ApplyBuff(unit, 'CheatEnergyStorage')
+                ApplyBuff(unit, 'CheatMassStorage')
 				
 			end
 			
@@ -1111,10 +1116,9 @@ function ApplyCheatBuffs(unit)
 		ApplyBuff(unit, 'CheatBuildRate')		
 		ApplyBuff(unit, 'CheatIncome')
 		ApplyBuff(unit, 'CheatIntel')
-		--ApplyBuff(unit, 'CheatStorage')	-- work in progress --
+
 		ApplyBuff(unit, 'CheatMOBILE')
 		ApplyBuff(unit, 'CheatALL')
-		
 	end
 	
 end

@@ -47,7 +47,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
             
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -130,7 +130,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -241,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -306,7 +306,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 		PriorityFunction = MapHasNavalAreasButNotEstablished,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
@@ -373,7 +373,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 		PriorityFunction = MapHasNavalAreas,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
@@ -437,7 +437,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .70 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},

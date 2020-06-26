@@ -441,9 +441,7 @@ function CollectCurrentScores()
            ArmyScore[index].resources.energyover = GetArmyStat( brain, "Economy_AccumExcess_Energy", 0.0).Value
 		   
            WaitTicks(braindelay)
-		   
         end
-		
     end
 	
 end

@@ -152,6 +152,10 @@ do
 								end
 							end
 						end
+                        
+                        if bp.Economy.BuildUnit then
+                            bp.Economy.BuildTime = bp.Economy.BuildTime * buildratemod * factory_buildpower_ratio
+                        end
 					end
 
                     -- units --

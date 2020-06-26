@@ -2365,7 +2365,7 @@ BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonus',
     Affects = {
         MassProduction = {
             Mult = 1.0,
-            Add = 0.28,
+            Add = 0.24,
         },
     },
 }
@@ -2381,7 +2381,7 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageProductionBonus',
     Affects = {
         EnergyProduction = {
             Mult = 1.0,
-            Add = 0.25,
+            Add = 0.24,
         },
     },
 }
@@ -2396,7 +2396,7 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyBuildBonus',
     OnBuffRemove = AdjBuffFuncs.BuildBuffRemove,
     Affects = {
         EnergyActive = {
-            Mult = 0.4,
+            Mult = 0.18,
             Add = 0.0,
         },
     },
@@ -2412,7 +2412,7 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyMaintenanceBonus',
     OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
     Affects = {
         EnergyMaintenance = {
-            Mult = 0.4,
+            Mult = 0.18,
             Add = 0.0,
         },
     },
@@ -2429,7 +2429,7 @@ BuffBlueprint { Name = 'ExperimentalPowerEnergyWeaponBonus',
     Affects = {
         EnergyWeapon = {
             Mult = 1.0,
-            Add = -0.1,
+            Add = -0.08,
         },
     },
 }
@@ -2444,7 +2444,7 @@ BuffBlueprint { Name = 'ExperimentalPowerRateOfFireBonus',
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = -0.10,
+            Add = -0.08,
             Mult = 1.0,
         },
     },
@@ -2461,7 +2461,7 @@ BuffBlueprint { Name = 'ExperimentalFabricatorMassBuildBonus',
     Affects = {
         MassActive = {
             Mult = 1.0,
-            Add = -0.15,
+            Add = -0.12,
         },
     },
 }
@@ -2477,7 +2477,7 @@ BuffBlueprint { Name = 'ExperimentalEnergyStorageShieldRegenBonus',
     Affects = {
         ShieldRegeneration = {
             Mult = 1.0,
-            Add = 0.15,
+            Add = 0.06,
         },
     },
 }

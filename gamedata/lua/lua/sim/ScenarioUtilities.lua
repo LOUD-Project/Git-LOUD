@@ -355,6 +355,35 @@ function InitializeArmies()
 	
 		-- store which team we're on
 		self.Team = ScenarioInfo.ArmySetup[self.Name].Team
+        
+        local Opponents = 0
+        local TeamSize = 0
+        
+        for _,brain in ArmyBrains do
+
+            -- interestingly the IsAlly function does not work at this stage
+            -- so we just assume anyone NOT on our team is an opponent
+            if ScenarioInfo.ArmySetup[brain.Name].Team == self.Team then
+                TeamSize = TeamSize + 1
+            else
+                Opponents = Opponents + 1
+            end
+            
+        end
+    
+        -- number of Opponents in the game
+        self.NumOpponents = Opponents
+        
+        -- number of players in the game 
+        self.Players = ScenarioInfo.Options.PlayerCount
+        
+        --LOG("*AI DEBUG "..self.Name.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+        
+        self.TeamSize = TeamSize
+		
+		if self.TeamSize > ScenarioInfo.biggestTeamSize then
+			ScenarioInfo.biggestTeamSize = TeamSize		
+		end
     
         -- don't do anything else for a human player
         if self.BrainType == 'Human' then
@@ -477,12 +506,7 @@ function InitializeArmies()
 		--3+ Teams Unit Cap Fix : Determine team size of current army,
 		-- if it is bigger than what was previously recorded, this is the new
 		-- biggest team to work with later to determine other team's armies unit cap
-		local teamSize = ( self.Players - self.NumOpponents )
-		
-		if teamSize > ScenarioInfo.biggestTeamSize then
-			ScenarioInfo.biggestTeamSize = teamSize		
-		end
-        
+  
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
 		end
@@ -521,15 +545,17 @@ function InitializeArmies()
 
         if tblData then
 
+			-- if this is an AI (but not civilian)        
+            if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
+                import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+            end
+            
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
-			
-			-- if this is an AI (but not civilian)
-            if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
-			
-				import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
-			
+            
+            if not armyIsCiv then
+                -- this insures proper setting of teammate counts and
+                -- calculation of the largest team size for ALL players (human and AI)
                 InitializeSkirmishSystems( GetArmyBrain(strArmy) )
-				
             end
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then

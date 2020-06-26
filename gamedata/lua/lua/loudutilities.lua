@@ -193,28 +193,9 @@ end
 
 
 -- if the AI has its share of mass points
-function HasMassPointShare( aiBrain )
+function HasMassPointShare( aiBrain, multiple )
 
 	local LOUDGETN = table.getn
-
-    local ArmyCount = 0
-	local TeamCount = 0
-	
-    local NumMassPoints = ScenarioInfo.NumMassPoints
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	
@@ -222,32 +203,16 @@ function HasMassPointShare( aiBrain )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
+	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 4)
 	
-	return extractorCount >= LOUDFLOOR( (NumMassPoints/ ArmyCount)-1 )
+    -- the addition of the multiple allows us to test for an ownership % relationship
+	return extractorCount >= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
 end
 
 -- a variant of the above
-function NeedMassPointShare( aiBrain )
+function NeedMassPointShare( aiBrain, multiple )
 
 	local LOUDGETN = table.getn
-
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	
@@ -255,33 +220,16 @@ function NeedMassPointShare( aiBrain )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
-	
-	return extractorCount <= LOUDFLOOR( (ScenarioInfo.NumMassPoints/ ArmyCount)-1 )	
+	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 4)
+
+	return extractorCount <= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
 end
 
 -- verifies if the TEAM has its share of mass points
 function TeamMassPointShare( aiBrain, bool )
 
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
-
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' ))
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/ArmyCount) - 1) * TeamCount)
+	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
 	
 	if TeamExtractors >= TeamNeeded then
 		
@@ -303,24 +251,9 @@ end
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
 
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian( brain.ArmyIndex ) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
-
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' ))
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/ArmyCount) - 1) * TeamCount)
-	
+	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
+
 	return TeamExtractors < TeamNeeded
 end
 

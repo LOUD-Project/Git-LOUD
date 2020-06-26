@@ -1653,7 +1653,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1000, 1, 75, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1000, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1678,9 +1678,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 4,
             
-            ThreatMin = 1,                  -- pick points with at least 1 threat
-            ThreatMax = 75,
-            ThreatRings = 1,                -- at this range
+            ThreatMin = 0,                  -- pick points with at least 1 threat
+            ThreatMax = 100,
+            ThreatRings = 0,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,

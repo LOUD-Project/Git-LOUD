@@ -2059,6 +2059,7 @@ function AirForceAILOUD( self, aiBrain )
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
     local searchradius = self.PlatoonData.SearchRadius or 250
+    
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
@@ -2731,7 +2732,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                     -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
                     LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
-                    
+                   
                     local attackissued = false
 
                     for key,u in attackers do
@@ -6952,6 +6953,10 @@ CzarBehaviorSorian = function(self, aiBrain)
 	LOG("*AI DEBUG "..aiBrain.Nickname.." CzarSorian starts")
 
 	local platoonUnits = GetPlatoonUnits(self)
+    
+    for _, czar in platoonUnits do
+        czar.EventCallbacks['OnHealthChanged'] = nil
+    end
 	
 	local cmd
     
