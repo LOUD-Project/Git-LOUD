@@ -5,16 +5,16 @@ local outputFileName = "output_fullSSwThreat.csv"
 
 -- Threat Balance Constants
 -- see: https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
-local SpeedT2_KNIFE = 3.1
+local SpeedT2_KNIFE = 3.1058
 local RangeT2_KNIFE = 25
 local RangeAvgEngage = 50
 local tEnd = 13.0
 
-local inspect = require('inspect')
 local dirtree = require('dirtree')
-local PhxWeapDPS = require('PhxWeapDPS')
 local cleanUnitName = require('PhxLib').cleanUnitName
 local getTechLevel = require('PhxLib').getTechLevel
+local getVision = require('PhxLib').getVision
+local calcUnitDPS = require('PhxLib').calcUnitDPS
 
 local allBlueprints = {}
 local curBlueprint = {}
@@ -91,7 +91,8 @@ io.write(
                 .. "," .. "Chassis"
                 .. "," .. "ThreatSpd"
                 .. "," .. "ThreatRange"
-                .. "," .. "ThreatDamHP"
+                .. "," .. "ThreatDam"
+                .. "," .. "ThreatHP"
                 .. "," .. "ThreatTotal"
                 .. "," .. "tSurfDPS"
                 .. "," .. "tSubDPS"
@@ -111,16 +112,7 @@ io.write(
 
 for curBPid,curBP in ipairs(allBlueprints) do
     local curShortID = (allShortIDs[curBPid] or "None")
-    local tSurfDPS = 0
-    local tSubDPS = 0
-    local tAirDPS = 0
-    local totDPS = 0
-    local maxRange = 0
-    local tWarn = ''
 
-    local Health = 0
-    local Shield = 0
-    local Speed = 0
     local Mass = 0
     local Energy = 0
     local BuildTime = 0
@@ -128,94 +120,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local Vision = 0
     local Race = 'none'
 
-    local ThreatSpd = 0
-    local ThreatRange = 0
-    local ThreatDamHP = 0
-    local ThreatTotal = 0
-
-    if curBP.Weapon then
-        local NumWeapons = table.getn(curBP.Weapon)
-        print("**" .. curShortID .. "/" .. cleanUnitName(curBP) 
-            .. " has " .. NumWeapons .. " weapons" 
-            --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
-        )
-
-        -- Run PhxWeapDPS on each weapon, then calculate threat value 
-        --  and accumulate into totals for the unit.
-        for curWepID,curWep in ipairs(curBP.Weapon) do
-            local DPS = PhxWeapDPS(curWep)
-            print(curShortID ..
-                "/" .. DPS.WeaponName ..
-                ': has Damage: ' .. DPS.Damage ..
-                ' - Time: ' .. DPS.Ttime ..
-                ' - new DPS: ' .. (DPS.Damage/DPS.Ttime)
-            )
-
-            if(maxRange < DPS.Range) then maxRange = DPS.Range end
-            tSurfDPS = tSurfDPS + DPS.srfDPS
-            tSubDPS = tSubDPS + DPS.subDPS
-            tAirDPS = tAirDPS + DPS.airDPS
-            totDPS = totDPS + DPS.DPS
-
-            --Do per weapon checking here
-            tWarn = tWarn .. DPS.Warn
-
-            print(" ")  -- End of Weapon Import
-
-            -- local SpeedT2_KNIFE = 3.1
-            -- local RangeT2_KNIFE = 25
-            -- local RangeAvgEngage = 50
-            -- local tEnd = 13.0
-            local thisThreatRange = (DPS.Range - RangeT2_KNIFE)
-                                    / SpeedT2_KNIFE 
-                                    * DPS.srfDPS/tEnd
-            thisThreatRange = math.max(0,thisThreatRange)
-            ThreatRange = ThreatRange + thisThreatRange
-            ThreatDamHP = ThreatDamHP + DPS.srfDPS
-
-        end --Weapon For Loop
-
-        ThreatDamHP = (ThreatDamHP + (Health+Shield)/tEnd)/2/10
-        ThreatSpd = (RangeAvgEngage/SpeedT2_KNIFE - RangeAvgEngage/Speed)
-                    * tSurfDPS/tEnd
-        ThreatSpd = math.max(0,ThreatSpd)/10
-        ThreatTotal = ThreatSpd + ThreatRange + ThreatDamHP/10
-    else
-        print(curShortID .. "/" .. (curBP.Description or "None") .. 
-            " has NO weapons")
-    end
-
-    if curBP.General and curBP.General.FactionName then 
-        Race = curBP.General.FactionName
-    end
-
-    -- Do per unit processing here
-    -- TODO: big and hard to read, move to seperate function(s)
-    -- Get Health and Shield values, if they exist
-    if( curBP.Defense and 
-        curBP.Defense.MaxHealth
-    ) then 
-        Health = (curBP.Defense.MaxHealth or 0)
-
-        if( curBP.Defense.Shield and 
-            curBP.Defense.ShieldMaxHealth
-        ) then
-            Shield = curBP.Defense.Shield.SheildMaxHealth
-        else 
-            Shield = 0
-        end
-    else
-        Health = 0
-    end
-
-    -- Get Speed Value if it exists
-    if( curBP.Physics and 
-        curBP.Physics.MaxSpeed
-    ) then
-        Speed = curBP.Physics.MaxSpeed
-    else 
-        Speed = SpeedT2_KNIFE
-    end
+    local unitDPS = calcUnitDPS(curBP,curShortID)   
 
     -- Get Economic values for Mass Energy and BuildTime if they exist
     if curBP.Economy then
@@ -228,14 +133,14 @@ for curBPid,curBP in ipairs(allBlueprints) do
         BuildTime = 0
     end
 
-    -- Get Tech Level
     Tier = getTechLevel(curBP)
+    Vision = getVision(curBP)
 
-    if curBP.Intel and curBP.Intel.VisionRadius then
-        Vision = curBP.Intel.VisionRadius
+    if curBP.General and curBP.General.FactionName then 
+        Race = curBP.General.FactionName
     end
-
-    --Record Accumulated Values and Final Values
+    
+    --Record Unit Stats to output file
     io.write(
         curShortID 
         .. "," .. cleanUnitName(curBP)
@@ -244,23 +149,24 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. "Type2"
         .. "," .. Race
         .. "," .. "Chassis"
-        .. "," .. ThreatSpd
-        .. "," .. ThreatRange
-        .. "," .. ThreatDamHP
-        .. "," .. ThreatTotal
-        .. "," .. tSurfDPS
-        .. "," .. tSubDPS
-        .. "," .. tAirDPS
-        .. "," .. totDPS
-        .. "," .. maxRange
+        .. "," .. unitDPS.Threat.Speed
+        .. "," .. unitDPS.Threat.Range
+        .. "," .. unitDPS.Threat.Dam
+        .. "," .. unitDPS.Threat.HP
+        .. "," .. unitDPS.Threat.Total
+        .. "," .. unitDPS.srfDPS
+        .. "," .. unitDPS.subDPS
+        .. "," .. unitDPS.airDPS
+        .. "," .. unitDPS.totDPS
+        .. "," .. unitDPS.maxRange
         .. "," .. Vision
-        .. "," .. Shield
-        .. "," .. Health
+        .. "," .. unitDPS.Shield
+        .. "," .. unitDPS.Health
         .. "," .. Mass
         .. "," .. Energy
         .. "," .. BuildTime
-        .. "," .. Speed
-        .. "," .. tWarn
+        .. "," .. unitDPS.Speed
+        .. "," .. unitDPS.Warn
         .. "\n"
     )
 end -- Blueprint for() Loop

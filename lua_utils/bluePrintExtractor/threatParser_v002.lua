@@ -5,7 +5,7 @@ local outputFileName = "output_fullSSwThreat.csv"
 
 -- Threat Balance Constants
 -- see: https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
-local SpeedT2_KNIFE = 3.1
+local SpeedT2_KNIFE = 3.1058
 local RangeT2_KNIFE = 25
 local RangeAvgEngage = 50
 local tEnd = 13.0
@@ -91,7 +91,8 @@ io.write(
                 .. "," .. "Chassis"
                 .. "," .. "ThreatSpd"
                 .. "," .. "ThreatRange"
-                .. "," .. "ThreatDamHP"
+                .. "," .. "ThreatDam"
+                .. "," .. "ThreatHP"
                 .. "," .. "ThreatTotal"
                 .. "," .. "tSurfDPS"
                 .. "," .. "tSubDPS"
@@ -127,10 +128,44 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local Tier = 0
     local Vision = 0
     local Race = 'none'
+    
+    -- Some Unit Level Status are required to calculate threat
+    --   Health, Shield, and Speed
+
+    -- TODO: big and hard to read, move to seperate function(s)
+    -- Get Health and Shield values, if they exist
+    if( curBP.Defense and 
+        curBP.Defense.MaxHealth
+    ) then 
+        Health = (curBP.Defense.MaxHealth or 0)
+
+        if( curBP.Defense.Shield and 
+            curBP.Defense.ShieldMaxHealth
+        ) then
+            Shield = curBP.Defense.Shield.SheildMaxHealth
+        else 
+            Shield = 0
+        end
+    else
+        Health = 0
+    end
+
+    -- Get Speed Value if it exists
+    if( curBP.Physics and 
+        curBP.Physics.MaxSpeed
+    ) then
+        Speed = curBP.Physics.MaxSpeed
+    else 
+        Speed = SpeedT2_KNIFE
+        print("Unit has no speed")
+    end
+
+
 
     local ThreatSpd = 0
     local ThreatRange = 0
-    local ThreatDamHP = 0
+    local ThreatDam = 0
+    local ThreatHP = 0
     local ThreatTotal = 0
 
     if curBP.Weapon then
@@ -162,24 +197,16 @@ for curBPid,curBP in ipairs(allBlueprints) do
 
             print(" ")  -- End of Weapon Import
 
-            -- local SpeedT2_KNIFE = 3.1
-            -- local RangeT2_KNIFE = 25
-            -- local RangeAvgEngage = 50
-            -- local tEnd = 13.0
-            local thisThreatRange = (DPS.Range - RangeT2_KNIFE)
-                                    / SpeedT2_KNIFE 
-                                    * DPS.srfDPS/tEnd
-            thisThreatRange = math.max(0,thisThreatRange)
-            ThreatRange = ThreatRange + thisThreatRange
-            ThreatDamHP = ThreatDamHP + DPS.srfDPS
+            ThreatRange = ThreatRange + DPS.threatRange
+            ThreatDam = ThreatDam + DPS.threatSurf
 
         end --Weapon For Loop
 
-        ThreatDamHP = (ThreatDamHP + (Health+Shield)/tEnd)/2/10
+        ThreatHP = (Health+Shield)/tEnd/20
         ThreatSpd = (RangeAvgEngage/SpeedT2_KNIFE - RangeAvgEngage/Speed)
-                    * tSurfDPS/tEnd
-        ThreatSpd = math.max(0,ThreatSpd)/10
-        ThreatTotal = ThreatSpd + ThreatRange + ThreatDamHP/10
+                    * tSurfDPS/tEnd / 10
+        ThreatSpd = math.max(0,ThreatSpd)
+        ThreatTotal = ThreatSpd + ThreatRange + ThreatDam + ThreatHP
     else
         print(curShortID .. "/" .. (curBP.Description or "None") .. 
             " has NO weapons")
@@ -189,33 +216,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
         Race = curBP.General.FactionName
     end
 
-    -- Do per unit processing here
-    -- TODO: big and hard to read, move to seperate function(s)
-    -- Get Health and Shield values, if they exist
-    if( curBP.Defense and 
-        curBP.Defense.MaxHealth
-    ) then 
-        Health = (curBP.Defense.MaxHealth or 0)
-
-        if( curBP.Defense.Shield and 
-            curBP.Defense.ShieldMaxHealth
-        ) then
-            Shield = curBP.Defense.Shield.SheildMaxHealth
-        else 
-            Shield = 0
-        end
-    else
-        Health = 0
-    end
-
-    -- Get Speed Value if it exists
-    if( curBP.Physics and 
-        curBP.Physics.MaxSpeed
-    ) then
-        Speed = curBP.Physics.MaxSpeed
-    else 
-        Speed = SpeedT2_KNIFE
-    end
+    -- Do more per unit processing here
 
     -- Get Economic values for Mass Energy and BuildTime if they exist
     if curBP.Economy then
@@ -246,7 +247,8 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. "Chassis"
         .. "," .. ThreatSpd
         .. "," .. ThreatRange
-        .. "," .. ThreatDamHP
+        .. "," .. ThreatDam
+        .. "," .. ThreatHP
         .. "," .. ThreatTotal
         .. "," .. tSurfDPS
         .. "," .. tSubDPS

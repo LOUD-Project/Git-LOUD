@@ -5,13 +5,18 @@ local PhxWeapDPS ={
     _DESCRIPTION = 'DPS Calculator',
 }
 
+local SpeedT2_KNIFE = 3.1058
+local RangeT2_KNIFE = 25
+local RangeAvgEngage = 50
+local tEnd = 13.0
+
 local canTargetHighAir = require('PhxLib').canTargetHighAir
 local canTargetLand = require('PhxLib').canTargetLand
 local canTargetSubs = require('PhxLib').canTargetSubs
 
 local inspect = require('inspect')
 
-function PhxWeapDPS(weapon)
+function PhxWeapDPS.PhxWeapDPS(weapon)
     -- Inputs: weapon blueprint
     -- Outputs: DPS table with:
     --            Ttime - total time for all racks+muzzles+recharges etc.
@@ -233,9 +238,22 @@ function PhxWeapDPS(weapon)
         if(debug) then print("surface") end
     end
 
+    -- Calculate Threat Values for this Weapon
+    DPS.threatRange = (DPS.Range - RangeT2_KNIFE)
+                      / SpeedT2_KNIFE 
+                      * DPS.srfDPS/tEnd / 10
+    DPS.threatRange = math.max(0,DPS.threatRange)
+    DPS.threatSurf = DPS.srfDPS/20
+    DPS.threatAir = DPS.airDPS/20
+    DPS.threatSub = DPS.subDPS/20
+
     DPS.Warn = Warn
 
     return DPS
+end
+
+function PhxWeapDPS.unitThreat(curBP)
+    --todo
 end
 
 return PhxWeapDPS
