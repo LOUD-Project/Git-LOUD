@@ -663,9 +663,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.AIR - categories.INTELLIGENCE},
+            PrioritizedCategories = { categories.MOBILE * categories.AIR},
 			
-			SearchRadius = 65,
+			SearchRadius = 50,
 			
             UseFormation = 'AttackFormation',
         },
@@ -715,7 +715,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
             
-			SearchRadius = 130,
+			SearchRadius = 100,
             
             UseFormation = 'AttackFormation',
         },

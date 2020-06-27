@@ -134,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
@@ -190,7 +190,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' } },
@@ -245,7 +245,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
