@@ -226,7 +226,7 @@ Platoon = Class(moho.platoon_methods) {
             -- faster platoons need a little more warning 
             -- TODO: Make pathslack an optional variable that can be passed in - but 
             -- will default to 16 if not provided.
-			local pathslack = waypointslackdistance or 16
+			local pathslack = waypointslackdistance or 20
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
             
