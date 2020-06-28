@@ -419,7 +419,7 @@ PhxLib.PhxWeapDPS = function(weapon)
     return DPS
 end
 
-PhxLib.calcUnitDPS = function(curBP,curShortID)
+PhxLib.calcUnitDPS = function(curShortID,curBP)
     local debug = true
 
     local unitDPS = {}

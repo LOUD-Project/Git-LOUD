@@ -116,7 +116,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local Vision = 0
     local Race = 'none'
 
-    local unitDPS = calcUnitDPS(curBP,curShortID)   
+    local unitDPS = calcUnitDPS(curShortID,curBP)
 
     -- Get Economic values for Mass Energy and BuildTime if they exist
     if curBP.Economy then
