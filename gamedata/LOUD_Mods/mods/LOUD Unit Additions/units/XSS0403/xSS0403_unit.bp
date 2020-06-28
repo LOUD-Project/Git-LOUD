@@ -47,7 +47,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'CRUISER',
 		'NEEDMOBILEBUILD',
-		'DRAGBUILD',
+        'DRAGBUILD',
+        'OVERLAYRADAR','OVERLAYSONAR','OVERLAYOMNI',
     },
 	
     CollisionOffsetY = 0,

@@ -131,7 +131,7 @@ UnitBlueprint {
 		
     },
 	
-	#-- This unit has the unique ability to upgrade with the T2 Aeon Mobile Shield
+	---- This unit has the unique ability to upgrade with the T2 Aeon Mobile Shield
 	
     Enhancements = {
 	
@@ -284,7 +284,7 @@ UnitBlueprint {
         Level5 = 50,
 	},
    
-	#-- OK - so we have 4 weapons - 2 Serpentine Missiles @ 75 DPS - 1 Arrow Missile @ 750 / 5 = 150 DPS - 1 Anti-Tac Laser 2 DPS - Total 300 DPS Air
+	---- OK - so we have 4 weapons - 2 Serpentine Missiles @ 75 DPS - 1 Arrow Missile @ 750 / 5 = 150 DPS - 1 Anti-Tac Laser 2 DPS - Total 300 DPS Air
    
 	Weapon = {
 			{

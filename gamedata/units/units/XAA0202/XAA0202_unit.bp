@@ -279,7 +279,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 180 DPS Air
+            RateOfFire = 2,		---- 180 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 45,

@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "bab1302", #Aeon T3 Hydrocarbon
+	BlueprintId = "bab1302", --Aeon T3 Hydrocarbon
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

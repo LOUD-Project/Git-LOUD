@@ -241,12 +241,12 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 2,		#-- 2 second firing cycle
+            BeamLifetime = 2,		---- 2 second firing cycle
             CollideFriendly = false,
 			
             ContinuousBeam = true,
 			
-            Damage = 80,	#-- 1600 Damage per onfire
+            Damage = 80,	---- 1600 Damage per onfire
             DamageRadius = 0,
 			DamageFriendly = false,
             DamageType = 'Normal',
@@ -254,14 +254,14 @@ UnitBlueprint {
             DisplayName = 'Phason Laser',
 			
             EnergyDrainPerSecond = 300,
-            EnergyRequired = 1500,		#-- 5 second charge
+            EnergyRequired = 1500,		---- 5 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
                 Water = 'Air|Land|Water|Seabed',
             },
 			
-            FiringTolerance = 1,	#-- look at script - Head bone has some randomness to it causing some targeting issues intentionally
+            FiringTolerance = 1,	---- look at script - Head bone has some randomness to it causing some targeting issues intentionally
 			
             Label = 'EyeWeapon',
 			

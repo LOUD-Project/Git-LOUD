@@ -65,6 +65,7 @@ UnitBlueprint {
         'SILO',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
         --'NUKESUB',
     },
 	
@@ -174,7 +175,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 400000,
         BuildCostMass = 10000,
-        BuildRate = 600,	# was 1000
+        BuildRate = 600,	-- was 1000
         BuildTime = 52632,
     },
 

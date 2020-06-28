@@ -56,7 +56,8 @@ UnitBlueprint {
 		'ANTIMISSILE',
         'SILO',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -1,
@@ -1513,7 +1514,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 50,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',

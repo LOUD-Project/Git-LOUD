@@ -17,7 +17,7 @@ UnitBlueprint {
     BuildIconSortPriority = 155,
     Categories = {
         'SELECTABLE',
-#        'BUILTBYTIER3ENGINEER',
+--        'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER4COMMANDER',
         'SERAPHIM',
         'DRAGBUILD',
@@ -88,7 +88,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 105000,
         BuildCostMass = 7500,
-        BuildRate = 1350,	#-- was 1080
+        BuildRate = 1350,	---- was 1080
         BuildTime = 7000,
         RebuildBonusIds = {
             'xsb4302',

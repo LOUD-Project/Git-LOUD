@@ -323,7 +323,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	#-- 8 times 1200 = 9600 Damage every 10 seconds = 960 DPS x 2 = 1920 DPS
+            RateOfFire = 0.12,	---- 8 times 1200 = 9600 Damage every 10 seconds = 960 DPS x 2 = 1920 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -459,7 +459,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.50,	# 1600 dps
+            RateOfFire = 0.50,	-- 1600 dps
 			
             SlavedToBody = false,
 			
@@ -568,7 +568,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.2,	# 800 damage every 5 seconds = 160 dps
+            RateOfFire = 0.2,	-- 800 damage every 5 seconds = 160 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -658,7 +658,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,			#--- 880 DPS Air
+            RateOfFire = 2,			----- 880 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -737,7 +737,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,	# 264 dps
+            RateOfFire = 0.3,	-- 264 dps
 			
             TargetCheckInterval = 2,
 			

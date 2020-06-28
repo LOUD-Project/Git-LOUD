@@ -96,7 +96,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 660000,
         BuildCostMass = 34500,
-        BuildTime = 41000,	#-- was 29000
+        BuildTime = 41000,	---- was 29000
 		
         RebuildBonusIds = {'urb2302'},
     },
@@ -265,7 +265,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	#-- 5000 every 10 seconds but large area effect
+            RateOfFire = 1,	---- 5000 every 10 seconds but large area effect
 			
             TargetCheckInterval = 5,
             TargetPriorities = {

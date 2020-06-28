@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "xsb1303", #Seraphim T3 Mass Fabricator
+	BlueprintId = "xsb1303", --Seraphim T3 Mass Fabricator
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

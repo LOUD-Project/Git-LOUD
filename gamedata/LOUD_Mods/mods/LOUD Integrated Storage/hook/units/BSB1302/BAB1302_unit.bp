@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "bsb1302", #Seraphim T3 Hydrocarbon
+	BlueprintId = "bsb1302", --Seraphim T3 Hydrocarbon
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

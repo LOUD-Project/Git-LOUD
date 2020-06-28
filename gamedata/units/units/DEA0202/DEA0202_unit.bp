@@ -455,7 +455,7 @@ UnitBlueprint {
             FiringRandomness = 2.5,
             FiringTolerance = 6,
 			
-			FixBombTrajectory = true,	#CBFv4 added this
+			FixBombTrajectory = true,	--CBFv4 added this
 			
             Label = 'Bomb',
 			

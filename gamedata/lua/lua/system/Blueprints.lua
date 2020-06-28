@@ -463,9 +463,17 @@ function RegisterAllBlueprints(blueprints)
     RegisterGroup(blueprints.Beam, RegisterBeamBlueprint)
 end
 
-
 -- Hook for mods to manipulate the entire blueprint table
 function ModBlueprints(all_blueprints)
+
+	-- TODO: move this load to someplace more central so Tanksy and others can use it
+	--Load Phoenix's Helper Library
+	-- This includes primarily functions that calculate DPS and Threat, but also includes
+	-- a set of functions that return clean unit information.
+	-- This method of inclusion loads a single table of info, constants, and functions
+	-- called PhxLib
+	doscript '/lua/PhxLib.lua'
+	--LOG("PhxLib is "..repr(PhxLib))
 
 	-- Used for loading loose files in the Development build, as part of the GitHub Repo.
 	for bptype, array in all_blueprints do
@@ -492,6 +500,27 @@ function ModBlueprints(all_blueprints)
     for id, bp in all_blueprints.Unit do
 
         if bp.Weapon then
+
+			-- Begin Threat Update: overwrite threat with updated values
+			-- details available in:
+			-- https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
+			-- TODO: Update this to handle non-weapon baring units
+			-- TODO: Currently only supports surface threat, update to handle air,sub,surf threats
+			local unitDPS = PhxLib.calcUnitDPS(id,bp)
+			
+			if bp and
+			   bp.Defense and
+			   bp.Defense.SurfaceThreatLevel
+			then
+				LOG("Threat Overriden: "..id..", "
+				 .. PhxLib.cleanUnitName(bp)..", "
+				 .. "PrevThreat = " .. bp.Defense.SurfaceThreatLevel..","
+				 .. "NewThreat = " .. unitDPS.Threat.Total
+				)
+				bp.Defense.SurfaceThreatLevel = unitDPS.Threat.Total
+				
+			end
+			-- End Threat Update
 
             for ik, wep in bp.Weapon do
 				

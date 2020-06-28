@@ -268,7 +268,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 10,		#--- 1400 every 4 seconds -  350 DPS
+            RateOfFire = 10,		----- 1400 every 4 seconds -  350 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -296,7 +296,6 @@ UnitBlueprint {
             WeaponRepackTimeout = 0.6,
             WeaponUnpacks = true,
         },
-		
         {
             Audio = {
                 Fire = Sound {
@@ -347,7 +346,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 3,			#-- 150 DPS
+            RateOfFire = 3,			---- 150 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {           	

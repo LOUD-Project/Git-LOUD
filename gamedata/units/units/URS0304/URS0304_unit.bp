@@ -66,6 +66,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
+        'OVERLAYSONAR',
 --        'NUKESUB',
     },
 	

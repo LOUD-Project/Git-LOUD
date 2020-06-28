@@ -238,7 +238,7 @@ UnitBlueprint {
     Weapon = {
 	
 		-- 4 x Ground-Attack Cannon
-		-- Battery #1
+		-- Battery --1
         {
             AboveWaterTargetsOnly = true,		
             AlwaysRecheckTarget = true,
@@ -334,7 +334,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #2
+		-- Battery --2
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -427,7 +427,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #3
+		-- Battery --3
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -521,7 +521,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #4
+		-- Battery --4
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -615,7 +615,7 @@ UnitBlueprint {
         },
 		
 		-- 4x Flak Cannons
-		-- Flak #1
+		-- Flak --1
 		
         {
             AlwaysRecheckTarget = true,
@@ -701,7 +701,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #2
+		-- Flak --2
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -783,7 +783,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #3
+		-- Flak --3
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -866,7 +866,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #4
+		-- Flak --4
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -950,7 +950,7 @@ UnitBlueprint {
         },
 		
 		-- 4x AA Gatlings
-		-- Gatling #1
+		-- Gatling --1
 		
         {
             Audio = {
@@ -1032,7 +1032,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #2
+		-- Gatling --2
         {
             Audio = {
                 Fire = Sound {
@@ -1112,7 +1112,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #3
+		-- Gatling --3
         {
             Audio = {
                 Fire = Sound {
@@ -1191,7 +1191,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #4
+		-- Gatling --4
         {
             Audio = {
                 Fire = Sound {

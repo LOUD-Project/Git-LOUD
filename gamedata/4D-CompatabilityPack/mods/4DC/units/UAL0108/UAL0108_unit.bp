@@ -333,7 +333,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.4,			#-- 4 times 20 = 80 * .4 = about 32 DPS
+            RateOfFire = 0.4,			---- 4 times 20 = 80 * .4 = about 32 DPS
 			
             SlavedToBody = false,
             TargetCheckInterval = 0.6,
@@ -426,7 +426,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 0.2,			#-- 60 every 5 seconds about 12 dps
+            RateOfFire = 0.2,			---- 60 every 5 seconds about 12 dps
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

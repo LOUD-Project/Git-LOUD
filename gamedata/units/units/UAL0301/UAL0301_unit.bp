@@ -53,7 +53,7 @@ UnitBlueprint {
         'CONSTRUCTION',
         'REPAIR',
         'RECLAIM',
-#        'REBUILDER',
+--        'REBUILDER',
         'BUILTBYQUANTUMGATE',
         'CAPTURE',
         'VISIBLETORECON',
@@ -65,7 +65,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 370,		# BuildRate + 1% of health
+        EconomyThreatLevel = 370,		-- BuildRate + 1% of health
         Health = 31000,
         MaxHealth = 31000,
 		NoTeleDistance = 35,
