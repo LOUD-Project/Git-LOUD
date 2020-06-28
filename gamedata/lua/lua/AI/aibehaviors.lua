@@ -3771,7 +3771,7 @@ function NavalForceAILOUD( self, aiBrain )
 			
 				self:Stop()
 
-				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove, 28 )
 				
 				WaitTicks(30)
 			else
@@ -4341,7 +4341,7 @@ function NavalBombardAILOUD( self, aiBrain )
 			
 				self:Stop()
 			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false, 28 )
 				
 				-- this pause is here for two reasons -
 				-- first: to allow the platoon to get moving

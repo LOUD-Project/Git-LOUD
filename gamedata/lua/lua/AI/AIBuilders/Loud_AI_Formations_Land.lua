@@ -416,7 +416,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},            
             
@@ -493,7 +493,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 
 			-- enemy mass points within 15km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 750 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -508,22 +508,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointCategory = categories.MASSPRODUCTION,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 750,
+			PointRadius = 1000,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 750,
+			PointMax = 1000,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
 			StrRadius = 75,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 6,
+			StrMax = 8,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 75,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 15,
+			UntMax = 18,
 			
             PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','DIRECTFIRE','LAND MOBILE','ENGINEER'},
 			
@@ -562,7 +562,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},            
 
@@ -740,8 +740,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		            
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -974,7 +973,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
@@ -986,7 +985,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			
             PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 2000,			-- only process hi-priority targets within 17.5 km
+			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
 			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
 			
@@ -1025,7 +1024,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		BuilderConditions = {
 		
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
@@ -1042,7 +1041,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			
             PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 2000,			-- only process hi-priority targets within 17.5 km
+			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
 			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
 			
@@ -1182,7 +1181,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 48, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
@@ -1220,7 +1219,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 		},
 		
@@ -1228,7 +1227,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
             PrioritizedCategories = { 'ECONOMIC','STRUCTURE','LAND MOBILE','ENGINEER'},		# controls target selection
 			
-			MaxAttackRange = 750,			-- only process hi-priority targets within 15km
+			MaxAttackRange = 1000,			-- only process hi-priority targets within 20km
 			
 			MergeLimit = 60,				# controls trigger level at which merging is allowed - nil = original platoon size
 			
@@ -1259,7 +1258,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		

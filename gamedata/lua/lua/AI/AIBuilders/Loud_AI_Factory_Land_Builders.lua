@@ -485,7 +485,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
@@ -511,7 +511,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
