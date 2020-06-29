@@ -518,7 +518,8 @@ function ModBlueprints(all_blueprints)
 				 .. "NewThreat = " .. unitDPS.Threat.Total
 				)
 				bp.Defense.SurfaceThreatLevel = unitDPS.Threat.Total
-				
+				--bp.Defense.AirThreatLevel = unitDPS.Threat.Total
+				--bp.Defense.SubThreatLevel = unitDPS.Threat.Total
 			end
 			-- End Threat Update
 

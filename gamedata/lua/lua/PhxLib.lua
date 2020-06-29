@@ -427,7 +427,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
     unitDPS.Threat.Range = 0
     unitDPS.Threat.HP = 0
     unitDPS.Threat.Speed = 0
-    unitDPS.Threat.Dam = 0
+    unitDPS.Threat.srfDam = 0
     unitDPS.Threat.Total = 0
     unitDPS.srfDPS = 0
     unitDPS.subDPS = 0
@@ -473,7 +473,9 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
 
             --print(" weapDPS.threatRange = " ..  weapDPS.threatRange)
             unitDPS.Threat.Range = unitDPS.Threat.Range + weapDPS.threatRange
-            unitDPS.Threat.Dam = unitDPS.Threat.Dam + weapDPS.threatSurf
+            unitDPS.Threat.srfDam = unitDPS.Threat.srfDam + weapDPS.threatSurf
+            unitDPS.Threat.subDam = unitDPS.Threat.subDam + weapDPS.subDPS/20
+            unitDPS.Threat.airDam = unitDPS.Threat.airDam + weapDPS.airDPS/20
             if debug then print(" ") end -- End of Weapon Reporting
         end --Weapon For Loop
 
@@ -487,8 +489,10 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             " has NO weapons")
     end --End if(weapon)
 
-    unitDPS.Threat.Total = unitDPS.Threat.Speed + unitDPS.Threat.Range 
-                         + unitDPS.Threat.Dam + unitDPS.Threat.HP
+    unitDPS.Threat.srfTotal = unitDPS.Threat.srfDam + unitDPS.Threat.HP
+                            + unitDPS.Threat.Speed  + unitDPS.Threat.Range
+    unitDPS.Threat.subTotal = unitDPS.Threat.subDam + unitDPS.Threat.HP
+    unitDPS.Threat.airTotal = unitDPS.Threat.airDam + unitDPS.Threat.HP
 
     return unitDPS
 end
