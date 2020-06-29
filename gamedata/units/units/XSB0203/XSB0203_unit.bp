@@ -88,7 +88,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 9360,
         BuildCostMass = 1521,
-        BuildRate = 35,
+        BuildRate = 70,
         BuildTime = 2700,
         BuildableCategory = {
             'BUILTBYTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',

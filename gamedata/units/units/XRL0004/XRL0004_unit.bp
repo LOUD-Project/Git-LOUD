@@ -16,7 +16,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 10,
+    
+    BuildIconSortPriority = 30,
+    
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -37,7 +39,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
+    
     Description = '<LOC xrl0004_desc>Crab Egg (Flak)',
+    
     Display = {
         AnimationOpen = '/units/xrl0004/xrl0004_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -60,16 +64,19 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 800,
-        BuildCostMass = 160,
-        BuildTime = 800,
+        BuildCostMass = 200,
+        BuildTime = 1000,
         BuildUnit = 'url0205',
     },
+    
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+    
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -93,9 +100,11 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 0,
     },
+    
     Interface = {
         HelpText = 'Crab Egg (Flak)',
     },

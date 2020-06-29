@@ -66,9 +66,9 @@ UnitBlueprint {
         UniformScale = 0.05,
     },
     Economy = {
-        BuildCostEnergy = 2970,
-        BuildCostMass = 561,
-        BuildTime = 1980,
+        BuildCostEnergy = 4400,
+        BuildCostMass = 625,
+        BuildTime = 3125,
         BuildUnit = 'url0309',
     },
     Footprint = {
