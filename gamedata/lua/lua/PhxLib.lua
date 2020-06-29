@@ -171,6 +171,13 @@ PhxLib.getSpeed = function(curBP)
         Speed = 0
     end
 
+    if curBP.Air and
+       curBP.Air.CanFly and
+       curBP.Air.MaxAirspeed
+    then
+        Speed = curBP.Air.MaxAirspeed
+    end
+
     return Speed
 end
 
