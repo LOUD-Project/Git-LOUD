@@ -319,7 +319,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         Priority = 800,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },

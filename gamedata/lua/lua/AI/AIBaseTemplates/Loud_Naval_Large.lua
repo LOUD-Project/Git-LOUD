@@ -11,6 +11,7 @@ BaseBuilderTemplate {
 		
 		# Engineers reclaim, repair, assist
 		'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',        
 		
 		# Engineers Build Factories
         'Engineer Factory Construction - Naval',
