@@ -2226,7 +2226,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.02,
+            Add = 0.015,
             Mult = 1.0,
         },
     },
@@ -2248,7 +2248,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.175,
+            Add = 0.16,
             Mult = 1.0,
         },
     },
@@ -2264,7 +2264,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.0583,
+            Add = 0.0533,
             Mult = 1.0,
         },
     },
@@ -2280,7 +2280,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.035,
+            Add = 0.024,
             Mult = 1.0,
         },
     },
@@ -2302,7 +2302,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.215,
+            Add = 0.2,
             Mult = 1.0,
         },
     },
@@ -2318,7 +2318,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.07167,
+            Add = 0.0667,
             Mult = 1.0,
         },
     },
@@ -2334,7 +2334,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.043,
+            Add = 0.03,
             Mult = 1.0,
         },
     },
