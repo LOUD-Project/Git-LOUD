@@ -1,7 +1,7 @@
 --  File:    /LUA/modules/UI/game/score.LUA
 --  Author:  Chris Blackwell, HUSSAR
 --  Summary: Supreme Score Board in Game/Replay Sessions (see mod_info.lua for details)
---  Copyright © 2005 Gas Powered Games, Inc. All rights reserved.
+--  Copyright ï¿½ 2005 Gas Powered Games, Inc. All rights reserved.
 --
 --  NOTE:    Contact HUSSAR, in case you are trying to 
 --           implement/port this mod to latest version of FAF patch
@@ -137,7 +137,7 @@ local switchInterval = 10 -- in seconds
 -- initializes Stats to store info about players' armies and aggregated armies (teams)
 function InitializeStats()
 
-    log.Trace('InitializeStats()... '  )
+    --log.Trace('InitializeStats()... '  )
 
     Stats.units  = GetArmyTableUnits() 
     Stats.armies = {} --GetArmiesTable().armiesTable
@@ -152,6 +152,7 @@ function InitializeStats()
     local allArmies = GetArmiesTable().armiesTable
 
     log.Table(sessionInfo, 'sessionInfo') 
+    
     --log.Table(__active_mods, 'active_mods')
     --log.Table(allArmies, 'armies') 
     
@@ -168,6 +169,7 @@ function InitializeStats()
         end
 
         log.Trace('InitializeStats()... info armyID='..armyID..', type='..army.type..', name='..army.nickname)
+        
         --if army.civilian or not army.showScore then continue end
         if not army.civilian and army.showScore then 
             if army.human then
@@ -179,8 +181,10 @@ function InitializeStats()
                 army.namefull  = army.nickname
                 Stats.ai.active = true
             end 
+            
             --log.Table(army, 'army') 
             --log.Trace('InitializeStats()... saving armyID='..armyID)
+            
             army.armyID = armyID
             army.eco    = GetArmyTableEco()
             army.kills  = GetArmyTableKills()
@@ -198,7 +202,8 @@ function InitializeStats()
             Stats.armies[armyID] = army
         end
     end
-    log.Trace('InitializeStats()... armies created'  )
+    
+    --log.Trace('InitializeStats()... armies created'  )
     
     -- deactivate team Stats if team option is unlocked 
     --if (sessionOptions.TeamLock == nil or 
@@ -210,7 +215,9 @@ function InitializeStats()
     -- TODO combine below for loop with above for loop
     -- second, collect info about all teams
     for armyID,army in Stats.armies do 
+    
         --if army.civilian or not army.showScore then continue end
+        
         if not army.civilian and army.showScore then
             local team = CreateTeam(armyID, allArmies) 
             local teamID = 0
@@ -222,6 +229,7 @@ function InitializeStats()
             else
                 -- use negative id for teams
                 teamID = Stats.teamsCount * -1
+                
                 log.Trace('InitializeStats()... saving team='..teamID..' size='..team.members.count)
             
                 team.armyID = teamID -- Stats.teamsCount * -1
@@ -243,19 +251,23 @@ function InitializeStats()
             Stats.armies[armyID].txtColor  = team.txtColor
         end
     end
+    
     log.Trace('InitializeStats()... teams created'  )
     
     --log.Table(Stats.teams, 'teams') 
+    
     Stats.armiesCount = table.getn(Stats.armies)
     Stats.teamsCount  = Stats.teamsCount - 1  
-       
+
     -- activate teams only if we have at least one team with more than 1 player
     -- otherwise, it is redundant to show Stats about teams with just one player in a team
     -- because army lines will show this information 
     Stats.teamsActive = Stats.teamsCount ~= Stats.armiesCount
-      
+
     local isActive = (Stats.teamsActive and "true" or "false")
+    
     log.Trace('InitializeStats()... teamsActive = '..isActive..', teamsCount = '..Stats.teamsCount..', armiesCount = '..Stats.armiesCount)
+    
 --    if Stats.teamsActive then
 --		if not sessionOptions.Quality then
 --            local min = 10000
