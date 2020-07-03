@@ -361,14 +361,16 @@ function InitializeArmies()
         
         for _,brain in ArmyBrains do
 
-            -- interestingly the IsAlly function does not work at this stage
-            -- so we just assume anyone NOT on our team is an opponent
-            if ScenarioInfo.ArmySetup[brain.Name].Team == self.Team then
-                TeamSize = TeamSize + 1
-            else
-                Opponents = Opponents + 1
+            -- exclude civilians in this process
+            if brain.Nickname ~= 'civilian' then
+
+                if IsAlly( brain.ArmyIndex, self.ArmyIndex) then 
+                    TeamSize = TeamSize + 1
+                else
+                    Opponents = Opponents + 1
+                end
+                
             end
-            
         end
     
         -- number of Opponents in the game
@@ -377,7 +379,7 @@ function InitializeArmies()
         -- number of players in the game 
         self.Players = ScenarioInfo.Options.PlayerCount
         
-        --LOG("*AI DEBUG "..self.Name.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+        LOG("*AI DEBUG "..self.Name.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
         
         self.TeamSize = TeamSize
 		

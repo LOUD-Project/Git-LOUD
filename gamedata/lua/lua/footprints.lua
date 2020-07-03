@@ -24,6 +24,7 @@ SpecFootprints {
 
 	{ Name = 'Amphibious0x0',   SizeX=0,  SizeZ=0,  Caps=LAND|SEABED, MaxWaterDepth=25, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Amphibious1x1',   SizeX=1,  SizeZ=1,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=0 },
+    { Name = 'Amphibious2x2',   SizeX=2,  SizeZ=2,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Amphibious3x3',   SizeX=3,  SizeZ=3,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Amphibious6x6',   SizeX=6,  SizeZ=6,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
 
