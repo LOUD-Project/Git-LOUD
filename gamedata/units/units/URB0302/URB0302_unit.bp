@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 22,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -40,14 +42,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 440,
+        EconomyThreatLevel = 540,
         Health = 17000,
         MaxHealth = 17000,
         RegenRate = 3,
     },
+    
     Description = '<LOC urb0302_desc>Advanced Air Factory',
+    
     Display = {
         AnimationBuild = '/units/urb0302/urb0302_abuild.sca',
         AnimationFinishBuildLand = '/units/urb0302/urb0302_aplatform.sca',
@@ -88,11 +93,14 @@ UnitBlueprint {
         },
         UniformScale = 0.09,
     },
+    
     Economy = {
         BuildCostEnergy = 90500,
         BuildCostMass = 4575,
+        
         BuildRate = 100,
-        BuildTime = 12000,
+        BuildTime = 24000,
+        
         BuildableCategory = {
             'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY CYBRAN STRUCTURE AIR',
@@ -105,10 +113,12 @@ UnitBlueprint {
         StorageEnergy = 2000,
         StorageMass = 200,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildAttachBone = 'Build_Point',

@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 21,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -39,14 +41,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 194,
+        EconomyThreatLevel = 268,
         Health = 6200,
         MaxHealth = 6200,
         RegenRate = 2,
     },
+    
     Description = '<LOC uab0202_desc>Improved Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -93,8 +98,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 15210,
         BuildCostMass = 819,
+        
         BuildRate = 70,
-        BuildTime = 3042,
+        BuildTime = 6084,
 		
         BuildableCategory = {
             'BUILTBYTIER2FACTORY AEON MOBILE CONSTRUCTION',
@@ -116,6 +122,7 @@ UnitBlueprint {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

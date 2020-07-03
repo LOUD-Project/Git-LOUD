@@ -29,7 +29,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 21,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -47,14 +49,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 230,
+        EconomyThreatLevel = 300,
         Health = 8000,
         MaxHealth = 8000,
         RegenRate = 0,
     },
+    
     Description = '<LOC ueb0202_desc>Improved Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -97,28 +102,35 @@ UnitBlueprint {
         },
         UniformScale = 0.1,
     },
+    
     Economy = {
         BuildCostEnergy = 15210,
         BuildCostMass = 819,
+        
         BuildRate = 70,
-        BuildTime = 2700,
+        BuildTime = 5400,
+        
         BuildableCategory = {
             'BUILTBYTIER2FACTORY UEF MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY UEF STRUCTURE AIR',
             'BUILTBYTIER2FACTORY UEF MOBILE AIR',
             'TRANSPORTBUILTBYTIER2FACTORY UEF MOBILE AIR',
         },
+        
         RebuildBonusIds = {
             'ueb0202',
             'ueb0302',
         },
+        
         StorageEnergy = 1000,
         StorageMass = 100,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

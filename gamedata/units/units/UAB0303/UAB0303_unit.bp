@@ -47,7 +47,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 740,	-- buildrate * 2 + 2% of health
+        EconomyThreatLevel = 840,	-- buildrate * 2 + 2% of health
         Health = 32000,
         MaxHealth = 32000,
         RegenRate = 5,
@@ -80,8 +80,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 35100,
         BuildCostMass = 8000,
+        
         BuildRate = 100,
-        BuildTime = 16000,
+        BuildTime = 32000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON MOBILE CONSTRUCTION',

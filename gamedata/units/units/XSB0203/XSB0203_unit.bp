@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 31,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -39,16 +41,20 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0,
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 370,
+        EconomyThreatLevel = 440,
         Health = 15000,
         MaxHealth = 15000,
         RegenRate = 4,
     },
+    
     Description = '<LOC xsb0203_desc>Improved Naval Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -85,28 +91,35 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 9360,
         BuildCostMass = 1521,
+        
         BuildRate = 70,
-        BuildTime = 2700,
+        BuildTime = 5400,
         BuildableCategory = {
             'BUILTBYTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY SERAPHIM STRUCTURE NAVAL',
             'BUILTBYTIER2FACTORY SERAPHIM MOBILE NAVAL',
         },
+        
         InitialRallyX = 0,
         InitialRallyZ = 10,
+        
         RebuildBonusIds = {
             'xsb0203',
             'xsb0303',
         },
+        
         StorageEnergy = 1000,
         StorageMass = 100,
     },
+    
     Footprint = {
         MinWaterDepth = 3,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

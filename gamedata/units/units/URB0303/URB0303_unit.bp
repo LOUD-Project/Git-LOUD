@@ -47,7 +47,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 700,
+        EconomyThreatLevel = 800,
         Health = 30000,
         MaxHealth = 30000,
         RegenRate = 8,
@@ -79,8 +79,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 35100,
         BuildCostMass = 8000,
+        
         BuildRate = 100,
-        BuildTime = 12000,
+        BuildTime = 24000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',

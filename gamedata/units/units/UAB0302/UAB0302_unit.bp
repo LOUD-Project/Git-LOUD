@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 22,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -39,14 +41,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 460,	-- buildrate * 2 + 2% of health
+        EconomyThreatLevel = 560,	-- buildrate * 2 + 2% of health
         Health = 18000,
         MaxHealth = 18000,
         RegenRate = 2,
     },
+    
     Description = '<LOC uab0302_desc>Advanced Air Factory',
+    
     Display = {
         BuildAttachBone = 'Attachpoint',
         Mesh = {
@@ -85,27 +90,34 @@ UnitBlueprint {
         },
         UniformScale = 0.35,
     },
+    
     Economy = {
         BuildCostEnergy = 90500,
         BuildCostMass = 4725,
+        
         BuildRate = 100,
-        BuildTime = 12000,
+        BuildTime = 24000,
+        
         BuildableCategory = {
             'BUILTBYTIER3FACTORY AEON MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY AEON STRUCTURE AIR',
             'BUILTBYTIER3FACTORY AEON MOBILE AIR',
             'TRANSPORTBUILTBYTIER3FACTORY AEON MOBILE AIR',
         },
+        
         RebuildBonusIds = {
             'uab0302',
         },
+        
         StorageEnergy = 2000,
         StorageMass = 200,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {
