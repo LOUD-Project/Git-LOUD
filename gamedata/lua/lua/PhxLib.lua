@@ -190,6 +190,79 @@ PhxLib.getVision = function(curBP)
     return Vision
 end
 
+PhxLib.getRegen = function(curBP)
+    if curBP.Defense and 
+       curBP.Defense.RegenRate
+    then
+        return curBP.Defense.RegenRate or 0
+    else
+        return 0
+    end
+
+end
+
+PhxLib.getChassis = function(curBP)
+    -- Thoughts on Unit Categories
+    -- Basic Chassis: Amphib, Hover, Bot, Tread, Wheeled
+    -- TODO: fixed weapons vs. articulated
+
+    if curBP.Physics and
+       curBP.Physics.MotionType and
+       curBP.Physics.MotionType == 'RULEUMT_Amphibious'
+    then
+        return 'Amphib'
+    elseif curBP.Physics and
+           curBP.Physics.MotionType and
+           curBP.Physics.MotionType == 'RULEUMT_Hover'
+    then
+        return 'Hover'
+    elseif PhxLib.checkCategories(curBP,'BOT') then
+        return 'Bot'
+    elseif PhxLib.checkCategories(curBP,'LAND') and
+           PhxLib.checkCategories(curBP,'MOBILE') then
+        return 'StdLand'
+    elseif PhxLib.checkCategories(curBP,'DEFENSE') then
+        return 'Defense'
+    else
+        return 'unknown'
+    end
+
+end
+
+PhxLib.getIntel = function(curBP)
+    local intel = ''
+    if curBP.Intel then
+        if curBP.Intel.RadarRadius and 
+           curBP.Intel.RadarRadius > 0
+        then 
+            intel = intel .. 'Radar'
+        end
+        if curBP.Intel.SonarRadius and 
+           curBP.Intel.SonarRadius > 0
+        then 
+            intel = intel .. 'Sonar'
+        end
+        if curBP.Intel.OmniRadius and 
+           curBP.Intel.OmniRadius > 0
+        then 
+            intel = intel .. 'Omni'
+        end
+    end
+    return intel
+end
+
+
+PhxLib.checkCategories = function(curBP,checkCat) 
+    if(curBP.Categories) then
+        for curKey,curCategory in ipairs(curBP.Categories) do
+            if curCategory == checkCat then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 PhxLib.PhxWeapDPS = function(weapon)
     -- Inputs: weapon blueprint
     -- Outputs: DPS table with:
@@ -447,6 +520,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
     unitDPS.Health = PhxLib.getHealth(curBP)
     unitDPS.Shield = PhxLib.getShield(curBP)
     unitDPS.Speed = PhxLib.getSpeed(curBP)
+    unitDPS.Regen = PhxLib.getRegen(curBP)
 
     unitDPS.Threat.HP = (unitDPS.Health+unitDPS.Shield)/PhxLib.tEnd/20
 

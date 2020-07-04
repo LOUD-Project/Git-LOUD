@@ -97,8 +97,10 @@ io.write(
                 .. "," .. "totDPS"
                 .. "," .. "maxRange"
                 .. "," .. "Vision"
+                .. "," .. "Intel"
                 .. "," .. "Shield"
                 .. "," .. "Health"
+                .. "," .. "Regen"
                 .. "," .. "Mass"
                 .. "," .. "Energy"
                 .. "," .. "BuildTime"
@@ -116,6 +118,8 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local Tier = 0
     local Vision = 0
     local Race = 'none'
+    local Chassis = 'unknown'
+    local Intel = ''
 
     local unitDPS = calcUnitDPS(curShortID,curBP)
 
@@ -132,6 +136,8 @@ for curBPid,curBP in ipairs(allBlueprints) do
 
     Tier = getTechLevel(curBP)
     Vision = getVision(curBP)
+    Chassis = PhxLib.getChassis(curBP)
+    Intel = PhxLib.getIntel(curBP)
 
     if curBP.General and curBP.General.FactionName then 
         Race = curBP.General.FactionName
@@ -145,7 +151,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. "Type"
         .. "," .. "Type2"
         .. "," .. Race
-        .. "," .. "Chassis"
+        .. "," .. Chassis
         .. "," .. unitDPS.Threat.Speed
         .. "," .. unitDPS.Threat.Range
         .. "," .. unitDPS.Threat.HP
@@ -158,8 +164,10 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. unitDPS.totDPS
         .. "," .. unitDPS.maxRange
         .. "," .. Vision
+        .. "," .. Intel
         .. "," .. unitDPS.Shield
         .. "," .. unitDPS.Health
+        .. "," .. unitDPS.Regen
         .. "," .. Mass
         .. "," .. Energy
         .. "," .. BuildTime
