@@ -150,9 +150,9 @@ PhxLib.getShield = function(curBP)
     local Shield = 0
     if  curBP.Defense and 
         curBP.Defense.Shield and 
-        curBP.Defense.ShieldMaxHealth
+        curBP.Defense.Shield.ShieldMaxHealth
     then
-        Shield = curBP.Defense.Shield.SheildMaxHealth or 0
+        Shield = curBP.Defense.Shield.ShieldMaxHealth or 0
     else 
         Shield = 0
     end
