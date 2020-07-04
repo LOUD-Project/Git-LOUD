@@ -946,7 +946,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 			end
 		end
     else
-        LOG("*AI DEBUG "..aiBrain.Nickname.." has no attack plan - cannot set Primary Base")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." has no attack plan - cannot set Primary Base")
 		aiBrain.PrimarySeaAttackBase = false
     end
 end
@@ -1518,19 +1518,19 @@ function AddCustomUnitSupport( aiBrain )
 	for i, m in __active_mods do
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
-			LOG("*AI DEBUG BOACU installed")
+			--LOG("*AI DEBUG BOACU installed")
 			ScenarioInfo.BOACU_Checked = true
 			ScenarioInfo.BOACU_Installed = true
 		end
 
 		if m.name == 'BlackOps Unleashed Units for LOUD' then
-			LOG("*AI DEBUG BOU installed")
+			--LOG("*AI DEBUG BOU installed")
 			ScenarioInfo.BOU_Checked = true
 			ScenarioInfo.BOU_Installed = true
 		end
 		
 		if m.name == 'LOUD Integrated Storage' then
-			LOG("*AI DEBUG LOUD Integrated Storage installed")
+			--LOG("*AI DEBUG LOUD Integrated Storage installed")
 			ScenarioInfo.LOUD_IS_Checked = true
 			ScenarioInfo.LOUD_IS_Installed = true
 		end
@@ -1541,7 +1541,7 @@ function AddCustomUnitSupport( aiBrain )
 		--Loop through files in CustomUnits folder
 		for k, v in CustomUnitFiles do
 		
-			LOG("*AI DEBUG: Adding Custom unit file "..repr(v))
+			--LOG("*AI DEBUG: Adding Custom unit file "..repr(v))
 		
 			local tempfile = import(v).UnitList
 			
@@ -3697,7 +3697,7 @@ end
 -- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 
-	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
+	--LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
 	
 	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -3814,8 +3814,7 @@ function BuildScoutLocations( self )
 		ScenarioInfo.NumMassPoints = LOUDGETN(AIGetMarkerLocations('Mass'))
         
 		LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
-		LOG("*AI DEBUG Number of Players is "..self.Players)
-		LOG("*AI DEBUG "..self.Nickname.." Opponent count is "..numOpponents)
+		--LOG("*AI DEBUG Number of Players is "..self.Players)
 
 		-- Having handled Starting Locations lets add others to the permanent list
         -- for HiPri
@@ -3863,7 +3862,7 @@ function BuildScoutLocations( self )
     -- this value can range from 1 to 8
     self.AILowHiScoutRatio =  math.max( 1, math.min( math.floor(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
     
-    LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
+    --LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
 end
 
 -- This one complements the previous function to remove visible markers from the map 

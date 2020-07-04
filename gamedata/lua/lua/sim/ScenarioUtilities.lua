@@ -86,7 +86,7 @@ function CreateProps()
 	-- we dont need the prop data anymore
 	ScenarioInfo.Env.Scenario['Props'] = nil
 	
-	LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
+	--LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 end
 
 function CreateResources()
@@ -97,7 +97,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	LOG("*AI DEBUG Armies is "..repr(Armies))
+	--LOG("*AI DEBUG Armies is "..repr(Armies))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -105,11 +105,11 @@ function CreateResources()
 		end
 	end
 	
-	LOG("*AI DEBUG Start positions are "..repr(Starts))
+	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
-	LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
+	--LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
 	
     for i, tblData in pairs(markers) do
 	
@@ -379,7 +379,7 @@ function InitializeArmies()
         -- number of players in the game 
         self.Players = ScenarioInfo.Options.PlayerCount
         
-        LOG("*AI DEBUG "..self.Name.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+        LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
         
         self.TeamSize = TeamSize
 		
@@ -392,9 +392,6 @@ function InitializeArmies()
             return
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Initializing Skirmish Systems "..repr(ScenarioInfo))
-		--LOG("*AI DEBUG "..self.Nickname.." Initial Brain info is "..repr(self))
-		
 		-- build table of scout locations and set some starting threat at all enemy locations
 		import('/lua/loudutilities.lua').BuildScoutLocations(self)
 
@@ -570,11 +567,11 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
-				
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
-			
+            
+            -- if there is wreckage to be created --
             if wreckageGroup then
 			
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
