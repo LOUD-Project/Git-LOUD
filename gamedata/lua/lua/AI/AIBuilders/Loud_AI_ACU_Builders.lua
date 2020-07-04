@@ -594,6 +594,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},			
 			{ UCBC, 'ACUNeedsUpgrade', { 'AdvancedEngineering' }},
         },
@@ -739,7 +740,8 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
         },
 		
