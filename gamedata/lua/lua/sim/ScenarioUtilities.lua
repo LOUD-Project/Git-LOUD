@@ -357,20 +357,18 @@ function InitializeArmies()
 		self.Team = ScenarioInfo.ArmySetup[self.Name].Team
         
         local Opponents = 0
-        local TeamSize = 0
-        
-        for _,brain in ArmyBrains do
+        local TeamSize = 1
 
-            -- exclude civilians in this process
-            if brain.Nickname ~= 'civilian' then
+        for index, playerInfo in ArmyBrains do
+    
+            if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
 
-                if IsAlly( brain.ArmyIndex, self.ArmyIndex) then 
-                    TeamSize = TeamSize + 1
-                else
-                    Opponents = Opponents + 1
-                end
-                
+            if IsAlly( index, self.ArmyIndex) then 
+                TeamSize = TeamSize + 1
+            else
+                Opponents = Opponents + 1
             end
+            
         end
     
         -- number of Opponents in the game
@@ -536,6 +534,13 @@ function InitializeArmies()
     import('/lua/sim/scenarioutilities.lua').CreateResources()
 	
     for iArmy, strArmy in pairs(tblArmy) do
+    
+        -- release some data we don't need anymore
+        ScenarioInfo.ArmySetup[strArmy].BadMap = nil
+        ScenarioInfo.ArmySetup[strArmy].LEM = nil
+        ScenarioInfo.ArmySetup[strArmy].MapVersion = nil
+        ScenarioInfo.ArmySetup[strArmy].Ready = nil
+        ScenarioInfo.ArmySetup[strArmy].StartSpot = nil
 
         local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
@@ -544,6 +549,34 @@ function InitializeArmies()
 
         if tblData then
 
+            -- setup neutral/enemy status of civlians --
+            -- and allied status of other players --
+            for iEnemy, strEnemy in pairs(tblArmy) do
+			
+                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
+
+                -- if another army and you AND they are NOT NEUTRAL civilians --
+                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
+
+                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
+                        SetAlliance( iArmy, iEnemy, 'Neutral')
+                    else
+                        SetAlliance( iArmy, iEnemy, 'Enemy')
+                    end
+                    
+                    if ScenarioInfo.ArmySetup[strArmy].Team == ScenarioInfo.ArmySetup[strEnemy].Team then
+                        SetAlliance( iArmy, iEnemy, 'Ally')
+                    end
+                    
+                -- if only they are NEUTRAL civilians
+                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
+				
+                    SetAlliance( iArmy, iEnemy, 'Neutral')
+                end
+                
+				
+            end
+			
 			-- if this is an AI (but not civilian)        
             if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
                 import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
@@ -580,34 +613,8 @@ function InitializeArmies()
                     unit:CreateWreckageProp(0)
                     unit:Destroy()
                 end
-				
             end
-
-            for iEnemy, strEnemy in pairs(tblArmy) do
-			
-                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
-
-                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
-				
-                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
-					
-                        SetAlliance( iArmy, iEnemy, 'Neutral')
-						
-                    else
-					
-                        SetAlliance( iArmy, iEnemy, 'Enemy')
-                    end
-					
-                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
-				
-                    SetAlliance( iArmy, iEnemy, 'Neutral')
-					
-                end
-				
-            end
-			
         end
-		
     end
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
