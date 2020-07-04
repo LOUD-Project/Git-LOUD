@@ -87,9 +87,10 @@ io.write(
                 .. "," .. "Chassis"
                 .. "," .. "ThreatSpd"
                 .. "," .. "ThreatRange"
-                .. "," .. "ThreatDam"
                 .. "," .. "ThreatHP"
-                .. "," .. "ThreatTotal"
+                .. "," .. "SrfThreatTotal"
+                .. "," .. "SubThreatTotal"
+                .. "," .. "AirThreatTotal"
                 .. "," .. "tSurfDPS"
                 .. "," .. "tSubDPS"
                 .. "," .. "tAirDPS"
@@ -147,9 +148,10 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. "Chassis"
         .. "," .. unitDPS.Threat.Speed
         .. "," .. unitDPS.Threat.Range
-        .. "," .. unitDPS.Threat.Dam
         .. "," .. unitDPS.Threat.HP
-        .. "," .. unitDPS.Threat.Total
+        .. "," .. unitDPS.Threat.srfTotal
+        .. "," .. unitDPS.Threat.subTotal
+        .. "," .. unitDPS.Threat.airTotal
         .. "," .. unitDPS.srfDPS
         .. "," .. unitDPS.subDPS
         .. "," .. unitDPS.airDPS

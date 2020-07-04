@@ -515,10 +515,11 @@ function ModBlueprints(all_blueprints)
 				LOG("Threat Overriden: "..id..", "
 				 .. PhxLib.cleanUnitName(bp)..", "
 				 .. "PrevThreat = " .. bp.Defense.SurfaceThreatLevel..","
-				 .. "NewThreat = " .. unitDPS.Threat.Total
+				 .. "NewThreat = " .. unitDPS.Threat.srfTotal
 				)
-				bp.Defense.SurfaceThreatLevel = unitDPS.Threat.Total
-				
+				bp.Defense.SurfaceThreatLevel = unitDPS.Threat.srfTotal
+				--bp.Defense.AirThreatLevel = unitDPS.Threat.airTotal
+				--bp.Defense.SubThreatLevel = unitDPS.Threat.subTotal
 			end
 			-- End Threat Update
 

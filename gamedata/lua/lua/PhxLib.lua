@@ -171,6 +171,13 @@ PhxLib.getSpeed = function(curBP)
         Speed = 0
     end
 
+    if curBP.Air and
+       curBP.Air.CanFly and
+       curBP.Air.MaxAirspeed
+    then
+        Speed = curBP.Air.MaxAirspeed
+    end
+
     return Speed
 end
 
@@ -427,8 +434,9 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
     unitDPS.Threat.Range = 0
     unitDPS.Threat.HP = 0
     unitDPS.Threat.Speed = 0
-    unitDPS.Threat.Dam = 0
-    unitDPS.Threat.Total = 0
+    unitDPS.Threat.srfDam = 0
+    unitDPS.Threat.subDam = 0
+    unitDPS.Threat.airDam = 0
     unitDPS.srfDPS = 0
     unitDPS.subDPS = 0
     unitDPS.airDPS = 0
@@ -473,7 +481,9 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
 
             --print(" weapDPS.threatRange = " ..  weapDPS.threatRange)
             unitDPS.Threat.Range = unitDPS.Threat.Range + weapDPS.threatRange
-            unitDPS.Threat.Dam = unitDPS.Threat.Dam + weapDPS.threatSurf
+            unitDPS.Threat.srfDam = unitDPS.Threat.srfDam + weapDPS.threatSurf
+            unitDPS.Threat.subDam = unitDPS.Threat.subDam + weapDPS.subDPS/20
+            unitDPS.Threat.airDam = unitDPS.Threat.airDam + weapDPS.airDPS/20
             if debug then print(" ") end -- End of Weapon Reporting
         end --Weapon For Loop
 
@@ -487,8 +497,40 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             " has NO weapons")
     end --End if(weapon)
 
-    unitDPS.Threat.Total = unitDPS.Threat.Speed + unitDPS.Threat.Range 
-                         + unitDPS.Threat.Dam + unitDPS.Threat.HP
+    -- Overrides for oddball units
+    if 
+        curBP.Defense and
+        curBP.Defense.ArmorType and
+        curBP.Defense.ArmorType == 'Commander'
+    then
+        -- Trap for Commanders 
+        --  only calculate threat based on starting weapons (T1 commander)
+        --  since we can't modify this value during play we can't account for upgrades :(
+        -- HP of Commander = 33200
+        -- One Weapon, Targets both Air and Ground
+        -- Range of commander at T1 = 25
+        -- Tdamage = 100
+        -- Ttime = 0.6
+        -- DPS of a commander at T1 = 100/0.6 = 166dps
+
+        unitDPS.Threat.Range = 0
+        unitDPS.Threat.HP = 33200/13/2/10
+        unitDPS.Threat.Speed = 0
+        unitDPS.Threat.srfDam = 166/2/10
+        unitDPS.Threat.subDam = 0
+        unitDPS.Threat.airDam = 166/2/10
+        unitDPS.srfDPS = 166
+        unitDPS.subDPS = 0
+        unitDPS.airDPS = 166
+        unitDPS.totDPS = 166
+        unitDPS.maxRange = 25
+        --unitDPS.Warn = '' -- Leave warnings alone
+    end -- oddball catch
+    
+    unitDPS.Threat.srfTotal = unitDPS.Threat.srfDam + unitDPS.Threat.HP
+                            + unitDPS.Threat.Speed  + unitDPS.Threat.Range
+    unitDPS.Threat.subTotal = unitDPS.Threat.subDam + unitDPS.Threat.HP
+    unitDPS.Threat.airTotal = unitDPS.Threat.airDam + unitDPS.Threat.HP
 
     return unitDPS
 end
