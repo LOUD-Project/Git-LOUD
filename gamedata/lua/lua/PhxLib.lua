@@ -190,6 +190,45 @@ PhxLib.getVision = function(curBP)
     return Vision
 end
 
+PhxLib.getWaterVision = function(curBP)
+    local Wvision = 0
+    if curBP.Intel and curBP.Intel.WaterVisionRadius then
+        Wvision = curBP.Intel.WaterVisionRadius
+    end
+
+    return Wvision
+end
+--TargetRestrictOnlyAllow = 'TORPEDO',
+
+PhxLib.getAntiTorpRate = function(curBP)
+    --returns number of anti-torps per second
+    -- TODO: Ask Sprout about AoE, redirection, or other odd ball anti torps
+    local ATrate = 0
+    
+    if curBP.Weapon then
+        
+        for curWepID,curWep in ipairs(curBP.Weapon) do
+            if curWep.TargetRestrictOnlyAllow and
+               curWep.TargetRestrictOnlyAllow == 'TORPEDO'
+            then
+                ATrate = ATrate + curWep.RateOfFire
+            end
+        end
+
+        --Catch here for Cybran style redirection field
+        if curBP.Defense and
+           curBP.Defense.TorpRedirectField01 and
+           curBP.Defense.TorpRedirectField01.RedirectRateOfFire
+        then
+            -- Note: RedirectRateOfFire is actually ticks between firing
+            ATrate = ATrate + 10/(curBP.Defense.TorpRedirectField01.RedirectRateOfFire)
+        end
+
+    end
+
+    return ATrate
+end
+
 PhxLib.getRegen = function(curBP)
     if curBP.Defense and 
        curBP.Defense.RegenRate
@@ -205,25 +244,53 @@ PhxLib.getChassis = function(curBP)
     -- Thoughts on Unit Categories
     -- Basic Chassis: Amphib, Hover, Bot, Tread, Wheeled
     -- TODO: fixed weapons vs. articulated
-
-    if curBP.Physics and
+    -- TODO: Add experimental, building and naval Chassis?
+    if false then --do nothing
+    elseif PhxLib.checkCategories(curBP,'EXPERIMENTAL') 
+        then return 'Experi'
+    elseif curBP.Physics and
        curBP.Physics.MotionType and
        curBP.Physics.MotionType == 'RULEUMT_Amphibious'
-    then
-        return 'Amphib'
+        then return 'Amphib'
     elseif curBP.Physics and
            curBP.Physics.MotionType and
            curBP.Physics.MotionType == 'RULEUMT_Hover'
-    then
-        return 'Hover'
-    elseif PhxLib.checkCategories(curBP,'BOT') then
-        return 'Bot'
+        then return 'Hover'
+    elseif PhxLib.checkCategories(curBP,'BOT')
+        then return 'Bot'
     elseif PhxLib.checkCategories(curBP,'LAND') and
-           PhxLib.checkCategories(curBP,'MOBILE') then
-        return 'StdLand'
-    elseif PhxLib.checkCategories(curBP,'DEFENSE') then
-        return 'Defense'
+           PhxLib.checkCategories(curBP,'MOBILE')
+        then return 'StdLand'
+    elseif PhxLib.checkCategories(curBP,'DEFENSE')
+        then return 'Defense'
+    elseif PhxLib.checkCategories(curBP,'NAVAL')
+        then return 'Navy'
+    elseif PhxLib.checkCategories(curBP,'STRUCTURE') 
+        then return 'Structure'
     else
+        return 'unknown'
+    end
+
+end
+
+PhxLib.getType2 = function(curBP,Chassis,unitDPS)
+    -- Warning untested and unused, moved to spreadsheet
+    if Chassis == 'Navy' then
+        local air = unitDPS.Threat.airDam or 0
+        local sub = unitDPS.Threat.subDam or 0
+        local srf = unitDPS.Threat.srfDam or 0
+        if unitDPS.maxRange > 99 then
+            return 'Bom'
+        elseif air > 0 and air > srf and air > sub then
+            return 'AA'
+        elseif sub > 0 and sub > srf and sub > air then
+            return 'Sub'
+        elseif false then
+            return 'bob'
+        end
+            
+
+    else 
         return 'unknown'
     end
 
@@ -250,7 +317,6 @@ PhxLib.getIntel = function(curBP)
     end
     return intel
 end
-
 
 PhxLib.checkCategories = function(curBP,checkCat) 
     if(curBP.Categories) then
