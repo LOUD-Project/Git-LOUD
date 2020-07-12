@@ -563,9 +563,14 @@ function InitializeArmies()
                     else
                         SetAlliance( iArmy, iEnemy, 'Enemy')
                     end
+                
+                    -- in order to be ALLIED - players must be on specific teams --
+                    if ScenarioInfo.ArmySetup[strArmy].Team != 1 then
                     
-                    if ScenarioInfo.ArmySetup[strArmy].Team == ScenarioInfo.ArmySetup[strEnemy].Team then
-                        SetAlliance( iArmy, iEnemy, 'Ally')
+                        if ScenarioInfo.ArmySetup[strArmy].Team == ScenarioInfo.ArmySetup[strEnemy].Team then
+                            SetAlliance( iArmy, iEnemy, 'Ally')
+                        end
+                        
                     end
                     
                 -- if only they are NEUTRAL civilians
@@ -573,8 +578,6 @@ function InitializeArmies()
 				
                     SetAlliance( iArmy, iEnemy, 'Neutral')
                 end
-                
-				
             end
 			
 			-- if this is an AI (but not civilian)        
