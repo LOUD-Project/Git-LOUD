@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ueb2401", #UEF Mavor
+
+    Weapon = {
+    
+        {
+            Damage = 18200,
+
+            DamageType = 'ShieldMult1.25',
+        },
+    },
+}
