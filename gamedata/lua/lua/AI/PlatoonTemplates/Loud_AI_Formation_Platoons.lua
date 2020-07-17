@@ -7,23 +7,23 @@
 
 PlatoonTemplate { Name = 'FighterAttack Small',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 1, 15, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 1, 12, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterAttack',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 16, 30, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 18, 32, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterAttack Large',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 36, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 24, 48, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterEscort Large',
     Plan = 'GuardPointAir',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 28, 36, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 24, 32, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterReinforce',
@@ -42,18 +42,17 @@ PlatoonTemplate { Name = 'BomberAttack Small',
 }
 PlatoonTemplate { Name = 'BomberAttack',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 12, 20, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), 12, 24, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack Large',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 20, 32, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 24, 36, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack Super',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 25, 48, 'Attack', 'AttackFormation' },
-		{ (categories.HIGHALTAIR * categories.ANTIAIR), 0, 16, 'guard', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY ), 36, 48, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'Experimental Bomber',
