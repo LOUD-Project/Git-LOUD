@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Merge = true,
+    
     BlueprintId = "erl0001", #Cybran ACU
 
     Defense = {
@@ -71,6 +73,8 @@ UnitBlueprint {
             BuildTime = 14580,
 
         },
+        
+    },        
 
     Intel = {
 
