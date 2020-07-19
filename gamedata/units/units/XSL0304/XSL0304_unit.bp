@@ -234,7 +234,7 @@ UnitBlueprint {
             Damage = 480,
             DamageFriendly = true,
             DamageRadius = 5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Suthanus Artillery',
 			

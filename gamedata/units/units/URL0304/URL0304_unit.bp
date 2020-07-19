@@ -199,7 +199,7 @@ UnitBlueprint {
             Damage = 480,
             DamageFriendly = true,
             DamageRadius = 6,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Proton Artillery',
 			

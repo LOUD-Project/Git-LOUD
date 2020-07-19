@@ -180,7 +180,7 @@ UnitBlueprint {
             Damage = 100,
             DamageFriendly = true,
             DamageRadius = 3,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Sonance Artillery',
 			
