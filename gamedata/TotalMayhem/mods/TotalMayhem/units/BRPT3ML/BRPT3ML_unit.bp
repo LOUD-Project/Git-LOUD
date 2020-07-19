@@ -217,6 +217,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UAS',
@@ -238,8 +239,8 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 125,
-            DamageRadius = 2.5,
-            DamageType = 'Normal',
+            DamageRadius = 2,
+            DamageType = 'ShieldMult0.8',
             DamageFriendly = true,
 			
             DisplayName = 'Light Quarnon Cannon',
@@ -249,12 +250,12 @@ UnitBlueprint {
             },
 			
 			FiringRandomnessWhileMoving = 3,
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.8,
             FiringTolerance = 2,
 			
             Label = 'FrontTurret',
 			
-            MaxRadius = 90,
+            MaxRadius = 84,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0,
@@ -262,7 +263,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 23,
 			MuzzleVelocityRandom = 1,
-			MuzzleVelocityReduceDistance = 90,
+			MuzzleVelocityReduceDistance = 80,
 
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
             ProjectileLifetime = 8,
@@ -282,7 +283,7 @@ UnitBlueprint {
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 2.5,	-- 2.5 second reload after firing salvo 
+            RackSalvoReloadTime = 3,	-- 3 second reload after firing salvo 
             RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
