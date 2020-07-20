@@ -1080,6 +1080,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	modifier = 1.0 + modifier
 
 	buffAffects.MaxHealth.Mult = modifier
+    buffAffects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
 	buffAffects.RegenPercent.Mult = modifier
 	buffAffects.ShieldRegeneration.Mult = modifier
 	buffAffects.ShieldHealth.Mult = modifier
