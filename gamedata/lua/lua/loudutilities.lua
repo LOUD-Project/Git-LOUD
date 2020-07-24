@@ -1379,7 +1379,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while not ( unit.Dead and not airstage.Dead) do
 		
-		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
+		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
             waitcount = waitcount + 1
