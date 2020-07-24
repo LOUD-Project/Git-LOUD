@@ -730,15 +730,15 @@ CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
 
     FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
     
-    FxImpactUnit = TMEffectTemplate.BattleMech2RocketHit,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.BattleMech2RocketHit,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.BattleMech2RocketHit,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.BattleMech2RocketHit,
-    FxImpactWater = TMEffectTemplate.BattleMech2RocketHit,
-    FxWaterHitScale = 1,
+    FxImpactUnit = TMEffectTemplate.CybranRocketHit,
+    FxUnitHitScale = 0.75,
+    FxImpactProp = TMEffectTemplate.CybranRocketHit,
+    FxPropHitScale = 0.75,
+    FxImpactLand = TMEffectTemplate.CybranRocketHit,
+    FxLandHitScale = 0.75,
+    FxImpactUnderWater = TMEffectTemplate.CybranRocketHit,
+    FxImpactWater = TMEffectTemplate.CybranRocketHit,
+    FxWaterHitScale = 0.75,
     FxTrailOffset = 0,
 }
 
