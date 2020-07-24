@@ -173,13 +173,7 @@ CybranT3BattleTankRocketHit = {
 CybranT3PdroHit = {
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_01_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_02_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_03_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_04_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_05_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_06_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_07_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_08_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_09_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_distort_emit.bp',
 	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow
 }
