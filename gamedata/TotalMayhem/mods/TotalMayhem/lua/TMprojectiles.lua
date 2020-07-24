@@ -743,28 +743,6 @@ CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Battle Mech Rockets
-#----------------
-CybBRMT3BMRLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    FxImpactUnit = EffectTemplate.CMissileHit02a,
-    FxUnitHitScale = 2,
-    FxImpactProp = EffectTemplate.CMissileHit02a,
-    FxPropHitScale = 2,
-    FxImpactLand = EffectTemplate.CMissileHit02a,
-    FxLandHitScale = 2,
-    FxImpactUnderWater = EffectTemplate.CMissileHit02a,
-    FxImpactWater = EffectTemplate.CMissileHit02a,
-    FxWaterHitScale = 2,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 3 Heavy Rockets (Rocket Battery)
 #----------------
 CybBRMT3MLproj = Class(MultiPolyTrailProjectile) {
