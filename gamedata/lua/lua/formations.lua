@@ -73,7 +73,7 @@ local LandCategories = {
 
     Com = Construction,
 
-    Util = UtilityCat + categories.OPERATION,
+    Util = UtilityCat,
 
     Shields = ShieldCat,		
 
