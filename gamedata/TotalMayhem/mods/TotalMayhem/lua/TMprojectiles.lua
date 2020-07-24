@@ -718,29 +718,29 @@ CybBRMT3BTRLproj = Class(SingleCompositeEmitterProjectile) {
     FxTrailOffset = 0,
 }
 
--- #----------------
--- # Cybran Tech 3 Battle Mech 2 Rockets
--- #----------------
--- CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
---     PolyTrails = {
---         EffectTemplate.CHvyProtonCannonPolyTrail,
---         '/effects/emitters/default_polytrail_01_emit.bp',
---     },
---     PolyTrailOffset = {0,0}, 
+#----------------
+# Cybran Tech 3 Battle Mech 2 Rockets
+#----------------
+CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
+    PolyTrails = {
+        EffectTemplate.CHvyProtonCannonPolyTrail,
+        '/effects/emitters/default_polytrail_01_emit.bp',
+    },
+    PolyTrailOffset = {0,0}, 
 
---     FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
+    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
     
---     FxImpactUnit = TMEffectTemplate.BattleMech2RocketHit,
---     FxUnitHitScale = 1,
---     FxImpactProp = TMEffectTemplate.BattleMech2RocketHit,
---     FxPropHitScale = 1,
---     FxImpactLand = TMEffectTemplate.BattleMech2RocketHit,
---     FxLandHitScale = 1,
---     FxImpactUnderWater = TMEffectTemplate.BattleMech2RocketHit,
---     FxImpactWater = TMEffectTemplate.BattleMech2RocketHit,
---     FxWaterHitScale = 1,
---     FxTrailOffset = 0,
--- }
+    FxImpactUnit = TMEffectTemplate.BattleMech2RocketHit,
+    FxUnitHitScale = 1,
+    FxImpactProp = TMEffectTemplate.BattleMech2RocketHit,
+    FxPropHitScale = 1,
+    FxImpactLand = TMEffectTemplate.BattleMech2RocketHit,
+    FxLandHitScale = 1,
+    FxImpactUnderWater = TMEffectTemplate.BattleMech2RocketHit,
+    FxImpactWater = TMEffectTemplate.BattleMech2RocketHit,
+    FxWaterHitScale = 1,
+    FxTrailOffset = 0,
+}
 
 #----------------
 # Cybran Tech 3 Battle Mech Rockets
