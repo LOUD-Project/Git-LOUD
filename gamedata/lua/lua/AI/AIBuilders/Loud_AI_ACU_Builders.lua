@@ -382,7 +382,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.FACTORY }},
@@ -416,7 +416,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},             
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
@@ -449,7 +449,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
         },
 		
@@ -478,7 +478,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         Priority = 754,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
             
             { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
@@ -543,7 +543,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
 
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
