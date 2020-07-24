@@ -203,7 +203,8 @@ function HasMassPointShare( aiBrain, multiple )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 4)
+    -- the Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
 	
     -- the addition of the multiple allows us to test for an ownership % relationship
 	return extractorCount >= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
@@ -220,7 +221,8 @@ function NeedMassPointShare( aiBrain, multiple )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 4)
+    -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
 
 	return extractorCount <= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
 end
