@@ -3,17 +3,29 @@
 
 --TableCat = import('/lua/utilities.lua').TableCat
 
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+
 local EmtBpPath = '/effects/emitters/'
 local EmtBpPathAlt = '/mods/TotalMayhem/effects/emitters/'
 
 -- RD 
+
+CybranRocketTrail = {
+	EffectTemplate.CHvyProtonCannonPolyTrail,
+	'/effects/emitters/default_polytrail_01_emit.bp',
+}
+
+CybranHeavyRocketFXTrail = { EmtBpPath ..  'hvyproton_cannon_fxtrail_01_emit.bp' }
 
 CybranHeavyRocketHit = {
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_01_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_02_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_05_emit.bp',
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_distort_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke,
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
+	EmtBpPathAlt .. 'bm2rockethit_06_emit.bp', ## ring
 }
 
 CybranRocketHit = {
@@ -23,7 +35,8 @@ CybranRocketHit = {
 	-- EmtBpPathAlt .. 'bm2rockethit_04_emit.bp',
 	-- EmtBpPathAlt .. 'bm2rockethit_05_emit.bp',
 	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke
 -- EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 -- EmtBpPathAlt .. 'bm2rockethit_06_emit.bp', ## ring
 -- EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
