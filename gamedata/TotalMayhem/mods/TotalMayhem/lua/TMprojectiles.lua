@@ -658,25 +658,6 @@ CybMadCatMolecular = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Experimental MadCat Rockets
-#----------------
-CybMadCatRockets = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
-    PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
-    FxTrails = EffectTemplate.CMolecularCannon01,
-    FxImpactUnit = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxImpactWater = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxWaterHitScale = 1,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Experimental MadCat mk.2 main gun
 #----------------
 CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
@@ -700,7 +681,7 @@ CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Rockets ( Mastadon, Pavestone, Dervish)
+# Cybran Tech 3 Rockets ( Mastadon, Pavestone, Dervish, Vulture)
 #----------------
 CybranRocketproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranRocketTrail,
@@ -721,13 +702,13 @@ CybranRocketproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD)
+# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD / MadCat / MadBolo)
 #----------------
-CybBRMT3MLproj = Class(MultiPolyTrailProjectile) {
+CybranHeavyRocketproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
 		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,  
 		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
-		FxTrailScale = 0.3,
+		FxTrailScale = 0.5,
     
     FxImpactUnit = TMEffectTemplate.CybranHeavyRocketHit,
     FxUnitHitScale = 0.7,

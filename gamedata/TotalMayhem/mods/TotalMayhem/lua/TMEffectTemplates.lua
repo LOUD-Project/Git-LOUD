@@ -201,22 +201,6 @@ CybranT3BattleTankHit = {
     EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
 }
 
-CybranT3MadCatRocketsHit = {
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_02_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_01_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-    EmtBpPathAlt .. 'tmcybrant2battletankhit_01_emit.bp', ## Exploding flames
-}
-
 Madcatmk2hit = {
     EmtBpPath .. 'hvyproton_cannon_hit_06_emit.bp',
     EmtBpPath .. 'hvyproton_cannon_hit_08_emit.bp',

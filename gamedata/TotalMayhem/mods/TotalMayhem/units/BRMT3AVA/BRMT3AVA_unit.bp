@@ -872,8 +872,8 @@ UnitBlueprint {
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
 						MuzzleVelocityReduceDistance = 55,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+						
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 5,
 
@@ -975,7 +975,7 @@ UnitBlueprint {
             MuzzleVelocityRandomness = 1.5,
 			MuzzleVelocityReduceDistance = 55,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 5,
 			
