@@ -700,32 +700,13 @@ CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Battle Tank Rockets
-#----------------
-CybBRMT3BTRLproj = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxUnitHitScale = 0.8,
-    FxImpactProp = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxPropHitScale = 0.8,
-    FxImpactLand = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxLandHitScale = 0.8,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxImpactWater = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxWaterHitScale = 0.8,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 3 Battle Mech 2 Rockets
 #----------------
 CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranRocketTrail,
-    PolyTrailOffset = {0,0}, 
-    FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
-		FxTrailScale = 0.6,
+    PolyTrailOffset = TMEffectTemplate.CybranRocketTrailOffset, 
+    FxTrails = TMEffectTemplate.CybranRocketFXTrail,
+		FxTrailScale = 0.3,
     
     FxImpactUnit = TMEffectTemplate.CybranRocketHit,
     FxUnitHitScale = 0.75,
@@ -740,15 +721,13 @@ CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Heavy Rockets (Rocket Battery)
+# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD)
 #----------------
 CybBRMT3MLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
+    PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
+		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,  
+		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
+		FxTrailScale = 0.3,
     
     FxImpactUnit = TMEffectTemplate.CybranHeavyProtonRocketHit,
     FxUnitHitScale = 0.7,
@@ -789,12 +768,10 @@ CybBRMT3PDproj = Class(MultiPolyTrailProjectile) {
 # Cybran Tech 3 Rocket Defense
 #----------------
 CybBRMT3PDROproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = TMEffectTemplate.CybranRocketTrail,
-		FxTrailScale = 0.7,
-
-    PolyTrailOffset = {0,0}, 
-    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
-    
+    PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
+		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,
+    FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
+		FxTrailScale = 0.1,
     FxImpactUnit = TMEffectTemplate.CybranT3PdroHit,
     FxUnitHitScale = .75,
     FxImpactProp = TMEffectTemplate.CybranT3PdroHit,

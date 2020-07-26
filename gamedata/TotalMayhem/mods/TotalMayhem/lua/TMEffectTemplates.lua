@@ -10,12 +10,23 @@ local EmtBpPathAlt = '/mods/TotalMayhem/effects/emitters/'
 
 -- RD 
 
+--- Cybran Rocket
 CybranRocketTrail = {
-	EffectTemplate.CHvyProtonCannonPolyTrail,
-	'/effects/emitters/default_polytrail_01_emit.bp',
+	EmtBpPath .. 'electron_bolter_trail_02_emit.bp',
+	EmtBpPath .. 'disintegrator_polytrail_05_emit.bp', -- White trail
 }
+CybranRocketTrailOffset = {0,0,0}
+CybranRocketFXTrail = EffectTemplate.CDisintegratorFxTrails01
 
-CybranHeavyRocketFXTrail = { EmtBpPath ..  'hvyproton_cannon_fxtrail_01_emit.bp' }
+--- Cybran Heavy Rocket
+
+CybranHeavyRocketTrail = {
+	EmtBpPath .. 'electron_bolter_trail_02_emit.bp',
+	-- EmtBpPath .. 'default_polytrail_01_emit.bp', -- white trail
+	EmtBpPath .. 'disintegrator_polytrail_04_emit.bp' -- purple trail
+}
+CybranRocketHeavyTrailOffset = {0, 0}
+CybranHeavyRocketFXTrail = { EmtBpPath .. 'electron_bolter_munition_01_emit.bp' }
 
 CybranHeavyRocketHit = {
 	EmtBpPathAlt .. 'cybranheavyrocket_hit_01_emit.bp',

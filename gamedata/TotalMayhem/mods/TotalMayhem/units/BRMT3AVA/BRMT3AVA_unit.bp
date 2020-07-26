@@ -432,7 +432,7 @@ UnitBlueprint {
             Label = 'TopTurretCannon',
 			
             MaxRadius = 95,
-			MinRadius = 14,
+						MinRadius = 14,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -527,7 +527,7 @@ UnitBlueprint {
             Label = 'FrontTurretCannon',
 			
             MaxRadius = 95,
-			MinRadius = 10,
+						MinRadius = 10,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -765,7 +765,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			
-			DamageType = 'Normal',
+						DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -871,7 +871,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-			MuzzleVelocityReduceDistance = 55,
+						MuzzleVelocityReduceDistance = 55,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
 			

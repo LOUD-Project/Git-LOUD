@@ -222,7 +222,7 @@ UnitBlueprint {
             MuzzleVelocity = 20.5,
             MuzzleVelocityRandomness = 2,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BM2TLproj/BRMT3BM2TLproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {

@@ -208,12 +208,12 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
             FiringRandomness = 1.5,
-			FiringRandomnessWhileMoving = 4.5,
+						FiringRandomnessWhileMoving = 4.5,
 			
             Label = 'rocket',
 			
             MaxRadius = 42,
-			MinRadius = 6,
+						MinRadius = 6,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
@@ -222,7 +222,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTRLproj/BRMT3BTRLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BM2TLproj/BRMT3BM2TLproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 4,
 
             RackBones = {
