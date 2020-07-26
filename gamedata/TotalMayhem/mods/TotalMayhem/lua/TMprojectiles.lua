@@ -746,28 +746,6 @@ CybBRMST3BOMproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Heavy Tank 2 barreled main gun
-#----------------
-CybBRMT3HT3proj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    
-    FxImpactUnit = TMEffectTemplate.CybranT3HVYTankHit,
-    FxUnitHitScale = 0.6,
-    FxImpactProp = TMEffectTemplate.CybranT3HVYTankHit,
-    FxPropHitScale = 0.6,
-    FxImpactLand = TMEffectTemplate.CybranT3HVYTankHit,
-    FxLandHitScale = 0.6,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3HVYTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT3HVYTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 3 Beetle Guns
 #----------------
 CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
@@ -788,7 +766,6 @@ CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = TMEffectTemplate.Beetleprojectilehit01,
     FxImpactWater = TMEffectTemplate.Beetleprojectilehit01,
 }
-
 
 #--------------------------------
 # 			UEF PROJECTILES
