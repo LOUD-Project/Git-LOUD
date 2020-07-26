@@ -539,7 +539,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3.5,
 
             RackBones = {
