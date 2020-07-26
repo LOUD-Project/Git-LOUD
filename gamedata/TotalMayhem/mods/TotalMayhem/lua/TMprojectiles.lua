@@ -746,7 +746,7 @@ CybBRMST3BOMproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Beetle Guns
+# Cybran Tech 3 Beetle Guns (Avalance)
 #----------------
 CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
@@ -758,11 +758,11 @@ CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
 	FxTrails = EffectTemplate.CDisintegratorFxTrails01,  
 	
     FxImpactUnit = TMEffectTemplate.Beetleprojectilehit01,
-    FxUnitHitScale = 1.2,
+    FxUnitHitScale = 0.7,
     FxImpactProp = TMEffectTemplate.Beetleprojectilehit01,
-    FxPropHitScale = 1.2,
+    FxPropHitScale = 0.7,
     FxImpactLand = TMEffectTemplate.Beetleprojectilehit01,
-    FxLandHitScale = 1.2,
+    FxLandHitScale = 0.7,
     FxImpactUnderWater = TMEffectTemplate.Beetleprojectilehit01,
     FxImpactWater = TMEffectTemplate.Beetleprojectilehit01,
 }

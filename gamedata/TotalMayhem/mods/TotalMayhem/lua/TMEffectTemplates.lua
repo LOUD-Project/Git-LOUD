@@ -216,17 +216,31 @@ CybranHeavyProtonGunHit = {
 }
 
 Beetleprojectilehit01 = {
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_07_emit.bp', ## Sparks flying out
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09_emit.bp', ## Yellow Afterglow
-	EmtBpPathAlt .. 'tmredglowbig_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
+
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke,
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_03_emit.bp', ## white sparks flying opposite direction of impact
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_07_emit.bp', ## Sparks flying out
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_09_emit.bp', ## Yellow Afterglow
+	-- EmtBpPathAlt .. 'tmredglowbig_emit.bp',
+	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
 	EmtBpPathAlt .. 'bm2rockethit_07_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
 	EmtBpPathAlt .. 'bm2rockethit_08_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'bm2rockethit_11_emit.bp', ## Cool exploding flames!!!
-    EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
+    -- EmtBpPathAlt .. 'bm2rockethit_11_emit.bp', ## Cool exploding flames!!!
+    -- EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
 }
 
 UEFHeavyMechHit01 = {

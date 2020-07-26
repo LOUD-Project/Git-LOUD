@@ -973,7 +973,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-			MuzzleVelocityReduceDistance = 55,
+						MuzzleVelocityReduceDistance = 55,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
 			
@@ -1019,7 +1019,7 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl03',
             TurretBoneDualPitch = 'rl03',
-			TurretBoneDualYaw = 'rl03',
+						TurretBoneDualYaw = 'rl03',
 			
             TurretBoneMuzzle = 'rl04',
             TurretBonePitch = 'rl04',
@@ -1036,7 +1036,7 @@ UnitBlueprint {
             TurretYawSpeed = 45,
             
             Turreted = true,
-		},	   
+				},	   
 
         {
             AboveWaterTargetsOnly = true,
