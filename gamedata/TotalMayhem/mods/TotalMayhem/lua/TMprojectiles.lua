@@ -606,14 +606,14 @@ CybBRMT2HVY2proj = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT2BattleTankHit,
-    FxUnitHitScale = 0.55,
+    FxUnitHitScale = 0.25,
     FxImpactProp = TMEffectTemplate.CybranT2BattleTankHit,
-    FxPropHitScale = 0.55,
+    FxPropHitScale = 0.25,
     FxImpactLand = TMEffectTemplate.CybranT2BattleTankHit,
-    FxLandHitScale = 0.55,
+    FxLandHitScale = 0.25,
     FxImpactUnderWater = TMEffectTemplate.CybranT2BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT2BattleTankHit,
-    FxWaterHitScale = 0.55,
+    FxWaterHitScale = 0.25,
     FxTrailOffset = 0,
 }
 
@@ -643,40 +643,16 @@ CybBRMT3BTproj = Class(MultiPolyTrailProjectile) {
 # Cybran Experimental MadCat main gun
 #----------------
 CybMadCatMolecular = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
     PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
     FxTrails = EffectTemplate.CMolecularCannon01,
     FxImpactUnit = TMEffectTemplate.CybranT2BattleTankHit,
-    FxUnitHitScale = 1,
+    FxUnitHitScale = 0.35,
     FxImpactProp = TMEffectTemplate.CybranT2BattleTankHit,
-    FxPropHitScale = 1,
+    FxPropHitScale = 0.35,
     FxImpactLand = TMEffectTemplate.CybranT2BattleTankHit,
-    FxLandHitScale = 1,
+    FxLandHitScale = 0.35,
     FxImpactUnderWater = TMEffectTemplate.CybranT2BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT2BattleTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Experimental MadCat mk.2 main gun
-#----------------
-CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
-    PolyTrails = {
-        EffectTemplate.CHvyProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
-    PolyTrailOffset = {0,0}, 
-
-    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
-    FxImpactUnit = TMEffectTemplate.Madcatmk2hit,
-    FxUnitHitScale = 1.0,
-    FxImpactProp = TMEffectTemplate.Madcatmk2hit,
-    FxPropHitScale = 1.0,
-    FxImpactLand = TMEffectTemplate.Madcatmk2hit,
-    FxLandHitScale = 1.0,
-    FxImpactUnderWater = TMEffectTemplate.Madcatmk2hit,
-    FxImpactWater = TMEffectTemplate.Madcatmk2hit,
     FxTrailOffset = 0,
 }
 

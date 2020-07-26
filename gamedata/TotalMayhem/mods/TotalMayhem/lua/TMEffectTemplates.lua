@@ -157,11 +157,11 @@ CybranT2BattleTankHit = {
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_02_emit.bp', ## Red glow
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_03_emit.bp', ## white sparks flying opposite direction of impact
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_04_emit.bp', ## dirt flying
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_06_emit.bp', ## white glow in middle
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
 }
 
 CybranT3HVYTankHit = {
@@ -199,25 +199,6 @@ CybranT3BattleTankHit = {
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 	-- EmtBpPathAlt .. 'battletankt3flames_emit.bp', ## Cool exploding flames!!!
 	-- EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
-}
-
-Madcatmk2hit = {
-    EmtBpPath .. 'hvyproton_cannon_hit_06_emit.bp',
-    EmtBpPath .. 'hvyproton_cannon_hit_08_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_03_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_01_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_02_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_03_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant2battletankhit_01_emit.bp', ## Exploding flames
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_02_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_01_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_04_emit.bp', ## dirt flying
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_06_emit.bp', ## white glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 }
 
 CybranHeavyProtonGunHit = {
