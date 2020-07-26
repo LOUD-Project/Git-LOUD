@@ -434,7 +434,7 @@ AeonBROT3SHBMEMPproj = Class(SinglePolyTrailProjectile) {
 #---------------------------------------
 
 #----------------
-# Cybran Tech 2 Battle Mech Rockets
+# Cybran Tech 2 Battle Mech Rockets (T2 Hippo / Immortal)
 #----------------
 CybranBMRocketProjectile = Class(SingleCompositeEmitterProjectile) {
     FxTrails = {},
@@ -473,48 +473,6 @@ CybBRMT1BTRLproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 1 Heavy Tank Cannon 1
-#----------------
-
-CybBRMT1HVYproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    
-    FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 0.6,
-    FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 0.6,
-    FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 0.6,
-    FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 SnakeBite small Rockets
-#----------------
-
-CybBRMT3HAMRLproj = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 1.13,
-    FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 1.13,
-    FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 1.13,
-    FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 1 Experimental LaserBot
 #----------------
 
@@ -534,7 +492,7 @@ CybBRMT1EXM1proj = Class(SingleCompositeEmitterProjectile) {
 }
 
 #----------------
-# Cybran Tech 2 Heavy Tank Cannon 1
+# Cybran Tech T1 Improved PD
 #----------------
 
 CybBRMT2HVYproj = Class(MultiPolyTrailProjectile) {
@@ -546,11 +504,11 @@ CybBRMT2HVYproj = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 1,
+    FxUnitHitScale = 0.5,
     FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 1,
+    FxPropHitScale = 0.5,
     FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 1,
+    FxLandHitScale = 0.5,
     FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
     FxTrailOffset = 0,

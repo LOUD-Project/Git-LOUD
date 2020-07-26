@@ -175,27 +175,12 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+							Fire = Sound {
+									Bank = 'UELWeapon',
+									Cue = 'UEB2101_Cannon_Sgl',
+									LodCutoff = 'Weapon_LodCutoff',
+							},
+					},
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -210,7 +195,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.2,
+						FiringRandomness = 0.2,
             FiringTolerance = 0.5,
 			
             Label = 'MainGun',
@@ -223,7 +208,7 @@ UnitBlueprint {
             MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVYproj/BRMT2HVYproj_proj.bp',
-			ProjectileLifetime = 1.5,
+						ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
