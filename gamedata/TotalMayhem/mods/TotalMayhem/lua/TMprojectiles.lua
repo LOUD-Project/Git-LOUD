@@ -618,22 +618,22 @@ CybBRMT2HVY2proj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Battle Tank main gun
+# Cybran Tech 3 Dervish / Battle Tank main gun
 #----------------
 CybBRMT3BTproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
+			'/effects/emitters/electron_bolter_trail_02_emit.bp',
+			'/effects/emitters/default_polytrail_01_emit.bp',
+		},
+		PolyTrailOffset = {0,0},  
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT3BattleTankHit,
-    FxUnitHitScale = 0.8,
+    FxUnitHitScale = 0.65,
     FxImpactProp = TMEffectTemplate.CybranT3BattleTankHit,
-    FxPropHitScale = 0.8,
+    FxPropHitScale = 0.65,
     FxImpactLand = TMEffectTemplate.CybranT3BattleTankHit,
-    FxLandHitScale = 0.8,
+    FxLandHitScale = 0.65,
     FxImpactUnderWater = TMEffectTemplate.CybranT3BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT3BattleTankHit,
     FxTrailOffset = 0,
@@ -702,13 +702,13 @@ CybranRocketproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD / MadCat / MadBolo)
+# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD / MadCat / MadBolo / Mayhem / Some other units i forgot)
 #----------------
 CybranHeavyRocketproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
 		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,  
 		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
-		FxTrailScale = 0.5,
+		FxTrailScale = 0.7,
     
     FxImpactUnit = TMEffectTemplate.CybranHeavyRocketHit,
     FxUnitHitScale = 0.7,

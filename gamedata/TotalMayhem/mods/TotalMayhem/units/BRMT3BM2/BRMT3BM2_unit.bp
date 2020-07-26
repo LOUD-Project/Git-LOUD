@@ -356,7 +356,7 @@ UnitBlueprint {
             },
             FiringTolerance = 1,
             FiringRandomness = 0.05,
-			FiringRandomnessWhileMoving = 0.15,
+						FiringRandomnessWhileMoving = 0.15,
 			
             Label = 'maingun1',
 			
@@ -366,7 +366,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 			
-			PrefersPrimaryWeaponTarget = true,
+						PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTproj/BRMT3BTproj_proj.bp',
 
 
@@ -447,7 +447,7 @@ UnitBlueprint {
             Damage = 25,
             DamageType = 'Normal',
 			
-            DisplayName = 'Gauss Cannon',
+            DisplayName = 'Gatling Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -455,7 +455,7 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
             FiringRandomness = 0.1,
-			FiringRandomnessWhileMoving = 0.2,
+						FiringRandomnessWhileMoving = 0.2,
 			
             Label = 'gatling1',
 			
@@ -465,7 +465,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 40,
 			
-			PrefersPrimaryWeaponTarget = true,
+						PrefersPrimaryWeaponTarget = true,
 			
             RackBones = {
                 {
@@ -566,7 +566,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 			
-			PrefersPrimaryWeaponTarget = true,
+						PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
 

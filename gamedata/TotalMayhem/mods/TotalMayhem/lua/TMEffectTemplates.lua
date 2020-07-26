@@ -184,21 +184,21 @@ CybranT3BattleTankHit = {
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank2_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09a_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-    EmtBpPathAlt .. 'battletankt3flames_emit.bp', ## Cool exploding flames!!!
-    EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
+	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank2_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_09a_emit.bp', ## Yellow Afterglow
+	-- EmtBpPathAlt .. 'tmcybrant3battletankhitunit_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
+	-- EmtBpPathAlt .. 'battletankt3flames_emit.bp', ## Cool exploding flames!!!
+	-- EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
 }
 
 Madcatmk2hit = {
