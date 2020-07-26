@@ -700,9 +700,9 @@ CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Battle Mech 2 Rockets
+# Cybran Tech 3 Rockets ( Mastadon, Pavestone, Dervish)
 #----------------
-CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
+CybranRocketproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranRocketTrail,
     PolyTrailOffset = TMEffectTemplate.CybranRocketTrailOffset, 
     FxTrails = TMEffectTemplate.CybranRocketFXTrail,
@@ -729,14 +729,14 @@ CybBRMT3MLproj = Class(MultiPolyTrailProjectile) {
 		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
 		FxTrailScale = 0.3,
     
-    FxImpactUnit = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactUnit = TMEffectTemplate.CybranHeavyRocketHit,
     FxUnitHitScale = 0.7,
-    FxImpactProp = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactProp = TMEffectTemplate.CybranHeavyRocketHit,
     FxPropHitScale = 0.7,
-    FxImpactLand = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactLand = TMEffectTemplate.CybranHeavyRocketHit,
     FxLandHitScale = 0.7,
-    FxImpactUnderWater = TMEffectTemplate.CybranHeavyProtonRocketHit,
-    FxImpactWater = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactUnderWater = TMEffectTemplate.CybranHeavyRocketHit,
+    FxImpactWater = TMEffectTemplate.CybranHeavyRocketHit,
     FxWaterHitScale = 0.7,
     FxTrailOffset = 0,
 }
@@ -761,26 +761,6 @@ CybBRMT3PDproj = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = TMEffectTemplate.CybranHeavyProtonGunHit,
     FxImpactWater = TMEffectTemplate.CybranHeavyProtonGunHit,
     FxWaterHitScale = 0.5,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 Rocket Defense
-#----------------
-CybBRMT3PDROproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
-		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,
-    FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
-		FxTrailScale = 0.1,
-    FxImpactUnit = TMEffectTemplate.CybranT3PdroHit,
-    FxUnitHitScale = .75,
-    FxImpactProp = TMEffectTemplate.CybranT3PdroHit,
-    FxPropHitScale = .75,
-    FxImpactLand = TMEffectTemplate.CybranT3PdroHit,
-    FxLandHitScale = .75,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3PdroHit,
-    FxImpactWater = TMEffectTemplate.CybranT3PdroHit,
-    FxWaterHitScale = .75,
     FxTrailOffset = 0,
 }
 
