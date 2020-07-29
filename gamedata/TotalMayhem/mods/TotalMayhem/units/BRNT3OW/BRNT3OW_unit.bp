@@ -41,7 +41,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 11,
+    BuildIconSortPriority = 8,
 	
     Categories = {
         'SELECTABLE',
@@ -222,6 +222,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_LowArc',

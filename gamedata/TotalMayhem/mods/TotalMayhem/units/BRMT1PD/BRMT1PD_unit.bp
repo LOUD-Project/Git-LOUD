@@ -174,13 +174,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-							Fire = Sound {
-									Bank = 'UELWeapon',
-									Cue = 'UEB2101_Cannon_Sgl',
-									LodCutoff = 'Weapon_LodCutoff',
-							},
-					},
+				Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+			},
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -195,7 +193,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-						FiringRandomness = 0.2,
+			FiringRandomness = 0.2,
             FiringTolerance = 0.5,
 			
             Label = 'MainGun',
@@ -208,13 +206,11 @@ UnitBlueprint {
             MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVYproj/BRMT2HVYproj_proj.bp',
-						ProjectileLifetime = 1.5,
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = { 'Muzzle' },
                     RackBone = 'Turret_Recoil',
                 },
             },
@@ -235,7 +231,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

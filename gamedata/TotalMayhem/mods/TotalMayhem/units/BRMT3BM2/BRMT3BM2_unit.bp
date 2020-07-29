@@ -115,6 +115,11 @@ UnitBlueprint {
         BuildCostMass = 3100,
         BuildTime = 15500,
     },
+    
+    Footprint = {
+        SizeX = 2,
+        SizeZ = 2,
+    },
 	
     General = {
 		CapCost = 2,
@@ -217,11 +222,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0111_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -254,8 +255,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
             FiringRandomness = 0.75,
-			
-						FiringRandomnessWhileMoving = 3.0,
+			FiringRandomnessWhileMoving = 3.0,
 			
             Label = 'Rockets',
 			
@@ -267,8 +267,8 @@ UnitBlueprint {
 			
             MuzzleVelocity = 21,
             MuzzleVelocityRandom = 2,
-			
-						NotExclusive = true,
+            
+			NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
@@ -312,7 +312,6 @@ UnitBlueprint {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -336,13 +335,11 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMHEAVYTANKFIRE1',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMHEAVYTANKFIRE1', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 265,
@@ -354,9 +351,10 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
+            
             FiringTolerance = 1,
             FiringRandomness = 0.05,
-						FiringRandomnessWhileMoving = 0.15,
+			FiringRandomnessWhileMoving = 0.15,
 			
             Label = 'maingun1',
 			
@@ -365,22 +363,20 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
-						PrefersPrimaryWeaponTarget = true,
+            PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTproj/BRMT3BTproj_proj.bp',
 
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rightarm_muzzle',
-                    },
+                    MuzzleBones = { 'rightarm_muzzle' },
                     RackBone = 'armgun',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_muzzle01',
-                    },
+                    MuzzleBones = { 'rightarm_muzzle01' },
                     RackBone = 'armgun01',
                 },
             },
@@ -455,17 +451,20 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
             FiringRandomness = 0.1,
-						FiringRandomnessWhileMoving = 0.2,
+			FiringRandomnessWhileMoving = 0.2,
 			
             Label = 'gatling1',
 			
             MaxRadius = 38,
             MinRadius = 0,
+            
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
-						PrefersPrimaryWeaponTarget = true,
+            PrefersPrimaryWeaponTarget = true,
 			
             RackBones = {
                 {
@@ -502,14 +501,15 @@ UnitBlueprint {
             RateOfFire = 1,	-- 200dps
 			
             TargetCheckInterval = 0.5,
+            
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.05,
 			
@@ -562,19 +562,20 @@ UnitBlueprint {
 			
             MaxRadius = 52,
             MinRadius = 0,
+            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
-						PrefersPrimaryWeaponTarget = true,
+			PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AttachPoint',
-                    },
+                    MuzzleBones = { 'AttachPoint' },
                     RackBone = 'AttachPoint',
                 },
             },

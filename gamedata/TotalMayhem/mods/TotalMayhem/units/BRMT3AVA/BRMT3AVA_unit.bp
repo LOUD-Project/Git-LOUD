@@ -432,15 +432,16 @@ UnitBlueprint {
             Label = 'TopTurretCannon',
 			
             MaxRadius = 95,
-						MinRadius = 14,
+			MinRadius = 14,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 100,
+            
+            NotExclusive = true,
+            
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3AVAproj/BRMT3AVAproj_proj.bp',
-			
-            ProjectilesPerOnFire = 3,
-			
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -527,11 +528,13 @@ UnitBlueprint {
             Label = 'FrontTurretCannon',
 			
             MaxRadius = 95,
-						MinRadius = 10,
+			MinRadius = 10,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 100,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3AVAproj/BRMT3AVAproj_proj.bp',
 			
@@ -560,14 +563,12 @@ UnitBlueprint {
             RateOfFire = 0.5,	-- 2250dps
 			
             TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                'TECH2 MOBILE',
-                'TECH3 MOBILE',
-                'TECH1 MOBILE',
-
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -623,6 +624,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             RackBones = {
                 {
@@ -642,13 +645,11 @@ UnitBlueprint {
             ReTargetOnMiss = true,
             
             TargetCheckInterval = 0.3,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH3 MOBILE',
+                'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -673,13 +674,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             BeamCollisionDelay = 0,
             BeamLifetime = 0.2,
 			
@@ -702,12 +701,12 @@ UnitBlueprint {
             
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'lasergunmuzzle02',
-                    },
+                    MuzzleBones = { 'lasergunmuzzle02' },
                     RackBone = 'lasergun02',
                 },
             },
@@ -723,11 +722,8 @@ UnitBlueprint {
             TargetCheckInterval = 0.2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH3 MOBILE',
+                'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -751,12 +747,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMADCATMGFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANMADCATMGFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
@@ -764,8 +757,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 30,
-			
-						DamageType = 'Normal',
+			DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -781,6 +773,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 38,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
@@ -804,13 +798,11 @@ UnitBlueprint {
             RateOfFire = 3,					-- 360dps
 			
             TargetCheckInterval = 0.66,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -837,11 +829,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANROCKETLAUNCHERFX1',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANROCKETLAUNCHERFX1', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_HighArc',
@@ -871,23 +859,20 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-						MuzzleVelocityReduceDistance = 55,
-						
+			MuzzleVelocityReduceDistance = 55,
+            
+            NotExclusive = true,
+
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
-			
             ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-                    },
+                    MuzzleBones = { 'rl01' },
                     RackBone = 'rl01',
                 },
                 {
-                    MuzzleBones = {
-                        'rl02',
-                    },
+                    MuzzleBones = { 'rl02' },
                     RackBone = 'rl02',
                 },
             },
@@ -900,17 +885,14 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 600dmg every 10 seconds = 720dps
-						RenderFireClock = true,
+			RenderFireClock = true,
 
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH3 MOBILE',
-
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -919,7 +901,7 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl02',
             TurretBoneDualPitch = 'rl02',
-						TurretBoneDualYaw = 'rl02',
+			TurretBoneDualYaw = 'rl02',
 			
             TurretBoneMuzzle = 'rl01',
             TurretBonePitch = 'rl01',
@@ -973,25 +955,21 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-						MuzzleVelocityReduceDistance = 55,
+			MuzzleVelocityReduceDistance = 55,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
-			
             ProjectileLifetimeUsesMultiplier = 5,
-			
-            ProjectilesPerOnFire = 12,
+
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl03',
-                    },
+                    MuzzleBones = { 'rl03' },
                     RackBone = 'rl03',
                 },
                 {
-                    MuzzleBones = {
-                        'rl04',
-                    },
+                    MuzzleBones = { 'rl04' },
                     RackBone = 'rl04',
                 },
             },
@@ -1008,10 +986,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH3 MOBILE',
-
+                'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1019,7 +994,7 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl03',
             TurretBoneDualPitch = 'rl03',
-						TurretBoneDualYaw = 'rl03',
+			TurretBoneDualYaw = 'rl03',
 			
             TurretBoneMuzzle = 'rl04',
             TurretBonePitch = 'rl04',
@@ -1036,7 +1011,7 @@ UnitBlueprint {
             TurretYawSpeed = 45,
             
             Turreted = true,
-				},	   
+		},	   
 
         {
             AboveWaterTargetsOnly = true,
@@ -1054,7 +1029,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

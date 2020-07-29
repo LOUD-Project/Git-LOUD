@@ -205,7 +205,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-						FiringRandomness = 0.2,
+			FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -217,13 +217,11 @@ UnitBlueprint {
             MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
-						ProjectileLifetime = 1.5,
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -268,18 +266,12 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.5,
@@ -291,7 +283,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 25,
-						DamageFriendly = true,
+			DamageFriendly = true,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -310,10 +302,10 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.05,
             MuzzleSalvoSize = 6,	-- 6 rockets per rack
             MuzzleVelocity = 18,
-						
-						NotExclusive = true,
 
-						PrefersPrimaryWeaponTarget = true,
+			NotExclusive = true,
+
+			PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
@@ -356,14 +348,14 @@ UnitBlueprint {
 			
             RateOfFire = 0.10,	-- 12 rockets of 25 every 10 seconds = 30dps
 			
-						RenderFireClock = true,
+			RenderFireClock = true,
 			
             TargetCheckInterval = 3.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
-								'MOBILE -AIR',
+                'STRUCTURE - WALL',
+				'MOBILE -AIR',
                 'ALLUNITS',
             },
 			

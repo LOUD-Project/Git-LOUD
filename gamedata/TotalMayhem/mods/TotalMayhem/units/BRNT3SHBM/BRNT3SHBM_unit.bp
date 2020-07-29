@@ -638,6 +638,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2, 
             MuzzleSalvoSize = 2, 
             MuzzleVelocity = 30,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer02_proj.bp', 
             ProjectileLifetime = 6, 

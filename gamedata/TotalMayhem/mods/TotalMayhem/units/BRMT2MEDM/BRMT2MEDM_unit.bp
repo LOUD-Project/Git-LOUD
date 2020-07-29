@@ -69,6 +69,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC brmt2medm_desc>Amphibious Medium Bot',
+    
     Display = {
         Abilities = {
             'Amphibious',
@@ -240,15 +241,15 @@ UnitBlueprint {
 			
             Label = 'ParticleMortar1',
 			
-						MinRadius = 8,
+			MinRadius = 8,
             MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 14,
-						MuzzleVelocityReduceDistance = 8,
-						
-						NotExclusive = true,
+			MuzzleVelocityReduceDistance = 8,
+
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
 			
@@ -289,7 +290,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 33dmg every 10 seconds = 40dps
-						RenderFireClock = true,
+			RenderFireClock = true,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 60,
@@ -329,16 +330,12 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
 			
-						BeamCollisionDelay = 0,
+			BeamCollisionDelay = 0,
             BeamLifetime = 0.3,		-- hits 3x per fire
 			
             CollideFriendly = false,
@@ -394,7 +391,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'DEFENSE',
-								'MOBILE -AIR',
+				'MOBILE -AIR',
                 'ALLUNITS -WALL',
             },
 			
