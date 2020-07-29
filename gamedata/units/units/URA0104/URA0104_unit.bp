@@ -185,7 +185,7 @@ UnitBlueprint {
         },
         Elevation = 11,
 		
-        FuelRechargeRate = 15,
+        FuelRechargeRate = 10,
         FuelUseTime = 300,
 		
         MaxSpeed = 0.5,
