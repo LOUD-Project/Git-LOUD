@@ -45,13 +45,15 @@ local LOUDSIN = math.sin
 local RemainingCategory = { 'RemainingCategory', }
 
 #=== LAND CATEGORIES ===#
-local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
-local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
-local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
 local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
+local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
+local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
+local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
+local ShieldCat = categories.SHIELD + categories.ANTIMISSILE
 local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
+
 local DFExp = DirectFire * categories.EXPERIMENTAL
-local ShieldCat = categories.SHIELD
+
 
 #=== TECH LEVEL LAND CATEGORIES ===#
 local LandCategories = {
@@ -71,7 +73,7 @@ local LandCategories = {
 
     Com = Construction,
 
-    Util = UtilityCat + categories.OPERATION,
+    Util = UtilityCat,
 
     Shields = ShieldCat,		
 
@@ -342,7 +344,7 @@ local NineRowAttackFormationBlock = {
 
 #=== AIR CATEGORIES ===#
 
-local StdAirUnits = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
+local StdAirUnits = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS + categories.uea0203
 local T4AirUnits = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
 local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS
 
@@ -1208,7 +1210,7 @@ end
 
 function ScatterFormation( formationUnits )
 
-	--LOG("*AI DEBUG Creating Scatter Formation")
+	LOG("*AI DEBUG Creating Scatter Formation")
 
     local rotate = false
 	
@@ -1868,7 +1870,7 @@ end
 
 function CategorizeLandUnits( formationUnits )
 
-    local unitsList = { AA = 0, Art1 = 0, Art2 = 0, Art3 = 0, Bot1 = 0, Bot2 = 0, Bot3 = 0, Com = 0, Tank1 = 0, Tank2 = 0, Tank3 = 0, Util = 0, Shields = 0, Experimentals = 0, UnitTotal = 0 }
+    local unitsList = { UnitTotal = 0 }
 	
 	local LOUDENTITY = EntityCategoryContains
 	
@@ -1877,12 +1879,22 @@ function CategorizeLandUnits( formationUnits )
 		if not u.Dead then
 		
 			for landcat,_ in LandCategories do
-			
+
 				if LOUDENTITY(LandCategories[landcat], u) then
+                
+                    if unitsList[landcat] then
 				
-					unitsList[landcat] = unitsList[landcat] + 1
-					unitsList.UnitTotal = unitsList.UnitTotal + 1
-					break
+                        unitsList[landcat] = unitsList[landcat] + 1
+                        unitsList.UnitTotal = unitsList.UnitTotal + 1
+                        break
+                        
+                    else
+
+                        unitsList[landcat] = 1
+                        unitsList.UnitTotal = unitsList.UnitTotal + 1
+                        break
+                    end
+                    
 				end
 			end
 		end

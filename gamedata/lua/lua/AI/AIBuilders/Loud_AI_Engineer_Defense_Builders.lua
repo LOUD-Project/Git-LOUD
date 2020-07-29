@@ -2515,7 +2515,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
         },
 		

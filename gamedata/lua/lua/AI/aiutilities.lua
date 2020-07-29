@@ -995,7 +995,8 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
         local cheatCap = initialCap * tonumber(ScenarioInfo.Options.AIMult or 1) * (math.max(PlayerDiff,1))
 
-		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.AIMult or 1)
+        -- Veterancy mult is always 1 or higher
+		aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
 
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
     end
@@ -1080,6 +1081,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	modifier = 1.0 + modifier
 
 	buffAffects.MaxHealth.Mult = modifier
+    buffAffects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
 	buffAffects.RegenPercent.Mult = modifier
 	buffAffects.ShieldRegeneration.Mult = modifier
 	buffAffects.ShieldHealth.Mult = modifier
