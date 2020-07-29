@@ -216,13 +216,13 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Missile_Nanite',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
 			
-            BallisticArc = 'RULEUBA_HighArc',
+            BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
             Damage = 33,
@@ -240,15 +240,17 @@ UnitBlueprint {
 			
             Label = 'ParticleMortar1',
 			
-			MinRadius = 8,
+						MinRadius = 8,
             MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 14,
-			MuzzleVelocityReduceDistance = 8,
+						MuzzleVelocityReduceDistance = 8,
+						
+						NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT1HVYproj/BRMT1HVYproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
 			
             RackBones = {
                 {
@@ -287,7 +289,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 33dmg every 10 seconds = 40dps
-			RenderFireClock = true,
+						RenderFireClock = true,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 60,
@@ -336,7 +338,7 @@ UnitBlueprint {
 			
             BallisticArc = 'RULEUBA_None',
 			
-			BeamCollisionDelay = 0,
+						BeamCollisionDelay = 0,
             BeamLifetime = 0.3,		-- hits 3x per fire
 			
             CollideFriendly = false,
@@ -392,7 +394,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'DEFENSE',
-				'MOBILE -AIR',
+								'MOBILE -AIR',
                 'ALLUNITS -WALL',
             },
 			

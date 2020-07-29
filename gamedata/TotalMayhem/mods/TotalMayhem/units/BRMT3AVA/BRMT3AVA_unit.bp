@@ -432,7 +432,7 @@ UnitBlueprint {
             Label = 'TopTurretCannon',
 			
             MaxRadius = 95,
-			MinRadius = 14,
+						MinRadius = 14,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -527,7 +527,7 @@ UnitBlueprint {
             Label = 'FrontTurretCannon',
 			
             MaxRadius = 95,
-			MinRadius = 10,
+						MinRadius = 10,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -765,7 +765,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			
-			DamageType = 'Normal',
+						DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -871,9 +871,9 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-			MuzzleVelocityReduceDistance = 55,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+						MuzzleVelocityReduceDistance = 55,
+						
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 5,
 
@@ -900,7 +900,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 600dmg every 10 seconds = 720dps
-			RenderFireClock = true,
+						RenderFireClock = true,
 
             TargetCheckInterval = 2,
 			
@@ -919,7 +919,7 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl02',
             TurretBoneDualPitch = 'rl02',
-			TurretBoneDualYaw = 'rl02',
+						TurretBoneDualYaw = 'rl02',
 			
             TurretBoneMuzzle = 'rl01',
             TurretBonePitch = 'rl01',
@@ -973,9 +973,9 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 23,
             MuzzleVelocityRandomness = 1.5,
-			MuzzleVelocityReduceDistance = 55,
+						MuzzleVelocityReduceDistance = 55,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 5,
 			
@@ -1019,7 +1019,7 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl03',
             TurretBoneDualPitch = 'rl03',
-			TurretBoneDualYaw = 'rl03',
+						TurretBoneDualYaw = 'rl03',
 			
             TurretBoneMuzzle = 'rl04',
             TurretBonePitch = 'rl04',
@@ -1036,7 +1036,7 @@ UnitBlueprint {
             TurretYawSpeed = 45,
             
             Turreted = true,
-		},	   
+				},	   
 
         {
             AboveWaterTargetsOnly = true,

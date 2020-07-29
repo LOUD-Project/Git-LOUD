@@ -434,7 +434,7 @@ AeonBROT3SHBMEMPproj = Class(SinglePolyTrailProjectile) {
 #---------------------------------------
 
 #----------------
-# Cybran Tech 2 Battle Mech Rockets
+# Cybran Tech 2 Battle Mech Rockets (T2 Hippo / Immortal)
 #----------------
 CybranBMRocketProjectile = Class(SingleCompositeEmitterProjectile) {
     FxTrails = {},
@@ -473,48 +473,6 @@ CybBRMT1BTRLproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 1 Heavy Tank Cannon 1
-#----------------
-
-CybBRMT1HVYproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    
-    FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 0.6,
-    FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 0.6,
-    FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 0.6,
-    FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 SnakeBite small Rockets
-#----------------
-
-CybBRMT3HAMRLproj = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 1.13,
-    FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 1.13,
-    FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 1.13,
-    FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 1 Experimental LaserBot
 #----------------
 
@@ -534,7 +492,7 @@ CybBRMT1EXM1proj = Class(SingleCompositeEmitterProjectile) {
 }
 
 #----------------
-# Cybran Tech 2 Heavy Tank Cannon 1
+# Cybran Tech T1 Improved PD
 #----------------
 
 CybBRMT2HVYproj = Class(MultiPolyTrailProjectile) {
@@ -546,11 +504,11 @@ CybBRMT2HVYproj = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT1BattleTankHit,
-    FxUnitHitScale = 1,
+    FxUnitHitScale = 0.5,
     FxImpactProp = TMEffectTemplate.CybranT1BattleTankHit,
-    FxPropHitScale = 1,
+    FxPropHitScale = 0.5,
     FxImpactLand = TMEffectTemplate.CybranT1BattleTankHit,
-    FxLandHitScale = 1,
+    FxLandHitScale = 0.5,
     FxImpactUnderWater = TMEffectTemplate.CybranT1BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT1BattleTankHit,
     FxTrailOffset = 0,
@@ -606,34 +564,34 @@ CybBRMT2HVY2proj = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT2BattleTankHit,
-    FxUnitHitScale = 0.55,
+    FxUnitHitScale = 0.25,
     FxImpactProp = TMEffectTemplate.CybranT2BattleTankHit,
-    FxPropHitScale = 0.55,
+    FxPropHitScale = 0.25,
     FxImpactLand = TMEffectTemplate.CybranT2BattleTankHit,
-    FxLandHitScale = 0.55,
+    FxLandHitScale = 0.25,
     FxImpactUnderWater = TMEffectTemplate.CybranT2BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT2BattleTankHit,
-    FxWaterHitScale = 0.55,
+    FxWaterHitScale = 0.25,
     FxTrailOffset = 0,
 }
 
 #----------------
-# Cybran Tech 3 Battle Tank main gun
+# Cybran Tech 3 Dervish / Battle Tank main gun
 #----------------
 CybBRMT3BTproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
+			'/effects/emitters/electron_bolter_trail_02_emit.bp',
+			'/effects/emitters/default_polytrail_01_emit.bp',
+		},
+		PolyTrailOffset = {0,0},  
     FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
     
     FxImpactUnit = TMEffectTemplate.CybranT3BattleTankHit,
-    FxUnitHitScale = 0.8,
+    FxUnitHitScale = 0.65,
     FxImpactProp = TMEffectTemplate.CybranT3BattleTankHit,
-    FxPropHitScale = 0.8,
+    FxPropHitScale = 0.65,
     FxImpactLand = TMEffectTemplate.CybranT3BattleTankHit,
-    FxLandHitScale = 0.8,
+    FxLandHitScale = 0.65,
     FxImpactUnderWater = TMEffectTemplate.CybranT3BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT3BattleTankHit,
     FxTrailOffset = 0,
@@ -643,146 +601,57 @@ CybBRMT3BTproj = Class(MultiPolyTrailProjectile) {
 # Cybran Experimental MadCat main gun
 #----------------
 CybMadCatMolecular = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
     PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
     FxTrails = EffectTemplate.CMolecularCannon01,
     FxImpactUnit = TMEffectTemplate.CybranT2BattleTankHit,
-    FxUnitHitScale = 1,
+    FxUnitHitScale = 0.35,
     FxImpactProp = TMEffectTemplate.CybranT2BattleTankHit,
-    FxPropHitScale = 1,
+    FxPropHitScale = 0.35,
     FxImpactLand = TMEffectTemplate.CybranT2BattleTankHit,
-    FxLandHitScale = 1,
+    FxLandHitScale = 0.35,
     FxImpactUnderWater = TMEffectTemplate.CybranT2BattleTankHit,
     FxImpactWater = TMEffectTemplate.CybranT2BattleTankHit,
     FxTrailOffset = 0,
 }
 
 #----------------
-# Cybran Experimental MadCat Rockets
+# Cybran Tech 3 Rockets ( Mastadon, Pavestone, Dervish, Vulture)
 #----------------
-CybMadCatRockets = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
-    PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
-    FxTrails = EffectTemplate.CMolecularCannon01,
-    FxImpactUnit = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxImpactWater = TMEffectTemplate.CybranT3MadCatRocketsHit,
-    FxWaterHitScale = 1,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Experimental MadCat mk.2 main gun
-#----------------
-CybBRMT3MCM2proj = Class(MultiPolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
-    PolyTrails = {
-        EffectTemplate.CHvyProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
-    PolyTrailOffset = {0,0}, 
-
-    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
-    FxImpactUnit = TMEffectTemplate.Madcatmk2hit,
-    FxUnitHitScale = 1.0,
-    FxImpactProp = TMEffectTemplate.Madcatmk2hit,
-    FxPropHitScale = 1.0,
-    FxImpactLand = TMEffectTemplate.Madcatmk2hit,
-    FxLandHitScale = 1.0,
-    FxImpactUnderWater = TMEffectTemplate.Madcatmk2hit,
-    FxImpactWater = TMEffectTemplate.Madcatmk2hit,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 Battle Tank Rockets
-#----------------
-CybBRMT3BTRLproj = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxUnitHitScale = 0.8,
-    FxImpactProp = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxPropHitScale = 0.8,
-    FxImpactLand = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxLandHitScale = 0.8,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxImpactWater = TMEffectTemplate.CybranT3BattleTankRocketHit,
-    FxWaterHitScale = 0.8,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 Battle Mech 2 Rockets
-#----------------
-CybBRMT3BM2TLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-        EffectTemplate.CHvyProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
-    PolyTrailOffset = {0,0}, 
-
-    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
+CybranRocketproj = Class(MultiPolyTrailProjectile) {
+    PolyTrails = TMEffectTemplate.CybranRocketTrail,
+    PolyTrailOffset = TMEffectTemplate.CybranRocketTrailOffset, 
+    FxTrails = TMEffectTemplate.CybranRocketFXTrail,
+		FxTrailScale = 0.3,
     
-    FxImpactUnit = TMEffectTemplate.BattleMech2RocketHit,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.BattleMech2RocketHit,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.BattleMech2RocketHit,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.BattleMech2RocketHit,
-    FxImpactWater = TMEffectTemplate.BattleMech2RocketHit,
-    FxWaterHitScale = 1,
-    FxTrailOffset = 0,
+    FxImpactUnit = TMEffectTemplate.CybranRocketHit,
+    FxUnitHitScale = 0.75,
+    FxImpactProp = TMEffectTemplate.CybranRocketHit,
+    FxPropHitScale = 0.75,
+    FxImpactLand = TMEffectTemplate.CybranRocketHit,
+    FxLandHitScale = 0.75,
+    FxImpactUnderWater = TMEffectTemplate.CybranRocketHit,
+    FxImpactWater = TMEffectTemplate.CybranRocketHit,
+    FxWaterHitScale = 0.75,
+		FxTrailOffset = 0,
 }
 
 #----------------
-# Cybran Tech 3 Battle Mech Rockets
+# Cybran Tech 3 Heavy Rockets (Rocket Battery / Avalance - RD / MadCat / MadBolo / Mayhem / Some other units i forgot)
 #----------------
-CybBRMT3BMRLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    FxImpactUnit = EffectTemplate.CMissileHit02a,
-    FxUnitHitScale = 2,
-    FxImpactProp = EffectTemplate.CMissileHit02a,
-    FxPropHitScale = 2,
-    FxImpactLand = EffectTemplate.CMissileHit02a,
-    FxLandHitScale = 2,
-    FxImpactUnderWater = EffectTemplate.CMissileHit02a,
-    FxImpactWater = EffectTemplate.CMissileHit02a,
-    FxWaterHitScale = 2,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 Heavy Rockets (Rocket Battery)
-#----------------
-CybBRMT3MLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
+CybranHeavyRocketproj = Class(MultiPolyTrailProjectile) {
+    PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
+		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,  
+		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
+		FxTrailScale = 0.7,
     
-    FxImpactUnit = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactUnit = TMEffectTemplate.CybranHeavyRocketHit,
     FxUnitHitScale = 0.7,
-    FxImpactProp = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactProp = TMEffectTemplate.CybranHeavyRocketHit,
     FxPropHitScale = 0.7,
-    FxImpactLand = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactLand = TMEffectTemplate.CybranHeavyRocketHit,
     FxLandHitScale = 0.7,
-    FxImpactUnderWater = TMEffectTemplate.CybranHeavyProtonRocketHit,
-    FxImpactWater = TMEffectTemplate.CybranHeavyProtonRocketHit,
+    FxImpactUnderWater = TMEffectTemplate.CybranHeavyRocketHit,
+    FxImpactWater = TMEffectTemplate.CybranHeavyRocketHit,
     FxWaterHitScale = 0.7,
     FxTrailOffset = 0,
 }
@@ -811,30 +680,6 @@ CybBRMT3PDproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Rocket Defense
-#----------------
-CybBRMT3PDROproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-        EffectTemplate.CHvyProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
-    PolyTrailOffset = {0,0}, 
-
-    FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
-    
-    FxImpactUnit = TMEffectTemplate.CybranT3PdroHit,
-    FxUnitHitScale = .75,
-    FxImpactProp = TMEffectTemplate.CybranT3PdroHit,
-    FxPropHitScale = .75,
-    FxImpactLand = TMEffectTemplate.CybranT3PdroHit,
-    FxLandHitScale = .75,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3PdroHit,
-    FxImpactWater = TMEffectTemplate.CybranT3PdroHit,
-    FxWaterHitScale = .75,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 3 Bombardment Ship
 #----------------
 CybBRMST3BOMproj = Class(MultiPolyTrailProjectile) {
@@ -859,29 +704,7 @@ CybBRMST3BOMproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 3 Heavy Tank 2 barreled main gun
-#----------------
-CybBRMT3HT3proj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    
-    FxImpactUnit = TMEffectTemplate.CybranT3HVYTankHit,
-    FxUnitHitScale = 0.6,
-    FxImpactProp = TMEffectTemplate.CybranT3HVYTankHit,
-    FxPropHitScale = 0.6,
-    FxImpactLand = TMEffectTemplate.CybranT3HVYTankHit,
-    FxLandHitScale = 0.6,
-    FxImpactUnderWater = TMEffectTemplate.CybranT3HVYTankHit,
-    FxImpactWater = TMEffectTemplate.CybranT3HVYTankHit,
-    FxTrailOffset = 0,
-}
-
-#----------------
-# Cybran Tech 3 Beetle Guns
+# Cybran Tech 3 Beetle Guns (Avalance)
 #----------------
 CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
@@ -893,15 +716,14 @@ CybBRMT3AVAproj = Class(MultiPolyTrailProjectile) {
 	FxTrails = EffectTemplate.CDisintegratorFxTrails01,  
 	
     FxImpactUnit = TMEffectTemplate.Beetleprojectilehit01,
-    FxUnitHitScale = 1.2,
+    FxUnitHitScale = 0.7,
     FxImpactProp = TMEffectTemplate.Beetleprojectilehit01,
-    FxPropHitScale = 1.2,
+    FxPropHitScale = 0.7,
     FxImpactLand = TMEffectTemplate.Beetleprojectilehit01,
-    FxLandHitScale = 1.2,
+    FxLandHitScale = 0.7,
     FxImpactUnderWater = TMEffectTemplate.Beetleprojectilehit01,
     FxImpactWater = TMEffectTemplate.Beetleprojectilehit01,
 }
-
 
 #--------------------------------
 # 			UEF PROJECTILES

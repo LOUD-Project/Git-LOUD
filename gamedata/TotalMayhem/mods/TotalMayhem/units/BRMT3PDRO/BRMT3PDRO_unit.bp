@@ -229,7 +229,7 @@ UnitBlueprint {
             MuzzleVelocity = 29,
             MuzzleVelocityRandomness = 3.5,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3PDROproj/BRMT3PDROproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 4,
 			
             RackBones = {

@@ -277,7 +277,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
             FiringRandomness = 2,
-			FiringRandomnessWhileMoving = 6,
+						FiringRandomnessWhileMoving = 6,
 			
             Label = 'rocket1',
 			
@@ -287,11 +287,11 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 16,
-			MuzzleVelocityRandomness = 5,
+						MuzzleVelocityRandomness = 5,
 			
-			NotExclusive = true,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/MadCatRockets/MadCatRockets_proj.bp',
+						NotExclusive = true,
+
+						ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {
