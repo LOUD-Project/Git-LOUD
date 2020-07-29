@@ -2,6 +2,7 @@
 *.tif
 *.psd
 *.ps1
+*.bat
 bin/Loud-Dev\.log
 
 bin/ForgedAlliance\.exe
