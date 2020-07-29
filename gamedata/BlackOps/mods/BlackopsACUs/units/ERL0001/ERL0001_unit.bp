@@ -104,7 +104,9 @@ UnitBlueprint {
 		NoTeleDistance = 55,	--40
 		MaxTeleRange = 500,
     },
+    
     Description = '<LOC erl0001_desc>Armored Command Unit',
+    
     Display = {
         Abilities = {
             'Amphibious',
@@ -112,8 +114,10 @@ UnitBlueprint {
             'Omni Sensor',
             'Volatile',
         },
+        
         AnimationWalk = '/mods/BlackopsACUs/units/erl0001/ERL0001_AWalk03.sca',
         AnimationWalkRate = 0.43,
+        
         IdleEffects = {
             Seabed = {
                 Effects = {
@@ -231,6 +235,7 @@ UnitBlueprint {
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+        
         BuildableCategory = {
             'BUILTBYCOMMANDER CYBRAN',
             'BUILTBYTIER2COMMANDER CYBRAN',
@@ -238,20 +243,26 @@ UnitBlueprint {
             'BUILTBYTIER4COMMANDER CYBRAN',
             'URL0001UPGRADE',
         },
-        MaintenanceConsumptionPerSecondEnergy = 0,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1,
+
         MaxBuildDistance = 15,
+        
         NaturalProducer = true,
+        
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 2,
+        
         StorageEnergy = 5000,
         StorageMass = 650,
+        
         TeleportEnergyMod = 0.03985,
         TeleportMassMod = 0.03985,
         TeleportTimeMod = 0.0001,
+        
 		TeleportBurstEnergyCost = 10000,
-		xpBaseValue = 16000,
-		BuildxpLevelpSecond = 0,
     },
+    
     Enhancements = {
         Slots = {
             Back = {
@@ -270,6 +281,7 @@ UnitBlueprint {
                 y = 0,
             },
         },
+        
         EXImprovedEngineering = {
             BuildCostEnergy = 38000,
             BuildCostMass = 3500,

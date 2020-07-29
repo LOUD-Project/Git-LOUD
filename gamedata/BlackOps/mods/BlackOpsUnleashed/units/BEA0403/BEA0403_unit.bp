@@ -930,7 +930,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Back_Right_Flak_Muzzle',
@@ -1010,7 +1010,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Front_Left_AAC_Muzzle',
@@ -1090,7 +1090,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Front_Right_AAC_Muzzle',
@@ -1169,7 +1169,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Back_Left_AAC_Muzzle',
@@ -1250,7 +1250,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Back_Right_AAC_Muzzle',

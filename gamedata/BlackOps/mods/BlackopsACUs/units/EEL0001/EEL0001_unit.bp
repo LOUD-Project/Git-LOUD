@@ -274,7 +274,7 @@ UnitBlueprint {
         },
 		
         MaintenanceConsumptionPerSecondEnergy = 1,
-		
+
         MaxBuildDistance = 15,
 		
         NaturalProducer = true,

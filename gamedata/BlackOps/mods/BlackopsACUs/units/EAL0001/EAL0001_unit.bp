@@ -194,15 +194,17 @@ UnitBlueprint {
             'BUILTBYTIER4COMMANDER AEON',
         },
 		
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        
         MaxBuildDistance = 15,
 		
         NaturalProducer = true,
 		
         NeedToFaceTargetToBuild = false,
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 1,
+        ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 4000,
+        StorageEnergy = 5000,
         StorageMass = 650,
 		
         TeleportEnergyMod = 0.05978,
