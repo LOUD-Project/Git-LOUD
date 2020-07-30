@@ -357,7 +357,7 @@ Unit = Class(moho.unit_methods) {
 
         -- all AI are technically cheaters --
         if self:GetAIBrain().CheatingAI then
-            ApplyCheatBuffs(self)
+            self:ForkThread(ApplyCheatBuffs)
         end
 
 		-- this routine gets launched on EVERY unit
@@ -3121,7 +3121,6 @@ Unit = Class(moho.unit_methods) {
         end
 		
         self.CurrentBuildOrder = order		
-		
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
@@ -3140,7 +3139,8 @@ Unit = Class(moho.unit_methods) {
 	
         --self:StopUnitAmbientSound('ConstructLoop')
         self:PlayUnitSound('ConstructStop')
-		
+        
+        self.CurrentBuildOrder = false
     end,
 
     GetUnitBeingBuilt = function(self)
