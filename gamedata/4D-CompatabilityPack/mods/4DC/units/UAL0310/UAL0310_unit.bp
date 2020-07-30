@@ -265,7 +265,7 @@ UnitBlueprint {
 	SelectionThickness = 0.4,
 	
 	SizeX = 0.95,
-	SizeY = 0.65,
+	SizeY = 0.4,
 	SizeZ = 0.95,
 	
 	StrategicIconName = 'icon_land3_antiair',

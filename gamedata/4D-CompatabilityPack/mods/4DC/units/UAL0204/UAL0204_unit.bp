@@ -1,5 +1,10 @@
 UnitBlueprint {
-
+    AI = {
+        TargetBones = {
+            'body',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -252,7 +257,7 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 	
     SizeX = 0.6,
-    SizeY = 1.1,
+    SizeY = 0.8,
     SizeZ = 0.4,
 	
     StrategicIconName = 'icon_bot2_directfire',

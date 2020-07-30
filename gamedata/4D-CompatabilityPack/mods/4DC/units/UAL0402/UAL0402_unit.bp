@@ -6,8 +6,9 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Left_Leg_B01',
-            'Right_Leg_B01',
+            'Right_Foot',
+			'Left_Leg_B01',
+            'UAL0402',
         },
     },
 	
