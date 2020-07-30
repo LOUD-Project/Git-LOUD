@@ -620,6 +620,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'EnhancedSensors' }},
         },
@@ -645,6 +646,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'MicrowaveLaserGenerator' }},
         },
@@ -670,6 +672,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'RegenAura' }},
         },

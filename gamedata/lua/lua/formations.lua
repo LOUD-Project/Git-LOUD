@@ -1210,7 +1210,7 @@ end
 
 function ScatterFormation( formationUnits )
 
-	LOG("*AI DEBUG Creating Scatter Formation")
+	--LOG("*AI DEBUG Creating Scatter Formation")
 
     local rotate = false
 	
