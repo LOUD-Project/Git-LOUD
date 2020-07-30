@@ -331,11 +331,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0303_Laser_Intense',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0303_Laser_Intense', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -365,6 +361,8 @@ UnitBlueprint {
             MuzzleVelocity = 26,
             MuzzleVelocityRandom = 3,
             MuzzleVelocityReduceDistance = 50,
+            
+            NotExclusive = true,
             
 			ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp', 
             ProjectileLifetime = 2.3,
@@ -477,6 +475,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             RackBones = {
                 {
@@ -562,6 +562,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 44,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/ADFGraviton01/ADFGraviton01_proj.bp',
             ProjectileLifetime = 1,
@@ -649,6 +651,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 33,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4.5,
@@ -665,7 +669,7 @@ UnitBlueprint {
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 3,
+            RackSalvoReloadTime = 3,    -- 3 second reload after firing
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             

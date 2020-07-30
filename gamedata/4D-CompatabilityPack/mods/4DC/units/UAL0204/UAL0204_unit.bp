@@ -118,10 +118,8 @@ UnitBlueprint {
 	
     Enhancements = {
         Slots = {
-			Back = {
-			},
-			Command = {
-			},
+			Back = {},
+			Command = {},
             LCH = {
                 name = '<LOC _LCH>',
                 x = 50,
