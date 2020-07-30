@@ -38,81 +38,18 @@ end
 -- Now based upon ALL threat values
 function AIPickEnemyLogic( self, brainbool )
 
-	local function DrawPlanNodes()
-	
-		local DC = DrawCircle
-		local DLP = DrawLinePop
-		
-		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
-		
-		while true do
-		
-			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
-			
-				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
-				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
-
-				local lastpoint = self.AttackPlan.StagePoints[0]				
-				local lastdraw = lastpoint
-				
-				if self.AttackPlan.StagePoints[0].Path then
-				
-					-- draw the movement path --
-					for _,v in self.AttackPlan.StagePoints[0].Path do
-					
-						DLP( lastdraw, v, '0303ff' )
-						lastdraw = v
-					
-					end
-					
-				end
-				
-				for i = 1, self.AttackPlan.StageCount do
-				
-					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
-					
-					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
-
-					lastdraw = lastpoint
-					
-					if self.AttackPlan.StagePoints[i].Path then
-					
-						for _,v in self.AttackPlan.StagePoints[i].Path do
-					
-							DLP( lastdraw,v, '0303ff' )
-							lastdraw = v
-					
-						end
-					end
-					
-					lastpoint = self.AttackPlan.StagePoints[i].Position
-					
-				end
-				
-				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
-				
-				lastdraw = lastpoint
-				
-				DC( self.AttackPlan.Goal, 1, 'ff00ff')
-				DC( self.AttackPlan.Goal, 3, '00ff00')
-				DC( self.AttackPlan.Goal, 5, 'ff00ff')
-				
-			end
-			
-			WaitTicks(6)
-			
-		end
-		
-	end
-	
 	local allyEnemy = false
     local armyStrengthTable = {}
 	local IsEnemy = IsEnemy
     local selfIndex = self.ArmyIndex
 	
-	local threattype = 'OverallNotAssigned'
+	local threattype = 'StructuresNotMex' --'OverallNotAssigned'
+    
+	-- Just a note here - the position used when finding an enemy should likely
+    -- be based on his CURRENT PRIMARY position - and not always the starting position
+    -- this will help keep him focused upon what he's already achieved
+    -- rather than just switching to a stronger opponent
+    local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
 
     for k,v in ArmyBrains do
 	
@@ -123,6 +60,11 @@ function AIPickEnemyLogic( self, brainbool )
 			if IsEnemy(selfIndex, armyindex) then
 			
 				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                
+                -- sort the threats for closest
+                table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+                
+                LOG("*AI DEBUG "..self.Nickname.." Threats from "..v.Nickname.." are "..repr(threats))
 		
 				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }
 				
@@ -134,13 +76,14 @@ function AIPickEnemyLogic( self, brainbool )
 					-- and this gives the enemys total strength based upon what I can see 
                     -- it has NOTHING TO DO WITH POSITION apparently
 					local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
-					insertTable.Strength = b
+                    
+					insertTable.Strength = threats[1][3]    --b
 				end
 
 				-- make sure the value is positive
 				insertTable.Strength = math.max( insertTable.Strength, 0)
 			
-				if insertTable.Strength > 0 then
+				if insertTable.Strength > 100 then
 					armyStrengthTable[armyindex] = insertTable
 				end
 			end
@@ -191,12 +134,7 @@ function AIPickEnemyLogic( self, brainbool )
 			
 		end	
         
-		-- Just a note here - the position used when finding an enemy should likely
-        -- be based on his CURRENT PRIMARY position - and not always the starting position
-        -- this will help keep him focused upon what he's already achieved
-        -- rather than just switching to a stronger opponent
-        local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
-        
+
         if findEnemy then
 		
             local enemydistance = 0
@@ -216,11 +154,15 @@ function AIPickEnemyLogic( self, brainbool )
                 -- closer targets are worth more - much more
                 local distanceWeight = 0.01
                 
-                -- distance of this this enemy from current PRIMARY position
+                -- distance of this enemy from current PRIMARY position
                 local distance = VDist3( testposition, v.Position )
                 
                 -- adjust the strength according to distance result
-                local threatWeight = ( self.dist_comp/(distance*distance) ) * v.Strength
+                local threatWeight = ( math.sqrt(self.dist_comp)/ distance )  --(distance*distance) )
+
+                LOG("*AI DEBUG "..self.Nickname.." threat multiplier for distance of "..repr(distance).." is "..threatWeight.." result "..threatWeight * v.Strength )
+                
+                threatWeight = threatWeight * v.Strength
                 
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
@@ -248,7 +190,7 @@ function AIPickEnemyLogic( self, brainbool )
 					-- AI will announce the current target to allies
 					SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
 					
-                    --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+                    LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
 					
                     -- create a new attack plan
                     self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
@@ -256,11 +198,7 @@ function AIPickEnemyLogic( self, brainbool )
 			end
         end
 		
-		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
-		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
-		
-			self.DrawPlanThread = ForkThread( DrawPlanNodes )
-		end 
+
     end
 	
 end
@@ -1070,8 +1008,8 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
     
 	-- overall cheat buff -- applied at 50% of the multiplier
-	-- alter unit health and shield health and regen rates
-	-- and the delay period between upgrades
+	-- alter unit health, shield health and regen rates
+	-- reduce the delay period between upgrades
     -- and only when multiplier => 1
 	buffDef = Buffs['CheatALL']
 	buffAffects = buffDef.Affects
@@ -1100,27 +1038,59 @@ function ApplyCheatBuffs(unit)
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
 	
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-	
-		if LOUDENTITY( categories.ENGINEER, unit) then
-		
-			ApplyBuff(unit, 'CheatENG')
-		
-			if LOUDENTITY( categories.COMMAND, unit ) then 
-				
-				ApplyBuff(unit, 'CheatCDROmni')
-                ApplyBuff(unit, 'CheatEnergyStorage')
-                ApplyBuff(unit, 'CheatMassStorage')
-				
-			end
-			
-		end
+        local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
 		ApplyBuff(unit, 'CheatBuildRate')		
 		ApplyBuff(unit, 'CheatIncome')
 		ApplyBuff(unit, 'CheatIntel')
 
-		ApplyBuff(unit, 'CheatMOBILE')
+		--ApplyBuff(unit, 'CheatMOBILE')
 		ApplyBuff(unit, 'CheatALL')
+        
+		if LOUDENTITY( categories.ENGINEER, unit) then
+		
+			ApplyBuff(unit, 'CheatENG')
+		
+			if LOUDENTITY( categories.COMMAND, unit ) then 
+            
+                -- if AI team is outnumbered, increase starting resources to match those of largest team
+                if ScenarioInfo.biggestTeamSize > unit:GetAIBrain().TeamSize then
+                
+                    LOG("*AI DEBUG Biggest Team is "..ScenarioInfo.biggestTeamSize.." MY team is "..unit:GetAIBrain().TeamSize)
+
+                    local outnumberratio = 1 + (( ScenarioInfo.biggestTeamSize / (unit:GetAIBrain().TeamSize) ) - 1) / unit:GetAIBrain().TeamSize
+                    
+                    local buffDef = Buffs['CheatEnergyStorage']
+                    local buffAffects = buffDef.Affects
+                    
+                    buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
+                    
+                    buffDef = Buffs['CheatMassStorage']
+                    buffAffects = buffDef.Affects
+                    buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
+
+                    ApplyBuff(unit, 'CheatIncome')  -- 2nd instance of resource cheat for ACU
+
+                end
+
+                ApplyBuff(unit, 'CheatEnergyStorage')
+
+				ApplyBuff(unit, 'CheatCDROmni')
+
+                -- because the 2nd Storage buff will remove the first we'll wait 30 seconds
+                WaitTicks(300)
+                
+                RemoveBuff( unit, 'CheatEnergyStorage' )
+                
+                ApplyBuff(unit, 'CheatMassStorage')
+                
+           
+                --LOG("AI DEBUG Unit is "..repr(unit))
+   
+			end
+			
+		end
+
 	end
 	
 end

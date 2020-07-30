@@ -3894,7 +3894,7 @@ function AttackPlanner(self, enemyPosition)
     if not self.AttackPlan then
 	
         self.AttackPlan = {}
-        self.AttackPlan.GoCheckInterval = 360   -- every 6 minutes
+        self.AttackPlan.GoCheckInterval = 240   -- every 4 minutes
         self.AttackPlan.GoCheckRatio = 3        -- ratio for 100% Go signal
 		
     end
@@ -3924,6 +3924,8 @@ function AttackPlanner(self, enemyPosition)
 end
 
 function CreateAttackPlan( self, enemyPosition )
+
+    LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
     
 	if self.DeliverStatus then
 	
@@ -3931,12 +3933,15 @@ function CreateAttackPlan( self, enemyPosition )
 		
 	end
 
-	local stagesize = 400
+	local stagesize = 300
 	
 	local minstagesize = (stagesize/2)*(stagesize/2)
 	local maxstagesize = (stagesize * stagesize)
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
+    
+    startx = enemyPosition[1]
+    startz = enemyPosition[3]
 
     local starty = GetSurfaceHeight( startx, startz )
     local Goal = {startx, starty, startz}
@@ -4056,14 +4061,14 @@ function CreateAttackPlan( self, enemyPosition )
 					-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
 					self.AttackPlan.Method = 'Land'
 					
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 1000, 160)
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 9999, 160)
 					
 					if not path then
 
 						-- attack plan will be amphibious if no land path, even if we dont find a path --
 						self.AttackPlan.Method = 'Amphibious'
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 250)
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 9999, 250)
 						
 					end
 
@@ -4199,7 +4204,7 @@ function CreateAttackPlan( self, enemyPosition )
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
+		LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
@@ -4212,6 +4217,75 @@ function AttackPlanMonitor(self)
 	
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
+
+	local function DrawPlanNodes()
+	
+		local DC = DrawCircle
+		local DLP = DrawLinePop
+		
+		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+		
+		while true do
+		
+			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
+			
+				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
+				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+
+				local lastpoint = self.AttackPlan.StagePoints[0]				
+				local lastdraw = lastpoint
+				
+				if self.AttackPlan.StagePoints[0].Path then
+				
+					-- draw the movement path --
+					for _,v in self.AttackPlan.StagePoints[0].Path do
+					
+						DLP( lastdraw, v, '0303ff' )
+						lastdraw = v
+					
+					end
+					
+				end
+				
+				for i = 1, self.AttackPlan.StageCount do
+				
+					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
+					
+					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
+					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
+					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
+
+					lastdraw = lastpoint
+					
+					if self.AttackPlan.StagePoints[i].Path then
+					
+						for _,v in self.AttackPlan.StagePoints[i].Path do
+					
+							DLP( lastdraw,v, '0303ff' )
+							lastdraw = v
+					
+						end
+					end
+					
+					lastpoint = self.AttackPlan.StagePoints[i].Position
+					
+				end
+				
+				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
+				
+				lastdraw = lastpoint
+				
+				DC( self.AttackPlan.Goal, 1, 'ff00ff')
+				DC( self.AttackPlan.Goal, 3, '00ff00')
+				DC( self.AttackPlan.Goal, 5, 'ff00ff')
+				
+			end
+			
+			WaitTicks(6)
+			
+		end
+		
+	end
 
     while true do
 	
@@ -4231,6 +4305,13 @@ function AttackPlanMonitor(self)
 			
 			SetPrimarySeaAttackBase(self)
 		end
+        
+		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
+		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
+		
+			self.DrawPlanThread = ForkThread( DrawPlanNodes )
+		end         
+        
     end
 end
 
