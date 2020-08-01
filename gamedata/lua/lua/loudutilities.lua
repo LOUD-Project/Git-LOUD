@@ -3894,17 +3894,14 @@ function AttackPlanner(self, enemyPosition)
     if not self.AttackPlan then
 	
         self.AttackPlan = {}
-        self.AttackPlan.GoCheckInterval = 240   -- every 4 minutes
+        self.AttackPlan.GoCheckInterval = 120   -- every 2 minutes
         self.AttackPlan.GoCheckRatio = 3        -- ratio for 100% Go signal
-		
     end
 
     self.AttackPlan.Goal = nil
     self.AttackPlan.CurrentGoal = nil
     self.AttackPlan.StagePoints = {}
     self.AttackPlan.GoSignal = false
-	
-	--LOG("*AI DEBUG "..self.Nickname.." starts Attack Planner")
 
     CreateAttackPlan( self, enemyPosition )
 
@@ -3912,25 +3909,20 @@ function AttackPlanner(self, enemyPosition)
 	
         -- if monitoring an existing attack plan, kill it and start a new one
         if self.AttackPlanMonitorThread then
-		
             KillThread(self.AttackPlanMonitorThread)
-			
 		end
 
         self.AttackPlanMonitorThread = self:ForkThread( AttackPlanMonitor )
-		
     end
 	
 end
 
 function CreateAttackPlan( self, enemyPosition )
 
-    LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
+    --LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
     
 	if self.DeliverStatus then
-	
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
-		
 	end
 
 	local stagesize = 300
@@ -4204,7 +4196,7 @@ function CreateAttackPlan( self, enemyPosition )
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-		LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
+        --LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
 		
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
@@ -4212,9 +4204,7 @@ function CreateAttackPlan( self, enemyPosition )
 end
 
 function AttackPlanMonitor(self)
-	
-	--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
-	
+
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
 
@@ -4288,7 +4278,13 @@ function AttackPlanMonitor(self)
 	end
 
     while true do
-	
+    
+		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
+		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
+		
+			self.DrawPlanThread = ForkThread( DrawPlanNodes )
+		end         
+       	
         WaitTicks(self.AttackPlan.GoCheckInterval * 10)
 
 		if self.AttackPlan.Goal then
@@ -4305,13 +4301,6 @@ function AttackPlanMonitor(self)
 			
 			SetPrimarySeaAttackBase(self)
 		end
-        
-		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
-		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
-		
-			self.DrawPlanThread = ForkThread( DrawPlanNodes )
-		end         
-        
     end
 end
 

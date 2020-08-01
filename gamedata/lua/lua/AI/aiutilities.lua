@@ -43,7 +43,7 @@ function AIPickEnemyLogic( self, brainbool )
 	local IsEnemy = IsEnemy
     local selfIndex = self.ArmyIndex
 	
-	local threattype = 'StructuresNotMex' --'OverallNotAssigned'
+	local threattypes = {'StructuresNotMex','Land','Naval'} --'OverallNotAssigned'
     
 	-- Just a note here - the position used when finding an enemy should likely
     -- be based on his CURRENT PRIMARY position - and not always the starting position
@@ -58,34 +58,41 @@ function AIPickEnemyLogic( self, brainbool )
         if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
+            
+                local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }    
+            
+                for _,threattype in threattypes do
 			
-				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                    local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
                 
-                -- sort the threats for closest
-                table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+                    -- sort the threats for closest
+                    table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
                 
-                LOG("*AI DEBUG "..self.Nickname.." Threats from "..v.Nickname.." are "..repr(threats))
-		
-				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }
+                    --LOG("*AI DEBUG "..self.Nickname.." "..threattype.." Threats from "..v.Nickname.." are "..repr(threats))
 				
-				if threats[1] then
-
-                    -- use the position that reports the highest total threat
-					insertTable.Position = {threats[1][1],0,threats[1][2]}
-
-					-- and this gives the enemys total strength based upon what I can see 
-                    -- it has NOTHING TO DO WITH POSITION apparently
-					local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
+                    if threats[1] then
                     
-					insertTable.Strength = threats[1][3]    --b
-				end
+                        if threats[1][3] > 35 then
 
-				-- make sure the value is positive
-				insertTable.Strength = math.max( insertTable.Strength, 0)
+                            -- use the position that reports the highest total threat
+                            insertTable.Position = {threats[1][1],0,threats[1][2]}
+
+                            -- and this gives the enemys total strength based upon what I can see 
+                            -- it has NOTHING TO DO WITH POSITION apparently
+                            -- local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
+                    
+                            insertTable.Strength = insertTable.Strength + threats[1][3]
+                        end
+                    end
+
+                    -- make sure the value is positive
+                    insertTable.Strength = math.max( insertTable.Strength, 0)
 			
-				if insertTable.Strength > 100 then
-					armyStrengthTable[armyindex] = insertTable
-				end
+                    if insertTable.Strength > 35 then
+                        armyStrengthTable[armyindex] = insertTable
+                    end
+                
+                end
 			end
         end
     end
@@ -111,7 +118,8 @@ function AIPickEnemyLogic( self, brainbool )
         local findEnemy = false
         local currenemy = self:GetCurrentEnemy()
 		
-        if (not currenemy or brainbool) and not self.targetoveride then
+        -- if there is no current enemy - or the current enemy is not generating any threat - and we are not taret overridden --
+        if (not currenemy or brainbool) or (currenemy and not armyStrengthTable[currenemy:GetArmyIndex()]) and not self.targetoveride then
 		
             findEnemy = true
 			
@@ -119,8 +127,8 @@ function AIPickEnemyLogic( self, brainbool )
 		
             local cIndex = currenemy:GetArmyIndex()
 			
-            -- If our current enemy has been defeated or has less than 20 strength, we need a new enemy
-            if currenemy:IsDefeated() or armyStrengthTable[cIndex].Strength < 20 then
+            -- If our current enemy has been defeated or has less than 35 strength, we need a new enemy
+            if currenemy:IsDefeated() or armyStrengthTable[cIndex].Strength < 35 then
 			
                 findEnemy = true
 				
@@ -133,6 +141,8 @@ function AIPickEnemyLogic( self, brainbool )
 			KillThread(self.DrawPlanThread)
 			
 		end	
+        
+        --LOG("*AI DEBUG "..self.Nickname.." says findEnemy is "..repr(findEnemy))
         
 
         if findEnemy then
@@ -160,7 +170,7 @@ function AIPickEnemyLogic( self, brainbool )
                 -- adjust the strength according to distance result
                 local threatWeight = ( math.sqrt(self.dist_comp)/ distance )  --(distance*distance) )
 
-                LOG("*AI DEBUG "..self.Nickname.." threat multiplier for distance of "..repr(distance).." is "..threatWeight.." result "..threatWeight * v.Strength )
+                --LOG("*AI DEBUG "..self.Nickname.." threat multiplier for distance of "..repr(distance).." is "..threatWeight.." result "..threatWeight * v.Strength )
                 
                 threatWeight = threatWeight * v.Strength
                 
@@ -178,23 +188,66 @@ function AIPickEnemyLogic( self, brainbool )
             -- if we've picked an enemy and have a position for them
             if enemy and enemyPosition then
             
-                -- If we don't have an enemy or it's different than the one we already have
-				if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
-				
-                    -- set this as our current enemy
-                    self:SetCurrentEnemy( enemy )
-					
-                    -- remember this enemy index on the brain
-					self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
-					
-					-- AI will announce the current target to allies
-					SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
-					
-                    LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
-					
-                    -- create a new attack plan
-                    self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
+               	local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+                
+                -- collect all the enemy units within that IMAP grid
+				-- just NOTE - this will report all units - even those you don't see
+				local units = GetEnemyUnitsInRect( self, enemyPosition[1]-ScenarioInfo.IMAPRadius, enemyPosition[3]-ScenarioInfo.IMAPRadius, enemyPosition[1]+ScenarioInfo.IMAPRadius, enemyPosition[3]+ScenarioInfo.IMAPRadius)
+
+				local counter = 0
+
+				-- these accumulate the position values
+                local x1 = 0
+                local x2 = 0
+                local x3 = 0
+
+				-- loop thru only those that match the category filter
+				for _,v in units do         --EntityCategoryFilterDown( vx[3], units ) do
+
+					counter = counter + 1
+
+					local unitPos = v:GetPosition()
+                    
+					if unitPos and not v.Dead then
+						x1 = x1 + unitPos[1]
+						x2 = x2 + unitPos[2]
+						x3 = x3 + unitPos[3]
+					end
 				end
+                
+                if counter > 0 then
+                
+                    x1 = x1/counter
+                    x2 = x2/counter
+                    x3 = x3/counter
+                
+                    --LOG("*AI DEBUG The average position for "..repr(enemyPosition).." is at "..repr({ x1, x2, x3 }))
+                
+                    enemyPosition = { x1,x2,x3 }
+
+                    -- If we don't have an enemy or it's different than the one we already have
+                    if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
+				
+                        -- set this as our current enemy
+                        self:SetCurrentEnemy( enemy )
+					
+                        -- remember this enemy index on the brain
+                        self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
+					
+                        -- AI will announce the current target to allies
+                        SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
+                        
+                    end
+                    
+                    -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
+                    if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
+                    
+                        LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+					
+                        -- create a new attack plan
+                        self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
+                    end
+                end
 			end
         end
 		
