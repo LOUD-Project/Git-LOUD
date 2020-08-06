@@ -515,30 +515,6 @@ CybBRMT2HVYproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Cybran Tech 2 Experimental Point Defense Laser
-#----------------
-
-CybBRMT2EPDproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/disintegrator_polytrail_04_emit.bp',
-		'/effects/emitters/disintegrator_polytrail_05_emit.bp',
-		'/effects/emitters/default_polytrail_03_emit.bp',
-	},
-	PolyTrailOffset = {0,0,0},  
-	FxTrails = EffectTemplate.CDisintegratorFxTrails01,  
-	
-    # Hit Effects
-    FxImpactUnit = EffectTemplate.CDisintegratorHitUnit01,
-    FxImpactAirUnit = EffectTemplate.CDisintegratorHitAirUnit01,
-    FxImpactProp = EffectTemplate.CDisintegratorHitUnit01,
-    FxLandHitScale = 1,
-    FxUnitHitScale = 1,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.CDisintegratorHitLand01,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # NULLWEAPON
 #----------------
 
