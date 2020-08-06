@@ -6,8 +6,8 @@ UnitBlueprint {
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {

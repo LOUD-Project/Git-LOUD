@@ -434,23 +434,6 @@ AeonBROT3SHBMEMPproj = Class(SinglePolyTrailProjectile) {
 #---------------------------------------
 
 #----------------
-# Cybran Tech 2 Battle Mech Rockets (T2 Hippo / Immortal)
-#----------------
-CybranBMRocketProjectile = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = EffectTemplate.CHvyDisintegratorHit02,
-    FxUnitHitScale = 1,
-    FxImpactProp = EffectTemplate.CHvyDisintegratorHit02,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.CHvyDisintegratorHit02,
-    FxLandHitScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Cybran Tech 1 Battle Tank Rockets
 #----------------
 CybBRMT1BTRLproj = Class(MultiPolyTrailProjectile) {

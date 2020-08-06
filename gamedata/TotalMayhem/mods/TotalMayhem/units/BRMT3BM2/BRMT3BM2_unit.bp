@@ -18,8 +18,8 @@ UnitBlueprint {
 	
     Audio = {
         Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+            Bank = 'URLWeapon',
+            Cue = 'URL0303_Death_EMP',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {

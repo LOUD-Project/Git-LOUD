@@ -3,19 +3,14 @@ UnitBlueprint {
         GuardScanRadius = 65, 
     }, 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
+        Killed = Sound {
+            Bank = 'URLWeapon',
+            Cue = 'URL0303_Death_EMP',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {

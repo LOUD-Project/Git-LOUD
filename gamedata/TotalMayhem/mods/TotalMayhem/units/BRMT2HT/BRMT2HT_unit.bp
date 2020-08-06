@@ -5,8 +5,8 @@ UnitBlueprint {
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -292,7 +292,7 @@ UnitBlueprint {
 
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
 			
             RackBones = {

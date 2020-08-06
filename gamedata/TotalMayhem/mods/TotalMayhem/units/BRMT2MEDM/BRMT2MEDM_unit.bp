@@ -4,19 +4,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-		DeathExplosion = Sound {
-			Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-		},
-		Destroyed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-		},
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+				Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -206,21 +196,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { 
+									Bank = 'URLWeapon', 
+									Cue = 'URL0402_Missile_Nanite', 
+									LodCutoff = 'Weapon_LodCutoff' 
+								},
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -230,7 +210,7 @@ UnitBlueprint {
             DamageRadius = 1,
             DamageType = 'Normal',
 			
-            DisplayName = 'Proton Cannon',
+            DisplayName = 'Rockets',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -251,7 +231,7 @@ UnitBlueprint {
 
             NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
 			
             RackBones = {
                 {
