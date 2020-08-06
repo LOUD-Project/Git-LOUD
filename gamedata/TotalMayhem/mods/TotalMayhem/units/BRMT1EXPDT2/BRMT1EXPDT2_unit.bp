@@ -182,11 +182,6 @@ UnitBlueprint {
                     Cue = 'URL0402_Beam_Loop',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
                 BeamStop = Sound {
                     Bank = 'URLWeapon',
                     Cue = 'URL0402_Beam_Stop',
