@@ -189,25 +189,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'WeaponBig_LodCutoff',
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB2301_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
