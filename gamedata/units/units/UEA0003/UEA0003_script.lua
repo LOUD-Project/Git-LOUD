@@ -10,8 +10,10 @@ UEA0003 = Class(TConstructionUnit) {
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
-        self.Parent:NotifyOfPodDeath(self.Pod)
-        self.Parent = nil
+        if self.Parent and not self.Parent:IsDead() then
+            self.Parent:NotifyOfPodDeath(self.Pod)
+            self.Parent = nil
+        end
         TConstructionUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
