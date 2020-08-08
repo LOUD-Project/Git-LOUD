@@ -49,7 +49,7 @@ UnitBlueprint {
         EconomyThreatLevel = 269,
         Health = 23000,
         MaxHealth = 23000,
-        RegenRate = 30,
+        RegenRate = 40,
 
         SurfaceThreatLevel = 354,
     },
@@ -295,7 +295,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.8,
+                    Duration = 1.4,
                     Radius = 1,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
@@ -306,7 +306,7 @@ UnitBlueprint {
 			
             Damage = 750,
             DamageRadius = 2,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.3',            
 			
             DisplayName = 'Proton Cannon',
 			
@@ -320,7 +320,7 @@ UnitBlueprint {
 			
             Label = 'ParticleGun',
 			
-            MaxRadius = 84,
+            MaxRadius = 90,
             MinRadius = 7,
 			
             MuzzleSalvoDelay = 0,
@@ -348,7 +348,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.9,
+            RateOfFire = 1,     -- 1500 DPS
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {

@@ -9,16 +9,16 @@ UnitBlueprint {
         BankFactor = 5.5,
         BankForward = false,
 		
-        BreakOffDistance = 9,
+        BreakOffDistance = 20,
 		
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 25,
 		
         CanFly = true,
 		
 		CombatTurnMult = 2,
-        CombatTurnSpeed = 10,
+        CombatTurnSpeed = 4,
 		
-        EngageDistance = 32,
+        EngageDistance = 36,
 		
         KLift = 3.5,
         KLiftDamping = 3.5,
@@ -47,56 +47,16 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact = Sound {Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+               AmbientMove = Sound {Bank = 'URA', Cue = 'URA0303_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+                 Destroyed = Sound {Bank = 'URADestroy', Cue = 'URA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff' },
+                    Killed = Sound {Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+                   Landing = Sound {Bank = 'URA', Cue = 'URA0303_Move_Land', LodCutoff = 'UnitMove_LodCutoff' },
+                 Refueling = Sound {Bank = 'UEA', Cue = 'UEA_Repair_Refuel', LodCutoff = 'UnitMove_LodCutoff' },
+                 StartMove = Sound {Bank = 'URA', Cue = 'URA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+                  StopMove = Sound {Bank = 'URA', Cue = 'URA0303_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+                  Thruster = Sound {Bank = 'URA', Cue = 'URA0303_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff' },
+               UISelection = Sound {Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -187,7 +147,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 100000,
         BuildCostMass = 1390,
-        BuildTime = 1425,
+        BuildTime = 1400,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 75,
@@ -295,13 +255,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,	-- so 2 hits per on fire
@@ -350,9 +305,6 @@ UnitBlueprint {
             RateOfFire = 2,		-- 2 x 120 = 240 dps
 			
             ReTargetOnMiss = true,
-			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 36,
 
             TargetCheckInterval = 0.2,
 			
@@ -371,25 +323,18 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 36,
-            TurretPitchSpeed = 108,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 400,
 			
             TurretYaw = 0,
-            TurretYawRange = 36,
-            TurretYawSpeed = 108,
+            TurretYawRange = 40,
+            TurretYawSpeed = 400,
 			
             Turreted = true,
-
-            --UseFiringSolutionInsteadOfAimBone = true,
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
 
             BallisticArc = 'RULEUBA_None',
 			
@@ -437,9 +382,6 @@ UnitBlueprint {
             RateOfFire = 2,
 			
             ReTargetOnMiss = true,
-			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 36,
 
             TargetCheckInterval = 0.3,
 			
@@ -458,25 +400,18 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 36,
-            TurretPitchSpeed = 108,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 400,
 			
             TurretYaw = 0,
-            TurretYawRange = 36,
-            TurretYawSpeed = 108,
+            TurretYawRange = 40,
+            TurretYawSpeed = 400,
 			
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
 			
@@ -486,7 +421,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 42,
+            Damage = 40,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -505,7 +440,7 @@ UnitBlueprint {
             
 			NotExclusive = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -523,9 +458,6 @@ UnitBlueprint {
             RateOfFire = 2,
 			
             ReTargetOnMiss = true,
-			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 36,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -542,24 +474,19 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 36,
-            TurretPitchSpeed = 108,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 400,
 			
             TurretYaw = 0,
-            TurretYawRange = 36,
-            TurretYawSpeed = 108,
+            TurretYawRange = 40,
+            TurretYawSpeed = 400,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -568,7 +495,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 42,
+            Damage = 40,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -588,7 +515,7 @@ UnitBlueprint {
 			
             NotExclusive = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -606,9 +533,6 @@ UnitBlueprint {
             RateOfFire = 2,
             
             ReTargetOnMiss = true,
-			
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 36,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -626,15 +550,14 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 36,
-            TurretPitchSpeed = 108,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 400,
 			
             TurretYaw = 0,
-            TurretYawRange = 36,
-            TurretYawSpeed = 108,
+            TurretYawRange = 40,
+            TurretYawSpeed = 400,
 			
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
         },
 

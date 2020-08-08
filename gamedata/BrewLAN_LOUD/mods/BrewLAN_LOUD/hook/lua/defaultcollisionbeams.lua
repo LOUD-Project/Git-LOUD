@@ -1,3 +1,18 @@
+
+ChonkChromBeamGenCollisionBeam = Class(UltraChromaticBeamGeneratorCollisionBeam) {
+    FxBeam = { '/mods/BrewLAN_LOUD/effects/emitters/brewlan_chromatic_chonk_beam_generator_beam_emit.bp'},
+    FxBeamStartPointScale = 2,
+    FxBeamEndPointScale = 2,
+}
+
+TracerChromBeamGenCollisionBeam = Class(UltraChromaticBeamGeneratorCollisionBeam) {
+    FxBeam = { '/mods/BrewLAN_LOUD/effects/emitters/brewlan_chromatic_tracer_beam_generator_beam_emit.bp'},
+    FxBeamStartPointScale = 0.5,
+    FxBeamEndPoint = {},
+    FxBeamEndPointScale = 0.5,
+    SplatTexture = nil,
+}
+
 DeathLaserCollisionBeam = Class(OrbitalDeathLaserCollisionBeam) {
     FxBeam = {'/mods/BrewLAN_LOUD/effects/emitters/brewlan_maelstrom_death_laser_beam_01_emit.bp'},
     FxBeamStartPoint = {'/effects/emitters/uef_orbital_death_laser_muzzle_01_emit.bp'},
