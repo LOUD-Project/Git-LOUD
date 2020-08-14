@@ -198,11 +198,9 @@ PhxLib.getWaterVision = function(curBP)
 
     return Wvision
 end
---TargetRestrictOnlyAllow = 'TORPEDO',
 
 PhxLib.getAntiTorpRate = function(curBP)
     --returns number of anti-torps per second
-    -- TODO: Ask Sprout about AoE, redirection, or other odd ball anti torps
     local ATrate = 0
     
     if curBP.Weapon then
@@ -265,7 +263,7 @@ PhxLib.getChassis = function(curBP)
         then return 'Defense'
     elseif PhxLib.checkCategories(curBP,'NAVAL')
         then return 'Navy'
-    elseif PhxLib.checkCategories(curBP,'STRUCTURE') 
+    elseif PhxLib.checkCategories(curBP,'STRUCTURE')
         then return 'Structure'
     else
         return 'unknown'
