@@ -275,7 +275,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },

@@ -72,6 +72,7 @@ UnitBlueprint {
         'LAND',
         'DIRECTFIRE',
         'EXPERIMENTAL',
+        'SNIPER',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -88,11 +89,11 @@ UnitBlueprint {
         
         EconomyThreatLevel = 2000,
         
-        Health = 27550,
-        MaxHealth = 27550,
+        Health = 21000,
+        MaxHealth = 21000,
         RegenRate = 10,
 
-        SurfaceThreatLevel = 200,
+        SurfaceThreatLevel = 180,
     },
     
     Description = '<LOC ssl0404_desc>Experimental Sniper Bot',
@@ -250,7 +251,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 404000,
+        BuildCostEnergy = 480000,
         BuildCostMass = 23800,
         BuildTime = 6750,
     },
@@ -309,9 +310,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.5,
-        MaxBrake = 2.5,
-        MaxSpeed = 2.5,
+        MaxAcceleration = 0.8,
+        MaxBrake = 2.4,
+        MaxSpeed = 2.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MeshExtentsX = 4,
@@ -379,7 +380,7 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 2700,
+            Damage = 2400,
             DamageRadius = 0,
             DamageType = 'ShieldMult0.8',
             

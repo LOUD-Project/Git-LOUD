@@ -300,6 +300,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',
             ProjectileLifetime = 1,
@@ -382,6 +384,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
 			
             MuzzleVelocity = 80,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon04/SAALosaareAutoCannon04_proj.bp',
             ProjectileLifetime = 0.75,
