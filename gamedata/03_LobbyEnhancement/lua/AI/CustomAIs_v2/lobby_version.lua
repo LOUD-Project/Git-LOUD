@@ -1,4 +1,4 @@
 AI = {
 	Name = "Enhanced Lobby",
-	Version = "LOUD 1.83",
+	Version = "LOUD 1.85",
 }
