@@ -3909,6 +3909,11 @@ function AttackPlanner(self, enemyPosition)
 	
         -- if monitoring an existing attack plan, kill it and start a new one
         if self.AttackPlanMonitorThread then
+            
+            if self.DrawPlanThread then
+                KillThread(self.DrawPlanThread)
+            end
+            
             KillThread(self.AttackPlanMonitorThread)
 		end
 
@@ -3919,7 +3924,7 @@ end
 
 function CreateAttackPlan( self, enemyPosition )
 
-    --LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
+    LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
     
 	if self.DeliverStatus then
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
@@ -4011,11 +4016,35 @@ function CreateAttackPlan( self, enemyPosition )
 	end
 
     local CurrentPoint = StartPosition
+    
     local StagePoints = {}
-	local lastaddedposition = {}
+
     local StageCount = 0
     local looptest = 0
-	local positions, pathvalue, path, reason, lastnode
+	local positions, path, reason, pathlength, pathtype
+    
+    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, Goal, 99999, 160)
+    
+    if not path then
+    
+        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, Goal, 99999, 250)
+        
+    end
+    
+    if not path then 
+    
+        LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint))
+        
+    else
+    
+        CurrentPointDistance = pathlength
+        
+    end
+    
+	-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
+    self.AttackPlan.Method = 'Land'
+    -- and the range at which to look for nodes of that type
+    local rangecheck = 160
 
     while not GoalReached do
         
@@ -4026,6 +4055,7 @@ function CreateAttackPlan( self, enemyPosition )
 			
         else
 
+            -- sort the markerlist for closest to the current point --
             LOUDSORT( markerlist, function(a,b)	return VDist2Sq(a.Position[1],a.Position[3], CurrentPoint[1],CurrentPoint[3]) < VDist2Sq(b.Position[1],b.Position[3], CurrentPoint[1],CurrentPoint[3]) end )
 
             positions = {}
@@ -4035,68 +4065,59 @@ function CreateAttackPlan( self, enemyPosition )
 
 			-- Filter the list of markers
             for _,v in markerlist do
+            
+                -- get the pathlength of this position to the Goal position
+                path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', Goal, v.Position, 99999, 160)
                 
+                if not path then
+                
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', Goal, v.Position, 99999, 250)
+                    
+                end
+ 
                 -- if the position is at least half the stagesize away 
-                if VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= minstagesize
+                if path and VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= minstagesize
 				
 					-- and at least half a stagesize from the goal
 					and VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) >= minstagesize
 					
 					-- and 30% closer to the final goal than the last selected point 
-					and (VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) < (VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) * .70 ))
+					and ( pathlength < (CurrentPointDistance * .7))
 					
 					-- and Goal is NOT between the current point and this point
 					and not DestinationBetweenPoints( Goal, CurrentPoint, v.Position )	then
                     
-                    pathvalue = 0
+
+                    --LOG("*AI DEBUG "..self.Nickname.." processing position "..repr(v))
+
+                    pathtype = "Land"
 					
-					-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
-					self.AttackPlan.Method = 'Land'
-					
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 9999, 160)
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 99999, 160)
 					
 					if not path then
+                    
+                        LOG("*AI DEBUG "..self.Nickname.." failed land path from Current Point to "..repr(v) )
 
-						-- attack plan will be amphibious if no land path, even if we dont find a path --
-						self.AttackPlan.Method = 'Amphibious'
+						pathtype = "Amphibious"
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 9999, 250)
-						
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 99999, 250)
 					end
 
                     -- calculate the distance of the path steps or distance + 300 if no path
                     if not path then
-					
-                        pathvalue = LOUDFLOOR(VDist2Sq( CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3] )) + (stagesize*stagesize)
-						
-                    else
-					
-                        pathvalue = 0
-                        lastnode = CurrentPoint
-
-                        for i, waypoint in path do
-						
-                            -- add the length of each step plus 25 for each step
-                            pathvalue = pathvalue + LOUDFLOOR(VDist2Sq(lastnode[1],lastnode[3], waypoint[1],waypoint[3])) + (25*25)
-                            lastnode = waypoint
-							
-                        end
-						
+                    
+                        LOG("*AI DEBUG "..self.Nickname.." gets no path "..repr(reason).." between "..repr(CurrentPoint).." and "..repr(v.Position))
+                        
+                        pathtype = "Unknown"
+                        
+                        pathlength = LOUDFLOOR(VDist2Sq( CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3] )) + (stagesize*stagesize)
                     end
 
-                    if pathvalue > (VDist2Sq(CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3]) * 1.2) then
-					
-                        pathvalue = LOUDFLOOR(pathvalue * 1.25)
-						
-                    end
-
-                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathvalue, Type = self.AttackPlanMethod, Path = path})
-					
+                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
 				
 				-- load balancing
 				WaitTicks(1)
-				
             end
 
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
@@ -4113,14 +4134,12 @@ function CreateAttackPlan( self, enemyPosition )
 					
                     a = Goal[1] + CurrentPoint[1]
                     b = Goal[3] + CurrentPoint[3]
-					
                 else
 				
-                    LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint))
+                    LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3Sq(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..maxstagesize)
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
                     b = CurrentPoint[3] + positions[1].Position[3]
-					
                 end
 
                 local result = { LOUDFLOOR(a* 0.5), 0, LOUDFLOOR(b* 0.5) }
@@ -4135,11 +4154,18 @@ function CreateAttackPlan( self, enemyPosition )
                     LOG("*AI DEBUG "..self.Nickname.." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 400)
-					
                 else
+                
+                    pathtype = "Land"
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
+                    
+                    if not path then
+                    
+                        pathtype = "Amphibious"
+                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
+                    end
 				
-                    LOUDINSERT(positions, {Position = landposition[1].Position, Pathvalue = LOUDFLOOR(VDist2Sq(CurrentPoint[1],CurrentPoint[3],landposition[1].Position[1],landposition[1].Position[3])), Type = 'Land', Path = false})
-					
+                    LOUDINSERT(positions, {Position = landposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
 
 				-- if no land marker could be found - try using a Naval marker
@@ -4147,11 +4173,18 @@ function CreateAttackPlan( self, enemyPosition )
 				
 					LOG("*AI DEBUG "..self.Nickname.." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
 					LOG("*AI DEBUG "..self.Nickname.." Fakeposition is "..repr(fakeposition))
-					
-                    LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = LOUDFLOOR(VDist2Sq(CurrentPoint[1],CurrentPoint[3],fakeposition[1].Position[1],fakeposition[1].Position[3])), Type = 'Naval', Path = false})
-					
+                    
+                    pathtype = "Land"
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, fakeposition[1].Position[3], 99999, 160)
+                    
+                    if not path then
+                    
+                        pathtype = "Amphibious"
+                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, fakeposition[1].Position[3], 99999, 250)
+                    end
+
+                    LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
-				
             end
 
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
@@ -4162,15 +4195,23 @@ function CreateAttackPlan( self, enemyPosition )
 				StageCount = StageCount + 1 
 				
 				LOUDINSERT(StagePoints, positions[1])
-				
-				lastaddedposition = table.copy(positions[1].Position)
-				
+
 				CurrentPoint = positions[1].Position
+                
+                path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, Goal, 99999, 160 )
+                
+                if not path then
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
+                end
+                
+                if path then
+                    CurrentPointDistance = pathlength
+                else
+                    LOG("*AI DEBUG "..self.Nickname.." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
+                end
 				
 			else
-			
 				GoalReached = true
-				
 			end
         end 
     end
@@ -4186,18 +4227,20 @@ function CreateAttackPlan( self, enemyPosition )
 
         local counter = 1
 
-        for _,i in StagePoints do
+        if StageCount > 0 then
+        
+            for _,i in StagePoints do
 		
-            self.AttackPlan.StagePoints[counter] = i
-            counter = counter + 1
+                self.AttackPlan.StagePoints[counter] = i
+                counter = counter + 1
 			
+            end
         end
 
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
         --LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
-		
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
 	end
@@ -4205,6 +4248,8 @@ end
 
 function AttackPlanMonitor(self)
 
+    LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
+    
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
 
@@ -4213,7 +4258,7 @@ function AttackPlanMonitor(self)
 		local DC = DrawCircle
 		local DLP = DrawLinePop
 		
-		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+		LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
 		
 		while true do
 		
@@ -4234,7 +4279,6 @@ function AttackPlanMonitor(self)
 						lastdraw = v
 					
 					end
-					
 				end
 				
 				for i = 1, self.AttackPlan.StageCount do
@@ -4258,7 +4302,6 @@ function AttackPlanMonitor(self)
 					end
 					
 					lastpoint = self.AttackPlan.StagePoints[i].Position
-					
 				end
 				
 				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
@@ -4268,13 +4311,10 @@ function AttackPlanMonitor(self)
 				DC( self.AttackPlan.Goal, 1, 'ff00ff')
 				DC( self.AttackPlan.Goal, 3, '00ff00')
 				DC( self.AttackPlan.Goal, 5, 'ff00ff')
-				
 			end
 			
 			WaitTicks(6)
-			
 		end
-		
 	end
 
     while true do
