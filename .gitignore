@@ -9,3 +9,5 @@ bin/ForgedAlliance\.exe
 maps/
 
 *.lnk
+
+lua_utils/bluePrintExtractor/output*.csv
