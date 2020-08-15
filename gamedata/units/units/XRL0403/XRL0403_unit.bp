@@ -220,7 +220,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 8,
+		CapCost = 10,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {

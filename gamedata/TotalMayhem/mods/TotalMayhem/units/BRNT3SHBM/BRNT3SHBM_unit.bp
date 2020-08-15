@@ -539,7 +539,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3.5,
 
             RackBones = {
@@ -638,6 +638,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2, 
             MuzzleSalvoSize = 2, 
             MuzzleVelocity = 30,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer02_proj.bp', 
             ProjectileLifetime = 6, 

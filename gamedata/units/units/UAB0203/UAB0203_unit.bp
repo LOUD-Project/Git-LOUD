@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 31,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -45,11 +47,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 310,	-- buildrate * 2 + 2% of health
+        EconomyThreatLevel = 380,	-- buildrate * 2 + 2% of health
         Health = 12000,
         MaxHealth = 12000,
         RegenRate = 3,
     },
+    
     Description = '<LOC uab0203_desc>Improved Naval Factory',
 	
     Display = {
@@ -78,11 +81,14 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
+    
     Economy = {
         BuildCostEnergy = 9310,
         BuildCostMass = 1521,
-        BuildRate = 35,
-        BuildTime = 2700,
+        
+        BuildRate = 70,
+        BuildTime = 5400,
+        
         BuildableCategory = {
             'BUILTBYTIER2FACTORY AEON MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY AEON STRUCTURE NAVAL',
@@ -97,9 +103,11 @@ UnitBlueprint {
         StorageEnergy = 1000,
         StorageMass = 100,
     },
+    
     Footprint = {
         MinWaterDepth = 3,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

@@ -169,7 +169,7 @@ function CreateAvatar(unit)
 			bg.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 			if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
 				-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-				WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+				--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
 				BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
 			end
 		end

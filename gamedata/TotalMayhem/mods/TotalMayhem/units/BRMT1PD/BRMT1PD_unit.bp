@@ -174,28 +174,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+				Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+			},
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -227,9 +210,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = { 'Muzzle' },
                     RackBone = 'Turret_Recoil',
                 },
             },
@@ -250,7 +231,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

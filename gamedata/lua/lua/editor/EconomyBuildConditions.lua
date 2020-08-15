@@ -155,6 +155,7 @@ function LessThanEconEfficiency(aiBrain, mEfficiency, eEfficiency)
 end
 
 function GreaterThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
+
     return (aiBrain.EcoData['OverTime'].MassEfficiency >= mEfficiency and aiBrain.EcoData['OverTime'].EnergyEfficiency >= eEfficiency)
 end
 

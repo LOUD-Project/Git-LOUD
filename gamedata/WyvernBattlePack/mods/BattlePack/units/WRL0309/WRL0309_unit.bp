@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret_Yaw',
+        },
+    },
 
     Audio = {
         Destroyed = Sound {
@@ -187,9 +192,9 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.6,
     
-    SizeX = 0.9,
+    SizeX = 1.2,
     SizeY = 0.7,
-    SizeZ = 1.3,
+    SizeZ = 1.5,
     
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 125,

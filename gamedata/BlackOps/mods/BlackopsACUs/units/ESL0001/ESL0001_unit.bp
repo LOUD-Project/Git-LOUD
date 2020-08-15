@@ -240,18 +240,27 @@ UnitBlueprint {
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+        
         BuildableCategory = {
             'BUILTBYCOMMANDER SERAPHIM',
             'BUILTBYTIER2COMMANDER SERAPHIM',
             'BUILTBYTIER3COMMANDER SERAPHIM',
             'BUILTBYTIER4COMMANDER SERAPHIM',
         },
+        
         InitialRemoteViewingEnergyDrain = 3000,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1,
+
         MaxBuildDistance = 15,
+        
         NaturalProducer = true,
+        
         NeedToFaceTargetToBuild = false,
+        
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 2,
+        
         StorageEnergy = 5000,
         StorageMass = 650,
 		
@@ -260,9 +269,6 @@ UnitBlueprint {
         TeleportTimeMod = 0.0001,
 		
 		TeleportBurstEnergyCost = 10000,
-		
-		xpBaseValue = 16000,
-		BuildxpLevelpSecond = 0,
     },
 	
     Enhancements = {

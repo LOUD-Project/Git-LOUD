@@ -86,7 +86,7 @@ function CreateProps()
 	-- we dont need the prop data anymore
 	ScenarioInfo.Env.Scenario['Props'] = nil
 	
-	LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
+	--LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 end
 
 function CreateResources()
@@ -97,7 +97,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	LOG("*AI DEBUG Armies is "..repr(Armies))
+	--LOG("*AI DEBUG Armies is "..repr(Armies))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -105,11 +105,11 @@ function CreateResources()
 		end
 	end
 	
-	LOG("*AI DEBUG Start positions are "..repr(Starts))
+	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
-	LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
+	--LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
 	
     for i, tblData in pairs(markers) do
 	
@@ -357,13 +357,13 @@ function InitializeArmies()
 		self.Team = ScenarioInfo.ArmySetup[self.Name].Team
         
         local Opponents = 0
-        local TeamSize = 0
-        
-        for _,brain in ArmyBrains do
+        local TeamSize = 1
 
-            -- interestingly the IsAlly function does not work at this stage
-            -- so we just assume anyone NOT on our team is an opponent
-            if ScenarioInfo.ArmySetup[brain.Name].Team == self.Team then
+        for index, playerInfo in ArmyBrains do
+    
+            if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
+
+            if IsAlly( index, self.ArmyIndex) then 
                 TeamSize = TeamSize + 1
             else
                 Opponents = Opponents + 1
@@ -377,7 +377,7 @@ function InitializeArmies()
         -- number of players in the game 
         self.Players = ScenarioInfo.Options.PlayerCount
         
-        --LOG("*AI DEBUG "..self.Name.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+        LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
         
         self.TeamSize = TeamSize
 		
@@ -390,9 +390,6 @@ function InitializeArmies()
             return
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Initializing Skirmish Systems "..repr(ScenarioInfo))
-		--LOG("*AI DEBUG "..self.Nickname.." Initial Brain info is "..repr(self))
-		
 		-- build table of scout locations and set some starting threat at all enemy locations
 		import('/lua/loudutilities.lua').BuildScoutLocations(self)
 
@@ -537,6 +534,13 @@ function InitializeArmies()
     import('/lua/sim/scenarioutilities.lua').CreateResources()
 	
     for iArmy, strArmy in pairs(tblArmy) do
+    
+        -- release some data we don't need anymore
+        ScenarioInfo.ArmySetup[strArmy].BadMap = nil
+        ScenarioInfo.ArmySetup[strArmy].LEM = nil
+        ScenarioInfo.ArmySetup[strArmy].MapVersion = nil
+        ScenarioInfo.ArmySetup[strArmy].Ready = nil
+        ScenarioInfo.ArmySetup[strArmy].StartSpot = nil
 
         local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
@@ -545,6 +549,37 @@ function InitializeArmies()
 
         if tblData then
 
+            -- setup neutral/enemy status of civlians --
+            -- and allied status of other players --
+            for iEnemy, strEnemy in pairs(tblArmy) do
+			
+                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
+
+                -- if another army and you AND they are NOT NEUTRAL civilians --
+                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
+
+                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
+                        SetAlliance( iArmy, iEnemy, 'Neutral')
+                    else
+                        SetAlliance( iArmy, iEnemy, 'Enemy')
+                    end
+                
+                    -- in order to be ALLIED - players must be on specific teams --
+                    if ScenarioInfo.ArmySetup[strArmy].Team != 1 then
+                    
+                        if ScenarioInfo.ArmySetup[strArmy].Team == ScenarioInfo.ArmySetup[strEnemy].Team then
+                            SetAlliance( iArmy, iEnemy, 'Ally')
+                        end
+                        
+                    end
+                    
+                -- if only they are NEUTRAL civilians
+                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
+				
+                    SetAlliance( iArmy, iEnemy, 'Neutral')
+                end
+            end
+			
 			-- if this is an AI (but not civilian)        
             if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
                 import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
@@ -568,11 +603,11 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
-				
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
-			
+            
+            -- if there is wreckage to be created --
             if wreckageGroup then
 			
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
@@ -581,34 +616,8 @@ function InitializeArmies()
                     unit:CreateWreckageProp(0)
                     unit:Destroy()
                 end
-				
             end
-
-            for iEnemy, strEnemy in pairs(tblArmy) do
-			
-                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
-
-                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
-				
-                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
-					
-                        SetAlliance( iArmy, iEnemy, 'Neutral')
-						
-                    else
-					
-                        SetAlliance( iArmy, iEnemy, 'Enemy')
-                    end
-					
-                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
-				
-                    SetAlliance( iArmy, iEnemy, 'Neutral')
-					
-                end
-				
-            end
-			
         end
-		
     end
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,

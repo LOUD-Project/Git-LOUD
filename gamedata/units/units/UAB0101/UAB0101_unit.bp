@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 10,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -42,14 +44,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 88,	-- build power * 2 + 2% of health
+        EconomyThreatLevel = 128,	-- build power * 2 + 2% of health
         Health = 2400,
         MaxHealth = 2400,
         RegenRate = 0,
     },
+    
     Description = '<LOC uab0101_desc>Basic Land Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -143,16 +148,20 @@ UnitBlueprint {
         },
         UniformScale = 0.275,
     },
+    
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 240,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY AEON MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY AEON STRUCTURE LAND',
             'BUILTBYTIER1FACTORY AEON MOBILE LAND',
         },
+        
         RebuildBonusIds = {
             'uab0101',
             'uab0201',
@@ -161,10 +170,12 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

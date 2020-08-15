@@ -167,20 +167,19 @@ end
 
 function UnitCapWatchThread(aiBrain)
 
-	-- these flags alternate the check so that we only kill groups every 10 minutes
-	-- if we actually killed something in the previous pass
+	-- these flags alternate the check so that we only kill groups every 3 minutes
 	local KillPD = false
 	local KillT1Land = false
 	local KillT1Air = false
 
-	WaitSeconds(3600)
+	WaitSeconds(3000)   -- start 50 minutes into the game
     
     local GetListOfUnits = aiBrain.GetListOfUnits
     local armyindex = aiBrain.ArmyIndex
 	
     while not aiBrain:IsDefeated() do
 	
-        WaitSeconds(300)
+        WaitSeconds(180)   -- every 3 minutes
 		
         if GetArmyUnitCostTotal(armyindex) > 600 then
 		
@@ -196,6 +195,7 @@ function UnitCapWatchThread(aiBrain)
 				end	
 				
 				KillT1Land = true
+                KillT1Air = false
 				
             elseif not KillT1Air then
 			
@@ -209,6 +209,7 @@ function UnitCapWatchThread(aiBrain)
 				end	
 
 				KillT1Air = true
+                KillPD = false
                 
 			elseif not KillPD then
             
@@ -219,15 +220,8 @@ function UnitCapWatchThread(aiBrain)
                 end
 				
                 KillPD = true
-
-            else
-			
-                KillPD = false
-				KillT1Land = false
-				KillT1Air = false
-				
+                KillT1Land = false
             end
         end
     end
-	
 end

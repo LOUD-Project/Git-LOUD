@@ -192,9 +192,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.1,
@@ -229,7 +227,7 @@ UnitBlueprint {
             MuzzleVelocity = 29,
             MuzzleVelocityRandomness = 3.5,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3PDROproj/BRMT3PDROproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 4,
 			
             RackBones = {
@@ -268,9 +266,9 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'TECH3 MOBILE',
-
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
 			
@@ -288,7 +286,7 @@ UnitBlueprint {
             TurretYawSpeed = 13,
 			
             Turreted = true,
- 	   },
+        },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',

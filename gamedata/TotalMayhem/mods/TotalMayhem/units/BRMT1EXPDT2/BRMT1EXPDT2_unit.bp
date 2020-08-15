@@ -182,11 +182,6 @@ UnitBlueprint {
                     Cue = 'URL0402_Beam_Loop',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
                 BeamStop = Sound {
                     Bank = 'URLWeapon',
                     Cue = 'URL0402_Beam_Stop',
@@ -213,8 +208,8 @@ UnitBlueprint {
 			
             DisplayName = 'Microwave Laser',
 			
-			EnergyDrainPerSecond = 150,
-			EnergyRequired = 150,
+			EnergyDrainPerSecond = 80,
+			EnergyRequired = 160,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -248,7 +243,7 @@ UnitBlueprint {
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	-- 200 DPS
+            RateOfFire = 1,	-- 200 DPS - once every 2 seconds controlled by charge
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,

@@ -18,7 +18,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 10,
+    BuildIconSortPriority = 50,
 	
     Categories = {
         'SELECTABLE',
@@ -63,14 +63,14 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1550,
         BuildCostMass = 235,
-        BuildTime = 1150,
+        BuildTime = 940,
 		
         BuildUnit = 'brl0205',
     },
 	
     Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
+        SizeX = 2,
+        SizeZ = 2,
     },
 	
     General = {

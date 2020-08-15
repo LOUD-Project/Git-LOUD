@@ -18,7 +18,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 20,
+    BuildIconSortPriority = 60,
 	
     Categories = {
         'SELECTABLE',

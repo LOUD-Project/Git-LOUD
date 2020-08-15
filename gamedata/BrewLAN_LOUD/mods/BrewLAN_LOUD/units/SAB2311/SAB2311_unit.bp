@@ -230,8 +230,8 @@ UnitBlueprint {
 			
             DisplayName = 'Oblivion Cannon',
 			
-            EnergyDrainPerSecond = 500,
-            EnergyRequired = 2500,
+            EnergyDrainPerSecond = 700,
+            EnergyRequired = 2800,      -- 4 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -246,7 +246,7 @@ UnitBlueprint {
             MaxRadius = 128,
 			MinRadius = 14,
 			
-            MuzzleChargeDelay = 1.2,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
@@ -276,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 5 second charge = 360 DPS
+            RateOfFire = 1,	-- 5 second cycle = 360 DPS
 			
             SlavedToBody = false,
 			

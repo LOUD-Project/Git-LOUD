@@ -5,8 +5,8 @@ UnitBlueprint {
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -171,25 +171,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'WeaponBig_LodCutoff',
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_None',
@@ -221,9 +206,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -268,18 +251,12 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.5,
@@ -310,10 +287,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.05,
             MuzzleSalvoSize = 6,	-- 6 rockets per rack
             MuzzleVelocity = 18,
-			
+
+			NotExclusive = true,
+
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
 			
             RackBones = {
@@ -360,7 +339,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
+                'STRUCTURE - WALL',
 				'MOBILE -AIR',
                 'ALLUNITS',
             },

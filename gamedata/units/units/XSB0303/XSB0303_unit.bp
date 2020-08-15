@@ -46,7 +46,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 480,
+        EconomyThreatLevel = 920,
         Health = 36000,
         MaxHealth = 36000,
         RegenRate = 6,
@@ -89,8 +89,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 35100,
         BuildCostMass = 8000,
-        BuildRate = 50,
-        BuildTime = 12000,
+        
+        BuildRate = 100,
+        BuildTime = 24000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',

@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
 
     Audio = {
         Destroyed = Sound {
@@ -231,7 +236,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
     
     SizeX = 0.8,
-    SizeY = 0.42,
+    SizeY = 0.6,
     SizeZ = 1.6,
     
     StrategicIconName = 'icon_land3_directfire',

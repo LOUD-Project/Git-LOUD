@@ -424,9 +424,9 @@ UnitBlueprint {
     SelectionSizeZ = 4.2,
     SelectionThickness = 0.34,
     
-    SizeX = 4.2,
-    SizeY = 1.5,
-    SizeZ = 4.2,
+    SizeX = 6.2,
+    SizeY = 2.2,
+    SizeZ = 6.2,
     
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 45,

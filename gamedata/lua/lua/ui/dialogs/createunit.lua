@@ -53,7 +53,7 @@ local ModListTabs = function()
                     if string.len(name) <= l then return name end --If it's short, just gief
 
                     name = string.gsub(name, "%([^()]*%)", "") --Remove any brackets
-                    name = string.gsub(name, "[ \s]+$", "") --Remove trailing spaces, because I can't be arsed to work out how to do both in one regex
+                    name = string.gsub(name, "[ %s]+$", "") --Remove trailing spaces, because I can't be arsed to work out how to do both in one regex
                     if string.len(name) <= l then return name end
 
                     local commonlong = { --Shrink some common long words to be recognisble
@@ -247,7 +247,7 @@ local function CreateNameFilter(data)
     local group = Group(dialog)
     group.Width:Set(dialog.Width)
     if data.choices and data.choices[1] and table.getn(data.choices) > 6 then
-        group.Height:Set(30 + math.floor(table.getn(data.choices)/6) * 25)
+        group.Height:Set(30 + math.floor((table.getn(data.choices) - 1)/6) * 25)
     else
         group.Height:Set(30)
     end
@@ -404,7 +404,7 @@ function CreateDialog(x, y)
 
     dialog = Bitmap(GetFrame(0))
     dialog:SetSolidColor('CC000000')
-    dialog.Height:Set(800)
+    dialog.Height:Set(720)
     dialog.Width:Set(600)
     dialog.Left:Set(function() return math.max(math.min(x, GetFrame(0).Right() - dialog.Width()), 0) end)
     dialog.Top:Set(function() return math.max(math.min(y, GetFrame(0).Bottom() - dialog.Height()), 0) end)

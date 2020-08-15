@@ -1,0 +1,204 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "eal0001", #Aeon ACU
+
+    Defense = {
+
+        Health = 33550,
+        MaxHealth = 33550,
+
+        SurfaceThreatLevel = 90,
+    },
+    
+    Economy = {
+
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        MaxBuildDistance = 15,
+
+        ProductionPerSecondMass = 2,
+        
+        StorageEnergy = 5000,
+        StorageMass = 750,
+    },
+    
+    Enhancements = {
+    
+        EXImprovedEngineering = {
+        
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3150,
+            BuildTime = 1755,
+
+        },
+        
+        EXAdvancedEngineering = {
+        
+            BuildCostEnergy = 112500,
+            BuildCostMass = 11250,
+            BuildTime = 11250,
+
+        },
+        
+        EXExperimentalEngineering = {
+        
+            BuildCostEnergy = 675000,
+            BuildCostMass = 22500,
+            BuildTime = 33750,
+
+        },
+        
+        EXCombatEngineering = {
+        
+            BuildCostEnergy = 19800,
+            BuildCostMass = 1890,
+            BuildTime = 1620,
+
+        },
+        
+        EXAssaultEngineering = {
+        
+            BuildCostEnergy = 64800,
+            BuildCostMass = 6480,
+            BuildTime = 6480,
+
+        },
+        
+        EXApocolypticEngineering = {
+        
+            BuildCostEnergy = 145800,
+            BuildCostMass = 14580,
+            BuildTime = 14580,
+
+        },
+
+    },
+    
+    Intel = {
+
+        OmniRadius = 30,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        VisionRadius = 30,
+        WaterVisionRadius = 30,
+
+    },
+    
+    Veteran = {
+    
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+
+    },
+    
+    Weapon = {
+    
+        {},
+        
+        {
+
+            Damage = 100,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            MaxRadius = 35,
+            MinRadius = 1,
+            
+            MuzzleVelocity = 45,
+        },
+        
+        {},
+        
+        {},
+        
+        {
+
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
+
+            MaxRadius = 25,
+            
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+
+            RateOfFire = 0.5,
+            TargetCheckInterval = 2,
+
+        },
+        
+        {
+
+            EnergyDrainPerSecond = 350,
+            EnergyRequired = 1050,
+
+            MaxRadius = 35,
+
+            MuzzleVelocity = 30,
+
+            RateOfFire = 0.5,
+            TargetCheckInterval = 2,
+
+        },
+        
+        {
+
+            Damage = 500,
+
+        },
+        
+        {
+
+            Damage = 900,
+
+        },
+        
+        {
+
+            Damage = 2000,
+
+        },
+        
+        {
+
+            Damage = 200,
+
+        },
+        
+        {
+
+            Damage = 500,
+
+        },
+        
+        {
+
+            Damage = 750,
+
+        },
+        
+        {
+
+            Damage = 40,
+
+        },
+        
+        {
+
+            Damage = 80,
+        },
+        
+        {
+
+            Damage = 120,
+        },
+
+        {},
+
+        {},
+    },
+}

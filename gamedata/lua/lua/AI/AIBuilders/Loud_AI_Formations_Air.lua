@@ -46,7 +46,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {
 			BasePerimeterOrientation = 'ALL',        
 			Radius = 200,
-			PatrolTime = 1000,
+			PatrolTime = 1200,
 		},
     },
 	
@@ -63,7 +63,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT - categories.TECH1 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
 		},
 		
 		BuilderData = {
@@ -86,7 +86,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT - categories.TECH1 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.SCOUT }},
 		},
 		
 		BuilderData = {
@@ -592,6 +592,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     ---------------
     -- small size short range groups that can merge quickly
     -- operates at ANY kind of base 
+    
+    -- upto 12 ASF for local air defense against Bombers and Gunships
     Builder {BuilderName = 'Hunt Fighters Defensive',
 	
         PlatoonTemplate = 'FighterAttack Small',
@@ -603,7 +605,46 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 4,
+        InstanceCount = 3,
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
+        },
+		
+        BuilderData = {
+			DistressRange = 120,
+			DistressTypes = 'Air',
+			DistressThreshold = 4,
+			
+			LocationType = 'LocationType',
+			
+            MergeLimit = 32,
+			
+            MissionTime = 90,
+			
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS },
+			
+			SearchRadius = 40,	
+			
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+
+    -- upto 12 ASF for local air defense against Spy Planes
+    Builder {BuilderName = 'Hunt Fighters Defensive - Intel Only',
+	
+        PlatoonTemplate = 'FighterAttack Small',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 700,
+        InstanceCount = 1,
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
@@ -620,15 +661,55 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.MOBILE * categories.AIR - categories.INTELLIGENCE},
+            PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 40,	
+			SearchRadius = 55,	
 			
             UseFormation = 'AttackFormation',
         },
 		
         BuilderType = 'Any',
     },
+
+    -- upto 12 ASF for local air defense against Transports
+    Builder {BuilderName = 'Hunt Fighters Defensive - Transport Only',
+	
+        PlatoonTemplate = 'FighterAttack Small',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 700,
+        InstanceCount = 1,
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
+        },
+		
+        BuilderData = {
+			DistressRange = 120,
+			DistressTypes = 'Air',
+			DistressThreshold = 4,
+			
+			LocationType = 'LocationType',
+			
+            MergeLimit = 16,
+			
+            MissionTime = 90,
+			
+            PrioritizedCategories = {categories.AIR * categories.TRANSPORTFOCUS },
+			
+			SearchRadius = 55,	
+			
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+
 
 	-- medium sized group for close targets and distress response
     -- operates only from a PRIMARY BASE - Land or Naval   
@@ -649,7 +730,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTIAIR }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 17, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -699,7 +780,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
 			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, categories.HIGHALTAIR * categories.ANTIAIR }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
         BuilderData = {

@@ -2515,7 +2515,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
         },
 		
@@ -2554,7 +2554,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},

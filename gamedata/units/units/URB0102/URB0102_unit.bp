@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 20,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -43,14 +45,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 84,
+        EconomyThreatLevel = 124,
         Health = 2200,
         MaxHealth = 2200,
         RegenRate = 2,
     },
+    
     Description = '<LOC urb0102_desc>Basic Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -95,11 +100,14 @@ UnitBlueprint {
         },
         UniformScale = 0.09,
     },
+    
     Economy = {
         BuildCostEnergy = 2400,
         BuildCostMass = 210,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY CYBRAN STRUCTURE AIR',
@@ -114,10 +122,12 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildAttachBone = 'Build_Point',

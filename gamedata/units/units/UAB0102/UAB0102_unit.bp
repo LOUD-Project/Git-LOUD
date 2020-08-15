@@ -42,14 +42,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 88,	-- build power * 2 + 2% of health
+        EconomyThreatLevel = 128,	-- build power * 2 + 2% of health
         Health = 2400,
         MaxHealth = 2400,
         RegenRate = 0,
     },
+    
     Description = '<LOC uab0102_desc>Basic Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -127,8 +130,10 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2400,
         BuildCostMass = 210,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY AEON MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY AEON STRUCTURE AIR',
@@ -143,10 +148,12 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

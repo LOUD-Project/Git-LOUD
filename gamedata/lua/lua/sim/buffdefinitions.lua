@@ -655,8 +655,8 @@ BuffBlueprint { Name = 'CheatIntel',
 }
 
 BuffBlueprint { Name = 'CheatEnergyStorage',
-	BuffType = 'ENERGYSTORAGE',
-	Stacks = 'REPLACE',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
 	Duration = -1,
 	Affects = {
 		EnergyStorage = {
@@ -668,8 +668,8 @@ BuffBlueprint { Name = 'CheatEnergyStorage',
 }
 
 BuffBlueprint { Name = 'CheatMassStorage',
-	BuffType = 'MASSSTORAGE',
-	Stacks = 'REPLACE',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
 	Duration = -1,
 	Affects = {
 		MassStorage = {

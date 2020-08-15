@@ -56,7 +56,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 480,
+        EconomyThreatLevel = 570,
         Health = 12500,
         MaxHealth = 12500,
         RegenRate = 8,
@@ -106,14 +106,17 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 100000,	----60000,
         BuildCostMass = 10000,	----6000,
-        BuildRate = 80,
+        
+        BuildRate = 160,
         BuildTime = 13500,	----8000,
+        
         BuildableCategory = {
            	'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',
            	'BUILTBYTIER3FACTORY CYBRAN STRUCTURE LAND',
            	'BUILTBYTIER3FACTORY CYBRAN MOBILE LAND',
             'BUILTBYQUANTUMGATE CYBRAN',
         },
+        
         RebuildBonusIds = {
             'urb0304',
         },

@@ -187,8 +187,8 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 0.5,
                     Radius = 2,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
-                    TargetDisallow = 'COMMAND,SUBCOMMANDER,WALL',
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,TECH3,COMMAND,WALL',
                 },
             },
 			
@@ -225,7 +225,7 @@ UnitBlueprint {
             MuzzleVelocity = 24,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire04/CybranHailfire04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 3,
+			ProjectileLifetimeUsesMultiplier = 3.5,
 
             RackBones = {
                 {

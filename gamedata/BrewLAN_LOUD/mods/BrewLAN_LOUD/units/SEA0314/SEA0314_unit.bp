@@ -377,6 +377,8 @@ UnitBlueprint {
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIFSmallYieldNuclearBomb01/TIFSmallYieldNuclearBomb01_proj.bp',
 			

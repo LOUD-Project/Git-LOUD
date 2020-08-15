@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 10,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -42,14 +44,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 92,
+        EconomyThreatLevel = 132,
         Health = 2600,
         MaxHealth = 2600,
         RegenRate = 0,
     },
+    
     Description = '<LOC xsb0101_desc>Basic Land Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -153,11 +158,14 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 240,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY SERAPHIM STRUCTURE LAND',
@@ -171,10 +179,12 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

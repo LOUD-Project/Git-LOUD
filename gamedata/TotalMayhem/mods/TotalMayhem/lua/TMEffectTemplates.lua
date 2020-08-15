@@ -1,8 +1,52 @@
 
+
+
 --TableCat = import('/lua/utilities.lua').TableCat
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local EmtBpPath = '/effects/emitters/'
 local EmtBpPathAlt = '/mods/TotalMayhem/effects/emitters/'
+
+-- RD 
+
+--- Cybran Rocket
+CybranRocketTrail = {
+	EmtBpPath .. 'electron_bolter_trail_02_emit.bp',
+	EmtBpPath .. 'disintegrator_polytrail_05_emit.bp', -- White trail
+}
+CybranRocketTrailOffset = {0,0,0}
+CybranRocketFXTrail = EffectTemplate.CDisintegratorFxTrails01
+
+--- Cybran Heavy Rocket
+
+CybranHeavyRocketTrail = {
+	EmtBpPath .. 'electron_bolter_trail_02_emit.bp',
+	-- EmtBpPath .. 'default_polytrail_01_emit.bp', -- white trail
+	EmtBpPath .. 'disintegrator_polytrail_04_emit.bp' -- purple trail
+}
+CybranRocketHeavyTrailOffset = {0, 0}
+CybranHeavyRocketFXTrail = { EmtBpPath .. 'electron_bolter_munition_01_emit.bp' }
+
+CybranHeavyRocketHit = {
+	EmtBpPathAlt .. 'cybranheavyrocket_hit_01_emit.bp',
+	EmtBpPathAlt .. 'cybranheavyrocket_hit_02_emit.bp',
+	EmtBpPathAlt .. 'cybranheavyrocket_hit_05_emit.bp',
+	EmtBpPathAlt .. 'cybranheavyrocket_hit_distort_emit.bp',
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke,
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
+	EmtBpPathAlt .. 'bm2rockethit_06_emit.bp', ## ring
+}
+
+CybranRocketHit = {
+	EmtBpPathAlt .. 'bm2rockethit_01_emit.bp',
+	EmtBpPathAlt .. 'bm2rockethit_02_emit.bp',
+	EmtBpPathAlt .. 'bm2rockethit_03_emit.bp',
+	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke
+}
 
 --local EmitterTempEmtBpPath = '/effects/emitters/temp/'
 
@@ -113,11 +157,11 @@ CybranT2BattleTankHit = {
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_02_emit.bp', ## Red glow
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_03_emit.bp', ## white sparks flying opposite direction of impact
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_04_emit.bp', ## dirt flying
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_06_emit.bp', ## white glow in middle
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
 }
 
 CybranT3HVYTankHit = {
@@ -140,103 +184,21 @@ CybranT3BattleTankHit = {
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
 	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank2_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09a_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-    EmtBpPathAlt .. 'battletankt3flames_emit.bp', ## Cool exploding flames!!!
-    EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
-}
-
-CybranT3BattleTankRocketHit = {
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_02_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_01_emit.bp',
-}
-
-CybranT3PdroHit = {
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_01_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_02_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_03_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_04_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_05_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_06_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_07_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_08_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_09_emit.bp',
-	EmtBpPathAlt .. 'cybranheavyrocket_hit_distort_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow
-}
-
-CybranT3MadCatRocketsHit = {
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_02_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_01_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-    EmtBpPathAlt .. 'tmcybrant2battletankhit_01_emit.bp', ## Exploding flames
-}
-
-Madcatmk2hit = {
-    EmtBpPath .. 'hvyproton_cannon_hit_06_emit.bp',
-    EmtBpPath .. 'hvyproton_cannon_hit_08_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_03_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_01_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_02_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_03_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_04_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant2battletankhit_01_emit.bp', ## Exploding flames
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_02_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_01_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_04_emit.bp', ## dirt flying
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_05_emit.bp', ## ring
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_06_emit.bp', ## white glow in middle
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
+	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank2_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant3battletank_emit.bp',
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_09a_emit.bp', ## Yellow Afterglow
+	-- EmtBpPathAlt .. 'tmcybrant3battletankhitunit_emit.bp',
+	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
-}
-
-BattleMech2RocketHit = {
-    EmtBpPathAlt .. 'bm2rockethit_01_emit.bp',
-    EmtBpPathAlt .. 'bm2rockethit_02_emit.bp',
-    EmtBpPathAlt .. 'bm2rockethit_03_emit.bp',
-    EmtBpPathAlt .. 'bm2rockethit_04_emit.bp',
-    EmtBpPathAlt .. 'bm2rockethit_05_emit.bp',
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
-	EmtBpPathAlt .. 'bm2rockethit_06_emit.bp', ## ring
-	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
-    EmtBpPathAlt .. 'bm2rockethit_10_emit.bp', ## Exploding flames
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-	EmtBpPathAlt .. 'bm2rockethit_07_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
-	EmtBpPathAlt .. 'bm2rockethit_08_emit.bp', ## Yellow Afterglow
-	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke
-    EmtBpPathAlt .. 'bm2rockethit_11_emit.bp', ## Cool exploding flames!!!
-    EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
+	-- EmtBpPathAlt .. 'battletankt3flames_emit.bp', ## Cool exploding flames!!!
+	-- EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
 }
 
 CybranHeavyProtonGunHit = {
@@ -254,31 +216,31 @@ CybranHeavyProtonGunHit = {
 }
 
 Beetleprojectilehit01 = {
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_07_emit.bp', ## Sparks flying out
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09_emit.bp', ## Yellow Afterglow
-	EmtBpPathAlt .. 'tmredglowbig_emit.bp',
-	EmtBpPathAlt .. 'bm2rockethit_07_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
-	EmtBpPathAlt .. 'bm2rockethit_08_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'bm2rockethit_11_emit.bp', ## Cool exploding flames!!!
-    EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
-}
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_01_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_02_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_03_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_04_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_09_emit.bp',
+	EmtBpPathAlt .. 'hvyproton_cannon_hit_10_emit.bp',
 
-CybranHeavyProtonRocketHit = {
-	EmtBpPathAlt .. 'tm_kamibomb_hit_01_emit.bp', ## glow
-	EmtBpPathAlt .. 'tm_kamibomb_hit_03_emit.bp', ## Exploding flames
-	EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'tm_kamibomb_hit_07_emit.bp', ## Sparks flying out
-	EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'tmcybrant3battletank3_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletank2_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
-    EmtBpPathAlt .. 'tmcybrant3battletankhitunit_emit.bp',
+	EmtBpPathAlt .. 'tm_kamibomb_hit_05a_emit.bp', ## Red glow,
+	EmtBpPathAlt .. 'bm2rockethit_09_emit.bp', ## Red glow explosion with smoke,
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
+	EmtBpPathAlt .. 'tmcybrant2battletankhit_03_emit.bp', ## white sparks flying opposite direction of impact
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_05_emit.bp', ## Red glow
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_07_emit.bp', ## Sparks flying out
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_09_emit.bp', ## Yellow Afterglow
+	-- EmtBpPathAlt .. 'tmredglowbig_emit.bp',
+	EmtBpPathAlt .. 'tmcybrant3battletankhit_distort_emit.bp',
+	EmtBpPathAlt .. 'bm2rockethit_07_emit.bp', ## Ring effect
+	-- EmtBpPathAlt .. 'tm_kamibomb_hit_08_emit.bp', ## White inner ring
+	EmtBpPathAlt .. 'bm2rockethit_08_emit.bp', ## Yellow Afterglow
+    -- EmtBpPathAlt .. 'bm2rockethit_11_emit.bp', ## Cool exploding flames!!!
+    -- EmtBpPathAlt .. 'bm2rockethit_12_emit.bp', ## white glow
 }
 
 UEFHeavyMechHit01 = {

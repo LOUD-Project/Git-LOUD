@@ -1501,7 +1501,7 @@ Platoon = Class(moho.platoon_methods) {
 						local unitpos = LOUDCOPY(GetPosition(v))
 						
 						-- if the unit hasn't gotten within range of the platoon
-						if VDist2Sq( platPos[1],platPos[3], unitpos[1],unitpos[3] ) > (80*80)  then
+						if VDist2Sq( platPos[1],platPos[3], unitpos[1],unitpos[3] ) > (100*100)  then
 					
 							if not LOUDENTITY(categories.EXPERIMENTAL,v) then
 						

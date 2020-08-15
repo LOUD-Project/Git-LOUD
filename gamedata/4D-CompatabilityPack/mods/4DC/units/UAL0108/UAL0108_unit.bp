@@ -255,7 +255,7 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 0.3,
-    SizeY = 1.1, 
+    SizeY = 1.04, 
     SizeZ = 0.44,
 	
     StrategicIconName = 'icon_bot1_directfire',
@@ -278,11 +278,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0203_Laser_Lgt',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -316,9 +312,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'turretMuzzle',
-                    },
+                    MuzzleBones = { 'turretMuzzle' },
                     RackBone = 'turretBarrel',
                 },
             },

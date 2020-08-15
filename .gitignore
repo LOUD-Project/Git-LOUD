@@ -9,5 +9,15 @@ bin/ForgedAlliance\.exe
 maps/
 
 *.lnk
+*.ai
+*.tif
+*.psd
+*.ps1
+*.bat
+bin/Loud-Dev\.log
 
 lua_utils/bluePrintExtractor/output*.csv
+
+*.lnk
+maps/
+bin/ForgedAlliance\.exe
