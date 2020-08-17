@@ -210,7 +210,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'UEF',
+        FactionName = 'Aeon',
         Icon = 'amph',
 		
 		OrderOverrides = {
