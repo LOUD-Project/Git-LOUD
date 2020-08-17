@@ -52,9 +52,9 @@ ProjectileBlueprint {
     },
 	DoNotCollideList = { 'SATELLITE', },
     Economy = {
-        BuildCostEnergy = 900000,	#6000
-        BuildCostMass = 9000,	#600
-        BuildTime = 324000,	#129600
+        BuildCostEnergy = 900000,	--#6000
+        BuildCostMass = 9000,	--#600
+        BuildTime = 324000,	--#129600
     },
     General = {
         Category = 'Missile',

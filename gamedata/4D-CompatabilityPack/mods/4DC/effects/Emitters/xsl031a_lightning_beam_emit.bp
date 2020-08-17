@@ -5,7 +5,7 @@
 -- 
 --  Summary  : Lightning Beam for the Seraphem transforming bot XSL031A
 -- 
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 ----------------------------------------------------------------------------- 
 
 BeamBlueprint {
@@ -13,8 +13,8 @@ BeamBlueprint {
     TextureName = '/mods/4DC/textures/particles/electricity_beam_xsl031a.dds',  
     Length = .01, 
     Thickness = 0.15, 
-    StartColor = {x=0.8,y=0.8,z=1,w=0.0}, # R,G,B,A
-    EndColor = {x=0.6,y=0.6,z=1,w=0.0}, # R,G,B,A
+    StartColor = {x=0.8,y=0.8,z=1,w=0.0}, --# R,G,B,A
+    EndColor = {x=0.6,y=0.6,z=1,w=0.0}, --# R,G,B,A
     UShift = 0.0, 
     VShift = -0.15, 
     RepeatRate= 0.32, 

@@ -60,7 +60,7 @@ ProjectileBlueprint {
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,
-        #DetonateBelowHeight = 17,
+        --#DetonateBelowHeight = 17,
         InitialSpeed = 35,
         MaxSpeed = 35,
         MaxZigZag = 0,

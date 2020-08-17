@@ -5,5 +5,5 @@ MeshBlueprint {
             LODCutoff = -1.0,
         },
     },
-    #UniformScale = 0.15,
+    --#UniformScale = 0.15,
 }

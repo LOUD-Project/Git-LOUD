@@ -56,7 +56,7 @@ ProjectileBlueprint {
         RotationalVelocityRange = 0,
 		OnLostTargetLifetime = 2,
         TrackTarget = true,
-        #TrackTargetGround = true,
+        --#TrackTargetGround = true,
         TurnRate = 45,
         UseGravity = false,
         VelocityAlign = true,

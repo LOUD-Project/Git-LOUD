@@ -1,12 +1,12 @@
-#****************************************************************************
-#**  File     :  /projectiles/Energy_Missile/Energy_Missile_proj.bp
-#**
-#**  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime
-#**
-#**  Summary  :  Seraphem Energy Missile Projectile blueprint for XSL0310a
-#**
-#**  Copyright © 2010 4DC  All rights reserved.
-#****************************************************************************
+--#****************************************************************************
+--#**  File     :  /projectiles/Energy_Missile/Energy_Missile_proj.bp
+--#**
+--#**  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime
+--#**
+--#**  Summary  :  Seraphem Energy Missile Projectile blueprint for XSL0310a
+--#**
+--#**  Copyright ï¿½ 2010 4DC  All rights reserved.
+--#****************************************************************************
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {

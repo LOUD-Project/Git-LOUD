@@ -28,7 +28,7 @@ ProjectileBlueprint {
     },
     Display = {
         CameraFollowTimeout = 5,
-        #CameraFollowsProjectile = true,
+        --#CameraFollowsProjectile = true,
         StrategicIconSize = 3,
     },
     General = {

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "eal0001", #Aeon ACU
+    BlueprintId = "eal0001", --#Aeon ACU
 
     Defense = {
 

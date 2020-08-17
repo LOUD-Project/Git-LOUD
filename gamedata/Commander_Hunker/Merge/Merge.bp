@@ -1,10 +1,10 @@
 
-##-------------------------------------------------------------------------
-## Default Acu's
+--#--#-------------------------------------------------------------------------
+--#--# Default Acu's
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="ual0001", #AEON Commander
+	BlueprintId="ual0001", --#AEON Commander
     
     Display = {	
 		Abilities = {'<LOC Hunker>',},
@@ -23,14 +23,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'AeonShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -38,7 +38,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,
@@ -70,7 +70,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="url0001", #CYBRAN Commander
+	BlueprintId="url0001", --#CYBRAN Commander
     
     Display = {	
 		Abilities = {
@@ -90,14 +90,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'CybranShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -105,7 +105,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,
@@ -137,7 +137,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="xsl0001", #SERAPHIM Commander
+	BlueprintId="xsl0001", --#SERAPHIM Commander
     
     Display = {	
 		Abilities = {
@@ -157,14 +157,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'SeraphimShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -205,7 +205,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="uel0001", #UEF Commander
+	BlueprintId="uel0001", --#UEF Commander
     	
     Display = {	
 		Abilities = {
@@ -225,14 +225,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 20000, #23000
-				BuildCostMass = 750, #3000
-				BuildTime = 1600, #1900
+				BuildCostEnergy = 20000, --#23000
+				BuildCostMass = 750, --#3000
+				BuildTime = 1600, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 200, #250
+				MaintenanceConsumptionPerSecondEnergy = 200, --#250
 				
 				ImpactEffects = 'UEFShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -240,7 +240,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,
@@ -271,12 +271,12 @@ UnitBlueprint {
 }
 
 
-##-------------------------------------------------------------------------
-## BlackOps Acu's
+--#--#-------------------------------------------------------------------------
+--#--# BlackOps Acu's
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="eal0001", #AEON Commander
+	BlueprintId="eal0001", --#AEON Commander
     
     Display = {	
 		Abilities = {
@@ -300,14 +300,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'AeonShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -315,7 +315,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,
@@ -347,7 +347,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="erl0001", #CYBRAN Commander
+	BlueprintId="erl0001", --#CYBRAN Commander
     
     Display = {	
 		Abilities = {
@@ -371,14 +371,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'CybranShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01b_mesh',
@@ -386,7 +386,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,
@@ -419,7 +419,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="esl0001", #SERAPHIM Commander
+	BlueprintId="esl0001", --#SERAPHIM Commander
     
     Display = {	
 		Abilities = {
@@ -443,14 +443,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 23000, #23000
-				BuildCostMass = 850, #3000
-				BuildTime = 1900, #1900
+				BuildCostEnergy = 23000, --#23000
+				BuildCostMass = 850, --#3000
+				BuildTime = 1900, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 250, #250
+				MaintenanceConsumptionPerSecondEnergy = 250, --#250
 				
 				ImpactEffects = 'SeraphimShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -490,7 +490,7 @@ UnitBlueprint {
 
 UnitBlueprint {
 	Merge = true,
-	BlueprintId="eel0001", #UEF Commander
+	BlueprintId="eel0001", --#UEF Commander
     	
     Display = {		
 		Abilities = {
@@ -514,14 +514,14 @@ UnitBlueprint {
 			},
 		
 			Hunker = {
-				BuildCostEnergy = 20000, #23000
-				BuildCostMass = 750, #3000
-				BuildTime = 1600, #1900
+				BuildCostEnergy = 20000, --#23000
+				BuildCostMass = 750, --#3000
+				BuildTime = 1600, --#1900
 				Icon = 'huk',
 				Name = 'Hunker',
 				Slot = 'Command',
 				
-				MaintenanceConsumptionPerSecondEnergy = 200, #250
+				MaintenanceConsumptionPerSecondEnergy = 200, --#250
 				
 				ImpactEffects = 'UEFShieldHit01',
 				ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -529,7 +529,7 @@ UnitBlueprint {
 				MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 				
 				ShieldEnergyDrainRechargeTime = 0,
-				#ShieldEnhancementNumber = 0,
+				--#ShieldEnhancementNumber = 0,
 				ShieldMaxHealth = 0,
 				ShieldRechargeTime = 0,
 				ShieldRegenRate = 0,

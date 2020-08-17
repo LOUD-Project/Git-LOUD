@@ -86,5 +86,5 @@ ProjectileBlueprint {
         VelocityAlign = true,
         ZigZagFrequency = 0.5,
     },
-    #StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
+    --#StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
 }

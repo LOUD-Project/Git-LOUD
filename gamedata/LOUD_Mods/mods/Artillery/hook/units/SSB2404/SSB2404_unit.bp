@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ssb2404", #Seraphim Gaah
+    BlueprintId = "ssb2404", ----#Seraphim Gaah
 
     Weapon = {
         {

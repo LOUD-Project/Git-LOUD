@@ -5,15 +5,15 @@
 -- 
 --  Summary  : Special Effects for use with the Cybran Vampire
 -- 
---  Copyright © 2010 4DC  All rights reserved.
+--  Copyright ï¿½ 2010 4DC  All rights reserved.
 -----------------------------------------------------------------------------
 
 BeamBlueprint {   
     Lifetime = 0.1,
     TextureName = '/mods/4DC/textures/particles/beam_green_01.dds',
     Thickness = 0.025,
-    StartColor = {x=0.1,y=0.5,z=0.35,w=0.25}, # R,G,B,Glow
-    EndColor = {x=0.1,y=0.5,z=0.35,w=0.25}, # R,G,B,Glow
+    StartColor = {x=0.1,y=0.5,z=0.35,w=0.25}, --# R,G,B,Glow
+    EndColor = {x=0.1,y=0.5,z=0.35,w=0.25}, --# R,G,B,Glow
     Length = 1000,
     UShift = 0.0,
     VShift = 0.0, 

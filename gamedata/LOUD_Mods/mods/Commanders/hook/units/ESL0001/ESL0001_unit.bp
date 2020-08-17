@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "esl0001", #Seraphim ACU
+    BlueprintId = "esl0001", --#Seraphim ACU
 
     Defense = {
 

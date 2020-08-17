@@ -2,7 +2,7 @@ UnitBlueprint {
 
     Merge = true,
     
-    BlueprintId = "erl0001", #Cybran ACU
+    BlueprintId = "erl0001", --#Cybran ACU
 
     Defense = {
 

@@ -2,8 +2,8 @@ BeamBlueprint {
     Lifetime = 2,
     TextureName = '/mods/BlackOpsUnleashed/textures/particles/beam_orange.dds',
     Thickness = 0.009,
-    StartColor = {x=0.5,y=0.2,z=0.1,w=0.2}, # R,G,B,Glow
-    EndColor = {x=0.5,y=0.2,z=0.1,w=0.2}, # R,G,B,Glow
+    StartColor = {x=0.5,y=0.2,z=0.1,w=0.2}, --# R,G,B,Glow
+    EndColor = {x=0.5,y=0.2,z=0.1,w=0.2}, --# R,G,B,Glow
     Length = 8,
     UShift = 0.0,
     VShift = 0.0,

@@ -44,7 +44,7 @@ ProjectileBlueprint {
             },
         },
         StrategicIconSize = 2,
-        UniformScale = 0.15,#2,
+        UniformScale = 0.15,--#2,
     },
     General = {
         Category = 'Missile',
@@ -71,7 +71,7 @@ ProjectileBlueprint {
         RotationalVelocityRange = 0,
         TrackTarget = true,
         OnLostTargetLifetime = 2,
-        #TrackTargetGround = true,
+        --#TrackTargetGround = true,
         TurnRate = 90,
         UseGravity = false,
         VelocityAlign = true,
