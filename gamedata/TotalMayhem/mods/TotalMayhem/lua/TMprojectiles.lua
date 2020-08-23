@@ -433,24 +433,6 @@ AeonBROT3SHBMEMPproj = Class(SinglePolyTrailProjectile) {
 # 			CYBRAN PROJECTILES
 #---------------------------------------
 
-#----------------
-# Cybran Tech 1 Experimental LaserBot
-#----------------
-
-CybBRMT1EXM1proj = Class(SingleCompositeEmitterProjectile) {
-    FxTrails = {},
-	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
-    BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.CLaserBotHit01,
-    FxUnitHitScale = 1.3,
-    FxImpactProp = TMEffectTemplate.CLaserBotHit01,
-    FxPropHitScale = 1.3,
-    FxImpactLand = TMEffectTemplate.CLaserBotHit01,
-    FxLandHitScale = 1.3,
-    FxImpactUnderWater = TMEffectTemplate.CLaserBotHit01,
-    FxImpactWater = TMEffectTemplate.CLaserBotHit01,
-    FxTrailOffset = 0,
-}
 
 #----------------
 # Cybran Tech T1 Improved PD
