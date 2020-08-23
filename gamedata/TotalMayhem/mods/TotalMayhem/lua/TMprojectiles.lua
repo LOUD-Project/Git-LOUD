@@ -856,23 +856,6 @@ UefBRNT3SHPDproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# UEF Tech 2 Heavy Tank rockets
-#----------------
-UefBRNT2HTRLproj = Class(MultiPolyTrailProjectile) {
-    FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
-    FxTrailOffset = -1,
-    BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',
-    FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxUnitHitScale = 0.5,
-    FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxPropHitScale = 0.5,
-    FxImpactLand = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxLandHitScale = 0.5,
-    FxImpactUnderWater = EffectTemplate.TShipGaussCannonHit02,
-    FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
-}
-
-#----------------
 # UEF Tech 2 Medium Tank rockets
 #----------------
 UefBRNT2MTRLproj = Class(MultiPolyTrailProjectile) {
