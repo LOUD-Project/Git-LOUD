@@ -84,24 +84,6 @@ AeonBROT3NCMproj = Class(SinglePolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Tech 3 NovaCat Rapid Pulsegun
-#----------------
-AeonBROT3NCMPproj = Class(SinglePolyTrailProjectile) {
-	FxImpactTrajectoryAligned = false,
-    FxTrails = EffectTemplate.TIonizedPlasmaGatlingCannonFxTrails,
-    PolyTrails = {},
-    PolyTrailOffset = {0,0},
-    FxImpactUnit = EffectTemplate.AMercyGuidedMissileSplitMissileHitUnit,
-    FxUnitHitScale = 1,
-    FxImpactProp = EffectTemplate.AMercyGuidedMissileSplitMissileHitUnit,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.AMercyGuidedMissileSplitMissileHitUnit,
-    FxLandHitScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Tech 3 Rocket Defense
 #----------------
 AeonBROT3PDROproj = Class(MultiPolyTrailProjectile) {
