@@ -69,33 +69,6 @@ UEFArmoredBattleBotHit = {
     EmtBpPath .. 'seraphim_tau_cannon_projectile_hit_03_flat_emit.bp',
 }
 
-UefMobileFortressGunhit = {
-    EmtBpPath .. 'hvyproton_cannon_hit_distort_emit.bp',
-    EmtBpPath .. 'antimatter_hit_01_emit.bp',	##	glow	
-    EmtBpPath .. 'antimatter_hit_02_emit.bp',	##	flash	     
-    EmtBpPath .. 'antimatter_hit_03_emit.bp', 	##	sparks
-    EmtBpPath .. 'antimatter_hit_04_emit.bp',	##	plume fire
-    EmtBpPath .. 'antimatter_hit_05_emit.bp',	##	plume dark 
-    EmtBpPath .. 'antimatter_hit_06_emit.bp',	##	base fire
-    EmtBpPath .. 'antimatter_hit_07_emit.bp',	##	base dark 
-    EmtBpPath .. 'antimatter_hit_08_emit.bp',	##	plume smoke
-    EmtBpPath .. 'antimatter_hit_09_emit.bp',	##	base smoke
-    EmtBpPath .. 'antimatter_hit_10_emit.bp',	##	plume highlights
-    EmtBpPath .. 'antimatter_hit_11_emit.bp',	##	base highlights
-    EmtBpPath .. 'antimatter_ring_01_emit.bp',	##	ring14
-    EmtBpPath .. 'antimatter_ring_02_emit.bp',	##	ring11	
-    EmtBpPath .. 'seraphim_inaino_hit_03_emit.bp',			## long glow
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_01_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_02_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_04_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_06_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_08_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_09_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_10_emit.bp',
-    EmtBpPath .. 'seraphim_khamaseen_bomb_hit_11_emit.bp',
-    EmtBpPath .. 'shockwave_01_emit.bp', 
-}
-
 CYBRANHEAVYPROTONARTILLERYHIT01 = {
 	EmtBpPath .. 'hvyproton_cannon_hit_01_emit.bp',
 	EmtBpPath .. 'hvyproton_cannon_hit_02_emit.bp',
@@ -282,19 +255,6 @@ AeonNocaCatBlueLaserHit = {
 	EmtBpPath .. 'seraphim_heavyquarnon_cannon_frontal_glow_01_emit.bp',
 }
 
-AeonClawHit01 = {
-    EmtBpPath .. 'oblivion_cannon_hit_05_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_06_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_07_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_08_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_09_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_10_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_11_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_12_emit.bp',
-    EmtBpPath .. 'oblivion_cannon_hit_13_emit.bp',
-    EmtBpPath .. 'cybran_corsair_missile_hit_ring.bp',
-}
-
 AeonT1EXM1MainHit01 = {
     EmtBpPath .. 'oblivion_cannon_hit_02_emit.bp',
     EmtBpPath .. 'disintegratorhvy_hit_sparks_01_emit.bp',
@@ -340,19 +300,6 @@ UefT2EPDPlasmaHit01 = {
 	EmtBpPathAlt .. 'uefepd_cannon_hit_12_emit.bp',
 }
 
-UefT3SHPDGaussHit01 = {
-	EmtBpPathAlt .. 'tm_kamibomb_hit_06_emit.bp', ## Ring effect
-	EmtBpPathAlt .. 'uefepd_cannon_hit_01b_emit.bp',
-	EmtBpPathAlt .. 'uefepd_cannon_hit_02_emit.bp',
-	EmtBpPathAlt .. 'shpd_cannon_hit_01_emit.bp',
-	EmtBpPathAlt .. 'shpd_cannon_hit_02_emit.bp',
-	EmtBpPathAlt .. 'shpd_cannon_hit_03_emit.bp',
-	EmtBpPathAlt .. 'shpd_cannon_hit_04_emit.bp',
-	EmtBpPathAlt .. 'uefepd_cannon_hit_10_emit.bp',
-	EmtBpPathAlt .. 'uefepd_cannon_hit_11_emit.bp',
-	EmtBpPathAlt .. 'uefepd_cannon_hit_12_emit.bp',
-}
-
 AeonT3HeavyRocketHit01 = {
     EmtBpPath .. 'quantum_hit_flash_04_emit.bp',
     EmtBpPath .. 'quantum_hit_flash_05_emit.bp',
@@ -385,16 +332,6 @@ AeonT3RocketHit01 = {
     EmtBpPath .. 'quark_bomb_explosion_06_emit.bp',
 }
 
-CLaserBotHit01 = {
-    EmtBpPath .. 'disintegratorhvy_hit_flash_flat_02_emit.bp',
-    EmtBpPath .. 'disintegratorhvy_hit_flash_flat_03_emit.bp',
-    EmtBpPath .. 'disintegratorhvy_hit_flash_04_emit.bp',
-    EmtBpPath .. 'disintegratorhvy_hit_flash_05_emit.bp',
-    EmtBpPath .. 'electron_bolter_hit_02_emit.bp',
-    EmtBpPath .. 'electron_bolter_hit_03_emit.bp',
-    EmtBpPath .. 'molecular_resonance_cannon_ring_02_emit.bp',
-}
-
 UEFHighExplosiveShellHit01 = {
 	EmtBpPathAlt .. 'uefexmgauss_cannon_hit_01_emit.bp',
 	EmtBpPathAlt .. 'uefexmgauss_cannon_hit_02_emit.bp',
@@ -403,52 +340,6 @@ UEFHighExplosiveShellHit01 = {
 	EmtBpPathAlt .. 'uefexmgauss_cannon_hit_05_emit.bp',
 	EmtBpPathAlt .. 'uefexm_cannon_hit_01_emit.bp',
 	EmtBpPathAlt .. 'uefexm_cannon_hit_02_emit.bp',
-}
-
-UEFHighExplosiveShellHit02 = {
-	EmtBpPathAlt .. 'uefepd_cannon_hit_01a_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_01_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_02_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_03_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_10_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_11_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_06_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_07_emit.bp',
-	#EmtBpPath .. 'shipgauss_cannon_hit_08_emit.bp',
-	EmtBpPath .. 'shipgauss_cannon_hit_09_emit.bp',
-    EmtBpPath .. 'hvyproton_cannon_hit_distort_emit.bp',
-    EmtBpPath .. 'antimatter_hit_02_emit.bp',	##	flash	     
-    EmtBpPath .. 'antimatter_hit_03_emit.bp', 	##	sparks
-    EmtBpPath .. 'antimatter_hit_04_emit.bp',	##	plume fire
-    EmtBpPath .. 'antimatter_hit_05_emit.bp',	##	plume dark 
-    EmtBpPath .. 'antimatter_hit_06_emit.bp',	##	base fire
-    EmtBpPath .. 'antimatter_hit_07_emit.bp',	##	base dark 
-    EmtBpPath .. 'antimatter_hit_08_emit.bp',	##	plume smoke
-    EmtBpPath .. 'antimatter_hit_09_emit.bp',	##	base smoke
-    EmtBpPath .. 'antimatter_hit_10_emit.bp',	##	plume highlights
-    EmtBpPath .. 'antimatter_hit_11_emit.bp',	##	base highlights
-    EmtBpPath .. 'seraphim_inaino_hit_03_emit.bp',			## long glow
-}
-
-AeonQuantumChargeHit01 = {
-    EmtBpPath .. 'quantum_hit_flash_04_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_05_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_06_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_07_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_08_emit.bp',
-    EmtBpPath .. 'antimatter_hit_02_emit.bp',	##	flash	     
-    EmtBpPath .. 'antimatter_hit_03_emit.bp', 	##	sparks
-    EmtBpPath .. 'quantum_hit_flash_09_emit.bp',
-    EmtBpPath .. 'aeon_commander_disruptor_hit_01_emit.bp', 
-    EmtBpPath .. 'aeon_commander_disruptor_hit_02_emit.bp', 
-    EmtBpPath .. 'aeon_commander_disruptor_hit_03_emit.bp',  
-    EmtBpPath .. 'quark_bomb_explosion_03_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_04_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_05_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_07_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_08_emit.bp',
-    EmtBpPath .. 'molecular_resonance_cannon_ring_02_emit.bp',
-    EmtBpPath .. 'napalm_hvy_flash_emit.bp',
 }
 
 AeonEnforcerMainGuns = {
@@ -481,20 +372,10 @@ AeonNovaCatFireEffect01 = {
     EmtBpPath .. 'cybran_corsair_missile_hit_ring.bp',
 }
 
-AeonCougarMainGuns = {
-    EmtBpPath .. 'disintegratorhvy_hit_sparks_01_emit.bp',
-    EmtBpPath .. 'cybran_corsair_missile_hit_ring.bp',
-    EmtBpPath .. 'disruptor_hitunit_01_emit.bp',
-    EmtBpPath .. 'disruptor_hitunit_02_emit.bp',
-    EmtBpPath .. 'disruptor_hitunit_03_emit.bp',
-    EmtBpPath .. 'disruptor_hitunit_04_emit.bp',	
-}
-
 AeonT3EMPburst = {
     EmtBpPath .. 'shockwave_01_emit.bp',  
     EmtBpPath .. 'proton_bomb_hit_02_emit.bp',
 }
-
 
 
 
