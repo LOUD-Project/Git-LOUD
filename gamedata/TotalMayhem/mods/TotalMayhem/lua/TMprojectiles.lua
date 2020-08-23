@@ -348,22 +348,6 @@ AeonBROT3HTproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Tech 2 Missile Launcher
-#----------------
-AeonBROT2MLproj = Class(MultiPolyTrailProjectile) {
-    FxTrails = EffectTemplate.AAntiMissileFlare,
-    FxTrailScale = .5,
-    FxImpactUnit = EffectTemplate.ACommanderOverchargeHit01,
-    FxUnitHitScale = 1,
-    FxImpactProp = EffectTemplate.ACommanderOverchargeHit01,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.ACommanderOverchargeHit01,
-    FxLandHitScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Tech 3 Rocket Battery
 #----------------
 AeonBROT3MLproj = Class(MultiPolyTrailProjectile) {
