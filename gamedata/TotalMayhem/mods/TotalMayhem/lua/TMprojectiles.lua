@@ -892,26 +892,6 @@ UefBRNT3WKproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# UEF Tech 3 Battle Mech rockets
-#----------------
-UefBRNT3WKRLproj = Class(MultiPolyTrailProjectile) {
-    FxInitial = {},
-    TrailDelay = 1,
-    FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
-    FxTrailOffset = -0.5,
-    FxImpactUnit = EffectTemplate.TShipGaussCannonHit02,
-    FxUnitHitScale = 0.8,
-    FxImpactProp = EffectTemplate.TShipGaussCannonHit02,
-    FxPropHitScale = 0.7,
-    FxImpactLand = EffectTemplate.TShipGaussCannonHit02,
-    FxLandHitScale = 0.7,
-    FxImpactUnderWater = EffectTemplate.TShipGaussCannonHit02,
-    FxImpactWater = EffectTemplate.TShipGaussCannonHit02,
-}
-
-
-
-#----------------
 #DEATH EXPLOSIONS
 #----------------
 
