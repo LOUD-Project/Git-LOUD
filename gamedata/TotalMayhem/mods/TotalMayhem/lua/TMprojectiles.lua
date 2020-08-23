@@ -237,27 +237,6 @@ AeonBROT2MTRLproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Tech 2 Medium Tank main gun
-#----------------
-AeonBROT2MTproj = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = {
-		'/effects/emitters/aeon_laser_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_03_emit.bp',
-	},
-	PolyTrailOffset = {0,0},
-
-    # Hit Effects
-    FxImpactUnit = EffectTemplate.ACommanderOverchargeHit01,
-    FxImpactProp = EffectTemplate.ACommanderOverchargeHit01,
-    FxImpactLand = EffectTemplate.ACommanderOverchargeHit01,
-    FxUnitHitScale = 1,
-    FxLandHitScale = 1,
-    FxPropHitScale = 1,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Tech 1 Battle Tank main gun
 #----------------
 AeonBROT1BTproj = Class(MultiPolyTrailProjectile) {
