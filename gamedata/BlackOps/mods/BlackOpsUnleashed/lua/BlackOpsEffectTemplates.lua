@@ -684,10 +684,6 @@ EXLambdaDestoyer = {
 RedTurboLaser01 = {
     EmtBpPathAlt .. 'Turboredbeam_polytrail_04_emit.bp',
 }
-RedTurboLaser02 = {
-    EmtBpPathAlt .. 'Turboredbeam_polytrail_04_emit.bp',
-}
-
 
 RedLaserMuzzleFlash01 = {
     EmtBpPathAlt .. 'red_terran_gatling_plasma_cannon_muzzle_flash_01_emit.bp',
