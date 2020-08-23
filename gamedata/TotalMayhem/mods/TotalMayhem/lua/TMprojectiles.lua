@@ -276,23 +276,6 @@ AeonBROT3BTproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Experimental Cougar main guns
-#----------------
-AeonBROT3COUGproj = Class(SinglePolyTrailProjectile) {
-
-	PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
-    FxTrails = EffectTemplate.ADisruptorMunition01,
-    FxImpactUnit = TMEffectTemplate.AeonCougarMainGuns,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.AeonCougarMainGuns,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.AeonCougarMainGuns,
-    FxLandHitScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Experimental Enforcer main guns
 #----------------
 AeonBROT3SHBMproj = Class(EmitterProjectile) {
