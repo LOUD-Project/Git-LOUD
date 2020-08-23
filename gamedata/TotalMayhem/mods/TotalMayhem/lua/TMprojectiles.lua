@@ -821,23 +821,6 @@ UefBRNT2EPDproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# UEF Tech 3 Super Heavy Point Defense
-#----------------
-UefBRNT3SHPDproj = Class(MultiPolyTrailProjectile) {
-    FxTrails = {},
-    PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
-    PolyTrailOffset = {0,0},
-    FxImpactUnit = TMEffectTemplate.UefT3SHPDGaussHit01,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.UefT3SHPDGaussHit01,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.UefT3SHPDGaussHit01,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.UefT3SHPDGaussHit01,
-    FxImpactWater = TMEffectTemplate.UefT3SHPDGaussHit01,
-}
-
-#----------------
 # UEF Tech 2 Medium Tank rockets
 #----------------
 UefBRNT2MTRLproj = Class(MultiPolyTrailProjectile) {
