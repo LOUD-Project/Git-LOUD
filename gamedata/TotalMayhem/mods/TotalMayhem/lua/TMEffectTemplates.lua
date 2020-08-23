@@ -84,18 +84,6 @@ CYBRANHEAVYPROTONARTILLERYHIT01 = {
     EmtBpPath .. 'molecular_resonance_cannon_ring_02_emit.bp',
 }
 
-UEFHEAVYROCKET = {
-EmtBpPath .. 'flash_01_emit.bp',
-	EmtBpPath .. 'quark_bomb_explosion_06_emit.bp',	    
-    EmtBpPath .. 'antimatter_ring_01_emit.bp',	##	ring14
-    EmtBpPath .. 'antimatter_ring_02_emit.bp',	##	ring11	 
-	EmtBpPath .. 'antimatter_hit_12_emit.bp',	
-	EmtBpPath .. 'antimatter_hit_13_emit.bp',	     
-	EmtBpPath .. 'antimatter_hit_14_emit.bp',   
-	EmtBpPath .. 'antimatter_hit_15_emit.bp',  
-	EmtBpPath .. 'antimatter_hit_16_emit.bp',
-}
-
 UEFHEAVYROCKET02 = {
     EmtBpPathAlt .. 'quantum_hit_flash_01_emit.bp',
     EmtBpPathAlt .. 'quantum_hit_flash_02_emit.bp',
@@ -135,22 +123,6 @@ CybranT2BattleTankHit = {
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_07_emit.bp', ## black dots on ground
 	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
 	-- EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-}
-
-CybranT3HVYTankHit = {
-    EmtBpPathAlt .. 'tmcybrant2battletankhit_distort_emit.bp',
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_02_emit.bp', ## Red glow
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_03_emit.bp', ## white sparks flying opposite direction of impact
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_04_emit.bp', ## dirt flying
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_08_emit.bp', ## white exploding glow in middle
-	EmtBpPathAlt .. 'tmcybrant2battletankhit_09_emit.bp', ## black exploding dots in middle
-	EmtBpPathAlt .. 'tm_kamibomb_hit_09a_emit.bp', ## Yellow Afterglow
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_05_emit.bp',
-    EmtBpPathAlt .. 'hvyproton_cannon_hit_07_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_01_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_02_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_03_emit.bp',
-    EmtBpPath .. 'hiro_laser_cannon_hit_04_emit.bp',
 }
 
 CybranT3BattleTankHit = {
@@ -348,23 +320,6 @@ AeonEnforcerMainGuns = {
     EmtBpPath .. 'aeon_bomber_hit_03_emit.bp',
     EmtBpPath .. 'aeon_bomber_hit_04_emit.bp',
     EmtBpPath .. 'phalanx_muzzle_glow_01_emit.bp',
-}
-
-AeonQuantumChargeMuzzle01 = {
-    EmtBpPath .. 'quantum_hit_flash_04_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_05_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_06_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_07_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_08_emit.bp',
-    EmtBpPath .. 'quantum_hit_flash_09_emit.bp',
-    EmtBpPath .. 'aeon_commander_disruptor_hit_01_emit.bp', 
-    EmtBpPath .. 'aeon_commander_disruptor_hit_02_emit.bp', 
-    EmtBpPath .. 'aeon_commander_disruptor_hit_03_emit.bp',  
-    EmtBpPath .. 'quark_bomb_explosion_03_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_04_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_05_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_07_emit.bp',
-    EmtBpPath .. 'quark_bomb_explosion_08_emit.bp',
 }
 
 AeonNovaCatFireEffect01 = {
