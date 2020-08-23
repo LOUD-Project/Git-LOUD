@@ -348,24 +348,6 @@ AeonBROT3HTproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Tech 2 Heavy Armored Tank main guns
-#----------------
-AeonBROT2HTproj = Class(MultiPolyTrailProjectile) {
-	FxImpactTrajectoryAligned = false,
-    FxTrails = EffectTemplate.TIonizedPlasmaGatlingCannonFxTrails,
-    PolyTrails = {},
-    PolyTrailOffset = {0,0},
-    FxImpactUnit = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
-    FxUnitHitScale = 1,
-    FxImpactProp = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
-    FxLandHitScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Tech 2 Missile Launcher
 #----------------
 AeonBROT2MLproj = Class(MultiPolyTrailProjectile) {
