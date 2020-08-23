@@ -803,24 +803,6 @@ UefBRNT1EXM1proj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# UEF Tech 3 Ultra Heavy Battle Mech Rockets
-#----------------
-UefBRNT3SHBMproj = Class(MultiPolyTrailProjectile) {
-    FxInitial = {},
-    TrailDelay = 1,
-    FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
-    FxTrailOffset = -0.5,
-    FxImpactUnit = TMEffectTemplate.UEFHighExplosiveShellHit02,
-    FxUnitHitScale = 0.5,
-    FxImpactProp = TMEffectTemplate.UEFHighExplosiveShellHit02,
-    FxPropHitScale = 0.5,
-    FxImpactLand = TMEffectTemplate.UEFHighExplosiveShellHit02,
-    FxLandHitScale = 0.5,
-    FxImpactUnderWater = TMEffectTemplate.UEFHighExplosiveShellHit02,
-    FxImpactWater = TMEffectTemplate.UEFHighExplosiveShellHit02,
-}
-
-#----------------
 # UEF Tech 2 Experimental Point Defense
 #----------------
 UefBRNT2EPDproj = Class(MultiPolyTrailProjectile) {
