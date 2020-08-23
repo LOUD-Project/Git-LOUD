@@ -157,22 +157,6 @@ AeonBROT3THproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# Aeon Tech 1 Battle Tank Clawgun
-#----------------
-AeonBROT1BTCLAWproj = Class(SinglePolyTrailProjectile) {
-
-    PolyTrail = '/effects/emitters/aeon_laser_trail_01_emit.bp',
-    FxImpactUnit = TMEffectTemplate.AeonClawHit01,
-    FxUnitHitScale = 0.35,
-    FxImpactProp = TMEffectTemplate.AeonClawHit01,
-    FxPropHitScale = 0.35,
-    FxImpactLand = TMEffectTemplate.AeonClawHit01,
-    FxLandHitScale = 0.35,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Heavy Clawgun
 #----------------
 AeonHvyClawproj = Class(MultiPolyTrailProjectile) {
