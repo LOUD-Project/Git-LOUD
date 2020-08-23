@@ -434,28 +434,6 @@ AeonBROT3SHBMEMPproj = Class(SinglePolyTrailProjectile) {
 #---------------------------------------
 
 #----------------
-# Cybran Tech 1 Battle Tank Rockets
-#----------------
-CybBRMT1BTRLproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-		'/effects/emitters/electron_bolter_trail_02_emit.bp',
-		'/effects/emitters/default_polytrail_01_emit.bp',
-	},
-	PolyTrailOffset = {0,0},  
-    FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    FxImpactUnit = EffectTemplate.CMissileHit02a,
-    FxUnitHitScale = 1,
-    FxImpactProp = EffectTemplate.CMissileHit02a,
-    FxPropHitScale = 1,
-    FxImpactLand = EffectTemplate.CMissileHit02a,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = EffectTemplate.CMissileHit02a,
-    FxImpactWater = EffectTemplate.CMissileHit02a,
-    FxWaterHitScale = 1,
-    FxTrailOffset = 0,
-}
-
-#----------------
 # Cybran Tech 1 Experimental LaserBot
 #----------------
 
