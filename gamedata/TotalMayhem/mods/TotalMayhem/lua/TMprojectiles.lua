@@ -856,23 +856,6 @@ UefBRNT3SHPDproj = Class(MultiPolyTrailProjectile) {
 }
 
 #----------------
-# UEF Experimental Mobile Fortress Main Guns
-#----------------
-UefBRNT3MOBproj = Class(MultiPolyTrailProjectile) {
-    FxTrails = {},
-    PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
-    PolyTrailOffset = {0,0},
-    FxImpactUnit = TMEffectTemplate.UefMobileFortressGunhit,
-    FxUnitHitScale = 1,
-    FxImpactProp = TMEffectTemplate.UefMobileFortressGunhit,
-    FxPropHitScale = 1,
-    FxImpactLand = TMEffectTemplate.UefMobileFortressGunhit,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = TMEffectTemplate.UefMobileFortressGunhit,
-    FxImpactWater = TMEffectTemplate.UefMobileFortressGunhit,
-}
-
-#----------------
 # UEF Tech 2 Heavy Tank rockets
 #----------------
 UefBRNT2HTRLproj = Class(MultiPolyTrailProjectile) {
