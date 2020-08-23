@@ -30,23 +30,6 @@ EXNullShell = Class(Projectile) {}
 #-------------------------------------
 
 #----------------
-# Aeon NovaCat Blue laser
-#----------------
-
-AeonBROT3NCNlaserproj = Class(MultiPolyTrailProjectile) {
-    PolyTrails = {
-        '/mods/TotalMayhem/effects/emitters/novacat_bluelaser_emit.bp',
-	},
-	PolyTrailOffset = {0,0}, 
-
-    # Hit Effects
-    FxImpactUnit = EffectTemplate.CLaserHitUnit01,
-    FxImpactProp = EffectTemplate.CLaserHitUnit01,
-    FxImpactLand = EffectTemplate.CLaserHitLand01,
-    FxImpactUnderWater = {},
-}
-
-#----------------
 # Aeon Tech 3 Super Heavy Point Defense
 #----------------
 AeonT3SHPDproj = Class(MultiPolyTrailProjectile) {
