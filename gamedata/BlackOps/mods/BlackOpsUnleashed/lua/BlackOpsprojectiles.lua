@@ -679,26 +679,6 @@ NapalmProjectile02 = Class(EmitterProjectile) {
 }
 
 #------------------------------------------------------------------------
-#  ARTEMIS CANNON PROJECTILES
-#------------------------------------------------------------------------
-ArtemisCannonProjectile = Class(SinglePolyTrailProjectile) {
-	PolyTrail = BlackOpsEffectTemplate.ArtemisPolytrail01,
-    FxTrails = BlackOpsEffectTemplate.ArtemisFXTrail,
-
-    FxImpactUnit = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactProp = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactLand = EffectTemplate.AReactonCannonHitLand01,
-}
-DummyArtemisCannonProjectile = Class(MultiPolyTrailProjectile) {
-	PolyTrail = BlackOpsEffectTemplate.DummyArtemisPolytrail01,
-    FxTrails = BlackOpsEffectTemplate.DummyArtemisFXTrail,
-
-    FxImpactUnit = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactProp = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactLand = EffectTemplate.AReactonCannonHitLand01,
-}
-
-#------------------------------------------------------------------------
 #  AEON ABOVE WATER LAUNCHED TORPEDO
 #------------------------------------------------------------------------
 AMTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
