@@ -1,6 +1,6 @@
 #**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
 #**  Author(s): Lt_Hawkeye
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+#**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 #----------------------------------
 #  Lt_hawkeye's Custom Projectiles
@@ -963,24 +963,6 @@ MGQAILaserHeavyProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnit = EffectTemplate.CLaserHitUnit01,
     FxImpactProp = EffectTemplate.CLaserHitUnit01,
     FxImpactLand = EffectTemplate.CLaserHitLand01,
-    FxImpactUnderWater = {},
-}
-
-RedTurbolaser2Projectile = Class(MultiPolyTrailProjectile) {
-
-	FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    PolyTrails = BlackOpsEffectTemplate.RedTurboLaser02,
-	
-
-    # Hit Effects
-    FxImpactUnit = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxUnitHitScale = 0.7,
-    FxImpactProp = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxPropHitScale = 0.7,
-    FxImpactAirUnit = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxAirUnitHitScale = 0.7,
-    FxImpactLand = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxLandHitScale = 0.7,  
     FxImpactUnderWater = {},
 }
 
