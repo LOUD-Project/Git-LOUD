@@ -218,39 +218,18 @@ HGaussCannonPolyTrail =  {
 }
 
 ArtemisMuzzleFlash = {
-	--EmtBpPathAlt .. 'artemis_muzzle_flash_01_emit.bp',	## Yellow glow
 	EmtBpPathAlt .. 'artemis_muzzle_flash_02_emit.bp',	## Yellow pulse
 	EmtBpPathAlt .. 'artemis_muzzle_flash_04_emit.bp',	## Inward dark lines
 }
 ArtemisMuzzleChargeFlash =  {
-    #EmtBpPathAlt .. 'artemis_charge_01_emit.bp',	## glow
     EmtBpPathAlt .. 'artemis_charge_02_emit.bp',	## plasma down
     EmtBpPathAlt .. 'artemis_charge_03_emit.bp',	## flash
     EmtBpPathAlt .. 'artemis_charge_04_emit.bp',	## plasma out
     EmtBpPathAlt .. 'artemis_charge_05_emit.bp',	## rings
     EmtBpPathAlt .. 'artemis_charge_06_emit.bp',	## plasma rings
     EmtBpPathAlt .. 'artemis_charge_07_emit.bp',	## fast ring
-    --EmtBpPathAlt .. 'artemis_charge_08_emit.bp',	## glowy ball
-    --EmtBpPathAlt .. 'artemis_charge_09_emit.bp',	## glowy ball 
-    --EmtBpPathAlt .. 'artemis_charge_10_emit.bp',	## spinny shit
-    --EmtBpPathAlt .. 'artemis_charge_11_emit.bp',	## spinny crap  
-    --EmtBpPathAlt .. 'artemis_charge_12_emit.bp',	## spinny crap
-    --EmtBpPathAlt .. 'artemis_charge_13_emit.bp',	## glowy ball
     EmtBpPathAlt .. 'artemis_charge_14_emit.bp',	## delayed plasma   
 }
-ArtemisMuzzleChargeeffect01 =  {
-    --EmtBpPathAlt .. 'artemis_charge_08_emit.bp',	## glowy ball
-    EmtBpPathAlt .. 'artemis_charge_15_emit.bp',	## glowy ball 
-    EmtBpPathAlt .. 'artemis_charge_16_emit.bp',	## spinny shit
-    --EmtBpPathAlt .. 'artemis_charge_11_emit.bp',	## spinny crap  
-    --EmtBpPathAlt .. 'artemis_charge_12_emit.bp',	## spinny crap
-    --EmtBpPathAlt .. 'artemis_charge_13_emit.bp',	## glowy ball
-}
-ArtemisMuzzleChargeeffect02 =  {
-    EmtBpPathAlt .. 'artemis_charge_aura_01_emit.bp',	## charge aura
-    EmtBpPathAlt .. 'artemis_charge_aura_02_emit.bp',	## charge aura
-}
-ArtemisPolytrail01 = EmtBpPath .. 'aeon_quantic_cluster_polytrail_01_emit.bp'
 
 ArtemisBombHit01 = {
     EmtBpPathAlt .. 'artemis_hit_01_emit.bp',			## plasma outward
@@ -277,43 +256,10 @@ ArtemisBombPlumeFxTrails06 = {
     EmtBpPathAlt .. 'artemis_plume_fxtrails_09_emit.bp',	## line detail in explosion, fingers.
 }
 
-ArtemisFXTrail =  {
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_01_emit.bp',	##
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_02_emit.bp',	##
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_03_emit.bp',	##
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_04_emit.bp',#blue cloud
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_05_emit.bp',#white cloud
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_06_emit.bp',#white cloud Or spinny trials
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_07_emit.bp', #white cloud Or spinny trials
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_08_emit.bp',
-    EmtBpPathAlt .. 'artemis_cannon_fxtrail_09_emit.bp',
-}
-DummyArtemisPolytrail01 ={
-	 #EmtBpPath .. 'aeon_quantic_cluster_polytrail_01_emit.bp'
-}
-DummyArtemisFXTrail =  {
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_01_emit.bp',	##
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_02_emit.bp',	##
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_03_emit.bp',	##
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_04_emit.bp',#blue cloud
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_05_emit.bp',#white cloud
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_06_emit.bp',#white cloud Or spinny trials
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_07_emit.bp', #white cloud Or spinny trials
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_08_emit.bp',
-    #EmtBpPathAlt .. 'artemis_cannon_fxtrail_09_emit.bp',
-}
-
-ArtemisCloudFlareEffects01 = {
-    '/mods/BlackOpsUnleashed/effects/emitters/artemis_warhead_02_emit.bp',
-    '/mods/BlackOpsUnleashed/effects/emitters/artemis_warhead_04_emit.bp',
-}
-
-ArtemisDamageSmoke01 = { EmtBpPathAlt .. 'artemis_destruction_damaged_smoke_01_emit.bp',}
 DamageFire01 = {
 	EmtBpPath .. 'destruction_damaged_fire_01_emit.bp',
 	EmtBpPath .. 'destruction_damaged_fire_distort_01_emit.bp',
 }
-ArtemisDamageFireSmoke01 = TableCat( ArtemisDamageSmoke01, DamageFire01 )
 
 
 NavalMineWaterImpact = {
@@ -591,12 +537,9 @@ GoldenTurboLaserShot01 = {
 GoldenTurboLaserShot01FXTrail =  {
     EmtBpPathAlt .. 'inqu_cannon_fxtrail_01_emit.bp',	##golden line
     EmtBpPathAlt .. 'inqu_cannon_fxtrail_02_emit.bp',	###glow ball
-    --EmtBpPathAlt .. 'artemis_cannon_fxtrail_03_emit.bp',	##golden fuzzy
-   -- EmtBpPathAlt .. 'artemis_cannon_fxtrail_04_emit.bp',#blue cloud
     EmtBpPathAlt .. 'inqu_cannon_fxtrail_05_emit.bp',#small yellow line
     EmtBpPathAlt .. 'inqu_cannon_fxtrail_06_emit.bp',#yellowish white distortion
     EmtBpPathAlt .. 'artemis_cannon_fxtrail_07_emit.bp', #yellow core
-    --EmtBpPathAlt .. 'artemis_cannon_fxtrail_09_emit.bp',--spinny cloud core
 }
 # Nova weapon
 NovaCannonHitUnit = {
