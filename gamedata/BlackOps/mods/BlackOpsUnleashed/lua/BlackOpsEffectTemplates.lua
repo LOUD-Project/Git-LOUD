@@ -231,30 +231,6 @@ ArtemisMuzzleChargeFlash =  {
     EmtBpPathAlt .. 'artemis_charge_14_emit.bp',	## delayed plasma   
 }
 
-ArtemisBombHit01 = {
-    EmtBpPathAlt .. 'artemis_hit_01_emit.bp',			## plasma outward
-    EmtBpPathAlt .. 'artemis_hit_02_emit.bp',			## spiky lines
-    EmtBpPathAlt .. 'artemis_hit_03_emit.bp',			## plasma darkening outward
-    EmtBpPathAlt .. 'artemis_hit_04_emit.bp',			## twirling line buildup
-    EmtBpPathAlt .. 'artemis_detonate_03_emit.bp',	## non oriented glow
-    EmtBpPath .. 'seraphim_expnuke_concussion_01_emit.bp',	## ring fast
-    EmtBpPath .. 'seraphim_expnuke_concussion_02_emit.bp',	## ring slow
-}
-ArtemisBombPlumeFxTrails03 = {
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_05_emit.bp',		## plasma trail 
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_06_emit.bp',		## plasma trail darkening  
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_10_emit.bp',		## bright tip
-    #EmtBpPath .. '_align_x_emit.bp',
-	#EmtBpPath .. '_align_y_emit.bp',
-	#EmtBpPath .. '_align_z_emit.bp',   
-}
-ArtemisBombPlumeFxTrails05 = {
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_07_emit.bp',	## plasma cloud 
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_08_emit.bp',	## plasma cloud 2, ser 07    
-}
-ArtemisBombPlumeFxTrails06 = {
-    EmtBpPathAlt .. 'artemis_plume_fxtrails_09_emit.bp',	## line detail in explosion, fingers.
-}
 
 DamageFire01 = {
 	EmtBpPath .. 'destruction_damaged_fire_01_emit.bp',
