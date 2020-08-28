@@ -36,6 +36,7 @@ UnitBlueprint {
 		'EXPERIMENTAL',
         'STRUCTURE',
         'DEFENSE',
+        'SIZE8',
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
