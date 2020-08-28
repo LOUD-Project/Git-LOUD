@@ -289,6 +289,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			MuzzleVelocityReduceDistance = 100,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
 			ProjectileLifetime = 4,
@@ -390,6 +392,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			MuzzleVelocityReduceDistance = 100,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
 			ProjectileLifetime = 4,
@@ -421,12 +425,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,		-- 1050 dmg every 4 seconds = 262 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
+            
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -436,16 +440,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Back_Muzzle02',
             TurretBonePitch = 'Back_Turret_Barrel02',
             TurretBoneYaw = 'Back_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 30,
             TurretPitchRange = 35,
             TurretPitchSpeed = 10,
+            
             TurretYaw = 0,
             TurretYawRange = 135,
             TurretYawSpeed = 45,
+            
             Turreted = true,
         },
         {
@@ -482,6 +490,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
             ProjectileLifetime = 0.8,
@@ -505,6 +515,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+            
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 120 DPS Air
@@ -571,7 +582,9 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
-			
+
+            NotExclusive = true,
+            
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
             ProjectileLifetime = 0.8,
 
@@ -593,8 +606,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 120 DPS Air
             TargetCheckInterval = 0.3,
@@ -655,6 +666,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 3,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
             ProjectileLifetime = 8,
@@ -734,6 +747,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             NeedPrep = true,
             RackBones = {
@@ -830,8 +845,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.65,
 			
