@@ -9,12 +9,12 @@ do
 		-- this controls the buildpower of factories and the buildtime of the units they build
 		-- by multiplying the buildpower AND the time of the units they build, the overall impact
 		-- of 'assisting' is divided - which helps to curb 'engineer spam'
-		local buildratemod = 2
+		local buildratemod = 1
 		
 		-- this effectively divides the buildpower of factories so their buildpower is NOT 1 to 1 like the engineers
 		-- and is the factor which controls the difference in resource usage between factories and engineers 
 		-- if you reduce this value, the factories will build faster
-		local factory_buildpower_ratio = 2.2
+		local factory_buildpower_ratio = 4.4
 		
 		-- the result of the above 2 numbers (2 * 2.2) effectively divides the buildpower of the factorys by 4.4
 		-- this means that a factory with a buildpower of 40 (ie. T1 is 20 but doubled by the buildratemod) will be able
@@ -35,7 +35,7 @@ do
 		
 				for i, cat in bp.Categories do
 				
-					local reportflag = false
+					local reportflag = true
                     local oldtime = 0
 			
                     -- structures --
@@ -127,39 +127,15 @@ do
 								end
 							end
 						end
-						
-						-- modify any FACTORY STRUCTURE build power and the time required to upgrade (so that upgrades remain constant)
-						-- the only one this doesn't properly catch is T3 factories directly built by SUBCOMMANDERS but that's not so bad
-                        -- we'll just have to say that the SACU are being 'careful' when they do that
-						if table.find(bp.Categories, 'FACTORY') then
-					
-							for j, catj in bp.Categories do
-						
-								if catj == 'TECH1' or catj == 'EXPERIMENTAL' then
-							
-									if bp.Economy.BuildRate then
-										bp.Economy.BuildRate = bp.Economy.BuildRate * buildratemod
-										break
-									end
-							
-								elseif catj == 'TECH2' or catj == 'TECH3' then
-							
-									if bp.Economy.BuildRate then
-										bp.Economy.BuildRate = bp.Economy.BuildRate * buildratemod
-										bp.Economy.BuildTime = bp.Economy.BuildTime * buildratemod
-										break
-									end
-								end
-							end
-						end
-                        
+
+                        --
                         if bp.Economy.BuildUnit then
-                            bp.Economy.BuildTime = bp.Economy.BuildTime * buildratemod * factory_buildpower_ratio
+                            bp.Economy.BuildTime = bp.Economy.BuildTime * (buildratemod/2) * factory_buildpower_ratio
                         end
 					end
 
                     -- units --
-					if cat == 'MOBILE' then		-- ok lets handle all the factory built units and mobile experimentals
+					if cat == 'MOBILE' then		-- ok lets handle all the factory built mobile units and mobile experimentals
 					
 						-- You'll notice that I allow factory built units to build with higher energy limits (scales up thru tiers - 20,30,45)
 						-- this compensates somewhat for the division of their buildpower (in particular for the energy heavy air factories)
@@ -167,7 +143,7 @@ do
 					
 							if catj == 'TECH1' then
 								
-								local buildpower = 20	-- default T1 factory buildpower
+								local buildpower = 40	-- default T1 factory buildpower
 								
 								max_mass = buildpower / factory_buildpower_ratio
 								max_energy = (buildpower * 20) / factory_buildpower_ratio
@@ -199,7 +175,7 @@ do
 					
 							if catj == 'TECH2' then
 								
-								local buildpower = 35	-- default T2 factory buildpower
+								local buildpower = 70	-- default T2 factory buildpower
 								
 								max_mass = buildpower / factory_buildpower_ratio
 								max_energy = (buildpower * 30) / factory_buildpower_ratio
@@ -228,7 +204,7 @@ do
 						
 							if catj == 'TECH3' then
 								
-								local buildpower = 50	-- default T3 factory buildpower
+								local buildpower = 100	-- default T3 factory buildpower
 								
 								max_mass = buildpower / factory_buildpower_ratio            -- about 23 mass/second
 								max_energy = (buildpower * 45) / factory_buildpower_ratio   -- about 1030 energy/second
