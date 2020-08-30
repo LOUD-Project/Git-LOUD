@@ -222,6 +222,7 @@ function NeedMassPointShare( aiBrain, multiple )
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
     -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+    -- so an AI with a high cheat will consider itself to have it's share sooner
 	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
 
 	return extractorCount <= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
@@ -230,7 +231,8 @@ end
 -- verifies if the TEAM has its share of mass points
 function TeamMassPointShare( aiBrain, bool )
 
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' ))
+    -- the Extractor count is increased by the AIMult so we trigger this earlier than the count would indicate
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
 	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
 	
 	if TeamExtractors >= TeamNeeded then
@@ -253,7 +255,7 @@ end
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
 
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' ))
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
 	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
 
 	return TeamExtractors < TeamNeeded
