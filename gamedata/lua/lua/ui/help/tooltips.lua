@@ -1991,12 +1991,16 @@ Tooltips = {
 	},
 	restricted_units_air_bombers = {
 		title = "No Air Bombers",
-		description = "Players cannot build any bombers or torpedo bombers",
+		description = "Players cannot build any bombers",
 	},
 	restricted_units_air_gunships = {
 		title = "No Air Gunships",
 		description = "Players cannot build any standard or experimental gunships",
 	},
+    restricted_units_air_torpedobombers = {
+        title = "No Torpedo bombers",
+        description = "Players cannot build any torpedo bombers",
+    },
 	restricted_units_air_transports = {
 		title = "No Air Transports",
 		description = "Players cannot build any standard or experimental transports",

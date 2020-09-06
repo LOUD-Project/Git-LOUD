@@ -17,37 +17,43 @@ UnitBlueprint {
     Air = {
 	
         AutoLandTime = 3.9,
-        BankFactor = 3,
+        BankFactor = 2.8,
+        
         BankForward = false,
+        
         BreakOffDistance = 90,
         BreakOffIfNearNewTarget = true,
+        
         BreakOffTrigger = 45,
+        
         CanFly = true,
+        
         CombatTurnSpeed = 0.8,
+        
         EngageDistance = 70,
 		
         KLift = 3,
         KLiftDamping = 6,
 		
         KMove = 0.3,
-        KMoveDamping = 0.9,
+        KMoveDamping = 0.5,
 		
         KRoll = 4,
         KRollDamping = 6,
 		
-        KTurn = 1.3,
+        KTurn = 1.25,
         KTurnDamping = 2.2,
 		
-        LiftFactor = 9,
+        LiftFactor = 8,
 		
         MaxAirspeed = 20,
         MinAirspeed = 16,
 		
-        PredictAheadForBombDrop = 6,
+        PredictAheadForBombDrop = 8,
 		
-        StartTurnDistance = 18,
+        StartTurnDistance = 22,
 		
-        TightTurnMultiplier = 1.2,
+        TightTurnMultiplier = 1.15,
 		
         TurnSpeed = 0.9,
 		
@@ -284,11 +290,11 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 75,
-        Level2 = 150,
-        Level3 = 225,
-        Level4 = 300,
-        Level5 = 375,
+        Level1 = 90,
+        Level2 = 180,
+        Level3 = 270,
+        Level4 = 360,
+        Level5 = 450,
     },
 	
     Weapon = {
@@ -313,10 +319,13 @@ UnitBlueprint {
 			
             Damage = 12000,
             DamageFriendly = true,
-            DamageRadius = 15,
+            DamageRadius = 14,
             DamageType = 'Normal',
 			
             DisplayName = 'Ohwalli Strategic Bomb',
+            
+            EnergyDrainPerSecond = 1200,
+            EnergyRequired = 12000,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -324,7 +333,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 2.3,
-            FiringTolerance = 0.31,
+            FiringTolerance = 0.29,
 			
 			FixBombTrajectory = true,
 			
@@ -426,7 +435,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
 			
@@ -508,7 +517,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -707,7 +716,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.05,
         HealthMult = 0.6,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

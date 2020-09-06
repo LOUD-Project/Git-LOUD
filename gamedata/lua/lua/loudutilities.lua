@@ -193,28 +193,9 @@ end
 
 
 -- if the AI has its share of mass points
-function HasMassPointShare( aiBrain )
+function HasMassPointShare( aiBrain, multiple )
 
 	local LOUDGETN = table.getn
-
-    local ArmyCount = 0
-	local TeamCount = 0
-	
-    local NumMassPoints = ScenarioInfo.NumMassPoints
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	
@@ -222,32 +203,17 @@ function HasMassPointShare( aiBrain )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
+    -- the Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
 	
-	return extractorCount >= LOUDFLOOR( (NumMassPoints/ ArmyCount)-1 )
+    -- the addition of the multiple allows us to test for an ownership % relationship
+	return extractorCount >= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
 end
 
 -- a variant of the above
-function NeedMassPointShare( aiBrain )
+function NeedMassPointShare( aiBrain, multiple )
 
 	local LOUDGETN = table.getn
-
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
 
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	
@@ -255,33 +221,19 @@ function NeedMassPointShare( aiBrain )
 	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
 	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
 	
-	extractorCount = extractorCount + (fabricatorCount * .5) + (res_genCount * 3)
-	
-	return extractorCount <= LOUDFLOOR( (ScenarioInfo.NumMassPoints/ ArmyCount)-1 )	
+    -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+    -- so an AI with a high cheat will consider itself to have it's share sooner
+	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
+
+	return extractorCount <= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
 end
 
 -- verifies if the TEAM has its share of mass points
 function TeamMassPointShare( aiBrain, bool )
 
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-		
-		local armyindex = brain.ArmyIndex
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian(armyindex) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, armyindex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
-
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' ))
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/ArmyCount) - 1) * TeamCount)
+    -- the Extractor count is increased by the AIMult so we trigger this earlier than the count would indicate
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
 	
 	if TeamExtractors >= TeamNeeded then
 		
@@ -303,24 +255,9 @@ end
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
 
-    local ArmyCount = 0
-	local TeamCount = 0
-    
-    for _,brain in ArmyBrains do
-	
-        if not brain:IsDefeated() and not ArmyIsCivilian( brain.ArmyIndex ) then
-		
-			ArmyCount = ArmyCount + 1		-- number of players in the game
-			
-			if IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) then
-				TeamCount = TeamCount + 1 	-- number of players on this team
-			end
-        end
-    end
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
 
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' ))
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/ArmyCount) - 1) * TeamCount)
-	
 	return TeamExtractors < TeamNeeded
 end
 
@@ -1013,7 +950,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 			end
 		end
     else
-        LOG("*AI DEBUG "..aiBrain.Nickname.." has no attack plan - cannot set Primary Base")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." has no attack plan - cannot set Primary Base")
 		aiBrain.PrimarySeaAttackBase = false
     end
 end
@@ -1444,7 +1381,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while not ( unit.Dead and not airstage.Dead) do
 		
-		if (unit:GetFuelRatio() < .75 or unit:GetHealthPercent() < .80) then
+		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) then
 		
 			WaitTicks(10)
             waitcount = waitcount + 1
@@ -1585,19 +1522,19 @@ function AddCustomUnitSupport( aiBrain )
 	for i, m in __active_mods do
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
-			LOG("*AI DEBUG BOACU installed")
+			--LOG("*AI DEBUG BOACU installed")
 			ScenarioInfo.BOACU_Checked = true
 			ScenarioInfo.BOACU_Installed = true
 		end
 
 		if m.name == 'BlackOps Unleashed Units for LOUD' then
-			LOG("*AI DEBUG BOU installed")
+			--LOG("*AI DEBUG BOU installed")
 			ScenarioInfo.BOU_Checked = true
 			ScenarioInfo.BOU_Installed = true
 		end
 		
 		if m.name == 'LOUD Integrated Storage' then
-			LOG("*AI DEBUG LOUD Integrated Storage installed")
+			--LOG("*AI DEBUG LOUD Integrated Storage installed")
 			ScenarioInfo.LOUD_IS_Checked = true
 			ScenarioInfo.LOUD_IS_Installed = true
 		end
@@ -1608,7 +1545,7 @@ function AddCustomUnitSupport( aiBrain )
 		--Loop through files in CustomUnits folder
 		for k, v in CustomUnitFiles do
 		
-			LOG("*AI DEBUG: Adding Custom unit file "..repr(v))
+			--LOG("*AI DEBUG: Adding Custom unit file "..repr(v))
 		
 			local tempfile = import(v).UnitList
 			
@@ -3764,7 +3701,7 @@ end
 -- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 
-	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
+	--LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
 	
 	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -3881,8 +3818,7 @@ function BuildScoutLocations( self )
 		ScenarioInfo.NumMassPoints = LOUDGETN(AIGetMarkerLocations('Mass'))
         
 		LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
-		LOG("*AI DEBUG Number of Players is "..self.Players)
-		LOG("*AI DEBUG "..self.Nickname.." Opponent count is "..numOpponents)
+		--LOG("*AI DEBUG Number of Players is "..self.Players)
 
 		-- Having handled Starting Locations lets add others to the permanent list
         -- for HiPri
@@ -3930,7 +3866,7 @@ function BuildScoutLocations( self )
     -- this value can range from 1 to 8
     self.AILowHiScoutRatio =  math.max( 1, math.min( math.floor(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
     
-    LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
+    --LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
 end
 
 -- This one complements the previous function to remove visible markers from the map 
@@ -3960,17 +3896,14 @@ function AttackPlanner(self, enemyPosition)
     if not self.AttackPlan then
 	
         self.AttackPlan = {}
-        self.AttackPlan.GoCheckInterval = 360   -- every 6 minutes
+        self.AttackPlan.GoCheckInterval = 120   -- every 2 minutes
         self.AttackPlan.GoCheckRatio = 3        -- ratio for 100% Go signal
-		
     end
 
     self.AttackPlan.Goal = nil
     self.AttackPlan.CurrentGoal = nil
     self.AttackPlan.StagePoints = {}
     self.AttackPlan.GoSignal = false
-	
-	--LOG("*AI DEBUG "..self.Nickname.." starts Attack Planner")
 
     CreateAttackPlan( self, enemyPosition )
 
@@ -3978,31 +3911,36 @@ function AttackPlanner(self, enemyPosition)
 	
         -- if monitoring an existing attack plan, kill it and start a new one
         if self.AttackPlanMonitorThread then
-		
+            
+            if self.DrawPlanThread then
+                KillThread(self.DrawPlanThread)
+            end
+            
             KillThread(self.AttackPlanMonitorThread)
-			
 		end
 
         self.AttackPlanMonitorThread = self:ForkThread( AttackPlanMonitor )
-		
     end
 	
 end
 
 function CreateAttackPlan( self, enemyPosition )
+
+    LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
     
 	if self.DeliverStatus then
-	
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
-		
 	end
 
-	local stagesize = 400
+	local stagesize = 300
 	
 	local minstagesize = (stagesize/2)*(stagesize/2)
 	local maxstagesize = (stagesize * stagesize)
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
+    
+    startx = enemyPosition[1]
+    startz = enemyPosition[3]
 
     local starty = GetSurfaceHeight( startx, startz )
     local Goal = {startx, starty, startz}
@@ -4080,11 +4018,35 @@ function CreateAttackPlan( self, enemyPosition )
 	end
 
     local CurrentPoint = StartPosition
+    
     local StagePoints = {}
-	local lastaddedposition = {}
+
     local StageCount = 0
     local looptest = 0
-	local positions, pathvalue, path, reason, lastnode
+	local positions, path, reason, pathlength, pathtype
+    
+    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, Goal, 99999, 160)
+    
+    if not path then
+    
+        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, Goal, 99999, 250)
+        
+    end
+    
+    if not path then 
+    
+        LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint))
+        
+    else
+    
+        CurrentPointDistance = pathlength
+        
+    end
+    
+	-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
+    self.AttackPlan.Method = 'Land'
+    -- and the range at which to look for nodes of that type
+    local rangecheck = 160
 
     while not GoalReached do
         
@@ -4095,6 +4057,7 @@ function CreateAttackPlan( self, enemyPosition )
 			
         else
 
+            -- sort the markerlist for closest to the current point --
             LOUDSORT( markerlist, function(a,b)	return VDist2Sq(a.Position[1],a.Position[3], CurrentPoint[1],CurrentPoint[3]) < VDist2Sq(b.Position[1],b.Position[3], CurrentPoint[1],CurrentPoint[3]) end )
 
             positions = {}
@@ -4104,68 +4067,59 @@ function CreateAttackPlan( self, enemyPosition )
 
 			-- Filter the list of markers
             for _,v in markerlist do
+            
+                -- get the pathlength of this position to the Goal position
+                path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', Goal, v.Position, 99999, 160)
                 
+                if not path then
+                
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', Goal, v.Position, 99999, 250)
+                    
+                end
+ 
                 -- if the position is at least half the stagesize away 
-                if VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= minstagesize
+                if path and VDist2Sq( v.Position[1],v.Position[3], CurrentPoint[1],CurrentPoint[3]) >= minstagesize
 				
 					-- and at least half a stagesize from the goal
 					and VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) >= minstagesize
 					
 					-- and 30% closer to the final goal than the last selected point 
-					and (VDist2Sq(v.Position[1],v.Position[3], Goal[1],Goal[3]) < (VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) * .70 ))
+					and ( pathlength < (CurrentPointDistance * .7))
 					
 					-- and Goal is NOT between the current point and this point
 					and not DestinationBetweenPoints( Goal, CurrentPoint, v.Position )	then
                     
-                    pathvalue = 0
+
+                    --LOG("*AI DEBUG "..self.Nickname.." processing position "..repr(v))
+
+                    pathtype = "Land"
 					
-					-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
-					self.AttackPlan.Method = 'Land'
-					
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 1000, 160)
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, v.Position, 99999, 160)
 					
 					if not path then
+                    
+                        LOG("*AI DEBUG "..self.Nickname.." failed land path from Current Point to "..repr(v) )
 
-						-- attack plan will be amphibious if no land path, even if we dont find a path --
-						self.AttackPlan.Method = 'Amphibious'
+						pathtype = "Amphibious"
 						
-						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 1000, 250)
-						
+						path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, v.Position, 99999, 250)
 					end
 
                     -- calculate the distance of the path steps or distance + 300 if no path
                     if not path then
-					
-                        pathvalue = LOUDFLOOR(VDist2Sq( CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3] )) + (stagesize*stagesize)
-						
-                    else
-					
-                        pathvalue = 0
-                        lastnode = CurrentPoint
-
-                        for i, waypoint in path do
-						
-                            -- add the length of each step plus 25 for each step
-                            pathvalue = pathvalue + LOUDFLOOR(VDist2Sq(lastnode[1],lastnode[3], waypoint[1],waypoint[3])) + (25*25)
-                            lastnode = waypoint
-							
-                        end
-						
+                    
+                        LOG("*AI DEBUG "..self.Nickname.." gets no path "..repr(reason).." between "..repr(CurrentPoint).." and "..repr(v.Position))
+                        
+                        pathtype = "Unknown"
+                        
+                        pathlength = LOUDFLOOR(VDist2Sq( CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3] )) + (stagesize*stagesize)
                     end
 
-                    if pathvalue > (VDist2Sq(CurrentPoint[1],CurrentPoint[3], v.Position[1],v.Position[3]) * 1.2) then
-					
-                        pathvalue = LOUDFLOOR(pathvalue * 1.25)
-						
-                    end
-
-                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathvalue, Type = self.AttackPlanMethod, Path = path})
-					
+                    LOUDINSERT(positions, {Position = v.Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
 				
 				-- load balancing
 				WaitTicks(1)
-				
             end
 
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
@@ -4182,14 +4136,12 @@ function CreateAttackPlan( self, enemyPosition )
 					
                     a = Goal[1] + CurrentPoint[1]
                     b = Goal[3] + CurrentPoint[3]
-					
                 else
 				
-                    LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint))
+                    LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3Sq(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..maxstagesize)
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
                     b = CurrentPoint[3] + positions[1].Position[3]
-					
                 end
 
                 local result = { LOUDFLOOR(a* 0.5), 0, LOUDFLOOR(b* 0.5) }
@@ -4204,11 +4156,18 @@ function CreateAttackPlan( self, enemyPosition )
                     LOG("*AI DEBUG "..self.Nickname.." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 400)
-					
                 else
+                
+                    pathtype = "Land"
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
+                    
+                    if not path then
+                    
+                        pathtype = "Amphibious"
+                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
+                    end
 				
-                    LOUDINSERT(positions, {Position = landposition[1].Position, Pathvalue = LOUDFLOOR(VDist2Sq(CurrentPoint[1],CurrentPoint[3],landposition[1].Position[1],landposition[1].Position[3])), Type = 'Land', Path = false})
-					
+                    LOUDINSERT(positions, {Position = landposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
 
 				-- if no land marker could be found - try using a Naval marker
@@ -4216,11 +4175,18 @@ function CreateAttackPlan( self, enemyPosition )
 				
 					LOG("*AI DEBUG "..self.Nickname.." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
 					LOG("*AI DEBUG "..self.Nickname.." Fakeposition is "..repr(fakeposition))
-					
-                    LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = LOUDFLOOR(VDist2Sq(CurrentPoint[1],CurrentPoint[3],fakeposition[1].Position[1],fakeposition[1].Position[3])), Type = 'Naval', Path = false})
-					
+                    
+                    pathtype = "Land"
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, fakeposition[1].Position[3], 99999, 160)
+                    
+                    if not path then
+                    
+                        pathtype = "Amphibious"
+                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, fakeposition[1].Position[3], 99999, 250)
+                    end
+
+                    LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
                 end
-				
             end
 
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
@@ -4231,15 +4197,23 @@ function CreateAttackPlan( self, enemyPosition )
 				StageCount = StageCount + 1 
 				
 				LOUDINSERT(StagePoints, positions[1])
-				
-				lastaddedposition = table.copy(positions[1].Position)
-				
+
 				CurrentPoint = positions[1].Position
+                
+                path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, Goal, 99999, 160 )
+                
+                if not path then
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
+                end
+                
+                if path then
+                    CurrentPointDistance = pathlength
+                else
+                    LOG("*AI DEBUG "..self.Nickname.." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
+                end
 				
 			else
-			
 				GoalReached = true
-				
 			end
         end 
     end
@@ -4255,32 +4229,104 @@ function CreateAttackPlan( self, enemyPosition )
 
         local counter = 1
 
-        for _,i in StagePoints do
+        if StageCount > 0 then
+        
+            for _,i in StagePoints do
 		
-            self.AttackPlan.StagePoints[counter] = i
-            counter = counter + 1
+                self.AttackPlan.StagePoints[counter] = i
+                counter = counter + 1
 			
+            end
         end
 
         self.AttackPlan.StagePoints[counter] = Goal
 		
 		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-		--LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
-		
+        --LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
 	end
 end
 
 function AttackPlanMonitor(self)
-	
-	--LOG("*AI DEBUG "..self.Nickname.." Attack Plan Monitor Launched for "..repr(self.AttackPlan.Goal))
-	
+
+    LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
+    
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
 
-    while true do
+	local function DrawPlanNodes()
 	
+		local DC = DrawCircle
+		local DLP = DrawLinePop
+		
+		LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+		
+		while true do
+		
+			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
+			
+				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
+				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+
+				local lastpoint = self.AttackPlan.StagePoints[0]				
+				local lastdraw = lastpoint
+				
+				if self.AttackPlan.StagePoints[0].Path then
+				
+					-- draw the movement path --
+					for _,v in self.AttackPlan.StagePoints[0].Path do
+					
+						DLP( lastdraw, v, '0303ff' )
+						lastdraw = v
+					
+					end
+				end
+				
+				for i = 1, self.AttackPlan.StageCount do
+				
+					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
+					
+					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
+					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
+					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
+
+					lastdraw = lastpoint
+					
+					if self.AttackPlan.StagePoints[i].Path then
+					
+						for _,v in self.AttackPlan.StagePoints[i].Path do
+					
+							DLP( lastdraw,v, '0303ff' )
+							lastdraw = v
+					
+						end
+					end
+					
+					lastpoint = self.AttackPlan.StagePoints[i].Position
+				end
+				
+				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
+				
+				lastdraw = lastpoint
+				
+				DC( self.AttackPlan.Goal, 1, 'ff00ff')
+				DC( self.AttackPlan.Goal, 3, '00ff00')
+				DC( self.AttackPlan.Goal, 5, 'ff00ff')
+			end
+			
+			WaitTicks(6)
+		end
+	end
+
+    while true do
+    
+		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
+		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
+		
+			self.DrawPlanThread = ForkThread( DrawPlanNodes )
+		end         
+       	
         WaitTicks(self.AttackPlan.GoCheckInterval * 10)
 
 		if self.AttackPlan.Goal then

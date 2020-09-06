@@ -200,7 +200,7 @@ UnitBlueprint {
 	
     Weapon = {
 	
-		{	#-- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
+		{	---- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
 		
             CollideFriendly = false,
 			
@@ -229,7 +229,7 @@ UnitBlueprint {
             WeaponCategory = 'Direct Fire',
 		},
 		
-		{	#-- this dummy weapon will give a range ring so players can determine proximity for their own paragons
+		{	---- this dummy weapon will give a range ring so players can determine proximity for their own paragons
 		
             CollideFriendly = false,
 			

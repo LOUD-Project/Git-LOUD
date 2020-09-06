@@ -296,7 +296,7 @@ UnitBlueprint {
 			
             DisplayName = 'Blaze Cannon',
 			
-            FireTargetLayerCapsTable = { # can now hit gunships and transports
+            FireTargetLayerCapsTable = { -- can now hit gunships and transports
                 Air = 'Air',
                 Water = 'Air',
             }, 
@@ -349,7 +349,7 @@ UnitBlueprint {
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'ANTIAIR', # new
+                'ANTIAIR', -- new
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',

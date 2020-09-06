@@ -41,7 +41,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 11,
+    BuildIconSortPriority = 8,
 	
     Categories = {
         'SELECTABLE',
@@ -222,6 +222,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -268,7 +269,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,	# 400dps
+            RateOfFire = 2,	-- 400dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -417,7 +418,7 @@ UnitBlueprint {
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetime = 3,
 
             RackBones = {
@@ -446,7 +447,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	# 230dps
+            RateOfFire = 0.12,	-- 230dps
 			
 			RenderFireClock = true,
 			

@@ -1,5 +1,11 @@
 
 UnitBlueprint {
+    AI = { 
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -200,11 +206,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0305_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons',  Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -260,7 +262,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 10,		#-- every 2 seconds = 360 DPS
+            RateOfFire = 10,		---- every 2 seconds = 360 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

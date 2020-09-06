@@ -192,7 +192,7 @@ UnitBlueprint {
             DisplayName = 'Miasma Mortar',
 			
 			EnergyDrainPerSecond = 150,
-			EnergyRequired = 600,			#-- 4 second draw energy
+			EnergyRequired = 600,			---- 4 second draw energy
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -208,7 +208,7 @@ UnitBlueprint {
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 0.4,
-            MuzzleSalvoSize = 6,	#-- fires 6 rounds over 2.4 seconds
+            MuzzleSalvoSize = 6,	---- fires 6 rounds over 2.4 seconds
             MuzzleVelocity = 18.5,
 			
 			-- could use same projectile as UAL0304 --
@@ -233,7 +233,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	#-- fires every 4 by energy = 600/4 = 150DPS
+            RateOfFire = 1,	---- fires every 4 by energy = 600/4 = 150DPS
 			
             TargetCheckInterval = 2,
 			

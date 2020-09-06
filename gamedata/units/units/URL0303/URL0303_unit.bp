@@ -267,7 +267,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,		#-- 180 DPS
+            RateOfFire = 0.3,		---- 180 DPS
             
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -346,7 +346,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.5,	#-- 30 DPS
+            RateOfFire = 1.5,	---- 30 DPS
 			
             TargetCheckInterval = 0.25,
             TargetPriorities = {

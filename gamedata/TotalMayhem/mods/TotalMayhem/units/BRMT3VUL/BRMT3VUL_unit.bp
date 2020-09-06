@@ -3,20 +3,15 @@ UnitBlueprint {
         GuardScanRadius = 45, 
     }, 
     Audio = {
-        DeathExplosion = Sound {
-           Bank = 'Explosions',
-           Cue = 'UEF_Nuke_Impact',
-           LodCutoff = 'UnitMove_LodCutoff',
-        },
         Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+            Bank = 'URLWeapon',
+            Cue = 'URL0303_Death_EMP',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
-           Bank = 'Explosions',
-           Cue = 'UEF_Nuke_Impact',
-           LodCutoff = 'UnitMove_LodCutoff',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
             Bank = 'URL',
@@ -273,12 +268,15 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
@@ -287,6 +285,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            
             FiringTolerance = 2,
             FiringRandomness = 0.9,
 			FiringRandomnessWhileMoving = 1.8,
@@ -303,15 +302,12 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BM2TLproj/BRMT3BM2TLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 4,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-						'rl02',
-                    },
+                    MuzzleBones = { 'rl01',	'rl02' },
                     RackBone = 'rocketlauncher01',
                 },
             },
@@ -324,7 +320,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 300dps
+            RateOfFire = 0.1,	-- 300dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,
@@ -336,6 +332,7 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS,-WALL',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			
@@ -392,15 +389,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'righthand_muzzle1',
-                    },
+                    MuzzleBones = { 'righthand_muzzle1' },
                     RackBone = 'Gun02',
                 },
                 {
-                    MuzzleBones = {
-                        'righthand_muzzle2',
-                    },
+                    MuzzleBones = { 'righthand_muzzle2' },
                     RackBone = 'Gun02',
                 },
             },
@@ -415,20 +408,21 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.8,	# 240 dps
+            RateOfFire = 0.8,	-- 240 dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 35,
 			
             TargetCheckInterval = 0.5,
+            
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			
@@ -450,13 +444,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANVULTUREGUNFX1',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANVULTUREGUNFX1', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 300,
@@ -480,20 +472,18 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/MadCatMolecular/MadCatMolecular_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-						'lefthand_muzzle1',
-                    },
+                    MuzzleBones = {	'lefthand_muzzle1' },
                     RackBone = 'Gun01',
                 },
                 {
-                    MuzzleBones = {
-                        'lefthand_muzzle2',
-                    },
+                    MuzzleBones = { 'lefthand_muzzle2' },
                     RackBone = 'Gun01',
                 },
             },
@@ -505,20 +495,21 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.80,	# 240 dps
+            RateOfFire = 0.80,	-- 240 dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 35,
 			
             TargetCheckInterval = 0.5,
+            
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			
@@ -542,18 +533,18 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0107_Laser_Auto',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0107_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 20,
             DamageRadius = 0,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -579,15 +570,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'mgmuzzle01',
-                    },
+                    MuzzleBones = { 'mgmuzzle01' },
                     RackBone = 'MachineGun01',
                 },
                 {
-                    MuzzleBones = {
-                        'mgmuzzle02',
-                    },
+                    MuzzleBones = { 'mgmuzzle02' },
                     RackBone = 'MachineGun02',
                 },
             },
@@ -598,19 +585,20 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,	# 60 dps
+            RateOfFire = 3,	-- 60 dps
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 45,
 			
             TargetCheckInterval = 0.5,
+            
             TargetPriorities = {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			

@@ -1,0 +1,20 @@
+C:\LOUD_SCFA\SCFA_Release\bin\SupremeCommander.exe  /log "..\LOUD\bin\Loud.log" 
+/init "..\LOUD\bin\LoudDataPath.lua"
+
+
+C:\LOUD_SCFA\Git-LOUD-DJO\bin\ForgedAlliance.exe
+
+C:\LOUD_SCFA\SCFA_Dev\bin\ForgedAlliance.exe /showlog /log "E:FATEST"
+
+
+
+Gaz_UI for LOUD
+Supreme Economy
+Supreme Score Board
+UI Mass Fab Manager FA
+V2 FA Sequentially upgrading extractors
+Supreme Commander Music
+
+
+
+

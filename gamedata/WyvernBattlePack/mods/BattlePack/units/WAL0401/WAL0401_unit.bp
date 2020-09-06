@@ -1,13 +1,13 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Head_Muzzle',
+            'NewHead',
             'Torso',
-            'Projectile01',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
+            'Left_Footfall',
+            'Right_Leg_B02',
         },
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -69,7 +69,7 @@ UnitBlueprint {
         'OVERLAYOMNI',
     },
     
-    CollisionOffsetY = 0.3,
+    CollisionOffsetY = 0,
     
     Defense = {
 
@@ -261,7 +261,7 @@ UnitBlueprint {
     SelectionThickness = 0.32,
     
     SizeX = 2.5,
-    SizeY = 6.5,
+    SizeY = 6.8,
     SizeZ = 2.5,
     
     StrategicIconName = 'icon_experimental_land_directfire',

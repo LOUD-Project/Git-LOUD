@@ -16,7 +16,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 10,
+    
+    BuildIconSortPriority = 30,
+    
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -31,6 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+    
     Defense = {
         ArmorType = 'Normal',
         Health = 10,
@@ -38,7 +41,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
+    
     Description = '<LOC xrl0005_desc>Crab Egg (Artillery)',
+    
     Display = {
         AnimationOpen = '/units/xrl0005/xrl0005_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -61,16 +66,19 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+    
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 800,
-        BuildTime = 4800,
+        BuildCostEnergy = 8900,
+        BuildCostMass = 500,
+        BuildTime = 2500,
         BuildUnit = 'url0304',
     },
+    
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+    
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',

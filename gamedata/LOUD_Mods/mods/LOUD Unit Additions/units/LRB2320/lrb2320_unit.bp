@@ -94,7 +94,6 @@ AI = {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-		RebuildBonusIds = { 'lrb2320' },
     },
 	
 	Footprint = {

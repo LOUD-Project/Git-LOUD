@@ -42,8 +42,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 400,
-        Health = 1200,	#-- 250,
-        MaxHealth = 1200,	#--	250,
+        Health = 1200,	---- 250,
+        MaxHealth = 1200,	----	250,
         RegenRate = 2,
     },
     Description = '<LOC xab3301_desc>Quantum Optics Facility',
@@ -168,12 +168,12 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-		Cooldown = 1,					#-- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
-		Viewtime = 30,					#-- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
-        ReactivateTime = 10,			#-- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
-        RemoteViewingRadius = 30,		#-- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 70,	#-- and the final radius of the scry (controls the grow/shrink rate) 
-        VisionRadius = 10,				#-- this is just the vision range of the tower itself
+		Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
+		Viewtime = 30,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
+        ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
+        RemoteViewingRadius = 30,		---- this would normally be the start size of the remote viewing radius
+		RemoteViewingRadiusFinal = 70,	---- and the final radius of the scry (controls the grow/shrink rate) 
+        VisionRadius = 10,				---- this is just the vision range of the tower itself
     },
     Interface = {
         HelpText = 'Quantum Optics Facility',

@@ -104,9 +104,6 @@ UnitBlueprint {
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,
         BuildTime = 13000,
-		
-        RebuildBonusIds = {'vrb2302'},
-		
     },
 	
     General = {
@@ -249,7 +246,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.6,       -- 4000 DPS rate controlled by charge
 			
             TargetCheckInterval = 1,
 			

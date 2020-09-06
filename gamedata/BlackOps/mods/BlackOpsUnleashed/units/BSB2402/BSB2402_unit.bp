@@ -89,9 +89,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4387500,	#--5850000,
-        BuildCostMass = 224775,		#--230000,
-        BuildTime = 111750,			#--149000,
+        BuildCostEnergy = 4387500,	----5850000,
+        BuildCostMass = 224775,		----230000,
+        BuildTime = 111750,			----149000,
 		
         BuildRate = 80,
 		
@@ -186,7 +186,7 @@ UnitBlueprint {
 		
         OccupyRects = {
 
-            # offsetX offsetZ  sizeX sizeZ
+            -- offsetX offsetZ  sizeX sizeZ
             -3.5,
             -0.5,
             1,

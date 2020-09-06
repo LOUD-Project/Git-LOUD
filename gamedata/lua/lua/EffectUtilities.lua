@@ -233,11 +233,15 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 
     local army = builder.Sync.army
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
+    
     local buildbp = GetBlueprint(unitBeingBuilt)
+
 	local pos = unitBeingBuilt:GetPosition()
+
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
+    
     y = y + (buildbp.Physics.MeshExtentsOffsetY or 0)    
 
     -- Create a projectile for the end of build effect and WARP it to the unit

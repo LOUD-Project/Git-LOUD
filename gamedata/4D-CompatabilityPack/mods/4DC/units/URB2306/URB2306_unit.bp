@@ -1,5 +1,10 @@
 UnitBlueprint {
-
+    AI = { 
+        TargetBones = {
+            'Center_Turret_Barrel',
+        },
+    },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'URLDestroy',
@@ -179,7 +184,7 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 1.25,
-    SizeY = 3.3,
+    SizeY = 3.2,
     SizeZ = 1.25,
 	
     StrategicIconName = 'icon_structure3_directfire',
@@ -268,7 +273,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 10,		#--- 1400 every 4 seconds -  350 DPS
+            RateOfFire = 10,		----- 1400 every 4 seconds -  350 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -296,7 +301,6 @@ UnitBlueprint {
             WeaponRepackTimeout = 0.6,
             WeaponUnpacks = true,
         },
-		
         {
             Audio = {
                 Fire = Sound {
@@ -347,7 +351,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 3,			#-- 150 DPS
+            RateOfFire = 3,			---- 150 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {           	

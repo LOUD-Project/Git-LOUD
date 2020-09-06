@@ -3,9 +3,9 @@ UnitBlueprint {
         GuardScanRadius = 45,
     },
     Audio = {
-        Killed = Sound {
-            Bank = 'TM_CYBRANWEAPONS',
-            Cue = 'CYBRANT3ADVBOTDEATHFX',
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -51,9 +51,8 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'OVERLAYINDIRECTFIRE',
-        'OVERLAYDIRECTFIRE',
     },
+    
     Defense = {
         ArmorType = 'Normal',
         Health = 55000,
@@ -61,6 +60,7 @@ UnitBlueprint {
         RegenRate = 15,
         SurfaceThreatLevel = 416.5,
     },
+    
     Description = '<LOC brpexbot_desc>Medium Experimental Assault Bot',
 	
     Display = {

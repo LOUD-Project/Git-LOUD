@@ -77,9 +77,17 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_stratmissiledef>Strategic Missile Defense',
         },
-		
+        AnimationDeath = {
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/sal0321/sal0321_Adeath.sca',
+                AnimationRateMax = 1.6,
+                AnimationRateMin = 1.5,
+                Weight = 100,
+            },
+        },
+        
         AnimationWalk = '/mods/BrewLAN_LOUD/units/sal0321/sal0321_Awalk.sca',
-        AnimationWalkRate = 10,
+        AnimationWalkRate = 4.2,
 		
         Mesh = {
             IconFadeInZoom = 130,
@@ -104,7 +112,21 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.055,
+        
+        TransportAnimation = {
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/SAL0321/SAL0321_Alegfold.sca',
+                Weight = 100,
+            },
+        },
+        TransportDropAnimation = {
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/SAL0321/SAL0321_Alegunfold.sca',
+                Weight = 100,
+            },
+        },        
+        
+        UniformScale = 0.05,
     },
 	
     Economy = {

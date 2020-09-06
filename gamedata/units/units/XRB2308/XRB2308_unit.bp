@@ -250,7 +250,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,	#-- 12 torpedos doing 175 = 2100 every 5 seconds = 420 DPS
+            RateOfFire = 0.2,	---- 12 torpedos doing 175 = 2100 every 5 seconds = 420 DPS
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {

@@ -88,7 +88,7 @@ end
 
 function OnFirstUpdate()
     
-    LOG("*AI DEBUG OnFirstUpdate")
+    --LOG("*AI DEBUG OnFirstUpdate")
 
     EnableWorldSounds()
 	

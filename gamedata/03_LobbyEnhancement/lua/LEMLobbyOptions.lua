@@ -47,14 +47,14 @@ GPGrestrictedUnits = {
     },
 
     AIRFIGHTERS = {
-		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303","sra0313"},
+		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303","sra0313","sea0313","ssa0313"},
 		name = "No Air Fighters",
 		tooltip = "restricted_units_air_fighters",
     },
 	
     AIRBOMBERS = {
-		categories = {"BOMBER","TORPEDOBOMBER"},
-		name = "No Air Bombers or Torpedo Bombers",
+		categories = {"BOMBER"},
+		name = "No Bombers",
 		tooltip = "restricted_units_air_bombers",
     },
 	
@@ -62,6 +62,12 @@ GPGrestrictedUnits = {
 		categories = {"GROUNDATTACK"},
 		name = "No Air Gunships",
 		tooltip = "restricted_units_air_gunships",
+    },
+    
+    AIRTORPEDOBOMBERS = {
+        categories = {"TORPEDOBOMBER"},
+        name = "No Torpedo Bombers",
+        tooltip = "restricted_units_air_torpedobombers",
     },
 	
     AIRTRANSPORTS = {
@@ -89,7 +95,7 @@ GPGrestrictedUnits = {
     },
 	
 	TACTICALARTILLERY = {
-		categories = { "lab4320", "leb4320", "lrb4320", "lsb4320" },
+		categories = { "lab2320", "leb2320", "lrb2320", "lsb2320" },
 		name = "No T3 Barrage Artillery",
 		tooltip = "restricted_units_T3_Tactical_artillery",
 	},
@@ -129,7 +135,13 @@ GPGrestrictedUnits = {
         name = "<LOC restricted_units_data_0019>No Mass Fabrication",
         tooltip = "restricted_units_massfab",
     },
-	
+
+    ALTAIR = {
+		categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","uaa0302","uea0302","ura0302","xsa0302","sea0310","sea0313","sea0314","saa0314","sra0313","sra0314","ssa0314" },
+		name = "Alternative Air Rebalance",
+		tooltip = "T3_Scouts_fighters_and_T_Bombers_only",
+    },
+		
 -- this is a bizarre and silly restriction as the game can't really function without them in any real sense --
 --[[	
     NOENGINEERS = {
@@ -154,6 +166,7 @@ GPGsortOrder = {
 	"AIRSCOUTS",
 	"AIRFIGHTERS",
 	"AIRBOMBERS",
+    "AIRTORPEDOBOMBERS",
 	"AIRGUNSHIPS",
 	"AIRTRANSPORTS",
     "AIREXPERIMENTALS",	
@@ -166,6 +179,7 @@ GPGsortOrder = {
     "SUPPORTCOMMANDERS",
     "INTEL",
     "FABS",
+    "ALTAIR",
 }
 
 GPGOptions = {}

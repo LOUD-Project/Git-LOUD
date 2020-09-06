@@ -1,7 +1,14 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 70, 
+		TargetBones = {
+            'TopGun',
+            'ChinGun',
+            'Leg06',
+            'Leg02',
+        },
     }, 
+	
     Audio = {
         Killed = Sound {
             Bank = 'URLDestroy',
@@ -202,7 +209,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
     
 	SizeX = 2.2,
-    SizeY = 3.7,
+    SizeY = 3.2,
     SizeZ = 2.2,
     
     StrategicIconName = 'icon_experimental_land_directfire',

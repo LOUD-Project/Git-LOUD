@@ -252,7 +252,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,	#-- 300 DPS Air
+            RateOfFire = 0.5,	---- 300 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

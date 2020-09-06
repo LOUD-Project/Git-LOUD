@@ -366,7 +366,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.07,		# - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+            RateOfFire = 0.07,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {

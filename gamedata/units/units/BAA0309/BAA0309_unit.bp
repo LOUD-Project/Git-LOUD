@@ -409,7 +409,7 @@ UnitBlueprint {
             Turreted = true,
         },
 
-		#-- The following 4 weapons are all top mounted AA only
+		---- The following 4 weapons are all top mounted AA only
         {
             AlwaysRecheckTarget = true,
             Audio = {

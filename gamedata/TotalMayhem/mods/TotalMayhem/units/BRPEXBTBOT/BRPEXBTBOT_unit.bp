@@ -3,9 +3,9 @@ UnitBlueprint {
         GuardScanRadius = 45,
     },
     Audio = {
-        Killed = Sound {
-            Bank = 'TM_CYBRANWEAPONS',
-            Cue = 'CYBRANT3ADVBOTDEATHFX',
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -51,8 +51,6 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'OVERLAYANTIAIR',
-        'OVERLAYDIRECTFIRE',
 		'OVERLAYRADAR',
     },
 	

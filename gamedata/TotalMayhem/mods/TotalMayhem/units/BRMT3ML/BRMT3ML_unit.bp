@@ -5,8 +5,8 @@ UnitBlueprint {
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -102,15 +102,19 @@ UnitBlueprint {
         UnitName = '<LOC brmt3ml_name>Pavestone',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 28,
     },
+    
     Interface = {
         HelpText = 'Mobile Rocket Battery',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 0.95,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -137,14 +141,18 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 40,
     },
+    
     SelectionSizeX = 0.9,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.3,
+    
     SizeX = 1,
     SizeY = 0.9,
     SizeZ = 1.2,
+    
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 125,
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -152,9 +160,11 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Transport = {
         TransportClass = 3,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -222,14 +232,12 @@ UnitBlueprint {
             MuzzleVelocity = 20.5,
             MuzzleVelocityRandomness = 2,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -247,12 +255,14 @@ UnitBlueprint {
 			RenderFireClock = true,
 			
             TargetCheckInterval = 3,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE',
                 'MOBILE -AIR',
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			

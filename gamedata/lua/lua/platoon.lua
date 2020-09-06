@@ -226,7 +226,7 @@ Platoon = Class(moho.platoon_methods) {
             -- faster platoons need a little more warning 
             -- TODO: Make pathslack an optional variable that can be passed in - but 
             -- will default to 16 if not provided.
-			local pathslack = waypointslackdistance or 16
+			local pathslack = waypointslackdistance or 20
 
 			self:SetPlatoonFormationOverride(PlatoonFormation)
             
@@ -1501,7 +1501,7 @@ Platoon = Class(moho.platoon_methods) {
 						local unitpos = LOUDCOPY(GetPosition(v))
 						
 						-- if the unit hasn't gotten within range of the platoon
-						if VDist2Sq( platPos[1],platPos[3], unitpos[1],unitpos[3] ) > (80*80)  then
+						if VDist2Sq( platPos[1],platPos[3], unitpos[1],unitpos[3] ) > (100*100)  then
 					
 							if not LOUDENTITY(categories.EXPERIMENTAL,v) then
 						

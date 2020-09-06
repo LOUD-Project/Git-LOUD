@@ -45,7 +45,6 @@ Description['wab0201'] = "An T3 level engineering assist station that aids const
 Description['wsb0104'] = "An T3 level engineering assist station that aids construction and repair within a limited range"
 
 -- Abomination Experimentals
-Description['wel0404'] = "Fatboy II - Strip out the factory, AA guns, shield and landing pad - add armor and range. Think Bulldog"
 Description['wel0405'] = "King Kraptor - sporting his 'Crown of Thorns', Kraptor embodies all the religious overtones of the pure Aeon sect.  Unique Wave Cannons, Maelstrom field, AA and Omni - Kraptor is bringing the word."
 Description['wrl0404'] = "Mega Roach - Typical Cybran insect megabot.  Dangerous, quick and hard to stomp out"
 Description['wsl0405'] = "Echibum - The newest and most advanced addition to the Seraphim arsenal.  Mobility, firepower, range and shielded."

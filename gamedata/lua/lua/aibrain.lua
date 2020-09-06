@@ -5,7 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     ScenarioInfo.EngineerDialog = false
@@ -33,7 +33,7 @@
 	ScenarioInfo.PlatoonMergeDialog = false
 	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 	
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
 	ScenarioInfo.DisplayPlatoonMembership = false
@@ -441,9 +441,7 @@ function CollectCurrentScores()
            ArmyScore[index].resources.energyover = GetArmyStat( brain, "Economy_AccumExcess_Energy", 0.0).Value
 		   
            WaitTicks(braindelay)
-		   
         end
-		
     end
 	
 end

@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 22,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -40,15 +42,19 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 480,
+        EconomyThreatLevel = 580,
         Health = 19000,
         MaxHealth = 19000,
         RegenRate = 2,
     },
+    
     Description = '<LOC xsb0302_desc>Advanced Air Factory',
+    
     Display = {
         AnimationDeath = {
             {
@@ -96,27 +102,34 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 90500,
         BuildCostMass = 4725,
-        BuildRate = 50,
-        BuildTime = 12000,
+        
+        BuildRate = 100,
+        BuildTime = 24000,
+        
         BuildableCategory = {
             'BUILTBYTIER3FACTORY SERAPHIM MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY SERAPHIM STRUCTURE AIR',
             'BUILTBYTIER3FACTORY SERAPHIM MOBILE AIR',
             'TRANSPORTBUILTBYTIER3FACTORY SERAPHIM MOBILE AIR',
         },
+        
         RebuildBonusIds = {
             'xsb0302',
         },
+        
         StorageEnergy = 2000,
         StorageMass = 200,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

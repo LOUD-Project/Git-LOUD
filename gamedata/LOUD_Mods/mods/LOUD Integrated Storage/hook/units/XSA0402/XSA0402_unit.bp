@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "xsa0402", #Seraphim Ahwassa
+	BlueprintId = "xsa0402", --Seraphim Ahwassa
 	
     AI = {
 		GuardRadius = 150,
@@ -129,8 +129,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 160,
         ArmorType = 'Light',
-        Health = 54500,		#-- 52000
-        MaxHealth = 54500,	#-- 52000
+        Health = 54500,		---- 52000
+        MaxHealth = 54500,	---- 52000
         RegenRate = 12,
         SurfaceThreatLevel = 120,
     },
@@ -417,7 +417,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
 			
@@ -504,7 +504,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

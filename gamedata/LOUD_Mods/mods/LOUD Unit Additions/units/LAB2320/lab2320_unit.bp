@@ -1,9 +1,7 @@
 UnitBlueprint {
-AI = {
-        TargetBones = {
-            'Turret_Recoil',
-            'Turret',
-        },
+
+    AI = {
+        TargetBones = {'Turret_Recoil','Turret' },
     },
 	
     Audio = {
@@ -99,8 +97,7 @@ AI = {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-        
-		RebuildBonusIds = { 'lab2320' },
+
     },
 	
 	Footprint = {

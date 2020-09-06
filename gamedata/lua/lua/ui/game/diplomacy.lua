@@ -129,8 +129,11 @@ function BuildPlayerLines()
             parent.enemyBG:Destroy()
         end
     end
+    
     local function CreateEntry(data, isAlly)
+    
         local entry = Bitmap(parent)
+        
         entry.Depth:Set(function() return parent.Depth() + 10 end)
         entry:SetSolidColor('00000000')
         
@@ -263,14 +266,19 @@ function BuildPlayerLines()
     local enemyControls = {}
     
     local i = 1
+    
     for index, playerInfo in GetArmiesTable().armiesTable do
+    
         if playerInfo.civilian or index == GetFocusArmy() then continue end
+        
         playerInfo.armyIndex = index
+        
         if IsAlly(GetFocusArmy(), index) then
             table.insert(allyControls, playerInfo)
         else
             table.insert(enemyControls, playerInfo)
         end
+        
         i = i + 1
     end
     

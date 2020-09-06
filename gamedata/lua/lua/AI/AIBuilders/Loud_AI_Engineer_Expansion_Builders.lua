@@ -47,7 +47,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
             
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -130,11 +130,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
@@ -173,7 +173,60 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			}
 		}
 	},
+    
+	Builder {BuilderName = 'Defensive Point Expansion SACU',
+	
+		PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },            
 
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 75, 1, 'AntiSurface' }},
+        },
+		
+		BuilderType = { 'SubCommander' },
+		
+		BuilderData = {
+			Construction = {
+				CountedBase = false,
+				
+				ExpansionBase = true,
+				ExpansionRadius = 100,
+				RallyPointRadius = 23,
+                
+				NearMarkerType = 'Defensive Point',
+				
+				LocationRadius = 2000,
+				
+                ThreatMax = 75,
+                ThreatRings = 1,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointStandard',
+				
+                BuildStructures = {
+					'T2AirStagingPlatform',
+					'T2GroundDefense',
+                    'T2MissileDefense',
+					'T2GroundDefense',                    
+					'T2AADefense',
+					'T2AADefense',                    
+					'T2Radar',                    
+				}
+			}
+		}
+	},
+    
 	-- Like above, we want to create an Active DP, but on Start and Expansion areas
 	-- this allows the AI to setup forward positions long before he has the resources to start a full base
 	-- Later on he can convert these 'Active DP' into real bases at his discretion
@@ -190,10 +243,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		
-			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' } },
+			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -224,7 +277,56 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 }
             }
         }
-    },    
+    },
+
+    Builder {BuilderName = 'DP - Start & Expansion Areas - SACU',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
+			
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+		
+			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 90, 1, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = false,
+				
+				ExpansionBase = true,
+				ExpansionRadius = 100,
+				RallyPointRadius = 44,
+
+                LocationRadius = 2000,
+                NearMarkerType = 'Expansion Area',
+
+                ThreatMax = 90,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+                BuildStructures = {
+					'T2AirStagingPlatform',
+					'T2Radar',
+					'T2GroundDefense',
+					'T2AADefense',
+                }
+            }
+        }
+    },
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
@@ -241,11 +343,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 		Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 2100 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
@@ -306,7 +408,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 		PriorityFunction = MapHasNavalAreasButNotEstablished,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
@@ -318,7 +420,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
 			-- can't be a major enemy base with 12.5km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 150 }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 250 }},
 			
 			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
@@ -373,7 +475,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 		PriorityFunction = MapHasNavalAreas,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .60 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
@@ -437,7 +539,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .70 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},

@@ -3,6 +3,8 @@
 #**  Summary  : Utility File to insert custom AI Tooltips into the game.
 
 Tooltips = {
+
+--[[
 	########################
 	#   Cheat Multiplyer   #
 	########################
@@ -162,26 +164,27 @@ Tooltips = {
         title = "2.00",
         description = "AIx Build Rate +100%",
     },
-
+    
+--]]
 
 	########################
 	#	Unit Cap Cheat	   #
 	########################
    ["Lobby_Cap_Cheat"] = {
         title = "Unit Cap Setting",
-        description = "Sets whether the AIx Commanders have an unlimited unit cap or not.",
+        description = "Sets if AI players have normal unit caps, enhanced unit caps (by AI multiplier) or an unlimited unit cap.",
     },
 	["lob_CapCheat_unlimited"] = {
         title = "Unlimited",
-        description = "AIx Commanders have no unit limit.",
+        description = "AI players have no unit limit.",
     },
 	["lob_CapCheat_cheatlevel"] = {
 		title = "CheatLevel",
-		description = "AIx Commanders unit cap tied to Resource Cheat.",
+		description = "AI players get a normal unit cap modified by the AI Multiplier.",
 	},
 	["lob_CapCheat_off"] = {
         title = "Off",
-        description = "AIx Commanders have the same unit cap as human players.",
+        description = "AI players have the same unit cap as human players.",
     },	
 
 	############################
