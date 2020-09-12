@@ -994,6 +994,10 @@ Tooltips = {
         title = "1.250",
         description = "AI Difficulty +25%.",
     },
+	["lob_AIMult_1.275"] = {
+        title = "1.275",
+        description = "AI Difficulty +27.5%",
+    },    
 	["lob_AIMult_1.3"] = {
         title = "1.300",
         description = "AI Difficulty +30%",
@@ -1183,7 +1187,11 @@ Tooltips = {
 	lob_UnitCap_2000 = {
         title = "2000",
         description = "2000 units per player may be in play.",
-    },    
+    },
+	lob_UnitCap_3000 = {
+        title = "3000",
+        description = "3000 units per player may be in play.",
+    },        
 	lob_UnitCap_4000 = {
 		title = '4000',
 		description = '4000 units per player may be in play.',

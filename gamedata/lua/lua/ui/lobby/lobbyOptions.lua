@@ -178,6 +178,11 @@ globalOpts = {
                 key = '1.25',
             },
             {
+                text = "1.275",
+                help = "AI Difficulty +27.5%",
+                key = '1.275',
+            },            
+            {
                 text = "1.300",
                 help = "AI Difficulty +30%",
                 key = '1.3',
@@ -330,6 +335,11 @@ globalOpts = {
 				text = "2000",
 				help = "2000 units per player may be in play",
 				key = '2000',
+			},
+			{
+				text = "3000",
+				help = "3000 units per player may be in play",
+				key = '3000',
 			},
 			{
 				text = "4000",
