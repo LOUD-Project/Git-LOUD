@@ -26,6 +26,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
             { UCBC, 'EngineerLessAtLocation', { 'LocationType', 3, categories.ENGINEER - categories.SUBCOMMANDER - categories.COMMAND }},
         },
 		
@@ -39,7 +40,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
 		
         BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER) - categories.TECH1 - categories.COMMAND }},
@@ -56,7 +57,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
         
         BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},

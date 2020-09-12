@@ -445,6 +445,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 10,
+            
+            ThreatMaxRatio = 1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 75,
@@ -518,6 +520,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 8,
+            
+            ThreatMaxRatio = 1.1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 75,
@@ -587,6 +591,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 4,
+            
+            ThreatMaxRatio = 1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 60,
@@ -700,6 +706,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 12,
+            
+            ThreatMaxRatio = 1.1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 64,
@@ -760,6 +768,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 4,
+            
+            ThreatMaxRatio = 1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 60,
@@ -823,6 +833,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 4,
+            
+            ThreatMaxRatio = 1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 50,
@@ -1365,7 +1377,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 0,
             
             ThreatMin = 0,
-            ThreatMax = 75,
+            ThreatMaxRatio = 0.8,
             ThreatRings = 1,
 			
 			UntCategory = categories.LAND * categories.MOBILE - categories.ENGINEER,		-- secondary filter on units/structures at point
@@ -1376,7 +1388,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 3,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- target selection
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- target selection when at point --
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 180,				-- period that platoon will guard the point unless triggers are met
@@ -1446,8 +1458,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 4,
             
             ThreatMin = 5,                  -- pick points with at least 5 threat
-            ThreatMax = 200,                -- and no more than this
-            ThreatRings = 1,                -- at this range
+            ThreatMaxRatio = 1.1,           -- and no more than this
+            ThreatRings = 2,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
 			UntRadius = 45,
@@ -1524,8 +1536,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 4,
             
-            ThreatMin = 0,                  -- pick points with at least this threat
-            threatMax = 100,                -- and no more than this
+            ThreatMin = 5,                  -- pick points with at least this threat
+            ThreatMaxRatio = 1,                -- and no more than this
             ThreatRings = 1,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
@@ -1678,8 +1690,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 4,
             
             ThreatMin = 0,                  -- pick points with at least 1 threat
-            ThreatMax = 100,
-            ThreatRings = 0,                -- at this range
+            ThreatMaxRatio = 1,
+            ThreatRings = 1,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
@@ -1756,7 +1768,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 8,
             
             ThreatMin = 0,
-            ThreatMax = 100,
+            ThreatMaxRatio = 0.8,
             ThreatRings = 0,
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
@@ -1830,7 +1842,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 6,
             
             ThreatMin = 0,                -- pick points with at least 5 threat
-            ThreatMax = 100,
+            ThreatMaxRatio = 1,
             ThreatRings = 0,                -- at this range
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
@@ -1908,6 +1920,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 6,
             
             ThreatMin = 0,                  -- pick points with at least 5 threat
+            
             ThreatRings = 1,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
@@ -1982,7 +1995,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 6,
             
             ThreatMin = 0,
-            ThreatMax = 100,
+            ThreatMaxRatio = 1,
             ThreatRings = 0,                -- at this range
 			
 			UntCategory = categories.LAND * categories.MOBILE * categories.DIRECTFIRE,		-- secondary filter on presence of units/structures at point
@@ -2060,7 +2073,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMax = 6,
             
             ThreatMin = 0,
-            ThreatMax = 100,
+            ThreatMaxRatio = 0.8,
             ThreatRings = 0,                -- at this range
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),		-- secondary filter on units/structures at point

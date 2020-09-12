@@ -2049,6 +2049,7 @@ Platoon = Class(moho.platoon_methods) {
 		local StrMax = self.PlatoonData.StrMax or 99
         
         local ThreatMin = self.PlatoonData.ThreatMin or -999            -- control minimum threat so we can go to points WITH threat if provided
+        local ThreatMaxRatio = self.PlatoonData.ThreatMaxRatio or 0.8   -- control maximum threat based on platoon value
         local ThreatRings = self.PlatoonData.ThreatRings or 0           -- allow use of 'rings' value
 		
 		local UntCat = self.PlatoonData.UntCategory or nil				-- a secondary filter on the presence of units/structures at point
@@ -2135,7 +2136,7 @@ Platoon = Class(moho.platoon_methods) {
 			if position then
 			
 				-- Get a list of points that meet all of the required conditions 
-				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * 0.8, 'AntiSurface')
+				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
 
 				-- if list then select a random marker
 				-- never re-select the same point if it already failed
