@@ -196,6 +196,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 	-- -1 so that no line color can change (As there won't be an index of -1),
 	-- but only if there's no Air or Physics on the blueprint.
 	local physics_line = -1
+	local intel_line = -1
 	
 	if text != nil then
 		textLines = import('/lua/maui/text.lua').WrapText(text, control.Value[1].Width(),function(text) return control.Value[1]:GetStringAdvance(text) end)
