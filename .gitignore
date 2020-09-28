@@ -2,9 +2,20 @@
 *.tif
 *.psd
 *.ps1
+
 bin/Loud-Dev\.log
 
 bin/ForgedAlliance\.exe
+bin/SupremeCommander\.exe
+bin/SupComDataPath\.lua
+bin/BsSndRpt\.exe
+
+bin/*.dll
+bin/*.png
+bin/*.ini
+bin/*.dat
+bin/*.manifest
+bin/*.lnk
 
 maps/
 

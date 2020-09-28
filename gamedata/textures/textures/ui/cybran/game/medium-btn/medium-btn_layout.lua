@@ -1,7 +1,0 @@
-layout = {
-	['medium_btn_glow'] = {left = 15, top = 0, width = 271, height = 72, },
-	['medium_btn_down'] = {left = 0, top = 0, width = 296, height = 72, },
-	['medium_btn_over'] = {left = 0, top = 0, width = 296, height = 72, },
-	['medium_btn_up'] = {left = 0, top = 0, width = 296, height = 72, },
-	['medium_btn_dis'] = {left = 0, top = 0, width = 296, height = 72, },
-}
