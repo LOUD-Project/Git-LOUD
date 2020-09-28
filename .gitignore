@@ -15,5 +15,6 @@ bin/*.png
 bin/*.ini
 bin/*.dat
 bin/*.manifest
+bin/*.lnk
 
 maps/
