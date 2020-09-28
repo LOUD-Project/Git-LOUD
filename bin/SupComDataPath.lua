@@ -18,8 +18,6 @@ local function mount_contents(dir, mountpoint)
 end
 
 --Original game content
---mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
---mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
@@ -53,9 +51,12 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\03_LobbyEnhancement\\lua', '/lua')
 --Non Game-data
-mount_dir(InitFileDir .. '\\..\\maps', '/maps')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\maps', '/maps')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\usermaps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
-mount_dir(InitFileDir .. '\\..\\movies', '/movies')
+mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
+mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
+mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 
 hook = {
     '/schook'
