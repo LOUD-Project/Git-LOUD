@@ -22,6 +22,8 @@ mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 
 --LOUD content
 mount_dir(InitFileDir .. '\\..\\gamedata\\*.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\textures.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\env.scd', '/')
 mount_dir(InitFileDir .. '\\..\\usermods\\*.scd', '/')
 mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
 mount_dir(InitFileDir .. '\\..\\maps', '/maps')
