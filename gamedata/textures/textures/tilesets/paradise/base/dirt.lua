@@ -1,1 +1,0 @@
-Texture { Albedo = 'dirt000.dds', Normal = 'dirt000_n.dds', Size = 8 }

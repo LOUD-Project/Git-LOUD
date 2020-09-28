@@ -1,1 +1,0 @@
-Texture { Albedo = 'SandLight002.dds', Normal = 'SandLight002_n.dds', Size = 4 }
