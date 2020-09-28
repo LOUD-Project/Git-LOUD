@@ -55,6 +55,7 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\03_LobbyEnhancement\\lua', '/lua')
 --Non Game-data
 mount_dir(InitFileDir .. '\\..\\maps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
+mount_dir(InitFileDir .. '\\..\\movies', '/movies')
 
 hook = {
     '/schook'
