@@ -809,6 +809,7 @@ function SetPlayableArea( rect, voFlag )
     end
 
     import('/lua/SimSync.lua').SyncPlayableRect(rect)
+	Sync.NewPlayableArea = {x0, y0, x1, y1}
 end
 
 function PlayableRectCameraThread( rect )
