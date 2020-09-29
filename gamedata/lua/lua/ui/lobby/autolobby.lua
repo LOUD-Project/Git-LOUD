@@ -167,12 +167,16 @@ end
 
 # LobbyComm Callbacks
 local function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, natTraversalProvider)
+
     local controlGroup = Group(parent, "controlGroup")
     local LobCreateFunc = import('/lua/ui/lobby/lobbyComm.lua').CreateLobbyComm
+    
     local lob = LobCreateFunc(protocol, localPort, desiredPlayerName, localPlayerUID, natTraversalProvider)
+    
     if not lob then
         error('Creating lobby using protocol ' .. repr(protocol) .. ' and port ' .. tostring(localPort) .. ' failed.')
     end
+    
     lobbyComm = lob
 
     local function CleanupAndExit()
