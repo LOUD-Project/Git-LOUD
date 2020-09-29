@@ -38,6 +38,12 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\LOUD_Mods\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\TotalMayhem\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\mods', '/mods')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\textures', '/textures')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\Sounds', '/sounds')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\mods', '/mods')
+mount_dir(InitFileDir .. '\\..\\gamedata\\BrewLAN_LOUD\\textures', '/textures')
+mount_dir(InitFileDir .. '\\..\\gamedata\\BrewLAN_LOUD\\mods', '/mods')
+
 --Versioning
 mount_dir(InitFileDir .. '\\..\\gamedata\\loc_US\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\textures\\lua', '/lua')
