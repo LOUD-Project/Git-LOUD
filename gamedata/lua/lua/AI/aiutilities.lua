@@ -987,6 +987,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         local cheatCap = initialCap * tonumber(ScenarioInfo.Options.AIMult or 1) * (math.max(PlayerDiff,1))
 
         -- Veterancy mult is always 1 or higher
+        -- more important - it's also represents the AIMultiplier for this brain
 		aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
 
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
