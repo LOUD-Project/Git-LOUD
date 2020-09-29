@@ -19,6 +19,7 @@ end
 --Original game content
 mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
 mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
+mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
 
 --LOUD content
 mount_dir(InitFileDir .. '\\..\\gamedata\\*.scd', '/')
@@ -31,7 +32,6 @@ mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
 mount_dir(InitFileDir .. '\\..\\maps', '/maps')
 mount_dir(InitFileDir .. '\\..\\usermaps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
-mount_dir(InitFileDir .. '\\..\\movies', '/movies')
 
 --User mods & maps
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
