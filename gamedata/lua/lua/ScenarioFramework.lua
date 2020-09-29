@@ -775,58 +775,6 @@ end
 -- Sets the playable area for an operation to rect size.
 -- this function allows you to use scenarioutilities function AreaToRect for the rectangle.
 function SetPlayableArea( rect, voFlag )
-	local function GenerateOffMapAreas()
-		local playablearea = {}
-		local OffMapAreas = {}
-
-		if  ScenarioInfo.MapData.PlayableRect then
-			playablearea = ScenarioInfo.MapData.PlayableRect
-		else
-			playablearea = {0, 0, ScenarioInfo.size[1], ScenarioInfo.size[2]}
-		end
-		LOG('playable area coordinates are ' .. repr(playablearea))
-
-		local x0 = playablearea[1]
-		local y0 = playablearea[2]
-		local x1 = playablearea[3]
-		local y1 = playablearea[4]
-
-		-- This is a rectangle above the playable area that is longer, left to right, than the playable area
-		local OffMapArea1 = {}
-		OffMapArea1.x0 = (x0 - 100)
-		OffMapArea1.y0 = (y0 - 100)
-		OffMapArea1.x1 = (x1 + 100)
-		OffMapArea1.y1 = y0
-
-		-- This is a rectangle below the playable area that is longer, left to right, than the playable area
-		local OffMapArea2 = {}
-		OffMapArea2.x0 = (x0 - 100)
-		OffMapArea2.y0 = (y1)
-		OffMapArea2.x1 = (x1 + 100)
-		OffMapArea2.y1 = (y1 + 100)
-
-		-- This is a rectangle to the left of the playable area, that is the same height (up to down) as the playable area
-		local OffMapArea3 = {}
-		OffMapArea3.x0 = (x0 - 100)
-		OffMapArea3.y0 = y0
-		OffMapArea3.x1 = x0
-		OffMapArea3.y1 = y1
-
-		-- This is a rectangle to the right of the playable area, that is the same height (up to down) as the playable area
-		local OffMapArea4 = {}
-		OffMapArea4.x0 = x1
-		OffMapArea4.y0 = y0
-		OffMapArea4.x1 = (x1 + 100)
-		OffMapArea4.y1 = y1
-
-		OffMapAreas = {OffMapArea1, OffMapArea2, OffMapArea3, OffMapArea4}
-
-		ScenarioInfo.OffMapAreas = OffMapAreas
-		ScenarioInfo.PlayableArea = playablearea
-
-		LOG('Offmapareas are ' .. repr(OffMapAreas))
-	end
-	
     if (voFlag == nil) then
          voFlag = true
     end
@@ -1339,4 +1287,201 @@ function EngineerBuildUnits( army, unitName, ... )
         end
     end
     return engUnit
+end
+
+-- Below is for anti-off mapping function
+function GenerateOffMapAreas()
+    local playablearea = {}
+    local OffMapAreas = {}
+
+    if  ScenarioInfo.MapData.PlayableRect then
+        playablearea = ScenarioInfo.MapData.PlayableRect
+    else
+        playablearea = {0, 0, ScenarioInfo.size[1], ScenarioInfo.size[2]}
+    end
+    LOG('playable area coordinates are ' .. repr(playablearea))
+
+    local x0 = playablearea[1]
+    local y0 = playablearea[2]
+    local x1 = playablearea[3]
+    local y1 = playablearea[4]
+
+    -- This is a rectangle above the playable area that is longer, left to right, than the playable area
+    local OffMapArea1 = {}
+    OffMapArea1.x0 = (x0 - 100)
+    OffMapArea1.y0 = (y0 - 100)
+    OffMapArea1.x1 = (x1 + 100)
+    OffMapArea1.y1 = y0
+
+    -- This is a rectangle below the playable area that is longer, left to right, than the playable area
+    local OffMapArea2 = {}
+    OffMapArea2.x0 = (x0 - 100)
+    OffMapArea2.y0 = (y1)
+    OffMapArea2.x1 = (x1 + 100)
+    OffMapArea2.y1 = (y1 + 100)
+
+    -- This is a rectangle to the left of the playable area, that is the same height (up to down) as the playable area
+    local OffMapArea3 = {}
+    OffMapArea3.x0 = (x0 - 100)
+    OffMapArea3.y0 = y0
+    OffMapArea3.x1 = x0
+    OffMapArea3.y1 = y1
+
+    -- This is a rectangle to the right of the playable area, that is the same height (up to down) as the playable area
+    local OffMapArea4 = {}
+    OffMapArea4.x0 = x1
+    OffMapArea4.y0 = y0
+    OffMapArea4.x1 = (x1 + 100)
+    OffMapArea4.y1 = y1
+
+    OffMapAreas = {OffMapArea1, OffMapArea2, OffMapArea3, OffMapArea4}
+
+    ScenarioInfo.OffMapAreas = OffMapAreas
+    ScenarioInfo.PlayableArea = playablearea
+
+    LOG('Offmapareas are ' .. repr(OffMapAreas))
+end
+
+function AntiOffMapMainThread()
+    WaitTicks(11)
+    GenerateOffMapAreas()
+    local OffMapAreas = {}
+    local UnitsThatAreOffMap = {}
+
+    while ScenarioInfo.OffMapPreventionThreadAllowed == true do
+        OffMapAreas = ScenarioInfo.OffMapAreas
+        NewUnitsThatAreOffMap = {}
+
+        for index, OffMapArea in OffMapAreas do
+            local UnitsThatAreInOffMapRect = GetUnitsInRect(OffMapArea)
+                if UnitsThatAreInOffMapRect then
+                    for index, UnitThatIsOffMap in  UnitsThatAreInOffMapRect do
+                        if not UnitThatIsOffMap.IAmOffMapThread then
+                            table.insert(NewUnitsThatAreOffMap, UnitThatIsOffMap)
+                        end
+                    end
+                else
+            end
+        end
+        local NumberOfUnitsOffMap = table.getn(NewUnitsThatAreOffMap)
+        for index, NewUnitThatIsOffMap in NewUnitsThatAreOffMap do
+            if not NewUnitThatIsOffMap.IAmOffMap then
+                NewUnitThatIsOffMap.IAmOffMap = true
+            end
+            -- This is to make sure that we only do this check for air units
+            if not NewUnitThatIsOffMap.IAmOffMapThread and EntityCategoryContains(categories.AIR, NewUnitThatIsOffMap) then
+                -- This is to make it so it only impacts player armies, not AI or civilian or mission map armies
+                if IsHumanUnit(NewUnitThatIsOffMap) then
+                    NewUnitThatIsOffMap.IAmOffMapThread = NewUnitThatIsOffMap:ForkThread(IAmOffMap)
+                else
+                    -- So that we don't bother checking each AI unit more than once
+                    NewUnitThatIsOffMap.IAmOffMapThread = true
+                end
+            end
+        end
+        WaitSeconds(1)
+        NewUnitsThatAreOffMap = nil
+    end
+end
+
+function IsHumanUnit(self)
+    for _, Army in ScenarioInfo.ArmySetup do
+        if Army.ArmyIndex == self.Army then
+            if Army.Human == true then
+                return true
+            else
+                return false
+            end
+        end
+    end
+end
+
+function IsUnitInPlayableArea(unit)
+    local playableArea = ScenarioInfo.PlayableArea
+    local position = unit:GetPosition()
+    if  position[1] > playableArea[1] and position[1] < playableArea[3] and  position[3] > playableArea[2] and position[3] < playableArea[4] then
+        return true
+    else
+        return false
+    end
+end
+
+-- This is for bad units who choose to go off map, shame on them
+function IAmOffMap(self)
+    self.TimeIHaveBeenOffMap = 0
+    self.TimeIHaveBeenOnMap = 0
+    self.TimeIAmAllowedToBeOffMap = GetTimeIAmAllowedToBeOffMap(self)
+    while not self.Dead do
+        if IsUnitInPlayableArea(self) then
+            self.TimeIHaveBeenOnMap = (self.TimeIHaveBeenOnMap + 1)
+
+            if self.TimeIHaveBeenOnMap > 5 then
+                self:ForkThread(KillIAmOffMapThread)
+            end
+        else
+            self.TimeIHaveBeenOffMap = (self.TimeIHaveBeenOffMap + 1)
+        end
+
+        if self.TimeIHaveBeenOffMap > self.TimeIAmAllowedToBeOffMap then
+            self:ForkThread(IAmABadUnit)
+
+        end
+        WaitSeconds(1)
+    end
+end
+
+function IAmABadUnit(self)
+    local position = self:GetPosition()
+    local playableArea = ScenarioInfo.PlayableArea
+    local NearestOnPlayableAreaPointToMe = {}
+    NearestOnPlayableAreaPointToMe[2] = position[2]
+
+    if position[1] > playableArea[1] and position[1] < playableArea[3] then
+        NearestOnPlayableAreaPointToMe[1] = position[1]
+    elseif position[1] < playableArea[1] then
+        NearestOnPlayableAreaPointToMe[1] = (playableArea[1] + 5)
+    elseif position[1] > playableArea[3] then
+        NearestOnPlayableAreaPointToMe[1] = (playableArea[3] - 5)
+    end
+
+    if position[3] > playableArea[2] and position[3] < playableArea[4] then
+        NearestOnPlayableAreaPointToMe[3] = position[3]
+    elseif position[3] < playableArea[2] then
+        NearestOnPlayableAreaPointToMe[3] = (playableArea[2] + 5)
+    elseif position[3] > playableArea[4] then
+        NearestOnPlayableAreaPointToMe[3] = (playableArea[4] - 5)
+    end
+
+    IssueClearCommands({self})
+    IssueMove({self}, position)
+end
+
+function GetTimeIAmAllowedToBeOffMap(self)
+    local airspeed = self:GetBlueprint().Air.MaxAirspeed
+    local value = airspeed
+
+    if EntityCategoryContains(categories.BOMBER, self) then
+        value = airspeed / 5
+    elseif EntityCategoryContains(categories.TRANSPORTATION, self) then
+        value = 2
+    end
+
+    for i = 1, self:GetWeaponCount() do
+        local wep = self:GetWeapon(i)
+        if wep.Label ~= 'DeathWeapon' and wep.Label ~= 'DeathImpact' then
+            if wep:GetCurrentTarget()  then
+                value = airspeed * 2
+            end
+
+        end
+    end
+
+    return value
+end
+
+function KillIAmOffMapThread(self)
+    KillThread(self.IAmOffMapThread)
+    self.IAmOffMapThread = nil
+    self.TimeIHaveBeenOffMap = 0
+    self.TimeIHaveBeenOnMap = 0
 end
