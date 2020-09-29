@@ -1,1 +1,0 @@
-Tooltips = import('/lua/enhancedlobby.lua').GetCustomTooltips()
