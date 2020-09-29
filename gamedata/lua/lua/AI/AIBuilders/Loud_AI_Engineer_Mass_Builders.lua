@@ -47,6 +47,118 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             }
         }
     },
+ 	
+    Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 760,
+        
+        InstanceCount = 1,
+		
+        BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+            Construction = {
+				BuildClose = true,		-- engineer will build points closest to itself
+				LoopBuild = true,		-- repeating build until it fails to find a target or dead
+
+				ThreatMax = 10,
+				ThreatRings = 1,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },  
+ 	
+    -- this additional looping mex engineer is really just here to give LOUD more 'umph' on
+    -- mass heavy maps or situations where he's got a lot of mass points to cover beyond a 
+    -- typical scenario
+    Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop - Extra',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 745,
+        
+        InstanceCount = 1,
+		
+        BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            -- at this point we'll use a low multiplier - this will keep the builder active until we
+            -- reach that portion of the mass share -
+            -- this is likely the only place where I might use this
+			{ LUTL, 'NeedMassPointShare', { .5 } },
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+            Construction = {
+				BuildClose = false,		-- engineer will build points closest to base
+				LoopBuild = true,		-- repeating build until it fails to find a target or dead
+
+				ThreatMax = 10,
+				ThreatRings = 1,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },  
+
+    Builder {BuilderName = 'Mass Extractor 1500',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 745,
+        
+        InstanceCount = 2,
+		
+        BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = false,		-- build on points closest to base
+				LoopBuild = false,
+                
+				ThreatMax = 10,
+				ThreatRings = 1,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },
 	
 	-- build mass at higher priority when close - once only
     Builder {BuilderName = 'Mass Extractor T2 - 200 - BuildClose',
@@ -193,75 +305,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 				ThreatType = 'AntiSurface',
                 
                 BuildStructures = { 'T2Resource' }
-            }
-        }
-    },
- 	
-    Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 760,
-        
-        InstanceCount = 1,
-		
-        BuilderType = { 'T1' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 1500, -9999, 10, 1, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-            Construction = {
-				BuildClose = true,		-- engineer will build points closest to itself
-				LoopBuild = true,		-- repeating build until it fails to find a target or dead
-
-				ThreatMax = 10,
-				ThreatRings = 1,
-				ThreatType = 'AntiSurface',
-                
-                BuildStructures = { 'T1Resource' }
-            }
-        }
-    },  
-
-    Builder {BuilderName = 'Mass Extractor 1500',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 745,
-        
-        InstanceCount = 2,
-		
-        BuilderType = { 'T1' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 1500, -9999, 10, 1, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-		
-            Construction = {
-				BuildClose = false,		-- build on points closest to base
-				LoopBuild = false,
-                
-				ThreatMax = 10,
-				ThreatRings = 1,
-				ThreatType = 'AntiSurface',
-                
-                BuildStructures = { 'T1Resource' }
             }
         }
     },
