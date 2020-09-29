@@ -28,7 +28,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -65,7 +65,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -101,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -179,7 +179,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 45, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -289,7 +289,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },			
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 45, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 			{ LUTL, 'NeedMassPointShare', { 1 } },	
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -369,7 +369,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 			{ LUTL, 'NeedMassPointShare', { 1 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 45, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 45, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
