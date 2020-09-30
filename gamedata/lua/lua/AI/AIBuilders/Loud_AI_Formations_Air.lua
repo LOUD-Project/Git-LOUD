@@ -933,7 +933,53 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderType = 'Any',
-    },	
+	},	
+	
+	-- Hunts economic targets, mainly Engineers
+	-- medium sized group for Engineers targets and distress response	
+    -- operates only from a PRIMARY BASE - Land or Naval
+    -- may include ANTIAIR EXPERIMENTALS
+    Builder {BuilderName = 'Hunt Gunships Economic',
+	
+        PlatoonTemplate = 'GunshipAttack Small',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI_Gunship',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 4,
+
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.AIR * categories.GROUNDATTACK }},
+        },
+		
+        BuilderData = {
+			DistressRange = 165,
+			DistressTypes = 'Land',
+			DistressThreshold = 9,
+			
+			LocationType = 'LocationType',
+			
+            MergeLimit = 45,
+			
+            MissionTime = 180,
+			
+            PrioritizedCategories = {categories.ENGINEER, categories.ECONOMIC, categories.MASSEXTRACTION},
+			
+			SearchRadius = 75,
+			
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
 
 	-- large group for most targets on 20k maps and distress response 
     -- operates only from a PRIMARY BASE - Land or Naval

@@ -353,7 +353,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	-- modest sized base attack platoon
     -- forms when odds ok at (>.9)
     -- focused on bases first -- no distance restriction
-    Builder {BuilderName = 'Land Attack',
+    Builder {BuilderName = 'Land Attack Large NW',
 	
         PlatoonTemplate = 'LandAttackLargeNW',
         
@@ -386,13 +386,59 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
 			MergeLimit = 120,
 			
-            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
             AggressiveMove = true,
         },
-    },
+	},
+	
+	-- This Attacks are more modest in size, only deployed when we have a landstrength advantage.
+	-- Notice how this platoon focuses on more specific categories. 
+	-- modest sized production attack platoon
+    -- forms when odds are good at (>1)
+    -- focused on production first -- no distance restriction
+    Builder {BuilderName = 'Land Attack Large',
+	
+        PlatoonTemplate = 'LandAttackLarge',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		
+        Priority = 800,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 2,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+            
+            { LUTL, 'PoolGreater', { 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
+            { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+        },
+		
+        BuilderData = {
+		
+			MergeLimit = 95,
+			
+            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection 
+			
+			UseFormation = 'AttackFormation',
+			
+            AggressiveMove = true,
+        },
+	},
 	
 	-- another modest sized attack platoon
     -- forms when odds are hohum (>.8) but more of them
