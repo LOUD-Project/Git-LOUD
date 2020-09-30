@@ -1253,7 +1253,7 @@ EngineerManager = Class(BuilderManager) {
 							end
 							
 							-- only send response if we can muster 60% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .6) then
+							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .65) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1271,7 +1271,7 @@ EngineerManager = Class(BuilderManager) {
                                     local counter = 0
                                     local totalthreatsent = 0
                                     
-                                    -- send 5 per 3 tick to the distressLocation --
+                                    -- send 5 per second to the distressLocation --
                                     for _,u in grouplnd do
                                     
                                         if not u.Dead then
@@ -1285,8 +1285,9 @@ EngineerManager = Class(BuilderManager) {
                                             break   -- dont send any more units --
                                         end
                                         
+                                        -- wait one second for every 5 units sent
                                         if counter >= 4 then
-                                            WaitTicks(3)
+                                            WaitTicks(10)
                                             counter = 0
                                         end
                                         
@@ -1346,7 +1347,7 @@ EngineerManager = Class(BuilderManager) {
                                     end
 
                                     if counter >= 4 then
-                                        WaitTicks(3)
+                                        WaitTicks(10)
                                         counter = 0
                                     end
                                 end
