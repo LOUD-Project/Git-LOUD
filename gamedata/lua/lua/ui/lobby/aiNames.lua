@@ -9,7 +9,7 @@
 ainames = {
 
     uef = {
-        "Cockbag Surprise!",
+        "RoboDewster",
         "Keville",
         "Janicki",
         "Jesus Chrysler",
@@ -21,6 +21,7 @@ ainames = {
         "Budac",
         "Garat",
         "Rumsey",
+        "Scolar",
         "Smolko",
         "DeMelt",
         "Gecko Mucousface",
@@ -35,6 +36,7 @@ ainames = {
     },
     aeon = {
         "Goober",
+        "Azraelian",
         "Xavier 4 Eyes",
         "Tedles",
         "Svend Ziderzee",
@@ -82,6 +84,7 @@ ainames = {
         "Avatar",
         "5Iron",
         "TheContact",
+        "Red Collective",
         "Jackal",
         "C@tch22",
         "Rokion Era",
