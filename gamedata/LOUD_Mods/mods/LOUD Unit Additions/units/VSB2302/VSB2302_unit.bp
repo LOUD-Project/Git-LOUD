@@ -1,5 +1,12 @@
 UnitBlueprint {
-
+    
+	AI = {
+        TargetBones = {
+            'Turret',
+            'Probe2',
+        },
+    },
+	
     Audio = {
 	
         DeathExplosion = Sound {
@@ -56,6 +63,7 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -0.25,
+	CollisionOffsetZ = -0.25,
 	
     Defense = {
         AirThreatLevel = 400,
@@ -196,8 +204,8 @@ UnitBlueprint {
     SelectionThickness = 0.39,
 	
     SizeX = 2,
-    SizeY = 2,
-    SizeZ = 2,
+    SizeY = 2.5,
+    SizeZ = 2.5,
 	
     StrategicIconName = 'icon_experimental_structure_antiair',
 	

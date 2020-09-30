@@ -1,4 +1,13 @@
 UnitBlueprint {
+
+	AI = {
+        TargetBones = {
+            'Turret_Barrel_Recoil_Muzzle01',
+            'Hover02',
+            'Hover5',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -312,7 +321,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 3.0,
-    SizeY = 1.2,
+    SizeY = 1.0,
     SizeZ = 3.3,
 	
     StrategicIconName = 'icon_experimental_land_directfire',

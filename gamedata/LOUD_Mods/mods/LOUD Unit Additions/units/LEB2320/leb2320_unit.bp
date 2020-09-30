@@ -3,6 +3,7 @@ UnitBlueprint {
         TargetBones = {
             'Turret_Recoil',
             'Turret',
+			'UEB2303',
         },
     },
 	
@@ -168,8 +169,8 @@ UnitBlueprint {
 	SelectionCenterOffsetZ = -0.6,
     SelectionThickness = 0.47,
 	
-    SizeX = 2,
-    SizeY = 3,
+    SizeX = 1.7,
+    SizeY = 1.8,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure3_artillery',

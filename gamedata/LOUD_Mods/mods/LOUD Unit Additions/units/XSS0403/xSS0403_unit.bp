@@ -1,6 +1,12 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 130,
+		TargetBones = {
+            'XSS0202',
+			'Projectile01',
+			'Left_Turret01',
+			'Right_Turret01',
+        },
     },
 	
     Audio = {
@@ -218,7 +224,7 @@ UnitBlueprint {
     SelectionThickness = 0.13,
 	
     SizeX = 2.5,
-    SizeY = 2.5,
+    SizeY = 2.2,
     SizeZ = 7.2,
 	
     StrategicIconName = 'icon_experimental_ship_antiair',

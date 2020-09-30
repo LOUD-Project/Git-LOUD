@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'UUX0111_RightHip',
+            'UUX0111_RightToe',
             'UUX0111_LeftHip',
             'UUX0111_Head',
         },
