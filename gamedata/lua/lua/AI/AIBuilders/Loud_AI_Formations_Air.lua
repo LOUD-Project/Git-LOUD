@@ -157,7 +157,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation for 30-75 minutes - 8 instances
+	-- double plane formation for 30-75 minutes - 10 instances
     Builder {BuilderName = 'Air Scout - Pair',
     
         PlatoonTemplate = 'Air Scout Group',
@@ -183,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 8,
+        InstanceCount = 10,
 		
         BuilderType = 'Any',
 		
@@ -194,7 +194,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
 
-	-- wing (5) formations at 60 minutes - 6 instances
+	-- wing (5) formations at 60 minutes - 8 instances
     Builder {BuilderName = 'Air Scout - Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 		
-        InstanceCount = 7,
+        InstanceCount = 8,
 		
         BuilderType = 'Any',
 		
@@ -227,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- squadron (9) formations after 75 minutes - 5 instances
+	-- squadron (9) formations after 75 minutes - 7 instances
     Builder {BuilderName = 'Air Scout - Group',
     
         PlatoonTemplate = 'Air Scout Group Huge',
@@ -249,7 +249,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 6,
+        InstanceCount = 7,
 		
         BuilderType = 'Any',
 		
