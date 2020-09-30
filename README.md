@@ -3,15 +3,18 @@
 This is the LOUD Development Repository, where the big brains come together to make LOUD even LOUDER.
 
 ## Installing Git-LOUD
+Either download the latest master or clone the repository.
+
+###Latest Master
 
 Download the latest master.
 In your Forged Alliance folder, create a new sub-folder called "Git-LOUD".
 Extract the master to the newly created Git-LOUD folder.
 
-_OR_
+###Cloning the Repo
 
 In your Forged Alliance folder, create a new sub-folder called "Git-LOUD".
-Clone the repository to that filder.
+Clone the repository to that folder using your github client of choice.
 
 _THEN_
 
