@@ -298,7 +298,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.MOBILE - categories.AIR},
+            PrioritizedCategories = {categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
 			SearchRadius = 30,	
 			
@@ -324,7 +324,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 4,
+        InstanceCount = 3,
 
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
@@ -341,9 +341,52 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
+            PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.ENGINEER, categories.MASSEXTRACTION, categories.ENERGYPRODUCTION - categories.TECH1, categories.FACTORY},
 			
 			SearchRadius = 50,
+			
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+	
+	-- medium sized group for mass targets and distress response
+    -- operates only from a PRIMARY BASE - Land or Naval
+	Builder {BuilderName = 'Hunt Bombers Economic',
+	
+        PlatoonTemplate = 'BomberAttack',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 3,
+
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+			DistressRange = 150,
+			DistressTypes = 'Land',
+			DistressThreshold = 10,
+			
+			LocationType = 'LocationType',
+			
+            MergeLimit = 25,
+			
+            MissionTime = 150,
+			
+            PrioritizedCategories = { categories.MASSEXTRACTION, categories.ENGINEER, categories.ECONOMIC },
+			
+			SearchRadius = 60,
 			
             UseFormation = 'AttackFormation',
         },
@@ -390,7 +433,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			LocationType = 'LocationType',
             MergeLimit = 64,
             MissionTime = 240,
-            PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.SHIELD, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
+            PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.SHIELD, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
 			SearchRadius = 125,
             UseFormation = 'AttackFormation',
         },
@@ -1303,7 +1346,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
-			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 150, 1, 'AntiAir', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 150, 1, 'AntiAir', 1 }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL }},
 			
@@ -1375,7 +1418,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.GROUNDATTACK }},
-			{ EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 750, -9999, 150, 1, 'AntiAir', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 150, 1, 'AntiAir', 1 }},
 			
         },
 		

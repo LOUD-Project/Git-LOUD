@@ -543,7 +543,82 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UseFormation = 'AttackFormation',
         },
     },
+    
+	-- T1 Version of Mex Attack Land Need Mass, this is more for "Early Raiding"
+	-- another MASSEXTRACTION attack but smaller
+    -- formed when team does not have it's mass share
+    -- attacks MASSPRODUCTION positions within 15 km
+	Builder {BuilderName = 'T1 MEX Attack Land Need Mass',
 	
+        PlatoonTemplate = 'T1MassAttack',
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		
+        Priority = 805,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 3,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+			{ LUTL, 'NeedTeamMassPointShare', {}},
+
+			-- enemy mass points within 15km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+		
+			DistressRange = 120,
+			DistressTypes = 'Land',
+			DistressThreshold = 6,
+			
+			PointType = 'Unit',
+			PointCategory = categories.MASSPRODUCTION,
+			PointSourceSelf = true,
+			PointFaction = 'Enemy',
+			PointRadius = 750,
+			PointSort = 'Closest',
+			PointMin = 100,
+			PointMax = 750,
+			
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 30,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 2,
+            
+            ThreatMaxRatio = 1.1,
+			
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
+			UntRadius = 30,
+			UntTrigger = true,
+			UntMin = 0,
+			UntMax = 6,
+			
+            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
+			
+			GuardRadius = 60,
+			GuardTimer = 15,
+			
+			MergeLimit = 25,
+			
+			AggressiveMove = true,
+			
+			AllowInWater = false,
+			
+			UseFormation = 'AttackFormation',
+        },
+    },
+
 	-- attack enemy ANTIAIR STRUCTURES with small groups
     -- forms when odds are modest(>0.8) 
     Builder {BuilderName = 'AA Attack Land',
