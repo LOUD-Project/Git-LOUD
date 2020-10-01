@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {  
+		TargetBones = {
+            'Turret',
+        },		
+    }, 
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -46,6 +52,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
+	CollisionOffsetZ = 0.15,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -238,9 +246,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.35,
 	
-    SizeX = 0.55,
+    SizeX = 0.6,
     SizeY = 0.35,
-    SizeZ = 0.6,
+    SizeZ = 0.9,
 	
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,

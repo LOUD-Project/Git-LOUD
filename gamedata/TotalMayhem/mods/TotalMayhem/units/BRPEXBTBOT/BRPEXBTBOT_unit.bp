@@ -1,7 +1,16 @@
 UnitBlueprint {
+
     AI = {
-        GuardScanRadius = 45,
+        GuardScanRadius = 45,		
+		TargetBones = {
+            'Object109',
+			'Object02',
+			'Oject106',
+			'Object11',
+			'Object07',
+        },	
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XRL_Destroy',
@@ -195,8 +204,8 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2,
-    SizeY = 3.3,
-    SizeZ = 2,
+    SizeY = 3.8,
+    SizeZ = 1.8,
 	
     StrategicIconName = 'icon_experimental_land_antiair',
     StrategicIconSortPriority = 115,

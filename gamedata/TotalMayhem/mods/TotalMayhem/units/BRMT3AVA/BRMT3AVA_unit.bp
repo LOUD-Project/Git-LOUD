@@ -1,6 +1,13 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 95, 
+        GuardScanRadius = 95,    
+       	TargetBones = {
+            'legb07',
+			'legb27',
+			'legb12',
+			'legb28',
+			'Front_Turret01',
+        },
     }, 
 	
     Audio = {

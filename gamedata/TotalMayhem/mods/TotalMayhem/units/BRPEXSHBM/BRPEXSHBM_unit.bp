@@ -8,6 +8,7 @@ UnitBlueprint {
 			'Left_Leg_B10',
 			'Left_Leg_B11',
 			'Object04',
+			'AttchPoint',
         },
     },
     Audio = {
@@ -84,6 +85,8 @@ UnitBlueprint {
 		'OVERLAYOMNI',
 		'OVERLAYCOUNTERINTEL',
     },
+	
+	CollisionOffsetY = 1.2,
 	
     Defense = {
 
@@ -385,9 +388,9 @@ UnitBlueprint {
     SelectionSizeZ = 6.5,
     SelectionThickness = 0.3,
 	
-    SizeX = 4,
-    SizeY = 4,
-    SizeZ = 4.8,
+    SizeX = 4.2,
+    SizeY = 2.8,
+    SizeZ = 5.0,
 	
     StrategicIconName = 'icon_experimental_land_artillery',
     StrategicIconSortPriority = 115,

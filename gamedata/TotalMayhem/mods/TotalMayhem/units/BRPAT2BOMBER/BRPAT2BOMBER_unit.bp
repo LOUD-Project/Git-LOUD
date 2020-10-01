@@ -3,6 +3,9 @@ UnitBlueprint {
 		GuardRadius = 175,
         GuardReturnRadius = 125,
         GuardScanRadius = 120,
+		TargetBones = {
+            'BRPAT1ADVBOMB',
+        },		
     },
 	
     Air = {

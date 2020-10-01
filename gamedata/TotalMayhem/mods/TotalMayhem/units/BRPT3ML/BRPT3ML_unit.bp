@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = { 
+		TargetBones = {
+            'BRPT3ML',
+        },
+    }, 
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -58,6 +64,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
     },
+	
+	CollisionOffsetZ = 0.2,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -195,9 +203,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.96,
     SelectionThickness = 0.35,
 	
-    SizeX = 0.6,
-    SizeY = 1.35,
-    SizeZ = 0.9,
+    SizeX = 0.9,
+    SizeY = 1.9,
+    SizeZ = 1.0,
 	
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 125,

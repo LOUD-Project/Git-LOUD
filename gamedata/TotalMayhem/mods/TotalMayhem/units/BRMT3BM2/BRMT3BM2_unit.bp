@@ -1,18 +1,8 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-    }, 
-    AI = {
         TargetBones = {
-            'lefthand',
-            'righthand',
-            'head',
-            'front_turret',
-            'leftshoulder',
-            'rightshoulder',
-            'leftfoot_b2',
-            'rightfoot_b2',
-            'BRNT3BM2WK',
+            'Turret',
         },
     },
 	
@@ -198,9 +188,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.1,
-    SizeY = 1.5,
-    SizeZ = 1.0,
+    SizeX = 1.3,
+    SizeY = 1.7,
+    SizeZ = 1.1,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 40,

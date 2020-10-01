@@ -1,4 +1,10 @@
 UnitBlueprint {
+
+    AI = { 
+		TargetBones = {
+            'Turret',
+        },
+		
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -37,7 +43,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.35,
+    CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -143,9 +149,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.55,
 	
-    SizeX = 0.9,
+    SizeX = 1.0,
     SizeY = 1.4,
-    SizeZ = 0.9,
+    SizeZ = 1.0,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,

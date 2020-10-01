@@ -1,6 +1,14 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 60, 
+		TargetBones = {
+            'toes01',
+			'legb2',
+			'Turret',
+			'gun',
+			'gun01',
+        },		
     }, 
 	
     Audio = {
@@ -205,8 +213,8 @@ UnitBlueprint {
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
 	
-    SizeX = 2,
-    SizeY = 3.9,
+    SizeX = 2.6,
+    SizeY = 4.2,
     SizeZ = 2.2,
 	
     StrategicIconName = 'icon_experimental_land_directfire',

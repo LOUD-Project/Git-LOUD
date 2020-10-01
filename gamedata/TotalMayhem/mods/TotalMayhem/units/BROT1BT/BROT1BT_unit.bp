@@ -1,6 +1,10 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 30, 
+		TargetBones = {
+            'Turret',
+        },
     }, 
     Audio = {
         Destroyed = Sound {
@@ -144,9 +148,11 @@ UnitBlueprint {
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.38,
+	
     SizeX = 0.7,
-    SizeY = 0.4,
+    SizeY = 0.3,
     SizeZ = 0.9,
+	
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
     Veteran = {

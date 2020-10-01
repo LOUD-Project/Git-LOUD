@@ -2,7 +2,11 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 135,
         GuardScanRadius = 120,
-    },
+		TargetBones = {
+            'BRPAT2FIGBO',
+        },		
+    }, 
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 2.5,

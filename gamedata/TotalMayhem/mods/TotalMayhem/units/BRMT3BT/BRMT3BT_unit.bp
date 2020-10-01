@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
+       	TargetBones = {
+            'Turret',
+        },
     },
 	
     Audio = {
@@ -47,6 +50,8 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
 		'OVERLAYINDIRECTFIRE',
     },
+	
+	CollisionOffsetZ = -0.2
 	
     Defense = {
         ArmorType = 'Normal',
@@ -149,8 +154,8 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 1.0,
-    SizeY = 0.35,
-    SizeZ = 1.0,
+    SizeY = 0.45,
+    SizeZ = 1.4,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,

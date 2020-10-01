@@ -1,4 +1,11 @@
 UnitBlueprint {
+   
+   AI = { 
+       	TargetBones = {
+            'Turret01',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -54,7 +61,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.5,
+    CollisionOffsetY = -0.25,
 	
     Defense = {
         AirThreatLevel = 15,

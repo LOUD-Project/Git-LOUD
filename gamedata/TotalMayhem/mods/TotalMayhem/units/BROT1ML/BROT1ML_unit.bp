@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 15, 
+		TargetBones = {
+            'Turret',
+        },		
     }, 
     Audio = {
         Destroyed = Sound {
@@ -37,6 +40,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
     },
+	
+	CollisionOffsetZ = 0.1,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 200,
