@@ -1,8 +1,13 @@
 UnitBlueprint {
+
     AI = {
         GuardReturnRadius = 80,
         GuardScanRadius = 40,
+        TargetBones = {
+            'Body',
+        },
     },
+	
     Air = {
         AutoLandTime = 1.4,
         BankFactor = 5,

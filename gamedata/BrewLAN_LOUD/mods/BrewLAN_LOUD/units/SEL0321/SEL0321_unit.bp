@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+		TargetBones = {
+            'B07_Slider_02',
+        },
     },
 	
     Audio = {
@@ -198,9 +201,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.4,
 	
-    SizeX = 0.9,
+    SizeX = 1.4,
     SizeY = 0.75,
-    SizeZ = 1.75,
+    SizeZ = 1.8,
 	
     StrategicIconName = 'icon_land3_antimissile',
     StrategicIconSortPriority = 195,

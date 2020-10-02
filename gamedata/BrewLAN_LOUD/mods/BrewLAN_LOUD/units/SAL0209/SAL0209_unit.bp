@@ -1,8 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Spinner_01',
-            'Spinner_02',
+            'Dummy001',
         },
     },
 	
@@ -93,7 +92,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = -0.2,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -322,9 +321,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.6,
 	
-    SizeX = 0.9,
-    SizeY = 0.72,
-    SizeZ = 0.72,
+    SizeX = 0.8,
+    SizeY = 0.85,
+    SizeZ = 0.8,
 	
     StrategicIconName = 'icon_land2_engineer',
     StrategicIconSortPriority = 95,

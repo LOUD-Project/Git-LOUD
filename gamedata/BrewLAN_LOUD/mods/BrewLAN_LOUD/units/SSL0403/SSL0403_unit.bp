@@ -1,5 +1,12 @@
 UnitBlueprint {
-
+    AI = {
+        TargetBones = {
+            'Exhaust_Ring',
+            'Mandible_003',
+            'Mandible_004',
+			'SEL0403',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',

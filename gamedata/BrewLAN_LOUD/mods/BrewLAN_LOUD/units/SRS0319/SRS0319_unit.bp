@@ -3,8 +3,11 @@ UnitBlueprint {
         GuardReturnRadius = 60,
         TargetBones = {
             'URS0201',
-            'Muzzle_Back',
-            'Muzzle_Front',
+            'Hat',
+            'Stern',
+			'WakeFront_L',
+			'WakeFront_R',
+			'WakeBack',
         },
     },
 	
@@ -374,9 +377,9 @@ UnitBlueprint {
     SelectionSizeZ = 3,
     SelectionThickness = 0.22,
 	
-    SizeX = 1.15,
+    SizeX = 0.85,
     SizeY = 1,
-    SizeZ = 4.2,
+    SizeZ = 3.5,
 	
     StrategicIconName = 'icon_ship3_engineer',
     StrategicIconSortPriority = 155,

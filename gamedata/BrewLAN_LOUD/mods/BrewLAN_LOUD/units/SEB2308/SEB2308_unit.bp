@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {'UEB2205'},
+        TargetBones = {'UEB2205','Object002'},
     },
 	
     Audio = {
@@ -51,7 +51,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -0.5,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -216,7 +216,7 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 	
     SizeX = 1.5,
-    SizeY = 2.2,
+    SizeY = 2.4,
     SizeZ = 1.5,
 	
     StrategicIconName = 'icon_structure3_antinavy',

@@ -1,8 +1,11 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Front_Turret',
-            'Back_Turret',
+            'Front_Left_Wake',
+            'Front_Right_Wake',
+			'Back_Wake',
+			'Front_Radar',
+			'Back_Radar',
         },
     },
 	
@@ -262,7 +265,7 @@ UnitBlueprint {
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.23,
 	
-    SizeX = 0.4,
+    SizeX = 0.5,
     SizeY = 0.7,
     SizeZ = 2.6,
 	

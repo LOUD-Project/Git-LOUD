@@ -1,5 +1,12 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'XSB2301',
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -54,7 +61,8 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = -0.0,
+    CollisionOffsetZ = 0.2,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -196,7 +204,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
 	
-    SizeX = 1,
+    SizeX = 1.5,
     SizeY = 1.25,
     SizeZ = 1,
 	

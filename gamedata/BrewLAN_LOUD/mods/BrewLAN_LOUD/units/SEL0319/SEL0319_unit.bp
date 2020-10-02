@@ -1,4 +1,12 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Wheels_Right',
+			'Wheels_Left',
+        },
+    },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'XEL',
@@ -41,7 +49,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = -0.0,
     CollisionOffsetZ = -0.05,
 	
     Defense = {
@@ -264,9 +272,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.6*1.25,
     SelectionThickness = 0.7,
 	
-    SizeX = 0.7*1.25,
-    SizeY = 1*1.25,
-    SizeZ = 0.7*1.25,
+    SizeX = 0.875,
+    SizeY = 0.65,
+    SizeZ = 0.875,
 	
     StrategicIconName = 'icon_land3_engineer',
     StrategicIconSortPriority = 95,

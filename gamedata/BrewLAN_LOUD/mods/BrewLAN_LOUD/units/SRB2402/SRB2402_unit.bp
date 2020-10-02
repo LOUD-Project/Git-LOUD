@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+			'Left_Turret',
+        },
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XRL_Destroy',
