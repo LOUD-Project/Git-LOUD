@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -106,7 +113,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brb2306_name>Manticore',
@@ -151,9 +158,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.6,
 	
-    SizeX = 0.5,
-    SizeY = 2.7,
-    SizeZ = 0.5,
+    SizeX = 1.1,
+    SizeY = 2.8,
+    SizeZ = 1.1,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 230,

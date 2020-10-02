@@ -1,6 +1,12 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
+		TargetBones = { 
+			'XSS0206',
+			'Front_Turret01',
+			'Front_Turret02',
+			'Back_Turret01',
+		},
     },
     Audio = {
         Killed = Sound {

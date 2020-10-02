@@ -1,6 +1,10 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {	'BSL0401' },
+        TargetBones = {	
+			'BSL0401',
+			'Focus_Beam03_Emitter01',
+			'Beam_Point_Focus02',
+		},
 		
 		AssistHeartbeatInterval = 0.5, -- def. 1, time in seconds between drone and carrier management heartbeats
         DroneControlRange = 50, -- def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)

@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = {
         GuardScanRadius = 35,
+		TargetBones = {
+            'Torso',
+		},
     },
 	
     Audio = {
@@ -198,7 +201,7 @@ UnitBlueprint {
 	
     SizeX = 0.7,
     SizeY = 0.8,
-    SizeZ = 0.9,
+    SizeZ = 1.0,
 	
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 115,

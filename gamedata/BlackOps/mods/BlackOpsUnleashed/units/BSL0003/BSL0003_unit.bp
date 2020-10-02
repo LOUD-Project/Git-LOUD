@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+		TargetBones = {
+            'Body',
+		},
+    },
+	
     Audio = {
         StartMove = Sound {
             Bank = 'XSL',
@@ -37,7 +43,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BOT',
     },
-
+	
+	CollisionOffsetZ = -0.1,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 1650,
@@ -162,9 +170,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
 	
-    SizeX = 1,
-    SizeY = 1.1,
-    SizeZ = 0.9,
+    SizeX = 0.7,
+    SizeY = 1.0,
+    SizeZ = 0.8,
 	
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,

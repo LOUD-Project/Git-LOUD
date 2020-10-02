@@ -3,6 +3,8 @@ UnitBlueprint {
     AI = {
         TargetBones = {
             'Turret_Barrel',
+			'B03',
+			'B02',
         },
     },
 	
@@ -53,7 +55,8 @@ UnitBlueprint {
         'SORTSTRATEGIC',
     },
 	
-    CollisionOffsetY = -0.65,
+    CollisionOffsetY = -0.25,
+	CollisionOffsetZ = -0.1,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -167,8 +170,8 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 	
     SizeX = 0.6,
-    SizeY = 1.4,
-    SizeZ = 0.6,
+    SizeY = 0.9,
+    SizeZ = 0.8,
 	
     StrategicIconName = 'icon_structure3_antimissile',
     StrategicIconSortPriority = 200,
