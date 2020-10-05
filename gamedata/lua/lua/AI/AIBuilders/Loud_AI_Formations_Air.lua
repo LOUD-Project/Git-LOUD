@@ -691,6 +691,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AIR * categories.INTELLIGENCE, 'Enemy' }},
         },
 		
         BuilderData = {
@@ -706,7 +708,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 55,	
+			SearchRadius = 45,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -730,6 +732,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTIAIR }},
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.TRANSPORTFOCUS, 'Enemy' }},
         },
 		
         BuilderData = {
@@ -745,7 +749,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.AIR * categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 55,	
+			SearchRadius = 45,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -777,7 +781,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 160,
+			DistressRange = 140,
 			DistressTypes = 'Air',
 			DistressThreshold = 8,
 			
@@ -789,7 +793,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.MOBILE * categories.AIR},
 			
-			SearchRadius = 50,
+			SearchRadius = 60,
 			
             UseFormation = 'AttackFormation',
         },
@@ -816,13 +820,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 3,
 
         BuilderConditions = {
-			
-			-- none of the major SUPER triggers can be true
-			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, (categories.OPTICS) * categories.STRUCTURE, 'Enemy' }},
-			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
-			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTIAIR }},
         },
 		
@@ -839,7 +836,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
             
-			SearchRadius = 100,
+			SearchRadius = 80,
             
             UseFormation = 'AttackFormation',
         },
