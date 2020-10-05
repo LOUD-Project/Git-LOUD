@@ -155,7 +155,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			
 				local tempDesc = LOC(UnitDescriptions[tempDescID])
 				
-				WrapAndPlaceText(nil, nil, nil, nil, tempDesc, View.Description)
+				WrapAndPlaceText(nil, nil, nil, nil, nil, tempDesc, View.Description)
 			else
 				WARN('No description found for unit: ', bpID, ' enhancement: ', iconID)
 				
@@ -199,7 +199,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 	local intel_line = -1
 	
 	if text != nil then
-		textLines = import('/lua/maui/text.lua').WrapText(text, control.Value[1].Width(),function(text) return control.Value[1]:GetStringAdvance(text) end)
+		textLines = import('/lua/maui/text.lua').WrapText( text, control.Value[1].Width(), function(text) return control.Value[1]:GetStringAdvance(text) end)
 	end
 	
 	local abilityLines = 0
