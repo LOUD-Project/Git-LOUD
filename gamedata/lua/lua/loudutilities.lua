@@ -4098,7 +4098,7 @@ function CreateAttackPlan( self, enemyPosition )
 					
 					if not path then
                     
-                        LOG("*AI DEBUG "..self.Nickname.." failed land path from Current Point to "..repr(v) )
+                        --LOG("*AI DEBUG "..self.Nickname.." failed land path from Current Point to "..repr(v) )
 
 						pathtype = "Amphibious"
 						

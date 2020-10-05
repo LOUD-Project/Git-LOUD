@@ -2502,9 +2502,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            if ScenarioInfo.PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
-            end
+            --if ScenarioInfo.PlatoonMergeDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge at range 100 - limit "..mergelimit )
+            --end
 
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Bomber_LOUD', 100, false, mergelimit) then
 
@@ -2992,9 +2992,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            if ScenarioInfo.PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
-            end
+            --if ScenarioInfo.PlatoonMergeDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
+            --end
 
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Gunship_LOUD', 100, false, mergelimit) then
 

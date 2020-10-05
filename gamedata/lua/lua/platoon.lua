@@ -2489,8 +2489,8 @@ Platoon = Class(moho.platoon_methods) {
 					end
 				end		
 
-				-- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
-				if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
+				-- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 50%
+				if Random(1,2) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
 				
 					oldNumberOfUnitsInPlatoon = 0
 				
@@ -2503,7 +2503,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if oldNumberOfUnitsInPlatoon < MergeLimit then
 					
-						if self:MergeWithNearbyPlatoons( aiBrain, 'GuardPoint', 60, false, MergeLimit) then
+						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, false, MergeLimit) then
 						
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..repr(GetPlatoonPosition(self)).." completing MergeWith - MoveThread is "..repr(self.MoveThread) )
 				
@@ -2534,7 +2534,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- check if platoon exhausted -- merge if possible or RTB --
 				if self:CalculatePlatoonThreat('Land', categories.ALLUNITS) <= (OriginalThreat * .40) then
 				
-					self:MergeIntoNearbyPlatoons( aiBrain, 'GuardPoint', 100, false)
+					self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false)
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end
@@ -3599,7 +3599,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if oldNumberOfUnitsInPlatoon < MergeLimit then
 					
-						if self:MergeWithNearbyPlatoons( aiBrain, 'GuardPoint Amphibious', 60, false, MergeLimit) then
+						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint Amphibious', 90, false, MergeLimit) then
 						
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT AMPHIB "..repr(self.BuilderName).." completing MergeWith")
 				
@@ -7476,9 +7476,9 @@ Platoon = Class(moho.platoon_methods) {
 		local mergedunits = false
 		local allyPlatoonSize, validUnits, counter = 0
 		
-        if ScenarioInfo.PlatoonMergeDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)).." platoons")
-        end
+        --if ScenarioInfo.PlatoonMergeDialog then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)).." platoons")
+        --end
 		
 		local count = 0
 		
@@ -7490,8 +7490,6 @@ Platoon = Class(moho.platoon_methods) {
                 continue
             end
 		
-			count = count + 1
-
 			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
             if aPlat.UsingTransport then
 			
@@ -7521,7 +7519,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 				break
 			end
-			
+
+            count = count + 1
+            
             -- get the allied platoons size
 			allyPlatoonSize = 0
 			
@@ -7577,7 +7577,9 @@ Platoon = Class(moho.platoon_methods) {
         end
 
         if ScenarioInfo.PlatoonMergeDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." reviewed "..count.." platoons")
+            if count > 0 then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH reviewed "..count.." platoons")
+            end
         end
         
 		return mergedunits
@@ -7617,6 +7619,8 @@ Platoon = Class(moho.platoon_methods) {
         -- get all the platoons
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
         local AlliedPlatoons = GetPlatoonsList(aiBrain)
+        
+        local count = 0
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) return VDist2Sq(GetPlatoonPosition(a)[1],GetPlatoonPosition(a)[3], platPos[1],platPos[3]) < VDist2Sq(GetPlatoonPosition(b)[1],GetPlatoonPosition(b)[3], platPos[1],platPos[3]) end)
 
@@ -7645,6 +7649,8 @@ Platoon = Class(moho.platoon_methods) {
             if self.MovementLayer != aPlat.MovementLayer then
                 continue
             end
+            
+            count = count + 1
 			
             local validUnits = {}
 			local counter = 0
@@ -7672,6 +7678,13 @@ Platoon = Class(moho.platoon_methods) {
 			
 				return true
 			end
+
+            if ScenarioInfo.PlatoonMergeDialog then
+                if count > 0 then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_INTO reviewed "..count.." platoons")
+                end
+            end
+
         end
 
 		return false
