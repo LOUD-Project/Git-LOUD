@@ -530,7 +530,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
 		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 4,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -540,7 +540,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 
-			-- enemy mass points within 15km
+			-- enemy mass points within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
@@ -594,6 +594,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	-- another MASSEXTRACTION attack but smaller
     -- formed when team does not have it's mass share
     -- attacks MASSPRODUCTION positions within 15 km
+
 	Builder {BuilderName = 'T1 MEX Attack Land Need Mass',
 	
         PlatoonTemplate = 'T1MassAttack',
@@ -601,11 +602,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 805,
+        Priority = 800,
 		
 		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -1446,6 +1447,80 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
     BuildersType = 'PlatoonFormBuilder',
 
+    
+	Builder {BuilderName = 'Extractor Attack',
+	
+        PlatoonTemplate = 'T1MassGuard',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		
+        Priority = 800,
+        
+        RTBLocation = 'Any',
+
+        InstanceCount = 7,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ LUTL, 'NeedTeamMassPointShare', {}},
+            
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			-- enemy mass points within 20km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+		
+			DistressRange = 120,
+			DistressTypes = 'Land',
+			DistressThreshold = 4,
+			
+			PointType = 'Unit',
+			PointCategory = categories.MASSPRODUCTION,
+			PointSourceSelf = true,
+			PointFaction = 'Enemy',
+			PointRadius = 1000,
+			PointSort = 'Closest',
+			PointMin = 100,
+			PointMax = 750,
+			
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 30,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 2,
+            
+            ThreatMaxRatio = 0.9,
+			
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
+			UntRadius = 30,
+			UntTrigger = true,
+			UntMin = 0,
+			UntMax = 6,
+			
+            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
+			
+			GuardRadius = 75,
+			GuardTimer = 25,
+			
+			MergeLimit = 25,
+			
+			AggressiveMove = true,
+			
+			AllowInWater = false,
+			
+			UseFormation = 'LOUDClusterFormation',
+        },
+    },
+    
 	-- Platoon designed to go to empty mass points within 15km and stay there until an extractor is built
 	-- runs until AI team has its share of mass points
     Builder {BuilderName = 'Mass Point Guard',
@@ -1527,7 +1602,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UseFormation = 'LOUDClusterFormation',
         },
     },
-	
+
+--[[	
 	-- Platoon designed to go to extractors and guard them until at least 3 defense structures are built there
     Builder {BuilderName = 'MEX Guard - HiPri',
 	
@@ -1608,6 +1684,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UseFormation = 'BlockFormation',
         },    
     },
+--]]
 	
     Builder {BuilderName = 'MEX Guard',
 	
@@ -1621,7 +1698,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 3,
+        InstanceCount = 6,
 
         BuilderType = 'Any',
 		
@@ -1672,11 +1749,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			AssistRange = 3,
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
-			GuardTimer = 150,				-- platoon will guard 2.5 minutes
+			GuardTimer = 120,				-- platoon will guard 2 minutes
 			
 			MissionTime = 900,				-- platoon will operate 15 minutes
 			
-			MergeLimit = 16,				-- unit count at which merging is denied
+			MergeLimit = 25,				-- unit count at which merging is denied
 			
 			AggressiveMove = false,
 			
