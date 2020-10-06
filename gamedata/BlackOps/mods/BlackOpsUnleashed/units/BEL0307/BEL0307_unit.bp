@@ -2,7 +2,7 @@ UnitBlueprint {
 	AI = {
         TargetBones = {
             'Railgun_Turret',
-            'BEL0307',
+			'Gat_Turret',
         },
     },
 	
@@ -164,9 +164,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.3,
 	
-    SizeX = 1.3,
-    SizeY = 0.8,
-    SizeZ = 1.8,
+    SizeX = 1.0,
+    SizeY = 0.75,
+    SizeZ = 1.7,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,

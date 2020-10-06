@@ -6,6 +6,8 @@ UnitBlueprint {
             'Carapace',
             'Left_Leg_2',
             'Right_Leg_1',
+			'Right_Leg_3',
+			'Left_Front_Toe',
         },
     },
 	

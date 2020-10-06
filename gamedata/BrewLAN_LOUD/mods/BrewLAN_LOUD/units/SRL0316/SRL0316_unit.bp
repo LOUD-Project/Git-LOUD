@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -181,7 +187,7 @@ UnitBlueprint {
     SelectionThickness = 0.91,
 	
     SizeX = 0.66,
-    SizeY = 0.22,
+    SizeY = 0.4,
     SizeZ = 0.77,
 	
     StrategicIconName = 'icon_land3_counterintel',

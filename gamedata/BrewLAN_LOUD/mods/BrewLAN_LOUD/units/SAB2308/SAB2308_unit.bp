@@ -53,7 +53,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -1.8,
+    CollisionOffsetY = -1.0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -174,7 +174,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2.8,
-    SizeY = 3,
+    SizeY = 2.2,
     SizeZ = 2.8,
 	
     StrategicIconName = 'icon_structure3_antinavy',

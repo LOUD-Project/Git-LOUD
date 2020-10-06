@@ -1,4 +1,13 @@
 UnitBlueprint {
+	AI = {
+        TargetBones = {
+            'XSB2303',
+            'B01',
+			'B02',
+			'B03',
+        },
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',

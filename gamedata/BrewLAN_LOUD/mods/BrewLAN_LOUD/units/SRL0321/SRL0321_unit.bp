@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+        TargetBones = {
+            'Muzzle',
+        },
     },
 	
     Audio = {
@@ -195,7 +198,7 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 	
     SizeX = 1.1,
-    SizeY = 1.5,
+    SizeY = 0.5,
     SizeZ = 1.6,
 
     StrategicIconName = 'icon_land3_antimissile',

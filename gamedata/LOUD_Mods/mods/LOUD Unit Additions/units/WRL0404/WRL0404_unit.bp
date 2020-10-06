@@ -1,4 +1,13 @@
 UnitBlueprint {
+
+	AI = {
+        TargetBones = {
+            'UCX0101_Pelvis',
+            'UCX0101_T01_Barrel01',
+            'UUX0111_Tail',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XRL_Destroy',

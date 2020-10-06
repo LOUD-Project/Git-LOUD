@@ -2,6 +2,9 @@ UnitBlueprint {
     AI = {
 		AttackAngle = 42,
         GuardReturnRadius = 60,
+		TargetBones = {
+            'XRS0305',
+		},
     },
 	
     Audio = {

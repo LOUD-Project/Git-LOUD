@@ -1,4 +1,15 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Muzzle',
+			'Exhaust001',
+			'Exhaust002',
+			'Mesh001',
+			'Mesh004',
+        },
+    },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'UAL',

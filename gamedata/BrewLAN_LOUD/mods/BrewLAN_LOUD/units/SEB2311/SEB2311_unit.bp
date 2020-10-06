@@ -1,8 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'SEB2311',
-            'Front_Turret02_Barrel02',
+            'Front_Turret02',
         },
     },
 	
@@ -182,8 +181,8 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
 	
-    SizeX = 1.5,
-    SizeY = 0.9,
+    SizeX = 1.1,
+    SizeY = 0.7,
     SizeZ = 1.5,
 	
     StrategicIconName = 'icon_structure3_artillery',

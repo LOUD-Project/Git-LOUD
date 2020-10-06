@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Head',
+            'Effect',
             'Right_Leg_B02',
         },
     },
@@ -60,7 +60,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.1,
+    CollisionOffsetY = -0.0,
 	
     Defense = {
         AirThreatLevel = 18, -- Half surface threat because it can hit low altitude air.

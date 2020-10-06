@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = { 
+		TargetBones = {
+            'Turret',
+        },		
+    }, 
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -282,9 +289,9 @@ UnitBlueprint {
     SelectionSizeZ = 2.1,
     SelectionThickness = 0.5,
 	
-    SizeX = 2.7,
-    SizeY = 2.1,
-    SizeZ = 2.7,
+    SizeX = 2.0,
+    SizeY = 1.6,
+    SizeZ = 2.0,
 	
     StrategicIconName = 'icon_experimental_structure_directfire',
     StrategicIconSortPriority = 200,

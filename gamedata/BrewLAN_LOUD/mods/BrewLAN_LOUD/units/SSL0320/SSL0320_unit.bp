@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -250,7 +255,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
 	
-    SizeX = 0.85,
+    SizeX = 0.7,
     SizeY = 0.65,
     SizeZ = 0.85,
 	

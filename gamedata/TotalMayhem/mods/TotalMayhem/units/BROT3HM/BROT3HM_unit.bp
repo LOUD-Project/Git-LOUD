@@ -1,7 +1,12 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 60, 
+		TargetBones = {
+            'Turret',
+        },		
     }, 
+	
     Audio = {
         Killed = Sound {
             Bank = 'TM_EXPLOSIONS',

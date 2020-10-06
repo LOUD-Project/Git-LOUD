@@ -16,7 +16,13 @@ UnitBlueprint {
 --]]
     
     AI = {
-        TargetBones = { 'Body' },
+        TargetBones = { 
+			'Body',
+			'Turret_Body',
+			'Muzzle',
+			'B_002',
+			'B_005',
+		},
     },
     
     Audio = {

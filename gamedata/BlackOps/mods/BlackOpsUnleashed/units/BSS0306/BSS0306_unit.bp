@@ -1,5 +1,17 @@
 UnitBlueprint {
 
+    AI = {
+		TargetBones = { 
+			'XSS0306',
+			'Orb_Muzzle01',
+			'Lasor_Turret01',
+			'Lasor_Turret02',
+			'Turret03',
+			'Turret02',
+			'Exhaust01',
+		},
+    },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSS_Destroy',

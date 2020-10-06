@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {  
+		TargetBones = {
+            'Turreta',
+        },		
+    }, 
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -45,6 +52,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+	
+	CollisionOffsetZ = -0.1,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -196,8 +205,8 @@ UnitBlueprint {
     SelectionThickness = 0.8,
 	
     SizeX = 0.6,
-    SizeY = 0.45,
-    SizeZ = 0.6,
+    SizeY = 0.6,
+    SizeZ = 0.7,
 	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,

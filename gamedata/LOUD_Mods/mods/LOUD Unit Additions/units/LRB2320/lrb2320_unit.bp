@@ -1,8 +1,8 @@
 UnitBlueprint {
-AI = {
+	AI = {
         TargetBones = {
-            'Turret_Recoil',
-            'Turret',
+            'Cmgub31',
+			'gun_rack03',
         },
     },
 	
@@ -165,8 +165,8 @@ AI = {
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.3,
-    SizeY = 2.8,
+    SizeX = 1.5,
+    SizeY = 1.8,
     SizeZ = 1.6,
 	
     StrategicIconName = 'icon_structure3_artillery',

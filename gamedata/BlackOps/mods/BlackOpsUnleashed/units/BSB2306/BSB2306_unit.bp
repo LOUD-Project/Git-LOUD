@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+		TargetBones = {
+            'Turret_Barrel',
+		},
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -46,7 +52,8 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.3,
+    CollisionOffsetY = -0.25,
+    CollisionOffsetZ = 0.2,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -113,7 +120,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bsb2306_name>Uttauthuum',

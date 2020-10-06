@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Body',
+            'Spinner_1',
             'Leg_A_1',
 			'Leg_B_1',
 			'Leg_B_1',

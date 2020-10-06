@@ -1,7 +1,16 @@
 UnitBlueprint {
 
 	AI = {
-		TargetBones = { 'Body','XSL0106' },
+		TargetBones = { 
+			'Body',
+			'Leg_Upper_01',
+			'Leg_Upper_02',
+			'Leg_Upper_03',
+			'Leg_Upper_04',
+			'Leg_Upper_05',
+			'Leg_Upper_06',
+			'Leg_Upper_07',
+		},
 	},
 	
     Audio = {
@@ -57,6 +66,8 @@ UnitBlueprint {
 		'OVERLAYCOUNTERINTEL',
 		'DRAGBUILD',
     },
+	
+	CollisionOffsetY = 1.5,
 	
     Defense = {
         ArmorType = 'Experimental',
@@ -205,9 +216,9 @@ UnitBlueprint {
     SelectionSizeZ = 3.5,
     SelectionThickness = 0.3,
 	
-    SizeX = 2.45,
-    SizeY = 2.5,
-    SizeZ = 2.45,
+    SizeX = 3.5,
+    SizeY = 1.5,
+    SizeZ = 3.7,
 	
     StrategicIconName = 'icon_experimental_land_shield',
     StrategicIconSortPriority = 114,
