@@ -3150,6 +3150,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnFailedToBuild = function(self)
+    
+        --LOG("*AI DEBUG OnFailedToBuild "..self:GetAIBrain().Nickname.." "..repr(self.PlatoonHandle.BuilderName))
 	
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()

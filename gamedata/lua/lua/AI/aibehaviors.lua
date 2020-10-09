@@ -5655,6 +5655,8 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 
         -- if unit is idle and not currently in a platoon
         if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
+        
+            unit.AssigningTask = true
 		
 			BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
 			BuildCostM = EBP[CurrentEnhancement].BuildCostMass
@@ -5671,8 +5673,18 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
 				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
+			
+                    for _,v in unit:GetGuards() do
+			
+                        if not v.Dead and v.PlatoonHandle then
 				
-					unit.AssigningTask = true
+                            v.PlatoonHandle:ReturnToBaseAI(aiBrain)
+					
+                        end
+				
+                    end
+				
+					--unit.AssigningTask = true
             
 					IssueStop({unit})
 					IssueClearCommands({unit})
@@ -5746,7 +5758,9 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 				end
 				
             end
-			
+
+            unit.AssigningTask = false			
+            
             WaitTicks(36)
 			
         end
