@@ -3,11 +3,14 @@ UnitBlueprint {
 
         GuardScanRadius = 50,
 		GuardReturnRadius = 55,
+        
         RefuelingMultiplier = 75,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
+        
 		StagingPlatformScanRadius = 200,
+        
         TargetBones = {
             'Bay_Cover',
             'Front_Core',
@@ -86,6 +89,7 @@ UnitBlueprint {
         'EXPERIMENTAL',
 		'INDIRECTFIRE',
         'FACTORY',
+        'AIRSTAGINGPLATFORM',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
