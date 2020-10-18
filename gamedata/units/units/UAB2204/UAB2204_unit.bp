@@ -38,8 +38,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
-        Health = 3500,
-        MaxHealth = 3500,
+        Health = 2950,
+        MaxHealth = 2950,
         RegenRate = 1,
     },
 	
@@ -106,15 +106,19 @@ UnitBlueprint {
         UnitName = '<LOC uab2204_name>Marr',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 30,
     },
+    
     Interface = {
         HelpText = 'AA Flak Artillery',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -139,14 +143,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+    
     SizeX = 0.8,
     SizeY = 1.2,
     SizeZ = 0.8,
+    
     StrategicIconName = 'icon_structure2_antiair',
     StrategicIconSortPriority = 200,
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -154,6 +162,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -175,7 +184,7 @@ UnitBlueprint {
 			
             Damage = 150,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -226,16 +235,15 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
                 'AIR MOBILE TECH3 BOMBER',
                 'AIR MOBILE BOMBER',
                 'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
                 'AIR MOBILE',
                 
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
             TurretBoneYaw = 'Turret',
