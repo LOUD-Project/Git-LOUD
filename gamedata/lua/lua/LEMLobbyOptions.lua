@@ -137,8 +137,8 @@ GPGrestrictedUnits = {
     },
 
     ALTAIR = {
-		categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","uaa0302","uea0302","ura0302","xsa0302","sea0310","sea0313","sea0314","saa0314","sra0313","sra0314","ssa0314" },
-		name = "Alternative Air Rebalance",
+		categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","sea0310","sea0313","sea0314","saa0314","sra0313","sra0314","ssa0314" },
+		name = "Alternative Air - T3 limted to Scouts, fighters and Torpedo Bombers",
 		tooltip = "T3_Scouts_fighters_and_T_Bombers_only",
     },
 		
