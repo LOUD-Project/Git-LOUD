@@ -969,7 +969,7 @@ UnitBlueprint {
 			
             Damage = 76,	-- a 3/4 version of the T2 flak gun
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.6,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1059,7 +1059,7 @@ UnitBlueprint {
             
             Damage = 36,
 			DamageFriendly = false,
-			DamageRadius = 2.0,
+			DamageRadius = 1.6,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
