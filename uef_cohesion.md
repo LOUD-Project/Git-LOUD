@@ -225,13 +225,3 @@ Indirect fire
 Beam
 
 - Beam
-
-T2/T3:
-Rapid (light) vehicles should be removed. Very dependant on rocket and low quality units in general;
-Helltank / Juggernaut are strange. The Helltank has more HP, better weaponry, both are amphib. But i like them both..
-AA is cluttered in T3. Use cougar for gatling reasons, add amph. Remove others but the radar one as it serves a different purpose (and can't be massed due to 2500 energy cost).
-
-EXP:
-Owens doesn't bring much to the table. Has cybran weaponry. Cull;
-Star Adder: Visual noise; Cybran gun, is same quality as Blood Asp; Has personal stealth (cyb); Cull in favor of Blood Asp;
-Might want to trade out bots for the fatboys. They are more UEF, good enough, and it's now a mechwarriro for all races party; If keep, remove all but dragonite. It's the only one that makes sense. Tone down visual noise of the gauss.
