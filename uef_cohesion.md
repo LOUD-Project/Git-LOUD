@@ -40,7 +40,7 @@ Dreadnaught has gauss apparently.
 
 ## Land
 
-**Helltank / Jugger** - Add Torpedoes(-defense) to jugger and remove rockets. This diversifies the roles of these very similar units;
+**Helltank / Jugger** - Add Torpedoes(-defense) to jugger and remove rockets. This diversifies the roles of these very similar units; / Remove Amph from Helltank
 
 - Helltank railgun is a major part of the units strength and uniqueness;
 - Juggernaut has less HP than helltank if you combine HP + shield. This wass not the original intention;
