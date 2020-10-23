@@ -1,5 +1,9 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = { 'Turret' },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -36,7 +40,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.1,
+    CollisionOffsetY = -0.0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -226,7 +230,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- once every 4 seconds - controlled by charge
 
             TargetCheckInterval = 3,
             TargetPriorities = {

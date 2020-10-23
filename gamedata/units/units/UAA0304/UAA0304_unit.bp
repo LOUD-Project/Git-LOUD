@@ -280,7 +280,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 0.2,		#-- 690 DPS
+            RateOfFire = 0.2,		---- 690 DPS
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {

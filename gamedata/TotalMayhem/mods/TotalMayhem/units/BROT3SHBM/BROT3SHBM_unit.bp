@@ -1,6 +1,14 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 60, 
+		TargetBones = {
+            'toes01',
+			'legb2',
+			'Turret',
+			'gun',
+			'gun01',
+        },		
     }, 
 	
     Audio = {
@@ -205,8 +213,8 @@ UnitBlueprint {
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
 	
-    SizeX = 2,
-    SizeY = 3.9,
+    SizeX = 2.6,
+    SizeY = 4.2,
     SizeZ = 2.2,
 	
     StrategicIconName = 'icon_experimental_land_directfire',
@@ -293,7 +301,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		# 1400dps
+            RateOfFire = 1,		-- 1400dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -396,7 +404,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,	# 1200dps
+            RateOfFire = 1,	-- 1200dps
 			
             TargetCheckInterval = 0.5,
 			
@@ -502,7 +510,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.05,	# 20dps
+            RateOfFire = 0.05,	-- 20dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

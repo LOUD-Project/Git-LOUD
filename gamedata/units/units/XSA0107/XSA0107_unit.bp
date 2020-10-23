@@ -170,7 +170,7 @@ UnitBlueprint {
         },
         Elevation = 10,
 		
-        FuelRechargeRate = 11,
+        FuelRechargeRate = 6,
         FuelUseTime = 240,
 		
         MaxSpeed = 0.5,
@@ -185,7 +185,7 @@ UnitBlueprint {
     SelectionThickness = 0.23,
 	
     SizeX = 4.5,
-    SizeY = 1.2, #3,
+    SizeY = 1.2, --3,
     SizeZ = 7,
 	
     StrategicIconName = 'icon_gunship1_transport',

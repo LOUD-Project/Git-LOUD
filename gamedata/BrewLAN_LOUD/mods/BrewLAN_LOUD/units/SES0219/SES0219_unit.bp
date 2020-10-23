@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Front_Turret',
+            'Turret',
             'Back_Turret',
+			'UES0103',
         },
     },
 	
@@ -60,6 +61,7 @@ UnitBlueprint {
         'TECH2',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.4,
@@ -284,7 +286,7 @@ UnitBlueprint {
     SelectionSizeZ = 3.4,
     SelectionThickness = 0.2,
 	
-    SizeX = 1,
+    SizeX = 0.7,
     SizeY = 1.1,
     SizeZ = 4.1,
 	

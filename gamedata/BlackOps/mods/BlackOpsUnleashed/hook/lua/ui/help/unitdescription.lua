@@ -21,7 +21,7 @@ Description['balk003'] = "Advanced mobile anti-air unit. The Redeemer carries sa
 --UEF
 
 Description['belk002'] = "Advanced mobile anti-air unit. The Cougar is armed with dual high precision AA gatling cannons, capable of hitting even the faster high-end planes."
-Description['bel0307'] = "A refined version of the Juggernaut, the Helltank eliminates the skin shield in favor of a railgun, more speed and low-level AA capability. Aptly named for its large weapons array, the Helltank is a force to be reckoned with."
+Description['bel0307'] = "A refined version of the Juggernaut, the Helltank eliminates the skin shield in favor of a railgun, more speed and low-altitude AA capability. Aptly named for its large weapons array, the Helltank is a force to be reckoned with."
 Description['bes0402'] = "The Conquest Dreadnought carries three X-Cannons which fires shells filled with concentrated anti-matter, it also carries 8 long ranged cannons and 8 flak guns. Capable of providing superb shore bombardment and adequate air defense."
 Description['bea0402'] = "Unsatisfied with the performance of the original Citadel, it was redesigned with a greater focus on Air Superiority. It lost much of it's Air to Ground Weaponry in favor of boosted Air-to-Air Weapons for a great focus upon Air Superiority."
 Description['bea0403'] = "The Citadel is an attempt to bring the firepower of Fatboy into a flying form. Removing the factory and bubble shield in favor of AA weapons makes it a versatile ground support package."

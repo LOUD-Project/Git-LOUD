@@ -1,6 +1,10 @@
 UnitBlueprint {
     AI = {
         GuardScanRadius = 45,
+        TargetBones = {
+            'Leg0401',
+			'Leg0301',
+        },		
     },
     Audio = {
         StartMove = Sound {
@@ -183,7 +187,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 1.3,
-    SizeY = 1,
+    SizeY = 1.1,
     SizeZ = 1.25,
 	
     StrategicIconName = 'icon_land3_directfire',

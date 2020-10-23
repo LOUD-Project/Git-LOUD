@@ -1,4 +1,14 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Effect01',
+			'Effect02',
+			'Effect03',
+			'Effect04',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -311,7 +321,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 900 dps
+            RateOfFire = 0.1,	-- 900 dps
             RenderFireClock = true,
 			
             SlavedToBody = false,
@@ -398,7 +408,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,	# 480 dps
+            RateOfFire = 0.3,	-- 480 dps
 			
             TargetCheckInterval = 1,
 			
@@ -485,7 +495,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 0.5,	# 300 dps
+            RateOfFire = 0.5,	-- 300 dps
 			
             TargetCheckInterval = 4,
             TargetPriorities = {
@@ -571,7 +581,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.5,	# 300 dps
+            RateOfFire = 0.5,	-- 300 dps
 			
             TargetCheckInterval = 4,
             TargetPriorities = {

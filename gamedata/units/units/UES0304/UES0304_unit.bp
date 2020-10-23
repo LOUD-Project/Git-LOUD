@@ -67,6 +67,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
+        'OVERLAYSONAR',
 --        'NUKESUB',
     },
 	
@@ -198,7 +199,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 400000,
         BuildCostMass = 10000,
-        BuildRate = 600,	# was 1000
+        BuildRate = 600,	-- was 1000
         BuildTime = 52632,
     },
 
@@ -384,7 +385,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1, 	#-- 6 missiles = 3600 dmg every 10 seconds = 360 DPS
+            RateOfFire = 0.1, 	---- 6 missiles = 3600 dmg every 10 seconds = 360 DPS
 			
             TargetCheckInterval = 2.5,
 			

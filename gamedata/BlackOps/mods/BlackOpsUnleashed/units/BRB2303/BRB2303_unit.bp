@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -46,7 +52,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.3,
+    CollisionOffsetY = -0.25,
 
     Defense = {
         ArmorType = 'Structure',
@@ -151,8 +157,8 @@ UnitBlueprint {
     SelectionThickness = 0.45,
 	
     SizeX = 1,
-    SizeY = 1.2,
-    SizeZ = 1,
+    SizeY = 1.15,
+    SizeZ = 1.7,
 	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
@@ -187,8 +193,8 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 0.5,
                     Radius = 2,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
-                    TargetDisallow = 'COMMAND,SUBCOMMANDER,WALL',
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,TECH3,COMMAND,WALL',
                 },
             },
 			
@@ -225,7 +231,7 @@ UnitBlueprint {
             MuzzleVelocity = 24,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire04/CybranHailfire04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 3,
+			ProjectileLifetimeUsesMultiplier = 3.5,
 
             RackBones = {
                 {
@@ -246,7 +252,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1.5,			#-- 105 DPS
+            RateOfFire = 1.5,			---- 105 DPS
             RenderFireClock = true,
 			
             TargetCheckInterval = .4,

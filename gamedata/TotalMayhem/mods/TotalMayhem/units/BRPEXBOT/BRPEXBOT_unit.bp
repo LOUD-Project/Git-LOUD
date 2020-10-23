@@ -1,11 +1,20 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 45,
+		TargetBones = {
+            'Object02',
+			'Left_Leg_B002',
+			'BRPT2EXBOT',
+			'RightCannon',
+			'Left_Barrel',
+        },	
     },
+	
     Audio = {
-        Killed = Sound {
-            Bank = 'TM_CYBRANWEAPONS',
-            Cue = 'CYBRANT3ADVBOTDEATHFX',
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -51,9 +60,10 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'OVERLAYINDIRECTFIRE',
-        'OVERLAYDIRECTFIRE',
     },
+    
+	CollisionOffsetZ = -0.3,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 55000,
@@ -61,6 +71,7 @@ UnitBlueprint {
         RegenRate = 15,
         SurfaceThreatLevel = 416.5,
     },
+    
     Description = '<LOC brpexbot_desc>Medium Experimental Assault Bot',
 	
     Display = {

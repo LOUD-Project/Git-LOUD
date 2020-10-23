@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "ueb4301", #UEF T3 Shield
+	BlueprintId = "ueb4301", --UEF T3 Shield
     Economy = {
         BuildRate = 20,
 		

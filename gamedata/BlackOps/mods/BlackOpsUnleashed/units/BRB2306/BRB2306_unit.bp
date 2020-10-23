@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -106,7 +113,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brb2306_name>Manticore',
@@ -151,9 +158,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.6,
 	
-    SizeX = 0.5,
-    SizeY = 2.7,
-    SizeZ = 0.5,
+    SizeX = 1.1,
+    SizeY = 2.8,
+    SizeZ = 1.1,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 230,
@@ -206,7 +213,7 @@ UnitBlueprint {
             EnergyChargeForFirstShot = false,
 			
 			EnergyDrainPerSecond = 200,
-			EnergyRequired = 1200,	#-- takes 6 seconds to charge
+			EnergyRequired = 1200,	---- takes 6 seconds to charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -238,14 +245,14 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,	#-- 1 second to charge as per script
+            RackSalvoChargeTime = 0,	---- 1 second to charge as per script
             RackSalvoFiresAfterCharge = false, 
-            RackSalvoReloadTime = 0, 	#-- 2.5 seconds after firing
+            RackSalvoReloadTime = 0, 	---- 2.5 seconds after firing
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 10,		#-- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
+            RateOfFire = 10,		---- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
 			
             TargetCheckInterval = 3,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -343,7 +350,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,		#-- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
+            RateOfFire = 1,		---- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
 			
             TargetCheckInterval = 0.25,
             TargetRestrictDisallow = 'UNTARGETABLE',

@@ -1,12 +1,16 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
-            'Turret',
             'Target02',
             'Target03',
+			'F_L_Leg_B01',
+			'F_R_Leg_B01',
+			'Barrel01',
         },
         NeedUnpack = false,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -63,7 +67,8 @@ UnitBlueprint {
         'DRAGBUILD',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = 1.25,
+	CollisionOffsetZ = 0.8,
 	
     Defense = {
         ArmorType = 'Experimental',
@@ -258,9 +263,9 @@ UnitBlueprint {
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.3,
 	
-    SizeX = 2.8,
-    SizeY = 3.15,
-    SizeZ = 2.8,
+    SizeX = 2.0,
+    SizeY = 1.2,
+    SizeZ = 5.1,
 	
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 175,
@@ -366,7 +371,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.07,		# - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+            RateOfFire = 0.07,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {

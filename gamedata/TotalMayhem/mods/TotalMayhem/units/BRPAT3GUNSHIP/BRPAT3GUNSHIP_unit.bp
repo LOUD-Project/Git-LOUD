@@ -1,8 +1,13 @@
 UnitBlueprint {
+
     AI = {
         GuardReturnRadius = 75,
         GuardScanRadius = 50,
-    },
+		TargetBones = {
+            'BRPAT1EXGUNSHIP',
+        },		
+    }, 
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 0.2,
@@ -227,9 +232,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.4,
 	
-    SizeX = 1.7,
-    SizeY = 0.55,
-    SizeZ = 1.7,
+    SizeX = 2.0,
+    SizeY = 0.8,
+    SizeZ = 2.2,
 	
     StrategicIconName = 'icon_gunship3_directfire',
     StrategicIconSortPriority = 65,

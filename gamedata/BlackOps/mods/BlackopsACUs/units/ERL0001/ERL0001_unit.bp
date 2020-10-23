@@ -62,11 +62,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 18,		#3
-            Level2 = 36,		#6
-            Level3 = 54,		#9
-            Level4 = 72,		#12
-            Level5 = 80,		#15
+            Level1 = 18,		--3
+            Level2 = 36,		--6
+            Level3 = 54,		--9
+            Level4 = 72,		--12
+            Level5 = 80,		--15
         },
     },
 	
@@ -101,10 +101,12 @@ UnitBlueprint {
         
         SurfaceThreatLevel = 75,
         
-		NoTeleDistance = 55,	#40
+		NoTeleDistance = 55,	--40
 		MaxTeleRange = 500,
     },
+    
     Description = '<LOC erl0001_desc>Armored Command Unit',
+    
     Display = {
         Abilities = {
             'Amphibious',
@@ -112,8 +114,10 @@ UnitBlueprint {
             'Omni Sensor',
             'Volatile',
         },
+        
         AnimationWalk = '/mods/BlackopsACUs/units/erl0001/ERL0001_AWalk03.sca',
         AnimationWalkRate = 0.43,
+        
         IdleEffects = {
             Seabed = {
                 Effects = {
@@ -231,6 +235,7 @@ UnitBlueprint {
         BuildCostMass = 18000,
         BuildRate = 10,
         BuildTime = 60000,
+        
         BuildableCategory = {
             'BUILTBYCOMMANDER CYBRAN',
             'BUILTBYTIER2COMMANDER CYBRAN',
@@ -238,20 +243,26 @@ UnitBlueprint {
             'BUILTBYTIER4COMMANDER CYBRAN',
             'URL0001UPGRADE',
         },
-        MaintenanceConsumptionPerSecondEnergy = 0,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1,
+
         MaxBuildDistance = 15,
+        
         NaturalProducer = true,
+        
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 2,
+        
         StorageEnergy = 5000,
         StorageMass = 650,
+        
         TeleportEnergyMod = 0.03985,
         TeleportMassMod = 0.03985,
         TeleportTimeMod = 0.0001,
+        
 		TeleportBurstEnergyCost = 10000,
-		xpBaseValue = 16000,
-		BuildxpLevelpSecond = 0,
     },
+    
     Enhancements = {
         Slots = {
             Back = {
@@ -270,6 +281,7 @@ UnitBlueprint {
                 y = 0,
             },
         },
+        
         EXImprovedEngineering = {
             BuildCostEnergy = 38000,
             BuildCostMass = 3500,
@@ -306,9 +318,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXAdvancedEngineering = {
-            BuildCostEnergy = 125000,	#105000
-            BuildCostMass = 12500,	#2100
-            BuildTime = 12500,		#6300
+            BuildCostEnergy = 125000,	--105000
+            BuildCostMass = 12500,	--2100
+            BuildTime = 12500,		--6300
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER CYBRAN',
             Icon = 'exles2',
             Name = 'Tech 3 Advanced Engineering (T2)',
@@ -342,9 +354,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXExperimentalEngineering = {
-            BuildCostEnergy = 750000,	#270000
-            BuildCostMass = 25000,	#4050
-            BuildTime = 37500,		#24300
+            BuildCostEnergy = 750000,	--270000
+            BuildCostMass = 25000,	--4050
+            BuildTime = 37500,		--24300
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER CYBRAN',
             Icon = 'exles3',
             Name = 'Tech 4 Experimental Engineering (T3)',
@@ -380,7 +392,7 @@ UnitBlueprint {
         EXCombatEngineering = {
             BuildCostEnergy = 22000,
             BuildCostMass = 2100,
-            BuildTime = 1800,		#1200
+            BuildTime = 1800,		--1200
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER CYBRAN',
             Icon = 'exlce1',
             Name = 'Tech 2 Combat Engineering (T1)',
@@ -416,9 +428,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXAssaultEngineering = {
-            BuildCostEnergy = 72000,	#90000
-            BuildCostMass = 7200,	#1800
-            BuildTime = 7200,		#5400
+            BuildCostEnergy = 72000,	--90000
+            BuildCostMass = 7200,	--1800
+            BuildTime = 7200,		--5400
 			
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER CYBRAN',
 			
@@ -457,9 +469,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXApocolypticEngineering = {
-            BuildCostEnergy = 162000,	#240000
-            BuildCostMass = 16200,		#3600
-            BuildTime = 16200,			#21600
+            BuildCostEnergy = 162000,	--240000
+            BuildCostMass = 16200,		--3600
+            BuildTime = 16200,			--21600
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER CYBRAN',
             Icon = 'exlce3',
             Name = 'Tech 4 Apocolyptic Engineering (T3)',
@@ -1403,7 +1415,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		#1.7
+        MaxSpeed = 1.5,		--1.7
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1540,14 +1552,14 @@ UnitBlueprint {
             BeamCollisionDelay = 0.2,
             BeamLifetime = 0.4,
             CollideFriendly = false,
-            Damage = 100000,		#12000
+            Damage = 100000,		--12000
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = 'Overcharge',
             DisplayName = 'Overcharge Cannon',
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 25000,	#3000
-            EnergyRequired = 30000,		#3000
+            EnergyDrainPerSecond = 25000,	--3000
+            EnergyRequired = 30000,		--3000
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
                 Seabed = 'Air|Land|Water|Seabed',
@@ -1556,7 +1568,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'OverCharge',
             ManualFire = true,
-            MaxRadius = 30,		#22
+            MaxRadius = 30,		--22
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
@@ -1581,7 +1593,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.1,		#0.2
+            RateOfFire = 0.1,		--0.2
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE, COMMAND, STRUCTURE',
             TurretBoneMuzzle = 'Turret_Muzzle_02',
@@ -1615,13 +1627,13 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 14500,	#3500
-            NukeInnerRingRadius = 15,		#30
+            NukeInnerRingDamage = 14500,	--3500
+            NukeInnerRingRadius = 15,		--30
             NukeInnerRingTicks = 5,
             NukeInnerRingTotalTime = 1,
 			
-            NukeOuterRingDamage = 4500,		#500
-            NukeOuterRingRadius = 25,		#40
+            NukeOuterRingDamage = 4500,		--500
+            NukeOuterRingRadius = 25,		--40
             NukeOuterRingTicks = 5,
             NukeOuterRingTotalTime = 4,
 			

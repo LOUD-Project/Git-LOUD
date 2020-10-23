@@ -1,4 +1,13 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Pannel_001',
+			'Pannel_002',
+			'Pannel_003',
+        },
+    },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'UAL',
@@ -61,8 +70,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
-        Health = 3000,
-        MaxHealth = 3000,
+        Health = 2700,
+        MaxHealth = 2700,
         RegenRate = 2,
     },
 	
@@ -72,7 +81,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Beam Based AA',
             '<LOC ability_hover>Hover',
-            '<LOC ability_deathaoe>Volitile',
+            '<LOC ability_deathaoe>Volatile',
         },
 
         Mesh = {
@@ -133,7 +142,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 15000,
+        BuildCostEnergy = 16500,
         BuildCostMass = 1100,
         BuildTime = 550,
     },
@@ -268,13 +277,13 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.4,
+            BeamLifetime = 0.3,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 90,
+            Damage = 120,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -309,13 +318,11 @@ UnitBlueprint {
                     RackBone = 'Muzzle_001',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -329,7 +336,6 @@ UnitBlueprint {
                 'AIR EXPERIMENTAL',
                 'BOMBER',
                 'GROUNDATTACK',
-                'TRANSPORTATION',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -345,7 +351,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 250,
+            TurretYawSpeed = 180,
 			
             Turreted = true,
 

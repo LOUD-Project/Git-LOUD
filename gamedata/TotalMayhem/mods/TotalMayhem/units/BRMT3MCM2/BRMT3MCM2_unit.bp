@@ -1,21 +1,22 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 65, 
+		TargetBones = {
+            'Turret',
+			'AttachPoint',
+			'Object04',
+			'Object13',
+        },
     }, 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
+        Killed = Sound {
+            Bank = 'URLWeapon',
+            Cue = 'URL0303_Death_EMP',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -223,9 +224,9 @@ UnitBlueprint {
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
     
-    SizeX = 1.8,
+    SizeX = 2.3,
     SizeY = 3.6,
-    SizeZ = 2.7,
+    SizeZ = 2.3,
     
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
@@ -295,10 +296,10 @@ UnitBlueprint {
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 16,
 			MuzzleVelocityRandomness = 5,
-			
+						
 			NotExclusive = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/MadCatRockets/MadCatRockets_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {
@@ -359,14 +360,15 @@ UnitBlueprint {
 			RenderFireClock = true,
 			
             TargetCheckInterval = 0.5,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',			
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS,-WALL',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 			
@@ -423,14 +425,14 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/MadCatMolecular/MadCatMolecular_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'lefthand_muzzle02',
-                    },
+                    MuzzleBones = {'lefthand_muzzle02' },
                     RackBone = 'leftgun01',
                 },
             },
@@ -445,17 +447,18 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	# 450 dps
+            RateOfFire = 0.5,	-- 450 dps
 			
             TargetCheckInterval = 2.0,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 	
@@ -507,14 +510,14 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/MadCatMolecular/MadCatMolecular_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'lefthand_muzzle1',
-                    },
+                    MuzzleBones = { 'lefthand_muzzle1' },
                     RackBone = 'leftgun',
                 },
             },
@@ -527,17 +530,18 @@ UnitBlueprint {
 			
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,	# 450 dps
+            RateOfFire = 0.5,	-- 450 dps
 			
             TargetCheckInterval = 2.0,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
 		
@@ -614,7 +618,7 @@ UnitBlueprint {
 			
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,	# 180 dps
+            RateOfFire = 3,	-- 180 dps
 			
             TargetCheckInterval = 0.66,
             TargetPriorities = {
@@ -724,7 +728,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,	# 450 dps
+            RateOfFire = 3,	-- 450 dps
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,

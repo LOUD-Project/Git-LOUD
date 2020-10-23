@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+        TargetBones = {
+            'Turret',
+        },
     },
 	
     Audio = {

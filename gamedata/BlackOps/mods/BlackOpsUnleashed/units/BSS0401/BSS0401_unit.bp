@@ -6,8 +6,10 @@ UnitBlueprint {
         TargetBones = {
             'XSS0401',
             'Left_AA_Turret01',
+            'Right_AA_Turret02',
             'Front_Turret01',
             'TMD_Turret',
+			'Exhaust02',
         },
     },
 	
@@ -56,7 +58,8 @@ UnitBlueprint {
 		'ANTIMISSILE',
         'SILO',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -1,
@@ -1513,7 +1516,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 50,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',

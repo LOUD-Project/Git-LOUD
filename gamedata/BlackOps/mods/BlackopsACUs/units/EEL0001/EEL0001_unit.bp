@@ -274,7 +274,7 @@ UnitBlueprint {
         },
 		
         MaintenanceConsumptionPerSecondEnergy = 1,
-		
+
         MaxBuildDistance = 15,
 		
         NaturalProducer = true,
@@ -1237,7 +1237,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		#1.7
+        MaxSpeed = 1.5,		--1.7
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1471,13 +1471,13 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 14500,	#3500
-            NukeInnerRingRadius = 15,		#30
+            NukeInnerRingDamage = 14500,	--3500
+            NukeInnerRingRadius = 15,		--30
             NukeInnerRingTicks = 5,
             NukeInnerRingTotalTime = 1,
 			
-            NukeOuterRingDamage = 4500,		#500
-            NukeOuterRingRadius = 25,		#40
+            NukeOuterRingDamage = 4500,		--500
+            NukeOuterRingRadius = 25,		--40
             NukeOuterRingTicks = 5,
             NukeOuterRingTotalTime = 4,
 			

@@ -1,8 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Target01',
-            'Target02',
+            'Turret',
         },
     },
     Audio = {
@@ -56,6 +55,7 @@ UnitBlueprint {
     Display = {
 		Abilities = {
             'High Energy Consumption',
+			'Aquatic: Can be built on water',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -98,7 +98,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC beb2303_name>Hellstorm Emplacement',
@@ -125,7 +125,7 @@ UnitBlueprint {
             LAYER_Orbit = false,
             LAYER_Seabed = false,
             LAYER_Sub = false,
-            LAYER_Water = false,
+            LAYER_Water = true,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -146,9 +146,11 @@ UnitBlueprint {
     SelectionSizeX = 1.2,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.47,
+	
     SizeX = 1,
-    SizeY = 1,
-    SizeZ = 1,
+    SizeY = 1.25,
+    SizeZ = 1.3,
+	
     StrategicIconName = 'icon_structure2_artillery',
     StrategicIconSortPriority = 180,
     Veteran = {

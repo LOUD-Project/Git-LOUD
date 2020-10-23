@@ -7,19 +7,21 @@
 --*****************************************************************************
 
 ainames = {
+
     uef = {
-        "Cockbag Surprise!",
+        "Dewster",
         "Keville",
         "Janicki",
         "Jesus Chrysler",
         "Staltman",
         "Kirwan",
         "Defwode",
-        "Maximius",
+        "RD Maxon",
         "Cox",
         "Budac",
         "Garat",
         "Rumsey",
+        "Scolar",
         "Smolko",
         "DeMelt",
         "Gecko Mucousface",
@@ -31,11 +33,14 @@ ainames = {
         "Dimmick",
         "Zimm",
         "Kohne",
+        "Frostberry",
     },
     aeon = {
         "Goober",
+        "Ironhand",
+        "Azraelian",
         "Xavier 4 Eyes",
-        "Tedles",
+        "Tanksy",
         "Svend Ziderzee",
         "Zoe",
         "Jessica",
@@ -50,7 +55,7 @@ ainames = {
         "Sletir",
         "Motoko",
         "Bassima",
-        "Jalbert",
+        "The Balthazar",
         "Janus",
         "Ocarina",
         "Kayleen",
@@ -81,6 +86,7 @@ ainames = {
         "Avatar",
         "5Iron",
         "TheContact",
+        "Red Collective",
         "Jackal",
         "C@tch22",
         "Rokion Era",
@@ -89,7 +95,8 @@ ainames = {
         "GStar",
         "Sckricko",
     },
-    seraphim = {
+    seraphim = { 
+        "Terhminate-Or",
         "Stash-Ullevash",
         "Ahn-Aishayeth",
         "Ahn-Iashen",
@@ -103,9 +110,9 @@ ainames = {
         "Zan-Uyalthow",
         "Zan-Uushen",
         "Oum-Ullehesh",
-        "Oum-Uyal",
+        "Oum-Ayla",
         "Oum-Ashavoh",
-        "Oum-Uthinaa",
+        "Oum-Zala",
         "Thel-Aishashen",
         "Thel-Awloshi",
         "Thel-Ylliuhesh",
@@ -117,4 +124,5 @@ ainames = {
         "Paj-Tshiab",
         "Al-Ghoussein",
     },
+    
 }

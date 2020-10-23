@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Cannon_Turret',
+        },
+    },
+	
     Audio = {
         Killed = Sound {
             Bank = 'URLWeapon',
@@ -252,7 +259,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.25,		# 330 Damage every 4 seconds = 82.5 dps
+            RateOfFire = 0.25,		-- 330 Damage every 4 seconds = 82.5 dps
 			
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 60,
@@ -341,7 +348,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,		#-- about 75 DPS
+            RateOfFire = 3,		---- about 75 DPS
 			
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 180,

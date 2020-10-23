@@ -1,5 +1,10 @@
 UnitBlueprint {
-
+    AI = {
+        TargetBones = {
+            'body',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -113,10 +118,8 @@ UnitBlueprint {
 	
     Enhancements = {
         Slots = {
-			Back = {
-			},
-			Command = {
-			},
+			Back = {},
+			Command = {},
             LCH = {
                 name = '<LOC _LCH>',
                 x = 50,
@@ -252,7 +255,7 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 	
     SizeX = 0.6,
-    SizeY = 1.1,
+    SizeY = 0.8,
     SizeZ = 0.4,
 	
     StrategicIconName = 'icon_bot2_directfire',
@@ -350,7 +353,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.2,			#-- 140 dps
+            RateOfFire = 0.2,			---- 140 dps
             RenderFireClock = true,
 
             TargetCheckInterval = 0.5,

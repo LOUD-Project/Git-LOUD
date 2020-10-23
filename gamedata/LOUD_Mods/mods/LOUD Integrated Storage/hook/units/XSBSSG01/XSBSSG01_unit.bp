@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "xsbssg01", #Seraphim T4 Shield
+	BlueprintId = "xsbssg01", --Seraphim T4 Shield
 	
     Economy = {
         BuildRate = 25,

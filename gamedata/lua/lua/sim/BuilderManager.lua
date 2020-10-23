@@ -434,18 +434,22 @@ BuilderManager = Class {
 
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
-			-- Simply, the PFM at a Primary Base (or MAIN) runs at the same speed as the Conditions Monitor while other bases run
-			-- at half that speed
+			-- Simply, the PFM at a Primary Base (or MAIN) runs at half the speed of the Conditions Monitor
+            -- other bases run at one/fifth the speed
 			if self.LocationType == 'MAIN' or brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
 				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
 			else
 			
 				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 5
-			end		
-			
+			end
+
+            -- as we move the AI Mult up, we check the Builders more frequently
+            -- this can simulate a greater degree of responsiveness
+            self.BuilderCheckInterval = math.floor( self.BuilderCheckInterval / brain.VeterancyMult )
+
+            -- and we set the delay between task checks accordingly
 			if tasks != self.NumBuilders or ((self.BuilderCheckInterval * 10) != duration) then
-			
 				duration = self.BuilderCheckInterval * 10
 				tasks = self.NumBuilders
 				ticksize = LOUDFLOOR( duration / tasks )
@@ -500,7 +504,10 @@ BuilderManager = Class {
 						end
 					end
 				end
-			end
+			else
+                -- delay the next cycle by 12 seconds (versus waiting the entire duration, which may be too long)
+                duration = 120
+            end
             
             --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." processed "..numTested.." Builders - ticks used is "..numTicks.." Formed "..numPassed)
             --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass - in "..(numTicks/10).." seconds")

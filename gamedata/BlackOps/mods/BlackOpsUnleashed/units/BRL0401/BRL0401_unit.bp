@@ -6,6 +6,8 @@ UnitBlueprint {
             'Carapace',
             'Left_Leg_2',
             'Right_Leg_1',
+			'Right_Leg_3',
+			'Left_Front_Toe',
         },
     },
 	
@@ -538,7 +540,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4, 					#	960dps
+            RateOfFire = 0.4, 					--	960dps
 			
             TargetCheckInterval = 1.0,
 			
@@ -637,7 +639,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.2, # 2600dps
+            RateOfFire = 0.2, -- 2600dps
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {
@@ -743,7 +745,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,	# 300dps
+            RateOfFire = 0.5,	-- 300dps
             RenderFireClock = false,
 			
             TargetCheckInterval = 1,
@@ -848,7 +850,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2.5,	#	187.5dps
+            RateOfFire = 2.5,	--	187.5dps
 			
             TargetCheckInterval = 0.25,
             TargetPriorities = {
@@ -944,7 +946,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 2.5,	#	187.5dps
+            RateOfFire = 2.5,	--	187.5dps
 			
             TargetCheckInterval = 0.33,
             TargetPriorities = {
@@ -1054,7 +1056,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08, # 960dps
+            RateOfFire = 0.08, -- 960dps
             RenderFireClock = true,
 			
             TargetCheckInterval = 5.0,
@@ -1153,7 +1155,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 800dps
+            RateOfFire = 0.1,	-- 800dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,

@@ -52,6 +52,7 @@ UnitBlueprint {
         'SUBMERSIBLE',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetX = 0.05,
@@ -322,7 +323,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 240 * .3 = 72 DPS Sub/Surface
+            RateOfFire = 0.2,		-- 240 * .2 = 48 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,

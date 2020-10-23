@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Turret_Yaw',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -39,7 +46,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = -0.0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -146,9 +153,11 @@ UnitBlueprint {
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.42,
+	
     SizeX = 1,
     SizeY = 1.2,
     SizeZ = 1,
+	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 180,
     Veteran = {
@@ -194,7 +203,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 27,		#-- 270 Damage per second
+            Damage = 27,		---- 270 Damage per second
 			DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',

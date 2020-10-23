@@ -1,5 +1,13 @@
 UnitBlueprint {
 
+    AI = {
+		TargetBones = {
+            'TargetBone01',
+			'TargetBone02',
+			'TargetBone03',
+		},
+    },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -186,7 +194,7 @@ UnitBlueprint {
     SelectionThickness = 0.35,
 	
     SizeX = 3,
-    SizeY = 6.5,
+    SizeY = 6.2,
     SizeZ = 3,
 	
     StrategicIconName = 'icon_experimental_structure_directfire',

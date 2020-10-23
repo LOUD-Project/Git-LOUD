@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Sensor_B001',
-            'Sensor_B002',
-            'Sensor_B003',
+            'Sensor_A',
             'SRB0324',
             'Tower_001',
         },

@@ -1,6 +1,6 @@
 #**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
 #**  Author(s): Lt_Hawkeye
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+#**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 #----------------------------------
 #  Lt_hawkeye's Custom Projectiles
@@ -679,26 +679,6 @@ NapalmProjectile02 = Class(EmitterProjectile) {
 }
 
 #------------------------------------------------------------------------
-#  ARTEMIS CANNON PROJECTILES
-#------------------------------------------------------------------------
-ArtemisCannonProjectile = Class(SinglePolyTrailProjectile) {
-	PolyTrail = BlackOpsEffectTemplate.ArtemisPolytrail01,
-    FxTrails = BlackOpsEffectTemplate.ArtemisFXTrail,
-
-    FxImpactUnit = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactProp = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactLand = EffectTemplate.AReactonCannonHitLand01,
-}
-DummyArtemisCannonProjectile = Class(MultiPolyTrailProjectile) {
-	PolyTrail = BlackOpsEffectTemplate.DummyArtemisPolytrail01,
-    FxTrails = BlackOpsEffectTemplate.DummyArtemisFXTrail,
-
-    FxImpactUnit = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactProp = EffectTemplate.AReactonCannonHitUnit01,
-    FxImpactLand = EffectTemplate.AReactonCannonHitLand01,
-}
-
-#------------------------------------------------------------------------
 #  AEON ABOVE WATER LAUNCHED TORPEDO
 #------------------------------------------------------------------------
 AMTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
@@ -963,24 +943,6 @@ MGQAILaserHeavyProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnit = EffectTemplate.CLaserHitUnit01,
     FxImpactProp = EffectTemplate.CLaserHitUnit01,
     FxImpactLand = EffectTemplate.CLaserHitLand01,
-    FxImpactUnderWater = {},
-}
-
-RedTurbolaser2Projectile = Class(MultiPolyTrailProjectile) {
-
-	FxTrails = {'/effects/emitters/electron_bolter_munition_01_emit.bp',},
-    PolyTrails = BlackOpsEffectTemplate.RedTurboLaser02,
-	
-
-    # Hit Effects
-    FxImpactUnit = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxUnitHitScale = 0.7,
-    FxImpactProp = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxPropHitScale = 0.7,
-    FxImpactAirUnit = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxAirUnitHitScale = 0.7,
-    FxImpactLand = BlackOpsEffectTemplate.MGQAICannonHitUnit,
-    FxLandHitScale = 0.7,  
     FxImpactUnderWater = {},
 }
 

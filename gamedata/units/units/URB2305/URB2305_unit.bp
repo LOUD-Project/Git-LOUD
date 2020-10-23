@@ -337,8 +337,8 @@ UnitBlueprint {
 
             Turreted = false,
 
-			# Animations play at 30FPS. Remember that!
-			# Unpacking is timed to take 5 seconds.
+			-- Animations play at 30FPS. Remember that!
+			-- Unpacking is timed to take 5 seconds.
             WeaponRepackTimeout = 10,
             WeaponUnpackAnimation = '/units/urb2305/urb2305_aactivate.sca',
             WeaponUnpackAnimationRate = 1.333333333333333,

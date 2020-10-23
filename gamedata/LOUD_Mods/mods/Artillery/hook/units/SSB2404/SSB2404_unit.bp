@@ -1,0 +1,16 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ssb2404", #Seraphim Gaah
+
+    Weapon = {
+        {
+            Damage = 6500,
+
+            DamageType = 'ShieldMult1.25',
+
+            MaxRadius = 4000,
+            MinRadius = 150,
+
+        },
+    },
+}

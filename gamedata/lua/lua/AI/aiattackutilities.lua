@@ -374,16 +374,22 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, PointFaction )
 		end
 		
+        -- filter out points by distance from source --
 		for k,v in pointlist do
 		
 			pos = v:GetPosition()
+            
 			distance = LOUDV2(PointSource[1],PointSource[3], pos[1],pos[3])
-			platdistance = LOUDV2(platpos[1],platpos[3], pos[1],pos[3])
 
 			if distance >= DistMin and distance <= DistMax then
+            
+                -- how far is the platoon from that target
+                platdistance = LOUDV2(platpos[1],platpos[3], pos[1],pos[3])            
 			
 				-- check if in range of Allied Base
 				if AvoidsBases( pos, shouldcheckAvoidBases, DistMin) then
+                
+                    -- if not too close to Allied base - store it with both distances -
 					positions[counter+1] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
 				end
@@ -480,7 +486,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			
 				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
 	
-				if (threatatpoint < threatmin or threatatpoint > threatmax) then
+				if (threatatpoint <= threatmin or threatatpoint > threatmax) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for threat "..threatatpoint.." min is "..threatmin.." max is "..threatmax )
+                    
                     -- remove this position from list
 					positions[k]=nil
 					counter = counter - 1
@@ -528,6 +537,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		
 			LOUDSORT(positions, function(a,b)	return (a[4]-a[5]) > (b[4]-b[5]) end)
 		end
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Positions list for "..self.BuilderName.." is "..repr(positions))
 		
 		return positions
 	end

@@ -53,11 +53,15 @@ UnitBlueprint {
 		
         Shield = {
             AntiArtilleryShield = true,
+            
             ImpactEffects = 'UEFAntiArtilleryShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            
             Mesh = '/mods/BrewLAN_LOUD/effects/entities/SEB4303AntiArtilleryShield01/SEB4303AntiArtilleryShield01_mesh',
-            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            MeshZ = '/mods/BrewLAN_LOUD/effects/entities/SEB4303AntiArtilleryShield01/SEB4303AntiArtilleryShieldZ_mesh',            
+
             RegenAssistMult = 60,
+            
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18750,
             ShieldRechargeTime = 20,

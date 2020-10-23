@@ -1,5 +1,12 @@
-UnitBlueprint {
-    Air = {
+UnitBlueprint {    
+	
+	AI = {
+        GuardReturnRadius = 125,
+        GuardScanRadius = 100,
+        TargetBones = { 'XAA0305' },
+    },
+    
+	Air = {
         AutoLandTime = 1.6,
         BankFactor = 5,
         BankForward = false,

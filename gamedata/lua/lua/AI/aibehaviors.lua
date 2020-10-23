@@ -2059,6 +2059,7 @@ function AirForceAILOUD( self, aiBrain )
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
     local searchradius = self.PlatoonData.SearchRadius or 250
+    
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
@@ -2501,9 +2502,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            if ScenarioInfo.PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
-            end
+            --if ScenarioInfo.PlatoonMergeDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge at range 100 - limit "..mergelimit )
+            --end
 
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Bomber_LOUD', 100, false, mergelimit) then
 
@@ -2731,7 +2732,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                     -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
                     LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
-                    
+                   
                     local attackissued = false
 
                     for key,u in attackers do
@@ -2991,9 +2992,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            if ScenarioInfo.PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
-            end
+            --if ScenarioInfo.PlatoonMergeDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
+            --end
 
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Gunship_LOUD', 100, false, mergelimit) then
 
@@ -3770,7 +3771,7 @@ function NavalForceAILOUD( self, aiBrain )
 			
 				self:Stop()
 
-				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, bAggroMove, 28 )
 				
 				WaitTicks(30)
 			else
@@ -4340,7 +4341,7 @@ function NavalBombardAILOUD( self, aiBrain )
 			
 				self:Stop()
 			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false, 28 )
 				
 				-- this pause is here for two reasons -
 				-- first: to allow the platoon to get moving
@@ -5654,6 +5655,8 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 
         -- if unit is idle and not currently in a platoon
         if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
+        
+            unit.AssigningTask = true
 		
 			BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
 			BuildCostM = EBP[CurrentEnhancement].BuildCostMass
@@ -5670,8 +5673,18 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
 				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
+			
+                    for _,v in unit:GetGuards() do
+			
+                        if not v.Dead and v.PlatoonHandle then
 				
-					unit.AssigningTask = true
+                            v.PlatoonHandle:ReturnToBaseAI(aiBrain)
+					
+                        end
+				
+                    end
+				
+					--unit.AssigningTask = true
             
 					IssueStop({unit})
 					IssueClearCommands({unit})
@@ -5745,7 +5758,9 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 				end
 				
             end
-			
+
+            unit.AssigningTask = false			
+            
             WaitTicks(36)
 			
         end
@@ -6952,6 +6967,10 @@ CzarBehaviorSorian = function(self, aiBrain)
 	LOG("*AI DEBUG "..aiBrain.Nickname.." CzarSorian starts")
 
 	local platoonUnits = GetPlatoonUnits(self)
+    
+    for _, czar in platoonUnits do
+        czar.EventCallbacks['OnHealthChanged'] = nil
+    end
 	
 	local cmd
     

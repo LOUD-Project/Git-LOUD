@@ -22,6 +22,8 @@ T3Bomber = {
 
 T3Fighter = {
 	Cybran = {'sra0313', 20},
+    UEF = {'sea0313', 20},
+    Seraphim = {'ssa0313', 20},
 },
 
 T3Gunship = {

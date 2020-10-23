@@ -91,6 +91,7 @@ UnitBlueprint {
         'FACTORY',
         'NAVALCARRIER',
         'SHOWQUEUE',
+        'OVERLAYRADAR','OVERLAYSONAR','OVERLAYOMNI',
     },
 	
     CollisionOffsetY = -0.375,

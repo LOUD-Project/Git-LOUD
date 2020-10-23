@@ -1757,20 +1757,31 @@ local function UpdateGame()
 	
 	gameInfo.GameOptions.PlayerCount = GetPlayerCount()
 	
-	if string.sub(GetVersion(),1,3) == '1.6' then
+	if string.sub(GetVersion(),1,3) == '1.6' and lobbyComm:IsHost() then
+    
+        gameInfo.GameOptions.MaxSlots = '16'
+        
+        LOG("*AI DEBUG Updating Steam Lobby game options with "..repr(gameInfo.GameOptions))
 	
 		lobbyComm:UpdateSteamLobby(  
-			{            
+        
+            {            
 				Options = gameInfo.GameOptions,
 				HostedBy = localPlayerName,
+                MaxPlayers = 16,
 				PlayerCount = GetPlayerCount(),
 				GameName = gameName,
 				ProductCode = import('/lua/productcode.lua').productCode,
-			} )
+			}
+        )
+        
+        --lobbyComm:UpdateSteamLobby()
     
 	else
 	
 	end
+    
+    --LOG("*AI DEBUG Gameinfo "..repr(gameInfo))
 
 end
 
@@ -4206,7 +4217,12 @@ function SetGameOption(key, val, ignoreNilValue)
         return
     end
     
+    LOG("*AI DEBUG Changing Game Option key "..repr(key).." value "..repr(val))
+    
     if lobbyComm:IsHost() then
+    
+        gameInfo.GameOptions['MaxSlots'] = "16"
+        lobbyComm:BroadcastData { Type = 'GameOption', Key = 'MaxSlots', Value = "16" }
 	
         gameInfo.GameOptions[key] = val
 		

@@ -1,8 +1,8 @@
 UnitBlueprint {
-AI = {
+	AI = {
         TargetBones = {
-            'Turret_Recoil',
-            'Turret',
+            'Cmgub31',
+			'gun_rack03',
         },
     },
 	
@@ -35,7 +35,7 @@ AI = {
         'CYBRAN',
         'STRUCTURE',
         'TECH3',
-		'INDIRECTFIRE',
+        'TACTICAL',
         'ARTILLERY',
         'DRAGBUILD',
 		'SIZE8',
@@ -94,7 +94,6 @@ AI = {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-		RebuildBonusIds = { 'mgubC31' },
     },
 	
 	Footprint = {
@@ -166,19 +165,19 @@ AI = {
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.3,
-    SizeY = 2.8,
+    SizeX = 1.5,
+    SizeY = 1.8,
     SizeZ = 1.6,
 	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
     },
 	
     Weapon = {
@@ -217,22 +216,22 @@ AI = {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
             LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -266,11 +265,12 @@ AI = {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
-                'DEFENSE',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'gun_muzzle03',
             TurretBonePitch = 'gun03',
@@ -323,22 +323,22 @@ AI = {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -367,12 +367,15 @@ AI = {
             RateOfFire = 1.0,	-- RoF controlled by energy drain
 			
             TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
-                'DEFENSE',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TurretBoneMuzzle = 'gun_muzzle01',
@@ -424,22 +427,22 @@ AI = {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.15,
             FiringTolerance = 1,
 			
             Label = 'gun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 160,
+            MaxRadius = 155,
 	        MinRadius = 25,
 			
             MuzzleSalvoDelay = 0,
@@ -468,12 +471,15 @@ AI = {
             RateOfFire = 1.0,	-- RoF controlled by energy drain
 			
             TargetCheckInterval = 3,
+			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
-                'DEFENSE',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'gun_muzzle02',
             TurretBonePitch = 'gun02',

@@ -131,7 +131,7 @@ UnitBlueprint {
 		
     },
 	
-	#-- This unit has the unique ability to upgrade with the T2 Aeon Mobile Shield
+	---- This unit has the unique ability to upgrade with the T2 Aeon Mobile Shield
 	
     Enhancements = {
 	
@@ -265,7 +265,7 @@ UnitBlueprint {
 	SelectionThickness = 0.4,
 	
 	SizeX = 0.95,
-	SizeY = 0.65,
+	SizeY = 0.4,
 	SizeZ = 0.95,
 	
 	StrategicIconName = 'icon_land3_antiair',
@@ -284,20 +284,19 @@ UnitBlueprint {
         Level5 = 50,
 	},
    
-	#-- OK - so we have 4 weapons - 2 Serpentine Missiles @ 75 DPS - 1 Arrow Missile @ 750 / 5 = 150 DPS - 1 Anti-Tac Laser 2 DPS - Total 300 DPS Air
+	---- OK - so we have 4 weapons - 2 Serpentine Missiles @ 75 DPS - 1 Arrow Missile @ 750 / 5 = 150 DPS - 1 Anti-Tac Laser 2 DPS - Total 300 DPS Air
    
 	Weapon = {
 			{
 			Audio = {
-				Fire = Sound {
-					Bank = 'UALWeapon',
-					Cue = 'UAB2304_SAM',
-					LodCutoff = 'Weapon_LodCutoff',
-				},
+				Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM',	LodCutoff = 'Weapon_LodCutoff' },
 			},
+            
 			AboveWaterFireOnly = true,
 			AboveWaterTargetsOnly = true,
+            
 			BallisticArc = 'RULEUBA_None',
+            
 			CollideFriendly = false,
 
 			Damage = 75,
@@ -325,20 +324,22 @@ UnitBlueprint {
 
 			RackBones = {
 				{
-					MuzzleBones = {
-						'SAM_sideLeft_Muzzle',
-					},
+					MuzzleBones = {	'SAM_sideLeft_Muzzle' },
 				},
 			},
-			RangeCategory = 'UWRC_AntiAir',           
-			
+	
 			RackReloadTimeout = 10,
 			RackSalvoChargeTime = 0,
 			RackSalvoReloadTime = 0,
 			RackSalvoSize = 1,
 			RackSlavedToTurret = false,
+            
+			RangeCategory = 'UWRC_AntiAir',
+            
 			RateOfFire = 1.0,
+            
 			TargetCheckInterval = 0.5,
+            
 			TargetPriorities = {
 				'MOBILE HIGHPRIAIR',
                 'BOMBER',
@@ -346,6 +347,7 @@ UnitBlueprint {
                 'TRANSPORTATION',
                 'MOBILE',
 			},
+            
 			TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',           
 			TrackingRadius = 1.1,
@@ -354,15 +356,14 @@ UnitBlueprint {
 		},        
 		{
 			Audio = {
-				Fire = Sound {
-                   Bank = 'UALWeapon',
-                   Cue = 'UAB2304_SAM',
-                   LodCutoff = 'Weapon_LodCutoff',
-				},
+				Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
 			},
+            
 			AboveWaterFireOnly = true,
 			AboveWaterTargetsOnly = true,
+            
 			BallisticArc = 'RULEUBA_None',
+            
 			CollideFriendly = false,
 
 			Damage = 75,

@@ -54,12 +54,12 @@ UnitBlueprint {
     },
 	
     Buffs = {
-        Regen = { # time need for full hp regen assuming 4k base hp:
-            Level1 = 40, # 220s
-            Level2 = 80, # 120s
-            Level3 = 120, # 86s
-            Level4 = 160, # 70s
-            Level5 = 200, # 60s
+        Regen = { -- time need for full hp regen assuming 4k base hp:
+            Level1 = 40, -- 220s
+            Level2 = 80, -- 120s
+            Level3 = 120, -- 86s
+            Level4 = 160, -- 70s
+            Level5 = 200, -- 60s
         },
     }, 
 	

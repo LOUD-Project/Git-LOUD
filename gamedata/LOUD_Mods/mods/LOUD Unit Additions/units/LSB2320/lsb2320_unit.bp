@@ -1,4 +1,13 @@
 UnitBlueprint {
+	AI = {
+        TargetBones = {
+            'XSB2303',
+            'B01',
+			'B02',
+			'B03',
+        },
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -34,7 +43,7 @@ UnitBlueprint {
         'STRUCTURE',
         'TECH3',
 		'SIZE8',
-		'INDIRECTFIRE',
+        'TACTICAL',
         'ARTILLERY',
         'DRAGBUILD',
         'VISIBLETORECON',
@@ -102,8 +111,6 @@ UnitBlueprint {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
-        
-        RebuildBonusIds = { 'lsb2320' },
     },
 	
 	Footprint = {
@@ -187,11 +194,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 180,
 	
     Veteran = {
-        Level1 = 27,
-        Level2 = 54,
-        Level3 = 81,
-        Level4 = 108,
-        Level5 = 135,
+        Level1 = 45,
+        Level2 = 90,
+        Level3 = 135,
+        Level4 = 180,
+        Level5 = 225,
     },
 	
     Weapon = {
@@ -237,15 +244,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Cannon',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -289,10 +296,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Recoil',
@@ -351,15 +360,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 400,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -400,10 +409,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
-			
+            
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Recoil01',
@@ -462,15 +473,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 450,
+            EnergyRequired = 2250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -511,9 +522,12 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Recoil02',

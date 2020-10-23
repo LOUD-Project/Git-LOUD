@@ -1,5 +1,17 @@
 UnitBlueprint {
 
+    AI = {
+		TargetBones = { 
+			'XSS0306',
+			'Orb_Muzzle01',
+			'Lasor_Turret01',
+			'Lasor_Turret02',
+			'Turret03',
+			'Turret02',
+			'Exhaust01',
+		},
+    },
+	
     Audio = {
         Killed = Sound {
             Bank = 'XSS_Destroy',
@@ -41,6 +53,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'CRUISER',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.375,
@@ -767,7 +780,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		#-- 200 DPS Air
+            RateOfFire = 1,		---- 200 DPS Air
 			
             TargetCheckInterval = 1,
 			
@@ -852,7 +865,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 1,		#-- 150 DPS Air
+            RateOfFire = 1,		---- 150 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

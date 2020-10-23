@@ -242,7 +242,7 @@ UnitBlueprint {
 			-- and the time it takes to fire the 3 muzzles ( muzzle charge delay -- which is 2 seconds each )
 			-- so true firing cycle is 15 seconds or 1800/15 for 120 Dps
 			
-            RateOfFire = 0.1,		#-- ignore this as it seems to be overridden by the RackSalvoReloadTime
+            RateOfFire = 0.1,		---- ignore this as it seems to be overridden by the RackSalvoReloadTime
 
             SlavedToBody = true,
 			

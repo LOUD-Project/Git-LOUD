@@ -1,7 +1,14 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 45, 
-    },
+        TargetBones = {
+            'Object05',
+			'Upgrade01_02',
+			'Turret_Barrel_Muzzle',
+			'Turret_Barrel_Muzzle01',
+        },   
+	},
 	
     Audio = {
         AmbientMove = Sound {
@@ -203,9 +210,9 @@ UnitBlueprint {
     SelectionSizeZ = 2.3,
     SelectionThickness = 0.35,
 	
-    SizeX = 1.8,
-    SizeY = 1.3,
-    SizeZ = 2.3,
+    SizeX = 2.2,
+    SizeY = 0.9,
+    SizeZ = 2.8,
 	
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 135,

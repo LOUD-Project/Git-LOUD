@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Body',
+        },
+    },
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,

@@ -34,6 +34,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'LIGHTBOAT',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.28,

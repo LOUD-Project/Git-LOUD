@@ -1,4 +1,12 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Flamer_Turret',
+            'Main_Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -282,7 +290,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,	# 225 dps
+            RateOfFire = 0.3,	-- 225 dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -371,7 +379,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,						#-- 60 dps
+            RateOfFire = 3,						---- 60 dps
 			
             TargetCheckInterval = 0.25,
             TargetPriorities = {
@@ -460,7 +468,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,			#-- 60 dps
+            RateOfFire = 3,			---- 60 dps
             TargetCheckInterval = 0.33,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -544,7 +552,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,			#-- 60dps
+            RateOfFire = 2,			---- 60dps
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -605,8 +613,8 @@ UnitBlueprint {
 			
             MaxRadius = 29,
 			
-            HeadingArcCenter = 90,#use me
-            HeadingArcRange = 90,#use me
+            HeadingArcCenter = 90,--use me
+            HeadingArcRange = 90,--use me
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -635,7 +643,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,			#-- 60dps
+            RateOfFire = 2,			---- 60dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -720,7 +728,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	#-- 6 * 55 every 10 seconds = 33 dps
+            RateOfFire = 0.1,	---- 6 * 55 every 10 seconds = 33 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -799,7 +807,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,			#-- 33 dps
+            RateOfFire = 0.1,			---- 33 dps
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -870,7 +878,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 1,			# 10 * 5 Pulses * 2 Muzzles  =  100dps
+            RateOfFire = 1,			-- 10 * 5 Pulses * 2 Muzzles  =  100dps
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {

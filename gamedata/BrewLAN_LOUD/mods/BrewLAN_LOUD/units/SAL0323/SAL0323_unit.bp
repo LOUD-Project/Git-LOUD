@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Dome',
+        },
+    },
+	
     Audio = {
         Close = Sound {
             Bank = 'UAB',

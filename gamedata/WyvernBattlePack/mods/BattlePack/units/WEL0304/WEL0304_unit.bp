@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'WEL0304',
+        },
+    },
 
     Audio = {
         Destroyed = Sound {
@@ -186,9 +191,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.3,
     
-    SizeX = 1.5,
-    SizeY = 0.8,
-    SizeZ = 2.3,
+    SizeX = 1.2,
+    SizeY = 0.6,
+    SizeZ = 1.8,
     
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
