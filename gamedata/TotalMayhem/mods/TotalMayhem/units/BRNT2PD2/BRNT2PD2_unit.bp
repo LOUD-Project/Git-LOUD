@@ -213,7 +213,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.3,
+			FiringRandomness = 0.1,
             FiringTolerance = 1,
 			
             Label = 'MainGun',

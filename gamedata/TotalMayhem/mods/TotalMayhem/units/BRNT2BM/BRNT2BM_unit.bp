@@ -5,15 +5,14 @@ UnitBlueprint {
 			'Turret',
         },
     }, 
-    Audio = {
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+    Audio = {Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
-        },
+        }
         StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
+            Bank = 'UEL',
+            Cue = 'UEL0303_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -21,11 +20,11 @@ UnitBlueprint {
             Cue = 'Cybran_Select_Bot',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-		Destroyed = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
+				Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
     },
     Buffs = {
         Regen = {
