@@ -613,7 +613,8 @@ function InitializeArmies()
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
 				
                 for num,unit in tblResult do
-                    unit:CreateWreckageProp(0)
+                    -- all wrecks created here get 1800 second lifetime (30 minutes)
+                    unit:CreateWreckageProp(0, 1800)
                     unit:Destroy()
                 end
             end

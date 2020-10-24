@@ -1915,7 +1915,7 @@ Unit = Class(moho.unit_methods) {
         end
     end,
 
-    CreateWreckageProp = function( self, overkillRatio )
+    CreateWreckageProp = function( self, overkillRatio, overridetime )
 
 		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
@@ -1959,7 +1959,8 @@ Unit = Class(moho.unit_methods) {
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
-			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or 900)
+            -- except starting props or those with an override value
+			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or (overridetime or 900) )
 
             TryCopyPose(self,prop,false)
 
