@@ -17,7 +17,7 @@ BaseBuilderTemplate {
         # Build Economy at this base
         'Engineer Energy Builders',
         'Engineer Mass Builders',
-		'Engineer T4 Economy Construction',        
+		'Engineer T4 Economy Construction - Small Base',        
   
 		# Engineers & Bob build new factories
         'Engineer Factory Construction',
@@ -115,7 +115,7 @@ BaseBuilderTemplate {
     -- IS = Integrated Storage --
 	LOUD_IS_Installed_Builders = {
 
-		'Engineer T4 Economy Defense Construction - LOUD IS',
+		'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
 		'Engineer Shield Construction - LOUD_IS',
 	},
 	
@@ -123,7 +123,7 @@ BaseBuilderTemplate {
 
 		'Engineer Mass Storage Construction',
 		'Engineer Energy Storage Construction',
-		'Engineer T4 Economy Defense Construction',
+		'Engineer T4 Economy Defense Construction - Small Base',
         'Engineer Shield Construction',
 	},
 

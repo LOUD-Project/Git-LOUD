@@ -797,6 +797,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
     },	
 }
 
+-- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
     BuildersType = 'EngineerBuilder',
 	
@@ -808,7 +809,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         Priority = 751,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -818,7 +819,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 			DesiresAssist = false,
 			
 			Construction = {
-				Radius = 40,			
+				Radius = 26,			
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'REAR',
