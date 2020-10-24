@@ -653,6 +653,10 @@ Tooltips = {
     --**********************
     --** Lobby Strings
     --**********************
+    aitype_loud = {
+        title = "LOUD AI",
+        description = "Use LOUD AI - set AI Multiplier for difficulty",
+    },
     Lobby_Advanced = {
         title = "Advanced Options",
         description = "Sets Advanced Options for this Map",
@@ -689,9 +693,21 @@ Tooltips = {
         title = "Back",
         description = "Go Back to the Main Menu",
     },
+    lob_clear_ai = {
+        title = "Clear all AI",
+        description = "Remove all AI from this game",
+    },
     Lobby_Add_AI = {
         title = "Add AI",
         description = "Click here to Add an AI Player",
+    },
+    lob_fill_combo = {
+        title = "Select AI to fill slot with",
+        description = "Choose which AI to use",
+    },
+    lob_fill_open = {
+        title = "Fill empty slots with AI",
+        description = "Fill all empty positions with AI",
     },
     Lobby_Del_AI = {
         title = "Delete AI",
@@ -863,6 +879,14 @@ Tooltips = {
         title = "Team",
         description = "Players with the same Team will start off Allied with each other",
     },
+    lob_teams_combo = {
+        title = "Number/Configuration of Teams",
+        description = "Select the number or configuration of teams for this map",
+    },
+    lob_random_teams = {
+        title = "Assign players to teams",
+        description = "Automatically assign players to teams according to configuration",
+    },
     lob_select_map = {
         title = "Game Options",
         description = "Choose a map to play on and adjust game settings",
@@ -887,6 +911,46 @@ Tooltips = {
         title = "Random",
         description = '',
     },
+    lob_random_map = {
+        title = "Randomly choose a map",
+        description = '',
+    },
+    lob_teamsetup_2 = {
+        title = "Two teams",
+        description = "Make 2 teams",
+    },
+    lob_teamsetup_3 = {
+        title = "Three teams",
+        description = "Make 3 teams",
+    },
+    lob_teamsetup_4 = {
+        title = "Four teams",
+        description = "Make 4 teams",
+    },
+    lob_teamsetup_5 = {
+        title = "Five teams",
+        description = "Make 5 teams",
+    },
+    lob_teamsetup_6 = {
+        title = "Six teams",
+        description = "Make 6 teams",
+    },
+    lob_teamsetup_7 = {
+        title = "Seven teams",
+        description = "Make 7 teams",
+    },
+    lob_teamsetup_8 = {
+        title = "Eight teams",
+        description = "Make 8 teams",
+    },
+    lob_teamsetup_TB = {
+        title = "Top to Bottom teams",
+        description = "Make 2 teams from top to bottom",
+    },
+    lob_teamsetup_LR = {
+        title = "Left to Right teams",
+        description = "Make 2 teams from left to right",
+    },    
     lob_team_none = {
         title = 'No Team',
         description = '',

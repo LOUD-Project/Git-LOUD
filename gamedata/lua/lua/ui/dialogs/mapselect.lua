@@ -190,10 +190,11 @@ local function ShowMapPositions(mapCtrl, scenario)
     local mHeight = scenario.size[2]
 
     for army, pos in startPos do
+    
         local marker = Bitmap(posGroup, UIUtil.UIFile('/dialogs/mapselect02/commander.dds'))
-        LayoutHelpers.AtLeftTopIn(marker, posGroup, 
-            ((pos[1] / mWidth) * cWidth) - (marker.Width() / 2), 
-            ((pos[2] / mHeight) * cHeight) - (marker.Height() / 2))
+        
+        LayoutHelpers.AtLeftTopIn(marker, posGroup, ((pos[1] / mWidth) * cWidth) - (marker.Width() / 2), ((pos[2] / mHeight) * cHeight) - (marker.Height() / 2))
+        
     end
 end
 
