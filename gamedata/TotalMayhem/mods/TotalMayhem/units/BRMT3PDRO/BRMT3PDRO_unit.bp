@@ -4,6 +4,7 @@ UnitBlueprint {
 		TargetBones = {
             'Turret',
         },
+	},
 		
     Audio = {
         Destroyed = Sound {
