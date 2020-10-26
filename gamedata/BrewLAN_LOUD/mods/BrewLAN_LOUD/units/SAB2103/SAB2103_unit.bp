@@ -35,6 +35,7 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
+        'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTDEFENSE',
