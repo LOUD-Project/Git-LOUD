@@ -49,12 +49,11 @@ UnitList = {
     },
     
     T4LandExperimental2 = {
-        UEF = {'wel0401', 65 },     -- Wyvern Fatboy
+        UEF = {'wel0401', 90 },     -- Wyvern Fatboy
     },
     
     T4LandExperimental3 = {
 		Aeon = {'wal0401', 60},     -- Universal Collosus        
-        UEF = {'wel1409', 60 },     -- Wyvern Fatboy II
     },
     
     T4LandExperimental4 = {
