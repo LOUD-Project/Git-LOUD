@@ -78,9 +78,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 44000,
-        MaxHealth = 44000,
-        RegenRate = 18,
+        Health = 38500,
+        MaxHealth = 38500,
+        RegenRate = 14,
         SurfaceThreatLevel = 552.1,
     },
 	
@@ -190,7 +190,7 @@ UnitBlueprint {
     },
 
     General = {
-		CapCost = 5,
+		CapCost = 7,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -240,9 +240,9 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3,
 		
-        MaxAcceleration = 1.4,
-        MaxSpeed = 2.8,
-        MaxSpeedReverse = 2.8,
+        MaxAcceleration = 0.8,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 2.6,
 		
 		MaxSteerForce = 10,
 		
@@ -317,7 +317,7 @@ UnitBlueprint {
 			
             LeadTarget = false,
 			
-            MaxRadius = 142,
+            MaxRadius = 130,
 			
             MuzzleChargeDelay = 2,
             MuzzleSalvoDelay = 0,
@@ -481,9 +481,9 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
-            Damage = 8000,
+            Damage = 8800,
             DamageFriendly = true,
-            DamageRadius = 15,
+            DamageRadius = 18,
             DamageType = 'Normal',
             DisplayName = 'Collossus Death',
             DummyWeapon = true,
