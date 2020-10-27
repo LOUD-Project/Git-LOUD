@@ -1,7 +1,7 @@
 -- This file is the initial pass for debugging PhxWeapDPS
 -- all BP files are scanned, DPS and threat is calcualted on a per weapon basis
 -- summed up per unit and output to outputFileName is spreadsheet friendly format
-local outputFileName = "output_fullSSwThreat.csv"
+local outputFileName = "LOUD_UnitDB_v006.csv"
 
 local dirtree = require('dirtree')
 
@@ -25,8 +25,12 @@ function UnitBlueprint(bp)
     -- Required Globals (bad practice I know, but kludge.)
     --    curBlueprint
     --    allBlueprints
+    --    countBPs
+    -- TODO: check if BP already exists and merge BP if possible.  Is this even appropriate for unit upgrades?
     countBPs = countBPs + 1
-    table.insert(allBlueprints, bp)
+    if(not bp.Merge) then 
+        table.insert(allBlueprints, bp)
+    end
     curBlueprint = bp
 end
 
@@ -60,9 +64,19 @@ for filename, attr in dirtree("../../gamedata/") do
         --print(UnitBaseName)
         countFiles = countFiles + 1
         dofile(filename)
-        table.insert(allShortIDs, UnitBaseName)
-        table.insert(allFullDirs, filename)
+        if(not curBlueprint.Merge) then 
+            table.insert(allShortIDs, UnitBaseName)
+            table.insert(allFullDirs, filename)          
+            --print("Processing " .. UnitBaseName .. "in " .. filename)
 
+        end
+        if(curBlueprint.Merge) then
+            --dosomething
+            print("Skipping " .. UnitBaseName .. "in " .. filename)
+        end
+
+
+        -- trap for multiple BPs coming from one *_unit.bp file
         local BPnum = 1
         while (countFiles ~= countBPs) do
             table.insert(allShortIDs, UnitBaseName .. "_" .. BPnum)
