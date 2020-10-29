@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
-		TargetBones = {
-            'B07_Slider_02',
-        },
+		TargetBones = {'B07_Slider_02'},
     },
 	
     Audio = {
@@ -62,9 +60,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 85,
-        Health = 2800,
-        MaxHealth = 2800,
-        RegenRate = 3,
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 1,
     },
 	
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
@@ -121,7 +119,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 55000,
         BuildCostMass = 3300,
-        BuildRate = 1,
+        BuildRate = 20,
         BuildTime = 1650,
     },
 	
@@ -176,10 +174,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 0.5,
-        MaxBrake = 0.8,
-        MaxSpeed = 2.75,
-        MaxSpeedReverse = 1.0,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
+        MaxSpeed = 3,
+        MaxSpeedReverse = 2,
 		
         MaxSteerForce = 5,
 		
@@ -246,14 +244,14 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 4,
 			
-            MaxRadius = 75,
+            MaxRadius = 72,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/TIMMobileMissileIntercerptor01/TIMMobileMissileIntercerptor01_proj.bp',
-			ProjectileLifetime = 10,
+			ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -276,7 +274,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             RackRecoilDistance = 0,
-            RackReloadTimeout = .5,
+            RackReloadTimeout = .3,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -284,7 +282,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.7,
+            RateOfFire = 1,
             TargetCheckInterval = 0.2,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
