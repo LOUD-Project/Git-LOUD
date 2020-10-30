@@ -303,6 +303,9 @@ UnitBlueprint {
             DisplayName = 'Head weapon',
 			
 			DoNotCollideList = { 'MISSILE' },
+            
+            EnergyRequired = 1500,
+            EnergyDrainPerSecond = 150,  -- recharge weapon in 10 seconds
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -319,13 +322,16 @@ UnitBlueprint {
 			
             MaxRadius = 130,
 			
-            MuzzleChargeDelay = 2,
+            MuzzleChargeDelay = 0.6,            -- charge of 0.6 seconds
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 10,
 			
             NotExclusive = true,
 			
+            ProjectilesCreated = 9,
+            ProjectileIntervalTicks = 6,        -- makes firing take 5.4 seconds
+            
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/GLaserShot01/GLaserShot01_proj.bp',
 			ProjectileLifetime = 15,
 			
@@ -345,7 +351,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.06,		----  18000 Damage every 16 = 1125 DPS
+            RateOfFire = 1,		----  18000 Damage every 16 = 1125 DPS - controlled by energy drain
 			RenderFireClock = true,
 			
             TargetCheckInterval = 5,
