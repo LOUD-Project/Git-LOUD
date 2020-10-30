@@ -204,9 +204,9 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0,
+            MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
 			ProjectileLifetime = 1,
@@ -219,12 +219,12 @@ UnitBlueprint {
                     RackBone = 'WepFocus',
                 },
             },
-            RackFireTogether = false,
+            RackFireTogether = true,
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.1,
-            RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0.1,
+            RackSalvoFiresAfterCharge = false,
+            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
