@@ -1617,14 +1617,16 @@ function WatchUnitLoading( transport, units, aiBrain )
 	
 	-- loop here while the transport is alive and loading is underway
 	-- there is another trigger (watchcount) which will force loading
-	-- to false after 150 seconds
+	-- to false after 180 seconds
 	while (not unitsdead) and loading do
 	
 		watchcount = watchcount + 3.0
 
-		if watchcount > 150 then
+		if watchcount > 180 then
             LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..transport.Sync.id.." from "..transport.PlatoonHandle.BuilderName.." ABORTING LOAD - watchcount "..watchcount)
 			loading = false
+            
+            ForkTo ( ReturnTransportsToPool, aiBrain, {transport}, true )
 			break
 		end
 		

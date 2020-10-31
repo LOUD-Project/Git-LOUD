@@ -2075,20 +2075,59 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	if basetype == "Sea" then
 		markertype = "Naval Rally Point"
 	end
+    
+	-- the intent of this function is to make sure that we don't try and respond over mountains
+	-- and rivers and other serious terrain blockages -- these are generally identified by
+    -- a rapid elevation change over a very short distance
+	local function CheckBlockingTerrain( pos, targetPos )
+	
+		-- This gives us the number of approx. 6 ogrid steps in the distance
+		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+		local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+		local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+
+		local lastpos = {pos[1], 0, pos[3]}
+	
+		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+		for i = 0, steps do
+	
+			if i > 0 then
+		
+				local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+				-- Get height for both points
+				local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+				local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+
+				-- if more than 2 ogrids change in height over 6 ogrids distance
+				if math.abs(lastposHeight - nextposHeight) > 2 then
+
+					-- we are obstructed
+					LOG("*AI DEBUG "..aiBrain.Nickname.." RALLY POINT OBSTRUCTED ")
+					return true
+				end
+				
+				lastpos = nextpos
+            end
+		end
+	
+		return false
+	end
 	
 	if not ScenarioInfo.Env.Scenario.MasterChain[markertype] then
 		ScenarioInfo.Env.Scenario.MasterChain[markertype] = {}
 	end
 	
 	local rallypointtable = {}
+    local baseposition = table.copy(aiBrain.BuilderManagers[basename].Position)
 	
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, orientation ) do
-		-- I should put a check in here that confirms that the surface level differs by less than 5 units
-		-- that would prevent the rally points from being on essentially different terrain that the base
-		-- for example - a base near water would not put rally points in water - or rally points half way
-		-- up a steep mountain
-		table.insert(ScenarioInfo.Env.Scenario.MasterChain[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
-		table.insert(rallypointtable, { v[1], v[2], v[3] }  )
+
+        if not CheckBlockingTerrain( baseposition, {v[1],v[2],v[3]} ) then
+            table.insert(ScenarioInfo.Env.Scenario.MasterChain[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
+            table.insert(rallypointtable, { v[1], v[2], v[3] }  )
+        end
 	end
 	
 	return rallypointtable

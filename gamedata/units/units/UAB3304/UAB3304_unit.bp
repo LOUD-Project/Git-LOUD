@@ -179,7 +179,7 @@ UnitBlueprint {
 			
             Damage = 140,
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.43,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -220,7 +220,7 @@ UnitBlueprint {
             RackReloadTimeout = 10,
 			
             RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = true,
+            --RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
 			

@@ -86,7 +86,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -1,
         },
 		
-        SurfaceThreatLevel = 1621.3,
+        SurfaceThreatLevel = 1421.3,
     },
     
     Description = '<LOC wsl0405_desc>Experimental Hover Tank',
@@ -353,7 +353,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2400,
+            Damage = 2200,
 			DamageFriendly = true,
             DamageRadius = 1.5,
             DamageType = 'Normal',
@@ -365,19 +365,21 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.5,
             FiringTolerance = 1,
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 80,
+            MaxRadius = 72,
 			MinRadius = 10,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
-            ProjectileLifetime = 2.5,
+            ProjectileLifetime = 2.1,
 			
             RackBones = {
                 {
@@ -395,7 +397,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,   -- 2 x 2400 = 4800 Damage / 2 = 2400 DPS
+            RateOfFire = 0.5,   -- 2 x 2200 = 4400 Damage / 2 = 2200 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -418,7 +420,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 48,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -436,7 +438,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -446,6 +448,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 1,
 			
             HeadingArcCenter = 60,
@@ -453,7 +457,7 @@ UnitBlueprint {
 			
             Label = 'RightTurret',
 			
-            MaxRadius = 48,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -478,7 +482,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- 2 x 400 = 800 DPS
+            RateOfFire = 1,     -- 2 x 300 = 600 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -519,7 +523,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -529,6 +533,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
             FiringTolerance = 1,
 			
             HeadingArcCenter = 295,
@@ -536,7 +542,7 @@ UnitBlueprint {
 			
             Label = 'LeftTurret',
 			
-            MaxRadius = 48,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -559,7 +565,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,     -- another 800 DPS
+            RateOfFire = 1,     -- another 600 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -600,7 +606,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -610,6 +616,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
             FiringTolerance = 1,
 			
             HeadingArcCenter = 135,
@@ -617,7 +625,7 @@ UnitBlueprint {
 			
             Label = 'RearRightTurret',
 			
-            MaxRadius = 48,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -640,7 +648,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,     -- another 800 DPS
+            RateOfFire = 1,     -- another 600 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -681,7 +689,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -691,6 +699,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
             FiringTolerance = 1,
 			
             HeadingArcCenter = 235,
@@ -698,7 +708,7 @@ UnitBlueprint {
 			
             Label = 'RearLeftTurret',
 			
-            MaxRadius = 48,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -721,7 +731,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,     -- another 800 DPS
+            RateOfFire = 1,     -- another 600 DPS
 			
             TargetCheckInterval = 0.3,
 			
@@ -764,8 +774,11 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 250,
-            DamageRadius = 2,
+            Damage = 200,
+            DamageRadius = 1.6,
+            
+            DetonatesAtTargetHeight = true,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Shleo AA AutoGun',
@@ -784,7 +797,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 68,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
@@ -805,7 +818,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,     -- 2 x 250 = 500 * 2 = 1000 DPS
+            RateOfFire = 2,     -- 2 x 200 = 400 * 2 = 800 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

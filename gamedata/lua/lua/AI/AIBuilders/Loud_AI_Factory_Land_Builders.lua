@@ -344,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 10, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1, categories.LAND }},
@@ -365,7 +365,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH2, categories.LAND - categories.TECH1 }},
         },
@@ -384,7 +384,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH2, categories.LAND - categories.TECH1, categories.LAND }},
@@ -404,7 +404,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.INDIRECTFIRE * categories.MOBILE * categories.TECH2, categories.LAND * categories.TECH2, categories.LAND }},
 			
         },
@@ -423,7 +423,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH3, (categories.LAND * categories.TECH3) + categories.GATE }},
 			
@@ -443,7 +443,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 			
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
@@ -465,7 +465,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 			
         },
@@ -484,7 +484,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
@@ -665,7 +665,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		
     },	
 	
-	-- T3 Amphibious AA - when available
+	-- T3 Amphibious AA --
     Builder {BuilderName = 'T3 Amphibious AA',
 	
         PlatoonTemplate = 'T3AmphibiousAA',
@@ -674,7 +674,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-
+            
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+            
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.AMPHIBIOUS * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
         },
 		
@@ -682,7 +684,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		
     },
 	
-	-- T3 Amphibious AA - when available
+	-- T3 Amphibious Artillery --
     Builder {BuilderName = 'T3 Amphibious Artillery',
 	
         PlatoonTemplate = 'T3AmphibiousArtillery',
@@ -714,9 +716,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 			
-			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 45, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) * categories.TECH3 }},
 
@@ -737,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },			
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },			
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
@@ -761,7 +763,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ LUTL, 'LandStrengthRatioLessThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             

@@ -210,7 +210,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.045,
+        UniformScale = 0.055,
     },
 	
     Economy = {

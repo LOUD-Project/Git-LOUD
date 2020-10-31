@@ -1,8 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'SAL0321',
-        },
+        InitialAutoMode = true,
+        TargetBones = {'SAL0321'},
     },
 	
     Audio = {
@@ -65,9 +64,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 250,
-        Health = 2800,
-        MaxHealth = 2800,
-        RegenRate = 3,
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 1,
     },
 	
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
@@ -86,7 +85,7 @@ UnitBlueprint {
         },
         
         AnimationWalk = '/mods/BrewLAN_LOUD/units/sal0321/sal0321_Awalk.sca',
-        AnimationWalkRate = 4.2,
+        AnimationWalkRate = 6.2,
 		
         Mesh = {
             IconFadeInZoom = 130,
@@ -131,7 +130,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 45000,
         BuildCostMass = 3000,
-        BuildRate = 1,
+        BuildRate = 20,
         BuildTime = 1500,
     },
 	
@@ -186,10 +185,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 0.8,
-        MaxBrake = 0.8,
-        MaxSpeed = 1.6,
-        MaxSpeedReverse = 0.8,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 2,
 		
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
@@ -249,14 +248,14 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 2,
 			
-            MaxRadius = 75,
+            MaxRadius = 72,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 12,
 			
             RackBones = {
                 {

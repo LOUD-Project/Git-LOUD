@@ -710,7 +710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},			
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
