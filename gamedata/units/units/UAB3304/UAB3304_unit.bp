@@ -179,7 +179,7 @@ UnitBlueprint {
 			
             Damage = 140,
             DamageFriendly = false,
-            DamageRadius = 2.43,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -200,8 +200,8 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
@@ -219,15 +219,15 @@ UnitBlueprint {
             
             RackReloadTimeout = 10,
 			
-            RackSalvoChargeTime = 0,
-            --RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+            RackSalvoChargeTime = 0.1,
+            RackSalvoFiresAfterCharge = false,
+            RackSalvoReloadTime = 0.4,
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,		---- 280 DPS
+            RateOfFire = 10,		---- 280 DPS - Rof overridden by SalvoChargevalues
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -251,11 +251,11 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
         },
