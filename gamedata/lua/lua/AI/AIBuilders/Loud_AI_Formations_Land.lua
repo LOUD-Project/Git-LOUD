@@ -257,7 +257,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 40,
 			
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','DEFENSE STRUCTURE','SHIELD','LAND MOBILE','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 30,
@@ -335,7 +335,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 30,
 			
-            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','FACTORY','DEFENSE STRUCTURE','SHIELD','LAND MOBILE','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 15,
@@ -386,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
 			MergeLimit = 120,
 			
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','DEFENSE STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -432,7 +432,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
 			MergeLimit = 95,
 			
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection 
+            PrioritizedCategories = { 'FACTORY','DEFENSE STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection 
 			
 			UseFormation = 'AttackFormation',
 			
@@ -500,7 +500,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 24,
 			
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
 			
 			GuardRadius = 100,
 			GuardTimer = 33,
@@ -721,7 +721,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 6,
 			
-            PrioritizedCategories = { 'ANTIAIR STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
+            PrioritizedCategories = { 'ANTIAIR STRUCTURE','DEFENSE STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
 			GuardRadius = 80,
 			GuardTimer = 20,
@@ -836,7 +836,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UntMin = 0,
 			UntMax = 30,
 			
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 30,
@@ -868,10 +868,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		            
+
+			{ LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
+					            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
@@ -888,17 +890,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 4,
+			StrMax = 6,
             
-            ThreatMaxRatio = 1,
+            ThreatMaxRatio = 1.1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
 			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 12,
+			UntMax = 14,
 			
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
 			
 			GuardRadius = 70,
 			GuardTimer = 32,
@@ -911,7 +913,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
 			UseFormation = 'AttackFormation',
         },
-    },
+	},
 
 	-- go after AA structures
     Builder {BuilderName = 'AA Attack Water',
@@ -963,7 +965,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UntMin = 0,
 			UntMax = 6,
 			
-            PrioritizedCategories = { 'ANTIAIR STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
+            PrioritizedCategories = { 'ANTIAIR STRUCTURE','DEFENSE STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
 			GuardRadius = 45,
 			GuardTimer = 12,
@@ -976,8 +978,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
 			UseFormation = 'AttackFormation',
         },
-    },
-
+	},
 }
 
 BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
@@ -1014,7 +1015,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1060,7 +1061,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1321,7 +1322,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'SHIELD','ECONOMIC','DEFENSE','STRUCTURE','LAND MOBILE','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1358,7 +1359,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'ECONOMIC','STRUCTURE','LAND MOBILE','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1000,			-- only process hi-priority targets within 20km
 			
@@ -1391,29 +1392,31 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 135,
 			DistressTypes = 'Land',
-			DistressThreshold = 6,
+			DistressThreshold = 5,
 			
 			PointType = 'Unit',
 			PointCategory = 'MASSEXTRACTION',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 750,
+			PointRadius = 800,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 750,
+			PointMax = 800,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE - categories.TECH1,
 			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 6,
+			StrMax = 8,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER - categories.TECH1),
 			UntRadius = 60,
@@ -1421,12 +1424,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UntMin = 0,
 			UntMax = 12,
 			
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
 			
-			GuardRadius = 75,
-			GuardTimer = 20,
+			GuardRadius = 80,
+			GuardTimer = 25,
 			
-			MergeLimit = 32,
+			MergeLimit = 38,
 			
 			AggressiveMove = true,
 			
@@ -1434,8 +1437,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			UseFormation = 'AttackFormation',
         },
-    },
-
+	},
 }
 
 
