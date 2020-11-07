@@ -3373,6 +3373,8 @@ end
 
 
 -- Basic Naval attack logic
+-- Creates a list of naval bases, water based mass and combat markers
+-- Will use this list as a target list unless there is local contact
 function NavalForceAILOUD( self, aiBrain )
 
 	if not GetPlatoonPosition(self) then
@@ -3395,10 +3397,11 @@ function NavalForceAILOUD( self, aiBrain )
     local data = self.PlatoonData
 
 	local bAggroMove = false        -- Dont move flotillas aggressively - use formation
+    
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
-    local searchRadius = data.SearchRadius or 200		-- used to locate local targets to attack
+    local searchRadius = data.SearchRadius or 350		-- used to locate local targets to attack
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}

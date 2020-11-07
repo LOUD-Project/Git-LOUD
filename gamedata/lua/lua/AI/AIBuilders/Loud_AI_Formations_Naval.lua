@@ -104,11 +104,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 	
         PlatoonTemplate = 'MassAttackNaval',
 		
-		PlatoonAIPlan = 'GuardPointAmphibious',
+		PlatoonAIPlan = 'GuardPointNaval',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		PlatoonAddPlans = { 'DistressResponseAI' },
 		
         Priority = 750,
 		
@@ -132,10 +132,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
-			MissionTime = 1300,		-- 25 minute mission			
+			MissionTime = 1500,		-- 25 minute mission			
 			
 			PointType = 'Unit',
-			PointCategory = categories.ECONOMIC * categories.STRUCTURE,
+			PointCategory = categories.ECONOMIC + categories.FACTORY,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 2000,
@@ -145,20 +145,25 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE,
 			StrRadius = 32,
-			StrTrigger = true,
-			StrMin = 0,
+			StrTrigger = false,
+			StrMin = -1,
 			StrMax = 12,
+            
+            ThreatMin = -999,
+            ThreatMaxRatio = 1.2,
+            ThreatRings = 0,
+            ThreatType = 'AntiSub',
 			
 			UntCategory = categories.NAVAL * categories.MOBILE,
 			UntRadius = 64,
-			UntTrigger = true,
-			UntMin = 0,
+			UntTrigger = false,
+			UntMin = -1,
 			UntMax = 12,
 			
-            PrioritizedCategories = { 'ECONOMIC','STRUCTURE' },
+            PrioritizedCategories = { 'FACTORY','ECONOMIC' },
 			
-			GuardRadius = 45,
-			GuardTimer = 10,
+			GuardRadius = 40,
+			GuardTimer = 6,
 			
 			MergeLimit = 18,
 			
@@ -213,10 +218,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
+            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 			
-			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','ECONOMIC STRUCTURE', },
         },
     },
 	
@@ -234,7 +240,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
 		PriorityFunction = IsPrimaryBase,
 
-		FactionIndex = 1,
+		FactionIndex = 2,
 
         InstanceCount = 3,
 
@@ -260,10 +266,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
+            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 			
-			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','ECONOMIC STRUCTURE', },
         },
     },
 	
@@ -307,10 +314,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 
 			MissionTime = 600,		-- 10 minute mission
-
+            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
+            
 			UseFormation = 'AttackFormation',
 
-			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','ECONOMIC STRUCTURE', },
         },
     },
 	
@@ -353,10 +361,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
+            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 
-			PrioritizedCategories = { 'NAVAL MOBILE','ECONOMIC STRUCTURE', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','ECONOMIC STRUCTURE', },
         },
     },
 
@@ -402,10 +411,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
-			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
         },
     },
 	
@@ -451,10 +461,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
-			
-			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
+
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
         },
     },
 	
@@ -500,10 +511,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
-			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
         },
     },
 	
@@ -548,10 +560,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
-			
-			PrioritizedCategories = { 'NAVAL','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
+
+			PrioritizedCategories = { 'NAVAL FACTORY','NAVAL MOBILE','SUBCOMMANDER','EXPERIMENTAL NAVAL', },
         },
     },
 
@@ -580,7 +593,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -599,6 +612,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -629,7 +643,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -648,6 +662,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -679,7 +694,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -698,6 +713,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -729,7 +745,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -747,6 +763,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
+            SearchRadius = 275,     -- use Prioritized Categories as primary target selection            
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -797,6 +814,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
     -- NAVAL BASE Patrols only appear if there is a NAVAL threat
     -- within 8km of the naval base - therefore these can still 
     -- form even if intel says no enemy naval activity.
+--[[    
     Builder {BuilderName = 'Naval Base Patrol',
 	
         PlatoonTemplate = 'SeaAttack Medium - Base Patrol',
@@ -827,14 +845,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderConditions = {
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
         },
     },
+--]]
 	
     Builder {BuilderName = 'Naval Base Sub Patrol',
 	
@@ -874,7 +888,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
-	
+--[[	
 	-- this is supressed for now - 
 	Builder {BuilderName = 'T3 Sea Attack Nuke',
 	
@@ -916,6 +930,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			
         },
     },
+--]]
 	
 	Builder {BuilderName = 'Reinforce Primary - Naval',
 	

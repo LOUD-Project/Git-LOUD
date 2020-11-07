@@ -373,7 +373,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		else
 			pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, PointFaction )
 		end
-		
+ 
         -- filter out points by distance from source --
 		for k,v in pointlist do
 		
@@ -452,7 +452,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			counter = counter + 1
 		end
 	end
-	
+
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Point list is "..LOUDGETN(positions) )
+
 	-- if there are positions to check --
 	if counter > 0 then
 	
@@ -475,6 +477,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			-- only allow targets that are in the water
 			if allowinwater == "Only" then
 				if (GetTerrainHeight( v[1], v[3] )) > (GetSurfaceHeight( v[1], v[3] ) - 1) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." ONLYWATER removes position "..repr(v).." for elevation" )
+                    
 					positions[k] = nil
 					counter = counter - 1
 					continue
@@ -522,7 +527,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end	
 		end
-	end
+	else
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." FindPoint "..self.BuilderName.." - nothing found")
+    end 
 
 	--- Sort according to distance
 	if counter > 0 then
