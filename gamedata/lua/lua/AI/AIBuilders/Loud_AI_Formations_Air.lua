@@ -24,19 +24,30 @@ local IsPrimaryBase = function(self,aiBrain,manager)
 	return 10, true
 end
 
+local MapSizeLargerThan20K = function(self,aiBrain)
+
+    if ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028 then
+        return self.Priority, false
+    else
+        return 0, false
+    end
+
+end
+
+
 -- These are the standard air scout patrols around a base
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     BuildersType = 'PlatoonFormBuilder',
 	
     -- Perimeter air scouts are maintained at all bases
-    Builder {BuilderName = 'Air Scout Peri - 200',
+    Builder {BuilderName = 'Air Scout - Peri - 200',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 810,
-		
+
         BuilderType = 'Any',
 		
 		BuilderConditions = {
@@ -50,14 +61,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		},
     },
 	
-    Builder {BuilderName = 'Air Scout Peri - 290',
+    Builder {BuilderName = 'Air Scout - Peri - 290',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 809,
-		
+
         InstanceCount = 1,
 		
         BuilderType = 'Any',
@@ -73,14 +84,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		},
     },
 
-    Builder {BuilderName = 'Air Scout Peri - 380',
+    Builder {BuilderName = 'Air Scout - Peri - 380',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 808,
-		
+
         InstanceCount = 2,
 		
         BuilderType = 'Any',
@@ -97,13 +108,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     },
 
     -- this one only appears at PRIMARY bases
-    Builder {BuilderName = 'Air Scout Peri - 460',
+    Builder {BuilderName = 'Air Scout - Peri - 460',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 807,
+        Priority = 806,
         
         PriorityFunction = IsPrimaryBase,
 		
@@ -126,13 +137,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 -- Field air scouts come after that
 	
     -- single plane formation for first 30 minutes
-    Builder {BuilderName = 'Air Scout - Standard',
+    Builder {BuilderName = 'Air Scout Standard',
     
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-		Priority = 806,
+		Priority = 810,
 		
 		-- this function removes the builder after 45 minutes
 		PriorityFunction = function(self, aiBrain)
@@ -146,7 +157,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 		
-        InstanceCount = 10,
+        InstanceCount = 8,
 		
         BuilderType = 'Any',
 		
@@ -157,23 +168,19 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation for 30-75 minutes - 10 instances
-    Builder {BuilderName = 'Air Scout - Pair',
+	-- double plane formation for 75 minutes - 10 instances
+    Builder {BuilderName = 'Air Scout Pair',
     
         PlatoonTemplate = 'Air Scout Group',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-        Priority = 10,
+        Priority = 810,
 		
-		-- this function turns the builder on at 30 minutes and removes it at 70 minutes 
+		-- this function removes it at 70 minutes 
 		PriorityFunction = function(self, aiBrain)
 			
 			if self.Priority != 0 then
-				
-				if aiBrain.CycleTime > 1800 then
-					return 806, true
-				end
 			
 				if aiBrain.CycleTime > 4500 then
 					return 0, false
@@ -183,7 +190,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 
-        InstanceCount = 10,
+        InstanceCount = 5,
 		
         BuilderType = 'Any',
 		
@@ -195,28 +202,15 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     },
 
 	-- wing (5) formations at 60 minutes - 8 instances
-    Builder {BuilderName = 'Air Scout - Wing',
+    Builder {BuilderName = 'Air Scout Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-        Priority = 10,
+        Priority = 810,
 		
-		-- this function turns the builder on at the 60 minute mark
-		PriorityFunction = function(self, aiBrain)
-			
-			if self.Priority != 805 then
-			
-				if aiBrain.CycleTime > 3600 then
-					return 805, false
-				end
-			end
-			
-			return self.Priority,true
-		end,
-		
-        InstanceCount = 8,
+        InstanceCount = 6,
 		
         BuilderType = 'Any',
 		
@@ -228,7 +222,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     },
     
 	-- squadron (9) formations after 75 minutes - 7 instances
-    Builder {BuilderName = 'Air Scout - Group',
+    Builder {BuilderName = 'Air Scout Group',
     
         PlatoonTemplate = 'Air Scout Group Huge',
         
@@ -239,10 +233,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		-- this function will turn the builder on at the 75 minute mark
 		PriorityFunction = function(self, aiBrain)
 		
-			if self.Priority != 806 then
+			if self.Priority != 810 then
 			
 				if aiBrain.CycleTime > 4500 then
-					return 806, false
+					return 810, false
 				end
 			end
 			
