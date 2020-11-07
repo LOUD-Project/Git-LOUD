@@ -3523,8 +3523,8 @@ function NavalForceAILOUD( self, aiBrain )
 		
 		mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
 
-		-- Locate LOCAL targets in the searchRadius range using the attackpriority list
-		target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
+		-- Locate LOCAL targets in the searchRadius range using the attackpriority list - they must also be on the same layer
+		target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri, true )
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeks local target")
 

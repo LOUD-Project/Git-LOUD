@@ -218,7 +218,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
-            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -266,7 +266,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
-            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -314,7 +314,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 
 			MissionTime = 600,		-- 10 minute mission
-            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 180,     -- use Prioritized Categories as primary target selection
             
 			UseFormation = 'AttackFormation',
 
@@ -361,7 +361,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 6,
 			
 			MissionTime = 600,		-- 10 minute mission
-            SearchRadius = 250,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
 
@@ -411,7 +411,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -461,7 +461,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 
@@ -511,7 +511,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -560,7 +560,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 12,
 			
 			MissionTime = 720,		-- 12 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 
@@ -612,7 +612,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -662,7 +662,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -713,7 +713,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
 			
@@ -763,7 +763,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			DistressThreshold = 15,
 			
 			MissionTime = 1500,		-- 25 minute mission
-            SearchRadius = 275,     -- use Prioritized Categories as primary target selection            
+            SearchRadius = 220,     -- use Prioritized Categories as primary target selection            
 			
 			UseFormation = 'GrowthFormation',
 			
