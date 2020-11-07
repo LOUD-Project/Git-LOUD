@@ -4216,12 +4216,12 @@ function CreateAttackPlan( self, enemyPosition )
 					LOG("*AI DEBUG "..self.Nickname.." Fakeposition is "..repr(fakeposition))
                     
                     pathtype = "Land"
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, fakeposition[1].Position[3], 99999, 160)
+                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
                     
                     if not path then
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, fakeposition[1].Position[3], 99999, 250)
+                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlanner', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
                     end
 
                     LOUDINSERT(positions, {Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
