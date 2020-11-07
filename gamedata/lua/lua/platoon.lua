@@ -853,6 +853,8 @@ Platoon = Class(moho.platoon_methods) {
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( pos, targetPos )
+        
+            --aiBrain:CheckBlockingTerrain( pos, targetPos, 'none' )
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
@@ -3122,7 +3124,12 @@ Platoon = Class(moho.platoon_methods) {
 		local StrTrigger = self.PlatoonData.StrTrigger or false
 		local StrMin = self.PlatoonData.StrMin or 0
 		local StrMax = self.PlatoonData.StrMax or 99
-		
+        
+        local ThreatMin = self.PlatoonData.ThreatMin or -999            -- control minimum threat so we can go to points WITH threat if provided
+        local ThreatMaxRatio = self.PlatoonData.ThreatMaxRatio or 0.8   -- control maximum threat based on platoon value
+        local ThreatRings = self.PlatoonData.ThreatRings or 0           -- allow use of 'rings' value
+        local ThreatType = self.PlatoonData.ThreatType or 'AntiSurface'
+
 		local UntCat = self.PlatoonData.UntCategory or nil	
 		local UntRadius = self.PlatoonData.UntRadius or 20
 		local UntTrigger = self.PlatoonData.UntTrigger or false
@@ -3209,7 +3216,7 @@ Platoon = Class(moho.platoon_methods) {
 			if position then
 			
 				-- Get a point that meets all of the required conditions
-				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, -999999, OriginalThreat * 0.8, 'AntiSurface')
+				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, ThreatType )
 			
 				if pointlist then
 				
@@ -3232,12 +3239,8 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if table.equal( marker, lastmarker ) then
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
-						
 							marker = false
-							
 						end
-						
 					end
 
 					guardtime = 0
@@ -3246,6 +3249,8 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				if not marker  then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." finds NO Point meets conditions")
 				
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end
@@ -3378,7 +3383,7 @@ Platoon = Class(moho.platoon_methods) {
 					if marker and PlatoonExists( aiBrain, self ) then
 					
 						-- travel uses up guardtime
-						guardtime = guardtime + 0.5
+						-- guardtime = guardtime + 0.5
 
 						distance = VDist3( GetPlatoonPosition(self), marker )
 
@@ -3395,8 +3400,8 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 
-				end				
-				
+				end
+
 			end
 			
 			-- if we still have a marker - stop any move thread -- otherwise find a new point
@@ -3419,6 +3424,8 @@ Platoon = Class(moho.platoon_methods) {
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain,self) do
 			
 				target = false
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
 			
 				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
 
