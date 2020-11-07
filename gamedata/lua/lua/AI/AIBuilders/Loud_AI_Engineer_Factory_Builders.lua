@@ -321,7 +321,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},

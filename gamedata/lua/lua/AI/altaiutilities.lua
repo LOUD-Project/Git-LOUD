@@ -669,7 +669,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
-		local minimum_baserange = 250
+		local minimum_baserange = 200
 		
 		local positions = {}
 
