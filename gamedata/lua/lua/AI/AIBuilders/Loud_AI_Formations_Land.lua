@@ -49,6 +49,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
 	Builder {BuilderName = 'T3 Artillery Formation',
         PlatoonTemplate = 'StrategicArtilleryStructure',
         Priority = 600,
+
         InstanceCount = 12,
         BuilderType = 'Any',
         
@@ -257,7 +258,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 40,
 			
-            PrioritizedCategories = { 'ECONOMIC','FACTORY','DEFENSE STRUCTURE','SHIELD','LAND MOBILE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','SHIELD','DEFENSE STRUCTURE','LAND MOBILE','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 30,
@@ -500,7 +501,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntMin = 0,
 			UntMax = 24,
 			
-            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
+            PrioritizedCategories = { 'ENGINEER','MASSPRODUCTION','FACTORY','DEFENSE STRUCTURE','SHIELD','ECONOMIC'},
 			
 			GuardRadius = 100,
 			GuardTimer = 33,
