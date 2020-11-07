@@ -1091,7 +1091,6 @@ function AirScoutingAI( self, aiBrain )
                         
                             aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Marking passing Scout location - HIGH - AIR")
                         end
                     end
                     
@@ -1112,7 +1111,6 @@ function AirScoutingAI( self, aiBrain )
                         
                             aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Marking passing Scout location - LOW - AIR")
                         end
                     end
                     
@@ -1364,6 +1362,8 @@ function LandScoutingAI( self, aiBrain )
 				curPos = GetPlatoonPosition(self) or false
 				
 				if curPos then
+                
+                    cyclecount = 0
 
 					if VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] ) < 400 then
 						reconcomplete = true
@@ -1386,7 +1386,6 @@ function LandScoutingAI( self, aiBrain )
                         
                             aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Marking passing Scout location - HIGH - land")
                         end
                     end
                     
@@ -1404,7 +1403,6 @@ function LandScoutingAI( self, aiBrain )
                         
                             aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Marking passing Scout location - LOW - land")
                         end
                     end                    
 				end
@@ -1642,6 +1640,8 @@ function NavalScoutingAI( self, aiBrain )
             ------------------------------
 			lastpos = false
             
+            -- this takes into account the time we spent
+            -- processing nearby scout positions --
             local cyclecount = 0
 
             while PlatoonExists(aiBrain,self) and targetArea and not reconcomplete do
@@ -1649,6 +1649,9 @@ function NavalScoutingAI( self, aiBrain )
 				curPos = GetPlatoonPosition(self) or false
 				
 				if curPos then
+                
+                    -- reset the cyclecount --
+                    cyclecount = 0
 
 					if VDist2( targetArea[1],targetArea[3], curPos[1],curPos[3] ) < 35 then
 						
@@ -3910,8 +3913,7 @@ function NavalForceAILOUD( self, aiBrain )
 			end
 
 			WaitTicks(60)
-			
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." on Attack wait")
+
 		end
 
 		-- check mission timer for RTB
