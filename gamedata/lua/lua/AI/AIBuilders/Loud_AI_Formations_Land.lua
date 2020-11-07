@@ -837,7 +837,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UntMin = 0,
 			UntMax = 30,
 			
-            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','SHIELD','DEFENSE STRUCTURE','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 30,
@@ -901,7 +901,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UntMin = 0,
 			UntMax = 14,
 			
-            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','SHIELD','DEFENSE STRUCTURE','ENGINEER'},
 			
 			GuardRadius = 70,
 			GuardTimer = 32,
@@ -1425,7 +1425,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UntMin = 0,
 			UntMax = 12,
 			
-            PrioritizedCategories = { 'ECONOMIC','FACTORY','STRUCTURE','SHIELD','DEFENSE','ENGINEER'},
+            PrioritizedCategories = { 'ECONOMIC','FACTORY','SHIELD','DEFENSE STRUCTURE','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 25,
