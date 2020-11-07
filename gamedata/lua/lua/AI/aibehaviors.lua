@@ -3550,8 +3550,18 @@ function NavalForceAILOUD( self, aiBrain )
 					end
 				end
 --]]
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Issues attack in NavalForceAI")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description) )
+                
 				-- would direction help here ? --
-				IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', 0)
+                if self:GetSquadUnits('Attack') then
+                    IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', 0)
+                end
+                
+                if self:GetSquadUnits('Artillery') then
+                    IssueFormAttack( self:GetSquadUnits('Artillery'), target, 'AttackFormation', 0)
+                end
 				
 				local guardset = false
 
@@ -3565,15 +3575,19 @@ function NavalForceAILOUD( self, aiBrain )
 							
 							-- issue a guard order to each guard unit to the first attack unit we find --
 							for _,m in self:GetSquadUnits('Guard') do
+                            
+                                if not m:IsUnitState('Guarding') then
 								
-								if m and not m.Dead then
-                                
-                                    LOG("*AI DEBUG Issue guard in NavalForceAI")
-									IssueGuard( self:GetSquadUnits('Guard'), v )
-								end
+                                    if m and not m.Dead then
+
+                                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Issues guard in NavalForceAI")
+                                    
+                                        IssueGuard( self:GetSquadUnits('Guard'), v )
+                                    
+                                        guardset = true
+                                    end
+                                end
 							end
-							
-							guardset = true
 						end
 						
 						break
@@ -3591,6 +3605,8 @@ function NavalForceAILOUD( self, aiBrain )
 		-- if no target and no movement orders -- use HiPri list or random Naval marker
 		-- issue movement orders -- if list is empty RTB instead --
         if not target and not self.MoveThread then
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO Target - seeking HiPri target") 
 		
 			-- get HiPri list
 			targetlist = GetHiPriTargetList( aiBrain, GetPlatoonPosition(self) )
@@ -3758,6 +3774,8 @@ function NavalForceAILOUD( self, aiBrain )
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." exhausts waypoint list - RTB ")
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NO Target - using waypoint at "..repr(destination))
 
 			-- Issue Dive Order to ALL SERAPHIM Submersible Units -- that are not already submerged
 			for _,v in GetPlatoonUnits(self) do
@@ -3774,6 +3792,8 @@ function NavalForceAILOUD( self, aiBrain )
 
 			-- use the destinationpath to plot movement to the target
 			if PlatoonExists( aiBrain, self ) and destinationpath then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." begins path "..repr(destinationpath))
 			
 				self:Stop()
 
@@ -3782,7 +3802,7 @@ function NavalForceAILOUD( self, aiBrain )
 				WaitTicks(30)
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NAVALFORCEAI "..self.BuilderName.." has no path")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." NAVALFORCEAI "..self.BuilderName.." has no path")
 				
 				target = false
 			end
@@ -3798,7 +3818,9 @@ function NavalForceAILOUD( self, aiBrain )
 				if self.MoveThread then
 					self:KillMoveThread()
 				end 
-			
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Stops moving" )
+
 				IssueClearCommands( GetPlatoonUnits(self) )
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -3856,6 +3878,8 @@ function NavalForceAILOUD( self, aiBrain )
 
 		-- loop here while prosecuting a target -- 
 		while target and PlatoonExists(aiBrain, self) do
+        
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." in combat")        
 
 			updatedtargetposition = false
 
@@ -3865,9 +3889,9 @@ function NavalForceAILOUD( self, aiBrain )
 
 			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
 				
-				--if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
+				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
-				--end
+				end
 
 				StopAttack(self)
 				
@@ -3878,10 +3902,18 @@ function NavalForceAILOUD( self, aiBrain )
 			if (not target.Dead) and updatedtargetposition and updatedtargetposition != targetposition then
 			
 				if self:GetSquadUnits('Attack') then
-				
+
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target "..repr(target:GetBlueprint().Description).." moved - retargeting")
+			
 					targetposition = table.copy(updatedtargetposition)
-				
-					IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition )
+                    
+                    if self:GetSquadUnits('Attack') then
+                    	IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition )
+                    end
+                    
+                    if self:GetSquadUnits('Artillery') then
+                        IssueAttack( self:GetSquadUnits('Artillery'), target )
+                    end
 				else
 				
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." all attack units dead - fight over")
@@ -3919,7 +3951,7 @@ function NavalForceAILOUD( self, aiBrain )
 		-- check mission timer for RTB
 		if LOUDTIME() > EndMissionTime then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI Mission Time expires")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." NFAI Mission Time expires")
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 		end
 		
