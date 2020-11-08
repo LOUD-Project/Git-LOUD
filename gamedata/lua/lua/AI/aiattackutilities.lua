@@ -572,6 +572,45 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
         if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
             return false, false
         end
+        
+		-- the intent of this function is to make sure that we don't try and respond over mountains
+		-- and rivers and other serious terrain blockages -- these are generally identified by
+        -- a rapid elevation change over a very short distance
+		local function CheckBlockingTerrain( pos, targetPos )
+	
+			-- This gives us the number of approx. 6 ogrid steps in the distance
+			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			
+			local lastpos = {pos[1], 0, pos[3]}
+	
+			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+			for i = 0, steps do
+	
+				if i > 0 then
+		
+					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+					-- Get height for both points
+					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+					-- if more than 2 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 2 then
+						
+						-- we are obstructed
+						LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
+						return true
+					end
+					
+					lastpos = nextpos
+                end
+			end
+	
+			return false
+		end
 	
         local GetPosition = moho.entity_methods.GetPosition
         local CanAttackTarget = moho.platoon_methods.CanAttackTarget
@@ -597,7 +636,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 						if nolayercheck then 
 							return u, GetPosition(u)
 
-						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) then
+						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) and CheckBlockingTerrain( position, GetPosition(u)) then
 
 							return u, GetPosition(u)
 						end

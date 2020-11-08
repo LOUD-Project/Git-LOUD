@@ -3520,13 +3520,19 @@ function NavalForceAILOUD( self, aiBrain )
     while PlatoonExists(aiBrain, self) do
 
 		target = false
+        targetposition = false
 		
 		mythreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
-
-		-- Locate LOCAL targets in the searchRadius range using the attackpriority list
-		target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri )
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." seeks local target")
+
+		-- Locate LOCAL targets in the searchRadius range using the attackpriority list - they must also be on the same layer
+        -- and there must be an 'attack' squad
+        if self:GetSquadUnits('Attack') then
+            target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri, true )
+        else
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has no attack squad - no target")
+        end
 
 		-- if target, insure that it's in water and set the destination -- issue attack orders --
         if target and not target.Dead then
