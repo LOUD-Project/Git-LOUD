@@ -390,7 +390,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = true,
+            
+            AutoInitiateAttackCommand = false,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -407,7 +409,7 @@ UnitBlueprint {
 			
             Label = 'AutoGun',
 			
-            MaxRadius = 27,
+            MaxRadius = 28,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 1,
