@@ -1016,7 +1016,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1062,7 +1062,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1109,7 +1109,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
@@ -1161,7 +1161,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},

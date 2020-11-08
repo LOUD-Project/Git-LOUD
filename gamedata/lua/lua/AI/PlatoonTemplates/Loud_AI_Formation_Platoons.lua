@@ -490,7 +490,7 @@ PlatoonTemplate { Name = 'T4ExperimentalGroupAmphibious',
     Plan = 'AmphibForceAILOUD',
 	
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 8, 15, 'Artillery', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 11, 15, 'Artillery', 'none' },
         { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 0, 48, 'Attack', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 18, 'Support', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 4, 'Artillery', 'none' },
@@ -508,7 +508,7 @@ PlatoonTemplate { Name = 'T4ExperimentalGroup',
     Plan = 'LandForceAILOUD',
 	
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 8, 15, 'Artillery', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, 11, 15, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 0, 24, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 18, 'Artillery', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Support', 'none' },
