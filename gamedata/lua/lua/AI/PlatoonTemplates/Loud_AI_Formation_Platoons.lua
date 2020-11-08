@@ -400,16 +400,16 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 
     FactionSquads = {
         UEF = {
-            { 'uel0101', 2, 3, 'Guard', 'none' }
+            { 'uel0101', 2, 4, 'Guard', 'none' }
         },
         Aeon = {
-            { 'ual0101', 2, 3, 'Guard', 'none' }
+            { 'ual0101', 2, 2, 'Guard', 'none' }
         },
         Cybran = {
             { 'url0101', 1, 1, 'Guard', 'none' }
         },
         Seraphim = {
-            { 'xsl0101', 1, 1, 'Guard', 'none' }
+            { 'xsl0101', 1, 2, 'Guard', 'none' }
         },
     }
 }
