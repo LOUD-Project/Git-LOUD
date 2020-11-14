@@ -71,12 +71,12 @@ function CommanderThread( platoon, aiBrain )
 
 	-- So - this loop runs on top of everything the commander might otherwise be doing
 	-- ie. - this is usually building, or trying to build something
-	-- the loop cycles over every 6 seconds
+	-- the loop cycles over every 4.5 seconds
     while not cdr.Dead do
 		
 		Mult = 1
 		
-        WaitTicks(60)
+        WaitTicks(45)
 	
         -- See if Bob needs to fight
         if not cdr.Dead then
@@ -155,7 +155,7 @@ function CDROverCharge( aiBrain, cdr )
 	end
 	
 	-- if Bob is in condition to fight and isn't in distress -- see if there is an alert
-	if cdr:GetHealthPercent() > .69 and shieldPercent > .49 and not aiBrain.CDRDistress then
+	if cdr:GetHealthPercent() > .74 and shieldPercent > .49 and not aiBrain.CDRDistress then
 
 		local EM = aiBrain.BuilderManagers.MAIN.EngineerManager
 		
@@ -332,19 +332,8 @@ function CDROverCharge( aiBrain, cdr )
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( target:GetAIBrain(), targetPos, 0, true, 'AntiSurface')
 						
-						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
-					
-						if enemyThreat > (friendlyThreat * 1.5) + cdrThreat then
-						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Commander target threat too high")
-							
-							FloatingEntityText(id,'Yikes! Much too hot for me..')
-							
-							target = false
-							continueFighting = false
-							
-						end
-					
+						LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
+		
 						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(cdr:GetPosition(), target:GetPosition()) <= weapRange) then
 						
 							FloatingEntityText(id,'Eat some of this...')
@@ -362,6 +351,17 @@ function CDROverCharge( aiBrain, cdr )
 							local tarPos = target:GetPosition()
 							IssueClearCommands( {cdr} )
 							IssueAttack( {cdr}, target )
+							
+						end
+					
+						if enemyThreat > (friendlyThreat * 1.25) + cdrThreat then
+						
+							LOG("*AI DEBUG "..aiBrain.Nickname.." Commander target threat too high")
+							
+							FloatingEntityText(id,'Yikes! Much too hot for me..')
+							
+							target = false
+							continueFighting = false
 							
 						end
 						
@@ -417,7 +417,7 @@ function CDROverCharge( aiBrain, cdr )
 					
 				end
 				
-				if not distressLoc or ( LOUDV3( distressLoc, cdr.CDRHome ) > distressRange ) or (cdr:GetHealthPercent() < .65 or shieldPercent < .33) then
+				if not distressLoc or ( LOUDV3( distressLoc, cdr.CDRHome ) > distressRange ) or (cdr:GetHealthPercent() < .75 or shieldPercent < .33) then
 				
 					continueFighting = false
 					
