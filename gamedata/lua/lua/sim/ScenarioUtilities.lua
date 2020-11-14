@@ -374,6 +374,9 @@ function InitializeArmies()
         -- number of Opponents in the game
         self.NumOpponents = Opponents
         
+        -- default outnumbered ratio
+        self.OutnumberedRatio = 1
+        
         -- number of players in the game 
         self.Players = ScenarioInfo.Options.PlayerCount
         

@@ -963,8 +963,12 @@ end
 -- 3+ Teams Unit Cap Fix : That part is moved away from the main SetupAICheat 
 -- to do it after we figured out how many armies are in the biggest team
 function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Setting unit cap from base of "..ScenarioInfo.Options.UnitCap )
 	
-	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.Players - aiBrain.NumOpponents)
+	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.TeamSize)
+    
+    aiBrain.OutnumberedRatio = PlayerDiff
 
 	-- set unit cap and veterancy multiplier --
 	if ScenarioInfo.Options.CapCheat == "unlimited" then
@@ -976,6 +980,8 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		SetArmyUnitCap( aiBrain.ArmyIndex, 99999)
 		
 		aiBrain.VeterancyMult = 2.0
+        
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
 	
@@ -991,6 +997,12 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
 
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
+        
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap)
+    end
+    
+    if aiBrain.OutnumberedRatio > 1 then 
+        LOG("*AI DEBUG "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
     end
 
 	-- record the starting unit cap
@@ -1108,12 +1120,10 @@ function ApplyCheatBuffs(unit)
 			if LOUDENTITY( categories.COMMAND, unit ) then 
             
                 -- if AI team is outnumbered, increase starting resources to match those of largest team
-                if ScenarioInfo.biggestTeamSize > unit:GetAIBrain().TeamSize then
-                
-                    LOG("*AI DEBUG Biggest Team is "..ScenarioInfo.biggestTeamSize.." MY team is "..unit:GetAIBrain().TeamSize)
+                if unit:GetAIBrain().OutnumberedRatio > 1 then
 
-                    local outnumberratio = 1 + (( ScenarioInfo.biggestTeamSize / (unit:GetAIBrain().TeamSize) ) - 1) / unit:GetAIBrain().TeamSize
-                    
+                    local outnumberratio = unit:GetAIBrain().OutnumberedRatio
+
                     local buffDef = Buffs['CheatEnergyStorage']
                     local buffAffects = buffDef.Affects
                     
@@ -1137,16 +1147,9 @@ function ApplyCheatBuffs(unit)
                 RemoveBuff( unit, 'CheatEnergyStorage' )
                 
                 ApplyBuff(unit, 'CheatMassStorage')
-                
-           
-                --LOG("AI DEBUG Unit is "..repr(unit))
-   
 			end
-			
 		end
-
 	end
-	
 end
 
 -- this function has been revised to factor in the value of friendly units --
