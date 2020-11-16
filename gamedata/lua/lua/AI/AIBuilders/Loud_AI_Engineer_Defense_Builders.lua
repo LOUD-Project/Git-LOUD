@@ -767,7 +767,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -806,7 +806,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
