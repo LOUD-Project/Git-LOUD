@@ -43,9 +43,8 @@ UnitBlueprint {
         'FAVORSWATER',
         'OVERLAYMISC',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
-        --'OVERLAYSONAR',
-        --'OVERLAYOMNI',
+        'OVERLAYSONAR',
+        'OVERLAYOMNI',
     },
     
     CollisionOffsetY = 1.5,
@@ -55,13 +54,13 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Experimental',
         
-        Health = 138000,    --195920, --1959-2020
+        Health = 138000,
         MaxHealth = 138000,
-        RegenRate = 24,
+        RegenRate = 28,
         
-        AirThreatLevel = 85,
+        AirThreatLevel = 72,
         SubThreatLevel = 33,
-        SurfaceThreatLevel = 308,
+        SurfaceThreatLevel = 356,
     },
     
     Description = '<LOC ssl0405_desc>Experimental Heavy Arthrobot',
@@ -128,9 +127,9 @@ UnitBlueprint {
         AnimationTransformLandWater = '/mods/BrewLAN_LOUD/units/SSL0405/SSL0405_ALandWaterTransition.sca',
         AnimationTransformWaterLand = '/mods/BrewLAN_LOUD/units/SSL0405/SSL0405_AWaterLandTransition.sca',
         
-        AnimationWalkRate = 3.5,
-        AnimationWalkRateTall = 2.75,
-        AnimationSwimRate = 1,
+        AnimationWalkRate = 4.5,
+        AnimationWalkRateTall = 2.8,
+        AnimationSwimRate = 1.3,
         
         IdleEffects = {
             Water = {
@@ -311,7 +310,9 @@ UnitBlueprint {
         BuildCostEnergy = 01062020,
         BuildCostMass = 77500,
         BuildTime = 56250,
+        
         MaintenanceConsumptionPerSecondEnergy = 100, --Tall mode
+        
         ResearchMult = 0.25,
     },
     
@@ -383,12 +384,14 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
+        
         LayerChangeOffsetHeight = -3,
         LayerTransitionDuration = 3.1,
-        MaxAcceleration = 1.3,
-        MaxBrake = 2.6,
-        MaxSpeed = 2.6,
-        MaxSpeedReverse = 2.5,
+        
+        MaxAcceleration = 1,
+        MaxBrake = 1.5,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 2.8,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         
@@ -405,8 +408,8 @@ UnitBlueprint {
         TurnRate = 40,
         
         --Testing would indicate that both end up about 0.3 slower than the number would indicate.
-        TallSpeedMultiplier = 0.7,
-        WaterSpeedMultiplier = 1.5,
+        TallSpeedMultiplier = 0.5,
+        WaterSpeedMultiplier = 1.3,
     },
     
     SelectionSizeX = 5,
@@ -450,9 +453,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
-            Damage = 825,
+            Damage = 700,
             DamageRadius = 1, -- Aim bone is dead centre, and the bore axes are parallel
-            DamageType = 'ShieldMult1.1',       -- 10% extra damage to shields
+            DamageType = 'ShieldMult1.2',       -- 10% extra damage to shields
             
             DisplayName = 'Thau Cannon',
             
@@ -493,13 +496,12 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -3,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -723,6 +725,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
@@ -735,29 +738,36 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = false,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 2385,
-            DamageRadius = 4.2,
+            Damage = 900,
+            DamageFriendly = true,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
             
             DisplayName = 'Heavy Sinn Unthe Cannon',
             
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = 'Land|Air|Water|Seabed',
+                Seabed = 'Land|Air|Water|Seabed',
+                Water = 'Land|Air|Water|Seabed',
             },
-            FiringTolerance = 15,
             
-            HeadingArcCenter = 90,
-            HeadingArcRange = 175,
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.5,
+            
+            FiringTolerance = 2,
+            
+            HeadingArcCenter = 60,
+            HeadingArcRange = 80,
             
             Label = 'BigGun',
             
-            MaxRadius = 47,
+            MaxRadius = 50,
             MaxRadiusTall = 67,
             MinRadius = 9,
             
@@ -769,7 +779,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             PrefersPrimaryWeaponTarget = false,
-            ProjectileId = '/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
+            ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',        --'/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
             
             RackBones = {
                 {
@@ -781,7 +791,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -10,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -10,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -791,16 +801,14 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.3,
+            RateOfFire = 1,
             
             TargetCheckInterval = 0.5,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'STRUCTURE DEFENSE',
                 'SPECIALLOWPRI',
                 'ALLUNITS -WALL',
@@ -813,11 +821,11 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 20,
+            TurretPitchRange = 30,
             TurretPitchSpeed = 50,
             
-            TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYaw = 60,
+            TurretYawRange = 80,
             TurretYawSpeed = 50,
             
             Turreted = true,
@@ -827,6 +835,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
@@ -839,29 +848,36 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = false,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 2385,
-            DamageRadius = 4.2,
+            Damage = 900,
+            DamageFriendly = true,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
             
             DisplayName = 'Heavy Sinn Unthe Cannon',
             
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = 'Land|Air|Water|Seabed',
+                Seabed = 'Land|Air|Water|Seabed',
+                Water = 'Land|Air|Water|Seabed',
             },
-            FiringTolerance = 15,
             
-            HeadingArcCenter = -90,
-            HeadingArcRange = 175,
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.5,
+
+            FiringTolerance = 2,
+            
+            HeadingArcCenter = -60,
+            HeadingArcRange = 80,
             
             Label = 'BigGun',
             
-            MaxRadius = 47,
+            MaxRadius = 50,
             MaxRadiusTall = 67,
             MinRadius = 9,
             
@@ -873,7 +889,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             PrefersPrimaryWeaponTarget = false,
-            ProjectileId = '/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
+            ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',    --'/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
             
             RackBones = {
                 {
@@ -885,7 +901,7 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -10,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -10,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
@@ -895,14 +911,12 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.3,
+            RateOfFire = 1,
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'STRUCTURE DEFENSE',
                 'ALLUNITS -WALL',
             },
@@ -914,21 +928,22 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 20,
+            TurretPitchRange = 30,
             TurretPitchSpeed = 50,
             
-            TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYaw = -60,
+            TurretYawRange = 80,
             TurretYawSpeed = 50,
             
             Turreted = true,
             WeaponCategory = 'Direct Fire Experimental',
         },
 
-        --Small Guns
-        { --Tail Gun
+        { --Tail Gun -- strictly AA --
+        
             AboveWaterFireOnly = true, --this one can end up below the water level during swim cycles.
             AlwaysRecheckTarget = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
@@ -936,13 +951,14 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
             
-            Damage = 95,
+            Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
             
             DetonatesAtTargetHeight = true,
@@ -962,11 +978,11 @@ UnitBlueprint {
             HeadingArcCenter = 180,
             HeadingArcRange = 155,
             
-            Label = 'SmallGun',
+            Label = 'TailGun',
             LeadTarget = true,
             
             MaxRadius = 50,
-            MaxRadiusTall = 45,
+            MaxRadiusTall = 50,
             
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -997,7 +1013,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 1.5,       -- 285 DPS Air
+            RateOfFire = 3,       -- 240 DPS Air
             
             TargetCheckInterval = 0.3,
             
@@ -1028,41 +1044,41 @@ UnitBlueprint {
             TurretYawSpeed = 90,
             
             Turreted = true,
-            WeaponCategory = 'Anti Air',
+            UseFiringSolutionInsteadOfAimBone = true,
         },
-        {--Right Gun
+        
+        {--Right Gun - multirole -
+        
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
+                    Cue = 'XSL0202_AireAuBolter',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
+            
+            BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
-            Damage = 95,
-            DamageFriendly = false,
-            DamageRadius = 2,
+            Damage = 40,
             DamageType = 'Normal',
+
             
-            DetonatesAtTargetHeight = true,
-            
-            DisplayName = 'Olaris Artillery Cannon',
+            DisplayName = 'Aire-au Bolter',
             
             EffectiveRadius = 42,
             
             FireTargetLayerCapsTable = {
-                Land = 'Air',
-                Seabed = 'Air',
-                Water = 'Air',
+                Land = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
+                Water = 'Land|Water|Seabed|Air',
             },
-            FiringRandomness = 0.5,
-            FiringTolerance = 0.2,
-            
+            FiringRandomness = 0.3,
+            FiringTolerance = 1,
+
             Label = 'SmallGun',
             
             LeadTarget = true,
@@ -1070,15 +1086,15 @@ UnitBlueprint {
             MaxRadius = 50,
             MaxRadiusTall = 45,
             
-            MuzzleSalvoDelay = 0,
+            MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 95,
+            MuzzleVelocity = 50,
             
             NotExclusive = true,
-            
-            ProjectileId = '/projectiles/SAAOlarisAAArtillery06/SAAOlarisAAArtillery06_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
-            
+			
+            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.2,
+
             RackBones = {
                 {
                     MuzzleBones = {'Mini_Muzzle_L_001'},
@@ -1089,30 +1105,25 @@ UnitBlueprint {
                     RackBone = 'Mini_T_Barrel_R_001',
                 },
             },
-            RackFireTogether = true,
-            RackRecoilDistance = 3,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 1.5,   -- another 285 DPS Air
+            RateOfFire = 3,   -- 240 DPS surface/air
             
             TargetCheckInterval = 0.3,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
-                'BOMBER',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictOnlyAllow = 'AIR',
+
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.3,
             
             TurretBoneMuzzle = 'Mini_Muzzle_L_001',
             TurretBonePitch = 'Mini_T_Barrel_L_001',
@@ -1123,48 +1134,48 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawRange = 100,
+            TurretYawSpeed = 60,
             
             Turreted = true,
-            WeaponCategory = 'Anti Air',
+            UseFiringSolutionInsteadOfAimBone = true,            
         },
+        
         {--Left Gun
+        
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
+                    Cue = 'XSL0202_AireAuBolter',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
+            
+            BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
-            Damage = 95,
-            DamageFriendly = false,
-            DamageRadius = 2,
+            Damage = 40,
             DamageType = 'Normal',
             
-            DetonatesAtTargetHeight = true,
-            
-            DisplayName = 'Olaris Artillery Cannon',
+            DisplayName = 'Aire-au Bolter',
             
             EffectiveRadius = 42,
             
             FireTargetLayerCapsTable = {
-                Land = 'Air|Land',
-                Seabed = 'Air|Land',
-                Water = 'Air|Land',
+                Land = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
+                Water = 'Land|Water|Seabed|Air',
             },
-            FiringRandomness = 0.5,
-            FiringTolerance = 0.2,
             
+            FiringRandomness = 0.3,
+            FiringTolerance = 1,
+
             Label = 'SmallGun',
             
             LeadTarget = true,
@@ -1172,15 +1183,15 @@ UnitBlueprint {
             MaxRadius = 50,
             MaxRadiusTall = 45,
             
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 95,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 50,
             
             NotExclusive = true,
-            
-            ProjectileId = '/projectiles/SAAOlarisAAArtillery06/SAAOlarisAAArtillery06_proj.bp',
-            ProjectileLifetime = 1,
-            
+			
+            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.2,
+
             RackBones = {
                 {
                     MuzzleBones = {'Mini_Muzzle_L_003'},
@@ -1191,30 +1202,25 @@ UnitBlueprint {
                     RackBone = 'Mini_T_Barrel_R_003',
                 },
             },
-            RackFireTogether = true,
-            RackRecoilDistance = 3,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 1.5,       -- a final 285 DPS Air
+
+            RateOfFire = 3,       -- 240 DPS surface/air
             
             TargetCheckInterval = 0.3,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
-                'BOMBER',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictOnlyAllow = 'AIR',
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.3,
             
             TurretBoneMuzzle = 'Mini_Muzzle_L_003',
             TurretBonePitch = 'Mini_T_Barrel_L_003',
@@ -1225,14 +1231,14 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawRange = 100,
+            TurretYawSpeed = 60,
             
             Turreted = true,
-            WeaponCategory = 'Anti Air',
+            UseFiringSolutionInsteadOfAimBone = true,
         },
 
         {--Torpedo
