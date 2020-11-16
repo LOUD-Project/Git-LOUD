@@ -242,7 +242,7 @@ function AIPickEnemyLogic( self, brainbool )
                     -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
                     if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
                     
-                        LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
 					
                         -- create a new attack plan
                         self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
