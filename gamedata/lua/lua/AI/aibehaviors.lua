@@ -1661,7 +1661,7 @@ function NavalScoutingAI( self, aiBrain )
                     
 						if lastpos and VDist2(curPos[1],curPos[3], lastpos[1],lastpos[3]) < 0.1 then
                         
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
 							reconcomplete = true
 						end
 
@@ -2077,9 +2077,6 @@ function AirForceAILOUD( self, aiBrain )
             LOUDINSERT( categoryList, v )
         end
     end
---[[
-    self:SetPrioritizedTargetList( 'Attack', categoryList )
---]]
 
     local target = false
 	local targetposition = false
@@ -2122,6 +2119,7 @@ function AirForceAILOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
+    -- a copy of where this platoon originated
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 	
 	-- force the plan name
@@ -2152,7 +2150,7 @@ function AirForceAILOUD( self, aiBrain )
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
     local mythreat = 0
     local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
+    local mult = { 1, 1.75, 2.5 }				-- this multiplies the range of the platoon when searching for targets
 	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
@@ -2171,7 +2169,8 @@ function AirForceAILOUD( self, aiBrain )
         end
 
         platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
-
+        
+        -- acquire a target --
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
             -- determine which threat values to use --
@@ -2185,7 +2184,7 @@ function AirForceAILOUD( self, aiBrain )
                 mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
 				mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
                 threatcompare = 'AntiAir'
-				strikerange = 125
+				strikerange = 150
             end
 
             if mythreat < 5 then
@@ -2212,9 +2211,10 @@ function AirForceAILOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
             
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            -- the searchradius adapts to the current air ratio AND the outnumbered ratio
+            searchradius = math.max(searchradius, (searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
             
-			-- locate a target
+			-- locate a target -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
@@ -2229,7 +2229,7 @@ function AirForceAILOUD( self, aiBrain )
 						break
 					end
 
-                    WaitTicks(1)
+                    --WaitTicks(1)
 				end
 
 				if target then
@@ -2318,11 +2318,11 @@ function AirForceAILOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(11)
+			WaitTicks(9)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.1
+				attacktimer = attacktimer + 0.9
 
 				local platooncount = 0
 				local fuellow = false
@@ -2567,7 +2567,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 			-- locate a primary target
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
             
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            searchradius = math.max(searchradius, (searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
             
             for _,rangemult in mult do
 
@@ -3052,7 +3052,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            searchradius = math.max(searchradius, (searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
 
             for _,rangemult in mult do
 

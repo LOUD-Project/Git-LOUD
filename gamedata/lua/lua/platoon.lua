@@ -2151,12 +2151,10 @@ Platoon = Class(moho.platoon_methods) {
 					
 						local choices = math.ceil(LOUDGETN(pointlist))
 						
-						-- if there are no choices left
 						if choices < 1 then 
 							break
 						end
 						
-						-- this will pick one of the points
 						choice = Random( 1, choices )
 					
 						-- format the marker --
@@ -2173,8 +2171,6 @@ Platoon = Class(moho.platoon_methods) {
 							marker = false
 						end
 					end
-					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." marker is "..repr(marker))
 
 					guardtime = 0
 					guarding = false
@@ -2340,7 +2336,6 @@ Platoon = Class(moho.platoon_methods) {
 				
 				units = GetPlatoonUnits(self)
 				
-				-- if there is a target prosecute it
 				if target then
 
 					-- issue attack orders on target --
@@ -2393,7 +2388,6 @@ Platoon = Class(moho.platoon_methods) {
 							if target.Dead or VDist3( target:GetPosition(), marker) > guardRadius then
 
 								self:Stop()
-								
 								break
 							end
 					
@@ -2425,12 +2419,14 @@ Platoon = Class(moho.platoon_methods) {
 					for k,unit in units do
 					
 						if not unit.Dead then
+                        
 							counter = counter + 1
 							newunits[counter] = unit
 						end
 					end
 					
 					if counter < LOUDGETN(GetPlatoonUnits(self)) then
+                    
 						units = newunits
 					end
 					
@@ -2480,13 +2476,17 @@ Platoon = Class(moho.platoon_methods) {
 
 				-- check exit parameters --
 				if StrCat and StrTrigger then
+                
 					if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
+                    
 						guardtime = guardTimer
 					end
 				end
 				
 				if UntCat and UntTrigger then
+                
 					if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
+                    
 						guardtime = guardTimer
 					end
 				end		
@@ -2599,7 +2599,7 @@ Platoon = Class(moho.platoon_methods) {
 			return
 		end
 		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." starts")
+		LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." starts")
 
         -- Platoon Data
 		local PType = self.PlatoonData.PointType or 'Unit'				# must be either Unit or Marker
@@ -2751,15 +2751,12 @@ Platoon = Class(moho.platoon_methods) {
 							
 								UnitToGuard = v
 								marker = table.copy( v:GetPosition() )
-								
 								break
 								
 							end
 							
 							WaitTicks(1)
-							
 						end
-						
 					end
 					
 				else
@@ -2905,6 +2902,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." says unit to guard is dead ? ")
 						end
+                        
 					else
 					
 						if marker then
@@ -3045,7 +3043,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-		
+	
 			WaitTicks(10)
 		end
     end,  
