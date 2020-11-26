@@ -52,6 +52,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+            
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},                        
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
         },
 		
