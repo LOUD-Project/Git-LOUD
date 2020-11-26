@@ -64,6 +64,8 @@ function CommanderThread( platoon, aiBrain )
 	local NextTaunt = GetGameTimeSeconds() + 660 + Random(1,660)
     
 	cdr.CDRHome = table.copy(cdr:GetPosition())
+    
+    ForkThread ( LifeThread, aiBrain, cdr )
 	
 	local moveWait = 0
     
@@ -134,6 +136,56 @@ function CommanderThread( platoon, aiBrain )
 		
     end
 	
+end
+
+function LifeThread( aiBrain, cdr )
+
+    local mincome, mrequested, mneeded
+    local eincome, erequested, eneeded
+    
+    local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+    local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
+    local GiveResource = moho.aibrain_methods.GiveResource
+    
+    local cheatmult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
+
+    while true do
+    
+        WaitTicks(1)
+        
+        if GetEconomyStoredRatio( aiBrain, 'MASS') < .01 then
+        
+            mincome = GetEconomyIncome( aiBrain, 'MASS')
+            mrequested = GetEconomyRequested( aiBrain, 'MASS')
+            
+            if mrequested > mincome then
+            
+                mneeded = ((mrequested - mincome ) * 10) * cheatmult
+                
+                GiveResource( aiBrain, 'Mass', mneeded)
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..mneeded.." MASS")
+                
+            end
+        end
+        
+        if GetEconomyStoredRatio( aiBrain, 'ENERGY') < .01 then
+        
+            eincome = GetEconomyIncome( aiBrain, 'ENERGY')
+            erequested = GetEconomyRequested( aiBrain, 'ENERGY')
+            
+            if erequested > eincome then
+            
+                eneeded = ((erequested - eincome ) * 10) * cheatmult
+                
+                GiveResource( aiBrain, 'Energy', eneeded)
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..eneeded.." ENERGY")
+                
+            end
+        end
+    
+    end
 end
 
 -- functions used by Commander Thread
