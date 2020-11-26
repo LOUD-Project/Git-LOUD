@@ -733,10 +733,11 @@ EngineerManager = Class(BuilderManager) {
 
 			local position = table.copy(self.Location)
 		
-			local color = '00ff00'
+			local color = 'ff0000'      -- red --
 		
 			if aiBrain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
-				color = 'ff0000'
+            
+				color = '00ff00'        -- green --
 			end
 
 			if GetFocusArmy() == -1 or (aiBrain.ArmyIndex == GetFocusArmy()) then
