@@ -49,8 +49,10 @@ function AIPickEnemyLogic( self, brainbool )
     -- be based on his CURRENT PRIMARY position - and not always the starting position
     -- this will help keep him focused upon what he's already achieved
     -- rather than just switching to a stronger opponent
-    local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
-
+    
+    --local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
+    local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
+    
     for k,v in ArmyBrains do
 	
         local armyindex = v.ArmyIndex
@@ -69,19 +71,31 @@ function AIPickEnemyLogic( self, brainbool )
                     table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
                 
                     --LOG("*AI DEBUG "..self.Nickname.." "..threattype.." Threats from "..v.Nickname.." are "..repr(threats))
-				
-                    if threats[1] then
                     
-                        if threats[1][3] > 35 then
+                    for _,data in threats do
 
-                            -- use the position that reports the highest total threat
-                            insertTable.Position = {threats[1][1],0,threats[1][2]}
+                        if data[3] > 60 then
+                        
+                            if not insertTable.Position then
+                                -- use the closest position that reports enough threat
+                                insertTable.Position = {data[1],0,data[2]}
+                            end
+                            
+                            -- closer targets are worth more - much more
+               
+                            -- distance of this enemy from current PRIMARY position
+                            local distance = VDist3( testposition, {data[1],0,data[2]} )
+                
+                            -- adjust the strength according to distance result against the maximum possible distance on this map
+                            local threatWeight = math.exp((self.dist_comp/ distance )-1)
 
-                            -- and this gives the enemys total strength based upon what I can see 
-                            -- it has NOTHING TO DO WITH POSITION apparently
-                            -- local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
-                    
-                            insertTable.Strength = insertTable.Strength + threats[1][3]
+                            threatWeight = threatWeight * data[3]
+                            
+                            if threatWeight > 60 then
+                                -- accumulate the total enemy strength from viable positions
+                                insertTable.Strength = insertTable.Strength + threatWeight
+                            end
+                            
                         end
                     end
 
@@ -91,13 +105,12 @@ function AIPickEnemyLogic( self, brainbool )
                     if insertTable.Strength > 35 then
                         armyStrengthTable[armyindex] = insertTable
                     end
-                
                 end
 			end
         end
     end
 	
-	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
+	LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
 	
     --local allyEnemy = self:GetAllianceEnemy(armyStrengthTable, mys)
 	
@@ -118,7 +131,7 @@ function AIPickEnemyLogic( self, brainbool )
         local findEnemy = false
         local currenemy = self:GetCurrentEnemy()
 		
-        -- if there is no current enemy - or the current enemy is not generating any threat - and we are not taret overridden --
+        -- if there is no current enemy - or the current enemy is not generating any threat - and we are not target overridden --
         if (not currenemy or brainbool) or (currenemy and not armyStrengthTable[currenemy:GetArmyIndex()]) and not self.targetoveride then
 		
             findEnemy = true
@@ -131,19 +144,16 @@ function AIPickEnemyLogic( self, brainbool )
             if currenemy:IsDefeated() or armyStrengthTable[cIndex].Strength < 35 then
 			
                 findEnemy = true
-				
             end
-			
         end
 		
 		if self.DrawPlanThread then 
 		
 			KillThread(self.DrawPlanThread)
-			
+            self.DrawPlanThread = nil
 		end	
         
         --LOG("*AI DEBUG "..self.Nickname.." says findEnemy is "..repr(findEnemy))
-        
 
         if findEnemy then
 		
@@ -156,31 +166,18 @@ function AIPickEnemyLogic( self, brainbool )
 			
                 -- Ignore allies 
                 if not v.Enemy then
-				
                     continue
-					
                 end
-				
-                -- closer targets are worth more - much more
-                local distanceWeight = 0.01
-                
-                -- distance of this enemy from current PRIMARY position
-                local distance = VDist3( testposition, v.Position )
-                
-                -- adjust the strength according to distance result
-                local threatWeight = ( math.sqrt(self.dist_comp)/ distance )  --(distance*distance) )
 
-                --LOG("*AI DEBUG "..self.Nickname.." threat multiplier for distance of "..repr(distance).." is "..threatWeight.." result "..threatWeight * v.Strength )
-                
-                threatWeight = threatWeight * v.Strength
-                
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
-                if not enemy or threatWeight > enemyStrength then
+                if not enemy or v.Strength > enemyStrength then
 				
-                    enemydistance = distance
+                    enemydistance = VDist3( testposition, v.Position )
+                    
                     enemyPosition = v.Position
-					enemyStrength = threatWeight
+					enemyStrength = v.Strength
+                    
                     enemy = ArmyBrains[v.Brain]
                 end
             end
@@ -202,7 +199,7 @@ function AIPickEnemyLogic( self, brainbool )
                 local x3 = 0
 
 				-- loop thru only those that match the category filter
-				for _,v in units do         --EntityCategoryFilterDown( vx[3], units ) do
+				for _,v in units do
 
 					counter = counter + 1
 

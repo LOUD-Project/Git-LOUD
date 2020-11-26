@@ -771,6 +771,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -810,6 +811,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		

@@ -12,8 +12,11 @@
     LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
 	-- ATTACK PLANS and AI Strength Ratios
-	ScenarioInfo.DisplayAttackPlans = false
+	ScenarioInfo.DisplayAttackPlans = true
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
+    
+    ScenarioInfo.AttackPlanDialog = false
+    LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
