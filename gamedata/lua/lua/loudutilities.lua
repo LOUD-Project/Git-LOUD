@@ -1025,6 +1025,7 @@ function GetPrimarySeaAttackBase( aiBrain )
     return false, nil
 end
 
+
 function ClearOutBase( manager, aiBrain )
 
 	local basename = manager.LocationType
@@ -1135,7 +1136,7 @@ function ClearOutBase( manager, aiBrain )
 
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-            plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+            plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )	-- Land or Sea whichever is closest to GOAL
         end
 	
         -- all gunship units including EXPERIMENTAL
@@ -1156,11 +1157,11 @@ function ClearOutBase( manager, aiBrain )
 
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
-            plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+            plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )	-- Land or Sea whichever is closest
         end	
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100 )
 
         if groupaircount > 0 then
 
@@ -1179,6 +1180,28 @@ function ClearOutBase( manager, aiBrain )
 
             plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
         end
+
+        -- all bomber units including torpedo bombers and EXPERIMENTALS
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.ANTINAVY), Position, 100 )
+
+        if groupaircount > 0 then
+
+            local plat = aiBrain:MakePlatoon('ClearOutTorpedoBombers','none')
+
+            plat.BuilderName = 'ClearOut TorpedoBombers'
+            plat.BuilderLocation = basename
+
+            for _,unit in groupair do
+
+                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+
+            end
+
+            plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
+
+            plat:SetAIPlan( 'ReinforceNavalAI', aiBrain )	-- Sea only
+        end
+        
 
     end
     
