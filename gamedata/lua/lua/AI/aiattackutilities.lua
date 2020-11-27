@@ -322,6 +322,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					
 						-- if position is within the radius then return false (avoid this position)
 						if VDist2Sq(base.Position[1], base.Position[3], markerPos[1], markerPos[3]) < (baseRadius * baseRadius) then
+                        
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." avoiding "..repr(base.BaseName))
 						
 							return false
 						end
@@ -364,6 +366,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	end
 	
 	local pos, distance, platdistance
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point within "..PointRadius.." from "..repr(PointSource).." for "..self.BuilderName)
 	
 	-- find positions -- 
 	if PointType == 'Unit' then

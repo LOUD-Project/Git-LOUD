@@ -71,8 +71,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 7150,
-        MaxHealth = 7150,
+        Health = 7300,
+        MaxHealth = 7300,
         RegenRate = 5,
         SubThreatLevel = 12,
         SurfaceThreatLevel = 24,
@@ -269,7 +269,7 @@ UnitBlueprint {
             BeamLifetime = 1,
             CollideFriendly = false,
 			
-            Damage = 48,		-- 480 damage on fire
+            Damage = 55,		-- 480 damage on fire
             DamageRadius = 0,
             DamageType = 'Normal',
 			

@@ -3,6 +3,7 @@ local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
 local WeaponsFile = import('/lua/seraphimweapons.lua')
 local SDFSinnuntheWeapon = WeaponsFile.SDFSinnuntheWeapon
 local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
+local SDFAireauBolterWeapon = WeaponsFile.SDFAireauBolterWeapon02
 local SDFThauCannon = WeaponsFile.SDFThauCannon
 local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
 local SDFAjelluAntiTorpedoDefense = WeaponsFile.SDFAjelluAntiTorpedoDefense
@@ -29,7 +30,8 @@ SSL0405 = Class(SLandUnit) {
                 end
             end,
         },
-        SmallGun = Class(SAAOlarisCannonWeapon) {},
+        TailGun = Class(SAAOlarisCannonWeapon) {},
+        SmallGun = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 2.4 },
         FaceGuns = Class(SDFThauCannon) {},
         Torpedo = Class(SANUallCavitationTorpedo) {},
         AntiTorpedo = Class(SDFAjelluAntiTorpedoDefense) {},

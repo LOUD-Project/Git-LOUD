@@ -20,10 +20,10 @@ PlatoonTemplate { Name = 'FighterAttack Large',
         { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 24, 48, 'Attack', 'AttackFormation' },
     }
 }
-PlatoonTemplate { Name = 'FighterEscort Large',
+PlatoonTemplate { Name = 'FighterEscort',
     Plan = 'GuardPointAir',
     GlobalSquads = {
-        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 24, 32, 'Attack', 'AttackFormation' },
+        { (categories.HIGHALTAIR * categories.ANTIAIR) - categories.EXPERIMENTAL, 18, 32, 'Attack', 'None' },
     }
 }
 PlatoonTemplate { Name = 'FighterReinforce',
@@ -96,6 +96,13 @@ PlatoonTemplate { Name = 'GunshipSquadron',
     }
 }
 
+PlatoonTemplate { Name = 'GunshipEscort',
+    Plan = 'GuardPointAir',
+    GlobalSquads = {
+        { (categories.AIR * categories.GROUNDATTACK), 5, 35, 'Attack', 'None' },
+    }
+}
+
 PlatoonTemplate { Name = 'GunshipReinforce',
     Plan = 'ReinforceAirAI',	-- either Land or Sea bases
     GlobalSquads = {
@@ -140,7 +147,8 @@ PlatoonTemplate { Name = 'Air Scout Group Huge',
 PlatoonTemplate { Name = 'TorpedoReinforce',
 	Plan = 'ReinforceAirNavalAI',	-- specifically naval bases
 	GlobalSquads = {
-		{ (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 6, 48, 'Attack', 'AttackFormation' },
+		{ (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 3, 48, 'Attack', 'AttackFormation' },
+  		{ (categories.AIR * categories.SCOUT), 0, 4, 'Support', 'none' },
 	}
 }
 
@@ -162,6 +170,13 @@ PlatoonTemplate { Name = 'TorpedoAttack',
 PlatoonTemplate { Name = 'TorpedoAttack Large',
     GlobalSquads = {
         { (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 30, 42, 'Attack', 'AttackFormation' },
+    }
+}
+
+PlatoonTemplate { Name = 'TorpedoEscort',
+    Plan = 'GuardPointAir',
+    GlobalSquads = {
+        { (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 13, 29, 'Attack', 'None' },
     }
 }
 PlatoonTemplate { Name = 'TorpedoEscort Large',

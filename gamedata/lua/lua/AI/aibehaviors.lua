@@ -64,6 +64,8 @@ function CommanderThread( platoon, aiBrain )
 	local NextTaunt = GetGameTimeSeconds() + 660 + Random(1,660)
     
 	cdr.CDRHome = table.copy(cdr:GetPosition())
+    
+    ForkThread ( LifeThread, aiBrain, cdr )
 	
 	local moveWait = 0
     
@@ -134,6 +136,56 @@ function CommanderThread( platoon, aiBrain )
 		
     end
 	
+end
+
+function LifeThread( aiBrain, cdr )
+
+    local mincome, mrequested, mneeded
+    local eincome, erequested, eneeded
+    
+    local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+    local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
+    local GiveResource = moho.aibrain_methods.GiveResource
+    
+    local cheatmult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
+
+    while true do
+    
+        WaitTicks(1)
+        
+        if GetEconomyStoredRatio( aiBrain, 'MASS') < .01 then
+        
+            mincome = GetEconomyIncome( aiBrain, 'MASS')
+            mrequested = GetEconomyRequested( aiBrain, 'MASS')
+            
+            if mrequested > mincome then
+            
+                mneeded = ((mrequested - mincome ) * 10) * cheatmult
+                
+                GiveResource( aiBrain, 'Mass', mneeded)
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..mneeded.." MASS")
+                
+            end
+        end
+        
+        if GetEconomyStoredRatio( aiBrain, 'ENERGY') < .01 then
+        
+            eincome = GetEconomyIncome( aiBrain, 'ENERGY')
+            erequested = GetEconomyRequested( aiBrain, 'ENERGY')
+            
+            if erequested > eincome then
+            
+                eneeded = ((erequested - eincome ) * 10) * cheatmult
+                
+                GiveResource( aiBrain, 'Energy', eneeded)
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..eneeded.." ENERGY")
+                
+            end
+        end
+    
+    end
 end
 
 -- functions used by Commander Thread
@@ -1661,7 +1713,7 @@ function NavalScoutingAI( self, aiBrain )
                     
 						if lastpos and VDist2(curPos[1],curPos[3], lastpos[1],lastpos[3]) < 0.1 then
                         
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
 							reconcomplete = true
 						end
 
@@ -2061,7 +2113,7 @@ function AirForceAILOUD( self, aiBrain )
 	
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
-    local searchradius = self.PlatoonData.SearchRadius or 250
+    local Searchradius = self.PlatoonData.SearchRadius or 250
     
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
@@ -2077,9 +2129,6 @@ function AirForceAILOUD( self, aiBrain )
             LOUDINSERT( categoryList, v )
         end
     end
---[[
-    self:SetPrioritizedTargetList( 'Attack', categoryList )
---]]
 
     local target = false
 	local targetposition = false
@@ -2087,7 +2136,7 @@ function AirForceAILOUD( self, aiBrain )
 	local loiter = false
 
     local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 60
+    local threatcheckradius = 75
 	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
@@ -2122,6 +2171,7 @@ function AirForceAILOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
+    -- a copy of where this platoon originated
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 	
 	-- force the plan name
@@ -2147,13 +2197,23 @@ function AirForceAILOUD( self, aiBrain )
 		return false
 	end
 
-	
-	-- Select a target using priority list and by looping thru range and difficulty multipliers until target is found
+	-- TETHERING --
+	-- Select a target using the target priority list and by looping thru range and difficulty multipliers until a target is found
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
+    
+    -- this technique I'll call 'tethering' or leashing' - and it will grow and contract with other conditions (air ratio, outnumberedratio)
+    -- we loop thru each multiplier - which is used on the basic Searchradius - giving us expanding 'rings'
+    -- the maximum size of a ring will fluctuate with the air ratio - more restrictive if losing, larger if winning
+    -- the maximum size of a ring will fluctuate with the outnumbered ratio - restrictive if outnumbered, neutral otherwise
+    -- then we loop thru all 3 difficulty settings within that ring, looking for the easiest targets first 
+    -- comparing our platoon threat against the actual threat we see within 75 of the target position
+    -- if we have more - we have a target - and we drop out
+    -- if no target, we advance the multiplier and do it again for the next ring
+    -- notice how the minimum range of the ring is carried forward from the previous iteration 
     local mythreat = 0
     local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
+    local mult = { 1, 1.75, 2.5 }				-- this multiplies the range of the platoon when searching for targets
+	local difficulty = { .7, 1, 1.2 }   		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
     local rangemult, threatmult, strikerange
@@ -2171,7 +2231,8 @@ function AirForceAILOUD( self, aiBrain )
         end
 
         platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
-
+        
+        -- acquire a target --
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
             -- determine which threat values to use --
@@ -2212,9 +2273,12 @@ function AirForceAILOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
             
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            -- the searchradius adapts to the current air ratio AND the outnumbered ratio
+            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
             
-			-- locate a target
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." searchradius result is "..searchradius.."  Air Ratio is "..aiBrain.AirRatio.." base value is "..Searchradius)
+            
+			-- locate a target -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
@@ -2229,7 +2293,6 @@ function AirForceAILOUD( self, aiBrain )
 						break
 					end
 
-                    WaitTicks(1)
 				end
 
 				if target then
@@ -2283,7 +2346,7 @@ function AirForceAILOUD( self, aiBrain )
                         if LOUDGETN(newpath) > 0 then
 
                             -- move the platoon to within strikerange in formation
-                            self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 90)
+                            self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 75)
 
                             -- wait for the movement orders to execute --
                             while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
@@ -2310,7 +2373,7 @@ function AirForceAILOUD( self, aiBrain )
 
 		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
 
-		-- the attacktimer essentially keeps this run down to 200 seconds
+		-- the attacktimer essentially keeps this run down to 250 seconds
 		-- if you cant reach the target and destroy it then platoon will RTB
         local attacktimer = 0
 
@@ -2318,11 +2381,11 @@ function AirForceAILOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(11)
+			WaitTicks(9)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.1
+				attacktimer = attacktimer + 0.9
 
 				local platooncount = 0
 				local fuellow = false
@@ -2386,7 +2449,7 @@ function AirForceAILOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(15)
+			WaitTicks(14)
 		end
     end
 
@@ -2404,7 +2467,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
-    local searchradius = self.PlatoonData.SearchRadius or 250
+    local Searchradius = self.PlatoonData.SearchRadius or 250
     
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
@@ -2427,7 +2490,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	local loiter = false
 
     local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 60
+    local threatcheckradius = 75
 	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
@@ -2567,7 +2630,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 			-- locate a primary target
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
             
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
             
             for _,rangemult in mult do
 
@@ -2584,7 +2647,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 						break
 					end
 
-                    WaitTicks(1)
+                    --WaitTicks(1)
 				end
                 
                 -- record Rangemult value for later use --
@@ -2821,11 +2884,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(11)
+			WaitTicks(9)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.1
+				attacktimer = attacktimer + 0.9
 
 				local platooncount = 0
 				local fuellow = false
@@ -2863,9 +2926,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
-        
+
 			target = false
             
             loiter = false
@@ -2877,7 +2938,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(25)
+			WaitTicks(20)
 		end
     end
 
@@ -2895,7 +2956,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
-    local searchradius = self.PlatoonData.SearchRadius or 250
+    local Searchradius = self.PlatoonData.SearchRadius or 250
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
@@ -2917,7 +2978,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	local loiter = false
 
     local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 60
+    local threatcheckradius = 75
 	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
@@ -3052,7 +3113,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
-            searchradius = math.max(searchradius, searchradius * aiBrain.AirRatio)
+            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
 
             for _,rangemult in mult do
 
@@ -3069,7 +3130,6 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 						break
 					end
 
-                    WaitTicks(1)
 				end
                 
                 -- record Rangemult value for later use --
@@ -3308,11 +3368,11 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(11)
+			WaitTicks(9)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 1.1
+				attacktimer = attacktimer + 0.9
 
 				local platooncount = 0
 				local fuellow = false
@@ -3364,7 +3424,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(25)
+			WaitTicks(20)
 		end
     end
 
@@ -3404,7 +3464,7 @@ function NavalForceAILOUD( self, aiBrain )
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
-    local searchRadius = data.SearchRadius or 350		-- used to locate local targets to attack
+    local SearchRadius = data.SearchRadius or 350		-- used to locate local targets to attack
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
@@ -3529,7 +3589,7 @@ function NavalForceAILOUD( self, aiBrain )
 		-- Locate LOCAL targets in the searchRadius range using the attackpriority list - they must also be on the same layer
         -- and there must be an 'attack' squad
         if self:GetSquadUnits('Attack') then
-            target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', searchRadius, atkPri, true )
+            target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', SearchRadius, atkPri, true )
         else
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has no attack squad - no target")
         end
@@ -3893,9 +3953,9 @@ function NavalForceAILOUD( self, aiBrain )
 				updatedtargetposition = table.copy(target:GetPosition())
 			end
 
-			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
+			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > SearchRadius * 1.25 then
 				
-				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > searchRadius * 1.25 then
+				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > SearchRadius * 1.25 then
 					--LOG("*AI DEBUG "..aiBrain.Nickname.." NFAI "..self.BuilderName.." target is beyond 1.25x radius "..repr(searchRadius))
 				end
 
@@ -4030,7 +4090,7 @@ function NavalBombardAILOUD( self, aiBrain )
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
-    local searchRadius = data.SearchRadius or 150
+    local SearchRadius = data.SearchRadius or 150
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
@@ -4117,9 +4177,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		end
 		
 		if not self.MoveThread then
-
 			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, atkPri, true )
-		
 		end
 
 		-- if target -- issue attack orders -- no need to move
@@ -4199,13 +4257,11 @@ function NavalBombardAILOUD( self, aiBrain )
 			for _,v in self:GetPlatoonUnits() do
 			
 				v.guardset = nil
-				
 			end
 			
         else
 		
 			target = false
-			
 		end
 
 		-- if no target and no movement orders -- use HiPri list
@@ -4425,7 +4481,7 @@ function NavalBombardAILOUD( self, aiBrain )
         end
 
 		-- loop here until target dies or moves out of range -- 
-		-- wait 6 seconds between target checks --
+		-- wait 4 seconds between target checks --
 		while target and PlatoonExists(aiBrain, self) do
 
 			updatedtargetposition = false
@@ -4460,13 +4516,11 @@ function NavalBombardAILOUD( self, aiBrain )
 				self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false)
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				
 			end
 
-			WaitTicks(60)
+			WaitTicks(40)
 			
 			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." engaging target "..repr(target.Dead).." "..repr( target:GetBlueprint().Description ).." in bombard range "..maxRange.." at "..VDist3( updatedtargetposition, GetPlatoonPosition(self)) )
-			
 		end
 
 		-- check mission timer for RTB
@@ -4524,9 +4578,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
 		-- wait 4.5 seconds
 		WaitTicks(45)
-		
     end
-	
 end
 
 
