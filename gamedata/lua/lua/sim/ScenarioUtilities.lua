@@ -453,6 +453,7 @@ function InitializeArmies()
 		
         transportplatoon:UniquelyNamePlatoon('TransportPool') 
 		transportplatoon.BuilderName = 'Transport Pool'
+        transportplatoon.UsingTransport = true      -- never review this platoon during a merge
 
 		self.TransportPool = transportplatoon
         
@@ -461,6 +462,7 @@ function InitializeArmies()
 		
         structurepool:UniquelyNamePlatoon('StructurePool')
 		structurepool.BuilderName = 'Structure Pool'
+        structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
 		
 		self.StructurePool = structurepool
         
@@ -469,6 +471,7 @@ function InitializeArmies()
 		
         refuelpool:UniquelyNamePlatoon('RefuelPool')
 		refuelpool.BuilderName = 'Refuel Pool'
+        refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
 		
 		self.RefuelPool = refuelpool
 		

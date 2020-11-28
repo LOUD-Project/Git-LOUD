@@ -871,6 +871,8 @@ function AirScoutingAI( self, aiBrain )
 	
 	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
 	local VDist3 = VDist3
+    
+    self.UsingTransport = true      -- airscouting is never considered for merge operations
 
 	local function AIGetMustScoutArea()
 	
@@ -6266,6 +6268,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
 			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(unitbeingbuilt.Sync.id)
 			Mexplatoon.MovementLayer = 'Land'
+            Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 			
 			AssignUnitsToPlatoon( aiBrain, Mexplatoon, {unitbeingbuilt}, 'Support', 'none' )
 		

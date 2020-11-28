@@ -1505,6 +1505,7 @@ function AirUnitRefitThread( unit, aiBrain )
         local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
         
         returnpool.BuilderName = 'AirRefit'..tostring(ident)
+        returnpool.UsingTransport = true        -- never review this platoon as part of a merge
 
         aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
 
