@@ -636,6 +636,9 @@ AIBrain = Class(moho.aibrain_methods) {
 				
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
+
+				-- start the adaptive cheat thread for cheating AI -- 
+				self.AdaptiveCheatThread = ForkThread(import('/lua/loudutilities.lua').AdaptiveCheatThread, self)
 			end
 		end
     end,

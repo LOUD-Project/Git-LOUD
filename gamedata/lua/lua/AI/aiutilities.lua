@@ -1149,6 +1149,52 @@ function ApplyCheatBuffs(unit)
 	end
 end
 
+function SetArmyPoolBuff(aiBrain, AIMult)
+
+    local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
+    local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
+
+    -- Store the new mult inside options, so new builded units get the new mult automatically
+    if tostring(AIMult) == tostring(ScenarioInfo.Options.AIMult) then
+
+        return
+
+    end
+
+    ScenarioInfo.Options.AIMult = tostring(AIMult)
+
+    -- Modify Buildrate buff
+    local buffDef = Buffs['CheatBuildRate']
+
+    local buffAffects = buffDef.Affects
+
+    buffAffects.BuildRate.Mult = AIMult
+
+    -- Modify CheatIncome buff
+
+    buffDef = Buffs['CheatIncome']
+
+    buffAffects = buffDef.Affects
+
+    buffAffects.EnergyProduction.Mult = AIMult
+
+    buffAffects.MassProduction.Mult = AIMult
+
+    allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+
+    for _, unit in allUnits do
+
+        -- Remove old build rate and income buffs
+        RemoveBuff(unit, 'CheatIncome', true) -- true = removeAllCounts
+        RemoveBuff(unit, 'CheatBuildRate', true) -- true = removeAllCounts
+
+        -- Apply new build rate and income buffs
+        ApplyBuff(unit, 'CheatIncome')
+        ApplyBuff(unit, 'CheatBuildRate')
+
+    end
+end
+
 -- this function has been revised to factor in the value of friendly units --
 function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri, nukeCount, oldTarget )
 

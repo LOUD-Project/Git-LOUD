@@ -1000,6 +1000,30 @@ Tooltips = {
         title = 'Unlimited Pausing',
         description = 'You can pause the game at any time',
     },
+
+    ########################
+	#  Adaptive Multipler  #
+    ########################
+    
+    ["Lobby_Adaptive_Mult"] = {
+        title = "Adaptive Multipler",
+        description = "Enables the AI to adjust its cheat depending on a variable.",
+    },
+
+    ["lob_AdaptiveMult_Off"] = {
+        title = "AI Adaptive Multipler - Off",
+        description = "AI adjusting Multipler is turned off.",
+    },
+
+    ["lob_AdaptiveMult_Timed Based"] = {
+        title = "AI Adaptive Multipler - Timed Based",
+        description = "AI adjust Multipler based on Time,  Example: It's 30 minutes, Multipler will rise from 1.0 to 1.05.",
+    },
+
+    ["lob_AdaptiveMult_Ratio Based"] = {
+        title = "AI Adaptive Multipler - Ratio Based",
+        description = "AI adjust Multipler based on ratios of its Land, Example: If its land army is weaker then the players land army.",
+    },
     
 	#####################
 	#   AI Multiplier   #
