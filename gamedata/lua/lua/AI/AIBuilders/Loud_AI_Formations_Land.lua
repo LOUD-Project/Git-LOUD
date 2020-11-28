@@ -356,7 +356,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     -- focused on bases first -- no distance restriction
     Builder {BuilderName = 'Land Attack Large NW',
 	
-        PlatoonTemplate = 'LandAttackLargeNW',
+        PlatoonTemplate = 'T3LandAttackNW',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -402,7 +402,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     -- focused on production first -- no distance restriction
     Builder {BuilderName = 'Land Attack Large',
 	
-        PlatoonTemplate = 'LandAttackLarge',
+        PlatoonTemplate = 'T3LandAttack',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -744,9 +744,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
 	-- this is the water map Land Attack used for venting
 	-- available at ALL types of bases
-    Builder {BuilderName = 'Land Attack - Water Map',
+    Builder {BuilderName = 'T3 Land Attack - Water Map',
 	
-        PlatoonTemplate = 'LandAttackLarge',
+        PlatoonTemplate = 'T3LandAttack',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -781,6 +781,39 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
     },
 
+    Builder {BuilderName = 'T2 Land Attack - Water Map',
+	
+        PlatoonTemplate = 'T2LandAttack',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 800,
+        
+        --PriorityFunction = IsPrimaryBase,
+		
+		RTBLocation = 'Any',
+		
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+			MergeLimit = 100,
+			
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+			
+			UseFormation = 'AttackFormation',
+			
+            AggressiveMove = true,
+        },
+    },
+    
 	-- attack enemy mass points when team needs mass point share
     Builder {BuilderName = 'MEX Attack Large Need Mass',
 	
@@ -818,10 +851,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointCategory = 'MASSEXTRACTION',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 50,
-			PointMax = 1000,
+			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE,
 			StrRadius = 60,
@@ -863,7 +896,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         Priority = 800,
 		
-        InstanceCount = 4,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -871,8 +904,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-					            
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
+			--{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -882,16 +915,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointCategory = 'MASSEXTRACTION',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 1000,
+			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
 			StrRadius = 60,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 6,
+			StrMax = 4,
             
             ThreatMaxRatio = 1.1,
 			
@@ -899,7 +932,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 14,
+			UntMax = 10,
 			
             PrioritizedCategories = { 'ECONOMIC','FACTORY','SHIELD','DEFENSE STRUCTURE','ENGINEER'},
 			
@@ -1301,7 +1334,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	-- large attack at 17.5 km
     Builder {BuilderName = 'Amphib Attk Large',
 	
-        PlatoonTemplate = 'AmphibAttackLarge',
+        PlatoonTemplate = 'T3AmphibAttack',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1338,7 +1371,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	-- general attack at 15km 
     Builder {BuilderName = 'Amphib Attk',
 	
-        PlatoonTemplate = 'AmphibAttackMedium',
+        PlatoonTemplate = 'T2AmphibAttack',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1375,7 +1408,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	-- attack extractors within 15km 
     Builder {BuilderName = 'Amphib MEX Attack',
 	
-        PlatoonTemplate = 'AmphibAttackSmall',
+        PlatoonTemplate = 'T1AmphibAttack',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1439,6 +1472,35 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UseFormation = 'AttackFormation',
         },
 	},
+    
+	Builder {BuilderName = 'Reinforce Primary - Amphibious',
+	
+        PlatoonTemplate = 'ReinforceAmphibiousPlatoon',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAIPlan = 'ReinforceAmphibAI',
+		
+        Priority = 10,
+
+		PriorityFunction = NotPrimaryBase,
+		
+        InstanceCount = 2,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},
+        },
+		
+        BuilderData = {
+            UseFormation = 'GrowthFormation',
+        },  
+    },    
 }
 
 
@@ -1537,7 +1599,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 3,
+        InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
@@ -1549,7 +1611,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, 0, 75, 1, 'AntiSurface', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1000, 0, 75, 1, 'AntiSurface', 1 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1563,10 +1625,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Mass',
 			PointSourceSelf = true,			-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 		-- must be Self, Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 750,		    	-- controls the finding of points based upon distance from PointSource
+			PointRadius = 1000,		    	-- controls the finding of points based upon distance from PointSource
 			PointSort = 'Closest',			-- options are Closest or Furthest
 			PointMin = 150,					-- filter points by range from PointSource
-			PointMax = 750,
+			PointMax = 1000,
 			
 			StrCategory = categories.MASSEXTRACTION,		-- filter points based upon presence of units/strucutres at point
 			StrRadius = 5,
@@ -1582,7 +1644,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 45,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 20,
+			UntMax = 10,
 			
             AssistRange = 3,
 			
@@ -1613,7 +1675,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
 		
-        Priority = 800,
+        Priority = 0,
 		
 		RTBLocation = 'Any',
 		
@@ -1699,16 +1761,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			--{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1000, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1722,7 +1784,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Defensive Point',
 			PointSourceSelf = true,			# true AI will use its base as source
 			PointFaction = 'Ally',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 200,
 			PointMax = 999999,
@@ -1777,14 +1839,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },	-- was 3
+			--{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },	-- was 3
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { LUTL, 'PoolGreater', { 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
 			-- a DP marker with less than 75 enemy threat
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1000, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
@@ -1800,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Defensive Point',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 200,
 			PointMax = 999999,
@@ -1817,7 +1879,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
 			UntRadius = 60,
-			UntTrigger = true,
+			UntTrigger = false,
 			UntMin = 0,
 			UntMax = 15,
 			
@@ -1843,7 +1905,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 800,
+        Priority = 801,
 		
 		PriorityFunction = IsPrimaryBase,
 
@@ -1854,12 +1916,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },
+			--{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			-- a starting point within 10km that has <= 6 non-economic structures within 60 and no more than 100 threat
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1874,10 +1936,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Blank Marker',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
-			PointRadius = 1000,
+			PointRadius = 1250,
 			PointSort = 'Closest',
 			PointMin = 250,
-			PointMax = 1000,
+			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE - categories.ECONOMIC,
 			StrRadius = 60,
@@ -1997,7 +2059,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 800,
+        Priority = 801,
 		
 		PriorityFunction = IsPrimaryBase,
 		
@@ -2012,7 +2074,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -2027,10 +2089,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Large Expansion Area',
 			PointSourceSelf = true,				-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 1000,					-- controls the finding of points based upon distance from PointSource
+			PointRadius = 1250,					-- controls the finding of points based upon distance from PointSource
 			PointSort = 'Closest',				-- options are Closest or Furthest
 			PointMin = 250,						-- allows you to filter found points by range from PointSource
-			PointMax = 1000,
+			PointMax = 1250,
 			
 			StrCategory = categories.STRUCTURE - categories.ECONOMIC,		-- filter points based upon units/strucutres at point
 			StrRadius = 60,
@@ -2053,9 +2115,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- controls target selection
 			
 			GuardRadius = 75,					-- range at which platoon will engage targets
-			GuardTimer = 1500,					-- period that platoon will guard the point 
+			GuardTimer = 1200,					-- period that platoon will guard the point 
 			
-			MergeLimit = 50,					-- limit to which unit merging is allowed - nil = original platoon size
+			MergeLimit = 45,					-- limit to which unit merging is allowed - nil = original platoon size
 			
 			AggressiveMove = true,
 			
@@ -2332,33 +2394,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         },
     },
 
-	Builder {BuilderName = 'Reinforce Primary - Amphibious',
-	
-        PlatoonTemplate = 'ReinforceAmphibiousPlatoon',
-        
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAIPlan = 'ReinforceAmphibAI',
-		
-        Priority = 10,
 
-		PriorityFunction = NotPrimaryBase,
-		
-        InstanceCount = 2,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
-            
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},
-        },
-		
-        BuilderData = {
-            UseFormation = 'GrowthFormation',
-        },  
-    },
 }
 
