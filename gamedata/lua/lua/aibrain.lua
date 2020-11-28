@@ -5,6 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
+    -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
@@ -12,33 +13,40 @@
     LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
 	-- ATTACK PLANS and AI Strength Ratios
-	ScenarioInfo.DisplayAttackPlans = true
+    
+    -- AI will display the route and goal of his current attack plan --
+	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
     
     ScenarioInfo.AttackPlanDialog = false
     LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
+    -- AI will record LAND AIR and NAVAL ratios to the LOG file on a regular basis
 	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 	
-	-- SHOW AI Bases as Markers on map
+    -- AI will show the name of the base on the map --
 	ScenarioInfo.DisplayBaseNames = false
 	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 
 	
 	-- Show what FACTORIES and PLATOONS are running and who is in what platoon
+    
+    -- Factories will be named according to the builder they are currently running --
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
 	ScenarioInfo.PlatoonDialog = false
 	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
 
-	ScenarioInfo.PlatoonMergeDialog = false
+	ScenarioInfo.PlatoonMergeDialog = true
 	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 	
-	ScenarioInfo.DisplayPlatoonPlans = false
+    -- AI will popup the buildername over the platoon every few seconds
+	ScenarioInfo.DisplayPlatoonPlans = true
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 	
+    -- ALL AI units will be named with the platoon they are in --
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
 
@@ -72,15 +80,18 @@
     ScenarioInfo.IntelDialog = false
     LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
     
+    -- map will show position and relative size of intel points from PARSEINTEL
 	ScenarioInfo.DisplayIntelPoints = false
 	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
 
+    -- AI will ping the map with the location of base alerts
 	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 	ScenarioInfo.BaseMonitorDialog = false
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
+    -- AI will draw a ring indicating the range of the base monitor - each time it checks for threat
 	ScenarioInfo.DisplayBaseMonitors = false
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
 	

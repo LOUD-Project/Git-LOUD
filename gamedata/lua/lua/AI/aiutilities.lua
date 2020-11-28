@@ -110,7 +110,7 @@ function AIPickEnemyLogic( self, brainbool )
         end
     end
 	
-	LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
+	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
 	
     --local allyEnemy = self:GetAllianceEnemy(armyStrengthTable, mys)
 	
