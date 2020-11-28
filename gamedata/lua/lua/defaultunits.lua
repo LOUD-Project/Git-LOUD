@@ -659,6 +659,7 @@ StructureUnit = Class(Unit) {
 
 			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(finishedUnit.Sync.id)
 			Mexplatoon.MovementLayer = 'Land'
+            Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
             aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
 

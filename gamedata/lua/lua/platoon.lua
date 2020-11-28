@@ -4484,6 +4484,11 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 		end
+        
+        -- Air Scouts are never considered for merges
+        if layer == 'Air' then
+            self.UsingTransport = true
+        end
 		
 		local loclist = GetBasePerimeterPoints(aiBrain, location, radius, orientation, false, layer, patroltype)
 

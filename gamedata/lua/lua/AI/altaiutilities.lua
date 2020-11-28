@@ -1432,6 +1432,7 @@ function GetTransports( platoon, aiBrain)
 
 					transportplatoon.PlanName = 'TransportUnits '..tostring(ident)
 					transportplatoon.BuilderName = 'Load and Transport '..tostring(ident)
+                    transportplatoon.UsingTransport = true      -- keep this platoon from being reviewed in a merge
                     
                     if ScenarioInfo.TransportDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." creates "..transportplatoon.BuilderName.." to service "..platoon.BuilderName)
