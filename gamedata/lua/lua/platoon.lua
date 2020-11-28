@@ -2500,7 +2500,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				-- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 50%
 				if Random(1,2) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
-				
+
 					oldNumberOfUnitsInPlatoon = 0
 				
 					for _,v in units do
@@ -8126,12 +8126,10 @@ Platoon = Class(moho.platoon_methods) {
     MergeWithNearbyPlatoons = function( self, aiBrain, planName, radius, planmatchrequired, mergelimit )
 
         if self.UsingTransport then
-		
             return false
         end
 		
 		if not PlatoonExists(aiBrain,self) then
-		
 			return false
 		end
 
