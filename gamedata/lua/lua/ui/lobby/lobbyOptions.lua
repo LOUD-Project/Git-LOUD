@@ -113,23 +113,23 @@ teamOptions =
 
 globalOpts = {
     {   default = 1,
-        label = "Adaptive Multipler",
+        label = "AI Adaptive Multipler",
         help = "Enables the AI to adjust its cheat depending on a variable.",
         key = 'AdaptiveMult',
         pref = 'Lobby_Adaptive_Mult',
         values = {
             {
-                text = "AI Adaptive Multipler - Off",
+                text = "Off",
                 help = "AI adjusting Multipler is turned off.",
                 key = 'Off',
             },
             {
-                text = "AI Adaptive Multipler - Timed Based",
+                text = "Timed Based",
                 help = "AI adjust Multipler based on Time,  Example: It's 30 minutes, Multipler will rise from 1.0 to 1.05.",
                 key = 'Timed Based',
             },
             {
-                text = "AI Adaptive Multipler - Ratio Based",
+                text = "Ratio Based",
                 help = "AI adjust Multipler based on ratios of its Land, Example: If its land army is weaker then the players land army.",
                 key = 'Ratio Based',
             },
