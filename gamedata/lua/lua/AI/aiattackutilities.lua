@@ -496,7 +496,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			
 				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
 	
-				if (threatatpoint <= threatmin or threatatpoint > threatmax) then
+				if (threatatpoint < threatmin or threatatpoint > threatmax) then
                 
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for threat "..threatatpoint.." min is "..threatmin.." max is "..threatmax )
                     
@@ -629,8 +629,12 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 
 		-- sort them by distance
 		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
-		
+
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." found "..repr(LOUDGETN(enemyunits)).." enemies at "..maxRange)
+
 		for _,v in atkPri do
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." testing "..repr(v).." targets")
 
 			-- filter for the desired category
 			for _, u in EntityCategoryFilterDown( LOUDPARSE(v), enemyunits) do
@@ -642,12 +646,12 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 
 						if nolayercheck then 
 							return u, GetPosition(u)
+                        end
 
-						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) and CheckBlockingTerrain( position, GetPosition(u)) then
-
+						if CanGraphTo( position, GetPosition(u), self.MovementLayer ) and not CheckBlockingTerrain( position, GetPosition(u)) then
 							return u, GetPosition(u)
-						end
-					end
+                        end
+                    end
 				end
 			end
 			

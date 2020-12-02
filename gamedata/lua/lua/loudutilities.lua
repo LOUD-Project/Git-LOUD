@@ -610,7 +610,7 @@ function AdaptiveCheatThread ( aiBrain )
     -- which ACT you use - Time OR Ratio
 	local AIMult = AIMultOption
     
-	LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (AdaptiveCheatThread) starts. Base Cheat Multiplier is "..repr(AIMultOption) )
+	LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (AdaptiveCheatThread) starts. Base Cheat Multiplier is "..repr(AIMultOption) )
 
     -- These TWO parameters control the size and rate of the increase
     -- These could also be lobby settings if desired --
@@ -620,7 +620,7 @@ function AdaptiveCheatThread ( aiBrain )
     local lastupdate = AIMult
     
 	if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' then    
-        LOG("*AI DEBUG "..aiBrain.Nickname.." AI ACT (Time Based) - Increase "..cheatincrease.." every "..delayperiod.." ticks")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) - Increase "..cheatincrease.." every "..delayperiod.." ticks")
     end
 
     -- primary loop - runs all game
@@ -632,7 +632,7 @@ function AdaptiveCheatThread ( aiBrain )
         -- we'll cap it at a maximum of 4 -- stupidly high - but hey ? why not ?
 		if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' and AIMult < 4 then
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
 
 
             -- here you could introduce a change to the delayperiod - having it modify up or down
@@ -686,7 +686,7 @@ function AdaptiveCheatThread ( aiBrain )
             -- if the value has changed since last processed then update
             if lastupdate and lastupdate != AIMult + cheatincrease then
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
 
                 SetArmyPoolBuff(aiBrain, AIMult + cheatincrease)
                 
