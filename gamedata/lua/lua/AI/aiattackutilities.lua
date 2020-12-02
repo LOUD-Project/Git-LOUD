@@ -133,16 +133,17 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
 	
 	if nodes then
+
 		local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
 		local radius = LayerLimits[layer]
-		
+
 		-- sort the markers for this layer by closest to location
 		LOUDSORT( nodes, function(a,b) return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
-		
+
 		-- if the first result is within radius then respond
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
 			return true, nodes[1].position
-		end
+        end
 	end
 
 	return false, nil
@@ -571,12 +572,14 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 	end
 	
     if PlatoonExists( aiBrain, self) then
-    
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finding target "..repr(atkPri))
+
         -- are there any enemy units ?
         if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
             return false, false
         end
-        
+
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance

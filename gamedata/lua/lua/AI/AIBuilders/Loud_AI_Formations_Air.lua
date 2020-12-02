@@ -1534,7 +1534,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+		PlatoonAIPlan = 'AttackForceAI_Torpedo',		
 		
         Priority = 700,
         InstanceCount = 3,
@@ -1572,7 +1572,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',
+		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
         Priority = 710,
 		
@@ -1613,7 +1613,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',
+		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
         Priority = 715,
 		
@@ -1696,7 +1696,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',
+		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 		
         Priority = 710,
 		

@@ -1203,7 +1203,9 @@ EngineerManager = Class(BuilderManager) {
 					if math.abs(lastposHeight - nextposHeight) > 2 then
 						
 						-- we are obstructed
-						LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE OBSTRUCTED ")
+                        if ScenarioInfo.BaseMonitorDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE OBSTRUCTED to "..repr(targetPos))
+                        end
 						return true
 					end
 					

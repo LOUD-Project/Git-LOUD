@@ -59,7 +59,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
 		BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
-			--{ LUTL, 'PoolLess', { 24, categories.DIRECTFIRE * categories.LAND }},
 		},
 		
 		BuilderType = {'LandT1'},
@@ -75,7 +74,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
-			--{ UCBC, 'PoolLessAtLocation', { 'LocationType', 24, categories.DIRECTFIRE * categories.MOBILE }},
         },
 		
         BuilderType = {'LandT1','LandT2'},
