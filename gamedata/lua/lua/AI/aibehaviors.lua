@@ -2225,10 +2225,18 @@ function AirForceAILOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 100, true, mergelimit) then
+            --if ScenarioInfo.PlatoonMergeDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge at range 100 - limit "..mergelimit )
+            --end
+
+			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_LOUD', 100, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
+                
+                if ScenarioInfo.PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." merges to "..oldNumberOfUnitsInPlatoon)
+                end
 			end
         end
 
