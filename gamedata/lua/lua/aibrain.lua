@@ -5,113 +5,145 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
+
+    
+    --- ENGINEER and FACTORY DEBUGS ---
+
+
     -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
+    -- engineers will dialog their decisions to the LOG --
     ScenarioInfo.EngineerDialog = false
     LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
-	-- ATTACK PLANS and AI Strength Ratios
-    
-    -- AI will display the route and goal of his current attack plan --
-	ScenarioInfo.DisplayAttackPlans = false
-	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
-    
-    ScenarioInfo.AttackPlanDialog = false
-    LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
-
-    -- AI will record LAND AIR and NAVAL ratios to the LOG file on a regular basis
-	ScenarioInfo.ReportRatios = false
-	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
-	
-    -- AI will show the name of the base on the map --
-	ScenarioInfo.DisplayBaseNames = false
-	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
-
-	
-	-- Show what FACTORIES and PLATOONS are running and who is in what platoon
-    
     -- Factories will be named according to the builder they are currently running --
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
+
+	
+	-- ENGINEER, FACTORY and STRUCTURE UNIT UPGRADES --
+
+    
+    -- Each ACU will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.ACUEnhanceDialog = false
+	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
+	
+    -- Each SACU will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.SCUEnhanceDialog = false
+	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
+
+    -- Each FACTORY will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.FactoryEnhanceDialog = false
+	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
+
+    -- ALL STRUCTURES THAT UPGRADE - will report upgrade data and decisions to the LOG 
+	ScenarioInfo.StructureUpgradeDialog = false
+	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
+
+
+
+	-- ATTACK PLANS and STRENGTH RATIOS
+
+    
+    -- AI will display the route and goal of his current attack plan
+	ScenarioInfo.DisplayAttackPlans = false
+	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
+    
+    -- the AttackPlanner will dialog their selection and plotting data and decisions to the LOG
+    ScenarioInfo.AttackPlanDialog = false
+    LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
+
+    -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
+	ScenarioInfo.ReportRatios = false
+	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
+
+
+
+    -- INTEL/THREAT DATA -- MONITORS AND DEBUGS --
+
+    
+    -- AI will dialog Intel threat data and decisions to the LOG
+    ScenarioInfo.IntelDialog = false
+    LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
+    
+    -- AI will display color coded and relatively sized rings, on the map, for different types of threat
+    -- the threats that are displayed (not all are) is controlled in PARSEINTELTHREAD
+	ScenarioInfo.DisplayIntelPoints = false
+	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
+
+
+    
+    -- BASES AND BASE THREAT MONITORS --
+
+    
+    -- Each AI base will appear on the map with it's name - while active
+	ScenarioInfo.DisplayBaseNames = false
+	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
+
+    -- Each AI base will dialog its threat monitor data and decisions to the LOG
+	ScenarioInfo.BaseMonitorDialog = false
+	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
+
+    -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
+	ScenarioInfo.DisplayBaseMonitors = false
+	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
+
+    -- AI will ping the map with the location of alerts raised by the base monitor
+	ScenarioInfo.DisplayPingAlerts = false
+	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
+
+
+	
+    -- BASE PLATOON FORMATION AND PLATOON BEHAVIORS
+
+
+    -- Each Base will dialog its Platoon Formation data and decisions to the LOG (pretty busy)
 	ScenarioInfo.PlatoonDialog = false
 	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
-
-	ScenarioInfo.PlatoonMergeDialog = true
-	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 	
-    -- AI will popup the buildername over the platoon every few seconds
-	ScenarioInfo.DisplayPlatoonPlans = true
-	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
-	
-    -- ALL AI units will be named with the platoon they are in --
+    -- ALL AI units will be named with the platoon (BuilderName) they are in (can be very crowded onscreen)
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
+    
+    -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
+	ScenarioInfo.DisplayPlatoonPlans = true
+	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
+    -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
+	ScenarioInfo.DistressResponseDialog = false
+	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
+
+    -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG
+	ScenarioInfo.PlatoonMergeDialog = false
+	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
-
     
-    -- PATHFINDING dialogs - report pathfinding failures to log
+    -- PATHFINDING dialogs - report pathfinding failures to log (useful in debugging poorly marked maps and doing threat evaluation debugging)
     ScenarioInfo.PathFindingDialog = false
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
 
+
+
+    -- HARDCORE NERD DATA - only for those who really need to dig into the guts of how things work
+
     
-	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
+	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
-    
-    -- INSTANCE COUNT dialogs - shows instance counts for tasks as they are used/released
+    -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
 
-	
-	-- UNIT BUFF dialog - show units being buffed and de-buffed
+	-- UNIT BUFF dialog - show units being buffed and de-buffed (this can be pretty busy)
 	ScenarioInfo.BuffDialog = false
 	LOG("*AI DEBUG		Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
-
-	
-	-- INTEL, BASEMONITORS and DISTRESS RESPONSE dialogs
-    ScenarioInfo.IntelDialog = false
-    LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
-    
-    -- map will show position and relative size of intel points from PARSEINTEL
-	ScenarioInfo.DisplayIntelPoints = false
-	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
-
-    -- AI will ping the map with the location of base alerts
-	ScenarioInfo.DisplayPingAlerts = false
-	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
-
-	ScenarioInfo.BaseMonitorDialog = false
-	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
-
-    -- AI will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = false
-	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
-	
-	ScenarioInfo.DistressResponseDialog = false
-	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
-
-	
-	-- UNIT Upgrades and Enhancement dialogs
-	ScenarioInfo.ACUEnhanceDialog = false
-	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
-	
-	ScenarioInfo.SCUEnhanceDialog = false
-	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
-
-	ScenarioInfo.FactoryEnhanceDialog = false
-	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
-
-	ScenarioInfo.StructureUpgradeDialog = false
-	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
-
 	
 	-- Projectile, Shield and Weapon dialogs (VERY COSTLY)
 	ScenarioInfo.ProjectileDialog = false
