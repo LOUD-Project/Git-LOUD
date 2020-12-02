@@ -590,207 +590,114 @@ function SpawnWaveThread( aiBrain )
 	
 end
 
+-- This function credit to Uveso (FAF) - adapted by Azraeelian Angel for LOUD
+-- optimized by Sprouto
 function AdaptiveCheatThread ( aiBrain )
 
-	local personality = ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality
+	if not ScenarioInfo.Options.AdaptiveMult or ScenarioInfo.Options.AdaptiveMult == 'Off' then
 
-	local AIMultOption = tonumber(ScenarioInfo.Options.AIMult)
-	
+        LOG("*AI DEBUG "..aiBrain.Nickname.." AI ACT (AdaptiveCheatThread) disabled")
+
+		aiBrain.AdaptiveCheatThread = nil
+        return
+	end
+
+    -- this captures the starting point AI Multiplier
+	local AIMultOption = aiBrain.AIMultiplier
+    
+    -- this represents the current value of multiplier with cheat added
+    -- it will grow - and/or - shrink - with each cycle - based upon 
+    -- which ACT you use - Time OR Ratio
 	local AIMult = AIMultOption
-	
-	LOG(' LOUD : Function AdaptiveCheatThread() started! CheatFactor:('..repr(AIMultOption)..') ['..aiBrain.Nickname..']')
+    
+	LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (AdaptiveCheatThread) starts. Base Cheat Multiplier is "..repr(AIMultOption) )
 
-	lastCall = GetGameTimeSeconds()
-	
-	local lastCall = 0
+    -- These TWO parameters control the size and rate of the increase
+    -- These could also be lobby settings if desired --
+    local delayperiod = 10*60*6   -- 6 minutes (about .24 cheat in 1 hour)
+    local cheatincrease = 0.02 -- 2%
+    
+    local lastupdate = AIMult
+    
+	if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' then    
+        LOG("*AI DEBUG "..aiBrain.Nickname.." AI ACT (Time Based) - Increase "..cheatincrease.." every "..delayperiod.." ticks")
+    end
 
-	-- Note AI Multipler Stacks which each change --
-	
+    -- primary loop - runs all game
 	while aiBrain.Result ~= "defeat" do
 
-		-- Check every 60 Ticks for new armyStats to change ECO -- 
-		WaitTicks(60)
+		WaitTicks(delayperiod)
 		
-		--LOG('* LOUD : Function AdaptiveCheatThread() beat. ['..aiBrain.Nickname..']')
-		
-		-- This will be the "Timed Based" of Adaptive Cheat -- 
+		-- This will be the Timed Based Adaptive Cheat -- 
+        -- we'll cap it at a maximum of 4 -- stupidly high - but hey ? why not ?
+		if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' and AIMult < 4 then
 
-		if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' then
-			
-			if lastCall then	
-
-				-- Increase cheatfactor to +0.15 = 15% after 3 hours gametime
-			    if GetGameTimeSeconds() > 60 * 180 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.15 then AIMult = tonumber(AIMultOption) + 0.15 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-				-- Increase cheatfactor to +0.05 = 5% after 2 hours and 45 minutes gametime
-				elseif GetGameTimeSeconds() > 60 * 165 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.05 then AIMult = tonumber(AIMultOption) + 0.05 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-				-- Increase cheatfactor to +0.10 = 10% after 2 hours and 30 minutes gametime
-				elseif GetGameTimeSeconds() > 60 * 150 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.10 then AIMult = tonumber(AIMultOption) + 0.10 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-				-- Increase cheatfactor to +0.10 = 10% after 2 hours gametime
-				elseif GetGameTimeSeconds() > 60 * 120 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.10 then AIMult = tonumber(AIMultOption) + 0.10 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'') 
-					SetArmyPoolBuff(aiBrain, AIMult) 
-
-				-- Increase cheatfactor to +0.05 = 5% after 1 hour and 45 minutes gametime
-				elseif GetGameTimeSeconds() > 60 * 105 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.05 then AIMult = tonumber(AIMultOption) + 0.05 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-				-- Increase cheatfactor to +0.10 = 10% after 1 hour and 30 minutes gametime
-				elseif GetGameTimeSeconds() > 60 * 90 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.10 then AIMult = tonumber(AIMultOption) + 0.10 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-				-- Increase cheatfactor to +0.025 = 2.5% after 1 hour gametime
-				elseif GetGameTimeSeconds() > 60 * 60 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.025 then AIMult = tonumber(AIMultOption) + 0.025 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-				
-				-- Increase cheatfactor to +0.05 = 5% after 45 minutes gametime
-			    elseif GetGameTimeSeconds() > 60 * 45 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.05 then AIMult = tonumber(AIMultOption) + 0.05 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-
-                -- Increase cheatfactor to +0.03 = 2.5% after 30 minutes gametime
-			    elseif GetGameTimeSeconds() > 60 * 30 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.025 then AIMult = tonumber(AIMultOption) + 0.025 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-					
-
-                -- Increase cheatfactor to +0.025 = 2.5% after 15 minutes gametime
-				elseif GetGameTimeSeconds() > 60 * 15 then
-					
-                    AIMult = AIMult + 0.1
-                    if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    if AIMult > tonumber(AIMultOption) + 0.025 then AIMult = tonumber(AIMultOption) + 0.025 end
-					--LOG(' Time Based - AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-					
-		
-				end
-			end
-
-			-- This will be the "Ratio Based" Version of Adaptive Cheat; Ratio will be Land, Naval, and Air. (Only Land For Now, Testing)
-			-- Figured this will be mostly for LandRatio as its the most reliable Ratio to adjust the Multipler on.
-
-		elseif ScenarioInfo.Options.AdaptiveMult == 'Ratio Based' then 
-
-			if lastCall then
-				
-                elseif aiBrain.LandRatio <= 0.6 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.35 then AIMult = tonumber(AIMultOption) + 0.35 end
-                    --LOG(' Ratio Based - AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-					
-
-                elseif aiBrain.LandRatio <= 0.7 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.20 then AIMult = tonumber(AIMultOption) + 0.20 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-					
-
-                elseif aiBrain.LandRatio <= 0.8 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.15 then AIMult = tonumber(AIMultOption) + 0.15 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
-					
-
-                elseif aiBrain.LandRatio <= 0.8 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.10 then AIMult = tonumber(AIMultOption) + 0.10 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
 
 
-				elseif aiBrain.LandRatio <= 0.9 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.05 then AIMult = tonumber(AIMultOption) + 0.05 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
+            -- here you could introduce a change to the delayperiod - having it modify up or down
+            -- this would simulate a logarithmic increase versus the linear one we have now --
+            
+            -- the same can be done with the cheatincrease each cycle --
+            -- modify it up or down to achieve different pacing to the cheat --
+            -- ie. - combining the ideas of both time AND ratio cheats --
+            
+            -- so - we could introduce the RATIO code here - as a 2nd layer of effect --
+            -- for example - have the linear increase - combined with ratio based adjustment
+            -- to either the delayperiod and/or cheatincrease - neato
+            
+            
+            AIMult = AIMult + cheatincrease
 
+			SetArmyPoolBuff(aiBrain, AIMult)
+        end
+        
+		-- This will be the "Ratio Based" Version of Adaptive Cheat; Ratio will be Land, Naval, and Air. (Only Land For Now, Testing)
+		-- Figured this will be mostly for LandRatio as its the most reliable Ratio to adjust the Multipler on.
+		if ScenarioInfo.Options.AdaptiveMult == 'Ratio Based' then
+        
+            delayperiod = 150       -- Ratio Based is checked every 15 seconds -- after initial 6 minutes
 
-                elseif aiBrain.LandRatio <= 1 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.025 then AIMult = tonumber(AIMultOption) + 0.025 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
+            if aiBrain.LandRatio <= 0.5 then
+                
+                cheatincrease = .5
 
-				elseif aiBrain.LandRatio <= 1.1 then
-                    AIMult = AIMult + 0.1
-                    if AIMult > tonumber(AIMultOption) + 0.010 then AIMult = tonumber(AIMultOption) + 0.010 end
-                    --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-					SetArmyPoolBuff(aiBrain, AIMult)
+            elseif aiBrain.LandRatio <= 0.6 then
+                
+                cheatincrease = .4
 
-                -- Normal ECO
-				else
-					if AIMult > AIMultOption then
-                        AIMult = AIMult - 0.1
-                        if AIMult < tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-                    elseif AIMult < AIMultOption then
-                        AIMult = AIMult + 0.1
-                        if AIMult > tonumber(AIMultOption) then AIMult = tonumber(AIMultOption) end
-						--LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
-                    SetArmyPoolBuff(aiBrain, AIMult)
-                end
-                --LOG(' AIMult old: '..math.floor(tonumber(ScenarioInfo.Options.AIMult))..' - new: '..math.floor(AIMult)..'')
+            elseif aiBrain.LandRatio <= 0.75 then
+
+                cheatincrease = .3
+
+            elseif aiBrain.LandRatio <= 0.9 then
+                
+                cheatincrease = .2
+
+            elseif aiBrain.LandRatio <= 1 then
+
+                cheatincrease = .1
+
+			else
+
+                cheatincrease = 0
+            end
+            
+            -- if the value has changed since last processed then update
+            if lastupdate and lastupdate != AIMult + cheatincrease then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.."ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
+
+                SetArmyPoolBuff(aiBrain, AIMult + cheatincrease)
+                
+                -- record the value of this update
+                lastupdate = AIMult + cheatincrease
             end
 		end
-
-		if ScenarioInfo.Options.AdaptiveMult == 'Off' then
-			
-		    --LOG("*AI DEBUG "..aiBrain.Nickname.." AdaptiveCheatThread disabled")
-
-			aiBrain.AdaptiveCheatThread = nil
-		end
-
+        
 	end
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.."ACT Exits due to defeat")
 end
 
 function SimulateFactoryBuilt (finishedUnit)

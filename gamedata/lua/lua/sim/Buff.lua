@@ -128,10 +128,12 @@ function ApplyBuff(unit, buffName, instigator)
 	end
 
     if def.Affects then
+    
+        local buffcheck = true
 
         for k,v in def.Affects do
 
-			local buffcheck = true
+			buffcheck = true
 
 			-- this new feature allows us to check individual parts of a multi-stage buff
 			-- so that we only store those buffs which actually affect a given unit
@@ -801,7 +803,6 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 				lowestFloor = v.Floor
 			end
 		end
-	
 	end
 
     -- Adds are calculated first, then the mults.  May want to expand that later.
@@ -822,18 +823,19 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
     return returnVal, bool
 end
 
+-- altered to report true/false if Buff was removed --
 function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
-	if ScenarioInfo.BuffDialog then
-		LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
-	end
-	
     local def = Buffs[buffName]
 
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
 
 	if unitBuff then
 
+        if ScenarioInfo.BuffDialog then
+            LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
+        end
+	
 		if ScenarioInfo.BuffDialog then
 			LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
 		end
@@ -898,12 +900,15 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 		BuffAffectUnit(unit, buffName, instigator, true)
 
-	end
+	else
+        return false
+    end
 	
 	if ScenarioInfo.BuffDialog then
 		LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
 	end
-
+    
+    return true
 end
 
 function HasBuff(unit, buffName)

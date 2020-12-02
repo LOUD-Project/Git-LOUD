@@ -966,6 +966,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.TeamSize)
     
     aiBrain.OutnumberedRatio = PlayerDiff
+   
 
 	-- set unit cap and veterancy multiplier --
 	if ScenarioInfo.Options.CapCheat == "unlimited" then
@@ -975,9 +976,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		SetIgnoreArmyUnitCap(aiBrain.ArmyIndex, true)
 		
 		SetArmyUnitCap( aiBrain.ArmyIndex, 99999)
-		
-		aiBrain.VeterancyMult = 2.0
-        
+
         LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
@@ -988,11 +987,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
         local cheatCap = initialCap * tonumber(ScenarioInfo.Options.AIMult or 1) * (math.max(PlayerDiff,1))
-
-        -- Veterancy mult is always 1 or higher
-        -- more important - it's also represents the AIMultiplier for this brain
-		aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
-
+        
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
         LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap)
@@ -1011,14 +1006,42 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 end
 
 
--- This function sets up the cheats used by the AI
+-- This function creates the cheats used by the AI
+-- now creates buffs for EACH AI -- allowing us to move ahead
+-- with AI having independant mutlipliers and supporting the
+-- more recent adaptive cheat multipliers which require this
+-- to work properly --
 function SetupAICheat(aiBrain, biggestTeamSize)
+
+    --LOG("*AI DEBUG SetupAICheat for "..aiBrain.Nickname.." INDEX "..repr(aiBrain.ArmyIndex))
+
+    -- Veterancy mult is always 1 or higher
+    aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
+    
+    -- Store the basic AIMultiplier for this brain --
+    aiBrain.AIMultiplier = tonumber(ScenarioInfo.Options.AIMult or 1)
+
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
 
 	-- build rate cheat
-    local buffDef = Buffs['CheatBuildRate']
+    local newbuff = table.copy(Buffs['CheatBuildRate'])
+    
+    newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+    
+    local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
 	local buffAffects = buffDef.Affects
 	
 	buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.AIMult)
@@ -1028,22 +1051,52 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
     modifier = math.min(0, 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) ))
-
 	
 	buffAffects.EnergyMaintenance.Add = modifier
 	buffAffects.EnergyActive.Add = modifier
 	buffAffects.MassActive.Add = modifier
 
+    
 	
 	-- resource rate cheat buff
-    buffDef = Buffs['CheatIncome']
+    local newbuff = table.copy(Buffs['CheatIncome'])
+    
+    newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatIncome'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
-
-
+    
+    
 	-- intel range cheat -- increases intel ranges by the multiplier
-	buffDef = Buffs['CheatIntel']
+    local newbuff = table.copy(Buffs['CheatIntel'])
+    
+    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatIntel'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
     buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)    
@@ -1053,19 +1106,65 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
 
     -- ACU intel range buff
-    buffDef = Buffs['CheatCDROmni']
+    local newbuff = table.copy(Buffs['CheatCDROmni'])
+    
+    newbuff.Name = 'CheatCDROmni'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatCDROmni'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
     buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
-   
 	
+    
 	-- storage cheat -- increases storage by the multiplier - only used on the ACU
-	buffDef = Buffs['CheatEnergyStorage']
+    local newbuff = table.copy(Buffs['CheatEnergyStorage'])
+    
+    newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatEnergyStorage'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
+
     
-    buffDef = Buffs['CheatMassStorage']
+    local newbuff = table.copy(Buffs['CheatMassStorage'])
+    
+    newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatMassStorage'..aiBrain.ArmyIndex]
     buffAffects = buffDef.Affects
 	buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
 
@@ -1074,7 +1173,22 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	-- alter unit health, shield health and regen rates
 	-- reduce the delay period between upgrades
     -- and only when multiplier => 1
-	buffDef = Buffs['CheatALL']
+    local newbuff = table.copy(Buffs['CheatALL'])
+    
+    newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatALL'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	
 	modifier = math.max( 0, tonumber(ScenarioInfo.Options.AIMult) - 1.0 )
@@ -1098,18 +1212,21 @@ function ApplyCheatBuffs(unit)
 
 	local LOUDENTITY = EntityCategoryContains
 
+    -- Cheatbuffs are NOT applied to Insignificant units or NUKE/ANTI-NUKE units --
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
+    
+        local brain = unit:GetAIBrain()
 	
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
         local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
-		ApplyBuff(unit, 'CheatBuildRate')		
-		ApplyBuff(unit, 'CheatIncome')
-		ApplyBuff(unit, 'CheatIntel')
+		ApplyBuff(unit, 'CheatBuildRate'..brain.ArmyIndex)		
+		ApplyBuff(unit, 'CheatIncome'..brain.ArmyIndex)
+		ApplyBuff(unit, 'CheatIntel'..brain.ArmyIndex)
 
-		--ApplyBuff(unit, 'CheatMOBILE')
-		ApplyBuff(unit, 'CheatALL')
+		ApplyBuff(unit, 'CheatALL'..brain.ArmyIndex)
         
+        -- Engineers have additional buffs --
 		if LOUDENTITY( categories.ENGINEER, unit) then
 		
 			ApplyBuff(unit, 'CheatENG')
@@ -1117,33 +1234,32 @@ function ApplyCheatBuffs(unit)
 			if LOUDENTITY( categories.COMMAND, unit ) then 
             
                 -- if AI team is outnumbered, increase starting resources to match those of largest team
-                if unit:GetAIBrain().OutnumberedRatio > 1 then
+                if brain.OutnumberedRatio > 1 then
 
-                    local outnumberratio = unit:GetAIBrain().OutnumberedRatio
+                    local outnumberratio = brain.OutnumberedRatio
 
-                    local buffDef = Buffs['CheatEnergyStorage']
+                    local buffDef = Buffs['CheatEnergyStorage'..brain.ArmyIndex]
                     local buffAffects = buffDef.Affects
                     
                     buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
                     
-                    buffDef = Buffs['CheatMassStorage']
+                    buffDef = Buffs['CheatMassStorage'..brain.ArmyIndex]
                     buffAffects = buffDef.Affects
                     buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
 
-                    ApplyBuff(unit, 'CheatIncome')  -- 2nd instance of resource cheat for ACU
-
+                    ApplyBuff(unit, 'CheatIncome'..brain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
                 end
 
-                ApplyBuff(unit, 'CheatEnergyStorage')
+                ApplyBuff(unit, 'CheatEnergyStorage'..brain.ArmyIndex)
 
-				ApplyBuff(unit, 'CheatCDROmni')
+				ApplyBuff(unit, 'CheatCDROmni'..brain.ArmyIndex)
 
-                -- because the 2nd Storage buff will remove the first we'll wait 30 seconds
-                WaitTicks(300)
+                -- because the 2nd Storage buff will remove the first we'll wait 40 seconds
+                WaitTicks(400)
                 
-                RemoveBuff( unit, 'CheatEnergyStorage' )
+                RemoveBuff( unit, 'CheatEnergyStorage'..brain.ArmyIndex )
                 
-                ApplyBuff(unit, 'CheatMassStorage')
+                ApplyBuff(unit, 'CheatMassStorage'..brain.ArmyIndex)
 			end
 		end
 	end
@@ -1154,44 +1270,40 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
-    -- Store the new mult inside options, so new builded units get the new mult automatically
-    if tostring(AIMult) == tostring(ScenarioInfo.Options.AIMult) then
-
-        return
-
-    end
-
-    ScenarioInfo.Options.AIMult = tostring(AIMult)
 
     -- Modify Buildrate buff
-    local buffDef = Buffs['CheatBuildRate']
-
+    local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
     local buffAffects = buffDef.Affects
 
     buffAffects.BuildRate.Mult = AIMult
 
     -- Modify CheatIncome buff
-
-    buffDef = Buffs['CheatIncome']
-
+    buffDef = Buffs['CheatIncome'..aiBrain.ArmyIndex]
     buffAffects = buffDef.Affects
 
     buffAffects.EnergyProduction.Mult = AIMult
-
     buffAffects.MassProduction.Mult = AIMult
 
-    allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+    -- loop thru all the units for this AI --
+    if aiBrain.BrainType == 'AI' then
 
-    for _, unit in allUnits do
+        local allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Army Pool Buff to "..repr(AIMult).." at time "..GetGameTimeSeconds() )
 
-        -- Remove old build rate and income buffs
-        RemoveBuff(unit, 'CheatIncome', true) -- true = removeAllCounts
-        RemoveBuff(unit, 'CheatBuildRate', true) -- true = removeAllCounts
+        for _, unit in allUnits do
 
-        -- Apply new build rate and income buffs
-        ApplyBuff(unit, 'CheatIncome')
-        ApplyBuff(unit, 'CheatBuildRate')
-
+            -- Remove old build rate and income buffs
+            -- the logic here is simple - if you don't have the buff to remove
+            -- then you don't get a buff to add
+            if RemoveBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts then
+                ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)
+            end
+            
+            if RemoveBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts
+                ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)
+            end
+        end
     end
 end
 
