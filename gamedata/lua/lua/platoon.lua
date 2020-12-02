@@ -8272,41 +8272,44 @@ Platoon = Class(moho.platoon_methods) {
                 continue
             end
 		
+			-- otherwise it must a least have the same plan
+            if aPlat.PlanName != planName then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." using "..repr(planName).." different plan "..aPlat.BuilderName.." Using "..repr(aPlat.PlanName) )
+                continue
+            end
+		
+			-- not only the plan must match but the buildername as well
+			if planmatchrequired and aPlat.BuilderName != self.BuilderName then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Buildername match required with "..aPlat.BuilderName)			
+				continue
+			end
+		
+			-- and be on the same movement layer
+            if self.MovementLayer != aPlat.MovementLayer then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." on "..repr(self.MovementLayer).." on different layer "..repr(aPlat.MovementLayer))			
+                continue
+            end
+            
+			-- check distance of allied platoon -- as soon as we hit one farther away then we're done
+			if VDist2Sq(platPos[1],platPos[3], GetPlatoonPosition(aPlat)[1],GetPlatoonPosition(aPlat)[3]) > radiusSq then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at "..repr(platPos).." outside radius of "..radius.." APlat "..aPlat.BuilderName.." at "..repr(GetPlatoonPosition(aPlat)) )
+				break
+			end
+		
 			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
             if aPlat.UsingTransport then
 			
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Platoon "..aPlat.BuilderName.." is UsingTransport "..repr(aPlat) )
                 continue
             end
-			
-			-- not only the plan must match but the buildername as well
-			if planmatchrequired and aPlat.BuilderName != self.BuilderName then
-			
-				continue
-			end
-			
-			-- otherwise it must a least have the same plan
-            if aPlat.PlanName != planName then
-			
-                continue
-            end
-			
-			-- and be on the same movement layer
-            if self.MovementLayer != aPlat.MovementLayer then
-			
-                continue
-            end
-			
-			-- check distance of allied platoon -- as soon as we hit one farther away then we're done
-			if VDist2Sq(platPos[1],platPos[3], GetPlatoonPosition(aPlat)[1],GetPlatoonPosition(aPlat)[3]) > radiusSq then
-			
-				break
-			end
+
 
             count = count + 1
-            
-            -- get the allied platoons size
-			allyPlatoonSize = 0
-			
+
 			-- mark the allied platoon as being busy
 			aPlat.UsingTransport = true
 			
@@ -8314,8 +8317,13 @@ Platoon = Class(moho.platoon_methods) {
 			
             validUnits = {}
 			counter = 0
-			
+            
+            -- the allied platoons size
+			allyPlatoonSize = 0
+
 			-- count and check validity of allied units
+            aPlatUnits = aPlat:GetSquadUnits('Attack')
+            
 			for _,u in aPlatUnits do
 			
 				if not u.Dead then
@@ -8333,10 +8341,14 @@ Platoon = Class(moho.platoon_methods) {
 					end
                 end
             end
-
+            
+			-- unmark the allied platoon
+			aPlat.UsingTransport = false
+			
 			-- if no valid units or we are smaller than the allied platoon then dont allow
 			if counter < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
-			
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." of "..platooncount.." FAILS merge with "..aPlat.BuilderName.." which has "..allyPlatoonSize)
                 continue
             end
 
@@ -8344,10 +8356,7 @@ Platoon = Class(moho.platoon_methods) {
 			if ScenarioInfo.PlatoonMergeDialog then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
 			end
-			
-			-- unmark the allied platoon
-			aPlat.UsingTransport = false
-			
+
 			-- assign the valid units to us - this may end the allied platoon --
             AssignUnitsToPlatoon( aiBrain, self, validUnits, 'Attack', 'none' )
 			
@@ -8360,9 +8369,11 @@ Platoon = Class(moho.platoon_methods) {
 
         if ScenarioInfo.PlatoonMergeDialog then
             if count > 0 then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH reviewed "..count.." platoons")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH reviewed "..count.." platoons")
             end
         end
+        
+        self.UsingTransport = false
         
 		return mergedunits
     end,
@@ -8820,9 +8831,9 @@ Platoon = Class(moho.platoon_methods) {
 				
 			end
 			
-		end
-		
-		LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AMPHIB "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
+		else
+            LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AMPHIB "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
+        end
 
 		return self:PlatoonDisband( aiBrain )
 		
