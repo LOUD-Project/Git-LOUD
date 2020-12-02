@@ -1106,6 +1106,10 @@ Tooltips = {
         title = "1.40",
         description = "AI Difficulty +40%",
     },
+	["lob_AIMult_1.45"] = {
+        title = "1.45",
+        description = "AI Difficulty +45%",
+    },    
 	["lob_AIMult_1.5"] = {
         title = "1.50",
         description = "AI Difficulty +50%",
@@ -1122,6 +1126,10 @@ Tooltips = {
         title = "2.00",
         description = "AI Difficulty +100%",
     },
+	["lob_AIMult_2.5"] = {
+        title = "2.50",
+        description = "AI Difficulty +150%",
+    },    
 
 	########################
 	#	Unit Cap Cheat	   #

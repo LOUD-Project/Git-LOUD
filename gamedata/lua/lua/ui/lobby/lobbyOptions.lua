@@ -113,24 +113,24 @@ teamOptions =
 
 globalOpts = {
     {   default = 1,
-        label = "AI Adaptive Multipler",
-        help = "Enables the AI to adjust its cheat depending on a variable.",
+        label = "AI Multipler - Adaptive",
+        help = "The AI Multiplier adjusts over the course of the game.",
         key = 'AdaptiveMult',
         pref = 'Lobby_Adaptive_Mult',
         values = {
             {
                 text = "Off",
-                help = "AI adjusting Multipler is turned off.",
+                help = "The AI Multiplier does not change over the course of the game.",
                 key = 'Off',
             },
             {
                 text = "Timed Based",
-                help = "AI adjust Multipler based on Time,  Example: It's 30 minutes, Multipler will rise from 1.0 to 1.05.",
+                help = "The AI Multipler adjusted upwards every 6 minutes by 0.02.",
                 key = 'Timed Based',
             },
             {
                 text = "Ratio Based",
-                help = "AI adjust Multipler based on ratios of its Land, Example: If its land army is weaker then the players land army.",
+                help = "AI Multipler adjusted up and down, based upon it's relative strength comparison.  AI Multiplier is increased when losing, normal otherwise.",
                 key = 'Ratio Based',
             },
         },
@@ -231,6 +231,11 @@ globalOpts = {
                 key = '1.4',
             },
             {
+                text = "1.45",
+                help = "AI Difficulty +45%",
+                key = '1.45',
+            },            
+            {
                 text = "1.50",
                 help = "AI Difficulty +50%",
                 key = '1.5',
@@ -250,6 +255,11 @@ globalOpts = {
                 help = "AI Difficulty +100%",
                 key = '2.0',
             },
+            {
+                text = "2.50",
+                help = "AI Difficulty +150%",
+                key = '2.5',
+            },            
 
         },
 	},
