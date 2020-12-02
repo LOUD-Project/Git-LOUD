@@ -219,9 +219,9 @@ PlatoonFormManager = Class(BuilderManager) {
 
 				hndl.LocationType = self.LocationType
 				hndl.PlanName = template[2]
-				hndl.RTBLocation = builder.RTBLocation or false
 				
 				hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
+				hndl.RTBLocation = builder.RTBLocation or self.LocationType
 				
 				hndl:OnUnitsAddedToPlatoon()
 				

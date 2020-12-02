@@ -1159,9 +1159,11 @@ Platoon = Class(moho.platoon_methods) {
 		
 		-- assume platoon is dead 
 		local platoonDead = true
-
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." RTBLocation is "..repr(self.RTBLocation))
+        
 		-- set the desired RTBLocation (specified base, source base or false)
-        local RTBLocation = self.RTBLocation or self.LocationType or false
+        local RTBLocation = self.RTBLocation or false
 
 		-- flag for experimentals (no air transports)
 		local experimental = PlatoonCategoryCount(self, categories.EXPERIMENTAL) > 0
@@ -1200,47 +1202,51 @@ Platoon = Class(moho.platoon_methods) {
 					RTBLocation = v.LocationType
 				end
 				
-				-- if no platoon RTBLocation then force one
+				-- if no RTBLocation then force one
 				if not RTBLocation or RTBLocation == "Any" then
+                
+                    -- no provided RTBLocation - use LocationType from unit
+                    if not RTBLocation then
+                    
+                        if aiBrain.BuilderManagers[v.LocationType].EngineerManager.Active then
+                        
+                            RTBLocation = v.LocationType
+                        end
+                    end
 				
 					-- if the unit has a LocationType and it exists -- we might use that for the platoon
-					if v.LocationType then
-					
-						if RTBLocation != "Any" and aiBrain.BuilderManagers[v.LocationType].EngineerManager.Active then
-						
-							self.LocationType = v.LocationType
-							RTBLocation = v.LocationType
+					if not RTBLocation or RTBLocation == "Any"  then
+
+						-- find the closest manager 
+						if self.MovementLayer == "Land" then
+							
+							-- dont use naval bases for land --
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." seeks ONLY Land Bases")
+
+							RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
+
 						else
-						
-							-- find the closest manager 
-							if self.MovementLayer == "Land" then
 							
-								-- dont use naval bases for land --
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." seeks ONLY Land Bases")
+							if self.MovementLayer == "Air" or self.MovementLayer == "Amphibious" then
 								
-								self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
-								RTBLocation = self.LocationType
+								-- use any kind of base --
+								RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
+
 							else
-							
-								if self.MovementLayer == "Air" or self.MovementLayer == "Amphibious" then
 								
-									-- use any kind of base --
-									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
-									RTBLocation = self.LocationType
-								else
-								
-									-- use only naval bases for 'Sea' platoons
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.Buildername).." seeks ONLY Naval bases")
-									
-									self.LocationType = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
-									RTBLocation = self.LocationType
-								end
+								-- use only naval bases for 'Sea' platoons
+								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.Buildername).." seeks ONLY Naval bases")
+
+								RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
+
 							end
-							
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using RTBLocation "..repr(RTBLocation))
 						end
+
 					end
-				end
+                    
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using RTBLocation "..repr(RTBLocation))
+                    
+                end
 				
 				-- default attached processing (something is not doing this properly)
 				if v:IsUnitState('Attached') then
@@ -1405,7 +1411,10 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- then we'll try elevated threat
 			if not path then
-			-- we use an elevated threat value to help insure that we'll get a path
+            
+                path = false
+                
+                -- we use an elevated threat value to help insure that we'll get a path
 				path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, self.MovementLayer, platPos, transportLocation, mythreat * 3, markerradius )
 			end
             

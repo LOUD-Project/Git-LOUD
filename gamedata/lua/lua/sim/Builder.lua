@@ -39,6 +39,7 @@ Builder = Class {
 		self.BuilderType = builderType
 
 		self.Location = locationType
+        self.RTBLocation = data.RTBLocation or self.Location
         
         self:SetupBuilderConditions( brain, data, locationType)
         
