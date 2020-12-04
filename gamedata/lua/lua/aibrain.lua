@@ -646,8 +646,6 @@ AIBrain = Class(moho.aibrain_methods) {
 
         -- store the cheat value (ie. 1.1 = 10% cheat)
         self.CheatValue = tonumber(ScenarioInfo.Options.AIMult)
-        
-        LOG("*AI DEBUG Setting Cheat Value to "..repr(self.CheatValue))
 
         local civilian = false
         
@@ -660,9 +658,11 @@ AIBrain = Class(moho.aibrain_methods) {
 				break
             end
         end
-		
+
         if not civilian then
-		
+
+            LOG("*AI DEBUG "..self.Nickname.." Setting Cheat Value to "..repr(self.CheatValue))
+
 			if planName and planName != '' then
 			
 				self.AIPlansList = import(planName).AIPlansList
@@ -683,7 +683,12 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the adaptive cheat thread for cheating AI -- 
 				self.AdaptiveCheatThread = ForkThread(import('/lua/loudutilities.lua').AdaptiveCheatThread, self)
 			end
-		end
+		else
+        
+            -- Civilians are NOT Cheating AI
+            self.CheatingAI = false
+            
+        end
     end,
 
 	OnSpawnPreBuiltUnits = function(self)

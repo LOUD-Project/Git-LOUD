@@ -355,7 +355,7 @@ Unit = Class(moho.unit_methods) {
         self.Dead = false		
 		self.PlatoonHandle = false
 
-        -- all AI are technically cheaters --
+        -- all AI (except Civilian) are technically cheaters --
         if self:GetAIBrain().CheatingAI then
             self:ForkThread(ApplyCheatBuffs)
         end

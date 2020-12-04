@@ -1050,7 +1050,8 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	-- but only at 75% of the multiplier (ie. at 1.1 this would be a 7.5% reduction
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
-    modifier = math.min(0, 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) ))
+    -- put a floor of -0.75 on this -- since we're reaching near zero consumption
+    modifier = math.max(-0.75, 0.75 * math.min(0,1 - (tonumber(ScenarioInfo.Options.AIMult))) )
 	
 	buffAffects.EnergyMaintenance.Add = modifier
 	buffAffects.EnergyActive.Add = modifier
@@ -1169,8 +1170,9 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
 
     
-	-- overall cheat buff -- applied at 50% of the multiplier
+	-- overall cheat buff -- applied at 40% of the multiplier
 	-- alter unit health, shield health and regen rates
+    
 	-- reduce the delay period between upgrades
     -- and only when multiplier => 1
     local newbuff = table.copy(Buffs['CheatALL'])
@@ -1192,7 +1194,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	buffAffects = buffDef.Affects
 	
 	modifier = math.max( 0, tonumber(ScenarioInfo.Options.AIMult) - 1.0 )
-	modifier = modifier * 0.5
+	modifier = modifier * 0.4
 	modifier = 1.0 + modifier
 
 	buffAffects.MaxHealth.Mult = modifier
@@ -1216,7 +1218,7 @@ function ApplyCheatBuffs(unit)
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
     
         local brain = unit:GetAIBrain()
-	
+
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
         local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
