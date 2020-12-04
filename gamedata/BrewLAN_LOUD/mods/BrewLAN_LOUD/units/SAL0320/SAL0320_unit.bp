@@ -277,13 +277,13 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 120,
+            Damage = 90,       -- 360 DPS AIr
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -293,7 +293,7 @@ UnitBlueprint {
             DoNotCollideList = {'MISSILE'},
 			
             EnergyDrainPerSecond = 400,
-            EnergyRequired = 200,
+            EnergyRequired = 240,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -302,7 +302,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 42,
+            MaxRadius = 39,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -326,7 +326,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,
+            RateOfFire = 3,     -- RoF determined by charge - 1 second
 			
 			ReTargetOnMiss = true,
 			
@@ -345,13 +345,13 @@ UnitBlueprint {
             TurretBoneYaw = 'Lens_001',
             TurretDualManipulators = false,
 			
-            TurretPitch = 35,
+            TurretPitch = 10,
             TurretPitchRange = 80,
             TurretPitchSpeed = 250,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
 
