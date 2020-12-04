@@ -9,7 +9,7 @@ local LUTL = '/lua/loudutilities.lua'
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 150 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
@@ -25,7 +25,7 @@ end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 150 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
 
@@ -41,7 +41,7 @@ end
 
 local HaveZeroNavalFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 150 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
 	
