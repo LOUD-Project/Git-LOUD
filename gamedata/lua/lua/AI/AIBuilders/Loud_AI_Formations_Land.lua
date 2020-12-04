@@ -1380,7 +1380,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 48, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
@@ -1417,8 +1417,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 		},
 		
