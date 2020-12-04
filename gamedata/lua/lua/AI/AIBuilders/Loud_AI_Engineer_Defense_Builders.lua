@@ -3573,7 +3573,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 760,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
@@ -3733,7 +3733,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 900,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
