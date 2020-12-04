@@ -799,7 +799,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			self.RBAssEngineering = false
 			self.RBApoEngineering = false
 			
-        elseif enh =='EXApocolypticEngineering' then
+        elseif enh =='EXApocalypticEngineering' then
 
             self:RemoveBuildRestriction(ParseEntityCategory(bp.BuildableCategoryAdds))
 			
@@ -815,7 +815,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			self:GetBuffFieldByName('SeraphimACURegenBuffField'):Disable()
 			self:GetBuffFieldByName('SeraphimAdvancedACURegenBuffField'):Enable()
 			
-        elseif enh =='EXApocolypticEngineeringRemove' then
+        elseif enh =='EXApocalypticEngineeringRemove' then
 		
             if Buff.HasBuff( self, 'ACU_T4_Combat_Eng' ) then
                 Buff.RemoveBuff( self, 'ACU_T4_Combat_Eng' )

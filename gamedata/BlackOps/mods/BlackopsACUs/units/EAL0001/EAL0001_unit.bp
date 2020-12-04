@@ -414,7 +414,7 @@ UnitBlueprint {
 			
         },
 		
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
 		
             BuildCostEnergy = 162000,
             BuildCostMass = 16200,
@@ -423,7 +423,7 @@ UnitBlueprint {
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
             Icon = 'exlce3',
 			
-            Name = 'Tech 4 Apocolyptic Engineering (T3)',
+            Name = 'Tech 4 Apocalyptic Engineering (T3)',
 			
 			Prerequisite = 'EXAssaultEngineering',
             ShowBones = { 'Combat_Engineering' },
@@ -435,7 +435,7 @@ UnitBlueprint {
 			NewRegenRate = 90,		-- versus 60 of other engineering
         },
 		
-        EXApocolypticEngineeringRemove = {
+        EXApocalypticEngineeringRemove = {
 		
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -447,9 +447,9 @@ UnitBlueprint {
 			
             Name = 'Remove Engineering Suites',
 			
-            Prerequisite = 'EXApocolypticEngineering',
+            Prerequisite = 'EXApocalypticEngineering',
 			FlamerDamageMod = 2,
-            RemoveEnhancements = {'EXApocolypticEngineering','EXApocolypticEngineeringRemove'},
+            RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
             Slot = 'LCH',
         },
 		
