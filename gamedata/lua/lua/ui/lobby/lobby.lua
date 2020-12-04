@@ -969,6 +969,11 @@ function SetSlotInfo(slot, playerInfo)
 
     GUI.slots[slot].team:Show()
     GUI.slots[slot].team:SetItem(playerInfo.Team)
+
+    if not playerInfo.Human then
+        GUI.slots[slot].mult:Show()
+        GUI.slots[slot].mult:SetItem(playerInfo.Mult)
+    end
 	
 	if handicapMod then
 	
@@ -1058,6 +1063,7 @@ function ClearSlotInfo(slot)
     GUI.slots[slot].faction:Hide()
     GUI.slots[slot].color:Hide()
     GUI.slots[slot].team:Hide()
+    GUI.slots[slot].mult:Hide()
 	GUI.slots[slot].Popup:Hide()
 	if handicapMod then
 		GUI.slots[slot].handicap:Hide()
@@ -1901,6 +1907,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     gameInfo.PlayerOptions[newSlot].OwnerID = senderID
 	
     gameInfo.PlayerOptions[newSlot].Faction = table.getn(FactionData.Factions) + 1
+    gameInfo.PlayerOptions[newSlot].Mult = 3 -- 1.0 multiplier
 
     if requestedTeam then
         gameInfo.PlayerOptions[newSlot].Team = requestedTeam
@@ -2822,6 +2829,13 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtLeftIn(GUI.teamLabel, GUI.panel, slotColumnSizes.team.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
+
+    -- TODO: Lobby layout hasn't been adjusted for AI multi combobox
+    -- - Rat
+    -- GUI.multLabel = UIUtil.CreateText(GUI.labelGroup, "AI Multi.", 14, UIUtil.titleFont)
+    -- LayoutHelpers.AtLeftIn(GUI.multLabel, GUI.panel, slotColumnSizes.mult.x)
+    -- LayoutHelpers.AtVerticalCenterIn(GUI.multLabel, GUI.labelGroup)
+    -- Tooltip.AddControlTooltip(GUI.multLabel, 'lob_mult')
 	
 	if handiMod then
 		GUI.handicapLabel = UIUtil.CreateText(GUI.labelGroup, "Handicap", 14, UIUtil.titleFont)
@@ -2929,6 +2943,8 @@ function CreateUI(maxPlayers, useSteam)
 			self:Hide()
 		end
 
+        -- Color combo
+        
         GUI.slots[i].color = BitmapCombo(bg, gameColors.PlayerColors, 1, true, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
@@ -2965,6 +2981,8 @@ function CreateUI(maxPlayers, useSteam)
         
         GUI.slots[i].color.row = i
 
+        -- Faction combo
+
         GUI.slots[i].faction = BitmapCombo(bg, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		
         LayoutHelpers.AtLeftIn(GUI.slots[i].faction, GUI.panel, slotColumnSizes.faction.x)
@@ -2995,6 +3013,8 @@ function CreateUI(maxPlayers, useSteam)
             GUI.slots[i].faction:SetItem(4)
         end
 
+        -- Team combo
+
         GUI.slots[i].team = BitmapCombo(bg, teamIcons, 1, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		
         LayoutHelpers.AtLeftIn(GUI.slots[i].team, GUI.panel, slotColumnSizes.team.x)
@@ -3011,7 +3031,50 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddControlTooltip(GUI.slots[i].team, 'lob_team')
         Tooltip.AddComboTooltip(GUI.slots[i].team, teamTooltips)
         GUI.slots[i].team.OnEvent = GUI.slots[curRow].name.OnEvent
-		
+
+        -- AI cheat multiplier combo
+
+        GUI.slots[i].mult = Combo(bg, 14, 23, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        LayoutHelpers.AtLeftIn(GUI.slots[i].mult, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
+        GUI.slots[i].mult.Width:Set(80)
+        GUI.slots[i].mult.row = i
+        -- TODO: Can the global aiMults table feed the combobox with strings?
+        -- Because this is stupid.
+        -- - Rat
+        local multStrings = {
+                '0.8',
+                '0.9',
+                '1.0',
+                '1.05',
+                '1.075',
+                '1.1',
+                '1.125',
+                '1.15',
+                '1.175',
+                '1.2',
+                '1.225',
+                '1.25',
+                '1.275',
+                '1.3',
+                '1.325',
+                '1.35',
+                '1.375',
+                '1.4',
+                '1.45',
+                '1.5',
+                '1.6',
+                '1.75',
+                '2.0',
+                '2.5'
+            }
+        GUI.slots[i].mult:AddItems(multStrings)
+
+        GUI.slots[i].mult.OnClick = function(self, index, text)
+            Tooltip.DestroyMouseoverDisplay()
+            SetPlayerOption(self.row, 'Mult', index)
+        end
+        
 		if handiMod then
 			GUI.slots[i].handicap = BitmapCombo(bg, handicapIcons, 1, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 			
@@ -3098,12 +3161,18 @@ function CreateUI(maxPlayers, useSteam)
         if GUI.slots[slot].ready then
             GUI.slots[slot].ready:Enable()
         end
+        if not gameInfo.PlayerOptions[slot].Human then
+            GUI.slots[slot].mult:Enable()
+        end
     end
 
     function DisableSlot(slot, exceptReady)
         GUI.slots[slot].team:Disable()
         GUI.slots[slot].color:Disable()
         GUI.slots[slot].faction:Disable()
+        if not gameInfo.PlayerOptions[slot].Human then
+            GUI.slots[slot].mult:Disable()
+        end
 		if handiMod then
 			GUI.slots[slot].handicap:Disable()
 		end

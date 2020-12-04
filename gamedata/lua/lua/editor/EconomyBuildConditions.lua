@@ -107,7 +107,7 @@ end
 
 -- modified to be altered by AI Cheat --
 function LessEconEnergyStorageCurrent(aiBrain, eStorage)
-	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, tonumber(ScenarioInfo.Options.AIMult))))
+	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)

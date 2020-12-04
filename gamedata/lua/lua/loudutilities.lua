@@ -418,7 +418,7 @@ function SpawnWaveThread( aiBrain )
 	local startx, startz = aiBrain:GetArmyStartPos()
 	local wave = 1
 	
-	local spawndelay = 1200 * (1 / tonumber(ScenarioInfo.Options.AIMult))	-- every 20 minutes but reduced by cheat build multiplier
+	local spawndelay = 1200 * (1 / aiBrain.CheatValue)	-- every 20 minutes but reduced by cheat build multiplier
 	
 	local hold_wave = true
     
@@ -504,7 +504,7 @@ function SpawnWaveThread( aiBrain )
 		end    
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = math.floor((wave * 1.5) * tonumber(ScenarioInfo.Options.AIMult) )
+		local units = math.floor((wave * 1.5) * aiBrain.CheatValue )
         -- insure that there is always at least 1 unit (in case of negative multipliers)
         local units = math.max( units, 1 ) 
 		
@@ -575,7 +575,7 @@ function SpawnWaveThread( aiBrain )
         -- each reduction will be smaller than the last until wave 10 when it becomes the same
         -- initial reduction is 30 seconds + cheat
         -- final   reduction is 12 seconds + cheat
-		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * tonumber(ScenarioInfo.Options.AIMult) )
+		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain.CheatValue )
         
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units.." at "..GetGameTimeSeconds().." seconds")
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
