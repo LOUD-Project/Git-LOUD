@@ -5129,6 +5129,12 @@ function EngineerTransferAI( self, aiBrain )
 					
 						possibles[counter+1] = k
 						counter = counter + 1
+                        
+                        -- SCU attracted to counted bases more
+                        if Eng_Type == 'SCU' then
+                            possibles[counter+1] = k
+                            counter = counter + 1
+                        end
 						
 					end
 					
@@ -5137,18 +5143,17 @@ function EngineerTransferAI( self, aiBrain )
 					
 						possibles[counter+1] = k
 						counter = counter + 1
-						
-						possibles[counter+1] = k
-						counter = counter + 1
-						
+
+                        -- SCU not as attracted to Primary compensated by
+                        -- extra addition IF it has production (CountedBase)
+                        if not Eng_Type == 'SCU' then
+                            possibles[counter+1] = k
+                            counter = counter + 1
+                        end
 					end
-					
 				end
-				
 			end
-			
 		end
-		
 	end
 	
 	if counter > 0 then
@@ -5168,7 +5173,6 @@ function EngineerTransferAI( self, aiBrain )
 	else
 	
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer FROM "..repr(eng.LocationType).." FAILS")
-		
 	end
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)
