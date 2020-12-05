@@ -441,13 +441,13 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 		
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
             BuildCostEnergy = 162000,
             BuildCostMass = 16200,
             BuildTime = 16200,
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER UEF',
             Icon = 'exlce3',
-            Name = 'Tech 4 Apocolyptic Engineering (T3)',
+            Name = 'Tech 4 Apocalyptic Engineering (T3)',
             Prerequisite = 'EXAssaultEngineering',
             ShowBones = {'Flamer','Engineering_Suite'},
             Slot = 'LCH',
@@ -456,15 +456,15 @@ UnitBlueprint {
 			
 			NewRegenRate = 90,
         },
-        EXApocolypticEngineeringRemove = {
+        EXApocalypticEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {'Flamer','Engineering_Suite'},
             Icon = 'exlce3',
             Name = 'Remove Engineering Suites',
-            Prerequisite = 'EXApocolypticEngineering',
-            RemoveEnhancements = {'EXApocolypticEngineering','EXApocolypticEngineeringRemove'},
+            Prerequisite = 'EXApocalypticEngineering',
+            RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
             Slot = 'LCH',
         },
 		
