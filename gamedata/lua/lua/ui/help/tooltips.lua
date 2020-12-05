@@ -879,6 +879,14 @@ Tooltips = {
         title = "Team",
         description = "Players with the same Team will start off Allied with each other",
     },
+    lob_mult = {
+        title = "AI Cheat Multiplier",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at 0.9 and below, it is weakened and less difficult.",
+    },
+    lob_act = {
+        title = "Adaptive AI Cheat Multiplier",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game.",
+    },
     lob_teams_combo = {
         title = "Number/Configuration of Teams",
         description = "Select the number or configuration of teams for this map",
@@ -986,6 +994,23 @@ Tooltips = {
     lob_team_eight = {
         title = 'Team 8',
         description = '',
+    },
+
+    lob_act_none = {
+        title = 'No Adaptive Cheating',
+        description = 'The cheat multiplier assigned to the AI in the lobby will persist throughout the entire game.',
+    },
+    lob_act_ratio = {
+        title = 'Feedback Cheat',
+        description = 'The AI will get more difficult as its army size relative to yours decreases.',
+    },
+    lob_act_time = {
+        title = 'Time-Based Adaptive Cheat',
+        description = 'The AI will get more difficult with time.',
+    },
+    lob_act_both = {
+        title = 'Feedback and Time-Based Adaptive Cheat',
+        description = 'Both adaptive cheat options work on the AI.'
     },
     
     lob_Timeouts_0 = {

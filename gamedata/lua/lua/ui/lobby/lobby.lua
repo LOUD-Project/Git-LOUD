@@ -70,6 +70,13 @@ local teamTooltips = {
     'lob_team_eight',
 }
 
+-- local actTooltips = {
+--     'lob_act_none',
+--     'lob_act_ratio',
+--     'lob_act_time',
+--     'lob_act_both',
+-- }
+
 table.insert(factionBmps, "/faction_icon-sm/random_ico.dds")
 table.insert(factionTooltips, 'lob_random')
 
@@ -969,7 +976,14 @@ function SetSlotInfo(slot, playerInfo)
 
     GUI.slots[slot].team:Show()
     GUI.slots[slot].team:SetItem(playerInfo.Team)
-	
+    
+    if not playerInfo.Human then
+        GUI.slots[slot].mult:Show()
+        GUI.slots[slot].mult:SetItem(playerInfo.Mult)
+        GUI.slots[slot].act:Show()
+        GUI.slots[slot].act:SetItem(playerInfo.ACT)
+    end
+
 	if handicapMod then
 	
 		GUI.slots[slot].handicap:Show()
@@ -1058,6 +1072,8 @@ function ClearSlotInfo(slot)
     GUI.slots[slot].faction:Hide()
     GUI.slots[slot].color:Hide()
     GUI.slots[slot].team:Hide()
+    GUI.slots[slot].mult:Hide()
+    GUI.slots[slot].act:Hide()
 	GUI.slots[slot].Popup:Hide()
 	if handicapMod then
 		GUI.slots[slot].handicap:Hide()
@@ -1901,6 +1917,8 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     gameInfo.PlayerOptions[newSlot].OwnerID = senderID
 	
     gameInfo.PlayerOptions[newSlot].Faction = table.getn(FactionData.Factions) + 1
+    gameInfo.PlayerOptions[newSlot].Mult = 3 -- 1.0 by default
+    gameInfo.PlayerOptions[newSlot].ACT = 1 -- Neither ACT by default
 
     if requestedTeam then
         gameInfo.PlayerOptions[newSlot].Team = requestedTeam
@@ -2537,36 +2555,18 @@ function CreateUI(maxPlayers, useSteam)
 			else
 				
 				local num_teams = tonumber(text)
-
-
-
-
-
 				local current_team = 1
 				---local randomFactionID = table.getn(FactionData.Factions) + 1
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and gameInfo.PlayerOptions[i] then
-
-
-
-
-
-
-
-
-					
 						---Team values begin at 2 (for team 1). Odd yes.
 						SetPlayerOption(i, 'Team', current_team + 1, true)
 						
 						---SetPlayerOption(i, 'Faction', randomFactionID, true)
-						
 						current_team = current_team + 1
 						if current_team > num_teams then
 							current_team = 1
 						end
-
-
-						
 					end
 				end
 			
@@ -2764,12 +2764,14 @@ function CreateUI(maxPlayers, useSteam)
 
 	local slotColumnSizes = {
 		LEMindicator = {x = 48, width = 24},
-        player = {x = 80, width = 326},
-        color = {x = 417, width = 59},
-        faction = {x = 485, width = 59},
-        team = {x = 553, width = 60},
+        player = {x = 72, width = 278},
+        color = {x = 354, width = 59},
+        faction = {x = 419, width = 59},
+        team = {x = 478, width = 60},
+        mult = {x = 538, width = 70},
+        act = {x = 608, width = 90},
         ping = {x = 620, width = 62},
-        ready = {x = 685, width = 51},
+        ready = {x = 695, width = 51},
     }
 	
 	if not singlePlayer and handiMod then
@@ -2822,7 +2824,12 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtLeftIn(GUI.teamLabel, GUI.panel, slotColumnSizes.team.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
-	
+
+    GUI.multLabel = UIUtil.CreateText(GUI.labelGroup, "AI Multi.", 14, UIUtil.titleFont)
+    LayoutHelpers.AtLeftIn(GUI.multLabel, GUI.panel, slotColumnSizes.mult.x)
+    LayoutHelpers.AtVerticalCenterIn(GUI.multLabel, GUI.labelGroup)
+    Tooltip.AddControlTooltip(GUI.multLabel, 'lob_mult')
+
 	if handiMod then
 		GUI.handicapLabel = UIUtil.CreateText(GUI.labelGroup, "Handicap", 14, UIUtil.titleFont)
 		LayoutHelpers.AtLeftIn(GUI.handicapLabel, GUI.panel, slotColumnSizes.handicap.x)
@@ -3011,7 +3018,73 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddControlTooltip(GUI.slots[i].team, 'lob_team')
         Tooltip.AddComboTooltip(GUI.slots[i].team, teamTooltips)
         GUI.slots[i].team.OnEvent = GUI.slots[curRow].name.OnEvent
-		
+        
+        -- AI cheat multiplier combo
+
+        GUI.slots[i].mult = Combo(bg, 14, 23, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        LayoutHelpers.AtLeftIn(GUI.slots[i].mult, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
+        GUI.slots[i].mult.Width:Set(70)
+        GUI.slots[i].mult.row = i
+        -- TODO: Can the global aiMults table feed the combobox with strings?
+        -- Because this is stupid. Making this file-local just throws.
+        -- - Rat
+        local multStrings = {
+                '0.8',
+                '0.9',
+                '1.0',
+                '1.05',
+                '1.075',
+                '1.1',
+                '1.125',
+                '1.15',
+                '1.175',
+                '1.2',
+                '1.225',
+                '1.25',
+                '1.275',
+                '1.3',
+                '1.325',
+                '1.35',
+                '1.375',
+                '1.4',
+                '1.45',
+                '1.5',
+                '1.6',
+                '1.75',
+                '2.0',
+                '2.5'
+            }
+        GUI.slots[i].mult:AddItems(multStrings)
+
+        GUI.slots[i].mult.OnClick = function(self, index, text)
+            Tooltip.DestroyMouseoverDisplay()
+            SetPlayerOption(self.row, 'Mult', index)
+        end
+
+        Tooltip.AddControlTooltip(GUI.slots[i].mult, 'lob_mult')
+
+        -- ACT combo
+
+        GUI.slots[i].act = Combo(bg, 14, 23, false, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        LayoutHelpers.AtLeftIn(GUI.slots[i].act, GUI.panel, slotColumnSizes.act.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].act, GUI.slots[i])
+        GUI.slots[i].act.Width:Set(90)
+        GUI.slots[i].act.row = i
+        GUI.slots[i].act:AddItems({ "Fixed", "Feedback", "Time", "Both" })
+
+        GUI.slots[i].act.OnClick = function(self, index, text)
+            Tooltip.DestroyMouseoverDisplay()
+            SetPlayerOption(self.row, 'ACT', index)
+        end
+
+        Tooltip.AddControlTooltip(GUI.slots[i].act, 'lob_act')
+        Tooltip.AddComboTooltip(GUI.slots[i].act, {
+            'lob_act_none',
+            'lob_act_ratio',
+            'lob_act_time',
+            'lob_act_both',})
+
 		if handiMod then
 			GUI.slots[i].handicap = BitmapCombo(bg, handicapIcons, 1, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 			
@@ -3092,6 +3165,10 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[slot].team:Enable()
         GUI.slots[slot].color:Enable()
         GUI.slots[slot].faction:Enable()
+        if not gameInfo.PlayerOptions[slot].Human then
+            GUI.slots[slot].mult:Enable()
+            GUI.slots[slot].act:Enable()
+        end
 		if handiMod then
 			GUI.slots[slot].handicap:Enable()
 		end
@@ -3104,6 +3181,10 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[slot].team:Disable()
         GUI.slots[slot].color:Disable()
         GUI.slots[slot].faction:Disable()
+        if not gameInfo.PlayerOptions[slot].Human then
+            GUI.slots[slot].mult:Disable()
+            GUI.slots[slot].act:Disable()
+        end
 		if handiMod then
 			GUI.slots[slot].handicap:Disable()
 		end
