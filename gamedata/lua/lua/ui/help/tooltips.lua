@@ -1,7 +1,8 @@
 Tooltips = {
-    --*******************
-    --** Orders Strings
-    --*******************
+    -- *********************
+    -- *** Orders Strings
+    -- *********************
+
     move = {
         title = "Move",
         description = "",
@@ -30,11 +31,6 @@ Tooltips = {
     mode_hold = {
         title = "Hold Fire",
         description = "Units will not engage enemies",
-        keyID = "mode",
-    },
-    mode_aggressive = {
-        title = "Ground Fire",
-        description = "Units will attack targeted positions rather attack-move",
         keyID = "mode",
     },
     mode_return_fire = {
@@ -306,9 +302,10 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Chat Strings
-    --**********************
+    -- *******************
+    -- *** Chat Strings
+    -- *******************
+
     chat_config = {
         title = "Configure Chat",
         description = "Click here to configure various chat options.",
@@ -365,10 +362,6 @@ Tooltips = {
         title = "Reset Chat Window",
         description = "Resets the position and layout of the chat window",
     },
-    minimap_reset = {
-        title = "Reset Minimap Window",
-        description = "Resets the position and layout of the minimap window",
-    },
     toggle_cartographic = {
         title = "Cartographic Mode",
         description = "Display the terrain using a topographic visualization",
@@ -382,9 +375,10 @@ Tooltips = {
         description = "Toggles option and MFD buttons on or off.",
     },
 
-    --**********************
-    --** Economy Strings
-    --**********************
+    -- **********************
+    -- *** Economy Strings
+    -- **********************
+
     mass_rate = {
         title = "Economic Mass Rate",
         description = "Toggle between income-per-second and efficiency rating values",
@@ -414,9 +408,10 @@ Tooltips = {
         description = "Your overall Economic Efficiency",
     },
 
-    --**********************
-    --** Options Strings
-    --**********************
+    -- **********************
+    -- *** Options Strings
+    -- **********************
+
     options_wheel_sensitivity = {
         title = "Zoom Wheel Sensitivity",
         description = "Sets the Zoom Speed when using the Mouse Wheel",
@@ -650,9 +645,10 @@ Tooltips = {
         description = "When on, the UI skin will change to match the faction you are playing",
     },
 
-    --**********************
-    --** Lobby Strings
-    --**********************
+    -- ********************
+    -- *** Lobby Strings
+    -- ********************
+
     aitype_loud = {
         title = "LOUD AI",
         description = "Use LOUD AI - set AI Multiplier for difficulty",
@@ -1012,7 +1008,22 @@ Tooltips = {
         description = '',
     },
 
-    -- Adaptive AI multiplier drop-down tooltips
+    lob_Timeouts_0 = {
+        title = 'No Pausing',
+        description = 'You will not be able to pause the game',
+    },
+    lob_Timeouts_3 = {
+        title = 'Timeouts 3',
+        description = 'You may pause the game 3 times',
+    },
+    ['lob_Timeouts_-1'] = {
+        title = 'Unlimited Pausing',
+        description = 'You can pause the game at any time',
+    },
+
+    -- *********************
+    -- *** Adaptive Cheat
+    -- *********************
 
     lob_act_none = {
         title = 'No Adaptive Cheating',
@@ -1031,22 +1042,76 @@ Tooltips = {
         description = 'Both adaptive cheat options work on the AI.'
     },
 
-    lob_Timeouts_0 = {
-        title = 'No Pausing',
-        description = 'You will not be able to pause the game',
+    ["lob_ACTRatioInterval_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier may change every 15 seconds."
     },
-    lob_Timeouts_3 = {
-        title = 'Timeouts 3',
-        description = 'You may pause the game 3 times',
+    ["lob_ACTRatioInterval_30"] = {
+        title = "30",
+        description = "The AI's cheat multiplier may change every 30 seconds.",
     },
-    ['lob_Timeouts_-1'] = {
-        title = 'Unlimited Pausing',
-        description = 'You can pause the game at any time',
+    ["lob_ACTRatioInterval_45"] = {
+        title = "45",
+        description = "The AI's cheat multiplier may change every 45 seconds.",
     },
 
-	########################
-	#	Unit Cap Cheat	   #
-	########################
+    ["lob_ACTTimeAmount_0.01"] = {
+        title = "0.01",
+        description = "The AI's cheat multiplier will increase by 0.01 every interval.",
+    },
+    ["lob_ACTTimeAmount_0.02"] = {
+        title = "0.02",
+        description = "The AI's cheat multiplier will increase by 0.02 every interval.",
+    },
+    ["lob_ACTTimeAmount_0.05"] = {
+        title = "0.05",
+        description = "The AI's cheat multiplier will increase by 0.05 every interval.",
+    },
+
+
+    ["lob_ACTTimeDelay_6"] = {
+        title = "6",
+        description = "The AI's cheat multiplier will increase every 6 minutes.",
+    },
+    ["lob_ACTTimeDelay_10"] = {
+        title = "10",
+        description = "The AI's cheat multiplier will increase every 10 minutes.",
+    },
+    ["lob_ACTTimeDelay_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier will increase every 15 minutes.",
+    },
+
+    ["lob_ACTTimeCap_2"] = {
+        title = "2.0",
+        description = "The AI's cheat multiplier will never go higher than 2.0."
+    },
+    ["lob_ACTTimeCap_3"] = {
+        title = "3.0",
+        description = "The AI's cheat multiplier will never go higher than 3.0."
+    },
+    ["lob_ACTTimeCap_4"] = {
+        title = "4.0",
+        description = "The AI's cheat multiplier will never go higher than 4.0."
+    },
+
+    ["lob_ACTStartDelay_6"] = {
+        title = "6",
+        description = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+    },
+    ["lob_ACTStartDelay_10"] = {
+        title = "10",
+        description = "The AI's cheat multiplier will not start increasing until 10 minutes have passed.",
+    },
+    ["lob_ACTStartDelay_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier will not start increasing until 15 minutes have passed.",
+    },
+
+    -- *********************
+    -- *** Unit Cap Cheat
+    -- *********************
+
     ["Lobby_Cap_Cheat"] = {
         title = "Unit Cap Setting",
         description = "Sets if AI players have normal unit caps, enhanced unit caps (by AI multiplier) or an unlimited unit cap.",
@@ -1065,9 +1130,9 @@ Tooltips = {
         description = "AI players have the same unit cap as human players.",
     },	
 
-	#####################################
-	#  Unused Start Location Resources  #
-	#####################################
+    -- *************************************
+	-- ** Unused Start Location Resources
+	-- *************************************
     
 	["Lobby_UnusedResources"] = {
 		title = "Unused Start Locations",
@@ -1103,9 +1168,9 @@ Tooltips = {
 		description = "No start location resources will be kept",
 	},
     
-	#######################
-	#    Missile Options  #
-	#######################
+    -- **********************
+    -- *** Missile Options
+    -- **********************
     
 	["Lobby_MissileOption"] = {
 		title = "Missile Options",
@@ -1125,9 +1190,9 @@ Tooltips = {
 		description = "All Nukes and Antinukes come with two missiles when built",
 	},
 
-    #################
-    #  Unit Limits  #
-    #################
+    -- ******************
+    -- *** Unit Limits
+    -- ******************
     
 	lob_UnitCap_300 = {
         title = "300",
@@ -1206,9 +1271,9 @@ Tooltips = {
 		description = '4000 units per player may be in play.',
 	},
     
-    ########################
-    #  Victory Conditions  #
-    ########################
+    -- *************************
+    -- *** Victory Conditions
+    -- *************************
     
 	lob_Victory_decapitation = {
 		title = "Advanced Assassination",
@@ -1235,7 +1300,6 @@ Tooltips = {
 		description = "Game will end after the time limit",
 	},
 
-
     ['Give Units'] = {
         title = 'Give Units',
         description = '',
@@ -1244,7 +1308,6 @@ Tooltips = {
         title = 'Give Resources',
         description = '',
     },
-
 
     lob_TeamSpawn_random = {
         title = 'Random Spawnpoints',
@@ -1323,9 +1386,10 @@ Tooltips = {
         description = "View what units are allowed to be played in game",
     },
 
-    --**********************
-    --** Profile Strings
-    --**********************
+    -- **********************
+    -- *** Profile Strings
+    -- **********************
+
     Profile_name = {
         title = "Name",
         description = "The Name of this Profile",
@@ -1351,9 +1415,10 @@ Tooltips = {
         description = "All saved Profiles",
     },
 
-    --**********************
-    --** Options Strings
-    --**********************
+    -- **********************
+    -- *** Options Strings
+    -- **********************
+
     exit_menu = {
         title = "Menu",
         description = "Opens the Game Menu",
@@ -1393,9 +1458,9 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Construction Manager
-    --**********************
+    -- ***************************
+    -- *** Construction Manager
+    -- ***************************
     construction_tab_t1 = {
         title = "Tech 1",
         description = "",
@@ -1489,9 +1554,9 @@ Tooltips = {
         description = "[Pause/Unpause] the current construction order",
     },
 
-    --**********************
-    --** In Game Replay Manager
-    --**********************
+    -- *****************************
+    -- *** In Game Replay Manager
+    -- *****************************
     esc_return = {
         title = "Return to Game",
         description = "Closes the menu and returns you to the current game",
@@ -1529,9 +1594,10 @@ Tooltips = {
         description = "Continue a Previously Saved Game",
     },
 
-    --**********************
-    --** In Game Replay Manager
-    --**********************
+    -- *****************************
+    -- *** In Game Replay Manager
+    -- *****************************
+
     replay_pause = {
         title = "Pause",
         description = "Pause or Resume the Replay",
@@ -1553,9 +1619,9 @@ Tooltips = {
         description = "Plays the Current Replay from the Beginning",
     },
 
-    --**********************
-    --** Post Game Score Screen
-    --**********************
+    -- *****************************
+    -- *** Post Game Score Screen
+    -- *****************************
     PostScore_Grid = {
         title = "Players",
         description = "Shows the Players and Scores",
@@ -1587,18 +1653,6 @@ Tooltips = {
     PostScore_score = {
         title = "Score",
         description = "Sort by Overall Performance",
-    },
-    PostScore_kills = {
-        title = "Kills",
-        description = "Sort by Units Destroyed",
-    },
-    PostScore_built = {
-        title = "Built",
-        description = "Sort by Structures Built",
-    },
-    PostScore_lost = {
-        title = "Losses",
-        description = "Sort by Units Lost",
     },
     PostScore_cdr = {
         title = "Command Units",
@@ -1689,9 +1743,10 @@ Tooltips = {
         description = "Exit the Score Screen",
     },
 
-    --**********************
-	--** MFD Strings
-    --**********************
+    -- ******************
+	-- *** MFD Strings
+    -- ******************
+
     mfd_military = {
         title = "Strategic Overlay Toggle",
         description = "View weapon and intelligence ranges",
@@ -1765,9 +1820,10 @@ Tooltips = {
         keyID = "ping_marker",
     },
 
-    --**********************
-    --** Misc Strings
-    --**********************
+    -- *******************
+    -- *** Misc Strings
+    -- *******************
+
     infinite_toggle = {
         title = "Infinite Build",
         description = "Toggle infinite construction on/off for current build queue",
@@ -1859,9 +1915,10 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Front End Strings
-    --**********************
+    -- ************************
+    -- *** Front End Strings
+    -- ***********************
+
     mainmenu_exit = {
         title = "Exit Game",
         description = "Close Supreme Commander: Forged Alliance",
@@ -1965,9 +2022,10 @@ Tooltips = {
         image = ""
     },
 
-    --**********************
-    --** Restricted Units
-    --**********************
+    -- ***********************
+    -- *** Restricted Units
+    -- ***********************
+
     restricted_units_T1 = {
         title = "No Tech 1",
         description = "Players will not be able to build tech 1 units",
@@ -2069,7 +2127,6 @@ Tooltips = {
         description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
     },
 	
-
     restricted_units_massfab = {
         title = "No Fabrication",
         description = "Players will not be able to build mass fabricators"
@@ -2079,11 +2136,10 @@ Tooltips = {
 		description = "Players will be unable to build standard engineers.",
 	},
 
+    -- ************************
+    -- *** Strategic overlay
+    -- ************************
 
-	
-    --**********************
-    --** Strategic overlay
-    --**********************
     overlay_conditions = {
         title = "Conditional Overlays",
         description = "Toggle all conditional overlays",
@@ -2157,9 +2213,10 @@ Tooltips = {
         description = "Combine all sub-filters into a single overlay",
     },
 
-    --**********************
-    --** Misc
-    --**********************
+    -- ***********
+    -- *** Misc
+    -- ***********
+
     minimap_reset = {
         title = "Reset Minimap",
         description = "Sets the minimap to its default position and size",

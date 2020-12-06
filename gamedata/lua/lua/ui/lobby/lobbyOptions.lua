@@ -145,17 +145,17 @@ globalOpts = {
         values = {
             {
                 text = "6",
-                help = "The AI will not start adapting its cheat until 6 minutes have passed.",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
                 key = '6',
             },
             {
                 text = "10",
-                help = "The AI will not start adapting its cheat until 10 minutes have passed.",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
                 key = '10',
             },
             {
                 text = "15",
-                help = "The AI will not start adapting its cheat until 15 minutes have passed.",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
                 key = '15',
             },
         },
