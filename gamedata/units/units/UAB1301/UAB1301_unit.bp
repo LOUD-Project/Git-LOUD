@@ -150,10 +150,15 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 112500,
-        BuildCostMass = 11250,
+        
+        BuildCostEnergy = 110000,
+        BuildCostMass = 10500,
+        
         BuildTime = 15000,
+        
         ProductionPerSecondEnergy = 2300,
+        
+		StorageEnergy = 500,
     },
 	
     Footprint = {
@@ -232,7 +237,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 6000,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',
