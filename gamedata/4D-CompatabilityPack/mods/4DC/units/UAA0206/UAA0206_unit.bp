@@ -305,7 +305,7 @@ UnitBlueprint {
                 'ECONOMIC',
                 'ALLUNITS -WALL',                
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'muzzle_beam',

@@ -86,7 +86,7 @@ function CreateProps()
 	-- we dont need the prop data anymore
 	ScenarioInfo.Env.Scenario['Props'] = nil
 	
-	LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
+	--LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 end
 
 function CreateResources()
@@ -97,7 +97,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	LOG("*AI DEBUG Armies is "..repr(Armies))
+	--LOG("*AI DEBUG Armies is "..repr(Armies))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -105,11 +105,11 @@ function CreateResources()
 		end
 	end
 	
-	LOG("*AI DEBUG Start positions are "..repr(Starts))
+	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
-	LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
+	--LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
 	
     for i, tblData in pairs(markers) do
 	
@@ -349,19 +349,50 @@ end
 
 function InitializeArmies()
 
+    ScenarioInfo.biggestTeamSize = 0
+    
     local function InitializeSkirmishSystems(self)
 	
 		-- store which team we're on
 		self.Team = ScenarioInfo.ArmySetup[self.Name].Team
+        
+        local Opponents = 0
+        local TeamSize = 1
+
+        for index, playerInfo in ArmyBrains do
+    
+            if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
+
+            if IsAlly( index, self.ArmyIndex) then 
+                TeamSize = TeamSize + 1
+            else
+                Opponents = Opponents + 1
+            end
+            
+        end
+    
+        -- number of Opponents in the game
+        self.NumOpponents = Opponents
+        
+        -- default outnumbered ratio
+        self.OutnumberedRatio = 1
+        
+        -- number of players in the game 
+        self.Players = ScenarioInfo.Options.PlayerCount
+        
+        LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+        
+        self.TeamSize = TeamSize
+		
+		if self.TeamSize > ScenarioInfo.biggestTeamSize then
+			ScenarioInfo.biggestTeamSize = TeamSize		
+		end
     
         -- don't do anything else for a human player
         if self.BrainType == 'Human' then
             return
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Initializing Skirmish Systems "..repr(ScenarioInfo))
-		--LOG("*AI DEBUG "..self.Nickname.." Initial Brain info is "..repr(self))
-		
 		-- build table of scout locations and set some starting threat at all enemy locations
 		import('/lua/loudutilities.lua').BuildScoutLocations(self)
 
@@ -422,6 +453,7 @@ function InitializeArmies()
 		
         transportplatoon:UniquelyNamePlatoon('TransportPool') 
 		transportplatoon.BuilderName = 'Transport Pool'
+        transportplatoon.UsingTransport = true      -- never review this platoon during a merge
 
 		self.TransportPool = transportplatoon
         
@@ -430,6 +462,7 @@ function InitializeArmies()
 		
         structurepool:UniquelyNamePlatoon('StructurePool')
 		structurepool.BuilderName = 'Structure Pool'
+        structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
 		
 		self.StructurePool = structurepool
         
@@ -438,6 +471,7 @@ function InitializeArmies()
 		
         refuelpool:UniquelyNamePlatoon('RefuelPool')
 		refuelpool.BuilderName = 'Refuel Pool'
+        refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
 		
 		self.RefuelPool = refuelpool
 		
@@ -472,12 +506,18 @@ function InitializeArmies()
 		-- turn on resource sharing
 		self:SetResourceSharing(true)
 		
+		--3+ Teams Unit Cap Fix : Determine team size of current army,
+		-- if it is bigger than what was previously recorded, this is the new
+		-- biggest team to work with later to determine other team's armies unit cap
+  
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
 		end
 		
 		local PlayerDiff = (self.NumOpponents or 1)/(self.Players - self.NumOpponents)		
 		
+		ScenarioInfo.ArmySetup[self.Name].NumAllies = self.Players - self.NumOpponents
+        
 		-- if outnumbered increase the number of simultaneous upgrades allowed
 		-- and reduce the waiting period by 2 seconds ( about 10% )
 		if PlayerDiff > 1.0 then
@@ -500,6 +540,13 @@ function InitializeArmies()
     import('/lua/sim/scenarioutilities.lua').CreateResources()
 	
     for iArmy, strArmy in pairs(tblArmy) do
+    
+        -- release some data we don't need anymore
+        ScenarioInfo.ArmySetup[strArmy].BadMap = nil
+        ScenarioInfo.ArmySetup[strArmy].LEM = nil
+        ScenarioInfo.ArmySetup[strArmy].MapVersion = nil
+        ScenarioInfo.ArmySetup[strArmy].Ready = nil
+        ScenarioInfo.ArmySetup[strArmy].StartSpot = nil
 
         local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
@@ -508,15 +555,48 @@ function InitializeArmies()
 
         if tblData then
 
-            SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
+            -- setup neutral/enemy status of civlians --
+            -- and allied status of other players --
+            for iEnemy, strEnemy in pairs(tblArmy) do
 			
-			-- if this is an AI (but not civilian)
-            if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
-			
-				import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
-			
-                InitializeSkirmishSystems( GetArmyBrain(strArmy) )
+                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
+
+                -- if another army and you AND they are NOT NEUTRAL civilians --
+                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
+
+                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
+                        SetAlliance( iArmy, iEnemy, 'Neutral')
+                    else
+                        SetAlliance( iArmy, iEnemy, 'Enemy')
+                    end
+                
+                    -- in order to be ALLIED - players must be on specific teams --
+                    if ScenarioInfo.ArmySetup[strArmy].Team != 1 then
+                    
+                        if ScenarioInfo.ArmySetup[strArmy].Team == ScenarioInfo.ArmySetup[strEnemy].Team then
+                            SetAlliance( iArmy, iEnemy, 'Ally')
+                        end
+                        
+                    end
+                    
+                -- if only they are NEUTRAL civilians
+                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
 				
+                    SetAlliance( iArmy, iEnemy, 'Neutral')
+                end
+            end
+			
+			-- if this is an AI (but not civilian)        
+            if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
+                import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+            end
+            
+            SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
+            
+            if not armyIsCiv then
+                -- this insures proper setting of teammate counts and
+                -- calculation of the largest team size for ALL players (human and AI)
+                InitializeSkirmishSystems( GetArmyBrain(strArmy) )
             end
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then
@@ -529,49 +609,42 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
-				
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
-			
+            
+            -- if there is wreckage to be created --
             if wreckageGroup then
 			
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
 				
                 for num,unit in tblResult do
-                    unit:CreateWreckageProp(0)
+                    -- all wrecks created here get 1800 second lifetime (30 minutes)
+                    unit:CreateWreckageProp(0, 1800)
                     unit:Destroy()
                 end
-				
             end
-
-            for iEnemy, strEnemy in pairs(tblArmy) do
-			
-                local enemyIsCiv = ScenarioInfo.ArmySetup[strEnemy].Civilian
-
-                if iArmy != iEnemy and strArmy != 'NEUTRAL_CIVILIAN' and strEnemy != 'NEUTRAL_CIVILIAN' then
-				
-                    if (armyIsCiv or enemyIsCiv) and civOpt == 'neutral' then
-					
-                        SetAlliance( iArmy, iEnemy, 'Neutral')
-						
-                    else
-					
-                        SetAlliance( iArmy, iEnemy, 'Enemy')
-                    end
-					
-                elseif strArmy == 'NEUTRAL_CIVILIAN' or strEnemy == 'NEUTRAL_CIVILIAN' then
-				
-                    SetAlliance( iArmy, iEnemy, 'Neutral')
-					
-                end
-				
-            end
-			
         end
-		
     end
+    
+	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
+	-- now that we know what is the number of armies in the biggest team.                 
+	for iArmy, strArmy in pairs(tblArmy) do
 
+        local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
+        local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
+
+        if tblData then
+			
+			-- if this is an AI (but not civilian)
+            if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
+			
+				import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( GetArmyBrain(strArmy), ScenarioInfo.biggestTeamSize )
+				
+            end
+		end
+	end	
+    
     return tblGroups
 	
 end

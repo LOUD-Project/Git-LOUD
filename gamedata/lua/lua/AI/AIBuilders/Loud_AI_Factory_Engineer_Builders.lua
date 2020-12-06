@@ -23,8 +23,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .70 } },
-
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
             { UCBC, 'EngineerLessAtLocation', { 'LocationType', 3, categories.ENGINEER - categories.SUBCOMMANDER - categories.COMMAND }},
         },
 		
@@ -38,7 +40,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
 		
         BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER) - categories.TECH1 - categories.COMMAND }},
@@ -55,8 +57,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         Priority = 900,
         
         BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+
+            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},
             { UCBC,'EngineerLessAtLocation', { 'LocationType', 2, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.SUBCOMMANDER }},
@@ -83,7 +85,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     -- the remainder of these builders produce additional engineers at the same priority as units
     -- until cap is reached
     
-    -- T1 wont be produced if any engineer is idle at the base
+    -- T1 wont be produced if any engineer is idle at the base and only if we have room in the other tiers as well
     -- T2 is only produced if there are no idle T2 or T3 engineers
     -- T3 is only concerned about idle T3 engineers (including SACU)
     Builder {BuilderName = 'Engineer T1 - Standard',
@@ -94,10 +96,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .70 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+            
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
+            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
+            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },            
+            
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
         },
 		
@@ -116,9 +122,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER - categories.TECH1 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 6, 1.01, 1 }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
+            
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
         },
         
@@ -133,13 +140,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 6, 1.01, 1 }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },
+            
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
         },
         
@@ -161,7 +169,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 120, 1.05, 1.05 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
             
             { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},

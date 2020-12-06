@@ -1833,6 +1833,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },     -- defense box
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -1843,7 +1850,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1851,6 +1858,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },
 		},
 		
 		{{'T3AADefense'},
@@ -1884,14 +1893,14 @@ BaseDefenseLayout = {
 		},
         
 		{{ 'T3StrategicMissileDefense' },
-			{ 24.0, 16.0 },
+			{ 24.0, 16.0 },     -- Boxes
 			{-24.0, 16.0 },
 			{ 24.0,-16.0 },
 			{-24.0,-16.0 },
 		},
 
 		{{'T4AADefense'},
-			{-24, 20 },		
+			{-24, 20 },     -- Boxes
 			{ 24, 20 },
 			{-24,-21 },
 			{ 24,-21 },
@@ -1960,6 +1969,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -1970,7 +1986,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1978,6 +1994,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2087,6 +2105,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2097,7 +2122,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2105,6 +2130,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2214,6 +2241,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2224,7 +2258,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2232,6 +2266,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},

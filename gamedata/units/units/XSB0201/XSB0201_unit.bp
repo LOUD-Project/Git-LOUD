@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 11,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -40,14 +42,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 194,
+        EconomyThreatLevel = 264,
         Health = 6200,
         MaxHealth = 6200,
         RegenRate = 1,
     },
+    
     Description = '<LOC xsb0201_desc>Improved Land Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -101,27 +106,34 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 12100,
         BuildCostMass = 1100,
-        BuildRate = 35,
-        BuildTime = 2700,
+        
+        BuildRate = 70,
+        BuildTime = 5400,
+        
         BuildableCategory = {
             'BUILTBYTIER2FACTORY SERAPHIM MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY SERAPHIM STRUCTURE LAND',
             'BUILTBYTIER2FACTORY SERAPHIM MOBILE LAND',
         },
+        
         RebuildBonusIds = {
             'xsb0201',
             'xsb0301',
         },
+        
         StorageEnergy = 1000,
         StorageMass = 100,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {
@@ -184,127 +196,127 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            # x
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -- x
             -1.1,
 
-            # z
+            -- z
             -0.7,
 
-            # y
+            -- y
             0.65,
 
-            # TopRight Offset From Center
-            # x
+            -- TopRight Offset From Center
+            -- x
             1.1,
 
-            # z
+            -- z
             -0.7,
 
-            # y
+            -- y
             0.65,
 
-            # BottomLeft Offset From Center
-            # x
+            -- BottomLeft Offset From Center
+            -- x
             -1.1,
 
-            # z
+            -- z
             0.6,
 
-            # y
+            -- y
             0.65,
 
-            # BottomRight Offset From Center
-            # x
+            -- BottomRight Offset From Center
+            -- x
             1.1,
 
-            # z
+            -- z
             0.6,
 
-            # y
+            -- y
             0.65,
 
-            # Platform 2
-            # TopLeft Offset From Center
-            # x
+            -- Platform 2
+            -- TopLeft Offset From Center
+            -- x
             -2,
 
-            # z
+            -- z
             -0.47,
 
-            # y
+            -- y
             0,
 
-            # TopRight Offset From Center
-            # x
+            -- TopRight Offset From Center
+            -- x
             -1.1,
 
-            # z
+            -- z
             -0.7,
 
-            # y
+            -- y
             0.65,
 
-            # BottomLeft Offset From Center
-            # x
+            -- BottomLeft Offset From Center
+            -- x
             -2,
 
-            # z
+            -- z
             0.5,
 
-            # y
+            -- y
             0,
 
-            # BottomRight Offset From Center
-            # x
+            -- BottomRight Offset From Center
+            -- x
             -1.1,
 
-            # z
+            -- z
             0.6,
 
-            # y
+            -- y
             0.65,
 
-            # Platform 3
-            # TopLeft Offset From Center
-            # x
+            -- Platform 3
+            -- TopLeft Offset From Center
+            -- x
             1.1,
 
-            # z
+            -- z
             -0.7,
 
-            # y
+            -- y
             0.65,
 
-            # TopRight Offset From Center
-            # x
+            -- TopRight Offset From Center
+            -- x
             2,
 
-            # z
+            -- z
             -0.47,
 
-            # y
+            -- y
             0,
 
-            # BottomLeft Offset From Center
-            # x
+            -- BottomLeft Offset From Center
+            -- x
             1.1,
 
-            # z
+            -- z
             0.6,
 
-            # y
+            -- y
             0.65,
 
-            # BottomRight Offset From Center
-            # x
+            -- BottomRight Offset From Center
+            -- x
             2,
 
-            # z
+            -- z
             0.5,
 
-            # y
+            -- y
             0,
         },
         RollOffPoints = {

@@ -376,6 +376,8 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
 			-- this function would level the area around a new base
 			--import('/lua/loudutilities.lua').LevelStartBaseArea( position, rallypointradius )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..engineer.Sync.id.." creating new base "..repr(baseName))
 			
 			aiBrain:AddBuilderManagers( position, expansionradius, baseName, true, rallypointradius, countedbase )
 

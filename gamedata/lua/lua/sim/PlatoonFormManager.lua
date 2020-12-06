@@ -219,9 +219,9 @@ PlatoonFormManager = Class(BuilderManager) {
 
 				hndl.LocationType = self.LocationType
 				hndl.PlanName = template[2]
-				hndl.RTBLocation = builder.RTBLocation or false
 				
 				hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
+				hndl.RTBLocation = builder.RTBLocation or self.LocationType
 				
 				hndl:OnUnitsAddedToPlatoon()
 				
@@ -272,9 +272,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				end
 
 			else
-                if ScenarioInfo.PlatoonDialog then
+                --if ScenarioInfo.PlatoonDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
-                end
+                --end
 			end
         end
     end,

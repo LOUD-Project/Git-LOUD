@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -37,7 +43,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.1,
+    CollisionOffsetY = -0.0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -171,14 +177,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2303_Artillery_APDS',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            
+            Audio = { Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff' }},
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 300,
@@ -214,19 +217,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
-                    RackBone = 'Turret_Recoil',
+                    MuzzleBones = {'Turret_Muzzle',},
+                    RackBone = 'Turret_Barrel_B1',
+                    TelescopeBone = 'Turret_Barrel_B2',
+                    TelescopeRecoilDistance = -2,
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1.2,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -239,9 +241,9 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-			
+
             TurretBoneMuzzle = 'Turret_Muzzle',
-            TurretBonePitch = 'Turret_Barrel',
+            TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
 			

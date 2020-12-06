@@ -45,8 +45,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
-        Health = 3500,
-        MaxHealth = 3500,
+        Health = 2950,
+        MaxHealth = 2950,
         RegenRate = 2,
     },
 
@@ -89,13 +89,13 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.042,
     },
+    
     Economy = {
         BuildCostEnergy = 5600,
         BuildCostMass = 560,
         BuildTime = 700,
-        RebuildBonusIds = {
-            'xsb2204',
-        },
+        
+        RebuildBonusIds = {'xsb2204'},
     },
 
     Footprint = {
@@ -200,7 +200,7 @@ UnitBlueprint {
 
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 
             DetonatesAtTargetHeight = true,
@@ -264,19 +264,24 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
+            
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 35,
             TurretPitchRange = 60,
             TurretPitchSpeed = 100,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 100,
+            
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,

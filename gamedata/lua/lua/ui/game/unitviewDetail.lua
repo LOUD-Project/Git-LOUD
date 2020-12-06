@@ -11,6 +11,8 @@ local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 
 local enhancementSlotNames = {}
 
+local LOUDFORMAT = string.format
+
 -- if DMS is turned on --
 if __DMSI then
     enhancementSlotNames = __DMSI.__DMod_EnhancementSlotNames
@@ -23,12 +25,6 @@ enhancementSlotNames.rch = '<LOC uvd_0009>RCH'
 View = false
 ViewState = "full"
 MapView = false
-
--- Added by Tanksy to allow rounding.
-function round(num, numDecimalPlaces)
-	local mult = 10^(numDecimalPlaces or 0)
-	return math.floor(num * mult + 0.5) / mult
-end
 
 function Contract()
 	View:SetNeedsFrameUpdate(false)
@@ -159,7 +155,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			
 				local tempDesc = LOC(UnitDescriptions[tempDescID])
 				
-				WrapAndPlaceText(nil, nil, nil, nil, tempDesc, View.Description)
+				WrapAndPlaceText(nil, nil, nil, nil, nil, tempDesc, View.Description)
 			else
 				WARN('No description found for unit: ', bpID, ' enhancement: ', iconID)
 				
@@ -193,16 +189,17 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
     
 end
 
-function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
+function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control)
 
 	local textLines = {}
 	
 	-- -1 so that no line color can change (As there won't be an index of -1),
 	-- but only if there's no Air or Physics on the blueprint.
 	local physics_line = -1
+	local intel_line = -1
 	
 	if text != nil then
-		textLines = import('/lua/maui/text.lua').WrapText(text, control.Value[1].Width(),function(text) return control.Value[1]:GetStringAdvance(text) end)
+		textLines = import('/lua/maui/text.lua').WrapText( text, control.Value[1].Width(), function(text) return control.Value[1]:GetStringAdvance(text) end)
 	end
 	
 	local abilityLines = 0
@@ -250,151 +247,90 @@ function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
 		local dupWeaponCount = 1
 
 		for i, weapon in weapons do
-			-- Check for RangeCategories.
-			if weapon.RangeCategory == 'UWRC_DirectFire' then
-				wepCategory = "Direct Fire"
-			elseif weapon.RangeCategory == 'UWRC_IndirectFire' then
-				wepCategory = "Indirect"
-			elseif weapon.RangeCategory == 'UWRC_AntiAir' then
-				wepCategory = "Anti Air"
-			elseif weapon.RangeCategory == 'UWRC_AntiNavy' then
-				wepCategory = "Anti Navy"
-			elseif weapon.RangeCategory == 'UWRC_Countermeasure' then
-				wepCategory = "Defense"
-			elseif string.find(weapon.Label, "Death") then
-				if weapon.Label== "DeathImpact" then
-					wepCategory = "Air Crash"
-				else
+			-- Check for DummyWeapon Label (Used by Paragons for Range Rings).
+			if weapon.Label != 'DummyWeapon' then
+				-- Check for RangeCategories.
+				if weapon.RangeCategory != nil then
+					if weapon.RangeCategory == 'UWRC_DirectFire' then
+						wepCategory = "Direct Fire"
+					elseif weapon.RangeCategory == 'UWRC_IndirectFire' then
+						wepCategory = "Indirect Fire"
+					elseif weapon.RangeCategory == 'UWRC_AntiAir' then
+						wepCategory = "Anti Air"
+					elseif weapon.RangeCategory == 'UWRC_AntiNavy' then
+						wepCategory = "Anti Navy"
+					elseif weapon.RangeCategory == 'UWRC_Countermeasure' then
+						wepCategory = "Countermeasure"
+					end
+				end
+				
+				-- Check for Death Weapons
+				if weapon.Label == 'DeathWeapon' then
 					wepCategory = "Volatile"
-				end
-			elseif weapon.Label == "Suicide" then
-				wepCategory = "Kamikaze"
-			else
-				wepCategory = tostring(weapon.Label)
-			end
-			
-			-- Check if we're a Nuke weapon.
-			if weapon.NukeInnerRingDamage > 0 then
-				wepCategory = "Nuke"
-			end
-			
-			-- Check if it's a death weapon.
-			if wepCategory == "Air Crash" or wepCategory == "Volatile" or wepCategory == "Kamikaze" then
-			
-				weaponText = (wepCategory .. " { Dmg: " .. tostring(round(weapon.Damage,2)))
-				
-				-- Check DamageRadius and concat.
-				if weapon.DamageRadius > 0 then
-					weaponText = (weaponText .. ", AoE: " .. tostring(weapon.DamageRadius))
+				elseif weapon.Label == 'DeathImpact' then
+					wepCategory = "Air Crash"
+				elseif weapon.Label == 'Suicide' then
+					wepCategory = "Kamikaze"
 				end
 				
-				-- Check DamageFriendly and concat.
-				if weapon.DamageFriendly != false then
-					weaponText = (weaponText .. ", (FF)")
+				-- Check if we're a Nuke weapon.
+				if weapon.NukeInnerRingDamage > 0 then
+					wepCategory = "Nuke"
 				end
 				
-				-- Finish text line.
-				weaponText = (weaponText .. " }")
-
-				-- Insert death weapon text line.
-				table.insert(textLines, weaponText)
+				-- Check if it's a death weapon.
+				if wepCategory == "Air Crash" or wepCategory == "Volatile" or wepCategory == "Kamikaze" then
 				
-			-- Check if it's a nuke weapon.
-			elseif wepCategory == "Nuke" then
-			
-				-- Look for signs that it's a Death weapon. This will do until we make everything uniform with each unit having the same setup for their death nukes.
-				if string.find(tostring(weapon.WeaponCategory), "Death") then
-					weaponText = ("Death " .. wepCategory)
-				elseif string.find(tostring(weapon.Label), "Death") then
-					weaponText = ("Death " .. wepCategory)
-				else
-					weaponText = (wepCategory)
-				end
-				
-				if weapon.NukeInnerRingTotalTime > 0 or weapon.NukeOuterRingTotalTime > 0 then
-					weaponText = (weaponText .. " { In-Dmg: " .. tostring(weapon.NukeInnerRingDamage) .. " (" .. tostring(weapon.NukeInnerRingTotalTime) .. "s), AoE: " .. tostring(weapon.NukeInnerRingRadius) .. " | Out-Dmg: " .. tostring(weapon.NukeOuterRingDamage) .. " (" .. tostring(weapon.NukeOuterRingTotalTime) .. "s), AoE: " .. tostring(weapon.NukeOuterRingRadius))
-				else
-					weaponText = (weaponText .. " { In-Dmg: " .. tostring(weapon.NukeInnerRingDamage) .. ", AoE: " .. tostring(weapon.NukeInnerRingRadius) .. " | Out-Dmg: " .. tostring(weapon.NukeOuterRingDamage) .. ", AoE: " .. tostring(weapon.NukeOuterRingRadius))
-				end
-				
-				-- Check Buffs and concat.
-				if weapon.Buffs then
-				
-					for i, buff in weapon.Buffs do
+					weaponText = (wepCategory .. " { Dmg: " .. tostring(weapon.Damage))
 					
-						bType = buff.BuffType
-						weaponText = (weaponText .. ", " .. bType)
-					end
-				end
-				
-				-- Finish text lines.
-				weaponText = (weaponText .. " }")
-
-				if weapon.NukeInnerRingDamage == lastWeaponNukeInDmg and weapon.NukeInnerRingRadius == lastWeaponNukeInRad and weapon.NukeInnerRingTotalTime == lastWeaponNukeInTime and weapon.NukeOuterRingDamage == lastWeaponNukeOutDmg and weapon.NukeOuterRingRadius == lastWeaponNukeOutRad and weapon.NukeOuterRingTotalTime == lastWeaponNukeOutTime and weapon.DamageFriendly == lastWeaponFF then
-					dupWeaponCount = dupWeaponCount + 1
-					-- Remove the old lines, to insert the new ones with the updated weapon count.
-					table.remove(textLines, table.getn(textLines))
-					table.insert(textLines, string.format("%s (x%d)", weaponText, dupWeaponCount))
-				else
-					dupWeaponCount = 1
-					-- Insert the textLine.
-					table.insert(textLines, weaponText)
-				end
-			else
-				-- Start the weaponText string if we do damage.
-				if weapon.Damage > 1 then
-				
-					weaponText = (wepCategory .. " { Dmg: " .. tostring(round(weapon.Damage,2)))
-					-- Check PPF and concat.
-					if weapon.ProjectilesPerOnFire > 1 then
-						weaponText = (weaponText .. " (x" .. tostring(weapon.ProjectilesPerOnFire) .. ")")
-					end
-					
-					-- Check DoTPulses and concat.
-					if weapon.DoTPulses > 0 then
-						weaponText = (weaponText .. " (" .. tostring(weapon.DoTPulses) .. " Times)")
+					-- Check DamageFriendly and concat.
+					if weapon.DamageFriendly != false then
+						weaponText = (weaponText .. " (FF)")
 					end
 					
 					-- Check DamageRadius and concat.
 					if weapon.DamageRadius > 0 then
-						weaponText = (weaponText .. ", AoE: " .. tostring(weapon.DamageRadius))
+						weaponText = (weaponText .. ", AoE: " .. tostring(weapon.DamageRadius * 20) .. "m")
+					end
+
+					-- Finish text line.
+					weaponText = (weaponText .. " }")
+
+					-- Insert death weapon text line.
+					table.insert(textLines, weaponText)
+					
+				-- Check if it's a nuke weapon.
+				elseif wepCategory == "Nuke" then
+				
+					-- Check if this nuke is a Death nuke.
+					if string.find(tostring(weapon.Label), "Death") then
+						weaponText = ("Death " .. wepCategory)
+					else
+						weaponText = (wepCategory)
 					end
 					
-					-- Check RateOfFire and concat.
-					if weapon.RateOfFire > 0 then
-						weaponText = (weaponText .. ", RoF: " .. tostring(round(weapon.RateOfFire, 2)))
-					end
-					
-					-- Check Min/Max Radius and concat.
-					if weapon.MaxRadius > 0 then
-						if weapon.MinRadius > 0 then
-							weaponText = (weaponText .. ", Rng: " .. tostring(round(weapon.MinRadius, 2)) .. "-" .. tostring(round(weapon.MaxRadius, 2)))
-						else
-							weaponText = (weaponText .. ", Rng: " .. tostring(round(weapon.MaxRadius, 2)))
-						end
+					if weapon.NukeInnerRingTotalTime > 0 or weapon.NukeOuterRingTotalTime > 0 then
+						weaponText = (weaponText .. " { Inner Dmg: " .. tostring(weapon.NukeInnerRingDamage) .. " (" .. tostring(weapon.NukeInnerRingTotalTime) .. "s), AoE: " .. tostring(weapon.NukeInnerRingRadius * 20) .. "m | Outer Dmg: " .. tostring(weapon.NukeOuterRingDamage) .. " (" .. tostring(weapon.NukeOuterRingTotalTime) .. "s), AoE: " .. tostring(weapon.NukeOuterRingRadius * 20) .. "m")
+					else
+						weaponText = (weaponText .. " { In-Dmg: " .. tostring(weapon.NukeInnerRingDamage) .. ", AoE: " .. tostring(weapon.NukeInnerRingRadius * 20) .. "m | Out-Dmg: " .. tostring(weapon.NukeOuterRingDamage) .. ", AoE: " .. tostring(weapon.NukeOuterRingRadius * 20) .. "m")
 					end
 					
 					-- Check Buffs and concat.
 					if weapon.Buffs then
+					
 						for i, buff in weapon.Buffs do
+						
 							bType = buff.BuffType
 							weaponText = (weaponText .. ", " .. bType)
 						end
 					end
 					
-					-- Check friendly fire and concat.
-					if weapon.DamageFriendly != false then
-						weaponText = (weaponText .. " (FF)")
-					end
-					
-					-- Finish text line.
+					-- Finish text lines.
 					weaponText = (weaponText .. " }")
 
-					-- Check duplicate weapons. We compare lots of values here, 
-					-- any slight difference should be considered a different weapon. 
-					if weapon.Damage == lastWeaponDmg and weapon.ProjectilesPerOnFire == lastWeaponPPOF and weapon.DoTPulses == lastWeaponDoT and weapon.DamageRadius == lastWeaponDmgRad and 	weapon.RateOfFire == lastWeaponROF and weapon.MinRadius == lastWeaponMinRad and 	weapon.MaxRadius == lastWeaponMaxRad and weapon.DamageFriendly == lastWeaponFF then
+					if weapon.NukeInnerRingDamage == lastWeaponNukeInDmg and weapon.NukeInnerRingRadius == lastWeaponNukeInRad and weapon.NukeInnerRingTotalTime == lastWeaponNukeInTime and weapon.NukeOuterRingDamage == lastWeaponNukeOutDmg and weapon.NukeOuterRingRadius == lastWeaponNukeOutRad and weapon.NukeOuterRingTotalTime == lastWeaponNukeOutTime and weapon.DamageFriendly == lastWeaponFF then
 						dupWeaponCount = dupWeaponCount + 1
-						-- Remove the old line, to insert the new one with the updated weapon count.
+						-- Remove the old lines, to insert the new ones with the updated weapon count.
 						table.remove(textLines, table.getn(textLines))
 						table.insert(textLines, string.format("%s (x%d)", weaponText, dupWeaponCount))
 					else
@@ -402,42 +338,138 @@ function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
 						-- Insert the textLine.
 						table.insert(textLines, weaponText)
 					end
+				else
+					-- Start the weaponText string if we do damage.
+					if weapon.Damage > 1 then
+					
+						weaponText = (wepCategory .. " { Dmg: " .. tostring(weapon.Damage))
+						
+						-- Check friendly fire and concat.
+						if weapon.DamageFriendly != false then
+							weaponText = (weaponText .. " (FF)")
+						end
+						-- Check PPF and concat.
+						if weapon.ProjectilesPerOnFire > 1 then
+							weaponText = (weaponText .. " (x" .. tostring(weapon.ProjectilesPerOnFire) .. ")")
+						end
+						-- Check DoTPulses and concat.
+						if weapon.DoTPulses > 0 then
+							weaponText = (weaponText .. " (" .. tostring(weapon.DoTPulses) .. " Times)")
+						end
+						-- Check DamageRadius and concat.
+						if weapon.DamageRadius > 0 then
+							weaponText = (weaponText .. ", AoE: " .. tostring(weapon.DamageRadius * 20) .. "m")
+						end
+						-- Check RateOfFire and concat.
+						if weapon.RateOfFire > 0 then
+							weaponText = (weaponText .. ", RoF: " .. LOUDFORMAT("%.2f", weapon.RateOfFire) .. "/s")
+						end
+						-- Check Min/Max Radius and concat.
+						if weapon.MaxRadius > 0 then
+							if weapon.MinRadius > 0 then
+								weaponText = (weaponText .. ", Rng: " .. tostring(weapon.MinRadius * 20) .. "m-" .. tostring(weapon.MaxRadius * 20) .. "m")
+							else
+								weaponText = (weaponText .. ", Rng: " .. tostring(weapon.MaxRadius * 20) .. "m")
+							end
+						end
+						-- Check Buffs and concat.
+						if weapon.Buffs then
+							for i, buff in weapon.Buffs do
+								bType = buff.BuffType
+								weaponText = (weaponText .. ", " .. bType)
+							end
+						end
+						-- Finish text line.
+						weaponText = (weaponText .. " }")
+
+						-- Check duplicate weapons. We compare lots of values here, 
+						-- any slight difference should be considered a different weapon. 
+						if weapon.Damage == lastWeaponDmg and weapon.ProjectilesPerOnFire == lastWeaponPPOF and weapon.DoTPulses == lastWeaponDoT and weapon.DamageRadius == lastWeaponDmgRad and 	weapon.RateOfFire == lastWeaponROF and weapon.MinRadius == lastWeaponMinRad and weapon.MaxRadius == lastWeaponMaxRad and weapon.DamageFriendly == lastWeaponFF then
+							dupWeaponCount = dupWeaponCount + 1
+							-- Remove the old line, to insert the new one with the updated weapon count.
+							table.remove(textLines, table.getn(textLines))
+							table.insert(textLines, string.format("%s (x%d)", weaponText, dupWeaponCount))
+						else
+							dupWeaponCount = 1
+							-- Insert the textLine.
+							table.insert(textLines, weaponText)
+						end
+					end
 				end
+				
+				-- Set lastWeapon stuff.
+				lastWeaponDmg = weapon.Damage
+				lastWeaponPPOF = weapon.ProjectilesPerOnFire
+				lastWeaponDoT = weapon.DoTPulses
+				lastWeaponDmgRad = weapon.DamageRadius
+				lastWeaponROF = weapon.RateOfFire
+				lastWeaponMinRad = weapon.MinRadius
+				lastWeaponMaxRad = weapon.MaxRadius
+				lastWeaponFF = weapon.DamageFriendly
+				lastWeaponNukeInDmg = weapon.NukeInnerRingDamage
+				lastWeaponNukeInRad = weapon.NukeInnerRingRadius
+				lastWeaponNukeInTime = weapon.NukeInnerRingTotalTime
+				lastWeaponNukeOutDmg = weapon.NukeOuterRingDamage
+				lastWeaponNukeOutRad = weapon.NukeOuterRingRadius
+				lastWeaponNukeOutTime = weapon.NukeOuterRingTotalTime
 			end
-			
-			-- Set lastWeapon stuff.
-			lastWeaponDmg = weapon.Damage
-			lastWeaponPPOF = weapon.ProjectilesPerOnFire
-			lastWeaponDoT = weapon.DoTPulses
-			lastWeaponDmgRad = weapon.DamageRadius
-			lastWeaponROF = weapon.RateOfFire
-			lastWeaponMinRad = weapon.MinRadius
-			lastWeaponMaxRad = weapon.MaxRadius
-			lastWeaponFF = weapon.DamageFriendly
-			lastWeaponNukeInDmg = weapon.NukeInnerRingDamage
-			lastWeaponNukeInRad = weapon.NukeInnerRingRadius
-			lastWeaponNukeInTime = weapon.NukeInnerRingTotalTime
-			lastWeaponNukeOutDmg = weapon.NukeOuterRingDamage
-			lastWeaponNukeOutRad = weapon.NukeOuterRingRadius
-			lastWeaponNukeOutTime = weapon.NukeOuterRingTotalTime
 		end
 	end
 
 	local weapon_end = table.getn(textLines)
-		
-	if air != nil then
-	
-		if air.MaxAirspeed and air.MaxAirspeed !=0 then
-			table.insert(textLines, LOCF("Speed: %0.2f, Turning: %0.2f", air.MaxAirspeed, air.TurnSpeed))
+	local physicsText = ""
+
+	--Physics info
+	if physics and physics.MotionType != 'RULEMT_None' then
+		if physics.MotionType == 'RULEUMT_Air' then
+			if air.MaxAirspeed != 0 then
+				physicsText = ("Speed: " .. LOUDFORMAT("%.2f", air.MaxAirspeed))
+				
+				if air.TurnSpeed != 0 then
+					physicsText = (physicsText .. ", Turn: " .. LOUDFORMAT("%.2f", air.TurnSpeed))
+				end
+				if physics.FuelUseTime != 0 then
+					physicsText = (physicsText .. ", Fuel: " .. LOUDFORMAT("%.2f", physics.FuelUseTime))
+				end
+			end
+			
+			-- Insert the physics text into the table.
+			table.insert(textLines, physicsText)
+			-- Get the index of the physics text line from the textLines table.
+			physics_line = table.getn(textLines)
+		else
+			if physics.MaxSpeed != 0 then
+				physicsText = ("Speed: " .. LOUDFORMAT("%.2f", physics.MaxSpeed))
+				
+				if physics.MaxAcceleration != 0 then
+					physicsText = (physicsText .. ", Accel: " .. LOUDFORMAT("%.2f", physics.MaxAcceleration))
+				end
+			end
+			
+			-- Insert the physics text into the table.
+			table.insert(textLines, physicsText)
+			-- Get the index of the physics text line from the textLines table.
 			physics_line = table.getn(textLines)
 		end
-		
-	elseif physics != nil then
+	end
 	
-		if physics.MaxSpeed and physics.MaxSpeed !=0 then
-			table.insert(textLines, LOCF("Speed: %0.2f, Acceleration: %0.2f, Turning: %d", physics.MaxSpeed, physics.MaxBrake, physics.TurnRate))
-			physics_line = table.getn(textLines)
+	local intelText = ""
+	
+	-- Intel info
+	if intel then
+		intelText = ("Vision: " .. tostring(intel.VisionRadius * 20) .. "m")
+		
+		if intel.RadarRadius != 0 then
+			intelText = (intelText .. ", Radar: " .. tostring(intel.RadarRadius * 20) .. "m")
 		end
+		if intel.SonarRadius != 0 then
+			intelText = (intelText .. ", Sonar: " .. tostring(intel.SonarRadius * 20) .. "m")
+		end
+		
+		-- Insert the intel text into the table.
+		table.insert(textLines, intelText)
+		-- Get the index of the intel text line from the textLines table.
+		intel_line = table.getn(textLines)
 	end
 
 	for i, v in textLines do
@@ -464,31 +496,36 @@ function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
 			control.Value[index]:SetFont(UIUtil.bodyFont, 12)
 		elseif index == physics_line then
 			-- Physics text color
-			control.Value[index]:SetColor('83d5e6')
-			-- Squish down the info text by 1 font size point to fit more in the box.
+			control.Value[index]:SetColor('ff83d5e6')
+			-- Text font size
+			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
+		elseif index == intel_line then
+			-- Intel text color
+			control.Value[index]:SetColor('ff29757e')
+			-- Text font size
 			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
 		elseif index > weapon_start and index <= weapon_end then
 			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
-			if string.find(tostring(v), "Direct Fire") then			-- Direct Fire
-				control.Value[index]:SetColor('ff3333')
-			elseif string.find(tostring(v), "Anti Air") then		-- Anti Air
-				control.Value[index]:SetColor('00ffff')
-			elseif string.find(tostring(v), "Indirect") then		-- Indirect Fire
-				control.Value[index]:SetColor('ffff00')
-			elseif string.find(tostring(v), "Anti Navy") then		-- Anti Navy
-				control.Value[index]:SetColor('00ff00')
-			elseif string.find(tostring(v), "Defense") then			-- Countermeasure
-				control.Value[index]:SetColor('ffa500')
-			elseif string.find(tostring(v), "Nuke") then			-- Nuke
-				control.Value[index]:SetColor('ffa500')
-			elseif string.find(tostring(v), "Air Crash") then		-- Air Crash
-				control.Value[index]:SetColor('b077ff')
-			elseif string.find(tostring(v), "Volatile") then		-- Volatile
-				control.Value[index]:SetColor('b077ff')
-			elseif string.find(tostring(v), "Kamikaze") then		-- Kamikaze/Suicide
-				control.Value[index]:SetColor('b077ff')
+			if string.find(tostring(v), "Direct Fire") then	-- Direct Fire
+				control.Value[index]:SetColor('ffff3333')
+			elseif string.find(tostring(v), "Anti Air") then -- Anti Air
+				control.Value[index]:SetColor('ff00ffff')
+			elseif string.find(tostring(v), "Indirect Fire") then -- Indirect Fire
+				control.Value[index]:SetColor('ffffff00')
+			elseif string.find(tostring(v), "Anti Navy") then -- Anti Navy
+				control.Value[index]:SetColor('ff00ff00')
+			elseif string.find(tostring(v), "Countermeasure") then -- Countermeasure
+				control.Value[index]:SetColor('ffffa500')
+			elseif string.find(tostring(v), "Nuke") then -- Nuke
+				control.Value[index]:SetColor('ffffa500')
+			elseif string.find(tostring(v), "Air Crash") then -- Air Crash
+				control.Value[index]:SetColor('ffb077ff')
+			elseif string.find(tostring(v), "Volatile") then -- Volatile
+				control.Value[index]:SetColor('ffb077ff')
+			elseif string.find(tostring(v), "Kamikaze") then -- Kamikaze/Suicide
+				control.Value[index]:SetColor('ffb077ff')
 			else
-				control.Value[index]:SetColor('909090')
+				control.Value[index]:SetColor('ff909090')
 			end
 		else
 			control.Value[index]:SetColor(UIUtil.fontColor)
@@ -566,7 +603,7 @@ function Show(bp, buildingUnit, bpID)
 		View.HealthStat.Value:SetText(string.format("%d", bp.Defense.MaxHealth))
 
 		if View.Description then
-			WrapAndPlaceText(bp.Air, bp.Physics, bp.Weapon, bp.Display.Abilities, LOC(UnitDescriptions[bpID]), View.Description)
+			WrapAndPlaceText(bp.Air, bp.Physics, bp.Intel, bp.Weapon, bp.Display.Abilities, LOC(UnitDescriptions[bpID]), View.Description)
 		end
 		
 		local showShield = false

@@ -1,0 +1,11 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xab2307", --#Aeon Salvation
+
+    Weapon = {
+        {
+            Damage = 208,
+            DamageType = 'ShieldMult1.25',
+        },
+    },
+}

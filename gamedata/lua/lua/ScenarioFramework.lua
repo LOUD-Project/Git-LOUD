@@ -775,7 +775,59 @@ end
 -- Sets the playable area for an operation to rect size.
 -- this function allows you to use scenarioutilities function AreaToRect for the rectangle.
 function SetPlayableArea( rect, voFlag )
-     if (voFlag == nil) then
+	local function GenerateOffMapAreas()
+		local playablearea = {}
+		local OffMapAreas = {}
+
+		if  ScenarioInfo.MapData.PlayableRect then
+			playablearea = ScenarioInfo.MapData.PlayableRect
+		else
+			playablearea = {0, 0, ScenarioInfo.size[1], ScenarioInfo.size[2]}
+		end
+		LOG('playable area coordinates are ' .. repr(playablearea))
+
+		local x0 = playablearea[1]
+		local y0 = playablearea[2]
+		local x1 = playablearea[3]
+		local y1 = playablearea[4]
+
+		-- This is a rectangle above the playable area that is longer, left to right, than the playable area
+		local OffMapArea1 = {}
+		OffMapArea1.x0 = (x0 - 100)
+		OffMapArea1.y0 = (y0 - 100)
+		OffMapArea1.x1 = (x1 + 100)
+		OffMapArea1.y1 = y0
+
+		-- This is a rectangle below the playable area that is longer, left to right, than the playable area
+		local OffMapArea2 = {}
+		OffMapArea2.x0 = (x0 - 100)
+		OffMapArea2.y0 = (y1)
+		OffMapArea2.x1 = (x1 + 100)
+		OffMapArea2.y1 = (y1 + 100)
+
+		-- This is a rectangle to the left of the playable area, that is the same height (up to down) as the playable area
+		local OffMapArea3 = {}
+		OffMapArea3.x0 = (x0 - 100)
+		OffMapArea3.y0 = y0
+		OffMapArea3.x1 = x0
+		OffMapArea3.y1 = y1
+
+		-- This is a rectangle to the right of the playable area, that is the same height (up to down) as the playable area
+		local OffMapArea4 = {}
+		OffMapArea4.x0 = x1
+		OffMapArea4.y0 = y0
+		OffMapArea4.x1 = (x1 + 100)
+		OffMapArea4.y1 = y1
+
+		OffMapAreas = {OffMapArea1, OffMapArea2, OffMapArea3, OffMapArea4}
+
+		ScenarioInfo.OffMapAreas = OffMapAreas
+		ScenarioInfo.PlayableArea = playablearea
+
+		LOG('Offmapareas are ' .. repr(OffMapAreas))
+	end
+	
+    if (voFlag == nil) then
          voFlag = true
     end
     if type(rect) == 'string' then
@@ -809,6 +861,8 @@ function SetPlayableArea( rect, voFlag )
     end
 
     import('/lua/SimSync.lua').SyncPlayableRect(rect)
+	Sync.NewPlayableArea = {x0, y0, x1, y1}
+	ForkThread(GenerateOffMapAreas)
 end
 
 function PlayableRectCameraThread( rect )
@@ -1286,5 +1340,3 @@ function EngineerBuildUnits( army, unitName, ... )
     end
     return engUnit
 end
-
-

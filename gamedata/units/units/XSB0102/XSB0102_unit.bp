@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 20,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -43,15 +45,19 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 92,
+        EconomyThreatLevel = 132,
         Health = 4600,
         MaxHealth = 4600,
         RegenRate = 0,
     },
+    
     Description = '<LOC xsb0102_desc>Basic Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -135,29 +141,36 @@ UnitBlueprint {
         },
         UniformScale = 0.05,
     },
+    
     Economy = {
-        BuildCostEnergy = 2400,
+        BuildCostEnergy = 2500,
         BuildCostMass = 210,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY SERAPHIM STRUCTURE AIR',
             'BUILTBYTIER1FACTORY SERAPHIM MOBILE AIR',
             'TRANSPORTBUILTBYTIER1FACTORY SERAPHIM MOBILE AIR',
         },
+        
         RebuildBonusIds = {
             'xsb0102',
             'xsb0202',
             'xsb0302',
         },
+        
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

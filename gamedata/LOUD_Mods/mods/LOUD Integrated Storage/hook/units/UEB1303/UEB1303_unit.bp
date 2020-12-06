@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "ueb1303", #UEF T3 Mass Fabricator
+	BlueprintId = "ueb1303", --UEF T3 Mass Fabricator
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

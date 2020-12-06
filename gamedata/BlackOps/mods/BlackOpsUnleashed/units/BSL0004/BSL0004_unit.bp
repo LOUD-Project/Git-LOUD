@@ -3,6 +3,9 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,	
         InitialAutoMode = true,
+		TargetBones = {
+            'Turret',
+		},
     },
 	
     Audio = {

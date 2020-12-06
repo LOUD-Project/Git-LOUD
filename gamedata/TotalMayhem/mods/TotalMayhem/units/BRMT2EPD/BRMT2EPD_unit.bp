@@ -1,5 +1,11 @@
 UnitBlueprint {
-
+   
+   AI = { 
+       	TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -199,10 +205,12 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.5,
+	
     SizeX = 1.0,
-    SizeY = 1.1,
+    SizeY = 1.3,
     SizeZ = 1.0,
-    StrategicIconName = 'icon_structure2_directfire',
+    
+	StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
 	
     Veteran = {
@@ -219,13 +227,13 @@ UnitBlueprint {
 			
             Audio = {
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANHEAVYLASERFIRE',
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
 			
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
             	{
@@ -266,8 +274,9 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 			
             NoPause = true,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2EPDproj/BRMT2EPDproj_proj.bp',
+						
+            ProjectileId = '/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
 
             RackBones = {
                 {

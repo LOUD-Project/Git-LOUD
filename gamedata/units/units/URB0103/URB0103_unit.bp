@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 30,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -50,13 +52,14 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 136,
+        EconomyThreatLevel = 176,
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 2,
     },
 	
     Description = '<LOC urb0103_desc>Basic Naval Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -81,11 +84,14 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.095,
     },
+    
     Economy = {
         BuildCostEnergy = 1500,
         BuildCostMass = 300,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY CYBRAN STRUCTURE NAVAL',
@@ -101,9 +107,11 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         MinWaterDepth = 3,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

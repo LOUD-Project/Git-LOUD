@@ -654,9 +654,9 @@ BuffBlueprint { Name = 'CheatIntel',
 	},
 }
 
-BuffBlueprint { Name = 'CheatStorage',
-	BuffType = 'INTELSTORAGE',
-	Stacks = 'REPLACE',
+BuffBlueprint { Name = 'CheatEnergyStorage',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
 	Duration = -1,
 	Affects = {
 		EnergyStorage = {
@@ -664,6 +664,14 @@ BuffBlueprint { Name = 'CheatStorage',
 			Add = 0,
 			Mult = 1,
 		},
+	},
+}
+
+BuffBlueprint { Name = 'CheatMassStorage',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
+	Duration = -1,
+	Affects = {
 		MassStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
 			Add = 0,

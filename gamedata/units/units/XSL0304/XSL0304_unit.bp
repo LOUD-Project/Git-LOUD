@@ -234,7 +234,7 @@ UnitBlueprint {
             Damage = 480,
             DamageFriendly = true,
             DamageRadius = 5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Suthanus Artillery',
 			
@@ -275,7 +275,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,		#-- 96 Dps
+            RateOfFire = 0.2,		---- 96 Dps
             RenderFireClock = true,
 			
             TargetCheckInterval = 3,

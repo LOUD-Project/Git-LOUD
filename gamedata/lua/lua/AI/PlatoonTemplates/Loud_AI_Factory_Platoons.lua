@@ -24,24 +24,6 @@ PlatoonTemplate { Name = 'T1BuildEngineer',
     }
 }
 
-PlatoonTemplate { Name = 'T1BuildEngineerInitial',
-
-    FactionSquads = {
-        UEF = {
-            { 'uel0105', 1, 3, 'Support', 'none' }
-        },
-        Aeon = {
-            { 'ual0105', 1, 3, 'Support', 'none' }
-        },
-        Cybran = {
-            { 'url0105', 1, 3, 'Support', 'none' }
-        },
-        Seraphim = {
-            { 'xsl0105', 1, 3, 'Support', 'none' }
-        },
-    }
-}
-
 PlatoonTemplate { Name = 'T2BuildEngineer',
 
     FactionSquads = {
@@ -460,22 +442,18 @@ PlatoonTemplate { Name = 'T1LandDFTank',
         UEF = {
             { 'uel0201', 1, 5, 'Attack', 'none' },		-- Striker Medium Tank
 			{ 'uel0103', 1, 1, 'Artillery', 'none' },	-- artillery
-            { 'uel0104', 1, 1, 'Guard', 'none' },		-- AA
          },
         Aeon = {
             { 'ual0201', 1, 7, 'Attack', 'none' },		-- Light Hover tank
 			{ 'ual0103', 1, 1, 'Artillery', 'none' },	-- artillery
-            { 'ual0104', 1, 1, 'Guard', 'none' },		-- AA
         },
         Cybran = {
             { 'url0107', 1, 5, 'Attack', 'none' },		-- Mantis
-			{ 'url0103', 1, 1, 'Artillery', 'none' },	-- arty
-            { 'url0104', 1, 1, 'Guard', 'none' },		-- AA
+			{ 'url0103', 1, 1, 'Artillery', 'none' },	-- artillery
         },
         Seraphim = {
             { 'xsl0201', 1, 4, 'Attack', 'none' },		-- Medium Tank
 			{ 'xsl0103', 1, 1, 'Artillery', 'none' },	-- artillery
-            { 'xsl0104', 1, 1, 'Guard', 'none' },		-- AA
         },
     }
 }
@@ -635,11 +613,15 @@ PlatoonTemplate { Name = 'T2MobileShields',
 
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
-        UEF = {},	
+        UEF = {
+            { 'uel0205', 1, 1, 'Guard', 'none' }    -- non-amphib
+        },
         Aeon = {
             { 'ual0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
-        Cybran = {},		
+        Cybran = {
+            { 'url0205', 1, 1, 'Guard', 'none' }    -- non-amphib
+        },
         Seraphim = {
             { 'xsl0205', 1, 2, 'Attack', 'none' }	-- amphibious hover
         },
@@ -769,7 +751,7 @@ PlatoonTemplate { Name = 'T3Amphibious',
     }
 }
 
-PlatoonTemplate { Name = 'T3AmphibiousAA',
+PlatoonTemplate { Name = 'T3AmphibiousAA',      -- here for compatability
     FactionSquads = {
         UEF = {},
         Aeon = {},

@@ -1,18 +1,13 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "xsa0402", #Seraphim Ahwassa
+	BlueprintId = "xsa0402", --Seraphim Ahwassa
 	
     AI = {
 		GuardRadius = 150,
         GuardReturnRadius = 200,
         GuardScanRadius = 175,
         TargetBones = {
-            'Right_Rear_Autocannon_Muzzle',
-            'Left_Rear_Autocannon_Muzzle',
-            'Tail_Extent',
             'XSA0402',
-            'Left_Front_Autocannon_Muzzle',
-            'Right_Front_Autocannon_Muzzle',
         },
     },
 	
@@ -124,13 +119,13 @@ UnitBlueprint {
         'DRAGBUILD',
     },
 	
-    CollisionOffsetY = -1.5,
+    CollisionOffsetY = -1.0,
 	
     Defense = {
         AirThreatLevel = 160,
         ArmorType = 'Light',
-        Health = 54500,		#-- 52000
-        MaxHealth = 54500,	#-- 52000
+        Health = 54500,		---- 52000
+        MaxHealth = 54500,	---- 52000
         RegenRate = 12,
         SurfaceThreatLevel = 120,
     },
@@ -262,9 +257,11 @@ UnitBlueprint {
     SelectionSizeX = 5.5,
     SelectionSizeZ = 5.5,
     SelectionThickness = 0.22,
-    SizeX = 9.8,
-    SizeY = 2.7,
-    SizeZ = 9.8,
+	
+    SizeX = 6.0,
+    SizeY = 1.5,
+    SizeZ = 7.5,
+	
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 55,
     Transport = {
@@ -417,7 +414,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
 			
@@ -504,7 +501,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 400 DPS Air
+            RateOfFire = 2,		---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

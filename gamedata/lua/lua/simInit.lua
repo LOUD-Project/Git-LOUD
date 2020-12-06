@@ -27,7 +27,7 @@
 --# Do global init and set up common global functions
 doscript '/lua/globalInit.lua'
 
-LOG("*DEBUG Mohodata simInit")
+--LOG("*DEBUG Mohodata simInit")
 
 WaitTicks = coroutine.yield
 
@@ -152,13 +152,13 @@ function BeginSession()
 			
 					if restrictedCategories == nil then
 					
-						LOG("*AI DEBUG Adding restriction "..repr(cat))
+						--LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = categories[cat]
 						
 					else
 					
-						LOG("*AI DEBUG Adding restriction "..repr(cat))
+						--LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = restrictedCategories + categories[cat]
 						
@@ -182,7 +182,7 @@ function BeginSession()
 		
     end
 	
-	LOG("*AI DEBUG FINAL RESTRICTIONS ARE "..repr(buildRestrictions))
+	--LOG("*AI DEBUG FINAL RESTRICTIONS ARE "..repr(buildRestrictions))
 
     if buildRestrictions then
 	

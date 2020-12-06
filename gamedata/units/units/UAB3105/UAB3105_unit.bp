@@ -30,7 +30,7 @@ UnitBlueprint {
     },
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 82,	#-- .1% Storage + 2% Health
+        EconomyThreatLevel = 82,	---- .1% Storage + 2% Health
         Health = 3000,
         MaxHealth = 3000,
         RegenRate = 3,

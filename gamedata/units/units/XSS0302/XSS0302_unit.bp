@@ -20,7 +20,7 @@ UnitBlueprint {
             Bank = 'XGG',
             Cue = 'Computer_Computer_MissileLaunch_01351',
         },
-        NukeCharge = Sound { # added for sound bug brute51
+        NukeCharge = Sound { -- added for sound bug brute51
             Bank = 'XSB',
             Cue = 'XSB2305_Nuke_Charge',
             LodCutoff = 'UnitMove_LodCutoff',
@@ -62,7 +62,8 @@ UnitBlueprint {
         'NUKE',
         'SILO',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -1,

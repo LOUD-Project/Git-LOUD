@@ -67,7 +67,7 @@ UnitBlueprint {
             ShieldRegenRate = 390,
             ShieldRegenStartTime = 1,
             ShieldSize = 96,
-            ShieldVerticalOffset = -38,	#--the code doubles this so in effect the shield will only be 20 units above ground
+            ShieldVerticalOffset = -38,	----the code doubles this so in effect the shield will only be 20 units above ground
         },
     },
 	

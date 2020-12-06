@@ -1,4 +1,10 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Torso',
+        },
+    },
+	
     Audio = {
 
         Killed = Sound {
@@ -214,9 +220,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.4,
     
-    SizeX = 0.8,
-    SizeY = 1.1,
-    SizeZ = 0.8,
+    SizeX = 0.6,
+    SizeY = 0.85,
+    SizeZ = 0.6,
     
     StrategicIconName = 'icon_bot3_sniper',
     StrategicIconSortPriority = 115,

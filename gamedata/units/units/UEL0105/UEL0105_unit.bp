@@ -40,7 +40,7 @@ UnitBlueprint {
     CollisionOffsetZ = -0.1,
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 9,		# BuildRate + 3% of health
+        EconomyThreatLevel = 9,		-- BuildRate + 3% of health
         Health = 150,
         MaxHealth = 150,
         RegenRate = 0,
@@ -72,8 +72,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 300,
-        BuildCostMass = 65,
+        BuildCostEnergy = 330,
+        BuildCostMass = 70,
         BuildRate = 5,
         BuildTime = 325,
 		

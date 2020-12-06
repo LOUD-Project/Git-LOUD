@@ -5,8 +5,6 @@
 
 local import = import
 
-local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
-
 local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
@@ -17,8 +15,6 @@ local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
 
 local BuildPlatoon = moho.aibrain_methods.BuildPlatoon
-
---local CanBuildPlatoon = moho.aibrain_methods.CanBuildPlatoon
 
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
@@ -246,9 +242,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." takes "..builder.BuilderName.." platoon is "..repr(buildplatoon))
-		
+
 					factory.addplan = false
 					factory.addbehavior = false
 				
@@ -541,50 +535,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
             EM:ForkThread( EM.AddEngineerUnit, finishedUnit )
 		end
-		
-        if LOUDENTITY((categories.AIR * categories.MOBILE), finishedUnit) then
-		
-			-- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
-			if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), finishedUnit) then
 
-				local ProcessDamagedAirUnit = function( finishedUnit, newHP, oldHP )
-	
-					-- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
-					-- to bypass this is the unit is in the transport pool --
-					if (newHP < oldHP and newHP < 0.5) and not finishedUnit.ReturnToPoolCallbackSet then
-					
-						--LOG("*AI DEBUG Callback Damaged running on "..finishedUnit:GetBlueprint().Description.." with New "..repr(newHP).." and Old "..repr(oldHP))
-
-						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-
-						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					end
-				end
-
-				finishedUnit:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
-				
-				local ProcessFuelOutAirUnit = function( finishedUnit )
-				
-					-- this flag only gets turned on after this executes
-					-- and is turned back on only when the unit gets fuel - so we avoid multiple executions
-					-- and we don't process this if it's a transport pool unit --
-					if finishedUnit.HasFuel and not finishedUnit.ReturnToPoolCallbackSet then
-				
-						--LOG("*AI DEBUG Callback OutOfFuel running on "..finishedUnit:GetBlueprint().Description )
-				
-						local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-					
-						ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-					end
-				end
-				
-				finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
-			else
-
-				finishedUnit:ForkThread( AssignTransportToPool, aiBrain )
-			end
-		end
-		
 		if factory.addplan then
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addplan], aiBrain )
 		end
@@ -675,6 +626,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 				
 			end
+            
+            if not template then
+                template = { 'none', 1, 1, 'attack', 'none' }
+            end
 
 			if counter > 0 then
 				return { possibles[Random(1,counter)], template[2], template[3], template[4], template[5] }
@@ -689,42 +644,68 @@ FactoryBuilderManager = Class(BuilderManager) {
 			-- this is here to insure that IF there are replacments we only replace
 			-- the FIRST unit in those cases where a template may have multiple units specified (ie.- a platoon of units)
 			local replacementdone = false
+            
+            -- sometimes the stock unit template is empty
+            local tablesize = LOUDGETN(PlatoonTemplates[templateName].FactionSquads[faction])
+            
+            if tablesize > 0 then
 		
-			for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
+                for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
 			
-				if customData and (not replacementdone) then
+                    if customData and (not replacementdone) then
 
-					local replacement = GetCustomReplacement( v )
+                        local replacement = GetCustomReplacement( v )
 					
-					-- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
-					if replacement then
+                        -- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
+                        if replacement then
+					
+                            if not template then
+                                template = { PlatoonTemplates[templateName].Name, '', }
+                            end
+                        
+                            LOUDINSERT( template, replacement )
+                            replacementdone = true -- keeps us from replacing anything but the first unit in a template
+						
+                        else
+                    
+                            if not template then
+                                template = { PlatoonTemplates[templateName].Name, '', }
+                            end 
+                        
+                            LOUDINSERT( template, v )
+						
+                        end
+					
+                    else
+                
+                        if not template then
+                            template = { PlatoonTemplates[templateName].Name, '', }
+                        end
+				
+                        LOUDINSERT( template, v )
+                    end
+                end
+                
+            else
+            
+                if customData and (not replacementdone) then
+                
+                    local replacement = GetCustomReplacement()
+					
+                    -- if a replacement is selected (by %) then it will fill the template otherwise stock will be used
+                    if replacement then
 					
                         if not template then
                             template = { PlatoonTemplates[templateName].Name, '', }
                         end
                         
-						LOUDINSERT( template, replacement )
-						replacementdone = true -- keeps us from replacing anything but the first unit in a template
-						
-					else
-                    
-                        if not template then
-                            template = { PlatoonTemplates[templateName].Name, '', }
-                        end 
-                        
-						LOUDINSERT( template, v )
-						
-					end
-					
-				else
-                
-                    if not template then
-                        template = { PlatoonTemplates[templateName].Name, '', }
+                        LOUDINSERT( template, replacement )
+                        replacementdone = true -- keeps us from replacing anything but the first unit in a template
+
                     end
-				
-					LOUDINSERT( template, v )
-				end
-			end
+                end
+            end
+           
 			
 		elseif faction and customData then
 
@@ -738,7 +719,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
         if not template then
         
-            LOG("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty")
+            WARN("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(PlatoonTemplates[templateName].FactionSquads[faction]))
         end
         
 		return template

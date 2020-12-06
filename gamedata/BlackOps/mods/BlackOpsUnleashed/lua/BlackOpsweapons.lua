@@ -395,19 +395,16 @@ ScorpDisintegratorWeapon = Class(DefaultProjectileWeapon) {
 	},
 	FxMuzzleFlashScale = 0.2,
 }
+
 HawkMissileTacticalSerpentineWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = { '/effects/emitters/aeon_missile_launch_02_emit.bp', },
 }
+
 LambdaWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SDFExperimentalPhasonProjMuzzleFlash,
     FxChargeMuzzleFlash = EffectTemplate.SDFExperimentalPhasonProjChargeMuzzleFlash,
 }
-ArtemisWeapon = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = BlackOpsEffectTemplate.ArtemisMuzzleFlash,
-    FxChargeMuzzleFlash = BlackOpsEffectTemplate.ArtemisMuzzleChargeFlash,
-    FxMuzzleFlashScale = 2,
-    FxChargeMuzzleFlashScale = 2,
-}
+
 TDFGoliathShoulderBeam = Class(DefaultBeamWeapon) {
     BeamType = BlackOpsCollisionBeamFile.TDFGoliathCollisionBeam,
     FxMuzzleFlash = {},
@@ -563,15 +560,6 @@ GoldenLaserGenerator = Class(DefaultBeamWeapon) {
 
 RedHeavyTurboLaserWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = BlackOpsEffectTemplate.RedLaserMuzzleFlash01,
-}
-
-ArtemisLaserGenerator = Class(DefaultBeamWeapon) {
-    BeamType = BlackOpsCollisionBeamFile.GoldenLaserCollisionBeam01,
-    FxMuzzleFlash = BlackOpsEffectTemplate.ArtemisMuzzleFlash,
-	FxMuzzleFlashEffectScale = 0.5,
-    FxChargeMuzzleFlash = {},
-    #FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
-    #FxUpackingChargeEffectScale = 1,
 }
 
 BOHellstormGun = Class(DefaultProjectileWeapon) {

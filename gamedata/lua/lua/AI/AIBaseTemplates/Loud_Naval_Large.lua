@@ -11,6 +11,7 @@ BaseBuilderTemplate {
 		
 		# Engineers reclaim, repair, assist
 		'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',        
 		
 		# Engineers Build Factories
         'Engineer Factory Construction - Naval',
@@ -63,7 +64,7 @@ BaseBuilderTemplate {
     BaseSettings = {
     
         EngineerCount = {
-            Tech1 = 0,
+            Tech1 = 1,
             Tech2 = 3,
             Tech3 = 3,
             SCU = 5,

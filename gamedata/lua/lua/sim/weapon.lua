@@ -337,9 +337,10 @@ Weapon = Class(moho.weapon_methods) {
 		-- I put this here just to see if it could be trapped (and it is) with the intention
 		-- of discovering if it would be possible to turn cloaking off when a weapon on a
 		-- cloaked unit fires
-		-- just a note - this triggers only ONCE per firing cycle - not when each muzzle fires
+        
+		-- just a note - this triggers ONCE per firing cycle - just as firing begins
 		-- so you'll only get one event no matter how many muzzles and projectiles are created
-		-- it also appears that the event is created AFTER the first projectile is created
+
         -- there's some doubt that we'd see this more than once as long as the weapon keeps firing
         -- at the same target
         -- This means it's not a really good place for watching if a weapon fires

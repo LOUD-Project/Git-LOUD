@@ -1,0 +1,167 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "esl0001", --#Seraphim ACU
+
+    Defense = {
+
+        Health = 34650,
+        MaxHealth = 34650,
+
+        SurfaceThreatLevel = 90,
+    },
+    
+    Economy = {
+
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        MaxBuildDistance = 15,
+
+        ProductionPerSecondMass = 2,
+        
+        StorageEnergy = 5000,
+        StorageMass = 750,
+
+    },
+    
+    Enhancements = {
+    
+        EXImprovedEngineering = {
+        
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3150,
+            BuildTime = 1755,
+
+        },
+        
+        EXAdvancedEngineering = {
+        
+            BuildCostEnergy = 112500,
+            BuildCostMass = 11250,
+            BuildTime = 11250,
+
+        },
+        
+        EXExperimentalEngineering = {
+        
+            BuildCostEnergy = 675000,
+            BuildCostMass = 22500,
+            BuildTime = 33750,
+
+        },
+        
+        EXCombatEngineering = {
+        
+            BuildCostEnergy = 19800,
+            BuildCostMass = 1890,
+            BuildTime = 1620,
+
+        },
+        
+        EXAssaultEngineering = {
+        
+            BuildCostEnergy = 64800,
+            BuildCostMass = 6480,
+            BuildTime = 6480,
+
+        },
+        
+        EXApocolypticEngineering = {
+        
+            BuildCostEnergy = 145800,
+            BuildCostMass = 14580,
+            BuildTime = 14580,
+
+        },
+
+    },
+    
+    Intel = {
+
+        OmniRadius = 30,
+
+		RadarStealth = true,
+		SonarStealth = true,
+        
+        VisionRadius = 30,
+        WaterVisionRadius = 30,
+    },
+    
+    Veteran = {
+    
+        Level1 = 27,
+        Level2 = 54,
+        Level3 = 81,
+        Level4 = 108,
+        Level5 = 135,
+
+    },
+    
+    Weapon = {
+    
+        {
+            Damage = 100,
+            RateOfFire = 4,
+        },
+		
+        {},
+        
+        {},
+        
+        {
+            Damage = 500,
+            RateOfFire = 0.3,
+        },
+        
+        {
+            Damage = 800,
+            MuzzleVelocity = 8,
+            RateOfFire = 0.4,
+        },
+        
+        {
+            Damage = 1000,
+            MuzzleVelocity = 8,
+            RateOfFire = 0.5,
+        },
+        
+        {
+            Damage = 60,
+            MaxRadius = 40,
+        },
+        
+        {
+            Damage = 180,
+            MaxRadius = 50,
+            RateOfFire = 0.3,
+        },
+        
+        {
+            Damage = 500,
+            MaxRadius = 65,
+            RateOfFire = 0.4,
+        },
+        
+        {
+            Damage = 150,
+            MaxRadius = 45,
+        },
+        
+        {
+            Damage = 600,
+            MaxRadius = 55,
+        },
+        
+        {
+            Damage = 1800,
+            MaxRadius = 65,
+            RateOfFire = 2,
+        },
+        
+        {
+            Damage = 65,
+        },
+        
+        {
+            Damage = 65,
+        },
+    },
+}

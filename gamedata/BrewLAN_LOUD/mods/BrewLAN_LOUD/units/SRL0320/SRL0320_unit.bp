@@ -1,5 +1,12 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+
+
     Audio = {
         Activate = Sound {
             Bank = 'URL',
@@ -68,8 +75,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 36,
         ArmorType = 'Normal',
-        Health = 2750,
-        MaxHealth = 2750,
+        Health = 1850,
+        MaxHealth = 1850,
         RegenRate = 4,
     },
 	
@@ -107,8 +114,8 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Dustkickup1',
-                            'Dustkickup2',
+                            'Back_Left_M',
+                            'Back_Right_M',
                         },
                         Type = 'GroundKickup01',
                     },
@@ -225,9 +232,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.4,
 	
-    SizeX = 1.65,
-    SizeY = 0.9,
-    SizeZ = 1.65,
+    SizeX = 1.0,
+    SizeY = 0.65,
+    SizeZ = 1.5,
 	
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 115,

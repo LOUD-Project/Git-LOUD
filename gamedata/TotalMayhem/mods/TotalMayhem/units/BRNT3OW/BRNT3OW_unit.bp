@@ -1,6 +1,13 @@
 UnitBlueprint {
+
     AI = { 
         GuardScanRadius = 60, 
+		TargetBones = {
+			'Turret',
+			'AttachPoint',
+			'legb3',
+			'toes03',
+        },
     }, 
 	
     Audio = {
@@ -41,7 +48,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 11,
+    BuildIconSortPriority = 8,
 	
     Categories = {
         'SELECTABLE',
@@ -178,9 +185,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.3,
 	
-    SizeX = 2,
-    SizeY = 2,
-    SizeZ = 2,
+    SizeX = 1.5,
+    SizeY = 2.2,
+    SizeZ = 1.3,
 	
     StrategicIconName = 'icon_experimental_directfire',
     StrategicIconSortPriority = 115,
@@ -222,6 +229,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -268,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,	# 400dps
+            RateOfFire = 2,	-- 400dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -417,7 +425,7 @@ UnitBlueprint {
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
             ProjectileLifetime = 3,
 
             RackBones = {
@@ -446,7 +454,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	# 230dps
+            RateOfFire = 0.12,	-- 230dps
 			
 			RenderFireClock = true,
 			

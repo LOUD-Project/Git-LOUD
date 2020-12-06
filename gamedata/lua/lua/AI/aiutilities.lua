@@ -38,82 +38,21 @@ end
 -- Now based upon ALL threat values
 function AIPickEnemyLogic( self, brainbool )
 
-	local function DrawPlanNodes()
-	
-		local DC = DrawCircle
-		local DLP = DrawLinePop
-		
-		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
-		
-		while true do
-		
-			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
-			
-				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
-				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
-
-				local lastpoint = self.AttackPlan.StagePoints[0]				
-				local lastdraw = lastpoint
-				
-				if self.AttackPlan.StagePoints[0].Path then
-				
-					-- draw the movement path --
-					for _,v in self.AttackPlan.StagePoints[0].Path do
-					
-						DLP( lastdraw, v, '0303ff' )
-						lastdraw = v
-					
-					end
-					
-				end
-				
-				for i = 1, self.AttackPlan.StageCount do
-				
-					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
-					
-					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
-
-					lastdraw = lastpoint
-					
-					if self.AttackPlan.StagePoints[i].Path then
-					
-						for _,v in self.AttackPlan.StagePoints[i].Path do
-					
-							DLP( lastdraw,v, '0303ff' )
-							lastdraw = v
-					
-						end
-					end
-					
-					lastpoint = self.AttackPlan.StagePoints[i].Position
-					
-				end
-				
-				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
-				
-				lastdraw = lastpoint
-				
-				DC( self.AttackPlan.Goal, 1, 'ff00ff')
-				DC( self.AttackPlan.Goal, 3, '00ff00')
-				DC( self.AttackPlan.Goal, 5, 'ff00ff')
-				
-			end
-			
-			WaitTicks(6)
-			
-		end
-		
-	end
-	
 	local allyEnemy = false
     local armyStrengthTable = {}
 	local IsEnemy = IsEnemy
     local selfIndex = self.ArmyIndex
 	
-	local threattype = 'OverallNotAssigned'
-
+	local threattypes = {'StructuresNotMex','Land','Naval'} --'OverallNotAssigned'
+    
+	-- Just a note here - the position used when finding an enemy should likely
+    -- be based on his CURRENT PRIMARY position - and not always the starting position
+    -- this will help keep him focused upon what he's already achieved
+    -- rather than just switching to a stronger opponent
+    
+    --local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
+    local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
+    
     for k,v in ArmyBrains do
 	
         local armyindex = v.ArmyIndex
@@ -121,28 +60,52 @@ function AIPickEnemyLogic( self, brainbool )
         if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
+            
+                local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }    
+            
+                for _,threattype in threattypes do
 			
-				local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
-		
-				local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }
-				
-				if threats[1] then
+                    local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                
+                    -- sort the threats for closest
+                    table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+                
+                    --LOG("*AI DEBUG "..self.Nickname.." "..threattype.." Threats from "..v.Nickname.." are "..repr(threats))
+                    
+                    for _,data in threats do
 
-                    -- use the position that reports the highest total threat
-					insertTable.Position = {threats[1][1],0,threats[1][2]}
+                        if data[3] > 60 then
+                        
+                            if not insertTable.Position then
+                                -- use the closest position that reports enough threat
+                                insertTable.Position = {data[1],0,data[2]}
+                            end
+                            
+                            -- closer targets are worth more - much more
+               
+                            -- distance of this enemy from current PRIMARY position
+                            local distance = VDist3( testposition, {data[1],0,data[2]} )
+                
+                            -- adjust the strength according to distance result against the maximum possible distance on this map
+                            local threatWeight = math.exp((self.dist_comp/ distance )-1)
 
-					-- and this gives the enemys total strength based upon what I can see 
-                    -- it has NOTHING TO DO WITH POSITION apparently
-					local a,b = self:GetHighestThreatPosition( 32, true, threattype, armyindex)
-					insertTable.Strength = b
-				end
+                            threatWeight = threatWeight * data[3]
+                            
+                            if threatWeight > 60 then
+                                -- accumulate the total enemy strength from viable positions
+                                insertTable.Strength = insertTable.Strength + threatWeight
+                            end
+                            
+                        end
+                    end
 
-				-- make sure the value is positive
-				insertTable.Strength = math.max( insertTable.Strength, 0)
+                    -- make sure the value is positive
+                    insertTable.Strength = math.max( insertTable.Strength, 0)
 			
-				if insertTable.Strength > 0 then
-					armyStrengthTable[armyindex] = insertTable
-				end
+                    if insertTable.Strength > 35 then
+                        armyStrengthTable[armyindex] = insertTable
+                    end
+                end
 			end
         end
     end
@@ -168,7 +131,8 @@ function AIPickEnemyLogic( self, brainbool )
         local findEnemy = false
         local currenemy = self:GetCurrentEnemy()
 		
-        if (not currenemy or brainbool) and not self.targetoveride then
+        -- if there is no current enemy - or the current enemy is not generating any threat - and we are not target overridden --
+        if (not currenemy or brainbool) or (currenemy and not armyStrengthTable[currenemy:GetArmyIndex()]) and not self.targetoveride then
 		
             findEnemy = true
 			
@@ -176,27 +140,21 @@ function AIPickEnemyLogic( self, brainbool )
 		
             local cIndex = currenemy:GetArmyIndex()
 			
-            -- If our current enemy has been defeated or has less than 20 strength, we need a new enemy
-            if currenemy:IsDefeated() or armyStrengthTable[cIndex].Strength < 20 then
+            -- If our current enemy has been defeated or has less than 35 strength, we need a new enemy
+            if currenemy:IsDefeated() or armyStrengthTable[cIndex].Strength < 35 then
 			
                 findEnemy = true
-				
             end
-			
         end
 		
 		if self.DrawPlanThread then 
 		
 			KillThread(self.DrawPlanThread)
-			
+            self.DrawPlanThread = nil
 		end	
         
-		-- Just a note here - the position used when finding an enemy should likely
-        -- be based on his CURRENT PRIMARY position - and not always the starting position
-        -- this will help keep him focused upon what he's already achieved
-        -- rather than just switching to a stronger opponent
-        local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
-        
+        --LOG("*AI DEBUG "..self.Nickname.." says findEnemy is "..repr(findEnemy))
+
         if findEnemy then
 		
             local enemydistance = 0
@@ -208,27 +166,18 @@ function AIPickEnemyLogic( self, brainbool )
 			
                 -- Ignore allies 
                 if not v.Enemy then
-				
                     continue
-					
                 end
-				
-                -- closer targets are worth more - much more
-                local distanceWeight = 0.01
-                
-                -- distance of this this enemy from current PRIMARY position
-                local distance = VDist3( testposition, v.Position )
-                
-                -- adjust the strength according to distance result
-                local threatWeight = ( self.dist_comp/(distance*distance) ) * v.Strength
-                
+
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
-                if not enemy or threatWeight > enemyStrength then
+                if not enemy or v.Strength > enemyStrength then
 				
-                    enemydistance = distance
+                    enemydistance = VDist3( testposition, v.Position )
+                    
                     enemyPosition = v.Position
-					enemyStrength = threatWeight
+					enemyStrength = v.Strength
+                    
                     enemy = ArmyBrains[v.Brain]
                 end
             end
@@ -236,31 +185,70 @@ function AIPickEnemyLogic( self, brainbool )
             -- if we've picked an enemy and have a position for them
             if enemy and enemyPosition then
             
-                -- If we don't have an enemy or it's different than the one we already have
-				if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
-				
-                    -- set this as our current enemy
-                    self:SetCurrentEnemy( enemy )
-					
-                    -- remember this enemy index on the brain
-					self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
-					
-					-- AI will announce the current target to allies
-					SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
-					
-                    --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
-					
-                    -- create a new attack plan
-                    self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
+               	local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+                
+                -- collect all the enemy units within that IMAP grid
+				-- just NOTE - this will report all units - even those you don't see
+				local units = GetEnemyUnitsInRect( self, enemyPosition[1]-ScenarioInfo.IMAPRadius, enemyPosition[3]-ScenarioInfo.IMAPRadius, enemyPosition[1]+ScenarioInfo.IMAPRadius, enemyPosition[3]+ScenarioInfo.IMAPRadius)
+
+				local counter = 0
+
+				-- these accumulate the position values
+                local x1 = 0
+                local x2 = 0
+                local x3 = 0
+
+				-- loop thru only those that match the category filter
+				for _,v in units do
+
+					counter = counter + 1
+
+					local unitPos = v:GetPosition()
+                    
+					if unitPos and not v.Dead then
+						x1 = x1 + unitPos[1]
+						x2 = x2 + unitPos[2]
+						x3 = x3 + unitPos[3]
+					end
 				end
+                
+                if counter > 0 then
+                
+                    x1 = x1/counter
+                    x2 = x2/counter
+                    x3 = x3/counter
+                
+                    --LOG("*AI DEBUG The average position for "..repr(enemyPosition).." is at "..repr({ x1, x2, x3 }))
+                
+                    enemyPosition = { x1,x2,x3 }
+
+                    -- If we don't have an enemy or it's different than the one we already have
+                    if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
+				
+                        -- set this as our current enemy
+                        self:SetCurrentEnemy( enemy )
+					
+                        -- remember this enemy index on the brain
+                        self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
+					
+                        -- AI will announce the current target to allies
+                        SUtils.AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
+                        
+                    end
+                    
+                    -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
+                    if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
+                    
+                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+					
+                        -- create a new attack plan
+                        self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
+                    end
+                end
 			end
         end
 		
-		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
-		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
-		
-			self.DrawPlanThread = ForkThread( DrawPlanNodes )
-		end 
+
     end
 	
 end
@@ -969,12 +957,16 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
 	
 end
 
--- This function sets up the cheats used by the AI
-function SetupAICheat(aiBrain)
+-- 3+ Teams Unit Cap Fix : That part is moved away from the main SetupAICheat 
+-- to do it after we figured out how many armies are in the biggest team
+function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Setting unit cap from base of "..ScenarioInfo.Options.UnitCap )
 	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Cheating AI functions")
-	
-	local PlayerDiff = (aiBrain.NumOpponents or 1)/(aiBrain.Players - aiBrain.NumOpponents)
+	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.TeamSize)
+    
+    aiBrain.OutnumberedRatio = PlayerDiff
+   
 
 	-- set unit cap and veterancy multiplier --
 	if ScenarioInfo.Options.CapCheat == "unlimited" then
@@ -984,8 +976,8 @@ function SetupAICheat(aiBrain)
 		SetIgnoreArmyUnitCap(aiBrain.ArmyIndex, true)
 		
 		SetArmyUnitCap( aiBrain.ArmyIndex, 99999)
-		
-		aiBrain.VeterancyMult = 2.0
+
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
 	
@@ -995,11 +987,14 @@ function SetupAICheat(aiBrain)
         local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
         local cheatCap = initialCap * tonumber(ScenarioInfo.Options.AIMult or 1) * (math.max(PlayerDiff,1))
-
-		aiBrain.VeterancyMult = tonumber(ScenarioInfo.Options.AIMult or 1)
-
+        
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
-		
+        
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap)
+    end
+    
+    if aiBrain.OutnumberedRatio > 1 then 
+        LOG("*AI DEBUG "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
     end
 
 	-- record the starting unit cap
@@ -1008,13 +1003,45 @@ function SetupAICheat(aiBrain)
 
 	-- start the spawn wave thread for cheating AI --
     aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
+end
 
-	
-	#== CREATE THE BUFFS THAT WILL BE USED BY THE AI ==#
+
+-- This function creates the cheats used by the AI
+-- now creates buffs for EACH AI -- allowing us to move ahead
+-- with AI having independant mutlipliers and supporting the
+-- more recent adaptive cheat multipliers which require this
+-- to work properly --
+function SetupAICheat(aiBrain, biggestTeamSize)
+
+    --LOG("*AI DEBUG SetupAICheat for "..aiBrain.Nickname.." INDEX "..repr(aiBrain.ArmyIndex))
+
+    -- Veterancy mult is always 1 or higher
+    aiBrain.VeterancyMult = math.max( 1, tonumber(ScenarioInfo.Options.AIMult or 1))
+    
+    -- Store the basic AIMultiplier for this brain --
+    aiBrain.AIMultiplier = tonumber(ScenarioInfo.Options.AIMult or 1)
+
+
+	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
 
 	-- build rate cheat
-    local buffDef = Buffs['CheatBuildRate']
+    local newbuff = table.copy(Buffs['CheatBuildRate'])
+    
+    newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+    
+    local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
 	local buffAffects = buffDef.Affects
 	
 	buffAffects.BuildRate.Mult = tonumber(ScenarioInfo.Options.AIMult)
@@ -1023,23 +1050,54 @@ function SetupAICheat(aiBrain)
 	-- but only at 75% of the multiplier (ie. at 1.1 this would be a 7.5% reduction
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
-    modifier = math.min(0, 0.75 * (1 - (tonumber(ScenarioInfo.Options.AIMult)) ))
-
+    -- put a floor of -0.75 on this -- since we're reaching near zero consumption
+    modifier = math.max(-0.75, 0.75 * math.min(0,1 - (tonumber(ScenarioInfo.Options.AIMult))) )
 	
 	buffAffects.EnergyMaintenance.Add = modifier
 	buffAffects.EnergyActive.Add = modifier
 	buffAffects.MassActive.Add = modifier
 
+    
 	
 	-- resource rate cheat buff
-    buffDef = Buffs['CheatIncome']
+    local newbuff = table.copy(Buffs['CheatIncome'])
+    
+    newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatIncome'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.EnergyProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.MassProduction.Mult = tonumber(ScenarioInfo.Options.AIMult)
-
-
+    
+    
 	-- intel range cheat -- increases intel ranges by the multiplier
-	buffDef = Buffs['CheatIntel']
+    local newbuff = table.copy(Buffs['CheatIntel'])
+    
+    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatIntel'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
     buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)    
@@ -1049,32 +1107,98 @@ function SetupAICheat(aiBrain)
 
 
     -- ACU intel range buff
-    buffDef = Buffs['CheatCDROmni']
+    local newbuff = table.copy(Buffs['CheatCDROmni'])
+    
+    newbuff.Name = 'CheatCDROmni'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatCDROmni'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	buffAffects.VisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
     buffAffects.WaterVisionRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
 	buffAffects.OmniRadius.Mult = tonumber(ScenarioInfo.Options.AIMult)
-   
 	
-	-- storage cheat -- increases storage by the multiplier
-	buffDef = Buffs['CheatStorage']
+    
+	-- storage cheat -- increases storage by the multiplier - only used on the ACU
+    local newbuff = table.copy(Buffs['CheatEnergyStorage'])
+    
+    newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatEnergyStorage'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
-	buffAffects.EnergyStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
-	buffAffects.MassStorage.Mult = tonumber(ScenarioInfo.Options.AIMult)
+	buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
 
     
-	-- overall cheat buff -- applied at 50% of the multiplier
-	-- alter unit health and shield health and regen rates
-	-- and the delay period between upgrades
+    local newbuff = table.copy(Buffs['CheatMassStorage'])
+    
+    newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+    buffDef = Buffs['CheatMassStorage'..aiBrain.ArmyIndex]
+    buffAffects = buffDef.Affects
+	buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0)
+
+    
+	-- overall cheat buff -- applied at 40% of the multiplier
+	-- alter unit health, shield health and regen rates
+    
+	-- reduce the delay period between upgrades
     -- and only when multiplier => 1
-	buffDef = Buffs['CheatALL']
+    local newbuff = table.copy(Buffs['CheatALL'])
+    
+    newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
+
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = table.copy(newbuff.Affects),
+        }
+    end
+
+	buffDef = Buffs['CheatALL'..aiBrain.ArmyIndex]
 	buffAffects = buffDef.Affects
 	
 	modifier = math.max( 0, tonumber(ScenarioInfo.Options.AIMult) - 1.0 )
-	modifier = modifier * 0.5
+	modifier = modifier * 0.4
 	modifier = 1.0 + modifier
 
 	buffAffects.MaxHealth.Mult = modifier
+    buffAffects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
 	buffAffects.RegenPercent.Mult = modifier
 	buffAffects.ShieldRegeneration.Mult = modifier
 	buffAffects.ShieldHealth.Mult = modifier
@@ -1082,39 +1206,107 @@ function SetupAICheat(aiBrain)
 	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
-    
 end
+
 
 -- and this function will apply them to units as they are created
 function ApplyCheatBuffs(unit)
 
 	local LOUDENTITY = EntityCategoryContains
 
+    -- Cheatbuffs are NOT applied to Insignificant units or NUKE/ANTI-NUKE units --
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
-	
+    
+        local brain = unit:GetAIBrain()
+
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-	
+        local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
+
+		ApplyBuff(unit, 'CheatBuildRate'..brain.ArmyIndex)		
+		ApplyBuff(unit, 'CheatIncome'..brain.ArmyIndex)
+		ApplyBuff(unit, 'CheatIntel'..brain.ArmyIndex)
+
+		ApplyBuff(unit, 'CheatALL'..brain.ArmyIndex)
+        
+        -- Engineers have additional buffs --
 		if LOUDENTITY( categories.ENGINEER, unit) then
 		
 			ApplyBuff(unit, 'CheatENG')
 		
 			if LOUDENTITY( categories.COMMAND, unit ) then 
-				
-				ApplyBuff(unit, 'CheatCDROmni')
-				
-			end
-			
-		end
+            
+                -- if AI team is outnumbered, increase starting resources to match those of largest team
+                if brain.OutnumberedRatio > 1 then
 
-		ApplyBuff(unit, 'CheatBuildRate')		
-		ApplyBuff(unit, 'CheatIncome')
-		ApplyBuff(unit, 'CheatIntel')
-		--ApplyBuff(unit, 'CheatStorage')	-- work in progress --
-		ApplyBuff(unit, 'CheatMOBILE')
-		ApplyBuff(unit, 'CheatALL')
-		
+                    local outnumberratio = brain.OutnumberedRatio
+
+                    local buffDef = Buffs['CheatEnergyStorage'..brain.ArmyIndex]
+                    local buffAffects = buffDef.Affects
+                    
+                    buffAffects.EnergyStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
+                    
+                    buffDef = Buffs['CheatMassStorage'..brain.ArmyIndex]
+                    buffAffects = buffDef.Affects
+                    buffAffects.MassStorage.Mult = math.max( tonumber(ScenarioInfo.Options.AIMult) - 1, 0) * outnumberratio
+
+                    ApplyBuff(unit, 'CheatIncome'..brain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
+                end
+
+                ApplyBuff(unit, 'CheatEnergyStorage'..brain.ArmyIndex)
+
+				ApplyBuff(unit, 'CheatCDROmni'..brain.ArmyIndex)
+
+                -- because the 2nd Storage buff will remove the first we'll wait 40 seconds
+                WaitTicks(400)
+                
+                RemoveBuff( unit, 'CheatEnergyStorage'..brain.ArmyIndex )
+                
+                ApplyBuff(unit, 'CheatMassStorage'..brain.ArmyIndex)
+			end
+		end
 	end
-	
+end
+
+function SetArmyPoolBuff(aiBrain, AIMult)
+
+    local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
+    local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
+
+
+    -- Modify Buildrate buff
+    local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
+    local buffAffects = buffDef.Affects
+
+    buffAffects.BuildRate.Mult = AIMult
+
+    -- Modify CheatIncome buff
+    buffDef = Buffs['CheatIncome'..aiBrain.ArmyIndex]
+    buffAffects = buffDef.Affects
+
+    buffAffects.EnergyProduction.Mult = AIMult
+    buffAffects.MassProduction.Mult = AIMult
+
+    -- loop thru all the units for this AI --
+    if aiBrain.BrainType == 'AI' then
+
+        local allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Army Pool Buff to "..repr(AIMult).." at time "..GetGameTimeSeconds() )
+
+        for _, unit in allUnits do
+
+            -- Remove old build rate and income buffs
+            -- the logic here is simple - if you don't have the buff to remove
+            -- then you don't get a buff to add
+            if RemoveBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts then
+                ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)
+            end
+            
+            if RemoveBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts
+                ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)
+            end
+        end
+    end
 end
 
 -- this function has been revised to factor in the value of friendly units --

@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "url0401", --#Cybran Scathis
+
+    Weapon = {
+        {
+            Damage = 3380,
+
+            DamageType = 'ShieldMult1.25',
+
+        },
+    },
+}

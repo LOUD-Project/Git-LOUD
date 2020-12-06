@@ -103,9 +103,11 @@ EngineerManager = Class(BuilderManager) {
     AddEngineerUnit = function( self, unit, dontAssign )
 
         table.insert( self.EngineerList, unit )
-		
-		--LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
-        --LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+        
+        if ScenarioInfo.EngineerDialog then
+            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+        end
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
 
@@ -485,6 +487,12 @@ EngineerManager = Class(BuilderManager) {
         for num,sUnit in self.EngineerList do
 
             if sUnit == unit then
+            
+                if ScenarioInfo.EngineerDialog then
+                    local brain = unit:GetAIBrain()
+                    LOG("*AI DEBUG "..brain.Nickname.." Removing Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." from "..self.ManagerType.." "..self.LocationType)
+                    LOG("*AI DEBUG "..brain.Nickname.." Engineer Count is "..self.EngineerList.Count - 1)
+                end
 
                 LOUDREMOVE( self.EngineerList, num )
 				
@@ -725,10 +733,11 @@ EngineerManager = Class(BuilderManager) {
 
 			local position = table.copy(self.Location)
 		
-			local color = '00ff00'
+			local color = 'ff0000'      -- red --
 		
 			if aiBrain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
-				color = 'ff0000'
+            
+				color = '00ff00'        -- green --
 			end
 
 			if GetFocusArmy() == -1 or (aiBrain.ArmyIndex == GetFocusArmy()) then
@@ -1142,7 +1151,7 @@ EngineerManager = Class(BuilderManager) {
 
 		local baseposition = self.Location
 
-		local radius = 200	-- range that base will draw in pool units to respond with
+		local radius = aiBrain.BuilderManagers[self.LocationType].Radius
     
 		local distressunderway = true
 		local response = false
@@ -1194,7 +1203,9 @@ EngineerManager = Class(BuilderManager) {
 					if math.abs(lastposHeight - nextposHeight) > 2 then
 						
 						-- we are obstructed
-						LOG("*AI DEBUG "..aiBrain.Nickname.." DISTRESS RESPONSE OBSTRUCTED ")
+                        if ScenarioInfo.BaseMonitorDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE OBSTRUCTED to "..repr(targetPos))
+                        end
 						return true
 					end
 					
@@ -1245,7 +1256,7 @@ EngineerManager = Class(BuilderManager) {
 							end
 							
 							-- only send response if we can muster 60% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .6) then
+							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .65) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1263,7 +1274,7 @@ EngineerManager = Class(BuilderManager) {
                                     local counter = 0
                                     local totalthreatsent = 0
                                     
-                                    -- send 5 per 3 tick to the distressLocation --
+                                    -- send 5 per second to the distressLocation --
                                     for _,u in grouplnd do
                                     
                                         if not u.Dead then
@@ -1277,8 +1288,9 @@ EngineerManager = Class(BuilderManager) {
                                             break   -- dont send any more units --
                                         end
                                         
+                                        -- wait one second for every 5 units sent
                                         if counter >= 4 then
-                                            WaitTicks(3)
+                                            WaitTicks(10)
                                             counter = 0
                                         end
                                         
@@ -1307,13 +1319,16 @@ EngineerManager = Class(BuilderManager) {
 						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER, baseposition, radius )
 					
 						if groupseacount > 2 then
+                        
+                            local enemynavalthreat = aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface') + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub')
 						
 							if ScenarioInfo.DistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface') + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub'))
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE to "..enemynavalthreat)
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Our response is "..repr(GetThreatOfGroup(groupsea,'Naval') ) )
 							end
 				
                             -- only send response if we can muster 66% of enemy threat
-							if GetThreatOfGroup(groupsea,'Naval') >= (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
+							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .66) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
 
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
@@ -1338,7 +1353,7 @@ EngineerManager = Class(BuilderManager) {
                                     end
 
                                     if counter >= 4 then
-                                        WaitTicks(3)
+                                        WaitTicks(10)
                                         counter = 0
                                     end
                                 end

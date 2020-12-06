@@ -1,5 +1,13 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+            'Probe2',
+			'Turret_Muzzle',
+        },
+    },
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -59,8 +67,8 @@ UnitBlueprint {
         'SORTSTRATEGIC',
     },
 
-    CollisionOffsetY = -0.25,
-    CollisionOffsetZ = -1.5,
+    CollisionOffsetY = -0.0,
+    CollisionOffsetZ = -0.0,
 
     Defense = {
         ArmorType = 'Structure',
@@ -198,7 +206,7 @@ UnitBlueprint {
     SelectionThickness = 0.39,
 
     SizeX = 3.5,
-    SizeY = 4,
+    SizeY = 6,
     SizeZ = 3.5,
 
     StrategicIconName = 'icon_experimental_structure_artillery',

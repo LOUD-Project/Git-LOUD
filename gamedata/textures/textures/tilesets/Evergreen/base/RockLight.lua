@@ -1,1 +1,0 @@
-Texture { Albedo = 'RockLight.dds', Normal = 'RockLight_n.dds', Size = 8 }

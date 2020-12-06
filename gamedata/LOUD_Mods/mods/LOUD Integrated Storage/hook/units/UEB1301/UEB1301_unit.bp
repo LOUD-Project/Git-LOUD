@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "ueb1301", #UEF T3 Energy
+	BlueprintId = "ueb1301", --UEF T3 Energy
     Economy = {
         BuildRate = 25,
         BuildableCategory = {

@@ -1,7 +1,15 @@
 UnitBlueprint {
+
     AI = { 
-        GuardScanRadius = 50, 
+        GuardScanRadius = 50,
+		TargetBones = {
+            'Turret',
+			'head',
+			'toes02',
+			'legb3',
+        },		
     }, 
+	
     Audio = {
 		Destroyed = Sound {
            Bank = 'Explosions',
@@ -205,9 +213,9 @@ UnitBlueprint {
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.5,
     
-    SizeX = 2.2,
+    SizeX = 2.4,
     SizeY = 4.4,
-    SizeZ = 2.7,
+    SizeZ = 2.0,
     
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,
@@ -293,7 +301,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,	# 375dps
+            RateOfFire = 3,	-- 375dps
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -392,7 +400,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 2.5,	# 375 dps
+            RateOfFire = 2.5,	-- 375 dps
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -491,7 +499,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 2.7,	# 378 dps
+            RateOfFire = 2.7,	-- 378 dps
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -588,7 +596,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.2,	# fire every 5 seconds = 2000dps
+            RateOfFire = 0.2,	-- fire every 5 seconds = 2000dps
 			
             ReTargetOnMiss = true,
 			

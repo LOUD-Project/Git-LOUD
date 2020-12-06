@@ -470,6 +470,7 @@ AAATemporalFizzWeapon = Class(DefaultProjectileWeapon) {
     ChargeEffectMuzzles = {},
 
     PlayFxRackSalvoChargeSequence = function(self)
+    
         DefaultProjectileWeapon.PlayFxRackSalvoChargeSequence(self)
 		
         local army = GetArmy(self.unit)

@@ -47,7 +47,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 480,
+        EconomyThreatLevel = 570,
         Health = 12500,
         MaxHealth = 12500,
         RegenRate = 4,
@@ -146,7 +146,8 @@ UnitBlueprint {
 	
         BuildCostEnergy = 100000,
         BuildCostMass = 10000,
-        BuildRate = 80,
+        
+        BuildRate = 160,
         BuildTime = 13500,
 		
         BuildableCategory = {
@@ -157,7 +158,6 @@ UnitBlueprint {
         },
 		
         RebuildBonusIds = {'xsb0304'},
-		
     },
 	
     Footprint = {
@@ -225,7 +225,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         OccupyRects = {
 
-            # offsetX offsetZ  sizeX sizeZ, offset from center of unit
+            -- offsetX offsetZ  sizeX sizeZ, offset from center of unit
             -3,
             0,
             1,
@@ -241,85 +241,85 @@ UnitBlueprint {
         },
         RaisedPlatforms = {
 
-            # The main ramp
-            # TopLeft Offset From Center
+            -- The main ramp
+            -- TopLeft Offset From Center
             -1,
 
-            # x
+            -- x
             -1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # TopRight Offset From Center
+            -- height
+            -- TopRight Offset From Center
             1,
 
-            # x
+            -- x
             -1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # BottomLeft Offset From Center
+            -- height
+            -- BottomLeft Offset From Center
             -1,
 
-            # x
+            -- x
             1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # BottomRight Offset From Center
+            -- height
+            -- BottomRight Offset From Center
             1,
 
-            # x
+            -- x
             1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # South side
-            # TopLeft Offset From Center
+            -- height
+            -- South side
+            -- TopLeft Offset From Center
             -1,
 
-            # x
+            -- x
             1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # TopRight Offset From Center
+            -- height
+            -- TopRight Offset From Center
             1,
 
-            # x
+            -- x
             1,
 
-            # z
+            -- z
             0.4,
 
-            # height
-            # BottomLeft Offset From Center
+            -- height
+            -- BottomLeft Offset From Center
             -0.4,
 
-            # x
+            -- x
             2.4,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
+            -- height
+            -- BottomRight Offset From Center
             0.4,
 
-            # x
+            -- x
             2.4,
 
-            # z
+            -- z
             0,
         },
         RollOffPoints = {

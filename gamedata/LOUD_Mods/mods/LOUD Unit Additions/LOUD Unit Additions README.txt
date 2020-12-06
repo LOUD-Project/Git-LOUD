@@ -4,7 +4,6 @@ The ABOMINATION class Experimentals
 
 - King Kraptor - with it's crown of thorns it reinforces the religious bent of the Way
 - Angel	- an experimental mobile anti-nuke/radar/shield unit 
-- Fatboy II - ditch the factory, the shield and the AA - all armor and guns - 
 - Lucidity - an impressive experimental fighter-cluster bomber -
 - Megalith II - the 'Cockroach' is simply death on legs
 - Echibum - range, mobility and firepower and shielded to boot

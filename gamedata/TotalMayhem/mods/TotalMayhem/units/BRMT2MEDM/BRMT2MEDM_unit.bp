@@ -1,22 +1,15 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 50, 
+       	TargetBones = {
+            'Turret',
+        },
     },
 	
     Audio = {
-		DeathExplosion = Sound {
-			Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-		},
-		Destroyed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-		},
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+				Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -69,6 +62,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC brmt2medm_desc>Amphibious Medium Bot',
+    
     Display = {
         Abilities = {
             'Amphibious',
@@ -182,8 +176,8 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 	
     SizeX = 0.8,
-    SizeY = 1.4,
-    SizeZ = 0.9,
+    SizeY = 0.85,
+    SizeZ = 0.5,
 	
     StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 115,
@@ -205,31 +199,21 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { 
+									Bank = 'URLWeapon', 
+									Cue = 'URL0402_Missile_Nanite', 
+									LodCutoff = 'Weapon_LodCutoff' 
+								},
             },
 			
-            BallisticArc = 'RULEUBA_HighArc',
+            BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
             Damage = 33,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
-            DisplayName = 'Proton Cannon',
+            DisplayName = 'Rockets',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -247,8 +231,10 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 14,
 			MuzzleVelocityReduceDistance = 8,
+
+            NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT1HVYproj/BRMT1HVYproj_proj.bp',
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
 			
             RackBones = {
                 {
@@ -286,7 +272,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 12 of 33dmg every 10 seconds = 40dps
+            RateOfFire = 0.1,	-- 12 of 33dmg every 10 seconds = 40dps
 			RenderFireClock = true,
 			
             SlavedToBody = true,
@@ -327,11 +313,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',

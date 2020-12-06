@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "xsb1104", #Seraphim T2 Mass Fabricator
+	BlueprintId = "xsb1104", --Seraphim T2 Mass Fabricator
     Defense = {
         RegenRate = 1,
     },

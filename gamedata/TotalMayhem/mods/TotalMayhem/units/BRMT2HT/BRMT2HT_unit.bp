@@ -1,12 +1,15 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 30, 
+       	TargetBones = {
+            'Turret_Barrel',
+        },
     },
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -149,8 +152,8 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 	
     SizeX = 0.55,
-    SizeY = 0.55,
-    SizeZ = 0.7,
+    SizeY = 0.3,
+    SizeZ = 0.9,
 	
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
@@ -171,25 +174,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'WeaponBig_LodCutoff',
+                    Bank = 'UELWeapon',
+                    Cue = 'UEL0202_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_None',
@@ -221,9 +209,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -237,7 +223,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	#	75dps
+            RateOfFire = 1,	--	75dps
 			
             TargetCheckInterval = 0.8,
             TargetPriorities = {
@@ -268,18 +254,12 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.5,
@@ -310,10 +290,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.05,
             MuzzleSalvoSize = 6,	-- 6 rockets per rack
             MuzzleVelocity = 18,
-			
+
+			NotExclusive = true,
+
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/CybranBattleMechRockets/CybranBattleMechRockets_proj.bp',
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
 			
             RackBones = {
@@ -352,7 +334,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.10,	# 12 rockets of 25 every 10 seconds = 30dps
+            RateOfFire = 0.10,	-- 12 rockets of 25 every 10 seconds = 30dps
 			
 			RenderFireClock = true,
 			
@@ -360,7 +342,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
+                'STRUCTURE - WALL',
 				'MOBILE -AIR',
                 'ALLUNITS',
             },

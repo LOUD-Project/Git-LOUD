@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'UUX0111_RightHip',
+            'UUX0111_RightToe',
             'UUX0111_LeftHip',
             'UUX0111_Head',
         },
@@ -210,7 +210,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'UEF',
+        FactionName = 'Aeon',
         Icon = 'amph',
 		
 		OrderOverrides = {
@@ -308,10 +308,10 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2200,
+            Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 2.5,
-            DamageType = 'ShieldMult1.3',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
 			
@@ -324,17 +324,17 @@ UnitBlueprint {
 		
             Label = 'RightMainWeapon',
 			
-            MaxRadius = 82,
+            MaxRadius = 72,
 			
             MuzzleChargeDelay = 2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 24,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
-            ProjectileLifetime = 3.4,
+            ProjectileLifetime = 3.2,
 			
             RackBones = {
                 {
@@ -355,7 +355,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 1100 DPS
+            RateOfFire = 0.3,		-- 600 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -402,10 +402,10 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 2200,
+            Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 2.5,
-            DamageType = 'ShieldMult1.3',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
 			
@@ -418,17 +418,17 @@ UnitBlueprint {
 			
             Label = 'LeftMainWeapon',
 			
-            MaxRadius = 82,
+            MaxRadius = 72,
 			
             MuzzleChargeDelay = 2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 24,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
-            ProjectileLifetime = 3.5,
+            ProjectileLifetime = 3.2,
 			
             RackBones = {
                 {
@@ -447,7 +447,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,	-- 1100 DPS
+            RateOfFire = 0.3,	-- 600 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

@@ -23,6 +23,7 @@ UnitBlueprint {
 	
 	Economy = {
 		BuildRate = 15,
+        MaintenanceConsumptionPerSecondEnergy = 0,
 	},
 
 	Enhancements = {

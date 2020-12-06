@@ -67,6 +67,7 @@ function SetLayout(layout)
     import('/lua/ui/game/construction.lua').SetLayout(layout)
     import('/lua/ui/game/borders.lua').SetLayout(layout)
     import('/lua/ui/game/multifunction.lua').SetLayout(layout)
+    
     if not isReplay then
         import('/lua/ui/game/orders.lua').SetLayout(layout)
     end
@@ -88,7 +89,7 @@ end
 
 function OnFirstUpdate()
     
-    LOG("*AI DEBUG OnFirstUpdate")
+    --LOG("*AI DEBUG OnFirstUpdate")
 
     EnableWorldSounds()
 	

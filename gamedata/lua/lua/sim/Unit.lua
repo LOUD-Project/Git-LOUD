@@ -355,9 +355,9 @@ Unit = Class(moho.unit_methods) {
         self.Dead = false		
 		self.PlatoonHandle = false
 
-        -- all AI are technically cheaters --
+        -- all AI (except Civilian) are technically cheaters --
         if self:GetAIBrain().CheatingAI then
-            ApplyCheatBuffs(self)
+            self:ForkThread(ApplyCheatBuffs)
         end
 
 		-- this routine gets launched on EVERY unit
@@ -1915,7 +1915,7 @@ Unit = Class(moho.unit_methods) {
         end
     end,
 
-    CreateWreckageProp = function( self, overkillRatio )
+    CreateWreckageProp = function( self, overkillRatio, overridetime )
 
 		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
@@ -1959,7 +1959,8 @@ Unit = Class(moho.unit_methods) {
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
-			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or 900)
+            -- except starting props or those with an override value
+			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or (overridetime or 900) )
 
             TryCopyPose(self,prop,false)
 
@@ -3121,7 +3122,6 @@ Unit = Class(moho.unit_methods) {
         end
 		
         self.CurrentBuildOrder = order		
-		
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
@@ -3140,7 +3140,8 @@ Unit = Class(moho.unit_methods) {
 	
         --self:StopUnitAmbientSound('ConstructLoop')
         self:PlayUnitSound('ConstructStop')
-		
+        
+        self.CurrentBuildOrder = false
     end,
 
     GetUnitBeingBuilt = function(self)
@@ -3150,6 +3151,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnFailedToBuild = function(self)
+    
+        --LOG("*AI DEBUG OnFailedToBuild "..self:GetAIBrain().Nickname.." "..repr(self.PlatoonHandle.BuilderName))
 	
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()
@@ -4219,18 +4222,12 @@ Unit = Class(moho.unit_methods) {
                 for kcb, vcb in v do
 				
                     if vcb == fn then
-					
-					
+                        LOG("*AI DEBUG Removing Callback "..repr(vcb))
                         v[kcb] = nil
-						
                     end
-					
                 end
-				
             end
-			
         end
-		
     end,
 
     AddOnDamagedCallback = function(self, fn, amount, repeatNum)

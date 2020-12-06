@@ -39,6 +39,7 @@ Builder = Class {
 		self.BuilderType = builderType
 
 		self.Location = locationType
+        self.RTBLocation = data.RTBLocation or self.Location
         
         self:SetupBuilderConditions( brain, data, locationType)
         
@@ -64,11 +65,8 @@ Builder = Class {
                     for pNum,param in bCond[2] do
 					
                         if param == 'LocationType' then
-						
                             bCond[2][pNum] = locationType
-							
                         end
-						
                     end
 					
                 else
@@ -78,24 +76,16 @@ Builder = Class {
 						for pNum,param in bCond[3] do
 					
 							if param == 'LocationType' then
-							
 								bCond[3][pNum] = locationType
-								
 							end
-							
 						end
-						
 					end
-					
                 end
 				
 				self.BuilderConditions[counter+1] = aiBrain.ConditionsMonitor:GetConditionKey( unpack(bCond) )
 				counter = counter + 1
-				
             end
-			
         end
-		
     end,
 	
     SetPriority = function( builder, val, temporary)
@@ -106,7 +96,6 @@ Builder = Class {
 			
 				builder.OldPriority = builder.Priority
 				builder.PriorityAltered = true
-
 			end
 
 			builder.Priority = val
@@ -116,13 +105,11 @@ Builder = Class {
 			builder.OldPriority = val
 			builder.Priority = val
 			builder.PriorityAltered = false
-			
 		end
 		
 		if ScenarioInfo.PriorityDialog then
 			LOG("*AI DEBUG "..repr(builder.ManagerType).." "..repr(builder.Location).." "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
 		end
-		
     end,
     
     ResetPriority = function(self, manager)
@@ -136,9 +123,7 @@ Builder = Class {
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)
 			
 			self.PriorityAltered = false
-
 		end
-		
     end,
     
     CalculatePriority = function(self, builderManager)
@@ -153,17 +138,11 @@ Builder = Class {
 			local newPri, temporary = Builders[self.BuilderName]:PriorityFunction(self.Brain)
 
 			if newPri and newPri != self.Priority then
-			
-				LOG("*AI DEBUG "..self.BuilderName.." calculated")
-
 				builderManager:SetBuilderPriority(self.BuilderName, newPri, temporary)
-				
 			end
-			
 		end
 		
         return self.PriorityAltered
-		
     end,
   
     GetBuilderData = function(self, locationType, builderData )
@@ -177,31 +156,21 @@ Builder = Class {
             if type(v) == 'table' then
 			
                 returnData[k] = self:GetBuilderData(locationType, v )
-				
             else
 			
                 if type(v) == 'string' and v == 'LocationType' then
-				
                     returnData[k] = locationType
-					
                 else
-				
                     returnData[k] = v
-					
                 end
-				
             end
-			
         end
 
         return returnData
-		
     end,
 
     GetPlatoonTemplate = function(self)
-	
         return Builders[self.BuilderName].PlatoonTemplate or false
-		
     end,
 
 }
@@ -265,11 +234,9 @@ FactoryBuilder = Class(Builder) {
 		
 			Builder.Create( self, brain, data, locationType )
 			return true
-			
 		end
 		
 		return false
-		
     end,    
 }
 
@@ -278,19 +245,14 @@ function CreateFactoryBuilder(brain, data, locationType)
     local builder = FactoryBuilder()
 	
 	if not builder then
-	
 		return false
-		
 	end
 	
     if builder:Create(brain, data, locationType) then
-	
         return builder
-		
     end
 	
     return false
-	
 end
 
 ------------------------
@@ -318,17 +280,12 @@ PlatoonBuilder = Class(Builder) {
 				LOUDINSERT( builder.InstanceCount, { Status = 'Available', PlatoonHandle = false } )
 				num = num + 1
 				builder.InstancesAvailable = builder.InstancesAvailable + 1
-				
 			end
 			
 			return true
-			
 		else
-		
 			return false
-			
 		end
-		
     end,
     
 	-- OK - this is where the instances get used up -- and there is a small potential for
@@ -406,9 +363,7 @@ function CreatePlatoonBuilder( manager, brain, data, locationType)
     local builder = PlatoonBuilder()
 	
     if builder:Create( manager, brain, data, locationType ) then
-	
         return builder
-		
     end
 	
     return false
@@ -429,13 +384,9 @@ EngineerBuilder = Class(PlatoonBuilder) {
 			PlatoonBuilder.Create( self, manager, brain, data, locationType)
 			
 			return true
-			
 		else
-		
 			return false
-			
 		end
-		
     end,
 }
 
@@ -444,9 +395,7 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
     local builder = EngineerBuilder()
 	
 	if not builder then
-
 		return false
-		
 	end
 	
 	local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
@@ -470,13 +419,9 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 					local fog = id[2]
 					
 					if fog != nil and not Game.UnitRestricted( false, fog) then
-
-						LOUDINSERT( template, fog )
-					
+                        LOUDINSERT( template, fog )
 					end
-					
 				end
-
 			end
 			
 			local replacement = false
@@ -490,48 +435,35 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 					local fog = replacement[1][2]
 					
 					if not Game.UnitRestricted( false, fog) then
-				
 						LOUDINSERT( template, fog )
-						
 					end
-					
 				end
-				
 			end
 
 			if table.empty(template) then
-				LOG("*AI DEBUG id for "..repr(v).." in "..data.BuilderName.." is empty ")
+				--LOG("*AI DEBUG "..brain.Nickname.." id for "..repr(v).." in "..data.BuilderName.." is empty ")
 			else
 				LOUDINSERT( fulltemplate, template )
 				LOUDINSERT( datatemplate, v )
 			end
-		
 		end
 		
 		if table.empty(fulltemplate) then
 		
-			LOG("*AI DEBUG Builder "..repr(data.BuilderName).." is empty")
-			
+			--LOG("*AI DEBUG "..brain.Nickname.." Builder "..repr(data.BuilderName).." is empty")
 			return false
-			
 		else
-		
 			--LOG("*AI DEBUG IDs for "..repr(data.BuilderName).." are "..repr(fulltemplate) )
 			--LOG("*AI DEBUG Data template will be "..repr(datatemplate))
-
 		end	
 
 		data.BuilderData.Construction.BuildStructures = table.copy(datatemplate)
-
 	end
 	
     if builder:Create( manager, brain, data, locationType) then
-	
         return builder
-		
     end
 	
     return false
-	
 end
 

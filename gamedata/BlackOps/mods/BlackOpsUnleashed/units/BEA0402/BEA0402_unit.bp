@@ -233,7 +233,7 @@ UnitBlueprint {
 	
     Weapon = {
 		-- 2x Ground-Attack Rail Guns
-		-- Rail Gun #1
+		-- Rail Gun --1
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -344,7 +344,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Rail Gun #2
+		-- Rail Gun --2
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -452,7 +452,7 @@ UnitBlueprint {
         },
 		
 		-- 4 x HVAA Missile Launchers
-		-- HVAA Missile Launcher #1
+		-- HVAA Missile Launcher --1
     	{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
@@ -540,7 +540,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- HVAA Missile Launcher #2
+		-- HVAA Missile Launcher --2
 		{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
@@ -628,7 +628,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- HVAA Missile Launcher #3
+		-- HVAA Missile Launcher --3
 		{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
@@ -714,7 +714,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- HVAA Missile Launcher #4
+		-- HVAA Missile Launcher --4
 		{
 			advamcedTracking = true,
             AlwaysRecheckTarget = true,
@@ -801,7 +801,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		-- 4x Flak Cannons
-		-- Flak #1
+		-- Flak --1
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -894,7 +894,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #2
+		-- Flak --2
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -987,7 +987,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #3
+		-- Flak --3
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -1080,7 +1080,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #4
+		-- Flak --4
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -1176,7 +1176,7 @@ UnitBlueprint {
         },
 		
 		-- 2x Anti-Air Gatlings
-		-- Gatling #1
+		-- Gatling --1
 		
         {
             Audio = {
@@ -1268,7 +1268,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 0.3,
             WeaponUnpacks = true,
         },
-		-- Gatling #2
+		-- Gatling --2
         {
             Audio = {
                 Fire = Sound {

@@ -116,7 +116,7 @@ UnitBlueprint {
         BuildCostMass = 660,
         BuildTime = 7579,
 		
-        MaintenanceConsumptionPerSecondEnergy = 20,		#-- for stealth 
+        MaintenanceConsumptionPerSecondEnergy = 20,		---- for stealth 
     },
 
     General = {

@@ -1757,20 +1757,31 @@ local function UpdateGame()
 	
 	gameInfo.GameOptions.PlayerCount = GetPlayerCount()
 	
-	if string.sub(GetVersion(),1,3) == '1.6' then
+	if string.sub(GetVersion(),1,3) == '1.6' and lobbyComm:IsHost() then
+    
+        gameInfo.GameOptions.MaxSlots = '16'
+        
+        --LOG("*AI DEBUG Updating Steam Lobby game options with "..repr(gameInfo.GameOptions))
 	
 		lobbyComm:UpdateSteamLobby(  
-			{            
+        
+            {            
 				Options = gameInfo.GameOptions,
 				HostedBy = localPlayerName,
+                MaxPlayers = 16,
 				PlayerCount = GetPlayerCount(),
 				GameName = gameName,
 				ProductCode = import('/lua/productcode.lua').productCode,
-			} )
+			}
+        )
+        
+        --lobbyComm:UpdateSteamLobby()
     
 	else
 	
 	end
+    
+    --LOG("*AI DEBUG Gameinfo "..repr(gameInfo))
 
 end
 
@@ -3562,8 +3573,16 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
     local playerArmyArray = MapUtil.GetArmies(scenario)
 
     for inSlot, army in playerArmyArray do
+    
         local pos = startPos[army]
+        
+        -- dont process this army if no start position is defined --
+        if not pos then
+            continue
+        end
+        
         local slot = inSlot
+        
         GUI.markers[slot] = {}
         GUI.markers[slot].marker = Bitmap(GUI.posGroup)
         GUI.markers[slot].marker.Height:Set(10)
@@ -3576,62 +3595,89 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
         LayoutHelpers.AtTopIn(GUI.markers[slot].teamIndicator, GUI.markers[slot].marker, 5)
         GUI.markers[slot].teamIndicator:DisableHitTest()
         
-        GUI.markers[slot].markerOverlay = Button(GUI.markers[slot].marker, 
-            UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'),
-            UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'),
-            UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'),
-            UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'))
+        GUI.markers[slot].markerOverlay = Button(GUI.markers[slot].marker, UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'), UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'), UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'), UIUtil.UIFile('/dialogs/mapselect02/commander_alpha.dds'))
+
         LayoutHelpers.AtCenterIn(GUI.markers[slot].markerOverlay, GUI.markers[slot].marker)
+        
         GUI.markers[slot].markerOverlay.Slot = slot
+        
         GUI.markers[slot].markerOverlay.OnClick = function(self, modifiers)
+        
             if modifiers.Left then
+            
                 if FindSlotForID(localPlayerID) != self.Slot and gameInfo.PlayerOptions[self.Slot] == nil then
+                
                     if IsPlayer(localPlayerID) then
+                    
                         if lobbyComm:IsHost() then
+                        
                             HostTryMovePlayer(hostID, FindSlotForID(localPlayerID), self.Slot)
+                            
                         else
+                        
                             lobbyComm:SendData(hostID, {Type = 'MovePlayer', CurrentSlot = FindSlotForID(localPlayerID), RequestedSlot =  self.Slot})
+                            
                         end
+                        
                     elseif IsObserver(localPlayerID) then
+                    
                         if lobbyComm:IsHost() then
+                        
                             HostConvertObserverToPlayer(hostID, localPlayerName, FindObserverSlotForID(localPlayerID), self.Slot)
+                            
                         else
+                        
                             lobbyComm:SendData(hostID, {Type = 'RequestConvertToPlayer', RequestedName = localPlayerName, ObserverSlot = FindObserverSlotForID(localPlayerID), PlayerSlot = self.Slot})
+                            
                         end
                     end
                 end
+                
             elseif modifiers.Right then
+            
                 if lobbyComm:IsHost() then
+                
                     if gameInfo.ClosedSlots[self.Slot] == nil then
+                    
                         HostCloseSlot(hostID, self.Slot)
+                        
                     else
+                    
                         HostOpenSlot(hostID, self.Slot)
+                        
                     end    
                 end
             end
         end
+        
         GUI.markers[slot].markerOverlay.HandleEvent = function(self, event)
+        
             if event.Type == 'MouseEnter' then
+            
                 if gameInfo.GameOptions['TeamSpawn'] != 'random' then
                     GUI.slots[self.Slot].name.HandleEvent(self, event)
                 end
+                
             elseif event.Type == 'MouseExit' then
                 GUI.slots[self.Slot].name.HandleEvent(self, event)
             end
+            
             Button.HandleEvent(self, event)
         end
-        LayoutHelpers.AtLeftTopIn(GUI.markers[slot].marker, GUI.posGroup, 
-            ((pos[1] / mWidth) * cWidth) - (GUI.markers[slot].marker.Width() / 2), 
-            ((pos[2] / mHeight) * cHeight) - (GUI.markers[slot].marker.Height() / 2))
+        
+        LayoutHelpers.AtLeftTopIn(GUI.markers[slot].marker, GUI.posGroup, ((pos[1] / mWidth) * cWidth) - (GUI.markers[slot].marker.Width() / 2), ((pos[2] / mHeight) * cHeight) - (GUI.markers[slot].marker.Height() / 2))
         
         local index = slot
+        
         GUI.markers[slot].Indicator = Bitmap(GUI.markers[slot].marker, UIUtil.UIFile('/game/beacons/beacon-quantum-gate_btn_up.dds'))
         LayoutHelpers.AtCenterIn(GUI.markers[slot].Indicator, GUI.markers[slot].marker)
+        
         GUI.markers[slot].Indicator.Height:Set(function() return GUI.markers[index].Indicator.BitmapHeight() * .3 end)
         GUI.markers[slot].Indicator.Width:Set(function() return GUI.markers[index].Indicator.BitmapWidth() * .3 end)
         GUI.markers[slot].Indicator.Depth:Set(function() return GUI.markers[index].marker.Depth() - 1 end)
         GUI.markers[slot].Indicator:Hide()
         GUI.markers[slot].Indicator:DisableHitTest()
+        
         GUI.markers[slot].Indicator.Play = function(self)
             self:SetAlpha(1)
             self:Show()
@@ -3642,6 +3688,7 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
                 control:SetAlpha(MATH_Lerp(math.sin(control.time), -.5, .5, 0.3, 0.5))
             end
         end
+        
         GUI.markers[slot].Indicator.Stop = function(self)
             self:SetAlpha(0)
             self:Hide()
@@ -4206,7 +4253,12 @@ function SetGameOption(key, val, ignoreNilValue)
         return
     end
     
+    LOG("*AI DEBUG Changing Game Option key "..repr(key).." value "..repr(val))
+    
     if lobbyComm:IsHost() then
+    
+        gameInfo.GameOptions['MaxSlots'] = "16"
+        lobbyComm:BroadcastData { Type = 'GameOption', Key = 'MaxSlots', Value = "16" }
 	
         gameInfo.GameOptions[key] = val
 		
@@ -4423,6 +4475,11 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 	for inSlot, army in playerArmyArray do
 	
 		local pos = startPos[army]
+        
+        if not pos then
+            continue
+        end
+        
 		local slot = inSlot
 		
 		bMP.markers[slot] = {}

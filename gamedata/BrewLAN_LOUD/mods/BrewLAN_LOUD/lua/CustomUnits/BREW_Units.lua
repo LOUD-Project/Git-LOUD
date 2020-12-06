@@ -22,9 +22,12 @@ T3Bomber = {
 
 T3Fighter = {
 	Cybran = {'sra0313', 20},
+    UEF = {'sea0313', 20},
+    Seraphim = {'ssa0313', 20},
 },
 
 T3Gunship = {
+    Cybran = {'sra0315', 50},
     Seraphim = {'ssa0305', 60},
 },
 
@@ -51,6 +54,7 @@ T3Amphibious = {
 
 T3AmphibiousAA = {
 	Aeon = {'sal0320', 100},	-- Armillary
+    Cybran = {'srl0320', 100},
 	Seraphim = {'ssl0320', 100},
 },
 
@@ -79,6 +83,14 @@ T4Artillery = {
 
 T4LandExperimental2 = {
 	Aeon = {'sal0401', 60},
+},
+
+T4SeaExperimental1 = {
+    Aeon = {'sas0401', 80},
+},
+
+T4SeaExperimental2 = {
+    Aeon = {'sas0401', 100},
 },
 
 

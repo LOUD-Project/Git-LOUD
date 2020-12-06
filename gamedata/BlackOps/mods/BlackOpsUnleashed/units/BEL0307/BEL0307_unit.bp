@@ -2,7 +2,7 @@ UnitBlueprint {
 	AI = {
         TargetBones = {
             'Railgun_Turret',
-            'BEL0307',
+			'Gat_Turret',
         },
     },
 	
@@ -164,9 +164,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.3,
 	
-    SizeX = 1.3,
-    SizeY = 0.8,
-    SizeZ = 1.8,
+    SizeX = 1.0,
+    SizeY = 0.75,
+    SizeZ = 1.7,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
@@ -261,7 +261,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,			#-- 225 dps
+            RateOfFire = 0.3,			---- 225 dps
 			
             TargetCheckInterval = 1.0,
 			
@@ -326,7 +326,7 @@ UnitBlueprint {
             MaxRadius = 35,
 			
             MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 20,	#-- takes 4 seconds to fire the salvo
+            MuzzleSalvoSize = 20,	---- takes 4 seconds to fire the salvo
             MuzzleVelocity = 50,
 			MuzzleVelocityRandom = 3,
 			
@@ -348,12 +348,12 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 1,	#-- 1 second to charge
-            RackSalvoReloadTime = 2,	#-- 2 seconds to reload
+            RackSalvoChargeTime = 1,	---- 1 second to charge
+            RackSalvoReloadTime = 2,	---- 2 seconds to reload
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
-            RateOfFire = 4,		#-- 20 * 50 every 7 seconds = 142 dps
+            RateOfFire = 4,		---- 20 * 50 every 7 seconds = 142 dps
 			
             TargetCheckInterval = 0.3,
 			
@@ -408,7 +408,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,		#-- will cause 60 damage
+            BeamLifetime = 0.3,		---- will cause 60 damage
 			
 			ContinuousBeam = false,
             CollideFriendly = false,
@@ -461,7 +461,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 1,		#-- 60 DPS
+            RateOfFire = 1,		---- 60 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -562,7 +562,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 1,			#-- 60dps
+            RateOfFire = 1,			---- 60dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -666,7 +666,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 66 dps
+            RateOfFire = 0.1,	-- 66 dps
 			
             TargetCheckInterval = 5,
             TargetPriorities = {

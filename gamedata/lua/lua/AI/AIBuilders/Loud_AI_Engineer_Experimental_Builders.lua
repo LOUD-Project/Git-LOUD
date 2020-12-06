@@ -138,7 +138,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
         },
 		
@@ -176,7 +176,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
         },
 		
@@ -290,7 +290,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
         },
 		
@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
         },
 		
@@ -571,7 +571,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -607,7 +607,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 8, (categories.STRUCTURE * categories.SHIELD) }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -768,7 +768,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
             { LUTL, 'UnitCapCheckLess', { .95 } },		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -810,7 +810,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -857,7 +857,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },			
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -899,7 +899,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ UCBC, 'PoolLess', { 3, categories.BATTLESHIP }},			
+			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
 			
@@ -967,6 +967,73 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
 				
 				BasePerimeterOrientation = 'REAR',
 				BasePerimeterSelection = 3,
+				
+				Iterations = 1,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ResourceFacility',
+				
+                BuildStructures = {
+                    'T4EconExperimental',
+					
+					'T3ShieldDefense',
+					'T3ShieldDefense',
+					
+					'T4AADefense',
+					'T4AADefense',
+					'T3AADefense',
+					'T3AADefense',
+					
+					'T4GroundDefense',
+					'T4GroundDefense',
+
+					'T3ShieldDefense',
+					'T3ShieldDefense',
+                },
+            }
+        }
+    },
+}
+
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base',
+    BuildersType = 'EngineerBuilder',
+	
+    Builder {BuilderName = 'Economic Experimental - Small Base',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 850,
+		
+		PriorityFunction = LessThan30MinutesRemain,		
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+		   
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
+			
+        },
+
+        BuilderType = { 'SubCommander' },		
+
+        BuilderData = {
+		
+			DesiresAssist = true,
+            NumAssistees = 5,
+			
+            Construction = {
+			
+				Radius = 44,
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 2,
 				
 				Iterations = 1,
 				
@@ -1150,6 +1217,165 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
         }
     },
 }
+
+
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Small Base',
+    BuildersType = 'EngineerBuilder',
+	
+    Builder {BuilderName = 'Economic Experimental Defenses - Small Base',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 850,
+		
+		PriorityFunction = LessThan30MinutesRemain,		
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+		
+			DesiresAssist = true,
+			
+            Construction = {
+			
+				Radius = 44,
+				
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 2,
+				
+				Iterations = 1,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ResourceFacility',
+				
+                BuildStructures = {
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					
+					'T2ShieldDefense',
+					'T2ShieldDefense',
+					
+					'T4AADefense',
+					'T3AADefense',
+					
+					'T2ShieldDefense',
+					'T2ShieldDefense',
+					
+					'T4EconExperimental',	-- this is here so that engies will assist the experimental build if it's not done already
+					
+					'T4GroundDefense',
+					'T4GroundDefense',
+					
+					'T4AADefense',
+					'T3AADefense',
+
+					'T3Storage',
+					'T3Storage',
+					'T3Storage',
+					'T3Storage',
+					'T3Storage',
+					'T3Storage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'MassStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+					'EnergyStorage',
+
+--					'T3TeleportJammer',
+                },
+            }
+        }
+    },
+}
+
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
+    BuildersType = 'EngineerBuilder',
+
+    Builder {BuilderName = 'Economic Experimental Defenses - IS - Small Base',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 850,
+
+		PriorityFunction = LessThan30MinutesRemain,		
+		
+        BuilderConditions = {
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+			
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+		
+			DesiresAssist = true,
+			
+            Construction = {
+			
+				Radius = 44,
+				
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 2,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ResourceFacility',
+				
+                BuildStructures = {
+					'T3ShieldDefense',
+					'T3ShieldDefense',
+					'T4AADefense',
+					'T4AADefense',
+					'T3AADefense',
+					'T3AADefense',
+					'T3ShieldDefense',
+					'T3ShieldDefense',
+					
+					'T4EconExperimental',	-- this is here so that engies will assist the experimental build if it's not done already or the engy is destroyed while building paragon
+                },
+            }
+        }
+    },
+}
+
+
 
 BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions',
     BuildersType = 'EngineerBuilder',

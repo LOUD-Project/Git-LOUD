@@ -34,7 +34,7 @@ function ReclaimablesInAreaMass(aiBrain, locType, range)
     return false
 end
 
-function CanBuildOnMassLessThanDistance(aiBrain, locationType, distance, tMin, tMax, tRings, tType, maxNum )
+function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, tMin, tMax, tRings, tType, maxNum )
 
     if aiBrain.BuilderManagers[locationType] then
 		
@@ -57,7 +57,7 @@ function CanBuildOnMassLessThanDistance(aiBrain, locationType, distance, tMin, t
 			local position = aiBrain.BuilderManagers[locationType].Position
 			local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
 			
-			if markerTable and VDist2Sq( markerTable[1][1], markerTable[1][3], position[1],position[3] ) < (distance*distance) then
+			if markerTable and ((mindistance * mindistance) < VDist2Sq( markerTable[1][1], markerTable[1][3], position[1],position[3] ) < (maxdistance*maxdistance)) then
 				return true
 			end
 		end		
@@ -105,8 +105,9 @@ function GreaterThanEconStorageCurrent(aiBrain, mStorage, eStorage)
     return false
 end
 
+-- modified to be altered by AI Cheat --
 function LessEconEnergyStorageCurrent(aiBrain, eStorage)
-	return GetEconomyStored( aiBrain, 'ENERGY') < eStorage
+	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, tonumber(ScenarioInfo.Options.AIMult))))
 end
 
 function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
@@ -142,6 +143,10 @@ function LessThanEnergyTrend(aiBrain, eTrend)
 	return GetEconomyTrend( aiBrain, 'ENERGY' ) < eTrend
 end
 
+function GreaterThanEnergyTrend(aiBrain, eTrend)
+    return GetEconomyTrend( aiBrain, 'ENERGY' ) >= eTrend
+end
+
 function GreaterThanEnergyIncome(aiBrain, eIncome)
 	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
 end
@@ -155,6 +160,7 @@ function LessThanEconEfficiency(aiBrain, mEfficiency, eEfficiency)
 end
 
 function GreaterThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
+
     return (aiBrain.EcoData['OverTime'].MassEfficiency >= mEfficiency and aiBrain.EcoData['OverTime'].EnergyEfficiency >= eEfficiency)
 end
 

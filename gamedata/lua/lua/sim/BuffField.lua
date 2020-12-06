@@ -267,7 +267,7 @@ BuffField = Class(Entity) {
 		
 			local unitlist = {}
 
-			local pos = Owner:GetPosition() or false
+			local pos = table.copy(Owner:GetPosition()) or false
 
 			if pos then
             
