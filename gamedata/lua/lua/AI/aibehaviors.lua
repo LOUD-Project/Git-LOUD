@@ -138,6 +138,11 @@ function CommanderThread( platoon, aiBrain )
 	
 end
 
+-- This is a special 'resource' thread that runs on the ACU
+-- It essentially only comes into play when he crashes his eco
+-- and then provides upto a certain amount of compensation
+-- the effect of this is very very subtle, so we leave it obscured
+-- would be really nice it we could tie it to resources that had overflowed
 function LifeThread( aiBrain, cdr )
 
     local mincome, mrequested, mneeded
@@ -160,12 +165,10 @@ function LifeThread( aiBrain, cdr )
             
             if mrequested > mincome then
             
-                mneeded = ((mrequested - mincome ) * 10) * cheatmult
+                -- upto 25 (modified by AI mult
+                mneeded = math.min(25,((mrequested - mincome ) * 10)) * cheatmult
                 
                 GiveResource( aiBrain, 'Mass', mneeded)
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..mneeded.." MASS")
-                
             end
         end
         
@@ -176,15 +179,12 @@ function LifeThread( aiBrain, cdr )
             
             if erequested > eincome then
             
-                eneeded = ((erequested - eincome ) * 10) * cheatmult
+                -- upto 250 (modified by AI mult
+                eneeded = math.min(250,((erequested - eincome ) * 10)) * cheatmult
                 
                 GiveResource( aiBrain, 'Energy', eneeded)
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." given "..eneeded.." ENERGY")
-                
             end
         end
-    
     end
 end
 

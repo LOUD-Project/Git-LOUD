@@ -2199,7 +2199,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if not position or not marker then
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
                 
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
@@ -2826,7 +2826,7 @@ Platoon = Class(moho.platoon_methods) {
 								marker = table.copy( v:GetPosition() )
             
                                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." guarding unit at "..repr(marker))
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." guarding platoon "..repr(PlatoonToGuard.BuilderName))
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." guarding platoon "..repr(PlatoonToGuard.BuilderName))
                                 
 								break
 							end

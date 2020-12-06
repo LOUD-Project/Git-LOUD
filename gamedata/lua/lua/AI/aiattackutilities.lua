@@ -608,7 +608,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 					if math.abs(lastposHeight - nextposHeight) > 2 then
 						
 						-- we are obstructed
-						LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
 						return true
 					end
 					

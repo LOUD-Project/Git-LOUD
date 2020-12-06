@@ -593,7 +593,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -643,7 +643,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -694,7 +694,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
@@ -745,7 +745,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
             { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
