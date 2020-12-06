@@ -765,9 +765,25 @@ Tooltips = {
         title = "Teams",
         description = "Set Teams",
     },
-    Lobby_AI_Mult = {
-        title = "Select AI Difficulty",
-        description = "Set Difficult of AI - affects Resources/Build Speed directly - Health/Intel affected at lower rate.",
+    Lobby_ACT_Start_Delay = {
+        title = "AI Adaptive Cheat Start Delay",
+        description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
+    },
+    Lobby_ACT_Time_Delay = {
+        title = "AI Time-Based Cheat Delay",
+        description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+    },
+    Lobby_ACT_Time_Amount = {
+        title = "AI Time-Based Cheat Amount",
+        description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+    },
+    Lobby_ACT_Time_Cap = {
+        title = "AI Time-Based Cheat Limit",
+        description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+    },
+    Lobby_ACT_Ratio_Interval = {
+        title = "AI Feedback Cheat Interval",
+        description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
     },
     Lobby_Gen_Civilians = {
         title = "Civilians",
@@ -996,13 +1012,15 @@ Tooltips = {
         description = '',
     },
 
+    -- Adaptive AI multiplier drop-down tooltips
+
     lob_act_none = {
         title = 'No Adaptive Cheating',
         description = 'The cheat multiplier assigned to the AI in the lobby will persist throughout the entire game.',
     },
     lob_act_ratio = {
         title = 'Feedback Cheat',
-        description = 'The AI will get more difficult as its army size relative to yours decreases.',
+        description = 'The AI will get more difficult as its land army size relative to yours decreases.',
     },
     lob_act_time = {
         title = 'Time-Based Adaptive Cheat',
@@ -1012,7 +1030,7 @@ Tooltips = {
         title = 'Feedback and Time-Based Adaptive Cheat',
         description = 'Both adaptive cheat options work on the AI.'
     },
-    
+
     lob_Timeouts_0 = {
         title = 'No Pausing',
         description = 'You will not be able to pause the game',
@@ -1026,30 +1044,6 @@ Tooltips = {
         description = 'You can pause the game at any time',
     },
 
-    ########################
-	#  Adaptive Multipler  #
-    ########################
-    
-    ["Lobby_Adaptive_Mult"] = {
-        title = "Adaptive Multipler",
-        description = "Enables the AI to adjust its cheat depending on a variable.",
-    },
-
-    ["lob_AdaptiveMult_Off"] = {
-        title = "AI Adaptive Multipler - Off",
-        description = "AI adjusting Multipler is turned off.",
-    },
-
-    ["lob_AdaptiveMult_Timed Based"] = {
-        title = "AI Adaptive Multipler - Timed Based",
-        description = "AI adjust Multipler based on Time,  Example: It's 30 minutes, Multipler will rise from 1.0 to 1.05.",
-    },
-
-    ["lob_AdaptiveMult_Ratio Based"] = {
-        title = "AI Adaptive Multipler - Ratio Based",
-        description = "AI adjust Multipler based on ratios of its Land, Example: If its land army is weaker then the players land army.",
-    },
-    
 	########################
 	#	Unit Cap Cheat	   #
 	########################

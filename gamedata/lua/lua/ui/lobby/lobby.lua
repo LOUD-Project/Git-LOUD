@@ -3026,9 +3026,8 @@ function CreateUI(maxPlayers, useSteam)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
         GUI.slots[i].mult.Width:Set(70)
         GUI.slots[i].mult.row = i
-        -- TODO: Can the global aiMults table feed the combobox with strings?
+        -- RATODO: Can the global aiMults table feed the combobox with strings?
         -- Because this is stupid. Making this file-local just throws.
-        -- - Rat
         local multStrings = {
                 '0.8',
                 '0.9',

@@ -1010,18 +1010,13 @@ end
 -- now creates buffs for EACH AI -- allowing us to move ahead
 -- with AI having independant mutlipliers and supporting the
 -- more recent adaptive cheat multipliers which require this
--- to work properly --
+-- to work properly
 function SetupAICheat(aiBrain, biggestTeamSize)
 
     --LOG("*AI DEBUG SetupAICheat for "..aiBrain.Nickname.." INDEX "..repr(aiBrain.ArmyIndex))
 
     -- Veterancy mult is always 1 or higher
     aiBrain.VeterancyMult = math.max( 1, aiBrain.CheatValue)
-    
-    -- Store the basic AIMultiplier for this brain
-    -- RATODO: This might be redundant
-    aiBrain.AIMultiplier = aiBrain.CheatValue
-
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
@@ -1058,8 +1053,6 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	buffAffects.EnergyActive.Add = modifier
 	buffAffects.MassActive.Add = modifier
 
-    
-	
 	-- resource rate cheat buff
     local newbuff = table.copy(Buffs['CheatIncome'])
     

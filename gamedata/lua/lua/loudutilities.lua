@@ -590,115 +590,86 @@ function SpawnWaveThread( aiBrain )
 	
 end
 
--- This function credit to Uveso (FAF) - adapted by Azraeelian Angel for LOUD
--- optimized by Sprouto
-function AdaptiveCheatThread ( aiBrain )
+-- The following 2 functions are courtesy of:
+-- - Uveso (FAF); initial implementation
+-- - Azraeelian Angel; adaptation for LOUD
+-- - Sprouto; optimization
+function RatioAdaptiveCheatThread( aiBrain )
+	
+	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
+	local lastupdate = aiBrain.CheatValue
+	local cheatincrease = 0
+	LOG("*AI DEBUG "..aiBrain.Nickname.." starting ratio ACT now. Interval: "..interval.." ticks")
 
-	if not ScenarioInfo.Options.AdaptiveMult or ScenarioInfo.Options.AdaptiveMult == 'Off' then
-
-        LOG("*AI DEBUG "..aiBrain.Nickname.." AI ACT (AdaptiveCheatThread) disabled")
-
-		aiBrain.AdaptiveCheatThread = nil
-        return
-	end
-
-	-- RATODO: Looks like some redundancy here
-    -- this captures the starting point AI Multiplier
-	local AIMultOption = aiBrain.AIMultiplier
-    
-    -- this represents the current value of multiplier with cheat added
-    -- it will grow - and/or - shrink - with each cycle - based upon 
-    -- which ACT you use - Time OR Ratio
-	local AIMult = AIMultOption
-    
-	LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (AdaptiveCheatThread) starts. Base Cheat Multiplier is "..repr(AIMultOption) )
-
-    -- These TWO parameters control the size and rate of the increase
-    -- These could also be lobby settings if desired --
-    local delayperiod = 10*60*6   -- 6 minutes (about .24 cheat in 1 hour)
-    local cheatincrease = 0.02 -- 2%
-    
-    local lastupdate = AIMult
-    
-	if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' then    
-        LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) - Increase "..cheatincrease.." every "..delayperiod.." ticks")
-    end
-
-    -- primary loop - runs all game
 	while aiBrain.Result ~= "defeat" do
 
-		WaitTicks(delayperiod)
-		
-		-- This will be the Timed Based Adaptive Cheat -- 
-        -- we'll cap it at a maximum of 4 -- stupidly high - but hey ? why not ?
-		if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' and AIMult < 4 then
+		WaitTicks(interval)
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
+		-- RATODO: Discuss how to implement all ratios
+		-- Need to consider how much water is on map
 
+		if aiBrain.LandRatio <= 0.5 then
+			
+			cheatincrease = .5
 
-            -- here you could introduce a change to the delayperiod - having it modify up or down
-            -- this would simulate a logarithmic increase versus the linear one we have now --
-            
-            -- the same can be done with the cheatincrease each cycle --
-            -- modify it up or down to achieve different pacing to the cheat --
-            -- ie. - combining the ideas of both time AND ratio cheats --
-            
-            -- so - we could introduce the RATIO code here - as a 2nd layer of effect --
-            -- for example - have the linear increase - combined with ratio based adjustment
-            -- to either the delayperiod and/or cheatincrease - neato
-            
-            
-            AIMult = AIMult + cheatincrease
+		elseif aiBrain.LandRatio <= 0.6 then
+			
+			cheatincrease = .4
 
-			SetArmyPoolBuff(aiBrain, AIMult)
-        end
-        
-		-- This will be the "Ratio Based" Version of Adaptive Cheat; Ratio will be Land, Naval, and Air. (Only Land For Now, Testing)
-		-- Figured this will be mostly for LandRatio as its the most reliable Ratio to adjust the Multipler on.
-		if ScenarioInfo.Options.AdaptiveMult == 'Ratio Based' then
-        
-            delayperiod = 150       -- Ratio Based is checked every 15 seconds -- after initial 6 minutes
+		elseif aiBrain.LandRatio <= 0.75 then
 
-            if aiBrain.LandRatio <= 0.5 then
-                
-                cheatincrease = .5
+			cheatincrease = .3
 
-            elseif aiBrain.LandRatio <= 0.6 then
-                
-                cheatincrease = .4
+		elseif aiBrain.LandRatio <= 0.9 then
+			
+			cheatincrease = .2
 
-            elseif aiBrain.LandRatio <= 0.75 then
+		elseif aiBrain.LandRatio <= 1 then
 
-                cheatincrease = .3
+			cheatincrease = .1
 
-            elseif aiBrain.LandRatio <= 0.9 then
-                
-                cheatincrease = .2
+		else
 
-            elseif aiBrain.LandRatio <= 1 then
-
-                cheatincrease = .1
-
-			else
-
-                cheatincrease = 0
-            end
-            
-            -- if the value has changed since last processed then update
-            if lastupdate and lastupdate != AIMult + cheatincrease then
-            
-                LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
-
-                SetArmyPoolBuff(aiBrain, AIMult + cheatincrease)
-                
-                -- record the value of this update
-                lastupdate = AIMult + cheatincrease
-            end
+			cheatincrease = 0
 		end
-        
+		
+		-- If the value has changed since last processed then update
+		if lastupdate and lastupdate ~= aiBrain.CheatValue + cheatincrease then
+		
+			LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(lastupdate).." -> "..repr(aiBrain.CheatValue + cheatincrease))
+			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatincrease)
+			-- Record the value of this update
+			lastupdate = aiBrain.CheatValue + cheatincrease
+		end
 	end
-    
-    LOG("*AI DEBUG "..aiBrain.Nickname.."ACT Exits due to defeat")
+	LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT closing: defeated")
+end
+
+function TimeAdaptiveCheatThread( aiBrain )
+
+	local startdelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) -- Default 6 minutes
+    local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay) -- Default 6 minutes (about .24 cheat in 1 hour)
+    local cheatincrease = tonumber(ScenarioInfo.Options.ACTTimeAmount) -- Default 0.02
+	local cheatlimit = tonumber(ScenarioInfo.Options.ACTTimeCap) -- Default is 4
+	LOG("*AI DEBUG "..aiBrain.Nickname.." starting time ACT after "..startdelay.." ticks. Uptick "..cheatincrease.." every "..interval.." ticks until mult. "..cheatlimit)
+
+	WaitTicks(startdelay)
+	while aiBrain.Result ~= "defeat" and aiBrain.CheatValue <= cheatlimit do
+		
+		-- RATODO
+		-- - Logarithmic increase option
+		-- - Multiplicative increase option
+		-- - Use ratios to slow or speed time-based increase
+		aiBrain.CheatValue = aiBrain.CheatValue + cheatincrease
+		SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(aiBrain.CheatValue).." -> "..repr(aiBrain.CheatValue + cheatincrease))
+		WaitTicks(interval)
+	end
+	if (aiBrain.Result == "defeat") then
+		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT closing: defeated")
+	else
+		LOG("*AI DEBUG "..aiBrain.Nickname.."time ACT closing: limit met")
+	end
 end
 
 function SimulateFactoryBuilt (finishedUnit)
@@ -749,7 +720,6 @@ function SimulateFactoryBuilt (finishedUnit)
 	end
 end
 	
-
 -- Maintains table of platoons issuing distress calls and what kind of help they are looking for
 -- The thread executes every 8 seconds and simply purges any distress entry more than 30 seconds old
 -- or where the platoon that issued it is no longer around
@@ -1136,7 +1106,6 @@ function GetPrimarySeaAttackBase( aiBrain )
 	
     return false, nil
 end
-
 
 function ClearOutBase( manager, aiBrain )
 

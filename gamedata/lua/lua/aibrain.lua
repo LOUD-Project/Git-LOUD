@@ -673,8 +673,10 @@ AIBrain = Class(moho.aibrain_methods) {
 
         -- Store the cheat value (ie. 1.1 = 10% cheat)
         self.CheatValue = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
-        LOG("*AI DEBUG Setting Cheat Value of "..self.Nickname.." to "..repr(self.CheatValue))
 
+		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
+		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
+		
         local civilian = false
         
         for name,data in ScenarioInfo.ArmySetup do
@@ -687,9 +689,9 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         end
 
-        if not civilian then
-
-            LOG("*AI DEBUG "..self.Nickname.." Setting Cheat Value to "..repr(self.CheatValue))
+		if not civilian then
+			
+            LOG("*AI DEBUG "..self.Nickname.." setting cheat value to "..repr(self.CheatValue))
 
 			if planName and planName != '' then
 			
@@ -708,8 +710,13 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
 
-				-- start the adaptive cheat thread for cheating AI -- 
-				self.AdaptiveCheatThread = ForkThread(import('/lua/loudutilities.lua').AdaptiveCheatThread, self)
+				-- Start adaptive cheat threads
+				if (self.Adaptive == 2 or self.Adaptive == 4) then
+					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
+				end
+				if (self.Adaptive == 3 or self.Adaptive == 4) then
+					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
+				end
 			end
 		else
         
