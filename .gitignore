@@ -33,3 +33,5 @@ maps/
 Map Editor/
 
 *.lnk
+
+.vscode
