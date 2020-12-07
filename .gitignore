@@ -25,6 +25,7 @@ maps/
 *.psd
 *.ps1
 *.bat
+!lua_utils/bluePrintExtractor/runme.bat
 bin/Loud-Dev\.log
 
 bin/ForgedAlliance\.exe
@@ -35,3 +36,4 @@ Map Editor/
 *.lnk
 
 .vscode
+lua_utils/bluePrintExtractor/output*.csv
