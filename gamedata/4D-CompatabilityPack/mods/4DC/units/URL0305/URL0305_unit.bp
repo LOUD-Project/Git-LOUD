@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 18.4,
     },
 	
-    Description = '<LOC url0305_desc>Crawfish',
+    Description = '<LOC url0305_desc>Amphibious Attack Bot',
 	
     Display = {
 		Abilities = {

@@ -25,7 +25,7 @@ Description['ues0206'] = "UEF Naval Mine"
 
 --- Cybran Units ---
 Description['urb2306'] = "Designed to fight experimental units, the Beholder is armed with Molecular Reaper beam and a light pulse laser cannon. The main weapon draws energy to fire."
-Description['url0305'] = "Crawfish is the basic amphibious T3 Cybran warrior.  Inexpensive, fast and reasonably tough."
+Description['url0305'] = "The Crawfish is the basic amphibious T3 Cybran warrior. Inexpensive, fast and reasonably tough."
 
 
 --- SERAPHIM Units ---
