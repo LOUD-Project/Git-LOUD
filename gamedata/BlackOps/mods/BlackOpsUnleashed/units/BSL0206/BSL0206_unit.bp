@@ -134,7 +134,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Amphibious Protector bot',
+        HelpText = 'Amphibious Protector Bot',
     },
 	
     LifeBarHeight = 0.075,
@@ -177,7 +177,7 @@ UnitBlueprint {
     SizeY = 0.8,
     SizeZ = 1.1,
 	
-    StrategicIconName = 'icon_land2_directfire',
+    StrategicIconName = 'icon_bot2_directfire',
     StrategicIconSortPriority = 135,
 	
     Transport = {

@@ -175,7 +175,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Protector bot',
+        HelpText = 'Experimental Protector Bot',
     },
 	
     LifeBarHeight = 0.1,

@@ -51,7 +51,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.6,
     },
 	
-    Description = '<LOC bsl0106_desc>Protector bot',
+    Description = '<LOC bsl0106_desc>Protector Bot',
 	
     Display = {
         Abilities = {
@@ -165,7 +165,7 @@ UnitBlueprint {
     SizeY = 0.6,
     SizeZ = 0.8,
 	
-    StrategicIconName = 'icon_land1_directfire',
+    StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,
 	
     Transport = {
