@@ -1,6 +1,6 @@
-#
-# Ship-based Anti-Torpedo Script
-#
+--
+-- Ship-based Anti-Torpedo Script
+--
 local CDepthChargeProjectile = import('/lua/cybranprojectiles.lua').CDepthChargeProjectile
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds

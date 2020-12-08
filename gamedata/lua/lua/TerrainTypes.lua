@@ -1,8 +1,8 @@
-#--[                                                                             ]--
-#--[  File     : TerrainTypes.lua                                                ]--
-#--[  Author(s): Bob Berry, Gordon Duclos                                        ]--
-#--[                                                                             ]--
-#--[  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.             ]--
+----[                                                                             ]--
+----[  File     : TerrainTypes.lua                                                ]--
+----[  Author(s): Bob Berry, Gordon Duclos                                        ]--
+----[                                                                             ]--
+----[  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.             ]--
 
 --[[ 
 	Each terrain type has a type code that must be unique, with a max of 255. If you
@@ -100,9 +100,9 @@
 
 local EmitterBasePath = '/effects/emitters/'
 
-#-- Terrain clutter definitions
-#--
-#--
+---- Terrain clutter definitions
+----
+----
 TerrainClutter = {
     Test = {
         density = 10,
@@ -120,9 +120,9 @@ TerrainClutter = {
     },
 };
 
-#-- Terrain type definitions
-#--
-#--
+---- Terrain type definitions
+----
+----
 TerrainTypes = {
     {
         Name = 'Default',
@@ -2297,8 +2297,8 @@ TerrainTypes = {
     },                                
 }
 
-# These are the names of the columns to create and populate (in order) in the editor's
-# TerrainType tool.
+-- These are the names of the columns to create and populate (in order) in the editor's
+-- TerrainType tool.
 EditorColumns = {
     'Name',
     'TypeCode',

@@ -1,6 +1,6 @@
-#
-# Terran Land-Based Cruise Missile
-#
+--
+-- Terran Land-Based Cruise Missile
+--
 local TMissileCruiseProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseProjectile02
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')

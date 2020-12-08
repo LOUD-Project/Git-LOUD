@@ -1,51 +1,51 @@
-#
-# Blueprint loading
-#
-#   During preloading of the map, we run loadBlueprints() from this file. It scans
-#   the game directories and runs all .bp files it finds.
-#
-#   The .bp files call UnitBlueprint(), PropBlueprint(), etc. to define a blueprint.
-#   All those functions do is fill in a couple of default fields and store off the
-#   table in 'original_blueprints'.
-#
-#   Once that scan is complete, ModBlueprints() is called. It can arbitrarily mess
-#   with the data in original_blueprints.
-#
-#   Finally, the engine registers all blueprints in original_blueprints to define the
-#   "real" blueprints used by the game. A separate copy of these blueprints is made
-#   available to the sim-side and user-side scripts.
-#
-# How mods can affect blueprints
-#
-#   First, a mod can simply add a new blueprint file that defines a new blueprint.
-#
-#   Second, a mod can contain a blueprint with the same ID as an existing blueprint.
-#   In this case it will completely override the original blueprint. Note that in
-#   order to replace an original non-unit blueprint, the mod must set the "BlueprintId"
-#   field to name the blueprint to be replaced. Otherwise the BlueprintId is defaulted
-#   off the source file name. (Units don't have this problem because the BlueprintId is
-#   shortened and doesn't include the original path).
-#
-#   Third, a mod can can contain a blueprint with the same ID as an existing blueprint,
-#   and with the special field "Merge = true". This causes the mod to be merged with,
-#   rather than replace, the original blueprint.
-#
-#   Finally, a mod can hook the ModBlueprints() function which manipulates the
-#   blueprints table in arbitrary ways.
-#      1. create a file /mod/s.../hook/system/Blueprints.lua
-#      2. override ModBlueprints(all_bps) in that file to manipulate the blueprints
-#
-# Reloading of changed blueprints
-#
-#   When the disk watcher notices that a .bp file has changed, it calls
-#   ReloadBlueprint() on it. ReloadBlueprint() repeats the above steps, but with
-#   original_blueprints containing just the one blueprint.
-#
-#   Changing an existing blueprint is not 100% reliable; some changes will be picked
-#   up by existing units, some not until a new unit of that type is created, and some
-#   not at all. Also, if you remove a field from a blueprint and then reload, it will
-#   default to its old value, not to 0 or its normal default.
-#
+--
+-- Blueprint loading
+--
+--   During preloading of the map, we run loadBlueprints() from this file. It scans
+--   the game directories and runs all .bp files it finds.
+--
+--   The .bp files call UnitBlueprint(), PropBlueprint(), etc. to define a blueprint.
+--   All those functions do is fill in a couple of default fields and store off the
+--   table in 'original_blueprints'.
+--
+--   Once that scan is complete, ModBlueprints() is called. It can arbitrarily mess
+--   with the data in original_blueprints.
+--
+--   Finally, the engine registers all blueprints in original_blueprints to define the
+--   "real" blueprints used by the game. A separate copy of these blueprints is made
+--   available to the sim-side and user-side scripts.
+--
+-- How mods can affect blueprints
+--
+--   First, a mod can simply add a new blueprint file that defines a new blueprint.
+--
+--   Second, a mod can contain a blueprint with the same ID as an existing blueprint.
+--   In this case it will completely override the original blueprint. Note that in
+--   order to replace an original non-unit blueprint, the mod must set the "BlueprintId"
+--   field to name the blueprint to be replaced. Otherwise the BlueprintId is defaulted
+--   off the source file name. (Units don't have this problem because the BlueprintId is
+--   shortened and doesn't include the original path).
+--
+--   Third, a mod can can contain a blueprint with the same ID as an existing blueprint,
+--   and with the special field "Merge = true". This causes the mod to be merged with,
+--   rather than replace, the original blueprint.
+--
+--   Finally, a mod can hook the ModBlueprints() function which manipulates the
+--   blueprints table in arbitrary ways.
+--      1. create a file /mod/s.../hook/system/Blueprints.lua
+--      2. override ModBlueprints(all_bps) in that file to manipulate the blueprints
+--
+-- Reloading of changed blueprints
+--
+--   When the disk watcher notices that a .bp file has changed, it calls
+--   ReloadBlueprint() on it. ReloadBlueprint() repeats the above steps, but with
+--   original_blueprints containing just the one blueprint.
+--
+--   Changing an existing blueprint is not 100% reliable; some changes will be picked
+--   up by existing units, some not until a new unit of that type is created, and some
+--   not at all. Also, if you remove a field from a blueprint and then reload, it will
+--   default to its old value, not to 0 or its normal default.
+--
 
 local sub = string.sub
 local gsub = string.gsub
@@ -107,20 +107,20 @@ local function StoreBlueprint(group, bp)
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns the entire filename. Either this or SetLongId() should really be got rid of.
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns the entire filename. Either this or SetLongId() should really be got rid of.
+--
 local function SetBackwardsCompatId(bp)
     bp.Source = bp.Source or GetSource()
     bp.BlueprintId = lower(bp.Source)
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns the full resource name except with ".bp" stripped off
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns the full resource name except with ".bp" stripped off
+--
 local function SetLongId(bp)
     bp.Source = bp.Source or GetSource()
     if not bp.BlueprintId then
@@ -132,11 +132,11 @@ local function SetLongId(bp)
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns just the base filename, without any blueprint type info or extension. Used
-# for units only.
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns just the base filename, without any blueprint type info or extension. Used
+-- for units only.
+--
 local function SetShortId(bp)
     bp.Source = bp.Source or GetSource()
     bp.BlueprintId = bp.BlueprintId or
@@ -144,12 +144,12 @@ local function SetShortId(bp)
 end
 
 
-#
-# If the bp contains a 'Mesh' section, move that over to a separate Mesh blueprint, and
-# point bp.MeshBlueprint at it.
-#
-# Also fill in a default value for bp.MeshBlueprint if one was not given at all.
-#
+--
+-- If the bp contains a 'Mesh' section, move that over to a separate Mesh blueprint, and
+-- point bp.MeshBlueprint at it.
+--
+-- Also fill in a default value for bp.MeshBlueprint if one was not given at all.
+--
 function ExtractMeshBlueprint(bp)
     local disp = bp.Display or {}
     bp.Display = disp
@@ -1030,7 +1030,7 @@ function ModBlueprints(all_blueprints)
 end
 
 
-#-- Load all blueprints
+---- Load all blueprints
 
 function LoadBlueprints()
 
@@ -1111,7 +1111,7 @@ function LoadBlueprints()
 end
 
 
-# Reload a single blueprint
+-- Reload a single blueprint
 function ReloadBlueprint(file)
     InitOriginalBlueprints()
 

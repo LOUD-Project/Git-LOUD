@@ -1,6 +1,6 @@
-#
-# Cybran Non-guided Torpedo, Made to be fired from above the water
-#
+--
+-- Cybran Non-guided Torpedo, Made to be fired from above the water
+--
 local CTorpedoShipProjectile = import('/lua/cybranprojectiles.lua').CTorpedoShipProjectile
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds

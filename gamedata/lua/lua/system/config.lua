@@ -1,6 +1,6 @@
-# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#
-# Configuration file to globally control how Lua behaves
+-- Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--
+-- Configuration file to globally control how Lua behaves
 --[[
 local function locals()
 		local variables = {}
@@ -40,9 +40,9 @@ local type = type
 local getmetatable = getmetatable
 local setmetatable = setmetatable
 
-#====================================================================================
-# Disable the LuaPlus bit where you can add attributes to nil, numbers, and strings.
-#------------------------------------------------------------------------------------
+--====================================================================================
+-- Disable the LuaPlus bit where you can add attributes to nil, numbers, and strings.
+--------------------------------------------------------------------------------------
 local function metacleanup(obj)
     local name = type(obj)
     mmt = {
@@ -61,9 +61,9 @@ metacleanup(0)
 metacleanup('')
 
 
-#====================================================================================
-# Set up a metatable for coroutines (a.k.a. threads)
-#------------------------------------------------------------------------------------
+--====================================================================================
+-- Set up a metatable for coroutines (a.k.a. threads)
+--------------------------------------------------------------------------------------
 local thread_mt = {Destroy = KillThread}
 
 thread_mt.__index = thread_mt
@@ -77,19 +77,19 @@ local function dummy() end
 setmetatable(getmetatable(coroutine.create(dummy)),thread_mt)
 
 
-#====================================================================================
-# Replace math.random with our custom random.  On the sim side, this is
-# a rng with consistent state across all clients.
-#------------------------------------------------------------------------------------
+--====================================================================================
+-- Replace math.random with our custom random.  On the sim side, this is
+-- a rng with consistent state across all clients.
+--------------------------------------------------------------------------------------
 if Random then
     math.random = Random
 end
 
 
-#====================================================================================
-# Give globals an __index() with an error function. This causes an error message
-# when a nonexistent global is accessed, instead of just quietly returning nil.
-#------------------------------------------------------------------------------------
+--====================================================================================
+-- Give globals an __index() with an error function. This causes an error message
+-- when a nonexistent global is accessed, instead of just quietly returning nil.
+--------------------------------------------------------------------------------------
 local globalsmeta = {
     __index = function(table, key)
         error("access to nonexistent global variable "..repr(key),2)
@@ -98,10 +98,10 @@ local globalsmeta = {
 setmetatable(_G, globalsmeta)
 
 
-#====================================================================================
-# Check if an item is callable, ie not a variable. Returns the callable item,
-# otherwise returns nil
-#------------------------------------------------------------------------------------
+--====================================================================================
+-- Check if an item is callable, ie not a variable. Returns the callable item,
+-- otherwise returns nil
+--------------------------------------------------------------------------------------
 function iscallable(f)
 
 	local type = type

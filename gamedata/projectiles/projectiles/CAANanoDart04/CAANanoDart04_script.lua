@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/CAANanoDart04/CAANanoDart04_script.lua
-#**  Author(s):  Greg Kohne
-#**
-#**  Summary  :  Cybran Anti Air Projectile, on unit DRA0202
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/CAANanoDart04/CAANanoDart04_script.lua
+--**  Author(s):  Greg Kohne
+--**
+--**  Summary  :  Cybran Anti Air Projectile, on unit DRA0202
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 import('/lua/utilities.lua')
 local CAANanoDartProjectile = import('/lua/cybranprojectiles.lua').CAANanoDartProjectile02

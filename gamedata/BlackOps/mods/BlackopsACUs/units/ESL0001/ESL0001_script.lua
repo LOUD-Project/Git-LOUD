@@ -18,7 +18,7 @@ local SeraACURapidWeapon = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua'
 local SeraACUBigBallWeapon = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').SeraACUBigBallWeapon 
 local SAAOlarisCannonWeapon = SWeapons.SAAOlarisCannonWeapon
 
-# Setup as RemoteViewing child unit rather than SWalkingLandUnit
+-- Setup as RemoteViewing child unit rather than SWalkingLandUnit
 local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
 
 SWalkingLandUnit = RemoteViewing( SWalkingLandUnit ) 

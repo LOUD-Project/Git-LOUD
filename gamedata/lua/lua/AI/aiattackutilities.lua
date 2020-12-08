@@ -1,4 +1,4 @@
-#**  File     :  /lua/AI/aiattackutilities.lua
+--**  File     :  /lua/AI/aiattackutilities.lua
 
 local LOUDGETN = table.getn
 local LOUDPARSE = ParseEntityCategory

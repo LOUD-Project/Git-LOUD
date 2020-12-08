@@ -1,6 +1,6 @@
-#
-# Terran Fragmentation/Sensor Shells
-#
+--
+-- Terran Fragmentation/Sensor Shells
+--
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local TArtilleryProjectile = import('/lua/terranprojectiles.lua').TArtilleryProjectile
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat

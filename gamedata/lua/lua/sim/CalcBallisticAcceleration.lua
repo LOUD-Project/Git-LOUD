@@ -1,38 +1,38 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/sim/CalcBallisticAcceleration.lua
-#**  Author(s):  Kaskouy, Brute51
-#**
-#**  Summary  :  Calculates bomb drop ballistic acceleration values
-#**
-#****************************************************************************
-#**
-#** This script was done by Kaskouy and is based on my 'static' first bomb
-#** bug fix. Kaskouy's code is more flexible and should work in (almost) any 
-#** case wheras mine only does when the bomber flies at default height at 
-#** default speed. The script below takes all that into account (speed, 
-#** height, etc) and calculates the proper value to feed to the bomb adjust 
-#** function. [152]
-#** I (brute51) improved the original script to work with attack ground. Also
-#** changed a few minor things here and there.
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/sim/CalcBallisticAcceleration.lua
+--**  Author(s):  Kaskouy, Brute51
+--**
+--**  Summary  :  Calculates bomb drop ballistic acceleration values
+--**
+--****************************************************************************
+--**
+--** This script was done by Kaskouy and is based on my 'static' first bomb
+--** bug fix. Kaskouy's code is more flexible and should work in (almost) any 
+--** case wheras mine only does when the bomber flies at default height at 
+--** default speed. The script below takes all that into account (speed, 
+--** height, etc) and calculates the proper value to feed to the bomb adjust 
+--** function. [152]
+--** I (brute51) improved the original script to work with attack ground. Also
+--** changed a few minor things here and there.
+--**
+--****************************************************************************
 
-# This is a fraction between 0 and 1, indicating which part of the target we want to hit
-# 0 : on feet ; 1 : on head
-# I personally think that 0 is better, but if you want to try, feel free to play with this...
+-- This is a fraction between 0 and 1, indicating which part of the target we want to hit
+-- 0 : on feet ; 1 : on head
+-- I personally think that 0 is better, but if you want to try, feel free to play with this...
 
 local alpha = 0
 
-# This table stores the acceleration previously calculated.
-# This serves for bombers carrying several bombs: acceleration is calculated
-# for first bomb, then stored in this table and reused for the next bombs
-# format : bomber_table[entityId] = {acc, remaining_bombs}
+-- This table stores the acceleration previously calculated.
+-- This serves for bombers carrying several bombs: acceleration is calculated
+-- for first bomb, then stored in this table and reused for the next bombs
+-- format : bomber_table[entityId] = {acc, remaining_bombs}
 
 local bomber_table = {}
 
-# This is the default value returned by the function if a problem occured in the calculation...
-# But normally that may never happen
+-- This is the default value returned by the function if a problem occured in the calculation...
+-- But normally that may never happen
 
 local default_value = 4.75
 

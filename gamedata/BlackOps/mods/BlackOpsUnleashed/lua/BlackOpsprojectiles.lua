@@ -1,10 +1,10 @@
-#**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
-#**  Author(s): Lt_Hawkeye
-#**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
+--**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
+--**  Author(s): Lt_Hawkeye
+--**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 
-#----------------------------------
-#  Lt_hawkeye's Custom Projectiles
-#----------------------------------
+------------------------------------
+--  Lt_hawkeye's Custom Projectiles
+------------------------------------
 local Projectile = import('/lua/sim/projectile.lua').Projectile
 local DefaultProjectileFile = import('/lua/sim/defaultprojectiles.lua')
 local EmitterProjectile = DefaultProjectileFile.EmitterProjectile
@@ -33,14 +33,14 @@ local ForkThread = ForkThread
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 local CreateBeamEmitterOnEntity = CreateBeamEmitterOnEntity
 
-#-------------
-# Null Shell
-#-------------
+---------------
+-- Null Shell
+---------------
 EXNullShell = Class(Projectile) {}
 
-#---------------------------------------------------------------
-# PROJECTILE WITH ATTACHED EFFECT EMITTERS
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- PROJECTILE WITH ATTACHED EFFECT EMITTERS
+-----------------------------------------------------------------
 EXEmitterProjectile = Class(Projectile) {
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
     FxTrailScale = 1,
@@ -55,9 +55,9 @@ EXEmitterProjectile = Class(Projectile) {
     end,
 }
 
-#---------------------------------------------------------------
-# BEAM PROJECTILES
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- BEAM PROJECTILES
+-----------------------------------------------------------------
 EXSingleBeamProjectile = Class(EXEmitterProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
@@ -86,9 +86,9 @@ EXMultiBeamProjectile = Class(EXEmitterProjectile) {
     end,
 }
 
-#---------------------------------------------------------------
-# POLY-TRAIL PROJECTILES
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- POLY-TRAIL PROJECTILES
+-----------------------------------------------------------------
 EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
 
     PolyTrail = '/effects/emitters/test_missile_trail_emit.bp',
@@ -131,12 +131,12 @@ EXMultiPolyTrailProjectile = Class(EXEmitterProjectile) {
 }
 
 
-#---------------------------------------------------------------
-# COMPOSITE EMITTER PROJECTILES - MULTIPURPOSE PROJECTILES
-# - THAT COMBINES BEAMS, POLYTRAILS, AND NORMAL EMITTERS
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- COMPOSITE EMITTER PROJECTILES - MULTIPURPOSE PROJECTILES
+-- - THAT COMBINES BEAMS, POLYTRAILS, AND NORMAL EMITTERS
+-----------------------------------------------------------------
 
-# LIGHTWEIGHT VERSION THAT LIMITS USE TO 1 BEAM, 1 POLYTRAIL, AND STANDARD EMITTERS
+-- LIGHTWEIGHT VERSION THAT LIMITS USE TO 1 BEAM, 1 POLYTRAIL, AND STANDARD EMITTERS
 EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
@@ -150,7 +150,7 @@ EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
     end,
 }
 
-# HEAVYWEIGHT VERSION, ALLOWS FOR MULTIPLE BEAMS, POLYTRAILS, AND STANDARD EMITTERS
+-- HEAVYWEIGHT VERSION, ALLOWS FOR MULTIPLE BEAMS, POLYTRAILS, AND STANDARD EMITTERS
 EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
 
     Beams = {'/effects/emitters/default_beam_01_emit.bp',},
@@ -288,9 +288,9 @@ MiniRocket02Projectile = Class(SingleBeamProjectile) {
     end,
 }
 
-#***********************************************
-#                 SeaDragon Projectiles
-#***********************************************
+--***********************************************
+--                 SeaDragon Projectiles
+--***********************************************
 
 SeaDragonShell = Class(SinglePolyTrailProjectile) {
 
@@ -356,9 +356,9 @@ XCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxUnderWaterHitScale = 0.8,
     FxWaterHitScale = 0.8,
 }
-#------------------------------------------------------------
-#				Bismark Projectiles
-#-----------------------------------------------------------
+--------------------------------------------------------------
+--				Bismark Projectiles
+-------------------------------------------------------------
 ZCannon01Projectile = Class(MultiPolyTrailProjectile) {
 	FxImpactTrajectoryAligned = false,
     PolyTrails = BlackOpsEffectTemplate.ZCannonPolytrail01,
@@ -390,13 +390,13 @@ ZCannon01Projectile = Class(MultiPolyTrailProjectile) {
     end,
 }
 
-#------------------------------------------------------------------------
-#  Cybran Dumb MISSILE PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Cybran Dumb MISSILE PROJECTILES
+--------------------------------------------------------------------------
 DumbRocketProjectile = Class(SingleBeamProjectile) {
     FxTrails = {'/effects/emitters/missile_cruise_munition_trail_01_emit.bp',},
     #FxTrailScale = 1,
-#	PolyTrail = EffectTemplate.CCorsairMissilePolyTrail01,    
+--	PolyTrail = EffectTemplate.CCorsairMissilePolyTrail01,    
     BeamName = '/effects/emitters/missile_exhaust_fire_beam_01_emit.bp',
     #BeamScale = 0.25,
     FxImpactUnit = EffectTemplate.CCorsairMissileUnitHit01,
@@ -418,11 +418,11 @@ DumbRocketProjectile02 = Class(EmitterProjectile) {
     FxUnitHitScale = 1.5,
     FxImpactUnderWater = {},
 }
-#------------------------------------------------------------------------
-#
-#  Scorp Laser
-#
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--
+--  Scorp Laser
+--
+--------------------------------------------------------------------------
 
 ScorpPulseLaser = Class(MultiPolyTrailProjectile) {
     PolyTrails = {
@@ -447,9 +447,9 @@ ScorpPulseLaser = Class(MultiPolyTrailProjectile) {
     FxWaterHitScale = 0.5,
     FxTrailOffset = 0,
 }
-#------------------------------------------------------------------------
-#  AEON MIRV MISSILE PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON MIRV MISSILE PROJECTILES
+--------------------------------------------------------------------------
 MIRVChild01Projectile = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = '/effects/emitters/serpentine_missile_trail_emit.bp',
     BeamName = '/effects/emitters/serpentine_missle_exhaust_beam_01_emit.bp',
@@ -465,9 +465,9 @@ MIRVChild01Projectile = Class(SingleCompositeEmitterProjectile) {
     
     
 }
-#------------------------------------------------------------
-#				Aira Projectiles
-#-----------------------------------------------------------
+--------------------------------------------------------------
+--				Aira Projectiles
+-------------------------------------------------------------
 SonicWaveProjectile = Class(MultiPolyTrailProjectile) {
 	FxImpactTrajectoryAligned = false,
     PolyTrails = BlackOpsEffectTemplate.WaveCannonPolytrail01,
@@ -484,9 +484,9 @@ SonicWaveProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 
 }
-#------------------------------------------------------------
-#				Seraphim Lambda Projectiles
-#-----------------------------------------------------------
+--------------------------------------------------------------
+--				Seraphim Lambda Projectiles
+-------------------------------------------------------------
 EyeBlast01Projectile = Class(EmitterProjectile) {
 	FxImpactTrajectoryAligned = false,
     FxTrails = EffectTemplate.SDFExperimentalPhasonProjFXTrails01,
@@ -497,9 +497,9 @@ EyeBlast01Projectile = Class(EmitterProjectile) {
     FxImpactWater = BlackOpsEffectTemplate.SDFExperimentalPhasonProjHit01,
 }
 
-#------------------------------------------------------------
-#				Seraphim LPD Projectiles
-#-----------------------------------------------------------
+--------------------------------------------------------------
+--				Seraphim LPD Projectiles
+-------------------------------------------------------------
 SeraHeavyLightningCannonChildProjectile = Class(EmitterProjectile) {
 	FxImpactTrajectoryAligned = false,
     FxTrails = EffectTemplate.SDFExperimentalPhasonProjFXTrails01,
@@ -510,9 +510,9 @@ SeraHeavyLightningCannonChildProjectile = Class(EmitterProjectile) {
     FxOnKilled = EffectTemplate.SHeavyQuarnonCannonUnitHit,
 }
 
-#------------------------------------------------------------------------
-#  CYBRAN SUB LAUNCHED TORPEDO
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  CYBRAN SUB LAUNCHED TORPEDO
+--------------------------------------------------------------------------
 AssaultTorpedoSubProjectile = Class(EmitterProjectile) {
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_02_emit.bp',},
 
@@ -553,7 +553,7 @@ ShadowCannonProjectile = Class(MultiPolyTrailProjectile) {
 HellFireMissileProjectile = Class(SingleCompositeEmitterProjectile) {
     FxTrails = {'/effects/emitters/missile_cruise_munition_trail_01_emit.bp',},
     FxTrailScale = 0.25,
-#	PolyTrail = EffectTemplate.CCorsairMissilePolyTrail01,    
+--	PolyTrail = EffectTemplate.CCorsairMissilePolyTrail01,    
     BeamName = '/effects/emitters/missile_exhaust_fire_beam_01_emit.bp',
     FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
@@ -583,9 +583,9 @@ ACUShadowCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxTrailOffset = 0,
 }
 
-#------------------------------------------------------------------------
-#  TERRAN Heavy GAUSS CANNON PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  TERRAN Heavy GAUSS CANNON PROJECTILES
+--------------------------------------------------------------------------
 HawkGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxTrails = {},
     PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
@@ -597,9 +597,9 @@ HawkGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 }
 
-#------------------------------------------------------------------------
-#  AEON ARTILLERY PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON ARTILLERY PROJECTILES
+--------------------------------------------------------------------------
 WraithProjectile = Class(SinglePolyTrailProjectile) {
 	FxImpactLand = BlackOpsEffectTemplate.WraithCannonHit01,
     FxImpactNone = BlackOpsEffectTemplate.WraithCannonHit01,
@@ -616,19 +616,19 @@ WraithProjectile = Class(SinglePolyTrailProjectile) {
 }
 
 
-#------------------------------------------------------------------------
-#
-#  Fire test
-#
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--
+--  Fire test
+--
+--------------------------------------------------------------------------
 
 Juggfire01 = Class(MultiPolyTrailProjectile) {
 	PolyTrails = BlackOpsEffectTemplate.HGaussCannonPolyTrail,
     FxTrails = {
 		'/mods/BlackOpsUnleashed/effects/emitters/Juggfire01_emit.bp',
 		'/effects/emitters/napalm_hvy_thin_smoke_emit.bp',
-#		'/effects/emitters/napalm_hvy_thick_smoke_emit.bp',
-#		'/effects/emitters/napalm_hvy_03_emit.bp',
+--		'/effects/emitters/napalm_hvy_thick_smoke_emit.bp',
+--		'/effects/emitters/napalm_hvy_03_emit.bp',
 	},
 	PolyTrailOffset = {0,0,0},    
 
@@ -641,13 +641,13 @@ Juggfire01 = Class(MultiPolyTrailProjectile) {
     FxPropHitScale = 0.5,
     FxUnitHitScale = 0.5,
     FxImpactUnderWater = {},
-#    FxTrails = {},
+--    FxTrails = {},
     FxTrailOffset = 0,
 }
 
-#------------------------------------------------------------------------
-#  Flamethrower Projectile
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Flamethrower Projectile
+--------------------------------------------------------------------------
 NapalmProjectile01 = Class(EmitterProjectile) {
     FxTrails = {'/mods/BlackOpsUnleashed/Effects/Emitters/NapalmTrailFX.bp',},
     
@@ -678,9 +678,9 @@ NapalmProjectile02 = Class(EmitterProjectile) {
     FxNoneHitScale = 0.5,
 }
 
-#------------------------------------------------------------------------
-#  AEON ABOVE WATER LAUNCHED TORPEDO
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON ABOVE WATER LAUNCHED TORPEDO
+--------------------------------------------------------------------------
 AMTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
@@ -712,7 +712,7 @@ AMTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
 AMTorpedoCluster = Class(SingleCompositeEmitterProjectile) {
     FxInitial = {},
-#    FxTrails = {'/effects/emitters/serpentine_missile_trail_emit.bp',},
+--    FxTrails = {'/effects/emitters/serpentine_missile_trail_emit.bp',},
     PolyTrail = '/effects/emitters/serpentine_missile_trail_emit.bp',
     BeamName = '/effects/emitters/serpentine_missle_exhaust_beam_01_emit.bp',
     FxTrailScale = 1,
@@ -744,9 +744,9 @@ AMTorpedoCluster = Class(SingleCompositeEmitterProjectile) {
 
 
 
-#------------------------------------------------------------------------
-#  AEON GUIDED AA PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON GUIDED AA PROJECTILES
+--------------------------------------------------------------------------
 GoldAAProjectile = Class(SinglePolyTrailProjectile) {
     FxTrails =  BlackOpsEffectTemplate.GoldAAFxTrails,
 	PolyTrail = BlackOpsEffectTemplate.GoldAAPolyTrail,  ###'/effects/emitters/aeon_missile_trail_02_emit.bp',    
@@ -758,9 +758,9 @@ GoldAAProjectile = Class(SinglePolyTrailProjectile) {
     FxImpactLand = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
     FxImpactUnderWater = {},
 }
-#------------------------------------------------------------------------
-#  SERAPHIM TAU CANNON
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  SERAPHIM TAU CANNON
+--------------------------------------------------------------------------
 ShieldTauCannonProjectile = Class(MultiPolyTrailProjectile) {
 	FxImpactLand = EffectTemplate.STauCannonHit,
     FxImpactNone = EffectTemplate.STauCannonHit,
@@ -787,8 +787,8 @@ SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0,0},
 }
 ------------------------------------------------------------------------
-#  SERAPHIM LAANSE TACTICAL MISSILE
-#------------------------------------------------------------------------
+--  SERAPHIM LAANSE TACTICAL MISSILE
+--------------------------------------------------------------------------
 SLaanseTacticalMissile = Class(SinglePolyTrailProjectile) {
     FxImpactLand = EffectTemplate.SLaanseMissleHit,
     FxImpactProp = EffectTemplate.SLaanseMissleHitUnit,
@@ -799,9 +799,9 @@ SLaanseTacticalMissile = Class(SinglePolyTrailProjectile) {
 
 
 }
-#------------------------------------------------------------------------
-#  MGAI PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  MGAI PROJECTILES
+--------------------------------------------------------------------------
 MGHeadshotProjectile = Class(MultiPolyTrailProjectile) {
 	FxImpactTrajectoryAligned = false,
     PolyTrails = BlackOpsEffectTemplate.MGHeadshotPolytrail01,
@@ -947,9 +947,9 @@ MGQAILaserHeavyProjectile = Class(MultiPolyTrailProjectile) {
 }
 
 
-#------------------------------------------------------------------------
-#  AEON RAIDER CANNON PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON RAIDER CANNON PROJECTILES
+--------------------------------------------------------------------------
 RaiderCannonProjectile = Class(SinglePolyTrailProjectile) {
     FxTrails = {
         '/effects/emitters/reacton_cannon_fxtrail_01_emit.bp',
@@ -981,9 +981,9 @@ TAAHeavyFragmentationProjectile = Class(SingleCompositeEmitterProjectile) {
 
 
 
-#------------------------------------------------------------------------
-#  UEF ACU Antimatter Cannon
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF ACU Antimatter Cannon
+--------------------------------------------------------------------------
 UEFACUAntiMatterProjectile01 = Class(EXMultiCompositeEmitterProjectile ) {
     PolyTrails = BlackOpsEffectTemplate.ZCannonPolytrail02,
     PolyTrailOffset = {0,0,0},
@@ -1012,9 +1012,9 @@ UEFACUAntiMatterProjectile01 = Class(EXMultiCompositeEmitterProjectile ) {
     end,
 }
 
-#------------------------------------------------------------------------
-#  AEON Disk TMD Projectile
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  AEON Disk TMD Projectile
+--------------------------------------------------------------------------
 DiskTMD01 = Class(SinglePolyTrailProjectile) {
     FxTrails = {
         '/effects/emitters/quantum_cannon_munition_03_emit.bp',
@@ -1022,7 +1022,7 @@ DiskTMD01 = Class(SinglePolyTrailProjectile) {
     },
     PolyTrail = '/effects/emitters/quantum_cannon_polytrail_01_emit.bp',
 
-# Hit Effects
+-- Hit Effects
     FxImpactLand = EffectTemplate.ATemporalFizzHit01,
     FxImpactNone= EffectTemplate.ATemporalFizzHit01,
     FxImpactProjectile = EffectTemplate.ATemporalFizzHit01,
@@ -1086,9 +1086,9 @@ GLaserProjectile = Class(MultiPolyTrailProjectile) {
     #FxImpactUnderWater = {},
     
 }
-#------------------------------------------------------------------------
-#  Garg Weapons
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Garg Weapons
+--------------------------------------------------------------------------
 RedTurbolaserProjectile = Class(MultiPolyTrailProjectile) {
 
 	FxTrails = {},  
@@ -1154,9 +1154,9 @@ GargEMPWarheadProjectile = Class(SingleBeamProjectile) {
 
 
 
-#------------------------------------------------------------------------
-#  Cybran Hailfire Projectiles
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Cybran Hailfire Projectiles
+--------------------------------------------------------------------------
 CybranHailfire01ChildProjectile = Class(SinglePolyTrailProjectile) {
     --FxTrails = {},
     PolyTrail = '/effects/emitters/default_polytrail_05_emit.bp',
@@ -1271,7 +1271,7 @@ GoliathTMDProjectile = Class(MultiPolyTrailProjectile) {
 }
 
 CitadelHVM01Projectile = Class(EmitterProjectile) {
-# Emitter Values
+-- Emitter Values
     FxInitial = {},
     TrailDelay = 0.3,
     FxTrails = BlackOpsEffectTemplate.CitadelHVM01Trails,

@@ -1,8 +1,8 @@
-#***************************************************************************
-#**  File     :  /lua/ai/AIBaseTemplates/LoudExpansion.lua
-#**  Summary  : Manage engineers for a location
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--***************************************************************************
+--**  File     :  /lua/ai/AIBaseTemplates/LoudExpansion.lua
+--**  Summary  : Manage engineers for a location
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 -- this is a full sized expansion base with production facilities
 BaseBuilderTemplate {
     BaseTemplateName = 'Loud_Expansion_Standard',

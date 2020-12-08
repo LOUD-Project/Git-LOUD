@@ -50,9 +50,9 @@ CybranRocketHit = {
 
 --local EmitterTempEmtBpPath = '/effects/emitters/temp/'
 
-#------------
-# Test weapon
-#------------
+--------------
+-- Test weapon
+--------------
 
 UEFArmoredBattleBotTrails = {
 	EmtBpPath .. 'seraphim_tau_cannon_projectile_01_emit.bp',

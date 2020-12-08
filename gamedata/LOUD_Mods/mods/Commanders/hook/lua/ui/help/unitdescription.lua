@@ -1,5 +1,5 @@
 
-##Aeon ACU Upgrades
+--Aeon ACU Upgrades
 
 Description['eal0001'] = "<LOC Unit_Description_0305> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 
@@ -40,7 +40,7 @@ Description['eal0001-exbbat2'] = "Distortion Amplifier\nFurther development of t
 Description['eal0001-exbbat3'] = "Instability Enhancer\nThe addition of extra focusers and reflectors has allowed increased control over the instabilities that make up the field.  Increases both field coverage and destructive potential.\n\nMaelstrom DPS & range increased"
 
 
-##UEF ACU Upgrades  
+--UEF ACU Upgrades  
 
 Description['eel0001'] = "<LOC Unit_Description_0303> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 
@@ -84,7 +84,7 @@ Description['eel0001-led'] = "Engineering Drone acts as a secondary Engineer. As
 Description['eel0001-red'] = "Adds a second Engineering Drone. Requires an initial Engineering Drone."
 
 
-##Cybran ACU Upgrades
+--Cybran ACU Upgrades
 
 Description['erl0001'] = "<LOC Unit_Description_0304> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 
@@ -125,7 +125,7 @@ Description['erl0001-exbbat2'] = "Anti-Air Subsystem\nAircraft pose a significan
 Description['erl0001-exbbat3'] = "Nano Regeneration Subsystem\nBy installing a large cache of nano machines and enough computer systems to help control them at extreme efficiency it is possible to rapidly repair damage systems and get back into the battle before your opponents have the chance to do the same.\n\nIncreased Armor Regen"
 
 
-##Serephim ACU Upgrades
+--Serephim ACU Upgrades
 
 Description['esl0001'] = "<LOC Unit_Description_0420> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 

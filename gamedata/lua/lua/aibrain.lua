@@ -1,6 +1,6 @@
-######################
-# AIBrain Lua Module
-######################
+--
+-- AIBrain Lua Module
+--
 
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
@@ -1730,16 +1730,16 @@ AIBrain = Class(moho.aibrain_methods) {
 			self.T4ThreatFound[v] = false
 		end
 	end,
-#    INTEL TRIGGER SPEC
-#    {
-#        CallbackFunction = <function>,
-#        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
-#        Blip = true/false,
-#        Value = true/false,
-#        Category: blip category to match
-#        OnceOnly: fire onceonly
-#        TargetAIBrain: AI Brain of the army you want it to trigger off of.
-#    },
+--    INTEL TRIGGER SPEC
+--    {
+--        CallbackFunction = <function>,
+--        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
+--        Blip = true/false,
+--        Value = true/false,
+--        Category: blip category to match
+--        OnceOnly: fire onceonly
+--        TargetAIBrain: AI Brain of the army you want it to trigger off of.
+--    },
     SetupArmyIntelTrigger = function(self, triggerSpec)
         LOUDINSERT(self.IntelTriggerList, triggerSpec)
     end,

@@ -1,4 +1,4 @@
-#**  File     :  /lua/AIBehaviors.lua
+--**  File     :  /lua/AIBehaviors.lua
 
 local import = import
 
@@ -8038,15 +8038,15 @@ function FatBoyBehavior(self, aiBrain)
 	
 end
 
-#-----------------------------------------------------
-#   Function: FatBoyBuildCheck
-#   Args:
-#       self - single-fatboy platoon to build a unit with
-#   Description:
-#       Builds a random unit
-#   Returns:  
-#       nil
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: FatBoyBuildCheck
+--   Args:
+--       self - single-fatboy platoon to build a unit with
+--   Description:
+--       Builds a random unit
+--   Returns:  
+--       nil
+-------------------------------------------------------
 function FatBoyBuildCheck(self)
     local aiBrain = self:GetAIBrain()
     local experimental = GetExperimentalUnit(self)
@@ -8095,19 +8095,19 @@ function FatBoyBuildCheck(self)
 	
 end
 
-#-----------------------------------------------------
-#   Function: FatboyChildBehavior
-#   Args:
-#       self - the platoon of fatboy children to run the behavior on
-#       parent - the parent fatboy that the child platoon belongs to
-#       base - the base to be attacked
-#   Description:
-#       AI for fatboy child platoons. Wrecks the base that the fatboy has selected.
-#       Once the base is wrecked, the units will return to the fatboy until a new
-#       target base is reached, at which point they will attack it.
-#   Returns:  
-#       nil
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: FatboyChildBehavior
+--   Args:
+--       self - the platoon of fatboy children to run the behavior on
+--       parent - the parent fatboy that the child platoon belongs to
+--       base - the base to be attacked
+--   Description:
+--       AI for fatboy child platoons. Wrecks the base that the fatboy has selected.
+--       Once the base is wrecked, the units will return to the fatboy until a new
+--       target base is reached, at which point they will attack it.
+--   Returns:  
+--       nil
+-------------------------------------------------------
 function FatboyChildBehavior(self, parent, base)   
 		local aiBrain = self:GetAIBrain()
 		local experimental = GetExperimentalUnit(parent)

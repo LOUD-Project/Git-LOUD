@@ -3,7 +3,7 @@
 --* Author: Ted Snook
 --* Summary: functions that make cool menu animation effects
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
@@ -454,8 +454,8 @@ function FadeOut(control, time, initialValue, finalValue)
 end
 
 function Pulse(control, time, alphaBtm, alphaTop)
-# fades a control in (alphaTop) and out (alphaBtm) over time (time, in seconds)
-# default is 0 to 1 alpha over 1 second
+-- fades a control in (alphaTop) and out (alphaBtm) over time (time, in seconds)
+-- default is 0 to 1 alpha over 1 second
 
     local duration = (time or 1) / 2
     local minAlpha = alphaBtm or 0

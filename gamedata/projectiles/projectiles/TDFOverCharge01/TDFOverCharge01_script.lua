@@ -1,6 +1,6 @@
-#
-# Aeon Mortar
-#
+--
+-- Aeon Mortar
+--
 local TLaserBotProjectile = import('/lua/terranprojectiles.lua').TLaserBotProjectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 

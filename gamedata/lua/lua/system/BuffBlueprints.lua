@@ -1,26 +1,26 @@
-#**  File     :  /lua/system/BuffBlueprints.lua
-#**  Summary  :  Global buff table and blueprint methods
+--**  File     :  /lua/system/BuffBlueprints.lua
+--**  Summary  :  Global buff table and blueprint methods
 
-#-- Global list of all buffs found in the system.
+---- Global list of all buffs found in the system.
 Buffs = {}
 
-# Buff blueprints are created by invoking BuffBlueprint() with a table
-# as the buff data. Buffs can be defined in any module at any time.
-# e.g.
-#
-# BuffBlueprint {
-#    Name = HealingOverTime1,
-#    DisplayName = 'Healing Over Time',
-#    [...]
-#    Affects = {
-#        Health = {
-#            Add = 10,
-#        },
-#    },
-# }
-#
-#
-#
+-- Buff blueprints are created by invoking BuffBlueprint() with a table
+-- as the buff data. Buffs can be defined in any module at any time.
+-- e.g.
+--
+-- BuffBlueprint {
+--    Name = HealingOverTime1,
+--    DisplayName = 'Healing Over Time',
+--    [...]
+--    Affects = {
+--        Health = {
+--            Add = 10,
+--        },
+--    },
+-- }
+--
+--
+--
 
 BuffBlueprint = {}
 BuffDefMeta = {}

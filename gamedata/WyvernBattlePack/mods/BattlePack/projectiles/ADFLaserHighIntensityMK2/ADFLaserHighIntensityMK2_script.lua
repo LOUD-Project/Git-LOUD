@@ -1,6 +1,6 @@
-#
-# Aeon laser 'bolt'
-#
+--
+-- Aeon laser 'bolt'
+--
 local AHighIntensityLaserProjectile = import('/lua/aeonprojectiles.lua').AHighIntensityLaserProjectile
 local BPEffectTemplate = import('/mods/BattlePack/lua/BattlePackEffectTemplates.lua')
 ADFLaserHighIntensityMK2 = Class(AHighIntensityLaserProjectile) {

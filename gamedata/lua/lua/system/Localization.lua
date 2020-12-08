@@ -4,8 +4,8 @@ local LOUDGSUB = string.gsub
 
 
 
-# Special tokens that can be included in a loc string via {g Player} etc. The
-# Player name gets replaced with the current selected player name.
+-- Special tokens that can be included in a loc string via {g Player} etc. The
+-- Player name gets replaced with the current selected player name.
 LocGlobals = {
     PlayerName="Player",
     LBrace="{",
@@ -19,8 +19,8 @@ local function dbFilename(la)
     return '/loc/' .. la .. '/strings_db.lua'
 end
 
-# Check whether the given language is installed; if so, return it;
-# otherwise return some language that is installed.
+-- Check whether the given language is installed; if so, return it;
+-- otherwise return some language that is installed.
 local function okLanguage(la)
     if la!='' and exists(dbFilename(la)) then
         return la
@@ -52,7 +52,7 @@ local function loadLanguage(la)
 end
 
 
-# Called from LOUDGSUB in LocExpand() to expand a single {k v} element
+-- Called from LOUDGSUB in LocExpand() to expand a single {k v} element
 local function LocSubFn(op, ident)
     if op=='i' then
         local s = loc_table[ident]
@@ -80,18 +80,18 @@ local function LocSubFn(op, ident)
 end
 
 
-# Given some text from the loc DB, recursively apply formatting directives
+-- Given some text from the loc DB, recursively apply formatting directives
 function LocExpand(s)
     # Look for braces {} in text
     return (LOUDGSUB(s, "{(%w+) ([^{}]*)}", LocSubFn))
 end
 
 
-# If s is a string with a localization tag, like "<LOC HW1234>Hello World",
-# return a localized version of it.
-#
-# Note - we use [[foo]] string syntax here instead of "foo", so the localizing
-# script won't try to mess with *our* strings.
+-- If s is a string with a localization tag, like "<LOC HW1234>Hello World",
+-- return a localized version of it.
+--
+-- Note - we use [[foo]] string syntax here instead of "foo", so the localizing
+-- script won't try to mess with *our* strings.
 function LOC(s)
     if s == nil then
         return s
@@ -123,7 +123,7 @@ function LOC(s)
 end
 
 
-# Like string.format, but applies LOC() to all string args first.
+-- Like string.format, but applies LOC() to all string args first.
 function LOCF(...)
     for k,v in arg do
         if type(v)=='string' then
@@ -134,7 +134,7 @@ function LOCF(...)
 end
 
 
-# Call LOC() on all elements of a table
+-- Call LOC() on all elements of a table
 function LOC_ALL(t)
     r = {}
     for k,v in t do
@@ -144,7 +144,7 @@ function LOC_ALL(t)
 end
 
 
-# Change the current language
+-- Change the current language
 function language(la)
     loadLanguage(la)
     SetPreference('options_overrides.language', __language)

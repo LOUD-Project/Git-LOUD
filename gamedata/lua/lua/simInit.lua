@@ -1,4 +1,4 @@
---# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--# Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 --# This is the sim-specific top-level lua initialization file. It is run at initialization time
 --# to set up all lua state for the sim.
@@ -31,20 +31,20 @@ doscript '/lua/globalInit.lua'
 
 WaitTicks = coroutine.yield
 
-# setup Buff systems
+-- setup Buff systems
 LOG("*AI DEBUG     Setup BUFF system structure")
 doscript '/lua/system/BuffBlueprints.lua'
 
 LOG("*AI DEBUG     Loading Adjacency Buff functions")
-# load adjacency buff functions
+-- load adjacency buff functions
 import('/lua/sim/adjacencybufffunctions.lua')	
 
 LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
-# Load buff definitions
+-- Load buff definitions
 import( '/lua/sim/buffdefinitions.lua')
 
 LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
-# Load Adjacency Buff definitions 
+-- Load Adjacency Buff definitions 
 import('/lua/sim/adjacencybuffs.lua')
 	
 function WaitSeconds(n)
@@ -271,17 +271,17 @@ Prefetcher = CreatePrefetchSet()
 function DefaultPrefetchSet()
     local set = { models = {}, anims = {}, d3d_textures = {} }
 
-#    for k,file in DiskFindFiles('/units/*.scm') do
-#        table.insert(set.models,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.scm') do
+--        table.insert(set.models,file)
+--    end
 
-#    for k,file in DiskFindFiles('/units/*.sca') do
-#        table.insert(set.anims,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.sca') do
+--        table.insert(set.anims,file)
+--    end
 
-#    for k,file in DiskFindFiles('/units/*.dds') do
-#        table.insert(set.d3d_textures,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.dds') do
+--        table.insert(set.d3d_textures,file)
+--    end
 
     return set
 end

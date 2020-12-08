@@ -4,7 +4,7 @@
 --* Summary: Autolaunching games from GPGNet.  This is intentionally designed
 --* to have no user options as GPGNet is setting them for the player.
 --*
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -165,7 +165,7 @@ local function CreateUI()
 end
 
 
-# LobbyComm Callbacks
+-- LobbyComm Callbacks
 local function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, natTraversalProvider)
 
     local controlGroup = Group(parent, "controlGroup")

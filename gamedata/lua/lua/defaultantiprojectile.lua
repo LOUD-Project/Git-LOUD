@@ -1,6 +1,6 @@
-#**  File     :  /lua/defaultantimissile.lua
-#**  Author(s):  Gordon Duclos
-#**  Summary  :  Default definitions collision beams
+--**  File     :  /lua/defaultantimissile.lua
+--**  Author(s):  Gordon Duclos
+--**  Summary  :  Default definitions collision beams
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 

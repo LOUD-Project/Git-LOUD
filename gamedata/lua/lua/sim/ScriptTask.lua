@@ -1,12 +1,12 @@
-#****************************************************************
-#* File: lua/modules/ScriptTask.lua
-#* Copyright © 2008 Gas Powered Games, Inc.  All rights reserved.
-#***************************************************************
+--****************************************************************
+--* File: lua/modules/ScriptTask.lua
+--* Copyright ï¿½ 2008 Gas Powered Games, Inc.  All rights reserved.
+--***************************************************************
 
-#-- Task status values returned from TaskTick(). Note that an integer cast to
-#-- ETaskStatus means to wait that many ticks before returning. TASKSTATUS_Repeat
-#-- is equivalent to waiting 0 ticks. Do not modify this as this is a reflection of
-#-- the internal task codes used by the engine.
+---- Task status values returned from TaskTick(). Note that an integer cast to
+---- ETaskStatus means to wait that many ticks before returning. TASKSTATUS_Repeat
+---- is equivalent to waiting 0 ticks. Do not modify this as this is a reflection of
+---- the internal task codes used by the engine.
 
 TASKSTATUS = {
     # Task has completed and can be removed from the task stack; it will be

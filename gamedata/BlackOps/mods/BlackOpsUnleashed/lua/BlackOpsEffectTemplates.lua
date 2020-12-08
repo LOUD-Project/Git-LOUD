@@ -207,9 +207,9 @@ WraithCannonHit01 = {
     EmtBpPath .. 'quantum_hit_flash_07_emit.bp',#sparks
     EmtBpPathAlt .. 'quantum_hit_flash_08_emit.bp',#white lightning
     EmtBpPath .. 'quantum_hit_flash_09_emit.bp',#flash spikes
-#    EmtBpPath .. 'aeon_sonance_hit_01_emit.bp',#black SPikes
+--    EmtBpPath .. 'aeon_sonance_hit_01_emit.bp',#black SPikes
     EmtBpPath .. 'aeon_sonance_hit_02_emit.bp',#shock wave
-#    EmtBpPath .. 'aeon_sonance_hit_03_emit.bp',#white spikes
+--    EmtBpPath .. 'aeon_sonance_hit_03_emit.bp',#white spikes
     EmtBpPath .. 'aeon_sonance_hit_04_emit.bp',#flash
 }
 HGaussCannonPolyTrail =  {
@@ -258,7 +258,7 @@ GoldAAFxTrails = {
 GoldAAPolyTrail = EmtBpPathAlt .. 'gold_aa_polytrail_01_emit.bp'
 
 
-####Omega OverCharge projectiles and impacts
+--Omega OverCharge projectiles and impacts
 OmegaOverChargeProjectileTrails = {
 	EmtBpPath .. 'seraphim_chronotron_cannon_overcharge_projectile_emit.bp',#swigly#
 	EmtBpPath .. 'seraphim_chronotron_cannon_overcharge_projectile_01_emit.bp',# other swigly
@@ -292,15 +292,15 @@ OmegaOverChargeUnitHit = {
     EmtBpPath .. 'seraphim_chronotron_cannon_blast_projectile_hit_03_emit.bp',
 }
 
-#MGQAI stuff
+--MGQAI stuff
 
 MGHeadshotFxtrail01 = {
      #EmtBpPath .. 'seraphim_chronotron_cannon_projectile_fxtrail_03_emit.bp',
 }
 MGHeadshotPolytrail01 = { 
-#	EmtBpPathAlt .. 'ZCannon_projectile_emit.bp',#spinny trails
-#	EmtBpPathAlt .. 'ZCannon_projectile_01_emit.bp',#spinny trails
-#	EmtBpPathAlt .. 'ZCannon_projectile_02_emit.bp',#spinny Trails
+--	EmtBpPathAlt .. 'ZCannon_projectile_emit.bp',#spinny trails
+--	EmtBpPathAlt .. 'ZCannon_projectile_01_emit.bp',#spinny trails
+--	EmtBpPathAlt .. 'ZCannon_projectile_02_emit.bp',#spinny Trails
 }
 
 MGHeadshotHit01 = {
@@ -419,10 +419,10 @@ ADisk01 = {
     EmtBpPath .. 'sparks_06_emit.bp',
 }
 
-# FF weapon
-#------------------------------------------------------------------------
-#  UEF ACU Anti Matter Cannon
-#------------------------------------------------------------------------
+-- FF weapon
+--------------------------------------------------------------------------
+--  UEF ACU Anti Matter Cannon
+--------------------------------------------------------------------------
 ACUAntiMatterPoly = {
     EmtBpPathAlt .. 'examc_polytrail_01_emit.bp',
 
@@ -494,10 +494,10 @@ GLaserMuzzle01 = {
     EmtBpPathAlt .. 'g_laser_muzzle_01_emit.bp',
 }
 
-#CMicrowaveLaserCharge01 = { 
-#    EmtBpPath .. 'microwave_laser_charge_01_emit.bp',
-#    EmtBpPath .. 'microwave_laser_charge_02_emit.bp',
-#}
+--CMicrowaveLaserCharge01 = { 
+--    EmtBpPath .. 'microwave_laser_charge_01_emit.bp',
+--    EmtBpPath .. 'microwave_laser_charge_02_emit.bp',
+--}
 GLaserEndPoint01 = {
     EmtBpPathAlt .. 'g_laser_end_01_emit.bp',
     EmtBpPathAlt .. 'g_laser_end_02_emit.bp',
@@ -517,7 +517,7 @@ GoldenTurboLaserShot01FXTrail =  {
     EmtBpPathAlt .. 'inqu_cannon_fxtrail_06_emit.bp',#yellowish white distortion
     EmtBpPathAlt .. 'artemis_cannon_fxtrail_07_emit.bp', #yellow core
 }
-# Nova weapon
+-- Nova weapon
 NovaCannonHitUnit = {
 
 	EmtBpPathAlt .. 'nova_bomb_hit_02_emit.bp',#sparks
@@ -526,9 +526,9 @@ NovaCannonHitUnit = {
 }
 
 
-#------------------------------------------------------------------------
-#  SERAPHIM OHWALLI BOMB EMITTERS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  SERAPHIM OHWALLI BOMB EMITTERS
+--------------------------------------------------------------------------
 
 
 GoldLaserBombDetonate01 = {
@@ -573,9 +573,9 @@ GoldLaserBombPlumeFxTrails01 = {
 }
 
 
-#------------------------------------------------------------------------
-#  Lambda Effects
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Lambda Effects
+--------------------------------------------------------------------------
 EXLambdaRedirector = {
     EmtBpPathAlt .. 'lambda_distortion_01.bp',
     EmtBpPathAlt .. 'lambda_redirect_bright_01.bp',
@@ -597,9 +597,9 @@ EXLambdaDestoyer = {
     EmtBpPathAlt .. 'lambda_destroy_bright_01.bp',
     EmtBpPathAlt .. 'lambda_distortion_01.bp',
 }
-#------------------------------------------------------------------------
-#  Garg Weapons
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Garg Weapons
+--------------------------------------------------------------------------
 RedTurboLaser01 = {
     EmtBpPathAlt .. 'Turboredbeam_polytrail_04_emit.bp',
 }
@@ -620,9 +620,9 @@ GargWarheadHitUnit = {
 
 }
 
-#------------------------------------------------------------------
-#    EMP effects
-#--------------------------------------------------------------------
+--------------------------------------------------------------------
+--    EMP effects
+----------------------------------------------------------------------
 
 EMPEffect = {
     EmtBpPathAlt .. 'emp_effect_01_emit.bp',
@@ -631,9 +631,9 @@ EMPEffect = {
 
 
 
-#-----------------------------
-#   Cybran Hailfire Projectiles
-#-----------------------------
+-------------------------------
+--   Cybran Hailfire Projectiles
+-------------------------------
 CybranHailfire01Hit01 = {
     EmtBpPath .. 'neutron_cluster_bomb_hit_01_emit.bp',
     EmtBpPath .. 'neutron_cluster_bomb_hit_02_emit.bp',
@@ -734,9 +734,9 @@ JuggPlasmaGatlingCannonMuzzleFlash = {
 JuggPlasmaGatlingCannonShells = {
     EmtBpPathAlt .. 'jugg_gattler_shells_01_emit.bp',
 }
-#---------------------------------------------------------
-#				BASILISK NUKE EFFECTS
-#---------------------------------------------------------
+-----------------------------------------------------------
+--				BASILISK NUKE EFFECTS
+-----------------------------------------------------------
 BasiliskNukePlumeFxTrails01 = {
     EmtBpPathAlt .. 'basilisk_nuke_plume_fxtrails_07_emit.bp',	## plasma cloud 
     EmtBpPathAlt .. 'basilisk_nuke_plume_fxtrails_08_emit.bp',	## plasma cloud 2, ser 07    
@@ -793,9 +793,9 @@ RailGunPolyTrails = {
 	EmtBpPath .. 'ionized_plasma_gatling_cannon_laser_polytrail_01_emit.bp',
 
 }
-#-----------------------------
-#   UEF Hyper Velocity Missile
-#-----------------------------
+-------------------------------
+--   UEF Hyper Velocity Missile
+-------------------------------
 CitadelHVM01Trails = {
     EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
     #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',

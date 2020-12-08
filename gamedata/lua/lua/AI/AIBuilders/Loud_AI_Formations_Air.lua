@@ -1,4 +1,4 @@
-#**  File     :  /lua/ai/Loud_AI_Formation_Air_Builders.lua
+--**  File     :  /lua/ai/Loud_AI_Formation_Air_Builders.lua
 
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
