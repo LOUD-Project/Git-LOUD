@@ -33,6 +33,7 @@ armordefinition = {
         # Armor Definition
         'Normal 1.0',
     },
+    
     {   # Armor Type Name
         'Commander',
 
@@ -40,7 +41,9 @@ armordefinition = {
         'Normal 1.0',
         'Overcharge 0.033333',
         'Deathnuke 0.05',
+        'CrushingJaw 0.2',
     },
+    
     {   # Armor Type Name
         'Structure',
 
@@ -49,6 +52,7 @@ armordefinition = {
         'Overcharge 0.066666',
         'Deathnuke 0.01',
     },
+    
     {
         # Armor Type name
         'Experimental',

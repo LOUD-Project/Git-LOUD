@@ -174,7 +174,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Posideon Class',
+        UnitName = 'Poseidon Class',
         UnitWeight = 1,
     },
     
@@ -229,7 +229,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 5.6,
     
-    StrategicIconName = 'icon_ship3_directfire',
+    StrategicIconName = 'icon_ship3_antiair',
     StrategicIconSortPriority = 145,
     
     Veteran = {

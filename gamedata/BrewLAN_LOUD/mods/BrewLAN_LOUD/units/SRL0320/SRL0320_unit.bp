@@ -75,8 +75,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 36,
         ArmorType = 'Normal',
-        Health = 2750,
-        MaxHealth = 2750,
+        Health = 1850,
+        MaxHealth = 1850,
         RegenRate = 4,
     },
 	
@@ -114,8 +114,8 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Dustkickup1',
-                            'Dustkickup2',
+                            'Back_Left_M',
+                            'Back_Right_M',
                         },
                         Type = 'GroundKickup01',
                     },

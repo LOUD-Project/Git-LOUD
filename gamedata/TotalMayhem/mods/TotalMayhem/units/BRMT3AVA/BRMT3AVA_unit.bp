@@ -385,7 +385,7 @@ UnitBlueprint {
     SizeY = 3.4,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_land_artillery',
+    StrategicIconName = 'icon_experimental_mobilefactory_artillery',
     StrategicIconSortPriority = 115,
 	
     Veteran = {

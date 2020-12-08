@@ -4,6 +4,7 @@ UnitBlueprint {
             'Turret',
         },
     },
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+    
     BuildIconSortPriority = 120,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -42,12 +46,14 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+    
     CollisionOffsetY = -0.55,
+    
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
-        Health = 3850,
-        MaxHealth = 3850,
+        Health = 3250,
+        MaxHealth = 3250,
         RegenRate = 1,
     },
 	
@@ -187,7 +193,7 @@ UnitBlueprint {
 			
             Damage = 100,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -229,6 +235,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
+            
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,

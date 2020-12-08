@@ -58,7 +58,7 @@ Dreadnaught has gauss apparently.
 - Unappealing models;
 - Very dependant on rockets which are not UEF
 
-**Rommel** - unsure
+**Rommel** - unsure - Make it a T2 instead of banshee?
 
 - Visually pleasing, but underwhelming compared to all other t3 MOD units (better fit alongside titan/percival);
 - Mammoth tank from CNC3

@@ -374,6 +374,9 @@ function InitializeArmies()
         -- number of Opponents in the game
         self.NumOpponents = Opponents
         
+        -- default outnumbered ratio
+        self.OutnumberedRatio = 1
+        
         -- number of players in the game 
         self.Players = ScenarioInfo.Options.PlayerCount
         
@@ -450,6 +453,7 @@ function InitializeArmies()
 		
         transportplatoon:UniquelyNamePlatoon('TransportPool') 
 		transportplatoon.BuilderName = 'Transport Pool'
+        transportplatoon.UsingTransport = true      -- never review this platoon during a merge
 
 		self.TransportPool = transportplatoon
         
@@ -458,6 +462,7 @@ function InitializeArmies()
 		
         structurepool:UniquelyNamePlatoon('StructurePool')
 		structurepool.BuilderName = 'Structure Pool'
+        structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
 		
 		self.StructurePool = structurepool
         
@@ -466,6 +471,7 @@ function InitializeArmies()
 		
         refuelpool:UniquelyNamePlatoon('RefuelPool')
 		refuelpool.BuilderName = 'Refuel Pool'
+        refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
 		
 		self.RefuelPool = refuelpool
 		
@@ -613,7 +619,8 @@ function InitializeArmies()
                 local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
 				
                 for num,unit in tblResult do
-                    unit:CreateWreckageProp(0)
+                    -- all wrecks created here get 1800 second lifetime (30 minutes)
+                    unit:CreateWreckageProp(0, 1800)
                     unit:Destroy()
                 end
             end

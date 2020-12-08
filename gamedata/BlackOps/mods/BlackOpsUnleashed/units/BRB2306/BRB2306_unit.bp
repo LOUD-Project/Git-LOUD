@@ -158,9 +158,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.6,
 	
-    SizeX = 1.1,
+    SizeX = 1.0,
     SizeY = 2.8,
-    SizeZ = 1.1,
+    SizeZ = 1.0,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 230,

@@ -81,7 +81,7 @@ function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, categor
 			end	
 		end
 	end
-	
+
 	return true
 end
 

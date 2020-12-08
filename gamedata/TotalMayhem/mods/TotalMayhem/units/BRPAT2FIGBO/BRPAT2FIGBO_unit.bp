@@ -319,7 +319,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,STRUCTURE',
 			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			

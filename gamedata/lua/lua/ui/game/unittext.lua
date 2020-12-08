@@ -28,21 +28,32 @@ function FloatingEntityText(entryData)
 			end
 		
 			text.OnFrame = function(self, delta)
+            
 				self.time = self.time + (delta * .1)
 				
 				if GetUnitById(entryData.entity) then
+                
 					if GetCamera(view._cameraName):GetTargetZoom() > 145 then
-						self:Hide()
+
+                        self:Hide()
+
 					else
-						self:Show()
+
+                        self:Show()
+
 					end
+                    
 					self:UpdatePosition()
+                    
 					local newAlpha = self:GetAlpha() - (delta * .2)
+                    
 					if newAlpha < 0 then
 						text:Destroy()
 						newAlpha = 0
 					end
+                    
 					self:SetAlpha(newAlpha)
+                    
 				else
 					self:Destroy()
 				end

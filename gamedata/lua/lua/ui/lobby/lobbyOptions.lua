@@ -112,6 +112,29 @@ teamOptions =
 }
 
 globalOpts = {
+    {   default = 1,
+        label = "AI Multipler - Adaptive",
+        help = "The AI Multiplier adjusts over the course of the game.",
+        key = 'AdaptiveMult',
+        pref = 'Lobby_Adaptive_Mult',
+        values = {
+            {
+                text = "Off",
+                help = "The AI Multiplier does not change over the course of the game.",
+                key = 'Off',
+            },
+            {
+                text = "Timed Based",
+                help = "The AI Multipler adjusted upwards every 6 minutes by 0.02.",
+                key = 'Timed Based',
+            },
+            {
+                text = "Ratio Based",
+                help = "AI Multipler adjusted up and down, based upon it's relative strength comparison.  AI Multiplier is increased when losing, normal otherwise.",
+                key = 'Ratio Based',
+            },
+        },
+    },
 	{   default = 3,
         label = "AI Multiplier",
         help = "Set the difficulty multiplier for the AIs.",
@@ -208,6 +231,11 @@ globalOpts = {
                 key = '1.4',
             },
             {
+                text = "1.45",
+                help = "AI Difficulty +45%",
+                key = '1.45',
+            },            
+            {
                 text = "1.50",
                 help = "AI Difficulty +50%",
                 key = '1.5',
@@ -227,6 +255,11 @@ globalOpts = {
                 help = "AI Difficulty +100%",
                 key = '2.0',
             },
+            {
+                text = "2.50",
+                help = "AI Difficulty +150%",
+                key = '2.5',
+            },            
 
         },
 	},
@@ -594,202 +627,3 @@ globalOpts = {
     },
 
 }
-    
---[[
-	{   default = 5,
-        label = "AIx Cheat Multiplier",
-        help = "Set the resource multiplier for the cheating AIs.",
-        key = 'CheatMult',
-        pref = 'Lobby_Cheat_Mult',
-        values = {
-            {
-                text = "0.8",
-                help = "Resources -20% - slower",
-                key = '0.8',
-            },
-            {
-                text = "0.9",
-                help = "Resources -10% - slow",
-                key = '0.9',
-            },
-            {
-                text = "1.0",
-                help = "Standard Resources",
-                key = '1.0',
-            },
-            {
-                text = "1.05",
-                help = "AIx Resources +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AIx Resources +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AIx Resources +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AIx Resources +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AIx Resources +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AIx Resources +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AIx Resources +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AIx Resources +22.5%",
-                key = '1.225',
-            },
-            {   text = "1.250",
-                help = "AIx Resources +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.300",
-                help = "AIx Resources +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.35",
-                help = "AIx Resources +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.40",
-                help = "AIx Resources +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.50",
-                help = "AIx Resources +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.75",
-                help = "AIx Resources +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AIx Resources +100%",
-                key = '2.0',
-            },
-
-        },
-	},
-	{   default = 5,
-        label = "AIx Build Multiplier",
-        help = "Set the build rate multiplier for the cheating AIs.",
-        key = 'BuildMult',
-        pref = 'Lobby_Build_Mult',
-        values = {
-            {
-                text = "0.8",
-                help = "AIx Build Rate -20%",
-                key = '0.8',
-            },
-            {
-                text = "0.9",
-                help = "AIx Build Rate -10%",
-                key = '0.9',
-            },
-            {
-                text = "1.0",
-                help = "AIx Build Rate Normal",
-                key = '1.0',
-            },
-            {
-                text = "1.050",
-                help = "AIx Build Rate +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AIx Build Rate +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AIx Build Rate +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AIx Build Rate +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AIx Build Rate +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AIx Build Rate +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AIx Build Rate +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AIx Build Rate +22.5%",
-                key = '1.225',
-            },
-            {
-                text = "1.250",
-                help = "AIx Build Rate +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.30",
-                help = "AIx Build Rate +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.35",
-                help = "AIx Build Rate +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.40",
-                help = "AIx Build Rate +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.50",
-                help = "AIx Build Rate +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.75",
-                help = "AIx Build Rate +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AIx Build Rate +100%",
-                key = '2.0',
-            },
-        },
-	},
---]]
