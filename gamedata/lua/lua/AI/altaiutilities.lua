@@ -377,6 +377,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		-- minimum range that a DP can be from an existing base -- Land	
 		local minimum_baserange = 180
 
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." DP Positions is "..repr(positions))
+        
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
 	
@@ -388,6 +390,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         		
 				if brain.BuilderManagers[marker.Name] then
 			
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." already taken")
+                    
 					removed = true
 					break
 				end
@@ -399,6 +403,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				for basename, base in aiBrain.BuilderManagers do
 		
 					if VDist3( base.Position, marker.Position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, marker.Position ) > test_range then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." too close to "..repr(base.Position).." or too far from attack plan goal "..repr(aiBrain.AttackPlan.Goal).." "..VDist3( aiBrain.AttackPlan.Goal, marker.Position ))
 
 						removed = true
 						break
@@ -406,6 +412,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				end
 
 				if not removed then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." replying with "..marker.Name)
 
 					return marker.Position, marker.Name
 				end	

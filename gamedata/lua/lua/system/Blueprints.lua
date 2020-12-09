@@ -573,8 +573,8 @@ function ModBlueprints(all_blueprints)
         end
     end 
 
-	LOG("*AI DEBUG Capping GuardReturnRadius")
-	LOG("*AI DEBUG Adjusting View Radius")
+	--LOG("*AI DEBUG Capping GuardReturnRadius")
+	--LOG("*AI DEBUG Adjusting View Radius")
 	
 	local capreturnradius = 80
 	
@@ -901,7 +901,7 @@ function ModBlueprints(all_blueprints)
 		end
     end
 
-    LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
+    --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
 	
     for id,bp in pairs(all_blueprints.Unit) do				
 	
@@ -955,7 +955,7 @@ function ModBlueprints(all_blueprints)
 		end
     end
 
-	LOG("*AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS")
+	--LOG("*AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS")
 
 	local factions = {'UEF', 'Aeon', 'Cybran', 'Aeon'}
 

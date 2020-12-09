@@ -5992,7 +5992,8 @@ Platoon = Class(moho.platoon_methods) {
 			local startpos, refName
 			
 			if cons.NearMarkerType == 'Defensive Point' then
-			
+            
+                --  this will actually locate Defensive Points and 'small' Expansion Base markers --
 				startpos, refName = AIFindDefensivePointNeedsStructure( aiBrain, self.BuilderLocation, (cons.LocationRadius or 100), cons.MarkerUnitCategory, cons.MarkerRadius, cons.MarkerUnitCount, (cons.ThreatMin or 0), (cons.ThreatMax or 5), (cons.ThreatRings or 1), (cons.ThreatType or 'AntiSurface') )
 			
 			elseif cons.NearMarkerType == 'Start Location' then
