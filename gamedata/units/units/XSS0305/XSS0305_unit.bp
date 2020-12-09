@@ -1,42 +1,38 @@
+-- Original unit data by Balthazar, Modified for LOUD
 UnitBlueprint {
+    
+	AI = {
+        TargetBones = {
+            'XSB3102',
+        },
+    },
+	
     Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
         DoneBeingBuilt = Sound {
-            Bank = 'UES',
-            Cue = 'UES0305_Activate',
+            Bank = 'XSB',
+            Cue = 'XSB3202_Activate',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0305_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0305_Move_Start',
+            Bank = 'XSL_Destroy',
+            Cue = 'XSB_Destroy_Lrg_PreDestroy',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Sonar',
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Sonar',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    Buffs = {
-        Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
-        },
-    },
-	
     BuildIconSortPriority = 190,
-	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
+		'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
         'SERAPHIM',
         'MOBILE',
@@ -47,30 +43,26 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'MOBILESONAR',
-		'OVERLAYRADAR',
+        'DRAGBUILD',
         'OVERLAYSONAR',
+        'OVERLAYDEFENSE',
         'SORTINTEL',
     },
-	
     CollisionOffsetY = -0.25,
-	
     Defense = {
+        AirThreatLevel = 0,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 50,
-        Health = 2000,
-        MaxHealth = 2000,
-        RegenRate = 3,
-        SubThreatLevel = 6,
-        SurfaceThreatLevel = 7,
+        EconomyThreatLevel = 2,
+        Health = 3500,
+        MaxHealth = 3500,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
     },
-	
-    Description = '<LOC xss0305_desc>Mobile Sonar Platform',
-	
+    Description = '<LOC uas0305_desc>Sonar Platform',
     Display = {
         Abilities = {
-			'Sonar & Radar',
-			'Sonar & Radar stealth',
-            'Torpedoes',
+            '<LOC ability_sonar>Sonar',
         },
         IdleEffects = {
             Water = {
@@ -79,7 +71,6 @@ UnitBlueprint {
                         Bones = {
                             0,
                         },
-                        Scale = 1,
                         Type = 'SeaIdle02',
                     },
                 },
@@ -90,13 +81,22 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 100,
-                    ShaderName = 'Unit',
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                    MeshName = '/units/xsb3202/xsb3202_lod0.scm',
+                    AlbedoName = '/units/xsb3202/xsb3202_albedo.dds',
+                    SpecularName = '/units/xsb3202/xsb3202_specteam.dds',
+                    NormalsName = '/units/xsb3202/xsb3202_normalsts.dds',
                 },
                 {
-                    AlbedoName = 'xss0305_lod1_albedo.dds',
                     LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'xss0305_lod1_specteam.dds',
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    MeshName = '/units/xsb3202/xsb3202_lod1.scm',
+                    AlbedoName = '/units/xsb3202/xsb3202_lod1_albedo.dds',
+                    SpecularName = '/units/xsb3202/xsb3202_lod1_specteam.dds',
+                    NormalsName = '/units/xsb3202/xsb3202_lod1_normalsts.dds',
                 },
             },
         },
@@ -113,21 +113,29 @@ UnitBlueprint {
                 },
             },
         },
-        UniformScale = 0.02,
+        SpawnRandomRotation = true,
+        UniformScale = 0.06,
     },
+    
     Economy = {
         BuildCostEnergy = 12000,
         BuildCostMass = 400,
         BuildTime = 2000,
-		
+        
         MaintenanceConsumptionPerSecondEnergy = 750,
     },
-
+    
+    Footprint = {
+        MinWaterDepth = 0,
+        SizeX = 2,
+        SizeZ = 2,
+    },
+    
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
         CommandCaps = {
-            RULEUCC_Attack = true,
+            RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
             RULEUCC_Capture = false,
             RULEUCC_Guard = false,
@@ -137,11 +145,11 @@ UnitBlueprint {
             RULEUCC_Pause = false,
             RULEUCC_Reclaim = false,
             RULEUCC_Repair = false,
-            RULEUCC_RetaliateToggle = true,
+            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'UEF',
+        FactionName = 'Seraphim',
         Icon = 'sea',
         OrderOverrides = {
             RULEUTC_IntelToggle = {
@@ -149,37 +157,36 @@ UnitBlueprint {
                 helpText = 'toggle_sonar',
             },
         },
-        TechLevel = 'RULEUTL_Basic',
+        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
+        UnitName = '<LOC sss0305_name>Aezhou',
         UnitWeight = 1,
         UpgradesFrom = 'xsb3202',
     },
-	
+    
     Intel = {
-		RadarRadius = 128,
 		RadarStealth = true,
-        SonarRadius = 175,
 		SonarStealth = true,
+        SonarRadius = 175,
         VisionRadius = 32,
         WaterVisionRadius = 40,
     },
-	
+    
     Interface = {
-        HelpText = 'Mobile Sonar Platform',
+        HelpText = '<LOC uas0305_help>Sonar Platform',
     },
-	
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1.25,
-	
+    
     Physics = {
-        BackUpDistance = 0,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Air = false,
-            LAYER_Land = true,
+            LAYER_Land = false,
             LAYER_Orbit = false,
             LAYER_Seabed = false,
             LAYER_Sub = false,
@@ -187,107 +194,28 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
+        MaxAcceleration = 1.5,
         MaxBrake = 2,
-        MaxSpeed = 4,
+        MaxSpeed = 4.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
-        MeshExtentsOffsetY = -1.7,
-        MeshExtentsX = 1.25,
-        MeshExtentsY = 2.8,
-        MeshExtentsZ = 1.25,
+        MeshExtentsX = 1.8,
+        MeshExtentsY = 1.2,
+        MeshExtentsZ = 1.8,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 5,
         TurnRate = 100,
     },
-	
-    SelectionSizeX = 0.65,
-    SelectionSizeZ = 0.65,
-    SelectionThickness = 0.6,
-	
-    SizeX = 0.9,
-    SizeY = 1.1,
-    SizeZ = 0.9,
-	
+    
+    SelectionSizeX = 0.72,
+    SelectionSizeZ = 0.72,
+    SelectionThickness = 0.66,
+    
+    SizeX = 1,
+    SizeY = 1.2,
+    SizeZ = 1,
+    
     StrategicIconName = 'icon_structure3_intel',
-    StrategicIconSortPriority = 230,
-	
-    Veteran = {
-        Level1 = 16,
-        Level2 = 32,
-        Level3 = 48,
-        Level4 = 64,
-        Level5 = 80,
-    },
-	
-    Weapon = {
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_AnaIt_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 60,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Ana-it Torpedo Launcher',
-			
-            FireTargetLayerCapsTable = {
-                Sub = 'Seabed|Sub|Water',
-                Water = 'Seabed|Sub|Water',
-            },
-			
-            FiringTolerance = 15,
-			
-            Label = 'Torpedo01',
-			
-            MaxRadius = 48,
-			
-            MuzzleSalvoDelay = 0.4,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 3,
-			
-            ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
-            ProjectileLifetime = 8,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Projectile01',
-						'Projectile02',
-                    },
-                    RackBone = 'Projectile01',
-                },
-            },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 0.5,		-- 4 torps of 60 every 2 seconds = 120 DPS Sub
-			
-            TargetCheckInterval = 1,
-			
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
-				'MOBILE',
-                'STRUCTURE DEFENSE',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-        },	
-	},
+    StrategicIconSortPriority = 235,
 }
