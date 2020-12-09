@@ -514,7 +514,7 @@ PhxLib.PhxWeapDPS = function(weapon)
 
     else
         if(debug) then print("Unknown") end
-        print("ERROR: Weapon Type Undetermined")
+        if (debug) then print("ERROR: Weapon Type Undetermined")
         Warn = Warn .. 'Unknown Type,'
         Tdamage = 0
         Ttime = 1
