@@ -1,0 +1,17 @@
+name = "(DEV USE ONLY) Tanksy's Experiments"
+uid = "ffffffff-LOUD-DEVb-ONLY-TExperiments"
+version = 1.1
+copyright = "None"
+description = "(This mod shouldn't be seen in release) This mod hosts Tanksy's current blueprint experiments."
+author = "Tanksy"
+url = ""
+icon = "/mods/LOUD.bmp"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+requires = { }
+requiresNames = { }
+conflicts = { }
+before = { }
+after = { }
