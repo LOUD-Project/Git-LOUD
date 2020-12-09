@@ -431,8 +431,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
-			-- can't be a major enemy base with 12.5km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 250 }},
+			-- can't be a major enemy base within 12km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 600, 'Economy', 1500 }},
 			
 			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
