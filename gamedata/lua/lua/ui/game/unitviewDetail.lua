@@ -14,6 +14,14 @@ local enhancementSlotNames = {}
 local LOUDFIND = string.find
 local LOUDFORMAT = string.format
 local LOUDFLOOR = math.floor
+local LOUDUPPER = string.upper
+local LOUDLOWER = string.lower
+local LOUDSUB = string.sub
+
+-- This function ensures the given string's initial character is upper-case, whilst the rest are lower case.
+function LOUD_CaseCheck(aString)
+	return LOUDUPPER(LOUDSUB(aString, 1, 1)) .. LOUDLOWER(LOUDSUB(aString, 2, -1))
+end
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
 function LOUD_KiloCheck(aMeasurement)
@@ -274,19 +282,19 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 		local lastWeaponDmgRad = 0
 		local lastWeaponMinRad = 0
 		local lastWeaponMaxRad = 0
-		--local lastWeaponROF = 0
+		local lastWeaponROF = 0
 		local lastWeaponFF = false
+		local lastWeaponCF = false
+		local lastWeaponTarget = ''
 		local lastWeaponNukeInDmg = 0
 		local lastWeaponNukeInRad = 0
-		local lastWeaponNukeInTime = 0
 		local lastWeaponNukeOutDmg = 0
 		local lastWeaponNukeOutRad = 0
-		local lastWeaponNukeOutTime = 0
 		local weaponText = ""
 		
 		-- BuffType.
 		local bType = ""
-		-- RangeCategory.
+		-- Weapon Category is checked to color lines, as well as checked for countermeasure weapons and differentiating the info displayed.
 		local wepCategory = ""
 		
 		local dupWeaponCount = 1
@@ -309,7 +317,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 						wepCategory = "Anti Navy"
 					end
 					if weapon.RangeCategory == 'UWRC_Countermeasure' then
-						wepCategory = "Countermeasure"
+						wepCategory = " defense"
 					end
 				end
 				
@@ -336,6 +344,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 				end
 				if weapon.Label == 'ChinGun' then
 					wepCategory = "Direct"
+				end
+				if LOUDFIND(weapon.Label, 'Melee') then
+					wepCategory = "Melee"
 				end
 				
 				-- Check if we're a Nuke weapon by checking our InnerRingDamage, which all Nukes must have.
@@ -427,7 +438,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 						weaponText = wepCategory
 						
 						-- Check DamageFriendly and Buffs
-						if wepCategory ~= "Countermeasure" then
+						if wepCategory ~= " defense" and wepCategory ~= "Melee" then
 							if weapon.CollideFriendly ~= false or (weapon.DamageRadius > 0 and weapon.DamageFriendly ~= false) or weapon.Buffs ~= nil then
 								weaponText = (weaponText .. " (")
 								if weapon.Buffs then
@@ -471,28 +482,38 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 								weaponText = (weaponText .. ", AoE: " .. LOUD_KiloCheck(weapon.DamageRadius * 20))
 							end
 						else
-							-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
-							weaponText = (weaponText .. " {")
+							if wepCategory == " defense" then
+								-- Display Countermeasure Targets as the weapon type.
+								if weapon.TargetRestrictOnlyAllow then
+									weaponText = (LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
+								end
+								
+								-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
+								weaponText = (weaponText .. " {")
+
+								-- Show RoF for Countermeasure weapons.
+								if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then
+									weaponText = (weaponText .. " RoF: " .. LOUDFORMAT("%.2f", PhxLib.PhxWeapDPS(weapon).RateOfFire) .. "/s"):gsub("%.?0+$", "")
+								end
+							end
+							-- Special case for Melee weapons, only showing Damage.
+							if wepCategory == "Melee" then
+								weaponText = (weaponText .. " { Dmg: " .. LOUD_ThouCheck(weapon.Damage))
+							end
 						end
 						
-						-- Check RateOfFire and concat. (NOTE: Commented out for now. DPS can infer ROF well enough and we have limited real-estate in the rollover box until someone figures out how to extend its width limit.)
-						--if weapon.RateOfFire > 0 then
-						--	weaponText = (weaponText .. ", RoF: " .. LOUDFORMAT("%.2f", weapon.RateOfFire) .. "/s")
-						--end
+						-- Check RateOfFire and concat.
+						-- (NOTE: Commented out for now. DPS can infer ROF well enough and we have limited real-estate in the rollover box until someone figures out how to extend its width limit.)
+						if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then
+						--	weaponText = (weaponText .. ", RoF: " .. LOUDFORMAT("%.2f", weapon.RateOfFire) .. "/s"):gsub("%.?0+$", "")
+						end
+						
 						-- Check Min/Max Radius and concat.
 						if weapon.MaxRadius > 0 then
 							if weapon.MinRadius > 0 then
-								if wepCategory ~= "Countermeasure" then
-									weaponText = (weaponText .. ", Rng: " .. LOUD_KiloCheck(weapon.MinRadius * 20) .. "-" .. LOUD_KiloCheck(weapon.MaxRadius * 20))
-								else
-									weaponText = (weaponText .. " Rng: " .. LOUD_KiloCheck(weapon.MinRadius * 20) .. "-" .. LOUD_KiloCheck(weapon.MaxRadius * 20))
-								end
+								weaponText = (weaponText .. ", Rng: " .. LOUD_KiloCheck(weapon.MinRadius * 20) .. "-" .. LOUD_KiloCheck(weapon.MaxRadius * 20))
 							else
-								if wepCategory ~= "Countermeasure" then
-									weaponText = (weaponText .. ", Rng: " .. LOUD_KiloCheck(weapon.MaxRadius * 20))
-								else
-									weaponText = (weaponText .. " Rng: " .. LOUD_KiloCheck(weapon.MaxRadius * 20))
-								end
+								weaponText = (weaponText .. ", Rng: " .. LOUD_KiloCheck(weapon.MaxRadius * 20))
 							end
 						end
 						
@@ -501,7 +522,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 
 						-- Check duplicate weapons. We compare lots of values here, 
 						-- any slight difference should be considered a different weapon. 
-						if weapon.Damage == lastWeaponDmg and LOUDFLOOR(PhxLib.PhxWeapDPS(weapon).DPS + 0.5) == lastWeaponDPS and weapon.ProjectilesPerOnFire == lastWeaponPPOF and weapon.DoTPulses == lastWeaponDoT and weapon.DamageRadius == lastWeaponDmgRad and weapon.MinRadius == lastWeaponMinRad and weapon.MaxRadius == lastWeaponMaxRad and weapon.DamageFriendly == lastWeaponFF then
+						if weapon.Damage == lastWeaponDmg and LOUDFLOOR(PhxLib.PhxWeapDPS(weapon).DPS + 0.5) == lastWeaponDPS and weapon.ProjectilesPerOnFire == lastWeaponPPOF and weapon.DoTPulses == lastWeaponDoT and weapon.DamageRadius == lastWeaponDmgRad and weapon.MinRadius == lastWeaponMinRad and weapon.MaxRadius == lastWeaponMaxRad and weapon.DamageFriendly == lastWeaponFF and PhxLib.PhxWeapDPS(weapon).RateOfFire == lastWeaponROF and weapon.CollideFriendly == lastWeaponCF and weapon.TargetRestrictOnlyAllow == lastWeaponTarget then
 							dupWeaponCount = dupWeaponCount + 1
 							-- Remove the old line, to insert the new one with the updated weapon count.
 							table.remove(textLines, table.getn(textLines))
@@ -520,10 +541,12 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 				lastWeaponPPOF = weapon.ProjectilesPerOnFire
 				lastWeaponDoT = weapon.DoTPulses
 				lastWeaponDmgRad = weapon.DamageRadius
-				--lastWeaponROF = weapon.RateOfFire
+				lastWeaponROF = PhxLib.PhxWeapDPS(weapon).RateOfFire
 				lastWeaponMinRad = weapon.MinRadius
 				lastWeaponMaxRad = weapon.MaxRadius
 				lastWeaponFF = weapon.DamageFriendly
+				lastWeaponCF = weapon.CollideFriendly
+				lastWeaponTarget = weapon.TargetRestrictOnlyAllow
 				lastWeaponNukeInDmg = weapon.NukeInnerRingDamage
 				lastWeaponNukeInRad = weapon.NukeInnerRingRadius
 				lastWeaponNukeOutDmg = weapon.NukeOuterRingDamage
@@ -625,13 +648,13 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
 			if LOUDFIND(tostring(v), "Direct") then	-- Direct Fire
 				control.Value[index]:SetColor('ffff3333')
-			elseif LOUDFIND(tostring(v), "Anti Air") then -- Anti Air
-				control.Value[index]:SetColor('ff00ffff')
 			elseif LOUDFIND(tostring(v), "Indirect") then -- Indirect Fire
 				control.Value[index]:SetColor('ffffff00')
 			elseif LOUDFIND(tostring(v), "Anti Navy") then -- Anti Navy
 				control.Value[index]:SetColor('ff00ff00')
-			elseif LOUDFIND(tostring(v), "Countermeasure") then -- Countermeasure
+			elseif LOUDFIND(tostring(v), "Anti Air") then -- Anti Air
+				control.Value[index]:SetColor('ff00ffff')
+			elseif LOUDFIND(tostring(v), " defense") then -- Countermeasure
 				control.Value[index]:SetColor('ffffa500')
 			elseif LOUDFIND(tostring(v), "Nuke") then -- Nuke
 				control.Value[index]:SetColor('ffffa500')
@@ -641,6 +664,8 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 				control.Value[index]:SetColor('ffb077ff')
 			elseif LOUDFIND(tostring(v), "Suicide") then -- Kamikaze/Suicide
 				control.Value[index]:SetColor('ffb077ff')
+			elseif LOUDFIND(tostring(v), "Melee") then	-- Melee
+				control.Value[index]:SetColor('ffff3333')
 			else
 				control.Value[index]:SetColor('ff909090')
 			end
