@@ -5269,7 +5269,8 @@ Unit = Class(moho.unit_methods) {
 		
 		-- Teleport Cooldown Charge
 		-- Range Check to location
-		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange
+		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange or 350
+        
 		local myposition = self:GetPosition()
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
 		
@@ -5296,7 +5297,7 @@ Unit = Class(moho.unit_methods) {
 				end
 				
 				-- the range at which this unit blocks teleportation
-				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance
+				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance or 75
 				
 				local atposition = unit:GetPosition()
 				local selfpos = self:GetPosition()
@@ -5326,7 +5327,7 @@ Unit = Class(moho.unit_methods) {
         -- Economy Check and Drain
 		local bp = ALLBPS[self.BlueprintID]
 		
-		local telecost = bp.Economy.TeleportBurstEnergyCost or 1500
+		local telecost = bp.Economy.TeleportBurstEnergyCost or 5000
 		
         local mybrain = self:GetAIBrain()
 		
@@ -5495,25 +5496,26 @@ Unit = Class(moho.unit_methods) {
 		
         local bp = ALLBPS[self.BlueprintID].Economy
 		
-        local teleportvalue, time
+        local teleportenergy, teleporttime
 		
         if bp then
 		
 			-- calc a resource cost value based on both mass and energy
             local mass = bp.BuildCostMass * math.min(.15, bp.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
-            local energy = bp.BuildCostEnergy * math.min(.012, bp.TeleportEnergyMod or 0.12)		-- ei. 5m Energy becomes 60,000
+            local energy = bp.BuildCostEnergy * math.min(.03, bp.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
 			
-            teleportvalue = mass + energy
+            teleportenergy = mass + energy
 			
 			-- teleport never takes more than 15 seconds --
 			-- but according to this comes in at around 1.5% of the resource cost value
-            time = math.min(15, teleportvalue * math.max(.001, bp.TeleportTimeMod or 0.015))
+            -- time = math.min(15, teleportvalue * math.max(.001, bp.TeleportTimeMod or 0.015))
+            teleporttime = 12
 			
 			--LOG('*AI DEBUG Teleporting value '..repr(teleportvalue)..' time = '..repr(time).." "..repr(teleportvalue/time).."E per second" )
 			
         end
 
-        self.TeleportDrain = CreateEconomyEvent(self, teleportvalue or 5000, 0, time or 15, self.UpdateTeleportProgress)
+        self.TeleportDrain = CreateEconomyEvent(self, teleportenergy or 10000, 0, teleporttime or 15, self.UpdateTeleportProgress)
 
         -- teleport charge effect
         EffectUtilities.PlayTeleportChargeEffects(self)
@@ -5539,7 +5541,7 @@ Unit = Class(moho.unit_methods) {
 		
         EffectUtilities.PlayTeleportInEffects(self)
 
-        WaitTicks(1) 	-- Perform cooldown Teleportation FX here
+        WaitTicks(5) 	-- Perform cooldown Teleportation FX here
         
         --self:StopUnitAmbientSound('TeleportLoop')
         self:PlayUnitSound('TeleportEnd')

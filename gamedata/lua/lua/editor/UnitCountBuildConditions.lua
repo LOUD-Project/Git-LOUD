@@ -166,6 +166,7 @@ end
 
 function DefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType )
 
+    -- NOTE: This returns true for actual DP markers AND Expansion Marker (as opposed to Large Expansion Marker)
     if AIFindDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end

@@ -632,7 +632,7 @@ function AdaptiveCheatThread ( aiBrain )
         -- we'll cap it at a maximum of 4 -- stupidly high - but hey ? why not ?
 		if ScenarioInfo.Options.AdaptiveMult == 'Timed Based' and AIMult < 4 then
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Time Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(AIMult) )
 
 
             -- here you could introduce a change to the delayperiod - having it modify up or down
@@ -686,7 +686,7 @@ function AdaptiveCheatThread ( aiBrain )
             -- if the value has changed since last processed then update
             if lastupdate and lastupdate != AIMult + cheatincrease then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." ACT (Ratio Based) cycles at "..repr(GetGameTimeSeconds()).." seconds.  Mult goes to "..repr(AIMult+cheatincrease).." from "..repr(lastupdate) )
 
                 SetArmyPoolBuff(aiBrain, AIMult + cheatincrease)
                 
@@ -975,7 +975,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                     -- if this is NOT already the current primary Land Attack Base
                     if not aiBrain.LastPrimaryLandAttackBase or aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
 					
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
 					
                         -- reset the tasks with Priority Functions at this PFM
                         builderManager:ForkThread( ResetPFMTasks, aiBrain )
@@ -1084,7 +1084,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                     -- save the current position on the brain and notify allies
                     if not aiBrain.LastPrimarySeaAttackBase or aiBrain.LastPrimarySeaAttackBase != aiBrain.PrimarySeaAttackBase then
 					
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
 					
                         -- reset the tasks with Priority Functions at this PFM
                         builderManager:ForkThread( ResetPFMTasks, aiBrain )
