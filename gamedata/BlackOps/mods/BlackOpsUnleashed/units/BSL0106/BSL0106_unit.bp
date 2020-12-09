@@ -55,8 +55,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Draws Enemy Fire onto itself',
-			'Veterans Quickly',
+            'Attracts enemy fire',
+			'Veterans quickly',
         },
         AnimationDeath = {
             {
@@ -165,7 +165,7 @@ UnitBlueprint {
     SizeY = 0.6,
     SizeZ = 0.8,
 	
-    StrategicIconName = 'icon_bot1_directfire',
+    StrategicIconName = 'icon_bot1_protector',
     StrategicIconSortPriority = 135,
 	
     Transport = {
