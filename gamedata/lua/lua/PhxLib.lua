@@ -350,7 +350,7 @@ PhxLib.PhxWeapDPS = function(weapon)
                      "/" .. (weapon.DisplayName or "None")
     local Warn = ''
 
-    local debug = true
+    local debug = false
 
     local numRackBones = 0
     local numMuzzleBones = 0
