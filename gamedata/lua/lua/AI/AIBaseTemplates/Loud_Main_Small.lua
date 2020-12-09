@@ -162,7 +162,7 @@ BaseBuilderTemplate {
         local mapSizeX, mapSizeZ = GetMapSize()
 
         -- If we're playing on a 5k or 10k map or low pop
-        if (mapSizeX <= 512 or mapSizeZ <= 512) or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then 	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
+        if (mapSizeX <= 512 or mapSizeZ <= 512) or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
             return 100, 'loud'
 			
         -- If we're playing on a 20k map
