@@ -3,7 +3,7 @@ Textures 6.01
 BrewLAN 0.84
 Lua 5.3.28
 
-- AI can now adapt its multiplier in response to certain factors.If the corresponding lobby global option is set to "Time-Based", the AI will increase its multiplier by 0.02 every 6 minutes. If the option is set to "Ratio-Based", all AI will increase their multipliers up to a max of 0.5 based on the relative size of their land army ratio to that of their enemies.
+- AI can now adapt its multiplier in response to certain factors. If the corresponding lobby global option is set to "Time-Based", the AI will increase its multiplier by 0.02 every 6 minutes. If the option is set to "Ratio-Based", all AI will increase their multipliers up to a max of 0.5 based on the relative size of their land army ratio to that of their enemies.
 - New AI multiplier options: 1.45 and 2.5.
 - Two new units:
   - Deluge - Aeon Experimental Dreadnought, equipped with a downsized Salvation cannon and personal shield.
