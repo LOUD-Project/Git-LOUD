@@ -1,6 +1,6 @@
-######################
-# AIBrain Lua Module
-######################
+--
+-- AIBrain Lua Module
+--
 
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
@@ -228,7 +228,34 @@ Marker = function(mType, mposition)
 	
 end
 
+-- List of AI cheat multipliers to map against per-AI lobby setting
 
+aiMults = {
+    0.8,
+    0.9,
+    1.0,
+    1.05,
+    1.075,
+    1.1,
+    1.125,
+    1.15,
+    1.175,
+    1.2,
+    1.225,
+    1.25,
+    1.275,
+    1.3,
+    1.325,
+    1.35,
+    1.375,
+    1.4,
+    1.45,
+    1.5,
+    1.6,
+    1.75,
+    2.0,
+    2.5
+}
 
 function locals()
 
@@ -644,9 +671,12 @@ AIBrain = Class(moho.aibrain_methods) {
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
 
-        -- store the cheat value (ie. 1.1 = 10% cheat)
-        self.CheatValue = tonumber(ScenarioInfo.Options.AIMult)
+        -- Store the cheat value (ie. 1.1 = 10% cheat)
+        self.CheatValue = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 
+		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
+		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
+		
         local civilian = false
         
         for name,data in ScenarioInfo.ArmySetup do
@@ -659,9 +689,9 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         end
 
-        if not civilian then
-
-            LOG("*AI DEBUG "..self.Nickname.." Setting Cheat Value to "..repr(self.CheatValue))
+		if not civilian then
+			
+            LOG("*AI DEBUG "..self.Nickname.." setting cheat value to "..repr(self.CheatValue))
 
 			if planName and planName != '' then
 			
@@ -680,8 +710,13 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
 
-				-- start the adaptive cheat thread for cheating AI -- 
-				self.AdaptiveCheatThread = ForkThread(import('/lua/loudutilities.lua').AdaptiveCheatThread, self)
+				-- Start adaptive cheat threads
+				if (self.Adaptive == 2 or self.Adaptive == 4) then
+					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
+				end
+				if (self.Adaptive == 3 or self.Adaptive == 4) then
+					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
+				end
 			end
 		else
         
@@ -1695,16 +1730,16 @@ AIBrain = Class(moho.aibrain_methods) {
 			self.T4ThreatFound[v] = false
 		end
 	end,
-#    INTEL TRIGGER SPEC
-#    {
-#        CallbackFunction = <function>,
-#        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
-#        Blip = true/false,
-#        Value = true/false,
-#        Category: blip category to match
-#        OnceOnly: fire onceonly
-#        TargetAIBrain: AI Brain of the army you want it to trigger off of.
-#    },
+--    INTEL TRIGGER SPEC
+--    {
+--        CallbackFunction = <function>,
+--        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
+--        Blip = true/false,
+--        Value = true/false,
+--        Category: blip category to match
+--        OnceOnly: fire onceonly
+--        TargetAIBrain: AI Brain of the army you want it to trigger off of.
+--    },
     SetupArmyIntelTrigger = function(self, triggerSpec)
         LOUDINSERT(self.IntelTriggerList, triggerSpec)
     end,

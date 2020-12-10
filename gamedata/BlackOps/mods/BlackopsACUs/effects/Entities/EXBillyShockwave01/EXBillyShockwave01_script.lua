@@ -1,6 +1,6 @@
-#
-# script for projectile BoneAttached
-#
+--
+-- script for projectile BoneAttached
+--
 local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
 
 EXBillyShockwave01 = Class(EmitterProjectile) {

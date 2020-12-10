@@ -1,6 +1,6 @@
-#* File: lua/modules/ui/game/wolrdview.lua
-#* Author: Chris Blackwell
-#* Summary: UI to manage the games main world view
+--* File: lua/modules/ui/game/wolrdview.lua
+--* Author: Chris Blackwell
+--* Summary: UI to manage the games main world view
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')

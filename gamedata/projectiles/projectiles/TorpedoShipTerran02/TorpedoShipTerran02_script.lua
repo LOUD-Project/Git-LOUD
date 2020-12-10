@@ -1,6 +1,6 @@
-#
-# Terran Land-based torpedo
-#
+--
+-- Terran Land-based torpedo
+--
 local TTorpedoShipProjectile = import('/lua/terranprojectiles.lua').TTorpedoShipProjectile
 TorpedoShipTerran02 = Class(TTorpedoShipProjectile) {
     FxSplashScale = 1,

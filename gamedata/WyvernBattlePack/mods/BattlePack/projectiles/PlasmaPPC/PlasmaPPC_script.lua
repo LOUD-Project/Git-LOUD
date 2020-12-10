@@ -1,4 +1,4 @@
-# an energy proj based on EnergyProj1 but with smaller effects
+-- an energy proj based on EnergyProj1 but with smaller effects
 
 local PlasmaPPC = import('/mods/BattlePack/lua/BattlePackprojectiles.lua').NEnergy
 

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**  File     :  /projectiles/Energy_Missile/Energy_Missile_script.lua
-#**
-#**  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime
-#**
-#**  Summary  :  Seraphem Energy Missile Projectile script for XSL0310a
-#**
-#**  Copyright © 2010 4DC  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**  File     :  /projectiles/Energy_Missile/Energy_Missile_script.lua
+--**
+--**  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime
+--**
+--**  Summary  :  Seraphem Energy Missile Projectile script for XSL0310a
+--**
+--**  Copyright ï¿½ 2010 4DC  All rights reserved.
+--****************************************************************************
 
 local EnergyMissile = import('/lua/seraphimprojectiles.lua').SLaanseTacticalMissile
 

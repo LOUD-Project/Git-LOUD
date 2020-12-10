@@ -1,6 +1,6 @@
-#
-# Terran Nuke Missile
-#
+--
+-- Terran Nuke Missile
+--
 local TIFSmallYieldNuclearBombProjectile = import('/lua/terranprojectiles.lua').TArtilleryAntiMatterProjectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 

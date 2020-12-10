@@ -1,8 +1,8 @@
-#
-# Spy Plane Launched Sonar Buoy Creator
-#   This will create a temporary sonar buoy unit when it hits the water, nothing more.
-#   This projectile is not intended to do damage.
-#
+--
+-- Spy Plane Launched Sonar Buoy Creator
+--   This will create a temporary sonar buoy unit when it hits the water, nothing more.
+--   This projectile is not intended to do damage.
+--
 local TTorpedoShipProjectile = import('/lua/terranprojectiles.lua').TTorpedoShipProjectile
 
 TIMSonarBuoyCreator01 = Class(TTorpedoShipProjectile) {

@@ -112,157 +112,6 @@ teamOptions =
 }
 
 globalOpts = {
-    {   default = 1,
-        label = "AI Multipler - Adaptive",
-        help = "The AI Multiplier adjusts over the course of the game.",
-        key = 'AdaptiveMult',
-        pref = 'Lobby_Adaptive_Mult',
-        values = {
-            {
-                text = "Off",
-                help = "The AI Multiplier does not change over the course of the game.",
-                key = 'Off',
-            },
-            {
-                text = "Timed Based",
-                help = "The AI Multipler adjusted upwards every 6 minutes by 0.02.",
-                key = 'Timed Based',
-            },
-            {
-                text = "Ratio Based",
-                help = "AI Multipler adjusted up and down, based upon it's relative strength comparison.  AI Multiplier is increased when losing, normal otherwise.",
-                key = 'Ratio Based',
-            },
-        },
-    },
-	{   default = 3,
-        label = "AI Multiplier",
-        help = "Set the difficulty multiplier for the AIs.",
-        key = 'AIMult',
-        pref = 'Lobby_AI_Mult',
-        values = {
-            {
-                text = "0.8",
-                help = "AI Difficulty -20% - slower",
-                key = '0.8',
-            },
-            {
-                text = "0.9",
-                help = "AI Difficulty -10% - slow",
-                key = '0.9',
-            },
-            {
-                text = "1.0",
-                help = "Standard",
-                key = '1.0',
-            },
-            {
-                text = "1.05",
-                help = "AI Difficulty +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AI Difficulty +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AI Difficulty +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AI Difficulty +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AI Difficulty +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AI Difficulty +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AI Difficulty +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AI Difficulty +22.5%",
-                key = '1.225',
-            },
-            {   text = "1.250",
-                help = "AI Difficulty +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.275",
-                help = "AI Difficulty +27.5%",
-                key = '1.275',
-            },            
-            {
-                text = "1.300",
-                help = "AI Difficulty +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.325",
-                help = "AI Difficulty +32.5%",
-                key = '1.325',
-            },            
-            {
-                text = "1.35",
-                help = "AI Difficulty +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.375",
-                help = "AI Difficulty +37.5%",
-                key = '1.375',
-            },            
-            {
-                text = "1.40",
-                help = "AI Difficulty +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.45",
-                help = "AI Difficulty +45%",
-                key = '1.45',
-            },            
-            {
-                text = "1.50",
-                help = "AI Difficulty +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.60",
-                help = "AI Difficulty +60%",
-                key = '1.6',
-            },            
-            {
-                text = "1.75",
-                help = "AI Difficulty +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AI Difficulty +100%",
-                key = '2.0',
-            },
-            {
-                text = "2.50",
-                help = "AI Difficulty +150%",
-                key = '2.5',
-            },            
-
-        },
-	},
 	{   default = 2,
         label = "AI Unit Cap",
         help = "Set the Unit Cap limit for the AIs.",
@@ -285,7 +134,130 @@ globalOpts = {
                 key = 'off',
             },
         },
-	},
+    },
+    
+    {
+        default = 1,
+        label = "AI Time-Based Cheat Start Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
+        key = "ACTStartDelay",
+        pref = 'Lobby_ACT_Start_Delay',
+        values = {
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "AI Time-Based Cheat Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+        key = "ACTTimeDelay",
+        pref = 'Lobby_ACT_Time_Delay',
+        values = {
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will increase every 6 minutes.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will increase every 10 minutes.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will increase every 15 minutes.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 2,
+        label = "AI Time-Based Cheat Amount",
+        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        key = "ACTTimeAmount",
+        pref = 'Lobby_ACT_Time_Amount',
+        values = {
+            {
+                text = "0.01",
+                help = "The AI's cheat multiplier will increase by 0.01 every interval.",
+                key = '0.01',
+            },
+            {
+                text = "0.02",
+                help = "The AI's cheat multiplier will increase by 0.02 every interval.",
+                key = '0.02',
+            },
+            {
+                text = "0.05",
+                help = "The AI's cheat multiplier will increase by 0.05 every interval.",
+                key = '0.05',
+            },
+        },
+    },
+    {
+        default = 3,
+        label = "AI Time-Based Cheat Limit",
+        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        key = "ACTTimeCap",
+        pref = 'Lobby_ACT_Time_Cap',
+        values = {
+            {
+                text = "2.0",
+                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                key = '2',
+            },
+            {
+                text = "3.0",
+                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                key = '3',
+            },
+            {
+                text = "4.0",
+                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                key = '4',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "AI Feedback Cheat Interval",
+        help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+        key = "ACTRatioInterval",
+        pref = 'Lobby_ACT_Ratio_Interval',
+        values = {
+            {
+                text = "15",
+                help = "The AI's cheat multiplier may change every 15 seconds.",
+                key = '15',
+            },
+            {
+                text = "30",
+                help = "The AI's cheat multiplier may change every 30 seconds.",
+                key = '30',
+            },
+            {
+                text = "45",
+                help = "The AI's cheat multiplier may change every 45 seconds.",
+                key = '45',
+            },
+        },
+    },
+
+    -- Non-AI-specific
 
     {
         default = 9,

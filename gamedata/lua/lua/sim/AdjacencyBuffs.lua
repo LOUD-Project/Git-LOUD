@@ -2340,9 +2340,9 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     },
 }
 
-########################
-## Experimental STORAGE
-########################
+--
+-- Experimental STORAGE
+--
 ExperimentalStorageAdjacencyBuff = {
     'ExperimentalMassStorageProductionBonus',
     'ExperimentalEnergyStorageProductionBonus',

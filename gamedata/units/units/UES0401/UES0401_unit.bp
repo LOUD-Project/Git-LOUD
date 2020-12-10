@@ -358,7 +358,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 9.5,
 	
-    StrategicIconName = 'icon_experimental_sub_carrier',
+    StrategicIconName = 'icon_experimental_sub_air',
     StrategicIconSortPriority = 45,
 	
     Transport = {

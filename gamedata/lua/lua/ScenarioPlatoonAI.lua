@@ -1,10 +1,10 @@
-#****************************************************************************
-#**  File     :  /lua/ai/scenarioplatoonai.lua
-#**  Author(s):  Drew Staltman
-#**
-#**  Summary  :  Houses a number of AI threads that are used in operations
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--**  File     :  /lua/ai/scenarioplatoonai.lua
+--**  Author(s):  Drew Staltman
+--**
+--**  Summary  :  Houses a number of AI threads that are used in operations
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 --local Utilities = import('/lua/utilities.lua')
 --local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')

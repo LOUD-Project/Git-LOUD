@@ -78,30 +78,30 @@ local getn = table.getn
 local ForkThread = ForkThread
 local type = type
 
-#
-# Class is a callable object for defining new classes, and the metatable for class objects.
-#
+--
+-- Class is a callable object for defining new classes, and the metatable for class objects.
+--
 Class = {}
 
-#
-# ClassMeta is the metatable for Class.
-#
+--
+-- ClassMeta is the metatable for Class.
+--
 local ClassMeta = {}
 setmetatable(Class, ClassMeta)
 
-#
-# StateProxyTag is the metaclass of temporary 'state' placeholders returned by State().
-# These get turned into class definitions when their containing class is defined.
-#
+--
+-- StateProxyTag is the metaclass of temporary 'state' placeholders returned by State().
+-- These get turned into class definitions when their containing class is defined.
+--
 StateProxyTag = {}
 State = {}
 local StateMeta = {}
 setmetatable(State, StateMeta)
 
 
-#
-# Returns true if class 'derived' is derived from class 'base'
-#
+--
+-- Returns true if class 'derived' is derived from class 'base'
+--
 local function IsDerived(derived, base)
     if base==derived then return true end
     if not derived.__bases then return false end
@@ -114,10 +114,10 @@ local function IsDerived(derived, base)
 end
 
 
-#
-# Returns true if object 'obj' is an instance of class 'class',
-# or of any of its subclasses.
-#
+--
+-- Returns true if object 'obj' is an instance of class 'class',
+-- or of any of its subclasses.
+--
 function IsInstance(obj,class)
     return IsDerived(getmetatable(obj),class)
 end
@@ -227,14 +227,14 @@ end
 
 local IntermediateClassMeta = { __call = MakeClass }
 
-#
-# Invoking Class() creates a new class.  The created class is used as
-# the metatable for instances of the class.
-#
-# Class() can be called as:
-#   Class { field=value, field=value, ... }     for a class with no bases
-#   Class(Base1,Base2,...BaseN)                 for a class with base classes
-#
+--
+-- Invoking Class() creates a new class.  The created class is used as
+-- the metatable for instances of the class.
+--
+-- Class() can be called as:
+--   Class { field=value, field=value, ... }     for a class with no bases
+--   Class(Base1,Base2,...BaseN)                 for a class with base classes
+--
 function ClassMeta:__call(...)
     if arg.n==1 and getmetatable(arg[1])==getmetatable {} then
         return MakeClass(nil, arg[1])
@@ -251,10 +251,10 @@ function ClassMeta:__call(...)
 end
 
 
-#
-# Invoking a class (note: this is not the same as invoking Class itself)
-# creates a new instance of the class.
-#
+--
+-- Invoking a class (note: this is not the same as invoking Class itself)
+-- creates a new instance of the class.
+--
 function Class:__call(...)
     #
     # create the new object
@@ -276,19 +276,19 @@ function Class:__call(...)
     return newobject
 end
 
-#
-# Disallow setting fields on a class after the fact. Unfortunately we can't catch all changes here--if the
-# field already exists, Lua will allow it to be changed without triggering any hooks. But we can at least
-# catch attempts to add new fields.
-#
+--
+-- Disallow setting fields on a class after the fact. Unfortunately we can't catch all changes here--if the
+-- field already exists, Lua will allow it to be changed without triggering any hooks. But we can at least
+-- catch attempts to add new fields.
+--
 function Class:__newindex(key,value)
     error('Attempted to add field "'..tostring(key)..'" after class was defined.')
 end
 
-#
-# Invoking State() creates a placeholder for a new state. It doesn't become
-# a "real" state until its containing class is created.
-#
+--
+-- Invoking State() creates a placeholder for a new state. It doesn't become
+-- a "real" state until its containing class is created.
+--
 local function MakeStateProxy(bases, spec)
     -- if spec[1] then
         -- error 'State specification contains indexed elements; it should contain only name=value elements'
@@ -321,16 +321,16 @@ function StateMeta:__call(...)
     return temp
 end
 
-#===================================================================================================
-# Invoking a state changes an object's type to the state and calls various trigger functions.
-#
-#   Changing states:
-#       1. Kills the main thread if it was running
-#       2. Calls obj:OnExitState() while still in the old state.
-#       3. Changes the type of the object to the new state
-#       4. Calls obj:OnEnterState(). OnEnterState() is allowed to immediately switch to a new state.
-#       5. If obj:Main() is defined, starts it on a thread
-#===================================================================================================
+--===================================================================================================
+-- Invoking a state changes an object's type to the state and calls various trigger functions.
+--
+--   Changing states:
+--       1. Kills the main thread if it was running
+--       2. Calls obj:OnExitState() while still in the old state.
+--       3. Changes the type of the object to the new state
+--       4. Calls obj:OnEnterState(). OnEnterState() is allowed to immediately switch to a new state.
+--       5. If obj:Main() is defined, starts it on a thread
+--===================================================================================================
 function ChangeState(obj, newstate)
 
     -- Ignore redundant state changes.

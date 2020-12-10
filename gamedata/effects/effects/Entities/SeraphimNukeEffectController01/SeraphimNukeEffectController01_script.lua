@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /effects/Entities/SeraphimNukeEffectController01/SeraphimNukeEffectController01_script.lua
-#**  Author(s):  Gordon Duclos
-#**
-#**  Summary  :  Seraphim nuclear explosion script
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /effects/Entities/SeraphimNukeEffectController01/SeraphimNukeEffectController01_script.lua
+--**  Author(s):  Gordon Duclos
+--**
+--**  Summary  :  Seraphim nuclear explosion script
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local EffectTemplate = import('/lua/EffectTemplates.lua')

@@ -4,9 +4,9 @@ XSB4301 = Class(SShieldStructureUnit) {
     
     ShieldEffects = {
         ###'/effects/emitters/seraphim_shield_generator_t3_01_emit.bp',
-##        '/effects/emitters/seraphim_shield_generator_t3_02_emit.bp',
-##        '/effects/emitters/seraphim_shield_generator_t3_03_emit.bp', 
-##        '/effects/emitters/seraphim_shield_generator_t3_04_emit.bp',        
+--        '/effects/emitters/seraphim_shield_generator_t3_02_emit.bp',
+--        '/effects/emitters/seraphim_shield_generator_t3_03_emit.bp', 
+--        '/effects/emitters/seraphim_shield_generator_t3_04_emit.bp',        
         ###'/effects/emitters/seraphim_shield_generator_t3_05_emit.bp',
     },
     

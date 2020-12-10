@@ -1,8 +1,8 @@
-# Copyright � 2006 Gas Powered Games, Inc.  All rights reserved.
-#
-# This is the minimal setup required to load the game rules.
+-- Copyright � 2006 Gas Powered Games, Inc.  All rights reserved.
+--
+-- This is the minimal setup required to load the game rules.
 
-# Do global init
+-- Do global init
 
 LOG("*DEBUG Mohodata RuleInit")
 

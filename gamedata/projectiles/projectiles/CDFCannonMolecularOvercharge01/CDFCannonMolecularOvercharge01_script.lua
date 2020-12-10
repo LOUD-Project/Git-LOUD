@@ -1,6 +1,6 @@
-#
-# Cybran Molecular Cannon
-#
+--
+-- Cybran Molecular Cannon
+--
 local CMolecularCannonProjectile = import('/lua/cybranprojectiles.lua').CMolecularCannonProjectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 

@@ -5,13 +5,13 @@ local AIUtils = import('/lua/ai/aiutilities.lua')
 local Builder = import('/lua/sim/Builder.lua').Builder
 
 
-# StrategyBuilderSpec
-# This is the spec to have analyzed by the StrategyManager
-#{
-#   BuilderData = {
-#       Some stuff could go here, eventually.
-#   }
-#}
+-- StrategyBuilderSpec
+-- This is the spec to have analyzed by the StrategyManager
+--{
+--   BuilderData = {
+--       Some stuff could go here, eventually.
+--   }
+--}
 
 StrategyBuilder = Class(Builder) {
     Create = function(self,brain,data)

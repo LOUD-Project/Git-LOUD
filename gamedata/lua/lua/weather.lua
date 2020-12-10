@@ -1,7 +1,7 @@
-#**  File     :  /lua/weather.lua
-#**  Author(s):  Gordon Duclos
-#**  Summary  :  Weather effect system
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--**  File     :  /lua/weather.lua
+--**  Author(s):  Gordon Duclos
+--**  Summary  :  Weather effect system
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
 
 
 local WeatherDefinition = import('/lua/weatherdefinitions.lua')
@@ -11,8 +11,8 @@ local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local util = import('/lua/utilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
 
-# CreateWeather, this is the entry point for map script, OnPopulate to 
-# generate weather. We spawn a thread here so we can do dynamic movement
+-- CreateWeather, this is the entry point for map script, OnPopulate to 
+-- generate weather. We spawn a thread here so we can do dynamic movement
 function CreateWeather()
 	ForkThread( CreateWeatherThread )
 end
@@ -204,28 +204,28 @@ function SpawnWeatherAtClusterList( ClusterData, MapStyle, EffectType )
 	end
 end
 
-# GenerateWeatherGroups
-# - Generates spread of clusters
-#
-# Returns a cluster list table { {xpos, zpos}, ... }, which is just
-# full of unique paired coordinates for the map
+-- GenerateWeatherGroups
+-- - Generates spread of clusters
+--
+-- Returns a cluster list table { {xpos, zpos}, ... }, which is just
+-- full of unique paired coordinates for the map
 function GenerateWeatherGroups( mapScaleX, mapScaleZ, numClusters )
 	return GenerateClusterCoords(0,0,mapScaleX, mapScaleZ, numClusters )
 end
 
-# Local constant definition, used to make sure we don't subdivide too small,
-# and skips any areas small than this
+-- Local constant definition, used to make sure we don't subdivide too small,
+-- and skips any areas small than this
 local MinimumSpatialPartionAreaSize = 100
 
-# GenerateClusterCoords 
-# - Divides rect area defined by (xStart, zStart), (xEnd, zEnd) and randomly
-# adds cluster groups in each area. If an area has too many cluster pairs in 
-# one region, that region is divided up again, by calling this function 
-# recursively. 
-#
-# MinimumSpatialPartionAreaSize defined above defines the minumum area we will
-# sub-divide into, so it is possible that the numClusters will be less than
-# intended.
+-- GenerateClusterCoords 
+-- - Divides rect area defined by (xStart, zStart), (xEnd, zEnd) and randomly
+-- adds cluster groups in each area. If an area has too many cluster pairs in 
+-- one region, that region is divided up again, by calling this function 
+-- recursively. 
+--
+-- MinimumSpatialPartionAreaSize defined above defines the minumum area we will
+-- sub-divide into, so it is possible that the numClusters will be less than
+-- intended.
 function GenerateClusterCoords( xStart, zStart, xEnd, zEnd, numClusters )
 	local clusterList = {}
 	

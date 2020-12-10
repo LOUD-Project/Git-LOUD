@@ -1,6 +1,6 @@
-#**
-#**  Summary  :  Cybran Maser Tower Script
-#**
+--**
+--**  Summary  :  Cybran Maser Tower Script
+--**
 -- some neato shit going on here - weapon will increase energy usage each
 -- time it fires - by 10 - until it reaches 800 - where it will overheat
 -- and damage itself.   It then has a forced cooldown for several seconds

@@ -1,11 +1,11 @@
-#***************************************************************************
-#*
-#**  File     :  /lua/sim/StrategyManager.lua
-#**
-#**  Summary  : Manage Skirmish Strategies
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved. All lefts reserved too.
-#****************************************************************************
+--***************************************************************************
+--*
+--**  File     :  /lua/sim/StrategyManager.lua
+--**
+--**  Summary  : Manage Skirmish Strategies
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved. All lefts reserved too.
+--****************************************************************************
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
 local AIUtils = import('/lua/ai/aiutilities.lua')

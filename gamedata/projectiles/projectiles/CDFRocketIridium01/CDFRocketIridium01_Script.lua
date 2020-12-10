@@ -1,6 +1,6 @@
-#
-# Cybran Anti Air Missile
-#
+--
+-- Cybran Anti Air Missile
+--
 local CIridiumRocketProjectile = import('/lua/cybranprojectiles.lua').CIridiumRocketProjectile
 CDFRocketIridium01 = Class(CIridiumRocketProjectile) {}
 

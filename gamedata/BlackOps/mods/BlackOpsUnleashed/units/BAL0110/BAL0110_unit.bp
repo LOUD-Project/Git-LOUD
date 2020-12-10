@@ -66,7 +66,7 @@ UnitBlueprint {
     Display = {
     	Abilities = {
 			'Radar',
-			'RadarStealth',
+			'Radar Stealth',
             'Deploys to fire',
         },
 		

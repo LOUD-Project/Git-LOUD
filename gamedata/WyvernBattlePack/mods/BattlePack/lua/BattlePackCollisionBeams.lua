@@ -1,21 +1,21 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/defaultcollisionbeams.lua
-#**  Author(s):  Gordon Duclos
-#**
-#**  Summary  :  Default definitions collision beams
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/defaultcollisionbeams.lua
+--**  Author(s):  Gordon Duclos
+--**
+--**  Summary  :  Default definitions collision beams
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local Util = import('/lua/utilities.lua')
 local BattlePackEffectTemplate = import('/mods/BattlePack/lua/BattlePackEffectTemplates.lua')
 
-#-----------------------------
-#   Base class that defines supreme commander specific defaults
-#-----------------------------
+-------------------------------
+--   Base class that defines supreme commander specific defaults
+-------------------------------
 SCCollisionBeam = Class(CollisionBeam) {
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
     FxImpactLand = {},#EffectTemplate.DefaultProjectileLandImpact,
@@ -27,9 +27,9 @@ SCCollisionBeam = Class(CollisionBeam) {
     FxImpactNone = {},
 }
 
-#-----------------------------
-#  NOVACAT BEAMS
-#-----------------------------
+-------------------------------
+--  NOVACAT BEAMS
+-------------------------------
 
 TMNovaCatBlueLaserBeam = Class(SCCollisionBeam) {
     TerrainImpactType = 'LargeBeam01',
@@ -55,9 +55,9 @@ TMNovaCatGreenLaserBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.25,
 }
 
-#-----------------------------
-#  Snake BEAMS
-#-----------------------------
+-------------------------------
+--  Snake BEAMS
+-------------------------------
 
 HeavyMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
 
@@ -70,9 +70,9 @@ HeavyMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     ScorchSplatDropTime = 0.25,
 }
-#----------------------------------
-#   Exaviers Target Painter
-#----------------------------------
+------------------------------------
+--   Exaviers Target Painter
+------------------------------------
 
 EXCEMPArrayBeam01CollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BattlePack/effects/emitters/excemparraybeam01_emit.bp'},
@@ -285,9 +285,9 @@ StarAdderLaserCollisionBeam02 = Class(SCCollisionBeam) {
 	FxBeamEndPointScale = 0.2,
 }
 
-#----------------------------------
-#   ORBITAL DEATH LASER COLLISION BEAM
-#----------------------------------
+------------------------------------
+--   ORBITAL DEATH LASER COLLISION BEAM
+------------------------------------
 WyvernLaserWeaponCollisionBeam = Class(SCCollisionBeam) {
     TerrainImpactType = 'LargeBeam02',
     TerrainImpactScale = 1,

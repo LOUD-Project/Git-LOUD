@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/SBOVortexTacticalBomb02/SBOVortexTacticalBomb02_script.lua
-#**  Author(s):  Gordon Duclos
-#**
-#**  Summary  :  Inferno Experimental Stragetic Bomb, XSA0402
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/SBOVortexTacticalBomb02/SBOVortexTacticalBomb02_script.lua
+--**  Author(s):  Gordon Duclos
+--**
+--**  Summary  :  Inferno Experimental Stragetic Bomb, XSA0402
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local SExperimentalStrategicBomb = import('/lua/seraphimprojectiles.lua').SExperimentalStrategicBomb
 

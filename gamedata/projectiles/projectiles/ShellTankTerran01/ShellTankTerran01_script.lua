@@ -1,6 +1,6 @@
-#
-# script for projectile TankShell
-#
+--
+-- script for projectile TankShell
+--
 local Projectile = import('/lua/sim/Projectile.lua').Projectile
 local ForkThread = ForkThread
 local CreateSplat = CreateSplat

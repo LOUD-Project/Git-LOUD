@@ -1,17 +1,17 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/cinematics.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :  Helper functions for cinematics
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#
-# One cautionary note: don't change the playable area during an in-game cinematic.
-# If you do, and you move the camera to a marker in the new area, the engine
-# may not handle it well.
-#
+--****************************************************************************
+--**
+--**  File     :  /lua/cinematics.lua
+--**  Author(s):  David Tomandl
+--**
+--**  Summary  :  Helper functions for cinematics
+--**
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--
+-- One cautionary note: don't change the playable area during an in-game cinematic.
+-- If you do, and you move the camera to a marker in the new area, the engine
+-- may not handle it well.
+--
 
 SimCamera = import('/lua/simcamera.lua').SimCamera
 local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
@@ -25,7 +25,7 @@ function IsOpEnded()
     end
 end
 
-# To be used when starting a cinematic / NIS
+-- To be used when starting a cinematic / NIS
 function EnterNISMode()
     ScenarioInfo.Camera = SimCamera('WorldCamera')
     LockInput()
@@ -36,7 +36,7 @@ function EnterNISMode()
     #Set Game Speed to normal
 end
 
-# Used at the end of a cinematic / NIS
+-- Used at the end of a cinematic / NIS
 function ExitNISMode()
     #Set Game Speed to user value
     #Restore UI
@@ -71,7 +71,7 @@ function SetInvincible( area, invinBool )
     end
 end
 
-# This will move the camera to the position of a marker
+-- This will move the camera to the position of a marker
 function CameraMoveToMarker( marker, seconds )
 
     # Adding this in case we just want to start the camera
@@ -94,7 +94,7 @@ function CameraMoveToMarker( marker, seconds )
     end
 end
 
-# This will move the camera to a rectangle
+-- This will move the camera to a rectangle
 function CameraMoveToRectangle( rectangle, seconds )
 
     # Adding this in case we just want to start the camera
@@ -113,16 +113,16 @@ function CameraMoveToRectangle( rectangle, seconds )
     end
 end
 
-# See track entities
+-- See track entities
 function CameraTrackEntity( entity, zoom, seconds )
     CameraTrackEntities({entity}, zoom, seconds)
 end
 
-# This will make the camera track a group of entities.
-# The "seconds" field is how long it will take to get in place.
-# After that the camera will follow that unit until told to do something else.
-# Zoom is measured in LOD units.  It's the value of the width of the view frustum
-# at the focus point
+-- This will make the camera track a group of entities.
+-- The "seconds" field is how long it will take to get in place.
+-- After that the camera will follow that unit until told to do something else.
+-- Zoom is measured in LOD units.  It's the value of the width of the view frustum
+-- at the focus point
 function CameraTrackEntities( units, zoom, seconds )
     local army = GetFocusArmy()
     for i,v in units do
@@ -143,8 +143,8 @@ function CameraTrackEntities( units, zoom, seconds )
     end
 end
 
-# Similar to CameraTrackEntity, but this gives more control with the
-# pitchAdjust parameter.
+-- Similar to CameraTrackEntity, but this gives more control with the
+-- pitchAdjust parameter.
 function CameraThirdPerson( entity, pitchAdjust, zoom, seconds )
     ScenarioInfo.Camera:NoseCam( entity, pitchAdjust, zoom, seconds )
 
@@ -154,8 +154,8 @@ function CameraThirdPerson( entity, pitchAdjust, zoom, seconds )
     end
 end
 
-# This will modify the current zoom of the camera without
-# adjusting its position.
+-- This will modify the current zoom of the camera without
+-- adjusting its position.
 function CameraSetZoom( zoom, seconds )
     # Move the camera
     ScenarioInfo.Camera:SetZoom( zoom, seconds )
@@ -166,10 +166,10 @@ function CameraSetZoom( zoom, seconds )
     end
 end
 
-# This will spin/zoom the camera for the specified
-# number of seconds, then stop the camera again.
-# Using it with 0 seconds will keep the camera
-# spinning/zooming until the next command.
+-- This will spin/zoom the camera for the specified
+-- number of seconds, then stop the camera again.
+-- Using it with 0 seconds will keep the camera
+-- spinning/zooming until the next command.
 function CameraSpinAndZoom( spin, zoom, seconds )
     # Move the camera
     ScenarioInfo.Camera:Spin( spin, zoom )
@@ -182,19 +182,19 @@ function CameraSpinAndZoom( spin, zoom, seconds )
     end
 end
 
-# This will bring the camera to the highest zoomed-out level.
+-- This will bring the camera to the highest zoomed-out level.
 function CameraReset()
     ScenarioInfo.Camera:Reset()
 end
 
-# This will reset the azimuth back to default and change
-# the rotation back to default as well
+-- This will reset the azimuth back to default and change
+-- the rotation back to default as well
 function CameraRevertRotation()
     ScenarioInfo.Camera:RevertRotation()
 end
 
-# Used by other functions to make sure that they don't return
-# before the camera is done moving.
+-- Used by other functions to make sure that they don't return
+-- before the camera is done moving.
 function WaitForCamera()
     # Wait for it to be done
     ScenarioInfo.Camera:WaitFor()

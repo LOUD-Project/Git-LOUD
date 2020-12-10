@@ -1,15 +1,15 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/armordefinition.lua
-#**  Author(s):
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#
-# Armor Type Definitions
-#
+--****************************************************************************
+--**
+--**  File     :  /lua/armordefinition.lua
+--**  Author(s):
+--**
+--**  Summary  :
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--
+-- Armor Type Definitions
+--
 
 armordefinition = {
 

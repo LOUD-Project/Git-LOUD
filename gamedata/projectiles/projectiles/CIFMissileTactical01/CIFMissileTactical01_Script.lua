@@ -1,8 +1,8 @@
-#
-# Cybran "Loa" Tactical Missile, mobile unit launcher variant of this missile,
-# lower and straighter trajectory. Splits into child projectile if it takes enough
-# damage.
-#
+--
+-- Cybran "Loa" Tactical Missile, mobile unit launcher variant of this missile,
+-- lower and straighter trajectory. Splits into child projectile if it takes enough
+-- damage.
+--
 
 local CLOATacticalMissileProjectile = import('/lua/cybranprojectiles.lua').CLOATacticalMissileProjectile
 local ForkThread = ForkThread

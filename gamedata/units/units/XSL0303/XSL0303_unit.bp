@@ -57,9 +57,13 @@ UnitBlueprint {
         SurfaceThreatLevel = 402.5,
     },
 	
-    Description = '<LOC xsl0303_desc>Amphibious Siege Tank',
+    Description = '<LOC xsl0303_desc>Siege Tank',
 	
     Display = {
+        Abilities = {
+			'Amphibious',
+            'Torpedoes',
+		},
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -119,7 +123,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Amphibious Siege Tank',
+        HelpText = 'Siege Tank',
     },
 	
     LifeBarHeight = 0.075,

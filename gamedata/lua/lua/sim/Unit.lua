@@ -1,4 +1,4 @@
-#**  File     :  /lua/unit.lua
+--**  File     :  /lua/unit.lua
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 

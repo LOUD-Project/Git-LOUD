@@ -1,6 +1,6 @@
-#
-# Basic create formation scripts
-#
+--
+-- Basic create formation scripts
+--
 
 SurfaceFormations = {
     'AttackFormation',
@@ -29,7 +29,7 @@ ComboFormations = {
 }
 
 
-#================ LAND DATA ==============#
+--================ LAND DATA ==============#
 
 local LOUDCEIL = math.ceil
 local LOUDCOS = math.cos
@@ -44,7 +44,7 @@ local LOUDSIN = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
 
-#=== LAND CATEGORIES ===#
+--=== LAND CATEGORIES ===#
 local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
 local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
 local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
@@ -55,7 +55,7 @@ local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - ca
 local DFExp = DirectFire * categories.EXPERIMENTAL
 
 
-#=== TECH LEVEL LAND CATEGORIES ===#
+--=== TECH LEVEL LAND CATEGORIES ===#
 local LandCategories = {
     Bot1 = (DirectFire * categories.TECH1) * categories.BOT - categories.SCOUT,
     Bot2 = (DirectFire * categories.TECH2) * categories.BOT - categories.SCOUT,
@@ -82,7 +82,7 @@ local LandCategories = {
     RemainingCategory = categories.LAND - ( DirectFire + Construction + Artillery + AntiAir + UtilityCat + DFExp + ShieldCat )
 }
 
-#=== SUB GROUP ORDERING ===#
+--=== SUB GROUP ORDERING ===#
 local Bots = { 'Bot3', 'Bot2', 'Bot1', }
 local Tanks = { 'Tank3', 'Tank2', 'Tank1', }
 local DF = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1',}
@@ -93,7 +93,7 @@ local Com = { 'Com' }
 local Shield = { 'Shields' }
 local Experimental = { 'Experimentals', }
 	
-#=== LAND BLOCK TYPES =#
+--=== LAND BLOCK TYPES =#
 local DFFirst = { Experimental, DF, Art, AA, Shield, Com, Util, RemainingCategory }
 local TankFirst = { Experimental, Tanks, Bots, Art, AA, Shield, Com, Util, RemainingCategory }
 local ShieldFirst = { Shield, AA, Art, DF, Com, Util, RemainingCategory }
@@ -102,9 +102,9 @@ local ArtFirst = { Art, AA, DF, Shield, Com, Util, RemainingCategory }
 local UtilFirst = { Util, AA, DF, Art, Shield, Com, Util, RemainingCategory }
 
 
-#=== LAND BLOCKS ===#
+--=== LAND BLOCKS ===#
 
-#=== 3 Wide Attack Block / 6 Units ===#
+--=== 3 Wide Attack Block / 6 Units ===#
 local ThreeWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, },
@@ -112,7 +112,7 @@ local ThreeWideGrowthFormationBlock = {
     { DFFirst, DFFirst, DFFirst, },
 }
 
-#=== 4 Wide Attack Block / 16 Units ===#
+--=== 4 Wide Attack Block / 16 Units ===#
 local FourWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -124,7 +124,7 @@ local FourWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst,  },
 }
 
-#=== 5 Wide Attack Block/ 25 Units ===#
+--=== 5 Wide Attack Block/ 25 Units ===#
 local FiveWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -138,7 +138,7 @@ local FiveWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, DFFirst, ArtFirst, AAFirst, },
 }
 
-#=== 6 Wide Attack Block/ 36 Units ===#
+--=== 6 Wide Attack Block/ 36 Units ===#
 local SixWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -154,7 +154,7 @@ local SixWideGrowthFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, },
 }
 
-#=== 7 Wide Attack Block/ 42 Units ===#
+--=== 7 Wide Attack Block/ 42 Units ===#
 local SevenWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -170,7 +170,7 @@ local SevenWideGrowthFormationBlock = {
     { UtilFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, UtilFirst, },
 }
 
-#=== 8 Wide Attack Block/ 56 Units ===#
+--=== 8 Wide Attack Block/ 56 Units ===#
 local EightWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -188,7 +188,7 @@ local EightWideGrowthFormationBlock = {
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
-#=== 9 Wide Attack Block/ 72 Units ===#
+--=== 9 Wide Attack Block/ 72 Units ===#
 local NineWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -208,7 +208,7 @@ local NineWideGrowthFormationBlock = {
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
-#=== Travelling Block ===#
+--=== Travelling Block ===#
 local TravelSlot = { Experimental, Bots, Tanks, AA, Art, Shield, Util, Com }
 
 local TravelFormationBlock = {
@@ -222,7 +222,7 @@ local TravelFormationBlock = {
     { TravelSlot, TravelSlot, },
 }
 
-#=== 2 Row Attack Block - 8 units wide ===#
+--=== 2 Row Attack Block - 8 units wide ===#
 local TwoRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -230,7 +230,7 @@ local TwoRowAttackFormationBlock = {
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst },
 }
 
-#=== 3 Row Attack Block - 10 units wide ===#
+--=== 3 Row Attack Block - 10 units wide ===#
 local ThreeRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -240,7 +240,7 @@ local ThreeRowAttackFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, DFFirst },  
 }
 
-#=== 4 Row Attack Block - 12 units wide ===#
+--=== 4 Row Attack Block - 12 units wide ===#
 local FourRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -252,7 +252,7 @@ local FourRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, UtilFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, AAFirst },   
 }
 
-#=== 5 Row Attack Block - 14 units wide ===#
+--=== 5 Row Attack Block - 14 units wide ===#
 local FiveRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -266,7 +266,7 @@ local FiveRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst },  
 }
 
-#=== 6 Row Attack Block - 16 units wide ===#
+--=== 6 Row Attack Block - 16 units wide ===#
 local SixRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -282,7 +282,7 @@ local SixRowAttackFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst },  
 }
 
-#=== 7 Row Attack Block - 18 units wide ===#
+--=== 7 Row Attack Block - 18 units wide ===#
 local SevenRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -300,7 +300,7 @@ local SevenRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst },  
 }
 
-#=== 8 Row Attack Block - 18 units wide ===#
+--=== 8 Row Attack Block - 18 units wide ===#
 local EightRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -320,7 +320,7 @@ local EightRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
-#=== 9 Row Attack Block - 18+ units wide ===#
+--=== 9 Row Attack Block - 18+ units wide ===#
 local NineRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -340,16 +340,16 @@ local NineRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
-#================ AIR DATA ===============#
+--================ AIR DATA ===============#
 
-#=== AIR CATEGORIES ===#
+--=== AIR CATEGORIES ===#
 
 local StdAirUnits = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS + categories.uea0203
 local T4AirUnits = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
 local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS
 
 
-#=== TECH LEVEL AIR CATEGORIES ===#
+--=== TECH LEVEL AIR CATEGORIES ===#
 -- this has been greatly simplified
 local AirCategories = { StdAirUnits = StdAirUnits, T4AirUnits = T4AirUnits }
 
@@ -374,7 +374,7 @@ local AirTransportCategories = {
 }
 
 
-#=== SUB GROUP ORDERING ===#
+--=== SUB GROUP ORDERING ===#
 local AirUnits = { 'StdAirUnits', 'T4AirUnits' }
 local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
 
@@ -385,7 +385,7 @@ local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
 --local Intel = { 'AIntel' }
 --local Remaining = { 'RemainingCategory' }
 
-#=== Air Block Arrangement ===#
+--=== Air Block Arrangement ===#
 
 local ChevronSlot = { AirUnits }
 local TransportSlot = { Transports }
@@ -406,7 +406,7 @@ local StaggeredChevronBlock = {
 }
 
 
-#=== Transport Formations ===#
+--=== Transport Formations ===#
 local TwoWideTransportGrowthFormation = {
     LineBreak = 1,
     { TransportSlot, TransportSlot, },    
@@ -439,10 +439,10 @@ local FiveWideTransportGrowthFormation = {
 
 
 
-#=========================================#
-#============== NAVAL DATA ===============#
+--=========================================#
+--============== NAVAL DATA ===============#
 
-#=== BASIC GROUPS ===#
+--=== BASIC GROUPS ===#
 
 local LightAttackNaval = categories.LIGHTBOAT
 local FrigateNaval = categories.FRIGATE
@@ -456,7 +456,7 @@ local MobileSonar = categories.MOBILESONAR
 local DefensiveBoat = categories.DEFENSIVEBOAT
 local RemainingNaval = categories.NAVAL - ( LightAttackNaval + FrigateNaval + SubNaval + DestroyerNaval + CruiserNaval + BattleshipNaval + CarrierNaval + DefensiveBoat + MobileSonar)
 
-#### Naval formation blocks #####
+-- Naval formation blocks #####
 
 local NavalSpacing = 1.1
 
@@ -470,7 +470,7 @@ local StandardNavalBlock = {
 }
 --]]
 
-#=== PRIMARY SUB-GROUPS ===#
+--=== PRIMARY SUB-GROUPS ===#
 
 -- surface ships --
 local NavalCategories = {
@@ -493,7 +493,7 @@ local SubmarineCategories = {
 }
 
 
-#=== SUB GROUPS ===#
+--=== SUB GROUPS ===#
 
 local Frigates = { 'FrigateCount', 'LightCount', }
 local Destroyers = { 'DestroyerCount', }
@@ -506,7 +506,7 @@ local Carriers = { 'CarrierCount', }
 local Sonar = {'MobileSonarCount', }
 
 
-#=== UNIT ORDERING ===#
+--=== UNIT ORDERING ===#
 
 local FrigatesOnly = { Frigates }
 local FrigatesFirst = { Frigates, Destroyers, RemainingCategory }
@@ -521,9 +521,9 @@ local SonarOnly = { Sonar, RemainingCategory }
 local SonarFirst = { Sonar, Frigates, Destroyers, Cruisers, Battleships, Carriers, RemainingCategory }
 
 
-#========================================#
-#======= Naval Growth Formations ========#
-#========================================#
+--========================================#
+--======= Naval Growth Formations ========#
+--========================================#
 
 local ThreeNavalGrowthFormation = {
 
@@ -564,9 +564,9 @@ local SevenNavalGrowthFormation = {
 }
 
 
-#============================================#
-#========= Naval Attack Formations ==========#
-#============================================#
+--============================================#
+--========= Naval Attack Formations ==========#
+--============================================#
 
 local FiveWideNavalAttackFormation = {
 
@@ -609,9 +609,9 @@ local NineWideNavalAttackFormation = {
 	
 }
 
-#==============================================#
-#============ Sub Growth Formations ===========#
-#==============================================#
+--==============================================#
+--============ Sub Growth Formations ===========#
+--==============================================#
 
 local ThreeWideSubGrowthFormation = {
 
@@ -652,9 +652,9 @@ local NineWideSubGrowthFormation = {
 
 }
 
-#==============================================#
-#============ Sub Attack Formations ===========#  
-#==============================================#
+--==============================================#
+--============ Sub Attack Formations ===========#  
+--==============================================#
 
 local FiveWideSubAttackFormation = {
 
@@ -683,7 +683,7 @@ local NineWideSubAttackFormation = {
 }
 
 
-#============ Formation Pickers ============#
+--============ Formation Pickers ============#
 function PickBestTravelFormationIndex( typeName, distance )
 
     if typeName == 'AirFormations' then
@@ -705,9 +705,9 @@ function PickBestFinalFormationIndex( typeName, distance )
 end
 
 
-#================ THE GUTS ====================#
-#============ Formation Functions =============#
-#==============================================#
+--================ THE GUTS ====================#
+--============ Formation Functions =============#
+--==============================================#
 function AttackFormation( formationUnits )
 
     --LOG("*AI DEBUG Attack Formation")
@@ -1269,7 +1269,7 @@ end
 
 
 
-#=========== LAND BLOCK BUILDING =================#
+--=========== LAND BLOCK BUILDING =================#
 function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPos, spacing)
 
 	local LOUDFLOOR = math.floor
@@ -1471,7 +1471,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 	
 end
 
-#============ AIR BLOCK BUILDING =============#
+--============ AIR BLOCK BUILDING =============#
 function BlockBuilderAir(unitsList, airBlock, FormationPos)
 
 	local LOUDGETN = table.getn
@@ -1617,7 +1617,7 @@ function GetChevronPosition(chevronPos, currCol, currRowLen, formationLen)
 end
 
 
-#=========== NAVAL UNIT BLOCKS ============#
+--=========== NAVAL UNIT BLOCKS ============#
 function NavalBlocks( unitsList, navyType )
     local Carriers = true
     local Battleships = true
@@ -1780,7 +1780,7 @@ function NavalBlocks( unitsList, navyType )
 end
 
 
-#========= UNIT SORTING ==========#
+--========= UNIT SORTING ==========#
 
 -- OK - a great deal of data reduction here 
 -- it was clear that while all these breakdowns of air units

@@ -190,7 +190,7 @@ UnitBlueprint {
     SizeY = 1.1,
     SizeZ = 1.25,
 	
-    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconName = 'icon_bot3_directfire',
     StrategicIconSortPriority = 50,
 	
     Veteran = {

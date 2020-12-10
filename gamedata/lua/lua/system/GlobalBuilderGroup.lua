@@ -1,6 +1,6 @@
-#**  File     :  /lua/system/GlobalBuilderGroup.lua
-#**  Summary  :  Global builder group table and blueprint methods
-#**  Copyright © 2008 Gas Powered Games, Inc.  All rights reserved.
+--**  File     :  /lua/system/GlobalBuilderGroup.lua
+--**  Summary  :  Global builder group table and blueprint methods
+--**  Copyright ï¿½ 2008 Gas Powered Games, Inc.  All rights reserved.
 
 BuilderGroups = {}
 
