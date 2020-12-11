@@ -657,7 +657,34 @@ local function IsModAvailable(modId)
     return true
 end
 
+-- CHANGED --
 
+-- used to compute the offset of spawn / mass / hydro markers on the (big) preview
+-- when the map is not square
+local function ComputeNonSquareOffset(width, height)
+    -- determine the largest dimension
+    local largest = width
+    if height > largest then
+        largest = height 
+    end
+
+    -- determine correction factor for uneven dimensions
+    local yOffset = 0
+    local xOffset = 0 
+    if width > height then 
+        local factor = height / width
+        yOffset = 0.5 * factor
+    end
+
+    if width < height then 
+        local factor = width / height
+        xOffset = 0.5 * factor
+    end
+
+    return xOffset, yOffset, largest
+end
+
+-- CHANGED --
 function Reset()
     lobbyComm = false
     wantToBeObserver = false
@@ -3744,9 +3771,21 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
             
             Button.HandleEvent(self, event)
         end
+
+        -- CHANGED --
+
+        local width = scenario.size[1]
+        local height = scenario.size[2]
+        local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
+
+        LayoutHelpers.AtLeftTopIn(
+            GUI.markers[slot].marker, 
+            GUI.posGroup, 
+            ((xOffset + pos[1] / largest) * cWidth) - (GUI.markers[slot].marker.Width() / 2), 
+            ((yOffset + pos[2] / largest) * cHeight) - (GUI.markers[slot].marker.Height() / 2)
+        )
         
-        LayoutHelpers.AtLeftTopIn(GUI.markers[slot].marker, GUI.posGroup, ((pos[1] / mWidth) * cWidth) - (GUI.markers[slot].marker.Width() / 2), ((pos[2] / mHeight) * cHeight) - (GUI.markers[slot].marker.Height() / 2))
-        
+        -- CHANGED --
         local index = slot
         
         GUI.markers[slot].Indicator = Bitmap(GUI.markers[slot].marker, UIUtil.UIFile('/game/beacons/beacon-quantum-gate_btn_up.dds'))
@@ -4460,29 +4499,52 @@ function CreateBigPreview(parent)
 	end
 	
 	bMP.massmarkers = {}
-	
-	for i = 1, table.getn(massmarkers) do
-	
-		bMP.massmarkers[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-mass_bmp.dds"))
-		bMP.massmarkers[i].Width:Set(10)
-		bMP.massmarkers[i].Height:Set(10)
-		bMP.massmarkers[i].Left:Set(bMP.Left() + massmarkers[i].position[1]/scenarioInfo.size[1]*bMP.Width() - bMP.massmarkers[i].Width()/2)
-		bMP.massmarkers[i].Top:Set(bMP.Top() + massmarkers[i].position[3]/scenarioInfo.size[2]*bMP.Height() - bMP.massmarkers[i].Height()/2)
-		
-	end
-	
-	bMP.hydros = {}
-	
-	for i = 1, table.getn(hydromarkers) do
-	
-		bMP.hydros[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-energy_bmp.dds"))
-		bMP.hydros[i].Width:Set(10)
-		bMP.hydros[i].Height:Set(10)
-		bMP.hydros[i].Left:Set(bMP.Left() + hydromarkers[i].position[1]/scenarioInfo.size[1]*bMP.Width() - bMP.hydros[i].Width()/2)
-		bMP.hydros[i].Top:Set(bMP.Top() + hydromarkers[i].position[3]/scenarioInfo.size[2]*bMP.Height() - bMP.hydros[i].Height()/2)
-		
-	end
-	
+    bMP.hydros = {}
+
+    -- CHANGED --  
+
+    local width = scenarioInfo.size[1]
+    local height = scenarioInfo.size[2]
+    local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
+
+    -- locate all the extractors
+    for i = 1, table.getn(massmarkers) do
+ 
+        bMP.massmarkers[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-mass_bmp.dds"))
+        bMP.massmarkers[i].Width:Set(10)
+        bMP.massmarkers[i].Height:Set(10)
+        bMP.massmarkers[i].Left:Set(
+            bMP.Left() + 
+            (xOffset + massmarkers[i].position[1] / largest) * bMP.Width() - 
+            bMP.massmarkers[i].Width() / 2
+        )
+        bMP.massmarkers[i].Top:Set(
+            bMP.Top() + 
+            (yOffset + massmarkers[i].position[3] / largest) * bMP.Height() - 
+            bMP.massmarkers[i].Height() / 2
+        )
+    end
+
+    -- locate all the hydro's
+ 
+    for i = 1, table.getn(hydromarkers) do
+ 
+        bMP.hydros[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-energy_bmp.dds"))
+        bMP.hydros[i].Width:Set(10)
+        bMP.hydros[i].Height:Set(10)
+        bMP.hydros[i].Left:Set(
+            bMP.Left() + 
+            (xOffset + hydromarkers[i].position[1] / largest) * bMP.Width() - 
+            bMP.hydros[i].Width() / 2
+        )
+        bMP.hydros[i].Top:Set(
+            bMP.Top() + 
+            (yOffset + hydromarkers[i].position[3] / largest) * bMP.Height() - 
+            bMP.hydros[i].Height() / 2
+        )
+    end
+
+    -- CHANGED --  
 	-- start positions
 	bMP.markers = {}
 	NewShowMapPositions(bMP,scenarioInfo,GetPlayerCount())
@@ -4661,11 +4723,18 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 			Button.HandleEvent(self, event)
 			
 		end
-		
+        
+        -- CHANGED --   
+
+        local width = scenarioInfo.size[1]
+        local height = scenarioInfo.size[2]
+        local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
+
 		LayoutHelpers.AtLeftTopIn(bMP.markers[slot].marker, posGroup, 
-			((pos[1] / mWidth) * cWidth) - (bMP.markers[slot].marker.Width() / 2), 
-			((pos[2] / mHeight) * cHeight) - (bMP.markers[slot].marker.Height() / 2))
-		
+			((xOffset + pos[1] / largest) * cWidth) - (bMP.markers[slot].marker.Width() / 2), 
+			((yOffset + pos[2] / largest) * cHeight) - (bMP.markers[slot].marker.Height() / 2))
+        
+        -- CHANGED --   
 		local index = slot
 		
 		bMP.markers[slot].Indicator = Bitmap(bMP.markers[slot].marker, UIUtil.UIFile('/game/beacons/beacon-quantum-gate_btn_up.dds'))

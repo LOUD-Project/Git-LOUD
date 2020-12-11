@@ -673,6 +673,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
         -- Store the cheat value (ie. 1.1 = 10% cheat)
         self.CheatValue = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
+        self.BaseCheat = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 
 		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
 		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT

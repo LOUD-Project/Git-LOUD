@@ -47,7 +47,7 @@ BuffDefMeta.__call = function(...)
         Buffs[arg[2].Name] = {}
     end
 
-    --LOG('Buff Registered: ', arg[2].Name)
+    --SPEW('Buff Registered: ', repr(arg[2]) )
     
     Buffs[arg[2].Name] = arg[2]
     return arg[2].Name

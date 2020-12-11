@@ -597,6 +597,7 @@ end
 function RatioAdaptiveCheatThread( aiBrain )
 	
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
+    local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
 	local lastupdate = aiBrain.CheatValue
 	local cheatincrease = 0
 	LOG("*AI DEBUG "..aiBrain.Nickname.." starting ratio ACT now. Interval: "..interval.." ticks")
@@ -610,23 +611,23 @@ function RatioAdaptiveCheatThread( aiBrain )
 
 		if aiBrain.LandRatio <= 0.5 then
 			
-			cheatincrease = .5
+			cheatincrease = .5 * scale
 
 		elseif aiBrain.LandRatio <= 0.6 then
 			
-			cheatincrease = .4
+			cheatincrease = .4 * scale
 
 		elseif aiBrain.LandRatio <= 0.75 then
 
-			cheatincrease = .3
+			cheatincrease = .3 * scale
 
 		elseif aiBrain.LandRatio <= 0.9 then
 			
-			cheatincrease = .2
+			cheatincrease = .2 * scale
 
 		elseif aiBrain.LandRatio <= 1 then
 
-			cheatincrease = .1
+			cheatincrease = .1 * scale
 
 		else
 
@@ -634,37 +635,49 @@ function RatioAdaptiveCheatThread( aiBrain )
 		end
 		
 		-- If the value has changed since last processed then update
-		if lastupdate and lastupdate ~= aiBrain.CheatValue + cheatincrease then
+		if lastupdate and lastupdate ~= aiBrain.BaseCheat + cheatincrease then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(lastupdate).." -> "..repr(aiBrain.CheatValue + cheatincrease))
-			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatincrease)
+			LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(lastupdate).." -> "..repr(aiBrain.BaseCheat + cheatincrease))
+            
+			SetArmyPoolBuff(aiBrain, aiBrain.BaseCheat + cheatincrease)
+            
 			-- Record the value of this update
-			lastupdate = aiBrain.CheatValue + cheatincrease
+			lastupdate = aiBrain.BaseCheat + cheatincrease
 		end
 	end
+    
 	LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT closing: defeated")
 end
 
 function TimeAdaptiveCheatThread( aiBrain )
 
-	local startdelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) -- Default 6 minutes
-    local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay) -- Default 6 minutes (about .24 cheat in 1 hour)
-    local cheatincrease = tonumber(ScenarioInfo.Options.ACTTimeAmount) -- Default 0.02
-	local cheatlimit = tonumber(ScenarioInfo.Options.ACTTimeCap) -- Default is 4
+	local startdelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) + 1
+    local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay)
+    local cheatincrease = tonumber(ScenarioInfo.Options.ACTTimeAmount)
+	local cheatlimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
+    
 	LOG("*AI DEBUG "..aiBrain.Nickname.." starting time ACT after "..startdelay.." ticks. Uptick "..cheatincrease.." every "..interval.." ticks until mult. "..cheatlimit)
 
 	WaitTicks(startdelay)
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT timer begins - interval is "..interval)
+    
 	while aiBrain.Result ~= "defeat" and aiBrain.CheatValue <= cheatlimit do
-		
+
+		WaitTicks(interval)
+        
+		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(aiBrain.CheatValue).." -> "..repr(aiBrain.CheatValue + cheatincrease))
+
 		-- RATODO
 		-- - Logarithmic increase option
 		-- - Multiplicative increase option
 		-- - Use ratios to slow or speed time-based increase
 		aiBrain.CheatValue = aiBrain.CheatValue + cheatincrease
+        
 		SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
-		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(aiBrain.CheatValue).." -> "..repr(aiBrain.CheatValue + cheatincrease))
-		WaitTicks(interval)
+
 	end
+    
 	if (aiBrain.Result == "defeat") then
 		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT closing: defeated")
 	else

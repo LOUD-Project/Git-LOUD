@@ -761,26 +761,41 @@ Tooltips = {
         title = "Teams",
         description = "Set Teams",
     },
+    
+    lob_mult = {
+        title = "AI Cheat Multiplier",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at 0.9 and below, it is weakened and less difficult.",
+    },
+    lob_act = {
+        title = "Adaptive AI Cheat Multiplier",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game.",
+    },    
+    
     Lobby_ACT_Start_Delay = {
-        title = "AI Adaptive Cheat Start Delay",
+        title = "AI Timed Cheat Start Delay",
         description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
     },
     Lobby_ACT_Time_Delay = {
-        title = "AI Time-Based Cheat Delay",
+        title = "AI Timed Cheat Delay",
         description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
     },
     Lobby_ACT_Time_Amount = {
-        title = "AI Time-Based Cheat Amount",
+        title = "AI Timed Cheat Amount",
         description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
     },
     Lobby_ACT_Time_Cap = {
-        title = "AI Time-Based Cheat Limit",
+        title = "AI Timed Cheat Limit",
         description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
     },
     Lobby_ACT_Ratio_Interval = {
         title = "AI Feedback Cheat Interval",
         description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
     },
+    Lobby_ACT_Ratio_Scale = { 
+        title = "AI Feedback Cheat Scale", 
+        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
+    },
+    
     Lobby_Gen_Civilians = {
         title = "Civilians",
         description = "Set civilian unit behavior",
@@ -797,6 +812,7 @@ Tooltips = {
         title = "Removed",
         description = "No civilian units are present",
     },
+    
     Lobby_NoRushOption = {
         title = "No Rush Option",
         description = "Set a time in which players may not expand past their initial starting area",
@@ -817,6 +833,7 @@ Tooltips = {
         title = "20 Minutes",
         description = "You must stay in your starting area for 20 minutes",
     },
+    
     lob_CheatsEnabled_false = {
         title = 'Disable Cheats',
         description = 'Disable all cheat functions',
@@ -825,6 +842,7 @@ Tooltips = {
         title = 'Enable Cheats',
         description = 'Enable cheat functions (reported to all players)',
     },
+    
     lob_FogOfWar_explored = {
         title = 'Explored',
         description = 'Sets Fog of War to Explored',
@@ -837,6 +855,7 @@ Tooltips = {
         title = 'None',
         description = 'No Fog of War',
     },
+    
     lob_GameSpeed_normal = {
         title = 'Normal',
         description = 'Sets the game speed to Normal',
@@ -849,6 +868,7 @@ Tooltips = {
         title = 'Adjustable',
         description = 'Allows the game speed to be adjusted ingame',
     },
+    
     Lobby_Gen_DisplayScores = {
         title = "Display Scores",
         description = "Turn the in game display of army scores on or off",
@@ -891,14 +911,7 @@ Tooltips = {
         title = "Team",
         description = "Players with the same Team will start off Allied with each other",
     },
-    lob_mult = {
-        title = "AI Cheat Multiplier",
-        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at 0.9 and below, it is weakened and less difficult.",
-    },
-    lob_act = {
-        title = "Adaptive AI Cheat Multiplier",
-        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game.",
-    },
+
     lob_teams_combo = {
         title = "Number/Configuration of Teams",
         description = "Select the number or configuration of teams for this map",
@@ -1095,6 +1108,10 @@ Tooltips = {
         description = "The AI's cheat multiplier will never go higher than 4.0."
     },
 
+    ["lob_ACTStartDelay_0"] = {
+        title = "0",
+        description = "The AI's cheat multiplier timer will not start immediately.",
+    },
     ["lob_ACTStartDelay_6"] = {
         title = "6",
         description = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
@@ -1107,7 +1124,20 @@ Tooltips = {
         title = "15",
         description = "The AI's cheat multiplier will not start increasing until 15 minutes have passed.",
     },
-
+    
+    ["lob_ACTRatioScale_1"] = { 
+        title = "1", 
+        description = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
+    }, 
+    ["lob_ACTRatioScale_2"] = { 
+        title = "2", 
+        description = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
+    }, 
+    ["lob_ACTRatioScale_3"] = { 
+        title = "3", 
+        description = "The AI's cheat multiplier will increase by a maximum of 1.5.", 
+    }, 
+ 
     -- *********************
     -- *** Unit Cap Cheat
     -- *********************

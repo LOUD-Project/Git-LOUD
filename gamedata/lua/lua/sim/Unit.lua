@@ -311,6 +311,7 @@ Unit = Class(moho.unit_methods) {
 		
         self.DamageEffectsBag = { {}, {}, {}, }
         
+        -- these tables only get created when used --
         --self.MovementEffectsBag = {}
         --self.IdleEffectsBag = {}
         --self.BeamExhaustEffectsBag = {}
@@ -341,14 +342,6 @@ Unit = Class(moho.unit_methods) {
 			self.PlayDeathAnimation = true
 			
         end
-        
-        --self.MaintenanceConsumption = false
-        --self.ActiveConsumption = false
-		
-        --self.ProductionEnabled = true
-		
-        --self.EnergyModifier = 0
-        --self.MassModifier = 0
 
         self.VeteranLevel = 0
 

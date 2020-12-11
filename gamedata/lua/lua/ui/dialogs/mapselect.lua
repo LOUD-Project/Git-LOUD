@@ -94,7 +94,34 @@ mapFilters = {
         }
     },
 }
+-- CHANGED --
 
+-- used to compute the offset of spawn / mass / hydro markers on the (big) preview
+-- when the map is not square
+local function ComputeNonSquareOffset(width, height)
+    -- determine the largest dimension
+    local largest = width
+    if height > largest then
+        largest = height 
+    end
+
+    -- determine correction factor for uneven dimensions
+    local yOffset = 0
+    local xOffset = 0 
+    if width > height then 
+        local factor = height / width
+        yOffset = 0.5 * factor
+    end
+
+    if width < height then 
+        local factor = width / height
+        xOffset = 0.5 * factor
+    end
+
+    return xOffset, yOffset, largest
+end
+
+-- CHANGED --
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
     local group = Group(parent)
@@ -188,13 +215,18 @@ local function ShowMapPositions(mapCtrl, scenario)
 
     local mWidth = scenario.size[1]
     local mHeight = scenario.size[2]
-
+    local xOffset, yOffset, largest = ComputeNonSquareOffset(mWidth, mHeight)
+    
     for army, pos in startPos do
     
         local marker = Bitmap(posGroup, UIUtil.UIFile('/dialogs/mapselect02/commander.dds'))
         
-        LayoutHelpers.AtLeftTopIn(marker, posGroup, ((pos[1] / mWidth) * cWidth) - (marker.Width() / 2), ((pos[2] / mHeight) * cHeight) - (marker.Height() / 2))
-        
+        LayoutHelpers.AtLeftTopIn(
+            marker, 
+            posGroup, 
+            ((xOffset + pos[1] / largest) * cWidth) - (marker.Width() / 2), 
+            ((yOffset + pos[2] / largest) * cHeight) - (marker.Height() / 2)
+        )
     end
 end
 
