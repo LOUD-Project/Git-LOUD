@@ -1,3 +1,82 @@
+### Release 12-11-2020 ###
+Lua 5.3.29
+LOUD Mods 5.28
+Textures 6.1
+
+- AI can now have individual cheat multipliers, and can use adaptive cheating in different ways on an individual basis.
+- To facilitate the above changes, the lobby has had a minor appearance makeover to be more compact.
+- A large number of customization options for the adaptive cheat system have been added. You can now set:
+  - Delay before timed cheat starts working.
+  - Time in between upticks of timed cheat.
+  - Amount that cheat increases every uptick under timed cheat.
+  - Limit of cheat multiplier total increase under timed cheat.
+  - Interval between possible changes under feedback cheat.
+  - Scale of possible changes under feedback cheat.
+- Details on a unit provided on mouseover of its icon have been greatly improved.
+  - Conversions from metres to kilometres where range values are large enough.
+  - Physics values are shown in metres per second.
+  - Fuel time is shown in minutes:seconds.
+  - Countermeasure readings now display their type, and exclude damage values.
+  - Better fallbacks for incomplete weapon definitions.
+  - DPS is now shown.
+  - Some edge cases fixed concerning EMP and dummy target painting weapons.
+- Minor adjustments to costs of T1 engineers and factories.
+  - T1 Land Fac mass cost 240 -> 250
+  - T1 Air Fac energy cost 2400 -> 2500
+  - T1 engineer mass cost 65 -> 70, energy cost 300 -> 330.
+- Minor adjustments to power generators.
+  - Aeon T1 pgen mass cost: 90 -> 100, energy storage 20 -> 50
+  - Aeon T2 pgen mass cost: 2250 -> 2200, energy cost 22500 -> 22000, energy storage 50 -> 250, death damage 2500 -> 2000.
+  - T3 pgen mass cost: 11250 -> 10500, energy cost 110000 -> 112500, energy storage of 500 added.
+  - Aeon T3 pgen death damage 6000 -> 5000. All other T3 pgen death damage 5900 -> 5000.
+- Lobby map previews now properly handle non-square map.
+- New set of more readable player colours.
+- The Ahwassa was incorrectly overperforming when LOUD Integrated Storage was enabled, and has been brought back into line with the rest of the game balance. Users of Integrated Storage will observe the following changes:
+  - Minor reductions in aerodynamic performance.
+  - Health 54500 -> 52500.
+  - Health regen 12 -> 10.
+  - Energy build cost 895000 -> 1120000.
+  - Build time 43000 -> 107400.
+  - Veterancy requirements:
+    - Level 1: 75 -> 90.
+    - Level 2: 150 -> 180.
+    - Level 3: 225 -> 270.
+    - Level 4: 300 -> 360.
+    - Level 5: 375 -> 450.
+  - Radius of bomb damage 18 -> 14.
+  - AA autocannon range 45 -> 42.
+  - Wreckage mass reclaim multiplier 0.6 -> 0.3.
+  - Wreckage energy reclaim multiplier 0.3 -> 0.05.
+  - Wreckage health multiplier 0.3 -> 0.6.
+  - Radar radius increased from 60 to 75.
+- All teleport times are now 12 seconds, and energy costs for teleportation have been revised across the board. Strict minimums have been put in place to prevent instant or free teleports.
+- Seraphim T2 Sonar nerfs:
+  - Health reduced from 2000 to 800.
+  - Health regen rate set to 0 from 2.
+  - Build cost reduction; 180 to 120 mass, 5400 to 3700 energy.
+  - Sonar radius brought down from 210 to 180.
+  - Vision radius increased from 22 to 30.
+  - Water vision radius reduced from 35 to 15.
+- The fake UEF T3 Sonar is no longer in the Seraphim unit roster as an upgrade to the Sera T2 Sonar. It has been replaced with BrewLAN's Sera T3 Sonar.
+- The MSG Spiderbot (Cybran T2 Mobile Shield Generator) has been renamed to the Cocoon.
+- Higher limit on battleships for certain AI naval formations.
+- Higher unit cap thresholds after which the AI will not build airpads or antinuke launchers.
+- AI SACUs are more likely to be drawn to bases without factories than bases which have them already.
+- The AI may start building new factories earlier if the conditions are suitable.
+- The AI is more willing to carry out amphibious attacks.
+- The AI is more willing to build naval yards if an enemy is close.
+- Neutral civilians do not factor into the AI's assessment of threat anymore.
+- The Magna (Cybran T3 Bombardment Ship) and Zthuzene (Sera T2 Bombardment Ship) have new artillery ship icons.
+- There are now icons for bots which generate shields.
+- Several bots which mistakenly had tank icons now have bot icons.
+- Several experimentals have icons which better reflect their actual weapon loadouts.
+- New set of icons for Seraphim units in the protector line, and for the Sera T2 Restoration Field Generator.
+- Default values for anti-teleportation field range.
+- Fix: "Poseidon" (UEF T3 Heavy Support Cruiser) was mis-named the "Posideon", and had a direct-fire icon instead of a cruiser icon.
+- Fix: The Othuum (Sera T3 Siege Tank) was lacking an ability list.
+- Several typo fixes across the unit roster.
+- Numerous other bug fixes which improve the AI's capabilities.
+
 ### Release 12-04-2020 ###
 Textures 6.01
 BrewLAN 0.84
