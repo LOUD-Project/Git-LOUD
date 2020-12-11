@@ -137,7 +137,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -154,8 +154,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				
 				LocationRadius = 2000,
 				
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -362,7 +362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },

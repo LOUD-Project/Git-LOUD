@@ -6,7 +6,7 @@ function ExecutePlan(aiBrain)
 	
     WaitTicks(5)
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Threat to other positions")
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Threat to other positions")
 
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do

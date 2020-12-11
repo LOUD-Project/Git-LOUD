@@ -2164,6 +2164,8 @@ Platoon = Class(moho.platoon_methods) {
 				-- never re-select the same point if it already failed
 				-- if no point is found then Return to Base
 				if pointlist then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Pointlist is "..repr(pointlist))
 
 					-- randomly pick a marker (but cannot be the same as recently failed)
 					-- exit
@@ -2195,11 +2197,14 @@ Platoon = Class(moho.platoon_methods) {
 					guardtime = 0
 					guarding = false
 				end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Picked "..repr(PCat).." marker at "..repr(marker))
+                
 			end
 			
 			if not position or not marker then
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
                 
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
