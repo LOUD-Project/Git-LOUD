@@ -1204,7 +1204,7 @@ function ApplyCheatBuffs(unit)
 
 		ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)		
 		ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)
-		ApplyBuff(unit, 'CheatIntel'..aiIBrain.ArmyIndex)
+		ApplyBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex)
 
 		ApplyBuff(unit, 'CheatALL'..aiBrain.ArmyIndex)
         

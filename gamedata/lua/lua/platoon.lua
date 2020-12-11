@@ -7368,6 +7368,8 @@ Platoon = Class(moho.platoon_methods) {
 		local bAggroMove = self.PlatoonData.AggressiveMove or false
 		
         self.PlatoonAttackForce = true
+        
+        self.PlanName = 'LandForceAILOUD'
 		
         self:SetPlatoonFormationOverride('LOUDClusterFormation')
         
@@ -7415,7 +7417,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if MergeLimit and oldNumberOfUnitsInPlatoon < MergeLimit then
 
-				if self.MergeWithNearbyPlatoons( self, aiBrain, 'AttackForceAI', 75, false, MergeLimit) then
+				if self.MergeWithNearbyPlatoons( self, aiBrain, 'LandForceAILOUD', 75, false, MergeLimit) then
 				
 					platoonUnits = GetPlatoonUnits(self)
 
@@ -7749,7 +7751,7 @@ Platoon = Class(moho.platoon_methods) {
 				
                 -- retreat behavior --
 				if mystrength <= (OriginalSurfaceThreat * .40) then
-					self.MergeIntoNearbyPlatoons( self, aiBrain, 'AttackForceAI', 100, false)
+					self.MergeIntoNearbyPlatoons( self, aiBrain, 'LandForceAILOUD', 100, false)
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end					
 				
