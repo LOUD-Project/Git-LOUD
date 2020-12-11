@@ -306,8 +306,8 @@ EngineerManager = Class(BuilderManager) {
 		else
 			if (unit.PlatoonHandle and unit.PlatoonHandle != aiBrain.ArmyPool) and (unit.PlatoonHandle and unit.PlatoonHandle != aiBrain.StructurePool) then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." Has platoon "..repr(unit.PlatoonHandle) )
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." is attached "..repr(unit:IsUnitState('Attached') ) )
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." Has platoon "..repr(unit.PlatoonHandle) )
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." is attached "..repr(unit:IsUnitState('Attached') ) )
 				
 				if aiBrain:PlatoonExists(unit.PlatoonHandle) then
 					aiBrain:DisbandPlatoon(unit.PlatoonHandle)

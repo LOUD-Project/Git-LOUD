@@ -86,7 +86,7 @@ function OnCreateArmyBrain(index, brain, name, nickname)
     import('/lua/sim/scenarioutilities.lua').InitializeStartLocation(name)
     import('/lua/sim/scenarioutilities.lua').SetPlans(name)
 	
-    LOG(string.format("OnCreateArmyBrain %d %s %s",index,name,nickname))
+    --LOG(string.format("OnCreateArmyBrain %d %s %s",index,name,nickname))
 	
     ArmyBrains[index] = brain
     ArmyBrains[index].Name = name

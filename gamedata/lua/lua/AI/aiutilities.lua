@@ -961,8 +961,6 @@ end
 -- to do it after we figured out how many armies are in the biggest team
 function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Setting unit cap from base of "..ScenarioInfo.Options.UnitCap )
-	
 	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.TeamSize)
     
     aiBrain.OutnumberedRatio = PlayerDiff
@@ -977,7 +975,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		
 		SetArmyUnitCap( aiBrain.ArmyIndex, 99999)
 
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap Unlimited")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
 	
@@ -990,7 +988,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap)
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap)
     end
     
     if aiBrain.OutnumberedRatio > 1 then 
@@ -1013,7 +1011,7 @@ end
 -- to work properly
 function SetupAICheat(aiBrain, biggestTeamSize)
 
-    LOG("*AI DEBUG SetupAICheat for "..aiBrain.Nickname.." INDEX "..repr(aiBrain.ArmyIndex).." Value "..aiBrain.CheatValue)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." SetupAICheat for ArmyIndex "..repr(aiBrain.ArmyIndex).." Value "..aiBrain.CheatValue)
 
     -- Veterancy mult is always 1 or higher
     aiBrain.VeterancyMult = math.max( 1, aiBrain.CheatValue)
@@ -1182,7 +1180,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issued period(delay) is "..aiBrain.UpgradeIssuedPeriod)
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issued period(delay) is "..aiBrain.UpgradeIssuedPeriod)
     
 end
 

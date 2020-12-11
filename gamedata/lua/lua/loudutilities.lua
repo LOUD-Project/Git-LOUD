@@ -830,7 +830,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 	else
 		-- try and catch units being dispersed to what may now be a dead base --
 		-- the idea is to drop them back into an RTB which should find another base
-		LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
 
        	IssueClearCommands( units )
 

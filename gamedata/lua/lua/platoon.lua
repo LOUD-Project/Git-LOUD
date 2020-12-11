@@ -1454,9 +1454,11 @@ Platoon = Class(moho.platoon_methods) {
 					
                         self:Stop()
 						
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..mythreat.." threat - No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..mythreat.." threat - No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
 						
 						path = { transportLocation }
+                        
+                        UseFormation = 'None'
 					end
 				end
 			end
@@ -1658,7 +1660,7 @@ Platoon = Class(moho.platoon_methods) {
 					returnpool.RTBLocation = self.RTBLocation or false
 					returnpool.MovementLayer = self.MovementLayer
 					
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
 					
 					for _,u in units do
 					
@@ -1700,7 +1702,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 						returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
 						
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(returnpool.BuilderName).." on layer "..returnpool.MovementLayer.." submitted to "..repr(returnpool.BuilderLocation))
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(returnpool.BuilderName).." on layer "..returnpool.MovementLayer.." submitted to "..repr(returnpool.BuilderLocation))
 					end
 					
                     count = true -- signal the end of the primary loop
@@ -2204,7 +2206,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if not position or not marker then
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
                 
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
@@ -8332,21 +8334,24 @@ Platoon = Class(moho.platoon_methods) {
 			-- count and check validity of allied units
             aPlatUnits = aPlat:GetSquadUnits('Attack')
             
-			for _,u in aPlatUnits do
+            if aPlatUnits then
+            
+                for _,u in aPlatUnits do
 			
-				if not u.Dead then
+                    if not u.Dead then
 				
-					allyPlatoonSize = allyPlatoonSize + 1
+                        allyPlatoonSize = allyPlatoonSize + 1
 
-					if not IsUnitState(u,'Attached' )then
+                        if not IsUnitState(u,'Attached' )then
 				
-						-- if we have space in our platoon --
-						if (counter + platooncount) <= mergelimit then
+                            -- if we have space in our platoon --
+                            if (counter + platooncount) <= mergelimit then
 						
-							validUnits[counter+1] = u
-							counter = counter + 1
-						end
-					end
+                                validUnits[counter+1] = u
+                                counter = counter + 1
+                            end
+                        end
+                    end
                 end
             end
             

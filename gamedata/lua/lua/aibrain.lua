@@ -109,7 +109,7 @@
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
     
     -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
     -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
@@ -117,7 +117,7 @@
 	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
 
     -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG
-	ScenarioInfo.PlatoonMergeDialog = false
+	ScenarioInfo.PlatoonMergeDialog =  false
 	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
@@ -691,8 +691,6 @@ AIBrain = Class(moho.aibrain_methods) {
         end
 
 		if not civilian then
-			
-            LOG("*AI DEBUG "..self.Nickname.." setting cheat value to "..repr(self.CheatValue))
 
 			if planName and planName != '' then
 			
