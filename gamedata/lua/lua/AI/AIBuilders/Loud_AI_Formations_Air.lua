@@ -1034,7 +1034,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
         
         Priority = 10,
 		
@@ -1059,7 +1059,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
         
         Priority = 10,
 
@@ -1086,7 +1086,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 
-        InstanceCount = 1,
+        InstanceCount = 2,
         
         Priority = 10,
 
