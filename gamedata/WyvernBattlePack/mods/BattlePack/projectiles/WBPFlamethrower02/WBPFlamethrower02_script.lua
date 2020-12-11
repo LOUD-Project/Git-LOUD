@@ -1,6 +1,6 @@
-#
-# Flamethrower Projectile
-#
+--
+-- Flamethrower Projectile
+--
 local WBPFlamethrower02 = import('/mods/BattlePack/lua/BattlePackprojectiles.lua').NapalmProjectile02
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 

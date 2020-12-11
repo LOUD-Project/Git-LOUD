@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+		TargetBones = {
+            'B06_Stand',
+        },
     },
     Audio = {
         AmbientMove = Sound {

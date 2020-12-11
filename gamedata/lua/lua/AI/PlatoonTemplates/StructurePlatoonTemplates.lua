@@ -8,7 +8,7 @@
 PlatoonTemplate { Name = 'StrategicArtilleryStructure',
     Plan = 'ArtilleryAI',
     GlobalSquads = {
-        { categories.ARTILLERY * categories.STRUCTURE - categories.TECH2, 1, 1, 'artillery', 'None' }
+        { categories.ARTILLERY * categories.STRUCTURE - categories.TACTICAL - categories.TECH2 - categories.TECH1, 1, 1, 'artillery', 'None' }
     }
 }
 

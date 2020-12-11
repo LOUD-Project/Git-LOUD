@@ -158,13 +158,15 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 112500,
-        BuildCostMass = 11250,
+        
+        BuildCostEnergy = 110000,
+        BuildCostMass = 10500,
+        
         BuildTime = 15000,
+        
         ProductionPerSecondEnergy = 2300,
-        RebuildBonusIds = {
-            'ueb1301',
-        },
+
+		StorageEnergy = 500,        
     },
 	
     Footprint = {
@@ -236,7 +238,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 5900,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',
@@ -246,19 +248,5 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-	
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = true,
-            Sub = false,
-            Water = false,
-        },
-    },
+
 }

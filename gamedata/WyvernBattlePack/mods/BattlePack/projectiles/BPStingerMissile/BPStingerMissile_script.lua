@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : 
-#**  Author(s):
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     : 
+--**  Author(s):
+--**
+--**  Summary  :
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local StingerMissile = import('/mods/BattlePack/lua/BattlePackprojectiles.lua').FusionMissile
 BPStingerMissile = Class(StingerMissile) {}
 

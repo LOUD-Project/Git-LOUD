@@ -147,6 +147,8 @@ Description['ssb4401'] = "<LOC Unit_Description__BubbleTea_A4_03>Experimental sh
 
 Description['seb0401'] = "<LOC Unit_Description_BrewLAN_T4B004>Experimental multi-purpose factory. Dynamically changes buildable units based on environment. Can be toggled to build aircraft in any environment."
 
+Description['sas0401'] = "<LOC Unit_Description_BrewTeaParty_001>Experimental Dreadnought-level Battlecruiser. Featuring light armor and personal shield for better top speed, anti-torpedo torpedoes. 3 Primary Oblivion cannons, 2 Shield Disruptors, 2 SAM, and rapid fire fragmentation bombardment artillery."
+
 Description['ssb2404'] = "<LOC Unit_Description_BrewLAN_T4B002>Experimental rapid-fire artillery. Consumes massive amounts of Energy with each shot."
 Description['seb2404'] = "<LOC Unit_Description_BrewLAN_T4B005>Experimental rapid-fire artillery. Fires drop-pods containing manually constructed land units deep into enemy lines, causing minor impact damage. Drop-pods are launched in a first in last out order."
 Description['ssl0403'] = "<LOC Unit_Description_BrewLAN_T4L001>Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them."

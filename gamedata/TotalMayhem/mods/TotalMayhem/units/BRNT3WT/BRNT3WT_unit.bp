@@ -1,6 +1,9 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
+		TargetBones = {
+            'Turret',
+        },
     },
 	
     Audio = {
@@ -33,7 +36,7 @@ UnitBlueprint {
 	
     BuildIconSortPriority = 21,
 	
-	CollisionOffsetZ = -0.3,
+	CollisionOffsetZ = -0.2,
 	
     Categories = {
         'SELECTABLE',
@@ -156,7 +159,7 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 	
     SizeX = 1.1,
-    SizeY = 0.65,
+    SizeY = 0.5,
     SizeZ = 1.5,
 	
     StrategicIconName = 'icon_land3_directfire',

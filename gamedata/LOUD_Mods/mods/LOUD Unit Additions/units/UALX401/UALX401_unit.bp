@@ -1,6 +1,7 @@
 UnitBlueprint {
 	AI = {
         InitialAutoMode = true,
+		TargetBones = {'Spinner01' },
     },
 	
     Audio = {

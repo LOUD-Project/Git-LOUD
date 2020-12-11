@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {'Turret_Recoil','Turret' },
+        TargetBones = {'Turret_Barrel02','Turret' },
     },
 	
     Audio = {
@@ -173,7 +173,7 @@ UnitBlueprint {
     SelectionThickness = 0.42,
 	
     SizeX = 1.7,
-    SizeY = 2.6,
+    SizeY = 2.3,
     SizeZ = 1.9,
 	
     StrategicIconName = 'icon_structure3_artillery',

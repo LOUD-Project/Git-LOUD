@@ -1,4 +1,4 @@
-#**  File     :  /lua/MiscBuildConditions.lua
+--**  File     :  /lua/MiscBuildConditions.lua
 
 local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
 local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/defaultunits.lua
-#**  Author(s):  John Comes, Gordon Duclos
-#**
-#**  Summary  :  Default definitions of units
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/defaultunits.lua
+--**  Author(s):  John Comes, Gordon Duclos
+--**
+--**  Summary  :  Default definitions of units
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local Unit = import('/lua/sim/Unit.lua').Unit
 local Shield = import('/lua/shield.lua').Shield
@@ -24,7 +24,7 @@ local CreateBuildCubeThread = EffectUtil.CreateBuildCubeThread
 local CreateUEFBuildSliceBeams = EffectUtil.CreateUEFBuildSliceBeams
 
 #################################################################
-##  MISC UNITS
+--  MISC UNITS
 #################################################################
 DummyUnit = Class(Unit) {
     OnStopBeingBuilt = function(self,builder,layer)
@@ -33,7 +33,7 @@ DummyUnit = Class(Unit) {
 }
 
 #################################################################
-##  STRUCTURE UNITS
+--  STRUCTURE UNITS
 #################################################################
 StructureUnit = Class(Unit) {
     LandBuiltHiddenBones = {'Floatation'},
@@ -418,9 +418,9 @@ StructureUnit = Class(Unit) {
     
 }
 
-#-------------------------------------------------------------
-#  FACTORY  UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  FACTORY  UNITS
+---------------------------------------------------------------
 FactoryUnit = Class(StructureUnit) {
     OnCreate = function(self)
         StructureUnit.OnCreate(self)
@@ -691,15 +691,15 @@ FactoryUnit = Class(StructureUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  AIR FACTORY UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AIR FACTORY UNITS
+---------------------------------------------------------------
 AirFactoryUnit = Class(FactoryUnit) {
 }
 
-#-------------------------------------------------------------
-#  AIR STAGING PLATFORMS UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AIR STAGING PLATFORMS UNITS
+---------------------------------------------------------------
 AirStagingPlatformUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -709,9 +709,9 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-#  ENERGY CREATION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  ENERGY CREATION UNITS
+---------------------------------------------------------------
 ConcreteStructureUnit = Class(StructureUnit) {
     OnCreate = function(self)
         StructureUnit.OnCreate(self)
@@ -720,18 +720,18 @@ ConcreteStructureUnit = Class(StructureUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  ENERGY CREATION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  ENERGY CREATION UNITS
+---------------------------------------------------------------
 EnergyCreationUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
 }
 
 
-#-------------------------------------------------------------
-#  ENERGY STORAGE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  ENERGY STORAGE UNITS
+---------------------------------------------------------------
 EnergyStorageUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -759,17 +759,17 @@ EnergyStorageUnit = Class(StructureUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  LAND FACTORY UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  LAND FACTORY UNITS
+---------------------------------------------------------------
 LandFactoryUnit = Class(FactoryUnit) {}
 
 
 
 
-#-------------------------------------------------------------
-#  MASS COLLECTION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  MASS COLLECTION UNITS
+---------------------------------------------------------------
 MassCollectionUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -857,9 +857,9 @@ MassCollectionUnit = Class(StructureUnit) {
     end,	
 }
 
-#-------------------------------------------------------------
-#  MASS FABRICATION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  MASS FABRICATION UNITS
+---------------------------------------------------------------
 MassFabricationUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -901,9 +901,9 @@ MassFabricationUnit = Class(StructureUnit) {
 	
 }
 
-#-------------------------------------------------------------
-#  MASS STORAGE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  MASS STORAGE UNITS
+---------------------------------------------------------------
 MassStorageUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -933,29 +933,29 @@ MassStorageUnit = Class(StructureUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  RADAR UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  RADAR UNITS
+---------------------------------------------------------------
 RadarUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
-#Leave Radar on per design 11/14/06
-#    # Shut down intel while upgrading
-#    OnStartBuild = function(self, unitbuilding, order)
-#        StructureUnit.OnStartBuild(self, unitbuilding, order)
-#        self:SetMaintenanceConsumptionInactive()
-#    end,
-#
-#    # If we abort the upgrade, re-enable the intel
-#    OnStopBuild = function(self, unitBeingBuilt)
-#        StructureUnit.OnStopBuild(self, unitBeingBuilt)
-#        self:SetMaintenanceConsumptionActive()
-#    end,
-#
-#    # If we abort the upgrade, re-enable the intel
-#    OnFailedToBuild = function(self)
-#        StructureUnit.OnStopBuild(self)
-#        self:SetMaintenanceConsumptionActive()
-#    end,
+--Leave Radar on per design 11/14/06
+--    # Shut down intel while upgrading
+--    OnStartBuild = function(self, unitbuilding, order)
+--        StructureUnit.OnStartBuild(self, unitbuilding, order)
+--        self:SetMaintenanceConsumptionInactive()
+--    end,
+--
+--    # If we abort the upgrade, re-enable the intel
+--    OnStopBuild = function(self, unitBeingBuilt)
+--        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+--        self:SetMaintenanceConsumptionActive()
+--    end,
+--
+--    # If we abort the upgrade, re-enable the intel
+--    OnFailedToBuild = function(self)
+--        StructureUnit.OnStopBuild(self)
+--        self:SetMaintenanceConsumptionActive()
+--    end,
 
     OnStopBeingBuilt = function(self,builder,layer)
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
@@ -978,9 +978,9 @@ RadarUnit = Class(StructureUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  RADAR JAMMER UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  RADAR JAMMER UNITS
+---------------------------------------------------------------
 RadarJammerUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 
@@ -1029,32 +1029,32 @@ RadarJammerUnit = Class(StructureUnit) {
     end,       
 }
 
-#-------------------------------------------------------------
-#  SONAR UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SONAR UNITS
+---------------------------------------------------------------
 SonarUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
-#Leave Sonar On during upgrade, per design 11/14/06
-#    # Shut down intel while upgrading
-#    OnStartBuild = function(self, unitbuilding, order)
-#        StructureUnit.OnStartBuild(self, unitbuilding, order)
-#        self:SetMaintenanceConsumptionInactive()
-#        self:DisableIntel('Sonar')
-#    end,
-#
-#    # If we abort the upgrade, re-enable the intel
-#    OnStopBuild = function(self, unitBeingBuilt)
-#        StructureUnit.OnStopBuild(self, unitBeingBuilt)
-#        self:SetMaintenanceConsumptionActive()
-#        self:EnableIntel('Sonar')
-#    end,
-#
-#    # If we abort the upgrade, re-enable the intel
-#    OnFailedToBuild = function(self)
-#        StructureUnit.OnStopBuild(self)
-#        self:SetMaintenanceConsumptionActive()
-#        self:EnableIntel('Sonar')
-#    end,
+--Leave Sonar On during upgrade, per design 11/14/06
+--    # Shut down intel while upgrading
+--    OnStartBuild = function(self, unitbuilding, order)
+--        StructureUnit.OnStartBuild(self, unitbuilding, order)
+--        self:SetMaintenanceConsumptionInactive()
+--        self:DisableIntel('Sonar')
+--    end,
+--
+--    # If we abort the upgrade, re-enable the intel
+--    OnStopBuild = function(self, unitBeingBuilt)
+--        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+--        self:SetMaintenanceConsumptionActive()
+--        self:EnableIntel('Sonar')
+--    end,
+--
+--    # If we abort the upgrade, re-enable the intel
+--    OnFailedToBuild = function(self)
+--        StructureUnit.OnStopBuild(self)
+--        self:SetMaintenanceConsumptionActive()
+--        self:EnableIntel('Sonar')
+--    end,
 
     OnStopBeingBuilt = function(self,builder,layer)
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
@@ -1111,9 +1111,9 @@ SonarUnit = Class(StructureUnit) {
 
 
 
-#-------------------------------------------------------------
-#  SEA FACTORY UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SEA FACTORY UNITS
+---------------------------------------------------------------
 SeaFactoryUnit = Class(FactoryUnit) {
     # Disable the default rocking behavior
     StartRocking = function(self)
@@ -1125,27 +1125,27 @@ SeaFactoryUnit = Class(FactoryUnit) {
 
 
 
-#-------------------------------------------------------------
-#  SHIELD STRCUTURE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SHIELD STRCUTURE UNITS
+---------------------------------------------------------------
 ShieldStructureUnit = Class(StructureUnit) {
     
 	UpgradingState = State(StructureUnit.UpgradingState) {
         Main = function(self)
-#            self.MyShield:TurnOff()
+--            self.MyShield:TurnOff()
             StructureUnit.UpgradingState.Main(self)
         end,
 
         OnFailedToBuild = function(self)
-#            self.MyShield:TurnOn()
+--            self.MyShield:TurnOn()
             StructureUnit.UpgradingState.OnFailedToBuild(self)
         end,
     }
 }
 
-#-------------------------------------------------------------
-#  TRANSPORT BEACON UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  TRANSPORT BEACON UNITS
+---------------------------------------------------------------
 TransportBeaconUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
     FxTransportBeacon = {'/effects/emitters/red_beacon_light_01_emit.bp'},
@@ -1165,16 +1165,16 @@ TransportBeaconUnit = Class(StructureUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  WALL STRCUTURE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  WALL STRCUTURE UNITS
+---------------------------------------------------------------
 WallStructureUnit = Class(StructureUnit) {
     LandBuiltHiddenBones = {'Floatation'},
 }
 
-#-------------------------------------------------------------
-#  QUANTUM GATE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  QUANTUM GATE UNITS
+---------------------------------------------------------------
 QuantumGateUnit = Class(FactoryUnit) {
     OnKilled = function(self, instigator, type, overkillRatio)
         self:StopUnitAmbientSound( 'ActiveLoop' )
@@ -1185,9 +1185,9 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 
 
-#################################################################
-##  MOBILE UNITS
-#################################################################
+--
+--  MOBILE UNITS
+--
 MobileUnit = Class(Unit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -1271,9 +1271,9 @@ MobileUnit = Class(Unit) {
 }
 
 
-#-------------------------------------------------------------
-#  WALKING LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  WALKING LAND UNITS
+---------------------------------------------------------------
 PAWalkingLandUnit = Class(MobileUnit) {
     WalkingAnim = nil,
     WalkingAnimRate = 1,
@@ -1420,12 +1420,12 @@ PAWalkingLandUnit = Class(MobileUnit) {
 
 
 
-#-------------------------------------------------------------
-#  SUB UNITS
-#  These units typically float under the water and have wake when they move.
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SUB UNITS
+--  These units typically float under the water and have wake when they move.
+---------------------------------------------------------------
 SubUnit = Class(MobileUnit) {
-# use default spark effect until underwater damaged states are made
+-- use default spark effect until underwater damaged states are made
     FxDamage1 = {EffectTemplate.DamageSparks01},
     FxDamage2 = {EffectTemplate.DamageSparks01},
     FxDamage3 = {EffectTemplate.DamageSparks01},
@@ -1486,9 +1486,9 @@ SubUnit = Class(MobileUnit) {
 
 
 
-#-------------------------------------------------------------
-#  AIR UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AIR UNITS
+---------------------------------------------------------------
 AirUnit = Class(MobileUnit) {
 
     # Contrails
@@ -1637,20 +1637,20 @@ AirUnit = Class(MobileUnit) {
 
 
 
-#-------------------------------------------------------------
-#  HOVERING LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  HOVERING LAND UNITS
+---------------------------------------------------------------
 HoverLandUnit = Class(MobileUnit){}
 
 
-#-------------------------------------------------------------
-#  LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  LAND UNITS
+---------------------------------------------------------------
 LandUnit = Class(MobileUnit) {}
 
-#-------------------------------------------------------------
-#  CONSTRUCTION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  CONSTRUCTION UNITS
+---------------------------------------------------------------
 ConstructionUnit = Class(MobileUnit) {
 
     OnCreate = function(self)
@@ -1765,10 +1765,10 @@ ConstructionUnit = Class(MobileUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  SEA UNITS
-#  These units typically float on the water and have wake when they move.
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SEA UNITS
+--  These units typically float on the water and have wake when they move.
+---------------------------------------------------------------
 SeaUnit = Class(MobileUnit) {
     DeathThreadDestructionWaitTime = 5,
     ShowUnitDestructionDebris = false,
@@ -1853,21 +1853,21 @@ SeaUnit = Class(MobileUnit) {
 }
 
 
-#-------------------------------------------------------------
-#  SHIELD HOVER UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SHIELD HOVER UNITS
+---------------------------------------------------------------
 ShieldHoverLandUnit = Class(HoverLandUnit) {
 }
 
-#-------------------------------------------------------------
-#  SHIELD LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SHIELD LAND UNITS
+---------------------------------------------------------------
 ShieldLandUnit = Class(LandUnit) {
 }
 
-#-------------------------------------------------------------
-#  SHIELD SEA UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SHIELD SEA UNITS
+---------------------------------------------------------------
 ShieldSeaUnit = Class(SeaUnit) {
 }
 

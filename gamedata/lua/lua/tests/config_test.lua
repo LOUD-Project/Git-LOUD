@@ -1,6 +1,6 @@
-# Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#
-# Unit tests for /lua/system/config.lua
+-- Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--
+-- Unit tests for /lua/system/config.lua
 
 
 require '../tests/testutils.lua'

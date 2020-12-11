@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = { 
+		TargetBones = {
+            'Turret',
+        },		
+    }, 
+	
     Audio = {
         Killed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -192,7 +198,7 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 0.8,
-    SizeY = 1.4,
+    SizeY = 1.25,
     SizeZ = 0.9,
 	
     StrategicIconName = 'icon_bot2_directfire',

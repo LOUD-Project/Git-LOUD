@@ -1,4 +1,12 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Flamer_Turret',
+            'Main_Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -60,13 +68,13 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 15,
             ShieldMaxHealth = 2400,
             ShieldRechargeTime = 15,
-            ShieldRegenRate = 120,
+            ShieldRegenRate = 110,
             ShieldRegenStartTime = 1,
             ShieldSize = 2,
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
-        SurfaceThreatLevel = 75.1,
+        SurfaceThreatLevel = 72.9,
     },
 	
     Description = '<LOC xel0307_desc>Battle Station',
@@ -75,6 +83,7 @@ UnitBlueprint {
         Abilities = {
             'Personal Shield',
             'Amphibious',
+            'Torpedo Defense',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -165,7 +174,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.2,
+        MaxAcceleration = 1.3,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
         MaxSpeedReverse = 2.2,
@@ -244,7 +253,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-			
+            
+            FiringRandomnessWhileMoving = 0.3,
             FiringTolerance = 0.3,
 			
             LeadTarget = true,
@@ -256,7 +266,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 50,
+            MuzzleVelocity = 55,
 			
             NotExclusive = true,
 			
@@ -273,6 +283,8 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
+            
+            RackRecoilDistance = -1,
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
@@ -305,10 +317,13 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 26,
 			
             Turreted = true,
         },
+        
+        -- 2 x GATLING TURRETS --
+        
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -323,7 +338,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 6,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Plasma Cannon',
@@ -333,7 +348,9 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 0.4,
+            FiringRandomness = 0.1,
+            FiringRandomnessWhileMoving = 0.5,
+            
             FiringTolerance = 0.1,
 			
             Label = 'RightGatlingCannon',
@@ -341,12 +358,13 @@ UnitBlueprint {
             MaxRadius = 30,
 			
             HeadingArcCenter = 75,
-            HeadingArcRange = 100,
+            HeadingArcRange = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 48,
 			
+            NotExclusive = true,
             NoPause = true,
 			
             ProjectileId = '/projectiles/TDFPlasma02/TDFPlasma02_proj.bp',
@@ -371,7 +389,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,						---- 60 dps
+            RateOfFire = 5,						---- 60 dps
 			
             TargetCheckInterval = 0.25,
             TargetPriorities = {
@@ -382,18 +400,24 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Right_Gat_Spinner01_Muzzle',
             TurretBonePitch = 'Right_Gat_Barrel',
             TurretBoneYaw = 'Right_Gat_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 50,
-            TurretYaw = 0,
-            TurretYawRange = 180,
+            
+            TurretYaw = 75,
+            TurretYawRange = 110,
             TurretYawSpeed = 45,
+            
             Turreted = true,
+            
             UseFiringSolutionInsteadOfAimBone = true,
+            
             WeaponCategory = 'Direct Fire',
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
@@ -412,7 +436,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 6,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Plasma Cannon',
@@ -422,7 +446,9 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 0.4,
+            FiringRandomness = 0.1,
+            FirintRandomnessWhileMoving = 0.5,
+            
             FiringTolerance = 0.1,
 			
             Label = 'LeftGatlingCannon',
@@ -430,13 +456,14 @@ UnitBlueprint {
             MaxRadius = 30,
 			
             HeadingArcCenter = -75,
-            HeadingArcRange = 100,
+            HeadingArcRange = 110,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 48,
 			
             NoPause = true,
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma02/TDFPlasma02_proj.bp',
 			ProjectileLifetime = 0.8,
@@ -460,7 +487,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,			---- 60 dps
+            RateOfFire = 6,			---- 60 dps
             TargetCheckInterval = 0.33,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -470,22 +497,31 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Left_Gat_Spinner01_Muzzle',
             TurretBonePitch = 'Left_Gat_Barrel',
             TurretBoneYaw = 'Left_Gat_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 50,
-            TurretYaw = 0,
-            TurretYawRange = 180,
+            
+            TurretYaw = -75,
+            TurretYawRange = 110,
             TurretYawSpeed = 45,
+            
             Turreted = true,
+            
             UseFiringSolutionInsteadOfAimBone = true,
+            
             WeaponCategory = 'Direct Fire',
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
+        
+        -- SPONSON MOUNTED GUNS --
+        
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -510,13 +546,13 @@ UnitBlueprint {
             },
             FiringTolerance = 1,
 			
+            HeadingArcCenter = -45,
+            HeadingArcRange = 46,
+
             Label = 'Turret',
 			
             MaxRadius = 29,
-			
-            HeadingArcCenter = -90,
-            HeadingArcRange = 90,
-			
+	
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -554,6 +590,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',
@@ -563,9 +600,9 @@ UnitBlueprint {
             TurretPitchRange = 50,
             TurretPitchSpeed = 45,
 			
-            TurretYaw = 0,
-            TurretYawRange = 90,
-            TurretYawSpeed = 30,
+            TurretYaw = -45,
+            TurretYawRange = 46,
+            TurretYawSpeed = 33,
 			
             Turreted = true,
         },
@@ -585,9 +622,6 @@ UnitBlueprint {
 			
             Damage = 30,
 			
-            HeadingArcCenter = -90,
-            HeadingArcRange = 90,
-			
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -601,13 +635,13 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
 			
+            HeadingArcCenter = 46,
+            HeadingArcRange = 46,
+			
             Label = 'Turret',
 			
             MaxRadius = 29,
-			
-            HeadingArcCenter = 90,--use me
-            HeadingArcRange = 90,--use me
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -646,19 +680,98 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 45,
-            TurretYaw = 0,
-            TurretYawRange = 90,
-            TurretYawSpeed = 30,
+            
+            TurretYaw = 45,
+            TurretYawRange = 46,
+            TurretYawSpeed = 33,
+            
             Turreted = true,
         },
+        
+        -- ANTI TORPEDO SYSTEM --
+		
         {
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterFireOnly = true,
+			
+			CannotAttackGround = true,			
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DepthCharge = { Radius = 5 },
+			
+            DisplayName = 'Smart Charge AntiTorpedo',
+			
+            FireTargetLayerCapsTable = {
+                Seabed = 'Sub|Water|Seabed',
+                Water = 'Sub|Water|Seabed',
+            },
+			
+            FiringRandomness = 18,
+            FiringTolerance = 360,
+			
+            Label = 'AntiTorpedo',
+			
+            MaxRadius = 22,
+            MinRadius = 0,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 4.5,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 1.8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Missile_01',
+                    },
+                    RackBone = 'Left_Missile_01',
+                },
+                {
+                    MuzzleBones = {
+                        'Right_Missile_01',
+                    },
+                    RackBone = 'Right_Missile_01',
+                },				
+            },
+            RackFireTogether = false,
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 0.7,
+			
+            TargetCheckInterval = 0.5,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.3,
+        },
+        
+        -- 2 x MISSILE PACKS --
+        
+        {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound {
@@ -671,10 +784,10 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 55,
-            DamageRadius = 1,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
-            DisplayName = 'Left Missile Pack',
+            DisplayName = 'Left Rocket Pack',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -687,8 +800,8 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 10,
 			
             NoPause = true,
@@ -700,14 +813,12 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'Left_Missile_01',
-                        'Left_Missile_02',
                         'Left_Missile_03',
                         'Left_Missile_04',
                         'Left_Missile_05',
                         'Left_Missile_06',
                     },
-                    RackBone = 'Left_Missile_01',
+                    RackBone = 'Left_Missile_03',
                 },
             },
             RackFireTogether = false,
@@ -720,14 +831,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	---- 6 * 55 every 10 seconds = 33 dps
+            RateOfFire = 0.1,	---- 4 * 55 every 10 seconds = 22 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -750,10 +860,10 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 55,
-            DamageRadius = 1,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
-            DisplayName = 'Right Missile Pack',
+            DisplayName = 'Right Rocket Pack',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -766,8 +876,8 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 10,
 			
             NoPause = true,
@@ -779,14 +889,12 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'Right_Missile_01',
-                        'Right_Missile_02',
                         'Right_Missile_03',
                         'Right_Missile_04',
                         'Right_Missile_05',
                         'Right_Missile_06',
                     },
-                    RackBone = 'Right_Missile_01',
+                    RackBone = 'Right_Missile_03',
                 },
             },
             RackFireTogether = false,
@@ -799,13 +907,12 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,			---- 33 dps
+            RateOfFire = 0.1,			---- 22 dps
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE DEFENSE',
                 'MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -813,6 +920,9 @@ UnitBlueprint {
 
             Turreted = false,
         },
+        
+        -- Forard Mounted Flamethrower --
+        
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -825,13 +935,18 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 10,
             DamageRadius = 2,
+            
             DoTPulses = 5,
             DoTTime = 2.5,
+            
 			DamageFriendly = false,
             DamageType = 'Normal',
+            
             DisplayName = 'Flamethrower',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water|Seabed',
@@ -849,6 +964,7 @@ UnitBlueprint {
             MuzzleVelocity = 10,
 			
             NoPause = true,
+            NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NapalmProjectile02/Napalm02_proj.bp',
 			ProjectileLifetime = 3,
@@ -890,12 +1006,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 26,
+            TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
         },

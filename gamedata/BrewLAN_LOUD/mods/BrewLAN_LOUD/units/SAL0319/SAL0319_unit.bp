@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Spinner_01',
-            'Spinner_02',
-            'Spinner_03',
+            'Dummy001',
         },
     },
     Audio = {
@@ -269,7 +267,7 @@ UnitBlueprint {
     SelectionThickness = 0.55,
 	
     SizeX = 0.9,
-    SizeY = 0.7,
+    SizeY = 0.9,
     SizeZ = 0.9,
 	
     StrategicIconName = 'icon_land3_engineer',

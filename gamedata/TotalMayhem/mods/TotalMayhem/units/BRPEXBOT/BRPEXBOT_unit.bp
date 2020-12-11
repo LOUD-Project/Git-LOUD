@@ -1,7 +1,16 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 45,
+		TargetBones = {
+            'Object02',
+			'Left_Leg_B002',
+			'BRPT2EXBOT',
+			'RightCannon',
+			'Left_Barrel',
+        },	
     },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'XRL_Destroy',
@@ -53,6 +62,8 @@ UnitBlueprint {
         'RECLAIMABLE',
     },
     
+	CollisionOffsetZ = -0.3,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 55000,

@@ -1,6 +1,6 @@
-#
-# CDFProtonCannon01
-#
+--
+-- CDFProtonCannon01
+--
 local CDFProtonCannonProjectile = import('/lua/cybranprojectiles.lua').CDFProtonCannonProjectile
 local WaitSeconds = WaitSeconds
 local ForkThread = ForkThread

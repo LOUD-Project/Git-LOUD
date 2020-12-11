@@ -2,7 +2,7 @@
 --* Author: Ted Snook
 --* Summary: In Game Avatar Icons
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -837,7 +837,7 @@ function CreateIdleEngineerList(parent, units)
     return group
 end
 
-#-- modified to show idle Quantum Gateways
+---- modified to show idle Quantum Gateways
 function CreateIdleFactoryList(parent, units)
 
     local bg = Bitmap(parent, UIUtil.SkinnableFile('/game/avatar-factory-panel/factory-panel_bmp.dds'))

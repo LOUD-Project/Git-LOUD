@@ -1,13 +1,13 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/weatherdefinitions.lua
-#**  Author(s):  Gordon Duclos, Chris Gorski
-#**
-#**  Summary  :  Weather definitions
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/weatherdefinitions.lua
+--**  Author(s):  Gordon Duclos, Chris Gorski
+--**
+--**  Summary  :  Weather definitions
+--**
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--**
+--****************************************************************************
 
 --[[
 	Map Style Types:
@@ -53,7 +53,7 @@
 			CirrusHeavy4096 - 
 ]]--
 
-# Map Style Type List - defines the different map styles
+-- Map Style Type List - defines the different map styles
 MapStyleList = {
 	'Desert',
 	'Evergreen',
@@ -143,7 +143,7 @@ CirrusHeavy4096Definition = {
 	},
 }
 
-# Map Style Weather Type List - defines the different weather types for each style
+-- Map Style Weather Type List - defines the different weather types for each style
 MapWeatherList = {
 	Desert = {
 		LightStratus = {

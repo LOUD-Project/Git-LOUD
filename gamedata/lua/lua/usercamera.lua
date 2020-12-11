@@ -1,9 +1,9 @@
-#
-# UserCamera
-#
-# Provides direct control over a specific game camera. Also listens to request from the Sim and manipulates
-# the cameras as instructed.
-#
+--
+-- UserCamera
+--
+-- Provides direct control over a specific game camera. Also listens to request from the Sim and manipulates
+-- the cameras as instructed.
+--
 
 function ProcessCameraRequests(reqs)
     for k,v in Sync.CameraRequests do

@@ -1,6 +1,13 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 95, 
+        GuardScanRadius = 95,    
+       	TargetBones = {
+            'legb07',
+			'legb27',
+			'legb12',
+			'legb28',
+			'Front_Turret01',
+        },
     }, 
 	
     Audio = {
@@ -378,7 +385,7 @@ UnitBlueprint {
     SizeY = 3.4,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_land_artillery',
+    StrategicIconName = 'icon_experimental_mobilefactory_artillery',
     StrategicIconSortPriority = 115,
 	
     Veteran = {

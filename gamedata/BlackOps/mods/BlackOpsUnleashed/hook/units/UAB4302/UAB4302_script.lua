@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /cdimage/units/UAB4302/UAB4302_script.lua
-#**  Author(s):  John Comes, David Tomandl, Jessica St. Croix
-#**
-#**  Summary  :  Aeon Strategic Missile Defense Script
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /cdimage/units/UAB4302/UAB4302_script.lua
+--**  Author(s):  John Comes, David Tomandl, Jessica St. Croix
+--**
+--**  Summary  :  Aeon Strategic Missile Defense Script
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
 local AAMSaintWeapon = import('/lua/aeonweapons.lua').AAMSaintWeapon

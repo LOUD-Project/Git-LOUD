@@ -7,12 +7,7 @@ UnitBlueprint {
         GuardReturnRadius = 200,
         GuardScanRadius = 175,
         TargetBones = {
-            'Right_Rear_Autocannon_Muzzle',
-            'Left_Rear_Autocannon_Muzzle',
-            'Tail_Extent',
             'XSA0402',
-            'Left_Front_Autocannon_Muzzle',
-            'Right_Front_Autocannon_Muzzle',
         },
     },
 	
@@ -124,7 +119,7 @@ UnitBlueprint {
         'DRAGBUILD',
     },
 	
-    CollisionOffsetY = -1.5,
+    CollisionOffsetY = -1.0,
 	
     Defense = {
         AirThreatLevel = 160,
@@ -262,10 +257,12 @@ UnitBlueprint {
     SelectionSizeX = 5.5,
     SelectionSizeZ = 5.5,
     SelectionThickness = 0.22,
-    SizeX = 9.8,
-    SizeY = 2.7,
-    SizeZ = 9.8,
-    StrategicIconName = 'icon_experimental_generic',
+	
+    SizeX = 6.0,
+    SizeY = 1.5,
+    SizeZ = 7.5,
+	
+    StrategicIconName = 'icon_experimental_bomber_directfire',
     StrategicIconSortPriority = 55,
     Transport = {
         TransportClass = 10,

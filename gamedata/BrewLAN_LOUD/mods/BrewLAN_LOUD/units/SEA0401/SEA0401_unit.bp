@@ -3,6 +3,15 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 125,
         GuardScanRadius = 100,
+        TargetBones = {
+            'GGun_Barrel001',
+			'Engine_Body004',
+			'Engine_Body003',
+			'Engine_Body002',
+			'Engine_Body001',
+			'SEA0401',
+			'HatPoint',
+        },
     },
 
     Air = {

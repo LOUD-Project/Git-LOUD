@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "url0401", #Cybran Scathis
+    BlueprintId = "url0401", --#Cybran Scathis
 
     Weapon = {
         {

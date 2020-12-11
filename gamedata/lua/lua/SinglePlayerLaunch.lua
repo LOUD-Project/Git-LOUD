@@ -1,4 +1,4 @@
-# logic and defaults for launching non-skirmish sessions
+-- logic and defaults for launching non-skirmish sessions
 local Prefs = import('/lua/user/prefs.lua')
 local MapUtils = import('/lua/ui/maputil.lua')
 
@@ -49,7 +49,7 @@ end
 
 
 
-# note that the map name must include the full path, it won't try to guess the path based on name
+-- note that the map name must include the full path, it won't try to guess the path based on name
 function SetupCampaignSession(scenario, difficulty, inFaction, campaignFlowInfo, isTutorial)
     local factions = import('/lua/factions.lua').Factions
     local faction = inFaction or 1

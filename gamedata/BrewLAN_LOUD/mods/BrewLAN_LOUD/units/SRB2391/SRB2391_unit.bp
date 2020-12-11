@@ -1,4 +1,12 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Effect_004',
+			'Turret',
+        },
+    },
+	
     Audio = {
         ActiveLoop = Sound {
             Bank = 'XSL',

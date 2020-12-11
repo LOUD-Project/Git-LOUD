@@ -710,7 +710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},			
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
@@ -739,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'CanBuildOnMassLessThanDistance', { 'LocationType', 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {

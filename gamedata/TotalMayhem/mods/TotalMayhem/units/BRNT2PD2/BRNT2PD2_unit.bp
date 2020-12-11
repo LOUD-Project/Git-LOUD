@@ -1,4 +1,11 @@
-UnitBlueprint {
+UnitBlueprint {    
+
+	AI = { 
+		TargetBones = {
+            'Turret',
+        },
+	},
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -16,6 +23,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 111,
@@ -39,7 +47,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = 0.0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -82,13 +90,13 @@ UnitBlueprint {
         },
         UniformScale = 0.12,
     },
+    
     Economy = {
         BuildCostEnergy = 7500,
         BuildCostMass = 750,
         BuildTime = 750,
-        RebuildBonusIds = {
-            'BRNT2PD2',
-        },
+        
+        RebuildBonusIds = { 'BRNT2PD2' },
     },
 
     General = {
@@ -123,9 +131,11 @@ UnitBlueprint {
     Interface = {
         HelpText = 'Point Defense',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -150,12 +160,15 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+	
     SizeX = 0.6,
-    SizeY = 1.1,
-    SizeZ = 0.6,
+    SizeY = 1.0,
+    SizeZ = 0.8,
+	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
     Veteran = {
@@ -195,7 +208,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 45,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Quad Hi-V Cannon',
@@ -205,7 +218,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.3,
+			FiringRandomness = 0.1,
             FiringTolerance = 1,
 			
             Label = 'MainGun',

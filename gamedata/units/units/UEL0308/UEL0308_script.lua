@@ -23,8 +23,8 @@ UEL0308 = Class(TShieldLandUnit) {
             self.Trash:Add( self.RotatorManipulator )
         end
         
-        self.RotatorManipulator:SetAccel( 4 )
-        self.RotatorManipulator:SetTargetSpeed( 16 )
+        self.RotatorManipulator:SetAccel( 2.5 )
+        self.RotatorManipulator:SetTargetSpeed( 60 )
         
         if not self.AnimationManipulator then
             local myBlueprint = self:GetBlueprint()
@@ -66,7 +66,7 @@ UEL0308 = Class(TShieldLandUnit) {
 
     DestroyManipulators = function(self)
         if self.RotatorManipulator then
-            self.RotatorManipulator:SetAccel( 10 )
+            self.RotatorManipulator:SetAccel( 5 )
             self.RotatorManipulator:SetTargetSpeed( 0 )
         end
         if self.AnimationManipulator then

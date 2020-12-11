@@ -7,6 +7,8 @@ UnitBlueprint {
             'Back_Wake',
             'Front_Left_Wake',
             'Front_Right_Wake',
+			'Front_Main_Turret',
+			'Back_Main_Turret',
         },
     },
 	

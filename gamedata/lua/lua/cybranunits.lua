@@ -385,10 +385,10 @@ CConstructionEggUnit = Class(StructureUnit) {
 }
 
 
-#TODO: This should be made more general and put in defaultunits.lua in case other factions get similar buildings
-#############################
-#  CConstructionStructureUnit
-#############################
+--TODO: This should be made more general and put in defaultunits.lua in case other factions get similar buildings
+--
+--  CConstructionStructureUnit
+--
 CConstructionStructureUnit = Class(StructureUnit) {   
     OnCreate = function(self)
         -- Structure stuff

@@ -1,9 +1,9 @@
-#**  File     :  /lua/sim/RebuildBonusCallback.lua
-#**  Author(s):  Brute51
-#**  Summary  :  Rebuild bonus callback functions
-#**
-#** Doing this in 2D. How many times have you seen 2 wreckages at the same 
-#** position where only the height differs?
+--**  File     :  /lua/sim/RebuildBonusCallback.lua
+--**  Author(s):  Brute51
+--**  Summary  :  Rebuild bonus callback functions
+--**
+--** Doing this in 2D. How many times have you seen 2 wreckages at the same 
+--** position where only the height differs?
 
 
 RebuildBonusCheckCallbacks = {}

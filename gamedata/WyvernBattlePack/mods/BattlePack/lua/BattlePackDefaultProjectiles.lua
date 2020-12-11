@@ -1,23 +1,23 @@
-#****************************************************************************
-#**
-#**  File     : /lua/defaultprojectiles.lua
-#**  Author(s): John Comes, Gordon Duclos
-#**
-#**  Summary  : Script for default projectiles
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     : /lua/defaultprojectiles.lua
+--**  Author(s): John Comes, Gordon Duclos
+--**
+--**  Summary  : Script for default projectiles
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local Projectile = import('/lua/sim/Projectile.lua').Projectile
 
-#---------------------------------------------------------------
-# Null Shell
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- Null Shell
+-----------------------------------------------------------------
 NullShell = Class(Projectile) {}
 
-#---------------------------------------------------------------
-# PROJECTILE WITH ATTACHED EFFECT EMITTERS
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- PROJECTILE WITH ATTACHED EFFECT EMITTERS
+-----------------------------------------------------------------
 EmitterProjectile = Class(Projectile) {
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
     FxTrailScale = 1,
@@ -31,9 +31,9 @@ EmitterProjectile = Class(Projectile) {
         end
     end,
 }
-#---------------------------------------------------------------
-# POLY-TRAIL PROJECTILES
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- POLY-TRAIL PROJECTILES
+-----------------------------------------------------------------
 SC2SinglePolyTrailProjectile = Class(EmitterProjectile) {
 
     PolyTrail = '',

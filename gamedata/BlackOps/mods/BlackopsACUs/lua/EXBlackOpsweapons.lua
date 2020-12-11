@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /cdimage/lua/modules/BlackOpsweapons.lua
-#**  Author(s):  Lt_hawkeye
-#**
-#**  Summary  :  
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /cdimage/lua/modules/BlackOpsweapons.lua
+--**  Author(s):  Lt_hawkeye
+--**
+--**  Summary  :  
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local WeaponFile = import('/lua/sim/defaultweapons.lua')
 local CollisionBeams = import('/lua/defaultcollisionbeams.lua')

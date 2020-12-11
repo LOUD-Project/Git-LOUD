@@ -27,6 +27,7 @@ T3Fighter = {
 },
 
 T3Gunship = {
+    Cybran = {'sra0315', 50},
     Seraphim = {'ssa0305', 60},
 },
 
@@ -82,6 +83,14 @@ T4Artillery = {
 
 T4LandExperimental2 = {
 	Aeon = {'sal0401', 60},
+},
+
+T4SeaExperimental1 = {
+    Aeon = {'sas0401', 80},
+},
+
+T4SeaExperimental2 = {
+    Aeon = {'sas0401', 100},
 },
 
 

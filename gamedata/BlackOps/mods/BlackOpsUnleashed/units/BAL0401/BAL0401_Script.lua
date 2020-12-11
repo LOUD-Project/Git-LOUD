@@ -86,7 +86,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 			
 				local bp = self:GetBlueprint()
 				
-				local numProjectiles = 9
+				local numProjectiles = bp.ProjectilesCreated 
 
 				local pos0 = self:GetCurrentTargetPos()
 				
@@ -104,7 +104,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 				
 					for i = 0, (numProjectiles - 1) do
 					
-						WaitTicks( 6 )
+						WaitTicks( bp.ProjectileIntervalTicks )
 						
 						pos[2] = pos0[2] + 70 or 70
 						pos[1] = pos0[1] + xadj[i]

@@ -1,6 +1,6 @@
-#
-# script for projectile UEFBuild01
-#
+--
+-- script for projectile UEFBuild01
+--
 UEFBuild01 = Class(import('/lua/sim/defaultprojectiles.lua').EmitterProjectile) {
 
     FxTrails = {

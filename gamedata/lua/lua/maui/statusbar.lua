@@ -3,8 +3,8 @@ local lazyvar = import('/lua/lazyvar.lua')
 
 local LOUDFLOOR = math.floor
 
-# vertical true means the bar will grow in the vertical direction
-# negative true means for horizontal bars they will grow right to left, for vertical they will grow top to bottom
+-- vertical true means the bar will grow in the vertical direction
+-- negative true means for horizontal bars they will grow right to left, for vertical they will grow top to bottom
 
 StatusBar = Class(Bitmap)
 {

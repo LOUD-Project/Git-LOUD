@@ -1,6 +1,13 @@
 UnitBlueprint {
     AI = {
         GuardScanRadius = 60,
+		TargetBones = {
+            'ArmureUpgrade03_02',
+			'AvantGauche01',
+			'Torso01',
+			'Left_Leg_B07',
+			'Left_Leg_B09',
+        },	
     },
     Audio = {
         FootFallGeneric = Sound {
@@ -260,9 +267,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.37,
 	
-    SizeX = 2,
-    SizeY = 4,
-    SizeZ = 3,
+    SizeX = 2.5,
+    SizeY = 2.8,
+    SizeZ = 2.2,
 	
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 115,

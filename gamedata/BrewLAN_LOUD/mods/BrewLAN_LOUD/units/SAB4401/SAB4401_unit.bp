@@ -2,6 +2,12 @@ UnitBlueprint {
     AI = {
         GuardScanRadius = 37,
         StagingPlatformScanRadius = 37,
+		TargetBones = {
+            'Base',
+			'Ring_1',
+			'Ring_2',
+			'Ring_3',
+        },
     },
 	
     Audio = {

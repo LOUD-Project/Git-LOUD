@@ -1,6 +1,6 @@
-#**  File     :  /lua/system/GlobalBuilderTemplate.lua
-#**  Summary  :  Global builder table and template methods
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+--**  File     :  /lua/system/GlobalBuilderTemplate.lua
+--**  Summary  :  Global builder table and template methods
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
 
 Builders = {}
 

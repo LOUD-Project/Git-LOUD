@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -51,9 +52,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 150,
-        Health = 2800,
-        MaxHealth = 2800,
-        RegenRate = 3,
+        Health = 1400,
+        MaxHealth = 1400,
+        RegenRate = 1,
     },
 	
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
@@ -144,7 +145,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 50000,
         BuildCostMass = 3300,
-        BuildRate = 1,
+        BuildRate = 20,
         BuildTime = 1650,
     },
 	
@@ -198,10 +199,10 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.8,
-        MaxBrake = 0.8,
-        MaxSpeed = 2.4,
-        MaxSpeedReverse = 0.85,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 2.8,
 		
         MaxSteerForce = 5,
         MeshExtentsX = 0.85,
@@ -276,7 +277,7 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 1,
 			
-            MaxRadius = 75,
+            MaxRadius = 72,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -304,7 +305,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.6,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.2,
 			

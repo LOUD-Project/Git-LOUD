@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  \data\effects\Entities\InqDeathBombEffectController01\InqDeathBombEffectController01_script.lua
-#**  Author(s):  Greg Kohne
-#**
-#**  Summary  :  Ohwalli Bomb effect controller script, non-damaging
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  \data\effects\Entities\InqDeathBombEffectController01\InqDeathBombEffectController01_script.lua
+--**  Author(s):  Greg Kohne
+--**
+--**  Summary  :  Ohwalli Bomb effect controller script, non-damaging
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local RandomInt = import('/lua/utilities.lua').GetRandomInt

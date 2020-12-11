@@ -2,6 +2,10 @@ UnitBlueprint {
 
     AI = {
         InitialAutoMode = true,
+        TargetBones = {
+            'Door_03',
+			'Door_04',
+        },
     },
 	
     Audio = {

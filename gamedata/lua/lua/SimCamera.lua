@@ -1,21 +1,21 @@
-#
-# SimCamera
-#
-# SimCamera buffers control requests to push to the user layer at sync time. It provides facilities
-# for waiting on the camera to perform certain actions. At the moment, the facilities that wait can
-# not be used in multiplayer and are considered to finish immediately when running the simulation in
-# a headless mode. Thus the primary use for such features is in the single player campaign. We have
-# a plan to add multiplayer and headless support for these features but it may be some time before
-# this gets implemented.
-#
-# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--
+-- SimCamera
+--
+-- SimCamera buffers control requests to push to the user layer at sync time. It provides facilities
+-- for waiting on the camera to perform certain actions. At the moment, the facilities that wait can
+-- not be used in multiplayer and are considered to finish immediately when running the simulation in
+-- a headless mode. Thus the primary use for such features is in the single player campaign. We have
+-- a plan to add multiplayer and headless support for these features but it may be some time before
+-- this gets implemented.
+--
+-- Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 SingleEvent = import('/lua/system/singleevent.lua').SingleEvent
 
-# Name / Object table for cameras
+-- Name / Object table for cameras
 Cameras = {}
 
-# The user layer calls this via SimCallback when the camera finishes moving to its target.
+-- The user layer calls this via SimCallback when the camera finishes moving to its target.
 function OnCameraFinish(name)
     #LOG('Signal')
     Cameras[name]:EventSet()

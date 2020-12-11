@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
+        TargetBones = {'Muzzle'},
     },
 	
     Audio = {
@@ -51,9 +52,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 150,
-        Health = 2550,
-        MaxHealth = 2550,
-        RegenRate = 3,
+        Health = 1275,
+        MaxHealth = 1275,
+        RegenRate = 2,
     },
 	
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
@@ -120,7 +121,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 50000,
         BuildCostMass = 3300,
-        BuildRate = 1,
+        BuildRate = 20,
         BuildTime = 1650,
     },
 	
@@ -175,10 +176,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 0.8,
-        MaxBrake = 0.8,
-        MaxSpeed = 2.4,
-        MaxSpeedReverse = 0.8,
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.2,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3,
 		
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
@@ -195,7 +196,7 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 	
     SizeX = 1.1,
-    SizeY = 1.5,
+    SizeY = 0.5,
     SizeZ = 1.6,
 
     StrategicIconName = 'icon_land3_antimissile',
@@ -247,14 +248,14 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 2,
 			
-            MaxRadius = 75,
+            MaxRadius = 72,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 12,
 			
             RackBones = {
                 {
@@ -275,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.6,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.2,
 			

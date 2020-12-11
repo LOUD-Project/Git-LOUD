@@ -1,8 +1,8 @@
-#**  File     :  /lua/system/GlobalBaseTemplate.lua
-#**  Summary  :  Global base table and template methods
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+--**  File     :  /lua/system/GlobalBaseTemplate.lua
+--**  Summary  :  Global base table and template methods
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
 
-# Global list of all BaseBuilderTemplates found in the system.
+-- Global list of all BaseBuilderTemplates found in the system.
 BaseBuilderTemplates = {}
 
 BaseBuilderTemplate = {}

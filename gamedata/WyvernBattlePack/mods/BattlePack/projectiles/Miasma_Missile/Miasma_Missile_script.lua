@@ -1,6 +1,6 @@
-#
-# Aeon Serpentine Missile
-#
+--
+-- Aeon Serpentine Missile
+--
 
 local MiasmaMissileProjectile = import('/lua/aeonprojectiles.lua').AMissileSerpentineProjectile
 local utilities = import('/lua/utilities.lua')

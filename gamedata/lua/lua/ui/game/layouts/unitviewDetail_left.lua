@@ -37,10 +37,10 @@ function CreateResourceGroup(parent, groupLabel)
     return group
 end
 
-# A 'Stat Group' is an icon or text label with a value on the right
-# e.g.  Health 3000
-#       Shield 6000
-#       <icon> 24
+-- A 'Stat Group' is an icon or text label with a value on the right
+-- e.g.  Health 3000
+--       Shield 6000
+--       <icon> 24
 function CreateStatGroup(parent, labelIcon)
     local group = Group(parent)
     

@@ -1,6 +1,6 @@
-#
-# AA Missile for Cybrans
-#
+--
+-- AA Missile for Cybrans
+--
 MultiPolyTrailProjectile = import('/lua/sim/DefaultProjectiles.lua').MultiPolyTrailProjectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 UniverseClassAAMissiles = Class(MultiPolyTrailProjectile) {

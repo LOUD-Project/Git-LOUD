@@ -18,15 +18,12 @@ local function mount_contents(dir, mountpoint)
 end
 
 --Original game content
---mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
---mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
 --mount_dir(InitFileDir .. '\\..\\gamedata\\*.scd', '/')
 mount_dir(InitFileDir .. '\\..\\gamedata\\lua\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\loc_US\\loc', '/loc')
-mount_dir(InitFileDir .. '\\..\\gamedata\\03_LobbyEnhancement\\textures', '/textures')
 mount_dir(InitFileDir .. '\\..\\gamedata\\textures\\textures', '/textures')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\textures.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\meshes.scd', '/')
@@ -40,6 +37,10 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\LOUD_Mods\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\TotalMayhem\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\mods', '/mods')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\mods', '/mods')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\textures', '/textures')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\Sounds', '/sounds')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\mods', '/mods')
+mount_dir(InitFileDir .. '\\..\\gamedata\\BrewLAN_LOUD\\mods', '/mods')
 --Versioning
 mount_dir(InitFileDir .. '\\..\\gamedata\\loc_US\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\textures\\lua', '/lua')
@@ -51,11 +52,13 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\LOUD_Mods\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\TotalMayhem\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\lua', '/lua')
-mount_dir(InitFileDir .. '\\..\\gamedata\\03_LobbyEnhancement\\lua', '/lua')
 --Non Game-data
-mount_dir(InitFileDir .. '\\..\\maps', '/maps')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\maps', '/maps')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\usermaps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
-mount_dir(InitFileDir .. '\\..\\movies', '/movies')
+mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
+mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
+mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 
 hook = {
     '/schook'

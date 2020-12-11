@@ -1,6 +1,13 @@
 UnitBlueprint {
+
     AI = {
-        TargetBones = { 'Turret','legb3','arm01','shoulder' },
+        TargetBones = { 
+			'Turret',
+			'legb2',
+			'rocketlauncher01',
+			'shoulder', 
+			'Footfall_Right',
+		},
     },
 	
     Audio = {
@@ -231,10 +238,10 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2.8,
-    SizeY = 4.6,
+    SizeY = 4.4,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_missile',
     StrategicIconSortPriority = 116,
 	
     Transport = {

@@ -227,7 +227,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 75,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Quantum Cannon',
@@ -316,7 +316,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 150,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Quantum Cannon',

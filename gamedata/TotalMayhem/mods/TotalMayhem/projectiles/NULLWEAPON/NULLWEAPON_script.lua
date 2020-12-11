@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : 
-#**  Author(s):
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     : 
+--**  Author(s):
+--**
+--**  Summary  :
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local CybNULLWEAPONproj = import('/mods/TotalMayhem/lua/TMprojectiles.lua').CybNULLWEAPONproj
 NULLWEAPONproj = Class(CybNULLWEAPONproj) {}
 

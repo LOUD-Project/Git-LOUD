@@ -31,13 +31,13 @@ UnitBlueprint {
 
         LiftFactor = 9,
 
-        MaxAirspeed = 12.5,
+        MaxAirspeed = 14.5,
 
         StartTurnDistance = 5,
 
         TransportHoverHeight = 4.5,
 
-		Turnspeed = 1.3,
+		Turnspeed = 1.35,
     },
 
     Audio = {
@@ -110,7 +110,6 @@ UnitBlueprint {
 			'2 Ground Attack Autocannon',
             '4 Hi-V AA Guns',
 			'Can Transport upto 8 T3 units',
-			'Can Teleport Short Distances',
 			'Radar & Radar Stealth',
         },
 
@@ -136,11 +135,6 @@ UnitBlueprint {
         BuildCostEnergy = 31500,
         BuildCostMass = 1375,
         BuildTime = 8250,
-
-        TeleportBurstEnergyCost = 2500,
-        TeleportEnergyMod = 0.09,
-        TeleportMassMod = 1.0,
-        TeleportTimeMod = 0.0008,
     },
 
     Footprint = {
@@ -165,7 +159,7 @@ UnitBlueprint {
             RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Teleport = true,
+            RULEUCC_Teleport = false,
             RULEUCC_Transport = true,
         },
         ConstructionBar = true,
@@ -213,7 +207,7 @@ UnitBlueprint {
         FuelRechargeRate = 30,
         FuelUseTime = 800,
 		
-        MaxSpeed = 0.5,
+        MaxSpeed = 0.55,
         MeshExtentsX = 2.9,
         MeshExtentsY = 1.8,
         MeshExtentsZ = 4.0,

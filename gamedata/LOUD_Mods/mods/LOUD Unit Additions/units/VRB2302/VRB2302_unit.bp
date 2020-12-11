@@ -1,5 +1,12 @@
 UnitBlueprint {
-
+    
+	AI = {
+        TargetBones = {
+            'Turret',
+            'Barrel_B01',
+        },
+    },
+	
     Audio = {
 	
         DeathExplosion = Sound {

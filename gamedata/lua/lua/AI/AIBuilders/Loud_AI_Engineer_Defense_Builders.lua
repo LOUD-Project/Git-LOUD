@@ -767,10 +767,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -797,6 +798,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
     },	
 }
 
+-- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
     BuildersType = 'EngineerBuilder',
 	
@@ -805,10 +807,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -818,7 +821,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 			DesiresAssist = false,
 			
 			Construction = {
-				Radius = 40,			
+				Radius = 26,			
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'REAR',
@@ -3570,7 +3573,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 760,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
@@ -3730,7 +3733,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 900,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},

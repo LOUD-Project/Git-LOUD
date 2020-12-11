@@ -9,7 +9,7 @@ local LUTL = '/lua/loudutilities.lua'
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 300 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
@@ -25,10 +25,10 @@ end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 300 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
-	
+
             return 990, true
 		
         end
@@ -41,7 +41,7 @@ end
 
 local HaveZeroNavalFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 300 then
+    if aiBrain.CycleTime > 120 then
 	
         if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
 	
@@ -73,7 +73,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -104,7 +104,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = HaveZeroAirFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -321,7 +321,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ LUTL, 'NavalStrengthRatioLessThan', { 2.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},

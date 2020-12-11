@@ -1,6 +1,6 @@
 local ArrowMissileProjectile = import('/mods/4DC/lua/4D_projectiles.lua').ArrowMissileProjectile
 
-### defined constants
+-- defined constants
 local waitTime = 0.1
 local missileMaxSpeed = 45
 

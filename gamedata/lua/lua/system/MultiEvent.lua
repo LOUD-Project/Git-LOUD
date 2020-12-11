@@ -1,9 +1,9 @@
-#
-# Call MultiEvent:AddCallback(fun,arg) to set a trigger function which is called when the event is set.
-# You can add as many callbacks as you want.
-#
-# You can't remove a callback once you've added it.
-#
+--
+-- Call MultiEvent:AddCallback(fun,arg) to set a trigger function which is called when the event is set.
+-- You can add as many callbacks as you want.
+--
+-- You can't remove a callback once you've added it.
+--
 
 
 
@@ -75,8 +75,8 @@ MultiEvent = Class {
             LOG('*DEBUG: me AddCallback ',ResumeThread,CurrentThread())
             self:AddCallback(ResumeThread, CurrentThread())
             SuspendCurrentThread()
-#        else
-#            LOG('*DEBUG: No WaitFor For You')
+--        else
+--            LOG('*DEBUG: No WaitFor For You')
         end
     end,
 }

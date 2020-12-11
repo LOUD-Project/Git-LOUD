@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -46,7 +52,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.3,
+    CollisionOffsetY = -0.25,
 
     Defense = {
         ArmorType = 'Structure',
@@ -151,7 +157,7 @@ UnitBlueprint {
     SelectionThickness = 0.45,
 	
     SizeX = 1,
-    SizeY = 1.2,
+    SizeY = 1.15,
     SizeZ = 1,
 	
     StrategicIconName = 'icon_structure2_artillery',

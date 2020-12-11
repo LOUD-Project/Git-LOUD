@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/lua/EffectTemplates.lua
-#**  Author(s):  Gordon Duclos, Greg Kohne, Matt Vainio, Aaron Lundquist
-#**
-#**  Summary  :  Generic templates for commonly used effects
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/lua/EffectTemplates.lua
+--**  Author(s):  Gordon Duclos, Greg Kohne, Matt Vainio, Aaron Lundquist
+--**
+--**  Summary  :  Generic templates for commonly used effects
+--**
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 TableCat = import('/lua/utilities.lua').TableCat
 EmtBpPath = '/effects/emitters/'
 EmitterTempEmtBpPath = '/effects/emitters/temp/'
@@ -95,9 +95,9 @@ ExWifeMainHitUnit = {
 	EmtBpPathAlt .. 'ExWifeMaincannon_hit_distort_emit.bp',
 } 
 
-#------------------------------------------------------------------------
-#  NOMAD PLASMAFLAMETHROWER-EMITTERS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  NOMAD PLASMAFLAMETHROWER-EMITTERS
+--------------------------------------------------------------------------
 
 
 NPlasmaFlameThrowerHitLand01 = {
@@ -134,7 +134,7 @@ FlameThrowerHitWater01 = {
     EmtBpPathAlt .. 'exflamer_water_dots_emit.bp',    
 }
 
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
 
 SHeavyQuarnonCannonProjectilePolyTrails = {
     EmtBpPathAlt .. 'PPC_projectile_trail_01_emit.bp',
@@ -222,9 +222,9 @@ NPlasmaProjectileHit04 = {
 NPlasmaProjectileHit01 = TableCat( NPlasmaProjectileHit02, NPlasmaProjectileHit03, NPlasmaProjectileMuzzleFlash )
 NPlasmaProjectileHitUnit01 = TableCat( NPlasmaProjectileHit02, NPlasmaProjectileHit04, EffectTemplate.UnitHitShrapnel01 )
 
-#------------------------------------------------------------------------
-#  NOMAD FUSION MISSILE EMITTERS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  NOMAD FUSION MISSILE EMITTERS
+--------------------------------------------------------------------------
 NFusionMissileHit01 = {
     EmtBpPathAlt .. 'nomad_fusionrocket_hit_01_emit.bp',
     EmtBpPathAlt .. 'nomad_fusionrocket_hit_02_emit.bp',
@@ -260,9 +260,9 @@ BPPPlasmaPPCProjChargeMuzzleFlash = {
 }
 
 
-#------------------------------------------------------------------------
-#  GRAVITY CANNON EFFECTS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  GRAVITY CANNON EFFECTS
+--------------------------------------------------------------------------
 GravityCannonFxTrail = {
     EmtBpPathAlt .. 'Gravity_cannon_projectile_fxtrail_01_emit.bp',
     EmtBpPathAlt .. 'Gravity_cannon_projectile_fxtrail_04_emit.bp',
@@ -274,9 +274,9 @@ GravityCannonPolyTrail = {
 }
 
 
-#------------------------------------------------------------------------
-#  STINGRAY CANNON EFFECTS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  STINGRAY CANNON EFFECTS
+--------------------------------------------------------------------------
 NStingrayPolyTrail = {
     EmtBpPathAlt .. 'stingray_polytrail_01_emit.bp',
     EmtBpPathAlt .. 'stingray_polytrail_02_emit.bp',    
@@ -305,9 +305,9 @@ NStingrayCannonFlash = {
    # EmtBpPath .. 'cannon_muzzle_smoke_09_emit.bp', 
 }
 
-#------------------------------------------------------------------------
-#  STINGRAY2 CANNON EFFECTS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  STINGRAY2 CANNON EFFECTS
+--------------------------------------------------------------------------
 NStingray2PolyTrail = {
     EmtBpPathAlt .. 'stingray2_polytrail_01_emit.bp',
     EmtBpPathAlt .. 'stingray2_polytrail_02_emit.bp',    
@@ -318,9 +318,9 @@ NStingray2FXTrail = {
 	
 }
 
-#------------------------------------------------------------------------
-#  SC2 FB2 Cannon
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  SC2 FB2 Cannon
+--------------------------------------------------------------------------
 UDisruptorArtillery01MuzzleFlash = {
 	EmtBpPathAlt .. 'w_u_dra01_l_01_flash_emit.bp',
 	EmtBpPathAlt .. 'w_u_dra01_l_02_flashline_emit.bp',
@@ -478,9 +478,9 @@ BattleMech2RocketHit = {
 	    EmtBpPathAlt .. 'balrog_missile_smoke_polytrail_02_emit.bp', 
 	}
 	
-#------------------------------------------------------------------------
-#  TERRAN PHALANX GUN EMITTERS
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  TERRAN PHALANX GUN EMITTERS
+--------------------------------------------------------------------------
 TPhalanxGunPolyTrails = {
     EmtBpPathAlt .. 'phalanx_munition_polytrail_02_emit.bp',
 }

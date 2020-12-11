@@ -1,51 +1,51 @@
-#
-# Blueprint loading
-#
-#   During preloading of the map, we run loadBlueprints() from this file. It scans
-#   the game directories and runs all .bp files it finds.
-#
-#   The .bp files call UnitBlueprint(), PropBlueprint(), etc. to define a blueprint.
-#   All those functions do is fill in a couple of default fields and store off the
-#   table in 'original_blueprints'.
-#
-#   Once that scan is complete, ModBlueprints() is called. It can arbitrarily mess
-#   with the data in original_blueprints.
-#
-#   Finally, the engine registers all blueprints in original_blueprints to define the
-#   "real" blueprints used by the game. A separate copy of these blueprints is made
-#   available to the sim-side and user-side scripts.
-#
-# How mods can affect blueprints
-#
-#   First, a mod can simply add a new blueprint file that defines a new blueprint.
-#
-#   Second, a mod can contain a blueprint with the same ID as an existing blueprint.
-#   In this case it will completely override the original blueprint. Note that in
-#   order to replace an original non-unit blueprint, the mod must set the "BlueprintId"
-#   field to name the blueprint to be replaced. Otherwise the BlueprintId is defaulted
-#   off the source file name. (Units don't have this problem because the BlueprintId is
-#   shortened and doesn't include the original path).
-#
-#   Third, a mod can can contain a blueprint with the same ID as an existing blueprint,
-#   and with the special field "Merge = true". This causes the mod to be merged with,
-#   rather than replace, the original blueprint.
-#
-#   Finally, a mod can hook the ModBlueprints() function which manipulates the
-#   blueprints table in arbitrary ways.
-#      1. create a file /mod/s.../hook/system/Blueprints.lua
-#      2. override ModBlueprints(all_bps) in that file to manipulate the blueprints
-#
-# Reloading of changed blueprints
-#
-#   When the disk watcher notices that a .bp file has changed, it calls
-#   ReloadBlueprint() on it. ReloadBlueprint() repeats the above steps, but with
-#   original_blueprints containing just the one blueprint.
-#
-#   Changing an existing blueprint is not 100% reliable; some changes will be picked
-#   up by existing units, some not until a new unit of that type is created, and some
-#   not at all. Also, if you remove a field from a blueprint and then reload, it will
-#   default to its old value, not to 0 or its normal default.
-#
+--
+-- Blueprint loading
+--
+--   During preloading of the map, we run loadBlueprints() from this file. It scans
+--   the game directories and runs all .bp files it finds.
+--
+--   The .bp files call UnitBlueprint(), PropBlueprint(), etc. to define a blueprint.
+--   All those functions do is fill in a couple of default fields and store off the
+--   table in 'original_blueprints'.
+--
+--   Once that scan is complete, ModBlueprints() is called. It can arbitrarily mess
+--   with the data in original_blueprints.
+--
+--   Finally, the engine registers all blueprints in original_blueprints to define the
+--   "real" blueprints used by the game. A separate copy of these blueprints is made
+--   available to the sim-side and user-side scripts.
+--
+-- How mods can affect blueprints
+--
+--   First, a mod can simply add a new blueprint file that defines a new blueprint.
+--
+--   Second, a mod can contain a blueprint with the same ID as an existing blueprint.
+--   In this case it will completely override the original blueprint. Note that in
+--   order to replace an original non-unit blueprint, the mod must set the "BlueprintId"
+--   field to name the blueprint to be replaced. Otherwise the BlueprintId is defaulted
+--   off the source file name. (Units don't have this problem because the BlueprintId is
+--   shortened and doesn't include the original path).
+--
+--   Third, a mod can can contain a blueprint with the same ID as an existing blueprint,
+--   and with the special field "Merge = true". This causes the mod to be merged with,
+--   rather than replace, the original blueprint.
+--
+--   Finally, a mod can hook the ModBlueprints() function which manipulates the
+--   blueprints table in arbitrary ways.
+--      1. create a file /mod/s.../hook/system/Blueprints.lua
+--      2. override ModBlueprints(all_bps) in that file to manipulate the blueprints
+--
+-- Reloading of changed blueprints
+--
+--   When the disk watcher notices that a .bp file has changed, it calls
+--   ReloadBlueprint() on it. ReloadBlueprint() repeats the above steps, but with
+--   original_blueprints containing just the one blueprint.
+--
+--   Changing an existing blueprint is not 100% reliable; some changes will be picked
+--   up by existing units, some not until a new unit of that type is created, and some
+--   not at all. Also, if you remove a field from a blueprint and then reload, it will
+--   default to its old value, not to 0 or its normal default.
+--
 
 local sub = string.sub
 local gsub = string.gsub
@@ -107,36 +107,36 @@ local function StoreBlueprint(group, bp)
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns the entire filename. Either this or SetLongId() should really be got rid of.
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns the entire filename. Either this or SetLongId() should really be got rid of.
+--
 local function SetBackwardsCompatId(bp)
     bp.Source = bp.Source or GetSource()
     bp.BlueprintId = lower(bp.Source)
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns the full resource name except with ".bp" stripped off
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns the full resource name except with ".bp" stripped off
+--
 local function SetLongId(bp)
     bp.Source = bp.Source or GetSource()
     if not bp.BlueprintId then
         local id = lower(bp.Source)
-        id = gsub(id, "%.bp$", "")                          # strip trailing .bp
-        --id = gsub(id, "/([^/]+)/%1_([a-z]+)$", "/%1_%2")    # strip redundant directory name
+        id = gsub(id, "%.bp$", "")                          -- strip trailing .bp
+        --id = gsub(id, "/([^/]+)/%1_([a-z]+)$", "/%1_%2")    -- strip redundant directory name
         bp.BlueprintId = id
     end
 end
 
 
-#
-# Figure out what to name this blueprint based on the name of the file it came from.
-# Returns just the base filename, without any blueprint type info or extension. Used
-# for units only.
-#
+--
+-- Figure out what to name this blueprint based on the name of the file it came from.
+-- Returns just the base filename, without any blueprint type info or extension. Used
+-- for units only.
+--
 local function SetShortId(bp)
     bp.Source = bp.Source or GetSource()
     bp.BlueprintId = bp.BlueprintId or
@@ -144,12 +144,12 @@ local function SetShortId(bp)
 end
 
 
-#
-# If the bp contains a 'Mesh' section, move that over to a separate Mesh blueprint, and
-# point bp.MeshBlueprint at it.
-#
-# Also fill in a default value for bp.MeshBlueprint if one was not given at all.
-#
+--
+-- If the bp contains a 'Mesh' section, move that over to a separate Mesh blueprint, and
+-- point bp.MeshBlueprint at it.
+--
+-- Also fill in a default value for bp.MeshBlueprint if one was not given at all.
+--
 function ExtractMeshBlueprint(bp)
     local disp = bp.Display or {}
     bp.Display = disp
@@ -161,12 +161,12 @@ function ExtractMeshBlueprint(bp)
 
     if type(disp.MeshBlueprint)=='string' then
         if disp.MeshBlueprint!=lower(disp.MeshBlueprint) then
-            #Should we allow mixed-case blueprint names?
-            #LOG('Warning: ',bp.Source,' (MeshBlueprint): ','Blueprint IDs must be all lowercase')
+            --Should we allow mixed-case blueprint names?
+            --LOG('Warning: ',bp.Source,' (MeshBlueprint): ','Blueprint IDs must be all lowercase')
             disp.MeshBlueprint = lower(disp.MeshBlueprint)
         end
 
-        # strip trailing .bp
+        -- strip trailing .bp
         disp.MeshBlueprint = gsub(disp.MeshBlueprint, "%.bp$", "")
 
         if disp.Mesh then
@@ -175,8 +175,8 @@ function ExtractMeshBlueprint(bp)
     end
 
     if disp.MeshBlueprint==nil then
-        # For a blueprint file "/units/uel0001/uel0001_unit.bp", the default
-        # mesh blueprint is "/units/uel0001/uel0001_mesh"
+        -- For a blueprint file "/units/uel0001/uel0001_unit.bp", the default
+        -- mesh blueprint is "/units/uel0001/uel0001_mesh"
         local meshname,subcount = gsub(bp.Source, "_[a-z]+%.bp$", "_mesh")
         if subcount==1 then
             disp.MeshBlueprint = meshname
@@ -186,8 +186,8 @@ function ExtractMeshBlueprint(bp)
             local meshbp = disp.Mesh
             meshbp.Source = meshbp.Source or bp.Source
             meshbp.BlueprintId = disp.MeshBlueprint
-            # roates:  Commented out so the info would stay in the unit BP and I could use it to precache by unit.
-            # disp.Mesh = nil
+            -- roates:  Commented out so the info would stay in the unit BP and I could use it to precache by unit.
+            -- disp.Mesh = nil
             MeshBlueprint(meshbp)
         end
     end
@@ -375,7 +375,7 @@ end
 
 
 function MeshBlueprint(bp)
-    # fill in default values
+    -- fill in default values
     SetLongId(bp)
     StoreBlueprint('Mesh', bp)
 end
@@ -573,8 +573,8 @@ function ModBlueprints(all_blueprints)
         end
     end 
 
-	LOG("*AI DEBUG Capping GuardReturnRadius")
-	LOG("*AI DEBUG Adjusting View Radius")
+	--LOG("*AI DEBUG Capping GuardReturnRadius")
+	--LOG("*AI DEBUG Adjusting View Radius")
 	
 	local capreturnradius = 80
 	
@@ -624,8 +624,8 @@ function ModBlueprints(all_blueprints)
 		
 				if cat == 'NAVAL' then
 			
-					econScale = 0.0    # -- cost more
-					speedScale = -0.05  # -- move slower
+					econScale = 0.0    -- cost more
+					speedScale = -0.05  -- move slower
 					viewScale = 0.0   
 			
 					for j, catj in bp.Categories do
@@ -692,9 +692,9 @@ function ModBlueprints(all_blueprints)
 			
 				if cat == 'AIR' then
 			
-					econScale = 0.075	# -- cost more
+					econScale = 0.075	-- cost more
 					speedScale = -0.0
-					viewScale = -0.05    # -- see less
+					viewScale = -0.05    -- see less
 		
 					for j, catj in bp.Categories do
 				
@@ -842,7 +842,7 @@ function ModBlueprints(all_blueprints)
 				-- all structures
 				if cat == 'STRUCTURE' then
 			
-					viewScale = 0.15    # -- see further				
+					viewScale = 0.15    -- see further				
 				
 					if bp.Intel.VisionRadius then
 					
@@ -862,7 +862,7 @@ function ModBlueprints(all_blueprints)
 						
 					end
 				
-					local buildtimemod = 1	# -- take longer to build (but costs remain same)
+					local buildtimemod = 1	-- take longer to build (but costs remain same)
 				
 					if bp.Economy.BuildTime then
 						bp.Economy.BuildTime = bp.Economy.BuildTime * buildtimemod
@@ -901,7 +901,7 @@ function ModBlueprints(all_blueprints)
 		end
     end
 
-    LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
+    --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
 	
     for id,bp in pairs(all_blueprints.Unit) do				
 	
@@ -955,7 +955,7 @@ function ModBlueprints(all_blueprints)
 		end
     end
 
-	LOG("*AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS")
+	--LOG("*AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS")
 
 	local factions = {'UEF', 'Aeon', 'Cybran', 'Aeon'}
 
@@ -994,7 +994,7 @@ function ModBlueprints(all_blueprints)
 					bp.Audio['FerryPointSetBy'..faction] = FerrySet
 				end
 
-				#UNDER ATTACK
+				--UNDER ATTACK
 				if categories['MASSEXTRACTION'] then
 				
 					local MexUnderAttack = Sound { Bank = 'XGG', Cue = 'XGG_Computer_CV01_04728',}
@@ -1030,7 +1030,7 @@ function ModBlueprints(all_blueprints)
 end
 
 
-#-- Load all blueprints
+---- Load all blueprints
 
 function LoadBlueprints()
 
@@ -1111,7 +1111,7 @@ function LoadBlueprints()
 end
 
 
-# Reload a single blueprint
+-- Reload a single blueprint
 function ReloadBlueprint(file)
     InitOriginalBlueprints()
 

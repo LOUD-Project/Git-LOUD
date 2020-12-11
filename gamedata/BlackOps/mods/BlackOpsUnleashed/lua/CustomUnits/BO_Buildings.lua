@@ -3,7 +3,6 @@ UnitList = {
 	T2Artillery = {
         UEF = {'beb2303', 50},  		# Rapid Fire Howitzer
         Aeon = {'bab2303', 50},		    # Energy Mortar
-		Cybran = {'brb2303', 50},		# Hailfire Turret
     },
 
     T2TeleportJammer = {

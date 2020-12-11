@@ -36,10 +36,10 @@ end
 local global_names = get_names(_G,2,{},'')
 
 
-#
-# Convert obj to an expanded string form. Returns two results. The first has obj expanded on a single line; the
-# second may have obj in multiline form.
-#
+--
+-- Convert obj to an expanded string form. Returns two results. The first has obj expanded on a single line; the
+-- second may have obj in multiline form.
+--
 local function _repr(obj, indent, width, mindepth, objectstack)
 
     if mindepth<=0 and global_names[obj] then
@@ -140,11 +140,11 @@ local function _repr(obj, indent, width, mindepth, objectstack)
 end
 
 
-#
-# Convert obj to an expanded string form, which can be checked for equality. The optional second
-# arg gives a maximum width; if the repr is wider than this, it will be split into a multi-line
-# form if possible.
-#
+--
+-- Convert obj to an expanded string form, which can be checked for equality. The optional second
+-- arg gives a maximum width; if the repr is wider than this, it will be split into a multi-line
+-- form if possible.
+--
 function repr(obj, maxwidth, mindepth)
     maxwidth = maxwidth or 120
     local r1,r2 = _repr(obj, '', maxwidth, mindepth or 1, nil)

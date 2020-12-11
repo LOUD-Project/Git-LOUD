@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/BlackOpsdefaultcollisionbeams.lua
-#**  Author(s):  Lt_hawkeye
-#**
-#**  Summary  :  Custom definitions collision beams
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/BlackOpsdefaultcollisionbeams.lua
+--**  Author(s):  Lt_hawkeye
+--**
+--**  Summary  :  Custom definitions collision beams
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -18,9 +18,9 @@ local LOUDPI = math.pi
 local LOUDSPLAT = CreateSplat
 local ForkThread = ForkThread
 
-#-----------------------------
-#   Base class that defines supreme commander specific defaults
-#-----------------------------
+-------------------------------
+--   Base class that defines supreme commander specific defaults
+-------------------------------
 HawkCollisionBeam = Class(CollisionBeam) {
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
     FxImpactLand = {},#EffectTemplate.DefaultProjectileLandImpact,
@@ -32,9 +32,9 @@ HawkCollisionBeam = Class(CollisionBeam) {
     FxImpactNone = {},
 }
 
-#-----------------------------
-#  SEADRAGON & REAPER BEAMS
-#-----------------------------
+-------------------------------
+--  SEADRAGON & REAPER BEAMS
+-------------------------------
 
 MartyrMicrowaveLaserCollisionBeam01 = Class(HawkCollisionBeam) {
 
@@ -47,9 +47,9 @@ MartyrMicrowaveLaserCollisionBeam01 = Class(HawkCollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     ScorchSplatDropTime = 0.25,
 }
-#----------------------------------
-#  Mini QUANTUM BEAM GENERATOR COLLISION BEAM
-#----------------------------------
+------------------------------------
+--  Mini QUANTUM BEAM GENERATOR COLLISION BEAM
+------------------------------------
 MiniQuantumBeamGeneratorCollisionBeam = Class(HawkCollisionBeam) {
     TerrainImpactType = 'LargeBeam02',
     TerrainImpactScale = 0.2,
@@ -119,9 +119,9 @@ MiniQuantumBeamGeneratorCollisionBeam = Class(HawkCollisionBeam) {
 }
 
 
-#----------------------------------
-#  Super QUANTUM BEAM GENERATOR COLLISION BEAM
-#----------------------------------
+------------------------------------
+--  Super QUANTUM BEAM GENERATOR COLLISION BEAM
+------------------------------------
 SuperQuantumBeamGeneratorCollisionBeam = Class(HawkCollisionBeam) {
     TerrainImpactType = 'LargeBeam02',
     TerrainImpactScale = 1,
@@ -321,9 +321,9 @@ HawkTractorClawCollisionBeam = Class(HawkCollisionBeam) {
     
 }
 
-#------------------------------
-#       Juggernaut LASERS
-#------------------------------
+--------------------------------
+--       Juggernaut LASERS
+--------------------------------
 JuggLaserCollisionBeam = Class(HawkCollisionBeam) {
     TerrainImpactType = 'LargeBeam02',
     TerrainImpactScale = 0.02,
@@ -343,9 +343,9 @@ JuggLaserCollisionBeam = Class(HawkCollisionBeam) {
     FxBeamStartPointScale = 0.02,
 }
 
-#-----------------------------
-#  ShadowCat beam
-#-----------------------------
+-------------------------------
+--  ShadowCat beam
+-------------------------------
 
 RailLaserCollisionBeam01 = Class(HawkCollisionBeam) {
 
@@ -381,9 +381,9 @@ RailLaserCollisionBeam01 = Class(HawkCollisionBeam) {
 		end
 	end,
 }
-#----------------------------------
-#   ZAPPER STUN BEAM
-#----------------------------------
+------------------------------------
+--   ZAPPER STUN BEAM
+------------------------------------
 EMCHPRFDisruptorBeam = Class(HawkCollisionBeam)
 {
 	TerrainImpactType = 'LargeBeam01',
@@ -413,9 +413,9 @@ EMCHPRFDisruptorBeam = Class(HawkCollisionBeam)
 	end, 
 }
 
-#----------------------------------
-#   HIRO LASER COLLISION BEAM
-#----------------------------------
+------------------------------------
+--   HIRO LASER COLLISION BEAM
+------------------------------------
 
 TDFGoliathCollisionBeam = Class(HawkCollisionBeam) {
 
@@ -491,9 +491,9 @@ TDFGoliathCollisionBeam = Class(HawkCollisionBeam) {
     end,
 }
 
-#----------------------------------
-#   MGAALaser CANNON COLLISION BEAM
-#----------------------------------
+------------------------------------
+--   MGAALaser CANNON COLLISION BEAM
+------------------------------------
 MGAALaserCollisionBeam = Class(HawkCollisionBeam) {
     FxBeam = {
 		'/mods/BlackOpsUnleashed/effects/emitters/aa_cannon_beam_01_emit.bp',
@@ -505,9 +505,9 @@ MGAALaserCollisionBeam = Class(HawkCollisionBeam) {
     FxBeamEndPointScale = 1,
 }
 
-#-----------------------------
-#  Aeon t4 beam
-#-----------------------------
+-------------------------------
+--  Aeon t4 beam
+-------------------------------
 
 GoldenLaserCollisionBeam01 = Class(HawkCollisionBeam) {
 

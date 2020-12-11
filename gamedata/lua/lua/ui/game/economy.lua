@@ -373,11 +373,19 @@ function _BeatFunction()
         local actualAvg = LOUDMIN( lastActualVal * simFrequency, 99999999 )
         local incomeAvg = LOUDMIN( incomeVal * simFrequency, 99999999 )
         
-        controls.storageBar:SetRange(0, maxStorageVal)
-        controls.storageBar:SetValue(storedVal)
-        controls.curStorage:SetText(LOUDCEIL(storedVal))
-        controls.maxStorage:SetText(LOUDCEIL(maxStorageVal))
+        if controls.storageBar then
+            controls.storageBar:SetRange(0, maxStorageVal)
+            controls.storageBar:SetValue(storedVal)
+        end
         
+        if controls.maxStorage then
+            controls.maxStorage:SetText(LOUDCEIL(maxStorageVal))
+        end
+        
+        if controls.curStorage then
+            controls.curStorage:SetText(LOUDCEIL(storedVal))
+        end
+
         controls.income:SetText(LOUDFORMAT("+%d", LOUDCEIL(incomeAvg)))
 		
         if storedVal > 0.5 then

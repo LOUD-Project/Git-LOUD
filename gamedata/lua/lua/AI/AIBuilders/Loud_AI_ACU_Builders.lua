@@ -200,6 +200,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 0 }},
 
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
         },
 		

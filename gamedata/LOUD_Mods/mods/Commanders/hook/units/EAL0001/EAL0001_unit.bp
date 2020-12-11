@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "eal0001", #Aeon ACU
+    BlueprintId = "eal0001", --#Aeon ACU
 
     Defense = {
 
@@ -63,7 +63,7 @@ UnitBlueprint {
 
         },
         
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
         
             BuildCostEnergy = 145800,
             BuildCostMass = 14580,

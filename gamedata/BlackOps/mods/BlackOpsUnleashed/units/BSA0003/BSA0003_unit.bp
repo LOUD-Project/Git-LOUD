@@ -4,6 +4,9 @@ UnitBlueprint {
 		GuardRadius = 100,
         GuardReturnRadius = 125,
         GuardScanRadius = 150,
+		TargetBones = {
+            'XSA0203',
+		},
     },
     Air = {
 	

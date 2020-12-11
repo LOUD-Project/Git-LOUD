@@ -1,0 +1,41 @@
+### Release 12-04-2020 ###
+Textures 6.01
+BrewLAN 0.84
+Lua 5.3.28
+
+- AI can now adapt its multiplier in response to certain factors. If the corresponding lobby global option is set to "Time-Based", the AI will increase its multiplier by 0.02 every 6 minutes. If the option is set to "Ratio-Based", all AI will increase their multipliers up to a max of 0.5 based on the relative size of their land army ratio to that of their enemies.
+- New AI multiplier options: 1.45 and 2.5.
+- Two new units:
+  - Deluge - Aeon Experimental Dreadnought, equipped with a downsized Salvation cannon and personal shield.
+  - Xiphos - Cybran T3 Interdiction Gunship, equipped with potent weaponry and a rearward anti-missile system.
+- The buff system now works on AI on a per-brain basis.
+- Several land and amphibious platoons have received new names to indicate type.
+- Platoon control value and land ratio restriction tweaks.
+- Simplified some factory unit construction conditions.
+- The UsingTransports flag will prevent a platoon from being considered during MERGE operations.
+- New custom behaviour for torpedo bomber platoons.
+- Removed some deprecated platoon categories.
+- Correct RTBLocation to keep platoons from always defaulting to the origin base.
+- FIX: FINDPOINTMEETSCONDITIONS was evaluating minimum threat at 'less than' rather than 'less than or equal' - resulted in failure to find positions with 0 threat.
+- FIX: FINDTARGETINRANGE was not checking properly for BlockingTerrain when filtering results.
+- Reduced some mergelimits.
+- Added Type 1 Land Attack formation.
+- MEX Attack Large Need Mass - changed condition and local targeting priorities.
+- Some formation limits changed.
+- Rewrite of guardpoint code. Improved guard response while on station - validated merging process.
+- Buffs are now prevented from applying to civilian units.
+- Revised and described most of the DEBUG switches available in LOUD.
+- Some AI debug functions have been better documented.
+
+### Release 11-27-2020 ###
+Lua 5.3.27
+
+- New and updated Naval Air formations for guarding naval flotilla with fighter, gunships and torpedo bombers.
+- New behaviours for using guardpoint logic.
+- Revised AttackForceAI behaviours, increasing targeting rate and general responsiveness. Searchradius has also been refined.
+- AI will not build T1 p-gens if any more advanced power is under construction.
+- Increased econ and time allowances for building new factories (5 mins down to 2.5).
+- AI LifeThread - prevents eco crashes by compensating for any resource consumption which brings the net income below 0 when supply is empty. Tied to ACU and shuts off if the com dies.
+- AI function: ClearOutBase. Directs units to new primary bases.
+- Attack planner fixes, and logging additions.
+- New math for exponential distance valuation when examining targets.

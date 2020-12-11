@@ -468,13 +468,13 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
             BuildCostEnergy = 162000,	--240000
             BuildCostMass = 16200,		--3600
             BuildTime = 16200,			--21600
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER CYBRAN',
             Icon = 'exlce3',
-            Name = 'Tech 4 Apocolyptic Engineering (T3)',
+            Name = 'Tech 4 Apocalyptic Engineering (T3)',
             Prerequisite = 'EXAssaultEngineering',
             ShowBones = {
                 'Engineering',
@@ -490,7 +490,7 @@ UnitBlueprint {
             },
 			NewRegenRate = 90,
         },
-        EXApocolypticEngineeringRemove = {
+        EXApocalypticEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -500,10 +500,10 @@ UnitBlueprint {
             },
             Icon = 'exlce3',
             Name = 'Remove Engineering Suites',
-            Prerequisite = 'EXApocolypticEngineering',
+            Prerequisite = 'EXApocalypticEngineering',
             RemoveEnhancements = {
-                'EXApocolypticEngineering',
-                'EXApocolypticEngineeringRemove',
+                'EXApocalypticEngineering',
+                'EXApocalypticEngineeringRemove',
             },
             Slot = 'LCH',
         },

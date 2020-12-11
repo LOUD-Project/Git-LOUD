@@ -3,7 +3,7 @@ UnitBlueprint {
         AttackAngle = 60,
         GuardReturnRadius = 130,
         TargetBones = {
-            'URS0302',
+            'Front_Turret01',
             'Back_Wake',
             'Front_Left_Wake',
             'Front_Right_Wake',
@@ -227,7 +227,7 @@ UnitBlueprint {
     SizeY = 1.8,
     SizeZ = 8.3,
 	
-    StrategicIconName = 'icon_ship3_directfire',
+    StrategicIconName = 'icon_ship3_artillery',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
