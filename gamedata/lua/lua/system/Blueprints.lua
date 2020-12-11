@@ -492,10 +492,10 @@ function ModBlueprints(all_blueprints)
 
 	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
 
-	LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
-	LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
+	--LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
+	--LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
 
-	local ROFadjust = 0.85
+	local ROFadjust = 0.9
 
     for id, bp in all_blueprints.Unit do
 
@@ -624,8 +624,8 @@ function ModBlueprints(all_blueprints)
 		
 				if cat == 'NAVAL' then
 			
-					econScale = 0.0    -- cost more
-					speedScale = -0.05  -- move slower
+					econScale = 0.0    # -- cost more
+					speedScale = -0.10  # -- move slower
 					viewScale = 0.0   
 			
 					for j, catj in bp.Categories do
