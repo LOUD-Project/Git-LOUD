@@ -228,35 +228,6 @@ Marker = function(mType, mposition)
 	
 end
 
--- List of AI cheat multipliers to map against per-AI lobby setting
-
-aiMults = {
-    0.8,
-    0.9,
-    1.0,
-    1.05,
-    1.075,
-    1.1,
-    1.125,
-    1.15,
-    1.175,
-    1.2,
-    1.225,
-    1.25,
-    1.275,
-    1.3,
-    1.325,
-    1.35,
-    1.375,
-    1.4,
-    1.45,
-    1.5,
-    1.6,
-    1.75,
-    2.0,
-    2.5
-}
-
 function locals()
 
 	local variables = {}
@@ -672,8 +643,10 @@ AIBrain = Class(moho.aibrain_methods) {
         self.CheatingAI = true
 
         -- Store the cheat value (ie. 1.1 = 10% cheat)
-        self.CheatValue = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
-        self.BaseCheat = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
+        local m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
+        m = math.max(0.1, m)
+        self.CheatValue = m
+        self.BaseCheat = m
 
 		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
 		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
