@@ -22,18 +22,7 @@ Textures 6.1
   - DPS is now shown.
   - Some edge cases fixed concerning EMP and dummy target painting weapons.
 
-- Minor adjustments to costs of T1 engineers and factories.
-  - T1 Land Fac mass cost 240 -> 250
-  - T1 Air Fac energy cost 2400 -> 2500
-  - T1 engineer mass cost 65 -> 70, energy cost 300 -> 330.
-
-- Minor adjustments to power generators.
-  - Aeon T1 pgen mass cost: 90 -> 100, energy storage 20 -> 50
-  - Aeon T2 pgen mass cost: 2250 -> 2200, energy cost 22500 -> 22000, energy storage 50 -> 250, death damage 2500 -> 2000.
-  - T3 pgen mass cost: 11250 -> 10500, energy cost 110000 -> 112500, energy storage of 500 added.
-  - Aeon T3 pgen death damage 6000 -> 5000. All other T3 pgen death damage 5900 -> 5000.
-
-- Lobby map previews now properly handle non-square map.
+- Lobby map previews now properly handle non-square maps.
 - New set of more readable player colours.
 - The Ahwassa was incorrectly overperforming when LOUD Integrated Storage was enabled, and has been brought back into line with the rest of the game balance. Users of Integrated Storage will observe the following changes:
   - Minor reductions in aerodynamic performance.
@@ -55,17 +44,6 @@ Textures 6.1
   - Wreckage health multiplier 0.3 -> 0.6.
   - Radar radius increased from 60 to 75.
 
-- All teleport times are now 12 seconds, and energy costs for teleportation have been revised across the board. Strict minimums have been put in place to prevent instant or free teleports.
-- Seraphim T2 Sonar nerfs:
-  - Health reduced from 2000 to 800.
-  - Health regen rate set to 0 from 2.
-  - Build cost reduction; 180 to 120 mass, 5400 to 3700 energy.
-  - Sonar radius brought down from 210 to 180.
-  - Vision radius increased from 22 to 30.
-  - Water vision radius reduced from 35 to 15.
-
-- The fake UEF T3 Sonar is no longer in the Seraphim unit roster as an upgrade to the Sera T2 Sonar. It has been replaced with BrewLAN's Sera T3 Sonar.
-- The MSG Spiderbot (Cybran T2 Mobile Shield Generator) has been renamed to the Cocoon.
 - Higher limit on battleships for certain AI naval formations.
 - Higher unit cap thresholds after which the AI will not build airpads or antinuke launchers.
 - AI SACUs are more likely to be drawn to bases without factories than bases which have them already.
@@ -73,15 +51,9 @@ Textures 6.1
 - The AI is more willing to carry out amphibious attacks.
 - The AI is more willing to build naval yards if an enemy is close.
 - Neutral civilians do not factor into the AI's assessment of threat anymore.
-- The Magna (Cybran T3 Bombardment Ship) and Zthuzene (Sera T2 Bombardment Ship) have new artillery ship icons.
-- There are now icons for bots which generate shields.
 - Several bots which mistakenly had tank icons now have bot icons.
-- Several experimentals have icons which better reflect their actual weapon loadouts.
-- New set of icons for Seraphim units in the protector line, and for the Sera T2 Restoration Field Generator.
+- Multiple experimentals have icons which better reflect their actual weapon loadouts.
 - Default values for anti-teleportation field range.
-- Fix: "Poseidon" (UEF T3 Heavy Support Cruiser) was mis-named the "Posideon", and had a direct-fire icon instead of a cruiser icon.
-- Fix: The Othuum (Sera T3 Siege Tank) was lacking an ability list.
-- Several typo fixes across the unit roster.
 - Numerous other bug fixes which improve the AI's capabilities.
 
 ### Release 04-12-2020 ###
