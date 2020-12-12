@@ -1006,7 +1006,6 @@ function SetSlotInfo(slot, playerInfo)
     
     if not playerInfo.Human then
         GUI.slots[slot].mult:Show()
-        GUI.slots[slot].mult:SetItem(playerInfo.Mult)
         GUI.slots[slot].act:Show()
         GUI.slots[slot].act:SetItem(playerInfo.ACT)
     end
@@ -1418,6 +1417,16 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
+    -- All cheat multi input has to match n+.n+ or n+
+    for k, v in GUI.slots do
+        if not v.mult:IsHidden() and not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
+            AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
+            return
+        else
+            SetPlayerOption(v.mult.row, 'Mult', v.mult:GetText())
+        end
+    end
+
     if gameInfo.GameOptions['Victory'] != 'sandbox' then
 	
         local valid = true
@@ -1464,12 +1473,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         return
     end
 
-
     if totalHumanPlayers == 0 and table.empty(gameInfo.Observers) then
         AddChatText(LOC("<LOC lobui_0239>There must be at least one non-ai player or one observer, can not continue"))
         return
     end
-
 
     if not EveryoneHasEstablishedConnections() then
         return
@@ -1944,7 +1951,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     gameInfo.PlayerOptions[newSlot].OwnerID = senderID
 	
     gameInfo.PlayerOptions[newSlot].Faction = table.getn(FactionData.Factions) + 1
-    gameInfo.PlayerOptions[newSlot].Mult = 3 -- 1.0 by default
+    gameInfo.PlayerOptions[newSlot].Mult = 1.0
     gameInfo.PlayerOptions[newSlot].ACT = 1 -- Neither ACT by default
 
     if requestedTeam then
@@ -2466,7 +2473,7 @@ function CreateUI(maxPlayers, useSteam)
 
     GUI.chatDisplayScroll = UIUtil.CreateVertScrollbarFor(GUI.chatDisplay)
 
-    # OnlineProvider.RegisterChatDisplay(GUI.chatDisplay)
+    -- OnlineProvider.RegisterChatDisplay(GUI.chatDisplay)
     
     GUI.chatEdit:SetMaxChars(200)
     GUI.chatEdit.OnCharPressed = function(self, charcode)
@@ -2481,7 +2488,7 @@ function CreateUI(maxPlayers, useSteam)
     end
     
     GUI.chatEdit.OnLoseKeyboardFocus = function(self)
-        GUI.chatEdit:AcquireFocus()    
+        GUI.chatEdit:AcquireFocus()
     end
     
     GUI.chatEdit.OnEnterPressed = function(self, text)
@@ -3046,51 +3053,67 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddComboTooltip(GUI.slots[i].team, teamTooltips)
         GUI.slots[i].team.OnEvent = GUI.slots[curRow].name.OnEvent
         
-        -- AI cheat multiplier combo
+        -- AI cheat multiplier textbox
 
-        GUI.slots[i].mult = Combo(bg, 14, 23, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        GUI.slots[i].mult = Edit(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].mult, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
-        GUI.slots[i].mult.Width:Set(70)
+        GUI.slots[i].mult.Width:Set(40)
+        GUI.slots[i].mult.Height:Set(14)
+        GUI.slots[i].mult:SetFont(UIUtil.bodyFont, 12)
+        GUI.slots[i].mult:SetForegroundColor(UIUtil.fontColor)
+        GUI.slots[i].mult:SetHighlightBackgroundColor('00000000')
+        GUI.slots[i].mult:SetHighlightForegroundColor(UIUtil.fontColor)
+        GUI.slots[i].mult:ShowBackground(true)
         GUI.slots[i].mult.row = i
-        -- RATODO: Can the global aiMults table feed the combobox with strings?
-        -- Because this is stupid. Making this file-local just throws.
-        local multStrings = {
-                '0.8',
-                '0.9',
-                '1.0',
-                '1.05',
-                '1.075',
-                '1.1',
-                '1.125',
-                '1.15',
-                '1.175',
-                '1.2',
-                '1.225',
-                '1.25',
-                '1.275',
-                '1.3',
-                '1.325',
-                '1.35',
-                '1.375',
-                '1.4',
-                '1.45',
-                '1.5',
-                '1.6',
-                '1.75',
-                '2.0',
-                '2.5'
-            }
-        GUI.slots[i].mult:AddItems(multStrings)
+        
+        GUI.slots[i].mult:SetMaxChars(5)
+        GUI.slots[i].mult:SetText("1.0")
 
-        GUI.slots[i].mult.OnClick = function(self, index, text)
-            Tooltip.DestroyMouseoverDisplay()
-            SetPlayerOption(self.row, 'Mult', index)
+        GUI.slots[i].mult.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits and .
+            if charcode == 47 or charcode >= 58 or charcode <= 45 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
         end
 
+        GUI.slots[i].mult.OnLoseKeyboardFocus = function(self)
+            GUI.slots[i].mult:AcquireFocus()
+        end
+        
+        GUI.slots[i].mult.OnNonTextKeyPressed = function(self, keyCode)
+            if commandQueue and table.getsize(commandQueue) > 0 then
+                if keyCode == 38 then
+                    if commandQueue[commandQueueIndex + 1] then
+                        commandQueueIndex = commandQueueIndex + 1
+                        self:SetText(commandQueue[commandQueueIndex])
+                    end
+                end
+                if keyCode == 40 then
+                    if commandQueueIndex ~= 1 then
+                        if commandQueue[commandQueueIndex - 1] then
+                            commandQueueIndex = commandQueueIndex - 1
+                            self:SetText(commandQueue[commandQueueIndex])
+                        end
+                    else
+                        commandQueueIndex = 0
+                        self:ClearText()
+                    end
+                end
+            end
+        end
+        
         Tooltip.AddControlTooltip(GUI.slots[i].mult, 'lob_mult')
 
-        -- ACT combo
+        -- ACT dropdown
 
         GUI.slots[i].act = Combo(bg, 14, 23, false, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtLeftIn(GUI.slots[i].act, GUI.panel, slotColumnSizes.act.x)
