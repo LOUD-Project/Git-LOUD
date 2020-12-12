@@ -2790,10 +2790,10 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddButtonTooltip(GUI.restrictedUnitsButton, 'lob_RestrictedUnitsClient')
     end
     ---------------------------------------------------------------------------
-    -- set up player grid
+    -- Set up player grid
     ---------------------------------------------------------------------------
 	
-    -- set up player "slots" which is the line representing a player and player specific options
+    -- Set up player "slots" (rows representing players and player specific options)
     local prev = nil
 
 	local slotColumnSizes = {
@@ -2802,8 +2802,8 @@ function CreateUI(maxPlayers, useSteam)
         color = {x = 354, width = 59},
         faction = {x = 419, width = 59},
         team = {x = 478, width = 60},
-        mult = {x = 538, width = 70},
-        act = {x = 608, width = 90},
+        mult = {x = 538, width = 40},
+        act = {x = 583, width = 90},
         ping = {x = 620, width = 62},
         ready = {x = 695, width = 51},
     }
@@ -2859,11 +2859,6 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
 
-    GUI.multLabel = UIUtil.CreateText(GUI.labelGroup, "AI Multi.", 14, UIUtil.titleFont)
-    LayoutHelpers.AtLeftIn(GUI.multLabel, GUI.panel, slotColumnSizes.mult.x)
-    LayoutHelpers.AtVerticalCenterIn(GUI.multLabel, GUI.labelGroup)
-    Tooltip.AddControlTooltip(GUI.multLabel, 'lob_mult')
-
 	if handiMod then
 		GUI.handicapLabel = UIUtil.CreateText(GUI.labelGroup, "Handicap", 14, UIUtil.titleFont)
 		LayoutHelpers.AtLeftIn(GUI.handicapLabel, GUI.panel, slotColumnSizes.handicap.x)
@@ -2871,13 +2866,19 @@ function CreateUI(maxPlayers, useSteam)
 	end
 
     if not singlePlayer then
-        GUI.pingLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0217>Ping", 14, UIUtil.titleFont)
-        LayoutHelpers.AtLeftIn(GUI.pingLabel, GUI.panel, slotColumnSizes.ping.x)
-        LayoutHelpers.AtVerticalCenterIn(GUI.pingLabel, GUI.labelGroup)
+        GUI.aiPingLabel = UIUtil.CreateText(GUI.labelGroup, "Ping/AI Settings", 14, UIUtil.titleFont)
+        LayoutHelpers.AtLeftIn(GUI.aiPingLabel, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.aiPingLabel, GUI.labelGroup)
+        Tooltip.AddControlTooltip(GUI.aiPingLabel, 'lob_ai_ping')
 
         GUI.readyLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0218>Ready", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.readyLabel, GUI.panel, slotColumnSizes.ready.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.readyLabel, GUI.labelGroup)
+    else
+        GUI.aiLabel = UIUtil.CreateText(GUI.labelGroup, "AI Settings", 14, UIUtil.titleFont)
+        LayoutHelpers.AtLeftIn(GUI.aiLabel, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.aiLabel, GUI.labelGroup)
+        Tooltip.AddControlTooltip(GUI.aiLabel, 'lob_ai')
     end
 
     for i= 1, LobbyComm.maxPlayerSlots do

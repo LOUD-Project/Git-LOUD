@@ -762,9 +762,17 @@ Tooltips = {
         description = "Set Teams",
     },
     
+    lob_ai = {
+        title = "AI Settings",
+        description = "Configure this AI's cheat multiplier to make it more or less difficult, or use adaptive cheating for additional difficulty in certain situations.",
+    },
+    lob_ai_ping = {
+        title = "Ping/AI Settings",
+        description = "If a human player fills this slot, their ping is shown in this column. If an AI player fills this slot, their cheat settings are shown in this column.",
+    },
     lob_mult = {
         title = "AI Cheat Multiplier",
-        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at 0.9 and below, it is weakened and less difficult.",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at below 1.0, it is weakened and less difficult.",
     },
     lob_act = {
         title = "Adaptive AI Cheat Multiplier",
