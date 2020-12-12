@@ -1419,7 +1419,9 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
 
     -- All cheat multi input has to match n+.n+ or n+
     for k, v in GUI.slots do
-        if not v.mult:IsHidden() and not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
+        if v.mult:IsHidden() then
+            -- Skip this slot
+        elseif not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
             AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
             return
         else
