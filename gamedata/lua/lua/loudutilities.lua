@@ -602,6 +602,9 @@ function RatioAdaptiveCheatThread( aiBrain )
 	local cheatincrease = 0
 	LOG("*AI DEBUG "..aiBrain.Nickname.." starting ratio ACT now. Interval: "..interval.." ticks")
 
+	-- Wait 7 minutes first, else earliest land ratios skew results
+	WaitTicks(10 * 60 * 7)
+
 	while aiBrain.Result ~= "defeat" do
 
 		WaitTicks(interval)
