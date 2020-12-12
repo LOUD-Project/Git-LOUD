@@ -9,6 +9,7 @@ dofile('../../gamedata/lua/lua/PhxLib.lua')
 local cleanUnitName = PhxLib.cleanUnitName
 local getTechLevel = PhxLib.getTechLevel
 local getVision = PhxLib.getVision
+local getWaterVision = PhxLib.getWaterVision
 local calcUnitDPS = PhxLib.calcUnitDPS
 
 local allBlueprints = {}
@@ -97,8 +98,12 @@ io.write(
                 .. "," .. "totDPS"
                 .. "," .. "maxRange"
                 .. "," .. "Vision"
+                .. "," .. "Wvision"
+                .. "," .. "Intel"
                 .. "," .. "Shield"
                 .. "," .. "Health"
+                .. "," .. "TorpDefRate"
+                .. "," .. "Regen"
                 .. "," .. "Mass"
                 .. "," .. "Energy"
                 .. "," .. "BuildTime"
@@ -115,7 +120,11 @@ for curBPid,curBP in ipairs(allBlueprints) do
     local BuildTime = 0
     local Tier = 0
     local Vision = 0
+    local Wvision = 0
+    local TorpDefRate = 0
     local Race = 'none'
+    local Chassis = 'unknown'
+    local Intel = ''
 
     local unitDPS = calcUnitDPS(curShortID,curBP)
 
@@ -132,6 +141,10 @@ for curBPid,curBP in ipairs(allBlueprints) do
 
     Tier = getTechLevel(curBP)
     Vision = getVision(curBP)
+    Wvision = getWaterVision(curBP)
+    Chassis = PhxLib.getChassis(curBP)
+    Intel = PhxLib.getIntel(curBP)
+    TorpDefRate = PhxLib.getAntiTorpRate(curBP)
 
     if curBP.General and curBP.General.FactionName then 
         Race = curBP.General.FactionName
@@ -145,7 +158,7 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. "Type"
         .. "," .. "Type2"
         .. "," .. Race
-        .. "," .. "Chassis"
+        .. "," .. Chassis
         .. "," .. unitDPS.Threat.Speed
         .. "," .. unitDPS.Threat.Range
         .. "," .. unitDPS.Threat.HP
@@ -158,8 +171,12 @@ for curBPid,curBP in ipairs(allBlueprints) do
         .. "," .. unitDPS.totDPS
         .. "," .. unitDPS.maxRange
         .. "," .. Vision
+        .. "," .. Wvision
+        .. "," .. Intel
         .. "," .. unitDPS.Shield
         .. "," .. unitDPS.Health
+        .. "," .. TorpDefRate
+        .. "," .. unitDPS.Regen
         .. "," .. Mass
         .. "," .. Energy
         .. "," .. BuildTime

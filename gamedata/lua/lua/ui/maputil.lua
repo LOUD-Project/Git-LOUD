@@ -190,22 +190,38 @@ function GetStartPositions(scenario)
                 WARN("No initial position marker for army " .. army .. " found in " .. scenario.save)
                 position[1] = 0
                 position[2] = 0
+                
+                saveData.Scenario.MasterChain['_MASTERCHAIN_'].Markers[army] = nil
+                armyPositions[army] = nil
             end
         end
     else
         WARN("No start positions defined in " .. scenario.file)
     end
+    
+    -- rebuild the start positions so only those properly defined will appear
+    local newArmyPositions = {}
+    
+    for k,v in armyPositions do
+        
+        if v then
+            newArmyPositions[k] = v
+        end
+    end
 
-    return armyPositions
+    return newArmyPositions
 end
 
 -- enumerates and returns to key name for all the armies for this map
 function GetArmies(scenario)
+
     local retArmies = nil
 
     if scenario.Configurations.standard and scenario.Configurations.standard.teams then
+    
         -- find the "FFA" team
         for index, teamConfig in scenario.Configurations.standard.teams do
+        
             if teamConfig.name and (teamConfig.name == 'FFA') then
                 retArmies = teamConfig.armies
             end

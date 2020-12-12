@@ -1,9 +1,9 @@
-#*****************************************************************
-#**  File     :  /lua/aipersonality.lua
-#**  Author(s):
-#**  Summary  :
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************
+--*****************************************************************
+--**  File     :  /lua/aipersonality.lua
+--**  Author(s):
+--**  Summary  :
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************
 
 AIPersonality = Class(moho.aipersonality_methods) {}
 

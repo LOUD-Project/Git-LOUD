@@ -1,6 +1,6 @@
 ---  /lua/seraphimunits.lua
 
-# SERAPHIM DEFAULT UNITS
+-- SERAPHIM DEFAULT UNITS
 
 local DefaultUnitsFile = import('defaultunits.lua')
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit

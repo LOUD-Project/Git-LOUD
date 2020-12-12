@@ -5,13 +5,20 @@ function ExecutePlan(aiBrain)
 	aiBrain.ConstantEval = false
 	
     WaitTicks(5)
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Threat to other positions")
 
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do
-        if not brain:IsDefeated() and not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex) then
+    
+        --LOG("*AI DEBUG Reviewing Brain "..repr(brain.Nickname).." "..repr(brain) )
+        
+        if aiBrain.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
         
             local place = brain:GetStartVector3f()
             local threatlayer = 'AntiAir'
+            
+            --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
             
             -- assign 500 ecothreat for 10 minutes
 			aiBrain:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )

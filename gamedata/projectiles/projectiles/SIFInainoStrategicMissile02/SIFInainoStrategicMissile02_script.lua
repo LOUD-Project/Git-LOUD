@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile02_script.lua
-#**  Author(s):  Gordon Duclos, Matt Vainio
-#**
-#**  Summary  :  Inaino Strategic Missile Projectile script, XSS0302
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile02_script.lua
+--**  Author(s):  Gordon Duclos, Matt Vainio
+--**
+--**  Summary  :  Inaino Strategic Missile Projectile script, XSS0302
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local SIFInainoStrategicMissile = import('/lua/seraphimprojectiles.lua').SIFInainoStrategicMissile
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds

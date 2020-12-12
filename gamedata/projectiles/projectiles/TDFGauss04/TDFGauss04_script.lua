@@ -1,6 +1,6 @@
-#
-# Terran Gauss Cannon Projectile
-#
+--
+-- Terran Gauss Cannon Projectile
+--
 local TDFGaussCannonProjectile = import('/lua/terranprojectiles.lua').TDFLandGaussCannonProjectile
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds

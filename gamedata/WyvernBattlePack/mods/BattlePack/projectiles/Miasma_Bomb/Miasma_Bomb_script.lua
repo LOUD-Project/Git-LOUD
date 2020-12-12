@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /mods/Wyvern1/projectiles/Miasma_Bomb/Miasma_Bomb_script.lua
-#**  Author(s):  Matt Vainio
-#**
-#**  Summary  :  Heavy Miasma Bomb, UEA0305
-#**
-#**  Copyright © 2010 Wyvern Studios
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /mods/Wyvern1/projectiles/Miasma_Bomb/Miasma_Bomb_script.lua
+--**  Author(s):  Matt Vainio
+--**
+--**  Summary  :  Heavy Miasma Bomb, UEA0305
+--**
+--**  Copyright ï¿½ 2010 Wyvern Studios
+--****************************************************************************
 local MiasmaBombProjectile = import('/lua/terranprojectiles.lua').TNapalmHvyCarpetBombProjectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat

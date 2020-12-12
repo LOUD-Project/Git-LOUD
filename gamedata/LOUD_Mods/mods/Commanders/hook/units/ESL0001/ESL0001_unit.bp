@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "esl0001", #Seraphim ACU
+    BlueprintId = "esl0001", --#Seraphim ACU
 
     Defense = {
 
@@ -64,7 +64,7 @@ UnitBlueprint {
 
         },
         
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
         
             BuildCostEnergy = 145800,
             BuildCostMass = 14580,

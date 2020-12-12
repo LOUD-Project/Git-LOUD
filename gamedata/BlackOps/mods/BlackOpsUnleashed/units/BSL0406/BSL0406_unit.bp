@@ -77,16 +77,17 @@ UnitBlueprint {
         SurfaceThreatLevel = 228,
     },
 	
-    Description = '<LOC bsl0406_desc>Experimental Protector bot',
+    Description = '<LOC bsl0406_desc>Experimental Protector Bot',
 	
     Display = {
 	
         Abilities = {
 			'Amphibious',
 			'Radar',
-			'Tough Combat unit with modest firepower',
 			'Regenerative Aura',
             'Attracts enemy fire',
+			'Tough',
+            'Low firepower',
         },
 		
         AnimationDeath = {
@@ -175,7 +176,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Protector bot',
+        HelpText = 'Experimental Protector Bot',
     },
 	
     LifeBarHeight = 0.1,
@@ -220,7 +221,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 3.7,
 	
-    StrategicIconName = 'icon_experimental_land_shield',
+    StrategicIconName = 'icon_experimental_land_protector',
     StrategicIconSortPriority = 114,
 	
     Transport = {

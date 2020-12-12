@@ -12,11 +12,11 @@ local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local WinMgr = import('/lua/ui/game/windowmanager.lua')
 local WIN_ID = 'Transmission_Log'
 
-# Possible LOC tag for the future
-# "<LOC _Technology>Technology"
-# <LOC trans_log_0000>Transmission Log
-# <LOC trans_log_0001>No entries
-# <LOC trans_log_0002>%d - %d of %d entries
+-- Possible LOC tag for the future
+-- "<LOC _Technology>Technology"
+-- <LOC trans_log_0000>Transmission Log
+-- <LOC trans_log_0001>No entries
+-- <LOC trans_log_0002>%d - %d of %d entries
 local controls = {
     bg = false,
     logContainer = false,

@@ -1,11 +1,11 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/AI/sorianlang.lua
-#**  Author(s): Michael Robbins aka Sorian
-#**
-#**  Summary  : Language File for the Sorian AIs
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/AI/sorianlang.lua
+--**  Author(s): Michael Robbins aka Sorian
+--**
+--**  Summary  : Language File for the Sorian AIs
+--**
+--****************************************************************************
 
 AINames = {
 	#Czar

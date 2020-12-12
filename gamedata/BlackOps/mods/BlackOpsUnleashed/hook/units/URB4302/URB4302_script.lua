@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /cdimage/units/URB4302/URB4302_script.lua
-#**  Author(s):  John Comes, David Tomandl, Jessica St. Croix
-#**
-#**  Summary  :  Cybran Strategic Missile Defense Script
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /cdimage/units/URB4302/URB4302_script.lua
+--**  Author(s):  John Comes, David Tomandl, Jessica St. Croix
+--**
+--**  Summary  :  Cybran Strategic Missile Defense Script
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 local CAMEMPMissileWeapon = import('/lua/cybranweapons.lua').CAMEMPMissileWeapon

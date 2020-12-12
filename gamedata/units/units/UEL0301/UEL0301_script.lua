@@ -1,6 +1,6 @@
 local Shield = import('/lua/shield.lua').Shield
 
-#local EffectUtil = import('/lua/EffectUtilities.lua')
+--local EffectUtil = import('/lua/EffectUtilities.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CreateDefaultBuildBeams = import('/lua/EffectUtilities.lua').CreateDefaultBuildBeams
 local CreateUEFCommanderBuildSliceBeams = import('/lua/EffectUtilities.lua').CreateUEFCommanderBuildSliceBeams

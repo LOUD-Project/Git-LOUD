@@ -1,11 +1,11 @@
-#**  File     :  /cdimage/lua/modules/basetemplates.lua
-#**  Author(s): John Comes, Dru Staltman
-#**  Summary  : File with buildable locations for skirmish AI buildings
+--**  File     :  /cdimage/lua/modules/basetemplates.lua
+--**  Author(s): John Comes, Dru Staltman
+--**  Summary  : File with buildable locations for skirmish AI buildings
 
 
 BaseTemplates =
 {
-# UEF BaseTemplates Building List
+-- UEF BaseTemplates Building List
     {
         {
             {
@@ -346,7 +346,7 @@ BaseTemplates =
             { 11, 10, 0 },
         },
     },
-# Aeon BaseTemplates Building List
+-- Aeon BaseTemplates Building List
     {
         {
             {
@@ -687,7 +687,7 @@ BaseTemplates =
             { 11, 10, 0 },
         },
     },
-# Cybran BaseTemplates Building List
+-- Cybran BaseTemplates Building List
     {
         {
             {
@@ -1028,7 +1028,7 @@ BaseTemplates =
             { 11, 10, 0 },
         },
     },
-# Seraphim BaseTemplates Building List
+-- Seraphim BaseTemplates Building List
     {
         {
             {

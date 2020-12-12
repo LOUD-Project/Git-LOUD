@@ -586,8 +586,11 @@ Shield = Class(moho.shield_methods,Entity) {
             
             ChangeState(self, self.OnState)
 			
-        end
+        end,
 		
+        IsOn = function(self)
+            return true
+        end,
     },
 
     -- This state happens only when the army has run out of power
@@ -617,7 +620,11 @@ Shield = Class(moho.shield_methods,Entity) {
 				
             end
 			
-        end
+        end,
+        
+        IsOn = function(self)
+            return true
+        end,
 		
     },
 

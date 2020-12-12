@@ -57,13 +57,14 @@ UnitBlueprint {
         SurfaceThreatLevel = 24.4,
     },
 	
-    Description = '<LOC bsl0306_desc>Advanced Protector bot',
+    Description = '<LOC bsl0306_desc>Advanced Protector Bot',
 	
     Display = {
         Abilities = {
-			'Radar',
-			'Tough Combat unit with modest firepower',
-            'Designed to attract enemy fire',
+            'Radar',
+            'Attracts enemy fire',
+			'Tough',
+            'Low firepower',
         },
         AnimationDeath = {
             {
@@ -134,7 +135,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Advanced Protector bot',
+        HelpText = 'Advanced Protector Bot',
     },
 	
     LifeBarHeight = 0.08,
@@ -176,7 +177,7 @@ UnitBlueprint {
     SizeY = 1.0,
     SizeZ = 1.2,
 	
-    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconName = 'icon_bot3_protector',
     StrategicIconSortPriority = 135,
 	
     Transport = {

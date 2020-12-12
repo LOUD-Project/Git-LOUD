@@ -1,6 +1,6 @@
-#
-# Terran Land-Based Cruise Missile
-#
+--
+-- Terran Land-Based Cruise Missile
+--
 local TMissileCruiseProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseProjectile
 local Explosion = import('/lua/defaultexplosions.lua')
 local ForkThread = ForkThread

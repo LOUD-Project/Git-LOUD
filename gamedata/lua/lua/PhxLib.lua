@@ -150,9 +150,9 @@ PhxLib.getShield = function(curBP)
     local Shield = 0
     if  curBP.Defense and 
         curBP.Defense.Shield and 
-        curBP.Defense.ShieldMaxHealth
+        curBP.Defense.Shield.ShieldMaxHealth
     then
-        Shield = curBP.Defense.Shield.SheildMaxHealth or 0
+        Shield = curBP.Defense.Shield.ShieldMaxHealth or 0
     else 
         Shield = 0
     end
@@ -190,6 +190,143 @@ PhxLib.getVision = function(curBP)
     return Vision
 end
 
+PhxLib.getWaterVision = function(curBP)
+    local Wvision = 0
+    if curBP.Intel and curBP.Intel.WaterVisionRadius then
+        Wvision = curBP.Intel.WaterVisionRadius
+    end
+
+    return Wvision
+end
+
+PhxLib.getAntiTorpRate = function(curBP)
+    --returns number of anti-torps per second
+    local ATrate = 0
+    
+    if curBP.Weapon then
+        
+        for curWepID,curWep in ipairs(curBP.Weapon) do
+            if curWep.TargetRestrictOnlyAllow and
+               curWep.TargetRestrictOnlyAllow == 'TORPEDO'
+            then
+                ATrate = ATrate + curWep.RateOfFire
+            end
+        end
+
+        --Catch here for Cybran style redirection field
+        if curBP.Defense and
+           curBP.Defense.TorpRedirectField01 and
+           curBP.Defense.TorpRedirectField01.RedirectRateOfFire
+        then
+            -- Note: RedirectRateOfFire is actually ticks between firing
+            ATrate = ATrate + 10/(curBP.Defense.TorpRedirectField01.RedirectRateOfFire)
+        end
+
+    end
+
+    return ATrate
+end
+
+PhxLib.getRegen = function(curBP)
+    if curBP.Defense and 
+       curBP.Defense.RegenRate
+    then
+        return curBP.Defense.RegenRate or 0
+    else
+        return 0
+    end
+
+end
+
+PhxLib.getChassis = function(curBP)
+    -- Thoughts on Unit Categories
+    -- Basic Chassis: Amphib, Hover, Bot, Tread, Wheeled
+    -- TODO: fixed weapons vs. articulated
+    -- TODO: Add experimental, building and naval Chassis?
+    if false then --do nothing
+    elseif PhxLib.checkCategories(curBP,'EXPERIMENTAL') 
+        then return 'Experi'
+    elseif curBP.Physics and
+       curBP.Physics.MotionType and
+       curBP.Physics.MotionType == 'RULEUMT_Amphibious'
+        then return 'Amphib'
+    elseif curBP.Physics and
+           curBP.Physics.MotionType and
+           curBP.Physics.MotionType == 'RULEUMT_Hover'
+        then return 'Hover'
+    elseif PhxLib.checkCategories(curBP,'BOT')
+        then return 'Bot'
+    elseif PhxLib.checkCategories(curBP,'LAND') and
+           PhxLib.checkCategories(curBP,'MOBILE')
+        then return 'StdLand'
+    elseif PhxLib.checkCategories(curBP,'DEFENSE')
+        then return 'Defense'
+    elseif PhxLib.checkCategories(curBP,'NAVAL')
+        then return 'Navy'
+    elseif PhxLib.checkCategories(curBP,'STRUCTURE')
+        then return 'Structure'
+    else
+        return 'unknown'
+    end
+
+end
+
+PhxLib.getType2 = function(curBP,Chassis,unitDPS)
+    -- Warning untested and unused, moved to spreadsheet
+    if Chassis == 'Navy' then
+        local air = unitDPS.Threat.airDam or 0
+        local sub = unitDPS.Threat.subDam or 0
+        local srf = unitDPS.Threat.srfDam or 0
+        if unitDPS.maxRange > 99 then
+            return 'Bom'
+        elseif air > 0 and air > srf and air > sub then
+            return 'AA'
+        elseif sub > 0 and sub > srf and sub > air then
+            return 'Sub'
+        elseif false then
+            return 'bob'
+        end
+            
+
+    else 
+        return 'unknown'
+    end
+
+end
+
+PhxLib.getIntel = function(curBP)
+    local intel = ''
+    if curBP.Intel then
+        if curBP.Intel.RadarRadius and 
+           curBP.Intel.RadarRadius > 0
+        then 
+            intel = intel .. 'Radar'
+        end
+        if curBP.Intel.SonarRadius and 
+           curBP.Intel.SonarRadius > 0
+        then 
+            intel = intel .. 'Sonar'
+        end
+        if curBP.Intel.OmniRadius and 
+           curBP.Intel.OmniRadius > 0
+        then 
+            intel = intel .. 'Omni'
+        end
+    end
+    return intel
+end
+
+PhxLib.checkCategories = function(curBP,checkCat) 
+    if(curBP.Categories) then
+        for curKey,curCategory in ipairs(curBP.Categories) do
+            if curCategory == checkCat then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 PhxLib.PhxWeapDPS = function(weapon)
     -- Inputs: weapon blueprint
     -- Outputs: DPS table with:
@@ -213,7 +350,7 @@ PhxLib.PhxWeapDPS = function(weapon)
                      "/" .. (weapon.DisplayName or "None")
     local Warn = ''
 
-    local debug = true
+    local debug = false
 
     local numRackBones = 0
     local numMuzzleBones = 0
@@ -377,7 +514,7 @@ PhxLib.PhxWeapDPS = function(weapon)
 
     else
         if(debug) then print("Unknown") end
-        print("ERROR: Weapon Type Undetermined")
+        if(debug) then print("ERROR: Weapon Type Undetermined") end
         Warn = Warn .. 'Unknown Type,'
         Tdamage = 0
         Ttime = 1
@@ -447,6 +584,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
     unitDPS.Health = PhxLib.getHealth(curBP)
     unitDPS.Shield = PhxLib.getShield(curBP)
     unitDPS.Speed = PhxLib.getSpeed(curBP)
+    unitDPS.Regen = PhxLib.getRegen(curBP)
 
     unitDPS.Threat.HP = (unitDPS.Health+unitDPS.Shield)/PhxLib.tEnd/20
 

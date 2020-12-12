@@ -92,7 +92,7 @@ BaseBuilderTemplate {
         -- If we're playing on a 20k or less or low pop or this is an island
 		-- This means that if it's an island it'll be a 50% chance on a large map since the larger DP will also
 		-- be valued at 100
-        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(ScenarioInfo.Options.UnitCap) < 1000 or island then
+        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(aiBrain.StartingUnitCap) < 1000 or island then
 		
             basevalue = 100
 			

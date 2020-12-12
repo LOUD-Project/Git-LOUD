@@ -1,4 +1,4 @@
-#**  File     :  /lua/AI/aiattackutilities.lua
+--**  File     :  /lua/AI/aiattackutilities.lua
 
 local LOUDGETN = table.getn
 local LOUDPARSE = ParseEntityCategory
@@ -133,16 +133,17 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
 	
 	if nodes then
+
 		local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
 		local radius = LayerLimits[layer]
-		
+
 		-- sort the markers for this layer by closest to location
 		LOUDSORT( nodes, function(a,b) return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
-		
+
 		-- if the first result is within radius then respond
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
 			return true, nodes[1].position
-		end
+        end
 	end
 
 	return false, nil
@@ -322,6 +323,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					
 						-- if position is within the radius then return false (avoid this position)
 						if VDist2Sq(base.Position[1], base.Position[3], markerPos[1], markerPos[3]) < (baseRadius * baseRadius) then
+                        
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." avoiding "..repr(base.BaseName))
 						
 							return false
 						end
@@ -364,6 +367,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	end
 	
 	local pos, distance, platdistance
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point within "..PointRadius.." from "..repr(PointSource).." for "..self.BuilderName)
 	
 	-- find positions -- 
 	if PointType == 'Unit' then
@@ -373,7 +378,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		else
 			pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, PointFaction )
 		end
-		
+ 
         -- filter out points by distance from source --
 		for k,v in pointlist do
 		
@@ -452,7 +457,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			counter = counter + 1
 		end
 	end
-	
+
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Point list is "..LOUDGETN(positions) )
+
 	-- if there are positions to check --
 	if counter > 0 then
 	
@@ -475,6 +482,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			-- only allow targets that are in the water
 			if allowinwater == "Only" then
 				if (GetTerrainHeight( v[1], v[3] )) > (GetSurfaceHeight( v[1], v[3] ) - 1) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." ONLYWATER removes position "..repr(v).." for elevation" )
+                    
 					positions[k] = nil
 					counter = counter - 1
 					continue
@@ -486,7 +496,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			
 				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
 	
-				if (threatatpoint <= threatmin or threatatpoint > threatmax) then
+				if (threatatpoint < threatmin or threatatpoint > threatmax) then
                 
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for threat "..threatatpoint.." min is "..threatmin.." max is "..threatmax )
                     
@@ -522,7 +532,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end	
 		end
-	end
+	else
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." FindPoint "..self.BuilderName.." - nothing found")
+    end 
 
 	--- Sort according to distance
 	if counter > 0 then
@@ -560,11 +572,52 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 	end
 	
     if PlatoonExists( aiBrain, self) then
-    
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finding target "..repr(atkPri))
+
         -- are there any enemy units ?
         if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
             return false, false
         end
+
+		-- the intent of this function is to make sure that we don't try and respond over mountains
+		-- and rivers and other serious terrain blockages -- these are generally identified by
+        -- a rapid elevation change over a very short distance
+		local function CheckBlockingTerrain( pos, targetPos )
+	
+			-- This gives us the number of approx. 6 ogrid steps in the distance
+			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			
+			local lastpos = {pos[1], 0, pos[3]}
+	
+			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+			for i = 0, steps do
+	
+				if i > 0 then
+		
+					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+					-- Get height for both points
+					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+					-- if more than 2 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 2 then
+						
+						-- we are obstructed
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
+						return true
+					end
+					
+					lastpos = nextpos
+                end
+			end
+	
+			return false
+		end
 	
         local GetPosition = moho.entity_methods.GetPosition
         local CanAttackTarget = moho.platoon_methods.CanAttackTarget
@@ -576,8 +629,12 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 
 		-- sort them by distance
 		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
-		
+
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." found "..repr(LOUDGETN(enemyunits)).." enemies at "..maxRange)
+
 		for _,v in atkPri do
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." testing "..repr(v).." targets")
 
 			-- filter for the desired category
 			for _, u in EntityCategoryFilterDown( LOUDPARSE(v), enemyunits) do
@@ -589,12 +646,12 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 
 						if nolayercheck then 
 							return u, GetPosition(u)
+                        end
 
-						elseif CanGraphTo( position, GetPosition(u), self.MovementLayer ) then
-
+						if CanGraphTo( position, GetPosition(u), self.MovementLayer ) and not CheckBlockingTerrain( position, GetPosition(u)) then
 							return u, GetPosition(u)
-						end
-					end
+                        end
+                    end
 				end
 			end
 			

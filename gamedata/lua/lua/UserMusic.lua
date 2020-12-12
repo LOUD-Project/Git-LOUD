@@ -1,50 +1,50 @@
-#****************************************************************************
-# UserMusic
-# Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#
-#****************************************************************************
+--****************************************************************************
+-- UserMusic
+-- Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--
+--****************************************************************************
 
-#****************************************************************************
-# Config options
-#****************************************************************************
+--****************************************************************************
+-- Config options
+--****************************************************************************
 
-# List of battle cues to cycle through
+-- List of battle cues to cycle through
 local BattleCues = {
     Sound({Cue = 'Battle', Bank = 'Music'}),
 }
 
-# List of peace cues to cycle through
+-- List of peace cues to cycle through
 local PeaceCues = {
     Sound( { Cue = 'Base_Building', Bank = 'Music' } ),
 }
 
-# How many battle events do we receive before switching to battle music
+-- How many battle events do we receive before switching to battle music
 local BattleEventThreshold = 20
 
-# Current count of battle events
+-- Current count of battle events
 local BattleEventCounter = 0
 
-# How many ticks can elapse between NotifyBattle events before we reset the
-# BattlceEventCounter (only used in peace time)
+-- How many ticks can elapse between NotifyBattle events before we reset the
+-- BattlceEventCounter (only used in peace time)
 local BattleCounterReset = 30 # 3 seconds
 
-# How many ticks of battle inactivity until we switch back to peaceful music
+-- How many ticks of battle inactivity until we switch back to peaceful music
 local PeaceTimer = 200 # 20 seconds
 
-#****************************************************************************
-# Internal
-#****************************************************************************
+--****************************************************************************
+-- Internal
+--****************************************************************************
 
-# The last tick in which we got a battle notification
+-- The last tick in which we got a battle notification
 local LastBattleNotify = 0
 
-# Current music loop if music is active
+-- Current music loop if music is active
 local Music = false
 
-# Watcher thread
+-- Watcher thread
 local MusicThread = false
 
-# Tick when battle started, or 0 if at peace
+-- Tick when battle started, or 0 if at peace
 local BattleStart = 0
 
 

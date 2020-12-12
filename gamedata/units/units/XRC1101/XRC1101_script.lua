@@ -1,11 +1,11 @@
-#****************************************************************************
-#** 
-#**  File     :  /cdimage/units/XRC1101/XRC1101_script.lua 
-#** 
-#**  Authors: Greg Kohne
-#** 
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--** 
+--**  File     :  /cdimage/units/XRC1101/XRC1101_script.lua 
+--** 
+--**  Authors: Greg Kohne
+--** 
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local CCivilianStructureUnit = import('/lua/cybranunits.lua').CCivilianStructureUnit
 local SSQuantumJammerTowerAmbient = import('/lua/EffectTemplates.lua').SJammerTowerAmbient
 

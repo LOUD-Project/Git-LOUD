@@ -311,37 +311,37 @@ end
 
 
 
-# Stat trigger creation
-# === triggerTable spec === #
-# {
-#     { StatType = string, -- Examples: Units_Active, Units_Killed, Enemies_Killed, Economy_Trend_Mass, Economy_TotalConsumed_Energy
-#       CompareType = string, -- GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual
-#       Value = integer,
-#       Category = category, -- Only used with "Units" triggers
-#     },
-#  }
+-- Stat trigger creation
+-- === triggerTable spec === #
+-- {
+--     { StatType = string, -- Examples: Units_Active, Units_Killed, Enemies_Killed, Economy_Trend_Mass, Economy_TotalConsumed_Energy
+--       CompareType = string, -- GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual
+--       Value = integer,
+--       Category = category, -- Only used with "Units" triggers
+--     },
+--  }
 
-# === COMPLETE LIST OF STAT TYPES === #
-#     "Units_Active",
-#     "Units_Killed",
-#     "Units_History",
-#     "Enemies_Killed",
-#     "Economy_TotalProduced_Energy",
-#     "Economy_TotalConsumed_Energy",
-#     "Economy_Income_Energy",
-#     "Economy_Output_Energy",
-#     "Economy_Stored_Energy",
-#     "Economy_Reclaimed_Energy",
-#     "Economy_MaxStorage_Energy",
-#     "Economy_PeakStorage_Energy",
-#     "Economy_TotalProduced_Mass",
-#     "Economy_TotalConsumed_Mass",
-#     "Economy_Income_Mass",
-#     "Economy_Output_Mass",
-#     "Economy_Stored_Mass",
-#     "Economy_Reclaimed_Mass",
-#     "Economy_MaxStorage_Mass",
-#     "Economy_PeakStorage_Mass",
+-- === COMPLETE LIST OF STAT TYPES === #
+--     "Units_Active",
+--     "Units_Killed",
+--     "Units_History",
+--     "Enemies_Killed",
+--     "Economy_TotalProduced_Energy",
+--     "Economy_TotalConsumed_Energy",
+--     "Economy_Income_Energy",
+--     "Economy_Output_Energy",
+--     "Economy_Stored_Energy",
+--     "Economy_Reclaimed_Energy",
+--     "Economy_MaxStorage_Energy",
+--     "Economy_PeakStorage_Energy",
+--     "Economy_TotalProduced_Mass",
+--     "Economy_TotalConsumed_Mass",
+--     "Economy_Income_Mass",
+--     "Economy_Output_Mass",
+--     "Economy_Stored_Mass",
+--     "Economy_Reclaimed_Mass",
+--     "Economy_MaxStorage_Mass",
+--     "Economy_PeakStorage_Mass",
 
 function CreateArmyStatTrigger(callbackFunction, aiBrain, name, triggerTable)
     TriggerFile.CreateArmyStatTrigger(callbackFunction, aiBrain, name, triggerTable)
@@ -384,17 +384,17 @@ function CreateUnitNearTypeTrigger( callbackFunction, unit, brain, category, dis
 end
 
 
-# dialogueTable format
-# it's a table of 4 variables - vid, cue, text, and duration
-# ex. Hello = {
-#   { vid=video, cue=false, bank=false, text='Hello World', duration = 5 },
-# }
-#
-#   - bank = audio bank
-#   - cue = audio cue
-#   - vid = video cue
-#   - text:     text to be displayed on the screen
-#   - delay: time before begin next dialogue in table in second
+-- dialogueTable format
+-- it's a table of 4 variables - vid, cue, text, and duration
+-- ex. Hello = {
+--   { vid=video, cue=false, bank=false, text='Hello World', duration = 5 },
+-- }
+--
+--   - bank = audio bank
+--   - cue = audio cue
+--   - vid = video cue
+--   - text:     text to be displayed on the screen
+--   - delay: time before begin next dialogue in table in second
 function Dialogue( dialogueTable, callback, critical, speaker )
     local canSpeak = true
     if speaker and speaker:IsDead() then
@@ -866,13 +866,13 @@ function SetPlayableArea( rect, voFlag )
 end
 
 function PlayableRectCameraThread( rect )
-#    local cam = import('/lua/simcamera.lua').SimCamera('WorldCamera')
-#    LockInput()
-#    cam:UseSystemClock()
-#    cam:SyncPlayableRect(rect)
-#    cam:MoveTo(rect, 1)
-#    cam:WaitFor()
-#    UnLockInput()
+--    local cam = import('/lua/simcamera.lua').SimCamera('WorldCamera')
+--    LockInput()
+--    cam:UseSystemClock()
+--    cam:SyncPlayableRect(rect)
+--    cam:MoveTo(rect, 1)
+--    cam:WaitFor()
+--    UnLockInput()
 end
 
 -- Sets platoon to only be built once

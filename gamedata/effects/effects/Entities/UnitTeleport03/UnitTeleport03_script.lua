@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /effects/entities/UnitTeleport03/UnitTeleport03_script.lua
-#**  Author(s):  Gordon Duclos (then hacked up by Matt M)
-#**
-#**  Summary  :  Unit Teleport effect entity
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /effects/entities/UnitTeleport03/UnitTeleport03_script.lua
+--**  Author(s):  Gordon Duclos (then hacked up by Matt M)
+--**
+--**  Summary  :  Unit Teleport effect entity
+--**
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat

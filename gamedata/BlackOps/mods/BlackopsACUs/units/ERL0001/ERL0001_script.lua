@@ -907,7 +907,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBAssEngineering = false
 			self.RBApoEngineering = false
 
-        elseif enh =='EXApocolypticEngineering' then
+        elseif enh =='EXApocalypticEngineering' then
 
             self:RemoveBuildRestriction(ParseEntityCategory(bp.BuildableCategoryAdds))
 
@@ -923,7 +923,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self.RBAssEngineering = true
 			self.RBApoEngineering = true
 
-        elseif enh =='EXApocolypticEngineeringRemove' then
+        elseif enh =='EXApocalypticEngineeringRemove' then
 
             if Buff.HasBuff( self, 'ACU_T4_Combat_Eng' ) then
                 Buff.RemoveBuff( self, 'ACU_T4_Combat_Eng' )

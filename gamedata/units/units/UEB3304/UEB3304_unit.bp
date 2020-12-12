@@ -173,7 +173,7 @@ UnitBlueprint {
 			
             Damage = 72,
             DamageFriendly = false,
-            DamageRadius = 3,
+            DamageRadius = 2.4,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,

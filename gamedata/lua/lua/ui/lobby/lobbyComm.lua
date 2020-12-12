@@ -1,6 +1,6 @@
-#
-# Lobby communications and common services
-#
+--
+-- Lobby communications and common services
+--
 quietTimeout = 16000.0 # milliseconds to wait before booting people
 maxPlayerSlots = 16
 maxConnections = 19 # count doesn't include ourself.
@@ -115,8 +115,8 @@ function CreateSteamDiscoveryService()
 
     local service = InternalCreateSteamDiscoveryService(SteamDiscoveryService)
 
-	LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
-    LOG("*AI DEBUG Lobby Methods = "..repr(moho.lobby_methods) )
+	--LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
+    --LOG("*AI DEBUG Lobby Methods = "..repr(moho.lobby_methods) )
 
 --[[
     for k,v in moho do

@@ -53,7 +53,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			-- this base must have 7+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
@@ -137,7 +137,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -154,8 +154,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				
 				LocationRadius = 2000,
 				
-                ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -274,6 +274,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 					'T2Radar',
 					'T2GroundDefense',
 					'T2AADefense',
+                    'T2GroundDefense',
+                    'T2AADefense',
+					'T2GroundDefense',
+					'T2AADefense',
+                    'T2GroundDefense',
+                    'T2AADefense',
                 }
             }
         }
@@ -323,6 +329,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 					'T2Radar',
 					'T2GroundDefense',
 					'T2AADefense',
+                    'T3GroundDefense',
+                    'T3AADefense',
+					'T2GroundDefense',
+					'T2AADefense',
+                    'T3GroundDefense',
+                    'T3AADefense',
                 }
             }
         }
@@ -350,7 +362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 50, 1, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -419,8 +431,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
-			-- can't be a major enemy base with 12.5km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 250 }},
+			-- can't be a major enemy base within 12km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 600, 'Economy', 1500 }},
 			
 			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
@@ -485,7 +497,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 			
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
 			
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+            -- must be 5 T3 yards before we expand
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+            
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
 			
 			-- all other 'counted' Sea bases must have at least 4 T3 factories

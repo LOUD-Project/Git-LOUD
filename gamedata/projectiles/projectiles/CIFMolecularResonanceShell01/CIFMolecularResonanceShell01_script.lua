@@ -1,6 +1,6 @@
-#
-# Cybran Artillery Projectile
-#
+--
+-- Cybran Artillery Projectile
+--
 
 local CIFMolecularResonanceShell = import('/lua/cybranprojectiles.lua').CIFMolecularResonanceShell
 local CreateEmitterAtEntity = CreateEmitterAtEntity

@@ -105,8 +105,9 @@ function GreaterThanEconStorageCurrent(aiBrain, mStorage, eStorage)
     return false
 end
 
+-- modified to be altered by AI Cheat --
 function LessEconEnergyStorageCurrent(aiBrain, eStorage)
-	return GetEconomyStored( aiBrain, 'ENERGY') < eStorage
+	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
@@ -140,6 +141,10 @@ end
 
 function LessThanEnergyTrend(aiBrain, eTrend)
 	return GetEconomyTrend( aiBrain, 'ENERGY' ) < eTrend
+end
+
+function GreaterThanEnergyTrend(aiBrain, eTrend)
+    return GetEconomyTrend( aiBrain, 'ENERGY' ) >= eTrend
 end
 
 function GreaterThanEnergyIncome(aiBrain, eIncome)

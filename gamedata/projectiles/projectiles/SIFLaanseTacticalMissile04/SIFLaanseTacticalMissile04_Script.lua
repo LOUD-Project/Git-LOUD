@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/SIFLaanseTacticalMissile04/SIFLaanseTacticalMissile04_script.lua
-#**  Author(s):  Gordon Duclos, Aaron Lundquist
-#**
-#**  Summary  :  Laanse Tactical Missile Projectile script, XSB2108
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/SIFLaanseTacticalMissile04/SIFLaanseTacticalMissile04_script.lua
+--**  Author(s):  Gordon Duclos, Aaron Lundquist
+--**
+--**  Summary  :  Laanse Tactical Missile Projectile script, XSB2108
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local SLaanseTacticalMissile = import('/lua/seraphimprojectiles.lua').SLaanseTacticalMissile
 local ForkThread = ForkThread

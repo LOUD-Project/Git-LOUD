@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /cdimage/units/URS0302/URS0302_script.lua
-#**  Author(s):  John Comes, David Tomandl, Jessica St. Croix, Gordon Duclos
-#**
-#**  Summary  :  Cybran Battleship Script
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /cdimage/units/URS0302/URS0302_script.lua
+--**  Author(s):  John Comes, David Tomandl, Jessica St. Croix, Gordon Duclos
+--**
+--**  Summary  :  Cybran Battleship Script
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 local CDFProtonCannonWeapon = import('/lua/cybranweapons.lua').CDFProtonCannonWeapon

@@ -377,6 +377,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		-- minimum range that a DP can be from an existing base -- Land	
 		local minimum_baserange = 180
 
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." DP Positions is "..repr(positions))
+        
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
 	
@@ -388,6 +390,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         		
 				if brain.BuilderManagers[marker.Name] then
 			
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." already taken")
+                    
 					removed = true
 					break
 				end
@@ -399,6 +403,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				for basename, base in aiBrain.BuilderManagers do
 		
 					if VDist3( base.Position, marker.Position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, marker.Position ) > test_range then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." too close to "..repr(base.Position).." or too far from attack plan goal "..repr(aiBrain.AttackPlan.Goal).." "..VDist3( aiBrain.AttackPlan.Goal, marker.Position ))
 
 						removed = true
 						break
@@ -406,6 +412,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				end
 
 				if not removed then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." replying with "..marker.Name)
 
 					return marker.Position, marker.Name
 				end	
@@ -669,7 +677,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
-		local minimum_baserange = 250
+		local minimum_baserange = 200
 		
 		local positions = {}
 
@@ -1432,6 +1440,7 @@ function GetTransports( platoon, aiBrain)
 
 					transportplatoon.PlanName = 'TransportUnits '..tostring(ident)
 					transportplatoon.BuilderName = 'Load and Transport '..tostring(ident)
+                    transportplatoon.UsingTransport = true      -- keep this platoon from being reviewed in a merge
                     
                     if ScenarioInfo.TransportDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." creates "..transportplatoon.BuilderName.." to service "..platoon.BuilderName)
@@ -1617,14 +1626,21 @@ function WatchUnitLoading( transport, units, aiBrain )
 	
 	-- loop here while the transport is alive and loading is underway
 	-- there is another trigger (watchcount) which will force loading
-	-- to false after 150 seconds
+	-- to false after 210 seconds
 	while (not unitsdead) and loading do
 	
 		watchcount = watchcount + 3.0
 
-		if watchcount > 150 then
+		if watchcount > 210 then
+        
             LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..transport.Sync.id.." from "..transport.PlatoonHandle.BuilderName.." ABORTING LOAD - watchcount "..watchcount)
+            
 			loading = false
+            
+            transport.InUse = false
+            transport.Loading = nil
+            
+            ForkTo ( ReturnTransportsToPool, aiBrain, {transport}, true )
 			break
 		end
 		
@@ -1633,7 +1649,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 		tempunits = {}
 		counter = 0
 
-		if not transport.Dead and ( not IsUnitState(transport,'Moving') or IsUnitState(transport,'TransportLoading') ) then
+		if not transport.Dead and transport.Loading and ( not IsUnitState(transport,'Moving') or IsUnitState(transport,'TransportLoading') ) then
 		
 			unitsdead = true
 			loading = false
@@ -1756,12 +1772,16 @@ function WatchUnitLoading( transport, units, aiBrain )
             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..transport.Sync.id.." completes load - unitsdead is "..repr(unitsdead).." watchcount is "..watchcount)
         end
     end
+
+    if transport.InUse then
     
-    IssueClearCommands( {transport} )
+        IssueClearCommands( {transport} )
     
-    if not transport.Dead then
-        -- have the transport guard his loading spot until everyone else has loaded up
-        IssueGuard( {transport}, transport:GetPosition() )
+        if (not transport.Dead) then
+            -- have the transport guard his loading spot until everyone else has loaded up
+            IssueGuard( {transport}, transport:GetPosition() )
+        end
+        
     end
     
 	transport.Loading = nil

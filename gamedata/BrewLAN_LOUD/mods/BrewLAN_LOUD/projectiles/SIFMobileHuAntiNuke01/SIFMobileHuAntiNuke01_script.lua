@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_script.lua
-#**  Author(s):  Greg Kohne, Matt Vainio
-#**
-#**  Summary  : Seraphim Anti Nuke Missile
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_script.lua
+--**  Author(s):  Greg Kohne, Matt Vainio
+--**
+--**  Summary  : Seraphim Anti Nuke Missile
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 
 

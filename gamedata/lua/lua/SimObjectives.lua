@@ -1,28 +1,28 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/SimObjectives.lua
-#**
-#**  Summary  : Sim side objectives
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-##
-## SUPPORTED OBJECTIVE TYPES:
-##      Kill
-##      Capture
-##      KillOrCapture
-##      Reclaim
-##      Locate
-##      SpecificUnitsInArea
-##      CategoriesInArea
-##      ArmyStatCompare
-##      UnitStatCompare
-##      CategoryStatCompare
-##      Protect
-##      Timer
-##      Unknown
-##
-##      Camera
+--****************************************************************************
+--**
+--**  File     :  /lua/SimObjectives.lua
+--**
+--**  Summary  : Sim side objectives
+--**
+--**  Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--
+-- SUPPORTED OBJECTIVE TYPES:
+--      Kill
+--      Capture
+--      KillOrCapture
+--      Reclaim
+--      Locate
+--      SpecificUnitsInArea
+--      CategoriesInArea
+--      ArmyStatCompare
+--      UnitStatCompare
+--      CategoryStatCompare
+--      Protect
+--      Timer
+--      Unknown
+--
+--      Camera
 local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Triggers = import('/lua/scenariotriggers.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
@@ -32,18 +32,18 @@ local DecalLOD = 4000
 local objectiveDecal = '/env/utility/decals/objective_debug_albedo.dds'
 local SavedList = {}
 
-#
-# Camera objective by roates
-# Creates markers that satisfy the objective when they are all inside of the camera viewport
-#
-# Camera( objectiveType, completeState, title, description, positionTable)
-#
-# objectiveType = 'primary' or 'bonus' etc...
-# completeState = 'complete' or 'incomplete'
-# title = title string table from map's string file
-# description = description string table from map's string file
-# positionTable = table of position tables where markers will be created. { {x1, y1, z1}, {x2, y2, z2} } format
-#
+--
+-- Camera objective by roates
+-- Creates markers that satisfy the objective when they are all inside of the camera viewport
+--
+-- Camera( objectiveType, completeState, title, description, positionTable)
+--
+-- objectiveType = 'primary' or 'bonus' etc...
+-- completeState = 'complete' or 'incomplete'
+-- title = title string table from map's string file
+-- description = description string table from map's string file
+-- positionTable = table of position tables where markers will be created. { {x1, y1, z1}, {x2, y2, z2} } format
+--
 function Camera(objectiveType, completeState, title, description, positionTable)
     local numMarkers = 0
     local curMarkers = 0
@@ -79,25 +79,25 @@ function Camera(objectiveType, completeState, title, description, positionTable)
 end
 
 
-#
-# ControlGroup
-#   Complete when specified units matching the target blueprint types are in
-# a control group. We don't care exactly which units they are (pre-built or
-# newly constructed), as long as the requirements are ment. We just check
-# the area for what units are in control groups and look at the blueprints (and optionally
-# match the army, use -1 for don't care).
-#
-# Target = {
-#   Requirements = {
-#       {  Category=<cat1>, CompareOp=<op>, Value=<x>, [ArmyIndex=<index>]},
-#       {  Category=<cat2>, CompareOp=<op>, Value=<y>, [ArmyIndex=<index>] },
-#       ...
-#       {  Category=<cat3>, CompareOp=<op>, Value=<z>, [ArmyIndex=<index>] },
-#   }
-# }
-#
-# -- op is one of: '<=', '>=', '<', '>', or '=='
-#
+--
+-- ControlGroup
+--   Complete when specified units matching the target blueprint types are in
+-- a control group. We don't care exactly which units they are (pre-built or
+-- newly constructed), as long as the requirements are ment. We just check
+-- the area for what units are in control groups and look at the blueprints (and optionally
+-- match the army, use -1 for don't care).
+--
+-- Target = {
+--   Requirements = {
+--       {  Category=<cat1>, CompareOp=<op>, Value=<x>, [ArmyIndex=<index>]},
+--       {  Category=<cat2>, CompareOp=<op>, Value=<y>, [ArmyIndex=<index>] },
+--       ...
+--       {  Category=<cat3>, CompareOp=<op>, Value=<z>, [ArmyIndex=<index>] },
+--   }
+-- }
+--
+-- -- op is one of: '<=', '>=', '<', '>', or '=='
+--
 function ControlGroup(Type,Complete,Title,Description,Target)
 
     local image = GetActionIcon('group')
@@ -175,14 +175,14 @@ end
 
 
 
-#
-# CreateGroup
-#
-#   Takes list of objective tables which are produced by the objective creation
-# functions such as Kill, Protect, Capture, etc.
-#
-#   UserCallback is executed when all objectives in the list are complete
-#
+--
+-- CreateGroup
+--
+--   Takes list of objective tables which are produced by the objective creation
+-- functions such as Kill, Protect, Capture, etc.
+--
+--   UserCallback is executed when all objectives in the list are complete
+--
 function CreateGroup( name, userCallback, numRequired )
     LOG('Creating objective group ',name)
     local objectiveGroup =  {
@@ -238,9 +238,9 @@ function CreateGroup( name, userCallback, numRequired )
     return objectiveGroup
 end
 
-#
-# Kill
-#   Kill units
+--
+-- Kill
+--   Kill units
 function Kill(Type,Complete,Title,Description,Target)
     Target.killed = 0
     Target.total = table.getn(Target.Units)
@@ -298,15 +298,15 @@ function Kill(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# Capture
-#   Capture units
-#
-# Target = {
-#       Units = <units>,
-#       NumRequired = <x>,
-# }
-#
+--
+-- Capture
+--   Capture units
+--
+-- Target = {
+--       Units = <units>,
+--       NumRequired = <x>,
+-- }
+--
 function Capture(Type,Complete,Title,Description,Target)
     Target.captured = 0
     Target.total = table.getn(Target.Units)
@@ -384,9 +384,9 @@ function Capture(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# Kill or Capture
-#   Kill or Capture units
+--
+-- Kill or Capture
+--   Kill or Capture units
 function KillOrCapture(Type,Complete,Title,Description,Target)
     Target.killed_or_captured = 0
     Target.total = table.getn(Target.Units)
@@ -487,9 +487,9 @@ function KillOrCapture(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# Reclaim
-#   Reclaim units
+--
+-- Reclaim
+--   Reclaim units
 function Reclaim(Type,Complete,Title,Description,Target)
     Target.reclaimed = 0
     Target.total = table.getn(Target.Units)
@@ -556,9 +556,9 @@ function Reclaim(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# Locate
-#   Locate units
+--
+-- Locate
+--   Locate units
 function Locate(Type,Complete,Title,Description,Target)
     Target.located = 0
     Target.total = table.getn(Target.Units)
@@ -596,11 +596,11 @@ function Locate(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# SpecificUnitsInArea
-#   Complete when specified units are in the target area. We don't care how
-# they got there (cheat teleport, etc), we just check if they're in there
-# ShowProgress, optional:
+--
+-- SpecificUnitsInArea
+--   Complete when specified units are in the target area. We don't care how
+-- they got there (cheat teleport, etc), we just check if they're in there
+-- ShowProgress, optional:
 function SpecificUnitsInArea(Type,Complete,Title,Description,Target)
     local image = GetActionIcon('Move')
     local objective = AddObjective(Type,Complete,Title,Description,image,Target)
@@ -687,25 +687,25 @@ function SpecificUnitsInArea(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# CategoriesInArea
-#   Complete when specified units matching the target blueprint types are in
-# the target area. We don't care exactly which units they are (pre-built or
-# newly constructed) or how they got there (cheat teleport, etc). We just check
-# the area for what units are inside and look at the blueprints (and optionally
-# match the army, use -1 for don't care).
-#
-# Target = {
-#   Requirements = {
-#       { Area = <areaName>, Category=<cat1>, CompareOp=<op>, Value=<x>, [ArmyIndex=<index>]},
-#       { Area = <areaName>, Category=<cat2>, CompareOp=<op>, Value=<y>, [ArmyIndex=<index>] },
-#       ...
-#       { Area = <areaName>, Category=<cat3>, CompareOp=<op>, Value=<z>, [ArmyIndex=<index>] },
-#   }
-# }
-#
-# -- op is one of: '<=', '>=', '<', '>', or '=='
-#
+--
+-- CategoriesInArea
+--   Complete when specified units matching the target blueprint types are in
+-- the target area. We don't care exactly which units they are (pre-built or
+-- newly constructed) or how they got there (cheat teleport, etc). We just check
+-- the area for what units are inside and look at the blueprints (and optionally
+-- match the army, use -1 for don't care).
+--
+-- Target = {
+--   Requirements = {
+--       { Area = <areaName>, Category=<cat1>, CompareOp=<op>, Value=<x>, [ArmyIndex=<index>]},
+--       { Area = <areaName>, Category=<cat2>, CompareOp=<op>, Value=<y>, [ArmyIndex=<index>] },
+--       ...
+--       { Area = <areaName>, Category=<cat3>, CompareOp=<op>, Value=<z>, [ArmyIndex=<index>] },
+--   }
+-- }
+--
+-- -- op is one of: '<=', '>=', '<', '>', or '=='
+--
 function CategoriesInArea(Type,Complete,Title,Description,Action,Target)
 
     local image = GetActionIcon(Action)
@@ -803,21 +803,21 @@ function CategoriesInArea(Type,Complete,Title,Description,Action,Target)
     return objective
 end
 
-#
-# ArmyStatCompare
-#   Army stat is compared <=, >=, >, <, or == to some value.
-#
-# Target = {
-#       Army=<index>,
-#       StatName=<name>,
-#       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
-#       Value=<value>,
-#       [Category=<category>], -- optional to compare to a blueprint stat
-#       ShowProgress, optional: shows #/#. may not make sense for all compare types
-# }
-#
-# Note: Be careful when using '==' as the stat is only checked every 5 ticks.
-#
+--
+-- ArmyStatCompare
+--   Army stat is compared <=, >=, >, <, or == to some value.
+--
+-- Target = {
+--       Army=<index>,
+--       StatName=<name>,
+--       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
+--       Value=<value>,
+--       [Category=<category>], -- optional to compare to a blueprint stat
+--       ShowProgress, optional: shows #/#. may not make sense for all compare types
+-- }
+--
+-- Note: Be careful when using '==' as the stat is only checked every 5 ticks.
+--
 function ArmyStatCompare(Type,Complete,Title,Description,Action,Target)
     local image = GetActionIcon(Action)
     local objective = AddObjective(Type,Complete,Title,Description,image,Target)
@@ -877,19 +877,19 @@ function ArmyStatCompare(Type,Complete,Title,Description,Action,Target)
     return objective
 end
 
-#
-# UnitStatCompare
-#   A specified unit's stat is <=, >=, >, <, or == to some value.
-#
-# Target = {
-#       Unit=<unit>,
-#       StatName=<name>,
-#       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
-#       Value=<value>,
-# }
-#
-# Note: Be careful when using '==' as the stat is only checked every 5 ticks.
-#
+--
+-- UnitStatCompare
+--   A specified unit's stat is <=, >=, >, <, or == to some value.
+--
+-- Target = {
+--       Unit=<unit>,
+--       StatName=<name>,
+--       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
+--       Value=<value>,
+-- }
+--
+-- Note: Be careful when using '==' as the stat is only checked every 5 ticks.
+--
 function UnitStatCompare(Type,Complete,Title,Description,Action,Target)
     local image = GetActionIcon(Action)
     local objective = AddObjective(Type,Complete,Title,Description,image,Target)
@@ -914,21 +914,21 @@ function UnitStatCompare(Type,Complete,Title,Description,Action,Target)
     return objective
 end
 
-#
-# CategoryStatCompare
-#   Some unit belonging to specified category has a stat <=, >=, >, <, or ==
-# to some value.
-#
-# Target = {
-#       Army=<index>,
-#       Category=<unit>,
-#       StatName=<name>,
-#       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
-#       Value=<value>,
-# }
-#
-# Note: Be careful when using '==' as the stat is only checked every 5 ticks.
-#
+--
+-- CategoryStatCompare
+--   Some unit belonging to specified category has a stat <=, >=, >, <, or ==
+-- to some value.
+--
+-- Target = {
+--       Army=<index>,
+--       Category=<unit>,
+--       StatName=<name>,
+--       CompareOp=<op>,   -- op is one of: '<=', '>=', '<', '>', or '=='
+--       Value=<value>,
+-- }
+--
+-- Note: Be careful when using '==' as the stat is only checked every 5 ticks.
+--
 function CategoryStatCompare(Type,Complete,Title,Description,Action,Target)
     local image = GetActionIcon(Action)
     local objective = AddObjective(Type,Complete,Title,Description,image,Target)
@@ -958,16 +958,16 @@ function CategoryStatCompare(Type,Complete,Title,Description,Action,Target)
     return objective
 end
 
-#
-# Protect
-#   Fails if # of units in list falls below NumRequired before the timer expires
-# or, in the case of no timer, the objective is manually update to complete.
-#
-# Target = {
-#       Units = {},
-#       Timer = <seconds> or nil,   -- if nil, requires manual completion
-#       NumRequired = <#>,          -- how many must survive
-# }
+--
+-- Protect
+--   Fails if # of units in list falls below NumRequired before the timer expires
+-- or, in the case of no timer, the objective is manually update to complete.
+--
+-- Target = {
+--       Units = {},
+--       Timer = <seconds> or nil,   -- if nil, requires manual completion
+--       NumRequired = <#>,          -- how many must survive
+-- }
 function Protect(Type,Complete,Title,Description,Target)
 
     local image = GetActionIcon("protect")
@@ -1051,15 +1051,15 @@ function Protect(Type,Complete,Title,Description,Target)
     return objective
 end
 
-#
-# Timer
-#   OnResult() is called when the timer expires. The result depends on whether
-# ExpireResult is set to complete or failed.
-#
-# Target = {
-#       Timer = <seconds>
-#       ExpireResult = 'complete' or 'failed'
-# }
+--
+-- Timer
+--   OnResult() is called when the timer expires. The result depends on whether
+-- ExpireResult is set to complete or failed.
+--
+-- Target = {
+--       Timer = <seconds>
+--       ExpireResult = 'complete' or 'failed'
+-- }
 function Timer(Type,Complete,Title,Description,Target)
 
     local image = GetActionIcon("timer")
@@ -1205,7 +1205,7 @@ function Basic(Type,Complete,Title,Description,Image,Target)
 end
 
 
-### Adds objective for the objectives screen
+-- Adds objective for the objectives screen
 function AddObjective(Type,         # 'primary', 'bonus', etc
                       Complete,     # 'complete', 'incomplete'
                       Title,        # e.g. "Destroy Radar Stations"
@@ -1680,11 +1680,11 @@ function DeleteObjective(Objective, IsLoading)
     table.insert(Sync.ObjectivesUpdateTable, userObjectiveUpdate)
 end
 
-### Update legacy style objective using correct syntax
+-- Update legacy style objective using correct syntax
 function UpdateBasicObjective(Objective, UpdateField, NewData)
     UpdateObjective(Objective.Title, UpdateField, NewData, Objective.Tag)
 end
-### Updates an objective, referencing it by objective title
+-- Updates an objective, referencing it by objective title
 function UpdateObjective(Title, UpdateField, NewData, objTag, IsLoading, InTime)
 
     if objTag == 'Invalid' then

@@ -17,7 +17,7 @@ local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local restrictedUnits = import('/lua/ui/lobby/restrictedunitsdata.lua').restrictedUnits
 
 function CreateDialog(parent, initialRestrictions, OnOk, OnCancel, isHost)
-     
+
     -- build a set of what's currently restricted to make it easy for initial setup
     local initialRestrictedSet = {}
 	

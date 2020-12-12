@@ -13,10 +13,10 @@ UAB1303 = Class(AMassFabricationUnit) {
 		local CreateRotator = CreateRotator
 		local Random = Random
 		
-#        self.RingManip1 = CreateRotator(self, 'B01', 'x', nil, 0, 15, 45)
-#        self.Trash:Add(self.RingManip1)
-#        self.RingManip2 = CreateRotator(self, 'B02', 'x', nil, 0, 15, -45)
-#        self.Trash:Add(self.RingManip2)
+--        self.RingManip1 = CreateRotator(self, 'B01', 'x', nil, 0, 15, 45)
+--        self.Trash:Add(self.RingManip1)
+--        self.RingManip2 = CreateRotator(self, 'B02', 'x', nil, 0, 15, -45)
+--        self.Trash:Add(self.RingManip2)
 
         self.BallManip = CreateRotator(self, 'B03', 'y', nil, 0, 15, 40 + Random(0, 20) * num)
         self.Trash:Add(self.BallManip)
@@ -32,8 +32,8 @@ UAB1303 = Class(AMassFabricationUnit) {
         AMassFabricationUnit.OnProductionPaused(self)
         local num = self:GetRandomDir()
 		local Random = Random
-#        self.RingManip1:SetSpinDown(true)
-#        self.RingManip2:SetSpinDown(true)
+--        self.RingManip1:SetSpinDown(true)
+--        self.RingManip2:SetSpinDown(true)
         self.BallManip:SetSpinDown(true)
         self.BallManip:SetTargetSpeed(40 + Random(0, 20) * num)
         self.ParentManip1:SetSpinDown(true)
@@ -46,8 +46,8 @@ UAB1303 = Class(AMassFabricationUnit) {
     
     OnProductionUnpaused = function(self)
         AMassFabricationUnit.OnProductionUnpaused(self)
-#        self.RingManip1:SetSpinDown(false)
-#        self.RingManip2:SetSpinDown(false)
+--        self.RingManip1:SetSpinDown(false)
+--        self.RingManip2:SetSpinDown(false)
         self.BallManip:SetSpinDown(false)
         self.ParentManip1:SetSpinDown(false)
         self.ParentManip2:SetSpinDown(false)

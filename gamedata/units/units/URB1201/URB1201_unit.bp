@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 70,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -30,7 +34,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 74,		-- 10% Energy + 1% Health
@@ -38,7 +44,9 @@ UnitBlueprint {
         MaxHealth = 2400,
         RegenRate = 3,
     },
+    
     Description = '<LOC urb1201_desc>Improved Power Generator',
+    
     Display = {
         Abilities = {
             'Volatile',
@@ -99,13 +107,18 @@ UnitBlueprint {
         },
         UniformScale = 0.35,
     },
+    
     Economy = {
         AdjacentStructureEnergyMod = -4,
-        BuildCostEnergy = 22500,
-        BuildCostMass = 2250,
+        
+        BuildCostEnergy = 22000,
+        BuildCostMass = 2200,
+        
         BuildTime = 3000,
+        
         ProductionPerSecondEnergy = 500,
-		StorageEnergy = 50,
+        
+		StorageEnergy = 250,
     },
     Footprint = {
         SizeX = 3,
@@ -172,7 +185,7 @@ UnitBlueprint {
     StrategicIconSortPriority = 245,
     Weapon = {
         {
-            Damage = 2500,
+            Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',

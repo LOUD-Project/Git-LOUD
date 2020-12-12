@@ -1,9 +1,9 @@
-# This module contains the Sim-side lua functions that can be invoked
-# from the user side.  These need to validate all arguments against
-# cheats and exploits.
+-- This module contains the Sim-side lua functions that can be invoked
+-- from the user side.  These need to validate all arguments against
+-- cheats and exploits.
 
-# We store the callbacks in a sub-table (instead of directly in the
-# module) so that we don't include any
+-- We store the callbacks in a sub-table (instead of directly in the
+-- module) so that we don't include any
 
 local Callbacks = {}
 

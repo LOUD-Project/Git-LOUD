@@ -147,7 +147,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 7,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -247,7 +247,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 5.0,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_missile',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
@@ -257,6 +257,7 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
+    
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
@@ -271,7 +272,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1000,
-            DamageRadius = 2.5,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',
@@ -285,13 +286,13 @@ UnitBlueprint {
 			
             Label = 'MissileRack',
 			
-            MaxRadius = 128,
-			MinRadius = 12,
+            MaxRadius = 125,
+			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 9,
-            MuzzleVelocity = 4,
+            MuzzleVelocity = 5,
 			
 			NotExclusive = true,
 			
@@ -355,7 +356,7 @@ UnitBlueprint {
 			
             Damage = 800,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
@@ -376,7 +377,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 28,
+            MuzzleVelocity = 35,
 			
             NotExclusive = true,
 			

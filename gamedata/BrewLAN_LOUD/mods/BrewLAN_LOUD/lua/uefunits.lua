@@ -1,8 +1,8 @@
-#****************************************************************************
-#**
-#**  Summary  :  UEF T3 Engineering Resource Generator/Fabricator 
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  Summary  :  UEF T3 Engineering Resource Generator/Fabricator 
+--**
+--****************************************************************************
                                                                        
 local CConstructionStructureUnit = import('/lua/cybranunits.lua').CConstructionStructureUnit   
 local EffectUtil = import('/lua/EffectUtilities.lua')                

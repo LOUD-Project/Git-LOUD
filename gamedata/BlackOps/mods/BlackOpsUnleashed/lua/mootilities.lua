@@ -1,4 +1,4 @@
-#A couple helper functions for mods
+--A couple helper functions for mods
 
 --My Code # Moolio was kind enough to let us use his mod
 function GetAlliedMobileUnitsInSphere(unit, position, radius)

@@ -49,15 +49,16 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DESTROYER',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.4,
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 7500,
-        MaxHealth = 7500,
+        Health = 7650,
+        MaxHealth = 7650,
         RegenRate = 5,
         SubThreatLevel = 12,
         SurfaceThreatLevel = 25,
@@ -236,7 +237,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1000,
+            Damage = 875,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -246,14 +247,16 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.2,
-            FiringTolerance = 1,
+            FiringRandomness = 0.1,
+            FiringTolerance = 0.5,
 			
             Label = 'FrontTurret',
+            
+            LeadTarget = true,
 			
-            MaxRadius = 55,
+            MaxRadius = 58,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -269,24 +272,26 @@ UnitBlueprint {
                     RackBone = 'Turret_Front_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,		-- 1000 damage every 4 seconds = 250 DPS Surface
+            RateOfFire = 0.3,		-- 875 damage every .3 seconds = 262 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
+            
             TargetCheckInterval = 4,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -303,7 +308,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 160,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 52,
 			
             Turreted = true,
         },

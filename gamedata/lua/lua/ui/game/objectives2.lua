@@ -1,15 +1,15 @@
 --* File: lua/modules/ui/game/objectives2.lua
 --*
 
-# The objectives table should be an array whose order mirrors the order in which you wish the objectives to display
-# The format of each entry is as follows:
-# {
-#    type = 'primary'                                        -- values are 'primary', 'secondary' and 'bonus'
-#    complete = 'incomplete'                                 -- status of objective - 'complete' 'incomplete' 'failed'
-#    title = 'Short Description'                             -- text shown in the list of objectives
-#    description = 'Long Description'                        -- text shown in the extended description box
-#    targets = { blipId1, Vector(10,10,10), blipId2, ... }   -- objective is a list of target unit(s) and/or location(s)
-# }
+-- The objectives table should be an array whose order mirrors the order in which you wish the objectives to display
+-- The format of each entry is as follows:
+-- {
+--    type = 'primary'                                        -- values are 'primary', 'secondary' and 'bonus'
+--    complete = 'incomplete'                                 -- status of objective - 'complete' 'incomplete' 'failed'
+--    title = 'Short Description'                             -- text shown in the list of objectives
+--    description = 'Long Description'                        -- text shown in the extended description box
+--    targets = { blipId1, Vector(10,10,10), blipId2, ... }   -- objective is a list of target unit(s) and/or location(s)
+-- }
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')

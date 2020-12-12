@@ -276,12 +276,12 @@ UEL0001 = Class(TWalkingLandUnit) {
         end           
     end,
 
-#### Brute51 Pod Fix part 1/2 ---------------------------------
-# In this fix I'm seperating 'Left pod' from the left should pod (first upgrade) and the 'Right pod' from the 
-# right shoulder pod (second upgrade). This way if a pod is destroyed I dont have to reset the other pod so now it
-# can continue to do what it was doing.
-# When a pod is destroyed this removes either the 2nd upgrade if we had 2 pods, or the first if we had 1 pod.
-####
+-- Brute51 Pod Fix part 1/2 ---------------------------------
+-- In this fix I'm seperating 'Left pod' from the left should pod (first upgrade) and the 'Right pod' from the 
+-- right shoulder pod (second upgrade). This way if a pod is destroyed I dont have to reset the other pod so now it
+-- can continue to do what it was doing.
+-- When a pod is destroyed this removes either the 2nd upgrade if we had 2 pods, or the first if we had 1 pod.
+--
     NotifyOfPodDeath = function(self, pod)
 
         if self.HasLeftPod and self.HasRightPod then
@@ -308,7 +308,7 @@ UEL0001 = Class(TWalkingLandUnit) {
             self.HasRightPod = false
         end
 
-# end Pod Fix 1/2 ---------------------------------------
+-- end Pod Fix 1/2 ---------------------------------------
     end,
 
     CreateEnhancement = function(self, enh)

@@ -51,17 +51,29 @@ local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local SetVelocity = moho.projectile_methods.SetVelocity
 
 function CreateEffects( obj, army, EffectTable )
+
+    local emitters = {}
+    local counter = 0
 	
     for _, v in EffectTable do
-		LOUDEMITATENTITY( obj, army, v )
+		emitters[counter+1] = LOUDEMITATENTITY( obj, army, v )
+        counter = counter + 1
     end
+    
+    return emitters
 end
 
 function CreateEffectsWithOffset( obj, army, EffectTable, x, y, z )
+
+    local emitters = {}
+    local counter = 0
 	
     for _, v in EffectTable  do
-		LOUDEMITATENTITY( obj, army, v ):OffsetEmitter(x, y, z)
+		emitters[counter+1] = LOUDEMITATENTITY( obj, army, v ):OffsetEmitter(x, y, z)
+        counter = counter + 1
     end
+    
+    return emitters
 end
 
 function CreateEffectsWithRandomOffset( obj, army, EffectTable, xRange, yRange, zRange )
@@ -73,23 +85,35 @@ function CreateEffectsWithRandomOffset( obj, army, EffectTable, xRange, yRange, 
 		emitters[counter+1] = LOUDEMITONENTITY( obj, army, v ):OffsetEmitter(util.GetRandomOffset(xRange, yRange, zRange, 1))
 		counter = counter + 1
     end
+    
 	return emitters
 end
 
 
 function CreateBoneEffects( obj, bone, army, EffectTable )
+
+    local emitters = {}
+    local counter = 0
 	
     for _, v in EffectTable do
-		LOUDEMITATBONE( obj, bone, army, v )
+		emitters[counter+1] = LOUDEMITATBONE( obj, bone, army, v )
+        counter = counter + 1
     end
+    
+    return emitters
 end
 
 function CreateBoneEffectsOffset( obj, bone, army, EffectTable, x, y, z )
 
+    local emitters = {}
+    local counter = 0
+
     for _, v in EffectTable do
-		LOUDEMITATBONE( obj, bone, army, v ):OffsetEmitter(x, y, z)
+		emitters[counter+1] = LOUDEMITATBONE( obj, bone, army, v ):OffsetEmitter(x, y, z)
+        counter = counter + 1
     end
 
+    return emitters
 end
 
 function CreateBoneTableEffects( obj, BoneTable, army, EffectTable )

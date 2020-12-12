@@ -1,13 +1,13 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/upgradetemplates.lua
-#**  Author(s):  John Comes, David Tomandl
-#**
-#**  Summary  :  This is a list of all units that upgrade, and what
-#**              they upgrade to.
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/upgradetemplates.lua
+--**  Author(s):  John Comes, David Tomandl
+--**
+--**  Summary  :  This is a list of all units that upgrade, and what
+--**              they upgrade to.
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 UnitUpgradeTemplates =
 {

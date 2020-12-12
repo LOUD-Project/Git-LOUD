@@ -286,16 +286,16 @@ function FinishAIChat(data)
 	
 end
 
-#-----------------------------------------------------
-#   Function: AIHandlePing
-#   Args:
-#       aiBrain 		- AI Brain
-#       pingData   		- Ping data table
-#   Description:
-#       Handles the AIs reaction to a human ally's ping.
-#   Returns:  
-#       nil
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: AIHandlePing
+--   Args:
+--       aiBrain 		- AI Brain
+--       pingData   		- Ping data table
+--   Description:
+--       Handles the AIs reaction to a human ally's ping.
+--   Returns:  
+--       nil
+-------------------------------------------------------
 function AIHandlePing(aiBrain, pingData)
 
 	if pingData.Type == 'move' then
@@ -333,20 +333,20 @@ end
 
 
 
-#-----------------------------------------------------
-#   Function: LeadTarget
-#   Args:
-#       platoon 		- TML firing missile
-#       target  		- Target to fire at
-#   Description:
-#       Allows the TML to lead a target to hit them while moving.
-#   Returns:  
-#       Map Position or false
-#	Notes:
-#		TML Specs(MU = Map Units): Max Speed: 12MU/sec
-#				                   Acceleration: 3MU/sec/sec
-#				                   Launch Time: ~3 seconds
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: LeadTarget
+--   Args:
+--       platoon 		- TML firing missile
+--       target  		- Target to fire at
+--   Description:
+--       Allows the TML to lead a target to hit them while moving.
+--   Returns:  
+--       Map Position or false
+--	Notes:
+--		TML Specs(MU = Map Units): Max Speed: 12MU/sec
+--				                   Acceleration: 3MU/sec/sec
+--				                   Launch Time: ~3 seconds
+-------------------------------------------------------
 function LeadTarget( position, target)
 
 	local TMLRandom = tonumber(ScenarioInfo.Options.TMLRandom) or 0
@@ -550,18 +550,18 @@ function UnitLeadTarget(unit, target)
 	
 end
 
-#-----------------------------------------------------
-#   Function: CheckBlockingTerrain
-#   Args:
-#       pos     		- Platoon position
-#		targetPos		- Target position
-#		firingArc		- Firing Arc
-#		turretPitch		- Turret pitch
-#   Description:
-#       Checks to see if there is terrain blocking a unit from hitting a target.
-#   Returns:  
-#       true (there is something blocking) or false (there is not something blocking)
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: CheckBlockingTerrain
+--   Args:
+--       pos     		- Platoon position
+--		targetPos		- Target position
+--		firingArc		- Firing Arc
+--		turretPitch		- Turret pitch
+--   Description:
+--       Checks to see if there is terrain blocking a unit from hitting a target.
+--   Returns:  
+--       true (there is something blocking) or false (there is not something blocking)
+-------------------------------------------------------
 function CheckBlockingTerrain(pos, targetPos, firingArc, turretPitch, steps)
 
 	--High firing arc indicates Artillery unit
@@ -625,18 +625,18 @@ function CheckBlockingTerrain(pos, targetPos, firingArc, turretPitch, steps)
 	
 end
 
-#-----------------------------------------------------
-#   Function: GetSlopeAngle
-#   Args:
-#       pos     		- Starting position
-#		targetPos		- Target position
-#		posHeight		- Starting position height
-#		targetHeight	- Target position height
-#   Description:
-#       Gets the slope and angle between 2 points.
-#   Returns:  
-#       slope and angle
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: GetSlopeAngle
+--   Args:
+--       pos     		- Starting position
+--		targetPos		- Target position
+--		posHeight		- Starting position height
+--		targetHeight	- Target position height
+--   Description:
+--       Gets the slope and angle between 2 points.
+--   Returns:  
+--       slope and angle
+-------------------------------------------------------
 function GetSlopeAngle(pos, targetPos, posHeight, targetHeight)
 
 	--Distance between points
@@ -667,15 +667,15 @@ function GetSlopeAngle(pos, targetPos, posHeight, targetHeight)
 end
 
 
-#-----------------------------------------------------
-#   Function: Nuke
-#   Args:
-#       aiBrain 		- AI Brain
-#   Description:
-#       Finds targets for the AIs nuke launchers and fires them all simultaneously.
-#   Returns:  
-#       nil
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: Nuke
+--   Args:
+--       aiBrain 		- AI Brain
+--   Description:
+--       Finds targets for the AIs nuke launchers and fires them all simultaneously.
+--   Returns:  
+--       nil
+-------------------------------------------------------
 function Nuke(aiBrain)
 
     local atkPri = { 'STRUCTURE EXPERIMENTAL', 'EXPERIMENTAL ARTILLERY', 'STRUCTURE ARTILLERY TECH3', 'STRUCTURE NUKE TECH3', 'EXPERIMENTAL ENERGYPRODUCTION STRUCTURE', 'COMMAND', 'TECH3 MASSFABRICATION STRUCTURE', 'TECH3 ENERGYPRODUCTION STRUCTURE', 'TECH2 STRATEGIC STRUCTURE', 'TECH3 DEFENSE STRUCTURE', 'TECH2 DEFENSE STRUCTURE', 'TECH2 ENERGYPRODUCTION STRUCTURE' }
@@ -820,17 +820,17 @@ function CheckCost(aiBrain, pos, massCost)
 end
 
 
-#-----------------------------------------------------
-#   Function: FindDamagedShield
-#   Args:
-#       aiBrain 		- AI Brain
-#       locationType	- Location to look at
-#		buildCat		- Building category to search for
-#   Description:
-#       Finds damaged shields in an area.
-#   Returns:  
-#       damaged shield or false
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: FindDamagedShield
+--   Args:
+--       aiBrain 		- AI Brain
+--       locationType	- Location to look at
+--		buildCat		- Building category to search for
+--   Description:
+--       Finds damaged shields in an area.
+--   Returns:  
+--       damaged shield or false
+-------------------------------------------------------
 function FindDamagedShield(aiBrain, locationType, buildCat)
 
 	local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
@@ -855,19 +855,19 @@ function FindDamagedShield(aiBrain, locationType, buildCat)
 	return retShield
 end
 
-#-----------------------------------------------------
-#   Function: NumberofUnitsBetweenPoints
-#   Args:
-#       start			- Starting point
-#		finish			- Ending point
-#		unitCat			- Unit category
-#		stepby			- MUs to step along path by
-#		alliance		- Unit alliance to check for
-#   Description:
-#       Counts units between 2 points.
-#   Returns:  
-#       Number of units
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: NumberofUnitsBetweenPoints
+--   Args:
+--       start			- Starting point
+--		finish			- Ending point
+--		unitCat			- Unit category
+--		stepby			- MUs to step along path by
+--		alliance		- Unit alliance to check for
+--   Description:
+--       Counts units between 2 points.
+--   Returns:  
+--       Number of units
+-------------------------------------------------------
 function NumberofUnitsBetweenPoints(aiBrain, start, finish, unitCat, stepby, alliance)
     if type(unitCat) == 'string' then
         unitCat = ParseEntityCategory(unitCat)
@@ -903,15 +903,15 @@ function GetRandomEnemyPos(aiBrain)
 	return false
 end
 
-#-----------------------------------------------------
-#   Function: GetArmyData
-#   Args:
-#       army		 	- Army
-#   Description:
-#       Returns army data for an army nickname.
-#   Returns:  
-#       Army data table
-#-----------------------------------------------------
+-------------------------------------------------------
+--   Function: GetArmyData
+--   Args:
+--       army		 	- Army
+--   Description:
+--       Returns army data for an army nickname.
+--   Returns:  
+--       Army data table
+-------------------------------------------------------
 function GetArmyData(army)
     
     if type(army) == 'string' then

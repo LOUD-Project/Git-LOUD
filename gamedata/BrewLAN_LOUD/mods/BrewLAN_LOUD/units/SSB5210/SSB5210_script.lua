@@ -1,8 +1,8 @@
-#****************************************************************************
-#** 
-#**  Cybran Wall: With cordinal scripting
-#** 
-#****************************************************************************
+--****************************************************************************
+--** 
+--**  Cybran Wall: With cordinal scripting
+--** 
+--****************************************************************************
 local SWallStructureUnit = import('/lua/seraphimunits.lua').SWallStructureUnit
 
 local CardinalWallUnit = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/walls.lua').CardinalWallUnit

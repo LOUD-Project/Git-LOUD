@@ -51,7 +51,7 @@ UnitBlueprint {
 		'OVERLAYINDIRECTFIRE',
     },
 	
-	CollisionOffsetZ = -0.2
+	CollisionOffsetZ = -0.2,
 	
     Defense = {
         ArmorType = 'Normal',
