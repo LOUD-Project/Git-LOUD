@@ -47,7 +47,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '<LOC ability_deathaoe>Volatile',
+            'Outrageously Volatile',
         },
         DamageEffects = {
             {
