@@ -780,27 +780,27 @@ Tooltips = {
     },    
     
     Lobby_ACT_Start_Delay = {
-        title = "AI Timed Cheat Start Delay",
+        title = "Timed Cheat Start Delay",
         description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
     },
     Lobby_ACT_Time_Delay = {
-        title = "AI Timed Cheat Delay",
+        title = "Timed Cheat Delay",
         description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
     },
     Lobby_ACT_Time_Amount = {
-        title = "AI Timed Cheat Amount",
+        title = "Timed Cheat Amount",
         description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
     },
     Lobby_ACT_Time_Cap = {
-        title = "AI Timed Cheat Limit",
+        title = "Timed Cheat Limit",
         description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
     },
     Lobby_ACT_Ratio_Interval = {
-        title = "AI Feedback Cheat Interval",
+        title = "Feedback Cheat Interval",
         description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
     },
     Lobby_ACT_Ratio_Scale = { 
-        title = "AI Feedback Cheat Scale", 
+        title = "Feedback Cheat Scale", 
         description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
     },
     

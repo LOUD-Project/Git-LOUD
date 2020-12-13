@@ -484,7 +484,7 @@ advAIOptions = {
 
     {
         default = 2,
-        label = "AI Feedback Cheat Interval",
+        label = "Feedback Cheat Interval",
         help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
         key = "ACTRatioInterval",
         pref = 'Lobby_ACT_Ratio_Interval',
@@ -509,7 +509,7 @@ advAIOptions = {
     
     { 
         default = 1, 
-        label = "AI Feedback Cheat Scale", 
+        label = "Feedback Cheat Scale", 
         help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
         key = "ACTRatioScale", 
         pref = 'Lobby_ACT_Ratio_Scale', 
@@ -534,7 +534,7 @@ advAIOptions = {
 
     {
         default = 1,
-        label = "AI Timed Cheat Start Delay",
+        label = "Timed Cheat Start Delay",
         help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
         key = "ACTStartDelay",
         pref = 'Lobby_ACT_Start_Delay',
@@ -563,7 +563,7 @@ advAIOptions = {
     },
     {
         default = 1,
-        label = "AI Timed Cheat Delay",
+        label = "Timed Cheat Delay",
         help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
         key = "ACTTimeDelay",
         pref = 'Lobby_ACT_Time_Delay',
@@ -587,7 +587,7 @@ advAIOptions = {
     },
     {
         default = 2,
-        label = "AI Timed Cheat Amount",
+        label = "Timed Cheat Amount",
         help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
         key = "ACTTimeAmount",
         pref = 'Lobby_ACT_Time_Amount',
@@ -611,7 +611,7 @@ advAIOptions = {
     },
     {
         default = 3,
-        label = "AI Timed Cheat Limit",
+        label = "Timed Cheat Limit",
         help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
