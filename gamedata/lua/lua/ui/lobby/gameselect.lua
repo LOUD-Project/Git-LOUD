@@ -35,6 +35,7 @@ local gameOptions = {}
 
 gameOptions[1] = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
 gameOptions[2] = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
+gameOptions[3] = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
 
 local tabData = {
     {

@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: Dialog to facilitate map selection
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -518,7 +518,9 @@ function RefreshOptions(skipRefresh, singlePlayer)
     if skipRefresh then
         OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts}
         OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions}
-
+        OptionSource[4] = {title = "Advanced AI Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions}
+        
+        table.sort(OptionSource[4].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end

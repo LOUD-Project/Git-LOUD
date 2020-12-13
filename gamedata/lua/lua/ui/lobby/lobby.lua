@@ -26,6 +26,7 @@ local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
 local teamOpts = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
 local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
+local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
 local handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
@@ -3496,6 +3497,7 @@ end
 function RefreshOptionDisplayData(scenarioInfo)
     local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
     local teamOptions = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
+    local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
     formattedOptions = {}
     
     if scenarioInfo then
@@ -3594,6 +3596,31 @@ function RefreshOptionDisplayData(scenarioInfo)
                 return LOC(a.text) < LOC(b.text) 
             end
         end)
+    -- RATODO: Not very elegant way of forcing advanced AI options 
+    -- to bottom of main lobby game options readout
+    for i, v in gameInfo.GameOptions do
+        local option = false
+        local mpOnly = false
+        for index, optData in advAIOptions do
+            if i == optData.key then
+                mpOnly = optData.mponly or false
+                option = {text = optData.label, tooltip = optData.pref}
+                for _, val in optData.values do
+                    if val.key == v then
+                        option.value = val.text
+                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                        break
+                    end
+                end
+                break
+            end
+        end
+        if option then
+            if not mpOnly or not singlePlayer then
+                table.insert(formattedOptions, option)
+            end
+        end
+    end
     if GUI.OptionContainer.CalcVisible then
         GUI.OptionContainer:CalcVisible()
     end
@@ -4285,6 +4312,11 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         end
 
         for index, option in globalOpts do
+            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+            SetGameOption(option.key,option.values[defValue].key)
+        end
+
+        for index, option in advAIOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
             SetGameOption(option.key,option.values[defValue].key)
         end

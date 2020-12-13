@@ -776,7 +776,7 @@ Tooltips = {
     },
     lob_act = {
         title = "Adaptive AI Cheat Multiplier",
-        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game.",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
     },    
     
     Lobby_ACT_Start_Delay = {
