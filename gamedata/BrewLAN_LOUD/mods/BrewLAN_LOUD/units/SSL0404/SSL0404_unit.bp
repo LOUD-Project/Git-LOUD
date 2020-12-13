@@ -260,6 +260,8 @@ UnitBlueprint {
         BuildCostEnergy = 480000,
         BuildCostMass = 23800,
         BuildTime = 6750,
+        
+        MaintenanceConsumptionPerSecondEnergy = 275,
     },
     
     General = {
@@ -290,9 +292,9 @@ UnitBlueprint {
     
     Intel = {
         Cloak = true,
-
         RadarStealth = true,
         StealthWaitTime = 2,
+        
         VisionRadius = 40,
         WaterVisionradius = 40,
     },
@@ -311,14 +313,14 @@ UnitBlueprint {
             LAYER_Air = false,
             LAYER_Land = true,
             LAYER_Orbit = false,
-            LAYER_Seabed = false,
+            LAYER_Seabed = true,
             LAYER_Sub = false,
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.8,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
+        MaxAcceleration = 0.6,
+        MaxBrake = 0.9,
+        MaxSpeed = 2.7,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MeshExtentsX = 4,
@@ -333,7 +335,7 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         StandUpright = false,
         TurnRadius = 5,
-        TurnRate = 20,
+        TurnRate = 17,
     },
     
     SelectionSizeX = 4,
@@ -353,18 +355,23 @@ UnitBlueprint {
     },
     
     Veteran = {
-        Level1 = 25,
-        Level2 = 50,
-        Level3 = 75,
-        Level4 = 100,
-        Level5 = 125,
+        Level1 = 35,
+        Level2 = 70,
+        Level3 = 105,
+        Level4 = 140,
+        Level5 = 175,
     },
+    
+    -- Both weapons now have energy consumption cycles
+    -- that conincide -- RoF entirely controlled by energy cycles
+    -- RoF set at 1 to allow almost immediate fire upon charge complete
     
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
@@ -388,11 +395,14 @@ UnitBlueprint {
             
             Damage = 2400,
             DamageRadius = 0,
-            DamageType = 'ShieldMult0.8',
+            DamageType = 'ShieldMult0.5',
             
             DisplayName = 'Experimental Phason Beam Generator',
             
             DoNotCollideList = { 'MISSILE' },
+            
+            EnergyRequired = 24150,         -- a 10.5 second charge cycle before fire
+            EnergyDrainPerSecond = 2300,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -406,7 +416,7 @@ UnitBlueprint {
             MaxRadius = 120,
             MinRadius = 30,
             
-            MuzzleChargeDelay = 2.5,
+            MuzzleChargeDelay = 2.5,        -- 2.5 second charge time before discharge
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             
@@ -428,7 +438,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.075,
+            RateOfFire = 1,                 -- RoF controlled by charge
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -480,9 +490,13 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0,
+            
+            BeamCollisionDelay = 0.5,
+            
             BeamLifetime = 2.5,
+            
             CollideFriendly = false,
             ContinuousBeam = true,
             
@@ -494,20 +508,23 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
+            EnergyRequired = 420,           -- a 12 second charge cycle
+            EnergyDrainPerSecond = 35,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringRandomness = 0,
-            FiringTolerance = 20,
+            FiringTolerance = 2,
             
             Label = 'MainTracer',
             
             MaxRadius = 120,
             MinRadius = 30,
             
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 1,          -- a 1 second delay before discharge
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             
@@ -531,7 +548,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.075,
+            RateOfFire = 1,
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
