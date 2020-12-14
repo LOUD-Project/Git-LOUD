@@ -187,6 +187,36 @@ local CurrentVOPlaying = false
 
 local factions = {'UEF', 'Aeon', 'Cybran', 'Seraphim'}
 
+-- List of AI cheat multipliers to map against per-AI lobby setting
+-- Only for backwards compatibility
+
+local aiMults = {
+    0.8,
+    0.9,
+    1.0,
+    1.05,
+    1.075,
+    1.1,
+    1.125,
+    1.15,
+    1.175,
+    1.2,
+    1.225,
+    1.25,
+    1.275,
+    1.3,
+    1.325,
+    1.35,
+    1.375,
+    1.4,
+    1.45,
+    1.5,
+    1.6,
+    1.75,
+    2.0,
+    2.5
+}
+
 -- VO Timeout and Replay Durations
 
 local VOReplayTime = {
@@ -642,11 +672,15 @@ AIBrain = Class(moho.aibrain_methods) {
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
 
-        -- Store the cheat value (ie. 1.1 = 10% cheat)
-		local m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
-		if m then
-			m = math.max(0.1, m)
+		-- Store the cheat value (ie. 1.1 = 10% cheat)
+		local s = ScenarioInfo.ArmySetup[self.Name].Mult
+		local m
+		if type(s) == "string" then
+			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
+		else
+			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 		end
+		if m then m = math.max(0.1, m) end
         self.CheatValue = m
         self.BaseCheat = m
 
