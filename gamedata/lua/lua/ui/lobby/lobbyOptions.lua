@@ -413,7 +413,7 @@ globalOpts = {
 			},
             {
                 text = "<LOC lobui_0124>Supremacy",
-                help = "<LOC lobui_0125>Game ends when all structures, Commanders and engineers are destroyed",
+                help = "<LOC lobui_0125>Game ends when all factory structures, Commanders and engineers are destroyed",
                 key = 'domination',
             },
             {
@@ -546,17 +546,17 @@ advAIOptions = {
             },        
             {
                 text = "6",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                help = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
                 key = '6',
             },
             {
                 text = "10",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                help = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
                 key = '10',
             },
             {
                 text = "15",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+                help = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
                 key = '15',
             },
         },
@@ -570,28 +570,38 @@ advAIOptions = {
         values = {
             {
                 text = "6",
-                help = "The AI's cheat multiplier will increase every 6 minutes.",
+                help = "The AI's cheat multiplier will change at 6 minute intervals.",
                 key = '6',
             },
             {
                 text = "10",
-                help = "The AI's cheat multiplier will increase every 10 minutes.",
+                help = "The AI's cheat multiplier will change at 10 minute intervals.",
                 key = '10',
             },
             {
                 text = "15",
-                help = "The AI's cheat multiplier will increase every 15 minutes.",
+                help = "The AI's cheat multiplier will change at 15 minute intervals.",
                 key = '15',
             },
         },
     },
     {
-        default = 2,
+        default = 4,
         label = "Timed Cheat Amount",
         help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
         key = "ACTTimeAmount",
         pref = 'Lobby_ACT_Time_Amount',
         values = {
+            {
+                text = "-0.02",
+                help = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+                key = '-.02',
+            },          
+            {
+                text = "-0.01",
+                help = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+                key = '-.01',
+            },            
             {
                 text = "0.01",
                 help = "The AI's cheat multiplier will increase by 0.01 every interval.",

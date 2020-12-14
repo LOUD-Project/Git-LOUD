@@ -1056,7 +1056,7 @@ Tooltips = {
     },
     lob_act_time = {
         title = 'Time-Based Adaptive Cheat',
-        description = 'The AI will get more difficult with time.',
+        description = 'The AI will get change with time.',
     },
     lob_act_both = {
         title = 'Feedback and Time-Based Adaptive Cheat',
@@ -1075,7 +1075,15 @@ Tooltips = {
         title = "45",
         description = "The AI's cheat multiplier may change every 45 seconds.",
     },
-
+    
+    ["lob_ACTTimeAmount_-.02"] = {
+        title = "-.02",
+        description = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+    },    
+    ["lob_ACTTimeAmount_-.01"] = {
+        title = "-.01",
+        description = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+    },
     ["lob_ACTTimeAmount_0.01"] = {
         title = "0.01",
         description = "The AI's cheat multiplier will increase by 0.01 every interval.",
@@ -1092,15 +1100,15 @@ Tooltips = {
 
     ["lob_ACTTimeDelay_6"] = {
         title = "6",
-        description = "The AI's cheat multiplier will increase every 6 minutes.",
+        description = "The AI's cheat multiplier will change every 6 minutes.",
     },
     ["lob_ACTTimeDelay_10"] = {
         title = "10",
-        description = "The AI's cheat multiplier will increase every 10 minutes.",
+        description = "The AI's cheat multiplier will change every 10 minutes.",
     },
     ["lob_ACTTimeDelay_15"] = {
         title = "15",
-        description = "The AI's cheat multiplier will increase every 15 minutes.",
+        description = "The AI's cheat multiplier will change every 15 minutes.",
     },
 
     ["lob_ACTTimeCap_2"] = {
@@ -1122,15 +1130,15 @@ Tooltips = {
     },
     ["lob_ACTStartDelay_6"] = {
         title = "6",
-        description = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
     },
     ["lob_ACTStartDelay_10"] = {
         title = "10",
-        description = "The AI's cheat multiplier will not start increasing until 10 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
     },
     ["lob_ACTStartDelay_15"] = {
         title = "15",
-        description = "The AI's cheat multiplier will not start increasing until 15 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
     },
     
     ["lob_ACTRatioScale_1"] = { 
