@@ -58,11 +58,17 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 		end
 	
 	end
+    
+    -- flag for true Naval maps
+    aiBrain.IsNavalMap = true
 	
 	-- test the map for naval markers or naval defensive points --
 	local navalMarker = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation(aiBrain, 'Naval Area', 0, 0)
 	
 	if not navalMarker then
+    
+        aiBrain.IsNavalMap = false
+        
 		navalMarker = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation(aiBrain, 'Naval Defensive Point', 0, 0)
 	end
 	
@@ -101,7 +107,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	if navalMarker then
 	
 		-- record this on the brain
-		ScenarioInfo.IsWaterMap = true
+		aiBrain.IsWaterMap = true
 
 		for k,v in BaseBuilderTemplates[baseBuilderName].WaterMapBuilders do
 		

@@ -98,7 +98,7 @@ end
 -- this aibrain value will be set when the builder tables are loaded
 -- see AIAddBuilderTable.lua
 function IsWaterMap(aiBrain, bool)
-	return bool == ScenarioInfo.IsWaterMap
+	return bool == aiBrain.IsWaterMap
 end
 
 function MapGreaterThan(aiBrain, size )	

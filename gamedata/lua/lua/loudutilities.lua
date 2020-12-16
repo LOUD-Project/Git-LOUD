@@ -2463,7 +2463,8 @@ function PathGeneratorThread( aiBrain )
 	aiBrain:ForkThread1( PathGeneratorAmphibious )
 	aiBrain:ForkThread1( PathGeneratorLand )
 
-	if ScenarioInfo.IsWaterMap then
+	if aiBrain.IsNavalMap then
+    
         aiBrain.PathRequests['Water'] = {}
 		aiBrain:ForkThread1( PathGeneratorWater )
 	end
