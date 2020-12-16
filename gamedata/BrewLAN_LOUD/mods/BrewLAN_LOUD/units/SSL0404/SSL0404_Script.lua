@@ -45,6 +45,8 @@ SSL0404 = Class(SWalkingLandUnit) {
         
         ChangeState( self, self.InvisState ) -- If spawned in we want the unit to be invis, normally the unit will immediately start moving
     end,
+    
+    -- Inserted Maintenance Consumption (for the cloak)
 
     InvisState = State() {
     
@@ -61,6 +63,8 @@ SSL0404 = Class(SWalkingLandUnit) {
 			self:EnableUnitIntel('RadarStealth')
 			self:EnableUnitIntel('Cloak')
 			self.Cloaked = true
+            
+            self:SetMaintenanceConsumptionActive()
             
             if bp.Display.CloakMeshBlueprint then
                 self:SetMesh(bp.Display.CloakMeshBlueprint, true)
@@ -92,6 +96,8 @@ SSL0404 = Class(SWalkingLandUnit) {
                 end
                 
     			self.Cloaked = false
+                
+                self:SetMaintenanceConsumptionInactive()                
 			end
         end,
 

@@ -26,6 +26,7 @@ local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
 local teamOpts = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
 local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
+local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
 local handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
@@ -1006,7 +1007,6 @@ function SetSlotInfo(slot, playerInfo)
     
     if not playerInfo.Human then
         GUI.slots[slot].mult:Show()
-        GUI.slots[slot].mult:SetItem(playerInfo.Mult)
         GUI.slots[slot].act:Show()
         GUI.slots[slot].act:SetItem(playerInfo.ACT)
     end
@@ -1418,6 +1418,18 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
+    -- All cheat multi input has to match n+.n+ or n+
+    for k, v in GUI.slots do
+        if v.mult:IsHidden() then
+            -- Skip this slot
+        elseif not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
+            AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
+            return
+        else
+            SetPlayerOption(v.mult.row, 'Mult', v.mult:GetText())
+        end
+    end
+
     if gameInfo.GameOptions['Victory'] != 'sandbox' then
 	
         local valid = true
@@ -1464,12 +1476,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         return
     end
 
-
     if totalHumanPlayers == 0 and table.empty(gameInfo.Observers) then
         AddChatText(LOC("<LOC lobui_0239>There must be at least one non-ai player or one observer, can not continue"))
         return
     end
-
 
     if not EveryoneHasEstablishedConnections() then
         return
@@ -1944,7 +1954,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     gameInfo.PlayerOptions[newSlot].OwnerID = senderID
 	
     gameInfo.PlayerOptions[newSlot].Faction = table.getn(FactionData.Factions) + 1
-    gameInfo.PlayerOptions[newSlot].Mult = 3 -- 1.0 by default
+    gameInfo.PlayerOptions[newSlot].Mult = 1.0
     gameInfo.PlayerOptions[newSlot].ACT = 1 -- Neither ACT by default
 
     if requestedTeam then
@@ -2466,7 +2476,7 @@ function CreateUI(maxPlayers, useSteam)
 
     GUI.chatDisplayScroll = UIUtil.CreateVertScrollbarFor(GUI.chatDisplay)
 
-    # OnlineProvider.RegisterChatDisplay(GUI.chatDisplay)
+    -- OnlineProvider.RegisterChatDisplay(GUI.chatDisplay)
     
     GUI.chatEdit:SetMaxChars(200)
     GUI.chatEdit.OnCharPressed = function(self, charcode)
@@ -2481,7 +2491,7 @@ function CreateUI(maxPlayers, useSteam)
     end
     
     GUI.chatEdit.OnLoseKeyboardFocus = function(self)
-        GUI.chatEdit:AcquireFocus()    
+        GUI.chatEdit:AcquireFocus()
     end
     
     GUI.chatEdit.OnEnterPressed = function(self, text)
@@ -2783,10 +2793,10 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddButtonTooltip(GUI.restrictedUnitsButton, 'lob_RestrictedUnitsClient')
     end
     ---------------------------------------------------------------------------
-    -- set up player grid
+    -- Set up player grid
     ---------------------------------------------------------------------------
 	
-    -- set up player "slots" which is the line representing a player and player specific options
+    -- Set up player "slots" (rows representing players and player specific options)
     local prev = nil
 
 	local slotColumnSizes = {
@@ -2795,8 +2805,8 @@ function CreateUI(maxPlayers, useSteam)
         color = {x = 354, width = 59},
         faction = {x = 419, width = 59},
         team = {x = 478, width = 60},
-        mult = {x = 538, width = 70},
-        act = {x = 608, width = 90},
+        mult = {x = 538, width = 40},
+        act = {x = 583, width = 90},
         ping = {x = 620, width = 62},
         ready = {x = 695, width = 51},
     }
@@ -2852,11 +2862,6 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
 
-    GUI.multLabel = UIUtil.CreateText(GUI.labelGroup, "AI Multi.", 14, UIUtil.titleFont)
-    LayoutHelpers.AtLeftIn(GUI.multLabel, GUI.panel, slotColumnSizes.mult.x)
-    LayoutHelpers.AtVerticalCenterIn(GUI.multLabel, GUI.labelGroup)
-    Tooltip.AddControlTooltip(GUI.multLabel, 'lob_mult')
-
 	if handiMod then
 		GUI.handicapLabel = UIUtil.CreateText(GUI.labelGroup, "Handicap", 14, UIUtil.titleFont)
 		LayoutHelpers.AtLeftIn(GUI.handicapLabel, GUI.panel, slotColumnSizes.handicap.x)
@@ -2864,13 +2869,19 @@ function CreateUI(maxPlayers, useSteam)
 	end
 
     if not singlePlayer then
-        GUI.pingLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0217>Ping", 14, UIUtil.titleFont)
-        LayoutHelpers.AtLeftIn(GUI.pingLabel, GUI.panel, slotColumnSizes.ping.x)
-        LayoutHelpers.AtVerticalCenterIn(GUI.pingLabel, GUI.labelGroup)
+        GUI.aiPingLabel = UIUtil.CreateText(GUI.labelGroup, "Ping/AI Settings", 14, UIUtil.titleFont)
+        LayoutHelpers.AtLeftIn(GUI.aiPingLabel, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.aiPingLabel, GUI.labelGroup)
+        Tooltip.AddControlTooltip(GUI.aiPingLabel, 'lob_ai_ping')
 
         GUI.readyLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0218>Ready", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.readyLabel, GUI.panel, slotColumnSizes.ready.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.readyLabel, GUI.labelGroup)
+    else
+        GUI.aiLabel = UIUtil.CreateText(GUI.labelGroup, "AI Settings", 14, UIUtil.titleFont)
+        LayoutHelpers.AtLeftIn(GUI.aiLabel, GUI.panel, slotColumnSizes.mult.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.aiLabel, GUI.labelGroup)
+        Tooltip.AddControlTooltip(GUI.aiLabel, 'lob_ai')
     end
 
     for i= 1, LobbyComm.maxPlayerSlots do
@@ -3046,51 +3057,67 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddComboTooltip(GUI.slots[i].team, teamTooltips)
         GUI.slots[i].team.OnEvent = GUI.slots[curRow].name.OnEvent
         
-        -- AI cheat multiplier combo
+        -- AI cheat multiplier textbox
 
-        GUI.slots[i].mult = Combo(bg, 14, 23, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        GUI.slots[i].mult = Edit(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].mult, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
-        GUI.slots[i].mult.Width:Set(70)
+        GUI.slots[i].mult.Width:Set(40)
+        GUI.slots[i].mult.Height:Set(14)
+        GUI.slots[i].mult:SetFont(UIUtil.bodyFont, 12)
+        GUI.slots[i].mult:SetForegroundColor(UIUtil.fontColor)
+        GUI.slots[i].mult:SetHighlightBackgroundColor('00000000')
+        GUI.slots[i].mult:SetHighlightForegroundColor(UIUtil.fontColor)
+        GUI.slots[i].mult:ShowBackground(true)
         GUI.slots[i].mult.row = i
-        -- RATODO: Can the global aiMults table feed the combobox with strings?
-        -- Because this is stupid. Making this file-local just throws.
-        local multStrings = {
-                '0.8',
-                '0.9',
-                '1.0',
-                '1.05',
-                '1.075',
-                '1.1',
-                '1.125',
-                '1.15',
-                '1.175',
-                '1.2',
-                '1.225',
-                '1.25',
-                '1.275',
-                '1.3',
-                '1.325',
-                '1.35',
-                '1.375',
-                '1.4',
-                '1.45',
-                '1.5',
-                '1.6',
-                '1.75',
-                '2.0',
-                '2.5'
-            }
-        GUI.slots[i].mult:AddItems(multStrings)
+        
+        GUI.slots[i].mult:SetMaxChars(5)
+        GUI.slots[i].mult:SetText("1.0")
 
-        GUI.slots[i].mult.OnClick = function(self, index, text)
-            Tooltip.DestroyMouseoverDisplay()
-            SetPlayerOption(self.row, 'Mult', index)
+        GUI.slots[i].mult.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits and .
+            if charcode == 47 or charcode >= 58 or charcode <= 45 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
         end
 
+        GUI.slots[i].mult.OnLoseKeyboardFocus = function(self)
+            GUI.slots[i].mult:AcquireFocus()
+        end
+        
+        GUI.slots[i].mult.OnNonTextKeyPressed = function(self, keyCode)
+            if commandQueue and table.getsize(commandQueue) > 0 then
+                if keyCode == 38 then
+                    if commandQueue[commandQueueIndex + 1] then
+                        commandQueueIndex = commandQueueIndex + 1
+                        self:SetText(commandQueue[commandQueueIndex])
+                    end
+                end
+                if keyCode == 40 then
+                    if commandQueueIndex ~= 1 then
+                        if commandQueue[commandQueueIndex - 1] then
+                            commandQueueIndex = commandQueueIndex - 1
+                            self:SetText(commandQueue[commandQueueIndex])
+                        end
+                    else
+                        commandQueueIndex = 0
+                        self:ClearText()
+                    end
+                end
+            end
+        end
+        
         Tooltip.AddControlTooltip(GUI.slots[i].mult, 'lob_mult')
 
-        -- ACT combo
+        -- ACT dropdown
 
         GUI.slots[i].act = Combo(bg, 14, 23, false, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtLeftIn(GUI.slots[i].act, GUI.panel, slotColumnSizes.act.x)
@@ -3470,6 +3497,7 @@ end
 function RefreshOptionDisplayData(scenarioInfo)
     local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
     local teamOptions = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
+    local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
     formattedOptions = {}
     
     if scenarioInfo then
@@ -3568,6 +3596,31 @@ function RefreshOptionDisplayData(scenarioInfo)
                 return LOC(a.text) < LOC(b.text) 
             end
         end)
+    -- RATODO: Not very elegant way of forcing advanced AI options 
+    -- to bottom of main lobby game options readout
+    for i, v in gameInfo.GameOptions do
+        local option = false
+        local mpOnly = false
+        for index, optData in advAIOptions do
+            if i == optData.key then
+                mpOnly = optData.mponly or false
+                option = {text = optData.label, tooltip = optData.pref}
+                for _, val in optData.values do
+                    if val.key == v then
+                        option.value = val.text
+                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                        break
+                    end
+                end
+                break
+            end
+        end
+        if option then
+            if not mpOnly or not singlePlayer then
+                table.insert(formattedOptions, option)
+            end
+        end
+    end
     if GUI.OptionContainer.CalcVisible then
         GUI.OptionContainer:CalcVisible()
     end
@@ -4259,6 +4312,11 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         end
 
         for index, option in globalOpts do
+            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+            SetGameOption(option.key,option.values[defValue].key)
+        end
+
+        for index, option in advAIOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
             SetGameOption(option.key,option.values[defValue].key)
         end

@@ -113,158 +113,6 @@ teamOptions =
 
 globalOpts = {
 
-    {
-        default = 2,
-        label = "AI Feedback Cheat Interval",
-        help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
-        key = "ACTRatioInterval",
-        pref = 'Lobby_ACT_Ratio_Interval',
-        values = {
-            {
-                text = "15",
-                help = "The AI's cheat multiplier may change every 15 seconds.",
-                key = '15',
-            },
-            {
-                text = "30",
-                help = "The AI's cheat multiplier may change every 30 seconds.",
-                key = '30',
-            },
-            {
-                text = "45",
-                help = "The AI's cheat multiplier may change every 45 seconds.",
-                key = '45',
-            },
-        },
-    },
-    
-    { 
-        default = 1, 
-        label = "AI Feedback Cheat Scale", 
-        help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
-        key = "ACTRatioScale", 
-        pref = 'Lobby_ACT_Ratio_Scale', 
-        values = { 
-            { 
-                text = "1", 
-                help = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
-                key = "1", 
-            }, 
-            { 
-                text = "2", 
-                help = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
-                key = "2", 
-            }, 
-            { 
-                text = "3", 
-                help = "The AI's cheat multiplier will increase by a maximum of 1.5", 
-                key = "3", 
-            }, 
-        }, 
-    },     
-
-    {
-        default = 1,
-        label = "AI Timed Cheat Start Delay",
-        help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
-        key = "ACTStartDelay",
-        pref = 'Lobby_ACT_Start_Delay',
-        values = {
-            {
-                text = "0",
-                help = "The AI's cheat multiplier will start right from the start of the game.",
-                key = '0',
-            },        
-            {
-                text = "6",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
-                key = '6',
-            },
-            {
-                text = "10",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
-                key = '10',
-            },
-            {
-                text = "15",
-                help = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
-                key = '15',
-            },
-        },
-    },
-    {
-        default = 1,
-        label = "AI Timed Cheat Delay",
-        help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
-        key = "ACTTimeDelay",
-        pref = 'Lobby_ACT_Time_Delay',
-        values = {
-            {
-                text = "6",
-                help = "The AI's cheat multiplier will increase every 6 minutes.",
-                key = '6',
-            },
-            {
-                text = "10",
-                help = "The AI's cheat multiplier will increase every 10 minutes.",
-                key = '10',
-            },
-            {
-                text = "15",
-                help = "The AI's cheat multiplier will increase every 15 minutes.",
-                key = '15',
-            },
-        },
-    },
-    {
-        default = 2,
-        label = "AI Timed Cheat Amount",
-        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
-        key = "ACTTimeAmount",
-        pref = 'Lobby_ACT_Time_Amount',
-        values = {
-            {
-                text = "0.01",
-                help = "The AI's cheat multiplier will increase by 0.01 every interval.",
-                key = '0.01',
-            },
-            {
-                text = "0.02",
-                help = "The AI's cheat multiplier will increase by 0.02 every interval.",
-                key = '0.02',
-            },
-            {
-                text = "0.05",
-                help = "The AI's cheat multiplier will increase by 0.05 every interval.",
-                key = '0.05',
-            },
-        },
-    },
-    {
-        default = 3,
-        label = "AI Timed Cheat Limit",
-        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
-        key = "ACTTimeCap",
-        pref = 'Lobby_ACT_Time_Cap',
-        values = {
-            {
-                text = "2.0",
-                help = "The AI's cheat multiplier will never go higher than 2.0.",
-                key = '2',
-            },
-            {
-                text = "3.0",
-                help = "The AI's cheat multiplier will never go higher than 3.0.",
-                key = '3',
-            },
-            {
-                text = "4.0",
-                help = "The AI's cheat multiplier will never go higher than 4.0.",
-                key = '4',
-            },
-        },
-    },
-
 	{   default = 2,
         label = "AI Unit Cap",
         help = "Set the Unit Cap limit for the AIs.",
@@ -565,7 +413,7 @@ globalOpts = {
 			},
             {
                 text = "<LOC lobui_0124>Supremacy",
-                help = "<LOC lobui_0125>Game ends when all structures, Commanders and engineers are destroyed",
+                help = "<LOC lobui_0125>Game ends when all factory structures, Commanders and engineers are destroyed",
                 key = 'domination',
             },
             {
@@ -627,6 +475,172 @@ globalOpts = {
 				help = "Game ends at 4 Hours or when Commander and all SubCommanders are destroyed",
 				key = '240',
 			},
+        },
+    },
+
+}
+
+advAIOptions = {
+
+    {
+        default = 2,
+        label = "Feedback Cheat Interval",
+        help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+        key = "ACTRatioInterval",
+        pref = 'Lobby_ACT_Ratio_Interval',
+        values = {
+            {
+                text = "15",
+                help = "The AI's cheat multiplier may change every 15 seconds.",
+                key = '15',
+            },
+            {
+                text = "30",
+                help = "The AI's cheat multiplier may change every 30 seconds.",
+                key = '30',
+            },
+            {
+                text = "45",
+                help = "The AI's cheat multiplier may change every 45 seconds.",
+                key = '45',
+            },
+        },
+    },
+    
+    { 
+        default = 1, 
+        label = "Feedback Cheat Scale", 
+        help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
+        key = "ACTRatioScale", 
+        pref = 'Lobby_ACT_Ratio_Scale', 
+        values = { 
+            { 
+                text = "1", 
+                help = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
+                key = "1", 
+            }, 
+            { 
+                text = "2", 
+                help = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
+                key = "2", 
+            }, 
+            { 
+                text = "3", 
+                help = "The AI's cheat multiplier will increase by a maximum of 1.5", 
+                key = "3", 
+            }, 
+        }, 
+    },     
+
+    {
+        default = 1,
+        label = "Timed Cheat Start Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
+        key = "ACTStartDelay",
+        pref = 'Lobby_ACT_Start_Delay',
+        values = {
+            {
+                text = "0",
+                help = "The AI's cheat multiplier will start right from the start of the game.",
+                key = '0',
+            },        
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "Timed Cheat Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+        key = "ACTTimeDelay",
+        pref = 'Lobby_ACT_Time_Delay',
+        values = {
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will change at 6 minute intervals.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will change at 10 minute intervals.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will change at 15 minute intervals.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 4,
+        label = "Timed Cheat Amount",
+        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        key = "ACTTimeAmount",
+        pref = 'Lobby_ACT_Time_Amount',
+        values = {
+            {
+                text = "-0.02",
+                help = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+                key = '-.02',
+            },          
+            {
+                text = "-0.01",
+                help = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+                key = '-.01',
+            },            
+            {
+                text = "0.01",
+                help = "The AI's cheat multiplier will increase by 0.01 every interval.",
+                key = '0.01',
+            },
+            {
+                text = "0.02",
+                help = "The AI's cheat multiplier will increase by 0.02 every interval.",
+                key = '0.02',
+            },
+            {
+                text = "0.05",
+                help = "The AI's cheat multiplier will increase by 0.05 every interval.",
+                key = '0.05',
+            },
+        },
+    },
+    {
+        default = 3,
+        label = "Timed Cheat Limit",
+        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        key = "ACTTimeCap",
+        pref = 'Lobby_ACT_Time_Cap',
+        values = {
+            {
+                text = "2.0",
+                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                key = '2',
+            },
+            {
+                text = "3.0",
+                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                key = '3',
+            },
+            {
+                text = "4.0",
+                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                key = '4',
+            },
         },
     },
 

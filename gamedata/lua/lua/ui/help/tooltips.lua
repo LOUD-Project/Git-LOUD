@@ -762,37 +762,45 @@ Tooltips = {
         description = "Set Teams",
     },
     
+    lob_ai = {
+        title = "AI Settings",
+        description = "Configure this AI's cheat multiplier to make it more or less difficult, or use adaptive cheating for additional difficulty in certain situations.",
+    },
+    lob_ai_ping = {
+        title = "Ping/AI Settings",
+        description = "If a human player fills this slot, their ping is shown in this column. If an AI player fills this slot, their cheat settings are shown in this column.",
+    },
     lob_mult = {
         title = "AI Cheat Multiplier",
-        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at 0.9 and below, it is weakened and less difficult.",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at below 1.0, it is weakened and less difficult.",
     },
     lob_act = {
         title = "Adaptive AI Cheat Multiplier",
-        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game.",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
     },    
     
     Lobby_ACT_Start_Delay = {
-        title = "AI Timed Cheat Start Delay",
+        title = "Timed Cheat Start Delay",
         description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
     },
     Lobby_ACT_Time_Delay = {
-        title = "AI Timed Cheat Delay",
+        title = "Timed Cheat Delay",
         description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
     },
     Lobby_ACT_Time_Amount = {
-        title = "AI Timed Cheat Amount",
+        title = "Timed Cheat Amount",
         description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
     },
     Lobby_ACT_Time_Cap = {
-        title = "AI Timed Cheat Limit",
+        title = "Timed Cheat Limit",
         description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
     },
     Lobby_ACT_Ratio_Interval = {
-        title = "AI Feedback Cheat Interval",
+        title = "Feedback Cheat Interval",
         description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
     },
     Lobby_ACT_Ratio_Scale = { 
-        title = "AI Feedback Cheat Scale", 
+        title = "Feedback Cheat Scale", 
         description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
     },
     
@@ -1048,7 +1056,7 @@ Tooltips = {
     },
     lob_act_time = {
         title = 'Time-Based Adaptive Cheat',
-        description = 'The AI will get more difficult with time.',
+        description = 'The AI will get change with time.',
     },
     lob_act_both = {
         title = 'Feedback and Time-Based Adaptive Cheat',
@@ -1067,7 +1075,15 @@ Tooltips = {
         title = "45",
         description = "The AI's cheat multiplier may change every 45 seconds.",
     },
-
+    
+    ["lob_ACTTimeAmount_-.02"] = {
+        title = "-.02",
+        description = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+    },    
+    ["lob_ACTTimeAmount_-.01"] = {
+        title = "-.01",
+        description = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+    },
     ["lob_ACTTimeAmount_0.01"] = {
         title = "0.01",
         description = "The AI's cheat multiplier will increase by 0.01 every interval.",
@@ -1084,15 +1100,15 @@ Tooltips = {
 
     ["lob_ACTTimeDelay_6"] = {
         title = "6",
-        description = "The AI's cheat multiplier will increase every 6 minutes.",
+        description = "The AI's cheat multiplier will change every 6 minutes.",
     },
     ["lob_ACTTimeDelay_10"] = {
         title = "10",
-        description = "The AI's cheat multiplier will increase every 10 minutes.",
+        description = "The AI's cheat multiplier will change every 10 minutes.",
     },
     ["lob_ACTTimeDelay_15"] = {
         title = "15",
-        description = "The AI's cheat multiplier will increase every 15 minutes.",
+        description = "The AI's cheat multiplier will change every 15 minutes.",
     },
 
     ["lob_ACTTimeCap_2"] = {
@@ -1114,15 +1130,15 @@ Tooltips = {
     },
     ["lob_ACTStartDelay_6"] = {
         title = "6",
-        description = "The AI's cheat multiplier will not start increasing until 6 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
     },
     ["lob_ACTStartDelay_10"] = {
         title = "10",
-        description = "The AI's cheat multiplier will not start increasing until 10 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
     },
     ["lob_ACTStartDelay_15"] = {
         title = "15",
-        description = "The AI's cheat multiplier will not start increasing until 15 minutes have passed.",
+        description = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
     },
     
     ["lob_ACTRatioScale_1"] = { 
