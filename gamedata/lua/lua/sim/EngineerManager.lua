@@ -1386,12 +1386,12 @@ EngineerManager = Class(BuilderManager) {
                                 if distressType !='Naval' then
 						
                                     -- get all bombers and gunships not already in platoons
-                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius )
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius, true  )
 
-                                    if groupaircount > 4 then
+                                    if groupaircount > 1 then
 
-                                        if ScenarioInfo.DistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                        if ScenarioInfo.BaseDistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
                                         end
 						
                                         -- Move the gunship/bomber group to the distress location and issue guard there 
@@ -1415,12 +1415,12 @@ EngineerManager = Class(BuilderManager) {
                                 else
 						
                                     -- get all torpedobombers and gunships not already in platoons
-                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.TORPEDOBOMBER + categories.GROUNDATTACK, baseposition, radius )
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.TORPEDOBOMBER + categories.GROUNDATTACK, baseposition, radius, true )
 
-                                    if groupaircount > 4 then
+                                    if groupaircount > 2 then
 
-                                        if ScenarioInfo.DistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                        if ScenarioInfo.BaseDistressResponseDialog then
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
                                         end
 						
                                         -- Move the torpedo/gunship group to the distress location and issue guard there 
@@ -1448,13 +1448,13 @@ EngineerManager = Class(BuilderManager) {
 						else
 
 							-- locate all anti-air air units not already in platoons
-							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius )
+							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius, true )
 
 							-- if there are more than 4 anti-air units
 							if groupftrcount > 4 then 
 						
-								if ScenarioInfo.DistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
+								if ScenarioInfo.BaseDistressResponseDialog then
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
 								end
 						
 								-- and we can match at least 66% of the enemy threat

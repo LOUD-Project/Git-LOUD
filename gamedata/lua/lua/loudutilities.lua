@@ -365,7 +365,7 @@ function GreaterThanEnemyUnitsAroundBase( aiBrain, locationtype, numUnits, unitC
 end
 
 -- gets units that are NOT in a platoon around a point
-function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tmax, rings, tType )
+function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuelPool, tmin, tmax, rings, tType )
 
     local units = aiBrain:GetUnitsAroundPoint( category, location, radius, 'Ally' )
     
@@ -391,7 +391,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tma
 			if not v.Dead and not v:IsBeingBuilt() and v:GetAIBrain().ArmyIndex == aiBrain.ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
-				if not v.PlatoonHandle or v.PlatoonHandle == aiBrain.ArmyPool then
+				if not v.PlatoonHandle or (v.PlatoonHandle == aiBrain.ArmyPool) or (useRefuelPool and v.PlatoonHandle == aiBrain.RefuelPool) then
 
 					retUnits[counter+1] = v
 					counter = counter + 1
@@ -1093,7 +1093,7 @@ end
 
 function GetPrimarySeaAttackBase( aiBrain )
 
-	if ScenarioInfo.IsWaterMap then
+	if aiBrain.IsWaterMap then
 
 		if aiBrain.PrimarySeaAttackBase then
 			return aiBrain.PrimarySeaAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position
@@ -1208,7 +1208,7 @@ function ClearOutBase( manager, aiBrain )
         end
 
         -- all fighter units including air scouts
-        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100 )
+        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1230,7 +1230,7 @@ function ClearOutBase( manager, aiBrain )
         end
 	
         -- all gunship units including EXPERIMENTAL
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1251,7 +1251,7 @@ function ClearOutBase( manager, aiBrain )
         end	
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1272,7 +1272,7 @@ function ClearOutBase( manager, aiBrain )
         end
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.ANTINAVY), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.ANTINAVY), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1473,6 +1473,10 @@ function AirUnitRefitThread( unit, aiBrain )
 	
 	-- return repaired/refuelled unit to pool
 	if not unit.Dead then
+    
+        -- weapons turned back on (just in case)
+        
+        unit:MarkWeaponsOnTransport(unit, false)
 
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
@@ -1510,7 +1514,6 @@ function AirStagingThread( unit, airstage, aiBrain )
                 
                 if ScenarioInfo.TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging")
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." data is "..repr(unit))
                 end
 
                 -- use path
@@ -1538,9 +1541,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 	local waitcount = 0
 	
 	-- loop until unit attached, idle, dead or it's fixed itself
-	while not ( unit.Dead and not airstage.Dead) do
+	while (not unit.Dead) and (not airstage.Dead) do
 		
-		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) then
+		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
 		
 			WaitTicks(10)
             waitcount = waitcount + 1
@@ -1555,7 +1558,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	-- get it off the airpad
-	if (not unit:BeenDestroyed()) and unit:IsUnitState('Attached') then
+	if (not airstage.Dead) and (not unit:BeenDestroyed()) and unit:IsUnitState('Attached') then
 	
 		WaitTicks(10)
 		
