@@ -18,9 +18,12 @@ local LOUDUPPER = string.upper
 local LOUDLOWER = string.lower
 local LOUDSUB = string.sub
 
--- This function ensures the given string's initial character is upper-case, whilst the rest are lower case.
+-- This function ensures the given string is in title case.
 function LOUD_CaseCheck(aString)
-	return LOUDUPPER(LOUDSUB(aString, 1, 1)) .. LOUDLOWER(LOUDSUB(aString, 2, -1))
+	local function tchelper(first, rest)
+		return first:upper()..rest:lower()
+	end
+	return aString:gsub("(%a)([%w_']*)", tchelper)
 end
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
