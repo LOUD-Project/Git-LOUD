@@ -425,7 +425,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
@@ -1519,14 +1519,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 		PriorityFunction = NotPrimaryBase,
 		
-        InstanceCount = 2,
+        InstanceCount = 4,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},
         },
@@ -2382,14 +2382,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
 		
 		PriorityFunction = NotPrimaryBase,
 		
-        InstanceCount = 2,
+        InstanceCount = 4,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},
         },
@@ -2420,7 +2420,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
             
             { LUTL, 'PoolGreater', { 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},
         },

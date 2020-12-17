@@ -37,6 +37,17 @@ local IsPrimaryBase = function(self,aiBrain,manager)
 	return 10, true
 end
 
+-- this function will remove the builder if this is not a NAVAL map (water - but no naval markers)
+local IsNavalMap = function( self, aiBrain, manager)
+
+    if aiBrain.IsNavalMap then
+        return self.Priority, true
+    end
+    
+    return 0, false
+
+end
+
 ---------------------
 --- THE MAIN BASE ---
 ---------------------
@@ -3540,6 +3551,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 		
         Priority = 760,
 
+		PriorityFunction = IsNavalMap,
+        
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
@@ -3667,6 +3680,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 650,
+        
+		PriorityFunction = IsNavalMap,		        
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },

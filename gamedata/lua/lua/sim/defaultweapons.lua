@@ -208,6 +208,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 	-- passed in the bp data to save the call
     StartEconomyDrain = function(self, bp)
+    
+        --LOG("*AI DEBUG Start Economy Drain "..repr(self.FirstShot).." EconDrain is "..repr(self.EconDrain) )
 	
         if self.FirstShot then return end
 		

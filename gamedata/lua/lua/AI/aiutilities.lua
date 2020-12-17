@@ -978,10 +978,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
-	
-		-- This code works fine as long as there are only two teams --
-		-- otherwise it will break with 3 or more -- really need to know
-		-- which team has the largest TOTAL unit cap and work from that --
+
         local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
         local cheatCap = initialCap * aiBrain.CheatValue * (math.max(PlayerDiff,1))

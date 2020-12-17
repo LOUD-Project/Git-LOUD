@@ -88,11 +88,19 @@
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = false
+	ScenarioInfo.DisplayBaseMonitors = true
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
+    
+    -- Each AI base will dialog Distress Responses to alerts raised by the base monitor
+    ScenarioInfo.BaseDistressResponseDialog = false
+    LOG("*AI DEBUG      Report Base Distress Dialogs is "..repr(ScenarioInfo.BaseDistressResponseDialog))
 
+    -- The DeadBaseMonitor will dialog all bases being checked 
+    ScenarioInfo.DeadBaseMonitorDialog = false
+    LOG("*AI DEBUG      Report DeadBaseMonitor Dialog is "..repr(ScenarioInfo.DeadBaseMonitorDialog))
+    
     -- AI will ping the map with the location of alerts raised by the base monitor
-	ScenarioInfo.DisplayPingAlerts = false
+	ScenarioInfo.DisplayPingAlerts = true
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 
@@ -1339,10 +1347,17 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 			BaseName = baseName,
 			BaseType = basetype,
+            
+            -- The CountedBase flag indicates if this base is Production Base(counted)
 			CountedBase = countedbase,
 			
-			-- we set it to 8 so if none of the initial structures last very long we'll kill the base quickly --
-            nofactorycount = 8,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
+            -- The nofactorycount value increases every 25 seconds when there are no ENGINEERS OR FACTORIES at a 'counted'(production base)
+            -- This is NOT used for 'non-counted' bases ( all forms of DP) - which only die when ALL structures are destroyed --
+            
+			-- we set it to 2 so if the initial structures don't last we'll kill the base in about 3 minutes 
+            -- otherwise a production base will last upto 4 minutes afetr all ENGINEERS & FACTORIES are destroyed
+            -- in the hope that another engineer will arrive to continue the base operations
+            nofactorycount = 2,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
 			
             Position = table.copy(position),		-- stores the location of this base for quick reference
 			

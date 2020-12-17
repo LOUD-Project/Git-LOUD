@@ -283,6 +283,10 @@ function HaveLessThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alli
 	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) < numReq
 end
 
+function HaveLessThanUnitsWithCategoryAndAllianceInRange(aiBrain, numReq, testCat, alliance, range)
+	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), range, alliance ) < numReq
+end
+
 function PoolLess( aiBrain, unitCount, testCat)
 	return PlatoonCategoryCount( aiBrain.ArmyPool, testCat ) < unitCount
 end
