@@ -2316,10 +2316,14 @@ end
 
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
--- no longer valid means no engineers AND no factories for at least 200 seconds (10 loops)
+-- no longer valid means no engineers AND no factories 
 -- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 60 are dead
 function DeadBaseMonitor( aiBrain )
 
+    if ScenarioInfo.DeadBaseMonitorDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." DBM (Dead Base Monitor) begins")
+    end
+    
 	WaitTicks(1800)	#-- dont start for 3 minutes
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -2341,25 +2345,49 @@ function DeadBaseMonitor( aiBrain )
 			platland = false
 			platair = false
 			platsea = false
+            
+            if ScenarioInfo.DeadBaseMonitorDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing "..repr(v.PrimaryLandAttackBase).." "..repr(v.PrimarySeaAttackBase))
+            end
 
 			if not v.CountedBase then
 			
 				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
-				
+                
+                --if ScenarioInfo.DeadBaseMonitorDialog then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Base "..repr(v.BaseName).." DBM - structures "..repr(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60)))
+				--end
 			end
+            
+            if ScenarioInfo.DeadBaseMonitorDialog then
+            
+                if v.EngineerManager.BMDistressResponseThread then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - active base distress response")
+                    continue
+                end
+            end
 
 			-- if a base has no factories
 			if (v.CountedBase and v.FactoryManager:GetNumCategoryFactories(categories.FACTORY) <= 0) or
 				(not v.CountedBase and structurecount < 1) then
-				
-				-- increase the nofactory counter
-				aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
+                
+                -- if the base has no engineers - increase the no factory count
+                if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 then 
+                
+                    if ScenarioInfo.DeadBaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(aiBrain.BuilderManagers[k].nofactorycount + 1))
+                    end
+                    
+                    aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
+                end
 
-				-- if base has no engineers AND has had no factories for about 200 seconds
+				-- if base has no engineers AND has had no factories for about 250 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k).." counted is "..repr(v.CountedBase))
-					
+                    if ScenarioInfo.DeadBaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base")
+					end
+                    
 					-- handle the MAIN base
 					if k == 'MAIN' then
 
@@ -2439,10 +2467,10 @@ function DeadBaseMonitor( aiBrain )
 				aiBrain.BuilderManagers[k].nofactorycount = 0
 			end
 			
-			WaitTicks(8)
+			WaitTicks(10)   -- 1 second between bases
 		end
 		
-		WaitTicks(200)	#-- check every 20 seconds
+		WaitTicks(180)	    -- check every 18 seconds
 	end
 end
 

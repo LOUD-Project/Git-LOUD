@@ -88,11 +88,19 @@
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = false
+	ScenarioInfo.DisplayBaseMonitors = true
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
+    
+    -- Each AI base will dialog Distress Responses to alerts raised by the base monitor
+    ScenarioInfo.BaseDistressResponseDialog = false
+    LOG("*AI DEBUG      Report Base Distress Dialogs is "..repr(ScenarioInfo.BaseDistressResponseDialog))
 
+    -- The DeadBaseMonitor will dialog all bases being checked 
+    ScenarioInfo.DeadBaseMonitorDialog = false
+    LOG("*AI DEBUG      Report DeadBaseMonitor Dialog is "..repr(ScenarioInfo.DeadBaseMonitorDialog))
+    
     -- AI will ping the map with the location of alerts raised by the base monitor
-	ScenarioInfo.DisplayPingAlerts = false
+	ScenarioInfo.DisplayPingAlerts = true
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 
