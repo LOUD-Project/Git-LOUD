@@ -1507,8 +1507,11 @@ UnitBlueprint {
                 Seabed = 'Air|Land|Water|Seabed',
                 Water = 'Air|Land|Water|Seabed',
             },
-			
-            FiringTolerance = 2,
+            
+			FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,
+            
+            FiringTolerance = 0.2,
 
             Label = 'RightDisruptor',
 			
@@ -1521,7 +1524,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/ADFQuantumDisruptor01/ADFQuantumDisruptor01_proj.bp',
-			ProjectileLifetime = 2,
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
@@ -1543,6 +1546,8 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 4,
+            
+            ReTargetOnMiss = true,
 			
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 80,
@@ -1566,16 +1571,16 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = -35,
-            TurretYawRange = 120,
-            TurretYawSpeed = 45,
+            TurretYawRange = 80,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
 			
-            UseFiringSolutionInsteadOfAimBone = false,
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
@@ -1599,7 +1604,7 @@ UnitBlueprint {
 			
             EnergyChargeForFirstShot = false,
 			
-            EnergyDrainPerSecond = 25000,
+            EnergyDrainPerSecond = 3000,
             EnergyRequired = 30000,
 			
             FireTargetLayerCapsTable = {
@@ -1644,7 +1649,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1,
+            RateOfFire = 1,         -- rely totally upon the charge cycle now
 			
             SlavedToBody = true,
 			SlavedToBodyArcRange = 80,
@@ -1660,12 +1665,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = -35,
-            TurretYawRange = 120,
-            TurretYawSpeed = 45,
+            TurretYawRange = 80,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
