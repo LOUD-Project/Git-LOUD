@@ -604,7 +604,7 @@ Platoon = Class(moho.platoon_methods) {
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation))
 					end
 
-					ForkTo( AISendPing, transportLocation, 'alert', aiBrain.ArmyIndex )
+					AISendPing( transportLocation, 'warning', aiBrain.ArmyIndex )
 				end
 			end
 		
@@ -4800,8 +4800,9 @@ Platoon = Class(moho.platoon_methods) {
 								self.DistressCall = true
 								
 								if ScenarioInfo.DisplayPingAlerts then
+                                
 									-- send a visual ping to the interface -- 
-									AISendPing( LOUDCOPY(pos), 'attack', aiBrain.ArmyIndex )
+									AISendPing( LOUDCOPY(pos), 'alert', aiBrain.ArmyIndex )
 								end
 							end
 						end

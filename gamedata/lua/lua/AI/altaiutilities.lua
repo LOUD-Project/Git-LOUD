@@ -1754,7 +1754,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 				
 					LOG("*AI DEBUG "..aiBrain.Nickname.." reloads is "..reloads.." goload is "..repr(goload).." for "..transport:GetBlueprint().Description)
 					
-					ForkTo( AISendPing, transport:GetPosition(),'alert', aiBrain.ArmyIndex )
+					ForkTo( AISendPing, transport:GetPosition(),'warning', aiBrain.ArmyIndex )
 				end
 				
 			else

@@ -1347,10 +1347,17 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 			BaseName = baseName,
 			BaseType = basetype,
+            
+            -- The CountedBase flag indicates if this base is Production Base(counted)
 			CountedBase = countedbase,
 			
-			-- we set it to 8 so if none of the initial structures last very long we'll kill the base quickly --
-            nofactorycount = 8,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
+            -- The nofactorycount value increases every 25 seconds when there are no ENGINEERS OR FACTORIES at a 'counted'(production base)
+            -- This is NOT used for 'non-counted' bases ( all forms of DP) - which only die when ALL structures are destroyed --
+            
+			-- we set it to 2 so if the initial structures don't last we'll kill the base in about 3 minutes 
+            -- otherwise a production base will last upto 4 minutes afetr all ENGINEERS & FACTORIES are destroyed
+            -- in the hope that another engineer will arrive to continue the base operations
+            nofactorycount = 2,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
 			
             Position = table.copy(position),		-- stores the location of this base for quick reference
 			
