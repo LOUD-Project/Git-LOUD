@@ -739,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 45, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -747,7 +747,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 				BuildClose = true,	#-- engineer will build on closest mass points to itself
 				LoopBuild = false,	#-- dont repeat this build - just build once then RTB
 				ThreatMin = -9999,
-				ThreatMax = 60,
+				ThreatMax = 45,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = {'T2Resource'},
