@@ -189,7 +189,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			MergeLimit = 160,	-- controls merging with others - nil = original platoon size
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -667,7 +667,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     },
 
 	-- attack enemy ANTIAIR STRUCTURES with small groups
-    -- forms when odds are modest(>0.8) 
+    -- forms when odds are modest(>0.7) 
     Builder {BuilderName = 'AA Attack Land',
 	
         PlatoonTemplate = 'T1MassAttack',
@@ -735,8 +735,83 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			
 			UseFormation = 'AttackFormation',
         },
-    },
+	},
+	
+	-- PD Attack Former -- 
+	-- This Platoon are the counter part to AA Attack Former
+	-- This Platoon hunts for Defenses and Shields 
 
+
+	-- attack enemy DEFENSE STRUCTURES with small groups
+    -- forms when odds are modest(>0.7) 
+    Builder {BuilderName = 'PD Attack Land',
+	
+        PlatoonTemplate = 'T1ArtilleryAttack',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 800,
+        
+        PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 4,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},            
+
+			-- enemy DEFENSE structures within 15km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 1750 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+			PointType = 'Unit',
+			PointCategory = categories.DEFENSE * categories.STRUCTURE,
+			PointSourceSelf = true,
+			PointFaction = 'Enemy',
+			PointRadius = 1750,
+			PointSort = 'Closest',
+			PointMin = 200,
+			PointMax = 1750,
+			
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 50,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 4,
+            
+            ThreatMaxRatio = 1,
+			
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
+			UntRadius = 60,
+			UntTrigger = true,
+			UntMin = 0,
+			UntMax = 6,
+			
+            PrioritizedCategories = {'SHIELD STRUCTURE', 'DEFENSE STRUCTURE DIRECTFIRE', 'ANTIAIR STRUCTURE', 'ECONOMIC', 'ENGINEER', 'STRUCTURE -WALL', 'LAND MOBILE'},
+			
+			GuardRadius = 80,
+			GuardTimer = 20,
+			
+			MergeLimit = 32,
+			
+			AggressiveMove = true,
+			
+			AllowInWater = false,
+			
+			UseFormation = 'AttackFormation',
+        },
+	},
 }
 
 BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
@@ -771,7 +846,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderData = {
 			MergeLimit = 85,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -802,7 +877,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderData = {
 			MergeLimit = 50,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -833,7 +908,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderData = {
 			MergeLimit = 25,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -1088,7 +1163,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
         BuilderData = {
 
-            PrioritizedCategories = { 'LAND MOBILE','SHIELD','STRUCTURE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','SHIELD','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- all targets upto 30k
 			
@@ -1134,7 +1209,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
         BuilderData = {
 
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 2500,			-- all targets
 			
@@ -1185,7 +1260,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
-            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1241,7 +1316,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
-            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1353,7 +1428,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
         
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			MaxAttackRange = 3000,			-- only process hi-priority targets within 60km
 			
@@ -1390,7 +1465,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1427,7 +1502,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1000,			-- only process hi-priority targets within 20km
 			
@@ -1682,7 +1757,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 3,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- target selection when at point --
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 180,				-- period that platoon will guard the point unless triggers are met
@@ -1760,7 +1835,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntMin = 0,
 			UntMax = 15,
 
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		# controls target selection
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		# controls target selection
 			
 			AssistRange = 3,
 			
@@ -1841,7 +1916,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 450,
@@ -1919,7 +1994,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 480,
@@ -1994,7 +2069,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 1050,
@@ -2073,7 +2148,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 900,
@@ -2147,7 +2222,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
 			GuardRadius = 75,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
@@ -2226,7 +2301,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 900,				-- period that platoon will guard the point 
