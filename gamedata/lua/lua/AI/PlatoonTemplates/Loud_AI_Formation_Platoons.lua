@@ -229,7 +229,7 @@ PlatoonTemplate { Name = 'ReinforceAirExperimental',
 
 PlatoonTemplate { Name = 'ReinforceLandPlatoonDirect',
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 24, 48, 'Attack', 'AttackFormation' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 13, 48, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'none'},
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
@@ -241,7 +241,7 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonDirect',
 PlatoonTemplate { Name = 'ReinforceLandPlatoonIndirect',
     GlobalSquads = {
 		{ categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 0, 6, 'Attack', 'none'},
-        { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 12, 24, 'Artillery', 'none' },
+        { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 5, 24, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
@@ -356,7 +356,7 @@ PlatoonTemplate { Name = 'LandAttackHugeNW',
 
 PlatoonTemplate { Name = 'ReinforceAmphibiousPlatoon',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 12, 24, 'Attack', 'none' },
+        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 6, 24, 'Attack', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 8, 'Support', 'none' },
 		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 5, 'Guard', 'none' },
         { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 3, 'Guard', 'none'},

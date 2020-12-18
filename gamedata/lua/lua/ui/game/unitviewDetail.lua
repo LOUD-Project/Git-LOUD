@@ -18,9 +18,12 @@ local LOUDUPPER = string.upper
 local LOUDLOWER = string.lower
 local LOUDSUB = string.sub
 
--- This function ensures the given string's initial character is upper-case, whilst the rest are lower case.
+-- This function ensures the given string is in title case.
 function LOUD_CaseCheck(aString)
-	return LOUDUPPER(LOUDSUB(aString, 1, 1)) .. LOUDLOWER(LOUDSUB(aString, 2, -1))
+	local function tchelper(first, rest)
+		return first:upper()..rest:lower()
+	end
+	return aString:gsub("(%a)([%w_']*)", tchelper)
 end
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
@@ -317,7 +320,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 						wepCategory = "Anti Navy"
 					end
 					if weapon.RangeCategory == 'UWRC_Countermeasure' then
-						wepCategory = " defense"
+						wepCategory = " Defense"
 					end
 				end
 				
@@ -438,7 +441,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 						weaponText = wepCategory
 						
 						-- Check DamageFriendly and Buffs
-						if wepCategory ~= " defense" and wepCategory ~= "Melee" then
+						if wepCategory ~= " Defense" and wepCategory ~= "Melee" then
 							if weapon.CollideFriendly ~= false or (weapon.DamageRadius > 0 and weapon.DamageFriendly ~= false) or weapon.Buffs ~= nil then
 								weaponText = (weaponText .. " (")
 								if weapon.Buffs then
@@ -482,7 +485,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 								weaponText = (weaponText .. ", AoE: " .. LOUD_KiloCheck(weapon.DamageRadius * 20))
 							end
 						else
-							if wepCategory == " defense" then
+							if wepCategory == " Defense" then
 								-- Display Countermeasure Targets as the weapon type.
 								if weapon.TargetRestrictOnlyAllow then
 									weaponText = (LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
@@ -654,7 +657,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 				control.Value[index]:SetColor('ff00ff00')
 			elseif LOUDFIND(tostring(v), "Anti Air") then -- Anti Air
 				control.Value[index]:SetColor('ff00ffff')
-			elseif LOUDFIND(tostring(v), " defense") then -- Countermeasure
+			elseif LOUDFIND(tostring(v), " Defense") then -- Countermeasure
 				control.Value[index]:SetColor('ffffa500')
 			elseif LOUDFIND(tostring(v), "Nuke") then -- Nuke
 				control.Value[index]:SetColor('ffffa500')

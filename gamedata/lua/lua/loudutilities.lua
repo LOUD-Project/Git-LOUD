@@ -365,7 +365,7 @@ function GreaterThanEnemyUnitsAroundBase( aiBrain, locationtype, numUnits, unitC
 end
 
 -- gets units that are NOT in a platoon around a point
-function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tmax, rings, tType )
+function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuelPool, tmin, tmax, rings, tType )
 
     local units = aiBrain:GetUnitsAroundPoint( category, location, radius, 'Ally' )
     
@@ -391,7 +391,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, tmin, tma
 			if not v.Dead and not v:IsBeingBuilt() and v:GetAIBrain().ArmyIndex == aiBrain.ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
-				if not v.PlatoonHandle or v.PlatoonHandle == aiBrain.ArmyPool then
+				if not v.PlatoonHandle or (v.PlatoonHandle == aiBrain.ArmyPool) or (useRefuelPool and v.PlatoonHandle == aiBrain.RefuelPool) then
 
 					retUnits[counter+1] = v
 					counter = counter + 1
@@ -1093,7 +1093,7 @@ end
 
 function GetPrimarySeaAttackBase( aiBrain )
 
-	if ScenarioInfo.IsWaterMap then
+	if aiBrain.IsWaterMap then
 
 		if aiBrain.PrimarySeaAttackBase then
 			return aiBrain.PrimarySeaAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position
@@ -1208,7 +1208,7 @@ function ClearOutBase( manager, aiBrain )
         end
 
         -- all fighter units including air scouts
-        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100 )
+        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1230,7 +1230,7 @@ function ClearOutBase( manager, aiBrain )
         end
 	
         -- all gunship units including EXPERIMENTAL
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1251,7 +1251,7 @@ function ClearOutBase( manager, aiBrain )
         end	
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.BOMBER - categories.ANTINAVY), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1272,7 +1272,7 @@ function ClearOutBase( manager, aiBrain )
         end
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.ANTINAVY), Position, 100 )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.HIGHALTAIR * categories.ANTINAVY), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1473,6 +1473,10 @@ function AirUnitRefitThread( unit, aiBrain )
 	
 	-- return repaired/refuelled unit to pool
 	if not unit.Dead then
+    
+        -- weapons turned back on (just in case)
+        
+        unit:MarkWeaponsOnTransport(unit, false)
 
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
@@ -1510,7 +1514,6 @@ function AirStagingThread( unit, airstage, aiBrain )
                 
                 if ScenarioInfo.TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging")
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." data is "..repr(unit))
                 end
 
                 -- use path
@@ -1538,9 +1541,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 	local waitcount = 0
 	
 	-- loop until unit attached, idle, dead or it's fixed itself
-	while not ( unit.Dead and not airstage.Dead) do
+	while (not unit.Dead) and (not airstage.Dead) do
 		
-		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) then
+		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
 		
 			WaitTicks(10)
             waitcount = waitcount + 1
@@ -1555,7 +1558,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	-- get it off the airpad
-	if (not unit:BeenDestroyed()) and unit:IsUnitState('Attached') then
+	if (not airstage.Dead) and (not unit:BeenDestroyed()) and unit:IsUnitState('Attached') then
 	
 		WaitTicks(10)
 		
@@ -2313,10 +2316,14 @@ end
 
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
--- no longer valid means no engineers AND no factories for at least 200 seconds (10 loops)
+-- no longer valid means no engineers AND no factories 
 -- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 60 are dead
 function DeadBaseMonitor( aiBrain )
 
+    if ScenarioInfo.DeadBaseMonitorDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." DBM (Dead Base Monitor) begins")
+    end
+    
 	WaitTicks(1800)	#-- dont start for 3 minutes
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -2338,25 +2345,49 @@ function DeadBaseMonitor( aiBrain )
 			platland = false
 			platair = false
 			platsea = false
+            
+            if ScenarioInfo.DeadBaseMonitorDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing "..repr(v.PrimaryLandAttackBase).." "..repr(v.PrimarySeaAttackBase))
+            end
 
 			if not v.CountedBase then
 			
 				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
-				
+                
+                --if ScenarioInfo.DeadBaseMonitorDialog then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Base "..repr(v.BaseName).." DBM - structures "..repr(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60)))
+				--end
 			end
+            
+            if ScenarioInfo.DeadBaseMonitorDialog then
+            
+                if v.EngineerManager.BMDistressResponseThread then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - active base distress response")
+                    continue
+                end
+            end
 
 			-- if a base has no factories
 			if (v.CountedBase and v.FactoryManager:GetNumCategoryFactories(categories.FACTORY) <= 0) or
 				(not v.CountedBase and structurecount < 1) then
-				
-				-- increase the nofactory counter
-				aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
+                
+                -- if the base has no engineers - increase the no factory count
+                if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 then 
+                
+                    if ScenarioInfo.DeadBaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(aiBrain.BuilderManagers[k].nofactorycount + 1))
+                    end
+                    
+                    aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
+                end
 
-				-- if base has no engineers AND has had no factories for about 200 seconds
+				-- if base has no engineers AND has had no factories for about 250 seconds
 				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
 				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." removing base "..repr(k).." counted is "..repr(v.CountedBase))
-					
+                    if ScenarioInfo.DeadBaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base")
+					end
+                    
 					-- handle the MAIN base
 					if k == 'MAIN' then
 
@@ -2436,10 +2467,10 @@ function DeadBaseMonitor( aiBrain )
 				aiBrain.BuilderManagers[k].nofactorycount = 0
 			end
 			
-			WaitTicks(8)
+			WaitTicks(10)   -- 1 second between bases
 		end
 		
-		WaitTicks(200)	#-- check every 20 seconds
+		WaitTicks(180)	    -- check every 18 seconds
 	end
 end
 
@@ -2463,7 +2494,8 @@ function PathGeneratorThread( aiBrain )
 	aiBrain:ForkThread1( PathGeneratorAmphibious )
 	aiBrain:ForkThread1( PathGeneratorLand )
 
-	if ScenarioInfo.IsWaterMap then
+	if aiBrain.IsNavalMap then
+    
         aiBrain.PathRequests['Water'] = {}
 		aiBrain:ForkThread1( PathGeneratorWater )
 	end
