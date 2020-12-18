@@ -374,6 +374,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
+
+			-- enemy targets with 8km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION + categories.ENGINEER + categories.ECONOMIC, 400 }},            
         },
 		
         BuilderData = {
@@ -387,7 +390,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MASSEXTRACTION, categories.ENGINEER, categories.ECONOMIC },
+            PrioritizedCategories = { categories.MASSPRODUCTION, categories.ENGINEER, categories.ECONOMIC },
 			
 			SearchRadius = 60,
 			
@@ -413,20 +416,23 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 
             { LUTL, 'PoolGreater', { 19, categories.HIGHALTAIR * categories.BOMBER }},
 			
-			-- none of the major SUPER triggers can be true
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, (categories.OPTICS) * categories.STRUCTURE, 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 'Enemy' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 19, categories.HIGHALTAIR * categories.BOMBER }},
+
+			-- none of the major SUPER triggers can be true
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 2000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.OPTICS * categories.STRUCTURE, 2500 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.FACTORY * categories.STRUCTURE, 1000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.ANTIAIR * categories.STRUCTURE * categories.EXPERIMENTAL, 1000 }},            
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3), 2000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.ECONOMIC * categories.EXPERIMENTAL, 2000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.MOBILE - categories.SNIPER - categories.TECH2, 1000 }},
         },
 		
         BuilderData = {
@@ -445,7 +451,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
 	-- ALL SUPER groups are specifically targeted and come into play when the selected targets are available
-	-- the DO NOT respond to distress calls	-- they'll search for targets upto 30km away
+	-- the DO NOT respond to distress calls	-- 
 	-- they all have short mission timers so they go - fight - and go home
     -- affectionately called 'Cambodia Raids'
     Builder {BuilderName = 'Hunt Bombers - AntiAir',
@@ -460,11 +466,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
             
             { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},
             
@@ -478,13 +484,86 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             MergeLimit = false,
             MissionTime = 400,
             PrioritizedCategories = {categories.ANTIAIR * categories.STRUCTURE * categories.EXPERIMENTAL},
-			SearchRadius = 850,
+			SearchRadius = 700,
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',        
+    },
+
+    Builder {BuilderName = 'Hunt Bombers - Nuke Antinuke',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 1,
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.9 } },
+            
+            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 400,
+            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2},
+			SearchRadius = 700,
             UseFormation = 'AttackFormation',
         },
 		
         BuilderType = 'Any',        
     },
 	
+    Builder {BuilderName = 'Hunt Bombers - Sniper',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 1,
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.9 } },
+            
+            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.MOBILE + categories.SNIPER - categories.TECH2, 'Enemy' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 400,
+            PrioritizedCategories = {categories.MOBILE + categories.SNIPER - categories.TECH2},
+			SearchRadius = 700,
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',        
+    },
+
+
     Builder {BuilderName = 'Hunt Bombers - Artillery',
 	
         PlatoonTemplate = 'BomberAttack Super',
@@ -497,7 +576,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PriorityFunction = IsPrimaryBase,
 
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
@@ -512,7 +591,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 400,
             PrioritizedCategories = {categories.ARTILLERY * categories.STRUCTURE * (categories.EXPERIMENTAL + categories.TECH3)},
 			SearchRadius = 850,
@@ -520,79 +599,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderType = 'Any',		
-    },
-
-    Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
-	
-        PlatoonTemplate = 'BomberAttack Super',
-        
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',		
-		
-        Priority = 710,
-		
-		PriorityFunction = IsPrimaryBase,
-
-        InstanceCount = 1,
-
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
-            
-            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},            
-            
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
-        },
-		
-        BuilderData = {
-			LocationType = 'LocationType',
-            MergeLimit = false,
-            MissionTime = 400,
-            PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL},
-			SearchRadius = 850,
-            UseFormation = 'AttackFormation',
-        },
-		
-        BuilderType = 'Any',        
-    },
-	
-    Builder {BuilderName = 'Hunt Bombers - Nuke Antinuke',
-	
-        PlatoonTemplate = 'BomberAttack Super',
-        
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI_Bomber',		
-
-        Priority = 710,
-		
-		PriorityFunction = IsPrimaryBase,
-		
-        InstanceCount = 2,
-		
-        BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
-            
-            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},
-            
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
-        },
-		
-        BuilderData = {
-			LocationType = 'LocationType',
-            MergeLimit = false,
-            MissionTime = 400,
-            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2},
-			SearchRadius = 850,
-            UseFormation = 'AttackFormation',
-        },
-		
-        BuilderType = 'Any',        
     },
 	
     Builder {BuilderName = 'Hunt Bombers - Optics',
@@ -623,10 +629,86 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 400,
             PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE},
 			SearchRadius = 850,
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',		
+    },
+
+
+    Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            
+            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},            
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 450,
+            PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL},
+			SearchRadius = 1000,
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',        
+    },
+	
+    Builder {BuilderName = 'Hunt Bombers - Factory',
+	
+        PlatoonTemplate = 'BomberAttack Super',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+		
+        Priority = 710,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 2,
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            
+            { LUTL, 'PoolGreater', { 24, categories.HIGHALTAIR * categories.BOMBER }},
+            
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, (categories.FACTORY) * categories.STRUCTURE, 'Enemy' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+			LocationType = 'LocationType',
+            MergeLimit = false,
+            MissionTime = 450,
+            PrioritizedCategories = { (categories.FACTORY) * categories.STRUCTURE},
+			SearchRadius = 1000,
             UseFormation = 'AttackFormation',
         },
 		
