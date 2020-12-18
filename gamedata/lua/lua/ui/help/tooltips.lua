@@ -646,6 +646,15 @@ Tooltips = {
     },
 
     -- ********************
+    -- *** Mod Manager Strings
+    -- ********************
+
+    modmgr_loudstandard = {
+        title = "Enable LOUD Standard",
+        description = "Turn on the group of mods officially endorsed by the LOUD Development Team as the true LOUD experience.",
+    },
+
+    -- ********************
     -- *** Lobby Strings
     -- ********************
 
