@@ -1051,7 +1051,7 @@ EngineerManager = Class(BuilderManager) {
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." ALERT ")
 					
 						-- send the visible ping to the interface --
-						import('/lua/ai/altaiutilities.lua').AISendPing(newpos, 'alert', aiBrain.ArmyIndex)
+						import('/lua/ai/altaiutilities.lua').AISendPing(newpos, 'attack', aiBrain.ArmyIndex)
 					end
 				end
 			
