@@ -147,14 +147,16 @@ function OnFirstUpdate()
 			
 			--ConExecute('path_UnreachableTimeoutSearchSteps = 750')
 			
-			ConExecute('ren_ShadowCoeff 2')
-			ConExecute('ren_ShadowSize 2048')
-			ConExecute('ren_ShadowBias 0.0010')
-			ConExecute('ren_BloomGlowCopyScale 2.5')
-			ConExecute('ren_BloomBlurKernelScale 1.1')
-			ConExecute('ren_BloomBlurCount 0')
+			--ConExecute('ren_ShadowCoeff 2')
+			--ConExecute('ren_ShadowSize 2048')
+			--ConExecute('ren_ShadowBias 0.0010')
+			--ConExecute('ren_BloomGlowCopyScale 2.5')
+			--ConExecute('ren_BloomBlurKernelScale 1.1')
+			--ConExecute('ren_BloomBlurCount 0')
 			
 			ConExecute('fog_DistanceFog')
+            
+            ConExecute('d3d_WindowsCursor')
 
         end
     )
