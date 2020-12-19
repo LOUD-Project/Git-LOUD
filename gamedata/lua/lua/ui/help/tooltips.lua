@@ -714,6 +714,10 @@ Tooltips = {
         title = "Fill empty slots with AI",
         description = "Fill all empty positions with AI",
     },
+    lob_set_all_ai_multi = {
+        title = "Set All AI Multipliers",
+        description = "Set the AI cheat multiplier of all AI in this lobby.",
+    },
     Lobby_Del_AI = {
         title = "Delete AI",
         description = "Click here to Delete this AI Player",

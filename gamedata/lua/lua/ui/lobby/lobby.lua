@@ -1963,6 +1963,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
 	
     if not human and aiPersonality then
         gameInfo.PlayerOptions[newSlot].AIPersonality = aiPersonality
+        GUI.slots[newSlot].mult:SetText(GUI.fillAIMult:GetText())
     end
 
     -- if a color is requested, attempt to use that color if available, otherwise, assign first available
@@ -3290,7 +3291,7 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddControlTooltip(GUI.observerLabel, 'lob_describe_observers')
 
         GUI.allowObservers = UIUtil.CreateCheckboxStd(GUI.observerPanel, '/dialogs/check-box_btn/radio')
-        LayoutHelpers.CenteredRightOf(GUI.allowObservers, GUI.observerLabel, 10)
+        LayoutHelpers.CenteredRightOf(GUI.allowObservers, GUI.observerLabel, 6)
 
         GUI.allowObserversLabel = UIUtil.CreateText(GUI.observerPanel, "<LOC lobui_0276>Allow", 14, UIUtil.bodyFont)
         LayoutHelpers.CenteredRightOf(GUI.allowObserversLabel, GUI.allowObservers)
@@ -3312,8 +3313,8 @@ function CreateUI(maxPlayers, useSteam)
 		
         GUI.allowObservers:Hide()
 
-        GUI.becomeObserver = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/toggle', "<LOC lobui_0228>Observe", 10, 0)
-        LayoutHelpers.CenteredRightOf(GUI.becomeObserver, GUI.allowObserversLabel, 10)
+        GUI.becomeObserver = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "<LOC lobui_0228>Observe", 10, 0)
+        LayoutHelpers.CenteredRightOf(GUI.becomeObserver, GUI.allowObserversLabel, 6)
         
         Tooltip.AddButtonTooltip(GUI.becomeObserver, 'lob_become_observer')
         
@@ -3328,15 +3329,15 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.fillOpenLabel = UIUtil.CreateText(GUI.observerPanel, "Fill slots:", 14, UIUtil.bodyFont)
-        LayoutHelpers.CenteredRightOf(GUI.fillOpenLabel, GUI.becomeObserver, 10)
+        LayoutHelpers.CenteredRightOf(GUI.fillOpenLabel, GUI.becomeObserver, 6)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 5)
-		GUI.fillOpenCombo.Width:Set(200)
+		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 2)
+		GUI.fillOpenCombo.Width:Set(90)
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
-        LayoutHelpers.CenteredRightOf(GUI.fillOpenBtn, GUI.fillOpenCombo, 5)
+        LayoutHelpers.CenteredRightOf(GUI.fillOpenBtn, GUI.fillOpenCombo, 2)
 		Tooltip.AddButtonTooltip(GUI.fillOpenBtn, 'lob_fill_open')
 		
         GUI.fillOpenBtn.OnClick = function(self, modifiers)			
@@ -3344,14 +3345,15 @@ function CreateUI(maxPlayers, useSteam)
 			if lobbyComm:IsHost() then
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
-						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
+                        DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
+                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
 					end
 				end
 			end
         end
 		
         GUI.clearAIBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Clear AIs", 10, 0)
-        LayoutHelpers.CenteredRightOf(GUI.clearAIBtn, GUI.fillOpenBtn, 5)
+        LayoutHelpers.CenteredRightOf(GUI.clearAIBtn, GUI.fillOpenBtn, 2)
 		Tooltip.AddButtonTooltip(GUI.clearAIBtn, 'lob_clear_ai')
 		
 		GUI.clearAIBtn.OnClick = function(self, modifiers)
@@ -3363,7 +3365,72 @@ function CreateUI(maxPlayers, useSteam)
 				end
 			end
         end
-		
+
+        GUI.fillAIMult = Edit(GUI.observerPanel)
+        LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
+        GUI.fillAIMult.Width:Set(40)
+        GUI.fillAIMult.Height:Set(14)
+        GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
+        GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
+        GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
+        GUI.fillAIMult:SetHighlightForegroundColor(UIUtil.fontColor)
+        GUI.fillAIMult:ShowBackground(true)
+        GUI.fillAIMult:SetMaxChars(5)
+        GUI.fillAIMult:SetText("1.0")
+
+        GUI.fillAIMult.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits and .
+            if charcode == 47 or charcode >= 58 or charcode <= 45 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
+        end
+
+        GUI.fillAIMult.OnLoseKeyboardFocus = function(self)
+            GUI.fillAIMult:AcquireFocus()
+        end
+
+        GUI.fillAIMult.OnNonTextKeyPressed = function(self, keyCode)
+            if commandQueue and table.getsize(commandQueue) > 0 then
+                if keyCode == 38 then
+                    if commandQueue[commandQueueIndex + 1] then
+                        commandQueueIndex = commandQueueIndex + 1
+                        self:SetText(commandQueue[commandQueueIndex])
+                    end
+                end
+                if keyCode == 40 then
+                    if commandQueueIndex ~= 1 then
+                        if commandQueue[commandQueueIndex - 1] then
+                            commandQueueIndex = commandQueueIndex - 1
+                            self:SetText(commandQueue[commandQueueIndex])
+                        end
+                    else
+                        commandQueueIndex = 0
+                        self:ClearText()
+                    end
+                end
+            end
+        end
+
+        GUI.setAllAIMultBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/toggle', "Set All AI Cheat", 10, 0)
+        LayoutHelpers.CenteredRightOf(GUI.setAllAIMultBtn, GUI.fillAIMult)
+        Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
+
+        GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
+            for i, slot in GUI.slots do
+                if not gameInfo.PlayerOptions[i].Human then
+                    slot.mult:SetText(GUI.fillAIMult:GetText())
+                end
+            end
+        end
+        
         GUI.observerList = ItemList(GUI.observerPanel, "observer list")
         GUI.observerList:SetFont(UIUtil.bodyFont, 14)
         GUI.observerList:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontOverColor, UIUtil.highlightColor, "ffbcfffe")
@@ -3394,7 +3461,7 @@ function CreateUI(maxPlayers, useSteam)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 5)
-		GUI.fillOpenCombo.Width:Set(200)
+		GUI.fillOpenCombo.Width:Set(90)
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
@@ -3407,7 +3474,8 @@ function CreateUI(maxPlayers, useSteam)
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
 						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
-					end
+                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                    end
 				end
 			end
         end
@@ -3424,6 +3492,71 @@ function CreateUI(maxPlayers, useSteam)
 					end
 				end
 			end
+        end
+
+        GUI.fillAIMult = Edit(GUI.observerPanel)
+        LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
+        GUI.fillAIMult.Width:Set(40)
+        GUI.fillAIMult.Height:Set(14)
+        GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
+        GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
+        GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
+        GUI.fillAIMult:SetHighlightForegroundColor(UIUtil.fontColor)
+        GUI.fillAIMult:ShowBackground(true)
+        GUI.fillAIMult:SetMaxChars(5)
+        GUI.fillAIMult:SetText("1.0")
+
+        GUI.fillAIMult.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits and .
+            if charcode == 47 or charcode >= 58 or charcode <= 45 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
+        end
+
+        GUI.fillAIMult.OnLoseKeyboardFocus = function(self)
+            GUI.fillAIMult:AcquireFocus()
+        end
+
+        GUI.fillAIMult.OnNonTextKeyPressed = function(self, keyCode)
+            if commandQueue and table.getsize(commandQueue) > 0 then
+                if keyCode == 38 then
+                    if commandQueue[commandQueueIndex + 1] then
+                        commandQueueIndex = commandQueueIndex + 1
+                        self:SetText(commandQueue[commandQueueIndex])
+                    end
+                end
+                if keyCode == 40 then
+                    if commandQueueIndex ~= 1 then
+                        if commandQueue[commandQueueIndex - 1] then
+                            commandQueueIndex = commandQueueIndex - 1
+                            self:SetText(commandQueue[commandQueueIndex])
+                        end
+                    else
+                        commandQueueIndex = 0
+                        self:ClearText()
+                    end
+                end
+            end
+        end
+
+        GUI.setAllAIMultBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/toggle', "Set All AI Cheat", 10, 0)
+        LayoutHelpers.CenteredRightOf(GUI.setAllAIMultBtn, GUI.fillAIMult)
+        Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
+
+        GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
+            for i, slot in GUI.slots do
+                if not gameInfo.PlayerOptions[i].Human then
+                    slot.mult:SetText(GUI.fillAIMult:GetText())
+                end
+            end
         end
 
         -- observers are always allowed in skirmish games.
