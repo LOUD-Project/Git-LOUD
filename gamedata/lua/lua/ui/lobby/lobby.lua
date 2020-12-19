@@ -3115,6 +3115,10 @@ function CreateUI(maxPlayers, useSteam)
                 end
             end
         end
+
+        GUI.slots[i].mult.OnTextChanged = function(self, newText, oldText)
+            lobbyComm:BroadcastData( { Type = 'SetMult', Slot = i, Text = newText } )
+        end
         
         Tooltip.AddControlTooltip(GUI.slots[i].mult, 'lob_mult')
 
@@ -4370,7 +4374,11 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 			
                 gameInfo.ClosedSlots[data.Slot] = nil
 
-                UpdateGame()          
+                UpdateGame()
+
+            elseif data.Type == 'SetMult' then
+                
+                GUI.slots[data.Slot].mult.SetText(data.Text)
             end
         end
     end
