@@ -131,7 +131,7 @@ function EnumerateSkirmishScenarios(nameFilter, sortFunc)
     return scenarios
 end
 
--- Returns an array of map folder structure. Specification of this structure:
+-- Returns an array of map folder structures. Specification of this structure:
 -- {
 -- [1] : string (name of folder)
 -- [2] : bool (if folder is open in GUI)
@@ -148,7 +148,9 @@ function EnumerateSkirmishFolders(nameFilter, sortFunc)
     for _, fileName in scenFiles do
         local scen = LoadScenario(fileName)
         if IsScenarioPlayable(scen) and scen.type == "skirmish" then
+            -- Trim off filename
             local i, j = string.find(fileName, '^%/maps%/.+%/')
+            -- Extract map's own directory and title-case it for neatness
             local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
 
             if not ret[k] then
@@ -165,6 +167,7 @@ function EnumerateSkirmishFolders(nameFilter, sortFunc)
             table.insert(ret[k][3], scen)
         end
     end
+    -- Sort 0-9 A-Z
     table.sort(ret, function(a, b) return sortFunc(a[1], b[1]) end)
     return ret
 end

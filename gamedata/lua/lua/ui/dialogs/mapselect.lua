@@ -10,14 +10,9 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local Scrollbar = import('/lua/maui/scrollbar.lua').Scrollbar
-local Text = import('/lua/maui/text.lua').Text
-local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
-local Button = import('/lua/maui/button.lua').Button
 local Group = import('/lua/maui/group.lua').Group
 local MenuCommon = import('/lua/ui/menus/menucommon.lua')
 local MapPreview = import('/lua/ui/controls/mappreview.lua').MapPreview
-local MainMenu = import('/lua/ui/menus/main.lua')
 local MapUtil = import('/lua/ui/maputil.lua')
 local Mods = import('/lua/mods.lua')
 local Combo = import('/lua/ui/controls/combo.lua').Combo
@@ -95,10 +90,10 @@ mapFilters = {
         }
     },
 }
--- CHANGED --
 
--- used to compute the offset of spawn / mass / hydro markers on the (big) preview
+-- Used to compute the offset of spawn / mass / hydro markers on the (big) preview
 -- when the map is not square
+-- Courtesy of Jip
 local function ComputeNonSquareOffset(width, height)
     -- determine the largest dimension
     local largest = width
@@ -122,7 +117,6 @@ local function ComputeNonSquareOffset(width, height)
     return xOffset, yOffset, largest
 end
 
--- CHANGED --
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
     local group = Group(parent)
@@ -313,37 +307,43 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 	Tooltip.AddButtonTooltip(randomMapButton, 'lob_random_map')
 	
 	function randomLobbyMap(self)
-		local nummapa
-		nummapa = math.random(1, randMapList)
-		if randMapList >= 2 and nummapa == doNotRepeatMap then
+        local nummapa
+        local folderCount = table.getsize(folders)
+        nummapa = math.random(1, folderCount)
+        
+        -- Random folder
+		if folderCount >= 2 and nummapa == doNotRepeatMap then
 			repeat
-				nummapa = math.random(1, randMapList)
-			until nummapa != doNotRepeatMap
+				nummapa = math.random(1, folderCount)
+			until nummapa ~= doNotRepeatMap
 		end
-		doNotRepeatMap = nummapa			
-		local scen = scenarios[scenarioKeymap[nummapa]]
-		selectedScenario = scen
+        doNotRepeatMap = nummapa
+        local fold = folders[nummapa]
+        local mapCount = table.getsize(fold[3])
+
+        if mapCount == 1 then
+            selectedScenario = fold[3][1]
+        else
+            -- Random map from folder
+            doNotRepeatMap = nil
+            nummapa = math.random(1, mapCount)
+            if mapCount >= 2 and nummapa == doNotRepeatMap then
+                repeat
+                    nummapa = math.random(1, mapCount)
+                until nummapa ~= doNotRepeatMap
+            end
+            doNotRepeatMap = nummapa
+            selectedScenario = fold[3][nummapa]
+        end
+
 		selectBehavior(selectedScenario, changedOptions, restrictedCategories)
-		import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..scen.name)
+		import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..selectedScenario.name)
 		ResetFilters()
 	end
 	
-	randomMapButton.OnClick = function(self, modifiers)
-		if randMapList ~= 0 then
-			-- randomLobbyMap(self)
-			nummapa = math.random(1, randMapList)
-			if randMapList >= 2 and nummapa == doNotRepeatMap then
-				repeat
-					nummapa = math.random(1, randMapList)
-				until nummapa ~= doNotRepeatMap
-			end
-			doNotRepeatMap = nummapa			
-			local scen = scenarios[scenarioKeymap[nummapa]]
-			selectedScenario = scen
-			mapList:SetSelection(nummapa)
-			import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..scen.name)
-			PreloadMap(nummapa)
-		end
+    randomMapButton.OnClick = function(self, modifiers)
+        -- RATODO: Somehow make this respect filters
+		randomLobbyMap(self)
 	end
 
     UIUtil.MakeInputModal(panel)
@@ -819,48 +819,6 @@ function SetDescription(scen)
     else
         selectButton:Enable()
     end
-end
-
-function PopulateMapListOld() 
-   
-    mapList:DeleteAllItems()
-	
-    local tempMaps = {}
-    local count = 1
-	
-    for i,sceninfo in scenarios do
-        if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
-		currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
-			continue
-        end
-		
-        if currentFilters.map_select_size ~= 0 and not CompareFunc(sceninfo.size[1],
-		currentFilters.map_select_size, currentFilters.map_select_size_limiter) then
-			continue
-        end
-		
-        if currentFilters.map_ai_markers ~= 0 and
-		not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
-			continue
-        end
-		
-		table.insert(tempMaps, sceninfo)
-		scenarioKeymap[count] = i
-		count = count + 1
-    end
-	
-	randMapList = count - 1
-    
-    for i,sceninfo in tempMaps do
-        local name = sceninfo.name
-        if sceninfo.map_version then
-            -- MAINMENU_0009 is "Version :"
-			local la = string.lower(__language)
-			name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
-        end
-        mapList:AddItem(LOC(name))
-    end
-	
 end
 
 function PopulateMapList()
