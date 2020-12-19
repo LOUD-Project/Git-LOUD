@@ -20,6 +20,9 @@ local Tooltip = import('/lua/ui/game/tooltip.lua')
 local ModManager = import('/lua/ui/dialogs/modmanager.lua')
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
+-- In folderMap, key corresponds to an ItemList row,
+-- value[1] corresponds to a folder in folders{}
+-- value[2] corresponds to a scenario in folders[x][3]
 local folders = MapUtil.EnumerateSkirmishFolders()
 local folderMap = { {} }
 
@@ -226,8 +229,7 @@ local function ShowMapPositions(mapCtrl, scenario)
 end
 
 function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultScenarioName, curOptions, availableMods, OnModsChanged)
-
-	-- control layout
+-- Control layout
     local parent = nil
     local background = nil
 	
@@ -417,11 +419,11 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         end
     end
 
--- initialize controls
+-- Initialize controls
     PopulateMapList()
     SetupOptionsPanel(panel, singlePlayer, curOptions)
     
---  control behvaior
+-- Control behvaior
     if exitButton then
         exitButton.OnClick = function(self)
             exitBehavior()
@@ -826,27 +828,38 @@ function PopulateMapList()
     local count = 1 -- Corresponds to row in mapList
     
     for j, folder in folders do
-        if table.getsize(folder[3]) > 1 then
+        local filtered = {}
+        local size = table.getsize(folder[3])
+        -- Predetermine which maps in the folder get filtered out
+        for s, sceninfo in folder[3] do
+            if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
+            currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
+                table.insert(filtered, s, true)
+            end
+            
+            if currentFilters.map_select_size ~= 0 and not CompareFunc(sceninfo.size[1],
+            currentFilters.map_select_size, currentFilters.map_select_size_limiter) then
+                table.insert(filtered, s, true)
+            end
+            
+            if (currentFilters.map_ai_markers == true or currentFilters.map_ai_markers == false) and
+            not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
+                table.insert(filtered, s, true)
+            end
+        end
+        -- Add a folder, but only if it hasn't been entirely filtered out
+        if table.getsize(filtered) == size then
+            continue
+        elseif size > 1 then
             -- Map this ItemList row to a folder, but not a scenario
             folderMap[count] = { j, nil }
-            mapList:AddItem("FOLDER: "..folder[1])
+            mapList:AddItem("*** FOLDER: "..folder[1])
             count = count + 1
         end
-        if table.getsize(folder[3]) == 1 or folder[2] then
+        if size == 1 or folder[2] then
             for i, sceninfo in folder[3] do
-
-                if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
-                currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
-                    continue
-                end
-                
-                if currentFilters.map_select_size ~= 0 and not CompareFunc(sceninfo.size[1],
-                currentFilters.map_select_size, currentFilters.map_select_size_limiter) then
-                    continue
-                end
-                
-                if (currentFilters.map_ai_markers == true or currentFilters.map_ai_markers == false) and
-                not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
+                -- Don't add filtered maps
+                if filtered[i] then
                     continue
                 end
                 
@@ -867,7 +880,6 @@ function PopulateMapList()
             end
         end
     end
-    -- randMapList = count - 1
 end
 
 function CompareFunc(valA, valB, operatorVar)
