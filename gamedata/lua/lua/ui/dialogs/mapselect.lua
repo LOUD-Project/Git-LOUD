@@ -472,6 +472,13 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
 
     mapList.OnKeySelect = function(self,row)
+        -- If this is a true folder, open it and repop the map list
+        local fold = folders[folderMap[row + 1][1]]
+        if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
+            fold[2] = true
+            PopulateMapList()
+            return
+        end
         mapList:SetSelection(row)
         PreloadMap(row)
         local sound = Sound({Cue = "UI_Skirmish_Map_Select", Bank = "Interface",})
@@ -479,8 +486,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     mapList.OnClick = function(self, row, noSound)
-        -- If this is a true folder, and not opened, 
-        -- open it and repop the map list
+        -- If this is a true folder, toggle it and repop the map list
         local fold = folders[folderMap[row + 1][1]]
         if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
             fold[2] = not fold[2]
@@ -496,26 +502,48 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     mapList.OnDoubleClick = function(self, row)
+        -- If this is a true folder, toggle it and repop the map list
+        local fold = folders[folderMap[row + 1][1]]
+        if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
+            fold[2] = not fold[2]
+            PopulateMapList()
+            return
+        end
+        -- If this is a scenario instead, select it and return to the main lobby
         mapList:SetSelection(row)
         PreloadMap(row)
-        local scen = scenarios[scenarioKeymap[row+1]]
+        local scen = folders[folderMap[row + 1][1]][3][folderMap[row + 1][2]]
         selectedScenario = scen
         selectBehavior(selectedScenario, changedOptions, restrictedCategories)
         ResetFilters()
     end
 
-    -- set list to first item or default
-    -- defaultRow = 0
-    -- if defaultScenarioName then
-    --     for i, scenario in scenarios do
-    --         if scenario.file == defaultScenarioName then
-    --             defaultRow = i - 1
-    --             break
-    --         end
-    --     end
-    -- end
-    -- mapList:OnClick(defaultRow, true)
-    -- mapList:ShowItem(defaultRow)
+    -- Set list to first item or default
+    local defaultRow
+    if not defaultScenarioName then
+        -- If no true folder at folders[1], call up its scenario
+        -- Otherwise call up its first scenario
+        if not folderMap[1][2] then
+            defaultRow = 0
+        else
+            defaultRow = 1
+        end
+    else
+        -- RATODO
+        defaultRow = 0
+        -- local i = 0
+        -- for _, folder in folders do
+        --     for _, scenario in folder[3] do
+        --         if scenario.file == defaultScenarioName then
+        --             defaultRow = i - 1
+        --             break
+        --         end
+        --     end
+        --     i = i + 1
+        -- end
+    end
+    mapList:OnClick(defaultRow, true)
+    mapList:ShowItem(defaultRow)
 
     return parent
 end
@@ -848,6 +876,7 @@ function PopulateMapList()
         end
         if table.getsize(folder[3]) == 1 or folder[2] then
             for i, sceninfo in folder[3] do
+
                 if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
                 currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
                     continue
@@ -858,7 +887,7 @@ function PopulateMapList()
                     continue
                 end
                 
-                if currentFilters.map_ai_markers ~= 0 and
+                if (currentFilters.map_ai_markers == true or currentFilters.map_ai_markers == false) and
                 not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
                     continue
                 end
@@ -870,7 +899,7 @@ function PopulateMapList()
                     name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
                 end
                 if folder[2] then
-                    mapList:AddItem("|-> "..LOC(name))
+                    mapList:AddItem(" |-> "..LOC(name))
                 else
                     mapList:AddItem(LOC(name))
                 end
@@ -880,8 +909,6 @@ function PopulateMapList()
             end
         end
     end
-    LOG(repr(folderMap))
-
     -- randMapList = count - 1
 end
 
