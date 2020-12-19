@@ -833,17 +833,20 @@ function PopulateMapList()
         -- Predetermine which maps in the folder get filtered out
         for s, sceninfo in folder[3] do
             if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
-            currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
+            currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) and
+            not filtered[s] then
                 table.insert(filtered, s, true)
             end
             
             if currentFilters.map_select_size ~= 0 and not CompareFunc(sceninfo.size[1],
-            currentFilters.map_select_size, currentFilters.map_select_size_limiter) then
+            currentFilters.map_select_size, currentFilters.map_select_size_limiter) and 
+            not filtered[s] then
                 table.insert(filtered, s, true)
             end
             
             if (currentFilters.map_ai_markers == true or currentFilters.map_ai_markers == false) and
-            not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
+            not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers and
+            not filtered[s] then
                 table.insert(filtered, s, true)
             end
         end
