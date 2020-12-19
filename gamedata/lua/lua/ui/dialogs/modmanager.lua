@@ -322,24 +322,22 @@ local function CreateSavePresetDialog(parent, scrollGroup)
 end
 
 local loudStandard = { 
-    '25D57D85-7D84-27HT-A501-BR3WL4N000079',
-    '62e2j64a-53a2-y6sg-32h5-146as555a18u3',
-    '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002',
-    'ffffffff-6e98-4864-9599-4133236eea7a',
-    '25D57D85-9JA7-D842-GKG4-ORIGIN0000001',
-    'ffffffff-ffff-ffff-ffff-fffffffffffe',
-    '25D57D85-7D84-27HT-A501-BR3WL4N000079',
-    '454af309-5afb-458b-bf5b-a00000000007',
-    '9e8ea941-c306-4751-b367-a11000000502',
-    'fffffffe-6e98-4864-9599-4133236eea7a',
-    'D000E905-1E97-420D-8ED9-DF083282F59D',
-    'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240',
-    '9e8ea941-c306-4751-b367-e00000000302',
-    'EF3ADDB4-9D34-437F-B1C8-440DAF896802',
-    '5362BE90-44BE-11DD-A519-83AF56D89593',
-    'ffffffff-6f00-4864-9599-4133236eea7a',
-    '89BF1572-9EA8-11DC-1313-635F56D89591',
-    '2529ea71-93ef-41a6-b552-EXPERICON00005',
+    '25D57D85-7D84-27HT-A501-BR3WL4N000079', -- BrewLAN
+    '62e2j64a-53a2-y6sg-32h5-146as555a18u3', -- Total Mayhem
+    '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
+    'ffffffff-6e98-4864-9599-4133236eea7a', -- LOUD Integrated Storage
+    '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Barista
+    'ffffffff-ffff-ffff-ffff-fffffffffffe', -- LOUD Structure Enhancements
+    '454af309-5afb-458b-bf5b-a00000000007', -- 4th Dimension
+    '9e8ea941-c306-4751-b367-a11000000502', -- BlackOps Unleashed
+    'fffffffe-6e98-4864-9599-4133236eea7a', -- LOUD Unit Additions
+    'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrades
+    'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
+    '9e8ea941-c306-4751-b367-e00000000302', -- BlackOps ACUs
+    'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
+    'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
+    '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
+    '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
 }
 
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
