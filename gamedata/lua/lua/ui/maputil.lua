@@ -2,7 +2,9 @@
 --* Author: Chris Blackwell
 --* Summary: Functions for loading maps and map info
 --*
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+
+local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
 
 -- this table indicates the order prefixes will be sorted in the map select window
 local defaultPrefixOrder = {
@@ -126,6 +128,28 @@ function EnumerateSkirmishScenarios(nameFilter, sortFunc)
     -- sort based on name
     table.sort(scenarios, function(a, b) return sortFunc(a.name, b.name) end)
 
+    return scenarios
+end
+
+function EnumerateSkirmishFolders(folderMeta, nameFilter, sortFunc)
+    nameFilter = nameFilter or '*'
+    sortFunc = sortFunc or DefaultScenarioSorter
+    local scenFiles = DiskFindFiles('/maps', nameFilter .. '_scenario.lua')
+    local scenarios = {}
+    local k = 1
+    for index, fileName in scenFiles do
+        local scen = LoadScenario(fileName)
+        if IsScenarioPlayable(scen) and scen.type == "skirmish" then
+            local i, j = string.find(fileName, '^%/maps%/.+%/')
+            local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
+            if not scenarios[folderName] then
+                scenarios[folderName] = {}
+                folderMeta[k] = { folderName, false }
+                k = k + 1
+            end
+            table.insert(scenarios[folderName], scen)
+        end
+    end
     return scenarios
 end
 
