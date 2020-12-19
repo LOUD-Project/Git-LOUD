@@ -131,26 +131,42 @@ function EnumerateSkirmishScenarios(nameFilter, sortFunc)
     return scenarios
 end
 
-function EnumerateSkirmishFolders(folderMeta, nameFilter, sortFunc)
+-- Returns an array of map folder structure. Specification of this structure:
+-- {
+-- [1] : string (name of folder)
+-- [2] : bool (if folder is open in GUI)
+-- [3] : array of scenario info structures
+-- }
+function EnumerateSkirmishFolders(nameFilter, sortFunc)
     nameFilter = nameFilter or '*'
     sortFunc = sortFunc or DefaultScenarioSorter
+
     local scenFiles = DiskFindFiles('/maps', nameFilter .. '_scenario.lua')
-    local scenarios = {}
+    local ret = {}
     local k = 1
-    for index, fileName in scenFiles do
+
+    for _, fileName in scenFiles do
         local scen = LoadScenario(fileName)
         if IsScenarioPlayable(scen) and scen.type == "skirmish" then
             local i, j = string.find(fileName, '^%/maps%/.+%/')
             local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
-            if not scenarios[folderName] then
-                scenarios[folderName] = {}
-                folderMeta[k] = { folderName, false }
+
+            if not ret[k] then
+                -- If a folder struct has not been created, make one
+                ret[k] = { folderName, false, {} }
+            elseif ret[k][1] == folderName then
+                -- Map belongs in same folder as last map
+                -- Don't do anything but move on to insertion
+            else
+                -- New folder, move on
                 k = k + 1
+                ret[k] = { folderName, false, {} }
             end
-            table.insert(scenarios[folderName], scen)
+            table.insert(ret[k][3], scen)
         end
     end
-    return scenarios
+    table.sort(ret, function(a, b) return sortFunc(a[1], b[1]) end)
+    return ret
 end
 
 -- given a scenario table, loads the save file and puts all the start positions in a table
