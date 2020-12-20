@@ -867,11 +867,11 @@ function PopulateMapList()
                 end
                 
                 local name = sceninfo.name
-                if sceninfo.map_version then
+                -- if sceninfo.map_version then
                     -- MAINMENU_0009 is "Version :"
-                    local la = string.lower(__language)
-                    name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
-                end
+                --     local la = string.lower(__language)
+                --     name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
+                -- end
                 if folder[2] then
                     mapList:AddItem(" |-> "..LOC(name))
                 else

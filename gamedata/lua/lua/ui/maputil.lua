@@ -152,7 +152,8 @@ function EnumerateSkirmishFolders(nameFilter, sortFunc)
             local i, j = string.find(fileName, '^%/maps%/.+%/')
             -- Extract map's own directory and title-case it for neatness
             local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
-
+            -- Trim off any version numbers
+            folderName = string.gsub(folderName, "%.[vV]%d+$", "")
             if not ret[k] then
                 -- If a folder struct has not been created, make one
                 ret[k] = { folderName, false, {} }
