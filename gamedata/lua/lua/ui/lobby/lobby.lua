@@ -2356,9 +2356,13 @@ function CreateUI(maxPlayers, useSteam)
             mapSelectDialog:Destroy()
 			
             GUI.chatEdit:AcquireFocus() 
-			
+            
             for optionKey, data in changedOptions do
-                Prefs.SetToCurrentProfile(data.pref, data.index)
+                if data.type == 'combo' then
+                    Prefs.SetToCurrentProfile(data.pref, data.index)
+                else
+                    Prefs.SetToCurrentProfile(data.pref, data.value)
+                end
                 SetGameOption(optionKey, data.value)
             end
 			
@@ -3540,11 +3544,16 @@ function RefreshOptionDisplayData(scenarioInfo)
             if i == optData.key then
                 mpOnly = optData.mponly or false
                 option = {text = optData.label, tooltip = optData.pref}
-                for _, val in optData.values do
-                    if val.key == v then
-                        option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                        break
+                if optData.type and optData.type == 'edit' then
+                    option.value = gameInfo.GameOptions[i]
+                    option.valueTooltip = gameInfo.GameOptions[i]
+                else
+                    for _, val in optData.values do
+                        if val.key == v then
+                            option.value = val.text
+                                option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                            break
+                        end
                     end
                 end
                 break
@@ -4312,8 +4321,12 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         end
 
         for index, option in globalOpts do
-            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key,option.values[defValue].key)
+            if option.type and option.type == 'edit' then
+                SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
+            else
+                local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+                SetGameOption(option.key,option.values[defValue].key)
+            end
         end
 
         for index, option in advAIOptions do

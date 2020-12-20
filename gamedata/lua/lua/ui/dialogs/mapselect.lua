@@ -9,6 +9,7 @@
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local Edit = import('/lua/maui/edit.lua').Edit
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Group = import('/lua/maui/group.lua').Group
 local MenuCommon = import('/lua/ui/menus/menucommon.lua')
@@ -572,8 +573,10 @@ function RefreshOptions(skipRefresh, singlePlayer)
         if table.getsize(OptionTable.options) > 0 then
             table.insert(Options, {type = 'title', text = OptionTable.title})
             for optionIndex, optionData in OptionTable.options do
-                if not(singlePlayer and optionData.mponly == true) then
-                    table.insert(Options, {type = 'option', text = optionData.label, data = optionData})
+                if optionData.type and optionData.type == 'edit' then
+                    table.insert(Options, {type = 'opt_edit', text = optionData.label, data = optionData})
+                elseif not(singlePlayer and optionData.mponly == true) then
+                    table.insert(Options, {type = 'opt_combo', text = optionData.label, data = optionData})
                 end
             end
         end
@@ -614,6 +617,56 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
         return combo
     end
     
+    local function CreateOptionEdit(parent, optionData, width)
+        local edit = Edit(parent)
+        edit.Width:Set(240)
+        edit.Height:Set(18)
+        edit:SetMaxChars(5)
+
+        edit.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits
+            if charcode >= 58 or charcode <= 47 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
+        end
+
+        edit.OnLoseKeyboardFocus = function(self)
+            edit:AcquireFocus()
+        end
+
+        edit.OnNonTextKeyPressed = function(self, keyCode)
+            if commandQueue and table.getsize(commandQueue) > 0 then
+                if keyCode == 38 then
+                    if commandQueue[commandQueueIndex + 1] then
+                        commandQueueIndex = commandQueueIndex + 1
+                        self:SetText(commandQueue[commandQueueIndex])
+                    end
+                end
+                if keyCode == 40 then
+                    if commandQueueIndex ~= 1 then
+                        if commandQueue[commandQueueIndex - 1] then
+                            commandQueueIndex = commandQueueIndex - 1
+                            self:SetText(commandQueue[commandQueueIndex])
+                        end
+                    else
+                        commandQueueIndex = 0
+                        self:ClearText()
+                    end
+                end
+            end
+        end
+
+        return edit
+    end
+
     local function CreateOptionElements()
         local function CreateElement(index)
             OptionDisplay[index] = Group(OptionContainer)
@@ -629,13 +682,16 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
             OptionDisplay[index].text:DisableHitTest()
             LayoutHelpers.AtLeftTopIn(OptionDisplay[index].text, OptionDisplay[index], 10)
             
+            OptionDisplay[index].edit = CreateOptionEdit(OptionDisplay[index])
+            LayoutHelpers.AtLeftTopIn(OptionDisplay[index].edit, OptionDisplay[index], 5, 22)
+            OptionDisplay[index].edit:Hide()
             OptionDisplay[index].combo = CreateOptionCombo(OptionDisplay[index])
             LayoutHelpers.AtLeftTopIn(OptionDisplay[index].combo, OptionDisplay[index], 5, 22)
         end
         
         CreateElement(1)
         LayoutHelpers.AtLeftTopIn(OptionDisplay[1], OptionContainer)
-            
+        
         local index = 2
         while OptionDisplay[table.getsize(OptionDisplay)].Bottom() + OptionDisplay[1].Height() < OptionContainer.Bottom() do
             CreateElement(index)
@@ -699,7 +755,24 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
             elseif data.type == 'spacer' then
                 line.text:SetText('')
                 line.combo:Hide()
+            elseif data.type == 'opt_edit' then
+                line.text:SetText(LOC(data.text))
+                line.text:SetFont(UIUtil.bodyFont, 14)
+                line.text:SetColor(UIUtil.fontColor)
+                line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
+                LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
+                if line.combo and not line.combo:IsHidden() then
+                    line.combo:Hide()
+                    line.edit:Show()
+                end
+                line.edit.OnTextChanged = function(self, newText, oldText)
+                    changedOptions[data.data.key] = {value = newText, type = 'edit', pref = data.data.pref}
+                end
+                line.edit:SetText(tostring(curOptions[data.data.key]))
             else
+                if line.edit and not line.edit:IsHidden() then
+                    line.edit:Hide()
+                end
                 line.text:SetText(LOC(data.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
@@ -718,7 +791,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 local defValue = changedOptions[data.data.key].index or line.combo.keyMap[curOptions[data.data.key]] or 1
                 line.combo:AddItems(itemArray, defValue)
                 line.combo.OnClick = function(self, index, text)
-                    changedOptions[data.data.key] = {value = data.data.values[index].key, pref = data.data.pref, index = index}
+                    changedOptions[data.data.key] = {value = data.data.values[index].key, type = 'combo', pref = data.data.pref, index = index}
                 end
                 line.HandleEvent = Group.HandleEvent
                 Tooltip.AddControlTooltip(line, data.data.pref)

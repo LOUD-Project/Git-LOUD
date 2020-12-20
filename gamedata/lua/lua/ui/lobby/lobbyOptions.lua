@@ -145,6 +145,7 @@ globalOpts = {
         help = "Set the maximum number of units that can be in play by one player",
         key = 'UnitCap',
         pref = 'Lobby_Gen_Cap',
+        type = 'edit',
         values = {
             {
                 text = "400",
