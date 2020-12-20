@@ -877,19 +877,6 @@ Tooltips = {
         description = 'No Fog of War',
     },
     
-    lob_GameSpeed_normal = {
-        title = 'Normal',
-        description = 'Sets the game speed to Normal',
-    },
-    lob_GameSpeed_fast = {
-        title = 'Fast',
-        description = 'Sets the game speed to Fast',
-    },
-    lob_GameSpeed_adjustable = {
-        title = 'Adjustable',
-        description = 'Allows the game speed to be adjusted ingame',
-    },
-    
     Lobby_Gen_DisplayScores = {
         title = "Display Scores",
         description = "Turn the in game display of army scores on or off",

@@ -11,7 +11,6 @@ local MenuCommon = import('/lua/ui/menus/menucommon.lua')
 local Prefs = import('/lua/user/prefs.lua')
 local MapUtil = import('/lua/ui/maputil.lua')
 local Group = import('/lua/maui/group.lua').Group
-local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Button = import('/lua/maui/button.lua').Button
@@ -24,9 +23,6 @@ local FactionData = import('/lua/factions.lua')
 local Text = import('/lua/maui/text.lua').Text
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
-local teamOpts = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
-local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
-local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
 local handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
@@ -3635,6 +3631,7 @@ function RefreshOptionDisplayData(scenarioInfo)
     local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
     local teamOptions = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
     local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
+    local advGameOptions = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions
     formattedOptions = {}
     
     if scenarioInfo then
@@ -3674,6 +3671,9 @@ function RefreshOptionDisplayData(scenarioInfo)
         local option = false
         local mpOnly = false
         for index, optData in globalOpts do
+            if optData.key == 'GameSpeed' then
+                continue
+            end
             if i == optData.key then
                 mpOnly = optData.mponly or false
                 option = {text = optData.label, tooltip = optData.pref}
@@ -3758,6 +3758,31 @@ function RefreshOptionDisplayData(scenarioInfo)
             end
         end
     end
+    
+    for i, v in gameInfo.GameOptions do
+        local option = false
+        local mpOnly = false
+        for index, optData in advGameOptions do
+            if i == optData.key then
+                mpOnly = optData.mponly or false
+                option = {text = optData.label, tooltip = optData.pref}
+                for _, val in optData.values do
+                    if val.key == v then
+                        option.value = val.text
+                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                        break
+                    end
+                end
+                break
+            end
+        end
+        if option then
+            if not mpOnly or not singlePlayer then
+                table.insert(formattedOptions, option)
+            end
+        end
+    end
+
     if GUI.OptionContainer.CalcVisible then
         GUI.OptionContainer:CalcVisible()
     end
@@ -4446,20 +4471,25 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             gameInfo.PlayerOptions[1].Faction = 4
         end
 
-        -- set default lobby values
-        for index, option in teamOpts do
+        -- Set default lobby values
+        for index, option in import('/lua/ui/lobby/lobbyoptions.lua').teamOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key,option.values[defValue].key)
+            SetGameOption(option.key, option.values[defValue].key)
         end
 
-        for index, option in globalOpts do
+        for index, option in import('/lua/ui/lobby/lobbyoptions.lua').globalOpts do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key,option.values[defValue].key)
+            SetGameOption(option.key, option.values[defValue].key)
         end
 
-        for index, option in advAIOptions do
+        for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key,option.values[defValue].key)
+            SetGameOption(option.key, option.values[defValue].key)
+        end
+
+        for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
+            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+            SetGameOption(option.key, option.values[defValue].key)
         end
 
         if self.desiredScenario and self.desiredScenario != "" then
@@ -4530,7 +4560,7 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
     end
 
     lobbyComm.GameConfigRequested = function(self)
-	
+
         return {
             Options = gameInfo.GameOptions,
             HostedBy = localPlayerName,
